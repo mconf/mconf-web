@@ -2,7 +2,7 @@
   #footer
     #footer-logo
       = link_to current_site.name, "/", :class => 'title'
-      %span= t('.copyright', :site => current_site.name)
+      %span= t('.copyright', site: current_site.name, year: Time.now.year)
     .link-group
       %h3= t('.links.title')
       %ul

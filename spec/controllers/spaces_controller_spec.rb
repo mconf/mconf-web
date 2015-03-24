@@ -115,10 +115,30 @@ describe SpacesController do
   describe "#index" do
     it "sets param[:view] to 'thumbnails' if not set"
     it "sets param[:view] to 'thumbnails' if different than 'list'"
-    it "uses param[:view] as 'list' if already set to this value"
-    # TODO: there's a lot more to test here
+    it "uses param[:view] as 'list' if set to this value"
+    it "sets param[:order] to 'relevance' if not set"
+    it "sets param[:order] to 'relevance' if different than 'abc'"
+    it "uses param[:order] as 'abc' if set to this value"
 
     it { should_authorize Space, :index }
+
+    context "orders by latest activities in the space" do
+      let!(:now) { Time.now }
+      let!(:spaces) {[
+        FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
+      ]}
+      let!(:activities) {[
+        # order: [1], [2], [0]
+        RecentActivity.create(owner: spaces[0], created_at: now),
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
+      ]}
+
+      before { get :index }
+      it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
+    end
+
+    it "orders by name if params[:order]=='abc'"
 
     context "if there's a user signed in" do
 
@@ -128,7 +148,6 @@ describe SpacesController do
           before {
             s1 = FactoryGirl.create(:space)
             s2 = FactoryGirl.create(:space)
-            s3 = FactoryGirl.create(:space)
             s1.add_member!(user, 'User')
             s2.add_member!(user, 'Admin')
             @user_spaces = [s1, s2]
@@ -349,7 +368,7 @@ describe SpacesController do
         it { RecentActivity.last.trackable.should eq(Space.last) }
         it { RecentActivity.last.owner.should eq(Space.last) }
         it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
-        it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
+        it { RecentActivity.last.recipient.should eq(user) }
       end
     end
 

@@ -57,7 +57,7 @@ class Post < ActiveRecord::Base
       params.merge!(changed_attributes: attr_changed)
     end
 
-    create_activity key, owner: space, parameters: params
+    create_activity key, owner: space, recipient: user, parameters: params
   end
 
 end

@@ -164,9 +164,23 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#format_date" do
-    it "returns the date formatted to show in a view"
-    it "returns a localized string"
+  describe "#available_locales" do
+    before {
+      Site.current.update_attributes(visible_locales: [:v1, :v2])
+      Rails.application.config.i18n.available_locales = [:a1, :a2]
+    }
+
+    context "when all==false returns only the visible locales" do
+      it { available_locales(false).should eq([:v1, :v2]) }
+    end
+
+    context "when all==true returns all locales" do
+      it { available_locales(true).should eq([:a1, :a2]) }
+    end
+
+    context "with no parameters returns only the visible locales" do
+      it { available_locales.should eq([:v1, :v2]) }
+    end
   end
 
 end

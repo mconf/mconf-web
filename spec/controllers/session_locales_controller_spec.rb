@@ -50,6 +50,23 @@ describe SessionLocalesController do
       it { user.locale.should_not eq(locale) }
     end
 
+    context "on not visible locale" do
+      let(:locale) { 'en' }
+      before {
+        user.update_attributes(locale: "pt-br")
+        Site.current.update_attributes(visible_locales: [:"pt-br"])
+
+        post :create, :l => locale
+        user.reload
+      }
+
+      it { should redirect_to url }
+      it { should set_the_flash.to(I18n.t('locales.error'))}
+      it { get_user_locale(user, false).should_not eq(locale.to_sym) }
+      it { session[:locale].should_not eq(locale) }
+      it { user.locale.should_not eq(locale) }
+    end
+
     context 'when the referer was' do
       context 'user_registration_path' do
         before {

@@ -1,0 +1,1859 @@
+es-419:
+  activities:
+    attachment:
+      create_html: subió el archivo adjunto %{name} en el espacio
+      delete_html: eliminó el archivo adjunto %{name} del espacio
+      update_html: actualizó el archivo adjunto %{name} en el espacio
+      deleted: que ha sido eliminado
+    bigbluebutton_meeting:
+      deleted_html: "Ha ocurrido una reunión, pero desde entonces se ha eliminado su información"
+      user:
+        create_html: "Una reunión fue iniciada la sala del usuario %{owner} a las %{time}"
+      space:
+        create_html: "Una reunión fue iniciada en el espacio de %{owner} a las %{time}"
+    join_request:
+      deleted: que se ha eliminado
+      invite_html: "fue invitado a unirse al espacio"
+      invite_with_introducer_html: "fue invitado por <a href=\"%{introducer_url}\">%{introducer}</a> a unirse al espacio"
+      request_html: "ha solicitado unirse al espacio"
+    mweb_events_event:
+      create_html: creó el evento %{name} en el espacio
+      attend_html: asistirá al evento %{name} en el espacio
+      not_attend_html: no asistirá al evento %{name} en el espacio
+      update_html: actualizó la información del evento %{name} en el espacio
+      deleted: que ha sido eliminado
+    mweb_events_participant:
+      create_html: asistirá al evento %{name} en el espacio
+    news:
+      create_html: publicó la noticia %{name} en el espacio
+      update_html: actualizaó la noticia %{name} en el espacio
+      deleted: que ha sido eliminado
+    other:
+      someone_html: "Alguien"
+    post:
+      create_html: publicó %{name} en el espacio
+      update_html: actualizó %{name} en el espacio
+      reply_html: respondió a %{name} en el espacio
+      deleted: un mensaje que ya ha sido eliminado
+    space:
+      accept_html: se ha unido al espacio
+      create_html: creó un nuevo espacio
+      decline_html: hubo una invitación/solicitud declinada en el espacio
+      deleted: un espació que ha sido eliminado
+      leave_html: ha abandonado el espacio
+      update_html: actualizó la información del espacio
+  _js:
+    confirmation_dialog:
+      cancel: "Cancelar"
+      confirm: "Confirmar"
+      title: "Confiración"
+  _other:
+    accept: "Aceptar"
+    cancel: "Cancelar"
+    create: "Crear"
+    datetimepicker:
+      format_display: "%d/%m/%Y"
+      format: "dd/MM/yyyy"
+      format_rails: "%d/%m/%Y %H:%M %z"
+    decline: "Declinar"
+    deny: "Denegar"
+    destroy: "Destruir"
+    details: "Detalles"
+    edit: "Editar"
+    end: "Terminar"
+    form:
+      required: "requerido"
+    index: Listar
+    in_place_edit:
+      error: "error"
+      success: "guardado"
+    join: "Unirse"
+    login: "Acceder"
+    login_to_enable: "Necesita iniciar sesión para realizar esta acción"
+    members:
+      one: "%{count} miembro"
+      other: "%{count} miembros"
+    no_: "No"
+    participants:
+      one: "%{count} participante"
+      other: "%{count} participantes"
+    publish: "Publicar"
+    register: "Registrar"
+    register_to_view_space: "Crear una cuenta para poder unirse y acceder a este espacio"
+    save: "Guardar"
+    send: "Enviar"
+    spam:
+      title: "Spam"
+      tooltip: "Reportar este ítem como spam"
+      icon_tooltip: "Este ítem ha sido reportado como spam y esta siendo evaluado por los administradores"
+    unpublish: "Anular publicacion"
+    update: "Actualizar"
+    upload: "Subir"
+    user:
+      administrator: "Administrador global"
+      normal_user: "Usuario normal"
+      guest: "Invitado"
+      guest_name: "Usuario invitado (%{email})"
+      removed: "<usuario eliminado>"
+    yes_: "Si"
+    webconference:
+      not_allowed_to_create: "No tiene permisos crear reuniones en esta sala"
+      not_running: "detenida"
+      running: en ejecución
+  GMT: GMT
+  RSS: RSS
+  abc: ABC
+  about_me: "Sobre mi"
+  about_sxsw: "Sobre SXSW"
+  account: Cuenta
+  account_activated: "¡Su cuenta ha sido activada!"
+  action:
+    other: Acciones
+  actions: Acciones
+  activerecord:
+    attributes:
+      invite:
+        ends_on: "Finaliza a"
+        message: "Descripción"
+        starts_on: "Comienza a"
+        title: "Título"
+        users: "Usuarios"
+      join_request:
+        comment: "Mensajes"
+      news:
+        text: "Texto"
+        title: "Título"
+      post:
+        text: "Mensaje"
+        title: "Título"
+      profile:
+        address: "Dirección"
+        city: "Ciudad"
+        country: "País"
+        description: "Escriba algo sobre usted"
+        email: "Correo electrónico"
+        fax: "Fax"
+        full_name: "Nombre completo"
+        im: "IM"
+        mobile: "Móvil"
+        organization: "Empresa"
+        phone: "Teléfono"
+        prefix_key: "Título"
+        province: "Provincia"
+        skype: "Skype"
+        url: "Su sitio web"
+        zipcode: "Código postal"
+      roles:
+        name_user: "Usuario"
+        name_admin: "Administrador"
+      site:
+        analytics_code: "Código Analytics"
+        chat_enabled: "Habilitar Chat"
+        description: "Descripción"
+        domain: "Dominio de la aplicación"
+        events_enabled: "Habilitar modulo de eventos"
+        exception_notifications: "Enviar notificaciones de excepción"
+        exception_notifications_email: "Destinatarios de las notificaciones de excepción"
+        exception_notifications_prefix: "Prefijo del asunto de las notificaciones de excepción"
+        external_help: "Página externa de ayuda/FAQ"
+        feedback_url: "URL de comentarios"
+        ldap_enabled: "LDAP: Habilitar autenticación"
+        ldap_filter: "LDAP: Filtro para la busqueda de usuarios"
+        ldap_host: "LDAP: IP o dominio del servidor"
+        ldap_port: "LDAP: Puerto del servidor"
+        ldap_user: "LDAP: DN completo o usuario para acceder"
+        ldap_user_password: "LDAP: Contraseña para la conexión"
+        ldap_user_treebase: "LDAP: DN completo para el arbol de usuarios"
+        ldap_username_field: "LDAP: Campo para obtener el nombre de usuario"
+        ldap_email_field: "LDAP: Campo para obtener el correo electrónico del usuario"
+        ldap_name_field: "LDAP: Campo para obtener el nombre completo del usuario"
+        local_auth_enabled: "Habilitar autenticación local"
+        locale: "Lenguaje"
+        name: "Nombre"
+        presence_domain: "Dominio de chat XMPP"
+        registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
+        require_registration_approval: "Exigir a los administradores aprobar los nuevos registros"
+        signature: "Firma"
+        shib_always_new_account: "Shibboleth: Siempre crear cuentas nuevas"
+        shib_enabled: "Shibboleth: Habilitar"
+        shib_email_field: "Shibboleth: Campo para correo electrónico"
+        shib_env_variables: "Shibboleth: Variables de entorno"
+        shib_login_field: "Shibboleth: Campo de acceso"
+        shib_name_field: "Shibboleth: Campo para nombre"
+        shib_principal_name_field: "Shibboleth: Campo para nombre principal (ID único)"
+        smtp_auth_type: "Tipo de autenticacion SMTP "
+        smtp_auto_tls: "Inicio automático TLS en SMTP"
+        smtp_domain: "Dominio SMTP"
+        smtp_login: "Inicio de sesión SMTP"
+        smtp_password: "Contraseña SMTP"
+        smtp_port: "Puerto SMTP"
+        smtp_sender: "Remitente SMTP"
+        smtp_server: "Servidor SMTP"
+        smtp_use_tls: "Usar TLS en SMTP"
+        ssl: "SSL"
+        timezone: "Zona horaria"
+        xmpp_server: "Dirección del servidor XMPP"
+        webconf_auto_record: "Activar automáticamente la grabación al crear la conferencia"
+      space:
+        attendee_key: "Clave para participantes"
+        description: "Descripcion "
+        moderator_key: "Clave para moderadores"
+        name: "Nombre"
+        permalink: "Identificador"
+        public: "Público"
+        repository: "Repositorio de documentos"
+      user:
+        _full_name: "Nombre completo"
+        approved: "Aprobado"
+        can_record: "Permitir a este usuario grabar la conferencia"
+        current_password: "Contraseña actual"
+        email: "Correo electrónico"
+        expanded_post: "Mostrar mensajes en el muro con vista expandida por defecto"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"
+        receive_digest: "¿Con qué frecuencia desea recibir correos electrónicos recopilatorios con la actividad reciente de las comunidades que usted forma parte?"
+        superuser: "Administrador global"
+        timezone: "Zona horaria"
+        username: "Nombre de usuario"
+    errors:
+      models:
+        private_message:
+          attributes:
+            users_tokens:
+              accepted: "debe elegir al menos un receptor"
+      messages:
+        invalid_identifier: "generó el identificador incorrecto: \"%{id}\""
+        missing: "esta faltando"
+    models:
+      event: "Evento"
+      join_request: "Solicitud para unirse"
+      news: "Novedades"
+      space: "Espacio"
+  address: Dirección
+  admin:
+    one: Administrador
+    space: "El administrador de %{spacename}"
+  admission:
+    other: Admisiones
+  advanced: Avanzado
+  advanced_editor: "Editor avanzado"
+  agent:
+    authentication:
+      confirm_password: "Confirmar contraseña"
+      password: Contraseña
+  agree: "Si"
+  all: Todo
+  all_events: "Eventos"
+  all_rights_reserved: "Todos los derechos reservados"
+  any_field: "Cualquier campo"
+  are_you_sure: "¿Está seguro?"
+  attachment:
+    add: "Agregar adjunto"
+    created: "Adjunto agregado"
+    delete: "Eliminar adjunto"
+    deleted: "Adjunto eliminado con éxito"
+    error:
+      malformed: "Error eliminado archivos"
+      not_deleted: "%{file} no fue eliminado correctamente. "
+      not_permission: "%{user} no puede eliminar %{file}. "
+    file: "Archivo:"
+    filename: "%{size} archivos en %{name}.zip"
+    home:
+      one: "Archivo en el espacio %{space}"
+    info: "Información del documento"
+    more:
+      one: "y un archivo adjunto más..."
+      other: "y %{count} archivos adjuntos más..."
+    new: "Nuevo adjunto"
+    not_selected: "No hay documentos seleccionados"
+    one: Adjunto
+    other: Adjuntos
+    repository_disabled: El repositorio de documentos de este espacio no está habilitado.
+    selected:
+      none: "No hay archivos seleccionados"
+      one: "archivo seleccionado"
+      other: "archivos seleccionados"
+    title: "Adjuntos (%{count})"
+    upload_with_post: "Notificar la subida con un mensaje en el muro"
+  attachments:
+    index:
+      author: "Subido por "
+      download_multiple: "Descargar"
+      file: "Archivo"
+      new_file: "Subir un archivo"
+      no_attachments: "Adjuntos no encontrados"
+      remove_multiple: "Eliminar"
+      remove_multiple_confirmation: "¿Está seguro que desea eliminar todos los archivos seleccionados? Esta operación es irreversible."
+      uploaded: "Subido"
+    single_attachment:
+      ago: "hace"
+      delete_confirmation: "¿Está seguro que desea eliminar este archivo? Esta operación es irreversible."
+      delete_tooltip: "Eliminar este archivo"
+      download_tooltip: "Descargar este archivo"
+    upload_form:
+      title: "Subir un nuevo archivo"
+  attendeePW: "Clave de participantes"
+  author: "Subido por"
+  avatar:
+    created: "Imagen subida correctamente"
+    crop: "Recorte su imagen"
+    select: "Seleccionar imagen"
+    select_new: "Seleccionar nueva imagen"
+    upload: "Subir imagen"
+  back: Atrás
+  back_to_inbox: "Volver a Bandeja de entrada"
+  back_to_sent: "Volver a Enviados"
+  bbb_room:
+    attendeePW: "Clave de participantes"
+    edit: "Configurar su sala de conferencia web"
+    moderatorPW: "Clave de moderadores"
+    private: "Sala privada"
+  beta: beta
+  bigbluebutton: BigBlueButton
+  bigbluebutton_rails:
+    activity_monitor: "Monitor de actividad"
+    attendees:
+      id: ID
+      name: Nombre
+      role: Rol
+    new_room: "Nueva sala"
+    new_server: "Nuevo servidor"
+    rooms:
+      external:
+        header: "Esta reunión fue creada por otra aplicación.<br/>Debes proporcionar un nombre y una contraseña para unirte:"
+      index:
+        back_to_server_list: "Volver a la lista de servidores"
+        invite: Invitar
+        new_room: "Nueva sala"
+      invite: Invitar
+      join_mobile: "Unirse desde un dispositivo móvil"
+    servers:
+      activity:
+        activity: Actividad
+        done: ¡Hecho!
+        ended_at: "Finaliza a: %{time} (finalizada: %{forcibly})"
+        information: Información
+        not_running: "No se está ejecutando"
+        now: ¡Ahora!
+        participants: "Participantes (%{total} en total, %{mods} moderadores):"
+        refresh_now: "Refrescar ahora"
+        refreshing_in: "Refrescando en:"
+        running: ¡Ejecutando!
+        seconds: segundos
+        started_at: "Comenzó a: %{time}"
+        title: "Monitor de actividad del servidor"
+      index:
+        access_links: "Enlaces de acceso"
+    view_room_list: "Ver lista de salas"
+    view_rooms: "Ver salas"
+    view_server_list: "Ver lista de servidores"
+  body: Cuerpo
+  button:
+    accept: Aceptar
+    cancel: Cancelar
+    confirm: Confirmar
+    create: Crear
+    creating: "Creando evento... "
+    edit: Editar
+    editing: Editando...
+    finish: Terminado
+    go: ¡Adelante!
+    invite: Invitar
+    join: Unirse
+    join_webconference: "Unirse a la conferencia web"
+    join_webconference_mobile: "Unirse desde dispositivo móvil"
+    new_room: "Nueva sala"
+    next: "Paso siguiente"
+    post: Enviar
+    publish: Publicar
+    remove: Eliminar
+    search: Buscar
+    send: Enviar
+    sending: Enviando...
+    update: Actualizar
+    upload: Subir
+  by: por
+  cafe:
+    login: "Acceder usando CAFe"
+  calendar:
+    my: "Mi calendario"
+    one: Calendario
+  cancel: Cancelar
+  caption:
+    add: "Agregar descripcion"
+  chat:
+    add: "Agregar usuario"
+    connecting_error_message: "Error al conectar"
+    connecting_message: "Conectando al chat del evento..."
+    invite:
+      bbb: "Invitar usuarios a su sala BBB"
+      button: "Invitar usuarios"
+      hint: "Escriba para iniciar la búsqueda"
+      msg: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: <a href='URL'>URL</a>"
+      msg_clean: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: URL"
+      msg_sender: "Invitación enviada. Enlace a su sala: <a href='URL'>URL</a>"
+    me: "yo"
+    name:
+      one: "Nombre"
+      other: "Nombres"
+    please_login_message: "Por favor, acceda/regístrese para participar"
+    reconnect_button_message: "Click para reconectar"
+    reconnect_message: Reconectar
+    request:
+      approve: "Aprobar"
+      deny: "Denegar"
+      title: "Solicitud de amistad"
+      body: "<b>%{name}</b> quiere agregarte como amigo."
+    status:
+      online: "En linea"
+      busy: "Ocupado"
+      away: "Fuera de linea"
+      offline: "Desconectado"
+    typing: "está escribiendo..."
+    title: "Chat"
+  city: Ciudad
+  click_here_to_see_more: "Click aquí para ver mas"
+  click_to_hide: "Click para ocultar"
+  click_to_see_all: "Ver todo"
+  close: Cerrar
+  collapse: menos
+  collapse_arrows: "<< menos"
+  comment:
+    add: "Agregar un comentario"
+    add_new: "Agregar un nuevo comentario"
+    by: "comentado por %{author}"
+    edit: "Editar comentario"
+    new: "Nuevo comentario"
+    one: Comentar
+    other: Comentarios
+    show_all: "Mostrar todos los comentarios"
+  configurations: Configuraciones
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "Usted a ha confirmado su cuenta."
+  contact_information: "Información de contacto"
+  country: País
+  create: Crear
+  create_event: "Crear evento"
+  created_time_ago: "Creado hace %{time} "
+  crop_image:
+    description: "Selecciona una parte de la imagen para recortar"
+    title: "Recortar imágen"
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Por defecto"
+      description: "Tipos de reproducción son los tipos de reproductores disponible para las grabaciones. Esta lista se llena automáticamente cuando se obtienen las grabaciones de los servidores de conferencia web. Puede ocultar los tipos de reproducción de la interfaz, desmarcando la casilla de verificación visible, y cambiar el reproductor predeterminado, el que se muestra siempre en la parte superior cuando se enumeran los enlaces a todos los reproductores disponibles."
+      list_of_playback_types: "Lista de tipos de reproducción"
+      name: "Nombre"
+      visible: "Visible"
+  custom_bigbluebutton_rooms:
+    _other:
+      fetch_recordings: "Obtener grabaciones"
+      invite: "Invitar"
+      join_mobile: "Unirse desde un dispositivo móvil"
+      new_room: "Nueva sala"
+      view_recordings: "Ver grabaciones"
+    edit:
+      editing_room: "Editando la sala '%{room}'"
+    form:
+      metadata:
+        add: "Agregar metadata"
+        set_to_remove: "Seleccionar para eliminar"
+    index:
+      list_of_rooms: "Lista de todas las salas registradas"
+    important: Importante
+    invitation_form:
+      at: "en"
+      duration: "Duración"
+      meeting_in: "Invitar personas a una reunión en:"
+      timezone: "Está utilizando la zona horaria %{timezone}"
+      title: "Invitar personas a una reunión"
+      users:
+        hint: "Escriba para iniciar la búsqueda"
+        no_results: "No se encontrar resultados"
+        searching: "Buscando..."
+    invite:
+      field_name: "Se esta uniendo como"
+      field_password: "Ingrese la clave de acceso a esta reunión"
+      title: "Unirse a la sala: %{name}"
+    invite_header:
+      not_running: "detenida"
+      refresh: "Esta información es actualizada automáticamente"
+      room_type_private: "Esta es una sala de conferencia web <em>privada</em>"
+      room_type_public: "Esta es una sala de conferencia web <em>pública</em>"
+      running: "en ejecución"
+      status: "La reunion actual está"
+      status_unknown: "desconocido"
+      steps: "pasos:"
+    invite_userid:
+      login: "Acceso"
+      member:
+        email_or_username: "Correo electrónico o nombre de usuario"
+        password: "Contraseña"
+        shibboleth:
+          click_here: "O haga click aquí para utilizar el inicio de sesión federado"
+        title: "Soy miembro de este sitio web"
+      non_member:
+        name: "Su nombre completo"
+        next: "Siguiente"
+        title: "No tengo una cuenta, me uniré a esta sala como invitado"
+      title: "Unirse a la sala: %{name}"
+    join:
+      user_limit_exceeded: "Esta reunión a alcanzado el límite máximo de participantes. Contáctese con la persona responsable de la reunión para más información."
+    join_mobile:
+      click_to_download_android: "Click aquí para descargar el cliente Android"
+      click_to_download_ios: "Click aquí para descargar el cliente iOS (iPad, iPhone)"
+      download_android_tip: "Para dispositivos con Android"
+      download_ios_tip: "Para dispositivos con iOS (iPad, iPhone)"
+      not_launched: "Si la aplicación no fue iniciada, asegúrese de que tiene el cliente Android instalado. Puede obtenerlo de: "
+      notice: "Está siendo redirigido a la conferencia en su dispositivo móvil. Por favor, espere."
+      title: "Acceso móvil a \"%{room}\""
+      use_default_client: "Si no está en un cliente móvil, haga click aquí para unirse a la sesión usando el cliente de escritorio por defecto."
+      try_again: "¿Tiene la aplicación instalada pero no se ejecutó? Haga click aquí para intentarlo de nuevo."
+    join_options:
+      alert_webconf_running: "Una reunión está actualmente desarrollándose en esta sala. Las opciones que cambie aquí no afectarán la reunión actual, solamente afectará futuras reuniones."
+      metadata:
+        description: "Descripción para esta reunión."
+        title: "Título para esta reunión"
+      record:
+        label: "Grabar reunión"
+        tooltip: "Marcar para que esta sala pueda grabar sus reuniones. Esta opción no puede ser modificada luego que la reunión comience. "
+      start: "Hecho, ¡comenzar la reunión!"
+      title: "Opciones de reunión"
+    new:
+      creating_new_room: "Creando una nueva sala"
+    recordings:
+      list_of_recordings: "Lista de todas las grabaciones de la sala '%{room}'"
+    rooms:
+      table:
+        links: "Enlaces"
+        room_meetingid: "ID Reunion"
+        room_name: "Nombre de sala"
+    send_invitation:
+      blank_users: "Usuario no seleccionado, la invitación no fue enviada"
+      error: "La invitación no pudo ser enviada a:"
+      error_date_format: "Las fechas que informó no son válidas. Por favor, intente de nuevo"
+      error_title: "Es obligatorio incluir el título de su invitación. Por favor, intente de nuevo"
+      success: "Invitación enviada con éxito a:"
+    show:
+      showing_room: "Mostrando sala '%{room}'"
+  custom_bigbluebutton_recordings:
+    edit:
+      editing_recording: "Editando grabacion"
+    show:
+      showing_recording: "Mostrando grabacion"
+    index:
+      list_of_recordings: "Lista de todas las grabaciones disponibles"
+    recording_links:
+      direct_link: "Enlace directo"
+      playback_links: "Reproductores disponibles"
+    recordings:
+      table:
+        links: "Enlaces"
+        recordid: "ID Grabacion"
+        room: "Sala"
+        server: "Servidor"
+  custom_bigbluebutton_servers:
+    _other:
+      activity_monitor: "Monitor de actividad"
+      fetch_recordings: "Obtener grabaciones"
+      new_server: "Nuevo servidor"
+      view_recordings: "Ver grabaciones"
+      view_rooms: "Ver salas"
+    activity:
+      activity: "Actividad de servidor"
+      automatically_updated: "Actualizado automaticamente cada 30 segundos"
+      information: "Información de servidor"
+      title: "Monitor de actividad del servidor"
+      updated: "¡Actualizado!"
+    edit:
+      editing_server: "Editando servidor '%{server}'"
+    index:
+      list_of_servers: "Lista de todos los servidores registrados"
+      table:
+        links: "Enlaces"
+        server_name: "Nombre del servidor"
+        url: "URL"
+    new:
+      creating_new_server: "Creando nuevo servidor"
+    recordings:
+      list_of_recordings: "Lista de todas las grabaciones del servidor '%{server}'"
+    rooms:
+      list_of_rooms: "Lista de todas las salas del servidor '%{server}'"
+    show:
+      fetch_recordings_title: "Obtener grabaciones con parámetros"
+      fetch_recordings_btn: "Obtener grabaciones"
+      publish_recordings_title: "Publicar grabaciones"
+      publish_recordings_btn: "Publicar grabaciones"
+      recordings: "Grabaciones"
+      showing_server: "Mostrando servidor '%{server}'"
+      unpublish_recordings_title: "Anular publicacion de grabaciones"
+      unpublish_recordings_btn: "Anular publicacion de grabaciones"
+  date:
+    at: en
+    start: "Fecha de comienzo"
+    undefined: Indefinido
+  days: Días
+  dblclick: "Doble click para editar..."
+  delete:
+    confirm: "¿Eliminar %{element}?"
+    invitation: "¿Eliminar invitación a %{user}?"
+    one: Eliminar
+    select: "Seleccionar para eliminar"
+  deny: "No"
+  description: Descripción
+  destroy: Destruir
+  devise:
+    failure:
+      user:
+        not_approved: "Su cuenta aún no ha sido aprobada por un administrador."
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Confirmar mi cuenta"
+        confirmation_ok: "Puede confirmar su cuenta de correo electrónico a través del siguiente enlace:"
+        confirmation_pending: "Su cuenta fue creada y está en espera de aprobación de un administrador."
+        welcome: "¡Bienvenido, %{email}!"
+    registrations:
+      not_enabled: "El registro de nuevas cuentas no está habilitado en este sitio."
+    shared:
+      links:
+        login:
+          default: "Acceder a su cuenta"
+          federation: "Acceder vía federación"
+        lost_password: "¿Olvidó su contraseña?"
+        other_options: "Otras opciones"
+        register: "Crear una nueva cuenta"
+        resend_confirmation_email: "Reenviar correo electrónico de confirmación"
+    strategies:
+      ldap_authenticatable:
+        create_failed: "No se pudo crear las estructuras internas para su cuenta LDAP. Por favor, póngase en contacto con un administrador."
+        invalid_bind: "No se pudo enlazar con el servidor LDAP. Compruebe la configuración de LDAP."
+        ldap_not_enabled: "LDAP no esta habilitado en este sitio web"
+        missing_username: "No se pudo encontrar el nombre de usuario del usuario LDAP recuperado del servidor LDAP. Por favor, póngase en contacto con un administrador."
+        missing_name: "No se pudo encontrar el nombre del usuario LDAP recuperado del servidor LDAP. Por favor, póngase en contacto con un administrador."
+        missing_email: "No se pudo encontrar el correo electrónico del usuario LDAP recuperado del servidor LDAP. Por favor, póngase en contacto con un administrador."
+  disable: Deshabilitar
+  disabled: Deshabilitado
+  download_file: "Descargar archivo"
+  edit: Editar
+  edit_hours: "Editar horas"
+  edit_profile: "Editar perfil"
+  email:
+    account_activated: "Su cuenta en %{sitename} ha sido activada con éxito."
+    commas: "Separado por comas"
+    confirm: "Necesitas confirmar su registro haciendo click en <a href=\"%{url}\">%{url}</a>"
+    digest:
+      attachment: "<b>%{author_name}</b> ha subido un nuevo archivo adjunto en <b>%{space_name}</b>:"
+      event: "<b>%{author_name}</b> ha creado un nuevo evento en <b>%{space_name}</b>:"
+      inbox: "<b>%{sender_name}</b> le envió un mensaje:"
+      message: "Ultimas actividades en sus espacios:"
+      news: "Una nueva noticia fue publicada en <b>%{space_name}</b>:"
+      posted: "<b>%{author_name}</b> ha publicado en <b>%{space_name}</b> el siguiente mensaje:"
+      title: "%{type} recopilatorio con la actividad en sus espacios"
+      type:
+        daily: Diario
+        weekly: Semanal
+    invitation_result:
+      admin_side: "%{name} ha %{action} la invitación al espacio %{spacename}"
+      user_side: "El administrador de %{space} ha %{action} su solicitud para unirse."
+    kind_regards: "Un cordial saludo,"
+    notifications: "notificaciones por correo electrónico"
+    one: correo electrónico
+    spam_activation: "Si no se registró en este sitio, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
+    spam_invitation: "Si considera que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
+    url_activated: "Ahora puede acceder a su cuenta con su dirección de correo electrónico \"%{name}\" y su contraseña en <a href=\"%{url}\">%{url}</a>"
+    used_from: "correo electrónico utilizado en el formulario de contacto: %{dir}"
+    welcome: "Bienvenido a %{sitename}"
+  enable: Habilitar
+  enabled: Habilitado
+  end: Finalizar
+  error:
+    change: "Cambio inválido"
+    credentials: "Credenciales no válidas"
+    e403:
+      description: "La página que estás buscando es de acceso restringido. Usted no está autorizado para realizar esa acción."
+      title: "Prohibido"
+    e404:
+      description: "Opps, la página \"%{url}\" no existe."
+      title: "No encontrado"
+    e500:
+      description: "Lo sentimos, pero algo salió mal. Nos han comunicado el problema y vamos a echar un vistazo a él en breve."
+      title: "Error"
+    mistyped_or_moved: "Es posible que haya escrito mal la dirección o la página puede haber sido movida"
+    not_allowed: "Usted no está autorizado para realizar esa acción."
+    one: Error
+    other: Errores
+    vcc_warning: "Advertencia:"
+  fax: Fax
+  feedback:
+    create:
+      check_mail: "Por favor, revise el correo electrónico informado en el formulario de comentarios, parece incorrecto."
+      fill_fields: "Es obligatorio rellenar todos los campos del formulario para enviar sus comentarios."
+      success: "Sus correo electrónico de comentarios fue enviado con éxito. ¡Gracias!"
+    new:
+      note: "Ayúdenos a mejorar Mconf. Por favor, envíe sus comentarios, problemas y sugerencias. Vamos a tratar de responder a la mayor brevedad posible."
+      title: "Comentarios"
+    send: "Enviar comentarios"
+    send_us: "¡Envíenos sus comentarios!"
+    webconf:
+      stop_countdown: "Haga click aquí para evitar que se cierre y utilícela para navegar por este sitio"
+      title: "¡Gracias por participar en esta conferencia!"
+      warning: "Esta ventana se cerrará automáticamente en <span class='countdown'>%{seconds}</span> segundos."
+  find:
+    browse: Navegar
+  find_in: "Buscar en:"
+  frontpage:
+    show:
+      headline: "Un sistema de multiconferencia open source, escalable y global para web y dispositivos móviles"
+      login:
+        federation: "Acceder vía federación"
+        lost_password: "¿Olvidó su contraseña?"
+        title: "Acceder a su cuenta"
+        resend_confirmation_email: "Reenviar correo electrónico de confirmación"
+      register:
+        title: "Crear una nueva cuenta"
+  from: De
+  getting_started: "¡Comenzando!"
+  group:
+    other: "Listas de correo"
+  hcard:
+    not_found: "hCard no encotrada"
+  header_global:
+    welcome: "Bienvenido, %{user}"
+  hello: Hola
+  help: Ayuda
+  his_message_reads_thus: "Su mensaje dice así"
+  home:
+    activity: "Actividad reciente"
+    invite_url: "URL de invitación"
+    my: "Mi Inicio"
+    my_spaces: "Mis espacios"
+    no_spaces: "Usted no pertenece a ningún espacio. Puede ver los espacios disponibles <a href=\"%{link}\">aquí</a>."
+    one: inicio
+    view_invite_url: "Ver URL de invitación"
+  icons:
+    unread_message: "¡Mensaje sin leer!"
+    unread_message_by_receiver: "Este mensaje aún no ha sido leído por el destinatario"
+  im: IM
+  inbox:
+    my: "Mi Bandeja de entrada (%{checked})"
+    one: "Bandeja de entrada (%{checked})"
+    unread_text:
+      one: "¡Tiene %{count} mensaje sin leer!"
+      other: "¡Tiene %{count} mensajes sin leer!"
+  information:
+    expand: "Expandir lista..."
+    information1: "Estos son los espacios a los que pertenece"
+    information3: "Estos son los últimos mensajes o eventos que ha creado"
+    information5: "Estos son los próximos eventos de otros espacios."
+    reduce: "Colapsar lista..."
+  internet:
+    on_the: "En Internet"
+    ppal: Internet
+  invitation:
+    accept: "Aceptar invitación"
+    access_space: "Ahora es miembro de %{space} y puede acceder en <a href=\"%{space_url}\">%{space_url}</a>"
+    deselect_all_users: "Deseleccionar todos los usuarios"
+    discard: "Descartar invitación"
+    email: Correo electrónico
+    full_message: "<b>%{username} lo invita al espacio %{space}.</ b><br/><br/>%{comment}<br/><br/>Para aceptar la invitación, por favor visite <a href=\"%{url}\">%{url}</a><br/>Puede encontrar más información sobre este espacio en <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Saludos cordiales,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/>Si considera que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
+    hide_all_users: "Ocultar todos los usuarios"
+    info_space: "Puede encontrar más información de este espacio en <a href=\"%{space_url}\">%{space_url}</a>"
+    info_users: "Puede ver la lista actual de usuarios de la sala en <a href=\"%{users_url}\">%{users_url}</a>"
+    introducer: Introductor
+    label: "Personalice su mensaje de invitación"
+    legend:
+      URL: "'URL' se reemplaza en el mensaje por la URL de la invitación."
+      name: "'Nombre' se reemplaza en el mensaje por el nombre del destinatario."
+    logout_and_reload: "Usted no es el usuario que recibió esta invitación. Por favor, cierre la sesión y vuelva a intentarlo"
+    message_with_start_date:
+      in_person: "<p>Me gustaría invitarte al <b>evento 'nombre_evento' en el espacio %{space}</b> el día 'fecha_evento'.</p><p>Para aceptar mi invitación, por favor visite %{url}</p><p>Puede encontrar más información de este evento en <a href=\"event_url\">url_evento</a></p><p>Saludos cordiales,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    message_without_start_date:
+      in_person: "<p>Me gustaría invitarte al <b>evento 'nombre_evento' en el espacio %{space}</b>.</p><p>Para aceptar mi invitación, por favor visita %{url}</p><p>Puede encontrar más información de este evento en <a href=\"event_url\">url_evento</a></p><p>Saludos cordiales,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    not_accepted: "no aceptado"
+    not_pending:
+      other: "No hay invitaciones pendientes"
+    pending:
+      other: "Invitaciones pendientes"
+    rejoin_space: "Si desea solicitar la membresía de nuevo por favor ingrese a <a href=\"%{space_url}\">%{space_url}</a>"
+    select_all_users: "Seleccionar todos los usuarios"
+    show_all_users: "Mostrar todos los usuarios"
+    tab:
+      title1: "Usuarios no registrados"
+      title2: "Usuarios registrados"
+    title: "Invitar personas"
+    title2: "Invitación al espacio"
+    to_accept_space: "Para aceptar mi invitación, por favor visite 'URL'"
+    to_event: "%{username} lo invitó al evento %{eventname} en el espacio %{space}"
+    will_invite: "Personas que invitarás"
+    yes_accepted: aceptó
+  invite:
+    bad_format: "(formato incorrecto)"
+    email: "correo electrónico a %{email}"
+    title: "Invitación a participar en una conferencia web"
+    user_private_msg: "mensaje privado del usuario %{user}"
+  invited: Invitado
+  join: Unirse
+  join_cam: Participar
+  join_requests:
+    accept:
+      accepted: "Solicitud para unirse aceptada"
+    create:
+      already_invited: "Los siguientes usuarios ya tienen una invitación pendiente: %{users}"
+      already_a_member: "%{name} ya es miembro"
+      created: "Su petición para unirse ha sido enviado a los administradores del espacio"
+      duplicated: "Usted ya tiene una solicitud para unirse pendiente en este espacio"
+      error: "Algo salió mal al procesar su solicitud. Por favor, intente de nuevo. (detalles: %{errors})"
+      sent: "Su invitación fue enviada con éxito a: %{users}"
+      user_not_found: "Usuario no encontrado: %{id}"
+    decline:
+      declined: "Solicitud para unirse rechazada"
+      invitation_destroyed: "Invitación cancelada con éxito"
+      request_destroyed: "Solicitud para unirse cancelada"
+    index:
+      accept: "¿Acepta la solicitud para unirse de %{user}?"
+      accept_as: "como"
+      deny: "¿Cancelar solicitud para unirse de %{user}?"
+      no_pending_invitations: "No hay invitaciones pendientes"
+      no_pending_requests: "No hay solicitudes para unirse pendientes"
+      or: "o"
+      pending_invitations_title: "Invitaciones pendientes"
+      pending_requests_title: "Solicitudes para unirse pendientes"
+      user_message: "Mensaje"
+    invitation:
+      cancel: "¿Cancelar invitación a %{user}?"
+      invited_as: "Invitado como"
+      message_sent: "Mensaje enviado al usuario"
+    invite:
+      candidates: "Buscar usuarios para invitar"
+      role_label: "Rol para los usuarios invitados"
+      title: "Invita a otras personas a unirse a este espacio"
+      users:
+        hint: "Escriba para iniciar la búsqueda"
+        no_results: "No se encontraron resultados"
+        searching: "Buscando..."
+    new:
+      already_invited: "¡Usted ya tiene una invitación para unirse a este espacio! Vaya a la página principal del espacio para verla"
+      already_requested: "¡Usted ya ha solicitado unirse a este espacio! Por favor, espere a que un administrador lo acepte."
+      message_title: "Enviar una solicitud para unirse a los administradores del espacio"
+    request:
+      decline_confirmation: "¿Está seguro que desea rechazar esta solicitud para unirse?"
+    show:
+      accept: "Aceptar"
+      already_accepted: "... pero usted ya es miembro de este espacio."
+      cancel_invite: "Cancelar esta invitación"
+      cancel_invite_confirmation: "¿Está seguro que desea cancelar esta invitación?"
+      cancel_request: "Cancelar esta solicitud"
+      cancel_request_confirmation: "¿Está seguro que quiere cancelar esta solicitud para unirse a este espacio?"
+      decline: "Declinar"
+      decline_invite_confirmation: "¿Está seguro que desea declinar la invitación para unirse a este espacio?"
+      decline_request_confirmation: "¿Está seguro que desea declinar la solicitud para unirse a este espacio?"
+      is_candidate:
+        comment_invitation: "Este es el comentario escrito por %{name}:"
+        comment_request: "Esta solicitud ya fue enviada a los administradores del espacio. Por favor, espere por la respuesta. Este es el comentario que escribió:"
+        title_invitation: "Fue invitado por \"%{introducer}\" el día %{date} para unirte al espacio \"%{space}\""
+        title_request: "Aceptó unirse al espacio \"%{space}\" en día %{date}"
+      is_introducer:
+        comment_invitation: "Este es el comentario que escribió:"
+        title_invitation: "Invitó a \"%{candidate}\" el día %{date} a unirse al espacio \"%{space}\""
+      is_other:
+        comment_request: "Este es el comentario escrito por \"%{name}\":"
+        title_invitation: "%{introducer}\" invitó a \"%{candidate}\" el día %{date} a unirse al espacio \"%{space}\""
+        title_request: "\"%{candidate}\" solicitó el día %{date} unirse al espacio \"%{space}\""
+  keywords: "Palabras clave (*)"
+  language: Lenguaje
+  last_week: "Última semana"
+  latest_events: "Últimos eventos"
+  latest_news: "Últimas noticias"
+  layouts:
+    application_navbar:
+      events: "Eventos"
+      inbox: "Bandeja de entrada"
+      login: "Acceder"
+      manage: "Administrar"
+      register: "Registrarse"
+    footer:
+      copyright: "© 2010-2014 %{site}."
+      current_version: "Versión actual"
+      find_us: "Encuentra más acerca de Mconf"
+      github: GitHub
+      issues: "Seguimiento de incidencias"
+      links:
+        feedback: "Enviar comentarios"
+        help: Ayuda
+        statistics: Estadísticas
+        title: Enlaces
+      project_website: "Sitio web del proyecto"
+      sponsors:
+        prav: "Projetos em<br/>Áudio e Vídeo"
+        rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+        title: Patrocinadores
+      translate:
+        change: "Cambiar idioma"
+        help_us: "¿Quieres este sitio en tu idioma? ¡Has click aquí para ayudarnos a traducirlo!"
+      wiki: "Wiki"
+    footer_simple:
+      copyright: "© 2010-2014 %{site}."
+      translate:
+        change: "Cambiar idioma"
+    spaces_page_title:
+      is_member: "Eres miembro de este espacio"
+      private: "Espacio privado"
+      public: "Espacio público"
+  less: "menos..."
+  locales:
+    en: English
+    es-419: "Español (América Latina)"
+    pt-br: "Português (Brasil)"
+    error: "No se registro la localidad"
+  login_or_register: "Acceder / Registrarse"
+  login_request: "Tienes que estar logueado para"
+  logo:
+    created: "Logo subido correctamente"
+    crop: "Recortar logo del espacio"
+    empty: "El logo está vacío"
+    error: "Error al subir el logo"
+    no_image: "No hay una imagen seleccionada"
+    updated: "Logo actualizado correctamente"
+  logo_images:
+    crop:
+      crop_it: "¡Recórtalo!"
+      preview: "Vista previa"
+      aspect_ratio: Relación de aspecto fija
+  logout: Cerrar sesión
+  manage:
+    disabled_space:
+      enable: "Habilitar espacio"
+      enable_confirm: "¿Está seguro que desea habilitar este espacio?"
+    disabled_user:
+      enable: "Habilitar usuario"
+      enable_confirm: "¿Está seguro que desea habilitar a este usuario?"
+    enabled_space:
+      disable: "Deshabilitar espacio"
+      disable_confirm: "¿Está seguro que desea deshabilitar este espacio?"
+      edit: "Editar espacio"
+    enabled_user:
+      approve: "Aprobar: permitir a este usuario acceder a la web"
+      approve_confirm: "¿Está seguro que desea que este usuario pueda acceder a la web?"
+      confirm: "Confirmar este usuario"
+      confirm_confirm: "¿Está seguro que desea confirmar a este usuario?"
+      disable: "Deshabilitar usuario"
+      disable_confirm: "¿Está seguro que desea deshabilitar a este usuario?"
+      disapprove: "Desaprobar: bloquear a este usuario el acceso a la web"
+      disapprove_confirm: "¿Está seguro que desea que este usuario no pueda acceder a la web?"
+      edit: "Editar usuario"
+    menu:
+      general: "General"
+      spaces: "Espacios"
+      spam: "Spam"
+      title: "Gestión del Sitio"
+      users: "Usuarios"
+      webconf: "Conferencia Web"
+    spaces:
+      filter_name: "Nombre"
+      filter_results: "Filtrar los resultados:"
+    destroy_space:
+      destroy: Eliminar espacio
+      destroy_confirm: ¿Está seguro que desea eliminar este espacio y todo el contenido asociado a él? A diferencia de la dehabilitación del espacio, ¡esta operación es irreversible!
+    spaces_list:
+      filter_count_with_text: "Encontrado(s) %{count} espacio(s) para el filtro \"%{value}\""
+      filter_count_empty: "Encontrado(s) %{count} espacio(s)"
+      no_space_found: "Espacio no encontrado"
+    spam:
+      event:
+        delete_confirmation: "¿Remover este evento permanentemente?"
+        delete_tooltip: "Este evento es spam, remuévelo"
+        not_spam_confirmation: "¿Confirma que este evento no es spam?"
+        not_spam_tooltip: "Este evento no es spam"
+        title: "Eventos marcados como spam"
+      no_spam: "Spam no reportado"
+      post:
+        delete_confirmation: "¿Remover este post permanentemente?"
+        delete_tooltip: "Este post es spam, remuévelo"
+        not_spam_confirmation: "¿Confirma que este post no es spam?"
+        not_spam_tooltip: "Este post no es spam"
+        title: "Posts marcados como spam"
+    users:
+      filter_name_or_username: "Nombre, nombre de usuario o correo electrónico"
+      filter_results: "Filtrar los resultados:"
+      new_user: "Crear usuario"
+    users_list:
+      filter_count_with_text: "Encontrado(s) %{count} usuario(s) para el filtro \"%{value}\""
+      filter_count_empty: "Encontrado(s) %{count} usuario(s)"
+      no_user_found: "Usuario no encontrado"
+  mandatory_field: "Campo obligatorio"
+  mconf: Mconf
+  message:
+    created: "¡Mensaje enviado!"
+    error:
+      create: "Error enviando mensaje"
+    incoming:
+      other: "Mensajes entrantes"
+    private:
+      cant: "No puedes enviar mensajes privados porque no tienes miembros en ningún espacio"
+      editing: "Editando mensaje privado"
+      new: "Nuevo mensaje privado"
+      none: "No hay mensajes"
+      send: "Enviar mensaje privado"
+    reply: "Responder el mensaje"
+    sent:
+      other: "Mensajes enviados"
+    special1: "La plataforma Mconf estará baja desde el viernes 17 diciembre a las 16:00 GMT hasta el sábado 18 diciembre 16:00 UTC. Perdón por las molestias."
+    special2: "El Equipo de Mconf"
+    to: Para
+  moderatorPW: "Clave del moderador"
+  more: más...
+  more_arrows: "más >>"
+  my:
+    approval_pending:
+      title: Pendiente de aprobación
+      description: Usted se ha registrado con éxito y su cuenta será sometida a la aprobación de un administrador. Nos comunicaremos con usted cuando sea aprobada.
+      interesting_links: "Mientras tanto puede navegar por estas secciones abiertas del sitio:"
+      events_list: lista de eventos
+      spaces_list: lista de espacios
+    page_header:
+      activity_list: "Lista de actividades"
+    home:
+      create_space: "Crear un nuevo espacio"
+      events:
+        other: "Otros"
+        today: "Hoy"
+      not_confirmed: "Su cuenta aún no está activada aún. Por favor, verifique su correo electrónico para activarla. Si no recibió el correo <a href=\"%{url}\">haga click aquí</a> para solicitar uno nuevo."
+      pending_join_requests:
+        one: "%{count} solicitud pendiente para unirse"
+        other: "%{count} solicitudes pendientes para unirse"
+      pending_join_requests_tooltip: "Estas son las invitaciones que recibió para unirse a los espacios o las solicitudes para unirse que haya enviado."
+      view_all_activity: "Ver toda su actividad"
+      view_all_spaces: "Ver todos los espacios"
+    edit_recording:
+      title: "Editar sus grabaciones"
+    edit_room:
+      layout_empty_option: "<por defecto>"
+    recordings:
+      title: "Grabaciones de mi sala de conferencias web"
+      update_recordings:
+        error: "Error actualizando su lista de grabaciones. Por favor, inténtelo más tarde"
+        success: "¡Lista de grabaciones actualizada!"
+        updating: "Actualizando su lista de grabaciones..."
+    webconference_room:
+      end: "Detener la reunión"
+      end_tooltip: "¡Esta acción detendrá la conferencia actual!"
+      fast_start: "Inicio rápido utilizando las opciones por defecto"
+      invite: "Invitar a otras personas"
+      join: "¡Unirse a la reunión!"
+      join_mobile_full: "Unirse desde un dispositivo móvil"
+      not_running: "Tu conferencia web no está en curso."
+      preferences: "Preferencias"
+      recordings: "Ver grabaciones"
+      running_with:
+        no_participants: "Su conferencia web está en curso sin participantes."
+        participants:
+          one: "¡Su conferencia web está en curso con %{count} participante!"
+          other: "¡Su conferencia web está en curso con %{count} participantes!"
+      start: "Comenzar una nueva reunión"
+      your_url: "Su URL"
+  my_friends: "Mis amigos"
+  name:
+    one: Nombre
+    other: Nombres
+  new_spam_detected: "Nuevo spam detectado"
+  news:
+    created: "Noticia publicada con éxito"
+    deleted: "Noticia eliminada con éxito"
+    edit: "Editar noticia"
+    error:
+      create: "Hubo un problema publicando la noticia"
+      delete: "Error eliminando noticia"
+      update: "La noticia no pudo ser actualizada"
+    item_in_home: "Noticia en el espacio"
+    more:
+      one: "y una noticia más..."
+      other: "y %{count} noticias más..."
+    none_to_show: "Sin noticias para mostrar"
+    other: Noticias
+    publish_another: "Publicar otra noticia"
+    publish_home: "Publicar una noticia"
+    title: "Noticias (%{count})"
+    updated: "Noticia actualizada con éxito"
+  next: Siguiente
+  now_exclamation: ¡Ahora!
+  ok: OK
+  older: Mas antiguo
+  old_items: "Artículos antiguos"
+  open: Abrir
+  optional: Opcional
+  or: o
+  organization: Organización
+  organizer: Organizadores
+  other: Otros
+  password:
+    confirm: "Confirmar contraseña"
+    one: Contraseña
+    request: "Contraseña reseteada en %{sitename}"
+    reset_email: "Su contraseña fue reseteada en %{sitename}"
+    to_reset: "Para resetear su clave por favor visite <a href=%{url}>%{url}</a>"
+  past: Anterior
+  people: personas
+  per_page: "por página"
+  permission:
+    notification:
+      default: "%{username} ha cambiado su rol en %{stage} a %{role}. "
+      event: "%{username} ha cambiado su rol en el evento %{event} a %{role}."
+      space: "%{username} ha cambiado su rol en el espacio %{space} a %{role}."
+      subject:
+        default: "%{username} ha cambiado su rol en %{stage}"
+        event: "%{username} ha cambiado su rol en el evento %{event} "
+        space: "%{username} ha cambiado su rol en el espacio %{space}"
+    updated: "Se actualizo correctamente la performance del usuario"
+    other: "Permisos de acceso"
+    update:
+      success: "Permisos actualizados"
+      failure: "Problema al actualizar permisos"
+  personal_information: "Información personal"
+  phone:
+    mobile: Móvil
+    one: Teléfono
+    plural: Teléfonos
+  phone_optional: "Teléfono (opcional)"
+  place: Lugar
+  please: Por favor
+  popularity: Popularidad
+  post:
+    created: "¡Mensaje publicado!"
+    deleted: "Comentario %{postname} ha sido eliminado"
+    reply: "en respuesta a "
+    home:
+      one: "Mensaje en el espacio %{space}"
+    latest: "Últimos mensajes"
+    more:
+      one: "y un mensaje más..."
+      other: "y %{count} mensajes más..."
+    none_created: "Ningún mensaje creado"
+    none_recent: "No hay mensajes recientes"
+    one: Mensaje
+    other: Mensajes
+    other_in_space: "Mensajes en el espacio %{space}"
+    posted: "publicado"
+    show_expanded_pref: "¿Cómo le gustaría ver sus mensajes?"
+    title: "Mensajes (%{count})"
+    updated: "¡Mensaje actualizado!"
+    wall: Muro
+  posts:
+    index:
+      new_post: "Enviar un nuevo mensaje"
+      no_messages: "No hay mensajes en el muro"
+    new_post:
+      title: "Publicar un nuevo mensaje"
+    post_with_children:
+      by: "por"
+  prav: PRAV
+  preferences: Preferencias
+  previous: Previo
+  privacy: Privacidad
+  private_message:
+    more:
+      one: "y 1 mensaje privado mas ..."
+      other: "y %{count} mensajes privados mas..."
+    one: "Mensaje privado"
+    other: "Mensajes privados"
+    send: "Enviar un mensaje privado"
+    title: "Mensajes privados (%{count})"
+  private_messages:
+    index:
+      title: "Mensajes privados"
+    menu:
+      compose: Componer
+      inbox: Bandeja de entrada
+      sent: Enviados
+    new:
+      title: "Mensajes privados"
+      users:
+        hint: "Escriba para iniciar la búsqueda"
+        no_results: "No se encontraron resultados"
+        searching: "Buscando..."
+    reply_private_message:
+      user_not_registered: "Este usuario ya no está registrado, no podrá responder este mensaje."
+    show:
+      title: "Mensajes privados"
+    show_received:
+      wrote: escribió
+    show_sent:
+      wrote_to: Enviado
+      titled: el mensaje
+  profile:
+    deleted: "Perfil eliminado con éxito"
+    description:
+      add: "Breve biografía"
+    error:
+      exist: "Su perfil ya existe"
+    header_title: "Perfil de usuario"
+    must_create: "Por favor, cree su perfil primero"
+    no_spaces: "%{user} no pertenece a ningún espacio."
+    one: Perfil
+    private: "Perfil privado"
+    public: "Perfil público"
+    public_description: "Cualquier persona puede acceder a esta información"
+    updated: "Perfil actualizado con éxito"
+  profiles:
+    edit:
+      change_pic: "Cambiar imágen"
+      title: "Editar perfil"
+      view_your_profile: "Ver perfil"
+      vcard:
+        export: "Exportar vCard"
+        tooltip: "vCard es un formato estándar para tarjetas personales electrónicas"
+        use: "Utilice una vCard"
+      visibility_description: "Elegir quién estará habilitado para ver su perfil privado"
+      visibility_edit: "Editar la visibilidad de su perfil"
+      visibility_everybody: "Todos pueden ver su perfil privado."
+      visibility_members: "Únicamente los miembros registrados pueden ver su perfil privado."
+      visibility_nobody: "Nadie puede ver su perfil privado."
+      visibility_private_fellows: "Sólo sus pares en un espacio pueden ver su perfil privado."
+      visibility_public_fellows: "Solos sus pares en un espacio público o privado pueden ver su perfil privado."
+    show:
+      vcard:
+        export: "Exportar vCard"
+  province: Localidad
+  public: Público
+  read_more: "Leer más"
+  recent:
+    activity: "Actividad reciente"
+  recent_activity:
+    empty: "No tiene actividad reciente para mostrar. Únase a salas para comenzar a tener datos en esta área."
+    tooltip: "Aquí puede encontrar los mensajes más nuevos, eventos y noticias de las salas a las que pertenece"
+  recording:
+    automatic: Automático
+    box_title: Grabando
+    button_continue: "Continuar grabando"
+    button_pause: "Pausar grabación"
+    button_publish: "Publicar grabación"
+    button_start: "Comenzar grabación"
+    manual: Manual
+    none: Ninguno
+  register:
+    and_participate: "Regístrese para participar"
+    and_participate_description: "Para participar en el evento debe registrarse"
+    and_participate_description_with_login: "Para participar en el evento debe registrarse o <a href=%{url}>acceder</a>"
+    confirmation: "Después de registrarse recibirá un correo electrónico de confirmación con el enlace para activar su cuenta."
+    one: Registrarse
+    or_choose: "o puede ir"
+    thank_you: "Bienvenido y gracias por registrarse en %{sitename}"
+  register_as_admin: "Registrarse como administrador"
+  register_as_invited: "Registrarse como invitado"
+  register_as_user: "Registrarse como usuario"
+  register_now: "¡Registrarse ahora!"
+  registrations:
+    signup_form:
+      register: "Registrarse"
+  remember_me: "Recordarme"
+  remove: Eliminar
+  reply: Responder
+  reply_to: "Responder a:"
+  reply_to_words: "Responder a %{words}"
+  report_spam: "Reportar correo no deseado"
+  repository:
+    download: Descargar
+    loading: "Refrescando el repositorio de documentos..."
+    need_javascript: "Por favor, active javascript para ver el repositorio de documentos"
+    one: Documentos
+    remove: Eliminar
+    search: "Búsqueda de documentos:"
+  request:
+    info: "Su solicitud para unirse al espacio ha sido enviada con éxito a los administradores del mismo. Recibirás una respuesta tan pronto como les sea posible."
+    sent: "¡Solicitud enviada!"
+  rnp: RNP
+  role:
+    added: "Rol %{role} agregado con éxito a %{agent}"
+    editing: "Editando rol"
+    listing: "Listando roles"
+    new: "Nuevo rol"
+    one: Rol
+    stage_type: "Tipo de estado"
+    sucess_update: "Rol actualizado con éxito..."
+  room:
+    other: Salas
+  rooms:
+    invite:
+      join_from_desktop: "En esta página usted puede unirse a la conferencia desde un <b>PC de escritorio</b>. Para unirse desde un dispositivo móvil <a href=\"%{url}\">haga click aquí</a>."
+      join_from_mobile: "En esta página usted puede unirse a la conferencia desde un <b>dispositivo móvil</b>. Para unirse desde una PC de escritorio <a href=\"%{url}\">haga click aquí</a>."
+      name: "Nombre:"
+      name_enter: "Ingrese su nombre."
+      password: "Clave:"
+      password_filled: "Esta sala es pública. La clave fue auto completada con la clave de participante."
+      password_role: "Ingrese la clave de perticipante o moderador."
+      status: "Estado de la reunión:"
+    join:
+      msg1: "La reunión aún no ha comenzado, debe esperar que el moderador inicie la misma."
+      msg2: "Su navegador se refrescará automaticamente y se unirá a la reunión cuando comience."
+      title: "Sala: %{name}"
+    not_running: "no se esta ejecutando."
+    refresh: "forzar recarga"
+    running: ejecutándose!
+  save: Guardar
+  select_image: "Elija una imágen, por favor"
+  send: Enviar
+  session:
+    error:
+      exist: "Usted ya se ha autenticado"
+      fill: "Por favor, ingrese los datos"
+    one: Sesión
+  sessions:
+    login_form:
+      email_or_login: "Correo o nombre de usuario"
+      ldap_authentication: "Autenticarse vía LDAP"
+      login: "Acceder"
+      password: "Contraseña"
+    new:
+      title: "Iniciar sesión"
+  session_locales:
+    create:
+      success: "Idioma de la aplicación cambiado a %{value}"
+      error: "No es posible cambiar el idioma de la aplicación a %{value}"
+  shared:
+    copy_modal:
+      title: Presione Ctrl+C para copiar el texto
+      success: Texto copiado al portapapeles
+    recording_list:
+      created: "Creado"
+      created_by: "Creado por"
+      ended_at: "Finalizado en "
+      no_description: "<descripción no especificada>"
+      no_recordings: "Tu sala de conferencias web aún no tiene grabaciones"
+      no_title: "<título no especificado>"
+      started_at: "La reunión ocurrio a las"
+    recording_playback:
+      duration: "duración"
+      playback: "Enlaces de reproductores"
+      processing_dots: "Procesando. Por favor, espere..."
+      processing_tip: "Esta grabación fue encontrada en uno de los servidores pero aún está siendo procesada. Cuando el procesado finalice los enlaces para reproducirla estarán disponibles aquí."
+      unavailable: "La grabación no está disponible"
+      unavailable_tip: "Esta grabación ya no está disponible en el servidor donde se almacenaba y por lo tanto no se puede acceder a ella. Puede ser un problema temporal, vuelva a intentarlo más tarde para ver si está disponible."
+    webconf_index_links:
+      new_room: "Nueva sala"
+      new_server: "Nuevo servidor"
+      view_playback_type_list: "Ver lista de tipos de reproductores"
+      view_recording_list: "Ver lista de grabaciones"
+      view_room_list: "Ver lista de salas"
+      view_server_list: "Ver lista de servidores"
+  shibboleth:
+    associate:
+      existent_account:
+        link_to_this_account: "Acceder y vincular cuentas"
+        title: "Si ya tiene una cuenta en este sitio, puede vincular su cuenta federada a la misma. Siempre que utilice la federación para iniciar sesión, estará utilizando su cuenta de sitio vinculada aquí. A continuación, puede acceder a través de la federación o a través de la entrada estándar en este sitio."
+      new_account:
+        create_new_account: "Crear nueva cuenta"
+        title: "Si usted aún no tiene una cuente en este sitio, haga click en el botón de abajo para crear automáticamente una nueva cuenta utilizando los datos de su cuenta provenientes de la federación."
+      page_title: "Acceder vía federación"
+      title: "Su cuenta federada aún no está asociada con una cuenta del sitio. Seleccione una de las siguientes:"
+      user:
+        login: "Correo electrónico o nombre de usuario"
+        password: "Contraseña"
+    attribute_error:
+      informed:
+        no_attrs: "Ningún atributo fue informado"
+        title: "Atributos informados por la federación"
+      message: "Hubo un error intentando acceder a la información de su cuenta federada. Por favor, contacte a un administrador para resolver el problema y proporcionar la información. "
+      page_title: "Error intentando acceder a la federación"
+      required:
+        no_attrs: "No se requieren atributos"
+        title: "Atributos requeridos por este sitio"
+    create_association:
+      account_associated: "¡Su cuenta '%{email}' fue asociada a su cuenta federada! Ahora puede acceder a esta cuenta usando las credenciales de su cuenta del sitio o de su cuenta federada."
+      account_created: "Una nueva cuenta con una contraseña al azar fue creada por usted y vinculada a su cuenta federada. Ambas cuentas pueden ser utilizadas para acceder en este sitio. No necesita la contraseña que generamos para acceder usando su cuenta federada, pero si necesita cambiarla accediendo a la página de <a href=\"%{url}\">¿Olvidó su contraseña?</a>."
+      error_saving_user: "No fue posible crear su nuevo usuario. Los errores encontrados fueron: %{errors}"
+      existent_account: "Ya existe un usuario con su correo electrónico ('% {email}'). Si este usuario fue creado por usted, debe asociarlo a su cuenta federada. Si el usuario no es el suyo, por favor póngase en contacto con un administrador para resolver el problema."
+      invalid_credentials: "Nombre de usuario, correo electrónico o contraseña incorrecta. Por favor, intente de nuevo."
+      invalid_parameters: "Su requerimiento fue invalido. Por favor, intente nuevamente."
+    info:
+      title: "Sus datos de la federación"
+    login:
+      local_account_disabled: "Lo sentimos pero no puede acceder, su cuentas está deshabilitada. Por favor, contáctese con un administrador para resolver el problema."
+  show: Mostrar
+  show_advanced_editor: "Mostrar editor avanzado"
+  show_list_version_arrows: "mostrar lista de versiones >>"
+  show_question: ¿Mostrar?
+  site:
+    updated: "Configuracion del sitio actualizada"
+  size: Tamaño
+  skype: Skype
+  space:
+    about: Acerca de
+    access_forbidden: "Esta acción está solamente disponible para miembros del espacio."
+    add_user:
+      other: "Agregar usuarios al espacio"
+    all: "Espacios"
+    allow_public_access: "¿Permitir acceso público?"
+    attendeePW: "editar clave de participante"
+    clic: "Click para editar..."
+    clic_logo: "Click para cambiar el logo"
+    configuration: "Configuración del espacio"
+    confirm: "¿Esta seguro que desea abandonar este espacio?"
+    created: "Espacio creado con éxito"
+    delete: "Eliminar espacio"
+    deleted: "Espacio eliminado con éxito"
+    description: "Descripción del espacio"
+    description_none: "Es necesaria una descripción del espacio para poder crearlo"
+    disable: "Deshabilitar el espacio"
+    disabled: "Espacio deshabilitado con éxito"
+    edit:
+      webconference_passwords: "Claves de las salas de videoconferencias"
+    edit_description: "editar descripción"
+    edit_name: "editar nombre"
+    enable: "Habilitar espacio"
+    enabled: "Espacio habilitado con éxito"
+    error:
+      enabled: "El espacio %{name} ya está activo"
+    event_count: "%{count} eventos"
+    index:
+      filters:
+        all: "Todos los espacios"
+        my_spaces: "Mis espacios"
+      select_at_left: "Seleccionar un espacio de la lista para ver la descripción"
+      user_is_member: "¡Eres un miembro!"
+    is_private: "es un espacio privado. Envie una solicitud al administrador para unirse"
+    is_private_html: "%{name} es un espacio privado. Para acceder, inicie sesión y envíe una <a href=\"%{path}\">solicitud para unirse</a> a los administradores del espacio."
+    join: "Unirse a este espacio"
+    join_invitation:
+      clarify_registered: "Por favor, introduzca la clave para unirse a este espacio."
+      clarify_unregistered: "Por favor, introduzca su nombre completo y contraseña para registrarse en Mconf y unirse a este espacio."
+    leave:
+      leave_this_space: "Abandonar este espacio"
+      success: "Usted abandonó el espacio %{space_name}"
+    logo: "Logo del espacio"
+    logo_selected:
+      default_message: "Logo del espacio"
+      enter_text: "Ingresar un texto para crear logos:"
+      generate_logo: Generar
+      open_gallery: "Abrir la galería"
+      text_logo: "Crear un logo con texto"
+      upload_logo: "Subir su propio logo"
+      upload_logo_text: "Click para seleccionar un logo para subir"
+      upload_text: Subir
+      use_date: "Utilizar fecha del evento"
+    member_count: "%{count} miembros"
+    member_of: "Miembros de los espacios"
+    moderatorPW: "editar clave del moderador"
+    my_spaces: "Mis espacios"
+    name_none: "Debe ingresar un nombre para poder crear el espacio"
+    one: Espacio
+    other: Espacios
+    people_in_conference:
+      one: "%{count} participante en la sala."
+      other: "%{count} participantes en la sala."
+    performances:
+      admin: Administrador
+      invited: Invitado
+      user: Miembro
+    possesion: "Mis espacios"
+    post_count: "%{count} mensaje(s)"
+    private: "Espacios privados"
+    public:
+      one: "Espacio público"
+      other: "Espacios públicos"
+    select: Espacios
+    show: "Mostrar espacios:"
+    show_all: "Mostrar todos los espacios"
+    statistics:
+      views: "vistas"
+    subscribed_to_none: "No está suscrito a ningún espacio"
+    update_logo: "Actualizar logo"
+    updated: "Espacio actualizado con éxito"
+  space_events:
+    all_events:
+      all_upcoming: "Ver todos los próximos eventos"
+      all_past: "Ver todos los eventos pasados"
+      none_upcoming: "No hay próximos eventos"
+      none_past: "No hay eventos pasados"
+      past: "Eventos pasados"
+      upcoming: "Próximos eventos"
+    index:
+      now: Ocurriendo ahora
+      create_event: "Crear un nuevo evento"
+      events_now: "¡Ocurriendo ahora!"
+      events_in: "Eventos en"
+    past_events:
+      last_month: "No hay eventos para el último mes"
+      last_week: "No hay eventos para la última semana"
+      none: "No hay eventos pasados"
+      order_asc: "Mostrar los eventos más antiguos al comienzo"
+      order_by: "Ordenar por"
+      order_desc: "Mostrar nuevos eventos al comienzo"
+      title: "Eventos pasados"
+      today: "No hay eventos para ayer ni hoy"
+    sidebar_events_simple:
+      no_events: "No hay eventos en este espacio"
+    unified_event:
+      ends_at: "Finaliza en "
+      event_in_the_space: "Evento en el espacio %{space}"
+      organizers: "Organizadores"
+      starts_at: "Comienza en"
+      where: "Dónde"
+    upcoming_events:
+      next_month: "No hay eventos para el próximo mes"
+      next_week: "No hay eventos para la próxima semana"
+      none: "No hay próximos eventos"
+      title: "Próximos eventos"
+      today: "No hay eventos hoy"
+  spaces:
+    admin_tabs:
+      admissions: "Admisiones"
+      general_options: "Opciones generales"
+      invite: "Invitar personas"
+      news: "Novedades"
+      users: "Usuarios"
+      webconf_options: "Opciones de conferencia web"
+    edit:
+      change_logo: "Cambiar imágen"
+      delete_confirmation: "¿Está seguro? ¡Este espacio será inaccesible para usted y todos los usuarios!"
+      delete_space: "¿Deshabilitar este espacio?"
+      other_options: "Otras opciones"
+      public: "Hacer este espacio público"
+      yes_delete: "Si, quiero deshabilitar este espacio"
+    edit_recording:
+      title: "Editar sus grabaciones"
+    error:
+      already_invited: "Ya ha sido invitado a unirse a este espacio. Por favor, acepte o rechace la invitación"
+      need_join_to_access: "Necesita unirse a este espacio para acceder. Envíe una solicitud a los administradores."
+      not_found: "El espacio \"%{permalink}\" no fue encontrado.<br>¿Le gustaría buscarlo en <a href=\"%{path}\">todos los espacios</a>?"
+    index:
+      create_new_space: "Crear un nuevo espacio"
+      list_format:
+        list: "Lista"
+        thumbnails: "Vistas previas"
+      search:
+        by_name:
+          no_matches: "No se encontraron espacios para \"%{term}\""
+          placeholder: "Buscar espacios..."
+      subtitle: "Buscar comunidades de usuarios que comparten los mismos intereses"
+      title: "Espacios"
+    list_view:
+      no_spaces: "¡Aún no hay espacios creados!"
+    menu:
+      admin: "Administrar"
+      events: "Eventos"
+      home: "Inicio"
+      posts: "Muro"
+      repository: "Documentos"
+      users: "Usuarios"
+      webconference: "Conferencia Web"
+    new:
+      private: "Privado"
+      public: "Público"
+      spaces_examples:
+        title: "Ejemplos de espacios:"
+      title: "Crear un nuevo espacio"
+    news: "Noticias del espacio"
+    recordings:
+      title: "Grabaciones en este espacio"
+      update_recordings:
+        error: "Error actualizando su lista de grabaciones. Por favor, inténtelo más tarde"
+        success: "¡Lista de grabaciones actualizada!"
+        updating: "Actualizando su lista de grabaciones..."
+    show:
+      events_now: "¡Eventos ocurriendo ahora!"
+    sidebar:
+      upcoming_events: "Futuros eventos"
+      webconference:
+        attendees:
+          nobody: "No hay reuniones desarrollándose."
+        currently_running:
+          one: "La conferencia web está actualmente en progreso con %{count} participante"
+          other: "La conferencia web está actualmente en progreso con %{count} participantes"
+      webconference_join: "Unirse"
+      webconference_start: "Comenzar"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "¡Este espacio tiene %{count} solicitud pendiente para unirse!"
+        other: "¡Este espacio tiene %{count} solicitudes pendientes para unirse!"
+    sidebar_webconf_buttons:
+      end: "Detener"
+      end_tooltip: "¡Esta acción detendrá la conferencia actual!"
+      fast_start: "Inicio rápido utilizando las opciones por defecto"
+      invite: "Invitar a otras personas"
+      join: "¡Unirse ahora!"
+      join_mobile: "Unirse con móvil"
+      join_mobile_full: "Unirse desde dispositivo móvil"
+      preferences: "Preferencias"
+      start: "Comenzar"
+    space_join_button:
+      accept_or_decline: "Aceptar o declinar"
+      already_requested: "Solicitud para unirse enviada"
+      already_requested_alert: "Usted ya ha solicitado unirse a este espacio. Por favor espere a que un moderador lo acepte."
+      cancel_request: "Cancelar solicitud"
+      invitation_alert: "Has sido invitado a unirte a este espacio, has click en el botón de abajo para aceptar o rechazar la invitación"
+      join: "Unirse a este espacio"
+    space_thumbnail:
+      private: "Privado"
+      public: "Público"
+      reply_invitation: "Responder a la invitación"
+      view_join_request: "Ver las solicitudes que envió"
+    thumbnail_view:
+      no_spaces: "¡Aún no hay espacios creados!"
+    unified_space:
+      private: "Espacio privado"
+      public: "Espacio público"
+      reply_invitation: "Responder a la invitación"
+      user_is_member: "Eres miembro de este espacio"
+      view_join_request: "Ver las solicitudes que enviaste"
+      with_members: "con %{count} miembros"
+    users: "Usuarios en este espacio"
+    webconference:
+      end: "Detener la reunión"
+      end_tooltip: "¡Esta acción detendrá la conferencia actual!"
+      invite: "Invitar a otras personas"
+      webconference:
+        attendees:
+          all_users: "Todos los usuarios"
+          nobody: "No hay nadie actualmente en la sala."
+          people_in_the_room: "Personas en la sala"
+          registered_users: "Usuarios registrados"
+        description:
+          header: "Acceso a la conferencia web"
+          text: "La sala de conferencias web asociada a este espacio se encuentra actualmente: <em>%{status}</em><br/>Utilice los botones en la barra lateral a la derecha para unirse a la conferencia web."
+        share:
+          description: "Puede invitar a otras personas a la conferencia web compartiendo el siguiente enlace:"
+          header: Compartir
+          url: "URL de conferencia web"
+    webconference_options:
+      layout_empty_option: "<por defecto>"
+      options: "Opciones de sala de conferencia web"
+    webconference_tabs:
+      access: "Acceso a la conferencia web"
+      recordings: "Lista de grabaciones"
+  spam:
+    spam_report_create:
+      error: "Lo sentimos, pero hubo un problema marcando este ítem como spam"
+      success: "¡El ítem fue marcado como spam! Esto será chequeado por los adminstradores"
+      user_is_member: "Eres un miembro"
+    created: "Un correo electrónico reportando spam ha sido enviado con éxito a los administradores. Gracias."
+    default: spam
+    detected: "Nuevo spam detectado"
+    error:
+      check: "Hubo un problema marcando el recurso como spam"
+    item: "Este ítem ha sido reportado como spam y está siendo evaluado por los administradores"
+    report: "Reportar spam"
+    reported: "%{name} (%{email}) ha reportado spam en %{sitename}"
+    valid: "Este contenido es válido"
+  sponsors:
+    prav: "Projetos em<br/>Áudio e Vídeo"
+    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+  stage_type: "Tipo de estado"
+  statistics:
+    show:
+      description: "Esta página muestra algunas estadísticas del sitio. Estas estadísticas son en tiempo real y reflejan el estado de la página web en este preciso instante."
+      table:
+        events: "Eventos"
+        how_many: "¿Cuántos?"
+        posts: "Mensajes publicados"
+        private_messages: "Mensajes privados intercambiados"
+        spaces: "Espacios"
+        users: "Usuarios"
+        webconf_rooms: "Salas de conferencia web disponibles"
+        what: "¿Qué?"
+      title: "Estadísticas del sitio"
+  street: Calle
+  subject: "Asunto:"
+  summary: "Información del vídeo"
+  superuser: "Administrador"
+  text: Texto
+  the_string: "la cadena de texto"
+  thread:
+    add: "Publicar mensaje en el muro"
+    comments: "comentarios %{children}"
+    compact_view: "Cambiar a vista compacta"
+    deleted: "La publicación (con sus comentarios) ha sido elimianda"
+    edit: "Editar mensaje"
+    extended_view: "Cambiar a vista extendida"
+    or_add_new: "o crear un nuevo mensaje"
+    see_less: "¿Quiere comprimir todos los mensajes?"
+    see_more: "¿Quiere ver más acerca de los mensajes?"
+    show_last_comment: "Viendo los últimos %{size} comentarios de %{children}"
+  time:
+    from: de
+    to: para
+  timezone:
+    one: Zona horaria
+    set_up: "No ha configurado su zona horaria. <a href=\"%{path}\">Configúrela ahora</a>"
+  title: Título
+  title_formal:
+    mr: Sr.
+    mrs: Sra.
+    ms: Srta.
+  to: para
+  today: Hoy
+  tooltip:
+    admin: "Esta sección muestra las personas que tienen permisos de administrador en este espacio"
+    advanced_editor: "Este editor le permite: ver código html; cambiar el estilo de fuente, tamaño, color y alineación; insertar/editar enlaces; agregar adjuntos y etiquetas"
+    doc_search: "Utilice los campos de este lado para filtrar y actualizar la tabla de documentos con los resultados de la búsqueda"
+    event_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
+    insert: "Utilice este código para insertar este vídeo en su blog o página web."
+    invite_people: "Invitar personas a esta conferencia web."
+    latest_news: "Esta sección muestra las noticias que los administradores envían a todas las personas en este espacio"
+    leave_space: "Este enlace le permitirá abandonar este espacio definitivamente"
+    news_item: "Usted puede publicar una breve noticia al inicio"
+    num_views: "Este número representa las visitas únicas de esta página"
+    private_profile: "Esta información es visible únicamente para las personas que usted elija cuando edita su perfil"
+    public_profile: "Cualquier persona puede acceder a esta información"
+    public_space: "Los espacios colaborativos pueden ser públicos, para que cualquier persona pueda acceder a ellos, o privados, donde sólo los miembros tienen acceso a las actividades del espacio"
+    share: "Esta es la URL para compartir este vídeo con sus colegas"
+    upcoming: "Esta sección muestra los próximos eventos en este espacio"
+    update_logo: "Usted puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
+    vclass: "El tipo de clase virtual es la manera perfecta para organizar clases, conferencias y seminarios, donde el docente asume un papel destacado."
+    vcongress: "El tipo de congreso virtual es muy similar a las reuniones virtuales pero orientado para grandes eventos, tanto en tamaño como en complejidad. Usualmente, este tipo requiere el apoyo de un operador en el sitio."
+    vmeeting: "El tipo de reunión virtual es ideal para reuniones en línea o encuentros físicos con un fuerte componente virtual, lo que significa que tanto los participantes locales y remotos tendrán la oportunidad de comunicarse de forma interactiva."
+  type: Tipo
+  undated: Sin fecha
+  unknown_content: "Contenido desconocido %{content}"
+  upcoming: Próximo
+  update: Actualizar
+  updated: Actualizado
+  updated_at: "Actualizado a"
+  url: Sitio web
+  url_add: "Agregar su sitio web"
+  url_plain: URL
+  user:
+    add:
+      instruction: "Para agregar nuevos usuarios ingrese uno o mas direcciones de correo electrónico separados por espacios, comas o puntos y comas para registrarlos"
+      note: "Por ejemplo: \"Juan Perez\" <\"jperez@example.com\"> \", jct@dit.es; jfernandez@example.net y haciendo click en \"Registrarse como usuario\" registrará las 3 direcciones de correo como miembros del espacio y enviará un mensaje de validación."
+    admin: Administrar
+    administrators: Administradores
+    assist: Participante
+    category: Categoría
+    confirm_password: "Confirmar clave"
+    delete_from_space: "Eliminar usuario del espacio"
+    disable: "Deshabilitar usuario"
+    disabled: "Usuario %{usarname} deshabilitado"
+    email_used_to_create_account: "Ingrese la dirección correo electrónico que utilizó para crear su cuenta"
+    enable: "Habilitar usuario"
+    enabled: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
+    error:
+      enabled: "El usuario %{name} ya está habilitado"
+    filter: "Invitar por nombre de usuario"
+    group_invite_email: "Invitar por correo electrónico"
+    include_registered: "Incluir usuarios registrados"
+    index:
+      user_list:
+        header: "Usuarios en este espacio: %{count}"
+    invite: "Invitar personas"
+    invite_email: "Invitar personas por correo electrónico"
+    invited: "Usuario ya invitados"
+    list_by: "Listar por"
+    lost_password: "¿Olvidó su contraseña?"
+    new_password: "Contraseña nueva"
+    new_password_confirmation: "Confirmar la contraseña nueva"
+    new_password_tip: "Sólo llenar este campo si desea cambiar su contraseña."
+    noactivity: "%{user} no tiene actividad reciente"
+    normal_user: "Usuario normal"
+    not_assist: "No participando"
+    not_confirmed: "No confirmado"
+    one: Usuario
+    other: Usuarios
+    private_message: "Enviar mensaje"
+    recent_join: "Usuarios que se unieron recientemente"
+    registered: "¡Gracias por registrarse! Le hemos enviado instrucciones de como activar su cuenta de usuario."
+    request_confirmation: "Solicitar correo electrónico de confirmación"
+    request_password: "Solicitar contraseña"
+    resend_confirmation_email:
+      already_confirmed: "El correo electrónico '%{email}' ya fue confirmado"
+      link: "Reenviar correo electrónico de confirmación"
+      success: "Correo electrónico de confirmación enviado a '%{email}'"
+    reset_password: "Restablecer su contraseña"
+    results_count:
+      one: "Estimados, %{users_size} resultado"
+      other: "Estimados, %{users_size} resultados"
+    results_found: "Usuarios encontrados"
+    updated: "Usuario actualizado correctamente"
+    vcc_email: "Correo electrónico del usuario Mconf %{dir}"
+  users:
+    approve:
+      approved: "¡El usuario %{username} fue aprobado para acceder al sito!"
+      not_enabled: "La aprobación de registros no está habilitada en este sitio"
+    create:
+      error: "Errores creando el usuario: %{errors}"
+      success: "Usuario creado correctamente"
+    confirm:
+      confirmed: "El usuario %{username} fue confirmado"
+    detailed_user:
+      from: "De:"
+    disapprove:
+      disapproved: "¡El usuario %{username} fue bloqueado para acceder al sitio web!"
+      not_enabled: "La aprobación de registros no está habilitada en este sitio web"
+    edit:
+      account_info: "Información de cuenta"
+      approve: "Aprobar: permitir a los usuarios acceder al sitio web"
+      approve_confirm: "¿Está seguro que quiere permitirle a este usuario acceder al sito web?"
+      cancel_account: "¿Cancelar cuenta?"
+      change_password: "Cambiar contraseña"
+      click_to_edit_profile: "Click aquí para editar su perfil"
+      confirm_user: "Confirmar la cuenta de este usuario"
+      confirm_user_confirm: "¿Está seguro que desea confirmar la cuenta del usuario?"
+      did_not_find_info: "¿No encontró la información que buscaba?"
+      disable: "Deshabilitar esta cuenta de usuario"
+      disable_confirm: "¿Está seguro que desea deshabilitar esta cuenta de usuario?"
+      federated:
+        see_your_data: "Click aquí para ver su información que la federación comparte con este sitio"
+        title: "¡Está conectado utilizando validación federada!"
+        your_idp: "Su proveedor de identificación es: %{idp}"
+      ldap:
+        title: "¡Está conectado utilizando LDAP!"
+      management_options: "Opciones de administración"
+      not_confirmed: "Su cuenta aún no está activada. Por favor, verifique su correo electrónico para activarla. Si no recibió un mail, <a href=\"%{url}\">haga click aquí</a> para solicitar uno nuevo."
+      other_user:
+        click_to_edit_profile: "Click aquí para editar este perfil de usuario"
+        not_confirmed: "Este usuario aún no ha confirmado su cuenta."
+        title: "Editar cuenta de usuario"
+      preferences: "Preferencias"
+      receive_digest:
+        daily: "Todos los días"
+        never: "Nunca"
+        weekly: "Semanalmente"
+      title: "Editar su cuenta"
+      yes_cancel_account: "Si, cancelar mi cuenta"
+    errors:
+      access_forbidden: "Esta opción es accesible unicamente a los administradores"
+    new:
+      create:
+        success: "Usuario creado. Este usuario ya está confirmado y puede acceder al sitio en cualquier momento."
+        error: "Error(es) durante la creacion del nuevo usuario"
+      title: "Crear usuario"
+  username: Usuario
+  uploader:
+    button: Subir nuevo archivo
+    fail: Error al subir
+    progress: "{percent}% de {total_size}"
+    drag_files: Arrastrar y soltar archivos aquí para subir
+    processing: Procesando...
+    error:
+      invalid_extension: "{file} tiene una extensión inválida. Extensión(es) válida(s): {extensions}."
+      invalid_size: "{file} es demasiado grande, el tamaño máximo de archivo es {sizeLimit}."
+      empty_file: "{file} está vacío. Por favor, seleccione los archivos de nuevo sin este."
+      no_files: "No hay archivos para subir."
+      on_leave: "Los archivos están siendo subidos, si se va ahora se cancelará la subida."
+  vCard:
+    corrupt: "La vCard que envió esta corrupta o no es una versión soportada."
+    message: "Utilice su vCard para automaticamente llenar su perfil"
+    upload: "Subir su vCard"
+  vcc: Mconf
+  vcc_mail_label: "[Mconf]"
+  version:
+    new: "Nueva versión"
+    one: Versión
+  view: "Vista"
+  view_more: "Ver más"
+  webconference:
+    invite_webconference: "Invitar personas a la conferencia web"
+    join: Unirse
+    my_webconference: "Mi sala de conferencia web"
+    new_webconference: "Nueva sala de conferencia web"
+    not_running: "no está en ejecución"
+    one: Conferencia web
+    running: en ejecución
+    space:
+      join_now: "Unirse ahora"
+      see_more: "ver más"
+    start_now: "¡Comenzar ahora!"
+  when: Cuándo
+  where: Dónde
+  yesterday: Ayer
+  your_vcard: "su vCard"
+  zipcode: "Código postal"

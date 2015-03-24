@@ -51,12 +51,50 @@ describe RegistrationsController do
     }
 
     describe "if registrations are enabled in the site" do
-      before(:each) {
-        expect {
-          post :create, :user => attributes
-        }.to change{ User.count }.by(1)
-      }
-      it { should redirect_to(my_home_path) }
+
+      context "if it requires registration approval" do
+        before {
+          Site.current.update_attributes(require_registration_approval: true)
+        }
+
+        before {
+          expect {
+            post :create, :user => attributes
+          }.to change{ User.count }.by(1)
+        }
+        it { should redirect_to(my_approval_pending_path) }
+
+        context "should create an activity" do
+          let!(:activities) { RecentActivity.where(trackable: User.last, key: 'user.created') }
+          it("there should be only one") { activities.count.should eql 1 }
+          subject { activities.first }
+          it { subject.should_not be_nil }
+          it { subject.owner.should eql User.last }
+          it { subject.notified.should be(false) }
+        end
+      end
+
+      context "if it doesn't require admin approval" do
+        before {
+          Site.current.update_attributes(require_registration_approval: false)
+        }
+
+        before {
+          expect {
+            post :create, :user => attributes
+          }.to change{ User.count }.by(1)
+        }
+        it { should redirect_to(my_home_path) }
+
+        context "should create an activity" do
+          let!(:activities) { RecentActivity.where(trackable: User.last, key: 'user.created') }
+          it("there should be only one") { activities.count.should eql 1 }
+          subject { activities.first }
+          it { subject.should_not be_nil }
+          it { subject.owner.should eql User.last }
+          it { subject.notified.should be(true) }
+        end
+      end
     end
 
     context "if registrations are disabled in the site" do

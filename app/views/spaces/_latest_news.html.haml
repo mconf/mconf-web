@@ -8,11 +8,11 @@
     .news-title.clearfix
       %h4
         = sanitize(@news_to_show.title)
-        %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(@news_to_show.updated_at, vague: true))
+        = formatted_time_ago @news_to_show.updated_at
     .news-content
       %p= sanitize(auto_link(@news_to_show.text))
   .content-block-footer.content-block-footer-fancy
     - if @news_position > 0
-      = link_to t('previous'), space_path(@space, :news_position => @news_position-1), :remote => true, :class => "latest-news-navigation-link"
+      = link_to t('previous'), space_path(@space, news_position: @news_position-1), remote: true, class: "latest-news-navigation-link"
     - if @news_position + 1 < @news.size
-      = link_to t('next'), space_path(@space, :news_position => @news_position+1), :remote => true, :class => "latest-news-navigation-link"
+      = link_to t('next'), space_path(@space, news_position: @news_position+1), remote: true, class: "latest-news-navigation-link"

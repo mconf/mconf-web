@@ -1,0 +1,24 @@
+es-419:
+  datetime:
+    dotiw:
+      seconds:
+        one: 1 segundo
+        other: '%{count} segundos'
+      minutes:
+        one: 1 minuto
+        other: '%{count} minutes'
+      hours:
+        one: 1 hora
+        other: '%{counts} horas'
+      days:
+        one: 1 día
+        other: '%{count} días'
+      weeks:
+        one: 1 semana
+        other: '%{count} semanas'
+      months:
+        one: 1 mes
+        other: '%{count} meses'
+      years:
+        one: 1 año
+        other: '%{count} años'

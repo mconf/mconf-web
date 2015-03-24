@@ -276,8 +276,6 @@ describe User do
         context "automatically approves the user" do
           before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_within(2.seconds).of(Time.now) }
-          it { @user.approved_notification_sent_at.should be_within(2.seconds).of(Time.now) }
         end
       end
 
@@ -285,10 +283,8 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil, approved_notification_sent_at: nil) }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should_not be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_nil }
-          it { @user.approved_notification_sent_at.should be_nil }
         end
       end
     end
@@ -540,21 +536,17 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) {
-      u = FactoryGirl.create(:user)
-      # won't work if it's set in the factory above, since sometimes the user is automatically
-      # approved when created
-      u.update_attributes(:approved => false)
-      u
+    let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
     }
-
     context "sets the user as approved" do
       before { user.approve! }
       it { user.approved.should be true }
     end
 
     context "confirms the user if it's not already confirmed" do
-      let(:user) { FactoryGirl.create(:unconfirmed_user) }
+      let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
       before(:each) { user.approve! }
       it { user.should be_approved }
       it { user.should be_confirmed }
@@ -568,8 +560,27 @@ describe User do
     end
   end
 
+  describe "#create_approval_notification" do
+    let!(:user) { FactoryGirl.create(:user, approved: false) }
+    let!(:approver) { FactoryGirl.create(:superuser) }
+
+    context "creates a recent activity" do
+      before {
+        expect {
+          user.create_approval_notification(approver)
+        }.to change{ PublicActivity::Activity.count }.by(1)
+      }
+      subject { PublicActivity::Activity.last }
+      it("sets #trackable") { subject.trackable.should eq(user) }
+      it("sets #owner") { subject.owner.should eq(approver) }
+      it("sets #key") { subject.key.should eq('user.approved') }
+      it("doesn't set #recipient") { subject.recipient.should be_nil }
+    end
+  end
+
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:superuser) { FactoryGirl.create(:superuser) }
     let(:params) {
       { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
     }
@@ -582,7 +593,7 @@ describe User do
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.disapprove! }.to raise_error
       }
     end
   end
@@ -664,10 +675,35 @@ describe User do
   end
 
   describe "#disable" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "sets #disabled to true" do
+      user.disabled.should be(false)
+      user.disable
+      user.reload.disabled.should be(true)
+    end
+
+    context "removes all permissions" do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it { expect { user.disable }.to change(Permission, :count).by(-1) }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.disable }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.disable }.not_to change(JoinRequest, :count) }
+    end
 
     context "when the user is admin of a space" do
-      let (:user) { FactoryGirl.create(:user) }
-      let (:space) { FactoryGirl.create(:space) }
+      let(:space) { FactoryGirl.create(:space) }
 
       context "and is the last admin left" do
         before(:each) do
@@ -679,8 +715,20 @@ describe User do
         it { space.reload.disabled.should be(true) }
       end
 
+      context "and is the last admin left and there are other members" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
       context "and isn't the last admin left" do
-        let (:user2) { FactoryGirl.create(:user) }
+        let(:user2) { FactoryGirl.create(:user) }
         before(:each) do
           space.add_member!(user, 'Admin')
           space.add_member!(user2, 'Admin')
@@ -690,6 +738,20 @@ describe User do
         it { user.disabled.should be(true) }
         it { space.disabled.should be(false) }
       end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
     end
   end
 
@@ -736,7 +798,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :destroy, :fellows, :current, :select]
+        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 

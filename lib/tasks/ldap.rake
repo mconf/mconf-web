@@ -5,6 +5,17 @@ end
 
 namespace :ldap do
 
+  # To connect to this default server, use these configurations on Mconf-Web:
+  #
+  # * Server: localhost
+  # * Port: 1389
+  # * DN or user to bind: cn=admin,cn=TOPLEVEL,dc=example,dc=com
+  # * Password to connect: admin
+  # * DN for user's tree: ou=USERS,dc=example,dc=com
+  # * Username field: uid
+  # * Mail field: mail
+  # * Full name field: cn
+  # * User filter: -- leave it blank --
   desc "Run a test ldap server"
   task :server, [:port] => :environment do |t, args|
     require './spec/support/ldap_server'
@@ -25,7 +36,7 @@ namespace :ldap do
     uid = site.ldap_username_field || 'uid'
     name = site.ldap_name_field || 'cn'
     mail = site.ldap_email_field || 'mail'
-    server.add_user "#{uid}=mconf,#{user_tree}", 'mconf', {uid => 'mconf', name =>'mconf', mail => 'mconf@test.mconf.org'}
+    server.add_user "#{uid}=mconf,#{user_tree}", 'mconf', {uid => 'mconf', name =>'mconf', mail => 'leonardodaronco@gmail.com'}
 
     server.run_tcpserver
     puts "LDAP test server started on port #{port}"

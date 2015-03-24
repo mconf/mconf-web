@@ -14,13 +14,6 @@ GIT
       i18n (~> 0.6)
 
 GIT
-  remote: https://github.com/lfzawacki/psych.git
-  revision: ed4b164b8d192b2b7bf663cba0fe5cdd1f7beef1
-  branch: gemfile-style
-  specs:
-    psych (2.0.5.20140820161236)
-
-GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
   revision: 310c1764b33043e5b6460d33fc2004dd74342083
   branch: master
@@ -30,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 544579c14402aadf2d54ef74963ae74f2ebdcb24
+  revision: ab8e9849a297a575d4d84f9d71d04990f15370e2
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -42,7 +35,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: 769fa7fb451e602813f752d3eb8d45eb335e7002
+  revision: 4ee52af98a5a8f7e0c4853715a266f19b421977b
   branch: master
   specs:
     mweb_events (0.0.1)
@@ -106,6 +99,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_sanity (0.2.0)
+      rails (>= 3.1.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -247,13 +242,14 @@ GEM
       ruby-ldapserver
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    geocoder (1.2.5)
+    geocoder (1.2.7)
     haml (4.0.5)
       tilt
-    haml-rails (0.5.3)
+    haml-rails (0.8.2)
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
       haml (>= 3.1, < 5.0)
+      html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     handlebars_assets (0.17.1)
       execjs (>= 1.2.9)
@@ -263,6 +259,11 @@ GEM
     hashie (2.1.2)
     highline (1.6.21)
     hike (1.2.3)
+    html2haml (2.0.0)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.5)
     htmlentities (4.3.2)
     httparty (0.13.1)
       json (~> 1.8)
@@ -273,7 +274,7 @@ GEM
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.0)
+    jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
     launchy (2.4.2)
@@ -389,7 +390,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
-    redcarpet (3.1.2)
+    redcarpet (3.2.2)
     redis (3.1.0)
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
@@ -450,8 +451,6 @@ GEM
       shoulda-matchers (>= 2.1.0)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    simple_captcha2 (0.3.2)
-      rails (>= 4.1)
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -529,6 +528,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_sanity
   acts_as_tree (~> 2.0.0)
   better_errors
   bigbluebutton-api-ruby!
@@ -576,7 +576,6 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
-  psych!
   public_activity (~> 1.4.1)
   quiet_assets
   rabl
@@ -596,7 +595,6 @@ DEPENDENCIES
   select2-rails
   shoulda-kept-assign-to
   shoulda-matchers (~> 2.6.1)
-  simple_captcha2
   simple_form (~> 3.0.0)
   simplecov
   sqlite3

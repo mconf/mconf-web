@@ -17,7 +17,7 @@ Devise.setup do |config|
   end
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "DeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -73,7 +73,7 @@ Devise.setup do |config|
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
-  # config.paranoid = true
+  config.paranoid = true
 
   # By default Devise will store the user in session. You can skip storage for
   # :http_auth and :token_auth by adding those symbols to the array below.
@@ -225,7 +225,7 @@ Devise.setup do |config|
   #
   config.warden do |manager|
     # manager.intercept_401 = false
-    manager.default_strategies(:scope => :user).unshift :ldap_authenticatable
+    manager.default_strategies(scope: :user).unshift :ldap_authenticatable
     # to add extra behavior to login redirection
     manager.failure_app = CustomFailedLoginRedirection
   end

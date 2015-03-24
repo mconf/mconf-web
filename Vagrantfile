@@ -30,25 +30,26 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "apt"
     chef.add_recipe "git"
     chef.add_recipe "vim"
+    chef.add_recipe "mconf-web-dev"
     chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "mysql::server"
     chef.add_recipe "mysql::client"
     chef.add_recipe "redisio"
-    chef.add_recipe "mconf-web-dev"
+    chef.add_recipe "redisio::enable"
 
-    # Install Ruby 2.1.2 and Bundler
+    # Install Ruby and Bundler
     # Set an empty root password for MySQL to make things simple
-    # TODO: get ruby's version from .ruby-version
+    rb_version = File.open('.ruby-version', &:readline)
     chef.json = {
       rbenv: {
         user_installs: [{
           user: 'vagrant',
-          rubies: ["2.1.2"],
-          global: "2.1.2",
+          rubies: [rb_version],
+          global: rb_version,
           gems: {
-            "2.1.2" => [
+            rb_version => [
               { name: "bundler" }
             ]
           }

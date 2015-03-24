@@ -53,10 +53,6 @@ namespace :db do
       user.disabled = false
       user.encrypted_password = "123"
 
-      # we don't want notifications for these users, event if they are not approved yet
-      user.needs_approval_notification_sent_at = @created_at_start..Time.now
-      user.approved_notification_sent_at = @created_at_start..Time.now
-
       Profile.create do |profile|
         profile.user_id = user.id
         profile.full_name = Forgery::Name.full_name
@@ -168,18 +164,19 @@ namespace :db do
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
       Permission.create do |permission|
-        user = available_users.delete_at(rand(available_users.size))
+        user = available_users.sample
+        available_users -= [user]
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
-        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space')
+        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space').first.id
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
 
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
-        user = available_users.delete_at(rand(available_users.size))
+        user = available_users.sample
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
@@ -302,7 +299,7 @@ namespace :db do
           format.url = "http://#{Forgery::Internet.domain_name}/playback/#{Populator.words(1)}"
           format.length = Populator.value_in_range(32..128)
 
-          id = playback_types[rand(playback_types.length)]
+          id = playback_types.sample
           playback_types.delete(id)
           format.playback_type_id = id
         end
@@ -323,7 +320,7 @@ namespace :db do
             space = recording.room.owner
             if space
               recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
-                                        :content => space.users[rand(space.users.length)])
+                                        :content => space.users.sample)
             end
           end
         end
@@ -348,7 +345,7 @@ namespace :db do
       final_posts = [] << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
-        parent = posts[rand(posts.size)]
+        parent = posts.sample
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
@@ -362,7 +359,7 @@ namespace :db do
 
       # Author and recent_activity for posts
       ( space.posts ).each do |item|
-        item.author = space.users[rand(space.users.length)]
+        item.author = space.users.sample
         item.save(:validate => false)
 
         item.new_activity :create, item.author
@@ -380,12 +377,14 @@ namespace :db do
 
       # News activity
       space.news.each do |news|
-        news.new_activity :create, space.admins[rand(space.admins.length)]
+        author = space.admins.sample
+        news.new_activity :create, author
       end
 
       # Attachment activity
       space.attachments.each do |att|
-        att.new_activity :create, space.users[rand(space.users.length)]
+        author = space.admins.sample
+        att.new_activity :create, author
       end
 
     end
@@ -412,5 +411,53 @@ namespace :db do
     User.where(:id => ids).each do |user|
       user.disable
     end
+
+    puts "* Adding some insecure data to test for script injection"
+    add_insecure_data
+  end
+
+  private
+
+  def add_insecure_data
+    profile_attrs = [:organization, :phone, :mobile, :fax, :address, :city,
+                     :zipcode, :province, :country, :prefix_key, :description,
+                     :url, :skype, :im, :full_name]
+
+    # Create 2 insecure users
+    u = FactoryGirl.create(:user, username: 'insecure1', password: '123456')
+    u.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
+    u2 = FactoryGirl.create(:user, username: 'insecure2', password: '123456')
+    u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
+
+    space_attrs = [:name, :description]
+    s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+    s.new_activity :create, u
+    s.add_member!(u, 'Admin')
+    s.add_member!(u2)
+
+    message_attrs = [:title, :body]
+    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
+
+    post_attrs = [:title, :text]
+    p = FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs).merge(author: u2, space: s))
+    p.new_activity :create, u2
+
+    event_attrs = [:name, :summary, :description, :location, :address]
+    e = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+    e.new_activity :create, u
+
+    e2 = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
+    e2.new_activity :create, u2
+
+    jr_attrs = [:comment]
+    FactoryGirl.create(:join_request, attrs_to_hash(JoinRequest, jr_attrs).merge(introducer: u, candidate: u2, group_id: s.id, group_type: 'Space'))
+
+    invitation_attrs = [:title, :description]
+    FactoryGirl.create(:invitation, attrs_to_hash(Invitation, invitation_attrs).merge(type: "WebConferenceInvitation", recipient: u, sender: u2, target: u2.bigbluebutton_room))
+  end
+
+  def attrs_to_hash klass, attrs
+    arr = attrs.map { |attr| [attr, "<script> alert('#{klass} #{attr} attribute is insecure in this page')</script>"] }
+    arr.to_h
   end
 end

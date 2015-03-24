@@ -34,7 +34,7 @@ pt-br:
     post:
       create_html: enviou a mensagem %{name} na comunidade
       update_html: atualizou a mensagem %{name} na comunidade
-      reply_html: respondeu à mensagem %{name} na comunidae
+      reply_html: respondeu à mensagem %{name} na comunidade
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
@@ -90,10 +90,11 @@ pt-br:
       icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     unpublish: "Despublicar"
     update: "Atualizar"
+    updated_time_ago: "%{time} atrás"
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
-      unapproved_user: "A espera de aprovação de administrador"
+      unapproved_user: "Aguardando aprovação"
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
@@ -194,6 +195,7 @@ pt-br:
         smtp_use_tls: "Usar TLS no STMP"
         ssl: "SSL"
         timezone: "Fuso horário"
+        visible_locales: "Linguagens visíveis"
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
@@ -876,7 +878,7 @@ pt-br:
       manage: "Gerenciar"
       register: "Registre-se"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -896,7 +898,7 @@ pt-br:
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
@@ -906,6 +908,7 @@ pt-br:
   less: "menos..."
   locales:
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
@@ -957,6 +960,9 @@ pt-br:
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
+    destroy_space:
+      destroy: Remover usuário
+      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
@@ -1378,10 +1384,6 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
-  simple_captcha:
-    label: "Insira aqui o texto da imagem"
-    message: 
-      user: "é incorreta"
   site:
     updated: "Configurações do site atualizadas"
   size: Tamanho
@@ -1419,6 +1421,11 @@ pt-br:
       filters: 
         all: "Todas"
         my_spaces: "Minhas comunidades"
+      order:
+        alphabetic: "Nome"
+        order_by: "Ordenar por"
+        relevance: "Relevância"
+        relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
@@ -1533,7 +1540,7 @@ pt-br:
         thumbnails: "Miniaturas"
       search:
         by_name:
-          no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
+          no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
@@ -1719,7 +1726,6 @@ pt-br:
   update: Atualizar
   updated: Atualizados
   updated_at: "Atualizado em"
-  updated_time_ago: "%{time} atrás"
   url: Website
   url_add: "Adicione seu site"
   url_plain: URL
@@ -1733,6 +1739,7 @@ pt-br:
     category: Categoria
     confirm_password: "Confirmar senha"
     delete_from_space: "Excluir usuário da comunidade"
+    deleted: "Usuário deletado"
     disable: "Desabilitar usuário"
     disabled: "Usuário %{username} desabilitado"
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
@@ -1835,6 +1842,12 @@ pt-br:
     progress: "{percent}% de {total_size}"
     drag_files: Arraste aqui arquivos para enviar
     processing: Processando...
+    error:
+      invalid_extension: "{file} é de um tipo inválido. Tipos válidos: {extensions}."
+      invalid_size: "{file} é muito grande, o tamanho máximo é: {sizeLimit}."
+      empty_file: "{file} é um arquivo vazio, por favor envie os arquivos novamente."
+      no_files: "Não há arquivos para serem enviados."
+      on_leave: "Um envio de arquivos está em progresso, se você sair agora ele será cancelado."
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
     message: "Use seu vCard para preencher automaticamente seu perfil"

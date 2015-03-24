@@ -43,6 +43,12 @@ body.spaces.index {
     }
   }
 
+  #space-order-wrapper {
+    float: right;
+    margin-right: 15px;
+    margin-bottom: 10px;
+  }
+
   // adjust how the select2 search input looks in this page
   // note: exactly the same we have in mweb_events-events/index.css.scss
   .select2-container .select2-choice {

@@ -147,7 +147,7 @@ class ShibbolethController < ApplicationController
     # return and, when the user is redirected back to #login, the token will be checked again
     if token.user.nil?
 
-      token.user = shib.create_user
+      token.user = shib.create_user(token)
       user = token.user
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"

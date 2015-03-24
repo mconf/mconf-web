@@ -44,6 +44,13 @@ class mconf.Uploader
       dragAndDrop:
         hideDropzones: true
 
+      messages:
+        typeError: I18n.t("uploader.error.invalid_extension")
+        sizeError: I18n.t("uploader.error.invalid_size")
+        emptyError: I18n.t("uploader.error.empty_file")
+        noFilesError: I18n.t("uploader.error.no_files")
+        onLeave: I18n.t("uploader.error.on_leave")
+
       text:
         uploadButton: I18n.t("uploader.button")
         cancelButton: I18n.t('_other.cancel')
