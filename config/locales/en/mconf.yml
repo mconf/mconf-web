@@ -3,7 +3,7 @@ en:
   activities:
     attachment:
       create_html: uploaded the attachment %{name} in the space
-      delete_html: removed the attachment %{name} from the space
+      destroy_html: removed the attachment %{name} from the space
       update_html: updated the attachment %{name} in the space
       deleted: that has since been deleted
     bigbluebutton_meeting:
