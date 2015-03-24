@@ -20,23 +20,6 @@ body.registrations.new, body.registrations.create {
         width: 300px;
       }
 
-      .simple_captcha {
-        float: right;
-        padding: 0 !important;
-        margin: 10px 0;
-
-        div { display: inline; }
-
-        .simple_captcha_field {
-          text-align: center;
-        }
-
-        .simple_captcha_image {
-          background: white;
-          margin-right: 5px;
-        }
-      }
-
     }
 
    .extra-links {

@@ -8,6 +8,28 @@ require 'spec_helper'
 
 describe LogoImagesHelper do
 
+  describe "#validate_logo_size" do
+    @valid_sizes = ['32', '84x64', '128', '168x128', '300', '336x256']
+
+    @valid_sizes.each do |size|
+      it { validate_logo_size(size).should eq(size) }
+    end
+
+    # some invalid logo sizes
+    it { validate_logo_size('').should eq('128') }
+    it { validate_logo_size('0').should eq('128') }
+    it { validate_logo_size('129').should eq('128') }
+  end
+
+  describe "#empty_logo_image" do
+    it { empty_logo_image(:user, :size => '32').should eq(image_tag('default_logos/32/user.png')) }
+    it { empty_logo_image(:space, :size => '32').should eq(image_tag('default_logos/32/space.png')) }
+    it { empty_logo_image(:space, :size => '128').should eq(image_tag('default_logos/128/space.png')) }
+
+    # invalid logo sizes
+    it { empty_logo_image(:user, :size => '10').should eq(image_tag('default_logos/128/user.png')) }
+  end
+
   describe "#logo_image" do
     context "for a user" do
       it "adds an image tag with the logo of a user"

@@ -142,6 +142,7 @@ Mconf::Application.routes.draw do
     end
 
     member do
+      delete :disable
       post :enable
       post :approve
       post :disapprove

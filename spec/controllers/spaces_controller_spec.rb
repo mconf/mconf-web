@@ -115,10 +115,30 @@ describe SpacesController do
   describe "#index" do
     it "sets param[:view] to 'thumbnails' if not set"
     it "sets param[:view] to 'thumbnails' if different than 'list'"
-    it "uses param[:view] as 'list' if already set to this value"
-    # TODO: there's a lot more to test here
+    it "uses param[:view] as 'list' if set to this value"
+    it "sets param[:order] to 'relevance' if not set"
+    it "sets param[:order] to 'relevance' if different than 'abc'"
+    it "uses param[:order] as 'abc' if set to this value"
 
     it { should_authorize Space, :index }
+
+    context "orders by latest activities in the space" do
+      let!(:now) { Time.now }
+      let!(:spaces) {[
+        FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
+      ]}
+      let!(:activities) {[
+        # order: [1], [2], [0]
+        RecentActivity.create(owner: spaces[0], created_at: now),
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
+      ]}
+
+      before { get :index }
+      it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
+    end
+
+    it "orders by name if params[:order]=='abc'"
 
     context "if there's a user signed in" do
 
@@ -128,7 +148,6 @@ describe SpacesController do
           before {
             s1 = FactoryGirl.create(:space)
             s2 = FactoryGirl.create(:space)
-            s3 = FactoryGirl.create(:space)
             s1.add_member!(user, 'User')
             s2.add_member!(user, 'Admin')
             @user_spaces = [s1, s2]
@@ -349,7 +368,7 @@ describe SpacesController do
         it { RecentActivity.last.trackable.should eq(Space.last) }
         it { RecentActivity.last.owner.should eq(Space.last) }
         it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
-        it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
+        it { RecentActivity.last.recipient.should eq(user) }
       end
     end
 
@@ -428,16 +447,59 @@ describe SpacesController do
         [ :name, :description, :logo_image, :public, :permalink, :disabled,
           :repository, :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
           :bigbluebutton_room_attributes =>
-          [ :id, :attendee_key, :moderator_key, :default_layout,
+          [ :id, :attendee_key, :moderator_key, :default_layout, :private,
             :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
       }
       before {
         space_attributes.stub(:permit).and_return(space_attributes)
         controller.stub(:params).and_return(params)
       }
-      before(:each) { put :update, :id => space.to_param, :space => space_attributes }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_attributes
+        }.to change { RecentActivity.count }.by(1)
+      }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing no parameters" do
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => {}
+        }.not_to change { RecentActivity.count }
+      }
+
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing some parameters" do
+      let(:space_params) { {name: "#{space.name}_new", description: "#{space.description} new" } }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing the logo_image parameter" do
+      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+
+      before(:each) {
+        expect {
+          post :update_logo, space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['logo_image']) }
     end
   end
 

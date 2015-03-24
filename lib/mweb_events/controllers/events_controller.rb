@@ -1,15 +1,15 @@
 MwebEvents::EventsController.class_eval do
 
   before_filter :block_if_events_disabled
-  before_filter :custom_loading, :only => [:index]
-  before_filter :find_or_create_participant, :only => [:show]
+  before_filter :custom_loading, only: [:index]
+  before_filter :find_or_create_participant, only: [:show]
 
-  after_filter :only => [:create, :update] do
+  after_filter only: [:create, :update] do
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
   def invite
-    render :layout => false if request.xhr?
+    render layout: false if request.xhr?
   end
 
   def send_invitation
@@ -21,12 +21,12 @@ MwebEvents::EventsController.class_eval do
 
     else
       invitations = EventInvitation.create_invitations params[:invite][:users],
-        :sender => current_user,
-        :target => @event,
-        :title => params[:invite][:title],
-        :url => @event.full_url,
-        :description => params[:invite][:message],
-        :ready => true
+        sender: current_user,
+        target: @event,
+        title: params[:invite][:title],
+        url: @event.full_url,
+        description: params[:invite][:message],
+        ready: true
 
       # we do a check just to give a better response to the user, since the invitations will
       # only be sent in background later on
@@ -66,12 +66,20 @@ MwebEvents::EventsController.class_eval do
     end
 
     # Filter events belonging to spaces or users with disabled status
-    without_spaces = @events.where(:owner_type => 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = false")
-    without_users = @events.where(:owner_type => 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = false")
+    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
+    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
     # If only there was a conjunction operator that returned an AR relation, this would be easier
     # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
-    @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
+    @events = MwebEvents::Event.where(id: (without_users | without_spaces))
     @events = @events.accessible_by(current_ability, :index).page(params[:page])
+  end
+
+  def handle_access_denied(exception)
+    if @event.nil? || @event.owner.nil?
+      raise ActiveRecord::RecordNotFound
+    else
+      raise exception
+    end
   end
 
   def set_date_locale

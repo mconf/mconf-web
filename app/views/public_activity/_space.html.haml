@@ -2,18 +2,18 @@
 -#   activity (RecentActivity)
 
 .logo-in-thread
-  = link_logo_image(activity.trackable, :size => '84x64', :url => space_path(activity.trackable), :class => 'logo logo-space')
+  = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, vague: true))
+  = formatted_time_ago activity.updated_at
 
   .thread-title
     - if activity.key.match(/leave$/)
       = icon_leave_space
     - elsif activity.key.match(/accept$/)
       = icon_join_space
-    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
-      - link = user_path_from_id(activity.parameters[:user_id])
+    - if activity.parameters.has_key?(:username) and activity.recipient.present?
+      - link = user_path(activity.recipient)
       - if link.nil?
         = activity.parameters[:username]
       - else

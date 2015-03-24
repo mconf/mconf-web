@@ -44,6 +44,13 @@ class mconf.Uploader
       dragAndDrop:
         hideDropzones: true
 
+      messages:
+        typeError: I18n.t("uploader.error.invalid_extension")
+        sizeError: I18n.t("uploader.error.invalid_size")
+        emptyError: I18n.t("uploader.error.empty_file")
+        noFilesError: I18n.t("uploader.error.no_files")
+        onLeave: I18n.t("uploader.error.on_leave")
+
       text:
         uploadButton: I18n.t("uploader.button")
         cancelButton: I18n.t('_other.cancel')
@@ -71,7 +78,7 @@ class mconf.Uploader
       validation: {}
 
     if element.attr('data-accept')
-      options.validation.allowedExtensions = getFormatsFromFiles(element.attr('data-accept'))
+      options.validation.allowedExtensions = getFormatsFromAccept(element.attr('data-accept'))
       options.validation.acceptFiles = element.attr('data-accept')
 
     if element.attr('data-max-size')
@@ -101,6 +108,11 @@ convertSize = (str) ->
   else
     null
 
-getFormatsFromFiles = (files) ->
-  if files? && files == 'image/*'
+getFormatsFromAccept = (accept) ->
+  if accept? && accept == 'image/*'
     ['jpg', 'jpeg', 'png']
+
+# Use this when firefox is ready to use the accepts='.jpg,.png, ...' (version 37 maybe)
+getFileTypesFromAccept = (accept) ->
+  formats = ('.' + format for format in getFormatsFromAccept(accept))
+  formats.join(',')

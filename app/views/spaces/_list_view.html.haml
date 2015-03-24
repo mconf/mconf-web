@@ -10,7 +10,7 @@
 #spaces
   .content-block-middle.clearfix
     %ul.list-texts
-      - if spaces.count > 0
+      - if spaces.size > 0
         - spaces.each do |space|
           - is_member = user_spaces && user_spaces.include?(space)
           %li.list-text{:name => space.permalink}

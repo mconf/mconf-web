@@ -29,23 +29,26 @@ class SpacesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
-  after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any? || @space.is_cropping?
+  after_filter :only => [:create, :update, :update_logo, :leave] do
+    @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
   def index
-    if params[:view].nil? or params[:view] != "list"
-      params[:view] = "thumbnails"
-    end
-    spaces = Space.order('name ASC')
-    @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
+    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
+    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
 
+    spaces = Space.all
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
-    @user_spaces = @user_spaces.paginate(:page => params[:page], :per_page => 18)
 
-    if @space
-       session[:current_tab] = "Spaces"
+    @spaces = params[:my_spaces] ? @user_spaces : spaces
+    if params[:order] == 'abc'
+      @spaces = @spaces.order('name ASC').paginate(:page => params[:page], :per_page => 18)
+    else
+      @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
     end
+
+    session[:current_tab] = "Spaces" if @space
+
     if params[:manage]
       session[:current_tab] = "Manage"
       session[:current_sub_tab] = "Spaces"
@@ -337,7 +340,7 @@ class SpacesController < ApplicationController
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_key, :moderator_key, :default_layout,
+        [ :id, :attendee_key, :moderator_key, :default_layout, :private,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
   end
 end

@@ -39,4 +39,4 @@
         - else
           = link_to t(".view_join_request"), space_join_request_path(space, jr)
     - if show_members
-      %span= t('_other.members', :count => space.users.count)
+      %span= t('_other.members', :count => space.users.size)

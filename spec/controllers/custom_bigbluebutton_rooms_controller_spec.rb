@@ -296,7 +296,11 @@ describe CustomBigbluebuttonRoomsController do
     # it does what it should.
     context "params handling" do
       let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_room) }
-      let(:params) { { :controller => 'CustomBigbluebuttonRoomsController', :action => :update, :bigbluebutton_room => attrs } }
+      let(:params) { {
+          :controller => 'custom_bigbluebutton_rooms', :action => :update,
+          :bigbluebutton_room => attrs, :id => room.to_param
+        }
+      }
 
       context "for a superuser" do
         let(:user) { FactoryGirl.create(:superuser) }

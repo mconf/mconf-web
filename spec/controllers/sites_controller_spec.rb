@@ -27,6 +27,10 @@ describe SitesController do
     it "uses the layout no_sidebar"
   end
 
+  describe "#update" do
+    it "removes empty values from the visible_locales"
+  end
+
   describe "abilities", :abilities => true do
     let(:site) { FactoryGirl.create(:site) }
 

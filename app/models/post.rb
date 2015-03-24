@@ -46,8 +46,18 @@ class Post < ActiveRecord::Base
     return Post.where(:space_id => space, :parent_id => nil).order("updated_at DESC").limit(4)
   end
 
-  def new_activity key, user
-    create_activity key, :owner => space, :parameters => { :username => user.name, :user_id  => user.id}
+  def new_activity(key, user)
+    params = { username: user.name, user_id: user.id }
+
+    if key.to_s == 'update'
+      # Don't create activity if model was updated and nothing changed
+      attr_changed = previous_changes.except('updated_at').keys
+      return unless attr_changed.present?
+
+      params.merge!(changed_attributes: attr_changed)
+    end
+
+    create_activity key, owner: space, recipient: user, parameters: params
   end
 
 end

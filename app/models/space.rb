@@ -116,8 +116,51 @@ class Space < ActiveRecord::Base
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
+  def last_activity
+    RecentActivity.where(owner: self).last
+  end
+
+  # Order by when the last activity in the space happened.
+  # OPTIMIZE: Couldn't find a way to make Space.order_by_activity.count work. This query
+  #   doesn't work well when a COUNT() goes around it.
+  scope :order_by_activity, -> {
+    Space.default_join_for_activities(Space.arel_table[Arel.star],
+                                      'MAX(`activities`.`created_at`) AS lastActivity')
+      .group(Space.arel_table[:id])
+      .order('lastActivity DESC')
+  }
+
+  # Order by relevance: spaces that are currently more relevant to show to the users.
+  # Orders primarily by the last activity in the space, considering only the date and ignoring
+  # the time. Then orders by the number of activities.
+  # OPTIMIZE: Couldn't find a way to make Space.order_by_relevance.count work. This query
+  #   doesn't work well when a COUNT() goes around it.
+  scope :order_by_relevance, -> {
+    Space.default_join_for_activities(Space.arel_table[Arel.star],
+                                      'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
+                                      'COUNT(`activities`.`id`) AS activityCount')
+      .group(Space.arel_table[:id])
+      .order('lastActivity DESC').order('activityCount DESC')
+  }
+
+  # Returns a relation with a pre-configured join that can be used in queries to find recent
+  # activities related to a space.
+  def self.default_join_for_activities(*args)
+    join_on = RecentActivity.arel_table[:owner_type].eq(Space.name)
+      .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
+      .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
+            .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
+    join_sql = "LEFT JOIN #{RecentActivity.table_name} ON (#{join_on})"
+
+    if args.count > 0
+      select(args).joins(:bigbluebutton_room).joins(join_sql)
+    else
+      joins(:bigbluebutton_room).joins(join_sql)
+    end
+  end
+
   # Returns the next 'count' events (starting in the current date) in this space.
-  def upcoming_events(count=5)
+  def upcoming_events(count = 5)
     self.events.upcoming.order("start_on ASC").first(5)
   end
 
@@ -135,12 +178,24 @@ class Space < ActiveRecord::Base
     p.save!
   end
 
-  # Creates a new activity pertraining this space
-  def new_activity key, user, join_request=nil
+  # Creates a new activity related to this space
+  def new_activity(key, user, join_request = nil)
     if join_request
-      create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
+      create_activity key, owner: join_request, recipient: user, parameters: { :username => user.name }
     else
-      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+      params = { username: user.name }
+      # Treat update_logo and update as the same key
+      key = 'update' if key == 'update_logo'
+
+      if key.to_s == 'update'
+        # Don't create activity if the model was updated and nothing changed
+        attr_changed = previous_changes.except('updated_at').keys
+        return unless attr_changed.present?
+
+        params.merge!(changed_attributes: attr_changed)
+      end
+
+      create_activity key, owner: self, recipient: user, parameters: params
     end
   end
 
@@ -229,7 +284,7 @@ class Space < ActiveRecord::Base
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
       :name => self.name,
-      :private => !self.public,
+      :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
@@ -241,8 +296,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :name => self.name,
-        :private => !self.public
+        :name => self.name
       }
       bigbluebutton_room.update_attributes(params)
     end

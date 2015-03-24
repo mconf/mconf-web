@@ -20,8 +20,9 @@
           = link_to approve_user_path(user), :method => :post, :data => { :confirm => t('.approve_confirm') } do
             = icon_approve(:alt => t('.approve'), :title => t('.approve'))
 
-      = link_to user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-        = icon_delete(:alt => t('.disable'), :title => t('.disable'))
+      = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+        = icon_disable(:alt => t('.disable'), :title => t('.disable'))
+      = render 'manage/destroy_user', user: user
 
   .thread-title
     = link_to user_path(user), :class => 'user-name' do

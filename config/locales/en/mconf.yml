@@ -3,7 +3,7 @@ en:
   activities:
     attachment:
       create_html: uploaded the attachment %{name} in the space
-      delete_html: removed the attachment %{name} from the space
+      destroy_html: removed the attachment %{name} from the space
       update_html: updated the attachment %{name} in the space
       deleted: that has since been deleted
     bigbluebutton_meeting:
@@ -39,6 +39,7 @@ en:
     space:
       accept_html: has joined the space
       create_html: created a new space
+      decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
       leave_html: has left the space
       update_html: updated info on space
@@ -88,11 +89,12 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    updated_time_ago: "%{time} ago"
     upload: "Upload"
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
-      unapproved_user: "Waiting approval by admin"
+      unapproved_user: "Waiting approval"
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
@@ -193,6 +195,7 @@ en:
         smtp_use_tls: "Use TLS in STMP"
         ssl: "SSL"
         timezone: "Timezone"
+        visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
@@ -686,6 +689,7 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
+  fax: Fax
   feedback: 
     create:
       check_mail: "Please check the email you informed in the feedback form, it seems wrong."
@@ -735,6 +739,7 @@ en:
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
+  im: IM
   inbox: 
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
@@ -873,7 +878,7 @@ en:
       manage: "Manage"
       register: "Register"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Current version"
       find_us: "Find more about Mconf"
       github: GitHub
@@ -893,7 +898,7 @@ en:
         help_us: "Want this site in your language? Click to see how to help us translate it!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Switch language"
     spaces_page_title:
@@ -903,6 +908,7 @@ en:
   less: "less..."
   locales: 
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Locale not registered"
   login_or_register: "Login / Register"
@@ -954,6 +960,9 @@ en:
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
+    destroy_user:
+      destroy: Delete user
+      destroy_confirm: Are you sure you want to delete this user and all content associated with it? Unlike disabling the user this operation is irreversible!
     spaces_list:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
@@ -1378,10 +1387,6 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
-  simple_captcha: 
-    label: "Insert here the text from the image"
-    message: 
-      user: "is incorrect"
   site:
     updated: "Site configurations updated"
   size: Size
@@ -1419,6 +1424,11 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
+      order:
+        alphabetic: "Name"
+        order_by: "Order by"
+        relevance: "Relevance"
+        relevance_tip: "Shows the spaces with the most recent activities at the top"
       select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
@@ -1719,7 +1729,6 @@ en:
   update: Update
   updated: Updated
   updated_at: "Updated at"
-  updated_time_ago: "%{time} ago"
   url: Website
   url_add: "Add your Website"
   url_plain: URL
@@ -1733,6 +1742,7 @@ en:
     category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
+    deleted: "User deleted"
     disable: "Disable user"
     disabled: "User %{username} disabled"
     email_used_to_create_account: "Enter the email address you used to create your account"
@@ -1835,6 +1845,12 @@ en:
     progress: "{percent}% of {total_size}"
     drag_files: Drag and drop files here to upload
     processing: Processing...
+    error:
+      invalid_extension: "{file} has an invalid extension. Valid extension(s): {extensions}."
+      invalid_size: "{file} is too large, maximum file size is {sizeLimit}."
+      empty_file: "{file} is empty, please select files again without it."
+      no_files: "No files to upload."
+      on_leave: "The files are being uploaded, if you leave now the upload will be cancelled."
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
     message: "Use your vCard to automatically fill in your profile"

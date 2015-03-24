@@ -113,23 +113,6 @@ $bg-normal: darken($green-logo, 3);
   width: $registration-box-width;
   margin-right: 20px;
 
-  .simple_captcha {
-    float: right;
-    padding: 0 !important;
-    margin: 10px 0;
-
-    div { display: inline; }
-
-    .simple_captcha_field {
-      text-align: center;
-    }
-
-    .simple_captcha_image {
-      background: white;
-      margin-right: 5px;
-    }
-  }
-
   input[type=submit] {
     float: right;
     clear: both;
