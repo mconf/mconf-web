@@ -7,7 +7,7 @@ module Abilities
       # Users
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, disabled: false
-      can [:edit, :update, :destroy], User, id: user.id, disabled: false
+      can [:edit, :update, :disable], User, id: user.id, disabled: false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
@@ -161,11 +161,11 @@ module Abilities
         end
 
         # Participants from MwebEvents
-        can :show, MwebEvents::Participant do |p|
-          p.event.owner == user || p.owner == user
+        can :destroy, MwebEvents::Participant do |p|
+          p.owner == user
         end
 
-        can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+        can [:show, :edit, :update, :destroy], MwebEvents::Participant do |p|
           event_can_be_managed_by(p.event, user)
         end
 

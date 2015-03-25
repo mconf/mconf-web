@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: eea0388f2c181c8a443c4e0a20d150a900c39066
+  revision: d8e06e808d61967d5aaaf1c7addf934114d55392
   branch: bootstrap3
   specs:
     mweb_events (0.0.1)
@@ -247,7 +247,7 @@ GEM
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     fssm (0.2.10)
-    geocoder (1.2.7)
+    geocoder (1.2.8)
     haml (4.0.5)
       tilt
     haml-rails (0.8.2)

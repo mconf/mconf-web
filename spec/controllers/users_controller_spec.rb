@@ -352,37 +352,132 @@ describe UsersController do
   end
 
   describe "#destroy" do
-    let(:user) { FactoryGirl.create(:user) }
+    let!(:user) { FactoryGirl.create(:user) }
+    subject { delete :destroy, id: user.to_param }
 
-    context "an admin removing a user" do
-      before(:each) { sign_in(FactoryGirl.create(:superuser)) }
-      before(:each) { delete :destroy, id: user.to_param }
-      it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
+    context "superusers can destroy users" do
+      before { sign_in(FactoryGirl.create(:superuser)) }
+
+      it { expect { subject }.to change(User, :count).by(-1) }
       it { should redirect_to(manage_users_path) }
-      it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
-    context "the user removing himself" do
-      before(:each) { sign_in(user) }
-      before(:each) { delete :destroy, id: user.to_param }
-      it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
-      it { should redirect_to(root_path) }
-      it("disables the user") { user.reload.disabled.should be_truthy }
+    context "a user can't destroy himself" do
+      before { sign_in(user) }
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
     end
 
-    context "as anonymous user" do
+    context "a user can't destroy others users" do
+      before { sign_in(FactoryGirl.create(:user)) }
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
+    end
+
+    context "as an anonymous user" do
       let!(:user) { FactoryGirl.create(:user) }
       before {
         expect {
-          delete :destroy, id: user.to_param
+          delete :disable, id: user.to_param
         }.not_to change { User.count }
       }
       it { should redirect_to login_path }
     end
 
+    context "destroying a user should destroy all its dependencies" do
+      let(:admin) { FactoryGirl.create(:superuser) }
+      let(:space) { FactoryGirl.create(:space) }
+
+      before do
+        space.add_member!(user)
+        sign_in(admin)
+      end
+
+      it('removes the profile') { expect { subject }.to change(Profile, :count).by(-1) }
+      it('removes the room') { expect { subject }.to change(BigbluebuttonRoom, :count).by(-1) }
+      it('removes the permissions') { expect { subject }.to change(Permission, :count).by(-1) }
+
+      context 'removes the posts' do
+        let!(:post) { FactoryGirl.create(:post, author: user, space: space) }
+        it { expect { subject }.to change(Post, :count).by(-1) }
+      end
+
+      context 'removes the LDAP Token' do
+        let!(:ldap_token) { FactoryGirl.create(:ldap_token, user: user) }
+        it { expect { subject }.to change(LdapToken, :count).by(-1) }
+      end
+
+      context 'removes the Shib Token' do
+        let!(:ldap_token) { FactoryGirl.create(:shib_token, user: user) }
+        it { expect { subject }.to change(ShibToken, :count).by(-1) }
+      end
+
+      context 'removes the join requests' do
+        let(:space2) { FactoryGirl.create(:space) }
+        let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+        let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space2) }
+        it { expect { subject }.to change(JoinRequest, :count).by(-2) }
+      end
+
+      context "doesn't remove the invitations the user sent" do
+        let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+        it { expect { subject }.not_to change(JoinRequest, :count) }
+      end
+    end
+
+    context "destroying a disabled user" do
+      let!(:user) { FactoryGirl.create(:user, disabled: true) }
+      let(:admin) { FactoryGirl.create(:superuser) }
+      before { sign_in(admin) }
+
+      it {
+        delete :destroy, id: user.to_param
+        User.find_by(id: user.id).should be_nil
+        # can't use `change(User, :count)` because #count doesn't consider disabled users
+      }
+    end
+
     it { should_authorize an_instance_of(User), :destroy, via: :delete, id: user.to_param }
+  end
+
+  describe "#disable" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "an admin disabling a user" do
+      before(:each) { sign_in(FactoryGirl.create(:superuser)) }
+      before(:each) { delete :disable, id: user.to_param }
+      it { should respond_with(:redirect) }
+      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
+      it { should redirect_to(manage_users_path) }
+      it("disables the user") { user.reload.disabled.should be(true) }
+    end
+
+    context "the user disabling himself" do
+      before(:each) { sign_in(user) }
+      before(:each) { delete :disable, id: user.to_param }
+      it { should respond_with(:redirect) }
+      it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
+      it { should redirect_to(root_path) }
+      it("disables the user") { user.reload.disabled.should be(true) }
+    end
+
+    context "as an anonymous user" do
+      let!(:user) { FactoryGirl.create(:user) }
+      before {
+        expect {
+          delete :disable, id: user.to_param
+        }.not_to change { User.count }
+      }
+      it { should redirect_to login_path }
+    end
+
+    context "calls User#disable" do
+      before do
+        sign_in(FactoryGirl.create(:superuser))
+        User.any_instance.should_receive(:disable)
+      end
+      it { delete :disable, id: user.to_param }
+    end
+
+    it { should_authorize an_instance_of(User), :disable, via: :delete, id: user.to_param }
   end
 
   describe "#enable" do
@@ -819,7 +914,11 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
-        it('should not create an activity') { RecentActivity.where(key: 'user.approved').should be_empty }
+        it('should create the correct user created activity') {
+          RecentActivity.where(key: 'user.created', trackable: User.last).should be_empty
+          RecentActivity.where(key: 'user.created_by_admin', trackable: User.last).count.should be(1)
+        }
+        it('should not create an user approved activity') { RecentActivity.where(key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with valid attributes and with the ability to record meetings" do
@@ -879,6 +978,11 @@ describe UsersController do
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }
           it { User.last.can_record.should_not be true }
+          it('should create the correct user created activity') {
+            RecentActivity.where(key: 'user.created', trackable: User.last).should be_empty
+            RecentActivity.where(key: 'user.created_by_admin', trackable: User.last).count.should be(1)
+          }
+          it('should create a user approved activity') { RecentActivity.where(key: 'user.approved').should be_empty }
         end
 
         describe "creates a new user with valid attributes and with the ability to record meetings" do

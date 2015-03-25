@@ -19,6 +19,10 @@ en:
       message: "Hello %{name},<br/><br/>We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
       subject: "Your registration has been completed"
       confirmation_pending: "You have registered succesfully on <a href=\"%{url}\">%{site}</a> and your account was submitted to the approval of an administrator. You will be contacted when you account is approved."
+    registration_by_admin_notification_email:
+      click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!<br><br>This account was created for you by an administrator, if you think this was an error please contact us <a href=\"%{feedback_url}\">clicking here</a>."
+      subject: "An account was created for you by an administrator"
   event_mailer:
     invitation_email:
       message:
@@ -26,6 +30,12 @@ en:
         end: "Ends on"
         header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
       subject: "You have been invited to the event %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "You can cancel your participation in the event at any moment by <a href=\"%{url}\">clicking here</a>."
+      header: "Hello %{email},"
+      message: "To complete your registration in the event \"%{event}\", please confirm your email by <a href=\"%{url}\">clicking here</a>."
+      subject: "Confirm your registration in the event \"%{event}\""
   space_mailer:
     invitation_email:
       message:

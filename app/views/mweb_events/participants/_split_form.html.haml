@@ -1,0 +1,22 @@
+#member-login-register
+  .container
+    %h3.title= t(".member_title")
+
+    = simple_form_for "user", :url => main_app.user_session_path do |f|
+      .input
+        %label= t('sessions.login_form.email_or_login')
+        = text_field_tag "user[login]", "", :required => true, :autofocus => true
+        %label= t("sessions.login_form.password")
+        = password_field_tag "user[password]", "", :required => true
+      = f.button :submit, t("sessions.login_form.login"), :class => "btn btn-primary"
+
+    - if current_site.shib_enabled?
+      .shibboleth-container
+        = link_to(image_tag("logos/shib_federation_small.jpg"), main_app.shibboleth_path)
+        = link_to(t("devise.shared.links.login.federation"), main_app.shibboleth_path)
+
+#annonymous-register
+  .container
+    %h3.title= t(".annonymous_title")
+
+    = render 'form'

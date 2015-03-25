@@ -2,7 +2,7 @@ MwebEvents::EventsController.class_eval do
 
   before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
-  before_filter :create_participant, only: [:show]
+  before_filter :find_or_create_participant, only: [:show]
 
   after_filter only: [:create, :update] do
     @event.new_activity params[:action], current_user unless @event.errors.any?
@@ -39,8 +39,12 @@ MwebEvents::EventsController.class_eval do
     redirect_to request.referer
   end
 
-  def create_participant
-    @participant = @event.participants.build email: current_user.email, owner: current_user if current_user
+  # Load the participant from db if user is already registered or build a new one for the form
+  def find_or_create_participant
+    if current_user
+      attrs = { email: current_user.email, owner: current_user, event: @event }
+      @participant = MwebEvents::Participant.where(attrs).try(:first) || MwebEvents::Participant.new(attrs)
+    end
   end
 
   # return 404 for all Event routes if the events are disabled

@@ -6,9 +6,10 @@
 # 3 or later. See the LICENSE file.
 
 require "digest/sha1"
+
 class UsersController < ApplicationController
-  load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
-  before_filter :load_and_authorize_with_disabled, :only => [:enable]
+  load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
+  before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
   # #index is nested in spaces
   load_and_authorize_resource :space, find_by: :permalink, only: [:index]
@@ -76,6 +77,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('user.deleted')
+        redirect_to manage_users_path
+      }
+    end
+  end
+
+  def disable
     @user.disable
 
     if current_user == @user
@@ -194,6 +205,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.created_by = current_user
+    @user.skip_confirmation_notification!
 
     if @user.save
       @user.confirm!
@@ -214,7 +227,7 @@ class UsersController < ApplicationController
 
   def load_and_authorize_with_disabled
     @user = User.with_disabled.where(username: params[:id]).first
-    authorize! :enable, @user
+    authorize! action_name.to_sym, @user
   end
 
   allow_params_for :user

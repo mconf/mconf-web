@@ -100,7 +100,7 @@ module IconsHelper
   end
 
   def icon_delete(options={})
-    icon_constructor nil, "fa fa-times icon-awesome icon-mconf-delete", options
+    icon_constructor nil, "fa fa-trash-o icon-awesome icon-mconf-delete", options
   end
 
   def icon_disable(options={})
@@ -237,6 +237,14 @@ module IconsHelper
 
   def icon_list(options={})
     icon_constructor nil, "fa fa-list icon-awesome icon-mconf-list", options
+  end
+
+  def icon_participant_confirmed(options={})
+    icon_constructor nil, "fa fa-check icon-awesome icon-mconf-participant-confirmed", options
+  end
+
+  def icon_participant_not_confirmed(options={})
+    icon_constructor nil, "fa fa-remove icon-awesome icon-mconf-participant-not-confirmed", options
   end
 
   private

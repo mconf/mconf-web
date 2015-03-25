@@ -77,8 +77,8 @@
               = icon_confirm_user(:alt => t('.confirm_user'))
               = t('.confirm_user')
         .input
-          = link_to user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-            = icon_delete(:alt => t('.disable'))
+          = link_to disable_user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+            = icon_disable(:alt => t('.disable'))
             = t('.disable')
 
   = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")
@@ -87,4 +87,4 @@
     #user-cancel-account.alert.alert-danger.alert-clean
       %h4= t('.other_options')
       %span= t('.cancel_account')
-      = link_to t('.yes_cancel_account'), user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'danger-text'
+      = link_to t('.yes_cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'danger-text'

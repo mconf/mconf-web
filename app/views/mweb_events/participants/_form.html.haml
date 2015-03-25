@@ -1,4 +1,4 @@
 = simple_form_for [@event, @participant], :html => { :class => "single-column" } do |f|
   .form-inputs
-    = f.input :email, :disabled => current_user.present?, :autofocus => true
-  = f.button :wrapped, :cancel => event_path(@event), :value => t(".submit")
+    = f.input :email, :readonly => current_user.present?, :autofocus => true
+  = f.button :submit, t(".submit"), :class => "btn btn-primary"

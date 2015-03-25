@@ -25,7 +25,7 @@ module Shoulda
           ability_name = method
         end
 
-        if ![:get, :post, :put, :delete].include? options[:via]
+        unless [:get, :post, :put, :delete].include?(options[:via])
           fail "#{options[:via]} is not a valid http method"
         end
         http_method = options.delete(:via)

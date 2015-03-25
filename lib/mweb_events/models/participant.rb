@@ -1,5 +1,22 @@
 MwebEvents::Participant.class_eval do
   include PublicActivity::Common
+  has_one :participant_confirmation
+
+  # create a ParticipantConfirmation request if no user is associated with the participation
+  after_create :create_participant_confirmation, if: :annonymous?
+
+  def annonymous?
+    !owner.present?
+  end
+
+  # If a user has a confirmation request, return that value. If it has none, the user is confirmed
+  def email_confirmed?
+    if participant_confirmation.present?
+      participant_confirmation.confirmed?
+    else
+      true
+    end
+  end
 
   def new_activity key, user
     create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }

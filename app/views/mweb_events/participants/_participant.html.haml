@@ -5,17 +5,13 @@
 
   %ul.management-links
 
-    - if can? :update, @event
-      = link_to build_message_path(participant), :class => 'open-modal' do
-        = icon_message(:alt => t('mweb_events.participants.index.message'), :title => t('mweb_events.participants.index.message'))
-
     - if can? :destroy, @participant
       = link_to event_participant_path(@event, participant), :data => { :confirm => t('mweb_events.participants.index.disable_confirm') }, :method => :delete do
         = icon_delete(:alt => t('mweb_events.participants.index.disable'), :title => t('mweb_events.participants.index.disable'))
 
   .user-text
     = link_to main_app.user_path(user), :class => 'user-name' do
-      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+      = "#{user.full_name} (#{user.username}, #{user.email})".html_safe
 
     %span.user-category
       = user_category(user)

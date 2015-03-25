@@ -179,6 +179,14 @@ a:not(.btn) .icon-awesome {
     color: $m-green;
   }
 
+  &.icon-mconf-participant-confirmed {
+    color: $green;
+  }
+
+  &.icon-mconf-participant-not-confirmed {
+    color: $red;
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}

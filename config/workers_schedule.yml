@@ -22,6 +22,12 @@ send_user_notifications:
   class: UserNotificationsWorker
   description: "Checks pending user notifications and sends them"
 
+send_participant_confirmations_notifications:
+  every:
+    - "30s"
+  class: ParticipantConfirmationsWorker
+  description: "Checks pending event confirmations email and sends them"
+
 # TODO: use it after #1292
 # send_daily_digest:
 #   cron: "0 14 * * *" # daily at 2pm

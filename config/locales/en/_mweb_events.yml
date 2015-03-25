@@ -40,11 +40,13 @@ en:
       new:
         page_title: "Create a new event"
       registration:
-        already_registered: You are already registered in this event!
+        already_registered: You are registered in this event!
         closed: Registration for this event is closed.
+        delete_confirmation: Are you sure you want to cancel your registration on this event?
         invite_button: Invite people to this event
         join_button: Join this space to register
         need_sign_in: You need to be signed in to register in this event
+        unregister: Cancel my registration
       send_invitation:
         blank_users: "No user selected, no invitation was sent"
         error: "Invitation failed to be sent to:"
@@ -61,6 +63,8 @@ en:
         public: "Public event"
         starts_at: "Starts at"
     participants:
+      create:
+        waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
       index:
         back_to_event: "Go back to the event page"
         disable: Remove from event
@@ -69,5 +73,11 @@ en:
         message: Send message
         no_participants: No participants yet!
         title: "Listing all participants in the event"
+      guest_participant:
+        confirmed: Email confirmed
+        not_confirmed: Email not confirmed
+      split_form:
+        member_title: Login to register in this event
+        annonymous_title: Register as annonymous user
       new:
         title: "Registering in the event"

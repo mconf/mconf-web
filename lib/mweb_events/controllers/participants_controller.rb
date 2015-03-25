@@ -3,8 +3,9 @@ MwebEvents::ParticipantsController.class_eval do
   before_filter :custom_loading, only: [:index]
 
   after_filter only: [:create] do
-    @participant.new_activity params[:action], current_user if @participant.persisted?
+    @participant.new_activity(params[:action], current_user) if @participant.persisted?
   end
+  after_filter :waiting_for_confirmation_message, only: [:create]
 
   layout "no_sidebar", only: [:new]
 
@@ -16,8 +17,12 @@ MwebEvents::ParticipantsController.class_eval do
   end
 
   def custom_loading
-    @participants = @participants.accessible_by(current_ability).paginate(page: params[:page])
+    @participants = @participants.accessible_by(current_ability)
+      .order(['owner_id desc', 'created_at desc'])
+      .paginate(:page => params[:page])
   end
+
+  private
 
   def handle_access_denied(exception)
     if @event.owner.nil?
@@ -27,4 +32,9 @@ MwebEvents::ParticipantsController.class_eval do
     end
   end
 
+  def waiting_for_confirmation_message
+    if @participant.persisted? && !@participant.email_confirmed?
+      flash[:notice] = t('mweb_events.participants.create.waiting_confirmation')
+    end
+  end
 end

@@ -75,6 +75,8 @@ Mconf::Application.routes.draw do
       end
     end
   end
+  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
+  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
 
   # shibboleth controller
   get '/secure', to: 'shibboleth#login', as: "shibboleth"
@@ -142,6 +144,7 @@ Mconf::Application.routes.draw do
     end
 
     member do
+      delete :disable
       post :enable
       post :approve
       post :disapprove
