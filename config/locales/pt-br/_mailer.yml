@@ -2,17 +2,17 @@
 pt-br:
   application_mailer:
     feedback_email:
-      content: "%{email} enviou o seguinte feedback:"
+      content: "\"%{email}\" enviou o seguinte feedback:"
       subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
-      subject: "Um novo usuário está a espera de sua aprovação"
-      message: "%{name} se registrou no site e está esperando por aprovação."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para gerenciar usuários."
+      click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em:<br/><a href=\"%{url}\">%{url}</a>"
+      message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
+      subject: "Um novo usuário está a espera de aprovação"
     new_user_approved:
+      click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
       subject: "Seu acesso ao site foi aprovado"
-      message: "Olá %{name},<br/><br/>Estamos mandando este email para avisar que o seu acesso ao site já foi aprovado."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à a sua página inicial."
   user_mailer:
     registration_notification_email:
       click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
@@ -32,9 +32,11 @@ pt-br:
       subject: "Você foi convidado para o evento %{event}"
   participant_confirmation_mailer:
     confirmation_email:
-      cancel: "Você pode cancelar sua inscrição no evento a qualquer momento <a href=\"%{url}\">clicando aqui</a>."
-      header: "Olá %{email},"
-      message: "Para completar sua inscrição no evento \"%{event}\", por favor confirme o seu e-mail <a href=\"%{url}\">clicando aqui</a>."
+      cancel: "Você pode cancelar sua inscrição neste evento a qualquer momento clicando neste link:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "Para confirmar sua inscrição, por favor clique neste link:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(Se você não se registrou neste evento por favor simplesmente ignore este e-mail.)"
+      hello: "Olá,"
+      message: "Acabamos de receber uma inscrição no evento \"%{event}\" para o e-mail \"%{email}\"."
       subject: "Confirme sua inscrição no evento \"%{event}\""
   space_mailer:
     invitation_email:

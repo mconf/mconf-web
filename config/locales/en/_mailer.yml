@@ -2,17 +2,17 @@
 en:
   application_mailer:
     feedback_email:
-      content: "%{email} sent the following feedback:"
+      content: "\"%{email}\" sent the following feedback:"
       subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
+      click_here: "Accept or reject this user in the user management page in:<br/><a href=\"%{url}\">%{url}</a>"
+      message: "A user named \"%{name}\" (%{email}) has registered and is waiting for approval."
       subject: "A new user is waiting approval"
-      message: "%{name} has registered and is waiting for your approval."
-      click_here: "Click <a href=\"%{url}\">here</a> to manage users."
     new_user_approved:
-      subject: "Your registration has been approved"
+      click_here: "You can access your home page at: <a href=\"%{url}\">%{url}</a>"
       message: "Hello %{name},<br/><br/>We're sending this email to inform you that your access to the site has been approved."
-      click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
+      subject: "Your registration has been approved"
   user_mailer:
     registration_notification_email:
       click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
@@ -32,9 +32,11 @@ en:
       subject: "You have been invited to the event %{event}"
   participant_confirmation_mailer:
     confirmation_email:
-      cancel: "You can cancel your participation in the event at any moment by <a href=\"%{url}\">clicking here</a>."
-      header: "Hello %{email},"
-      message: "To complete your registration in the event \"%{event}\", please confirm your email by <a href=\"%{url}\">clicking here</a>."
+      cancel: "You can cancel your participation in the event at any moment by clicking this link:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "To confirm your registration, please click on this link:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(If you didn't register in this event please just ignore this email.)"
+      hello: "Hello,"
+      message: "We just received a registration in the event \"%{event}\" for the email \"%{email}\"."
       subject: "Confirm your registration in the event \"%{event}\""
   space_mailer:
     invitation_email:

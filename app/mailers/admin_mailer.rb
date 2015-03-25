@@ -12,6 +12,7 @@ class AdminMailer < BaseMailer
     user = User.find(user_id)
     I18n.with_locale(default_email_locale(admin, nil)) do
       @user_name = user.name
+      @user_email = user.email
       @subject = t('admin_mailer.new_user_waiting_for_approval.subject')
       create_email(admin.email, Site.current.smtp_sender, @subject)
     end
