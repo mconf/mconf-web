@@ -1107,6 +1107,9 @@ pt-br:
   past: Passado
   people: pessoas
   per_page: "por página"
+  participant_confirmation:
+    confirmed: "A inscrição para %{email} foi confirmada"
+    cancelled: "A inscrição sua inscrição no evento foi cancelada"
   permission:
     notification:
       default: "%{username} mudou sua função em %{stage} para %{role}."

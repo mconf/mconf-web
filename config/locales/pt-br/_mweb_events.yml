@@ -40,11 +40,13 @@ pt-br:
       new:
         page_title: "Criar um novo evento"
       registration:
-        already_registered: Você já está inscrito neste evento!
+        already_registered: Você está inscrito neste evento!
         closed: Inscrições para este evento estão fechadas.
+        delete_confirmation: Tem certeza que deseja cancelar sua inscrição neste evento?
         invite_button: Convidar pessoas para o evento
         join_button: Junte-se a esta comunidade para participar
         need_sign_in: Você precisa estar logado para registrar-se
+        unregister: Cancelar minha inscrição
       send_invitation:
         blank_users: "Nenhum usuário selecionado, nenhum convite será enviado"
         error: "Não foi possível enviar o convite para:"
@@ -61,6 +63,8 @@ pt-br:
         public: "Evento público"
         starts_at: "Inicia em"
     participants:
+      create:
+        waiting_confirmation: Registro completo. Em breve você irá receber um email com instruções para completar sua inscrição
       index:
         back_to_event: "Voltar para a página do evento"
         disable: Remover do evento
@@ -69,5 +73,11 @@ pt-br:
         message: Enviar mensagem
         no_participants: Nenhum inscrito ainda!
         title: "Listando todos os participantes do evento"
+      guest_participant:
+        confirmed: Email confirmado
+        not_confirmed: Email não confirmado
+      split_form:
+        member_title: Entrar e se registrar no evento
+        annonymous_title: Se registrar como anônimo
       new:
         title: "Registrar-se no evento"

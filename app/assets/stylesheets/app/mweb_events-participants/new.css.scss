@@ -1,15 +1,64 @@
 @import "definitions";
 @import "compass/css3";
 
-body.mweb_events-participants.new {
+body.mweb_events-participants.new, body.mweb_events-participants.create {
 
-  #content {
-    width: $contents-width*0.7;
-    margin: 0 auto;
+  #new-event-registration {
+    @include mconf-clearfix;
+    padding: 30px 0;
+    min-height: 200px;
 
-    h3 {
-      text-align: center;
+    #member-login-register, #annonymous-register {
+      margin: 0;
+      padding: 0;
+      width: 49%;
+      float: left;
+
+      .container {
+        float: left;
+        max-width: 350px;
+        margin: 0 40px;
+
+        .title {
+          margin-bottom: 20px;
+          display: block;
+          font-weight: bold;
+        }
+      }
+
+      input[type=text], input[type=password] {
+        width: 95%;
+      }
+
+      input[type=submit] {
+        padding-left: 20px;
+        padding-right: 20px;
+        float: right;
+      }
+    }
+
+    #member-login-register {
+      border-right: 1px solid #ddd;
+
+      .container {
+        float: right;
+      }
+
+      .shibboleth-container {
+        @include font-size($font-medium);
+        clear: both;
+        max-width: 300px;
+        float: right;
+        margin: 5px 40px 0 0;
+        text-align: center;
+
+        a { display: block; }
+        img {
+          width: 240px;
+          height: 41px;
+          margin: 10px 0;
+        }
+      }
     }
   }
-
 }

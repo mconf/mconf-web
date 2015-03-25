@@ -247,6 +247,14 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-signout icon-mconf-leave-space", options
   end
 
+  def icon_participant_confirmed(options={})
+    icon_constructor nil, "icon-awesome icon-ok icon-mconf-participant-confirmed", options
+  end
+
+  def icon_participant_not_confirmed(options={})
+    icon_constructor nil, "icon-awesome icon-remove icon-mconf-participant-not-confirmed", options
+  end
+
   private
 
   # Base method for most of the methods above

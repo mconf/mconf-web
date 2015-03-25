@@ -30,6 +30,12 @@ pt-br:
         end: "Término"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para o evento <b>%{event}</b>:"
       subject: "Você foi convidado para o evento %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "Você pode cancelar sua inscrição no evento a qualquer momento <a href=\"%{url}\">clicando aqui</a>."
+      header: "Olá %{email},"
+      message: "Para completar sua inscrição no evento \"%{event}\", por favor confirme o seu e-mail <a href=\"%{url}\">clicando aqui</a>."
+      subject: "Confirme sua inscrição no evento \"%{event}\""
   space_mailer:
     invitation_email:
       message:

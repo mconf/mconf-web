@@ -1,10 +1,11 @@
 - if @event.past?
   %section.event-register
     %p= t('.closed')
-
 - elsif user_signed_in? && @event.is_registered?(current_user)
   %section.event-register
     %p= t('.already_registered')
+
+    %p= link_to t('.unregister'), event_participant_path(@event.to_param, @participant.id), :data => { :confirm => t(".delete_confirmation") }, :method => :delete, :class => 'btn btn-danger btn-block'
 
 - else
   - if can?(:register, @event)

@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+// otherwise we can get line breaks in titles or descriptions
+body.mweb_events-participants {
+  .current-page-title {
+    width: 100%;
+  }
+}

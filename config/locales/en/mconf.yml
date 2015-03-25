@@ -1107,6 +1107,9 @@ en:
   past: Past
   people: people
   per_page: "per page"
+  participant_confirmation:
+    confirmed: "The registration for %{email} has been confirmed"
+    cancelled: "Your registration in this event has been cancelled"
   permission:
     notification:
       default: "%{username} has change your role in %{stage} to %{role}. "
