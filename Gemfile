@@ -107,15 +107,14 @@ gem 'fineuploader-rails', '~> 3.3'
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
   gem 'rails-footnotes'
+  gem 'quiet_assets'
+  gem 'brakeman', :require => false
+  gem 'librarian-chef'
+  gem 'mailcatcher'
 
   # to show better error pages, with more information
   gem 'better_errors'
   gem 'binding_of_caller'
-
-  gem 'webrick', '~> 1.3.1'
-  gem 'quiet_assets'
-  gem 'brakeman', :require => false
-  gem 'librarian-chef'
 end
 
 group :development, :test do

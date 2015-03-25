@@ -21,6 +21,9 @@ Vagrant.configure(2) do |config|
 
   # Forward the Rails server default port to the host
   config.vm.network :forwarded_port, guest: 3000, host: 3000
+  # For Mailcatcher
+  config.vm.network :forwarded_port, guest: 1025, host: 1025
+  config.vm.network :forwarded_port, guest: 1080, host: 1080
 
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
