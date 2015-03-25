@@ -25,10 +25,11 @@
       = render 'manage/destroy_user', user: user
 
   .thread-title
+    - words = params[:q].try(:split)
     = link_to user_path(user), :class => 'user-name' do
-      = highlight(sanitize(user.full_name), params[:q])
+      = highlight(escape_once(user.full_name), words)
     %span.user-email
-      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+      = "(#{highlight(user.username, words)}, #{highlight(user.email, words)})".html_safe
   .user-text
     %span.user-category
       = user_category(user)
