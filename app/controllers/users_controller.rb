@@ -135,8 +135,8 @@ class UsersController < ApplicationController
       @users = query.limit(limit)
     else
       @users = query
-        .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
-        .limit(limit)
+      .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
+      .limit(limit)
     end
 
     respond_with @users do |format|

@@ -52,7 +52,7 @@ updateResources = ($input, $target) ->
 
   if text isnt lastValue
     $input.attr("data-last-value", text)
-    url = $input.attr("data-load-url") + "&q=#{text}"
+    url = $input.attr("data-load-url") + "&q=#{encodeURI(text)}"
 
     $target.load url, ->
       mconf.Resources.bind()

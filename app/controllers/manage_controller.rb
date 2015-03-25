@@ -15,7 +15,14 @@ class ManageController < ApplicationController
 
     query = User.with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
     if name.present?
-      query = query.where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
+      query_strs = []
+      query_params = []
+      name.split(/\s+/).each do |word|
+        query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
+        query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
+      end
+
+      query = query.where(query_strs.join(' OR '), *query_params.flatten)
     end
     @users = query.paginate(:page => params[:page], :per_page => 20)
 
