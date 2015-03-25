@@ -12,7 +12,7 @@ class ParticipantConfirmationMailer < BaseMailer
     I18n.with_locale(default_email_locale(nil, nil)) do
       @email = @pc.email
       @event = @pc.participant.event.name
-      @subject = t("participant_confirmation_mailer.confirmation_email.subject", :event => @event)
+      @subject = t("participant_confirmation_mailer.confirmation_email.subject", event: @event)
       create_email(@email, Site.current.smtp_sender, @subject)
     end
   end

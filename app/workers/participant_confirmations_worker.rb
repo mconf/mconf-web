@@ -7,6 +7,7 @@
 
 class ParticipantConfirmationsWorker
   @queue = :participant_confirmations
+
   # Finds all unsent participant confirmations
   def self.perform
     confirmations = ParticipantConfirmation.where(email_sent_at: [nil])
@@ -14,5 +15,4 @@ class ParticipantConfirmationsWorker
       Resque.enqueue(ParticipantConfirmationsSenderWorker, confirmation.id)
     end
   end
-
 end

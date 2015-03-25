@@ -13,3 +13,10 @@ a .mweb_events-event-logo:active {
     color: $link-color-active;
   }
 }
+
+// otherwise we can get line breaks in titles or descriptions
+body.mweb_events-events {
+  .current-page-title {
+    width: 100%;
+  }
+}

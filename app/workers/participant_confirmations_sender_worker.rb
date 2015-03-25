@@ -19,5 +19,4 @@ class ParticipantConfirmationsSenderWorker
       pc.save!
     end
   end
-
 end

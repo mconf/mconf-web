@@ -32,10 +32,10 @@ en:
       subject: "You have been invited to the event %{event}"
   participant_confirmation_mailer:
     confirmation_email:
-      subject: "Confirm your registration in the event \"%{event}\""
+      cancel: "You can cancel your participation in the event at any moment by <a href=\"%{url}\">clicking here</a>."
       header: "Hello %{email},"
       message: "To complete your registration in the event \"%{event}\", please confirm your email by <a href=\"%{url}\">clicking here</a>."
-      cancel: "Or click <a href=\"%{url}\">here</a> cancel registration in this event"
+      subject: "Confirm your registration in the event \"%{event}\""
   space_mailer:
     invitation_email:
       message:

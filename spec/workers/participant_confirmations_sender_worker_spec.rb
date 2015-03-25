@@ -28,4 +28,7 @@ describe ParticipantConfirmationsSenderWorker do
     it { pc1.reload.email_sent_at.should_not be_nil }
     it { pc2.reload.email_sent_at.should_not be_nil }
   end
+
+  # might happen if an admin removes a participant before the notification is sent
+  it "doesn't break if a ParticipantConfirmation has no participant associated"
 end
