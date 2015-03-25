@@ -15,10 +15,10 @@ class Site < ActiveRecord::Base
   end
 
   def signature_in_html
-    if signature
-      return signature.gsub(/\r\n?/,'<br>')
+    if signature.blank?
+      name
     else
-      return ""
+      signature.gsub(/\r\n?/, '<br>')
     end
   end
 
