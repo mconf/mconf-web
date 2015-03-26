@@ -272,7 +272,7 @@ en:
     not_selected: "No document selected"
     one: Attachment
     other: Attachments
-    repository_disabled: This space's document repository is not enabled.
+    repository_disabled: "This space's document repository is not enabled."
     selected: 
       none: "No files selected"
       one: " file selected"
@@ -611,12 +611,6 @@ en:
     failure:
       user:
         not_approved: "Your account has not yet been approved by an administrator."
-    mailer:
-      confirmation_instructions:
-        confirmation_link: "Confirm my account"
-        confirmation_ok: "You can confirm your account email through the link below:"
-        confirmation_pending: "Your account was created and is waiting the approval of an administrator."
-        welcome: "Welcome %{email}!"
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
       signed_up_but_not_approved: ""

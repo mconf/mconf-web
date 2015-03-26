@@ -1,6 +1,5 @@
 #webconference-invitation-mail
-  .header
-    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email).html_safe
+  %p= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
   = render "shared/invitation_email"
   - if @invitation.target.private
     .field

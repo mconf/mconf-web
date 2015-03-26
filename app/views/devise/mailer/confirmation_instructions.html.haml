@@ -1,10 +1,11 @@
-= t('devise.mailer.confirmation_instructions.welcome', email: @email) 
+= t('devise.mailer.confirmation_instructions.welcome', email: @email)
 
 %p
   - unless Site.current.require_registration_approval?
     = t('devise.mailer.confirmation_instructions.confirmation_ok')
     %p
-      = link_to t('devise.mailer.confirmation_instructions.confirmation_link'), confirmation_url(@resource, confirmation_token: @token)
+      - url = confirmation_url(@resource, confirmation_token: @token)
+      = link_to url, url
 
   - else
     = t('devise.mailer.confirmation_instructions.confirmation_pending')

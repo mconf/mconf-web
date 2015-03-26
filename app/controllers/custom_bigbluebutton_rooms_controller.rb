@@ -116,7 +116,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:success] = WebConferenceInvitation.build_flash(
         succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
       flash[:error] = WebConferenceInvitation.build_flash(
-        failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
+        failed, t('custom_bigbluebutton_rooms.send_invitation.error')) unless failed.empty?
     end
 
     redirect_to request.referer

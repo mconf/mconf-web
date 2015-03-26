@@ -3,8 +3,10 @@
 
 #space-join-request-mail, #space-invitation-email, #space-processed-join-request-email {
 
-  .header, .link, .invite-message {
-    padding-bottom: 15px;
+  .invite-message {
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-left: 4px solid #ddd;
   }
 
 }
