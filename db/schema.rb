@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218184717) do
+ActiveRecord::Schema.define(version: 20150226192217) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -143,6 +143,13 @@ ActiveRecord::Schema.define(version: 20141218184717) do
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
   add_index "bigbluebutton_rooms", ["server_id"], name: "index_bigbluebutton_rooms_on_server_id", using: :btree
+
+  create_table "bigbluebutton_server_configs", force: true do |t|
+    t.integer  "server_id"
+    t.text     "available_layouts"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bigbluebutton_servers", force: true do |t|
     t.string   "name"
