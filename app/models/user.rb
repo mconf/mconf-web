@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   has_many :join_requests, :foreign_key => :candidate_id
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
-  has_many :posts, :as => :author, :dependent => :destroy
+  has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
