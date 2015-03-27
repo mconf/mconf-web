@@ -985,6 +985,15 @@ pt-br:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
       new_user: "Cadastrar usuário"
+      admin_true: Administradores
+      admin_false: Usuários
+      approved_true: Aprovados
+      approved_false: Não aprovados
+      disabled_true: Desabilitados
+      disabled_false: Habilitados
+      can_record_true: Pode gravar
+      can_record_false: Não pode gravar
+
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

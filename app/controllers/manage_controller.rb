@@ -21,15 +21,14 @@ class ManageController < ApplicationController
       end
     end
 
-    if params[:role].present?
-      query = query.includes(:permissions).where('permissions.role_id = ?', params[:role])
+    if params[:admin].present?
+      val = (params[:admin] == 'true') ? true : [false, nil]
+      query = query.where(superuser: val)
     end
-
-    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     @users = query.paginate(:page => params[:page], :per_page => 20)
 
-    if partial
+    if request.xhr?
       render :partial => 'users_list', :layout => false
     else
       render :layout => 'no_sidebar'
