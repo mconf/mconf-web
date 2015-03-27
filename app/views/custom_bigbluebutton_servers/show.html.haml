@@ -6,6 +6,14 @@
 %h3= t('.showing_server', :server => @server.name)
 = render 'custom_bigbluebutton_servers/form', :editing => false, :server => @server
 
+%h3
+  = icon_help t(".configurations_tip")
+  = t(".configurations")
+
+.field
+  %label= t(".available_layouts")
+  = text_field_tag 'available_layouts', @server.available_layouts.join(', '), disabled: true
+
 %h3= t(".recordings")
 
 .field

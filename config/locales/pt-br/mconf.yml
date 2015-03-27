@@ -585,6 +585,9 @@ pt-br:
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
     show:
+      available_layouts: "Layouts disponíveis"
+      configurations: "Configurações do servidor"
+      configurations_tip: "Estas configurações são automaticamente buscadas do servidor e não podem ser modificadas aqui. Elas são buscadas periodicamente (a cada ~3h) por um processo em background e também quando a URL, chave ou versão do servidor são modificados."
       fetch_recordings_title: "Atualizar gravações usando parâmetros"
       fetch_recordings_btn: "Atualizar gravações"
       publish_recordings_title: "Publicar gravações"

@@ -49,3 +49,9 @@ update_recordings:
     - "30m"
   class: BigbluebuttonUpdateRecordings
   description: "Gets the recordings in the server to populate the db. Same as 'rake bigbluebutton_rails:recordings:update'."
+
+update_server_configs:
+  every:
+    - "3h"
+  class: BigbluebuttonUpdateServerConfigs
+  description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."

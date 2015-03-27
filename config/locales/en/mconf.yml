@@ -585,6 +585,9 @@ en:
     rooms:
       list_of_rooms: "List of all rooms for the server '%{server}'"
     show:
+      available_layouts: "Available layouts"
+      configurations: "Server configurations"
+      configurations_tip: "These configurations are automatically fetched from the server and cannot be modified here. They are fetched periodically (every ~3h) by a background process and also whenever the URL, salt or version of the server change."
       fetch_recordings_title: "Fetch recordings with parameters"
       fetch_recordings_btn: "Fetch recordings"
       publish_recordings_title: "Publish recordings"
