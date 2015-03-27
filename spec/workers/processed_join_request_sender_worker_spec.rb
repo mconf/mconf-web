@@ -24,12 +24,12 @@ describe ProcessedJoinRequestSenderWorker do
   describe "#perform" do
     context "for a request" do
       let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
-      let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: false,
-                           parameters: { join_request_id: join_request.id })
-      }
+      let(:activity) { space.new_activity :accepted, join_request.candidate, join_request }
 
-      before(:each) { worker.perform(activity.id) }
+      before(:each) {
+        activity.update_attribute(:notified, false)
+        worker.perform(activity.id)
+      }
       it { SpaceMailer.should have_queue_size_of(1) }
       it { SpaceMailer.should have_queued(:processed_join_request_email, join_request.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
@@ -37,12 +37,12 @@ describe ProcessedJoinRequestSenderWorker do
 
     context "for an invite" do
       let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
-      let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: false,
-                           parameters: { join_request_id: join_request.id })
-      }
+      let(:activity) { space.new_activity :accepted, join_request.candidate, join_request }
 
-      before(:each) { worker.perform(activity.id) }
+      before(:each) {
+        activity.update_attribute(:notified, false)
+        worker.perform(activity.id)
+      }
       it { SpaceMailer.should have_queue_size_of(1) }
       it { SpaceMailer.should have_queued(:processed_invitation_email, join_request.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
@@ -50,13 +50,11 @@ describe ProcessedJoinRequestSenderWorker do
 
     context "for a rejected user request" do
       let(:jr) { FactoryGirl.create(:space_join_request, group: space) }
-      let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: true,
-                           parameters: { join_request_id: jr.id })
-      }
+      let(:activity) { space.new_activity :rejected, jr.candidate, jr }
 
       before(:each) {
         jr.update_attributes :processed => true, :accepted => false
+        activity.update_attribute(:notified, true)
         worker.perform(activity.id)
       }
 
@@ -67,13 +65,11 @@ describe ProcessedJoinRequestSenderWorker do
 
     context "for a rejected admin invite" do
       let(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, introducer: admin) }
-      let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: true,
-                           parameters: { join_request_id: jr.id })
-      }
+      let(:activity) { space.new_activity :rejected, jr.candidate, jr }
 
       before(:each) {
         jr.update_attributes :processed => true, :accepted => false
+        activity.update_attribute(:notified, true)
         worker.perform(activity.id)
       }
 

@@ -17,11 +17,12 @@ describe JoinRequestInviteSenderWorker do
   describe "#perform" do
 
     context "sends the invitation email" do
-      let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
-      let(:activity) {
-        FactoryGirl.create(:join_request_invite_activity, owner: space, notified: false, trackable: join_request)
+      let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
+      let(:activity) { join_request.new_activity }
+      before(:each) {
+        activity.update_attribute(:notified, false)
+        worker.perform(activity.id)
       }
-      before(:each) { worker.perform(activity.id) }
 
       it { SpaceMailer.should have_queue_size_of(1) }
       it { SpaceMailer.should have_queued(:invitation_email, join_request.id).in(:mailer) }
