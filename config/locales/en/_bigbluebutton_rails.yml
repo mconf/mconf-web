@@ -70,9 +70,15 @@ en:
       notice:
         update:
           success: "The playback type was successfully updated."
-      presentation: "Play"
-      presentation_export: "Download HTML"
-      presentation_video: "Download"
+      presentation:
+        name: "Play"
+        tip: "Plays the recording in an HTML5 page. The recording is not downloaded to your computer and will require Internet to be reproduced."
+      presentation_export:
+        name: "Download HTML"
+        tip: "Downloads an HTML page that you can use to reproduce the recording offline using your browser. Has all the features of the HTML player online plus the advantage of also working offline. Currently can only be reproduced using the Firefox browser."
+      presentation_video:
+        name: "Download"
+        tip: "Downloads a vídeo file (uses the WebM format) with the recording. You can use this video file to watch the recording offline and to share this recording in other websites."
     recordings:
       default:
         description: "Meeting held on %{time} (UTC)"
