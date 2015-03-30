@@ -54,7 +54,6 @@ describe ProcessedJoinRequestSenderWorker do
 
       before(:each) {
         jr.update_attributes :processed => true, :accepted => false
-        activity.update_attribute(:notified, true)
         worker.perform(activity.id)
       }
 
@@ -69,7 +68,6 @@ describe ProcessedJoinRequestSenderWorker do
 
       before(:each) {
         jr.update_attributes :processed => true, :accepted => false
-        activity.update_attribute(:notified, true)
         worker.perform(activity.id)
       }
 

@@ -15,6 +15,8 @@ class ProcessedJoinRequestSenderWorker
     activity = RecentActivity.find(activity_id)
     join_request = activity.owner
 
+    return if activity.notified
+
     if join_request.is_request?
       Resque.logger.info "Sending processed join request notification: #{join_request.inspect}"
       SpaceMailer.processed_join_request_email(join_request.id).deliver
