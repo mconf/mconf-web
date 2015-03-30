@@ -34,6 +34,57 @@ describe User do
   #   it { should allow_mass_assignment_of(attribute) }
   # end
 
+  describe "#self.search_by_terms" do
+    let(:users) {[
+      FactoryGirl.create(:user, username: 'steve', email: 'steve@email.com', created_at: Time.now),
+      FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
+      FactoryGirl.create(:user, username: 'ismael-esteves', email: 'ismael-esteves@email.com', created_at: Time.now + 2.second)
+    ]}
+    let(:subject) { User.search_by_terms(terms) }
+
+    before {
+      users[0].profile.update_attribute(:full_name, 'Steve and Will Soon')
+      users[1].profile.update_attribute(:full_name, 'Steve Hair is')
+      users[2].profile.update_attribute(:full_name, 'Ismael Esteves')
+    }
+
+    context '1 term finds something' do
+      let(:terms) { ['steve'] }
+
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context 'Composite term finds something' do
+      let(:terms) { ['steve hair'] }
+
+      it { should include(users[1]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '2 terms find something' do
+      let(:terms) { ['esteves', 'hair'] }
+      it { should include(users[1], users[2]) }
+      it { subject.count.should be(2) }
+    end
+
+    context '1 term finds nothing 1 term finds something' do
+      let(:terms) { ['mikael', 'esteves'] }
+      it { should include(users[2]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '1 term finds nothing' do
+      let(:terms) { ['mikael'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context 'multiple terms find nothing' do
+      let(:terms) { ['Maninho', 'das', 'Qebrada'] }
+      it { subject.count.should eq(0) }
+    end
+  end
+
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
 
