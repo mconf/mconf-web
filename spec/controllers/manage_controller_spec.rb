@@ -112,36 +112,113 @@ describe ManageController do
           it { assigns(:users).should include(@u3) }
         end
 
-        # TODO: This is triggering an error related to delayed_job. Test this when delayed_job
-        #   is removed, see #811.
-        # context "by email" do
-        #   before {
-        #     @u1 = User.first # the seeded user
-        #     @u1.update_attributes(:email => 'first@here.com')
-        #     @u2 = user
-        #     @u2.update_attributes(:email => 'second@there.com')
-        #     @u3 = FactoryGirl.create(:user, :email => 'my@secondary.org')
-        #   }
-        #   before(:each) { get :users, :q => 'sec' }
-        #   it { assigns(:users).count.should be(2) }
-        #   it { assigns(:users).should include(@u2) }
-        #   it { assigns(:users).should include(@u3) }
-        # end
+        context "by email" do
+          before {
+            @u1 = FactoryGirl.create(:user, :email => 'first@here.com')
+            @u2 = FactoryGirl.create(:user, :email => 'second@there.com')
+            @u3 = FactoryGirl.create(:user, :email => 'my@secondary.org')
+          }
+          before(:each) { get :users, :q => 'sec' }
+          it { assigns(:users).count.should be(2) }
+          it { assigns(:users).should include(@u2) }
+          it { assigns(:users).should include(@u3) }
+        end
 
       end
 
-      context "removes partial from params" do
-        before(:each) { get :users, :partial => true }
-        it { controller.params.should_not have_key(:partial) }
+      context "use params [:admin, :approved, :disabled, :can_record] to filter the results" do
+        let!(:users) {[
+          FactoryGirl.create(:user, username: 'el-magron'),
+          FactoryGirl.create(:superuser, username: 'el-admin'),
+          FactoryGirl.create(:user, username: 'el-debilitado', disabled: true),
+          FactoryGirl.create(:user, username: 'reprovado'),
+          FactoryGirl.create(:user, username: 'remembrador', can_record: true),
+          User.first # the original admin user
+        ]}
+        before {
+          users[3].disapprove!
+          get :users, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:users).count.should be(6) }
+          it { assigns(:users).should include(*users) }
+        end
+
+        context "params[:admin]" do
+          context 'is true' do
+            let(:params) { {admin: 'true'} }
+            it { assigns(:users).count.should be(2) }
+            it { assigns(:users).should include(users[1], users[5]) }
+          end
+
+          context 'is false' do
+            let(:params) { {admin: 'false'} }
+            it { assigns(:users).count.should be(4) }
+            it { assigns(:users).should include(users[0], users[2], users[3], users[4]) }
+          end
+        end
+
+        context "params[:approved]" do
+          context 'is true' do
+            let(:params) { {approved: 'true'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[2], users[4], users[5]) }
+          end
+
+          context 'is false' do
+            let(:params) { {approved: 'false'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[3]) }
+          end
+        end
+
+        context "params[:disabled]" do
+          context 'is true' do
+            let(:params) { {disabled: 'true'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[2]) }
+          end
+
+          context 'is false' do
+            let(:params) { {disabled: 'false'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[3], users[4], users[5]) }
+          end
+        end
+
+        context "params[:can_record]" do
+          context 'is true' do
+            let(:params) { {can_record: 'true'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {can_record: 'false'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[2], users[3], users[5]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {admin: 'false', approved: 'true', q: 'el re'} }
+
+          it { assigns(:users).count.should be(3) }
+          it { assigns(:users).should include(users[0], users[2], users[4]) }
+        end
+
       end
 
-      context "if params[:partial] is set" do
-        before(:each) { get :users, :partial => true }
+      context "if xhr request" do
+        before(:each) { xhr :get, :users }
         it { should render_template('manage/_users_list') }
         it { should_not render_with_layout }
       end
 
-      context "if params[:partial] is not set" do
+      context "if normal get request" do
         before(:each) { get :users }
         it { should render_template(:users) }
         it { should render_with_layout('no_sidebar') }
