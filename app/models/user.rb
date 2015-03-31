@@ -89,6 +89,9 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
+  # This disables spaces if this user was their last admin
+  before_destroy :disable, prepend: true
+
   default_scope { where(:disabled => false) }
 
   # constants for the notification attribute

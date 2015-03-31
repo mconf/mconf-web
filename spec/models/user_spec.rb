@@ -294,6 +294,29 @@ describe User do
     end
   end
 
+  describe "on destroy" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
+    context "when the user is the admin of a space" do
+      before {
+        space.add_member!(user, 'Admin')
+      }
+      context "and is the last admin" do
+        before {
+          user.destroy
+        }
+        it { space.reload.disabled.should be true }
+      end
+      context "and is not the last admin" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before {
+          space.add_member!(user2, 'Admin')
+          user.destroy
+        }
+        it { space.reload.disabled.should be false }
+      end
+    end
+  end
   describe "#events", :events => true do
     let(:user) { FactoryGirl.create(:user) }
     let(:other_user) { FactoryGirl.create(:user)}
