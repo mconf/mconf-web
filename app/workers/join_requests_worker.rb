@@ -38,7 +38,7 @@ class JoinRequestsWorker
   def self.processed_request_notifications
     requests = RecentActivity.where trackable_type: 'Space', key: ['space.accept', 'space.decline'], notified: [nil,false]
     requests = requests.all.reject do |req|
-      jr = JoinRequest.where(:id => req.parameters[:join_request_id]).first
+      jr = req.owner
       # don't generate email for blank join requests and declined user requests
       jr.blank? || (jr.is_request? && !jr.accepted?)
     end

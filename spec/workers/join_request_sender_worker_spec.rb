@@ -16,9 +16,8 @@ describe JoinRequestSenderWorker do
 
   describe "#perform" do
     let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
-    let(:activity) {
-      FactoryGirl.create(:join_request_request_activity, owner: space, notified: false, trackable: join_request)
-    }
+    let(:activity) { join_request.new_activity }
+    before { activity.update_attribute(:notified, false) }
 
     context "for a space with one admin" do
       let(:admin) { FactoryGirl.create(:user) }
