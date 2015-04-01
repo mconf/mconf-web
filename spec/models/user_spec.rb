@@ -644,6 +644,35 @@ describe User do
     end
   end
 
+  describe "#admin?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "if the user is a superuser" do
+      before { user.update_attributes(superuser: true) }
+      it { user.admin?.should be(true) }
+    end
+
+    context "if the user is not a superuser" do
+      before { user.update_attributes(superuser: false) }
+      it { user.admin?.should be(false) }
+    end
+  end
+
+  describe "#enabled?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "if the user is not disabled" do
+      it { user.enabled?.should be(true) }
+      it { user.disabled?.should be(false) }
+    end
+
+    context "if the user is disabled" do
+      before { user.disable }
+      it { user.enabled?.should be(false) }
+      it { user.disabled?.should be(true) }
+    end
+  end
+
   describe "#pending_spaces" do
     before do
       @spaces = [

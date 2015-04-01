@@ -275,6 +275,10 @@ class Space < ActiveRecord::Base
     logo_image.present? && crop_x.present?
   end
 
+  def enabled?
+    !disabled?
+  end
+
   private
 
   # Creates the webconf room after the space is created

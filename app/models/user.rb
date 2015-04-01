@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
-  default_scope { where(:disabled => false) }
+  default_scope { where(disabled: false) }
 
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
@@ -275,6 +275,10 @@ class User < ActiveRecord::Base
   # Method used by MwebEvents
   def admin?
     superuser
+  end
+
+  def enabled?
+    !disabled?
   end
 
   # Return the list of spaces in which the user has a pending join request or invitation.

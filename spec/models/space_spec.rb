@@ -868,6 +868,21 @@ describe Space do
 
   end
 
+  describe "#enabled?" do
+    let(:space) { FactoryGirl.create(:space) }
+
+    context "if the space is not disabled" do
+      it { space.enabled?.should be(true) }
+      it { space.disabled?.should be(false) }
+    end
+
+    context "if the space is disabled" do
+      before { space.disable }
+      it { space.enabled?.should be(false) }
+      it { space.disabled?.should be(true) }
+    end
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
