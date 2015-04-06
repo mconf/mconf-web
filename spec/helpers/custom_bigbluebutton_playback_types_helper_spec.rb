@@ -25,18 +25,41 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
 
       subject { link_to_playback(recording, playback) }
 
-      
       it("returns the correctly link") { should eq(link) }
     end
 
     context "when the identifier was presentation_video" do
       let(:playback) { FactoryGirl.create(:bigbluebutton_playback_format, playback_type: presentation_video) }
-      let!(:name) { recording.name.downcase.tr(" ", "_") }
-      let!(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), {download: name}) }
-
       subject { link_to_playback(recording, playback) }
 
-      it("returns the correctly link") { should eq(link) }
+      before {
+        recording.update_attributes(name: 'My recording name: 1', description: 'My recording description #1')
+      }
+
+      context 'and the description is set' do
+        let(:name) { 'my_recording_description_1' }
+        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+
+        it("returns the correctly link") { should eq(link) }
+      end
+
+      context 'and the description is not set' do
+        let(:name) { 'my_recording_name_1' }
+        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+
+        before { recording.update_attributes(description: nil) }
+
+        it("returns the correctly link") { should eq(link) }
+      end
+
+      context 'and the description is empty' do
+        let(:name) { 'my_recording_name_1' }
+        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+
+        before { recording.update_attributes(description: '') }
+
+        it("returns the correctly link") { should eq(link) }
+      end
     end
   end
 end
