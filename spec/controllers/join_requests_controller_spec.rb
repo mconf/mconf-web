@@ -192,7 +192,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role_id.should be_nil }
+      it { JoinRequest.last.role_id.should eq(JoinRequest.default_role.id) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
@@ -213,7 +213,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role_id.should be_nil }
+      it { JoinRequest.last.role_id.should eq(JoinRequest.default_role.id) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
@@ -565,6 +565,19 @@ describe JoinRequestsController do
 
         # users should not be able to set the role here
         it { jr.role.should_not eq(role.name) }
+      end
+
+      context "accepts an invite with the correct admin assigned role" do
+        let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
+        before(:each) {
+          jr.update_attributes(role_id: role.id)
+          expect {
+            post :accept, space_id: space.to_param, id: jr, join_request: {}
+          }.to change{ space.pending_invitations.count }.by(-1)
+          jr.reload
+        }
+
+        it { jr.role.should eq(role.name) }
       end
 
       context "creates a recent activity" do
