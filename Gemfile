@@ -1,23 +1,18 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1.4'
+gem 'sass-rails', '~> 4.0.3'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.0.3'
+gem 'jquery-rails', '~> 3.1.1'
+gem 'yui-compressor'
+gem 'compass-rails', '~> 1.0'
+gem 'handlebars_assets'
+gem 'select2-rails'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails', '~> 4.0.3'
-  gem 'coffee-rails', '~> 4.0.0'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-rails', '~> 3.1.1'
-  gem 'yui-compressor'
-  gem 'compass-rails', '~> 1.0'
-  gem 'handlebars_assets'
-  gem 'select2-rails'
-
-  # TODO: update compass to 1.x when bootstrap-sass uses sass >= 3.3
-  # This compass is here so we can have css3/animation
-  gem 'compass', '~> 0.12'
-end
+# TODO: remove when compass-rails is updated to support animations
+# This compass is here so we can have css3/animation
+gem 'compass', '~> 0.12'
 
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
@@ -107,15 +102,14 @@ gem 'fineuploader-rails', '~> 3.3'
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
   gem 'rails-footnotes'
+  gem 'quiet_assets'
+  gem 'brakeman', :require => false
+  gem 'librarian-chef'
+  gem 'mailcatcher'
 
   # to show better error pages, with more information
   gem 'better_errors'
   gem 'binding_of_caller'
-
-  gem 'webrick', '~> 1.3.1'
-  gem 'quiet_assets'
-  gem 'brakeman', :require => false
-  gem 'librarian-chef'
 end
 
 group :development, :test do

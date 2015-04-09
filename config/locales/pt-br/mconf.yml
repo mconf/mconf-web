@@ -588,6 +588,9 @@ pt-br:
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
     show:
+      available_layouts: "Layouts disponíveis"
+      configurations: "Configurações do servidor"
+      configurations_tip: "Estas configurações são automaticamente buscadas do servidor e não podem ser modificadas aqui. Elas são buscadas periodicamente (a cada ~3h) por um processo em background e também quando a URL, chave ou versão do servidor são modificados."
       fetch_recordings_title: "Atualizar gravações usando parâmetros"
       fetch_recordings_btn: "Atualizar gravações"
       publish_recordings_title: "Publicar gravações"
@@ -613,12 +616,6 @@ pt-br:
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
-    mailer:
-      confirmation_instructions:
-        confirmation_link: "Confirme minha conta"
-        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
-        confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
-        welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: ''

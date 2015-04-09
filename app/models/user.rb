@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_many :join_requests, :foreign_key => :candidate_id, :dependent => :destroy
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
-  has_many :posts, :as => :author, :dependent => :destroy
+  has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
-  default_scope { where(:disabled => false) }
+  default_scope { where(disabled: false) }
 
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
@@ -275,6 +275,10 @@ class User < ActiveRecord::Base
   # Method used by MwebEvents
   def admin?
     superuser
+  end
+
+  def enabled?
+    !disabled?
   end
 
   # Return the list of spaces in which the user has a pending join request or invitation.

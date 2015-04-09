@@ -52,12 +52,15 @@ pt-br:
         salt: "Chave de segurança"
         url: URL
         version: Versão
+      bigbluebutton_server_config:
+        available_layouts: "Layouts disponíveis"
     models:
       bigbluebutton_metadata: "Metadado de Gravação da Webconferência"
       bigbluebutton_playback_format: "Formato de Reprodução de Webconferência"
       bigbluebutton_recording: "Gravação de Webconferência"
       bigbluebutton_room: "Sala de Webconferência"
       bigbluebutton_server: "Servidor de Webconferência"
+      bigbluebutton_server_config: "Configurações do Servidor de Webconferência"
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     metadata:
@@ -67,9 +70,15 @@ pt-br:
       notice:
         update:
           success: "Formato de reprodução atualizado com sucesso."
-      presentation: "Reproduzir"
-      presentation_export: "Download HTML"
-      presentation_video: "Download"
+      presentation:
+        name: "Reproduzir"
+        tip: "Reproduz a gravação em uma página HTML5. Não é feito download da gravação para o seu computador, portanto exige internet para a gravação ser reproduzida."
+      presentation_export:
+        name: "Download HTML"
+        tip: "Faz o download de uma página HTML que você pode usar para reproduzir a gravação usando o seu navegador mesmo sem conexão com a internet. Tem todas as características da versão online, mas com a vantagem de não exigir internet. Atualmente só pode ser reproduzida usando o navegador Firefox."
+      presentation_video:
+        name: "Download"
+        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação mesmo sem conexão com a internet e/ou compartilhar esta gravação em outros sites."
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"

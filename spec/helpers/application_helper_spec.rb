@@ -167,7 +167,8 @@ describe ApplicationHelper do
   describe "#available_locales" do
     before {
       Site.current.update_attributes(visible_locales: [:v1, :v2])
-      Rails.application.config.i18n.available_locales = [:a1, :a2]
+      Rails.application.config.i18n.stub(:available_locales)
+        .and_return([:a1, :a2])
     }
 
     context "when all==false returns only the visible locales" do

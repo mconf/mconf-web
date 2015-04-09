@@ -58,6 +58,41 @@ describe CustomBigbluebuttonRecordingsController do
     end
   end
 
+  describe "#play" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording) }
+    let!(:format) { FactoryGirl.create(:bigbluebutton_playback_format, recording: recording) }
+
+    before { login_as(user) }
+
+    context "if there is a parameter 'name' in the URL" do
+      before { get :play, id: recording.to_param, name: "custom_rec_name" }
+      it { should respond_with(:redirect) }
+      it { should redirect_to "#{format.url}?name=custom_rec_name" }
+    end
+
+    context "if there is no parameter 'name' in the URL" do
+      before { get :play, id: recording.to_param }
+      it { should respond_with(:redirect) }
+      it { should redirect_to format.url }
+    end
+
+    context "with other random parameters in the URL" do
+      before { get :play, id: recording.to_param, anything_weird: "test" }
+      it { should respond_with(:redirect) }
+      it { should redirect_to format.url }
+    end
+
+    context "doesn't break if there's no playback format" do
+      before {
+        format.destroy
+        get :play, id: recording.to_param
+      }
+      it { should respond_with(:redirect) }
+      it { should redirect_to bigbluebutton_recording_path(recording) }
+    end
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
 

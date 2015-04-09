@@ -1,9 +1,8 @@
 #space-join-request-mail
-  .header
-    = t('.message.header', :candidate => @join_request.candidate.full_name, :space => @join_request.group.name).html_safe
+  %p= t('.message.header', candidate: @join_request.candidate.full_name, space: @join_request.group.name).html_safe
 
   - unless @join_request.comment.blank?
+    %p= t('.message.user_message', candidate: @join_request.candidate.full_name).html_safe
     .invite-message= @join_request.comment
 
-  .link
-    = t('.message.link', :url => space_join_requests_url(@join_request.group, :host => Site.current.domain)).html_safe
+  %p= t('.message.link', url: space_join_requests_url(@join_request.group, host: Site.current.domain)).html_safe

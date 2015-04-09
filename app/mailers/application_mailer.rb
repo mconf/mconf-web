@@ -37,5 +37,4 @@ class ApplicationMailer < BaseMailer
       create_email(receiver.email, nil, @subject)
     end
   end
-
 end

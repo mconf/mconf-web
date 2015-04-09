@@ -19,14 +19,18 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
+        confirmation_link: "Confirm my account"
+        confirmation_ok: "You can confirm your account email through the link below:"
+        confirmation_pending: "Your account was created and is waiting the approval of an administrator."
         subject: "Registration successful"
+        welcome: "Welcome %{email}!"
       reset_password_instructions:
         subject: "Reset password instructions"
-        greeting: Hello %{email}!
-        requested: Someone has requested a link to change your password. You can do this through the link below
-        change_password: Change Password
-        ignore: If you didn't request this, please ignore this email.
-        wont_change: Your password won't change until you access the link above and create a new one
+        greeting: "Hello %{email},"
+        requested: "Someone has requested a link to change your password. You can do this through the link below:"
+        change_password: "Change Password"
+        ignore: "If you didn't request this, please ignore this email."
+        wont_change: "Your password won't change until you access the link above and create a new one."
       unlock_instructions:
         subject: "Unlock instructions"
     omniauth_callbacks:

@@ -98,11 +98,11 @@ class JoinRequestsController < ApplicationController
     @join_request.processed = true
     @join_request.introducer = current_user if @join_request.is_request?
 
-    # allow users to set the role when accepting a join request, except when is
-    # a user accepting his own request
-    user_accepting_request = @join_request.is_invite? && @join_request.candidate == current_user
-    role_id = params[:join_request].present? && params[:join_request][:role_id].present? ? params[:join_request][:role_id] : nil
-    @join_request.role_id = role_id if !user_accepting_request
+    # allow admins to set the role when accepting a join request
+    if params[:join_request].present? && params[:join_request][:role_id].present? &&
+      can?(:manage_join_requests, @space)
+      @join_request.role_id = params[:join_request][:role_id]
+    end
 
     save_for_accept_and_decline t('join_requests.accept.accepted')
   end

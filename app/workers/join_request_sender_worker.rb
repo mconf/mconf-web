@@ -15,6 +15,8 @@ class JoinRequestSenderWorker
     activity = RecentActivity.find(activity_id)
     space = activity.owner
 
+    return if activity.notified
+
     if space.nil?
       Resque.logger.info "Invalid space in a recent activity item: #{activity.inspect}"
     else

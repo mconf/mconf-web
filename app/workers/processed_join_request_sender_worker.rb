@@ -13,7 +13,9 @@ class ProcessedJoinRequestSenderWorker
   # Marks the activity as notified.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    join_request = JoinRequest.find(activity.parameters[:join_request_id])
+    join_request = activity.owner
+
+    return if activity.notified
 
     if join_request.is_request?
       Resque.logger.info "Sending processed join request notification: #{join_request.inspect}"

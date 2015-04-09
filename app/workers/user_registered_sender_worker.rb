@@ -18,5 +18,4 @@ class UserRegisteredSenderWorker
 
     activity.update_attribute(:notified, true)
   end
-
 end

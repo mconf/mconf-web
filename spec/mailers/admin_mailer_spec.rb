@@ -35,8 +35,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -47,8 +47,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -60,8 +60,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
   end

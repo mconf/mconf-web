@@ -15,6 +15,8 @@ class JoinRequestInviteSenderWorker
     activity = RecentActivity.find(activity_id)
     join_request = activity.trackable
 
+    return if activity.notified
+
     if join_request.nil?
       Resque.logger.info "Invalid join request in a recent activity item: #{activity.inspect}"
     else

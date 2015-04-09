@@ -33,7 +33,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -45,7 +45,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
   end
