@@ -5,7 +5,7 @@ feature 'User is' do
 
   context 'a member of the space' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space, :repository => true) }
+    let(:space) { FactoryGirl.create(:space_with_associations, :repository => true) }
 
     before(:each) {
       space.add_member!(user)

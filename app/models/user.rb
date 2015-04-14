@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile!
+  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username
@@ -139,8 +139,9 @@ class User < ActiveRecord::Base
     [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
-  after_create do |user|
-    user.create_profile :full_name => user._full_name
+  after_create :create_user_profile
+  def create_user_profile
+    create_profile({full_name: self._full_name})
   end
 
   # Builds a guest user based on the e-mail

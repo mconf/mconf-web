@@ -23,7 +23,7 @@ feature 'Show user activity' do
 
   context 'on user with activities home page' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     before do
       space.add_member!(user)
       login_as(user, :scope => :user)

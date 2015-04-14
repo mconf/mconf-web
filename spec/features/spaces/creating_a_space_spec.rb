@@ -4,7 +4,7 @@ require "support/feature_helpers"
 
 feature "Creating a space" do
   let!(:user) { FactoryGirl.create(:user) }
-  let!(:space) { FactoryGirl.create(:space) }
+  let(:space) { FactoryGirl.create(:space) }
 
   scenario "as public" do
     attrs = FactoryGirl.attributes_for(:space)

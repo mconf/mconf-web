@@ -10,7 +10,7 @@ describe JoinRequestsController do
   render_views
 
   describe "#index" do
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
 
     context "with a logged user" do
@@ -376,7 +376,7 @@ describe JoinRequestsController do
   end
 
   describe "#invite" do
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user) }
 
     it { should_authorize space, :invite, :space_id => space.to_param }

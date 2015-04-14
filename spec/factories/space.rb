@@ -10,13 +10,20 @@ FactoryGirl.define do
     s.sequence(:name) { |n| Forgery::Name.unique_space_name(n) }
     s.description { Forgery::Basic.text }
     s.public false
-    s.association :bigbluebutton_room
     s.deleted false
     s.repository false
     s.disabled false
+
+    after(:build) { |user| user.class.skip_callback(:create, :after, :create_webconf_room) }
+    after(:build) { |user| user.class.skip_callback(:update, :after, :update_webconf_room) }
   end
 
-  factory :public_space, :parent => :space do |s|
+  factory :space_with_associations, parent: :space do
+    after(:build) { |user| user.class.set_callback(:create, :after, :create_webconf_room) }
+    after(:build) { |user| user.class.set_callback(:update, :after, :update_webconf_room) }
+  end
+
+  factory :public_space, parent: :space do |s|
     s.public true
   end
 

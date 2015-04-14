@@ -62,7 +62,7 @@ describe ApplicationMailer do
       user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
       @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
       @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
-      @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
+      @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
       @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
       @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
       @locale = user.locale
