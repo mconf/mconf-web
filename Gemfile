@@ -135,6 +135,7 @@ group :development, :test do
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
   gem 'fooldap'
+  gem 'spring'
 end
 
 group :test do
