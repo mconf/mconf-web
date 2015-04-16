@@ -39,8 +39,8 @@ class JoinRequestsWorker
     requests = RecentActivity.where trackable_type: 'Space', key: ['space.accept', 'space.decline'], notified: [nil,false]
     requests = requests.all.reject do |req|
       jr = req.owner
-      # don't generate email for blank join requests and declined user requests
-      jr.blank? || (jr.is_request? && !jr.accepted?)
+      # don't generate email for blank join requests, declined user requests and if owner is not a join request
+      (jr.class.name != "JoinRequest") || jr.blank? || (jr.is_request? && !jr.accepted?)
     end
 
     requests.each do |activity|
