@@ -31,6 +31,7 @@ en:
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
         exception_notifications_prefix: "Will prefixed in the subject of the email. Defaults to '[ERROR]'."
         external_help: "Insert the URL for an external site that contains the help/FAQ page. Include the entire URL, including the protocol. Example: 'http://server.com'."
+        room_dial_number_pattern: "A pattern to auto generate conference dial numbers. Use an 'x' for random numbers. For example, a valid pattern is '6111x-xxx' and could generate the number 61112-876"
         feedback_url: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
         ldap_filter: "A custom LDAP filter to restrict the users that can log in using LDAP. Example: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "The IP or domain of the LDAP server. Example: \"192.111.22.33\" or \"ldapserver.any.com\"."

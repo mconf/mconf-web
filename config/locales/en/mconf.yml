@@ -159,6 +159,7 @@ en:
         exception_notifications_email: "Exception notifications recipients"
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
+        room_dial_number_pattern: 'Room dial number pattern'
         feedback_url: "Feedback URL"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"

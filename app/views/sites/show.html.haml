@@ -10,6 +10,7 @@
     = f.input :timezone, :as => :time_zone, :disabled => true
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }, :disabled => true
     = f.input :ssl, :as => :boolean, :disabled => true
+    = f.input :room_dial_number_pattern, as: :string, disabled: true
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path), :disabled => true
     = f.input :webconf_auto_record, :as => :boolean, :disabled => true
     = f.input :analytics_code, :disabled => true
