@@ -7,6 +7,8 @@
 
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
+require './lib/mconf/generate_dial_number'
+
 class User < ActiveRecord::Base
   include PublicActivity::Common
 
@@ -117,7 +119,8 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4)
+      :attendee_key => SecureRandom.hex(4),
+      :dial_number => Mconf::generate_dial_number
     }
     create_bigbluebutton_room(params)
   end
