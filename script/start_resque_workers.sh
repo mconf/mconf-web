@@ -20,7 +20,6 @@ USER="$(id -u -n)"
 APP_PATH="$(dirname $0)/.."
 PATH=/home/$USER/.rbenv/bin:/home/$USER/.rbenv/shims:$PATH
 RAILS_ENV=production
-NUM_WORKERS=3
 if [ -z "$3" ]; then WORKERNUM=1; else WORKERNUM=$3; fi
 
 if [ "$2" == "all" ]; then
@@ -35,9 +34,10 @@ cd $APP_PATH
 
 if [ "$1" != "stop" ]; then
   if [ "$2" == "all" ]; then
+    # for all queues
     /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE QUEUE="*" TERM_CHILD=1 >> $LOGFILE 2>&1 &
   else
-    # for specific queues we run a single worker
+    # for specific queues
     /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE QUEUE=$2 TERM_CHILD=1 >> $LOGFILE 2>&1 &
   fi
 else
