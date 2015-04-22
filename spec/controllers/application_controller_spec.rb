@@ -79,7 +79,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not the owner but is a superuser and the room is not running" do
@@ -121,7 +121,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not the owner but is a superuser and the room is not running" do
@@ -243,7 +243,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not a member of the space but is a superuser and the room is not running" do
@@ -322,7 +322,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not a member of the space but is a superuser and the room is not running" do
