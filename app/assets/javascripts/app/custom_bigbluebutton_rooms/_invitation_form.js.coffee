@@ -61,6 +61,12 @@ class mconf.CustomBigbluebuttonRooms.Invitation
         results: (data, page) -> # parse the results into the format expected by Select2.
           results: data
 
+    # This option will open the select2 field ready to search
+    $(usersSelector).select2 'open'
+
+    # This option is optional. It was used just to improve the style of the page
+    $(usersSelector).select2 'focus'
+
     $(usersSelector).on "change", =>
       @checkRequired()
 
