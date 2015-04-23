@@ -202,7 +202,7 @@ describe CustomBigbluebuttonRecordingsController do
       end
 
       context "in a recording of a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
@@ -221,7 +221,7 @@ describe CustomBigbluebuttonRecordingsController do
       end
 
       context "in a recording of a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)

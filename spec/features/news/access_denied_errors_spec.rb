@@ -9,7 +9,7 @@ feature 'User hits access denied errors' do
   context 'while accessing the news index' do
     context 'in a public space' do
       let(:user) { FactoryGirl.create(:user) }
-      let(:space) { FactoryGirl.create(:space, public: true) }
+      let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
       subject { page }
 
       context 'and is logged out' do
@@ -51,7 +51,7 @@ feature 'User hits access denied errors' do
 
     context 'in a private space' do
       let(:user) { FactoryGirl.create(:user) }
-      let(:space) { FactoryGirl.create(:space, public: false) }
+      let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
       subject { page }
 
       context 'and is logged out' do

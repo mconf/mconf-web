@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Accepting users in a space" do
-  let(:space) { FactoryGirl.create(:space) }
+  let(:space) { FactoryGirl.create(:space_with_associations) }
   let(:user) { FactoryGirl.create(:user) }
 
   context "listing all pending invitations and requests" do

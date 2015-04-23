@@ -283,8 +283,8 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
-          it { @user.should_not be_approved }
+          let(:user) { FactoryGirl.create(:user, approved: false) }
+          it { user.should_not be_approved }
         end
       end
     end
@@ -312,14 +312,12 @@ describe User do
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
-    let(:private_space_member) { FactoryGirl.create(:private_space) }
-    let(:private_space_not_member) { FactoryGirl.create(:private_space) }
-    let(:public_space_member) { FactoryGirl.create(:public_space) }
-    let(:public_space_not_member) { FactoryGirl.create(:public_space) }
+    let!(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
+    let(:private_space_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let!(:private_space_not_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let(:public_space_member) { FactoryGirl.create(:space_with_associations, public: true) }
+    let!(:public_space_not_member) { FactoryGirl.create(:space_with_associations, public: true) }
     before do
-      user_room
-      public_space_not_member
       private_space_member.add_member!(user)
       public_space_member.add_member!(user)
     end

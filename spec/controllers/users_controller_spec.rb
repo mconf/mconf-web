@@ -816,7 +816,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
-      it { user.reload.approved?.should be_truthy } # auto approved
+      it { user.should be_approved } # auto approved
       it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
     end
 

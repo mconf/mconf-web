@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Viewing join requests" do
-  let(:space) { FactoryGirl.create(:space) }
+  let(:space) { FactoryGirl.create(:space_with_associations) }
   let(:user) { FactoryGirl.create(:user) }
 
   let!(:request) { FactoryGirl.create(:space_join_request, request_type: JoinRequest::TYPES[:request], group: space) }

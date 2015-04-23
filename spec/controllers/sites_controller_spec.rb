@@ -32,6 +32,8 @@ describe SitesController do
   end
 
   describe "abilities", :abilities => true do
+    render_views(false)
+
     let(:site) { FactoryGirl.create(:site) }
 
     context "for a normal user:" do

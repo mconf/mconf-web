@@ -15,7 +15,7 @@ describe PostsController do
   it "#create"
 
   describe "#update" do
-    let!(:post) { FactoryGirl.create(:post) }
+    let!(:post) { FactoryGirl.create(:post, space: FactoryGirl.create(:space_with_associations)) }
     let(:user) { post.author }
     let(:space) { post.space }
     before do

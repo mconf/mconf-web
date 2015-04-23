@@ -31,7 +31,10 @@ describe Space do
   it { should have_many(:attachments).dependent(:destroy) }
 
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
-  it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
+  context 'space bigbluebutton' do
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
+  end
   it { should accept_nested_attributes_for(:bigbluebutton_room) }
 
   it { should have_many(:permissions) }
@@ -189,13 +192,13 @@ describe Space do
       describe "on create" do
         context "with an exact match" do
           let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-          subject { FactoryGirl.build(:space, permalink: room.param) }
+          subject { FactoryGirl.build(:space_with_associations, permalink: room.param) }
           include_examples "invalid space with permalink not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
-          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
+          subject { FactoryGirl.build(:space_with_associations, permalink: "mY-weiRD-NAMe") }
           include_examples "invalid space with permalink not unique"
         end
       end
@@ -292,10 +295,10 @@ describe Space do
     let!(:now) { Time.now.beginning_of_day }
     let!(:spaces) do
       [
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space)
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations)
       ]
     end
 
@@ -354,10 +357,10 @@ describe Space do
     let!(:now) { Time.now.beginning_of_day }
     let!(:spaces) do
       [
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space),
-        FactoryGirl.create(:space)
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations)
       ]
     end
 
@@ -712,9 +715,9 @@ describe Space do
   end
 
   describe "#create_webconf_room" do
+    let(:space) { FactoryGirl.create(:space_with_associations) }
 
     it "is called when the space is created" do
-      space = FactoryGirl.create(:space)
       space.bigbluebutton_room.should_not be_nil
       space.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
@@ -734,15 +737,15 @@ describe Space do
         space.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
       end
 
-      it "as public if the space is public" do
-        space = FactoryGirl.create(:space, :public => true)
-        space.bigbluebutton_room.private.should be false
+      context "as public if the space is public" do
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+        it { space.bigbluebutton_room.private.should be false }
       end
 
       # changed due to feature #1481
-      it "also as public if the space is private" do
-        space = FactoryGirl.create(:space, :public => false)
-        space.bigbluebutton_room.private.should be false
+      context "also as public if the space is private" do
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
+        it { space.bigbluebutton_room.private.should be false }
       end
 
       skip "with the server as the first server existent"
@@ -750,8 +753,10 @@ describe Space do
   end
 
   describe "#update_webconf_room" do
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+
     context "updates the webconf room" do
-      let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
+      let(:space) { FactoryGirl.create(:space_with_associations, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
 
       it { space.bigbluebutton_room.param.should be(space.permalink) }
