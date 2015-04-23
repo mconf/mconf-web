@@ -49,6 +49,10 @@ describe WebConferenceMailer do
         invitation.target.update_attributes(private: true)
         mail.body.encoded.should match(invitation.target.attendee_key)
       }
+      it("renders the dial number") {
+        invitation.target.update_attributes(dial_number: '12345')
+        mail.body.encoded.should match('12345')
+      }
       it("doesn't render the attendee password if the room is public") {
         invitation.target.update_attributes(private: false)
         mail.body.encoded.should_not match(invitation.target.attendee_key)

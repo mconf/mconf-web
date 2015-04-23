@@ -1578,6 +1578,7 @@ en:
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
+        dial_number: Dial Number
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_notifications:

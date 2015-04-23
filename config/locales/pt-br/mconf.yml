@@ -1578,6 +1578,7 @@ pt-br:
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
+        dial_number: Numero para discagem
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_notifications:
