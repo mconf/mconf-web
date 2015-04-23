@@ -299,7 +299,7 @@ describe ShibbolethController do
         it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if the found the user, authenticated and it's not disabled" do
+      context "if the user is found, is authenticated and is not disabled" do
         let(:user) { FactoryGirl.create(:user, :password => '12345') }
         before {
           # the user that is trying to login has to be the same user that has variables
@@ -328,6 +328,21 @@ describe ShibbolethController do
             }.to change{ ShibToken.count }.by(1) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
           }
           subject { ShibToken.last }
+          it("sets the user in the token") { subject.user.should eq(user) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
+        end
+
+        context "creates a ShibToken and deletes the old one if the user was associated with another federation account" do
+          let!(:old_shib) { ShibToken.create!(:identifier => "ninjaedit#{user.email}", user: user) }
+          before(:each) {
+            user.update_attributes(:confirmed_at => nil)
+            expect {
+              post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
+            }.to change{ ShibToken.count }.by(0) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
+          }
+          subject { ShibToken.last }
+          it("created a different token") { subject.should_not eq(old_shib) }
           it("sets the user in the token") { subject.user.should eq(user) }
           it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
           it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
