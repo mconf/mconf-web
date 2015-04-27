@@ -1,6 +1,7 @@
 MwebEvents::ParticipantsController.class_eval do
   before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
+  before_filter :verify_captcha_validity, only: [:create], unless: -> { current_user }
 
   after_filter only: [:create] do
     @participant.new_activity(params[:action], current_user) if @participant.persisted?
@@ -8,6 +9,13 @@ MwebEvents::ParticipantsController.class_eval do
   after_filter :waiting_for_confirmation_message, only: [:create]
 
   layout "no_sidebar", only: [:new]
+
+  def verify_captcha_validity
+    if verify_recaptcha == false
+      flash[:error] = I18n.t('recaptcha.errors.verification_failed')
+      redirect_to new_event_participant_path
+    end
+  end
 
   # return 404 for all Participant routes if the events are disabled
   def block_if_events_disabled

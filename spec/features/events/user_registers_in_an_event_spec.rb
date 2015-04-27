@@ -46,9 +46,10 @@ feature "User registers in an event" do
     it { should have_content t("mweb_events.participants.split_form.annonymous_title") }
     it { should have_content t("mweb_events.participants.split_form.member_title") }
 
-    context "register as annonymous" do
+    context "register as annonymous with valid captcha" do
       let(:email) { 'cosmo@oot.ze' }
       before {
+        MwebEvents::ParticipantsController.any_instance.should_receive(:verify_recaptcha).and_return(true)
         fill_in "participant[email]", with: email
         click_button t('mweb_events.participants.form.submit')
       }
@@ -56,6 +57,18 @@ feature "User registers in an event" do
       it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
       it { current_path.should eq(mweb_events.event_path(event)) }
       it { should have_content t("mweb_events.events.registration.button") }
+    end
+
+    context "try to register as annonymous with invalid captcha" do
+      let(:email) { 'cosmo@oot.ze' }
+      before {
+        MwebEvents::ParticipantsController.any_instance.should_receive(:verify_recaptcha).and_return(false)
+        fill_in "participant[email]", with: email
+        click_button t('mweb_events.participants.form.submit')
+      }
+
+      it { has_failure_message t('recaptcha.errors.verification_failed') }
+      it { current_path.should eq(mweb_events.new_event_participant_path(event)) }
     end
 
     context "register as annonymous and confirms registration via email" do

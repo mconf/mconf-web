@@ -1273,6 +1273,9 @@ pt-br:
   request:
     info: "Seu pedido para entrar na comunidade foi enviado com sucesso para os administradores da comunidade. Um administrador cuidará dele o mais rapidamente possível"
     sent: "Solicitação enviada!"
+  recaptcha:
+    errors:
+      verification_failed: "Você preencheu o captcha incorretamente. Por favor tente novamente."
   rnp: RNP
   role:
     added: "Função %{role} adicionado com sucesso a %{agent}"
