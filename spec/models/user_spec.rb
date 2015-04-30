@@ -34,7 +34,7 @@ describe User do
   #   it { should allow_mass_assignment_of(attribute) }
   # end
 
-  describe "#self.search_by_terms" do
+  describe ".search_by_terms" do
     let(:users) {[
       FactoryGirl.create(:user, username: 'steve', email: 'steve@email.com', created_at: Time.now),
       FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
@@ -82,6 +82,27 @@ describe User do
     context 'multiple terms find nothing' do
       let(:terms) { ['Maninho', 'das', 'Qebrada'] }
       it { subject.count.should eq(0) }
+    end
+
+    context "returns a Relation object" do
+      let(:terms) { [''] }
+      it { subject.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "accepts a string as parameter" do
+      let(:terms) { 'steve' }
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context "is chainable" do
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc", superuser: false) }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def", superuser: false) }
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc-2", superuser: true) }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
+      subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
+      it { subject.count.should eq(1) }
     end
   end
 
@@ -640,8 +661,8 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let(:user1) { FactoryGirl.create(:user, :disabled => true) }
-    let(:user2) { FactoryGirl.create(:user, :disabled => false) }
+    let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+    let!(:user2) { FactoryGirl.create(:user, disabled: false) }
 
     context "finds users even if disabled" do
       subject { User.with_disabled }
@@ -651,6 +672,15 @@ describe User do
 
     context "returns a Relation object" do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "is chainable" do
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user6) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 

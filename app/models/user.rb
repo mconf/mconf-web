@@ -89,10 +89,11 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
-  def self.search_by_terms(words)
-    query = with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
+  scope :search_by_terms, -> (words) {
+    query = joins(:profile).includes(:profile).order("profiles.full_name")
 
     words ||= []
+    words = [words] unless words.is_a?(Array)
     query_strs = []
     query_params = []
 
@@ -102,7 +103,7 @@ class User < ActiveRecord::Base
     end
 
     query.where(query_strs.join(' OR '), *query_params.flatten)
-  end
+  }
 
   def ability
     @ability ||= Abilities.ability_for(self)
@@ -169,7 +170,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_disabled
-    self.unscoped
+    unscope(where: :disabled) # removes the default scope only
   end
 
   def <=>(user)
