@@ -80,8 +80,7 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
-  # This disables spaces if this user was their last admin
-  before_destroy :disable, prepend: true
+  before_destroy :before_disable_and_destroy, prepend: true
 
   default_scope { where(disabled: false) }
 
@@ -167,23 +166,8 @@ class User < ActiveRecord::Base
   end
 
   def disable
-    # All the spaces the user is an admin of
-    admin_in = self.permissions
-      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
-      .map(&:subject)
-    admin_in.compact! # remove nil (disabled) spaces
-
+    before_disable_and_destroy
     update_attribute(:disabled, true)
-
-    # Some associations are removed even if the user is only
-    # being disabled and not completely removed.
-    permissions.each(&:destroy)
-    join_requests.each(&:destroy)
-
-    # Disable spaces if this user was the last admin
-    admin_in.each do |space|
-      space.disable if space.admins.empty?
-    end
   end
 
   def enable
@@ -304,6 +288,24 @@ class User < ActiveRecord::Base
   end
 
   protected
+
+  def before_disable_and_destroy
+    # All the spaces the user is an admin of
+    admin_in = self.permissions
+      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+      .map(&:subject)
+    admin_in.compact! # remove nil (disabled) spaces
+
+    # Some associations are removed even if the user is only
+    # being disabled and not completely removed.
+    permissions.each(&:destroy)
+    join_requests.each(&:destroy)
+
+    # Disable spaces if this user was the last admin
+    admin_in.each do |space|
+      space.disable if space.admins.empty?
+    end
+  end
 
   def init
     @created_by = nil

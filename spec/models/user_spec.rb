@@ -292,27 +292,74 @@ describe User do
 
   describe "on destroy" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
-    context "when the user is the admin of a space" do
-      before {
-        space.add_member!(user, 'Admin')
-      }
-      context "and is the last admin" do
-        before {
+
+    context 'removes all permissions' do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it { expect { user.destroy }.to change(Permission, :count).by(-1) }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.destroy }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.destroy }.not_to change(JoinRequest, :count) }
+    end
+
+    context "when the user is admin of a space" do
+      let(:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
           user.destroy
-        }
-        it { space.reload.disabled.should be true }
+        end
+
+        it { space.reload.disabled.should be(true) }
       end
-      context "and is not the last admin" do
+
+      context "and is the last admin left and there are other members" do
         let(:user2) { FactoryGirl.create(:user) }
-        before {
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
           space.add_member!(user2, 'Admin')
           user.destroy
-        }
-        it { space.reload.disabled.should be false }
+        end
+
+        it { space.disabled.should be(false) }
+      end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
       end
     end
   end
+
   describe "#events", :events => true do
     let(:user) { FactoryGirl.create(:user) }
     let(:other_user) { FactoryGirl.create(:user)}
