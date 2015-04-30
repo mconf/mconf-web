@@ -52,6 +52,8 @@ en:
     accept: "Accept"
     cancel: "Cancel"
     create: "Create"
+    datetime:
+      simple_rails_format: "%b %d %Y"
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
