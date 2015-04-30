@@ -50,12 +50,20 @@ updateResources = ($input, $target) ->
   text = $input.val()
   lastValue = $input.attr("data-last-value")
 
-  if text isnt lastValue
-    $input.attr("data-last-value", text)
-    url = $input.attr("data-load-url") + "&q=#{text}"
+  $input.attr("data-last-value", text)
+  params = mconf.Base.getUrlParts(String(window.location))
 
-    $target.load url, ->
-      mconf.Resources.bind()
+  if text?.length > 0
+    params.q = encodeURI(text)
+  else
+    delete params.q
+
+  url = $input.attr("data-load-url") + mconf.Base.urlFromParts(params)
+
+  history.replaceState(params, '', url)
+
+  $target.load url, ->
+    mconf.Resources.bind()
 
 $ ->
   mconf.ResourceFilter.bind()

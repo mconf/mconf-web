@@ -982,6 +982,14 @@ en:
       filter_name_or_username: "Name, username or email"
       filter_results: "Filter the results:"
       new_user: "Create user"
+      admin_true: Admins
+      admin_false: Users
+      approved_true: Approved
+      approved_false: Not approved
+      disabled_true: Disabled
+      disabled_false: Enabled
+      can_record_true: Can record
+      can_record_false: Can't record
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"

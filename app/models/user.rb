@@ -89,6 +89,21 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
+  def self.search_by_terms(words)
+    query = with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
+
+    words ||= []
+    query_strs = []
+    query_params = []
+
+    words.each do |word|
+      query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
+      query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
+    end
+
+    query.where(query_strs.join(' OR '), *query_params.flatten)
+  end
+
   def ability
     @ability ||= Abilities.ability_for(self)
   end
