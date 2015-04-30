@@ -105,6 +105,25 @@ describe JoinRequestsWorker do
         it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
       end
 
+      context "ignores requests that is not owned by join requests" do
+        let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+        let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+        let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: false) }
+        before {
+          # clear automatically created activities
+          RecentActivity.destroy_all
+
+          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
+          @activity1.update_attributes owner: space
+          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
+          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+        }
+
+        before(:each) { worker.perform }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
+      end
+
       context "warns introducer about declined invitations" do
         let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, :request_type => 'invite') }
         let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, :request_type => 'invite', :accepted => true) }
