@@ -12,22 +12,17 @@ $ ->
     $('input.resource-filter-field').each ->
       input = $(this)
       field = $(this).attr('data-attr-filter')
-      base_url = '/manage/users/'
+      baseUrl = $('input.resource-filter').data('load-url')
 
-      $(this).click ->
+      $(this).on 'click', ->
         params = mconf.Base.getUrlParts(String(window.location))
         if $(this).is(':checked')
           params[field] = $(this).val()
-
-          op_value = if (params[field] == 'true') then 'false' else 'true'
-          op_element = $("input[data-attr-filter='#{field}'][value='#{op_value}']")[0]
-
-          if op_element.checked
-            op_element.checked = false
-
+          opValue = if params[field] is 'true' then 'false' else 'true'
+          opElement = $("input[data-attr-filter='#{field}'][value='#{opValue}']")[0]
+          opElement.checked = false if opElement.checked
         else
           delete params[field]
 
-        history.pushState(params, '', base_url + mconf.Base.urlFromParts(params))
-        $('input.resource-filter').trigger('keyup.mconfResourceFilter')
-
+        history.pushState(params, '', baseUrl + mconf.Base.urlFromParts(params))
+        $('input.resource-filter').trigger('update-resources')

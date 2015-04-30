@@ -209,7 +209,6 @@ describe ManageController do
           it { assigns(:users).count.should be(3) }
           it { assigns(:users).should include(users[0], users[2], users[4]) }
         end
-
       end
 
       context "if xhr request" do
@@ -218,12 +217,11 @@ describe ManageController do
         it { should_not render_with_layout }
       end
 
-      context "if normal get request" do
+      context "not xhr request" do
         before(:each) { get :users }
         it { should render_template(:users) }
         it { should render_with_layout('no_sidebar') }
       end
-
     end
   end
 
@@ -311,18 +309,13 @@ describe ManageController do
         end
       end
 
-      context "removes partial from params" do
-        before(:each) { get :spaces, :partial => true }
-        it { controller.params.should_not have_key(:partial) }
-      end
-
-      context "if params[:partial] is set" do
-        before(:each) { get :spaces, :partial => true }
+      context "if xhr request" do
+        before(:each) { xhr :get, :spaces }
         it { should render_template('manage/_spaces_list') }
         it { should_not render_with_layout }
       end
 
-      context "if params[:partial] is not set" do
+      context "not xhr request" do
         before(:each) { get :spaces }
         it { should render_template(:spaces) }
         it { should render_with_layout('no_sidebar') }

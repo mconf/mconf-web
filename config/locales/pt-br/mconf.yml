@@ -952,8 +952,8 @@ pt-br:
       users: "Usuários"
       webconf: "Webconferência"
     spaces:
-      filter_name: "Nome"
-      filter_results: "Filtrar os resultados:"
+      filter_name: "Filtrar comunidades por nome"
+      new_space: "Nova comunidade"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
@@ -979,8 +979,7 @@ pt-br:
         not_spam_tooltip: "Esta mensagem não é um spam"
         title: "Mensagens denunciadas como spam"
     users:
-      filter_name_or_username: "Nome, identificador ou e-mail"
-      filter_results: "Filtrar os resultados:"
+      filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
       admin_true: Administradores
       admin_false: Usuários
