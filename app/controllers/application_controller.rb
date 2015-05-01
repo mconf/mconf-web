@@ -190,6 +190,21 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  # Returns a boolean value denoting if the captcha in the form was
+  # filled in correctly. The form has to have the 'captcha_tags' method called in them
+  # It also tries to set the errors in the model so you can do
+  # 'if verify_captche && model.save!' in your controller
+  def verify_captcha
+    site = Site.current
+    # only verify captcha for logged out users
+    if current_user.blank? && site.captcha_enabled?
+
+      # verify and try to add errors to the model
+      model = instance_variable_get("@#{controller_name.singularize}")
+      verify_recaptcha(private_key: site.recaptcha_private_key, model: model)
+    end
+  end
+
   private
 
   def set_time_zone

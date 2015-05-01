@@ -198,6 +198,15 @@ module ApplicationHelper
     content_tag :abbr, "*", :title => I18n.t('_other.form.required')
   end
 
+  def captcha_tags
+    site = Site.current
+    if site.captcha_enabled?
+      content_tag :div, class: 'captcha' do
+        recaptcha_tags public_key: site.recaptcha_public_key
+      end
+    end
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/

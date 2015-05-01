@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318204721) do
+ActiveRecord::Schema.define(version: 20150428174350) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -383,6 +383,9 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.boolean  "shib_always_new_account",        default: false
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
+    t.boolean  "captcha_enabled"
+    t.string   "recaptcha_public_key"
+    t.string   "recaptcha_private_key"
   end
 
   create_table "spaces", force: true do |t|
