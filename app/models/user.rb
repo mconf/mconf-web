@@ -105,6 +105,19 @@ class User < ActiveRecord::Base
     query.where(query_strs.join(' OR '), *query_params.flatten)
   }
 
+  alias_attribute :name, :full_name
+  alias_attribute :title, :full_name
+  alias_attribute :permalink, :username
+
+  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+
+  # In case the profile is accessed before it is created, we build one on the fly.
+  # Important specially because we have method delegated to the profile.
+  def profile_with_initialize
+    profile_without_initialize || build_profile
+  end
+  alias_method_chain :profile, :initialize
+
   def ability
     @ability ||= Abilities.ability_for(self)
   end
@@ -116,15 +129,6 @@ class User < ActiveRecord::Base
 
   def site_needs_approval?
     Site.current.require_registration_approval
-  end
-
-  # Profile
-  def profile!
-    if profile.blank?
-      self.create_profile
-    else
-      profile
-    end
   end
 
   def create_webconf_room
@@ -146,11 +150,6 @@ class User < ActiveRecord::Base
       bigbluebutton_room.update_attributes(params)
     end
   end
-
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
-  alias_attribute :name, :full_name
-  alias_attribute :title, :full_name
-  alias_attribute :permalink, :username
 
   # Full location: city + country
   def location
