@@ -20,7 +20,7 @@ $ ->
           params[field] = $(this).val()
           opValue = if params[field] is 'true' then 'false' else 'true'
           opElement = $("input[data-attr-filter='#{field}'][value='#{opValue}']")[0]
-          opElement.checked = false if opElement.checked
+          opElement.checked = false if opElement?.checked
         else
           delete params[field]
 
