@@ -23,7 +23,7 @@ $ ->
       formatNoMatches: (term) ->
         I18n.t('spaces.index.search.by_name.no_matches', { term: mconf.Base.escapeHTML(term) })
 
-      width: '250'
+      width: 'auto'
       formatResult: format
       formatSelection: format
       ajax:

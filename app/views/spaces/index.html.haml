@@ -45,28 +45,32 @@
             = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
-  .view-types
-    .btn-group
-      = link_to spaces_path(params.merge(view: 'thumbnails')), :class => "tooltipped btn-default btn-sm #{'active' if params[:view] == 'thumbnails'}" do
-        = t('.list_format.thumbnails')
-      = link_to spaces_path(params.merge(view: 'list')), :class => "tooltipped btn-default btn-sm #{'active' if params[:view] == 'list'}" do
-        = t('.list_format.list')
 
-  .btn-group
-    = link_to spaces_path(params.merge(my_spaces: nil)), :id => "show-spaces-all", :class => "btn btn-default btn-sm #{'active' unless params[:my_spaces]}", :type => "button" do
-      = t('space.index.filters.all')
-    - if user_signed_in?
-      = link_to spaces_path(params.merge(my_spaces: true), :my_spaces => true), :id => "show-spaces-mine", :class => "btn btn-default btn-sm #{'active' if params[:my_spaces]}", :type => "button" do
-        = t('space.index.filters.my_spaces')
+  .search
     = hidden_field_tag :space_filter_text
 
+
+  .filters
+    .btn-group
+      = link_to spaces_path(params.merge(my_spaces: nil)), :id => "show-spaces-all", :class => "btn btn-default btn-sm #{'active' unless params[:my_spaces]}", :type => "button" do
+        = t('space.index.filters.all')
+      - if user_signed_in?
+        = link_to spaces_path(params.merge(my_spaces: true), :my_spaces => true), :id => "show-spaces-mine", :class => "btn btn-default btn-sm #{'active' if params[:my_spaces]}", :type => "button" do
+          = t('space.index.filters.my_spaces')
+
+  .list-types
+    %span= t('space.index.order.show_as') + ':'
+    .btn-group
+      = link_to t('.list_format.thumbnails'), spaces_path(params.merge(view: 'thumbnails')), :class => "btn btn-default btn-sm tooltipped #{'active' if params[:view] == 'thumbnails'}"
+      = link_to t('.list_format.list'), spaces_path(params.merge(view: 'list')), :class => "btn btn-default btn-sm tooltipped #{'active' if params[:view] == 'list'}"
+
+  .list-order
+    %span= t('space.index.order.order_by') + ':'
+    .btn-group
+      = link_to t('space.index.order.relevance'), spaces_path(params.merge(order: 'relevance')), class: "btn btn-default btn-sm tooltipped #{'active' if params[:order] == 'relevance'}", title: t('space.index.order.relevance_tip')
+      = link_to t('space.index.order.alphabetic'), spaces_path(params.merge(order: 'abc')), class: "btn btn-default btn-sm #{'active' if params[:order] == 'abc'}"
+
 #space-order-wrapper
-  = t('space.index.order.order_by') + ':'
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to spaces_path(params.merge(order: 'relevance')), class: "tooltipped btn btn-mini #{'active' if params[:order] == 'relevance'}", title: t('space.index.order.relevance_tip') do
-      = t('space.index.order.relevance')
-    = link_to spaces_path(params.merge(order: 'abc')), class: "btn btn-mini #{'active' if params[:order] == 'abc'}" do
-      = t('space.index.order.alphabetic')
 
 - if params[:view] == 'list'
   = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true

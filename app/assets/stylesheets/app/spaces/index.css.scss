@@ -7,23 +7,33 @@ body.spaces.index {
   #space-filter-wrapper {
     @include mconf-clearfix;
     margin-bottom: 10px;
-    padding: 10px 5px;
+    padding: 10px 10px;
     background: $m-light-gray;
     @include border-radius(5px);
-    text-align: center;
+    text-align: left;
 
-    .view-types {
-      float: right;
-      margin-top: 1px;
-      margin-right: 10px;
+    .filters, .list-types, .list-order {
+      @include mconf-clearfix;
+      float: left;
+      margin-top: 8px;
+      width: 33.3%;
+
+      span {
+        margin-right: 5px;
+      }
     }
 
-    .btn-group {
-      margin-left: 15px;
-      float: left;
+    .list-types, .list-order {
+      text-align: right;
+    }
 
-      .select2-choice {
-        @include border-radius(0 4px 4px 0);
+    .search {
+      clear: both;
+      width: 100%;
+
+      .select2-container {
+        max-width: 100% !important;
+        min-width: 100%;
       }
     }
   }

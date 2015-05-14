@@ -1459,6 +1459,7 @@ en:
         order_by: "Order by"
         relevance: "Relevance"
         relevance_tip: "Shows the spaces with the most recent activities at the top"
+        show_as: "Show as"
       select_at_left: "Select a space in the list to see its description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"

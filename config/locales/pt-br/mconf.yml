@@ -1458,6 +1458,7 @@ pt-br:
       order:
         alphabetic: "Nome"
         order_by: "Ordenar por"
+        show_as: "Exibir como"
         relevance: "Relevância"
         relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
