@@ -282,13 +282,15 @@ namespace :db do
         meeting.start_time = @created_at_start..Time.now
         meeting.name = Populator.words(3..5).titleize
         meeting.recorded = true
-        if room.owner_type == "Space"
-          user = room.owner.users.sample
-        else
-          user = room.owner
+        if room.owner.present? # not for disabled resources
+          if room.owner_type == "Space"
+            user = room.owner.users.sample
+          else
+            user = room.owner
+          end
+          meeting.creator_id = user.id
+          meeting.creator_name = user.full_name
         end
-        meeting.creator_id = user.id
-        meeting.creator_name = user.full_name
         meeting.running = false
 
         BigbluebuttonRecording.populate 1..1 do |recording|
@@ -336,13 +338,15 @@ namespace :db do
         meeting.start_time = @created_at_start..Time.now
         meeting.name = Populator.words(3..5).titleize
         meeting.recorded = false
-        if room.owner_type == "Space"
-          user = room.owner.users.sample
-        else
-          user = room.owner
+        if room.owner.present? # not for disabled resources
+          if room.owner_type == "Space"
+            user = room.owner.users.sample
+          else
+            user = room.owner
+          end
+          meeting.creator_id = user.id
+          meeting.creator_name = user.full_name
         end
-        meeting.creator_id = user.id
-        meeting.creator_name = user.full_name
         meeting.running = false
       end
 
