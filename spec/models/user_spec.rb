@@ -34,6 +34,78 @@ describe User do
   #   it { should allow_mass_assignment_of(attribute) }
   # end
 
+  describe ".search_by_terms" do
+    let(:users) {[
+      FactoryGirl.create(:user, username: 'steve', email: 'steve@email.com', created_at: Time.now),
+      FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
+      FactoryGirl.create(:user, username: 'ismael-esteves', email: 'ismael-esteves@email.com', created_at: Time.now + 2.second)
+    ]}
+    let(:subject) { User.search_by_terms(terms) }
+
+    before {
+      users[0].profile.update_attribute(:full_name, 'Steve and Will Soon')
+      users[1].profile.update_attribute(:full_name, 'Steve Hair is')
+      users[2].profile.update_attribute(:full_name, 'Ismael Esteves')
+    }
+
+    context '1 term finds something' do
+      let(:terms) { ['steve'] }
+
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context 'Composite term finds something' do
+      let(:terms) { ['steve hair'] }
+
+      it { should include(users[1]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '2 terms find something' do
+      let(:terms) { ['esteves', 'hair'] }
+      it { should include(users[1], users[2]) }
+      it { subject.count.should be(2) }
+    end
+
+    context '1 term finds nothing 1 term finds something' do
+      let(:terms) { ['mikael', 'esteves'] }
+      it { should include(users[2]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '1 term finds nothing' do
+      let(:terms) { ['mikael'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context 'multiple terms find nothing' do
+      let(:terms) { ['Maninho', 'das', 'Qebrada'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context "returns a Relation object" do
+      let(:terms) { [''] }
+      it { subject.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "accepts a string as parameter" do
+      let(:terms) { 'steve' }
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context "is chainable" do
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc", superuser: false) }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def", superuser: false) }
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc-2", superuser: true) }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
+      subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
+      it { subject.count.should eq(1) }
+    end
+  end
+
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -283,9 +355,83 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
-          it { @user.should_not be_approved }
+          let(:user) { FactoryGirl.create(:user, approved: false) }
+          it { user.should_not be_approved }
         end
+      end
+    end
+  end
+
+  describe "on destroy" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context 'removes all permissions' do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it {
+        expect { user.destroy }.to change{
+          Permission.where(user: user, subject: space).count
+        }.by(-1)
+      }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.destroy }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.destroy }.not_to change(JoinRequest, :count) }
+    end
+
+    context "when the user is admin of a space" do
+      let(:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and is the last admin left and there are other members" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'Admin')
+          user.destroy
+        end
+
+        it { space.disabled.should be(false) }
+      end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
       end
     end
   end
@@ -312,14 +458,12 @@ describe User do
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
-    let(:private_space_member) { FactoryGirl.create(:private_space) }
-    let(:private_space_not_member) { FactoryGirl.create(:private_space) }
-    let(:public_space_member) { FactoryGirl.create(:public_space) }
-    let(:public_space_not_member) { FactoryGirl.create(:public_space) }
+    let!(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
+    let(:private_space_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let!(:private_space_not_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let(:public_space_member) { FactoryGirl.create(:space_with_associations, public: true) }
+    let!(:public_space_not_member) { FactoryGirl.create(:space_with_associations, public: true) }
     before do
-      user_room
-      public_space_not_member
       private_space_member.add_member!(user)
       public_space_member.add_member!(user)
     end
@@ -521,8 +665,8 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let(:user1) { FactoryGirl.create(:user, :disabled => true) }
-    let(:user2) { FactoryGirl.create(:user, :disabled => false) }
+    let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+    let!(:user2) { FactoryGirl.create(:user, disabled: false) }
 
     context "finds users even if disabled" do
       subject { User.with_disabled }
@@ -532,6 +676,15 @@ describe User do
 
     context "returns a Relation object" do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "is chainable" do
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user6) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 
@@ -818,7 +971,9 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable, :confirm])
+    set_custom_ability_actions([
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm
+    ])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

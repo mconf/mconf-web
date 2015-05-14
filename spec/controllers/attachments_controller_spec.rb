@@ -62,7 +62,7 @@ describe AttachmentsController do
     describe "orders the attachments properly"
 
     context "in a public space" do
-      let(:space) { FactoryGirl.create(:space, repository: true, public: true) }
+      let(:space) { FactoryGirl.create(:space_with_associations, repository: true, public: true) }
 
       context "logged in" do
         context "as a superuser" do
@@ -119,7 +119,7 @@ describe AttachmentsController do
     end
 
     context "in a private space" do
-      let(:space) { FactoryGirl.create(:space, repository: true, public: false) }
+      let(:space) { FactoryGirl.create(:space_with_associations, repository: true, public: false) }
 
       context "logged in" do
         context "as a superuser" do
@@ -350,7 +350,7 @@ describe AttachmentsController do
 
   describe "#destroy" do
     let(:user) { FactoryGirl.create(:superuser) }
-    let(:attachment) { FactoryGirl.create(:attachment) }
+    let(:attachment) { FactoryGirl.create(:attachment_with_associations) }
     let(:space) { attachment.space }
 
     context "as a logged in user" do

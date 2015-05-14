@@ -11,7 +11,7 @@
         %span= t('.meeting_in')
         %span.meeting-url= join_webconf_url(room)
 
-      = f.input :users, :as => :string, :autofocus => true, :label => t('activerecord.attributes.invite.users')
+      = f.input :users, :as => :string, :label => t('activerecord.attributes.invite.users')
 
       -# TODO: it would be good to have a custom simple_form input for dates (see #1262)
       .invitation-dates

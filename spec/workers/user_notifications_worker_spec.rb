@@ -95,7 +95,6 @@ describe UserNotificationsWorker do
           before(:each) {
             activity = RecentActivity.where(key: 'user.created', trackable: user1).first
             activity.update_attribute(:trackable_id, 0)
-            puts activity.inspect
             worker.perform
           }
 

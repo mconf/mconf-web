@@ -8,6 +8,9 @@
 
 FactoryGirl.define do
   factory :attachment do |a|
+  end
+
+  factory :attachment_with_associations, parent: :attachment do |a|
     a.association :space, :repository => true
     a.association :author, :factory => :user
   end

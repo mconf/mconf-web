@@ -13,7 +13,7 @@ feature 'Member posts to wall' do
 
   context 'a member visiting posts page' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
 
     before(:each) {
       space.add_member!(user)

@@ -20,6 +20,7 @@ class mconf.ResourceFilter
 
   @bind: ->
     $("input.resource-filter").each ->
+
       # the target input
       $input = $(this)
       # the element where the results will be put
@@ -30,6 +31,12 @@ class mconf.ResourceFilter
       $input.on "keyup.#{namespace}", ->
         clearTimeout(timeout)
         timeout = setTimeout(updateResources, searchDelay, $input, $target)
+
+      # custom events to update the resources
+      $input.off "update-resources.#{namespace}"
+      $input.on "update-resources.#{namespace}", ->
+        clearTimeout(timeout)
+        timeout = setTimeout(updateResources, searchDelay, $input, $target, true)
 
       # finds the input where the total number of resources should be shown,
       # configures it, and displays it
@@ -46,14 +53,26 @@ class mconf.ResourceFilter
           $(".resource-filter-with-text", $filter).hide(showTime)
           $(".resource-filter-without-text", $filter).show(showTime)
 
-updateResources = ($input, $target) ->
-  text = $input.val()
+# Fetches the resources and updates the page
+updateResources = ($input, $target, force = false) ->
+  searchQuery = $input.val()
+
+  # store the latest search query in the element
   lastValue = $input.attr("data-last-value")
+  $input.attr("data-last-value", searchQuery)
 
-  if text isnt lastValue
-    $input.attr("data-last-value", text)
-    url = $input.attr("data-load-url") + "&q=#{text}"
+  if force or (searchQuery isnt lastValue)
 
+    # adjust the params in the URL
+    params = mconf.Base.getUrlParts(String(window.location))
+    if searchQuery?.length > 0
+      params.q = encodeURI(searchQuery)
+    else
+      delete params.q
+    url = $input.attr("data-load-url") + mconf.Base.urlFromParts(params)
+    history.replaceState(params, '', url)
+
+    # load the resources and update the page
     $target.load url, ->
       mconf.Resources.bind()
 

@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   def show
     @user_spaces = @user.spaces
     @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
-    @profile = @user.profile!
+    @profile = @user.profile
     respond_to do |format|
       format.html { render 'profiles/show' }
     end
@@ -124,19 +124,19 @@ class UsersController < ApplicationController
   # TODO: This is used in a lot of places, but not all want all the filters and all the
   #  results. We could make it configurable.
   def select
-    name = params[:q]
+    words = params[:q].try(:split, /\s+/)
     id = params[:i]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
-    query = User.joins(:profile).includes(:profile).order("profiles.full_name")
+    query = User
     if id
       @users = query.find_by_id(id)
     elsif query.nil?
       @users = query.limit(limit)
     else
       @users = query
-        .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
-        .limit(limit)
+      .search_by_terms(words)
+      .limit(limit)
     end
 
     respond_with @users do |format|

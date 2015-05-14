@@ -7,7 +7,7 @@ include ActionView::Helpers::SanitizeHelper
 feature 'User accesses an URL of a space that' do
 
   context 'does exist' do
-    let(:space) { FactoryGirl.create(:space, :public => true) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     before { visit space_path(space) }
     subject { page }
 

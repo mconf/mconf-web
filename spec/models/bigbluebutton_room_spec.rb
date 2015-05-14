@@ -58,7 +58,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
@@ -77,7 +77,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
@@ -145,7 +145,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
@@ -209,7 +209,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
@@ -302,7 +302,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { space.bigbluebutton_room }
         let(:allowed) { [:invite, :invite_userid, :join, :join_mobile, :running] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -314,7 +314,7 @@ describe BigbluebuttonRoom do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { space.bigbluebutton_room }
         let(:allowed) { [:invite, :invite_userid, :join, :join_mobile, :running] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }

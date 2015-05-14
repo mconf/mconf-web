@@ -125,7 +125,9 @@ describe SpacesController do
     context "orders by latest activities in the space" do
       let!(:now) { Time.now }
       let!(:spaces) {[
-        FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations)
       ]}
       let!(:activities) {[
         # order: [1], [2], [0]
@@ -177,7 +179,7 @@ describe SpacesController do
   it "#index.json"
 
   describe "#show" do
-    let(:target) { FactoryGirl.create(:public_space) }
+    let(:target) { FactoryGirl.create(:space_with_associations, public: true) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -405,7 +407,7 @@ describe SpacesController do
   end
 
   describe "#edit" do
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -601,7 +603,7 @@ describe SpacesController do
   it "#leave"
 
   describe "#webconference" do
-    let!(:space) { FactoryGirl.create(:public_space) }
+    let!(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     let!(:user) { FactoryGirl.create(:superuser) }
 
     context "normal testing" do
@@ -696,8 +698,8 @@ describe SpacesController do
   end
 
   describe "#recordings" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:user) { FactoryGirl.create(:user, superuser: true) }
     before(:each) { login_as(user) }
 
     context "html full request" do
@@ -778,7 +780,7 @@ describe SpacesController do
 
   describe "#recording_edit" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
     before(:each) {
       space.add_member! user, "Admin"
@@ -867,7 +869,7 @@ describe SpacesController do
   end
 
   describe "#user_permission" do
-    let(:target) { FactoryGirl.create(:space) }
+    let(:target) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 

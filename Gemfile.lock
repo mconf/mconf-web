@@ -35,8 +35,8 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: d8e06e808d61967d5aaaf1c7addf934114d55392
-  branch: bootstrap3
+  revision: c82c1e5050ca65fa9ac7e62bd1a929ab6c6da672
+  branch: master
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.1.3)
@@ -59,7 +59,7 @@ GIT
       redcarpet
       sass-rails (~> 4.0.3)
       select2-rails
-      simple_form (>= 3.0.0)
+      simple_form (~> 3.1.0)
       therubyracer
       twitter-bootstrap-rails
       valid_email
@@ -221,7 +221,7 @@ GEM
     dotiw (2.0)
       actionpack (>= 3)
       i18n
-    epic-editor-rails (0.2.3)
+    epic-editor-rails (0.2.4)
       railties (>= 3.2, < 5.0)
     erubis (2.7.0)
     eventmachine (1.0.5)
@@ -271,7 +271,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
-    htmlentities (4.3.2)
+    htmlentities (4.3.3)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -281,7 +281,7 @@ GEM
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.3)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.1)
     launchy (2.4.2)
@@ -289,9 +289,11 @@ GEM
     leaflet-rails (0.7.4)
     less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (2.6.0)
-      actionpack (>= 3.1)
+    less-rails (2.7.0)
+      actionpack (>= 4.0)
       less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
     librarian (0.1.2)
       highline
       thor (~> 0.15)
@@ -403,8 +405,8 @@ GEM
       activesupport (= 4.1.4)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.3.2)
-    redcarpet (3.2.2)
+    rake (10.4.2)
+    redcarpet (3.2.3)
     redis (3.1.0)
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
@@ -465,7 +467,7 @@ GEM
       shoulda-matchers (>= 2.1.0)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    simple_form (3.1.0.rc2)
+    simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     simplecov (0.8.2)
@@ -484,6 +486,7 @@ GEM
       temple (~> 0.6.9)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    spring (1.3.4)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -581,7 +584,7 @@ DEPENDENCIES
   friendly_id
   haml
   handlebars_assets
-  htmlentities
+  htmlentities (~> 4.3.3)
   httparty
   i18n-js!
   icalendar
@@ -617,8 +620,9 @@ DEPENDENCIES
   select2-rails
   shoulda-kept-assign-to
   shoulda-matchers (~> 2.6.1)
-  simple_form (~> 3.1.0.rc2)
+  simple_form (~> 3.1.0)
   simplecov
+  spring
   sqlite3
   therubyracer
   translate-rails3!

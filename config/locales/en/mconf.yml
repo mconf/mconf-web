@@ -954,8 +954,8 @@ en:
       users: "Users"
       webconf: "Web Conference"
     spaces:
-      filter_name: "Name"
-      filter_results: "Filter the results:"
+      filter_name: "Filter spaces by name"
+      new_space: "Create space"
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
@@ -981,9 +981,16 @@ en:
         not_spam_tooltip: "This post is not a spam"
         title: "Posts marked as spam"
     users:
-      filter_name_or_username: "Name, username or email"
-      filter_results: "Filter the results:"
+      filter_name_or_username: "Filter users by name, username or email"
       new_user: "Create user"
+      admin_true: Admins
+      admin_false: Users
+      approved_true: Approved
+      approved_false: Not approved
+      disabled_true: Disabled
+      disabled_false: Enabled
+      can_record_true: Can record
+      can_record_false: Can't record
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"

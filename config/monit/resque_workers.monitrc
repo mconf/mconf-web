@@ -8,7 +8,7 @@ check process resque_worker_1
   stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop all'"
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
-  group resque_workers
+  group resque
 
 check process resque_worker_2
   with pidfile /var/www/mconf-web/current/tmp/pids/resque_worker_2.pid
@@ -17,7 +17,7 @@ check process resque_worker_2
   stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop all 2'"
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
-  group resque_workers
+  group resque
 
 check process resque_worker_3
   with pidfile /var/www/mconf-web/current/tmp/pids/resque_worker_3.pid
@@ -26,7 +26,7 @@ check process resque_worker_3
   stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop all 3'"
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
-  group resque_workers
+  group resque
 
 check process resque_scheduler
   with pidfile /var/www/mconf-web/current/tmp/pids/resque_scheduler.pid
@@ -35,9 +35,10 @@ check process resque_scheduler
   stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_scheduler.sh stop'"
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
-  group resque_scheduler
+  group resque
 
 # to restart the service when we're restarting the application via capistrano
 check file resque_restart with path /var/www/mconf-web/current/tmp/restart.txt
   if changed timestamp then
-    exec "/bin/bash -c '/usr/bin/monit -g resque_workers restart; /usr/bin/monit -g resque_scheduler restart;'"
+    exec "/bin/bash -c '/usr/bin/monit -g resque restart;'"
+  group resque

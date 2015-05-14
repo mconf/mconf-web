@@ -11,7 +11,7 @@ describe Attachment do
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
-    let(:target) { FactoryGirl.create(:attachment) }
+    let(:target) { FactoryGirl.create(:attachment_with_associations) }
     before { target.space.update_attributes(:repository => true) }
 
     context "when is the attachment author" do

@@ -45,9 +45,9 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "redisio"
     chef.add_recipe "redisio::enable"
 
-    # Install Ruby and Bundler
+    # Install ruby and bundler
     # Set an empty root password for MySQL to make things simple
-    rb_version = File.open('.ruby-version', &:readline)
+    rb_version = IO.read(File.join(File.dirname(__FILE__), '.ruby-version')).chomp
     chef.json = {
       rbenv: {
         user_installs: [{

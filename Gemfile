@@ -21,7 +21,7 @@ gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
 gem 'rails_autolink', '~> 1.1.0'
-gem 'simple_form', '~> 3.1.0.rc2'
+gem 'simple_form', '~> 3.1.0'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id'
 gem 'i18n-js', :git => "https://github.com/fnando/i18n-js.git"
@@ -75,7 +75,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'bootstrap3'
+gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
@@ -126,10 +126,11 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers', '~> 2.6.1', :require => false
   gem 'shoulda-kept-assign-to'
-  gem 'htmlentities'
+  gem 'htmlentities', '~> 4.3.3'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
   gem 'fooldap'
+  gem 'spring'
 end
 
 group :test do

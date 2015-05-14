@@ -631,7 +631,7 @@ describe CustomBigbluebuttonRoomsController do
 
           describe "for a space's room" do
             let(:user) { FactoryGirl.create(:user) }
-            let(:space) { FactoryGirl.create(:space) }
+            let(:space) { FactoryGirl.create(:space_with_associations) }
             let(:room) { space.bigbluebutton_room }
             let(:another_user) { FactoryGirl.create(:user) }
             let(:referer) { "/back" }
@@ -852,7 +852,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -866,7 +866,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -934,7 +934,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -1004,7 +1004,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -1109,13 +1109,13 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
         it_should_behave_like "an anonymous user accessing any webconf room"
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
         it_should_behave_like "an anonymous user accessing any webconf room"
       end

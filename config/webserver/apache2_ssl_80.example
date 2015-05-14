@@ -5,7 +5,7 @@
   # SSL Redirect
   RewriteEngine on
   RewriteCond %{HTTPS} !=on
-  RewriteRule ^(.*) https://%{SERVER_NAME}$1 [R,L]
+  RewriteRule ^(.*) https://%{SERVER_NAME}$1 [R,NE,L] # NE is here for bug #1551
 
   ErrorLog /var/log/apache2/error.log
   # Possible values include: debug, info, notice, warn, error, crit,
