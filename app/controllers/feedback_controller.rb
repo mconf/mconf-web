@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class FeedbackController < ApplicationController
+  before_filter :authenticate_user!, except: [:webconf]
 
   def webconf
     feedback_url = current_site.feedback_url
