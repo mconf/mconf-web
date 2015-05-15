@@ -138,3 +138,7 @@ module FeatureHelpers
     end
   end
 end
+
+shared_examples_for 'it redirects to login page' do
+  it { [login_path, new_user_session_path].should include(current_path) }
+end

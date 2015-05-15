@@ -7,11 +7,6 @@ feature 'Logged out user is' do
     let(:user) { FactoryGirl.create(:user) }
     subject { page }
 
-    shared_examples_for 'it redirects to login page' do
-      it { status_code.should eq(302) }
-      it { current_path.should eq(login_path) }
-    end
-
     # context 'on show' do
     #   before { visit user_path(user) }
     #   it_behaves_like 'it redirects to login page'

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 def send_feedback subj, message, email=nil
@@ -7,14 +8,12 @@ def send_feedback subj, message, email=nil
   click_button 'Send'
 end
 
-feature 'Visitor wants to send feedback' do
+feature 'Sending a feedback' do
   let(:subject) { page }
-  before(:each) {
-    @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
-  }
 
-  describe 'with logged in user' do
+  describe 'as a signed in user' do
     before {
+      @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
       login_as(@user, :as => :user)
       visit new_feedback_path
     }
@@ -50,50 +49,9 @@ feature 'Visitor wants to send feedback' do
 
   end
 
-  context 'with logged out user' do
+  context 'as an anonymous user' do
     before { visit new_feedback_path }
-
-    it { should have_selector('#feedback_from', visible: true) }
-
-    context 'sending the form' do
-      let(:message) { 'Lá nas minhas Minas Gerais' }
-      let(:subject) { 'A vida é boa' }
-      let(:email) { 'ahehsenhor@minas.org.br' }
-
-      before { send_feedback subject, message, email }
-
-      context 'with valid fields' do
-        it { current_path.should eq(new_feedback_path) }
-        it { has_success_message t('feedback.create.success') }
-      end
-
-      context 'without message' do
-        let(:message) { '' }
-
-        it { current_path.should eq(new_feedback_path) }
-        it { has_failure_message t('feedback.create.fill_fields') }
-      end
-
-      context 'without subject' do
-        let(:subject) { '' }
-
-        it { current_path.should eq(new_feedback_path) }
-        it { has_failure_message t('feedback.create.fill_fields') }
-      end
-
-      context 'without email' do
-        let(:email) { '' }
-
-        it { current_path.should eq(new_feedback_path) }
-        it { has_failure_message t('feedback.create.check_mail') }
-      end
-
-      context 'with invalid email' do
-        let(:email) { '@@@@aaas' }
-
-        it { current_path.should eq(new_feedback_path) }
-        it { has_failure_message t('feedback.create.check_mail') }
-      end
-    end
+    it_behaves_like 'it redirects to login page'
+    it { should_not have_selector('#feedback_from') }
   end
 end

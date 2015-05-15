@@ -102,9 +102,6 @@ describe UserMailer do
         it("sends a link to site root_path") {
           mail.body.encoded.should match(root_url(host: Site.current.domain))
         }
-        it("sends a link to site new_feedback_path") {
-          mail.body.should match(new_feedback_url(host: Site.current.domain))
-        }
         it("sends a link to the users home_path") {
           content = I18n.t('user_mailer.registration_by_admin_notification_email.click_here', url: url)
           mail.body.encoded.should match(content)
