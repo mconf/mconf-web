@@ -47,6 +47,9 @@
     = f.input :presence_domain, :disabled => true
     = f.input :xmpp_server, :disabled => true
     = f.input :external_help, :disabled => true
+    = f.input :captcha_enabled, :disabled => true
+    = f.input :recaptcha_public_key, :disabled => true
+    = f.input :recaptcha_private_key, :disabled => true
     = f.input :registration_enabled, :as => :boolean, :disabled => true
     = f.input :require_registration_approval, :as => :boolean, :disabled => true
     = f.input :local_auth_enabled, :as => :boolean, :disabled => true
