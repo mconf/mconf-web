@@ -112,6 +112,7 @@ class AttachmentsController < ApplicationController
     require 'zip/zipfilesystem'
 
     t = Tempfile.new("#{@attachments.size}files-#{Time.now.to_f}.zip")
+    File.chmod(0644, t.path) # otherwise the webserver can't serve it
 
     Zip::ZipOutputStream.open(t.path) do |zos|
       @attachments.each do |file|
