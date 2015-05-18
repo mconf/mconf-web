@@ -15,4 +15,8 @@
     Options -MultiViews
     Require all granted
   </Directory>
+
+  XSendFile On
+  XSendFilePath /YOUR_MCONF_WEB
+  XSendFilePath /tmp
 </VirtualHost>
