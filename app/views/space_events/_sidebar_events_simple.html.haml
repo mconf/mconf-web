@@ -5,7 +5,4 @@
     .event-wrapper
       = link_to sanitize(event.name), mweb_events.event_path(event), :class => "event-title"
       %span.event-date
-        - format = I18n.t('_other.datetime.simple_rails_format')
-        - start_on_formatted = I18n::localize(event.start_on, format: format)
-        - end_on_formatted = I18n::localize(event.start_on, format: format)
-        = "#{start_on_formatted} - #{end_on_formatted}".html_safe
+        = "#{I18n.l(event.start_on.to_date)} - #{I18n.l(event.end_on.to_date)}"

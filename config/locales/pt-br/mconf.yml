@@ -52,8 +52,6 @@ pt-br:
     accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
-    datetime:
-      simple_rails_format: "%d %b %Y"
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"

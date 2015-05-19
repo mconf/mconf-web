@@ -51,8 +51,6 @@ es-419:
     accept: "Aceptar"
     cancel: "Cancelar"
     create: "Crear"
-    datetime:
-      simple_rails_format: "%d %b %Y"
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd/MM/yyyy"
