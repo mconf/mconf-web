@@ -14,7 +14,8 @@
 
 USER="$(id -u -n)"
 APP_PATH="$(dirname $0)/.."
-PATH=/home/$USER/.rbenv/bin:/home/$USER/.rbenv/shims:$PATH
+RBENV_ROOT=${RBENV_ROOT-/home/$USER/.rbenv} # defaults to a user installation
+PATH=$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH
 RAILS_ENV=production
 PIDFILE=$APP_PATH/tmp/pids/resque_scheduler.pid
 LOGFILE=$APP_PATH/log/resque_scheduler.log
