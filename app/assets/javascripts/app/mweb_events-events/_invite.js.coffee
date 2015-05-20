@@ -39,12 +39,14 @@ class mconf.MwebEventsEvents.Invitation
       tokenSeparators: [",", ";"]
       createSearchChoice: (term, data) ->
         if mconf.Base.validateEmail(term)
-          { id: term, text: term }
+          { id: term, text: mconf.Base.escapeHTML(term) }
       formatSelection: (object, container) ->
-        if object.name?
+        text = if object.name?
           object.name
         else
           object.text
+
+        mconf.Base.escapeHTML(text)
       ajax:
         url: searchUsersUrl
         dataType: "json"
