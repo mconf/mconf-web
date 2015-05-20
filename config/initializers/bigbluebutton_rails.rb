@@ -44,6 +44,10 @@ Rails.application.config.to_prepare do
     def public?
       owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
     end
+
+    def invitation_url
+      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain)
+    end
   end
 
   BigbluebuttonServer.instance_eval do
@@ -62,7 +66,7 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonMeeting.class_eval do
     after_create {
-      self.create_activity :create, :owner => self.room unless self.errors.any? 
+      self.create_activity :create, :owner => self.room unless self.errors.any?
     }
   end
 
