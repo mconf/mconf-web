@@ -38,9 +38,9 @@
 
 // alert or notice messages
 .noty_bar.noty_alert {
-  $notif-notice-bg: #D9EDF7;
+  $notif-notice-bg: #ffea9f;
   background-color: $notif-notice-bg;
-  color: #3A87AD;
+  color: darken($notif-notice-bg, 50);
   @include box-shadow(0 1px 5px 0 darken($notif-notice-bg, 15));
   border-bottom-width: 1px;
   border-color: darken($notif-notice-bg, 15);
