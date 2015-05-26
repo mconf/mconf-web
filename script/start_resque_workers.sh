@@ -14,6 +14,7 @@
 # Example:
 #   start_resque_workers.sh start bigbluebutton_rails
 #   start_resque_workers.sh start all
+#   start_resque_workers.sh start all 1
 
 USER="$(id -u -n)"
 APP_PATH="$(dirname $0)/.."
