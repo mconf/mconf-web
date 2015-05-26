@@ -10,11 +10,10 @@ unless Rails.env == 'test'
   Resque.logger.level = Logger::INFO
   #Resque.logger.level = Logger::DEBUG
 
-  configatron.redis.host ||= 'localhost'
-  configatron.redis.port ||= 6379
   attrs = {
     host: configatron.redis.host,
-    port: configatron.redis.port
+    port: configatron.redis.port,
+    db: configatron.redis.db
   }
   attrs[:password] = configatron.redis.password unless configatron.redis.password.blank?
   Resque.redis = Redis.new(attrs)
