@@ -21,6 +21,8 @@ pt-br:
         edit:
           password: "Nova senha"
     hints:
+      bigbluebutton_room:
+        dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
@@ -31,7 +33,6 @@ pt-br:
         exception_notifications_email: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
         exception_notifications_prefix: "Será colocado antes do assunto do e-mail. Padrão: '[ERROR]'."
         external_help: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter \"http://\"."
-        room_dial_number_pattern: "Padrão para gerar automaticamente números de chamada para conferências. Use um 'x' para gerar números aleatórios. Por exemplo, um padrão válido é '6111x-xxx' e pode gerar o número 61112-876"
         feedback_url: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para \"%{default_url}\"."
         ldap_filter: "Um filtro LDAP para restringir os usuários que podem logar usando o LDAP. Exemplo: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "O IP ou domínio do servidor LDAP. Exemplo: \"192.111.22.33\" or \"ldapserver.any.com\"."
@@ -46,6 +47,7 @@ pt-br:
         presence_domain: "Domínio usado para identificar o servidor XMPP."
         registration_enabled: "Se selecionado, usuários poderão criar contas novas. Caso contrário, usuários poderão acessar o site apenas se já possuirem uma conta. Além disso, se esta opção estiver desabilitada, contas novas ainda poderão ser criadas através dos métodos secundários de acesso como Shibboleth e LDAP."
         require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
+        room_dial_number_pattern: "Padrão para gerar automaticamente números de chamada para conferências. Use um 'x' para gerar números aleatórios. Por exemplo, um padrão válido é '611x-xxxx', que pode gerar o número '6118-2871'."
         shib_always_new_account: "Quando habilitado, sempre será criada uma nova conta para o usuário assim que ele se autenticar pela primeira vez, ignorando a página de associação com uma conta já existente."
         shib_email_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_env_variables: "O Shibboleth retorna um conjunto de variáveis de ambiente quando o usuário é autenticado. Todas as variáveis especificadas nesta lista serão lidas do Shibboleth e utilizadas pela aplicação como dados do usuário. Especifique cada variável em uma linha diferente. As comparações são \"case-insensitive\" e espaços são removidos, e você também pode utilizar expressões regulares. Se este campo estiver vazio todas variáveis que iniciam com \"Shib-\" serão utilizadas."
@@ -79,6 +81,7 @@ pt-br:
           presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
+        dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."
         superuser: "Marque esta opção para tornar este usuário um administrador global deste site"
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"
         username: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
