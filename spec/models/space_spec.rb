@@ -724,6 +724,23 @@ describe Space do
 
     context "creates #bigbluebutton_room" do
 
+      context 'intializes dial_number' do
+        let(:space) { FactoryGirl.create(:space) }
+
+        context 'with a new random dial number if site is configured' do
+          before { Site.current.update_attributes(room_dial_number_pattern: 'xxxxx') }
+
+          it { space.bigbluebutton_room.dial_number.should be_present }
+          it { space.bigbluebutton_room.dial_number.size.should be(5) }
+        end
+
+        context 'with nil if the site is not configured' do
+          before { Site.current.update_attributes(room_dial_number_pattern: nil) }
+
+          it { space.bigbluebutton_room.dial_number.should be_blank }
+        end
+      end
+
       it "with the space as owner" do
         space.bigbluebutton_room.owner.should be(space)
       end

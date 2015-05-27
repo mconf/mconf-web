@@ -99,6 +99,7 @@ pt-br:
           success: "Sua gravação foi atualizada com sucesso."
     rooms:
       default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
+      default_welcome_msg_dial_number: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br> Você pode discar para esta conferência via o número '%%DIALNUM%%.'<br>"
       errors:
         fetch_recordings:
           no_server: "Não há nenhum servidor associado a esta sala."

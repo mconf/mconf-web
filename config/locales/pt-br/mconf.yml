@@ -159,6 +159,7 @@ pt-br:
         exception_notifications_email: "Destinatários das notificações de exceção"
         exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
+        room_dial_number_pattern: "Padrão do número de sala"
         feedback_url: "URL de feedback"
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
@@ -1585,6 +1586,7 @@ pt-br:
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
+        dial_number: Numero para discagem
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_notifications:

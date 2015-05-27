@@ -31,6 +31,7 @@ pt-br:
         exception_notifications_email: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
         exception_notifications_prefix: "Será colocado antes do assunto do e-mail. Padrão: '[ERROR]'."
         external_help: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter \"http://\"."
+        room_dial_number_pattern: "Padrão para gerar automaticamente números de chamada para conferências. Use um 'x' para gerar números aleatórios. Por exemplo, um padrão válido é '6111x-xxx' e pode gerar o número 61112-876"
         feedback_url: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para \"%{default_url}\"."
         ldap_filter: "Um filtro LDAP para restringir os usuários que podem logar usando o LDAP. Exemplo: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "O IP ou domínio do servidor LDAP. Exemplo: \"192.111.22.33\" or \"ldapserver.any.com\"."

@@ -35,6 +35,8 @@
 # * "space.leave": When user leaves a space (parameters: +user_id+, +username+)
 #
 
+require './lib/mconf/generate_dial_number'
+
 class Space < ActiveRecord::Base
   include PublicActivity::Common
 
@@ -291,7 +293,8 @@ class Space < ActiveRecord::Base
       :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/"
+      :logout_url => "/feedback/webconf/",
+      :dial_number => Mconf::generate_dial_number
     }
     create_bigbluebutton_room(params)
   end

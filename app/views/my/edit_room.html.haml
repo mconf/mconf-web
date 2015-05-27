@@ -12,6 +12,7 @@
       = f.input :private, :hint => t('simple_form.hints.user.bigbluebutton_room.private')
       = f.input :moderator_key, :as => :showable_password, :hint => t('simple_form.hints.user.bigbluebutton_room.moderator_key')
       = f.input :attendee_key, :as => :showable_password, :hint => t('simple_form.hints.user.bigbluebutton_room.attendee_key')
+      = f.input :dial_number, as: :string, disabled: true, :hint => t('simple_form.hints.user.bigbluebutton_room.dial_number')
       = f.input :welcome_msg, :as => :text, :hint => t('simple_form.hints.user.bigbluebutton_room.welcome_msg'), :placeholder => t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")
       = f.input :default_layout do
         = f.select :default_layout, @room.available_layouts, :include_blank => t('.layout_empty_option')
