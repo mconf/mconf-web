@@ -16,5 +16,15 @@ FactoryGirl.define do
     f.signature Forgery::Name.company_name
     f.shib_enabled false
     f.chat_enabled false
+    f.ldap_enabled false
+    f.ldap_host "localhost"
+    f.ldap_port 389
+    f.ldap_user "uid=mconf,ou=apps,dc=institution"
+    f.ldap_user_password "mconf"
+    f.ldap_user_treebase "dc=users,dc=institution"
+    f.ldap_username_field "uid"
+    f.ldap_email_field "mail"
+    f.ldap_name_field "cn"
+    f.ldap_filter ""
   end
 end
