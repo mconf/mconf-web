@@ -99,6 +99,8 @@ gem 'prism'
 
 gem 'fineuploader-rails', '~> 3.3'
 
+gem 'resque-lock-timeout'
+
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
   gem 'rails-footnotes'
