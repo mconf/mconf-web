@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class PrivateMessagesWorker
+class PrivateMessagesWorker < BaseWorker
   @queue = :private_messages
 
   # Finds all message recent activity and sends their users the message notifications

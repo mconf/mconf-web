@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class UserNeedsApprovalSenderWorker
+class UserNeedsApprovalSenderWorker < BaseWorker
   @queue = :user_notifications
 
   # Sends a notification to all recipients in the array of ids `recipient_ids`

@@ -7,7 +7,7 @@
 
 # Finds all Invitation objects not sent yet and ready to be sent and schedules a
 # worker to send them.
-class InvitationsWorker
+class InvitationsWorker < BaseWorker
   @queue = :invitations
 
   def self.perform
