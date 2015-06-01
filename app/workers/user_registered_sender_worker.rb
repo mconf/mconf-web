@@ -11,11 +11,14 @@ class UserRegisteredSenderWorker
   # Sends a notification to the user with id `user_id` that he was registered successfully.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    user_id = activity.trackable_id
 
-    Resque.logger.info "Sending user registered email to #{user_id}"
-    UserMailer.registration_notification_email(activity.trackable_id).deliver
+    if !activity.notified?
+      user_id = activity.trackable_id
 
-    activity.update_attribute(:notified, true)
+      Resque.logger.info "Sending user registered email to #{user_id}"
+      UserMailer.registration_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
   end
 end

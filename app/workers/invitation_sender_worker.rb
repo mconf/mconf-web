@@ -11,8 +11,10 @@ class InvitationSenderWorker
   # Finds the target notification and sends it. Marks it as notified.
   def self.perform(invitation_id)
     invitation = Invitation.find(invitation_id)
-    result = invitation.send_invitation
-    invitation.update_attributes(sent: true, result: result)
+    if !invitation.sent?
+      result = invitation.send_invitation
+      invitation.update_attributes(sent: true, result: result)
+    end
   end
 
 end

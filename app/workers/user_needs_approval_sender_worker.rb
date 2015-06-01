@@ -12,15 +12,18 @@ class UserNeedsApprovalSenderWorker
   # informing that the user with id `user_id` needs to be approved.
   def self.perform(activity_id, recipient_ids)
     activity = RecentActivity.find(activity_id)
-    user_id = activity.trackable_id
-    recipients = User.find(recipient_ids)
 
-    recipients.each do |recipient|
-      Resque.logger.info "Sending user needs approval email to #{recipient.inspect}, for user #{user_id}"
-      AdminMailer.new_user_waiting_for_approval(recipient.id, user_id).deliver
+    if !activity.notified?
+      user_id = activity.trackable_id
+      recipients = User.find(recipient_ids)
+
+      recipients.each do |recipient|
+        Resque.logger.info "Sending user needs approval email to #{recipient.inspect}, for user #{user_id}"
+        AdminMailer.new_user_waiting_for_approval(recipient.id, user_id).deliver
+      end
+
+      activity.update_attribute(:notified, true)
     end
-
-    activity.update_attribute(:notified, true)
   end
 
 end
