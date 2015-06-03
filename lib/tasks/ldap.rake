@@ -36,7 +36,7 @@ namespace :ldap do
     uid = site.ldap_username_field || 'uid'
     name = site.ldap_name_field || 'cn'
     mail = site.ldap_email_field || 'mail'
-    server.add_user "#{uid}=mconf,#{user_tree}", 'mconf', {uid => 'mconf', name =>'mconf', mail => 'leonardodaronco@gmail.com'}
+    server.add_user "#{uid}=mconf,#{user_tree}", 'mconf', {uid => 'mconf', name =>'mconf', mail => 'mconf@test.mconf.org'}
 
     server.run_tcpserver
     puts "LDAP test server started on port #{port}"
