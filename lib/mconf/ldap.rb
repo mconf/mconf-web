@@ -96,7 +96,7 @@ module Mconf
       username = username.to_s
       full_name = full_name.to_s
 
-      user = User.find_by_email(id)
+      user = User.where('lower(email) = ?', id.downcase).first
       if user
         Rails.logger.info "LDAP: there's already a user with this id (#{id})"
       else

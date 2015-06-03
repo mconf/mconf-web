@@ -190,6 +190,12 @@ describe Devise::Strategies::LdapAuthenticatable do
           .should eql(user)
     }
 
+    it ("matches the user using a case-insensitive search") {
+      email = user.email.upcase
+      ldap.send(:create_account, email, user.username, user.name, token)
+        .should eql(user)
+    }
+
     context "if the target user doesn't exist yet, creates a new user" do
       let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
       before(:each) {
