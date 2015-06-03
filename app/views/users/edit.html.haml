@@ -82,7 +82,12 @@
             = icon_disable(:alt => t('.disable'))
             = t('.disable')
 
-  = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")
+  - cancel_path = if session[:edit_came_from_path]
+    - session[:edit_came_from_path]
+  - else
+    - edit_user_path(@user)
+
+  = f.button :wrapped, :cancel => cancel_path, :value => t("_other.save")
 
   - if current_user == @user
     #cancel-account.alert.alert-danger
