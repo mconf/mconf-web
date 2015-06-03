@@ -22,6 +22,14 @@ describe InvitationSenderWorker do
       it { invitation.reload.sent.should be(true) }
     end
 
+    context "doesnt send the invitation if it's already marked as sent" do
+      let!(:invitation) { FactoryGirl.create(:web_conference_invitation, :sent => true, :ready => true, :result => false) }
+      before { Invitation.any_instance.should_not_receive(:send_invitation) }
+      before(:each) { worker.perform(invitation.id) }
+
+      it { invitation.reload.sent.should be(true) }
+    end
+
     context "saves in the invitation the return if Invitation#send_invitation" do
       let!(:invitation) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true, :result => false) }
 
