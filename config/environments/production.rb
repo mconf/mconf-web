@@ -77,4 +77,23 @@ Mconf::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  # Configs for lograge
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    params = event.payload[:params].reject do |k|
+      ['controller', 'action'].include? k
+    end
+
+    current_user = event.payload[:current_user] ? event.payload[:current_user] : "Anonymous"
+
+    hash = {:time => event.time, "current_user" => current_user}
+    hash.merge!({"params" => params}) unless params.blank?
+
+    hash
+  end
+  config.lograge.keep_original_rails_log = true
+  config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/lograge_#{Rails.env}.log"
+
+  config.lograge.formatter = Lograge::Formatters::Logstash.new
 end

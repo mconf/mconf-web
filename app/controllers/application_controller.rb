@@ -193,6 +193,12 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  def append_info_to_payload(payload)
+    super
+    user_hash = {id: current_user.id, email: current_user.email, username: current_user.username, superuser: current_user.superuser, can_record: current_user.can_record} unless current_user.nil?
+    payload[:current_user] = user_hash
+  end
+
   private
 
   def set_time_zone
