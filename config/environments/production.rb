@@ -89,6 +89,7 @@ Mconf::Application.configure do
 
     hash = {:time => event.time, "current_user" => current_user}
     hash.merge!({"params" => params}) unless params.blank?
+    hash.merge!({"session" => event.payload[:session]}) unless event.payload[:session].nil?
 
     hash
   end
