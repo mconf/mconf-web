@@ -28,6 +28,8 @@ Vagrant.configure(2) do |config|
   # To share other directories e.g. local gems
   # config.vm.synced_folder '../bigbluebutton_rails', '/bigbluebutton_rails'
 
+  config.omnibus.chef_version = '12.0.3'
+
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks", "cookbooks-local"]
