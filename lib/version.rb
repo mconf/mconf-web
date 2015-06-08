@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 module Mconf
-  VERSION = "0.6".freeze
+  VERSION = "1.99.9".freeze
 
   # get the current git branch
   @@branch = nil
