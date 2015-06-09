@@ -34,6 +34,22 @@ describe JoinRequestSenderWorker do
       it { activity.reload.notified.should be(true) }
     end
 
+    context "for a space with one admin but an already notified activity" do
+      let(:admin) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        space.add_member!(admin, "Admin")
+        space.add_member!(user, "User")
+        activity.update_attributes(notified: true)
+      }
+      before(:each) { worker.perform(activity.id) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:join_request_email, join_request.id, admin.id).in(:mailer) }
+      it { SpaceMailer.should_not have_queued(:join_request_email, join_request.id, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
     context "for a space with several admins" do
       let(:admin1) { FactoryGirl.create(:user) }
       let(:admin2) { FactoryGirl.create(:user) }
