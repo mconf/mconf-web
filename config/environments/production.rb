@@ -85,7 +85,7 @@ Mconf::Application.configure do
       ['controller', 'action'].include? k
     end
 
-    current_user = event.payload[:current_user] ? event.payload[:current_user] : "Anonymous"
+    current_user = event.payload[:current_user] ? event.payload[:current_user] : nil
 
     hash = {:time => event.time, "current_user" => current_user}
     hash.merge!({"params" => params}) unless params.blank?
