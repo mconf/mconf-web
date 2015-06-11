@@ -20,3 +20,7 @@
 
       - unless user.location.blank?
         %span.user-location= sanitize(user.location)
+      - perm = Permission.where(user: user, subject: @space).first
+      - if can?(:destroy, perm)
+        - params = { :method => :delete, :class => 'btn btn-mini btn-danger', :data => { :confirm => t('space.confirm') } }
+        = link_to "Remove user", permission_path(perm), params
