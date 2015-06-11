@@ -121,7 +121,7 @@ module Abilities
 
       # Permissions
       # Only space admins can update user roles/permissions
-      can [:read, :edit, :update], Permission do |perm|
+      can [:read, :edit, :update, :destroy], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
