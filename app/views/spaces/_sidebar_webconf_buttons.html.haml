@@ -19,7 +19,7 @@
         = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => space_path(room.owner)), options_for_tooltip(t('.end_tooltip'), :data => { :confirm => t('are_you_sure') }, :class => 'btn btn-danger')
     - else
       -# only show the options dialog if the user can record and the record flag is not automatically set
-      - if can?(:record_meeting, @room) && !current_site.webconf_auto_record
+      - if can?(:record_meeting, room) && !current_site.webconf_auto_record
         = link_to t('.start'), join_options_bigbluebutton_room_path(room), :class => "btn open-modal btn-primary", :'data-modal-width' => 'small'
         = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-primary webconf-join-link") do
           = icon_webconf_start()
@@ -47,5 +47,5 @@
     %ul.dropdown-menu.pull-right
       %li= link_to t('.invite'), invitation_bigbluebutton_room_path(room), :class => 'open-modal'
       -# only show the options dialog if the user can record and the record flag is not automatically set
-      - if can?(:record_meeting, @room) && !current_site.webconf_auto_record
+      - if can?(:record_meeting, room) && !current_site.webconf_auto_record
         %li= link_to t('.preferences'), join_options_bigbluebutton_room_path(room), :class => "open-modal", :'data-modal-width' => 'small'
