@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class JoinRequestsWorker
+class JoinRequestsWorker < BaseWorker
   @queue = :join_requests
 
   # Finds all join requests with pending notifications and sends them

@@ -27,6 +27,19 @@ describe UserRegisteredByAdminSenderWorker do
       it { UserMailer.should have_queued(:registration_by_admin_notification_email, user.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
     end
+
+    context "when the activity has already been notified" do
+      let(:activity) { RecentActivity.create(key: 'user.created_by_admin', trackable: user, notified: false) }
+
+      before {
+        activity.update_attributes(notified: true)
+        worker.perform(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of(0) }
+      it { UserMailer.should_not have_queued(:registration_by_admin_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
   end
 
 end

@@ -7,7 +7,7 @@
 
 # Finds all Invitation objects not sent yet and ready to be sent and schedules a
 # worker to send them.
-class UserNotificationsWorker
+class UserNotificationsWorker < BaseWorker
   @queue = :user_notifications
 
   def self.perform

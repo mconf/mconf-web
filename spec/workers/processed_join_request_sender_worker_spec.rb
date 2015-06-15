@@ -35,6 +35,20 @@ describe ProcessedJoinRequestSenderWorker do
       it { activity.reload.notified.should be(true) }
     end
 
+    context "for an already notified request" do
+      let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
+      let(:activity) { space.new_activity :accepted, join_request.candidate, join_request }
+
+      before(:each) {
+        activity.update_attribute(:notified, true)
+        worker.perform(activity.id)
+      }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:processed_join_request_email, join_request.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
     context "for an invite" do
       let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
       let(:activity) { space.new_activity :accepted, join_request.candidate, join_request }
@@ -45,6 +59,19 @@ describe ProcessedJoinRequestSenderWorker do
       }
       it { SpaceMailer.should have_queue_size_of(1) }
       it { SpaceMailer.should have_queued(:processed_invitation_email, join_request.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "for an already notified invite" do
+      let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
+      let(:activity) { space.new_activity :accepted, join_request.candidate, join_request }
+
+      before(:each) {
+        activity.update_attribute(:notified, true)
+        worker.perform(activity.id)
+      }
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:processed_invitation_email, join_request.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
     end
 

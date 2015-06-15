@@ -5,14 +5,16 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class InvitationSenderWorker
+class InvitationSenderWorker < BaseWorker
   @queue = :invitations
 
   # Finds the target notification and sends it. Marks it as notified.
   def self.perform(invitation_id)
     invitation = Invitation.find(invitation_id)
-    result = invitation.send_invitation
-    invitation.update_attributes(sent: true, result: result)
+    if !invitation.sent?
+      result = invitation.send_invitation
+      invitation.update_attributes(sent: true, result: result)
+    end
   end
 
 end

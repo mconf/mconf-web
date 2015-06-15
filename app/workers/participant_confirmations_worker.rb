@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class ParticipantConfirmationsWorker
+class ParticipantConfirmationsWorker < BaseWorker
   @queue = :participant_confirmations
 
   # Finds all unsent participant confirmations

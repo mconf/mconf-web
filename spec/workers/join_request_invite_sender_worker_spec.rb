@@ -29,6 +29,19 @@ describe JoinRequestInviteSenderWorker do
       it { activity.reload.notified.should be(true) }
     end
 
+    context "dont' send the invitation email if request is already notified" do
+      let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
+      let(:activity) { join_request.new_activity }
+      before(:each) {
+        activity.update_attribute(:notified, true)
+        worker.perform(activity.id)
+      }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:invitation_email, join_request.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
     context "when there's no join request set in the activity" do
       let(:activity) {
         FactoryGirl.create(:join_request_invite_activity, owner: space, notified: false, trackable: nil)
