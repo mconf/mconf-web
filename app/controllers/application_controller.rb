@@ -242,6 +242,7 @@ class ApplicationController < ActionController::Base
   end
 
   def path_is_redirectable? path
+    # Paths to which users should never be redirected back to.
     ignored_paths = [ "/login", "/users/login", "/users",
                       "/register", "/users/registration",
                       "/users/registration/signup", "/users/registration/cancel",
@@ -250,15 +251,22 @@ class ApplicationController < ActionController::Base
                       "/secure", "/secure/info", "/secure/associate",
                       "/pending" ]
 
-    !ignored_paths.include?(path) &&
-    !request.xhr? && # don't redirect to with ajax calls
-    (request.format == "text/html" || request.content_type == "text/html")
+    # This will filter xhr requests that are not for html pages. Requests for html pages
+    # via ajax can change the url and we might want to store them.
+    valid_format = request.format == "text/html" || request.content_type == "text/html"
+
+    !ignored_paths.include?(path) && valid_format
   end
 
   # Store last url for post-login redirect to whatever the user last visited.
   # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   def store_location
     if path_is_redirectable?(request.path)
+      # Used by Mconf-Web. Can't use user_return_to because it is overridden
+      # before actions and views are executed.
+      session[:previous_user_return_to] = session[:user_return_to]
+
+      # used by devise
       session[:user_return_to] = request.fullpath
       # session[:last_request_time] = Time.now.utc.to_i
     end
@@ -268,6 +276,13 @@ class ApplicationController < ActionController::Base
   def clear_stored_location
     session[:user_return_to] = nil
   end
+
+  # Returns the previous path (the referer), if it exists and is a 'redirectable to'
+  # path. Otherwise returns the fallback.
+  def previous_path_or(fallback)
+    session[:previous_user_return_to] || fallback
+  end
+  helper_method :previous_path_or
 
   # A default handler for access denied exceptions. Will simply redirect the user
   # to the sign in page if the user is not logged in yet.

@@ -40,14 +40,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # Store referer for edit action if we could redirect back
-    referer = URI(request.referer) if request.referer
-    if referer.present? && path_is_redirectable?(referer.path)
-      session[:edit_came_from_path] = "#{referer.path}#{'?' + referer.query if referer.query.present?}"
-    else
-      session.delete(:edit_came_from_path)
-    end
-
     if current_user == @user # user editing himself
       shib = Mconf::Shibboleth.new(session)
       @shib_provider = shib.get_identity_provider
@@ -77,15 +69,8 @@ class UsersController < ApplicationController
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true if current_user == @user
 
-      # try to redirect back in a smart way, 'where is the edit coming from?'
-      redirect_path = if session[:edit_came_from_path].present?
-        session[:edit_came_from_path]
-      else
-        edit_user_path(@user)
-      end
-
       flash = { :success => t("user.updated") }
-      redirect_to redirect_path, :flash => flash
+      redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
       render "edit", :layout => 'no_sidebar'
     end
