@@ -25,6 +25,11 @@ module FeatureHelpers
     Capybara.current_driver = driver_name
   end
 
+  def current_path_with_query
+    uri = URI.parse(current_url)
+    "#{uri.path}#{'?' + uri.query if uri.query}"
+  end
+
   def logout_user
     find("a[href='#{logout_path}']").click
   end
