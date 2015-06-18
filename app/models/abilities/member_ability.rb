@@ -47,8 +47,11 @@ module Abilities
       # Spaces
       can [:create, :select], Space
       can [:read, :webconference, :recordings], Space, public: true
-      can [:read, :webconference, :recordings, :leave], Space do |space|
+      can [:read, :webconference, :recordings], Space do |space|
         space.users.include?(user)
+      end
+      can [:leave], Space do |space|
+        space.users.include?(user) && !space.is_last_admin?(user)
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces

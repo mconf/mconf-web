@@ -10,7 +10,20 @@ module Abilities
     # TODO: restrict a bit what superusers can do
     def register_abilities(user)
       can :manage, :all
+
+      cannot [:leave], Space do |space|
+        space.users.include?(user) && space.users.count == 1
+      end
+
+      cannot [:destroy], Permission do |perm|
+        cant = false
+        if perm.subject_type == "Space"
+          # A Superuser can't remove the last admin.
+          s = perm.subject
+          cant = s.is_last_admin?(perm.user)
+        end
+        cant
+      end
     end
   end
-
 end
