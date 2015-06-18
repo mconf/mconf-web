@@ -23,5 +23,14 @@
 
     - perm = Permission.where(user: user, subject: @space).first
     - if can?(:destroy, perm)
-      - params = { :method => :delete, :class => 'btn btn-mini btn-danger', :data => { :confirm => t('space.remove_user.confirm') } }
-      %span.user-remove= link_to t('space.remove_user.remove'), permission_path(perm), params
+      - if user == current_user
+        -# Use link to leave space if the user show is the current user
+        -# This already handles cases where the user loses the ability to 'show'
+        -# the space to which he belonged and must be redirected to the root.
+        - link = leave_space_path(@space)
+        - params = { method: :post, class: 'btn btn-mini btn-danger', data: { confirm: t('space.confirm') } }
+        %span.user-remove= link_to t('space.leave.leave_this_space'), link, options_for_tooltip(t("tooltip.leave_space"), params)
+      - else
+        -# Otherwise, use a 'delete' with the Permission
+        - params= { method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: t('space.remove_user.confirm') } }
+        %span.user-remove= link_to t('space.remove_user.remove'), permission_path(perm), params
