@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rack', '~> 1.5.4'
 gem 'rails', '~> 4.1.11'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 4.0.4'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'yui-compressor'
-gem 'compass-rails', '~> 1.0'
+gem 'compass-rails', '~> 2.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
@@ -67,6 +67,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'
+
+gem 'sprockets', '~> 2.12.3'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
