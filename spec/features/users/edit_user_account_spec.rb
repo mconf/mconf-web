@@ -48,7 +48,6 @@ feature 'Editing a user account' do
 
     visit path
     find("a[href='#{ edit_user_path(user) }']").click
-    show_page
     find("//a[text()='#{ I18n.t('simple_form.buttons.cancel') }']").click
 
     expect(current_path_with_query).to eq(path)
