@@ -46,15 +46,15 @@ module Abilities
 
       # Spaces
       can [:create, :select], Space
-      can [:read, :webconference, :recordings], Space, public: true
+      can [:read, :webconference, :recordings], Space, public: true, approved: true
       can [:read, :webconference, :recordings, :leave], Space do |space|
-        space.users.include?(user)
+        space.approved? && space.users.include?(user)
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,
         :webconference_options, :disable, :edit_recording], Space do |space|
-        space.admins.include?(user)
+        space.approved? && space.admins.include?(user)
       end
 
       # Join Requests

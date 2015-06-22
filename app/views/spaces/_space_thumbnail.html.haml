@@ -4,23 +4,26 @@
 
 - show_join_request ||= false
 
-.list-thumbnail.space-container.space-thumbnail
+.list-thumbnail.space-container.space-thumbnail{class: [!space.approved? && 'waiting-approval']}
   .list-logo
     - space_logo = logo_image(space, :size => "84x64", :title => space.name)
     -# note: can't be can?(:read, space) because we want the link even for non-members
     -#   of private spaces
-    - if user_signed_in? || space.public
+    - if can?(:read, space)
       = link_to space_path(space) do
         = space_logo
     - else
       .register-to-view-space
         = space_logo
   .list-description
-    - if user_signed_in? || space.public
+    - if can?(:read, space)
       = link_to first_words(space.name, 30), space_path(space), :title => space.name, :class => "list-title"
     - else
-      %span.list-title{:title => space.name}= first_words(space.name, 20)
-    - if space.public
+      = icon_waiting_moderation if !space.approved?
+      %span.list-title{:title => space.name}
+        = first_words(space.name, 20)
+
+    - if space.public?
       .resource-visibility.small.public
         = icon_space_public
         = t(".public")

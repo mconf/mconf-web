@@ -83,6 +83,8 @@ en:
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
+    not_approved:
+      tooltip: 'Space waiting for admin moderation'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -932,8 +934,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
+      approve: "Approve: allow this space to appear on the website"
+      approve_confirm: "Are you sure you want to allow this space to appear on the website?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
+      disapprove: "Disapprove: block this community from appearing on the website"
+      disapprove_confirm: "Are you sure you want to block this community from appearing on the website?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -1794,7 +1800,7 @@ en:
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:
-      approved: "The user %{username} was approved to access the website!"
+      approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     create:
       error: "Errors creating the user: %{errors}"
@@ -1804,7 +1810,7 @@ en:
     detailed_user:
       from: "From:"
     disapprove:
-      disapproved: "The user %{username} was blocked from accessing the website!"
+      disapproved: "The user %{name} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"

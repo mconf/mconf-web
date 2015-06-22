@@ -84,6 +84,8 @@ pt-br:
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
+    not_approved:
+      tooltip: 'Comunidade à espera de moderação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -932,8 +934,12 @@ pt-br:
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
+      approve: "Aprovar: permitir que esta comunidade seja mostrada no site"
+      approve_confirm: "Tem certeza que deseja permitir que esta comunidade seja mostrada no site?"
       disable: "Desabilitar comundiade"
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      disapprove: "Desaprovar: bloquear esta comunidade de aparecer no site"
+      disapprove_confirm: "Tem certeza que deseja bloquear esta comunidade de aparecer no site?"
       edit: "Editar comunidade"
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -1521,7 +1527,10 @@ pt-br:
       none: "Nenhum evento no futuro"
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
-  spaces: 
+  spaces:
+    approve:
+      approved: "A comunidade %{name} foi aprovada!"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     admin_tabs:
       admissions: "Admissões"
       general_options: "Opções gerais"
@@ -1529,6 +1538,9 @@ pt-br:
       news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
+    disapprove:
+      disapproved: "A comunidade %{name} foi bloqueada de aparecer no site!"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     edit:
       change_logo: "Mudar imagem"
       delete_confirmation: "Você tem certeza? Essa comunidade se tornará inacessível a você e a todos outros os usuários!"
@@ -1795,7 +1807,7 @@ pt-br:
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
-      approved: "O usuário %{username} foi aprovado para acessar este site!"
+      approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
@@ -1805,7 +1817,7 @@ pt-br:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "O usuário %{username} foi bloqueado de acessar este site!"
+      disapproved: "O usuário %{name} foi bloqueado de acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
       account_info: "Informações da conta"

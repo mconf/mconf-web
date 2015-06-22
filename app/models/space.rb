@@ -68,6 +68,33 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
+  before_create :automatically_approve, unless: :site_needs_approval?
+
+  # Automatically approves the user if the current site is not requiring approval
+  # on registration.
+  def automatically_approve
+    self.approved = true
+  end
+
+  def site_needs_approval?
+    Site.current.require_registration_approval
+  end
+
+  # Sets the space as approved
+  def approve!
+    update_attributes(approved: true)
+  end
+
+  # Creates an activity about this approval, it can be used in the future for notifications
+  def create_approval_notification(approved_by)
+    create_activity 'approved', owner: approved_by
+  end
+
+  # Sets the space as not approved
+  def disapprove!
+    update_attributes(approved: false)
+  end
+
   validates :description, :presence => true
 
   validates :name, :presence => true,

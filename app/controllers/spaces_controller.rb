@@ -6,6 +6,8 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
+  include Mconf::ApprovalControllerModule # for approve, disapprove
+
   before_filter :authenticate_user!, :only => [:new, :create]
 
   load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable, :destroy, :disable]
@@ -37,7 +39,7 @@ class SpacesController < ApplicationController
     params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
     params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
 
-    spaces = Space.all
+    spaces = Space.where(approved: true)
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
@@ -333,6 +335,10 @@ class SpacesController < ApplicationController
       end
       render_403 exception
     end
+  end
+
+  def require_approval?
+    current_site.require_registration_approval?
   end
 
   allow_params_for :space

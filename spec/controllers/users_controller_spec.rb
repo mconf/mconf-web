@@ -780,10 +780,10 @@ describe UsersController do
         post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.approved', username: user.username)) }
+      it { should set_the_flash.to(I18n.t('users.approve.approved', name: user.name)) }
       it { should redirect_to('/any') }
-      it("approves the user") { user.reload.approved?.should be(true) }
-      it("confirms the user") { user.reload.confirmed?.should be(true) }
+      it("approves the user") { user.reload.should be_approved }
+      it("confirms the user") { user.reload.should be_confirmed }
 
       context "skips the confirmation email" do
         let(:user) { FactoryGirl.create(:unconfirmed_user) }
@@ -836,9 +836,9 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', username: user.username)) }
+      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
       it { should redirect_to('/any') }
-      it("disapproves the user") { user.reload.approved?.should be_falsey }
+      it("disapproves the user") { user.reload.should_not be_approved }
     end
 
     context "if #require_registration_approval is not set in the current site" do
@@ -849,7 +849,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
       it { should redirect_to('/any') }
-      it("user is still (auto) approved") { user.reload.approved?.should be_truthy } # auto approved on registration
+      it("user is still (auto) approved") { user.reload.should be_approved } # auto approved on registration
     end
 
     it { should_authorize an_instance_of(User), :disapprove, via: :post, id: user.to_param }
