@@ -113,6 +113,7 @@ Mconf::Application.routes.draw do
     resources :join_requests, only: [:index, :show, :new, :create] do
       collection do
         get :invite
+        get :create_no_accept
       end
 
       member do
