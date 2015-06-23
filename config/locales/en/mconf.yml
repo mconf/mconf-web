@@ -809,6 +809,14 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+    create_no_accept:
+      candidates: "Search users to add"
+      role_label: "Role for the users added"
+      title: "Add users to the space"
+      users:
+        hint: "Type to start searching"
+        no_results: "No results found"
+        searching: "Searching..."
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -1531,6 +1539,7 @@ en:
       news: "News"
       users: "Users"
       webconf_options: "Webconference options"
+      add_member: "Add member"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
