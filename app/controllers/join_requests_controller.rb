@@ -209,12 +209,14 @@ class JoinRequestsController < ApplicationController
         # Update the existing join request.
         old_jr = @space.pending_join_request_or_invitation_for(user)
 
-        old_jr.request_type = JoinRequest::TYPES[:no_accept]
-        old_jr.introducer = current_user
-        old_jr.accepted = true
-        old_jr.role_id = join_request_params[:role_id]
-
-        if old_jr.save
+        old_jr.destroy
+        jr = @space.join_requests.new(join_request_params)
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = JoinRequest::TYPES[:no_accept]
+        jr.introducer = current_user
+        jr.accepted = true
+        if jr.save
           success.push old_jr.candidate.username
         else
           errors.push "#{old_jr.email}: #{old_jr.errors.full_messages.join(', ')}"
