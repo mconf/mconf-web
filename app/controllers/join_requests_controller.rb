@@ -74,14 +74,14 @@ class JoinRequestsController < ApplicationController
         flash[:notice] = t('join_requests.create.already_invited', :users => already_invited.join(', '))
       end
       redirect_to invite_space_join_requests_path(@space)
+    # if it's a global admin adding people to the space
     elsif params[:create_no_accept] && can?(:create_no_accept, @space)
       success, errors = process_additions
       unless errors.empty?
         flash[:error] = t('join_requests.create.error', errors: errors.join(' - '))
       end
       unless success.empty?
-        # TODO this message is NOT adequate.
-        flash[:success] = t('join_requests.create.sent', users: success.join(' - '))
+        flash[:success] = t('join_requests.create_no_accept.created', users: success.join(' - '))
       end
       redirect_to create_no_accept_space_join_requests_path(@space)
     # it's a common user asking for membership in a space
@@ -205,17 +205,31 @@ class JoinRequestsController < ApplicationController
     ids = params[:candidates].split ',' || []
     ids.each do |id|
       user = User.find_by_id(id)
-      jr = @space.join_requests.new(join_request_params)
       if @space.pending_join_request_or_invitation_for?(user)
-        # TODO delete it and add user to space
+        # Update the existing join request.
+        old_jr = @space.pending_join_request_or_invitation_for(user)
+
+        old_jr.request_type = JoinRequest::TYPES[:no_accept]
+        old_jr.introducer = current_user
+        old_jr.accepted = true
+        old_jr.role_id = join_request_params[:role_id]
+
+        if old_jr.save
+          success.push old_jr.candidate.username
+        else
+          errors.push "#{old_jr.email}: #{old_jr.errors.full_messages.join(', ')}"
+        end
       elsif @space.users.include?(user)
         errors.push t('join_requests.create.already_a_member', name: user.username)
       elsif user
+        jr = @space.join_requests.new(join_request_params)
+
         jr.candidate = user
         jr.email = user.email
         jr.request_type = JoinRequest::TYPES[:no_accept]
         jr.introducer = current_user
         jr.accepted = true
+
         if jr.save
           success.push jr.candidate.username
         else
