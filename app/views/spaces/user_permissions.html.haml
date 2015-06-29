@@ -18,7 +18,25 @@
             .input.select
               - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
               = select :permission, :role_id, roles, :selected => permission.role_id
-            = f.submit t('update'), :class => "btn btn-small"
+            = f.submit t('update'), :class => "btn btn-mini"
+
+          - perm = Permission.where(user: user, subject: @space).first
+          - if can?(:destroy, perm)
+            - if user == current_user
+              -# Use link to leave space if the user show is the current user
+              -# This already handles cases where the user loses the ability to 'show'
+              -# the space to which he belonged and must be redirected to the root.
+              - if can?(:leave, @space)
+                - link = leave_space_path(@space)
+                - params = { method: :post, class: 'btn btn-small btn-danger user-remove', data: { confirm: t('.confirm_leave_space') } }
+                = link_to link, options_for_tooltip(t(".leave_space"), params) do
+                  = icon_leave_space
+            - else
+              -# Otherwise, use a 'delete' with the Permission
+              - params = { method: :delete, class: 'btn btn-small btn-danger user-remove', data: { confirm: t('.confirm_remove_user') } }
+              = link_to permission_path(perm), options_for_tooltip(t('.remove_user'), params), params do
+                = icon_leave_space
+
         .thread-title
           = link_to sanitize(user.name), user_path(user)
           .user-email

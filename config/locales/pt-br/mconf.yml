@@ -1627,6 +1627,11 @@ pt-br:
       user_is_member: "Você é membro desta comunidade"
       view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
+    user_permissions:
+      confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
+      leave_space: "Sair da comunidade"
+      confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      remove_user: "Remover usuário da comunidade"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
