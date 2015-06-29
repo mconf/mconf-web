@@ -81,7 +81,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update])
+          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy])
         }
         it_should_behave_like "for all permission types"
       end

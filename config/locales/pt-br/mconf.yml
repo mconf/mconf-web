@@ -1477,6 +1477,9 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
+    remove_user:
+      confirm: "Tem certeza de que deseja remover este usuário da comunidade?"
+      remove: "Remover usuário"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
