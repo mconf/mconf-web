@@ -34,8 +34,11 @@
 # * "space.leave": When user leaves a space (parameters: +user_id+, +username+)
 #
 
+require './lib/mconf/approval_module'
+
 class Space < ActiveRecord::Base
   include PublicActivity::Common
+  include Mconf::ApprovalModule
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
@@ -68,31 +71,8 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
-  before_create :automatically_approve, unless: :site_needs_approval?
-
-  # Automatically approves the user if the current site is not requiring approval
-  # on registration.
-  def automatically_approve
-    self.approved = true
-  end
-
-  def site_needs_approval?
-    Site.current.require_registration_approval
-  end
-
-  # Sets the space as approved
-  def approve!
-    update_attributes(approved: true)
-  end
-
-  # Creates an activity about this approval, it can be used in the future for notifications
-  def create_approval_notification(approved_by)
-    create_activity 'approved', owner: approved_by
-  end
-
-  # Sets the space as not approved
-  def disapprove!
-    update_attributes(approved: false)
+  def needs_approval?
+    Site.current.require_space_approval
   end
 
   validates :description, :presence => true

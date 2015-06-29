@@ -7,9 +7,11 @@
 
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
+require './lib/mconf/approval_module'
 
 class User < ActiveRecord::Base
   include PublicActivity::Common
+  include Mconf::ApprovalModule
 
   # TODO: block :username from being modified after registration
 
@@ -79,8 +81,6 @@ class User < ActiveRecord::Base
   after_create :create_webconf_room
   after_update :update_webconf_room
 
-  before_create :automatically_approve, unless: :site_needs_approval?
-
   before_destroy :before_disable_and_destroy, prepend: true
 
   default_scope { where(disabled: false) }
@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
-  def site_needs_approval?
+  def needs_approval?
     Site.current.require_registration_approval
   end
 
@@ -239,26 +239,10 @@ class User < ActiveRecord::Base
     PrivateMessage.inbox(self).select{|msg| !msg.checked}
   end
 
-  # Automatically approves the user if the current site is not requiring approval
-  # on registration.
-  def automatically_approve
-    self.approved = true
-  end
-
-  # Sets the user as approved
+  # Sets the user as approved and skips confirmation
   def approve!
     skip_confirmation! unless confirmed?
     update_attributes(approved: true)
-  end
-
-  # Starts the process of sending a notification to the user that was approved.
-  def create_approval_notification(approved_by)
-    create_activity 'approved', owner: approved_by
-  end
-
-  # Sets the user as not approved
-  def disapprove!
-    update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
@@ -300,7 +284,7 @@ class User < ActiveRecord::Base
     if created_by.present?
       create_activity 'created_by_admin', owner: created_by, notified: false
     else
-      create_activity 'created', owner: self, notified: !site_needs_approval?
+      create_activity 'created', owner: self, notified: !needs_approval?
     end
   end
 
