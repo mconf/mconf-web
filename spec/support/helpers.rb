@@ -55,6 +55,8 @@ module Helpers
       before(:each) do
         Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
           custom_actions = actions
+        Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
+          custom_actions = actions
       end
     end
 

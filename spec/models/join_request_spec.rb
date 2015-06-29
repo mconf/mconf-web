@@ -217,17 +217,17 @@ describe JoinRequest do
 
       context "in a public space" do
         before { target.group.update_attributes(:public => true) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(:all) }
       end
 
       context "in a private space" do
         before { target.group.update_attributes(:public => false) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(:all) }
       end
 
       context "and the target space is disabled" do
         before { target.group.disable }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(:all) }
       end
     end
   end

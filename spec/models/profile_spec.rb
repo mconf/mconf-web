@@ -137,13 +137,13 @@ describe Profile do
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "if the target user is disabled" do
         before { target.user.disable }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 

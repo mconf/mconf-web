@@ -70,11 +70,11 @@ describe Post do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target space is disabled" do
         before { target.space.disable }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 

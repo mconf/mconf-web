@@ -89,7 +89,7 @@ describe Permission do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      let(:ability_check) { should be_able_to(:manage, target) }
+      let(:ability_check) { should be_able_to_do_everything_to(target) }
       it_should_behave_like "for all permission types"
     end
 

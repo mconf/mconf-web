@@ -1022,19 +1022,19 @@ describe User do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "over his own account" do
-        it { should be_able_to(:manage, user) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "he can do anything over all resources" do
-        it { should be_able_to(:manage, :all) }
+        it { should be_able_to_do_everything_to(:all) }
       end
     end
 

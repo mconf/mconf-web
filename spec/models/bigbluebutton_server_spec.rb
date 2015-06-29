@@ -27,7 +27,7 @@ describe BigbluebuttonServer do
 
     context "a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
     end
 
     context "a normal user", :user => "normal" do

@@ -920,24 +920,32 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should be_able_to_do_anything_to(target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should be_able_to_do_anything_to(target) }
+
+            context "being the last admin" do
+              it { should be_able_to_do_everything_to(target).except(:leave) }
+            end
+
+            context "when there's another admin" do
+              before { target.add_member!(FactoryGirl.create(:user), "Admin") }
+              it { should be_able_to_do_everything_to(target) }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target) }
           end
         end
 
         context "that is disabled" do
           before { target.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
       end
 
@@ -945,24 +953,24 @@ describe Space do
         let(:target) { FactoryGirl.create(:private_space) }
 
         context "he is not a member of" do
-          it { should be_able_to_do_anything_to(target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target).except(:leave) }
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target) }
           end
         end
 
         context "that is disabled" do
           before { target.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
       end
     end
@@ -980,9 +988,8 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            context "being the last Admin" do
+            context "being the last admin" do
               it {
-                # The last Admin can't leave
                 list = [
                   :read, :webconference, :recordings, :create, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
@@ -991,7 +998,7 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
-            context "when there's another Admin" do
+            context "when there's another admin" do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
                 list = [
@@ -1026,9 +1033,8 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            context "being the last Admin" do
+            context "being the last admin" do
               it {
-                # The last Admin can't leave
                 list = [
                   :read, :webconference, :recordings, :create, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
@@ -1037,7 +1043,7 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
-            context "when there's another Admin" do
+            context "when there's another admin" do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
                 list = [
