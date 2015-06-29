@@ -6,7 +6,7 @@
     = link_to (edit_space_path(space)) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
-    - if current_site.require_registration_approval?
+    - if current_site.require_space_approval?
       = approval_links :space, space
 
     = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
@@ -19,7 +19,7 @@
   %span.space-description
     = sanitize(first_words(space.description, 100))
 
-  - if !space.approved?
+  - if current_site.require_space_approval? && !space.approved?
     %span.space-waiting-moderation
       = t("_other.not_approved.tooltip")
       = icon_waiting_moderation

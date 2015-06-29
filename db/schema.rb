@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618183338) do
+ActiveRecord::Schema.define(version: 20150629175319) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -384,6 +384,8 @@ ActiveRecord::Schema.define(version: 20150618183338) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.boolean  "require_space_approval",         default: false
+    t.boolean  "forbid_user_space_creation",     default: false
   end
 
   create_table "spaces", force: true do |t|
@@ -397,7 +399,7 @@ ActiveRecord::Schema.define(version: 20150618183338) do
     t.boolean  "disabled",    default: false
     t.boolean  "repository",  default: false
     t.string   "logo_image"
-    t.boolean  "approved",    default: true
+    t.boolean  "approved",    default: false
   end
 
   create_table "users", force: true do |t|

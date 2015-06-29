@@ -338,7 +338,7 @@ class SpacesController < ApplicationController
   end
 
   def require_approval?
-    current_site.require_registration_approval?
+    current_site.require_space_approval?
   end
 
   allow_params_for :space
