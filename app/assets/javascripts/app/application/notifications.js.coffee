@@ -62,6 +62,7 @@ showNotification = (target, type) ->
           text: $target.text()
           type: 'alert'
 
+    opts.text = mconf.Base.escapeHTML(opts.text)
     noty(opts)
 
 $ ->

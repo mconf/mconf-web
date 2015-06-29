@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/Fire-Dragon-DoL/valid_email.git
-  revision: 905122768d497218d395180ad05da611f6f9c87d
-  specs:
-    valid_email (0.1.0)
-      activemodel
-      mail
-
-GIT
   remote: https://github.com/fnando/i18n-js.git
   revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
   specs:
@@ -35,14 +27,14 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: c82c1e5050ca65fa9ac7e62bd1a929ab6c6da672
+  revision: 0a6058ce7ed92e3c65c7ee415cb18df0cabd0224
   branch: master
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.1.3)
       cancancan (~> 1.9)
       coffee-rails (~> 4.0.0)
-      compass-rails (~> 1.0)
+      compass-rails
       epic-editor-rails
       font-awesome-rails (~> 4.1.0.0)
       friendly_id
@@ -57,7 +49,7 @@ GIT
       momentjs-rails (>= 2.8.1)
       rails (~> 4.1.4)
       redcarpet
-      sass-rails (~> 4.0.3)
+      sass-rails
       select2-rails
       simple_form (~> 3.1.0)
       therubyracer
@@ -86,29 +78,29 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.1.4)
-      actionpack (= 4.1.4)
-      actionview (= 4.1.4)
-      mail (~> 2.5.4)
-    actionpack (4.1.4)
-      actionview (= 4.1.4)
-      activesupport (= 4.1.4)
+    actionmailer (4.1.11)
+      actionpack (= 4.1.11)
+      actionview (= 4.1.11)
+      mail (~> 2.5, >= 2.5.4)
+    actionpack (4.1.11)
+      actionview (= 4.1.11)
+      activesupport (= 4.1.11)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.4)
-      activesupport (= 4.1.4)
+    actionview (4.1.11)
+      activesupport (= 4.1.11)
       builder (~> 3.1)
       erubis (~> 2.7.0)
     active_sanity (0.2.0)
       rails (>= 3.1.0)
-    activemodel (4.1.4)
-      activesupport (= 4.1.4)
+    activemodel (4.1.11)
+      activesupport (= 4.1.11)
       builder (~> 3.1)
-    activerecord (4.1.4)
-      activemodel (= 4.1.4)
-      activesupport (= 4.1.4)
+    activerecord (4.1.11)
+      activemodel (= 4.1.11)
+      activesupport (= 4.1.11)
       arel (~> 5.0.0)
-    activesupport (4.1.4)
+    activesupport (4.1.11)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -119,7 +111,7 @@ GEM
     addressable (2.3.6)
     ansi (1.4.3)
     arel (5.0.1.20140414130214)
-    bcrypt (3.1.7)
+    bcrypt (3.1.10)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -192,9 +184,8 @@ GEM
       chunky_png (~> 1.2)
       listen (<= 0.9.9)
       sass (~> 3.2.5)
-    compass-rails (1.1.7)
+    compass-rails (2.0.0)
       compass (>= 0.12.2)
-      sprockets (<= 2.11.0)
     configatron (2.13.0)
       yamler (>= 0.1.0)
     css_parser (1.3.5)
@@ -202,10 +193,11 @@ GEM
     daemons (1.2.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    devise (3.2.4)
+    devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
+      responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-async (0.9.0)
@@ -270,15 +262,15 @@ GEM
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    i18n (0.6.11)
+    i18n (0.7.0)
     icalendar (2.1.1)
     ipaddress (0.8.0)
-    jquery-rails (3.1.1)
+    jquery-rails (3.1.3)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.3)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.1)
+    json (1.8.3)
     launchy (2.4.2)
       addressable (~> 2.3)
     leaflet-rails (0.7.4)
@@ -297,9 +289,8 @@ GEM
     libv8 (3.16.14.3)
     libyajl2 (1.2.0)
     listen (0.7.3)
-    mail (2.5.4)
-      mime-types (~> 1.16)
-      treetop (~> 1.4.8)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     mailcatcher (0.6.1)
       activesupport (>= 4.0.0, < 5)
       eventmachine (~> 1.0.0, <= 1.0.5)
@@ -314,7 +305,7 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.6.0)
     minitar (0.5.4)
-    minitest (5.4.0)
+    minitest (5.7.0)
     mixlib-authentication (1.3.0)
       mixlib-log
     mixlib-cli (1.5.0)
@@ -324,7 +315,7 @@ GEM
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     mono_logger (1.1.0)
-    multi_json (1.10.1)
+    multi_json (1.11.1)
     multi_xml (0.5.5)
     mysql2 (0.3.16)
     net-dhcp (1.3.2)
@@ -352,7 +343,6 @@ GEM
       wmi-lite (~> 1.0)
     orm_adapter (0.5.0)
     plist (3.1.0)
-    polyglot (0.3.5)
     populator (1.0.0)
     premailer (1.8.2)
       css_parser (>= 1.3.5)
@@ -375,28 +365,28 @@ GEM
       railties (>= 3.1, < 5.0)
     rabl (0.10.1)
       activesupport (>= 2.3.14)
-    rack (1.5.2)
+    rack (1.5.5)
     rack-protection (1.5.3)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.1.4)
-      actionmailer (= 4.1.4)
-      actionpack (= 4.1.4)
-      actionview (= 4.1.4)
-      activemodel (= 4.1.4)
-      activerecord (= 4.1.4)
-      activesupport (= 4.1.4)
+    rails (4.1.11)
+      actionmailer (= 4.1.11)
+      actionpack (= 4.1.11)
+      actionview (= 4.1.11)
+      activemodel (= 4.1.11)
+      activerecord (= 4.1.11)
+      activesupport (= 4.1.11)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.4)
+      railties (= 4.1.11)
       sprockets-rails (~> 2.0)
     rails-footnotes (4.0.2)
       rails (>= 3.2)
     rails_autolink (1.1.6)
       rails (> 3.1)
-    railties (4.1.4)
-      actionpack (= 4.1.4)
-      activesupport (= 4.1.4)
+    railties (4.1.11)
+      actionpack (= 4.1.11)
+      activesupport (= 4.1.11)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
@@ -405,6 +395,8 @@ GEM
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
+    responders (1.1.2)
+      railties (>= 3.2, < 4.2)
     resque (1.25.2)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -451,10 +443,10 @@ GEM
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
     sass (3.2.19)
-    sass-rails (4.0.3)
+    sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
+      sass (~> 3.2.2)
+      sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     select2-rails (3.5.9)
       thor (~> 0.14)
@@ -483,15 +475,15 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     spring (1.3.4)
-    sprockets (2.11.0)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.1.3)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
-      sprockets (~> 2.8)
+      sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.9)
     subexec (0.2.3)
     systemu (2.6.4)
@@ -505,11 +497,8 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
-    treetop (1.4.15)
-      polyglot
-      polyglot (>= 0.3.1)
     turn (0.8.2)
       ansi (>= 1.2.2)
     twitter-bootstrap-rails (2.2.8)
@@ -517,12 +506,15 @@ GEM
       execjs
       rails (>= 3.1)
       railties (>= 3.1)
-    tzinfo (1.2.1)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuidtools (2.1.5)
+    valid_email (0.0.11)
+      activemodel
+      mail (~> 2.6.1)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -562,10 +554,10 @@ DEPENDENCIES
   chronic
   coffee-rails (~> 4.0.0)
   compass (~> 0.13.alpha)
-  compass-rails (~> 1.0)
+  compass-rails (~> 2.0)
   configatron (~> 2.13.0)
   database_cleaner
-  devise (~> 3.2.4)
+  devise (~> 3.5.1)
   devise-async
   devise-encryptable
   dotiw
@@ -582,7 +574,7 @@ DEPENDENCIES
   httparty
   i18n-js!
   icalendar
-  jquery-rails (~> 3.1.1)
+  jquery-rails (~> 3.1.3)
   launchy
   less-rails
   librarian-chef
@@ -599,7 +591,8 @@ DEPENDENCIES
   public_activity (~> 1.4.1)
   quiet_assets
   rabl
-  rails (~> 4.1.4)
+  rack (~> 1.5.4)
+  rails (~> 4.1.11)
   rails-footnotes
   rails_autolink (~> 1.1.0)
   rake
@@ -612,20 +605,21 @@ DEPENDENCIES
   rspec-mocks
   rspec-rails (~> 2.99.0)
   rubyzip (>= 1.0.0)
-  sass-rails (~> 4.0.3)
+  sass-rails (~> 4.0.4)
   select2-rails
   shoulda-kept-assign-to
   shoulda-matchers (~> 2.6.1)
   simple_form (~> 3.1.0)
   simplecov
   spring
+  sprockets (~> 2.12.3)
   sqlite3
   therubyracer
   translate-rails3!
   turn (= 0.8.2)
   twitter-bootstrap-rails (~> 2.2.8)
   uglifier (>= 1.0.3)
-  valid_email!
+  valid_email (~> 0.0.10)
   vpim!
   webrat
   will_paginate
