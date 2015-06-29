@@ -12,15 +12,14 @@ module Abilities
       can :manage, :all
 
       cannot [:leave], Space do |space|
-        space.users.include?(user) && space.users.count == 1
+        !space.users.include?(user) || space.is_last_admin?(user)
       end
 
+      # A Superuser can't remove the last admin of a space
       cannot [:destroy], Permission do |perm|
         cant = false
         if perm.subject_type == "Space"
-          # A Superuser can't remove the last admin.
-          s = perm.subject
-          cant = s.is_last_admin?(perm.user)
+          cant = perm.subject.is_last_admin?(perm.user) if perm.subject.present?
         end
         cant
       end
