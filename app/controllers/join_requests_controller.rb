@@ -236,6 +236,7 @@ class JoinRequestsController < ApplicationController
         jr.request_type = JoinRequest::TYPES[:no_accept]
         jr.introducer = current_user
         jr.accepted = true
+        jr.processed = true
 
         if jr.save
           success.push jr.candidate.username
