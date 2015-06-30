@@ -6,4 +6,5 @@
     = link_to t('.admissions'), space_join_requests_path(@space), spaces_admin_menu_select_if(:admissions, :class => "btn btn-small")
     = link_to t('.users'), user_permissions_space_path(@space), spaces_admin_menu_select_if(:users, :class => "btn btn-small")
     = link_to t('.webconf_options'), webconference_options_space_path(@space), spaces_admin_menu_select_if(:webconference_options, :class => "btn btn-small")
-    = link_to t('.add_member'), create_no_accept_space_join_requests_path(@space), spaces_admin_menu_select_if(:create_no_accept, :class => "btn btn-small")
+    - if can?(:add_no_accept, @space)
+      = link_to t('.add_member'), create_no_accept_space_join_requests_path(@space), spaces_admin_menu_select_if(:create_no_accept, :class => "btn btn-small")

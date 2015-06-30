@@ -16,6 +16,7 @@ en:
       deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
       request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
