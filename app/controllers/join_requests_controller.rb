@@ -206,10 +206,11 @@ class JoinRequestsController < ApplicationController
     ids.each do |id|
       user = User.find_by_id(id)
       if @space.pending_join_request_or_invitation_for?(user)
-        # Update the existing join request.
+        # Destroy old join request
         old_jr = @space.pending_join_request_or_invitation_for(user)
-
         old_jr.destroy
+
+        # Create a new one corresponding to this addition
         jr = @space.join_requests.new(join_request_params)
         jr.candidate = user
         jr.email = user.email
