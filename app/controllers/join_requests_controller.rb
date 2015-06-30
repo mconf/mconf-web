@@ -206,21 +206,25 @@ class JoinRequestsController < ApplicationController
     ids.each do |id|
       user = User.find_by_id(id)
       if @space.pending_join_request_or_invitation_for?(user)
-        # Destroy old join request
+        # Need to mark the old JoinRequest as processed to avoid
+        # uniqueness conflicts that prevent the creation of the new JoinRequest
         old_jr = @space.pending_join_request_or_invitation_for(user)
-        old_jr.destroy
-
+        old_jr.processed = true
+        old_jr.save
         # Create a new one corresponding to this addition
         jr = @space.join_requests.new(join_request_params)
+
         jr.candidate = user
         jr.email = user.email
         jr.request_type = JoinRequest::TYPES[:no_accept]
         jr.introducer = current_user
         jr.accepted = true
+        jr.processed = true
+
         if jr.save
           success.push old_jr.candidate.username
         else
-          errors.push "#{old_jr.email}: #{old_jr.errors.full_messages.join(', ')}"
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
         end
       elsif @space.users.include?(user)
         errors.push t('join_requests.create.already_a_member', name: user.username)
