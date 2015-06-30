@@ -1541,7 +1541,7 @@ en:
       news: "News"
       users: "Users"
       webconf_options: "Webconference options"
-      add_member: "Add member"
+      add_member: "Add members"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
