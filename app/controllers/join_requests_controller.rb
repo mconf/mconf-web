@@ -207,13 +207,14 @@ class JoinRequestsController < ApplicationController
       user = User.find_by_id(id)
       # New JoinRequest corresponding to this addition
       jr = @space.join_requests.new(join_request_params)
-
-      jr.candidate = user
-      jr.email = user.email
-      jr.request_type = JoinRequest::TYPES[:no_accept]
-      jr.introducer = current_user
-      jr.accepted = true
-      jr.processed = true
+      if user
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = JoinRequest::TYPES[:no_accept]
+        jr.introducer = current_user
+        jr.accepted = true
+        jr.processed = true
+      end
 
       if @space.pending_join_request_or_invitation_for?(user)
         # Need to mark the old JoinRequest as processed to avoid
