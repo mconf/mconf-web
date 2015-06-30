@@ -7,9 +7,6 @@
 module ApprovalHelper
 
   def approval_links classname, object, translations=nil
-    # if translations.blank?
-      # translations = I18n.t('approved')
-    # end
     if object.approved?
       link_to send("disapprove_#{classname}_path", object), :method => :post, :data => { :confirm => t('.disapprove_confirm') } do
         icon_disapprove(:alt => t('.disapprove'), :title => t('.disapprove'))
