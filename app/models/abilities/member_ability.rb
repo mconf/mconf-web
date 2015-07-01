@@ -46,9 +46,7 @@ module Abilities
 
       # Spaces
       can :select, Space
-      can :create, Space do
-        !Site.current.forbid_user_space_creation
-      end
+      can [:create], Space unless Site.current.forbid_user_space_creation?
 
       can [:read, :webconference, :recordings], Space, public: true, approved: true
       can [:read, :webconference, :recordings, :leave], Space do |space|
@@ -99,18 +97,18 @@ module Abilities
 
       # Posts
       # TODO: maybe space admins should be able to alter posts
-      can :read, Post, space: { public: true }
+      can :read, Post, space: { public: true, approved: true }
       can [:read, :create, :reply_post], Post do |post|
-        post.space.users.include?(user)
+        post.space.users.include?(user) && post.space.approved?
       end
       can [:read, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
 
       # News
       # Only admins can create/alter news, the rest can only read
       # note: :show because :index is only for space admins
-      can :show, News, space: { public: true }
+      can :show, News, space: { public: true, approved: true }
       can :show, News do |news|
-        news.space.users.include?(user)
+        news.space.users.include?(user) && news.space.approved?
       end
       can :manage, News do |news|
         news.space.admins.include?(user)
@@ -121,13 +119,13 @@ module Abilities
         attach.space.admins.include?(user)
       end
       can [:read, :create], Attachment do |attach|
-        attach.space.users.include?(user)
+        attach.space.users.include?(user) && news.space.approved?
       end
       can [:destroy], Attachment do |attach|
         attach.space.users.include?(user) &&
         attach.author_id == user.id
       end
-      can :read, Attachment, space: { public: true }
+      can :read, Attachment, space: { public: true, approved: true }
 
       # Permissions
       # Only space admins can update user roles/permissions

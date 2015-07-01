@@ -71,8 +71,8 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
-  def needs_approval?
-    Site.current.require_space_approval
+  def require_approval?
+    Site.current.require_space_approval?
   end
 
   validates :description, :presence => true

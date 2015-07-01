@@ -6,14 +6,15 @@
 
   .sidebar-top-action-button
 
-    -if can?(Space, :create)
-      - if user_signed_in?
+    - if user_signed_in?
+      - if can?(:create, Space)
         = link_to t('.create_new_space'), new_space_path, :class => "btn btn-primary btn-large btn-block"
+
+    - else
+      - if current_site.registration_enabled?
+        = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
       - else
-        - if current_site.registration_enabled?
-          = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
-        - else
-          = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
+        = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
 
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle

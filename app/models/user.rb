@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
-  def needs_approval?
+  def require_approval?
     Site.current.require_registration_approval
   end
 
@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
     if created_by.present?
       create_activity 'created_by_admin', owner: created_by, notified: false
     else
-      create_activity 'created', owner: self, notified: !needs_approval?
+      create_activity 'created', owner: self, notified: !require_approval?
     end
   end
 

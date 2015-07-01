@@ -2,7 +2,7 @@ module Mconf
   module ApprovalModule
 
     def self.included base
-      base.before_create :automatically_approve, unless: :needs_approval?
+      base.before_create :automatically_approve, unless: :require_approval?
     end
 
     def automatically_approve
