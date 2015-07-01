@@ -1416,6 +1416,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
+    created_waiting_moderation: "Space created successfully but is still waiting moderation from an admin"
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1547,6 +1548,7 @@ en:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
+      unapproved: This space is still waiting for admin approval.
     index: 
       create_new_space: "Create a new space"
       list_format: 
