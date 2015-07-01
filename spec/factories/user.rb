@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     factory :user, parent: :unconfirmed_user do
       confirmed_at { Time.now }
-      after(:create) { |user| user.confirm! }
+      after(:create) { |user| user.confirm }
 
       factory :superuser, class: User, parent: :user do |u|
         u.superuser true

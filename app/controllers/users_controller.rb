@@ -170,7 +170,7 @@ class UsersController < ApplicationController
   # Confirms a user's account
   def confirm
     if !@user.confirmed?
-      @user.confirm!
+      @user.confirm
       flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
     end
     redirect_to :back
@@ -190,7 +190,7 @@ class UsersController < ApplicationController
     @user.skip_confirmation_notification!
 
     if @user.save
-      @user.confirm!
+      @user.confirm
       @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|

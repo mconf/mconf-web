@@ -1484,6 +1484,9 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
+    remove_user:
+      confirm: "Tem certeza de que deseja remover este usuário da comunidade?"
+      remove: "Remover usuário"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1638,6 +1641,11 @@ pt-br:
       user_is_member: "Você é membro desta comunidade"
       view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
+    user_permissions:
+      confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
+      leave_space: "Sair da comunidade"
+      confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      remove_user: "Remover usuário da comunidade"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"

@@ -37,7 +37,7 @@ describe PrivateMessage do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(:all) }
     end
 
   end

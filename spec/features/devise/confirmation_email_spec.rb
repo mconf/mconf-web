@@ -17,7 +17,7 @@ feature "Confirmation email" do
       expect { register_with(attrs) }.to change{ User.count }.by(1)
     end
 
-    User.last.confirmed?.should be false
+    User.last.should_not be_confirmed
 
     # check the confirmation email and click on the link to confirm the account
     last_email.should_not be_nil

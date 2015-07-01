@@ -56,7 +56,7 @@ describe Attachment do
 
       context "that's the admin of the space the attachment is in" do
         before { target.space.add_member!(user, 'Admin') }
-        it { should be_able_to_do_anything_to(target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "that's a member of the space the attachment is in" do
@@ -82,11 +82,11 @@ describe Attachment do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target space is disabled" do
         before { target.space.disable }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 
