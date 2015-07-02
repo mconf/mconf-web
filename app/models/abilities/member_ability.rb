@@ -49,7 +49,7 @@ module Abilities
       can [:create], Space unless Site.current.forbid_user_space_creation?
 
       can [:read, :webconference, :recordings], Space, public: true, approved: true
-      can [:read, :webconference, :recordings, :leave], Space do |space|
+      can [:read, :webconference, :recordings], Space do |space|
         (space.approved? && space.users.include?(user)) || space.admins.include?(user)
       end
       can [:leave], Space do |space|
@@ -122,7 +122,7 @@ module Abilities
         attach.space.admins.include?(user)
       end
       can [:read, :create], Attachment do |attach|
-        attach.space.users.include?(user) && news.space.approved?
+        attach.space.users.include?(user) && attach.space.approved?
       end
       can [:destroy], Attachment do |attach|
         attach.space.users.include?(user) &&
