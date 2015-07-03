@@ -178,6 +178,8 @@ pt-br:
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
+        require_space_approval: "Moderação de comunidades"
+        forbid_user_space_creation: "Proibir criação de comunidades por usuários"
         room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
