@@ -14,13 +14,13 @@ FactoryGirl.define do
     s.repository false
     s.disabled false
 
-    after(:build) { |user| user.class.skip_callback(:create, :after, :create_webconf_room) }
-    after(:build) { |user| user.class.skip_callback(:update, :after, :update_webconf_room) }
+    after(:build) { |space| space.stub(:create_webconf_room) }
+    after(:build) { |space| space.stub(:update_webconf_room) }
   end
 
   factory :space_with_associations, parent: :space do
-    after(:build) { |user| user.class.set_callback(:create, :after, :create_webconf_room) }
-    after(:build) { |user| user.class.set_callback(:update, :after, :update_webconf_room) }
+    after(:build) { |space| space.unstub(:create_webconf_room) }
+    after(:build) { |space| space.unstub(:update_webconf_room) }
   end
 
   factory :public_space, parent: :space do |s|
