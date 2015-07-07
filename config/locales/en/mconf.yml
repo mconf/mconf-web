@@ -810,15 +810,7 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
-    create_no_accept:
-      candidates: "Search users to add"
-      created: "You have successfully added the users %{users} to this space"
-      role_label: "Role for the users added"
-      title: "Add users to the space"
-      users:
-        hint: "Type to start searching"
-        no_results: "No results found"
-        searching: "Searching..."
+      users_added: "You have successfully added the user(s) %{users} to this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -841,6 +833,9 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      type_add: "Add users directly"
+      type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
+      type_invite: "Invite"
       users:
         hint: "Type to start searching"
         no_results: "No results found"

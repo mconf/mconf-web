@@ -810,15 +810,7 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
-    create_no_accept:
-      candidates: "Procure usuários para adicionar"
-      created: "Você adicionou os usuários %{users} à comunidade com sucesso"
-      role_label: "Papel dos usuários adicionados"
-      title: "Adicionar usuários à comunidade"
-      users:
-        hint: "Digite para começar a buscar"
-        no_results: "Nenhum resultado encontrado"
-        searching: "Procurando..."
+      users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -841,6 +833,9 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      type_add: "Adicionar diretamente"
+      type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
+      type_invite: "Convidar"
       users:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"

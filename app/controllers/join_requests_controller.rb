@@ -13,10 +13,10 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite, :create_no_accept]
-  load_resource :join_request, :through => :space, :only => [:index, :invite, :create_no_accept] # these are authenticated via space parent
+  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite]
+  load_resource :join_request, :through => :space, :only => [:index, :invite] # these are authenticated via space parent
 
-  before_filter :webconf_room!, only: [:index, :invite, :create_no_accept]
+  before_filter :webconf_room!, only: [:index, :invite]
   before_filter :check_processed_request, only: [:show, :accept, :decline]
 
   respond_to :html
@@ -53,15 +53,10 @@ class JoinRequestsController < ApplicationController
     authorize! :invite, @space
   end
 
-  def create_no_accept
-    @join_request = JoinRequest.new
-    authorize! :create_no_accept, @space
-  end
-
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:invite] && can?(:invite, @space)
+    if params[:type] == 'invite' && can?(:invite, @space)
       success, errors, already_invited = process_invitations
 
       unless errors.empty?
@@ -74,16 +69,18 @@ class JoinRequestsController < ApplicationController
         flash[:notice] = t('join_requests.create.already_invited', :users => already_invited.join(', '))
       end
       redirect_to invite_space_join_requests_path(@space)
+
     # if it's a global admin adding people to the space
-    elsif params[:create_no_accept] && can?(:create_no_accept, @space)
+    elsif params[:type] == 'add' && can?(:add, @space)
       success, errors = process_additions
       unless errors.empty?
         flash[:error] = t('join_requests.create.error', errors: errors.join(' - '))
       end
       unless success.empty?
-        flash[:success] = t('join_requests.create_no_accept.created', users: success.join(' - '))
+        flash[:success] = t('join_requests.create.users_added', users: success.join(', '))
       end
-      redirect_to create_no_accept_space_join_requests_path(@space)
+      redirect_to invite_space_join_requests_path(@space)
+
     # it's a common user asking for membership in a space
     else
       if @space.pending_join_request_or_invitation_for?(current_user)

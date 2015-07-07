@@ -43,7 +43,7 @@ en:
     invitation_email:
       message:
         header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to join the space <b>%{space}</b>."
-        link: "You accept or decline this invitation clicking by clicking the link: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>You can find more information about this space in the page: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        link: "You can accept or decline this invitation by clicking the link: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>You can find more information about this space in the page: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "This is the message written by %{sender}:"
       subject: "%{username} invited you to join the space %{space}"
     join_no_accept_email:

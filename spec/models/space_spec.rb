@@ -908,7 +908,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
-      :index_join_requests, :index_news])
+      :index_join_requests, :index_news, :add])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
