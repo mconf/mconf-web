@@ -60,6 +60,7 @@ describe 'User accesses spaces index' do
       }
       it { should have_css '.space-container', :count => 0 }
       it { should_not have_css '#show-spaces-mine' }
+      it { should_not_be_500_page }
     end
   end
 

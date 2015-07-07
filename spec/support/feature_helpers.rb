@@ -118,6 +118,13 @@ module FeatureHelpers
     nil
   end
 
+  def should_not_be_500_page
+    page.should_not have_title(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.description', :url => page.current_path))
+    page.status_code.should < 500 && page.status_code.should  >= 200
+  end
+
   def should_be_404_page
     page.should have_title(t('error.e404.title'))
     page.should have_content(t('error.e404.title'))
