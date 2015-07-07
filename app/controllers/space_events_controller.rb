@@ -25,14 +25,14 @@ class SpaceEventsController < ApplicationController
 
   # TODO: everything is being filtered by software, this can all be done with db queries
   def index
-    all_events = @space.events(:order => "start_on ASC")
+    all_events = @space.events(:order => "end_on DESC")
 
     # events happening now
     @current_events = all_events.happening_now
 
     if params[:show] == 'past_events'
       @past_events = all_events.past
-      @past_events.reverse! if params[:order_by_time] == "ASC"
+      @past_events = @past_events.reverse_order if params[:order_by_time] != "ASC"
       @past_events = @past_events.paginate(:page => params[:page], :per_page => 5)
 
     elsif params[:show] == 'upcoming_events'
