@@ -46,11 +46,6 @@ pt-br:
         link: "Você pode aceitar ou recusar o convite clicando no link: <br/><a href=\"%{url}\">%{url}</a><br/><br/>Você pode encontrar mais informações sobre esta comunidade na página: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "Esta é a mensagem escrita por %{sender}:"
       subject: "%{username} convidou você para participar da comunidade %{space}"
-    join_no_accept_email:
-      message:
-        header: "Você foi adicionado por <b>%{sender}</b> (%{email_sender}) à comunidade <b>%{space}</b>."
-        link: "Você pode visualizar a comunidade à qual você foi adicionado clicando no link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
-      subject: "%{username} adicionou você à comunidade %{space}" 
     join_request_email:
       message:
         header: "<b>%{candidate}</b> quer participar da comunidade <b>%{space}</b>, que você administra."
@@ -73,6 +68,11 @@ pt-br:
           rejected: "Se você deseja enviar outro pedido de adesão acesse: <br/><a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "negado"
       subject: "Seu pedido de ingresso em %{space} foi %{action}"
+    user_added_email:
+      message:
+        header: "Você foi adicionado por <b>%{sender}</b> (%{email_sender}) à comunidade <b>%{space}</b>."
+        link: "Você pode visualizar a comunidade à qual você foi adicionado clicando no link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} adicionou você à comunidade %{space}"
   web_conference_mailer:
     invitation_email:
       event_name: "Conferência com %{name}"

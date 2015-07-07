@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class JoinRequestNoAcceptSenderWorker < BaseWorker
+class JoinRequestUserAddedSenderWorker < BaseWorker
   @queue = :join_requests
 
   def self.perform(activity_id)
@@ -18,7 +18,7 @@ class JoinRequestNoAcceptSenderWorker < BaseWorker
       Resque.logger.info "Invalid join request in a recent activity item: #{activity.inspect}"
     else
       Resque.logger.info "Sending join request no accept notification: #{join_request.inspect}"
-      SpaceMailer.join_no_accept_email(join_request.id).deliver
+      SpaceMailer.user_added_email(join_request.id).deliver
     end
 
     activity.notified = true
