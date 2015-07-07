@@ -9,6 +9,7 @@ class JoinRequest < ActiveRecord::Base
 
   TYPES = {
     invite: "invite",
+    no_accept: "no_accept",
     request: "request"
   }
 

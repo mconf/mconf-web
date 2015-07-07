@@ -16,6 +16,7 @@ pt-br:
       deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
@@ -809,6 +810,15 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+    create_no_accept:
+      candidates: "Procure usuários para adicionar"
+      created: "Você adicionou os usuários %{users} à comunidade com sucesso"
+      role_label: "Papel dos usuários adicionados"
+      title: "Adicionar usuários à comunidade"
+      users:
+        hint: "Digite para começar a buscar"
+        no_results: "Nenhum resultado encontrado"
+        searching: "Procurando..."
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -1526,6 +1536,7 @@ pt-br:
       today: "Não existem eventos para hoje"
   spaces: 
     admin_tabs:
+      add_member: "Adicionar membros"
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"

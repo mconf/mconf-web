@@ -13,10 +13,10 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite]
-  load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
+  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite, :create_no_accept]
+  load_resource :join_request, :through => :space, :only => [:index, :invite, :create_no_accept] # these are authenticated via space parent
 
-  before_filter :webconf_room!, only: [:index, :invite]
+  before_filter :webconf_room!, only: [:index, :invite, :create_no_accept]
   before_filter :check_processed_request, only: [:show, :accept, :decline]
 
   respond_to :html
@@ -53,6 +53,11 @@ class JoinRequestsController < ApplicationController
     authorize! :invite, @space
   end
 
+  def create_no_accept
+    @join_request = JoinRequest.new
+    authorize! :create_no_accept, @space
+  end
+
   def create
 
     # if it's an admin creating new requests (inviting) for his space
@@ -69,7 +74,16 @@ class JoinRequestsController < ApplicationController
         flash[:notice] = t('join_requests.create.already_invited', :users => already_invited.join(', '))
       end
       redirect_to invite_space_join_requests_path(@space)
-
+    # if it's a global admin adding people to the space
+    elsif params[:create_no_accept] && can?(:create_no_accept, @space)
+      success, errors = process_additions
+      unless errors.empty?
+        flash[:error] = t('join_requests.create.error', errors: errors.join(' - '))
+      end
+      unless success.empty?
+        flash[:success] = t('join_requests.create_no_accept.created', users: success.join(' - '))
+      end
+      redirect_to create_no_accept_space_join_requests_path(@space)
     # it's a common user asking for membership in a space
     else
       if @space.pending_join_request_or_invitation_for?(current_user)
@@ -183,6 +197,50 @@ class JoinRequestsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     end
+  end
+
+  def process_additions
+    errors = []
+    success = []
+    ids = params[:candidates].split ',' || []
+    ids.each do |id|
+      user = User.find_by_id(id)
+      # New JoinRequest corresponding to this addition
+      jr = @space.join_requests.new(join_request_params)
+      if user
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = JoinRequest::TYPES[:no_accept]
+        jr.introducer = current_user
+        jr.accepted = true
+        jr.processed = true
+      end
+
+      if @space.pending_join_request_or_invitation_for?(user)
+        # Need to mark the old JoinRequest as processed to avoid
+        # uniqueness conflicts that prevent the creation of the new JoinRequest
+        old_jr = @space.pending_join_request_or_invitation_for(user)
+        old_jr.processed = true
+        old_jr.save
+
+        if jr.save
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      elsif @space.users.include?(user)
+        errors.push t('join_requests.create.already_a_member', name: user.username)
+      elsif user
+        if jr.save
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      else
+        errors.push t('join_requests.create.user_not_found', id: id)
+      end
+    end
+    [success, errors]
   end
 
   def process_invitations
