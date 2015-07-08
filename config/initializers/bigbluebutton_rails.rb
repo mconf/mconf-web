@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 Rails.application.config.to_prepare do
 
   # Monkey-patches to add support for guest users in bigbluebutton_rails.
@@ -43,6 +49,10 @@ Rails.application.config.to_prepare do
     # Currently room is public only if belonging to a public space
     def public?
       owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
+    end
+
+    def invitation_url
+      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain)
     end
   end
 

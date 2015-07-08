@@ -16,6 +16,7 @@ en:
       deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
       request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
@@ -181,6 +182,7 @@ en:
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
+        room_dial_number_pattern: 'Room dial number pattern'
         signature: "Signature"
         shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
@@ -809,6 +811,7 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+      users_added: "You have successfully added the user(s) %{users} to this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -831,6 +834,9 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      type_add: "Add users directly"
+      type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
+      type_invite: "Invite"
       users:
         hint: "Type to start searching"
         no_results: "No results found"
@@ -1502,6 +1508,9 @@ en:
     public: 
       one: "Public space"
       other: "Public spaces"
+    remove_user:
+      confirm: "Are you sure you want to remove this user from the space?"
+      remove: "Remove user"
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
@@ -1554,6 +1563,7 @@ en:
       news: "News"
       users: "Users"
       webconf_options: "Webconference options"
+      add_member: "Add members"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1615,6 +1625,7 @@ en:
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
+        dial_number: "Dial number"
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_notifications:
@@ -1657,6 +1668,11 @@ en:
       user_is_member: "You are a member of this space"
       view_join_request: "View the request you sent"
       with_members: "with %{count} members"
+    user_permissions:
+      confirm_leave_space: "Are you sure you want to leave this space?"
+      leave_space: "Leave this space"
+      confirm_remove_user: "Are you sure you want to remove this user from the space?"
+      remove_user: "Remove the user from the space"
     users: "Users in this space"
     webconference:
       invite: "Invite other people"

@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'net/ldap'
 require 'devise/strategies/authenticatable'
 
@@ -47,6 +53,7 @@ module Devise
             filter = ldap_filter(configs)
             Rails.logger.info "LDAP: filter: #{filter.inspect}"
             ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => filter, :password => password_from_params)
+
             unless ldap_user
               Rails.logger.error "LDAP: authentication failed: response: #{ldap_user}"
               Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
@@ -128,11 +135,13 @@ module Devise
             Rails.logger.info "LDAP: will use only the user/password filter"
           end
         end
-        user = Net::LDAP::Filter.eq(configs.ldap_username_field, login_from_params)
+        username = Net::LDAP::Filter.equals(configs.ldap_username_field, login_from_params)
+        email = Net::LDAP::Filter.equals(configs.ldap_email_field, login_from_params)
+        username_email = Net::LDAP::Filter.intersect(email, username)
         if base.nil?
-          user
+          username_email
         else
-          Net::LDAP::Filter.join(base, user)
+          Net::LDAP::Filter.join(base, username_email)
         end
       end
 

@@ -22,7 +22,7 @@ pt-br:
       subject: "Registro realizado com sucesso"
     registration_by_admin_notification_email:
       click_here: "Você pode ir para a sua página inicial clicando em: <a href=\"%{url}\">%{url}</a>"
-      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco usando a página: <a href=\"%{feedback_url}\">%{feedback_url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco respondendo a este e-mail."
       subject: "Uma conta foi criada para você por um administrador"
   event_mailer:
     invitation_email:
@@ -68,6 +68,11 @@ pt-br:
           rejected: "Se você deseja enviar outro pedido de adesão acesse: <br/><a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "negado"
       subject: "Seu pedido de ingresso em %{space} foi %{action}"
+    user_added_email:
+      message:
+        header: "Você foi adicionado por <b>%{sender}</b> (%{email_sender}) à comunidade <b>%{space}</b>."
+        link: "Você pode visualizar a comunidade à qual você foi adicionado clicando no link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} adicionou você à comunidade %{space}"
   web_conference_mailer:
     invitation_email:
       event_name: "Conferência com %{name}"
@@ -77,6 +82,7 @@ pt-br:
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Sala"
         password: "Chave de acesso"
+        dial_number: "Número para discagem"
         start: "Início"
         subject: "Assunto"
       subject: "Convite para webconferência"

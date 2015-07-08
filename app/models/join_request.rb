@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -8,8 +8,9 @@ class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
   TYPES = {
-    invite: "invite",
-    request: "request"
+    invite: "invite",      # someone inviting someone else to join something
+    request: "request",    # someone requesting to join something
+    no_accept: "no_accept" # someone adding someone to something without asking
   }
 
   TYPES.each_pair do |type, value|

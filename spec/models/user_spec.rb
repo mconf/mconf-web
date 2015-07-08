@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -341,6 +341,24 @@ describe User do
   end
 
   describe "on create" do
+
+    describe "#create_webconf_room" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context 'should create a new random dial number for the user room if site is configured' do
+        before { Site.current.update_attributes(room_dial_number_pattern: 'xxxxxx') }
+
+        it { user.bigbluebutton_room.dial_number.should be_present }
+        it { user.bigbluebutton_room.dial_number.size.should be(6) }
+      end
+
+      context 'should be nil if the site is not configured' do
+        before { Site.current.update_attributes(room_dial_number_pattern: nil) }
+
+        it { user.bigbluebutton_room.dial_number.should be_blank }
+      end
+    end
+
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
         before { Site.current.update_attributes(require_registration_approval: false) }
@@ -1004,19 +1022,19 @@ describe User do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "over his own account" do
-        it { should be_able_to(:manage, user) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "he can do anything over all resources" do
-        it { should be_able_to(:manage, :all) }
+        it { should be_able_to_do_everything_to(:all) }
       end
     end
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true if current_user == @user
 
       flash = { :success => t("user.updated") }
-      redirect_to edit_user_path(@user), :flash => flash
+      redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
       render "edit", :layout => 'no_sidebar'
     end
@@ -168,7 +168,7 @@ class UsersController < ApplicationController
   # Confirms a user's account
   def confirm
     if !@user.confirmed?
-      @user.confirm!
+      @user.confirm
       flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
     end
     redirect_to :back
@@ -209,7 +209,7 @@ class UsersController < ApplicationController
     @user.skip_confirmation_notification!
 
     if @user.save
-      @user.confirm!
+      @user.confirm
       @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|

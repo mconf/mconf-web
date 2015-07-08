@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 module Abilities
 
   class MemberAbility < BaseAbility
@@ -41,8 +47,11 @@ module Abilities
       # Spaces
       can [:create, :select], Space
       can [:read, :webconference, :recordings], Space, public: true
-      can [:read, :webconference, :recordings, :leave], Space do |space|
+      can [:read, :webconference, :recordings], Space do |space|
         space.users.include?(user)
+      end
+      can [:leave], Space do |space|
+        space.users.include?(user) && !space.is_last_admin?(user)
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
@@ -121,7 +130,7 @@ module Abilities
 
       # Permissions
       # Only space admins can update user roles/permissions
-      can [:read, :edit, :update], Permission do |perm|
+      can [:read, :edit, :update, :destroy], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins

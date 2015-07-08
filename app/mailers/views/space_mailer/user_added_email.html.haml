@@ -1,0 +1,4 @@
+#join-no-accept-email
+  %p= t('.message.header', sender: @introducer.full_name, email_sender: @introducer.email, space: @space.name).html_safe
+
+  %p= t('.message.link', space_url: space_url(@space, host: Site.current.domain)).html_safe

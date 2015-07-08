@@ -16,6 +16,7 @@ pt-br:
       deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
@@ -181,6 +182,7 @@ pt-br:
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
+        room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
@@ -809,6 +811,7 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+      users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -831,6 +834,9 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      type_add: "Adicionar diretamente"
+      type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
+      type_invite: "Convidar"
       users:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
@@ -1503,6 +1509,9 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
+    remove_user:
+      confirm: "Tem certeza de que deseja remover este usuário da comunidade?"
+      remove: "Remover usuário"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1549,6 +1558,7 @@ pt-br:
       today: "Não existem eventos para hoje"
   spaces: 
     admin_tabs:
+      add_member: "Adicionar membros"
       admissions: "Admissões"
       general_options: "Configurar comunidade"
       invite: "Convidar pessoas"
@@ -1616,6 +1626,7 @@ pt-br:
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
+        dial_number: "Número para discagem"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_notifications:
@@ -1652,6 +1663,11 @@ pt-br:
       user_is_member: "Você é membro desta comunidade"
       view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
+    user_permissions:
+      confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
+      leave_space: "Sair da comunidade"
+      confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      remove_user: "Remover usuário da comunidade"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"

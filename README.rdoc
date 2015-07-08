@@ -1,4 +1,4 @@
-= Mconf-web {<img src="https://travis-ci.org/mconf/mconf-web.svg?branch=master" />}[https://travis-ci.org/mconf/mconf-web] {<img src="https://codeclimate.com/github/mconf/mconf-web/badges/gpa.svg" />}[https://codeclimate.com/github/mconf/mconf-web] {<img src="http://inch-ci.org/github/mconf/mconf-web.svg?branch=master" alt="Inline docs" />}[http://inch-ci.org/github/mconf/mconf-web]
+= Mconf-web {<img src="https://travis-ci.org/mconf/mconf-web.svg?branch=master" />}[https://travis-ci.org/mconf/mconf-web] {<img src="https://codeclimate.com/github/mconf/mconf-web/badges/gpa.svg" />}[https://codeclimate.com/github/mconf/mconf-web] {<img src="https://hakiri.io/github/mconf/mconf-web/master.svg" alt="security" />}[https://hakiri.io/github/mconf/mconf-web/master] {<img src="http://inch-ci.org/github/mconf/mconf-web.svg?branch=master" alt="Inline docs" />}[http://inch-ci.org/github/mconf/mconf-web]
 
 -----------------------------------------------
 

@@ -873,7 +873,7 @@ es-419:
       manage: "Administrar"
       register: "Registrarse"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-2015 %{site}."
       current_version: "Versión actual"
       find_us: "Encuentra más acerca de Mconf"
       github: GitHub
@@ -893,7 +893,7 @@ es-419:
         help_us: "¿Quieres este sitio en tu idioma? ¡Has click aquí para ayudarnos a traducirlo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-2015 %{site}."
       translate:
         change: "Cambiar idioma"
     spaces_page_title:

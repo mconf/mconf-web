@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2013 Mconf
+# to the Mconf web conferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -14,11 +14,13 @@
 # Example:
 #   start_resque_workers.sh start bigbluebutton_rails
 #   start_resque_workers.sh start all
-#   start_resque_workers.sh start all 2
+#   start_resque_workers.sh start all 1
 
 USER="$(id -u -n)"
 APP_PATH="$(dirname $0)/.."
-PATH=/home/$USER/.rbenv/bin:/home/$USER/.rbenv/shims:$PATH
+RBENV_ROOT=${RBENV_ROOT-/home/$USER/.rbenv} # defaults to a user installation
+PATH=$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH
+
 RAILS_ENV=production
 if [ -z "$3" ]; then WORKERNUM=1; else WORKERNUM=$3; fi
 

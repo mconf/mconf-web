@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 
 describe ManageController do
@@ -93,7 +99,7 @@ describe ManageController do
             @u2.profile.update_attributes(:full_name => 'Second')
             @u3 = FactoryGirl.create(:user, :_full_name => 'Secondary')
           }
-          before(:each) { get :users, :q => 'sec' }
+          before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
           it { assigns(:users).should include(@u2) }
           it { assigns(:users).should include(@u3) }
@@ -106,7 +112,7 @@ describe ManageController do
             @u2.update_attributes(:username => 'Second')
             @u3 = FactoryGirl.create(:user, :username => 'Secondary')
           }
-          before(:each) { get :users, :q => 'sec' }
+          before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
           it { assigns(:users).should include(@u2) }
           it { assigns(:users).should include(@u3) }
@@ -118,7 +124,7 @@ describe ManageController do
             @u2 = FactoryGirl.create(:user, :email => 'second@there.com')
             @u3 = FactoryGirl.create(:user, :email => 'my@secondary.org')
           }
-          before(:each) { get :users, :q => 'sec' }
+          before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
           it { assigns(:users).should include(@u2) }
           it { assigns(:users).should include(@u3) }

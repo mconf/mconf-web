@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # Compares the attributes of two models or hashes, ignoring attributes generated only when saving in the db
 # Example: user1.should have_same_attributes_as(User.last)
 RSpec::Matchers.define :have_same_attributes_as do |expected, ignore=[]|

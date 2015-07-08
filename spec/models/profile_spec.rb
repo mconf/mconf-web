@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -137,13 +137,13 @@ describe Profile do
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "if the target user is disabled" do
         before { target.user.disable }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 

@@ -1,5 +1,5 @@
-# This file is part of  Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -258,7 +258,7 @@ describe JoinRequestsController do
     end
   end
 
-  describe "#create?invite=true" do
+  describe "#create?type=invite" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
     let(:candidate) { FactoryGirl.create(:user) }
@@ -268,16 +268,19 @@ describe JoinRequestsController do
       sign_in(user)
     }
 
-    it { should_authorize an_instance_of(JoinRequest), :create, :space_id => space.to_param, :via => :post }
+    it { should_authorize an_instance_of(JoinRequest), :create, space_id: space.to_param, via: :post }
 
     context "admin succesfully invites one user" do
       let(:attributes) {
-        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
@@ -294,13 +297,15 @@ describe JoinRequestsController do
     context "admin successfully invites more than one user" do
       let(:candidate2) { FactoryGirl.create(:user) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: "#{candidate.id},#{candidate2.id}",
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(2)
       }
 
@@ -309,36 +314,40 @@ describe JoinRequestsController do
     end
 
     context "admin successfully invites a user and fails to invite another" do
-      let(:candidate2) { user } #is invalid because he's already a member
+      let(:candidate2) { user } # is invalid because he's already a member
       let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate2.username) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: "#{candidate.id},#{candidate2.id}",
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}")) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
       it { should set_the_flash.to(I18n.t('join_requests.create.error',
                                           :errors => errors)) }
     end
 
     context "admin fails to invite a user" do
-      let(:candidate) { user } #is invalid because he's already a member
+      let(:candidate) { user } # is invalid because he's already a member
       let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate.username) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param }.merge(attributes)
         }.to change{space.pending_invitations.count}.by(0)
       }
 
@@ -354,12 +363,16 @@ describe JoinRequestsController do
       }
 
       let(:attributes) {
-        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+        {
+          join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param }.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
@@ -372,7 +385,6 @@ describe JoinRequestsController do
       it { JoinRequest.last.role.should eql(role.name) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
-
   end
 
   describe "#invite" do

@@ -1,15 +1,13 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# Check if the subject can(not) do anything to the target.
-# Exists because "should be_able_to(:manage, target)" guarantees that
-# a user CAN do anything, but "should_not be_able_to(:manage, target)"
-# does not guarantee that a user cannot to anything, only that he
-# cannot :manage the target (but he could be able to :read it, for instance).
-# Only makes send when used with "should_not".
+# Check if the subject cannot do anything to the target.
+# It's the opposite of the matcher "be_able_to_do_everything".
+#
+# IMPORTANT: Only works when used with "should_not".
 #
 # Examples:
 #   it { should_not be_able_to_do_anything_to(object) }
@@ -67,8 +65,8 @@ module Shoulda
         def matches?(subject)
           @subject = subject
 
-          actions = @@actions + @@custom_actions
-          @can = actions.select {|a| subject.can?(a, @target)}
+          @all_actions = @@actions + @@custom_actions
+          @can = @all_actions.select {|a| subject.can?(a, @target)}
 
           # expand default aliases defined by cancan
           @exceptions.push(:show, :index) if @exceptions.include?(:read)
@@ -76,7 +74,6 @@ module Shoulda
           # these aliases are standard in cancan, but we removed it on mconf-web
           # @exceptions.push(:edit) if @exceptions.include?(:update)
 
-          # returning false means should_not is successful
           !(@can.sort.uniq == @exceptions.sort.uniq)
         end
 
@@ -91,13 +88,16 @@ module Shoulda
         def failure_message
           "Don't use this matcher with 'should'. You might have to replace it by 'be_able_to(:manage, target)'"
         end
+        alias failure_message_for_should failure_message
 
         def failure_message_for_should_not
           m = "Expected #{@subject.class.name} not to be able to do anything with '#{@target}'"
           unless @exceptions.empty?
-            m += " except #{@exceptions},"
+            m += " except #{@exceptions.sort.uniq},"
+            diff = (@exceptions - @can) + (@can - @exceptions)
           end
-          m += " but it can #{@can}"
+          m += " but it can #{@can.sort.uniq}"
+          m += " (diff: #{diff})" if diff
           m
         end
 

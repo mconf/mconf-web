@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -40,7 +40,7 @@ describe ShibToken do
 
     context "a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to_do_anything_to(target) }
+      it { should be_able_to_do_everything_to(target) }
     end
 
     context "a normal user", :user => "normal" do

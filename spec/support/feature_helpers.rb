@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -23,6 +29,11 @@ module FeatureHelpers
       })
     end
     Capybara.current_driver = driver_name
+  end
+
+  def current_path_with_query
+    uri = URI.parse(current_url)
+    "#{uri.path}#{'?' + uri.query if uri.query}"
   end
 
   def logout_user
@@ -107,6 +118,13 @@ module FeatureHelpers
     nil
   end
 
+  def should_not_be_500_page
+    page.should_not have_title(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.description', :url => page.current_path))
+    page.status_code.should < 500 && page.status_code.should  >= 200
+  end
+
   def should_be_404_page
     page.should have_title(t('error.e404.title'))
     page.should have_content(t('error.e404.title'))
@@ -137,4 +155,8 @@ module FeatureHelpers
       change{ ActionMailer::Base.deliveries.length }
     end
   end
+end
+
+shared_examples_for 'it redirects to login page' do
+  it { [login_path, new_user_session_path].should include(current_path) }
 end

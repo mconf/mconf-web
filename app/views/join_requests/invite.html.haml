@@ -9,7 +9,7 @@
 #space-invitation
   %h3= t('.title')
 
-  = simple_form_for @join_request, url: space_join_requests_path(invite: true), html: { class: 'single-column' } do |f|
+  = simple_form_for @join_request, url: space_join_requests_path, html: { class: 'single-column' } do |f|
     .input
       %label= t('.candidates')
       = text_field_tag :candidates, '', autofocus: true, class: 'string'
@@ -18,5 +18,16 @@
       - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
       = select "join_request", "role_id", roles, selected: default_role.id
     = f.input :comment, as: :text, input_html: { rows: 2, maxlength: 255 }
+
+    - if can?(:add, @space)
+      .type-options
+        .input
+          = radio_button_tag 'type', 'add', false
+          = label_tag 'type_add', t('.type_add'), options_for_tooltip(t('.type_add_tooltip'))
+        .input
+          = radio_button_tag 'type', 'invite', true
+          = label_tag 'type_invite', t('.type_invite')
+    - else
+      = hidden_field_tag 'type', 'invite'
 
     = f.button :wrapped, value: t("button.send")

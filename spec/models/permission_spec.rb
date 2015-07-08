@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -81,7 +81,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update])
+          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy])
         }
         it_should_behave_like "for all permission types"
       end
@@ -89,7 +89,7 @@ describe Permission do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      let(:ability_check) { should be_able_to(:manage, target) }
+      let(:ability_check) { should be_able_to_do_everything_to(target) }
       it_should_behave_like "for all permission types"
     end
 

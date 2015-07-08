@@ -30,7 +30,7 @@
     #user-ldap-info.alert.alert-gray
       %span.title= t('.ldap.title')
 
-= simple_form_for @user, :url => user_path(@user), :html => { :method => :put } do |f|
+= simple_form_for @user, :url => user_path(@user, return_to: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
 
   #user-account-panel-1
 
@@ -81,7 +81,8 @@
             = icon_disable(:alt => t('.disable'))
             = t('.disable')
 
-  = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")
+  - cancel_path = previous_path_or(edit_user_path(@user))
+  = f.button :wrapped, :cancel => cancel_path, :value => t("_other.save")
 
   - if current_user == @user
     #user-cancel-account.alert.alert-danger.alert-clean

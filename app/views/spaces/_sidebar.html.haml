@@ -43,5 +43,5 @@
         - @space.admins.each do |user|
           = render :partial => 'users/simple_user', :locals => { :user => user }
 
-    - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
+    - if user_signed_in? && can?(:leave, @space)
       = render :partial => 'spaces/sidebar_leave_space'

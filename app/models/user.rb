@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
   include PublicActivity::Common
 
@@ -139,7 +140,8 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4)
+      :attendee_key => SecureRandom.hex(4),
+      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
     }
     create_bigbluebutton_room(params)
   end

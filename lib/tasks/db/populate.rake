@@ -178,6 +178,7 @@ namespace :db do
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
         user = available_users.sample
+        available_users -= [user]
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'

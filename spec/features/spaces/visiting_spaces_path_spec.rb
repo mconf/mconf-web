@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -54,6 +60,7 @@ describe 'User accesses spaces index' do
       }
       it { should have_css '.space-container', :count => 0 }
       it { should_not have_css '#show-spaces-mine' }
+      it { should_not_be_500_page }
     end
   end
 
