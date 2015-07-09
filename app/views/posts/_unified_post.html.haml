@@ -1,5 +1,10 @@
 - return if cannot?(:read, thread)
 
+- if thread.parent
+  - space = thread.parent.space
+- else
+  - space = thread.space
+
 %div.thread.thread-post{class: "#{cycle("thread-even" , "thread-odd")}", id: "parent-#{thread.id}"}
   .logo-in-thread
     - if thread.author
@@ -7,16 +12,6 @@
     - else
       = empty_logo_image(:user, size: '32', class: "logo logo-user")
   .thread-content
-
-    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
-      - if can?(:create, thread.space.posts.build)
-        %li= link_to t('reply').downcase, reply_post_space_post_path(thread.space, thread), { name: thread.id, title: t('comment.add'), class: "open-modal" }
-      - if can?(:update, thread)
-        %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { name: thread.id, title: t('edit'), class: "open-modal" }
-      - if can?(:destroy, thread)
-        %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {method: :delete, title: t('delete.one'), data: { confirm: t('delete.confirm', element: thread.title) } }
-      - if user_signed_in? and !thread.spam
-        %li= link_to t('_other.spam.title').downcase, spam_report_space_post_path(thread.space, thread), options_for_tooltip(t('_other.spam.tooltip'), method: :post, data: { confirm: t('are_you_sure') })
 
     .thread-title
       = icon_comments t('post.home.one', space: thread.space.name)
@@ -28,27 +23,25 @@
       = t('post.posted')
       - if thread.parent
         = t('post.reply')
-        = link_to first_words(thread.parent.title, 30), space_post_path(thread.parent.space, thread)
+        = link_to first_words(thread.parent.title, 30), space_post_path(space, thread)
       - else
-        = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
+        = link_to first_words(thread.title, 30), space_post_path(space, thread)
       - unless thread.children.empty?
         %span
           = "(" + t('thread.comments', children: thread.children.size) + ")"
       = formatted_time_ago thread.updated_at
 
     .thread-text
-      .block-collapsed
-        %p
-          = first_words(thread.text, 200)
-          - if thread.text.length > 200 or !thread.children.empty?
-            %a.link-to-expand{href: "parent-#{thread.id}"}= t('more')
-      .block-expanded
-        %p= thread.text
-        - unless thread.children.size < 4
-          .thread-observation
-            = t('thread.show_last_comment', size: thread.three_last_comment().size, children: thread.children.size)
-            = link_to(t('comment.show_all'), space_post_path(thread.space,thread)) if can?(:read, thread.space)
-        %a.link-to-collapse{href: "parent-#{thread.id}"}= t('less')
-        %div
-          - for comment in thread.three_last_comment()
-            = render partial: "posts/post" , locals: { post:  comment, selected_post: false }
+      %p= thread.text
+
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
+      - unless thread.children.empty?
+        %li= link_to t('.read_comments'), space_post_path(space, thread)
+      - if can?(:create, thread.space.posts.build)
+        %li= link_to t('reply').downcase, reply_post_space_post_path(thread.space, thread), { name: thread.id, title: t('comment.add'), class: "open-modal" }
+      - if can?(:update, thread)
+        %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { name: thread.id, title: t('edit'), class: "open-modal" }
+      - if can?(:destroy, thread)
+        %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {method: :delete, title: t('delete.one'), data: { confirm: t('delete.confirm', element: thread.title) } }
+      - if user_signed_in? and !thread.spam
+        %li= link_to t('_other.spam.title').downcase, spam_report_space_post_path(thread.space, thread), options_for_tooltip(t('_other.spam.tooltip'), method: :post, data: { confirm: t('are_you_sure') })

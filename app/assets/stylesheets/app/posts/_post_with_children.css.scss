@@ -1,7 +1,8 @@
 body.posts.show {
+
   .thread {
     .thread-title {
-      h2 {
+      h3 {
         display: inline;
       }
 
@@ -10,5 +11,17 @@ body.posts.show {
         display: inline;
       }
     }
+
+    .thread-content {
+      .post-content {
+        padding: 10px 5px 0 5px;
+
+        ul {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
   }
+
 }

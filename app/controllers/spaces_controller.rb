@@ -22,8 +22,6 @@ class SpacesController < ApplicationController
 
   before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
-  before_filter :user_spaces_for_sidebar, :only => [:show, :webconference]
-
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :json, :only => [:update_logo]
@@ -34,6 +32,17 @@ class SpacesController < ApplicationController
   # Create recent activity
   after_filter :only => [:create, :update, :update_logo, :leave] do
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
+  end
+
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :index, :new
+      'application'
+    else
+      'spaces_default'
+    end
   end
 
   def index
@@ -58,7 +67,7 @@ class SpacesController < ApplicationController
     end
 
     respond_with @spaces do |format|
-      format.html { render :index, layout: 'application' }
+      format.html { render :index }
       format.json
     end
   end
@@ -78,16 +87,13 @@ class SpacesController < ApplicationController
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     respond_to do |format|
-      format.html { render :show, layout: 'no_sidebar' }
+      format.html { render :show }
       format.json
     end
   end
 
   def new
     @space = Space.new
-    respond_with @space do |format|
-      format.html { render layout: 'application' }
-    end
   end
 
   def create
@@ -104,13 +110,12 @@ class SpacesController < ApplicationController
       end
     else
       respond_with @space do |format|
-        format.html { render :new, layout: "application" }
+        format.html { render :new }
       end
     end
   end
 
   def edit
-    render layout: 'no_sidebar'
   end
 
   def update_logo
@@ -176,7 +181,6 @@ class SpacesController < ApplicationController
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
-    render layout: 'no_sidebar'
   end
 
   def enable
@@ -218,7 +222,6 @@ class SpacesController < ApplicationController
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    # FIXME: Temporarily matching users by name, should use the userID
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
@@ -230,7 +233,6 @@ class SpacesController < ApplicationController
     # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
       .with_or_without_recording().last(3)
-    render layout: 'no_sidebar'
   end
 
   # Action used to show the recordings of a space
@@ -247,7 +249,7 @@ class SpacesController < ApplicationController
     if params[:partial]
       render layout: false
     else
-      render layout: 'no_sidebar'
+      render
     end
   end
 
@@ -260,7 +262,7 @@ class SpacesController < ApplicationController
     if request.xhr?
       render layout: false
     else
-      render layout: "no_sidebar"
+      render
     end
   end
 

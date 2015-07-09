@@ -10,7 +10,8 @@ class PostsController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index, :show]
 
-  layout "spaces_show"
+  # posts are always shown inside spaces
+  layout 'spaces_default'
 
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?

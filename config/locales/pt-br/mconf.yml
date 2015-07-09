@@ -1176,6 +1176,8 @@ pt-br:
       title: "Adicionando uma mensagem"
     post_with_children:
       by: "de"
+    unified_post:
+      read_comments: "ler comentários"
   prav: PRAV
   preferences: Preferências
   previous: Anterior

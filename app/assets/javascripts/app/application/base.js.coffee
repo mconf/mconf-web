@@ -84,8 +84,8 @@ class mconf.Base
     $('.visible-on-hover').each ->
       $target = $(this)
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
-      $tracked.on "mouseenter.mconfBase", (e) -> $target.show()
-      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide()
+      $tracked.on "mouseenter.mconfBase", (e) -> $target.show(150)
+      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide(150)
 
     # Links with 'data-open-file' will trigger a click
     # in the input[type=file] element pointed by 'href'
