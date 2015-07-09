@@ -75,9 +75,12 @@ en:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked. This flag is used only if the site is configured to require registration approval."
         bigbluebutton_room:
           attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
+          allow_start_stop_recording: "Check this option to allow a user to start/stop recording the meetings"
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
+          auto_start_recording: "Check this option to automatically start recording the meeting once the first user joins"
           moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
+          moderator_only_message: "This message will be shown to all moderators on public chat"
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"

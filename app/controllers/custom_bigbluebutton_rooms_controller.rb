@@ -182,6 +182,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     else
       [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
         :presenter_share_only, :auto_start_video, :auto_start_audio, :welcome_msg,
+        :moderator_only_message, :auto_start_recording, :allow_start_stop_recording,
         :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end

@@ -28,6 +28,8 @@ en:
       bigbluebutton_room:
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
+        auto_start_recording: "Auto start recording"
+        allow_start_stop_recording: "Allow user to start/stop recording"
         attendee_key: "Key for attendees"
         default_layout: "Default Layout"
         dial_number: "Dial Number"
@@ -38,6 +40,7 @@ en:
         meetingid: "Meeting ID"
         metadata: Metadata
         moderator_key: "Key for moderators"
+        moderator_only_message: "Message to be shown to moderators only"
         name: Name
         param: "String ID"
         private: Private
