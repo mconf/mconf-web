@@ -732,7 +732,7 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
+    no_spaces: "You do not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
   icons: 
