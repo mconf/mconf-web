@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417192747) do
+ActiveRecord::Schema.define(version: 20150713165925) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -340,13 +340,13 @@ ActiveRecord::Schema.define(version: 20150417192747) do
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ssl",                            default: false
-    t.boolean  "exception_notifications",        default: false
+    t.boolean  "ssl",                              default: false
+    t.boolean  "exception_notifications",          default: false
     t.string   "exception_notifications_email"
     t.text     "signature"
     t.string   "presence_domain"
     t.string   "feedback_url"
-    t.boolean  "shib_enabled",                   default: false
+    t.boolean  "shib_enabled",                     default: false
     t.string   "shib_name_field"
     t.string   "shib_email_field"
     t.string   "exception_notifications_prefix"
@@ -359,13 +359,13 @@ ActiveRecord::Schema.define(version: 20150417192747) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.boolean  "chat_enabled",                   default: false
+    t.boolean  "chat_enabled",                     default: false
     t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
-    t.string   "timezone",                       default: "UTC"
+    t.string   "timezone",                         default: "UTC"
     t.string   "external_help"
-    t.boolean  "webconf_auto_record",            default: false
+    t.boolean  "webconf_auto_record",              default: false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
     t.integer  "ldap_port"
@@ -375,15 +375,16 @@ ActiveRecord::Schema.define(version: 20150417192747) do
     t.string   "ldap_username_field"
     t.string   "ldap_email_field"
     t.string   "ldap_name_field"
-    t.boolean  "require_registration_approval",  default: false,                  null: false
-    t.boolean  "events_enabled",                 default: false
-    t.boolean  "registration_enabled",           default: true,                   null: false
+    t.boolean  "require_registration_approval",    default: false,                  null: false
+    t.boolean  "events_enabled",                   default: false
+    t.boolean  "registration_enabled",             default: true,                   null: false
     t.string   "shib_principal_name_field"
     t.string   "ldap_filter"
-    t.boolean  "shib_always_new_account",        default: false
-    t.boolean  "local_auth_enabled",             default: true
-    t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
+    t.boolean  "shib_always_new_account",          default: false
+    t.boolean  "local_auth_enabled",               default: true
+    t.string   "visible_locales",                  default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.integer  "current_room_dial_number_pattern"
   end
 
   create_table "spaces", force: true do |t|
