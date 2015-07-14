@@ -75,12 +75,9 @@ pt-br:
         approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo. Esta opção só é usada se o site estiver configurado para requerer aprovação de registro."
         bigbluebutton_room:
           attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
-          allow_start_stop_recording: "Habilite para permitir que usuários iniciem/parem a gravação da conferência"
           auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
           auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
-          auto_start_recording: "Habilite para automaticamente iniciar a gravação da conferência"
           moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
-          moderator_only_message: "Essa mensagem é exibida para todos os moderadores no chat público"
           presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
