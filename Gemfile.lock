@@ -289,6 +289,11 @@ GEM
     libv8 (3.16.14.3)
     libyajl2 (1.2.0)
     listen (0.7.3)
+    lograge (0.3.2)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
+    logstash-event (1.2.02)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mailcatcher (0.6.1)
@@ -578,6 +583,8 @@ DEPENDENCIES
   launchy
   less-rails
   librarian-chef
+  lograge
+  logstash-event
   mailcatcher
   mini_magick
   momentjs-rails (>= 2.8.1)

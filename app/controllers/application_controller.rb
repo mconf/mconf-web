@@ -193,6 +193,13 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  def append_info_to_payload(payload)
+    super
+    payload[:session] = {id: session.id, ldap_session: !(session[:ldap_data].nil? or session[:ldap_data].blank?), shib_session: !(session[:shib_data].nil? or session[:shib_data].blank?)} unless session.nil?
+
+    payload[:current_user] = {id: current_user.id, email: current_user.email, username: current_user.username, superuser: current_user.superuser, can_record: current_user.can_record} unless current_user.nil?
+  end
+
   private
 
   def set_time_zone
