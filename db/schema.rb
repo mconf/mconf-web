@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(version: 20150707182132) do
     t.string   "attendee_api_password"
     t.decimal  "create_time",                precision: 14, scale: 0
     t.string   "moderator_only_message"
-    t.boolean  "auto_start_recording"
-    t.boolean  "allow_start_stop_recording"
+    t.boolean  "auto_start_recording",                                default: false
+    t.boolean  "allow_start_stop_recording",                          default: true
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
