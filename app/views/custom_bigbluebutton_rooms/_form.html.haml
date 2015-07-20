@@ -28,6 +28,9 @@
   = f.input :duration, :disabled => !editing
   = f.input :max_participants, :disabled => !editing
   = f.input :param, :disabled => !editing
+  = f.input :moderator_only_message, :disabled => !editing
+  = f.input :auto_start_recording, :disabled => !editing
+  = f.input :allow_start_stop_recording, :disabled => !editing
 
   - if editing
     - if room.new_record?
