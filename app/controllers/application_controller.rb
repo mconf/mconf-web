@@ -111,16 +111,15 @@ class ApplicationController < ActionController::Base
         guest_role
       end
     else
-      if current_user.superuser? && !room.is_running?
+      # Superusers has the right to create and be moderator in any room
+      if current_user.superuser?
         :moderator
       elsif room.owner_type == "User"
         if room.owner.id == current_user.id
           # only the owner is moderator
           :moderator
         else
-          if current_user.superuser?
-            :attendee
-          elsif room.private
+          if room.private
             :key # ask for a password if room is private
           else
             guest_role
@@ -138,9 +137,7 @@ class ApplicationController < ActionController::Base
             :attendee
           end
         else
-          if current_user.superuser?
-            :attendee
-          elsif room.private
+          if room.private
             :key
           else
             guest_role
