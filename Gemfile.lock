@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: 0a6058ce7ed92e3c65c7ee415cb18df0cabd0224
+  revision: 5740ea2859ed91d69093fd0d28431b66a9a2a239
   branch: master
   specs:
     mweb_events (0.0.1)
