@@ -7,11 +7,11 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 95f630b4e593e6adcb4d8669c312fd39850dbe0b
+  revision: e8b0082264db84cbd5c9d138314bc44e619c7677
   branch: master
   specs:
     bigbluebutton-api-ruby (1.4.0)
-      xml-simple (>= 1.1.1)
+      xml-simple (~> 1.1)
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
