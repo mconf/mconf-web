@@ -56,7 +56,7 @@ en:
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
-      format_rails: "%m/%d/%Y %H:%M %z"
+      format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
