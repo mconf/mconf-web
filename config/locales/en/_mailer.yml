@@ -49,13 +49,13 @@ en:
     join_request_email:
       message:
         header: "<b>%{candidate}</b> wants to join the space <b>%{space}</b>, that is administered by you."
-        link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
+        link: "To answer to this request please visit <a href=\"%{url}\">%{url}</a>"
         user_message: "This is the message written by %{candidate}:"
       subject: "%{candidate} wants to join the space %{space}"
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "<b>%{name}</b> has %{action} the invitation to the space <b>%{space}</b>."
+        header: "<b>%{name}</b> has %{action} the invitation to join the space <b>%{space}</b>."
         link: "You can see the current list of users of this space at: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"

@@ -60,7 +60,7 @@ pt-br:
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
-      format_rails: "%d/%m/%Y %H:%M %z"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
     destroy: "Remover"

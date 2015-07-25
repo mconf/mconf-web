@@ -1,19 +1,10 @@
-/var/www/mconf-web/current/log/production.log {
-         size 50M
-         copytruncate
-         rotate 10
-         compress
-         missingok
-         notifempty
-         su mconf www-data
-}
-
-/var/www/mconf-web/current/log/resque_*.log {
-         size 50M
-         copytruncate
-         rotate 10
-         compress
-         missingok
-         notifempty
-         su mconf www-data
+/var/www/mconf-web/current/log/*.log {
+  daily
+  size 100M
+  rotate 20
+  create 644 mconf www-data
+  missingok
+  compress
+  copytruncate
+  notifempty
 }

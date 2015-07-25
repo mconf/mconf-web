@@ -111,16 +111,15 @@ class ApplicationController < ActionController::Base
         guest_role
       end
     else
-      if current_user.superuser? && !room.is_running?
+      # Superusers has the right to create and be moderator in any room
+      if current_user.superuser?
         :moderator
       elsif room.owner_type == "User"
         if room.owner.id == current_user.id
           # only the owner is moderator
           :moderator
         else
-          if current_user.superuser?
-            :attendee
-          elsif room.private
+          if room.private
             :key # ask for a password if room is private
           else
             guest_role
@@ -138,9 +137,7 @@ class ApplicationController < ActionController::Base
             :attendee
           end
         else
-          if current_user.superuser?
-            :attendee
-          elsif room.private
+          if room.private
             :key
           else
             guest_role
@@ -191,6 +188,24 @@ class ApplicationController < ActionController::Base
     end
 
     @webconf_room
+  end
+
+  # The payload is used by lograge. We add more information to it here so that it is saved
+  # in the log.
+  def append_info_to_payload(payload)
+    super
+    payload[:session] = {
+      id: session.id,
+      ldap_session: !session[:ldap_data].blank?,
+      shib_session: !session[:shib_data].blank?
+    } unless session.nil?
+    payload[:current_user] = {
+      id: current_user.id,
+      email: current_user.email,
+      username: current_user.username,
+      superuser: current_user.superuser?,
+      can_record: current_user.can_record?
+    } unless current_user.nil?
   end
 
   private

@@ -92,6 +92,10 @@ gem 'dotiw'
 # Sanity check on database
 gem 'active_sanity'
 
+# Turn rails logs into json
+gem "lograge"
+gem "logstash-event"
+
 #
 # TODO: Gems to review if we can remove/update
 #

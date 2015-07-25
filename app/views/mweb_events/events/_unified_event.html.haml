@@ -31,6 +31,6 @@
 
         .event-description-date
           = t('.starts_at') + ':'
-          = event.get_formatted_date
+          = formatted_date_in_time_zone(event, event.start_on, Time.zone.name)
 
         %span= t('_other.participants', :count => event.participants.count)

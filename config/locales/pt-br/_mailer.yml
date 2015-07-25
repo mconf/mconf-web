@@ -49,13 +49,13 @@ pt-br:
     join_request_email:
       message:
         header: "<b>%{candidate}</b> quer participar da comunidade <b>%{space}</b>, que você administra."
-        link: "Para responder ao pedido visite <a href=\"%{url}\">%{url}</a>"
+        link: "Para responder a este pedido visite <a href=\"%{url}\">%{url}</a>"
         user_message: "Esta é a mensagem escrita por %{candidate}:"
       subject: "%{candidate} quer participar da comunidade %{space}"
     processed_invitation_email:
       accepted: "aceitou"
       message:
-        header: "<b>%{name}</b> %{action} o convite para a comunidade <b>%{space}</b>."
+        header: "<b>%{name}</b> %{action} o convite para entrar na comunidade <b>%{space}</b>."
         link: "Você pode ver a lista atual de usuários desta comunidade em: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "rejeitou"
       subject: "%{name} %{action} seu convite"
