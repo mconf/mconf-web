@@ -60,7 +60,7 @@ gem 'mini_magick'
 gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '~> 3.3'
 gem 'autoprefixer-rails'
 # datetime picker for bootstrap
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
@@ -71,7 +71,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'sprockets', '~> 2.12.3'
 
 # font-awesome (recommended to be here, not in the assets group)
-gem 'font-awesome-rails', '~> 4.1.0.0'
+gem 'font-awesome-rails', '~> 4.1'
 
 # to format emails
 gem 'premailer-rails'
