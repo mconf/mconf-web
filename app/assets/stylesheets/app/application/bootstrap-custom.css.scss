@@ -36,6 +36,9 @@ label {
 // so fix their position
 label.control-label.checkbox {
   padding-left: 20px;
+
+  // otherwise hints, shown as tooltips, popup in a weird location
+  display: inline;
 }
 
 // the background on selected items in a pagination list is dark, so we have to make

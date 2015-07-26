@@ -16,6 +16,7 @@ class mconf.Tooltip
 
     # hints in form inputs are shown as tooltips
     hintOptions =
+      placement: 'auto left'
       title: ->
         formGroup = $(this).parent()
         formGroup.children(".help-block").text()
