@@ -11,7 +11,7 @@ class SitesController < ApplicationController
   layout "no_sidebar"
 
   def show
-    @site = current_site
+    redirect_to edit_site_path
   end
 
   def edit
@@ -28,7 +28,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       if current_site.update_attributes(site_params)
         flash[:success] = t('site.updated')
-        format.html { redirect_to site_path }
+        format.html { redirect_to edit_site_path }
       else
         format.html { render :action => "edit" }
       end
@@ -45,7 +45,7 @@ class SitesController < ApplicationController
      :shib_env_variables, :shib_always_new_account, :ldap_enabled, :ldap_host, :ldap_port, :ldap_user, :ldap_user_password,
      :ldap_user_treebase, :ldap_username_field, :ldap_email_field, :ldap_name_field, :ldap_filter, :smtp_login, :smtp_password,
      :smtp_sender, :smtp_domain, :smtp_server, :smtp_port, :smtp_use_tls, :smtp_auto_tls, :smtp_auth_type, :exception_notifications,
-     :exception_notifications_email, :exception_notifications_prefix, :chat_enabled, :presence_domain, :xmpp_server, :external_help,
+     :exception_notifications_email, :exception_notifications_prefix, :external_help,
      :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled, :room_dial_number_pattern,
      visible_locales: []
     ]

@@ -3,23 +3,26 @@
 
 body.manage.spaces {
 
-  .page-sub-menu {
+  .btn-new-space {
+    margin-bottom: 10px;
+    float: right;
+  }
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    @include make-row;
+
     .search-words {
-      text-align: left;
-
-      label {
-        margin: 3px 7px;
-      }
-
-      input {
-        margin: 0 5px;
-        width: 75%;
-      }
+      @include make-xs-column(12);
     }
+  }
 
-    .btn-new-space {
-      float: right;
-    }
+  #filter-total {
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    background: $m-light-gray;
+    padding: 3px 10px;
   }
 
   .space-disabled {

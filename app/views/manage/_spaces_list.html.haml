@@ -9,12 +9,16 @@
 
 - if spaces.count > 0
 
+  - nav = page_navigation_links spaces
+
+  - unless nav.nil?
+    .content-block-footer= nav
+
   - for space in spaces
     - if space.disabled?
       = render :partial => 'disabled_space', :locals => { :space => space }
     - else
       = render :partial => 'enabled_space', :locals => { :space => space }
 
-  - nav = page_navigation_links spaces
   - unless nav.nil?
     .content-block-footer= nav

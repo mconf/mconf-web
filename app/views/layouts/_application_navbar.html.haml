@@ -18,7 +18,7 @@
         %li= link_to t('.events'), mweb_events.events_path
       - if current_user.superuser?
         %li
-          = link_to main_app.site_path do
+          = link_to main_app.manage_path do
             = t('.manage')
     - else
       -# for anonymous users

@@ -3,40 +3,51 @@
 
 body.manage.users {
 
-  .page-sub-menu {
+  .btn-new-user {
+    margin-bottom: 10px;
+    float: right;
+  }
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    @include make-row;
 
     .search-words {
-      text-align: left;
-
-      label {
-        margin: 3px 7px;
-      }
-
-      input {
-        margin: 0 5px;
-        width: 75%;
-      }
+      @include make-xs-column(12);
     }
 
     .search-filters {
       margin-top: 10px;
+      @include make-xs-column(12);
 
       .search-filter-option {
         float: left;
-        width: 20%;
+        margin-right: 15px;
+        padding-right: 5px;
+        border-right: 1px solid $m-border-color-normal;
+
+        &:last-child {
+          border: 0;
+        }
       }
 
       .checkbox {
-        text-align: right;
-        margin: 0 5px;
         float: left;
-        padding: 0;
+      }
+
+      label {
+        float: left;
+        margin: 2px 10px 0 5px;
       }
     }
+  }
 
-    .btn-new-user {
-      float: right;
-    }
+  #filter-total {
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    background: $m-light-gray;
+    padding: 3px 10px;
   }
 
   .user-disabled {

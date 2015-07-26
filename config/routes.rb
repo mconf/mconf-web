@@ -174,6 +174,7 @@ Mconf::Application.routes.draw do
   resource :site, only: [:show, :edit, :update]
 
   # Management routes
+  get "/manage", to: redirect('/site'), as: "manage"
   ['users', 'spaces', 'spam'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end

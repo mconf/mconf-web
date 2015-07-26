@@ -2,10 +2,11 @@
 
 #manage
 
-  .page-sub-menu
+  = link_to t('.new_user'), new_user_path, class: 'open-modal btn btn-primary btn-sm btn-new-user'
+
+  .page-tools-menu
     .search-words
-      = link_to t('.new_user'), new_user_path, class: 'open-modal btn btn-primary btn-new-user'
-      = text_field_tag :users_filter_text, params[:q], placeholder: t('.filter_name_or_username'), 'data-load-url' =>  manage_users_path, :'data-target' => '#users-list', :'data-filter' => '#filter-total', class: 'resource-filter'
+      = text_field_tag :users_filter_text, params[:q], placeholder: t('.filter_name_or_username'), 'data-load-url' =>  manage_users_path, :'data-target' => '#users-list', :'data-filter' => '#filter-total', class: 'form-control resource-filter'
 
     .search-filters
       - ['admin', 'approved', 'disabled', 'can_record'].each do |field|

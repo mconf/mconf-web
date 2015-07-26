@@ -26,7 +26,7 @@ class ManageController < ApplicationController
       query = query.where(superuser: val)
     end
 
-    @users = query.paginate(:page => params[:page], :per_page => 20)
+    @users = query.paginate(:page => params[:page], :per_page => 40)
 
     if request.xhr?
       render :partial => 'users_list', :layout => false
@@ -37,13 +37,13 @@ class ManageController < ApplicationController
 
   def spaces
     name = params[:q]
-    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
+    params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     query = Space.with_disabled.order("name")
     if name.present?
       query = query.where("name like ?", "%#{name}%")
     end
-    @spaces = query.paginate(:page => params[:page], :per_page => 20)
+    @spaces = query.paginate(:page => params[:page], :per_page => 40)
 
     if request.xhr?
       render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
@@ -52,6 +52,7 @@ class ManageController < ApplicationController
     end
   end
 
+  # TODO: paginate
   def spam
     @spam_posts = Post.where(:spam => true).all
     render :layout => 'no_sidebar'
