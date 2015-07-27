@@ -81,11 +81,24 @@ class mconf.Base
     # Items with this class will only be visible when the item defined
     # by the id in the 'data-hover-tracked' attribute is hovered. Ex:
     # <div class="visible-on-hover" data-hover-tracked="event_123"></div>
+    # It will wait a little while before showing the element to make it less intrusive
+    # and annoying. So it only appears when the user hovers the parent element for
+    # time enough.
     $('.visible-on-hover').each ->
+      showAnimationDelay = 150
+      hideAnimationDelay = 150
+      showDelay          = 350
+
       $target = $(this)
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
-      $tracked.on "mouseenter.mconfBase", (e) -> $target.show(150)
-      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide(150)
+      $tracked.on "mouseenter.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", true)
+        setTimeout( ->
+          $target.show(showAnimationDelay) if $target.data("visible-on-hover-show")
+        , showDelay)
+      $tracked.on "mouseleave.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", false)
+        $target.hide(hideAnimationDelay)
 
     # Links with 'data-open-file' will trigger a click
     # in the input[type=file] element pointed by 'href'
