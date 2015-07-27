@@ -954,6 +954,7 @@ en:
       edit: "Edit user"
     menu:
       general: "General"
+      resque: "Resque"
       spaces: "Spaces"
       spam: "Spam"
       title: "Site Management"

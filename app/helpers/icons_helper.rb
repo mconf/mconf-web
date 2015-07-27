@@ -247,6 +247,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-remove icon-awesome icon-mconf-participant-not-confirmed", options
   end
 
+  def icon_external_link(options={})
+    icon_constructor nil, "fa fa-external-link icon-awesome icon-external-link", options
+  end
+
   private
 
   # Base method for most of the methods above

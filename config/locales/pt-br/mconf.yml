@@ -954,6 +954,7 @@ pt-br:
       edit: "Editar usuário"
     menu:
       general: "Geral"
+      resque: "Resque"
       spaces: "Comunidades"
       spam: "Spam"
       title: "Gerenciamento do Site"
