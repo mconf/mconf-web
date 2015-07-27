@@ -291,7 +291,7 @@ class SpacesController < ApplicationController
 
   def load_spaces_examples
     # TODO: RAND() is specific for mysql
-    @spaces_examples = Space.order('RAND()').limit(3)
+    @spaces_examples = Space.order('RAND()').limit(5)
   end
 
   def load_events
