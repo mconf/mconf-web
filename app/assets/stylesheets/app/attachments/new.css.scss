@@ -1,9 +1,17 @@
 @import "compass/css3";
+@import "definitions";
 
 body.attachments.modal-open {
 
   #attachments-uploader {
     text-align: center;
+    margin: 20px 0;
+
+    .drag-files {
+      margin: 20px;
+      background: $m-light-gray;
+      padding: 10px 5px 5px 5px;
+    }
   }
 
   .upload-button {
