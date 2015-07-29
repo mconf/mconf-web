@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
-  validates :email, :presence => true, :email => true
+  validates :email, uniqueness: true, presence: true, email: true
 
   has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
                           :join_table => :permissions, :association_foreign_key => "subject_id"

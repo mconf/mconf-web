@@ -28,6 +28,8 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
+  it { should validate_uniqueness_of(:email) }
+
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
   #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
