@@ -462,6 +462,7 @@ en:
     edit:
       editing_room: "Editing room '%{room}'"
     form:
+      layout_empty_option: "<default>"
       metadata:
         add: "Add metadata"
         set_to_remove: "Set to remove"

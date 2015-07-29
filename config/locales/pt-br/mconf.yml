@@ -462,6 +462,7 @@ pt-br:
     edit:
       editing_room: "Editando a sala '%{room}'"
     form:
+      layout_empty_option: "<padrão>"
       metadata:
         add: "Adicionar metadados"
         set_to_remove: "Marcar para remover"
