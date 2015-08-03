@@ -473,7 +473,9 @@ pt-br:
       at: "às"
       duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
-      timezone: "Você está usando o fuso horário %{timezone}"
+      offset: "Sua diferença de horário é \"%{offset}\"."
+      offset_daylight_savings: "Sua diferença de horário é \"%{offset}\" porque o horário de verão está em efeito."
+      timezone: "Você está usando o fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"
