@@ -28,6 +28,8 @@
     AllowOverride all
     Options -MultiViews
     Require all granted
+    # Limit uploads to 5MB
+    LimitRequestBody 5242880
   </Directory>
 
   XSendFile On
