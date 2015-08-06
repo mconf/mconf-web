@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729141849) do
+ActiveRecord::Schema.define(version: 20150806185429) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -388,6 +388,7 @@ ActiveRecord::Schema.define(version: 20150729141849) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.string   "max_upload_size"
   end
 
   create_table "spaces", force: true do |t|

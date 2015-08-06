@@ -208,4 +208,12 @@ module ApplicationHelper
     render(:partial => partial_name, :locals => options)
   end
 
+  # Retrieves max upload size from website or uses a default value
+  def max_upload_size
+    if current_site.max_upload_size.present?
+      current_site.max_upload_size
+    else
+      '5 MB'
+    end
+  end
 end
