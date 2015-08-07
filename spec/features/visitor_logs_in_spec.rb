@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -7,6 +8,7 @@
 require 'spec_helper'
 
 feature 'Visitor logs in' do
+  let(:ufrgsVinculo) { "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;" }
   before(:each) {
     @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
   }
@@ -63,7 +65,7 @@ feature 'Visitor logs in' do
       Site.current.update_attributes(shib_always_new_account: true)
       attrs = FactoryGirl.attributes_for(:user)
       enable_shib
-      setup_shib attrs[:username], attrs[:email], attrs[:email]
+      setup_shib attrs[:username], attrs[:email], attrs[:email], ufrgsVinculo
 
       user = FactoryGirl.create(:user)
       room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)

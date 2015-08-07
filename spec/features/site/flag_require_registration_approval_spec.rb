@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -11,6 +12,7 @@ include ActionView::Helpers::SanitizeHelper
 
 feature 'Behaviour of the flag Site#require_registration_approval' do
   let(:attrs) { FactoryGirl.attributes_for(:user) }
+  let(:ufrgsVinculo) { "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;" }
 
   context "if admin approval is required" do
     before {
@@ -60,7 +62,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:_full_name], attrs[:email], attrs[:email], ufrgsVinculo
 
         with_resque do
           expect {
@@ -145,7 +147,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:_full_name], attrs[:email], attrs[:email], ufrgsVinculo
 
         with_resque do
           expect {

@@ -70,7 +70,7 @@
       .input.boolean.optional.field_with_hint
         %label.boolean.optional.control-label.checkbox
           - can_record = @user.has_enrollment_allowed_to_record?
-          = f.check_box_tag "has_enrollment_allowed_to_record", "", can_record, class: "disabled", disabled: true
+          = check_box_tag "has_enrollment_allowed_to_record", "", can_record, class: "disabled", disabled: true
           = t(".has_enrollment_allowed_to_record.label")
           - enrollment = @user.enrollment
           - if enrollment.blank?

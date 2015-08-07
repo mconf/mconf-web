@@ -1843,7 +1843,7 @@ en:
         your_idp: "Your identity provider is: %{idp}"
       has_enrollment_allowed_to_record:
         label: "Has enrollment allowed to record?"
-        unknown_enrollment: "(enrollment: ?)"
+        unknown_enrollment: "(enrollment: -none-)"
         with_enrollment: "(enrollment: %{enrollment})"
       ldap:
         title: "You are signed in using LDAP!"

@@ -16,20 +16,27 @@ module FeatureHelpers
       :shib_enabled => true,
       :shib_name_field => "Shib-inetOrgPerson-cn",
       :shib_email_field => "Shib-inetOrgPerson-mail",
-      :shib_principal_name_field => "Shib-eduPerson-eduPersonPrincipalName"
+      :shib_principal_name_field => "Shib-eduPerson-eduPersonPrincipalName",
+      :shib_env_variables => "shib-.*\nufrgsVinculo"
     )
   end
 
-  def setup_shib name, email, principal
+  def setup_shib(name, email, principal, ufrgsVinculo=nil)
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
         "Shib-inetOrgPerson-cn" => name,
         "Shib-inetOrgPerson-mail" => email,
-        "Shib-eduPerson-eduPersonPrincipalName" => principal
+        "Shib-eduPerson-eduPersonPrincipalName" => principal,
+        "ufrgsVinculo" => ufrgsVinculo
       })
     end
     Capybara.current_driver = driver_name
+  end
+
+  def current_path_with_query
+    uri = URI.parse(current_url)
+    "#{uri.path}#{'?' + uri.query if uri.query}"
   end
 
   def logout_user
@@ -114,6 +121,13 @@ module FeatureHelpers
     nil
   end
 
+  def should_not_be_500_page
+    page.should_not have_title(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.title'))
+    page.should_not have_content(t('error.e500.description', :url => page.current_path))
+    page.status_code.should < 500 && page.status_code.should  >= 200
+  end
+
   def should_be_404_page
     page.should have_title(t('error.e404.title'))
     page.should have_content(t('error.e404.title'))
@@ -144,4 +158,8 @@ module FeatureHelpers
       change{ ActionMailer::Base.deliveries.length }
     end
   end
+end
+
+shared_examples_for 'it redirects to login page' do
+  it { [login_path, new_user_session_path].should include(current_path) }
 end

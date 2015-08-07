@@ -304,30 +304,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  protected
-
-  def before_disable_and_destroy
-    # All the spaces the user is an admin of
-    admin_in = self.permissions
-      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
-      .map(&:subject)
-    admin_in.compact! # remove nil (disabled) spaces
-
-    # Some associations are removed even if the user is only
-    # being disabled and not completely removed.
-    permissions.each(&:destroy)
-    join_requests.each(&:destroy)
-
-    # Disable spaces if this user was the last admin
-    admin_in.each do |space|
-      space.disable if space.admins.empty?
-    end
-  end
-
-  def init
-    @created_by = nil
-  end
-
   # Returns the user's role/enrollment.
   def enrollment
     unless self.shib_token.nil?
@@ -354,7 +330,29 @@ class User < ActiveRecord::Base
     is_enrollment_allowed_to_record?(enrollment)
   end
 
-  private
+  protected
+
+  def before_disable_and_destroy
+    # All the spaces the user is an admin of
+    admin_in = self.permissions
+      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+      .map(&:subject)
+    admin_in.compact! # remove nil (disabled) spaces
+
+    # Some associations are removed even if the user is only
+    # being disabled and not completely removed.
+    permissions.each(&:destroy)
+    join_requests.each(&:destroy)
+
+    # Disable spaces if this user was the last admin
+    admin_in.each do |space|
+      space.disable if space.admins.empty?
+    end
+  end
+
+  def init
+    @created_by = nil
+  end
 
   # Returns whether a enrollment (a string, such as "Docente") is permitted to record meetings.
   # TODO: the list of enrollments could come from Site and be configured in the app

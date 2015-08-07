@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -11,6 +12,7 @@ include ActionView::Helpers::SanitizeHelper
 
 describe 'User signs in via shibboleth' do
   subject { page }
+  let(:ufrgsVinculo) { "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;" }
   before(:all) {
     @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
   }
@@ -20,7 +22,7 @@ describe 'User signs in via shibboleth' do
       enable_shib
       Site.current.update_attributes :shib_always_new_account => true
 
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email], ufrgsVinculo
 
       visit shibboleth_path
     }
@@ -42,7 +44,7 @@ describe 'User signs in via shibboleth' do
   context "for the first time when the flag `shib_always_new_account` is not set" do
     before {
       enable_shib
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email], ufrgsVinculo
       visit shibboleth_path
     }
 
@@ -58,7 +60,7 @@ describe 'User signs in via shibboleth' do
   context 'for the first time' do
     before {
       enable_shib
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email], ufrgsVinculo
       visit shibboleth_path
     }
 
@@ -201,7 +203,7 @@ describe 'User signs in via shibboleth' do
 
     before {
       enable_shib
-      setup_shib user.full_name, user.email, user.email
+      setup_shib user.full_name, user.email, user.email, ufrgsVinculo
     }
 
     context "that has a valid account" do
@@ -230,7 +232,7 @@ describe 'User signs in via shibboleth' do
     before {
       enable_shib
       Site.current.update_attributes :shib_always_new_account => true
-      setup_shib 'a full name', 'user@mconf.org', 'user@mconf.org'
+      setup_shib 'a full name', 'user@mconf.org', 'user@mconf.org', ufrgsVinculo
     }
 
     # UFRGS: the frontpage is different

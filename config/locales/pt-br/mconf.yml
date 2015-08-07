@@ -1844,7 +1844,7 @@ pt-br:
         your_idp: "O seu provedor de identidade é: %{idp}"
       has_enrollment_allowed_to_record:
         label: "Possui vínculo que permite gravação?"
-        unknown_enrollment: "(vínculo: ?)"
+        unknown_enrollment: "(vínculo: -nenhum-)"
         with_enrollment: "(vínculo: %{enrollment})"
       ldap:
         title: "Você acessou este site através do LDAP!"
