@@ -32,9 +32,9 @@ class ShibbolethController < ApplicationController
       @attrs_informed = @shib.get_data
       render :attribute_error
     else
-      return unless check_active_enrollment
-
       token = @shib.find_token()
+
+      return unless check_active_enrollment(token)
 
       # there's a token with a user associated
       if !token.nil? && !token.user_with_disabled.nil?
@@ -218,14 +218,16 @@ class ShibbolethController < ApplicationController
   end
 
   # Checks if the user has an active enrollment, otherwise he's not allowed
-  # to access the service.
+  # to access the service. Will always allow superuser to sign in, even if they don't have
+  # an active enrollment.
   # Note: assumes there is an enrollment field in the session, this verification should
   # be done before calling this.
-  def check_active_enrollment
-    token = @shib.find_or_create_token()
-    user = token.user_with_disabled
+  def check_active_enrollment(token=nil)
+    is_superuser = token.present? && token.user_with_disabled.present? && token.user_with_disabled.superuser?
     data = session[:shib_data]["ufrgsVinculo"]
-    if data.match(/(^|;)ativo/) || (user.present? && user.superuser?) # beggining of line or after a ';'
+
+    # "ativo" is at the beggining of line or after a ';'
+    if data.match(/(^|;)ativo/) || is_superuser
       true
     else
       logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +

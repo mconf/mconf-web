@@ -222,7 +222,7 @@ describe ShibbolethController do
         it { should redirect_to(referer) }
       end
 
-      context "renders an error page if user doesn't have an active enrollment and the user is a superuser" do
+      context "allow superusers to sign in even without an active enrollment" do
         let(:referer) { "/any" }
         let(:user) {FactoryGirl.create(:superuser)}
         before {
