@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -310,7 +310,9 @@ describe CustomBigbluebuttonRoomsController do
           [ :name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
             :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
-            :auto_start_video, :auto_start_audio, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+            :auto_start_video, :auto_start_audio, :background,
+            :moderator_only_message, :auto_start_recording, :allow_start_stop_recording,
+            :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
           BigbluebuttonRoom.stub(:find_by_param).and_return(room)
@@ -631,7 +633,7 @@ describe CustomBigbluebuttonRoomsController do
 
           describe "for a space's room" do
             let(:user) { FactoryGirl.create(:user) }
-            let(:space) { FactoryGirl.create(:space) }
+            let(:space) { FactoryGirl.create(:space_with_associations) }
             let(:room) { space.bigbluebutton_room }
             let(:another_user) { FactoryGirl.create(:user) }
             let(:referer) { "/back" }
@@ -825,7 +827,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -839,7 +841,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -907,7 +909,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -977,7 +979,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
@@ -1082,13 +1084,13 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:room) { space.bigbluebutton_room }
         it_should_behave_like "an anonymous user accessing any webconf room"
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:room) { space.bigbluebutton_room }
         it_should_behave_like "an anonymous user accessing any webconf room"
       end

@@ -6,7 +6,7 @@ class UsersPermalink < ActiveRecord::Migration
     Profile.reset_column_information
 
     User.all.each do |u|
-      u.profile!.update_attribute :full_name, u.login
+      u.profile.update_attribute :full_name, u.login
       u.update_attribute :login, u.__send__(:create_permalink_for, [:full_name])
     end
   end
@@ -14,7 +14,7 @@ class UsersPermalink < ActiveRecord::Migration
   def self.down
     User.record_timestamps = false
     User.all.each do |u|
-      u.update_attribute :login, u.profile!.full_name
+      u.update_attribute :login, u.profile.full_name
     end
 
     remove_column :profiles, :full_name

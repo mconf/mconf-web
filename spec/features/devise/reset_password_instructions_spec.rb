@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -19,7 +25,6 @@ feature "Reset password instructions" do
     it("content") {
       last_email.html_part.body.encoded.should match(I18n.t('devise.mailer.reset_password_instructions.greeting', email: user.email))
       last_email.html_part.body.encoded.should match(I18n.t('devise.mailer.reset_password_instructions.requested'))
-      last_email.html_part.body.encoded.should match(I18n.t('devise.mailer.reset_password_instructions.change_password'))
       last_email.html_part.body.encoded.should match(I18n.t('devise.mailer.reset_password_instructions.ignore'))
       last_email.html_part.body.encoded.should match(I18n.t('devise.mailer.reset_password_instructions.wont_change'))
     }

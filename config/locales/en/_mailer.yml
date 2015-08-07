@@ -2,23 +2,28 @@
 en:
   application_mailer:
     feedback_email:
-      content: "%{email} sent the following feedback:"
+      content: "<b>%{email}</b> sent the following feedback:"
       subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
+      click_here: "Accept or reject this user in the user management page in: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "A user named \"%{name}\" (%{email}) has registered and is waiting for approval."
       subject: "A new user is waiting approval"
-      message: "%{name} has registered and is waiting for your approval."
-      click_here: "Click <a href=\"%{url}\">here</a> to manage users."
     new_user_approved:
-      subject: "Your registration has been approved"
+      click_here: "You can access your home page at: <a href=\"%{url}\">%{url}</a>"
       message: "Hello %{name},<br/><br/>We're sending this email to inform you that your access to the site has been approved."
-      click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
+      subject: "Your registration has been approved"
   user_mailer:
     registration_notification_email:
-      click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
-      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
+      click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
+      confirmation_pending: "You have registered succesfully on <a href=\"%{url}\">%{site}</a> and your account was submitted to the approval of an administrator.<br/>You will be contacted when you account is approved."
+      hello: "Hello %{name},"
+      message: "We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
       subject: "Your registration has been completed"
-      confirmation_pending: "You have registered succesfully on <a href=\"%{url}\">%{site}</a> and your account was submitted to the approval of an administrator. You will be contacted when you account is approved."
+    registration_by_admin_notification_email:
+      click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that an account was created for you on <a href=\"%{url}\">%{site}</a>.<br><br>This account was created by an administrator. If you think this was an error please contact us responding to this email."
+      subject: "An account was created for you by an administrator"
   event_mailer:
     invitation_email:
       message:
@@ -26,33 +31,48 @@ en:
         end: "Ends on"
         header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
       subject: "You have been invited to the event %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "You can cancel your participation in the event at any moment by clicking this link:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "To confirm your registration, please click on this link:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(If you didn't register in this event please just ignore this email.)"
+      hello: "Hello,"
+      message: "We just received a registration in the event <b>%{event}</b> for the email <b>%{email}</b>."
+      subject: "Confirm your registration in the event %{event}"
   space_mailer:
     invitation_email:
       message:
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to join the space <b>%{space}</b>:"
-        link: "To accept this invitation please visit <a href=\"%{url}\">%{url}</a><br/>You can find more information about this space in <a href=\"%{space_url}\">%{space_url}</a>"
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to join the space <b>%{space}</b>."
+        link: "You can accept or decline this invitation by clicking the link: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>You can find more information about this space in the page: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        user_message: "This is the message written by %{sender}:"
       subject: "%{username} invited you to join the space %{space}"
     join_request_email:
       message:
-        header: "<b>%{candidate}</b> wants to participate in the space %{space}, that is administered by you:"
-        link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
-      subject: "%{candidate} wants to participate in the space %{space}"
+        header: "<b>%{candidate}</b> wants to join the space <b>%{space}</b>, that is administered by you."
+        link: "To answer to this request please visit <a href=\"%{url}\">%{url}</a>"
+        user_message: "This is the message written by %{candidate}:"
+      subject: "%{candidate} wants to join the space %{space}"
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "%{name} has %{action} the invitation to the space %{space}"
-        link: "You can see the current list of users of the space in <a href=\"%{users_url}\">%{users_url}</a>"
+        header: "<b>%{name}</b> has %{action} the invitation to join the space <b>%{space}</b>."
+        link: "You can see the current list of users of this space at: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"
     processed_join_request_email:
       accepted: "accepted"
       message:
-        header: "The administrator of %{space} has %{action} your join request."
+        header: "An administrator of <b>%{space}</b> has %{action} your join request."
         link:
-          accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\">%{space_url}</a>"
-          rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\">%{space_url}</a>"
+          accepted: "You are now a member of %{space} and you can access it at: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "If you would like to request membership again you can do so at: <br/><a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "not accepted"
       subject: "Your admission in %{space} was %{action}"
+    user_added_email:
+      message:
+        header: "You have been added by <b>%{sender}</b> (%{email_sender}) to the space <b>%{space}</b>."
+        link: "You can view the space you've been added to by clicking the link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} added you to the space %{space}"
   web_conference_mailer:
      invitation_email:
       event_name: "Meeting with %{name}"
@@ -68,8 +88,10 @@ en:
   shared:
     invitation_email:
       message:
-        subject: "Subject"
         description: "Description"
-        start: "Start"
         end: "End"
-        join: "Room"
+        start: "Start"
+        subject: "Subject"
+        url:
+          event: "Event site"
+          other: "Room"

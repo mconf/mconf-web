@@ -1,5 +1,5 @@
-# This file is part of  Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -35,8 +35,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -47,8 +47,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -60,8 +60,8 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
   end

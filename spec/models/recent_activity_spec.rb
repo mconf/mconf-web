@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -25,9 +25,9 @@ describe RecentActivity do
     end
 
     context "returns the activities in his spaces" do
-      let(:space1) { FactoryGirl.create(:space) }
-      let(:space2) { FactoryGirl.create(:space) }
-      let(:space3) { FactoryGirl.create(:space) }
+      let(:space1) { FactoryGirl.create(:space_with_associations) }
+      let(:space2) { FactoryGirl.create(:space_with_associations) }
+      let(:space3) { FactoryGirl.create(:space_with_associations) }
       before do
         space1.add_member!(user, 'User')
         space2.add_member!(user, 'Admin')
@@ -42,9 +42,9 @@ describe RecentActivity do
     end
 
     context "returns the activities in his spaces when the space is a 'trackable'" do
-      let(:space1) { FactoryGirl.create(:space) }
-      let(:space2) { FactoryGirl.create(:space) }
-      let(:space3) { FactoryGirl.create(:space) }
+      let(:space1) { FactoryGirl.create(:space_with_associations) }
+      let(:space2) { FactoryGirl.create(:space_with_associations) }
+      let(:space3) { FactoryGirl.create(:space_with_associations) }
       before do
         space1.add_member!(user, 'User')
         space2.add_member!(user, 'Admin')
@@ -59,9 +59,9 @@ describe RecentActivity do
     end
 
     context "returns the activities in the rooms of his spaces" do
-      let(:space1) { FactoryGirl.create(:space) }
-      let(:space2) { FactoryGirl.create(:space) }
-      let(:space3) { FactoryGirl.create(:space) }
+      let(:space1) { FactoryGirl.create(:space_with_associations) }
+      let(:space2) { FactoryGirl.create(:space_with_associations) }
+      let(:space3) { FactoryGirl.create(:space_with_associations) }
       before do
         space1.add_member!(user, 'User')
         space2.add_member!(user, 'Admin')
@@ -76,7 +76,7 @@ describe RecentActivity do
     end
 
     context "rejects keys if they are informed" do
-      let(:space) { FactoryGirl.create(:space) }
+      let(:space) { FactoryGirl.create(:space_with_associations) }
       before do
         space.add_member!(user, 'User')
         @activity1 = RecentActivity.create(owner: space, key: "key1")
@@ -107,7 +107,7 @@ describe RecentActivity do
       let(:user2) { FactoryGirl.create(:user) }
 
       before {
-        space = FactoryGirl.create(:space)
+        space = FactoryGirl.create(:space_with_associations)
         posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space) ]
         # pending: webconf activities
 

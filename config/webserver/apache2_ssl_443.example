@@ -1,11 +1,19 @@
 <VirtualHost *:443>
   ServerName      YOUR_HOST
   ServerSignature Off
+
+  # Fix POODLE
+  # See https://www.linode.com/docs/security/security-patches/disabling-sslv3-for-poodle
   SSLProtocol ALL -SSLv2 -SSLv3
 
   SSLEngine               on
   SSLCertificateFile      /etc/ssl/certs/YOUR_CERT.crt
   SSLCertificateKeyFile   /etc/ssl/private/YOUR_CERT.key
+
+  # Prevent BEAST attacks
+  # See https://sslcheck.globalsign.com/en_US/help/acbb2dc6
+  SSLHonorCipherOrder On
+  SSLCipherSuite RC4-SHA:HIGH:!ADH
 
   # Shows the maintenance page if it exists
   ErrorDocument 503 /system/maintenance.html
@@ -22,4 +30,7 @@
     Require all granted
   </Directory>
 
+  XSendFile On
+  XSendFilePath /YOUR_MCONF_WEB
+  XSendFilePath /tmp
 </VirtualHost>

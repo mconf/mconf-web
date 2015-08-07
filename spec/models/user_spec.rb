@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -24,15 +24,89 @@ describe User do
 
   it { should have_many(:permissions).dependent(:destroy) }
 
-  it { should have_many(:posts).dependent(:destroy) }
+  it { should have_many(:posts) }
 
   it { should validate_presence_of(:email) }
+
+  it { should validate_uniqueness_of(:email) }
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
   #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
   #   it { should allow_mass_assignment_of(attribute) }
   # end
+
+  describe ".search_by_terms" do
+    let(:users) {[
+      FactoryGirl.create(:user, username: 'steve', email: 'steve@email.com', created_at: Time.now),
+      FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
+      FactoryGirl.create(:user, username: 'ismael-esteves', email: 'ismael-esteves@email.com', created_at: Time.now + 2.second)
+    ]}
+    let(:subject) { User.search_by_terms(terms) }
+
+    before {
+      users[0].profile.update_attribute(:full_name, 'Steve and Will Soon')
+      users[1].profile.update_attribute(:full_name, 'Steve Hair is')
+      users[2].profile.update_attribute(:full_name, 'Ismael Esteves')
+    }
+
+    context '1 term finds something' do
+      let(:terms) { ['steve'] }
+
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context 'Composite term finds something' do
+      let(:terms) { ['steve hair'] }
+
+      it { should include(users[1]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '2 terms find something' do
+      let(:terms) { ['esteves', 'hair'] }
+      it { should include(users[1], users[2]) }
+      it { subject.count.should be(2) }
+    end
+
+    context '1 term finds nothing 1 term finds something' do
+      let(:terms) { ['mikael', 'esteves'] }
+      it { should include(users[2]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '1 term finds nothing' do
+      let(:terms) { ['mikael'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context 'multiple terms find nothing' do
+      let(:terms) { ['Maninho', 'das', 'Qebrada'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context "returns a Relation object" do
+      let(:terms) { [''] }
+      it { subject.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "accepts a string as parameter" do
+      let(:terms) { 'steve' }
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context "is chainable" do
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc", superuser: false) }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def", superuser: false) }
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc-2", superuser: true) }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
+      subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
+      it { subject.count.should eq(1) }
+    end
+  end
 
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
@@ -269,6 +343,24 @@ describe User do
   end
 
   describe "on create" do
+
+    describe "#create_webconf_room" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context 'should create a new random dial number for the user room if site is configured' do
+        before { Site.current.update_attributes(room_dial_number_pattern: 'xxxxxx') }
+
+        it { user.bigbluebutton_room.dial_number.should be_present }
+        it { user.bigbluebutton_room.dial_number.size.should be(6) }
+      end
+
+      context 'should be nil if the site is not configured' do
+        before { Site.current.update_attributes(room_dial_number_pattern: nil) }
+
+        it { user.bigbluebutton_room.dial_number.should be_blank }
+      end
+    end
+
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
         before { Site.current.update_attributes(require_registration_approval: false) }
@@ -283,9 +375,83 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
-          it { @user.should_not be_approved }
+          let(:user) { FactoryGirl.create(:user, approved: false) }
+          it { user.should_not be_approved }
         end
+      end
+    end
+  end
+
+  describe "on destroy" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context 'removes all permissions' do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it {
+        expect { user.destroy }.to change{
+          Permission.where(user: user, subject: space).count
+        }.by(-1)
+      }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.destroy }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.destroy }.not_to change(JoinRequest, :count) }
+    end
+
+    context "when the user is admin of a space" do
+      let(:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and is the last admin left and there are other members" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'Admin')
+          user.destroy
+        end
+
+        it { space.disabled.should be(false) }
+      end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
       end
     end
   end
@@ -312,14 +478,12 @@ describe User do
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
-    let(:private_space_member) { FactoryGirl.create(:private_space) }
-    let(:private_space_not_member) { FactoryGirl.create(:private_space) }
-    let(:public_space_member) { FactoryGirl.create(:public_space) }
-    let(:public_space_not_member) { FactoryGirl.create(:public_space) }
+    let!(:user_room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
+    let(:private_space_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let!(:private_space_not_member) { FactoryGirl.create(:space_with_associations, public: false) }
+    let(:public_space_member) { FactoryGirl.create(:space_with_associations, public: true) }
+    let!(:public_space_not_member) { FactoryGirl.create(:space_with_associations, public: true) }
     before do
-      user_room
-      public_space_not_member
       private_space_member.add_member!(user)
       public_space_member.add_member!(user)
     end
@@ -521,8 +685,8 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let(:user1) { FactoryGirl.create(:user, :disabled => true) }
-    let(:user2) { FactoryGirl.create(:user, :disabled => false) }
+    let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+    let!(:user2) { FactoryGirl.create(:user, disabled: false) }
 
     context "finds users even if disabled" do
       subject { User.with_disabled }
@@ -532,6 +696,15 @@ describe User do
 
     context "returns a Relation object" do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "is chainable" do
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user6) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 
@@ -644,6 +817,35 @@ describe User do
     end
   end
 
+  describe "#admin?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "if the user is a superuser" do
+      before { user.update_attributes(superuser: true) }
+      it { user.admin?.should be(true) }
+    end
+
+    context "if the user is not a superuser" do
+      before { user.update_attributes(superuser: false) }
+      it { user.admin?.should be(false) }
+    end
+  end
+
+  describe "#enabled?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "if the user is not disabled" do
+      it { user.enabled?.should be(true) }
+      it { user.disabled?.should be(false) }
+    end
+
+    context "if the user is disabled" do
+      before { user.disable }
+      it { user.enabled?.should be(false) }
+      it { user.disabled?.should be(true) }
+    end
+  end
+
   describe "#pending_spaces" do
     before do
       @spaces = [
@@ -675,10 +877,35 @@ describe User do
   end
 
   describe "#disable" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "sets #disabled to true" do
+      user.disabled.should be(false)
+      user.disable
+      user.reload.disabled.should be(true)
+    end
+
+    context "removes all permissions" do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it { expect { user.disable }.to change(Permission, :count).by(-1) }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.disable }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.disable }.not_to change(JoinRequest, :count) }
+    end
 
     context "when the user is admin of a space" do
-      let (:user) { FactoryGirl.create(:user) }
-      let (:space) { FactoryGirl.create(:space) }
+      let(:space) { FactoryGirl.create(:space) }
 
       context "and is the last admin left" do
         before(:each) do
@@ -690,8 +917,20 @@ describe User do
         it { space.reload.disabled.should be(true) }
       end
 
+      context "and is the last admin left and there are other members" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
       context "and isn't the last admin left" do
-        let (:user2) { FactoryGirl.create(:user) }
+        let(:user2) { FactoryGirl.create(:user) }
         before(:each) do
           space.add_member!(user, 'Admin')
           space.add_member!(user2, 'Admin')
@@ -701,6 +940,20 @@ describe User do
         it { user.disabled.should be(true) }
         it { space.disabled.should be(false) }
       end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
     end
   end
 
@@ -892,7 +1145,9 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable, :confirm])
+    set_custom_ability_actions([
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm
+    ])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -901,7 +1156,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :destroy, :fellows, :current, :select]
+        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
@@ -923,19 +1178,19 @@ describe User do
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "over his own account" do
-        it { should be_able_to(:manage, user) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "he can do anything over all resources" do
-        it { should be_able_to(:manage, :all) }
+        it { should be_able_to_do_everything_to(:all) }
       end
     end
 

@@ -15,8 +15,10 @@ defaultOpts =
 class mconf.Notification
 
   @bind: ->
-    $("div[name='error'], div[name='alert']", "#notification-flashs").each ->
+    $("div[name='error']", "#notification-flashs").each ->
       showNotification(this, "error")
+    $("div[name='alert'], div[name='warn']", "#notification-flashs").each ->
+      showNotification(this, "warn")
     # notice messages are usually success messages in form updates, so consider them
     # always as success
     $("div[name='success'], div[name='notice']", "#notification-flashs").each ->
@@ -51,11 +53,16 @@ showNotification = (target, type) ->
           type: 'error'
           force: true
           timeout: false
+      when "warn"
+        opts = $.extend {}, defaultOpts,
+          text: $target.text()
+          type: 'alert'
       else
         opts = $.extend {}, defaultOpts,
           text: $target.text()
           type: 'alert'
 
+    opts.text = mconf.Base.escapeHTML(opts.text)
     noty(opts)
 
 $ ->

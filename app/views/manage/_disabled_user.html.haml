@@ -4,9 +4,11 @@
 
   %ul.management-links
     = link_to enable_user_path(user), :data => { :confirm => t('.enable_confirm') }, :method => :post do
-      = icon_confirm(:alt => t('.enable'), :title => t('.enable'))
+      = icon_enable(:alt => t('.enable'), :title => t('.enable'))
+    = render 'manage/destroy_user', user: user
 
   .user-text
     %span.user-name
-      = highlight(sanitize(user.full_name), params[:q])
-      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+      - words = params[:q].try(:split)
+      = highlight(escape_once(user.full_name), words)
+      = "(#{highlight(user.username, words)}, #{highlight(user.email, words)})".html_safe

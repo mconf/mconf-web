@@ -10,7 +10,7 @@
       - recording.playback_formats.ordered.each do |playback|
         - if playback.visible?
           %li
-            = link_to playback.name, play_bigbluebutton_recording_path(recording, type: playback.format_type)
+            = link_to_playback(recording, playback)
             - if show_duration
               %span.small-date= "(#{t('.duration')}: #{distance_of_time(playback.length_in_secs)})"
               - show_duration = false

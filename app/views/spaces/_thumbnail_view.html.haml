@@ -5,7 +5,7 @@
 - show_join_request ||= false
 
 %ul.list-thumbnails
-  - if spaces.size > 0
+  - if spaces.exists?
     - spaces.each do |space|
       %li.list-thumbnail-wrapper{ :name => space.permalink }
         = render "spaces/space_thumbnail", :space => space, :show_join_request => show_join_request

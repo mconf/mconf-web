@@ -1,8 +1,14 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Viewing join requests" do
-  let(:space) { FactoryGirl.create(:space) }
+  let(:space) { FactoryGirl.create(:space_with_associations) }
   let(:user) { FactoryGirl.create(:user) }
 
   let!(:request) { FactoryGirl.create(:space_join_request, request_type: JoinRequest::TYPES[:request], group: space) }
@@ -189,9 +195,8 @@ feature "Viewing join requests" do
       request.update_attributes(candidate: admin)
       visit space_join_request_path(space, request)
 
-      accept = page.find("a[href='#{accept_space_join_request_path(space, request)}']")
-      accept[:'data-method'].should eql("post")
-      expect(page).not_to have_selector("[name='join_request[role_id]']")
+      expect(page).to have_selector("[name='join_request[role_id]']")
+      expect(page).to have_css("input[value='#{t('_other.accept')}']")
 
       decline = page.find("a[href='#{decline_space_join_request_path(space, request)}']")
       decline[:'data-method'].should eql("post")

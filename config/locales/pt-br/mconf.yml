@@ -3,7 +3,7 @@ pt-br:
   activities:
     attachment:
       create_html: enviou o arquivo %{name} na comunidade
-      delete_html: removou o arquivo %{name} na comunidade
+      destroy_html: removou o arquivo %{name} na comunidade
       update_html: atualizou o arquivo %{name} na comunidade
       deleted: que não existe mais
     bigbluebutton_meeting:
@@ -16,6 +16,7 @@ pt-br:
       deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
@@ -55,7 +56,7 @@ pt-br:
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
-      format_rails: "%d/%m/%Y %H:%M %z"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
@@ -176,6 +177,7 @@ pt-br:
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
+        room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
@@ -460,6 +462,7 @@ pt-br:
     edit:
       editing_room: "Editando a sala '%{room}'"
     form:
+      layout_empty_option: "<padrão>"
       metadata:
         add: "Adicionar metadados"
         set_to_remove: "Marcar para remover"
@@ -585,6 +588,9 @@ pt-br:
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
     show:
+      available_layouts: "Layouts disponíveis"
+      configurations: "Configurações do servidor"
+      configurations_tip: "Estas configurações são automaticamente buscadas do servidor e não podem ser modificadas aqui. Elas são buscadas periodicamente (a cada ~3h) por um processo em background e também quando a URL, chave ou versão do servidor são modificados."
       fetch_recordings_title: "Atualizar gravações usando parâmetros"
       fetch_recordings_btn: "Atualizar gravações"
       publish_recordings_title: "Publicar gravações"
@@ -611,12 +617,6 @@ pt-br:
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
-    mailer:
-      confirmation_instructions:
-        confirmation_link: "Confirme minha conta"
-        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
-        confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
-        welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: ''
@@ -811,6 +811,7 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+      users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -833,6 +834,9 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      type_add: "Adicionar diretamente"
+      type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
+      type_invite: "Convidar"
       users:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
@@ -955,11 +959,14 @@ pt-br:
       users: "Usuários"
       webconf: "Webconferência"
     spaces:
-      filter_name: "Nome"
-      filter_results: "Filtrar os resultados:"
+      filter_name: "Filtrar comunidades por nome"
+      new_space: "Nova comunidade"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
+    destroy_space:
+      destroy: Remover usuário
+      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
@@ -979,9 +986,17 @@ pt-br:
         not_spam_tooltip: "Esta mensagem não é um spam"
         title: "Mensagens denunciadas como spam"
     users:
-      filter_name_or_username: "Nome, identificador ou e-mail"
-      filter_results: "Filtrar os resultados:"
+      filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
+      admin_true: Administradores
+      admin_false: Usuários
+      approved_true: Aprovados
+      approved_false: Não aprovados
+      disabled_true: Desabilitados
+      disabled_false: Habilitados
+      can_record_true: Pode gravar
+      can_record_false: Não pode gravar
+
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
@@ -1104,6 +1119,9 @@ pt-br:
   past: Passado
   people: pessoas
   per_page: "por página"
+  participant_confirmation:
+    confirmed: "A inscrição para %{email} foi confirmada"
+    cancelled: "A inscrição sua inscrição no evento foi cancelada"
   permission:
     notification:
       default: "%{username} mudou sua função em %{stage} para %{role}."
@@ -1469,6 +1487,9 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
+    remove_user:
+      confirm: "Tem certeza de que deseja remover este usuário da comunidade?"
+      remove: "Remover usuário"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1515,6 +1536,7 @@ pt-br:
       today: "Não existem eventos para hoje"
   spaces: 
     admin_tabs:
+      add_member: "Adicionar membros"
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"
@@ -1578,6 +1600,7 @@ pt-br:
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
+        dial_number: "Número para discagem"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_notifications:
@@ -1615,6 +1638,11 @@ pt-br:
       user_is_member: "Você é membro desta comunidade"
       view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
+    user_permissions:
+      confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
+      leave_space: "Sair da comunidade"
+      confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      remove_user: "Remover usuário da comunidade"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
@@ -1740,6 +1768,7 @@ pt-br:
     category: Categoria
     confirm_password: "Confirmar senha"
     delete_from_space: "Excluir usuário da comunidade"
+    deleted: "Usuário deletado"
     disable: "Desabilitar usuário"
     disabled: "Usuário %{username} desabilitado"
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"

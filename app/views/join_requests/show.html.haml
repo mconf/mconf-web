@@ -56,7 +56,9 @@
 
         - if can?(:accept, @join_request)
           .option-accept
-            - if is_candidate
+            -# if true it's a regular user accepting a request
+            -# this second clause is here because of global admins which can chose to accept themselves
+            - if is_candidate && cannot?(:manage_join_requests, @space)
               = link_to t('.accept'), accept_space_join_request_path(@space, @join_request), :method => :post, :class => 'btn btn-success'
             - else
               = simple_form_for [@space, @join_request], url: accept_space_join_request_path(@space, @join_request), method: :post do |f|

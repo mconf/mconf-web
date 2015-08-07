@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -13,7 +13,7 @@ describe SpaceEventsController, :events => true do
   end
 
   describe "#index" do
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -57,7 +57,7 @@ describe SpaceEventsController, :events => true do
       before(:each) { login_as(user) }
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:public_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
 
         context "he is not a member of" do
@@ -77,7 +77,7 @@ describe SpaceEventsController, :events => true do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:private_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
 
         context "he is not a member of" do
@@ -103,7 +103,7 @@ describe SpaceEventsController, :events => true do
       before(:each) { login_as(user) }
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:public_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
 
         context "he is not a member of" do
@@ -134,7 +134,7 @@ describe SpaceEventsController, :events => true do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:private_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
 
         context "he is not a member of" do
@@ -168,14 +168,14 @@ describe SpaceEventsController, :events => true do
     context "for an anonymous user", :user => "anonymous" do
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:public_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
         it { should allow_access_to(:index, hash) }
         skip "more tests that are not in the engine"
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:private_space) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
         it { should_not allow_access_to(:index, hash) }
         skip "more tests that are not in the engine"

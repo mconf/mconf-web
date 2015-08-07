@@ -21,6 +21,14 @@ Vagrant.configure(2) do |config|
 
   # Forward the Rails server default port to the host
   config.vm.network :forwarded_port, guest: 3000, host: 3000
+  # For Mailcatcher
+  config.vm.network :forwarded_port, guest: 1025, host: 1025
+  config.vm.network :forwarded_port, guest: 1080, host: 1080
+
+  # To share other directories e.g. local gems
+  # config.vm.synced_folder '../bigbluebutton_rails', '/bigbluebutton_rails'
+
+  config.omnibus.chef_version = '12.0.3'
 
   # Use Chef Solo to provision our virtual machine
   config.vm.provision :chef_solo do |chef|
@@ -39,9 +47,9 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "redisio"
     chef.add_recipe "redisio::enable"
 
-    # Install Ruby and Bundler
+    # Install ruby and bundler
     # Set an empty root password for MySQL to make things simple
-    rb_version = File.open('.ruby-version', &:readline)
+    rb_version = IO.read(File.join(File.dirname(__FILE__), '.ruby-version')).chomp
     chef.json = {
       rbenv: {
         user_installs: [{

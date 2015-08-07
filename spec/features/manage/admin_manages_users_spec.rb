@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -23,6 +29,7 @@ describe 'Admin manages users' do
       before { visit manage_users_path }
 
       it { should have_css '.user-simple', :count => 7 }
+      it { should have_css '.icon-mconf-delete', :count => 6 }
       it { should have_css '.user-disabled', :count => 2 }
       it { should have_css '.icon-mconf-superuser', :count => 1 }
 
@@ -41,6 +48,7 @@ describe 'Admin manages users' do
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_edit_user(user) }
+        it { should_not have_link_to_destroy_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
       end
@@ -53,6 +61,7 @@ describe 'Admin manages users' do
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.normal_user') }
         it { should have_link_to_edit_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
       end
@@ -63,6 +72,7 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should have_link_to_enable_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should_not have_link_to_edit_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
@@ -73,6 +83,7 @@ describe 'Admin manages users' do
         subject { page.find("#user-#{user.permalink}") }
 
         it { should have_link_to_edit_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should have_link_to_confirm_user(user) }
       end
@@ -90,6 +101,7 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should have_link_to_disapprove_user(user) }
+        it { should have_link_to_destroy_user(user) }
       end
 
       context 'elements for an approved admin user' do
@@ -98,6 +110,7 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should_not have_link_to_disapprove_user(user) }
+        it { should_not have_link_to_destroy_user(user) }
       end
 
       context 'elements for a unapproved user' do
@@ -106,6 +119,7 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should have_link_to_edit_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should_not have_link_to_disapprove_user(user) }
         it { should have_link_to_approve_user(user) }
         it { should have_content t('_other.user.unapproved_user') }
@@ -122,6 +136,7 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should have_link_to_edit_user(user) }
+        it { should_not have_link_to_destroy_user(user) }
         it { should_not have_link_to_disapprove_user(user) }
         it { should have_css '.icon-mconf-superuser' }
         it { should have_content t('_other.user.administrator') }
@@ -133,6 +148,7 @@ describe 'Admin manages users' do
         subject { page.find("#user-#{user.permalink}") }
 
         it { should have_link_to_edit_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should have_link_to_confirm_user(user) }
         it { should_not have_link_to_disapprove_user(user) }
@@ -147,8 +163,12 @@ def have_link_to_edit_user(user)
   have_link '', :href => edit_user_path(user)
 end
 
-def have_link_to_disable_user(user)
+def have_link_to_destroy_user(user)
   have_css("a[href='#{user_path(user)}'][data-method='delete']")
+end
+
+def have_link_to_disable_user(user)
+  have_css("a[href='#{disable_user_path(user)}'][data-method='delete']")
 end
 
 def have_link_to_confirm_user(user)

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -125,7 +125,9 @@ describe SpacesController do
     context "orders by latest activities in the space" do
       let!(:now) { Time.now }
       let!(:spaces) {[
-        FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations)
       ]}
       let!(:activities) {[
         # order: [1], [2], [0]
@@ -177,7 +179,7 @@ describe SpacesController do
   it "#index.json"
 
   describe "#show" do
-    let(:target) { FactoryGirl.create(:public_space) }
+    let(:target) { FactoryGirl.create(:space_with_associations, public: true) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -405,7 +407,7 @@ describe SpacesController do
   end
 
   describe "#edit" do
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -454,9 +456,52 @@ describe SpacesController do
         space_attributes.stub(:permit).and_return(space_attributes)
         controller.stub(:params).and_return(params)
       }
-      before(:each) { put :update, :id => space.to_param, :space => space_attributes }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_attributes
+        }.to change { RecentActivity.count }.by(1)
+      }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing no parameters" do
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => {}
+        }.not_to change { RecentActivity.count }
+      }
+
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing some parameters" do
+      let(:space_params) { {name: "#{space.name}_new", description: "#{space.description} new" } }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing the logo_image parameter" do
+      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+
+      before(:each) {
+        expect {
+          post :update_logo, space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['logo_image']) }
     end
   end
 
@@ -558,7 +603,7 @@ describe SpacesController do
   it "#leave"
 
   describe "#webconference" do
-    let!(:space) { FactoryGirl.create(:public_space) }
+    let!(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     let!(:user) { FactoryGirl.create(:superuser) }
 
     context "normal testing" do
@@ -653,8 +698,8 @@ describe SpacesController do
   end
 
   describe "#recordings" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:user) { FactoryGirl.create(:user, superuser: true) }
     before(:each) { login_as(user) }
 
     context "html full request" do
@@ -735,7 +780,7 @@ describe SpacesController do
 
   describe "#recording_edit" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
     before(:each) {
       space.add_member! user, "Admin"
@@ -824,7 +869,7 @@ describe SpacesController do
   end
 
   describe "#user_permission" do
-    let(:target) { FactoryGirl.create(:space) }
+    let(:target) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 

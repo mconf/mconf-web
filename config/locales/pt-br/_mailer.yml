@@ -2,23 +2,28 @@
 pt-br:
   application_mailer:
     feedback_email:
-      content: "%{email} enviou o seguinte feedback:"
+      content: "<b>%{email}</b> enviou o seguinte feedback:"
       subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
-      subject: "Um novo usuário está a espera de sua aprovação"
-      message: "%{name} se registrou no site e está esperando por aprovação."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para gerenciar usuários."
+      click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
+      subject: "Um novo usuário está a espera de aprovação"
     new_user_approved:
+      click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
       subject: "Seu acesso ao site foi aprovado"
-      message: "Olá %{name},<br/><br/>Estamos mandando este email para avisar que o seu acesso ao site já foi aprovado."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à a sua página inicial."
   user_mailer:
     registration_notification_email:
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
-      message: "Olá %{name},<br/><br/>Estamos lhe mandando este email para informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
+      click_here: "Você pode ir para a sua página inicial clicando em: <a href=\"%{url}\">%{url}</a>"
+      confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso.<br/>Assim que seu cadastro for aprovado você será comunicado."
+      hello: "Olá %{name},"
+      message: "Estamos enviado este email para lhe informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
       subject: "Registro realizado com sucesso"
-      confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado."
+    registration_by_admin_notification_email:
+      click_here: "Você pode ir para a sua página inicial clicando em: <a href=\"%{url}\">%{url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco respondendo a este e-mail."
+      subject: "Uma conta foi criada para você por um administrador"
   event_mailer:
     invitation_email:
       message:
@@ -26,33 +31,48 @@ pt-br:
         end: "Término"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para o evento <b>%{event}</b>:"
       subject: "Você foi convidado para o evento %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "Você pode cancelar sua inscrição neste evento a qualquer momento clicando neste link:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "Para confirmar sua inscrição, por favor clique neste link:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(Se você não se registrou neste evento por favor simplesmente ignore este e-mail.)"
+      hello: "Olá,"
+      message: "Acabamos de receber uma inscrição no evento <b>%{event}</b> para o e-mail <b>%{email}</b>."
+      subject: "Confirme sua inscrição no evento %{event}"
   space_mailer:
     invitation_email:
       message:
-        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para ingressar a comunidade <b>%{space}</b>:"
-        link: "Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/>Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a>"
-      subject: "%{username} convidou você para ingressar a comunidade %{space}"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para participar da comunidade <b>%{space}</b>."
+        link: "Você pode aceitar ou recusar o convite clicando no link: <br/><a href=\"%{url}\">%{url}</a><br/><br/>Você pode encontrar mais informações sobre esta comunidade na página: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        user_message: "Esta é a mensagem escrita por %{sender}:"
+      subject: "%{username} convidou você para participar da comunidade %{space}"
     join_request_email:
       message:
-        header: "<b>%{candidate}</b> quer participar da comunidade %{space}, que você administra:"
-        link: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
+        header: "<b>%{candidate}</b> quer participar da comunidade <b>%{space}</b>, que você administra."
+        link: "Para responder a este pedido visite <a href=\"%{url}\">%{url}</a>"
+        user_message: "Esta é a mensagem escrita por %{candidate}:"
       subject: "%{candidate} quer participar da comunidade %{space}"
     processed_invitation_email:
       accepted: "aceitou"
       message:
-        header: "%{name} %{action} o convite para a comunidade %{space}"
-        link: "Você pode ver a lista atual de usuários da comunidade em <a href=\"%{users_url}\">%{users_url}</a>"
+        header: "<b>%{name}</b> %{action} o convite para entrar na comunidade <b>%{space}</b>."
+        link: "Você pode ver a lista atual de usuários desta comunidade em: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "rejeitou"
       subject: "%{name} %{action} seu convite"
     processed_join_request_email:
-      accepted: "aceita"
+      accepted: "aceito"
       message:
-        header: "Sua admissão na comunidade %{space} foi %{action} pela administração."
+        header: "Seu pedido de ingresso na comunidade <b>%{space}</b> foi %{action} por um administrador."
         link:
-          accepted: "Você agora é membro da comunidade %{space} e agora você pode acessá-la pelo endereço: <a href=\"%{space_url}\">%{space_url}</a>"
-          rejected: "Se você deseja solicitar adesão novamente acesse <a href=\"%{space_url}\">%{space_url}</a>"
-      rejected: "rejeitada"
-      subject: "Sua admissão na comunidade %{space} foi %{action}"
+          accepted: "Você agora é membro da comunidade %{space} e pode acessá-la no endereço: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "Se você deseja enviar outro pedido de adesão acesse: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+      rejected: "negado"
+      subject: "Seu pedido de ingresso em %{space} foi %{action}"
+    user_added_email:
+      message:
+        header: "Você foi adicionado por <b>%{sender}</b> (%{email_sender}) à comunidade <b>%{space}</b>."
+        link: "Você pode visualizar a comunidade à qual você foi adicionado clicando no link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} adicionou você à comunidade %{space}"
   web_conference_mailer:
     invitation_email:
       event_name: "Conferência com %{name}"
@@ -62,14 +82,17 @@ pt-br:
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Sala"
         password: "Chave de acesso"
+        dial_number: "Número para discagem"
         start: "Início"
         subject: "Assunto"
       subject: "Convite para webconferência"
   shared:
     invitation_email:
       message:
-        subject: "Assunto"
         description: "Descrição"
-        start: "Início"
         end: "Fim"
-        join: "Sala"
+        start: "Início"
+        subject: "Assunto"
+        url:
+          event: "Site do evento"
+          other: "Sala"

@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -14,14 +20,13 @@ module FeatureHelpers
     )
   end
 
-  def setup_shib name, email, principal, enrollment="ativo"
+  def setup_shib name, email, principal
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
         "Shib-inetOrgPerson-cn" => name,
         "Shib-inetOrgPerson-mail" => email,
-        "Shib-eduPerson-eduPersonPrincipalName" => principal,
-        "ufrgsVinculo" => "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+        "Shib-eduPerson-eduPersonPrincipalName" => principal
       })
     end
     Capybara.current_driver = driver_name

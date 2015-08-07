@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -77,4 +77,22 @@ Mconf::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  # Configs for lograge
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    params = event.payload[:params].reject do |k|
+      ['controller', 'action'].include? k
+    end
+    hash = {
+      time: event.time,
+      current_user: event.payload[:current_user]
+    }
+    hash.merge!({ params: params }) unless params.blank?
+    hash.merge!({ session: event.payload[:session] }) unless event.payload[:session].nil?
+    hash
+  end
+  config.lograge.keep_original_rails_log = true
+  config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/lograge_#{Rails.env}.log"
+  config.lograge.formatter = Lograge::Formatters::Logstash.new
 end

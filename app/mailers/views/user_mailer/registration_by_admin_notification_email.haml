@@ -1,0 +1,3 @@
+#registration_by_admin_notification_email
+  %p= t('.message', name: @user_name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
+  %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe

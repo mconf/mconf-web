@@ -1,7 +1,12 @@
 #webconference-invitation-mail
-  .header
-    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email).html_safe
+  %p= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
   = render "shared/invitation_email"
+
+  - if @invitation.target.dial_number.present?
+    .field
+      %label= t('.message.dial_number') + ':'
+      %span= @invitation.target.dial_number
+
   - if @invitation.target.private
     .field
       %label= t('.message.password') + ':'

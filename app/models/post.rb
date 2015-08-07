@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -46,8 +46,18 @@ class Post < ActiveRecord::Base
     return Post.where(:space_id => space, :parent_id => nil).order("updated_at DESC").limit(4)
   end
 
-  def new_activity key, user
-    create_activity key, owner: space, recipient: user, parameters: { :username => user.name }
+  def new_activity(key, user)
+    params = { username: user.name, user_id: user.id }
+
+    if key.to_s == 'update'
+      # Don't create activity if model was updated and nothing changed
+      attr_changed = previous_changes.except('updated_at').keys
+      return unless attr_changed.present?
+
+      params.merge!(changed_attributes: attr_changed)
+    end
+
+    create_activity key, owner: space, recipient: user, parameters: params
   end
 
 end

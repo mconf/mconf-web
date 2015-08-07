@@ -26,9 +26,12 @@ pt-br:
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
       bigbluebutton_room:
+        allow_start_stop_recording: "Permitir ao usuário iniciar/parar a gravação"
+        attendee_key: "Chave para participantes"
         auto_start_video: "Auto iniciar vídeo"
         auto_start_audio: "Auto iniciar áudio"
-        attendee_key: "Chave para participantes"
+        auto_start_recording: "Auto iniciar gravação"
+        background: "Imagem de fundo"
         default_layout: "Layout Padrão"
         dial_number: "Número de discagem"
         duration: Duração
@@ -38,6 +41,7 @@ pt-br:
         meetingid: "ID da Reunião"
         metadata: Metadados
         moderator_key: "Chave para moderadores"
+        moderator_only_message: "Mensagem mostrada somente aos moderadores"
         name: Nome
         param: Identificador
         private: Privada
@@ -52,12 +56,15 @@ pt-br:
         salt: "Chave de segurança"
         url: URL
         version: Versão
+      bigbluebutton_server_config:
+        available_layouts: "Layouts disponíveis"
     models:
       bigbluebutton_metadata: "Metadado de Gravação da Webconferência"
       bigbluebutton_playback_format: "Formato de Reprodução de Webconferência"
       bigbluebutton_recording: "Gravação de Webconferência"
       bigbluebutton_room: "Sala de Webconferência"
       bigbluebutton_server: "Servidor de Webconferência"
+      bigbluebutton_server_config: "Configurações do Servidor de Webconferência"
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     metadata:
@@ -67,9 +74,15 @@ pt-br:
       notice:
         update:
           success: "Formato de reprodução atualizado com sucesso."
-      presentation: "Reproduzir"
-      presentation_export: "Download HTML"
-      presentation_video: "Download"
+      presentation:
+        name: "Reproduzir"
+        tip: "Reproduz a gravação em uma página HTML5. Não é feito download da gravação para o seu computador, portanto exige internet para a gravação ser reproduzida."
+      presentation_export:
+        name: "Download HTML"
+        tip: "Faz o download de uma página HTML que você pode usar para reproduzir a gravação usando o seu navegador mesmo sem conexão com a internet. Tem todas as características da versão online, mas com a vantagem de não exigir internet. Atualmente só pode ser reproduzida usando o navegador Firefox."
+      presentation_video:
+        name: "Download"
+        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação offline e/ou compartilhar esta gravação em outros sites."
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"
@@ -90,6 +103,7 @@ pt-br:
           success: "Sua gravação foi atualizada com sucesso."
     rooms:
       default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
+      default_welcome_msg_dial_number: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>Você pode discar para esta conferência através de um telefone usando o número \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "Não há nenhum servidor associado a esta sala."

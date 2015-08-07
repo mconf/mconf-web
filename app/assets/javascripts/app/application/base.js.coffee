@@ -116,6 +116,8 @@ class mconf.Base
   # way slugs are generated in the application using FriendlyId.
   # From: http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
   @stringToSlug: (str) ->
+    return '' if !str?
+
     str = str.toLowerCase()
     str = removeDiacritics(str)
     str = str.replace(/[^A-Za-z0-9\-_ ]*/g, '')
@@ -134,6 +136,39 @@ class mconf.Base
   @escapeHTML: (string) ->
     escape.innerHTML = string
     escape.innerHTML
+
+  # taken from http://shiplu.mokadd.im/61/parse-query-string-by-pure-javascrirpt/
+  @getUrlParts = (url) ->
+    # url contains your data.
+    qs = url.indexOf('?')
+    if qs == -1
+      return []
+    fr = url.indexOf('#')
+    q = ''
+    q = if fr == -1 then url.substr(qs + 1) else url.substr(qs + 1, fr - qs - 1)
+    parts = q.split('&')
+    vars = {}
+    i = 0
+    while i < parts.length
+      p = parts[i].split('=')
+      if p[1]
+        vars[decodeURIComponent(p[0])] = decodeURIComponent(p[1])
+      else
+        vars[decodeURIComponent(p[0])] = ''
+      i++
+    # vars contain all the variables in an array.
+    vars
+
+  @urlFromParts = (parts) ->
+    if parts? and Object.keys(parts).length > 0
+      url = '?'
+      arr = []
+      for name, value of parts
+        arr.push "#{name}=#{value}"
+
+      url + arr.join('&')
+    else
+      ''
 
 $ ->
   # Setting I18n-js with the user language

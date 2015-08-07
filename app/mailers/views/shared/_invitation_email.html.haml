@@ -18,6 +18,8 @@
         %label= t('.message.end') + ':'
         %span= l @invitation.ends_on.in_time_zone
   .field
-    %label= t('.message.join') + ':'
+    - if Mconf::Modules.mod_enabled?('events') && @invitation.target.is_a?(MwebEvents::Event)
+      %label= t('.message.url.event') + ':'
+    - else
+      %label= t('.message.url.other') + ':'
     %span= @invitation.url
-

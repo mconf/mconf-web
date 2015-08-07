@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -6,7 +12,7 @@ describe 'User accesses spaces index' do
 
   context 'showing as' do
     let!(:default_logo84x64) { '/assets/default_logos/84x64/space.png' }
-    let(:space) { FactoryGirl.create(:space, :public => true) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     before { space }
 
     context 'thumb view' do
@@ -40,8 +46,7 @@ describe 'User accesses spaces index' do
   end
 
   context 'anonymously' do
-    let(:space) { FactoryGirl.create(:space) }
-    before { space }
+    let!(:space) { FactoryGirl.create(:space_with_associations) }
 
     context 'all spaces' do
       before { visit spaces_path }
@@ -55,13 +60,14 @@ describe 'User accesses spaces index' do
       }
       it { should have_css '.space-container', :count => 0 }
       it { should_not have_css '#show-spaces-mine' }
+      it { should_not_be_500_page }
     end
   end
 
   context 'as a normal user with spaces' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
-    let(:space2) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:space2) { FactoryGirl.create(:space_with_associations) }
     before {
       space.add_member!(user)
       space2
@@ -89,7 +95,7 @@ describe 'User accesses spaces index' do
 
   context 'as a normal user with no spaces' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
     before {
       space
       login_as(user, :scope => :user)

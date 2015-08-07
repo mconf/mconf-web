@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 require "digest/sha1"
+
 class UsersController < ApplicationController
-  load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
-  before_filter :load_and_authorize_with_disabled, :only => [:enable]
+  load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
+  before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
   # #index is nested in spaces
   load_and_authorize_resource :space, find_by: :permalink, only: [:index]
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   def show
     @user_spaces = @user.spaces
     @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
-    @profile = @user.profile!
+    @profile = @user.profile
     respond_to do |format|
       format.html { render 'profiles/show' }
     end
@@ -69,13 +70,23 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true if current_user == @user
 
       flash = { :success => t("user.updated") }
-      redirect_to edit_user_path(@user), :flash => flash
+      redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
       render "edit", :layout => 'no_sidebar'
     end
   end
 
   def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('user.deleted')
+        redirect_to manage_users_path
+      }
+    end
+  end
+
+  def disable
     @user.disable
 
     if current_user == @user
@@ -113,19 +124,19 @@ class UsersController < ApplicationController
   # TODO: This is used in a lot of places, but not all want all the filters and all the
   #  results. We could make it configurable.
   def select
-    name = params[:q]
+    words = params[:q].try(:split, /\s+/)
     id = params[:i]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
-    query = User.joins(:profile).includes(:profile).order("profiles.full_name")
+    query = User
     if id
       @users = query.find_by_id(id)
     elsif query.nil?
       @users = query.limit(limit)
     else
       @users = query
-        .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
-        .limit(limit)
+      .search_by_terms(words)
+      .limit(limit)
     end
 
     respond_with @users do |format|
@@ -157,7 +168,7 @@ class UsersController < ApplicationController
   # Confirms a user's account
   def confirm
     if !@user.confirmed?
-      @user.confirm!
+      @user.confirm
       flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
     end
     redirect_to :back
@@ -194,9 +205,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.created_by = current_user
+    @user.skip_confirmation_notification!
 
     if @user.save
-      @user.confirm!
+      @user.confirm
       @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|
@@ -214,7 +227,7 @@ class UsersController < ApplicationController
 
   def load_and_authorize_with_disabled
     @user = User.with_disabled.where(username: params[:id]).first
-    authorize! :enable, @user
+    authorize! action_name.to_sym, @user
   end
 
   allow_params_for :user

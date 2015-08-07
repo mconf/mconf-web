@@ -78,6 +78,7 @@ pt-br:
           presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
+        dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."
         has_enrollment_allowed_to_record: "Se marcado, significa que este usuário recebeu permissão automática para gravar reuniões, mesmo que um administrador não tenha explicitamente dado permissão de gravação a este usuário (através da opção 'permitir gravar reuniões')."
         superuser: "Marque esta opção para tornar este usuário um administrador global deste site"
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"

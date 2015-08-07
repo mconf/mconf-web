@@ -16,10 +16,10 @@
 
     .thread-title
       = icon_comment t('post.home.one', :space => post.space.name)
-      - if post.author
+      - if post.author && post.author.enabled?
         = link_to post.author.name, user_path(post.author), { :class => "thread-author" }
       - else
         %span.post-author= t('_other.user.removed')
-      = icon_spam() if post.spam
+      = icon_spam if post.spam
     .thread-text
       %p= post.text

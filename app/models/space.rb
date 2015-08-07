@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
-#
-# -------
+
 # Space is one of the most important models in the application.
 # Spaces consist of a group of multiple users and provide them with a single
 # conference room, a posts wall, document repository and space events.
@@ -171,19 +170,41 @@ class Space < ActiveRecord::Base
   # * +user+: user to be added as member
   # * +role_name+: A string denoting the role the user should receive after being added
   def add_member!(user, role_name='User')
-    p = Permission.new :user => user,
-      :subject => self,
-      :role => Role.find_by(name: role_name, stage_type: 'Space')
-
+    p = Permission.new(user: user,
+      subject: self,
+      role: Role.find_by(name: role_name, stage_type: 'Space')
+    )
     p.save!
   end
 
-  # Creates a new activity pertraining this space
-  def new_activity key, user, join_request=nil
+  # Removes a `user` from this space.
+  # If the user is a member, returns whether the user was removed or not.
+  # Otherwise returns always true.
+  #
+  # * +user+: user to be removed
+  def remove_member!(user)
+    p = Permission.where(user: user, subject: self)
+    p.empty? ? true : p.destroy_all.any?
+  end
+
+  # Creates a new activity related to this space
+  def new_activity(key, user, join_request = nil)
     if join_request
       create_activity key, owner: join_request, recipient: user, parameters: { :username => user.name }
     else
-      create_activity key, :owner => self, recipient: user, parameters: { :username => user.name }
+      params = { username: user.name }
+      # Treat update_logo and update as the same key
+      key = 'update' if key == 'update_logo'
+
+      if key.to_s == 'update'
+        # Don't create activity if the model was updated and nothing changed
+        attr_changed = previous_changes.except('updated_at').keys
+        return unless attr_changed.present?
+
+        params.merge!(changed_attributes: attr_changed)
+      end
+
+      create_activity key, owner: self, recipient: user, parameters: params
     end
   end
 
@@ -263,6 +284,10 @@ class Space < ActiveRecord::Base
     logo_image.present? && crop_x.present?
   end
 
+  def enabled?
+    !disabled?
+  end
+
   private
 
   # Creates the webconf room after the space is created
@@ -272,10 +297,11 @@ class Space < ActiveRecord::Base
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
       :name => self.name,
-      :private => !self.public,
+      :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/"
+      :logout_url => "/feedback/webconf/",
+      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
     }
     create_bigbluebutton_room(params)
   end

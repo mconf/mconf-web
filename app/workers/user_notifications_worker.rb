@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 # Finds all Invitation objects not sent yet and ready to be sent and schedules a
 # worker to send them.
-class UserNotificationsWorker
+class UserNotificationsWorker < BaseWorker
   @queue = :user_notifications
 
   def self.perform
     notify_users_account_created
+    notify_users_account_created_by_admin
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
@@ -55,6 +56,16 @@ class UserNotificationsWorker
       .where(trackable_type: 'User', notified: [nil, false], key: keys)
     activities.each do |activity|
       Resque.enqueue(UserRegisteredSenderWorker, activity.id)
+    end
+  end
+
+  # Finds all users that were created by a admin but not notified of it yet and schedules
+  # a worker to notify them.
+  def self.notify_users_account_created_by_admin
+    activities = RecentActivity
+      .where(trackable_type: 'User', notified: [nil, false], key: 'user.created_by_admin')
+    activities.each do |activity|
+      Resque.enqueue(UserRegisteredByAdminSenderWorker, activity.id)
     end
   end
 

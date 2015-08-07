@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 module Abilities
 
   class MemberAbility < BaseAbility
@@ -7,7 +13,7 @@ module Abilities
       # Users
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, disabled: false
-      can [:edit, :update, :destroy], User, id: user.id, disabled: false
+      can [:edit, :update, :disable], User, id: user.id, disabled: false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
@@ -41,8 +47,11 @@ module Abilities
       # Spaces
       can [:create, :select], Space
       can [:read, :webconference, :recordings], Space, public: true
-      can [:read, :webconference, :recordings, :leave], Space do |space|
+      can [:read, :webconference, :recordings], Space do |space|
         space.users.include?(user)
+      end
+      can [:leave], Space do |space|
+        space.users.include?(user) && !space.is_last_admin?(user)
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
@@ -75,8 +84,9 @@ module Abilities
         end
       end
 
+      alias_action :index_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
-      can [:index_join_requests, :index_news, :invite], Space do |s|
+      can [:index_news, :manage_join_requests], Space do |s|
         s.admins.include?(user)
       end
 
@@ -120,7 +130,7 @@ module Abilities
 
       # Permissions
       # Only space admins can update user roles/permissions
-      can [:read, :edit, :update], Permission do |perm|
+      can [:read, :edit, :update, :destroy], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
@@ -161,11 +171,11 @@ module Abilities
         end
 
         # Participants from MwebEvents
-        can :show, MwebEvents::Participant do |p|
-          p.event.owner == user || p.owner == user
+        can :destroy, MwebEvents::Participant do |p|
+          p.owner == user
         end
 
-        can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+        can [:show, :edit, :update, :destroy], MwebEvents::Participant do |p|
           event_can_be_managed_by(p.event, user)
         end
 

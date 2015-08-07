@@ -3,14 +3,9 @@
 @import "definitions";
 
 body {
-  padding: 0;
+  padding: 5px;
   @include font-size($mail-font-size);
   color: $mail-font-color;
-
-  a {
-    @include link-colors($link-color, $link-color-hover, $link-color-active);
-    text-decoration: none;
-  }
 }
 
 /* .navbar { */
@@ -29,25 +24,9 @@ body {
 /*   } */
 /* } */
 
-.footer {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border-top: 1px solid lighten($gray, 10);
-  color: lighten($mail-font-color, 10);
-}
-
-.mail-highlight-block {
-  background: $light-gray;
-  @include border-radius(2px);
-  margin: 10px 0;
-  padding: 10px;
-  @include font-size($mail-font-size);
-}
-
-.mail-event-block {
-  border: 1px solid $gray;
-  @include border-radius(2px);
-  margin: 10px 0;
-  padding: 10px;
-  @include font-size($mail-font-size);
-}
+/* .footer { */
+/*   margin-top: 10px; */
+/*   padding: 5px 10px; */
+/*   border-top: 1px solid lighten($gray, 10); */
+/*   color: lighten($mail-font-color, 10); */
+/* } */

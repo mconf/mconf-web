@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # Put all your default configatron settings here.
 
 # Example:
@@ -28,3 +34,8 @@ configatron.configure_from_hash(config)
 # Use to know whether things like routes, helpers, and abilities from the module should be
 # loaded.
 configatron.modules.events.loaded = false
+
+# Defaults for redis
+configatron.redis.host = 'localhost' if configatron.redis.host.nil?
+configatron.redis.port = 6379 if configatron.redis.port.nil?
+configatron.redis.db = 0 if configatron.redis.db.nil?

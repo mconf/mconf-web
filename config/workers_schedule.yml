@@ -22,6 +22,12 @@ send_user_notifications:
   class: UserNotificationsWorker
   description: "Checks pending user notifications and sends them"
 
+send_participant_confirmations_notifications:
+  every:
+    - "30s"
+  class: ParticipantConfirmationsWorker
+  description: "Checks pending event confirmations email and sends them"
+
 # TODO: use it after #1292
 # send_daily_digest:
 #   cron: "0 14 * * *" # daily at 2pm
@@ -43,3 +49,9 @@ update_recordings:
     - "30m"
   class: BigbluebuttonUpdateRecordings
   description: "Gets the recordings in the server to populate the db. Same as 'rake bigbluebutton_rails:recordings:update'."
+
+update_server_configs:
+  every:
+    - "3h"
+  class: BigbluebuttonUpdateServerConfigs
+  description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."

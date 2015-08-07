@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -22,13 +22,13 @@ describe BigbluebuttonRecording do
 
       context "in his own room" do
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "in another user's room" do
         let(:another_user) { FactoryGirl.create(:user) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => another_user.bigbluebutton_room) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "in a public space" do
@@ -36,26 +36,26 @@ describe BigbluebuttonRecording do
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
     end
@@ -76,7 +76,7 @@ describe BigbluebuttonRecording do
       end
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
 
         context "he doesn't belong to" do
@@ -100,7 +100,7 @@ describe BigbluebuttonRecording do
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
 
         context "he doesn't belong to" do
@@ -125,20 +125,20 @@ describe BigbluebuttonRecording do
 
     context "an anonymous user for a recording", :user => "anonymous" do
       context "in a user's room" do
-        let(:room) { FactoryGirl.create(:user).bigbluebutton_room }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: FactoryGirl.create(:user)) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => room) }
         it { should_not be_able_to_do_anything_to(target) }
       end
 
       context "in a public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
         let(:allowed) { [:play, :space_show] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 
       context "in a private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, public: false) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
         it { should_not be_able_to_do_anything_to(target) }
       end

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -167,7 +167,8 @@ describe ApplicationHelper do
   describe "#available_locales" do
     before {
       Site.current.update_attributes(visible_locales: [:v1, :v2])
-      Rails.application.config.i18n.available_locales = [:a1, :a2]
+      Rails.application.config.i18n.stub(:available_locales)
+        .and_return([:a1, :a2])
     }
 
     context "when all==false returns only the visible locales" do

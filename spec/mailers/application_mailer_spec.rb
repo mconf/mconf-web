@@ -1,5 +1,5 @@
-# This file is part of  Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -33,7 +33,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
 
@@ -45,7 +45,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should match(Regexp.escape(content))
       }
     end
   end
@@ -62,7 +62,7 @@ describe ApplicationMailer do
       user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
       @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
       @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
-      @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
+      @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
       @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
       @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
       @locale = user.locale

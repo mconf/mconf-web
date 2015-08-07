@@ -20,8 +20,8 @@
 
     .thread-title
       = icon_comments t('post.home.one', space: thread.space.name)
-      = icon_spam() if thread.spam
-      - if thread.author
+      = icon_spam if thread.spam
+      - if thread.author && thread.author.enabled?
         = link_to thread.author.name, user_path(thread.author), { class: "post-author" }
       - else
         %span.post-author= t('_other.user.removed')

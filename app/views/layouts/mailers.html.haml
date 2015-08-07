@@ -11,4 +11,7 @@
     -#     = "#{Site.current.name} (#{url})"
     .message-body
       = yield
-    .footer= Site.current.signature_in_html
+    .footer
+      %p
+        = '--'
+        = Site.current.signature_in_html

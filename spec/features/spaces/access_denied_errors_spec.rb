@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -8,7 +14,7 @@ feature 'User hits access denied errors' do
 
   context 'while accessing a private space' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space, :public => false) }
+    let(:space) { FactoryGirl.create(:space_with_associations, :public => false) }
     subject { page }
 
     context 'and is logged out' do
@@ -42,7 +48,7 @@ feature 'User hits access denied errors' do
 
   context 'while accessing the edit page of a public space' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space, public: true) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     subject { page }
 
     context 'and is logged out' do

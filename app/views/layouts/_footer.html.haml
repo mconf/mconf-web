@@ -5,7 +5,8 @@
       %ul
         - unless current_site.external_help.blank?
           %li= link_to(t('.links.help'), current_site.external_help)
-        %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
+        - if user_signed_in?
+          %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
         %li= link_to(t('.links.statistics'), main_app.show_statistics_path )
     .link-group.languages
       %h3= t('.translate.change')

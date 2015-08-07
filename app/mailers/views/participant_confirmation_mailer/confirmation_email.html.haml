@@ -1,0 +1,10 @@
+#event-confirmation-email
+  %p= t('.hello').html_safe
+  %p= t('.message', email: @email, event: @event).html_safe
+  %p
+    - url = participant_confirmation_url(token: @pc.to_param, host: Site.current.domain)
+    = t('.confirm', url: url).html_safe
+  %p
+    - url = cancel_participant_confirmation_url(token: @pc.to_param, host: Site.current.domain)
+    = t('.cancel', url: url).html_safe
+  %p= t('.footer').html_safe

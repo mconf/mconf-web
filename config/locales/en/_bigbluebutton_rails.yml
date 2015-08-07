@@ -26,9 +26,12 @@ en:
         server_id: "Server ID"
         start_time: "Start Time"
       bigbluebutton_room:
+        allow_start_stop_recording: "Allow user to start/stop recording"
+        attendee_key: "Key for attendees"
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
-        attendee_key: "Key for attendees"
+        auto_start_recording: "Auto start recording"
+        background: "Background image"
         default_layout: "Default Layout"
         dial_number: "Dial Number"
         duration: Duration
@@ -38,6 +41,7 @@ en:
         meetingid: "Meeting ID"
         metadata: Metadata
         moderator_key: "Key for moderators"
+        moderator_only_message: "Message to be shown to moderators only"
         name: Name
         param: "String ID"
         private: Private
@@ -52,12 +56,15 @@ en:
         salt: "Security Salt"
         url: URL
         version: Version
+      bigbluebutton_server_config:
+        available_layouts: "Available layouts"
     models:
       bigbluebutton_metadata: "Web Conference Recording Metadata"
       bigbluebutton_playback_format: "Web Conference Recording Playback Format"
       bigbluebutton_recording: "Web Conference Recording"
       bigbluebutton_room: "Web Conference Room"
       bigbluebutton_server: "Web Conference Server"
+      bigbluebutton_server_config: "Web Conference Server Configurations"
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     metadata:
@@ -67,9 +74,15 @@ en:
       notice:
         update:
           success: "The playback type was successfully updated."
-      presentation: "Play"
-      presentation_export: "Download HTML"
-      presentation_video: "Download"
+      presentation:
+        name: "Play"
+        tip: "Plays the recording in an HTML5 page. The recording is not downloaded to your computer and will require Internet to be reproduced."
+      presentation_export:
+        name: "Download HTML"
+        tip: "Downloads an HTML page that you can use to reproduce the recording offline using your browser. Has all the features of the HTML player online plus the advantage of also working offline. Currently can only be reproduced using the Firefox browser."
+      presentation_video:
+        name: "Download"
+        tip: "Downloads a vídeo file (uses the WebM format) with the recording. You can use this video file to watch the recording offline and to share this recording in other websites."
     recordings:
       default:
         description: "Meeting held on %{time} (UTC)"
@@ -90,6 +103,7 @@ en:
           success: "Your recording was successfully updated."
     rooms:
       default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
+      default_welcome_msg_dial_number: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "There's no server associated with this room."

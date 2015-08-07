@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -33,6 +33,19 @@ class SpaceMailer < BaseMailer
       @space = jr.group
 
       create_email(@introducer.email, nil, subject)
+    end
+  end
+
+  def user_added_email(jr_id)
+    jr = JoinRequest.find(jr_id)
+    @introducer = jr.introducer
+    @space = jr.group
+
+    locale = get_user_locale(jr.candidate, false)
+    I18n.with_locale(locale) do
+      subject = t("space_mailer.user_added_email.subject",
+                  space: @space.name, username: @introducer.full_name).html_safe
+      create_email(jr.email, @introducer.email, subject)
     end
   end
 

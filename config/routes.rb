@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -72,6 +72,8 @@ Mconf::Application.routes.draw do
       end
     end
   end
+  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
+  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
 
   # shibboleth controller
   get '/secure', to: 'shibboleth#login', as: "shibboleth"
@@ -140,6 +142,7 @@ Mconf::Application.routes.draw do
     end
 
     member do
+      delete :disable
       post :enable
       post :approve
       post :disapprove

@@ -1,4 +1,6 @@
 language: ruby
+services:
+  - redis-server
 bundler_args: "--without production development"
 before_script:
   - "cp config/database.yml.travis config/database.yml"

@@ -45,6 +45,14 @@ default:
     salt: "my-secret-salt"
     version: "0.8"
 
+  # If you're running redis on the same server and without a password, you
+  # can leave this block commented
+  # redis:
+  #   host: 'localhost'
+  #   port: '6379'
+  #   db: 0
+  #   password: '1234567890'
+
 # Configurations for each environment
 # You can find below the sections for each environment available.
 # Uncomment the lines from one of them to define specific configurations for that environment.

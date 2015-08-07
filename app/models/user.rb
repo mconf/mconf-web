@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
   include PublicActivity::Common
 
@@ -42,33 +43,25 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
-  def ability
-    @ability ||= Abilities.ability_for(self)
-  end
-
-  # Returns true if the user is anonymous (not registered)
-  def anonymous?
-    self.new_record?
-  end
-
-  def site_needs_approval?
-    Site.current.require_registration_approval
-  end
-
-  validates :email, :presence => true, :email => true
+  validates :email, uniqueness: true, presence: true, email: true
 
   has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
                           :join_table => :permissions, :association_foreign_key => "subject_id"
 
-  has_many :join_requests, :foreign_key => :candidate_id
+  has_many :join_requests, :foreign_key => :candidate_id, :dependent => :destroy
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
-  has_many :posts, :as => :author, :dependent => :destroy
+  has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
 
+  after_initialize :init
+
   accepts_nested_attributes_for :bigbluebutton_room
+
+  # Will be set to a user when the user was registered by an admin.
+  attr_accessor :created_by
 
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
@@ -88,20 +81,55 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
-  default_scope { where(:disabled => false) }
+  before_destroy :before_disable_and_destroy, prepend: true
+
+  default_scope { where(disabled: false) }
 
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
-  # Profile
-  def profile!
-    if profile.blank?
-      self.create_profile
-    else
-      profile
+  scope :search_by_terms, -> (words) {
+    query = joins(:profile).includes(:profile).order("profiles.full_name")
+
+    words ||= []
+    words = [words] unless words.is_a?(Array)
+    query_strs = []
+    query_params = []
+
+    words.each do |word|
+      query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
+      query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
     end
+
+    query.where(query_strs.join(' OR '), *query_params.flatten)
+  }
+
+  alias_attribute :name, :full_name
+  alias_attribute :title, :full_name
+  alias_attribute :permalink, :username
+
+  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+
+  # In case the profile is accessed before it is created, we build one on the fly.
+  # Important specially because we have method delegated to the profile.
+  def profile_with_initialize
+    profile_without_initialize || build_profile
+  end
+  alias_method_chain :profile, :initialize
+
+  def ability
+    @ability ||= Abilities.ability_for(self)
+  end
+
+  # Returns true if the user is anonymous (not registered)
+  def anonymous?
+    self.new_record?
+  end
+
+  def site_needs_approval?
+    Site.current.require_registration_approval
   end
 
   def create_webconf_room
@@ -112,7 +140,8 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4)
+      :attendee_key => SecureRandom.hex(4),
+      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
     }
     create_bigbluebutton_room(params)
   end
@@ -124,18 +153,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile!
-  alias_attribute :name, :full_name
-  alias_attribute :title, :full_name
-  alias_attribute :permalink, :username
-
   # Full location: city + country
   def location
     [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
-  after_create do |user|
-    user.create_profile :full_name => user._full_name
+  after_create :create_user_profile
+  def create_user_profile
+    create_profile({full_name: self._full_name})
   end
 
   # Builds a guest user based on the e-mail
@@ -146,7 +171,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_disabled
-    self.unscoped
+    unscope(where: :disabled) # removes the default scope only
   end
 
   def <=>(user)
@@ -158,18 +183,8 @@ class User < ActiveRecord::Base
   end
 
   def disable
-    # Spaces the user admins
-    admin_in = self.permissions.where(:subject_type => 'Space', :role_id => Role.find_by_name('Admin')).map(&:subject)
-    # Disabled spaces will be nil at this point, remove them
-    admin_in.compact!
-
-    self.update_attribute(:disabled,true)
-    self.permissions.each(&:destroy)
-
-    # Disable spaces if this was the last admin
-    admin_in.each do |space|
-      space.disable if space.admins.empty?
-    end
+    before_disable_and_destroy
+    update_attribute(:disabled, true)
   end
 
   def enable
@@ -232,18 +247,18 @@ class User < ActiveRecord::Base
 
   # Sets the user as approved
   def approve!
-    skip_confirmation! if !confirmed?
-    self.update_attributes(approved: true)
+    skip_confirmation! unless confirmed?
+    update_attributes(approved: true)
   end
 
   # Starts the process of sending a notification to the user that was approved.
   def create_approval_notification(approved_by)
-    new_activity_user_approved(approved_by)
+    create_activity 'approved', owner: approved_by
   end
 
   # Sets the user as not approved
   def disapprove!
-    self.update_attributes(approved: false)
+    update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
@@ -267,6 +282,10 @@ class User < ActiveRecord::Base
     superuser
   end
 
+  def enabled?
+    !disabled?
+  end
+
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
@@ -278,11 +297,35 @@ class User < ActiveRecord::Base
 
   after_create :new_activity_user_created
   def new_activity_user_created
-    create_activity 'created', owner: self, notified: !site_needs_approval?
+    if created_by.present?
+      create_activity 'created_by_admin', owner: created_by, notified: false
+    else
+      create_activity 'created', owner: self, notified: !site_needs_approval?
+    end
   end
 
-  def new_activity_user_approved(approved_by)
-    create_activity 'approved', owner: approved_by
+  protected
+
+  def before_disable_and_destroy
+    # All the spaces the user is an admin of
+    admin_in = self.permissions
+      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+      .map(&:subject)
+    admin_in.compact! # remove nil (disabled) spaces
+
+    # Some associations are removed even if the user is only
+    # being disabled and not completely removed.
+    permissions.each(&:destroy)
+    join_requests.each(&:destroy)
+
+    # Disable spaces if this user was the last admin
+    admin_in.each do |space|
+      space.disable if space.admins.empty?
+    end
+  end
+
+  def init
+    @created_by = nil
   end
 
   # Returns the user's role/enrollment.
