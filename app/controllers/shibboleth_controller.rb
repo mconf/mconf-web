@@ -144,7 +144,6 @@ class ShibbolethController < ApplicationController
   # When the user selected to create a new account for his shibboleth login.
   def associate_with_new_account(shib)
     token = shib.find_or_create_token()
-
     # if there's already a user and an association, we don't need to do anything, just
     # return and, when the user is redirected back to #login, the token will be checked again
     if token.user.nil?
@@ -223,8 +222,10 @@ class ShibbolethController < ApplicationController
   # Note: assumes there is an enrollment field in the session, this verification should
   # be done before calling this.
   def check_active_enrollment
+    token = @shib.find_or_create_token()
+    user = token.user_with_disabled
     data = session[:shib_data]["ufrgsVinculo"]
-    if data.match(/(^|;)ativo/) # beggining of line or after a ';'
+    if data.match(/(^|;)ativo/) || (user.present? && user.superuser?) # beggining of line or after a ';'
       true
     else
       logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +

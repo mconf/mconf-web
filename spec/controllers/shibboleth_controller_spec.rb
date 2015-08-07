@@ -222,6 +222,21 @@ describe ShibbolethController do
         it { should redirect_to(referer) }
       end
 
+      context "renders an error page if user doesn't have an active enrollment and the user is a superuser" do
+        let(:referer) { "/any" }
+        let(:user) {FactoryGirl.create(:superuser)}
+        before {
+          request.env['ufrgsVinculo'] = 'inativo' # overrides the default
+          request.env["HTTP_REFERER"] = referer
+          ShibToken.create!(:identifier => user.email, :user => user)
+        }
+        before(:each) { get :login }
+        it { should respond_with(:redirect) }
+        it { should redirect_to(my_home_path) }
+        it { subject.current_user.should be_present }
+        it { subject.current_user.should eq(ShibToken.last.user)}
+      end
+
       context "detects active enrollments in the middle of 'ufrgsVinculo'" do
         let(:referer) { "/any" }
         before {
