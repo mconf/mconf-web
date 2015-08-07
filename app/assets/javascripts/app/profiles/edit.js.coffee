@@ -2,16 +2,7 @@ $ ->
   if isOnPage 'profiles', 'edit|update'
 
     uploaderCallbacks =
-      onComplete: (id, name, response) ->
-        if response.success
-
-          # show the crop modal if image is not too small
-          if !response.small_image
-            $.get response.redirect_url, (data) ->
-              mconf.Modal.showWindow
-                data: data
-          else
-            location.reload(true)
+      onComplete: mconf.Crop.onUploadComplete
 
     mconf.Uploader.bind
       callbacks: uploaderCallbacks
