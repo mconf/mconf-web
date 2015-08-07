@@ -4,10 +4,14 @@ $ ->
     uploaderCallbacks =
       onComplete: (id, name, response) ->
         if response.success
-          $.get response.redirect_url, (data) ->
-            # show the crop modal
-            mconf.Modal.showWindow
-              data: data
+
+          # show the crop modal if image is not too small
+          if !response.small_image
+            $.get response.redirect_url, (data) ->
+              mconf.Modal.showWindow
+                data: data
+          else
+            location.reload(true)
 
     mconf.Uploader.bind
       callbacks: uploaderCallbacks

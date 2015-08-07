@@ -18,11 +18,6 @@ class mconf.Uploader
         # Hide progress bar on successs
         $(".progress .bar:hidden").parent().hide()
 
-      # for logo images
-      if response.small_image
-        $("img.logo-uploadable").attr('src', response.new_url)
-        return
-
       onComplete?(id, name, response)
 
     callbacks.onSubmit = (id, name) ->
