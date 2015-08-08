@@ -473,9 +473,9 @@ en:
       at: "at"
       duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      offset: "Your time offset is \"%{offset}\"."
-      offset_daylight_savings: "Your time offset is \"%{offset}\" because daylight savings time is in effect"
-      timezone: "You are using the time zone \"%{timezone}\""
+      offset: "Your current time offset is \"%{offset}\""
+      offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "The dates below are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
