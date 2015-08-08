@@ -135,13 +135,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # These dates were configured by the user in the view assuming his time zone, so we need to set
   # this time zone in the object before parsing it.
   def adjust_dates_for_invitation(params)
-    date_format = t('_other.datetimepicker.format_rails')
-    user_time_zone = Mconf::Timezone.user_time_zone_offset(current_user)
+    date_format = t('_other.datetimepicker.format_display')
+    user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
+
     [:starts_on, :ends_on].each do |field|
       if params[:invite][field].present?
         time = "#{params[:invite][field.to_s + '_time(4i)']}:#{params[:invite][field.to_s + '_time(5i)']}"
-        params[:invite][field] = "#{params[:invite][field]} #{time} #{user_time_zone}"
-        params[:invite][field] = Time.strptime(params[:invite][field], date_format)
+        params[:invite][field] = Mconf::Timezone.parse_in_timezone(params[:invite][field], time, user_time_zone, date_format)
       else
         return false
       end

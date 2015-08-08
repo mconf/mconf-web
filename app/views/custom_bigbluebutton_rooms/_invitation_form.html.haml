@@ -19,7 +19,13 @@
           = form_required_label
           = t('activerecord.attributes.invite.starts_on')
         #invite_timezone
-          = "(#{t(".timezone", :timezone => user_timezone)})"
+          = "#{t(".timezone", :timezone => user_timezone)}"
+
+          - if Time.zone.now.dst?
+            = icon_info(t(".offset_daylight_savings", offset: user_timezone_offset))
+          - else
+            = icon_info(t(".offset", offset: user_timezone_offset))
+
         #invite_starts_on.input.input-append
           %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[starts_on]' }
           %span.add-on
