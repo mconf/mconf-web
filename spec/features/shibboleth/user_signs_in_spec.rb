@@ -80,7 +80,7 @@ describe 'User signs in via shibboleth' do
         }
 
         it { current_path.should eq(my_home_path) }
-        it { should have_content user._full_name }
+        it { should have_content @attrs[:_full_name] }
         it { should have_content user.email }
         it { has_success_message t('shibboleth.create_association.account_associated', :email => user.email)}
         it { should_not have_content t('my.home.not_confirmed') }

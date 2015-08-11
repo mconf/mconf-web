@@ -1699,6 +1699,9 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
+  sites:
+    edit:
+      shib_warning_html: This field is used as the unique identifier for Shibboleth users. If you modify this your users login may stop working or they may be unable to access their accounts, before changing it read <a href="https://github.com/mconf/mconf-web/wiki/Migrating-Shibboleth-users#migrating-data-with-the-shibmigrate_tokens-rake-task">this page</a> .
   text: Text
   the_string: "the string"
   thread: 

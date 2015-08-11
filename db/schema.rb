@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(version: 20150729141849) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account"
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree

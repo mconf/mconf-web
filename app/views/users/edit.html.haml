@@ -38,7 +38,7 @@
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
-    - if current_site.local_auth_enabled? || @user.admin?
+    - if (current_site.local_auth_enabled? && !ShibToken.user_created_via_shib?(@user)) || @user.admin?
       #change-password
         %h3= t('.change_password')
         - unless current_user.superuser?

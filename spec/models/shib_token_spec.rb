@@ -13,6 +13,9 @@ describe ShibToken do
   it { should validate_presence_of(:identifier) }
   it { should validate_uniqueness_of(:identifier) }
 
+  it { should validate_presence_of(:user_id) }
+  it { should validate_uniqueness_of(:user_id) }
+
   it "serializes 'data'"
 
   describe "#user_with_disabled" do

@@ -41,7 +41,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email && get_name && get_principal_name
+      @session[ENV_KEY] && get_identifier && get_email && get_name && get_principal_name
     end
 
     def get_field field
@@ -51,6 +51,11 @@ module Mconf
         result = result.dup unless result.blank?
       end
       result
+    end
+
+    def get_identifier
+      # This field is unique in the federation and can't be different for the same user so it should be used as identifier
+      get_principal_name
     end
 
     # Returns the email stored in the session, if any.
@@ -99,14 +104,14 @@ module Mconf
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
     def find_token
-      ShibToken.find_by_identifier(get_email())
+      ShibToken.find_by_identifier(get_identifier())
     end
 
     # Searches for a ShibToken using data in the session and returns it. Creates a new
     # ShibToken if no token is found and returns it.
     def find_or_create_token
       token = find_token
-      token = create_token(get_email) if token.nil?
+      token = create_token(get_identifier) if token.nil?
       token
     end
 
@@ -137,6 +142,21 @@ module Mconf
       user
     end
 
+    # Update data in the user model which might change in the federation, for now
+    # the only fields used are 'email' and 'name'
+    def update_user token
+      user = token.user
+
+      # Don't update email if it's an associated account
+      # these need the email to be able to login locally
+      if token.new_account?
+        user.update_attributes(email: get_email)
+        user.confirm!
+      end
+
+      user.profile.update_attributes(full_name: get_name)
+    end
+
     private
 
     # Splits a string `value` into several RegExps. Breaks the string at every
@@ -152,7 +172,7 @@ module Mconf
     end
 
     def create_token(id)
-      ShibToken.create!(:identifier => id)
+      ShibToken.new(identifier: id, new_account: false)
     end
 
     def create_notification(user, token)
