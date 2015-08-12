@@ -37,5 +37,14 @@ describe Site do
       }
       it { site.allow_to_record.should eql(["Docente", "Professor visitante", "teste"]) }
     end
+
+    context "if r is the String \"\", allow_to_record should be an empty array" do
+      let(:site) { FactoryGirl.create(:site) }
+      before {
+        site.allow_to_record = ""
+      }
+      it { site.allow_to_record.should eql([]) }
+    end
+
   end
 end
