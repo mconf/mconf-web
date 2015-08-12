@@ -24,7 +24,7 @@ describe Site do
       before {
         site.update_attribute :allow_to_record, ["teste", "teste", "teste"]
       }
-      it { site.allow_to_record_string.should be_a(String) }
+      it { site.allow_to_record_string.should eql("teste\nteste\nteste") }
     end
   end
 
@@ -33,9 +33,9 @@ describe Site do
     context "if r is a String, allow_to_record should be written as an array" do
       let(:site) { FactoryGirl.create(:site) }
       before {
-        site.allow_to_record = "Docente, Professor visitante, teste"
+        site.allow_to_record = "Docente,\nProfessor visitante,\nteste"
       }
-      it { site.allow_to_record.should be_a(Array) }
+      it { site.allow_to_record.should eql(["Docente", "Professor visitante", "teste"]) }
     end
   end
 end
