@@ -52,4 +52,5 @@
     = f.input :require_registration_approval, :as => :boolean
     = f.input :local_auth_enabled, :as => :boolean
     = f.input :events_enabled, :as => :boolean
+    = f.input :allow_to_record, :as => :text, :input_html => { :rows => 6 , :value =>@site.allow_to_record_string}
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

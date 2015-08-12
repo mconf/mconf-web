@@ -27,4 +27,5 @@ FactoryGirl.define do
     f.ldap_name_field "cn"
     f.ldap_filter ""
   end
+
 end

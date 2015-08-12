@@ -8,6 +8,7 @@
 class Site < ActiveRecord::Base
 
   serialize :visible_locales, Array
+  serialize :allow_to_record, Array
 
   # Returns the current (default) site
   def self.current
@@ -36,6 +37,22 @@ class Site < ActiveRecord::Base
   # Nice formatted email address for the Site
   def email_with_name
     "#{name} <#{email}>"
+  end
+
+  def allow_to_record_string
+    if allow_to_record.blank?
+      ""
+    else
+      allow_to_record.join("\n")
+    end
+  end
+
+  def allow_to_record=r
+    if r.kind_of?(String)
+       write_attribute(:allow_to_record, r.split(/[,;\n\r]+/))
+      else
+        write_attribute(:allow_to_record, r)
+    end
   end
 
 end

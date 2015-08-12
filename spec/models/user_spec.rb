@@ -1094,12 +1094,12 @@ describe User do
           it { user.has_enrollment_allowed_to_record?.should be(false) }
         end
 
-        ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
-         "Tutor de disciplina", "Professor visitante", "Colaborador convidado"].each do |enrollment|
 
+        ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS", "Tutor de disciplina", "Professor visitante", "Colaborador convidado"].each do |enrollment|
           context "as '#{enrollment}'" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
             before {
+              Site.current.update_attribute :allow_to_record, ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS", "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
               data = token.data
               data["ufrgsVinculo"] = "ativo:2:#{enrollment}:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
               token.update_attribute("data", data)
@@ -1141,6 +1141,19 @@ describe User do
         end
       end
     end
+
+    context "allow_to_record is empty meanning nobody can record" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+      before {
+        Site.current.update_attribute :allow_to_record, []
+        data = token.data
+        data["ufrgsVinculo"] = "ativo:12:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+        token.update_attribute("data", data)
+      }
+      it { user.has_enrollment_allowed_to_record?.should be(false) }
+    end
+
   end
 
   # TODO: :index is nested into spaces, how to test it here?
