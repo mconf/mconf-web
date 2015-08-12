@@ -53,8 +53,9 @@ module Mconf
       result
     end
 
+    # The name of the field to be used as the identifier for users signed in via Shibboleth.
+    # By default it currently uses the the EPPN.
     def get_identifier
-      # This field is unique in the federation and can't be different for the same user so it should be used as identifier
       get_principal_name
     end
 
@@ -147,14 +148,12 @@ module Mconf
     def update_user token
       user = token.user
 
-      # Don't update email if it's an associated account
-      # these need the email to be able to login locally
+      # Don't update anything if it's an associated account
       if token.new_account?
         user.update_attributes(email: get_email)
-        user.confirm!
+        user.skip_confirmation!
+        user.profile.update_attributes(full_name: get_name)
       end
-
-      user.profile.update_attributes(full_name: get_name)
     end
 
     private
@@ -172,7 +171,7 @@ module Mconf
     end
 
     def create_token(id)
-      ShibToken.new(identifier: id, new_account: false)
+      ShibToken.new(identifier: id)
     end
 
     def create_notification(user, token)

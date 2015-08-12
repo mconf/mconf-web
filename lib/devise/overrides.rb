@@ -26,7 +26,7 @@ Devise::Strategies::DatabaseAuthenticatable.class_eval do
     return fail(:local_auth_disabled) unless local_auth
 
     # account created via shibboleth are also excluded from local auth
-    return fail(:shib_auth_disabled) if ShibToken.user_created_via_shib?(resource)
+    return fail(:shib_auth_disabled) if resource.created_by_shib?
 
     super_authenticate!
   end

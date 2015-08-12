@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729141849) do
+ActiveRecord::Schema.define(version: 20150812180001) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -331,7 +331,7 @@ ActiveRecord::Schema.define(version: 20150729141849) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "new_account"
+    t.boolean  "new_account", default: false
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree

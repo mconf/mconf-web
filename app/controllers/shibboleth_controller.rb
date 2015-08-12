@@ -152,7 +152,7 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user(token)
-      token.new_account = true # new_account? denotes that shibboleth created a new user account
+      token.new_account = true # account created by shibboleth, not by the user
       user = token.user
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"

@@ -407,7 +407,7 @@ describe ShibbolethController do
   def setup_shib(name, email, principal_name=nil)
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
-    request.env["Shib-eduPerson-eduPersonPrincipalName"] = principal_name || name
+    request.env["Shib-eduPerson-eduPersonPrincipalName"] = principal_name || email
     Site.current.update_attributes(:shib_enabled => true)
   end
 

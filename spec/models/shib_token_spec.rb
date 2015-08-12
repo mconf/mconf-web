@@ -36,6 +36,37 @@ describe ShibToken do
     end
   end
 
+  describe "#user_created_by_shib?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when another user has a token created by shib" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+        FactoryGirl.create(:shib_token, user: another_user, new_account: true)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when the user has an account created by shib" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: true)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(true) }
+    end
+  end
+
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

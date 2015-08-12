@@ -15,11 +15,10 @@
     = f.input :webconf_auto_record, :as => :boolean
     = f.input :analytics_code
     = f.input :shib_enabled, :as => :boolean
-    = f.input :shib_email_field
+    = f.input :shib_email_field, :as => :string
     = f.input :shib_name_field
     = f.input :shib_principal_name_field
-    #shib-warning
-      = t('.shib_warning_html')
+    #shib-principal-name-warning.alert.alert-danger= t('.shib_warning_html')
     = f.input :shib_login_field
     = f.input :shib_env_variables
     = f.input :shib_always_new_account, :as => :boolean

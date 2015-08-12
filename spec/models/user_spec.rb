@@ -880,6 +880,37 @@ describe User do
     end
   end
 
+  describe "#created_by_shib?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when another user has a token created by shib" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+        FactoryGirl.create(:shib_token, user: another_user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has an account created by shib" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(true) }
+    end
+  end
+
   describe "#disable" do
     let(:user) { FactoryGirl.create(:user) }
 

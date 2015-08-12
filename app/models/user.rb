@@ -304,6 +304,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def created_by_shib?
+    ShibToken.user_created_by_shib?(self)
+  end
+
   protected
 
   def before_disable_and_destroy
