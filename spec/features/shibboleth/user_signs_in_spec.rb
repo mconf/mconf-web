@@ -207,13 +207,94 @@ describe 'User signs in via shibboleth' do
     }
 
     context "that has a valid account" do
-      before {
-        visit shibboleth_path
-      }
 
-      it { current_path.should eq(my_home_path) }
-      it { should have_content user.full_name }
-      it { should have_content user.email }
+      context "signs in successfully" do
+        before {
+          visit shibboleth_path
+        }
+
+        it { current_path.should eq(my_home_path) }
+        it { should have_content user.full_name }
+        it { should have_content user.email }
+      end
+
+      context "if the site is set to update user information" do
+        before { Site.current.update_attributes(shib_update_users: true) }
+
+        context "and the user account was created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+
+          before { token.update_attributes(new_account: true) }
+
+          before {
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+
+            # setup new information
+            setup_shib(new_name, new_email, user.email)
+
+            visit shibboleth_path
+          }
+
+          it { current_path.should eq(my_home_path) }
+          it { should have_content new_name }
+          it { should have_content new_email }
+          it { should_not have_content @old_email }
+          it { should_not have_content @old_name }
+        end
+
+        context "and the user account was not created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+
+          before { token.update_attributes(new_account: false) }
+
+          before {
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+
+            # setup new information
+            setup_shib(new_name, new_email, user.email)
+
+            visit shibboleth_path
+          }
+
+          it { current_path.should eq(my_home_path) }
+          it { should_not have_content new_name }
+          it { should_not have_content new_email }
+          it { should have_content @old_email }
+          it { should have_content @old_name }
+        end
+      end
+
+      context "if the site is not set to update user information" do
+        before { Site.current.update_attributes(shib_update_users: false) }
+
+        context "and the user account was created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+
+          before { token.update_attributes(new_account: true) }
+
+          before {
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+
+            # setup new information
+            setup_shib(new_name, new_email, user.email)
+
+            visit shibboleth_path
+          }
+
+          it { current_path.should eq(my_home_path) }
+          it { should_not have_content new_name }
+          it { should_not have_content new_email }
+          it { should have_content @old_email }
+          it { should have_content @old_name }
+        end
+      end
+
     end
 
     context "that has a disabled account" do
