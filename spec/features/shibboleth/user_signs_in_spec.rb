@@ -35,7 +35,9 @@ describe 'User signs in via shibboleth' do
       it { puts subject.inspect }
       it { subject.should_not be_nil }
       it { subject.trackable.should eq User.last }
-      it { subject.owner.should eq ShibToken.last }
+
+      # See #1737
+      skip { subject.owner.should eq ShibToken.last }
     end
   end
 
@@ -80,7 +82,7 @@ describe 'User signs in via shibboleth' do
         }
 
         it { current_path.should eq(my_home_path) }
-        it { should have_content @attrs[:_full_name] }
+        it { should have_content user.full_name }
         it { should have_content user.email }
         it { has_success_message t('shibboleth.create_association.account_associated', :email => user.email)}
         it { should_not have_content t('my.home.not_confirmed') }

@@ -157,35 +157,108 @@ describe ShibbolethController do
         end
       end
 
-      context "updates the user data if has changed in the federation" do
-        let(:new_name) { 'New Name' }
-        let(:new_email) { 'new-personal@email.com' }
-        let(:attrs) { FactoryGirl.attributes_for(:user) }
-        before(:each) {
-          setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-          save_shib_to_session
+      context "if the site is set to update user information" do
+        before { Site.current.update_attributes(shib_update_users: true) }
 
-          # new shib user with federation data
-          expect {
-            post :create_association, :new_account => true
-          }.to change{ ShibToken.count }.by(1)
+        context "updates the user data if the account was created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          before(:each) {
+            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            save_shib_to_session
 
-          sign_out ShibToken.last.user
+            # new shib user with federation data
+            expect {
+              post :create_association, :new_account => true
+            }.to change{ ShibToken.count }.by(1)
 
-          @old_name = ShibToken.last.user.name
-          @old_email = ShibToken.last.user.email
-          @old_permalink = ShibToken.last.user.permalink
+            sign_out ShibToken.last.user
 
-          # login with different federation data
-          setup_shib(new_name, new_email, attrs[:email])
-          get :login
-        }
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+            @old_permalink = ShibToken.last.user.permalink
 
-        it { ShibToken.last.user.name.should eq(new_name) }
-        it { ShibToken.last.user.email.should eq(new_email) }
-        it { @old_email.should_not eq(new_email) }
-        it { @old_name.should_not eq(new_name) }
-        it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+            # login with different federation data
+            setup_shib(new_name, new_email, attrs[:email])
+            get :login
+          }
+
+          it { ShibToken.last.user.name.should eq(new_name) }
+          it { ShibToken.last.user.email.should eq(new_email) }
+          it { ShibToken.last.user.confirmed?.should be(true) }
+          it { @old_email.should_not eq(new_email) }
+          it { @old_name.should_not eq(new_name) }
+          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+        end
+
+        context "doesn't update the user data if the account was not created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          before(:each) {
+            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            save_shib_to_session
+
+            # new shib user with federation data
+            expect {
+              post :create_association, :new_account => true
+            }.to change{ ShibToken.count }.by(1)
+
+            sign_out ShibToken.last.user
+
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+            @old_permalink = ShibToken.last.user.permalink
+
+            ShibToken.last.update_attributes(new_account: false)
+
+            # login with different federation data
+            setup_shib(new_name, new_email, attrs[:email])
+            get :login
+          }
+
+          it { ShibToken.last.user.name.should_not eq(new_name) }
+          it { ShibToken.last.user.email.should_not eq(new_email) }
+          it { ShibToken.last.user.name.should eq(@old_name) }
+          it { ShibToken.last.user.email.should eq(@old_email) }
+          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+        end
+      end
+
+      context "if the site is not set to update user information" do
+        before { Site.current.update_attributes(shib_update_users: false) }
+
+        context "doesn't update the user data even if the account was created by shib" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          before(:each) {
+            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            save_shib_to_session
+
+            # new shib user with federation data
+            expect {
+              post :create_association, :new_account => true
+            }.to change{ ShibToken.count }.by(1)
+
+            sign_out ShibToken.last.user
+
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+            @old_permalink = ShibToken.last.user.permalink
+
+            # login with different federation data
+            setup_shib(new_name, new_email, attrs[:email])
+            get :login
+          }
+
+          it { ShibToken.last.user.name.should_not eq(new_name) }
+          it { ShibToken.last.user.email.should_not eq(new_email) }
+          it { ShibToken.last.user.name.should eq(@old_name) }
+          it { ShibToken.last.user.email.should eq(@old_email) }
+          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+        end
       end
 
       context "renders the association page if the user doesn't have a token yet" do
