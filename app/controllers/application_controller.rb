@@ -266,9 +266,12 @@ class ApplicationController < ActionController::Base
                       "/secure", "/secure/info", "/secure/associate",
                       "/pending" ]
 
+    # Some xhr request need to be stored
+    xhr_paths = ["/manage/users", "/manage/spaces"]
+
     # This will filter xhr requests that are not for html pages. Requests for html pages
     # via ajax can change the url and we might want to store them.
-    valid_format = request.format == "text/html" || request.content_type == "text/html"
+    valid_format = (request.format == "text/html" || request.content_type == "text/html") && ( !request.xhr? || xhr_paths.include?(path) )
 
     !ignored_paths.include?(path) && valid_format
   end
