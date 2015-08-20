@@ -539,6 +539,7 @@ GEM
     yui-compressor (0.12.0)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
+    zonebie (0.5.1)
 
 PLATFORMS
   ruby
@@ -633,3 +634,4 @@ DEPENDENCIES
   yajl-ruby
   yui-compressor
   zip-zip
+  zonebie
