@@ -1225,6 +1225,7 @@ en:
   profiles:
     edit:
       change_pic: "Change picture"
+      explain_gravatar: "You have no picture uploaded so it will be fetched from gravatar.com"
       title: "Edit profile"
       view_your_profile: "View profile"
       vcard:

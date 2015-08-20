@@ -96,6 +96,9 @@ gem 'active_sanity'
 gem "lograge"
 gem "logstash-event"
 
+# For gravatar user images
+gem 'gravatar_image_tag'
+
 #
 # TODO: Gems to review if we can remove/update
 #

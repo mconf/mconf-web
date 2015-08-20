@@ -198,6 +198,7 @@ pt-br:
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
+        gravatar: Usar gravatar
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
@@ -1226,6 +1227,7 @@ pt-br:
   profiles:
     edit:
       change_pic: "Mudar foto"
+      explain_gravatar: "Como nenhuma foto foi carregada a do gravatar.com será usada"
       title: "Editar perfil"
       view_your_profile: "Visualizar perfil"
       vcard:

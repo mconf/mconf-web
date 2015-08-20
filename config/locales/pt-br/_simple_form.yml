@@ -58,6 +58,7 @@ pt-br:
         smtp_login: "O e-mail de login no servidor SMTP."
         smtp_password: "A senha para sua conta de e-mail no servidor SMTP."
         ssl: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
+        gravatar: Buscar avatar de usuários do Gravatar se nenhum foi carregado no portal.
         xmpp_server: "Endereço onde está localizado o servidor XMPP."
         webconf_auto_record: "Se marcado, a seleção da opção para gravar a conferência será feita automaticamente, conforme as permissões do usuário na sala de webconferência que está sendo utilizada (opção desejada quando o servidor de webconferência possui o botão de gravação dentro da sessão). Caso contrário, o usuário poderá escolher ele mesmo se a conferência será gravada ou não antes de iniciá-la (mas apenas se possuir permissões para isso)."
       space:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813144638) do
+ActiveRecord::Schema.define(version: 20150820212558) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -390,6 +390,7 @@ ActiveRecord::Schema.define(version: 20150813144638) do
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
     t.boolean  "shib_update_users",              default: false
+    t.boolean  "gravatar",                       default: false
   end
 
   create_table "spaces", force: true do |t|
