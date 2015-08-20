@@ -155,6 +155,12 @@ module Mconf
       end
     end
 
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
+    end
+
     private
 
     # Splits a string `value` into several RegExps. Breaks the string at every
@@ -172,5 +178,6 @@ module Mconf
     def create_token(id)
       ShibToken.new(identifier: id)
     end
+
   end
 end
