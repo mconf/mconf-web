@@ -47,6 +47,10 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # Update user data with the latest version from the federation
+          @shib.update_user(token) if current_site.shib_update_users?
+
           if token.user.active_for_authentication?
             sign_in token.user
             flash.keep # keep the message set before by #create_association
@@ -149,6 +153,7 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user(token)
+      token.new_account = true # account created by shibboleth, not by the user
       user = token.user
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"
@@ -248,9 +253,9 @@ class ShibbolethController < ApplicationController
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
       request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
-      request.env["Shib-inetOrgPerson-mail"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
       request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
       request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
       request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone

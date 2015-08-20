@@ -466,7 +466,7 @@ es-419:
       at: "en"
       duration: "Duración"
       meeting_in: "Invitar personas a una reunión en:"
-      timezone: "Está utilizando la zona horaria %{timezone}"
+      timezone: "Está utilizando la zona horaria \"%{timezone}\""
       title: "Invitar personas a una reunión"
       users:
         hint: "Escriba para iniciar la búsqueda"

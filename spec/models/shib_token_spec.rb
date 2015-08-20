@@ -13,6 +13,9 @@ describe ShibToken do
   it { should validate_presence_of(:identifier) }
   it { should validate_uniqueness_of(:identifier) }
 
+  it { should validate_presence_of(:user_id) }
+  it { should validate_uniqueness_of(:user_id) }
+
   it "serializes 'data'"
 
   describe "#user_with_disabled" do
@@ -30,6 +33,37 @@ describe ShibToken do
       it { target.user_with_disabled.should eql(user) }
       it { target.reload.user.should eql(nil) }
       it { target.user.disabled?.should be true }
+    end
+  end
+
+  describe "#user_created_by_shib?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when another user has a token created by shib" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+        FactoryGirl.create(:shib_token, user: another_user, new_account: true)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(false) }
+    end
+
+    context "when the user has an account created by shib" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: true)
+      }
+      it { ShibToken.user_created_by_shib?(user).should be(true) }
     end
   end
 

@@ -14,6 +14,10 @@ module Abilities
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, disabled: false
       can [:edit, :update, :disable], User, id: user.id, disabled: false
+      can [:update_password], User do |target_user|
+        user == target_user && !target_user.disabled? &&
+          (Site.current.local_auth_enabled? && !target_user.created_by_shib?)
+      end
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
@@ -34,6 +38,12 @@ module Abilities
         end
       end
       can [:read, :edit, :update, :update_logo], Profile, user_id: user.id
+      # Some info is blocked if the user created by shib and auto update is enabled
+      # in the site
+      can [:update_full_name], Profile do |profile|
+        profile.user == user && !profile.user.disabled? &&
+          (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
+      end
 
       # Private messages
       can :create, PrivateMessage

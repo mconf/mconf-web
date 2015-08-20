@@ -9,7 +9,7 @@
 
   .invitation-header {
     background: $light-gray;
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 15px;
     text-align: center;
     @include border-radius(4px);
@@ -76,13 +76,17 @@
   }
 
   #invite_timezone {
-    display: inline-block;
-    color: $dark-gray;
-    padding: 2px;
+    display: block;
+    color: lighten($dark-gray, 10);
+    margin-bottom: 5px;
     text-align: center;
-  }
+    background: $light-gray;
+    padding: 5px;
+    @include border-radius(4px);
 
-  #invite_starts_on_label {
-    display: inline-block;
+    .icon-mconf-info {
+      float: none;
+      margin: 0 1px 0 0;
+    }
   }
 }
