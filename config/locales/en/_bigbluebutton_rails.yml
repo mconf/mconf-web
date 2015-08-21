@@ -31,6 +31,7 @@ en:
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
         auto_start_recording: "Auto start recording"
+        background: "Background image"
         default_layout: "Default Layout"
         dial_number: "Dial Number"
         duration: Duration

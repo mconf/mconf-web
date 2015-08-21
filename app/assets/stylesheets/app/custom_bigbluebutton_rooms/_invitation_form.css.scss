@@ -76,10 +76,18 @@
   }
 
   #invite_timezone {
-    display: inline-block;
-    color: $m-dark-gray;
+    display: block;
+    color: lighten($m-dark-gray, 10);
     padding: 2px;
     text-align: center;
+    background: $m-light-gray;
+    padding: 5px;
+    @include border-radius(4px);
+
+    .icon-mconf-info {
+      float: none;
+      margin: 0 1px 0 0;
+    }
   }
 
   #invite_starts_on_label {

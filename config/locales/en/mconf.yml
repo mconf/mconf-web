@@ -463,6 +463,7 @@ en:
     edit:
       editing_room: "Editing room '%{room}'"
     form:
+      layout_empty_option: "<default>"
       metadata:
         add: "Add metadata"
         set_to_remove: "Set to remove"
@@ -473,7 +474,9 @@ en:
       at: "at"
       duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the time zone %{timezone}"
+      offset: "Your current time offset is \"%{offset}\""
+      offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "The dates below are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
@@ -510,8 +513,8 @@ en:
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      download_android_tip: "For devices with Android"
+      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
       not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""

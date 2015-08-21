@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707182132) do
+ActiveRecord::Schema.define(version: 20150729141849) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150707182132) do
     t.boolean  "presenter_share_only"
     t.boolean  "auto_start_video"
     t.boolean  "auto_start_audio"
+    t.string   "background"
   end
 
   add_index "bigbluebutton_room_options", ["room_id"], name: "index_bigbluebutton_room_options_on_room_id", using: :btree

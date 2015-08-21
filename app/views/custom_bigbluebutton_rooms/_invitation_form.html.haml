@@ -13,13 +13,18 @@
 
       = f.input :users, :as => :string, :label => t('activerecord.attributes.invite.users')
 
+      #invite_timezone
+        - if Time.zone.now.dst?
+          = icon_info(t(".offset_daylight_savings", offset: user_timezone_offset))
+        - else
+          = icon_info(t(".offset", offset: user_timezone_offset))
+        = t(".timezone", :timezone => user_timezone)
+
       -# TODO: it would be good to have a custom simple_form input for dates (see #1262)
       .invitation-dates
         %label#invite_starts_on_label
           = form_required_label
           = t('activerecord.attributes.invite.starts_on')
-        #invite_timezone
-          = "(#{t(".timezone", :timezone => user_timezone)})"
         #invite_starts_on.input.input-append
           %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[starts_on]' }
           %span.add-on
@@ -27,6 +32,7 @@
         %span= t(".at")
         #invite_starts_on_time
           = f.input :starts_on_time, :label => false, :as => :time, :minute_step => 5, :prompt => { :hour => "", :minute => "" }
+
       .invitation-dates
         %label
           = form_required_label

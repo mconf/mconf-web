@@ -28,6 +28,8 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
+  it { should validate_uniqueness_of(:email) }
+
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
   #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
@@ -102,7 +104,11 @@ describe User do
       let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
       let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
       subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
-      it { subject.count.should eq(1) }
+      it { subject.should include(user3) }
+      it { subject.should_not include(user1) }
+      it { subject.should_not include(user2) }
+      it { subject.should_not include(user4) }
+      it { subject.should_not include(user5) }
     end
   end
 
