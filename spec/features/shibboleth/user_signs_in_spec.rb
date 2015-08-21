@@ -234,7 +234,7 @@ describe 'User signs in via shibboleth' do
             @old_email = ShibToken.last.user.email
 
             # setup new information
-            setup_shib(new_name, new_email, user.email)
+            setup_shib(new_name, new_email, user.email, ufrgsVinculo)
 
             visit shibboleth_path
           }
@@ -257,7 +257,7 @@ describe 'User signs in via shibboleth' do
             @old_email = ShibToken.last.user.email
 
             # setup new information
-            setup_shib(new_name, new_email, user.email)
+            setup_shib(new_name, new_email, user.email, ufrgsVinculo)
 
             visit shibboleth_path
           }
@@ -284,7 +284,7 @@ describe 'User signs in via shibboleth' do
             @old_email = ShibToken.last.user.email
 
             # setup new information
-            setup_shib(new_name, new_email, user.email)
+            setup_shib(new_name, new_email, user.email, ufrgsVinculo)
 
             visit shibboleth_path
           }

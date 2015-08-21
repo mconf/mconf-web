@@ -287,8 +287,8 @@ describe ShibbolethController do
       context "if the flag shib_always_new_account is set" do
         let(:attrs) { FactoryGirl.attributes_for(:user) }
         before {
-          Site.current.update_attributes(:shib_always_new_account => true)
           setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+          Site.current.update_attributes(:shib_always_new_account => true)
         }
 
         context "skips the association page" do
