@@ -1,0 +1,55 @@
+= simple_form_for @site, :url => site_path, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+  .left-column
+    = f.input :name
+    = f.input :description, :as => :text, :input_html => { :rows => 5 }
+    = f.input :domain
+    = f.input :locale, :collection => available_locales(true)
+    = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes
+    = f.input :timezone, :as => :time_zone
+    = f.input :signature, :as => :text, :input_html => { :rows => 5 }
+    = f.input :ssl, :as => :boolean
+    = f.input :room_dial_number_pattern, as: :string
+    = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
+    = f.input :webconf_auto_record, :as => :boolean
+    = f.input :analytics_code
+    = f.input :shib_enabled, :as => :boolean
+    = f.input :shib_email_field, :as => :string
+    = f.input :shib_name_field
+    = f.input :shib_principal_name_field
+    #shib-principal-name-warning.alert.alert-danger= t('.shib_warning_html')
+    = f.input :shib_login_field
+    = f.input :shib_env_variables
+    = f.input :shib_always_new_account, :as => :boolean
+    = f.input :shib_update_users, :as => :boolean
+    = f.input :ldap_enabled, :as => :boolean
+    = f.input :ldap_host
+    = f.input :ldap_port
+    = f.input :ldap_user
+    = f.input :ldap_user_password, :as => :showable_password
+    = f.input :ldap_user_treebase
+    = f.input :ldap_username_field
+    = f.input :ldap_email_field
+    = f.input :ldap_name_field
+    = f.input :ldap_filter
+  .right-column
+    = f.input :smtp_login
+    = f.input :smtp_password, :as => :showable_password
+    = f.input :smtp_sender
+    = f.input :smtp_domain
+    = f.input :smtp_server
+    = f.input :smtp_port
+    = f.input :smtp_use_tls
+    = f.input :smtp_auto_tls
+    = f.input :smtp_auth_type
+    = f.input :exception_notifications, :as => :boolean
+    = f.input :exception_notifications_email
+    = f.input :exception_notifications_prefix
+    = f.input :chat_enabled, :as => :boolean
+    = f.input :presence_domain
+    = f.input :xmpp_server
+    = f.input :external_help
+    = f.input :registration_enabled, :as => :boolean
+    = f.input :require_registration_approval, :as => :boolean
+    = f.input :local_auth_enabled, :as => :boolean
+    = f.input :events_enabled, :as => :boolean
+  = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

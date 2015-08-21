@@ -170,7 +170,7 @@ Mconf::Application.routes.draw do
   end
 
   # The unique Site is created in db/seeds and can only be edited
-  resource :site, only: [:show, :edit, :update]
+  resource :site, only: [:edit, :update]
 
   # Management routes
   ['users', 'spaces', 'spam'].each do |resource|
