@@ -181,8 +181,8 @@ describe UserNotificationsWorker do
         it { activity.trackable.should eql(@user) }
         it { activity.notified.should be(false) }
 
-        # see #1737
-        skip { activity.owner.should eql(token) }
+        # Now working, see #1737
+        it { activity.owner.should eql(token) }
       end
 
       context "#perform sends the right mails and updates the activity" do
@@ -208,7 +208,7 @@ describe UserNotificationsWorker do
           @user = shibboleth.create_user(token)
           token.user = @user
           token.save!
-          shibboleth.create_notification(token.user, token)
+          shibboleth.create_notification(token.user, token) # TODO: Let's refactor in the future. see #1128
         }.to change{ User.count }.by(1)
       }
 
