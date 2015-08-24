@@ -264,13 +264,13 @@ class ApplicationController < ActionController::Base
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
                       "/secure", "/secure/info", "/secure/associate",
-                      "/pending" ]
+                      "/pending", "^/bigbluebutton/rooms/.*/join$", "^/bigbluebutton/rooms/.*/end$"]
 
     # This will filter xhr requests that are not for html pages. Requests for html pages
     # via ajax can change the url and we might want to store them.
     valid_format = request.format == "text/html" || request.content_type == "text/html"
 
-    !ignored_paths.include?(path) && valid_format
+    ignored_paths.select{ |ignored| path.match(ignored) }.empty? && valid_format
   end
 
   # Store last url for post-login redirect to whatever the user last visited.
