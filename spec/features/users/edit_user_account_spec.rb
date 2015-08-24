@@ -74,7 +74,6 @@ feature 'Editing a user account' do
     sign_in_with user.username, user.password
 
     visit edit_user_path(user)
-    show_page
 
     expect(page).to have_field("user_email", disabled: true, with: user.email)
     expect(page).to have_field("user_username", disabled: true, with: user.username)
