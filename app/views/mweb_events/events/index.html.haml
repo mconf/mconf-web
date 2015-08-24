@@ -70,6 +70,10 @@
 
 #events.content-block
   .content-block-middle.clearfix
+    = icon_date
+    = t('mweb_events.events.summary.your_time_info', time_zone: Time.zone.name)
+
+  .content-block-middle.clearfix
     = render "mweb_events/events/list_view", :events => @events
 
 - nav = page_navigation_links @events

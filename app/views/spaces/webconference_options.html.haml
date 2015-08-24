@@ -19,7 +19,7 @@
         - welcome_msg = t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%")
       = bbb_room.input :welcome_msg, :as => :text, :placeholder => welcome_msg
       = bbb_room.input :default_layout do
-        = bbb_room.select :default_layout, @space.bigbluebutton_room.available_layouts, :include_blank => t('.layout_empty_option')
+        = bbb_room.select :default_layout, @space.bigbluebutton_room.available_layouts_for_select, :include_blank => t('.layout_empty_option')
       = bbb_room.input :presenter_share_only, :as => :boolean
       = bbb_room.input :auto_start_video, :as => :boolean
       = bbb_room.input :auto_start_audio, :as => :boolean

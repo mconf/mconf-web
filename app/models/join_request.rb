@@ -8,8 +8,9 @@ class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
   TYPES = {
-    invite: "invite",
-    request: "request"
+    invite: "invite",      # someone inviting someone else to join something
+    request: "request",    # someone requesting to join something
+    no_accept: "no_accept" # someone adding someone to something without asking
   }
 
   TYPES.each_pair do |type, value|

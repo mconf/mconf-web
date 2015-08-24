@@ -36,6 +36,19 @@ class SpaceMailer < BaseMailer
     end
   end
 
+  def user_added_email(jr_id)
+    jr = JoinRequest.find(jr_id)
+    @introducer = jr.introducer
+    @space = jr.group
+
+    locale = get_user_locale(jr.candidate, false)
+    I18n.with_locale(locale) do
+      subject = t("space_mailer.user_added_email.subject",
+                  space: @space.name, username: @introducer.full_name).html_safe
+      create_email(jr.email, @introducer.email, subject)
+    end
+  end
+
   def join_request_email(jr_id, receiver_id)
     @join_request = JoinRequest.find(jr_id)
     receiver = User.find(receiver_id)

@@ -13,6 +13,7 @@ class JoinRequestsWorker < BaseWorker
     request_notifications
     invite_notifications
     processed_request_notifications
+    user_added_notifications
   end
 
   # Goes through all activities for join requests created by admins inviting users to join a space
@@ -49,4 +50,11 @@ class JoinRequestsWorker < BaseWorker
     end
   end
 
+  def self.user_added_notifications
+    joins = RecentActivity.where trackable_type: 'JoinRequest', key: ['join_request.no_accept'], notified: [nil, false]
+
+    joins.each do |activity|
+      Resque.enqueue(JoinRequestUserAddedSenderWorker, activity.id)
+    end
+  end
 end

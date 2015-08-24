@@ -177,11 +177,21 @@ class Space < ActiveRecord::Base
   # * +user+: user to be added as member
   # * +role_name+: A string denoting the role the user should receive after being added
   def add_member!(user, role_name='User')
-    p = Permission.new :user => user,
-      :subject => self,
-      :role => Role.find_by(name: role_name, stage_type: 'Space')
-
+    p = Permission.new(user: user,
+      subject: self,
+      role: Role.find_by(name: role_name, stage_type: 'Space')
+    )
     p.save!
+  end
+
+  # Removes a `user` from this space.
+  # If the user is a member, returns whether the user was removed or not.
+  # Otherwise returns always true.
+  #
+  # * +user+: user to be removed
+  def remove_member!(user)
+    p = Permission.where(user: user, subject: self)
+    p.empty? ? true : p.destroy_all.any?
   end
 
   # Creates a new activity related to this space

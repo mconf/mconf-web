@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629175319) do
+ActiveRecord::Schema.define(version: 20150813144638) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150629175319) do
     t.boolean  "presenter_share_only"
     t.boolean  "auto_start_video"
     t.boolean  "auto_start_audio"
+    t.string   "background"
   end
 
   add_index "bigbluebutton_room_options", ["room_id"], name: "index_bigbluebutton_room_options_on_room_id", using: :btree
@@ -129,16 +130,19 @@ ActiveRecord::Schema.define(version: 20150629175319) do
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",                                         default: false
+    t.boolean  "private",                                             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "external",                                        default: false
+    t.boolean  "external",                                            default: false
     t.string   "param"
-    t.boolean  "record_meeting",                                  default: false
-    t.integer  "duration",                                        default: 0
+    t.boolean  "record_meeting",                                      default: false
+    t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
     t.string   "attendee_api_password"
-    t.decimal  "create_time",            precision: 14, scale: 0
+    t.decimal  "create_time",                precision: 14, scale: 0
+    t.string   "moderator_only_message"
+    t.boolean  "auto_start_recording",                                default: false
+    t.boolean  "allow_start_stop_recording",                          default: true
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
@@ -327,6 +331,7 @@ ActiveRecord::Schema.define(version: 20150629175319) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
@@ -384,6 +389,7 @@ ActiveRecord::Schema.define(version: 20150629175319) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.boolean  "shib_update_users",              default: false
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
   end

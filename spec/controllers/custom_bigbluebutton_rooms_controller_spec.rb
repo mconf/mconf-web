@@ -39,6 +39,22 @@ describe CustomBigbluebuttonRoomsController do
     it "loads and authorizes the room into @room"
   end
 
+  describe "#invitation" do
+     # see bug #1719
+    context "doesnt store location for redirect from xhr" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        sign_in user
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :invitation, id: user.bigbluebutton_room.to_param
+      }
+      it { controller.session[:user_return_to].should eq( "/home") }
+      it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+    end
+  end
+
   describe "#invite" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
@@ -88,8 +104,12 @@ describe CustomBigbluebuttonRoomsController do
     let(:error) { I18n.t('custom_bigbluebutton_rooms.send_invitation.error') + ' ' + users.map(&:name).join(', ') }
 
     let!(:hash) { { :users => users.map(&:id).join(','),
-       :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
-       :ends_on => ends_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
+       :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
+         :"starts_on_time(4i)" => starts_on.try(:hour),
+         :"starts_on_time(5i)" => starts_on.try(:min),
+       :ends_on => ends_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
+         :"ends_on_time(4i)" => ends_on.try(:hour),
+         :"ends_on_time(5i)" => ends_on.try(:min),
        :title => title,
        :message => message} }
     before {
@@ -108,6 +128,54 @@ describe CustomBigbluebuttonRoomsController do
       end
       it { should redirect_to(referer) }
       it { should set_the_flash.to success }
+    end
+
+    context "with daylight saving time timezones" do
+      before {
+        allow(Mconf::Timezone).to receive(:user_time_zone).and_return(timezone)
+
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(1)
+      }
+
+      context "Eastern Time without daylight savings time" do
+        let(:timezone) { ActiveSupport::TimeZone['Eastern Time (US & Canada)'] }
+        let(:starts_on) { DateTime.strptime("11/02/2015 23:50", "%m/%d/%Y %H:%M") }
+        let(:inv) { Invitation.last }
+
+        it { inv.starts_on.utc.hour.should eq(4) }
+        it { inv.starts_on.utc.day.should eq(3) }
+      end
+
+      context "Eastern Time with daylight savings time" do
+        let(:timezone) { ActiveSupport::TimeZone['Eastern Time (US & Canada)'] }
+        let(:starts_on) { DateTime.strptime("10/31/2015 23:50", "%m/%d/%Y %H:%M") }
+        let(:inv) { Invitation.last }
+
+        it { inv.starts_on.utc.hour.should eq(3) }
+        it { inv.starts_on.utc.day.should eq(1) }
+        it { inv.starts_on.utc.month.should eq(11) }
+      end
+
+      context "Brasilia with daylight savings time" do
+        let(:timezone) { ActiveSupport::TimeZone['Brasilia'] }
+        let(:starts_on) { DateTime.strptime("10/18/2015 23:50", "%m/%d/%Y %H:%M") }
+        let(:inv) { Invitation.last }
+
+        it { inv.starts_on.utc.hour.should eq(1) }
+        it { inv.starts_on.utc.day.should eq(19) }
+      end
+
+      context "Brasilia without daylight savings time" do
+        let(:timezone) { ActiveSupport::TimeZone['Brasilia'] }
+        let(:starts_on) { DateTime.strptime("10/17/2015 23:50", "%m/%d/%Y %H:%M") }
+        let(:inv) { Invitation.last }
+
+        it { inv.starts_on.utc.hour.should eq(2) }
+        it { inv.starts_on.utc.day.should eq(18) }
+      end
+
     end
 
     context "with more than one user invited" do
@@ -310,7 +378,9 @@ describe CustomBigbluebuttonRoomsController do
           [ :name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
             :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
-            :auto_start_video, :auto_start_audio, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+            :auto_start_video, :auto_start_audio, :background,
+            :moderator_only_message, :auto_start_recording, :allow_start_stop_recording,
+            :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
           BigbluebuttonRoom.stub(:find_by_param).and_return(room)
@@ -424,6 +494,41 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#join" do
+
+    # see bug1721
+    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/join " do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.stub(:find_by!) { room }
+
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+      }
+
+      context "when a meeting is running" do
+        before{
+          room.stub(:is_running?) { true }
+          room.should_receive(:fetch_is_running?).at_least(:once) { true }
+          room.should_receive(:fetch_meeting_info)
+          get :join, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+      context "when no meeting is running" do
+        before {
+          room.stub(:is_running?) { false }
+          room.should_receive(:fetch_is_running?).at_least(:once) { false }
+          room.should_not_receive(:fetch_meeting_info)
+          get :join, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+    end
 
     for method in [:get, :post]
       context "via #{method}" do
@@ -720,6 +825,41 @@ describe CustomBigbluebuttonRoomsController do
     before {
       request.env["HTTP_REFERER"] = "/any"
     }
+
+    # see bug1721
+    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/end " do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.stub(:find_by!) { room }
+
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+      }
+
+      context "when a meeting is running" do
+        before{
+          room.stub(:is_running?) { true }
+          room.should_receive(:fetch_is_running?).at_least(:once) { true }
+          room.should_receive(:fetch_meeting_info)
+          get :end, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+      context "when no meeting is running" do
+        before {
+          room.stub(:is_running?) { false }
+          room.should_receive(:fetch_is_running?).at_least(:once) { false }
+          room.should_not_receive(:fetch_meeting_info)
+          get :end, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+    end
 
     context "fetches information about the room when calling #end" do
       let(:user) { FactoryGirl.create(:user) }

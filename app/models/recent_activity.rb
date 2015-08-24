@@ -164,6 +164,6 @@ class RecentActivity < PublicActivity::Activity
   # * +user+ - the user which activities will be returned
   def self.user_public_activity user
     # Filter activities done by user_id
-    activities = user_activity(user, ["space.decline"]).where(recipient_id: user.id)
+    user_activity(user, ["space.decline"]).where(recipient_id: user.id)
   end
 end

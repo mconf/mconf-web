@@ -43,19 +43,19 @@ en:
     invitation_email:
       message:
         header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to join the space <b>%{space}</b>."
-        link: "You accept or decline this invitation clicking by clicking the link: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>You can find more information about this space in the page: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        link: "You can accept or decline this invitation by clicking the link: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>You can find more information about this space in the page: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "This is the message written by %{sender}:"
       subject: "%{username} invited you to join the space %{space}"
     join_request_email:
       message:
         header: "<b>%{candidate}</b> wants to join the space <b>%{space}</b>, that is administered by you."
-        link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
+        link: "To answer to this request please visit <a href=\"%{url}\">%{url}</a>"
         user_message: "This is the message written by %{candidate}:"
       subject: "%{candidate} wants to join the space %{space}"
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "<b>%{name}</b> has %{action} the invitation to the space <b>%{space}</b>."
+        header: "<b>%{name}</b> has %{action} the invitation to join the space <b>%{space}</b>."
         link: "You can see the current list of users of this space at: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"
@@ -68,6 +68,11 @@ en:
           rejected: "If you would like to request membership again you can do so at: <br/><a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "not accepted"
       subject: "Your admission in %{space} was %{action}"
+    user_added_email:
+      message:
+        header: "You have been added by <b>%{sender}</b> (%{email_sender}) to the space <b>%{space}</b>."
+        link: "You can view the space you've been added to by clicking the link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} added you to the space %{space}"
   web_conference_mailer:
      invitation_email:
       event_name: "Meeting with %{name}"

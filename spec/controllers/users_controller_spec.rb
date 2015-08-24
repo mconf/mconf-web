@@ -103,8 +103,9 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :password, :password_confirmation, :remember_me, :current_password, :login,
-          :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
+        [ :remember_me, :login, :approved, :disabled,
+          :timezone, :can_record, :receive_digest, :expanded_post,
+          :password, :password_confirmation, :current_password ]
       }
       before {
         sign_in(user)
@@ -856,6 +857,20 @@ describe UsersController do
   end
 
   describe "#new" do
+    # see bug #1719
+    context "doesnt store location for redirect from xhr" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before {
+        sign_in superuser
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :new
+      }
+      it { controller.session[:user_return_to].should eq( "/home") }
+      it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+    end
+
     context "logged as a superuser" do
       let(:superuser) { FactoryGirl.create(:superuser) }
       before(:each) { sign_in(superuser) }

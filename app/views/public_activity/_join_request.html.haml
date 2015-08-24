@@ -25,7 +25,11 @@
       - if activity.parameters.has_key?(:introducer_id) and activity.parameters.has_key?(:introducer)
         - name = activity.parameters[:introducer]
         - link = user_path_from_id(activity.parameters[:introducer_id])
-        = activity_translate("join_request.invite_with_introducer", introducer: name, introducer_url: link)
+        - if !activity.trackable.nil? and activity.trackable_type == 'JoinRequest' and
+          - activity.trackable.request_type == JoinRequest::TYPES[:no_accept]
+          = activity_translate("join_request.no_accept", introducer: name, introducer_url: link)
+        - else
+          = activity_translate("join_request.invite_with_introducer", introducer: name, introducer_url: link)
       - else
         = activity_translate(activity.key)
       = link_to_trackable activity.trackable, activity.trackable_type

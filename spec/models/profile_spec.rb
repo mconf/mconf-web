@@ -90,7 +90,7 @@ describe Profile do
   end
 
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:update_logo])
+    set_custom_ability_actions([:update_logo, :update_full_name])
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user).profile }
@@ -129,6 +129,30 @@ describe Profile do
       context "if the target user is disabled" do
         before { target.user.disable }
         it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "cannot edit the full name if the account was created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: true)
+        }
+        it { should_not be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: false)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the site is not updating user information automatically" do
+        before {
+          Site.current.update_attributes(shib_update_users: false)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: true)
+        }
+        it { should be_able_to(:update_full_name, target) }
       end
     end
 

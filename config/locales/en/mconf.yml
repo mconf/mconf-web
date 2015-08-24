@@ -16,6 +16,7 @@ en:
       deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
       request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
@@ -55,7 +56,7 @@ en:
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
-      format_rails: "%m/%d/%Y %H:%M %z"
+      format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
@@ -463,6 +464,7 @@ en:
     edit:
       editing_room: "Editing room '%{room}'"
     form:
+      layout_empty_option: "<default>"
       metadata:
         add: "Add metadata"
         set_to_remove: "Set to remove"
@@ -473,7 +475,9 @@ en:
       at: "at"
       duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the time zone %{timezone}"
+      offset: "Your current time offset is \"%{offset}\""
+      offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "The dates below are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
@@ -510,8 +514,8 @@ en:
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      download_android_tip: "For devices with Android"
+      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
       not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""
@@ -733,7 +737,7 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
+    no_spaces: "You do not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
   icons: 
@@ -811,6 +815,7 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+      users_added: "You have successfully added the user(s) %{users} to this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -833,6 +838,9 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      type_add: "Add users directly"
+      type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
+      type_invite: "Invite"
       users:
         hint: "Type to start searching"
         no_results: "No results found"
@@ -1538,6 +1546,7 @@ en:
       news: "News"
       users: "Users"
       webconf_options: "Webconference options"
+      add_member: "Add members"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1698,6 +1707,9 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
+  sites:
+    edit:
+      shib_warning_html: "This field is used as the unique identifier for Shibboleth users. If you modify it your users may be unable to access their accounts, before changing it read <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">this page</a>."
   text: Text
   the_string: "the string"
   thread: 

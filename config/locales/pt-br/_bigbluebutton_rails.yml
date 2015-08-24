@@ -26,9 +26,12 @@ pt-br:
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
       bigbluebutton_room:
+        allow_start_stop_recording: "Permitir ao usuário iniciar/parar a gravação"
+        attendee_key: "Chave para participantes"
         auto_start_video: "Auto iniciar vídeo"
         auto_start_audio: "Auto iniciar áudio"
-        attendee_key: "Chave para participantes"
+        auto_start_recording: "Auto iniciar gravação"
+        background: "Imagem de fundo"
         default_layout: "Layout Padrão"
         dial_number: "Número de discagem"
         duration: Duração
@@ -38,6 +41,7 @@ pt-br:
         meetingid: "ID da Reunião"
         metadata: Metadados
         moderator_key: "Chave para moderadores"
+        moderator_only_message: "Mensagem mostrada somente aos moderadores"
         name: Nome
         param: Identificador
         private: Privada

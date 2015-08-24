@@ -23,7 +23,13 @@ module UsersHelper
   # The user's timezone is set in Rails in every request (see ApplicationController),
   # so we can just get it from Rails here and returned it formatted to the views.
   def user_timezone
-    "GMT#{Time.zone.formatted_offset}"
+    Time.zone.name
+  end
+
+  def user_timezone_offset
+    offset = Time.zone.utc_offset
+    offset += 3600 if Time.zone.now.dst?
+    "GMT#{ActiveSupport::TimeZone.seconds_to_utc_offset(offset)}"
   end
 
 end

@@ -652,7 +652,7 @@ describe Space do
       context 'with role User' do
         let(:selected_role) { 'User' }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(user_role) }
         it { space.role_for?(user, :name => 'User').should be true }
@@ -662,7 +662,7 @@ describe Space do
       context 'with role Admin' do
         let(:selected_role) { 'Admin' }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(admin_role) }
         it { space.role_for?(user, :name => 'User').should be false }
@@ -672,13 +672,12 @@ describe Space do
       context "defaults the role to 'User'" do
         let(:selected_role) { nil }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(user_role) }
         it { space.role_for?(user, :name => 'User').should be true }
         it { space.role_for?(user, :name => 'Admin').should be false }
       end
-
     end
 
     context "doesn't add the user if he's already a member" do
@@ -691,10 +690,56 @@ describe Space do
         }.to raise_error(ActiveRecord::RecordInvalid)
       }
 
-      it { space.users include(user) }
+      it { space.users.should include(user) }
       it { space.permissions.last.user.should eq(user) }
     end
+  end
 
+  describe "#remove_member!" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user is a member" do
+      before { space.add_member!(user) }
+      it { space.users.should include(user) }
+
+      context "removes the user from the space" do
+        before {
+          @response = space.remove_member!(user)
+        }
+        it { @response.should be(true) }
+        it { space.users.should_not include(user) }
+        it { Permission.where(user: user, subject: space).should be_empty }
+        it { space.role_for?(user, name: 'User').should be false }
+        it { space.role_for?(user, name: 'Admin').should be false }
+      end
+
+      context "when it fails to remove the user" do
+        before {
+          ActiveRecord::Relation.any_instance.should_receive(:destroy_all).and_return([])
+          @response = space.remove_member!(user)
+        }
+        it { @response.should be(false) }
+      end
+
+      context "doesn't remove other users" do
+        before {
+          space.add_member!(FactoryGirl.create(:user))
+          space.add_member!(FactoryGirl.create(:user))
+          space.remove_member!(user)
+        }
+        it { space.users.should_not include(user) }
+        it { space.users.count.should eql(2) }
+      end
+    end
+
+    context "if the user is not a member" do
+      before {
+        @response = space.remove_member!(user)
+      }
+      it { space.users.should_not include(user) }
+      it { @response.should be(true) }
+    end
   end
 
   it "new_activity"
@@ -908,7 +953,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
-      :index_join_requests, :index_news])
+      :index_join_requests, :index_news, :add])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

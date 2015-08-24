@@ -92,6 +92,10 @@ gem 'dotiw'
 # Sanity check on database
 gem 'active_sanity'
 
+# Turn rails logs into json
+gem "lograge"
+gem "logstash-event"
+
 #
 # TODO: Gems to review if we can remove/update
 #
@@ -136,6 +140,7 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'fooldap'
   gem 'spring'
+  gem 'zonebie'
 end
 
 group :test do

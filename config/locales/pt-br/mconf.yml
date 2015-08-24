@@ -16,6 +16,7 @@ pt-br:
       deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
@@ -55,7 +56,7 @@ pt-br:
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
-      format_rails: "%d/%m/%Y %H:%M %z"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
@@ -465,6 +466,7 @@ pt-br:
     edit:
       editing_room: "Editando a sala '%{room}'"
     form:
+      layout_empty_option: "<padrão>"
       metadata:
         add: "Adicionar metadados"
         set_to_remove: "Marcar para remover"
@@ -475,7 +477,9 @@ pt-br:
       at: "às"
       duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
-      timezone: "Você está usando o fuso horário %{timezone}"
+      offset: "Sua diferença de horário atual é \"%{offset}\""
+      offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
+      timezone: "As datas abaixo estão no fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"
@@ -512,8 +516,8 @@ pt-br:
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
-      download_android_tip: "For devices with Android"
-      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
       not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
       notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
       title: "Acesso móvel à sala \"%{room}\""
@@ -813,6 +817,7 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+      users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -835,6 +840,9 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      type_add: "Adicionar diretamente"
+      type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
+      type_invite: "Convidar"
       users:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
@@ -1538,6 +1546,7 @@ pt-br:
       approved: "A comunidade %{name} foi aprovada!"
       not_enabled: "A aprovação de comunidades não está habilitada"
     admin_tabs:
+      add_member: "Adicionar membros"
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"
@@ -1707,6 +1716,9 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
+  sites:
+    edit:
+      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   text: Texto
   the_string: "a string"
   thread:
