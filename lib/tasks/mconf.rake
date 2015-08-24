@@ -24,13 +24,4 @@ namespace :mconf do
       room.update_attributes(dial_number: number)
     end
   end
-
-  desc "approves all unnapproved spaces in the site"
-  task :approve_all_spaces => :environment do
-    Space.where(approved: false).each do |space|
-      puts "Approving: #{space.name}"
-      space.approve!
-    end
-
-  end
 end

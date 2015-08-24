@@ -11,7 +11,6 @@
   = content_tag(:div, :name => space.permalink, :class => "#{'waiting-approval' if !space.approved?} thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
 
     .logo-in-thread
-      -# note: can't be can?(:read, space) because we want the link even for non-members
       - if space_link_visible?(space)
         = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
       - else
