@@ -53,6 +53,23 @@ feature 'Editing a user account' do
     expect(current_path_with_query).to eq(path)
   end
 
+  # # bug1719 - Waiting for javascript tests
+  # scenario "a user edit his account after acces a modal in his home page " do
+  #   sign_in_with user.username, user.password
+  #   visit my_home_path
+  #   # try to invite users to his meeting
+  #   find("a[href='#{ invitation_bigbluebutton_room_path(user) }']").click
+  #   # closes/cancel the model
+  #   find("a[data-dismiss='modal']").click
+  #   # click on account
+  #   find("a[href='#{ edit_user_path(user) }']").click
+  #   # click on cancel
+  #   find("//a[text()='#{ I18n.t('simple_form.buttons.cancel') }']").click
+
+  #    expect(current_path).to eq(my_home_path)
+  #   show_page
+  # end
+
   scenario "a user accessing his own page should see current password field" do
     sign_in_with user.username, user.password
 

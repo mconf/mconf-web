@@ -39,6 +39,22 @@ describe CustomBigbluebuttonRoomsController do
     it "loads and authorizes the room into @room"
   end
 
+  describe "#invitation" do
+     # see bug #1719
+    context "doesnt store location for redirect from xhr" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        sign_in user
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :invitation, id: user.bigbluebutton_room.to_param
+      }
+      it { controller.session[:user_return_to].should eq( "/home") }
+      it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+    end
+  end
+
   describe "#invite" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
@@ -479,6 +495,41 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#join" do
 
+    # see bug1721
+    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/join " do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.stub(:find_by!) { room }
+
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+      }
+
+      context "when a meeting is running" do
+        before{
+          room.stub(:is_running?) { true }
+          room.should_receive(:fetch_is_running?).at_least(:once) { true }
+          room.should_receive(:fetch_meeting_info)
+          get :join, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+      context "when no meeting is running" do
+        before {
+          room.stub(:is_running?) { false }
+          room.should_receive(:fetch_is_running?).at_least(:once) { false }
+          room.should_not_receive(:fetch_meeting_info)
+          get :join, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+    end
+
     for method in [:get, :post]
       context "via #{method}" do
 
@@ -774,6 +825,41 @@ describe CustomBigbluebuttonRoomsController do
     before {
       request.env["HTTP_REFERER"] = "/any"
     }
+
+    # see bug1721
+    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/end " do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.stub(:find_by!) { room }
+
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+      }
+
+      context "when a meeting is running" do
+        before{
+          room.stub(:is_running?) { true }
+          room.should_receive(:fetch_is_running?).at_least(:once) { true }
+          room.should_receive(:fetch_meeting_info)
+          get :end, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+      context "when no meeting is running" do
+        before {
+          room.stub(:is_running?) { false }
+          room.should_receive(:fetch_is_running?).at_least(:once) { false }
+          room.should_not_receive(:fetch_meeting_info)
+          get :end, id: room.to_param
+        }
+        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+      end
+    end
 
     context "fetches information about the room when calling #end" do
       let(:user) { FactoryGirl.create(:user) }
