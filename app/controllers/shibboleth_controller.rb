@@ -158,6 +158,7 @@ class ShibbolethController < ApplicationController
         logger.info "Shibboleth: created a new account: #{user.inspect}"
         token.data = shib.get_data
         token.save! # TODO: what if it fails
+        create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
         logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
@@ -220,6 +221,12 @@ class ShibbolethController < ApplicationController
   def get_always_new_account
     return current_site.shib_always_new_account
   end
+
+   def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
+    end
 
   # Adds fake test data to the environment to test shibboleth in development.
   def test_data

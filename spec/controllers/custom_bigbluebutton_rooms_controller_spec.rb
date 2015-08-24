@@ -39,6 +39,22 @@ describe CustomBigbluebuttonRoomsController do
     it "loads and authorizes the room into @room"
   end
 
+  describe "#invitation" do
+     # see bug #1719
+    context "doesnt store location for redirect from xhr" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        sign_in user
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :invitation, id: user.bigbluebutton_room.to_param
+      }
+      it { controller.session[:user_return_to].should eq( "/home") }
+      it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+    end
+  end
+
   describe "#invite" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
