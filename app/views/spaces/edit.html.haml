@@ -9,7 +9,7 @@
 #edit-space
   .right-column
     #edit-space-current-logo
-      = logo_image(@space, :size => '168x128', :class => 'logo')
+      = logo_image(@space, :size => '168x128', :class => 'logo logo-uploadable')
 
       #space-logo-uploader.file-uploader{:'data-endpoint' => update_logo_space_path(@space, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => '5 mb' }
 

@@ -25,12 +25,13 @@ class ProfilesController < ApplicationController
     @profile.logo_image = params[:uploaded_file]
 
     if @profile.save
+      small_image = @profile.logo_image.height < 100 || @profile.logo_image.width < 100
+      url = logo_images_crop_path(:model_type => 'user', :model_id => @profile.user)
       respond_to do |format|
-        url = logo_images_crop_path(:model_type => 'user', :model_id => @profile.user)
-        format.json { render :json => { :success => true, :redirect_url => url } }
+        format.json { render json: { success: true, redirect_url: url, small_image: small_image, new_url: @profile.logo_image.url } }
       end
     else
-      format.json { render :json => { :success => false } }
+      format.json { render json: { success: false } }
     end
   end
 
