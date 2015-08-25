@@ -158,6 +158,7 @@ class ShibbolethController < ApplicationController
         logger.info "Shibboleth: created a new account: #{user.inspect}"
         token.data = shib.get_data
         token.save! # TODO: what if it fails
+        shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
         logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"

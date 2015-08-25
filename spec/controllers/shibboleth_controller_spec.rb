@@ -43,6 +43,15 @@ describe ShibbolethController do
       before { ShibToken.create!(:identifier => user.email, :user => user) }
       before(:each) { run_route }
       it { should redirect_to(shibboleth_path) }
+      context "creates a RecentActivity" do
+        subject { RecentActivity.where(key: 'shibboleth.user.created').last }
+        it("should exist") { subject.should_not be_nil }
+        it("should point to the right trackable") { subject.trackable.should eq(User.last) }
+        it("should be unnotified") { subject.notified.should be(false) }
+       # see #1737
+        it("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
+        it("should be owned by the correct ShibToken") { subject.owner_id.should eql(ShibToken.last.id) } # calls the last ShibToken because now the RecentActivity is created after the token is save in the database
+      end
     end
 
     context "if there's no valid token yet" do

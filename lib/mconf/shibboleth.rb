@@ -133,9 +133,7 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
-      if user.save
-        create_notification(user, shib_token)
-      else
+      if !user.save
         Rails.logger.error "Shibboleth: error while saving the user model"
         Rails.logger.error "Shibboleth: errors: " + user.errors.full_messages.join(", ")
       end
@@ -157,6 +155,12 @@ module Mconf
       end
     end
 
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
+    end
+
     private
 
     # Splits a string `value` into several RegExps. Breaks the string at every
@@ -173,12 +177,6 @@ module Mconf
 
     def create_token(id)
       ShibToken.new(identifier: id)
-    end
-
-    def create_notification(user, token)
-      RecentActivity.create(
-        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
-      )
     end
 
   end
