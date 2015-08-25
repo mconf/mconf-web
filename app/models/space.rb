@@ -288,6 +288,10 @@ class Space < ActiveRecord::Base
     !disabled?
   end
 
+  def small_logo_image?
+    logo_image.height < 100 || logo_image.width < 100
+  end
+
   private
 
   # Creates the webconf room after the space is created
@@ -329,5 +333,4 @@ class Space < ActiveRecord::Base
   def crop_logo
     logo_image.recreate_versions! if is_cropping?
   end
-
 end

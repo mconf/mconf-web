@@ -114,10 +114,14 @@ class SpacesController < ApplicationController
     @space.logo_image = params[:uploaded_file]
 
     if @space.save
-      small_image = @space.logo_image.height < 100 || @space.logo_image.width < 100
       url = logo_images_crop_path(:model_type => 'space', :model_id => @space)
       respond_to do |format|
-        format.json { render :json => { success: true, redirect_url: url, small_image: small_image, new_url: @space.logo_image.url } }
+        format.json {
+          render :json => {
+            success: true, redirect_url: url, small_image: @space.small_logo_image?,
+            new_url: @space.logo_image.url
+          }
+        }
       end
     else
       format.json { render json: { success: false } }
