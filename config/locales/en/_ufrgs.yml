@@ -1,5 +1,9 @@
 ---
 en:
+  activerecord:
+    attributes:
+      site:
+        allowed_to_record: "Enrollments allowed to record"
   frontpage:
     show:
       accessible_to: "(you need the code and password of your account on UFRGS)"

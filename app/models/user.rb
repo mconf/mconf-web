@@ -359,15 +359,14 @@ class User < ActiveRecord::Base
   end
 
   # Returns whether a enrollment (a string, such as "Docente") is permitted to record meetings.
-  # TODO: the list of enrollments could come from Site and be configured in the app
-  # by an admin.
   def is_enrollment_allowed_to_record?(enrollment)
     if enrollment.blank?
       false
     else
       enrollment = I18n.transliterate(enrollment)
-      all_allowed = ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
-                     "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
+      # list of enrollments allowed to record
+      all_allowed = Site.current.allowed_to_record
+
       all_allowed.each do |allowed|
         allowed = I18n.transliterate(allowed)
         if enrollment.match(/#{allowed}/i)
