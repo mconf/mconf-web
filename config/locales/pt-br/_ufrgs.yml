@@ -3,7 +3,7 @@ pt-br:
   activerecord:
     attributes:
       site:
-        allow_to_record: "Vínculos com permissão de gravar"
+        allowed_to_record: "Vínculos com permissão de gravar"
   frontpage:
     show:
       accessible_to: "(é necessário código e senha do cartão UFRGS)"

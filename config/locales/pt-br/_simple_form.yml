@@ -24,7 +24,7 @@ pt-br:
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
-        allow_to_record: "Lista de vínculos com permissão para gravar reuniões. Usuários com estes vínculos receberão permissão automática de gravação, mesmo que eles não tenha recebido permissão pessoal de gravar. Deixe em branco para que apenas usuários com permissão pessoal de gravar possam gravar."
+        allowed_to_record: "Lista de vínculos com permissão para gravar reuniões. Usuários com estes vínculos receberão permissão automática de gravação, mesmo que eles não tenha recebido permissão pessoal de gravar. Deixe em branco para que apenas usuários com permissão pessoal de gravar possam gravar."
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
         domain: "O domínio do seu site. Não inclua o protocolo (e.g. \"http\"), apenas o domínio completo. Exemplo: \"servidor.org/portal\""
         events_enabled: "Habilita ou desabilita o módulo de eventos no site. Para habilitá-lo, você deve possuir o módulo de eventos instalado. Reinicie a aplicação para aplicar as mudanças."

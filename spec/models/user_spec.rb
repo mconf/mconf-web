@@ -1099,7 +1099,7 @@ describe User do
       let(:user) { FactoryGirl.create(:user) }
 
       before {
-        Site.current.update_attribute :allow_to_record, default_enrollments
+        Site.current.update_attribute :allowed_to_record, default_enrollments
       }
 
       context "without the shib variable 'ufrgsVinculo'" do
@@ -1184,11 +1184,11 @@ describe User do
       end
     end
 
-    context "allow_to_record is empty meaning nobody can record" do
+    context "allowed_to_record is empty meaning nobody can record" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { FactoryGirl.create(:shib_token, :user => user) }
       before {
-        Site.current.update_attribute :allow_to_record, []
+        Site.current.update_attribute :allowed_to_record, []
         data = token.data
         data["ufrgsVinculo"] = "ativo:12:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
         token.update_attribute("data", data)

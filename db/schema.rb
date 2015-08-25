@@ -389,7 +389,7 @@ ActiveRecord::Schema.define(version: 20150825164211) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
-    t.string   "allow_to_record"
+    t.string   "allowed_to_record"
     t.boolean  "shib_update_users",              default: false
   end
 

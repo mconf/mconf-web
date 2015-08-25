@@ -365,7 +365,7 @@ class User < ActiveRecord::Base
     else
       enrollment = I18n.transliterate(enrollment)
       # list of enrollments allowed to record
-      all_allowed = Site.current.allow_to_record
+      all_allowed = Site.current.allowed_to_record
 
       all_allowed.each do |allowed|
         allowed = I18n.transliterate(allowed)
