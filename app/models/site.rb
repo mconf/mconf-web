@@ -47,11 +47,11 @@ class Site < ActiveRecord::Base
     end
   end
 
-  def allow_to_record=r
+  def allow_to_record=(r)
     if r.kind_of?(String)
-       write_attribute(:allow_to_record, r.split(/[,;\n\r]+/))
-      else
-        write_attribute(:allow_to_record, r)
+      write_attribute(:allow_to_record, r.split(/[,;\n\r]+/))
+    else
+      write_attribute(:allow_to_record, r)
     end
   end
 

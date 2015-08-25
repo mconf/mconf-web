@@ -7,6 +7,11 @@
 
 require "spec_helper"
 
+def default_enrollments
+  ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
+   "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
+end
+
 describe User do
 
   before(:each, :events => true) do
@@ -1093,6 +1098,10 @@ describe User do
     context "for a user logged via federation" do
       let(:user) { FactoryGirl.create(:user) }
 
+      before {
+        Site.current.update_attribute :allow_to_record, default_enrollments
+      }
+
       context "without the shib variable 'ufrgsVinculo'" do
         let(:token) {
           t = FactoryGirl.create(:shib_token, :user => user)
@@ -1129,12 +1138,10 @@ describe User do
           it { user.has_enrollment_allowed_to_record?.should be(false) }
         end
 
-
-        ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS", "Tutor de disciplina", "Professor visitante", "Colaborador convidado"].each do |enrollment|
+        default_enrollments.each do |enrollment|
           context "as '#{enrollment}'" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
             before {
-              Site.current.update_attribute :allow_to_record, ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS", "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
               data = token.data
               data["ufrgsVinculo"] = "ativo:2:#{enrollment}:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
               token.update_attribute("data", data)
@@ -1177,7 +1184,7 @@ describe User do
       end
     end
 
-    context "allow_to_record is empty meanning nobody can record" do
+    context "allow_to_record is empty meaning nobody can record" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { FactoryGirl.create(:shib_token, :user => user) }
       before {
@@ -1188,7 +1195,6 @@ describe User do
       }
       it { user.has_enrollment_allowed_to_record?.should be(false) }
     end
-
   end
 
   # TODO: :index is nested into spaces, how to test it here?
