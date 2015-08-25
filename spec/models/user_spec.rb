@@ -104,7 +104,11 @@ describe User do
       let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
       let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
       subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
-      it { subject.count.should eq(1) }
+      it { subject.should include(user3) }
+      it { subject.should_not include(user1) }
+      it { subject.should_not include(user2) }
+      it { subject.should_not include(user4) }
+      it { subject.should_not include(user5) }
     end
   end
 
@@ -876,6 +880,37 @@ describe User do
     end
   end
 
+  describe "#created_by_shib?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when another user has a token created by shib" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+        FactoryGirl.create(:shib_token, user: another_user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has an account created by shib" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(true) }
+    end
+  end
+
   describe "#disable" do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -1159,7 +1194,7 @@ describe User do
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
     set_custom_ability_actions([
-      :fellows, :current, :select, :approve, :enable, :disable, :confirm
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm, :update_password
     ])
 
     subject { ability }
@@ -1169,13 +1204,38 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select]
+        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select,
+                   :update_password]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
       context "and he is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "cannot edit the password if the account was created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
+      context "can edit the password if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_password, target) }
+      end
+
+      context "cannot edit the password if the site has local auth disabled" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: false)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should_not be_able_to(:update_password, target) }
       end
     end
 
@@ -1184,8 +1244,16 @@ describe User do
       it { should_not be_able_to_do_anything_to(target).except([:read, :current, :fellows, :select]) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "cannot edit the password even if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should_not be_able_to(:update_password, target) }
       end
     end
 

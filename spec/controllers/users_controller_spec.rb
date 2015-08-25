@@ -103,8 +103,9 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :password, :password_confirmation, :remember_me, :current_password, :login,
-          :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
+        [ :remember_me, :login, :approved, :disabled,
+          :timezone, :can_record, :receive_digest, :expanded_post,
+          :password, :password_confirmation, :current_password ]
       }
       before {
         sign_in(user)

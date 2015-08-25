@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810143628) do
+ActiveRecord::Schema.define(version: 20150813144638) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(version: 20150810143628) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
@@ -389,6 +390,7 @@ ActiveRecord::Schema.define(version: 20150810143628) do
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
     t.string   "allow_to_record"
+    t.boolean  "shib_update_users",              default: false
   end
 
   create_table "spaces", force: true do |t|

@@ -473,7 +473,9 @@ pt-br:
       at: "às"
       duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
-      timezone: "Você está usando o fuso horário %{timezone}"
+      offset: "Sua diferença de horário atual é \"%{offset}\""
+      offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
+      timezone: "As datas abaixo estão no fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"
@@ -510,8 +512,8 @@ pt-br:
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
-      download_android_tip: "For devices with Android"
-      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
       not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
       notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
       title: "Acesso móvel à sala \"%{room}\""
@@ -1702,6 +1704,9 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
+  sites:
+    edit:
+      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   text: Texto
   the_string: "a string"
   thread:

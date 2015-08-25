@@ -304,6 +304,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def created_by_shib?
+    ShibToken.user_created_by_shib?(self)
+  end
+
   # Returns the user's role/enrollment.
   def enrollment
     unless self.shib_token.nil?

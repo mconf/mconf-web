@@ -15,12 +15,13 @@
     = f.input :webconf_auto_record, :as => :boolean, :disabled => true
     = f.input :analytics_code, :disabled => true
     = f.input :shib_enabled, :as => :boolean, :disabled => true
-    = f.input :shib_email_field, :disabled => true
+    = f.input :shib_email_field, :as => :string, :disabled => true
     = f.input :shib_name_field, :disabled => true
     = f.input :shib_principal_name_field, :disabled => true
     = f.input :shib_login_field, :disabled => true
     = f.input :shib_env_variables, :disabled => true
     = f.input :shib_always_new_account, :as => :boolean, :disabled => true
+    = f.input :shib_update_users, :as => :boolean, :disabled => true
     = f.input :ldap_enabled, :disabled => true
     = f.input :ldap_host, :disabled => true
     = f.input :ldap_port, :disabled => true
