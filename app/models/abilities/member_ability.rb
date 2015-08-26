@@ -11,11 +11,10 @@ module Abilities
       abilities_for_bigbluebutton_rails(user)
 
       # Users
-      # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select], User, disabled: false
-      can [:edit, :update, :disable], User, id: user.id, disabled: false
+      can [:read, :fellows, :current, :select], User
+      can [:edit, :update, :disable], User, id: user.id
       can [:update_password], User do |target_user|
-        user == target_user && !target_user.disabled? &&
+        user == target_user &&
           (Site.current.local_auth_enabled? && !target_user.created_by_shib?)
       end
 
@@ -41,7 +40,7 @@ module Abilities
       # Some info is blocked if the user created by shib and auto update is enabled
       # in the site
       can [:update_full_name], Profile do |profile|
-        profile.user == user && !profile.user.disabled? &&
+        profile.user == user &&
           (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
       end
 
@@ -58,9 +57,9 @@ module Abilities
       can :select, Space
       can [:create], Space unless Site.current.forbid_user_space_creation?
 
-      can [:read, :webconference, :recordings], Space, public: true, approved: true
+      can [:read, :webconference, :recordings], Space, public: true
       can [:read, :webconference, :recordings], Space do |space|
-        (space.approved? && space.users.include?(user)) || space.admins.include?(user)
+        space.users.include?(user)
       end
       can [:leave], Space do |space|
         space.users.include?(user) && !space.is_last_admin?(user)
@@ -110,18 +109,18 @@ module Abilities
 
       # Posts
       # TODO: maybe space admins should be able to alter posts
-      can :read, Post, space: { public: true, approved: true }
+      can :read, Post, space: { public: true }
       can [:read, :create, :reply_post], Post do |post|
-        post.space.users.include?(user) && post.space.approved?
+        post.space.users.include?(user)
       end
       can [:read, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
 
       # News
       # Only admins can create/alter news, the rest can only read
       # note: :show because :index is only for space admins
-      can :show, News, space: { public: true, approved: true }
+      can :show, News, space: { public: true }
       can :show, News do |news|
-        news.space.users.include?(user) && news.space.approved?
+        news.space.users.include?(user)
       end
       can :manage, News do |news|
         news.space.admins.include?(user)
@@ -132,13 +131,13 @@ module Abilities
         attach.space.admins.include?(user)
       end
       can [:read, :create], Attachment do |attach|
-        attach.space.users.include?(user) && attach.space.approved?
+        attach.space.users.include?(user)
       end
       can [:destroy], Attachment do |attach|
         attach.space.users.include?(user) &&
         attach.author_id == user.id
       end
-      can :read, Attachment, space: { public: true, approved: true }
+      can :read, Attachment, space: { public: true }
 
       # Permissions
       # Only space admins can update user roles/permissions
@@ -193,9 +192,10 @@ module Abilities
 
         can :index, MwebEvents::Participant
         can :create, MwebEvents::Participant
-
-        restrict_access_to_disabled_resources
       end
+
+      restrict_access_to_disabled_resources(user)
+      restrict_access_to_unapproved_resources(user)
     end
 
     private

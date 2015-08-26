@@ -21,8 +21,13 @@ module Abilities
       register_abilities(user)
     end
 
+    # Note: when restricting permissions defined using blocks, we cannot use `:manage`,
+    # otherwise it will always block actions over collections, since these don't
+    # evaluate the block. (e.g. MwebEvents::Event#index would be always blocked
+    # for everyone)
+
     # Remove access for anything related to disabled spaces and users.
-    def restrict_access_to_disabled_resources
+    def restrict_access_to_disabled_resources(user)
       cannot :manage, Space, disabled: true
       cannot :manage, Profile, user: { disabled: true }
       cannot :manage, Post, space: { disabled: true }
@@ -30,13 +35,13 @@ module Abilities
       cannot :manage, News, space: { disabled: true }
 
       # won't use :manage so it doesn't block actions such as #index
-      cannot [:show, :update, :edit, :destroy,
-              :enable, :approve, :disapprove, :confirm], User, disabled: true
+      cannot [:show, :destroy, :edit, :update, :disable,
+              :enable, :approve, :disapprove, :confirm, :read,
+              :fellows, :current, :select, :update_password], User, disabled: true
 
-      # Note: on permissions we need to define using blocks, we can use `:manage`,
-      # otherwise it will always block actions over collections, since these don't
-      # evaluate the block. (e.g. MwebEvents::Event#index would be always blocked
-      # for everyone)
+      cannot [:update_full_name], Profile do |profile|
+        profile.user.disabled?
+      end
 
       # only actions over members, not actions over the collection
       actions = [:show, :accept, :decline]
@@ -64,13 +69,48 @@ module Abilities
       end
 
       # only actions over members, not actions over the collection
-      actions = [:show, :edit, :update, :destroy, :running, :end,
+      actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
                  :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
                  :recordings, :join_options, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner.nil? ||
           (room.owner_type == "User" && room.owner.disabled) ||
           (room.owner_type == "Space" && room.owner.disabled)
+      end
+    end
+
+    # Remove access for anything related to unapproved resources (users and spaces currently).
+    def restrict_access_to_unapproved_resources(user)
+      cannot [:show, :webconference, :recordings, :leave], Space do |space|
+        # space admins can do it even if not approved yet
+        !space.approved? && (user.nil? || !space.admins.include?(user))
+      end
+
+      cannot [:read, :create, :reply_post], Post do |post|
+        # space admins can do it even if not approved yet
+        !post.space.approved? && (user.nil? || !post.space.admins.include?(user))
+      end
+
+      cannot [:show], News do |news|
+        # space admins can do it even if not approved yet
+        !news.space.approved? && (user.nil? || !news.space.admins.include?(user))
+      end
+
+      cannot [:read, :create], Attachment do |attach|
+        # space admins can do it even if not approved yet
+        !attach.space.approved? && (user.nil? || !attach.space.admins.include?(user))
+      end
+
+      # only actions over members, not actions over the collection
+      actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
+                 :recordings, :join_options, :invitation, :send_invitation, :create_meeting]
+      cannot actions, BigbluebuttonRoom do |room|
+        room.owner && !room.owner.approved
+      end
+
+      cannot [:update, :space_edit, :play, :space_show], BigbluebuttonRecording do |recording|
+        recording.room && recording.room.owner && !recording.room.owner.approved
       end
 
     end

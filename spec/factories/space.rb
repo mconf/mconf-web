@@ -13,6 +13,7 @@ FactoryGirl.define do
     s.deleted false
     s.repository false
     s.disabled false
+    s.approved true
 
     after(:build) { |space| space.stub(:create_webconf_room) }
     after(:build) { |space| space.stub(:update_webconf_room) }

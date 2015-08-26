@@ -23,11 +23,11 @@ module Abilities
       end
 
       can [:read, :current], User, disabled: false
-      can [:read, :webconference, :recordings], Space, public: true, approved: true
+      can [:read, :webconference, :recordings], Space, public: true
       can :select, Space
-      can :read, Post, space: { public: true, approved: true }
-      can :show, News, space: { public: true, approved: true }
-      can :read, Attachment, space: { public: true, approved: true, repository: true }
+      can :read, Post, space: { public: true }
+      can :show, News, space: { public: true }
+      can :read, Attachment, space: { public: true, repository: true }
 
       # for MwebEvents
       if Mconf::Modules.mod_loaded?('events')
@@ -37,7 +37,8 @@ module Abilities
         can :create, MwebEvents::Participant # TODO: really needed?
       end
 
-      restrict_access_to_disabled_resources
+      restrict_access_to_disabled_resources(user)
+      restrict_access_to_unapproved_resources(user)
     end
 
     private

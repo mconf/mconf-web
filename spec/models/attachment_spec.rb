@@ -30,6 +30,11 @@ describe Attachment do
         before { target.space.disable }
         it { should_not be_able_to_do_anything_to(target) }
       end
+
+      context "and the target space is not approved" do
+        before { target.update_attributes(approved: false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is an anonymous user" do
@@ -49,6 +54,11 @@ describe Attachment do
         before { target.space.disable }
         it { should_not be_able_to_do_anything_to(target) }
       end
+
+      context "and the target space is not approved" do
+        before { target.update_attributes(approved: false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is a registered user" do
@@ -57,26 +67,53 @@ describe Attachment do
       context "that's the admin of the space the attachment is in" do
         before { target.space.add_member!(user, 'Admin') }
         it { should be_able_to_do_everything_to(target) }
+
+        context "and the target space is disabled" do
+          before { target.space.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "and the target space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "that's a member of the space the attachment is in" do
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
+
+        context "and the target space is disabled" do
+          before { target.space.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "and the target space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
-      context "that's not a member of the private space the attachment is in" do
-        before { target.space.update_attributes(:public => false) }
-        it { should_not be_able_to_do_anything_to(target) }
-      end
+      context "that's not a member of the space the attachment is in" do
+        context "and the space is private" do
+          before { target.space.update_attributes(:public => false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
 
-      context "that's not a member of the public space the attachment is in" do
-        before { target.space.update_attributes(:public => true) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
-      end
+        context "and the space is public" do
+          before { target.space.update_attributes(:public => true) }
+          it { should_not be_able_to_do_anything_to(target).except(:read) }
+        end
 
-      context "and the target space is disabled" do
-        before { target.space.disable }
-        it { should_not be_able_to_do_anything_to(target) }
+        context "and the target space is disabled" do
+          before { target.space.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "and the target space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 
@@ -86,6 +123,11 @@ describe Attachment do
 
       context "and the target space is disabled" do
         before { target.space.disable }
+        it { should be_able_to_do_everything_to(target) }
+      end
+
+      context "and the target space is not approved" do
+        before { target.update_attributes(approved: false) }
         it { should be_able_to_do_everything_to(target) }
       end
     end

@@ -1043,6 +1043,7 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
+
             context "when there's another admin" do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
@@ -1054,11 +1055,28 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it {
+                list = [
+                  :read, :webconference, :recordings, :create, :select, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :index_join_requests, :index_news
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it { should_not be_able_to_do_anything_to(target).except([:create, :select, :new]) }
+            end
           end
         end
 
@@ -1088,6 +1106,7 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
+
             context "when there's another admin" do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
@@ -1099,11 +1118,28 @@ describe Space do
                 should_not be_able_to_do_anything_to(target).except(list)
               }
             end
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it {
+                list = [
+                  :read, :webconference, :recordings, :create, :select, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :index_join_requests, :index_news
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it { should_not be_able_to_do_anything_to(target).except([:create, :select, :new]) }
+            end
           end
         end
 
@@ -1125,6 +1161,11 @@ describe Space do
           before { target.disable }
           it { should_not be_able_to_do_anything_to(target) }
         end
+
+        context "when the space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except([:select]) }
+        end
       end
 
       context "in a private space" do
@@ -1134,6 +1175,11 @@ describe Space do
         context "that is disabled" do
           before { target.disable }
           it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except([:select]) }
         end
       end
     end
