@@ -103,8 +103,7 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :remember_me, :login, :approved, :disabled,
-          :timezone, :can_record, :receive_digest, :expanded_post,
+        [ :remember_me, :login, :timezone, :receive_digest, :expanded_post,
           :password, :password_confirmation, :current_password ]
       }
       before {
@@ -166,7 +165,6 @@ describe UsersController do
           it { response.status.should == 302 }
           it { response.should redirect_to edit_user_path(user) }
           it { user.superuser.should be(false) }
-
         end
 
         context "when admin and target is self" do
@@ -217,6 +215,57 @@ describe UsersController do
         end
       end
 
+      context "trying to update disabled flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, disabled: false) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { disabled: true }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.disabled.should be(false) }
+
+        end
+      end
+
+      context "trying to update can_record flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, can_record: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { can_record: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.can_record.should be(true) }
+        end
+      end
+
+      context "trying to update approved flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, approved: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { approved: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.approved.should be(true) }
+        end
+      end
     end
 
     context "attributes that the user can update" do
