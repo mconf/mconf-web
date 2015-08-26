@@ -1237,8 +1237,8 @@ pt-br:
       visibility_everybody: "Todos podem ver o seu perfil privado."
       visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
       visibility_nobody: "Ninguém pode ver o seu perfil privado."
-      visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
-      visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
+      visibility_private_fellows: "Apenas os seus colegas em uma comunidade privada podem ver o seu perfil privado."
+      visibility_public_fellows: "Apenas os seus colegas em uma comunidade pública podem ver o seu perfil privado."
     show:
       vcard:
         export: "Exportar vCard"
