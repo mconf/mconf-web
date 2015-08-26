@@ -10,13 +10,8 @@ module Abilities
     include CanCan::Ability
 
     def initialize(user=nil)
-      # remove the default aliases to remove the one that says:
-      #   `alias_action :edit, to: :update`
-      # we have some models where the user should have access to :update but not
-      # to :edit, and this alias was binding them together.
+      # remove the default aliases so we use explicit actions
       clear_aliased_actions
-      alias_action :index, :show, to: :read
-      alias_action :new, to: :create
 
       register_abilities(user)
     end
@@ -36,7 +31,7 @@ module Abilities
 
       # won't use :manage so it doesn't block actions such as #index
       cannot [:show, :destroy, :edit, :update, :disable,
-              :enable, :approve, :disapprove, :confirm, :read,
+              :enable, :approve, :disapprove, :confirm, :show,
               :fellows, :current, :select, :update_password], User, disabled: true
 
       cannot [:update_full_name], Profile do |profile|
@@ -86,7 +81,7 @@ module Abilities
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:read, :create, :reply_post], Post do |post|
+      cannot [:show, :create, :new, :reply_post, :destroy, :edit, :update], Post do |post|
         # space admins can do it even if not approved yet
         !post.space.approved? && (user.nil? || !post.space.admins.include?(user))
       end
@@ -96,10 +91,12 @@ module Abilities
         !news.space.approved? && (user.nil? || !news.space.admins.include?(user))
       end
 
-      cannot [:read, :create], Attachment do |attach|
+      cannot [:show, :create, :new], Attachment do |attach|
         # space admins can do it even if not approved yet
         !attach.space.approved? && (user.nil? || !attach.space.admins.include?(user))
       end
+
+      # TODO: events in a space that's not approved yet
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
@@ -112,7 +109,6 @@ module Abilities
       cannot [:update, :space_edit, :play, :space_show], BigbluebuttonRecording do |recording|
         recording.room && recording.room.owner && !recording.room.owner.approved
       end
-
     end
   end
 

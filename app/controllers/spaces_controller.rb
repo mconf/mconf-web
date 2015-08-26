@@ -210,7 +210,7 @@ class SpacesController < ApplicationController
       respond_to do |format|
         format.html {
           flash[:success] = t('space.leave.success', :space_name => @space.name)
-          if can?(:read, @space)
+          if can?(:show, @space)
             redirect_to space_path(@space)
           else
             redirect_to root_path

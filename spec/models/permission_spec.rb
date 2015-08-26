@@ -55,7 +55,7 @@ describe Permission do
 
       context "that's not a member of the permission's space" do
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target)
+          should_not be_able_to_do_anything_to(target).except(:index)
         }
         it_should_behave_like "for all permission types"
       end
@@ -68,7 +68,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target)
+          should_not be_able_to_do_anything_to(target).except(:index)
         }
         it_should_behave_like "for all permission types"
       end
@@ -81,7 +81,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy])
+          should_not be_able_to_do_anything_to(target).except([:show, :index, :edit, :update, :destroy])
         }
         it_should_behave_like "for all permission types"
       end

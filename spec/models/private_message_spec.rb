@@ -16,17 +16,17 @@ describe PrivateMessage do
     context "when is a registered user" do
       context "and the message sender" do
         let(:user) { target.sender }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :destroy, :create]) }
+        it { should_not be_able_to_do_anything_to(target).except([:index, :show, :destroy, :create, :new]) }
       end
 
       context "and the message receiver" do
         let(:user) { target.receiver }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :destroy]) }
+        it { should_not be_able_to_do_anything_to(target).except([:index, :show, :create, :new, :destroy]) }
       end
 
       context "but not the sender or receiver" do
         let(:user) { FactoryGirl.create(:user) }
-        it { should_not be_able_to_do_anything_to(target).except(:create) }
+        it { should_not be_able_to_do_anything_to(target).except([:create, :new, :index]) }
       end
     end
 

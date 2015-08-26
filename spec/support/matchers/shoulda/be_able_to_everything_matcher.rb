@@ -11,7 +11,7 @@
 #
 # Examples:
 #   it { should be_able_to_do_everything_to(object) }
-#   it { should be_able_to_do_everything_to(object).except(:read) }
+#   it { should be_able_to_do_everything_to(object).except(:show) }
 #
 # If your target object has custom actions, you have to set them first, otherwise
 # they won't be considered! You can do something like this in your :
@@ -47,7 +47,7 @@ module Shoulda
         # all RESTful actions in Rails plus the aliases defined by CanCan,
         # see https://github.com/ryanb/cancan/wiki/Action-Aliases
         cattr_accessor 'actions'
-        @@actions = [:read, :update, :create, :destroy, :manage, :show, :index, :edit, :new]
+        @@actions = [:update, :create, :destroy, :manage, :show, :index, :edit, :new]
 
         cattr_accessor 'custom_actions'
         @@custom_actions = []
@@ -67,12 +67,6 @@ module Shoulda
 
           @all_actions = @@actions + @@custom_actions
           @can = @all_actions.select {|a| subject.can?(a, @target)}
-
-          # expand default aliases defined by cancan
-          @can.push(:show, :index) if @can.include?(:read)
-          @can.push(:new) if @can.include?(:create)
-          # these aliases are standard in cancan, but we removed it on mconf-web
-          # @can.push(:edit) if @can.include?(:update)
 
           @can.sort.uniq == (@all_actions - @exceptions).sort.uniq
         end

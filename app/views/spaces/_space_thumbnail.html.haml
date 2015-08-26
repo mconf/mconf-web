@@ -7,7 +7,7 @@
 .list-thumbnail.space-container.space-thumbnail{class: [!space.approved? && 'waiting-approval']}
   .list-logo
     - space_logo = logo_image(space, :size => "84x64", :title => space.name)
-    -# note: can't be can?(:read, space) because we want the link even for non-members
+    -# note: can't be can?(:show, space) because we want the link even for non-members
     -#   of private spaces
     - if space_link_visible?(space)
       = link_to space_path(space) do
