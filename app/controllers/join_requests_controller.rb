@@ -83,7 +83,10 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.users.include?(current_user) || @space.pending_join_request_or_invitation_for?(current_user)
+      if @space.users.include?(current_user)
+        flash[:notice] = t('join_requests.create.you_are_already_a_member')
+        redirect_after_created
+      elsif @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         redirect_after_created
       else

@@ -209,6 +209,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
     end
 
     context "user requests membership on a space where he's already requested it" do
@@ -222,6 +223,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
     end
 
     context "user requests membership on a space where he's already a member" do
@@ -235,6 +237,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
     end
 
     context "user requests membership on a private space" do

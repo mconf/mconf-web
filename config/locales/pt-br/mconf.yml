@@ -814,6 +814,7 @@ pt-br:
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
       users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
+      you_are_already_a_member: "Você já é membro desta comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"

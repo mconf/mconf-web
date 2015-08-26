@@ -814,6 +814,7 @@ en:
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
       users_added: "You have successfully added the user(s) %{users} to this space"
+      you_are_already_a_member: "You are already a member of this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
