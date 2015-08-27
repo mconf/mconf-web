@@ -19,7 +19,7 @@
   %span.space-description
     = sanitize(first_words(space.description, 100))
 
-  - if current_site.require_space_approval? && !space.approved?
-    %span.space-waiting-moderation
-      = icon_waiting_moderation
-      = t("_other.not_approved.tooltip")
+    - if current_site.require_space_approval? && !space.approved?
+      .space-waiting-moderation
+        = icon_waiting_moderation
+        = t("_other.not_approved.tooltip")
