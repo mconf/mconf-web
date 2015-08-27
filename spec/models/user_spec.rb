@@ -1037,14 +1037,14 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select,
+        allowed = [:show, :index, :edit, :update, :disable, :fellows, :current, :select,
                    :update_password]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
       context "and he is disabled" do
         before { target.disable }
-        it { should_not be_able_to_do_anything_to(target) }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
 
       context "cannot edit the password if the account was created by shib" do
@@ -1074,11 +1074,11 @@ describe User do
 
     context "when is another normal user" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :current, :fellows, :select]) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current, :fellows, :select]) }
 
       context "and the target user is disabled" do
         before { target.disable }
-        it { should_not be_able_to_do_anything_to(target) }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
 
       context "cannot edit the password even if the account was not created by shib" do
@@ -1110,11 +1110,11 @@ describe User do
 
     context "when is an anonymous user" do
       let(:user) { User.new }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :current]) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current]) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should_not be_able_to_do_anything_to(target) }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
     end
   end

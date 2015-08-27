@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe Mconf do
+describe Mconf::DialNumber do
 
   describe '#generate_dial_number' do
     before {

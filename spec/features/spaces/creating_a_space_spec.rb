@@ -8,125 +8,199 @@
 require "spec_helper"
 require "support/feature_helpers"
 
-feature "Creating a space" do
-  let!(:user) { FactoryGirl.create(:user) }
-  let(:space) { FactoryGirl.create(:space) }
+def create_space_from_attrs attrs
+  visit new_space_path
+  fill_in "space[name]", with: attrs[:name]
+  fill_in "space[permalink]", with: attrs[:permalink]
+  fill_in "space[description]", with: attrs[:description]
 
-  scenario "as public" do
-    attrs = FactoryGirl.attributes_for(:space)
-    login_as(user, :scope => :user)
-
-    visit new_space_path
-    fill_in "space[name]", with: attrs[:name]
-    fill_in "space[permalink]", with: attrs[:permalink]
-    fill_in "space[description]", with: attrs[:description]
+  if attrs[:public] == true
     check "space[public]"
-    click_button t("_other.create")
-
-    Space.last.public.should be(true)
-    current_path.should eq(space_path(Space.last))
-    page.should have_content(attrs[:name])
-    page.should have_content(attrs[:description])
-    page.should have_content(t("layouts.spaces_page_title.public"))
-  end
-
-  scenario "as private" do
-    attrs = FactoryGirl.attributes_for(:space)
-    login_as(user, :scope => :user)
-
-    visit new_space_path
-    fill_in "space[name]", with: attrs[:name]
-    fill_in "space[permalink]", with: attrs[:permalink]
-    fill_in "space[description]", with: attrs[:description]
+  else
     uncheck "space[public]"
-    click_button t("_other.create")
-
-    Space.last.public.should be(false)
-    current_path.should eq(space_path(Space.last))
-    page.should have_content(attrs[:name])
-    page.should have_content(attrs[:description])
-    page.should have_content(t("layouts.spaces_page_title.private"))
   end
 
-  scenario "with the name of an existing space" do
-    login_as(user, :scope => :user)
+  click_button t("_other.create")
+end
 
-    visit new_space_path
-    fill_in "space[name]", with: space.name
-    fill_in "space[permalink]", with: "anything"
-    fill_in "space[description]", with: "Anything"
-    click_button t("_other.create")
+feature "Creating a space" do
+  let(:user) { FactoryGirl.create(:user) }
 
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_name"
+  context "as public" do
+    let(:attrs) { FactoryGirl.attributes_for(:space, public: true) }
+    before {
+      login_as(user, :scope => :user)
+      create_space_from_attrs(attrs)
+    }
+
+    it { Space.last.public.should be(true) }
+    it { current_path.should eq(space_path(Space.last)) }
+    it { page.should have_content(attrs[:name]) }
+    it { page.should have_content(attrs[:description]) }
+    it { page.should have_content(t("layouts.spaces_page_title.public")) }
   end
 
-  scenario "with the permalink of an existing space" do
-    login_as(user, :scope => :user)
+  context "as private" do
+    let(:attrs) { FactoryGirl.attributes_for(:space, public: false) } 
+    before {
+      login_as(user, :scope => :user)
+      create_space_from_attrs(attrs)
+    }
 
-    visit new_space_path
-    fill_in 'space[name]', with: "Anything"
-    fill_in 'space[permalink]', with: space.permalink
-    fill_in 'space[description]', with: "Anything"
-    click_button t("_other.create")
-
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_permalink"
+    it { Space.last.public.should be(false) }
+    it { current_path.should eq(space_path(Space.last)) }
+    it { page.should have_content(attrs[:name]) }
+    it { page.should have_content(attrs[:description]) }
+    it { page.should have_content(t("layouts.spaces_page_title.private")) }
   end
 
-  scenario "with the name of a disabled space" do
-    disabled_space = FactoryGirl.create(:space, disabled: true)
-    login_as(user, :scope => :user)
+  context "creation errors" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:attrs) { FactoryGirl.attributes_for(:space) }
 
-    visit new_space_path
-    fill_in "space[name]", with: disabled_space.name
-    fill_in "space[permalink]", with: "anything"
-    fill_in "space[description]", with: "Anything"
-    click_button t("_other.create")
+    context "with the name of an existing space" do
+      before {
+        login_as(user, :scope => :user)
+        attrs[:name] = space.name
+        create_space_from_attrs(attrs)
+      }
 
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_name"
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_name" }
+    end
+
+    context "with the permalink of an existing space" do
+      before {
+        login_as(user, :scope => :user)
+        attrs[:permalink] = space.permalink
+        create_space_from_attrs(attrs)
+      }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_permalink" }
+    end
+
+    context "with the name of a disabled space" do
+      before {
+        disabled_space = FactoryGirl.create(:space, disabled: true)
+        login_as(user, :scope => :user)
+
+        attrs[:name] = disabled_space.name
+        create_space_from_attrs(attrs)
+      }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_name" }
+    end
+
+    context "with the permalink of a disabled space" do
+      before {
+        disabled_space = FactoryGirl.create(:space, disabled: true)
+        login_as(user, :scope => :user)
+
+        attrs[:permalink] = disabled_space.permalink
+        create_space_from_attrs(attrs)
+      }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_permalink" }
+    end
+
+    context "with the permalink equal to some user's username" do
+      before {
+        login_as(user, :scope => :user)
+
+        attrs[:permalink] = user.username
+        create_space_from_attrs(attrs)
+      }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_permalink" }
+    end
+
+    context "with the permalink equal to some disabled user's username" do
+      before {
+        disabled_user = FactoryGirl.create(:user, disabled: true)
+        login_as(user, :scope => :user)
+
+        attrs[:permalink] = disabled_user.username
+        create_space_from_attrs(attrs)
+      }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_field_with_error "space_permalink" }
+    end
+
   end
 
-  scenario "with the permalink of a disabled space" do
-    disabled_space = FactoryGirl.create(:space, disabled: true)
-    login_as(user, :scope => :user)
+  context "when user space creation is moderated" do
+    let(:attrs) { FactoryGirl.attributes_for(:space) }
+    before {
+      Site.current.update_attributes(require_space_approval: true)
+      login_as(user, :scope => :user)
+      create_space_from_attrs(attrs)
+    }
 
-    visit new_space_path
-    fill_in "space[name]", with: "Anything"
-    fill_in "space[permalink]", with: disabled_space.permalink
-    fill_in "space[description]", with: "Anything"
-    click_button t("_other.create")
+    it { Space.last.should_not be_approved }
+    it { current_path.should eq(spaces_path) }
+    it { has_success_message t('space.created_waiting_moderation') }
 
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_permalink"
+    it { page.should_not have_content(attrs[:name]) }
+
+    context '' do
+      before { visit spaces_path(my_spaces: 'true', order: 'abc') }
+
+      it { page.should have_content(attrs[:name]) }
+      it { page.should have_selector('.waiting-approval', count: 1) }
+      it { page.should have_selector('.icon-mconf-waiting-moderation', count: 1)}
+    end
   end
 
-  scenario "with the permalink equal to some user's username" do
-    login_as(user, :scope => :user)
+  context "when space creation is moderated but as an admin" do
+    let(:attrs) { FactoryGirl.attributes_for(:space) }
+    before {
+      Site.current.update_attributes(require_space_approval: true)
+      user.update_attributes(superuser: true)
+      login_as(user, :scope => :user)
+      create_space_from_attrs(attrs)
+    }
 
-    visit new_space_path
-    fill_in "space[name]", with: "Anything"
-    fill_in "space[permalink]", with: user.username
-    fill_in "space[description]", with: "Anything"
-    click_button t("_other.create")
-
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_permalink"
+    it { Space.last.should be_approved }
+    it { current_path.should eq(space_path(Space.last)) }
   end
 
-  scenario "with the permalink equal to some disabled user's username" do
-    disabled_user = FactoryGirl.create(:user, disabled: true)
-    login_as(user, :scope => :user)
+  context "when user space creation is disabled" do
+    let(:attrs) { FactoryGirl.attributes_for(:space) }
+    before {
+      Site.current.update_attributes(forbid_user_space_creation: true)
+      login_as(user, :scope => :user)
 
-    visit new_space_path
-    fill_in "space[name]", with: "Anything"
-    fill_in "space[permalink]", with: disabled_user.username
-    fill_in "space[description]", with: "Anything"
-    click_button t("_other.create")
+      visit spaces_path
+    }
+    it { expect{ find_link('', href: new_space_path) }.to  raise_error }
 
-    current_path.should eq(spaces_path)
-    has_field_with_error "space_permalink"
+    context '' do 
+      before { visit new_space_path }
+
+      it { current_path.should eq(spaces_path) }
+      it { has_failure_message t('spaces.error.creation_forbidden') }
+    end
+  end
+
+  context "when space creation is disabled but as an admin" do
+    before {
+      Site.current.update_attributes(forbid_user_space_creation: true)
+      user.update_attributes(superuser: true)
+      login_as(user, :scope => :user)
+      visit spaces_path
+    }
+
+    it { page.find_link('', href: new_space_path).should be_visible }
+
+    context '' do 
+      before { visit new_space_path }
+      it { current_path.should eq(new_space_path) }
+    end
   end
 
   # Skipping because with_js is not working properly yet

@@ -23,3 +23,10 @@
       %span.user-is-member
         = icon_is_member
         = t(".is_member")
+    - if current_site.require_space_approval? && !@space.approved?
+      .space-waiting-moderation
+        = icon_waiting_moderation
+        = t("_other.not_approved.tooltip")
+        - if can?(:approve, @space)
+          - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
+          = ("(" + link + ")").html_safe

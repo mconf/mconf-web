@@ -999,6 +999,11 @@ strong.highlight {
   @include small-date;
 }
 
+// resources waiting moderation
+.user-waiting-moderation, .space-waiting-moderation {
+  // color: darken($yellow, 5);
+}
+
 
 // tablets/mobiles
 @media (max-width: 767px) {

@@ -190,4 +190,9 @@ body.my.home, body.my.activity, body.my.recordings {
     padding-left: 10px;
   }
 
+  #user-space-list {
+    .content-block-footer .btn {
+      float: left;
+    }
+  }
 }

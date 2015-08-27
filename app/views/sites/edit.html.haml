@@ -52,6 +52,8 @@
     = f.input :external_help
     = f.input :registration_enabled, :as => :boolean
     = f.input :require_registration_approval, :as => :boolean
+    = f.input :require_space_approval, :as => :boolean
+    = f.input :forbid_user_space_creation, :as => :boolean
     = f.input :local_auth_enabled, :as => :boolean
     = f.input :events_enabled, :as => :boolean
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

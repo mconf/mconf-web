@@ -94,6 +94,8 @@ Mconf::Application.routes.draw do
       post :update_logo
       delete :disable
       post :leave
+      post :approve
+      post :disapprove
       get :user_permissions
       get :webconference_options
       get :webconference

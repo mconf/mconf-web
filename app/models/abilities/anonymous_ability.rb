@@ -13,7 +13,8 @@ module Abilities
 
       # Note: For the private profile only, the public profile is always visible.
       #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
-      can :read, Profile do |profile|
+      can :index, Profile
+      can :show, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
           true
@@ -22,22 +23,31 @@ module Abilities
         end
       end
 
-      can [:read, :current], User, disabled: false
-      can [:read, :webconference, :recordings], Space, public: true
-      can :select, Space
-      can :read, Post, space: { public: true }
+      can [:index], User # restricted through Space and/or manage
+      can [:show, :current], User, disabled: false
+
+      can [:index, :select], Space
+      can [:show, :webconference, :recordings], Space, public: true
+
+      can :index, News # restricted through Space
       can :show, News, space: { public: true }
-      can :read, Attachment, space: { public: true, repository: true }
+
+      can :index, Post # restricted through Space
+      can :show, Post, space: { public: true }
+
+      can :index, Attachment # restricted through Space
+      can :show, Attachment, space: { public: true, repository: true }
 
       # for MwebEvents
       if Mconf::Modules.mod_loaded?('events')
-        can [:read, :select], MwebEvents::Event
+        can [:show, :index, :select], MwebEvents::Event
         # Pertraining public and private event registration
         can :register, MwebEvents::Event, public: true
-        can :create, MwebEvents::Participant # TODO: really needed?
+        can [:create, :new], MwebEvents::Participant
       end
 
-      restrict_access_to_disabled_resources
+      restrict_access_to_disabled_resources(user)
+      restrict_access_to_unapproved_resources(user)
     end
 
     private

@@ -159,7 +159,7 @@ describe JoinRequest do
           before { target.group.update_attributes(public: is_public) }
 
           context "he is not a member of" do
-            it { should_not be_able_to_do_anything_to(target).except(:create) }
+            it { should_not be_able_to_do_anything_to(target).except([:create, :new]) }
           end
 
           context "he is not a member and is being invited to the space" do
@@ -168,7 +168,7 @@ describe JoinRequest do
               target.request_type = JoinRequest::TYPES[:invite]
             end
 
-            it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :decline]) }
+            it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :new, :decline]) }
           end
 
           context "he is a member of" do
@@ -178,14 +178,14 @@ describe JoinRequest do
               context "over a request" do
                 it { should be_able_to(:index_join_requests, target.group) }
                 it { should be_able_to(:invite, target.group) }
-                it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :decline]) }
+                it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :new, :decline]) }
               end
 
               context "over an invitation" do
                 before { target.request_type = JoinRequest::TYPES[:invite] }
                 it { should be_able_to(:index_join_requests, target.group) }
                 it { should be_able_to(:invite, target.group) }
-                it { should_not be_able_to_do_anything_to(target).except([:show, :create, :decline]) }
+                it { should_not be_able_to_do_anything_to(target).except([:show, :create, :new, :decline]) }
               end
             end
 
@@ -193,12 +193,12 @@ describe JoinRequest do
               before { target.group.add_member!(user, "User") }
 
               context "over a request" do
-                it { should_not be_able_to_do_anything_to(target).except(:create) }
+                it { should_not be_able_to_do_anything_to(target).except([:create, :new]) }
               end
 
               context "over an invitation" do
                 before { target.request_type = JoinRequest::TYPES[:invite] }
-                it { should_not be_able_to_do_anything_to(target).except(:create) }
+                it { should_not be_able_to_do_anything_to(target).except([:create, :new]) }
               end
             end
 

@@ -7,7 +7,7 @@
 require 'spec_helper'
 require 'support/feature_helpers'
 
-feature 'Editing a user account' do
+feature 'Editing a user account', with_truncation: true do
   let(:admin) { FactoryGirl.create(:superuser) }
   let(:user) { FactoryGirl.create(:user) }
 

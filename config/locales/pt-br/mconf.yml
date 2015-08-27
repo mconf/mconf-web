@@ -85,6 +85,8 @@ pt-br:
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
+    not_approved:
+      tooltip: 'Aguardando aprovação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -177,6 +179,8 @@ pt-br:
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
+        require_space_approval: "Moderação de comunidades"
+        forbid_user_space_creation: "Proibir criação de comunidades por usuários"
         room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
@@ -910,6 +914,7 @@ pt-br:
         change: "Mudar a linguagem"
     spaces_page_title:
       is_member: "Você é membro desta comunidade"
+      manage_to_approve: "ir à gerenciamento para aprovar"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -941,8 +946,12 @@ pt-br:
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
+      approve: "Aprovar: permitir que esta comunidade seja mostrada no site"
+      approve_confirm: "Tem certeza que deseja permitir que esta comunidade seja mostrada no site?"
       disable: "Desabilitar comundiade"
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      disapprove: "Desaprovar: bloquear esta comunidade de aparecer no site"
+      disapprove_confirm: "Tem certeza que deseja bloquear esta comunidade de aparecer no site?"
       edit: "Editar comunidade"
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -1420,6 +1429,7 @@ pt-br:
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
+    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para acessá-la."
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
     description: "Descrição da comunidade"
@@ -1533,7 +1543,10 @@ pt-br:
       none: "Nenhum evento no futuro"
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
-  spaces: 
+  spaces:
+    approve:
+      approved: "A comunidade %{name} foi aprovada!"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     admin_tabs:
       add_member: "Adicionar membros"
       admissions: "Admissões"
@@ -1542,6 +1555,9 @@ pt-br:
       news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
+    disapprove:
+      disapproved: "A comunidade %{name} foi bloqueada de aparecer no site!"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     edit:
       change_logo: "Mudar imagem"
       delete_confirmation: "Você tem certeza? Essa comunidade se tornará inacessível a você e a todos outros os usuários!"
@@ -1553,8 +1569,10 @@ pt-br:
       title: "Editar sua gravação"
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
+      creation_forbidden: "Você não possui permissão para criar comunidades"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 
@@ -1816,7 +1834,7 @@ pt-br:
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
-      approved: "O usuário %{username} foi aprovado para acessar este site!"
+      approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
@@ -1826,7 +1844,7 @@ pt-br:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "O usuário %{username} foi bloqueado de acessar este site!"
+      disapproved: "O usuário %{name} foi bloqueado de acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
       account_info: "Informações da conta"
