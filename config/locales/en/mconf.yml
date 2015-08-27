@@ -85,7 +85,7 @@ en:
     save: "Save"
     send: "Send"
     not_approved:
-      tooltip: 'Space waiting for admin moderation'
+      tooltip: 'Waiting approval'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -911,6 +911,7 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
+      manage_to_approve: "go to manage to approve"
       private: "Private space"
       public: "Public space"
   less: "less..."
@@ -1424,7 +1425,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
-    created_waiting_moderation: "Space created successfully but is still waiting moderation from an admin"
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before you can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1558,9 +1559,10 @@ en:
       title: "Edit your recording"
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
+      creation_forbidden: "You are not allowed to create spaces"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
-      unapproved: This space is still waiting for admin approval.
+      unapproved: "This space was not yet approved by an administrator."
     index: 
       create_new_space: "Create a new space"
       list_format: 

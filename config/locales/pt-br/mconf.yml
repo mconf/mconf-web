@@ -86,7 +86,7 @@ pt-br:
     save: "Salvar"
     send: "Enviar"
     not_approved:
-      tooltip: 'Comunidade à espera de moderação'
+      tooltip: 'Aguardando aprovação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -913,6 +913,7 @@ pt-br:
         change: "Mudar a linguagem"
     spaces_page_title:
       is_member: "Você é membro desta comunidade"
+      manage_to_approve: "ir à gerenciamento para aprovar"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -1427,7 +1428,7 @@ pt-br:
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
-    created_waiting_moderation: "Comunidade criada com sucesso. Agora aguarde pela aprovação de um administrador."
+    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para acessá-la."
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
     description: "Descrição da comunidade"
@@ -1567,9 +1568,10 @@ pt-br:
       title: "Editar sua gravação"
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
+      creation_forbidden: "Você não possui permissão para criar comunidades"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
-      unapproved: Esta comunidade ainda está à espera de aprovação por um administrador.
+      unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 

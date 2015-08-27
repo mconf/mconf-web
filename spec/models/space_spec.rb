@@ -1018,6 +1018,20 @@ describe Space do
           it { should be_able_to_do_everything_to(target).except(:leave) }
         end
       end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
+        end
+      end
     end
 
     context "a normal user", :user => "normal" do
@@ -1148,6 +1162,20 @@ describe Space do
           it { should_not be_able_to_do_anything_to(target) }
         end
       end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
+        end
+      end
     end
 
     context "an anonymous user", :user => "anonymous" do
@@ -1180,6 +1208,20 @@ describe Space do
         context "when the space is not approved" do
           before { target.update_attributes(approved: false) }
           it { should_not be_able_to_do_anything_to(target).except([:select, :index]) }
+        end
+      end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
         end
       end
     end

@@ -9,6 +9,8 @@ require "spec_helper"
 describe UsersController do
   render_views
 
+  it "includes Mconf::ApprovalControllerModule"
+
   describe "#index" do
     it "loads the space"
     it "loads the webconference room information"

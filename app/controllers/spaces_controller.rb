@@ -339,7 +339,8 @@ class SpacesController < ApplicationController
         redirect_to new_space_join_request_path :space_id => params[:id]
       end
 
-    elsif [:create, :new].include? exception.action # space creation is forbidden for users
+    # when space creation is forbidden for users
+    elsif [:create, :new].include? exception.action
       flash[:error] = t("spaces.error.creation_forbidden")
       redirect_to spaces_path
 
