@@ -51,9 +51,9 @@
     = f.input :external_help, :disabled => true
     = f.input :registration_enabled, :as => :boolean, :disabled => true
     = f.input :require_registration_approval, :as => :boolean, :disabled => true
+    = f.input :local_auth_enabled, :as => :boolean, :disabled => true
     = f.input :require_space_approval, :as => :boolean, :disabled => true
     = f.input :forbid_user_space_creation, :as => :boolean, :disabled => true
-    = f.input :local_auth_enabled, :as => :boolean, :disabled => true
     = f.input :events_enabled, :as => :boolean, :disabled => true
   .form-actions
     = link_to t('_other.edit'), edit_site_path, :class => "btn btn-primary"

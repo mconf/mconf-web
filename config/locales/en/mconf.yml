@@ -163,6 +163,7 @@ en:
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
+        forbid_user_space_creation: "Forbid users from creating spaces"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -178,7 +179,8 @@ en:
         name: "Name"
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
-        require_registration_approval: "Require admins to approve new registrations"
+        require_registration_approval: "Moderate users"
+        require_space_approval: "Moderate spaces"
         room_dial_number_pattern: 'Room dial number pattern'
         signature: "Signature"
         shib_always_new_account: "Shibboleth: Always create new account"
