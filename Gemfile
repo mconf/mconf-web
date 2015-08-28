@@ -78,7 +78,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
+# gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
@@ -147,3 +147,10 @@ group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
 end
+
+# Events module
+gem 'geocoder'
+gem 'redcarpet'
+gem 'epic-editor-rails'
+gem 'leaflet-rails'
+

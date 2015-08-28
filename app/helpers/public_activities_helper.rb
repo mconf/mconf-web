@@ -34,8 +34,8 @@ module PublicActivitiesHelper
       else
         if mod_enabled?('events')
           case trackable
-          when MwebEvents::Event then link_to(trackable.name, mweb_events.event_path(trackable))
-          when MwebEvents::Participant then link_to(trackable.event.name, mweb_events.event_path(trackable.event))
+          when Event then link_to(trackable.name, event_path(trackable))
+          when Participant then link_to(trackable.event.name, event_path(trackable.event))
           end
         end
       end

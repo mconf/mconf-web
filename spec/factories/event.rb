@@ -7,7 +7,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :event, :class => MwebEvents::Event do |e|
+  factory :event, :class => Event do |e|
     e.sequence(:name) { Forgery::Name.first_name }
     e.description { Forgery::LoremIpsum.paragraph }
     e.summary { Forgery::LoremIpsum.characters 140 }

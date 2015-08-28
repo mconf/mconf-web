@@ -24,8 +24,8 @@ namespace :db do
       Permission.destroy_all
       Space.destroy_all
       if configatron.modules.events.enabled
-        MwebEvents::Event.destroy_all
-        MwebEvents::Participant.destroy_all
+        Event.destroy_all
+        Participant.destroy_all
       end
       RecentActivity.destroy_all
       User.with_disabled.where.not(id: User.first.id).destroy_all
@@ -193,7 +193,7 @@ namespace :db do
 
       puts "* Create events: for spaces (20..40)"
       available_spaces = Space.all.to_a
-      MwebEvents::Event.populate 20..40 do |event|
+      Event.populate 20..40 do |event|
         event.owner_id = available_spaces
         event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
@@ -212,7 +212,7 @@ namespace :db do
 
       puts "* Create events: for users (20..40)"
       available_users = User.all.to_a
-      MwebEvents::Event.populate 20..40 do |event|
+      Event.populate 20..40 do |event|
         event.owner_id = available_users
         event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
@@ -445,10 +445,10 @@ namespace :db do
     p.new_activity :create, u2
 
     event_attrs = [:name, :summary, :description, :location, :address]
-    e = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+    e = FactoryGirl.create(:event, attrs_to_hash(Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
     e.new_activity :create, u
 
-    e2 = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
+    e2 = FactoryGirl.create(:event, attrs_to_hash(Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
     e2.new_activity :create, u2
 
     jr_attrs = [:comment]

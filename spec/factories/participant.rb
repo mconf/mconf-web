@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
-  factory :participant, :class => MwebEvents::Participant do |e|
+  factory :participant, :class => Participant do |e|
     e.association :event
   end
 end

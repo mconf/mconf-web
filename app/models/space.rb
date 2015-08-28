@@ -61,7 +61,7 @@ class Space < ActiveRecord::Base
            :foreign_key => "group_id"
 
   if Mconf::Modules.mod_loaded?('events')
-    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => MwebEvents::Event,
+    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => Event,
              :foreign_key => "owner_id", :dependent => :destroy
   end
 

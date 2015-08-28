@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824200913) do
+ActiveRecord::Schema.define(version: 20150828182321) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -169,6 +169,27 @@ ActiveRecord::Schema.define(version: 20150824200913) do
     t.binary "data"
   end
 
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.text     "summary"
+    t.text     "description"
+    t.string   "social_networks"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "time_zone"
+    t.string   "location"
+    t.string   "address"
+    t.float    "latitude",        limit: 24
+    t.float    "longitude",       limit: 24
+    t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
+
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
     t.string   "target_type"
@@ -217,36 +238,6 @@ ActiveRecord::Schema.define(version: 20150824200913) do
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
   add_index "ldap_tokens", ["user_id"], name: "index_ldap_tokens_on_user_id", unique: true, using: :btree
 
-  create_table "mweb_events_events", force: true do |t|
-    t.string   "name"
-    t.text     "summary"
-    t.text     "description"
-    t.string   "social_networks"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.datetime "start_on"
-    t.datetime "end_on"
-    t.string   "time_zone"
-    t.string   "location"
-    t.string   "address"
-    t.float    "latitude",        limit: 24
-    t.float    "longitude",       limit: 24
-    t.string   "permalink"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "mweb_events_events", ["permalink"], name: "index_mweb_events_events_on_permalink", using: :btree
-
-  create_table "mweb_events_participants", force: true do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.integer  "event_id"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "news", force: true do |t|
     t.string   "title"
     t.text     "text"
@@ -260,6 +251,15 @@ ActiveRecord::Schema.define(version: 20150824200913) do
     t.integer  "participant_id"
     t.datetime "confirmed_at"
     t.datetime "email_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", force: true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "event_id"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

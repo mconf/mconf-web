@@ -62,10 +62,11 @@ Mconf::Application.routes.draw do
 
   # event module
   if Mconf::Modules.mod_loaded?('events')
-    mount MwebEvents::Engine => '/'
+
+    resources :participants
 
     # For invitations
-    resources :events, only: [] do
+    resources :events do
       member do
         post :send_invitation, controller: 'mweb_events/events'
         get  :invite, controller: 'mweb_events/events'

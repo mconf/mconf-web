@@ -11,8 +11,6 @@ require './lib/mconf/modules'
 module ApplicationHelper
   include Mconf::Modules # so the views can access it too
 
-  include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
-
   def copyable_field(id, content, opt={})
     opt[:label] ||= id
     content_tag :div, :class => 'input-append copyable-field' do
