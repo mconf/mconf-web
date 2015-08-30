@@ -36,6 +36,9 @@ $ ->
         results: (data, page) -> # parse the results into the format expected by Select2.
           results: data
 
+# Enable the message unless there is an option to add people and it is selected.
+# Covers the case when there's no option to add people, when the 'invite people' is the default.
 enableDisableMessage = ->
-  typeInvite = $('#type_invite')
-  $('#join_request_comment').enable(typeInvite.is(":checked"))
+  typeAdd = $('#type_add')
+  selected = !(typeAdd.is(":visible") && typeAdd.is(":checked"))
+  $('#join_request_comment').enable(selected)

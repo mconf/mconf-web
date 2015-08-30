@@ -90,7 +90,7 @@ describe Profile do
   end
 
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:update_logo])
+    set_custom_ability_actions([:update_logo, :update_full_name])
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user).profile }
@@ -101,14 +101,14 @@ describe Profile do
         visibilities.each do |visibility|
           it "'#{visibility}'" do
             target.visibility = Profile::VISIBILITY.index(visibility)
-            should_not be_able_to_do_anything_to(target).except(:read)
+            should_not be_able_to_do_anything_to(target).except([:index, :show])
           end
         end
         Profile::VISIBILITY.each do |visibility|
           unless visibilities.include?(visibility)
             it "'#{visibility}'" do
               target.visibility = Profile::VISIBILITY.index(visibility)
-              should_not be_able_to_do_anything_to(target)
+              should_not be_able_to_do_anything_to(target).except(:index)
             end
           end
         end
@@ -120,7 +120,7 @@ describe Profile do
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
-          it { should be_able_to(:read, target) }
+          it { should be_able_to(:show, target) }
           it { should be_able_to(:update, target) }
           it { should be_able_to(:update_logo, target) }
         end
@@ -129,6 +129,30 @@ describe Profile do
       context "if the target user is disabled" do
         before { target.user.disable }
         it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "cannot edit the full name if the account was created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: true)
+        }
+        it { should_not be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: false)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the site is not updating user information automatically" do
+        before {
+          Site.current.update_attributes(shib_update_users: false)
+          FactoryGirl.create(:shib_token, user: target.user, new_account: true)
+        }
+        it { should be_able_to(:update_full_name, target) }
       end
     end
 

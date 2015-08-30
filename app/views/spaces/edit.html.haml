@@ -24,7 +24,7 @@
 
   #edit-space-logo
     .logo-wrapper
-      = logo_image(@space, size: "336x256", class: 'logo', title: @space.name)
+      = logo_image(@space, size: "336x256", class: 'logo logo-uploadable', title: @space.name)
       #space-logo-uploader.file-uploader{:'data-endpoint' => update_logo_space_path(@space, format: :json), :'data-accept' => 'image/*', :'data-max-size' => space_max_image_size }
 
   #edit-space-other-options.alert.alert-danger.alert-clean

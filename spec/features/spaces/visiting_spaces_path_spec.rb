@@ -84,7 +84,7 @@ describe 'User accesses spaces index' do
     end
 
     context 'my spaces' do
-      before { find('#show-spaces-mine').click } # click the 'My spaces' button 
+      before { find('#show-spaces-mine').click } # click the 'My spaces' button
       it { should have_link t('spaces.index.create_new_space'), :href => new_space_path }
       it { should have_content space.name }
       it { should_not have_content space2.name }

@@ -115,6 +115,7 @@ namespace :db do
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
       space.disabled = false
+      space.approved = true
       space.permalink = name.parameterize
       space.repository = [ true, false ]
 

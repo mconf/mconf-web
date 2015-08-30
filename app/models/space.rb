@@ -34,8 +34,11 @@
 # * "space.leave": When user leaves a space (parameters: +user_id+, +username+)
 #
 
+require './lib/mconf/approval_module'
+
 class Space < ActiveRecord::Base
   include PublicActivity::Common
+  include Mconf::ApprovalModule
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
@@ -67,6 +70,10 @@ class Space < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
   after_update :update_webconf_room
   after_create :create_webconf_room
+
+  def require_approval?
+    Site.current.require_space_approval?
+  end
 
   validates :description, :presence => true
 
@@ -288,6 +295,10 @@ class Space < ActiveRecord::Base
     !disabled?
   end
 
+  def small_logo_image?
+    logo_image.height < 100 || logo_image.width < 100
+  end
+
   private
 
   # Creates the webconf room after the space is created
@@ -329,5 +340,4 @@ class Space < ActiveRecord::Base
   def crop_logo
     logo_image.recreate_versions! if is_cropping?
   end
-
 end

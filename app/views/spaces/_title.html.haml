@@ -31,6 +31,15 @@
       %span.user-is-member
         = icon_is_member
         = t(".is_member")
+
+    - if current_site.require_space_approval? && !@space.approved?
+      .resource-waiting-tooltip
+        = icon_waiting_moderation
+        = t("_other.not_approved.text")
+        - if can?(:approve, @space)
+          - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
+          = ("(" + link + ")").html_safe
+
     .sub-title
       -# = sanitize(first_words(space.description, 150))
       = sanitize(space.description)

@@ -39,6 +39,7 @@ en:
       deleted: a message that has since been deleted
     space:
       accept_html: has joined the space
+      approved_html: approved the space
       create_html: created a new space
       decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
@@ -89,6 +90,9 @@ en:
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
+    not_approved:
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -166,6 +170,7 @@ en:
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
+        forbid_user_space_creation: "Forbid users from creating spaces"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -181,7 +186,8 @@ en:
         name: "Name"
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
-        require_registration_approval: "Require admins to approve new registrations"
+        require_registration_approval: "Moderate users"
+        require_space_approval: "Moderate spaces"
         room_dial_number_pattern: 'Room dial number pattern'
         signature: "Signature"
         shib_always_new_account: "Shibboleth: Always create new account"
@@ -815,6 +821,7 @@ en:
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
       users_added: "You have successfully added the user(s) %{users} to this space"
+      you_are_already_a_member: "You are already a member of this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -911,6 +918,7 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
+      manage_to_approve: "manage"
       private: "Private space"
       public: "Public space"
   less: "less..."
@@ -942,8 +950,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
+      approve: "Approve: unlock the access to this space"
+      approve_confirm: "Are you sure you want to unlock the access to this space?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
+      disapprove: "Disapprove: block the access to this space"
+      disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -1447,6 +1459,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before other users can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1570,6 +1583,11 @@ en:
       users: "Users"
       webconf_options: "Webconference options"
       add_member: "Add members"
+    approve:
+      approved: "The space %{name} was approved"
+    disapprove:
+      disapproved: "The space %{name} was disapproved"
+      not_enabled: "Moderation of spaces is not enabled"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1585,8 +1603,10 @@ en:
       title: "Edit your recording"
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
+      creation_forbidden: "You are not allowed to create spaces"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
+      unapproved: "This space was not yet approved by an administrator."
     index: 
       create_new_space: "Create a new space"
       list_format: 
@@ -1732,6 +1752,9 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
+  sites:
+    edit:
+      shib_warning_html: "This field is used as the unique identifier for Shibboleth users. If you modify it your users may be unable to access their accounts, before changing it read <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">this page</a>."
   text: Text
   the_string: "the string"
   thread: 
@@ -1843,7 +1866,7 @@ en:
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:
-      approved: "The user %{username} was approved to access the website!"
+      approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     create:
       error: "Errors creating the user: %{errors}"
@@ -1853,7 +1876,7 @@ en:
     detailed_user:
       from: "From:"
     disapprove:
-      disapproved: "The user %{username} was blocked from accessing the website!"
+      disapproved: "The user %{name} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"

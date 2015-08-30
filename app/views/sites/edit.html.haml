@@ -17,6 +17,8 @@
     = f.input :registration_enabled, :as => :boolean
     = f.input :require_registration_approval, :as => :boolean
     = f.input :local_auth_enabled, :as => :boolean
+    = f.input :require_space_approval, :as => :boolean
+    = f.input :forbid_user_space_creation, :as => :boolean
     = f.input :room_dial_number_pattern, as: :string
     = f.input :exception_notifications, :as => :boolean
     = f.input :exception_notifications_email
@@ -33,12 +35,14 @@
     = f.input :smtp_auto_tls
     = f.input :smtp_auth_type
     = f.input :shib_enabled, :as => :boolean
-    = f.input :shib_email_field
+    = f.input :shib_email_field, :as => :string
     = f.input :shib_name_field
     = f.input :shib_principal_name_field
+    #shib-principal-name-warning.alert.alert-danger= t('.shib_warning_html')
     = f.input :shib_login_field
     = f.input :shib_env_variables
     = f.input :shib_always_new_account, :as => :boolean
+    = f.input :shib_update_users, :as => :boolean
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port

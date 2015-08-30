@@ -83,7 +83,10 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.pending_join_request_or_invitation_for?(current_user)
+      if @space.users.include?(current_user)
+        flash[:notice] = t('join_requests.create.you_are_already_a_member')
+        redirect_after_created
+      elsif @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         redirect_after_created
       else
@@ -199,7 +202,7 @@ class JoinRequestsController < ApplicationController
   def process_additions
     errors = []
     success = []
-    ids = params[:candidates].split ',' || []
+    ids = params[:candidates].try(:split, ',') || []
     ids.each do |id|
       user = User.find_by_id(id)
       # New JoinRequest corresponding to this addition
@@ -244,7 +247,7 @@ class JoinRequestsController < ApplicationController
     already_invited = []
     errors = []
     success = []
-    ids = params[:candidates].split ',' || []
+    ids = params[:candidates].try(:split, ',') || []
     ids.each do |id|
       user = User.find_by_id(id)
       jr = @space.join_requests.new(join_request_params)
@@ -286,7 +289,7 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) && can?(:invite, @join_request.group)
+    is_space_admin = @space.present? && can?(:invite, @space)
     if params[:action] == "create"
       if is_space_admin
         [ :role_id, :comment ]

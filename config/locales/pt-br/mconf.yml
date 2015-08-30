@@ -39,6 +39,7 @@ pt-br:
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
+      approved_html: aprovou a comunidade
       create_html: criou a comunidade
       decline_html: teve um convite/pedido negado na comunidade
       deleted: uma comunidade que não existe mais
@@ -90,6 +91,9 @@ pt-br:
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
+    not_approved:
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -166,6 +170,7 @@ pt-br:
         exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
+        forbid_user_space_creation: "Proibir que usuários criem comunidades"
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -181,7 +186,8 @@ pt-br:
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
-        require_registration_approval: "Requerer que administradores aceitem novas contas"
+        require_registration_approval: "Moderar usuários"
+        require_space_approval: "Moderar comunidades"
         room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
@@ -815,6 +821,7 @@ pt-br:
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
       users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
+      you_are_already_a_member: "Você já é membro desta comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -911,6 +918,7 @@ pt-br:
         change: "Mudar a linguagem"
     spaces_page_title:
       is_member: "Você é membro desta comunidade"
+      manage_to_approve: "gerenciar"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -942,8 +950,12 @@ pt-br:
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
+      approve: "Aprovar: permitir o acesso a esta comunidade"
+      approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
       disable: "Desabilitar comundiade"
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -1244,8 +1256,8 @@ pt-br:
       visibility_everybody: "Todos podem ver o seu perfil privado."
       visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
       visibility_nobody: "Ninguém pode ver o seu perfil privado."
-      visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
-      visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
+      visibility_private_fellows: "Apenas os seus colegas em uma comunidade privada podem ver o seu perfil privado."
+      visibility_public_fellows: "Apenas os seus colegas em uma comunidade pública podem ver o seu perfil privado."
     private_hcard:
       email: "E-mail"
       fax: "Fax"
@@ -1432,6 +1444,9 @@ pt-br:
   show_question: Exibir?
   site:
     updated: "Configurações do site atualizadas"
+  sites:
+    edit:
+      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   size: Tamanho
   skype: Skype
   space:
@@ -1448,6 +1463,7 @@ pt-br:
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
+    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para que outros usuários possam acessá-la."
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
     description: "Descrição da comunidade"
@@ -1562,7 +1578,7 @@ pt-br:
       none: "Nenhum evento no futuro"
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
-  spaces: 
+  spaces:
     admin_tabs:
       add_member: "Adicionar membros"
       admissions: "Admissões"
@@ -1571,6 +1587,12 @@ pt-br:
       news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
+    approve:
+      approved: "A comunidade %{name} foi aprovada"
+      not_enabled: "A aprovação de comunidades não está habilitada"
+    disapprove:
+      disapproved: "Acesso bloqueado à comunidade %{name}"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     edit:
       change_logo: "Mudar imagem"
       delete_confirmation: "Você tem certeza? Essa comunidade se tornará inacessível a você e a todos outros os usuários!"
@@ -1586,8 +1608,10 @@ pt-br:
       title: "Editar sua gravação"
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
+      creation_forbidden: "Você não possui permissão para criar comunidades"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 
@@ -1840,7 +1864,7 @@ pt-br:
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
-      approved: "O usuário %{username} foi aprovado para acessar este site!"
+      approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
@@ -1850,7 +1874,7 @@ pt-br:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "O usuário %{username} foi bloqueado de acessar este site!"
+      disapproved: "O usuário %{name} foi bloqueado de acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
       account_info: "Informações da conta"

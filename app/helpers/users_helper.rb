@@ -14,7 +14,9 @@ module UsersHelper
     elsif user.new_record?
       icon_guest + t('_other.user.guest')
     elsif !user.approved?
-      icon_user(:class => 'user-unapproved') + t('_other.user.unapproved_user')
+      content_tag :div, :class => 'user-waiting-moderation' do
+        concat icon_user(:class => 'user-unapproved') + t('_other.user.unapproved_user')
+      end
     else
       icon_user + t('_other.user.normal_user')
     end

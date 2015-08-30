@@ -15,6 +15,16 @@ class LogoImageUploader < CarrierWave::Uploader::Base
 
   storage :file
 
+  def height
+    get_dimensions
+    @height
+  end
+
+  def width
+    get_dimensions
+    @width
+  end
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -92,6 +102,14 @@ class LogoImageUploader < CarrierWave::Uploader::Base
         img.crop("#{w}x#{h}+#{x}+#{y}")
         img
       end
+    end
+  end
+
+  private
+
+  def get_dimensions
+    if @width.blank? || @height.blank?
+      @width, @height = ::MiniMagick::Image.open(file.file)[:dimensions]
     end
   end
 

@@ -8,6 +8,8 @@
 require "digest/sha1"
 
 class UsersController < ApplicationController
+  include Mconf::ApprovalControllerModule # for approve and disapprove
+
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
@@ -174,27 +176,6 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
-  def approve
-    if current_site.require_registration_approval?
-      @user.approve!
-      @user.create_approval_notification(current_user)
-      flash[:notice] = t('users.approve.approved', :username => @user.username)
-    else
-      flash[:error] = t('users.approve.not_enabled')
-    end
-    redirect_to :back
-  end
-
-  def disapprove
-    if current_site.require_registration_approval?
-      @user.disapprove!
-      flash[:notice] = t('users.disapprove.disapproved', :username => @user.username)
-    else
-      flash[:error] = t('users.disapprove.not_enabled')
-    end
-    redirect_to :back
-  end
-
   # Methods to let admins create new users
   def new
     @user = User.new
@@ -230,10 +211,15 @@ class UsersController < ApplicationController
     authorize! action_name.to_sym, @user
   end
 
+  def require_approval?
+    current_site.require_registration_approval?
+  end
+
   allow_params_for :user
   def allowed_params
-    allowed = [ :password, :password_confirmation, :remember_me, :current_password,
-      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
+    allowed = [ :remember_me, :login, :approved, :disabled,
+                :timezone, :can_record, :receive_digest, :expanded_post ]
+    allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed

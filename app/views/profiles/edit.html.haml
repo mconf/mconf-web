@@ -17,7 +17,7 @@
 = content_for :main_sidebar do
   #profile-in-sidebar
     #edit-profile-current-logo
-      = logo_image(@user, :size => '128', :class => 'profile-logo logo')
+      = logo_image(@user, :size => '128', :class => 'profile-logo logo logo-uploadable')
     #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => user_max_image_size }
 
 = simple_form_for @profile, :url => user_profile_path(@user), :html => { :class => 'single-column' } do |f|

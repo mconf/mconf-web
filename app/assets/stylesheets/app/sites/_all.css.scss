@@ -22,4 +22,9 @@ body.sites {
     @include make-sm-column(6);
     @include mconf-clearfix;
   }
+
+  #shib-principal-name-warning {
+    display: none;
+    margin-bottom: 15px;
+  }
 }

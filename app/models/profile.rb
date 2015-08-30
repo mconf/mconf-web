@@ -282,4 +282,8 @@ class Profile < ActiveRecord::Base
       maker.add_url((url  || ""))
     end
   end
+
+  def small_logo_image?
+    logo_image.height < 100 || logo_image.width < 100
+  end
 end

@@ -207,6 +207,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-thumbs-o-up icon-awesome icon-mconf-approve", options
   end
 
+  def icon_waiting_moderation(options={})
+    icon_constructor t("_other.not_approved.tooltip"), "fa fa-exclamation-circle icon-awesome icon-mconf-waiting-moderation", options
+  end
+
   def icon_disapprove(options={})
     icon_constructor nil, "fa fa-thumbs-o-down icon-awesome icon-mconf-disapprove", options
   end

@@ -102,6 +102,10 @@ a:not(.btn) .icon-awesome {
     color: $m-red;
   }
 
+  &.icon-mconf-waiting-moderation {
+    color: $yellow;
+  }
+
   &.icon-mconf-superuser {
     color: $m-red;
   }

@@ -37,6 +37,24 @@ class mconf.Crop
     $('img.cropable').data('Jcrop').setOptions
       aspectRatio: if enabled then $('img.cropable').attr('data-crop-aspect-ratio') else 0
 
+  @onUploadComplete: (id, name, response) ->
+    if response.success
+      # show the crop modal if image is not too small
+      if !response.small_image
+
+        mconf.Modal.showWindow
+          target: response.redirect_url
+
+        # hack to set the redirect if the user closes the modal
+        $('.modal').ready ->
+          $(this).on 'hide', ->
+            location.reload(true)
+
+      else
+        # redirect if the image was small and no crop happened
+        location.reload(true)
+
+
 # Updates the attributes in the page using the coordinates set by Jcrop.
 # `image` is the image that's being cropped and `coords` the coordinates set by Jcrop over
 # this image.

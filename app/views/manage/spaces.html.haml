@@ -1,8 +1,8 @@
 = render :partial => 'menu'
 
 #manage
-
-  = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-sm btn-new-space'
+  - if can?(:create, Space)
+    = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-sm btn-new-space'
 
   .page-tools-menu
     .search-words
