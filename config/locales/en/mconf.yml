@@ -473,10 +473,10 @@ en:
     invitation_form:
       at: "at"
       duration: "Duration"
-      meeting_in: "Inviting people to a meeting in:"
+      meeting_in: "Inviting people to a meeting in: %{room}"
       offset: "Your current time offset is \"%{offset}\""
       offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
-      timezone: "The dates below are using the time zone \"%{timezone}\""
+      timezone: "These dates are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"

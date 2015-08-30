@@ -473,10 +473,10 @@ pt-br:
     invitation_form:
       at: "às"
       duration: "Duração"
-      meeting_in: "Enviando convite para conferência em:"
+      meeting_in: "Enviando convite para conferência em: %{room}"
       offset: "Sua diferença de horário atual é \"%{offset}\""
       offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
-      timezone: "As datas abaixo estão no fuso horário \"%{timezone}\""
+      timezone: "As datas estão no fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"

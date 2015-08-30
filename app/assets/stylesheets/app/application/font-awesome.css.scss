@@ -29,6 +29,11 @@ h2 .icon-awesome {
   height: 16px;
 }
 
+h3 .icon-awesome {
+  // make it smaller than the default font size for normal text
+  @include font-size($m-font-normal);
+}
+
 a:not(.btn) .icon-awesome {
   @include link-colors($default-icon-color, $m-link-color-hover, $m-link-color-active);
   cursor: pointer;
