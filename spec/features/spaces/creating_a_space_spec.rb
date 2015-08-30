@@ -142,10 +142,9 @@ feature "Creating a space" do
     }
 
     it { Space.last.should_not be_approved }
-    it { current_path.should eq(spaces_path) }
+    it { current_path.should eq(space_path(Space.last)) }
     it { has_success_message t('space.created_waiting_moderation') }
-
-    it { page.should_not have_content(attrs[:name]) }
+    it { page.should have_content(attrs[:name]) }
 
     context '' do
       before { visit spaces_path(my_spaces: 'true', order: 'abc') }

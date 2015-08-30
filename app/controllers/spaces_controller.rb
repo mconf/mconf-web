@@ -103,11 +103,10 @@ class SpacesController < ApplicationController
 
         if @space.approved?
           flash[:success] = t('space.created')
-          format.html { redirect_to action: "show", id: @space }
         else
           flash[:success] = t('space.created_waiting_moderation')
-          format.html { redirect_to spaces_path }
         end
+        format.html { redirect_to action: "show", id: @space }
       end
     else
       respond_with @space do |format|
