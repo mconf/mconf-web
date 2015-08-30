@@ -7,7 +7,7 @@
 
 class SpaceEventsController < ApplicationController
 
-  layout "spaces_show"
+  layout "no_sidebar"
 
   # return 404 for all routes if the events are disable
   before_filter do

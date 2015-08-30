@@ -23,7 +23,7 @@ describe JoinRequestsController do
       context "template and layout" do
         before(:each) { get :index, :space_id => space.to_param }
         it { should render_template('index') }
-        it { should render_with_layout('spaces_show') }
+        it { should render_with_layout('no_sidebar') }
       end
 
       context "space admin indexing join requests" do
@@ -469,7 +469,7 @@ describe JoinRequestsController do
 
       context "template and layout" do
         it { should render_template('invite') }
-        it { should render_with_layout('spaces_show') }
+        it { should render_with_layout('no_sidebar') }
       end
 
     end

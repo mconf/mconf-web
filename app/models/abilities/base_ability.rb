@@ -65,8 +65,8 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
-                 :recordings, :join_options, :invitation, :send_invitation, :create_meeting]
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :recordings,
+                 :user_edit, :join_options, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner.nil? ||
           (room.owner_type == "User" && room.owner.disabled) ||
@@ -100,8 +100,8 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
-                 :recordings, :join_options, :invitation, :send_invitation, :create_meeting]
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :recordings,
+                 :user_edit, :join_options, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner && !room.owner.approved
       end

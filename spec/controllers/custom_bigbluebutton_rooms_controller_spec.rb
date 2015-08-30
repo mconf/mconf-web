@@ -1109,7 +1109,7 @@ describe CustomBigbluebuttonRoomsController do
           before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1179,7 +1179,7 @@ describe CustomBigbluebuttonRoomsController do
           before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }

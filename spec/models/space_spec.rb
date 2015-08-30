@@ -1064,7 +1064,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :index_join_requests, :index_news
+                  :index_join_requests, :index_news
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1127,7 +1127,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :index_join_requests, :index_news
+                  :index_join_requests, :index_news
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }

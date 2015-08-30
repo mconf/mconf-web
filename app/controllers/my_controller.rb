@@ -94,6 +94,7 @@ class MyController < ApplicationController
   end
 
   # List of recordings for the current user's web conference room.
+  # TODO: bad name for the action since it now shows meetings too
   def recordings
     @room = current_user.bigbluebutton_room
 

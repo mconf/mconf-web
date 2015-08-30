@@ -21,16 +21,7 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
-  layout :determine_layout
-
-  def determine_layout
-    case params[:action].to_sym
-    when :new, :show
-      "no_sidebar"
-    else
-      "spaces_show"
-    end
-  end
+  layout 'no_sidebar'
 
   def index
     authorize! :index_join_requests, @space
