@@ -39,6 +39,7 @@ en:
       deleted: a message that has since been deleted
     space:
       accept_html: has joined the space
+      approved_html: approved the space
       create_html: created a new space
       decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
@@ -85,7 +86,8 @@ en:
     save: "Save"
     send: "Send"
     not_approved:
-      tooltip: 'Waiting approval'
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -914,7 +916,7 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
-      manage_to_approve: "go to manage to approve"
+      manage_to_approve: "manage"
       private: "Private space"
       public: "Public space"
   less: "less..."
@@ -946,12 +948,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
-      approve: "Approve: allow this space to appear on the website"
-      approve_confirm: "Are you sure you want to allow this space to appear on the website?"
+      approve: "Approve: unlock the access to this space"
+      approve_confirm: "Are you sure you want to unlock the access to this space?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
-      disapprove: "Disapprove: block this community from appearing on the website"
-      disapprove_confirm: "Are you sure you want to block this community from appearing on the website?"
+      disapprove: "Disapprove: block the access to this space"
+      disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -1428,7 +1430,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
-    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before you can access it."
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before other users can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1551,6 +1553,11 @@ en:
       users: "Users"
       webconf_options: "Webconference options"
       add_member: "Add members"
+    approve:
+      approved: "The space %{name} was approved"
+    disapprove:
+      disapproved: "The space %{name} was disapproved"
+      not_enabled: "Moderation of spaces is not enabled"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"

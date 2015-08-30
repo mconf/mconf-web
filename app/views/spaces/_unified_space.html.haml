@@ -8,7 +8,7 @@
 - show_join_request ||= false
 
 - unless space.nil?
-  = content_tag(:div, :name => space.permalink, :class => "#{'waiting-approval' if !space.approved?} thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
+  = content_tag(:div, :name => space.permalink, :class => "#{'space-waiting-moderation' if !space.approved?} thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
 
     .logo-in-thread
       - if space_link_visible?(space)
@@ -19,8 +19,6 @@
 
     .thread-content
       .thread-title
-        = icon_waiting_moderation if !space.approved?
-
         %span
           - if space_link_visible?(space)
             = link_to sanitize(space.name), space_path(space)
@@ -41,6 +39,12 @@
               = icon_space_private
               = t(".private")
               = t('.with_members', :count => space.users.size)
+
+          - if current_site.require_space_approval? && !space.approved?
+            .space-waiting-moderation.resource-visibility.small
+              = icon_waiting_moderation
+              = t("_other.not_approved.text")
+
       .thread-text
         - if extended
           = sanitize(auto_link(space.description))
