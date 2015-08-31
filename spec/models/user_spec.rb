@@ -1160,6 +1160,39 @@ describe User do
           it { user.has_enrollment_allowed_to_record?.should be(true) }
         end
 
+        context "works with special characters, reserved for regexps" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          before {
+            Site.current.update_attribute :allowed_to_record, "TA?cnico..\A/dministrati[^6]"
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:TA?cnico..\A/dministrati[^6]:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+          }
+          it { user.has_enrollment_allowed_to_record?.should be(true) }
+        end
+
+        context "transliterates the target enrollment before comparing" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          before {
+            Site.current.update_attribute :allowed_to_record, "TA?cnico-Administrativo"
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:TÃ©cnico-Administrativo:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+          }
+          it { user.has_enrollment_allowed_to_record?.should be(true) }
+        end
+
+        context "transliterates the configure enrollments before comparing" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          before {
+            Site.current.update_attribute :allowed_to_record, "TÃ©cnico-Administrativo"
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:TA?cnico-Administrativo:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+          }
+          it { user.has_enrollment_allowed_to_record?.should be(true) }
+        end
+
         context "with more than one active enrollment" do
           context "and one allows recording" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }

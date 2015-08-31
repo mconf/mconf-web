@@ -369,7 +369,7 @@ class User < ActiveRecord::Base
 
       all_allowed.each do |allowed|
         allowed = I18n.transliterate(allowed)
-        if enrollment.match(/#{allowed}/i)
+        if enrollment.match(/#{Regexp.quote(allowed)}/i)
           return true
         end
       end
