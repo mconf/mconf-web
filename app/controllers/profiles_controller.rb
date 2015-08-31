@@ -53,7 +53,7 @@ class ProfilesController < ApplicationController
                 :province, :country, :prefix_key, :description, :url, :skype, :im,
                 :visibility, :logo_image, :vcard,
                 :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
-    allowed += [:full_name] if can?(:update_full_name, @user)
+    allowed += [:full_name] if can?(:update_full_name, @user.profile)
     allowed
   end
 
