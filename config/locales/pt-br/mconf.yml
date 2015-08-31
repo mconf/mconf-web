@@ -192,6 +192,7 @@ pt-br:
         shib_login_field: "Shibboleth: Campo para login"
         shib_name_field: "Shibboleth: Campo para nome"
         shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
+        shib_update_users: "Shibboleth: Atualizar informações dos usuários"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
