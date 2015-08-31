@@ -5,18 +5,26 @@
       %ul
         %li{ spaces_menu_select_if(:home) }
           = link_to t('.home'), space_path(@space)
-        %li{ spaces_menu_select_if(:webconference) }
-          = link_to t('.webconference'), webconference_space_path(@space)
-        %li{ spaces_menu_select_if(:posts) }
-          = link_to t('.posts'), space_posts_path(@space)
-        - if mod_enabled?("events")
+
+        - if can?(:webconference, @space)
+          %li{ spaces_menu_select_if(:webconference) }
+            = link_to t('.webconference'), webconference_space_path(@space)
+
+        - if can?(:show, @space.posts.new)
+          %li{ spaces_menu_select_if(:posts) }
+            = link_to t('.posts'), space_posts_path(@space)
+
+        - if mod_enabled?("events") && can?(:show, @space.events.new)
           %li{ spaces_menu_select_if(:events) }
             = link_to t('.events'), space_events_path(@space)
+
         %li{ spaces_menu_select_if(:users) }
           = link_to t('.users'), space_users_path(@space)
-        - if @space.repository?
+
+        - if @space.repository? && can?(:show, @space.attachments.new)
           %li{ spaces_menu_select_if(:repository) }
             = link_to t('.repository'), space_attachments_path(@space)
+
         - if user_signed_in?
           - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
             %li{ spaces_menu_select_if(:admin) }

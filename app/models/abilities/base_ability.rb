@@ -76,27 +76,30 @@ module Abilities
 
     # Remove access for anything related to unapproved resources (users and spaces currently).
     def restrict_access_to_unapproved_resources(user)
-      cannot [:show, :webconference, :recordings, :leave], Space do |space|
+      cannot [:show, :leave], Space do |space|
         # space admins can do it even if not approved yet
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
+      cannot [:webconference, :recordings, :index_join_requests, :invite, :user_permissions], Space do |space|
+        !space.approved?
+      end
+
       cannot [:show, :create, :new, :reply_post, :destroy, :edit, :update], Post do |post|
-        # space admins can do it even if not approved yet
-        !post.space.approved? && (user.nil? || !post.space.admins.include?(user))
+        !post.space.approved?
       end
 
       cannot [:show], News do |news|
-        # space admins can do it even if not approved yet
-        !news.space.approved? && (user.nil? || !news.space.admins.include?(user))
+        !news.space.approved?
       end
 
       cannot [:show, :create, :new], Attachment do |attach|
-        # space admins can do it even if not approved yet
-        !attach.space.approved? && (user.nil? || !attach.space.admins.include?(user))
+        !attach.space.approved?
       end
 
-      # TODO: events in a space that's not approved yet
+      cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
+        event.owner_type == 'Space' && !event.owner.approved?
+      end
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
