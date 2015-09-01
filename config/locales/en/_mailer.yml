@@ -52,6 +52,14 @@ en:
         link: "To answer to this request please visit <a href=\"%{url}\">%{url}</a>"
         user_message: "This is the message written by %{candidate}:"
       subject: "%{candidate} wants to join the space %{space}"
+    new_space_waiting_for_approval_email:
+      click_here: "Accept or reject this space in the spaces management page in: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "A space called \"%{name}\" has been created and is waiting for approval."
+      subject: "A new space is waiting approval"
+    new_space_approved_email:
+      click_here: "You can access your new space at: <a href=\"%{url}\">%{url}</a>"
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that the space \"%{space}\" you've created has been approved."
+      subject: "Your space has been approved"
     processed_invitation_email:
       accepted: "accepted"
       message:

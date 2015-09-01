@@ -1,0 +1,3 @@
+#new-space-approved-email
+  %p= t('.message', name: @user_name, space: @space.name).html_safe
+  %p= t('.click_here', url: space_url(@space, host: Site.current.domain)).html_safe
