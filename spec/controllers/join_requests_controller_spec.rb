@@ -108,6 +108,18 @@ describe JoinRequestsController do
       }
       it { should redirect_to(login_path) }
     end
+
+    # There's no link shown in the interface to permit this, but we'll block it on a controller level
+    context "a logged in user trying to join an unapproved space" do
+      subject { get :new, space_id: space.to_param }
+      before(:each) {
+        space.update_attributes(approved: false)
+        sign_in(user)
+      }
+
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
+    end
+
   end
 
   describe "#show" do

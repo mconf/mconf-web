@@ -98,6 +98,10 @@ module Abilities
         !attach.space.approved?
       end
 
+      cannot [:manage], JoinRequest do |jr|
+        !jr.group.approved?
+      end
+
       cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
         event.owner_type == 'Space' && !event.owner.try(:approved?) # use try because of disabled spaces
       end
