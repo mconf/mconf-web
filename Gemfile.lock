@@ -504,6 +504,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.8.0)
     turn (0.8.2)
       ansi (>= 1.2.2)
     twitter-bootstrap-rails (2.2.8)
@@ -622,6 +623,7 @@ DEPENDENCIES
   sprockets (~> 2.12.3)
   sqlite3
   therubyracer
+  timecop
   translate-rails3!
   turn (= 0.8.2)
   twitter-bootstrap-rails (~> 2.2.8)
