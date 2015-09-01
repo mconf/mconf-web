@@ -2,7 +2,7 @@
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = link_to t('.general_options'), edit_space_path(@space), spaces_admin_menu_select_if(:main, :class => "btn btn-small")
 
-    - if can?(:show, @space.news.new)
+    - if can?(:index_news, @space)
       = link_to t('.news'), space_news_index_path(@space), spaces_admin_menu_select_if(:news, :class => "btn btn-small")
 
     - if can?(:invite, @space)

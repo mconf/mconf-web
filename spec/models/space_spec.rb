@@ -1074,9 +1074,8 @@ describe Space do
               before { target.update_attributes(approved: false) }
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
-                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :index_join_requests, :index_news
+                  :show, :index, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1137,9 +1136,8 @@ describe Space do
               before { target.update_attributes(approved: false) }
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
-                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :index_join_requests, :index_news
+                  :show, :index, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable,
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }

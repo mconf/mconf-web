@@ -81,7 +81,8 @@ module Abilities
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:webconference, :recordings, :index_join_requests, :invite, :user_permissions], Space do |space|
+      cannot [:webconference, :recordings, :index_join_requests,
+              :invite, :user_permissions, :index_news, :webconference_options, :edit_recording], Space do |space|
         !space.approved?
       end
 
@@ -89,16 +90,16 @@ module Abilities
         !post.space.approved?
       end
 
-      cannot [:show], News do |news|
+      cannot [:manage], News do |news|
         !news.space.approved?
       end
 
-      cannot [:show, :create, :new], Attachment do |attach|
+      cannot [:manage], Attachment do |attach|
         !attach.space.approved?
       end
 
       cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
-        event.owner_type == 'Space' && !event.owner.approved?
+        event.owner_type == 'Space' && !event.owner.try(:approved?) # use try because of disabled spaces
       end
 
       # only actions over members, not actions over the collection

@@ -10,18 +10,18 @@
           %li{ spaces_menu_select_if(:webconference) }
             = link_to t('.webconference'), webconference_space_path(@space)
 
-        - if can?(:show, @space.posts.new)
+        - if can?(:show, Post.new(space: @space))
           %li{ spaces_menu_select_if(:posts) }
             = link_to t('.posts'), space_posts_path(@space)
 
-        - if mod_enabled?("events") && can?(:show, @space.events.new)
+        - if mod_enabled?("events") && can?(:show, MwebEvents::Event.new(owner: @space))
           %li{ spaces_menu_select_if(:events) }
             = link_to t('.events'), space_events_path(@space)
 
         %li{ spaces_menu_select_if(:users) }
           = link_to t('.users'), space_users_path(@space)
 
-        - if @space.repository? && can?(:show, @space.attachments.new)
+        - if @space.repository? && can?(:show, Attachment.new(space: @space))
           %li{ spaces_menu_select_if(:repository) }
             = link_to t('.repository'), space_attachments_path(@space)
 

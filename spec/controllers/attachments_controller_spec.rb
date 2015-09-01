@@ -62,7 +62,7 @@ describe AttachmentsController do
     describe "orders the attachments properly"
 
     context "in a public space" do
-      let(:space) { FactoryGirl.create(:space_with_associations, repository: true, public: true) }
+      let(:space) { FactoryGirl.create(:space_with_associations, approved: true, repository: true, public: true) }
 
       context "logged in" do
         context "as a superuser" do
