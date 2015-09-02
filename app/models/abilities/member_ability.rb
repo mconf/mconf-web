@@ -11,11 +11,10 @@ module Abilities
       abilities_for_bigbluebutton_rails(user)
 
       # Users
-      # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select], User, disabled: false
-      can [:edit, :update, :disable], User, id: user.id, disabled: false
+      can [:index, :show, :fellows, :current, :select], User
+      can [:edit, :update, :disable], User, id: user.id
       can [:update_password], User do |target_user|
-        user == target_user && !target_user.disabled? &&
+        user == target_user &&
           (Site.current.local_auth_enabled? && !target_user.created_by_shib?)
       end
 
@@ -23,7 +22,8 @@ module Abilities
       # Visible according to options selected by the user, editable by their owners
       # Note: For the private profile only, the public profile is always visible.
       #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
-      can :read, Profile do |profile|
+      can :index, Profile
+      can :show, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
           true
@@ -37,17 +37,17 @@ module Abilities
           false
         end
       end
-      can [:read, :edit, :update, :update_logo], Profile, user_id: user.id
+      can [:show, :edit, :update, :update_logo], Profile, user_id: user.id
       # Some info is blocked if the user created by shib and auto update is enabled
       # in the site
       can [:update_full_name], Profile do |profile|
-        profile.user == user && !profile.user.disabled? &&
+        profile.user == user &&
           (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
       end
 
       # Private messages
-      can :create, PrivateMessage
-      can :read, PrivateMessage do |message|
+      can [:new, :create, :index], PrivateMessage
+      can :show, PrivateMessage do |message|
         [message.sender_id, message.receiver_id].include?(user.id)
       end
       can :destroy, PrivateMessage do |message|
@@ -55,9 +55,12 @@ module Abilities
       end
 
       # Spaces
-      can [:create, :select], Space
-      can [:read, :webconference, :recordings], Space, public: true
-      can [:read, :webconference, :recordings], Space do |space|
+      can :select, Space
+      can [:create, :new], Space unless Site.current.forbid_user_space_creation?
+
+      can [:index], Space
+      can [:show, :webconference, :recordings], Space, public: true
+      can [:show, :webconference, :recordings], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
@@ -75,7 +78,7 @@ module Abilities
 
       # normal users can request membership
       # admins in a space can invite users
-      can [:create], JoinRequest
+      can [:create, :new], JoinRequest
 
       # users that created a join request can do a few things over it
       can [:show, :decline], JoinRequest do |jr|
@@ -101,18 +104,19 @@ module Abilities
       end
 
       # space admins can work with all join requests in the space
-      can [:show, :create, :decline], JoinRequest do |jr|
+      can [:show, :create, :new, :decline], JoinRequest do |jr|
         group = jr.group
         group.try(:is_a?, Space) && group.admins.include?(user)
       end
 
       # Posts
       # TODO: maybe space admins should be able to alter posts
-      can :read, Post, space: { public: true }
-      can [:read, :create, :reply_post], Post do |post|
+      can :index, Post # restricted through Space
+      can :show, Post, space: { public: true }
+      can [:show, :create, :new, :reply_post], Post do |post|
         post.space.users.include?(user)
       end
-      can [:read, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
+      can [:show, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
 
       # News
       # Only admins can create/alter news, the rest can only read
@@ -126,21 +130,23 @@ module Abilities
       end
 
       # Attachments
+      can :index, Attachment # restricted through Space
       can :manage, Attachment do |attach|
         attach.space.admins.include?(user)
       end
-      can [:read, :create], Attachment do |attach|
+      can [:show, :create, :new], Attachment do |attach|
         attach.space.users.include?(user)
       end
       can [:destroy], Attachment do |attach|
         attach.space.users.include?(user) &&
         attach.author_id == user.id
       end
-      can :read, Attachment, space: { public: true }
+      can [:show], Attachment, space: { public: true }
 
       # Permissions
       # Only space admins can update user roles/permissions
-      can [:read, :edit, :update, :destroy], Permission do |perm|
+      can :index, Permission # restricted through Space
+      can [:show, :edit, :update, :destroy], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
@@ -164,10 +170,10 @@ module Abilities
           end
         end
 
-        can [:select, :read], MwebEvents::Event
+        can [:select, :show, :index], MwebEvents::Event
 
         # Create events if they have a nil owner or are owned by a space you admin
-        can :create, MwebEvents::Event do |e|
+        can [:create, :new], MwebEvents::Event do |e|
           e.owner.nil? || event_can_be_managed_by(e, user)
         end
 
@@ -177,7 +183,7 @@ module Abilities
 
         can :register, MwebEvents::Event do |e|
           MwebEvents::Participant.where(owner_id: user.id, event_id: e.id).empty? &&
-          (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
+            (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
         end
 
         # Participants from MwebEvents
@@ -189,11 +195,11 @@ module Abilities
           event_can_be_managed_by(p.event, user)
         end
 
-        can :index, MwebEvents::Participant
-        can :create, MwebEvents::Participant
-
-        restrict_access_to_disabled_resources
+        can [:index, :create, :new], MwebEvents::Participant
       end
+
+      restrict_access_to_disabled_resources(user)
+      restrict_access_to_unapproved_resources(user)
     end
 
     private

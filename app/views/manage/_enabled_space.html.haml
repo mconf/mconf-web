@@ -6,6 +6,9 @@
     = link_to (edit_space_path(space)) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
+    - if current_site.require_space_approval?
+      = approval_links :space, space
+
     = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
       = icon_disable(:alt => t('.disable'), :title => t('.disable'))
     = render 'manage/destroy_space', :space => space
@@ -15,3 +18,8 @@
       = highlight(sanitize(space.name), params[:q])
   %span.space-description
     = sanitize(first_words(space.description, 100))
+
+    - if current_site.require_space_approval? && !space.approved?
+      .resource-waiting-moderation-tooltip
+        = icon_waiting_moderation
+        = t("_other.not_approved.text")

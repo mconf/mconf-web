@@ -494,6 +494,79 @@ describe Mconf::Shibboleth do
     end
   end
 
+  describe "#find_and_update_token" do
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "returns the token using the information in the session" do
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject { shibboleth.find_and_update_token }
+      it { subject.identifier.should eq('any@email.com') }
+      it { subject.user.should eq(user) }
+    end
+
+    context "returns nil of there's no token" do
+      before {
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject { shibboleth.find_and_update_token }
+      it { subject.should be_nil }
+    end
+
+    context "updates the token with the info in the session" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { { "Shib-cn": "New Name", "AnotherParam": 12345 } }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(new_data) }
+    end
+
+    context "doesn't save if there's no data in the session" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { nil }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(old_data) }
+    end
+
+    context "doesn't save if the data in the session is empty" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { {} }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(old_data) }
+    end
+
+    it "returns the errors in the token if it failed to update"
+  end
+
   describe "#find_or_create_token" do
     let(:shibboleth) { Mconf::Shibboleth.new({}) }
     let(:user) { FactoryGirl.create(:user) }
@@ -546,17 +619,6 @@ describe Mconf::Shibboleth do
       it("should be confirmed") { @subject.confirmed_at.should_not be_nil }
       it("should not be disabled") { @subject.disabled.should be_falsey }
       it("should not be a superuser") { @subject.superuser.should be_falsey }
-
-      context "creates a RecentActivity" do
-        subject { RecentActivity.where(key: 'shibboleth.user.created').last }
-        it("should exist") { subject.should_not be_nil }
-        it("should point to the right trackable") { subject.trackable.should eq(User.last) }
-        it("should be unnotified") { subject.notified.should be(false) }
-
-        # see #1737
-        skip("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
-        skip("should be owned by the correct ShibToken") { subject.owner_id.should eql(token.id) }
-      end
     end
 
     context "parameterizes the login" do
@@ -576,7 +638,7 @@ describe Mconf::Shibboleth do
       subject {
         expect {
           @user = shibboleth.create_user(token)
-        }.not_to change{ RecentActivity.count + User.count }
+        }.not_to change{ User.count }
         @user
       }
       it("should return the user") { subject.should_not be_nil }
@@ -585,7 +647,6 @@ describe Mconf::Shibboleth do
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
-      it("should not create an activity") { RecentActivity.where(key: 'shibboleth.user.created').should be_empty }
     end
   end
 

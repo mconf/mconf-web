@@ -111,7 +111,20 @@ module Mconf
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
     def find_token
-      ShibToken.find_by_identifier(get_identifier())
+      ShibToken.find_by_identifier(get_identifier)
+    end
+
+    # Finds the ShibToken and updates it with the information in the session, unless
+    # it's empty. Returns the token.
+    # Doesn't raise an exception if it fails to save the token, will return the
+    # errors in the model.
+    def find_and_update_token
+      token = find_token
+      if token.present? && !get_data.blank?
+        token.data = get_data
+        token.save
+      end
+      token
     end
 
     # Searches for a ShibToken using data in the session and returns it. Creates a new
@@ -139,9 +152,7 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
-      if user.save
-        create_notification(user, shib_token)
-      else
+      if !user.save
         Rails.logger.error "Shibboleth: error while saving the user model"
         Rails.logger.error "Shibboleth: errors: " + user.errors.full_messages.join(", ")
       end
@@ -163,6 +174,12 @@ module Mconf
       end
     end
 
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
+    end
+
     private
 
     # Splits a string `value` into several RegExps. Breaks the string at every
@@ -179,12 +196,6 @@ module Mconf
 
     def create_token(id)
       ShibToken.new(identifier: id)
-    end
-
-    def create_notification(user, token)
-      RecentActivity.create(
-        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
-      )
     end
 
   end

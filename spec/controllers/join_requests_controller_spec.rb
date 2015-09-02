@@ -196,6 +196,50 @@ describe JoinRequestsController do
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
+    # The user can't do this via interface but could still happen by modifying a form
+    # or directly posting to a url
+    context "user requests membership on a space where he's already invited" do
+      before(:each) {
+        space.join_requests.create(candidate: user, email: user.email, request_type: 'invite')
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
+    end
+
+    context "user requests membership on a space where he's already requested it" do
+      before(:each) {
+        space.join_requests.create(candidate: user, email: user.email, request_type: 'request')
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
+    end
+
+    context "user requests membership on a space where he's already a member" do
+      before(:each) {
+        space.add_member!(user)
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
+    end
+
     context "user requests membership on a private space" do
       let(:space) { FactoryGirl.create(:space, :public => false) }
 

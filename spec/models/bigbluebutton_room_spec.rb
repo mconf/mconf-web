@@ -75,6 +75,11 @@ describe BigbluebuttonRoom do
           before { target.owner.disable }
           it { should be_able_to_do_everything_to(target) }
         end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should be_able_to_do_everything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -92,6 +97,11 @@ describe BigbluebuttonRoom do
 
         context "when the owner is disabled" do
           before { target.owner.disable }
+          it { should be_able_to_do_everything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
           it { should be_able_to_do_everything_to(target) }
         end
       end
@@ -172,6 +182,11 @@ describe BigbluebuttonRoom do
 
           context "when the owner is disabled" do
             before { target.owner.disable }
+            it { should_not be_able_to_do_anything_to(target) }
+          end
+
+          context "when the space is not approved" do
+            before { target.owner.update_attributes(approved: false) }
             it { should_not be_able_to_do_anything_to(target) }
           end
 
@@ -348,6 +363,11 @@ describe BigbluebuttonRoom do
           before { target.owner.disable }
           it { should_not be_able_to_do_anything_to(target) }
         end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -358,6 +378,11 @@ describe BigbluebuttonRoom do
 
         context "when the owner is disabled" do
           before { target.owner.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end

@@ -162,7 +162,7 @@ describe UserNotificationsWorker do
         it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
         context "should generate the activities anyway" do
           it { RecentActivity.where(trackable: user1, key: 'user.created').first.should_not be_nil }
-          it { RecentActivity.where(trackable: user2, key: 'user.created').first.should_not be_nil }
+          it { RecentActivity.where(trackable_id: user2, key: 'user.created').first.should_not be_nil }
         end
       end
 
@@ -181,8 +181,8 @@ describe UserNotificationsWorker do
         it { activity.trackable.should eql(@user) }
         it { activity.notified.should be(false) }
 
-        # see #1737
-        skip { activity.owner.should eql(token) }
+        # Now working, see #1737
+        it { activity.owner.should eql(token) }
       end
 
       context "#perform sends the right mails and updates the activity" do
@@ -208,6 +208,7 @@ describe UserNotificationsWorker do
           @user = shibboleth.create_user(token)
           token.user = @user
           token.save!
+          shibboleth.create_notification(token.user, token) # TODO: Let's refactor in the future. see #1128
         }.to change{ User.count }.by(1)
       }
 

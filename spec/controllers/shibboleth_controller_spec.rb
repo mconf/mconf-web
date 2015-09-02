@@ -44,6 +44,15 @@ describe ShibbolethController do
       before { ShibToken.create!(:identifier => user.email, :user => user) }
       before(:each) { run_route }
       it { should redirect_to(shibboleth_path) }
+      context "creates a RecentActivity" do
+        subject { RecentActivity.where(key: 'shibboleth.user.created').last }
+        it("should exist") { subject.should_not be_nil }
+        it("should point to the right trackable") { subject.trackable.should eq(User.last) }
+        it("should be unnotified") { subject.notified.should be(false) }
+       # see #1737
+        it("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
+        it("should be owned by the correct ShibToken") { subject.owner_id.should eql(ShibToken.last.id) } # calls the last ShibToken because now the RecentActivity is created after the token is save in the database
+      end
     end
 
     context "if there's no valid token yet" do
@@ -314,6 +323,22 @@ describe ShibbolethController do
         it { should redirect_to(root_path) }
       end
 
+      context "updates the data in the token with the data in the session" do
+        let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+        let(:new_data) {
+          { "Shib-inetOrgPerson-cn" => user.full_name,
+            "Shib-inetOrgPerson-mail" => user.email,
+            "Shib-eduPerson-eduPersonPrincipalName" => user.email,
+            "ufrgsVinculo" => "ativo" }
+        }
+        let!(:token) { ShibToken.create!(identifier: user.email, user: user, data: old_data) }
+        before {
+          setup_shib(user.full_name, user.email, user.email)
+          get :login
+        }
+        it { token.reload.data.should eql(new_data) }
+      end
+
       context "renders an error page if user doesn't have an active enrollment" do
         let(:referer) { "/any" }
         before {
@@ -353,7 +378,6 @@ describe ShibbolethController do
         it { subject.current_user.should eq(user) }
         it { should redirect_to(my_home_path) }
       end
-
     end
   end
 

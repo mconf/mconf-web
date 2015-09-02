@@ -391,6 +391,8 @@ ActiveRecord::Schema.define(version: 20150825164211) do
     t.string   "room_dial_number_pattern"
     t.string   "allowed_to_record"
     t.boolean  "shib_update_users",              default: false
+    t.boolean  "require_space_approval",         default: false
+    t.boolean  "forbid_user_space_creation",     default: false
   end
 
   create_table "spaces", force: true do |t|
@@ -404,6 +406,7 @@ ActiveRecord::Schema.define(version: 20150825164211) do
     t.boolean  "disabled",    default: false
     t.boolean  "repository",  default: false
     t.string   "logo_image"
+    t.boolean  "approved",    default: false
   end
 
   create_table "users", force: true do |t|

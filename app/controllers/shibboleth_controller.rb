@@ -32,12 +32,12 @@ class ShibbolethController < ApplicationController
       @attrs_informed = @shib.get_data
       render :attribute_error
     else
-      token = @shib.find_token()
+      token = @shib.find_and_update_token
 
       return unless check_active_enrollment(token)
 
       # there's a token with a user associated
-      if !token.nil? && !token.user_with_disabled.nil?
+      if token.present? && !token.user_with_disabled.nil?
         user = token.user_with_disabled
         if user.disabled
           logger.info "Shibolleth: user local account is disabled, can't login"
@@ -158,7 +158,8 @@ class ShibbolethController < ApplicationController
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"
         token.data = shib.get_data
-        token.save! # TODO: what if it fails
+        token.save!
+        shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
         logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
@@ -204,7 +205,7 @@ class ShibbolethController < ApplicationController
       token = shib.find_or_create_token()
       token.user = user
       token.data = shib.get_data()
-      token.save! # TODO: what if it fails
+      token.save!
 
       # If the user comes from shibboleth and is not confirmed we can trust him
       if !user.confirmed?
