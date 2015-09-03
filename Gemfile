@@ -141,6 +141,7 @@ group :development, :test do
   gem 'fooldap'
   gem 'spring'
   gem 'zonebie'
+  gem 'timecop'
 end
 
 group :test do
