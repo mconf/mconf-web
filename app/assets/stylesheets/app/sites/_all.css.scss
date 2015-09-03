@@ -3,6 +3,11 @@
 
 body.sites {
 
+  .site-config {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+
   form {
     width: 100%;
   }
@@ -15,12 +20,13 @@ body.sites {
     display: none;
   }
 
-  $column-width: (($contents-width) / 2) - 30px;
+  $column-width: (3 * ($contents-width) / 4) - 30px;
   .right-column {
     float: right;
-    width: $column-width;
+    width: ($column-width/3);
     padding-right: 2px; // so inputs' box-shadow aren't cut
   }
+
   .left-column {
     float: left;
     width: $column-width;
@@ -31,4 +37,15 @@ body.sites {
     display: none;
     margin-bottom: 15px;
   }
+
+  #site-edit-nav {
+    border-color: #aaa;
+    border-radius: 10px;
+  }
+
+  .btn-site-save {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
 }

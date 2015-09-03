@@ -38,6 +38,7 @@
                             .removeClass(s.className);
                         s.stickyElement.parent().removeClass(s.className);
                         s.currentTop = null;
+                        s.stickyElement.trigger('sticky-end', []);
                     }
                 }
                 else {
@@ -67,6 +68,7 @@
                 var o = $.extend(defaults, options);
                 return this.each(function() {
                     var stickyElement = $(this);
+                    console.log(stickyElement);
 
                     stickyId = stickyElement.attr('id');
                     wrapper = $('<div></div>')
@@ -83,6 +85,7 @@
                         stickyWrapper: stickyWrapper,
                         className: o.className
                     });
+                    stickyElement.trigger('sticky-init');
                 });
             },
             update: scroller

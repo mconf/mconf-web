@@ -11,7 +11,7 @@ class SitesController < ApplicationController
   layout "no_sidebar"
 
   def show
-    @site = current_site
+    redirect_to edit_site_path
   end
 
   def edit

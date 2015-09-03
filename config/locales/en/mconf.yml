@@ -1700,7 +1700,13 @@ en:
   summary: "Video Info"
   superuser: "Administrator"
   sites:
-    edit:
+    form:
+      main: Main
+      mail: E-mail
+      external_services: External services
+      ldap: LDAP
+      shib: Shibboleth
+      extras: Extra configurations
       shib_warning_html: "This field is used as the unique identifier for Shibboleth users. If you modify it your users may be unable to access their accounts, before changing it read <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">this page</a>."
   text: Text
   the_string: "the string"
