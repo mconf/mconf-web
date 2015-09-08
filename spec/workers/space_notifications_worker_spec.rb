@@ -134,92 +134,27 @@ describe SpaceNotificationsWorker do
       end
     end
 
-  #   context "if the site does not require approval" do
-  #     before {
-  #       Site.current.update_attributes(require_registration_approval: false)
-  #     }
+    context "if the site does not require approval" do
+      before {
+        Site.current.update_attributes(require_registration_approval: false)
+      }
 
-  #     context "doesn't notify admins when users need approval" do
-  #       let!(:admin1) { FactoryGirl.create(:superuser) }
-  #       let!(:admin2) { FactoryGirl.create(:superuser) }
-  #       let!(:user1) { FactoryGirl.create(:user, approved: false) }
-  #       let!(:user2) { FactoryGirl.create(:user, approved: false) }
+      context "doesn't notify admins when spaces don't need approval" do
+        let!(:admin1) { FactoryGirl.create(:superuser) }
+        let!(:admin2) { FactoryGirl.create(:superuser) }
+        let!(:space1) { FactoryGirl.create(:space, approved: false) }
+        let!(:space2) { FactoryGirl.create(:space, approved: false) }
 
-  #       before(:each) { worker.perform }
+        before(:each) {
+          space1.new_activity('create', FactoryGirl.create(:user))
+          space2.new_activity('create', FactoryGirl.create(:user))
 
-  #       it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
-  #       context "should generate the activities anyway" do
-  #         it { RecentActivity.where(trackable: user1, key: 'user.created').first.should_not be_nil }
-  #         it { RecentActivity.where(trackable_id: user2, key: 'user.created').first.should_not be_nil }
-  #       end
-  #     end
+          worker.perform
+        }
 
-  #     context "doesn't notify users when they are approved" do
-  #       let!(:user1) { FactoryGirl.create(:user, approved: true) }
-  #       let!(:user2) { FactoryGirl.create(:user, approved: true) }
-
-  #       before(:each) { worker.perform }
-
-  #       it { expect(UserApprovedSenderWorker).to have_queue_size_of(0) }
-  #     end
-  #   end
-
-  #   shared_examples "creation of activities and mails" do
-  #     context "creates the RecentActivity" do
-  #       it { activity.trackable.should eql(@user) }
-  #       it { activity.notified.should be(false) }
-
-  #       # Now working, see #1737
-  #       it { activity.owner.should eql(token) }
-  #     end
-
-  #     context "#perform sends the right mails and updates the activity" do
-  #       before(:each) { worker.perform }
-
-  #       it { expect(UserRegisteredSenderWorker).to have_queue_size_of(1) }
-  #       it { expect(UserRegisteredSenderWorker).to have_queued(activity.id) }
-  #     end
-  #   end
-
-  #   context "notifies the users created via Shibboleth" do
-  #     let(:shibboleth) { Mconf::Shibboleth.new({}) }
-  #     let(:token) { ShibToken.new(identifier: 'any@email.com') }
-  #     let(:activity) { RecentActivity.where(key: 'shibboleth.user.created').last }
-
-  #     before {
-  #       shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
-  #       shibboleth.should_receive(:get_login).and_return('any-login')
-  #       shibboleth.should_receive(:get_name).and_return('Any Name')
-  #     }
-  #     before(:each) {
-  #       expect {
-  #         @user = shibboleth.create_user(token)
-  #         token.user = @user
-  #         token.save!
-  #         shibboleth.create_notification(token.user, token) # TODO: Let's refactor in the future. see #1128
-  #       }.to change{ User.count }.by(1)
-  #     }
-
-  #     include_examples "creation of activities and mails"
-  #   end
-
-  #   context "notifies the users created via LDAP" do
-  #     let(:ldap) { Mconf::LDAP.new({}) }
-  #     let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
-  #     let(:activity) { RecentActivity.where(key: 'ldap.user.created').last }
-
-  #     before {
-  #       expect {
-  #         @user = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token)
-  #       }.to change { User.count }.by(1)
-  #     }
-
-  #     include_examples "creation of activities and mails"
-  #   end
-
-  #   # To make sure that, if a user is approved very fast, he will receive the account
-  #   # created email and the account approved in the right order.
-  #   it "sends the 'account created' mail before the 'account approved'"
+        it { expect(SpaceNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+      end
+    end
 
   end
 
