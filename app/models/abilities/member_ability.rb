@@ -63,6 +63,10 @@ module Abilities
       can [:leave], Space do |space|
         space.users.include?(user) && !space.is_last_admin?(user)
       end
+
+      can [:change_role], Permission do |perm|
+        user.id != perm.user.id && perm.subject.admins.include?(user)
+      end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,

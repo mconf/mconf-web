@@ -29,6 +29,7 @@ describe Permission do
   # it { should allow_mass_assignment_of(:role_id) }
 
   describe "abilities", :abilities => true do
+    set_custom_ability_actions([:change_role])
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
 
@@ -81,7 +82,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy])
+          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy, :change_role])
         }
         it_should_behave_like "for all permission types"
       end

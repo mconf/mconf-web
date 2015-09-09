@@ -1735,6 +1735,7 @@ en:
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     insert: "Use this code to insert this video in your blog or web page."
     invite_people: "Invite people to this Webconference."
+    last_admin: "This user is an Administrator in this space"
     latest_news: "This section shows the piece of news that the administrators send to all the people in this space"
     leave_space: "This link will allow you to abandon this space definitely"
     news_item: "You can publish a short news at home"
