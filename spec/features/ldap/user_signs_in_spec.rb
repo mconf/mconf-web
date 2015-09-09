@@ -12,7 +12,7 @@ describe 'User signs in via ldap' do
     @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
   }
 
-  context 'for the first time' do
+  skip 'for the first time' do
     before {
       enable_ldap
       visit new_user_session_path
@@ -138,7 +138,7 @@ describe 'User signs in via ldap' do
     end
   end
 
-  context "a returning user" do
+  skip "a returning user" do
     let(:token) { FactoryGirl.create(:ldap_token) }
     let(:user) { token.user }
 
