@@ -12,7 +12,7 @@
         -# - if is_participant
         -#   %span.is-member= t('.user_is_member')
         %span
-          = link_to first_words(event.name, 80), mweb_events.event_path(event), :title => event.name, :class => "list-title"
+          = link_to first_words(event.name, 80), event_path(event), :title => event.name, :class => "list-title"
       .thread-text
         - if event.public
           .resource-visibility.small.public

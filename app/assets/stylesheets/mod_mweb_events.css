@@ -5,6 +5,6 @@
  *= require leaflet
  * require select2
  * require font-awesome
- *= require bootstrap-datetimepicker
- *= require mweb_events
+ * require bootstrap-datetimepicker
+ * require mweb_events
  */

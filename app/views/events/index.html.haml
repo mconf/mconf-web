@@ -6,12 +6,12 @@
 
   .sidebar-top-action-button
     - if user_signed_in?
-      = link_to t('.create_new_event'), mweb_events.new_event_path, :class => "btn btn-primary btn-large btn-block"
+      = link_to t('.create_new_event'), new_event_path, :class => "btn btn-primary btn-large btn-block"
     - else
       - if current_site.registration_enabled?
-        = link_to t('register.one'), main_app.register_path, :class => "btn btn-success btn-large btn-block"
+        = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
       - else
-        = link_to t('_other.login'), main_app.login_path, :class => "btn btn-success btn-large btn-block"
+        = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
 
   = render_sidebar_content_block('event-description-wrapper') do
     .content-block-middle
@@ -23,7 +23,7 @@
         .event-logo-wrapper
           = event_logo_link(event, :class => "logo logo-event")
         - if has_access
-          = link_to mweb_events.event_path(event) do
+          = link_to event_path(event) do
             %h3.break-word= sanitize(event.name)
         - else
           %h3.break-word= sanitize(event.name)
@@ -35,7 +35,7 @@
           %span= t('.participant_count', :count => event.participants.count)
         - if has_access
           %p.action-links
-            = link_to t('more'), mweb_events.event_path(event)
+            = link_to t('more'), event_path(event)
 
 #event-filter-wrapper
 
@@ -47,10 +47,10 @@
         = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to mweb_events.events_path(:view => params[:view], :show => 'all'), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
+    = link_to events_path(:view => params[:view], :show => 'all'), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
       = t('.filters.all_events')
     - if user_signed_in?
-      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
+      = link_to events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
         = t('.filters.my_events')
 
     = hidden_field_tag :event_filter_text
@@ -74,7 +74,7 @@
     = t('mweb_events.events.summary.your_time_info', time_zone: Time.zone.name)
 
   .content-block-middle.clearfix
-    = render "mweb_events/events/list_view", :events => @events
+    = render "list_view", :events => @events
 
 - nav = page_navigation_links @events
 - unless nav.nil?

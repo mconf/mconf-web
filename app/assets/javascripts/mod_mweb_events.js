@@ -6,6 +6,5 @@
 // require jquery
 // require jquery_ujs
 //= require bootstrap-datetimepicker
-//= require jquery.expander.min
 // require select2
-//= require mweb_events
+// require mweb_events
