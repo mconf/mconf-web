@@ -81,8 +81,9 @@ module Abilities
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:webconference, :recordings, :index_join_requests,
-              :invite, :user_permissions, :index_news, :webconference_options, :edit_recording], Space do |space|
+      cannot [:webconference, :recordings, :manage_join_requests,
+              :invite, :user_permissions, :manage_news, :show_news,
+              :webconference_options, :edit_recording], Space do |space|
         !space.approved?
       end
 

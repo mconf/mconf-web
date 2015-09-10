@@ -18,7 +18,7 @@
   .content-block-middle
     = @space.description
 
-- if @news_to_show && can?(:index_news, @space)
+- if @news_to_show && can?(:show_news, @space)
   = render :partial => 'latest_news'
 
 -if can?(:read, @space.posts)

@@ -176,15 +176,13 @@ describe JoinRequest do
               before { target.group.add_member!(user, "Admin") }
 
               context "over a request" do
-                it { should be_able_to(:index_join_requests, target.group) }
-                it { should be_able_to(:invite, target.group) }
+                it { should be_able_to(:manage_join_requests, target.group) }
                 it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :new, :decline]) }
               end
 
               context "over an invitation" do
                 before { target.request_type = JoinRequest::TYPES[:invite] }
-                it { should be_able_to(:index_join_requests, target.group) }
-                it { should be_able_to(:invite, target.group) }
+                it { should be_able_to(:manage_join_requests, target.group) }
                 it { should_not be_able_to_do_anything_to(target).except([:show, :create, :new, :decline]) }
               end
             end

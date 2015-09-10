@@ -18,7 +18,7 @@ describe JoinRequestsController do
         sign_in(user)
       }
 
-      it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :index_join_requests }
+      it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :manage_join_requests }
 
       context "template and layout" do
         before(:each) { get :index, :space_id => space.to_param }
@@ -447,7 +447,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize space, :invite, :space_id => space.to_param }
+    it { should_authorize space, :invite, :space_id => space.to_param, :ability_name => :manage_join_requests }
 
     context "if the user is not a member of the space" do
       before(:each) {
