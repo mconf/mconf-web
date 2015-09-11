@@ -9,7 +9,7 @@
     = logo_image_removed(size: '84x64')
   - else
     - if meeting.room.owner_type == 'User'
-      = link_logo_image(meeting.room.owner, size: '84x64', url: user_path_from_id(meeting.room.owner), class: 'logo logo-user')
+      = link_logo_image(meeting.room.owner, size: '32', url: user_path_from_id(meeting.room.owner), class: 'logo logo-user')
     - elsif meeting.room.owner_type == 'Space'
       = link_logo_image(meeting.room.owner, size: '84x64', url: space_path(meeting.room.owner), class: 'logo logo-space')
 
