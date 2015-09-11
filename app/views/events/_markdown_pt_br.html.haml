@@ -1,0 +1,60 @@
+%table.table.table-bordered.table-striped
+  %tbody
+    %tr
+      %td _seu texto_
+      %td
+        %em seu texto
+    %tr
+      %td **seu texto**
+      %td
+        %strong seu texto
+    %tr
+      %td `meu código`
+      %td
+        %code meu código
+    %tr
+      %td
+        * Lista com marcadores
+        %br>/
+        * Segundo item
+      %td
+        \• Lista com marcadores
+        %br>/
+        \• Segundo item
+    %tr
+      %td
+        1. Lista numerada
+        %br>/
+        2. Segundo item
+      %td
+        1. Lista numerada
+        %br>/
+        2. Segundo item
+    %tr
+      %td [texto do link](URL)
+      %td
+        %a{href: "URL"} texto do link
+    %tr
+      %td ![texto alternativo](URL)
+      %td (A imagem da URL aparece no comentário)
+    %tr
+      %td
+        \## Título
+        %br>/
+        \### Sub-título
+        %br>/
+        \#### Sub-sub-título
+        %br>/
+        \##### Etc.
+      %td
+        %b
+          %span{style: "font-size:1.73em"} Título
+          %br/
+          %span{style: "font-size:1.44em"} Sub-título
+          %br/
+          %span{style: "font-size:1.2em"} Sub-sub-título
+          %br/
+          %span{style: "font-size:1em"} Etc.
+    %tr
+      %td ***
+      %td (Quebra horizontal)

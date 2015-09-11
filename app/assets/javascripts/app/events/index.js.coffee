@@ -2,7 +2,7 @@
 #= require jquery/jquery.sticky
 
 $ ->
-  if isOnPage 'mweb_events-events', 'index'
+  if isOnPage 'events', 'index'
 
     # hovering an event shows its description in the sidebar
     $(".list-texts > li").hover ->

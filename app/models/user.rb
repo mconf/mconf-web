@@ -216,7 +216,7 @@ class User < ActiveRecord::Base
   def events
     ids = Event.where(:owner_type => 'User', :owner_id => id).ids
     ids += permissions.where(:subject_type => 'Event').pluck(:subject_id)
-    Events::Event.where(:id => ids)
+    Event.where(:id => ids)
   end
 
   def has_events_in_this_space?(space)

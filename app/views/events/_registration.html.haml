@@ -21,7 +21,7 @@
     -# happens for private events that belong to spaces
     %section.event-register
       - if user_signed_in?
-        = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success btn-block'
+        = link_to t('.join_button'), new_space_join_request_path(@event.owner), :class => 'btn btn-success btn-block'
       - else
         = t('.need_sign_in')
 

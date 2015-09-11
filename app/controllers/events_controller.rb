@@ -73,7 +73,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: t('mweb_events.event.created') }
+        format.html { redirect_to @event, notice: t('event.created') }
       else
         format.html { render action: "new" }
       end
@@ -83,7 +83,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update_attributes(event_params)
-        format.html { redirect_to @event, notice: t('mweb_events.event.updated') }
+        format.html { redirect_to @event, notice: t('event.updated') }
       else
         format.html { render action: "edit" }
       end
@@ -94,7 +94,7 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to events_url, notice: t('mweb_events.event.destroyed') }
+      format.html { redirect_to events_url, notice: t('event.destroyed') }
     end
   end
 
@@ -116,10 +116,10 @@ class EventsController < ApplicationController
 
   def send_invitation
     if params[:invite][:title].blank?
-      flash[:error] = t('mweb_events.events.send_invitation.error_title')
+      flash[:error] = t('events.send_invitation.error_title')
 
     elsif params[:invite][:users].blank?
-      flash[:error] = t('mweb_events.events.send_invitation.blank_users')
+      flash[:error] = t('events.send_invitation.blank_users')
 
     else
       invitations = EventInvitation.create_invitations params[:invite][:users],
@@ -134,9 +134,9 @@ class EventsController < ApplicationController
       # only be sent in background later on
       succeeded, failed = EventInvitation.check_invitations(invitations)
       flash[:success] = EventInvitation.build_flash(
-        succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
+        succeeded, t('events.send_invitation.success')) unless succeeded.empty?
       flash[:error] = EventInvitation.build_flash(
-        failed, t('mweb_events.events.send_invitation.error')) unless failed.empty?
+        failed, t('events.send_invitation.error')) unless failed.empty?
     end
     redirect_to request.referer
   end
@@ -199,7 +199,7 @@ class EventsController < ApplicationController
       if params[:event][field.to_s + '_date']
         time = "#{params[:event][field.to_s + '_time(4i)']}:#{params[:event][field.to_s + '_time(5i)']}"
         params[:event][field] =
-          parse_in_timezone(params[:event]["#{field}_date"], time, params[:event][:time_zone], date_format)
+          Mconf::Timezone::parse_in_timezone(params[:event]["#{field}_date"], time, params[:event][:time_zone], date_format)
       end
       (1..5).each { |n| params[:event].delete("#{field}_time(#{n}i)") }
       params[:event].delete("#{field}_date")

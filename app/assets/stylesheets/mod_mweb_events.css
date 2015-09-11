@@ -3,8 +3,8 @@
  * already required by the application previously.
  *
  *= require leaflet
+ *= require base/epiceditor
  * require select2
  * require font-awesome
  * require bootstrap-datetimepicker
- * require mweb_events
  */

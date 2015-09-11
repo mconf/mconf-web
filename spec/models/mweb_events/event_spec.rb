@@ -6,6 +6,6 @@
 
 require "spec_helper"
 
-describe MwebEvents::Event do
+describe Event do
   skip "abilities (using permissions, space admins, event organizers)"
 end

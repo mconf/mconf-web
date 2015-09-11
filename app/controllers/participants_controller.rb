@@ -48,7 +48,7 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       # If user is already registered with this email succeed with another message and don't save
       taken = @participant.email_taken?
-      notice = taken ? t('mweb_events.participant.already_created') : t('mweb_events.participant.created')
+      notice = taken ? t('participant.already_created') : t('participant.created')
       if taken || @participant.save
         format.html { redirect_to @event, notice: notice }
         format.json { render json: @participant, status: :created, location: @participant }
@@ -64,7 +64,7 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       path = can?(:update, @event) ? :back : event_path(@event)
-      format.html { redirect_to path, notice: t('mweb_events.participant.destroyed') }
+      format.html { redirect_to path, notice: t('participant.destroyed') }
       format.json { head :no_content }
     end
   end
@@ -99,7 +99,7 @@ class ParticipantsController < ApplicationController
 
   def waiting_for_confirmation_message
     if @participant.persisted? && !@participant.email_confirmed?
-      flash[:notice] = t('mweb_events.participants.create.waiting_confirmation')
+      flash[:notice] = t('participants.create.waiting_confirmation')
     end
   end
 

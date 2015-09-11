@@ -40,10 +40,10 @@ module Abilities
 
       # for MwebEvents
       if Mconf::Modules.mod_loaded?('events')
-        can [:show, :index, :select], MwebEvents::Event
+        can [:show, :index, :select], Event
         # Pertraining public and private event registration
-        can :register, MwebEvents::Event, public: true
-        can [:create, :new], MwebEvents::Participant
+        can :register, Event, public: true
+        can [:create, :new], Participant
       end
 
       restrict_access_to_disabled_resources(user)

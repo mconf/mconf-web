@@ -21,7 +21,7 @@ class StatisticsController < ApplicationController
   private
 
   def load_events
-    @event_count = MwebEvents::Event.count
+    @event_count = Event.count
   end
 
 end

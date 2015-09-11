@@ -8,6 +8,6 @@
   - else
     .list-texts
       - for event in events_group
-        = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+        = render :partial => "events/unified_event", :locals => { :event => event }
     .content-block-footer.content-block-footer-fancy
       = page_navigation_links events_group

@@ -57,5 +57,3 @@ class mconf.MwebEventsEvents.Invitation
 
     $(usersSelector).on "change", =>
       @checkRequired()
-
-mconf.MwebEventsEvents.Invitation.bind()

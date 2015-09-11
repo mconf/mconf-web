@@ -24,7 +24,7 @@ class ApplicationMailer < BaseMailer
       @posts = Post.find(posts)
       @news = News.find(news)
       @attachments = Attachment.find(attachments)
-      @events = MwebEvents::Event.find(events)
+      @events = Event.find(events)
       @inbox = PrivateMessage.find(inbox)
       if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
         @type = t('email.digest.type.daily')

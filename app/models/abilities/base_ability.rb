@@ -48,7 +48,7 @@ module Abilities
         # only actions over members, not actions over the collection
         actions = [:show, :edit, :update, :destroy,
                    :invite, :send_invitation, :create_participant]
-        cannot actions, MwebEvents::Event do |event|
+        cannot actions, Event do |event|
           event.owner.nil? ||
             (event.owner_type == "User" && event.owner.disabled) ||
             (event.owner_type == "Space" && event.owner.disabled)
@@ -56,7 +56,7 @@ module Abilities
 
         # only actions over members, not actions over the collection
         actions = [:show, :edit, :update, :destroy] # TODO
-        cannot actions, MwebEvents::Participant do |part|
+        cannot actions, Participant do |part|
           part.owner.nil? ||
             (part.owner_type == "User" && part.owner.disabled) ||
             (part.owner_type == "Space" && part.owner.disabled)

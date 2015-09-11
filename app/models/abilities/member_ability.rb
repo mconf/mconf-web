@@ -163,39 +163,39 @@ module Abilities
           when 'User' then
             event.owner_id == user.id
           when 'Space' then
-            !user.permissions.where(subject_type: 'MwebEvents::Event',
+            !user.permissions.where(subject_type: 'Event',
               role_id: Role.find_by_name('Organizer'), subject_id: event.id).empty? ||
             !user.permissions.where(subject_type: 'Space', subject_id: event.owner_id,
             role_id: Role.find_by_name('Admin')).empty?
           end
         end
 
-        can [:select, :show, :index], MwebEvents::Event
+        can [:select, :show, :index], Event
 
         # Create events if they have a nil owner or are owned by a space you admin
-        can [:create, :new], MwebEvents::Event do |e|
+        can [:create, :new], Event do |e|
           e.owner.nil? || event_can_be_managed_by(e, user)
         end
 
-        can [:edit, :update, :destroy, :invite, :send_invitation], MwebEvents::Event do |e|
+        can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
           event_can_be_managed_by(e, user)
         end
 
-        can :register, MwebEvents::Event do |e|
-          MwebEvents::Participant.where(owner_id: user.id, event_id: e.id).empty? &&
+        can :register, Event do |e|
+          Participant.where(owner_id: user.id, event_id: e.id).empty? &&
             (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
         end
 
         # Participants from MwebEvents
-        can :destroy, MwebEvents::Participant do |p|
+        can :destroy, Participant do |p|
           p.owner == user
         end
 
-        can [:show, :edit, :update, :destroy], MwebEvents::Participant do |p|
+        can [:show, :edit, :update, :destroy], Participant do |p|
           event_can_be_managed_by(p.event, user)
         end
 
-        can [:index, :create, :new], MwebEvents::Participant
+        can [:index, :create, :new], Participant
       end
 
       restrict_access_to_disabled_resources(user)

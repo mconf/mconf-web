@@ -75,7 +75,7 @@ class Event < ActiveRecord::Base
   end
 
   def full_url
-    MwebEvents::Engine.routes.url_helpers.event_path(self, :host => Event.host, :only_path => false)
+    Rails.application.routes.url_helpers.event_path(self, :host => Event.host, :only_path => false)
   end
 
   def should_generate_new_friendly_id?
@@ -88,7 +88,7 @@ class Event < ActiveRecord::Base
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(escape_html: true))
       html = markdown.render description
     else
-      html = I18n.t('mweb_events.events.no_description')
+      html = I18n.t('events.no_description')
     end
 
     html

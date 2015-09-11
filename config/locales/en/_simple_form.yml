@@ -89,6 +89,19 @@ en:
         superuser: "Check this option to make this user a global administrator of this website"
         timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
+
+      event:
+        time_zone: Choose the time zone this event will use.
+        location: A general description for where is the event going to happen. For example 'University XY'.
+        address: The complete address where the event will be held. Entering a valid address will create a map and mark this address on it in the event page.
+        social_networks: Which social network share buttons should be visible on the event page?
+        summary: Type a summary of the event in 140 characters or less.
+        description: Type in the event description. You can use Markdown to make the text pretty.
+        start_on: Date and time for the start of the event.
+        end_on: Date and time for the end of the event. Not required, but if left blank the event will end 24 hours after it has started.
+    error_notification:
+      default_message: "Please review the problems below:"
+
     placeholders:
       invite:
         ends_on: "Ends on..."

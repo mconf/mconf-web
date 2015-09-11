@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class ParticipantConfirmation < ActiveRecord::Base
-  belongs_to :participant, dependent: :destroy, class_name: "MwebEvents::Participant"
+  belongs_to :participant, dependent: :destroy
   before_create :generate_token
 
   delegate :email, to: :participant, allow_nil: true
