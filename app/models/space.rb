@@ -117,6 +117,11 @@ class Space < ActiveRecord::Base
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
+  scope :approved, -> { with_disabled.where(approved: true) }
+  scope :unapproved, -> { with_disabled.where(approved: false) }
+  scope :disabled, -> { with_disabled.where(disabled: true) }
+  scope :enabled, -> { where(disabled: false) }
+
   # Finds all the valid user roles for a Space
   def self.roles
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }

@@ -85,6 +85,11 @@ class User < ActiveRecord::Base
 
   default_scope { where(disabled: false) }
 
+  scope :approved, -> { with_disabled.where(approved: true) }
+  scope :unapproved, -> { with_disabled.where(approved: false) }
+  scope :disabled, -> { with_disabled.where(disabled: true) }
+  scope :enabled, -> { where(disabled: false) }
+
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
   RECEIVE_DIGEST_DAILY = 1
