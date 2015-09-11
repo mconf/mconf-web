@@ -54,10 +54,10 @@ pt-br:
       subject: "%{candidate} quer participar da comunidade %{space}"
     new_space_waiting_for_approval_email:
       click_here: "Aceite ou rejeite esta comunidade na página de gerenciamento de comunidades em: <br/><a href=\"%{url}\">%{url}</a>"
-      message: "Uma comunidade de nome \"%{name}\" foi criada e está a espera de aprovação."
+      message: "Uma comunidade chamada \"%{name}\" foi criada e está a espera de aprovação."
       subject: "Uma nova comunidade está a espera de aprovação"
     new_space_approved_email:
-      click_here: "Você pode visitar o seu novo espaço em: <a href=\"%{url}\">%{url}</a>"
+      click_here: "Você pode visitar a comunidade em: <a href=\"%{url}\">%{url}</a>"
       message: "Olá %{name},<br/><br/>Estamos mandando este email para avisar que a comunidade \"%{space}\" que você criou foi aprovada."
       subject: "Sua comunidade foi aprovada"
     processed_invitation_email:
