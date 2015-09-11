@@ -148,6 +148,11 @@ describe JoinRequest do
         before { target.group.disable }
         it { should_not be_able_to_do_anything_to(target) }
       end
+
+      context "and the target space is not approved" do
+        before { target.group.update_attributes(approved: false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is a registered user" do
@@ -204,6 +209,11 @@ describe JoinRequest do
               before { target.group.disable }
               it { should_not be_able_to_do_anything_to(target).except([:create, :new]) }
             end
+
+            context "and the target space is not approved" do
+              before { target.group.update_attributes(approved: false) }
+              it { should_not be_able_to_do_anything_to(target) }
+            end
           end
         end
 
@@ -215,17 +225,22 @@ describe JoinRequest do
 
       context "in a public space" do
         before { target.group.update_attributes(:public => true) }
-        it { should be_able_to_do_everything_to(:all) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "in a private space" do
         before { target.group.update_attributes(:public => false) }
-        it { should be_able_to_do_everything_to(:all) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "and the target space is disabled" do
         before { target.group.disable }
-        it { should be_able_to_do_everything_to(:all) }
+        it { should be_able_to_do_everything_to(target) }
+      end
+
+      context "and the target space is not approved" do
+        before { target.group.update_attributes(approved: false) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
   end
