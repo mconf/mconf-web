@@ -65,7 +65,7 @@ class NewsController < ApplicationController
 
   def get_news
     @news = @space.news.order("updated_at DESC")
-    authorize! :index_news, @space
+    authorize! :manage_news, @space
   end
 
   allow_params_for :news

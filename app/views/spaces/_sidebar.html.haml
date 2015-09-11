@@ -18,8 +18,9 @@
         .buttons
           = render 'spaces/sidebar_webconf_buttons', :room => @webconf_room
 
-      .content-block-footer
-        = link_to t('view_more'), webconference_space_path(@space)
+      - if can?(:webconference, @space)
+        .content-block-footer
+          = link_to t('view_more'), webconference_space_path(@space)
 
     - if mod_enabled?("events")
       = render_sidebar_content_block('sidebar-upcoming-events') do
@@ -33,7 +34,8 @@
         .content-block-middle
           = render 'space_events/sidebar_events_simple', :events => @space.upcoming_events(5)
         .content-block-footer
-          = link_to(t('read_more'), space_events_path(@space))
+          - if can?(:read, @space.events)
+            = link_to(t('read_more'), space_events_path(@space))
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header

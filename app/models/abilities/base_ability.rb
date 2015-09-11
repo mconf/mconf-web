@@ -34,10 +34,6 @@ module Abilities
               :enable, :approve, :disapprove, :confirm, :show,
               :fellows, :current, :select, :update_password], User, disabled: true
 
-      cannot [:update_full_name], Profile do |profile|
-        profile.user.disabled?
-      end
-
       # only actions over members, not actions over the collection
       actions = [:show, :accept, :decline]
       cannot actions, JoinRequest do |jr|
@@ -45,7 +41,6 @@ module Abilities
       end
 
       if Mconf::Modules.mod_loaded?('events')
-        # only actions over members, not actions over the collection
         actions = [:show, :edit, :update, :destroy,
                    :invite, :send_invitation, :create_participant]
         cannot actions, MwebEvents::Event do |event|
@@ -76,27 +71,28 @@ module Abilities
 
     # Remove access for anything related to unapproved resources (users and spaces currently).
     def restrict_access_to_unapproved_resources(user)
-      cannot [:show, :webconference, :recordings, :leave], Space do |space|
+      cannot [:show, :leave], Space do |space|
         # space admins can do it even if not approved yet
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:show, :create, :new, :reply_post, :destroy, :edit, :update], Post do |post|
-        # space admins can do it even if not approved yet
-        !post.space.approved? && (user.nil? || !post.space.admins.include?(user))
+      cannot [:webconference, :recordings, :manage_join_requests,
+              :invite, :user_permissions, :manage_news, :show_news,
+              :webconference_options, :edit_recording], Space, approved: false
+
+      cannot :manage, Post, space: { approved: false }
+      cannot :manage, Attachment, space: { approved: false }
+      cannot :manage, News, space: { approved: false }
+
+      cannot [:manage], JoinRequest do |jr|
+        !jr.group.approved?
       end
 
-      cannot [:show], News do |news|
-        # space admins can do it even if not approved yet
-        !news.space.approved? && (user.nil? || !news.space.admins.include?(user))
+      # TODO: should restrict :index too, but can't since it doesn't evaluate the
+      # block and would restrict it always, not only for unapproved spaces
+      cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
+        event.owner_type == 'Space' && !event.owner.try(:approved?) # use try because of disabled spaces
       end
-
-      cannot [:show, :create, :new], Attachment do |attach|
-        # space admins can do it even if not approved yet
-        !attach.space.approved? && (user.nil? || !attach.space.admins.include?(user))
-      end
-
-      # TODO: events in a space that's not approved yet
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
