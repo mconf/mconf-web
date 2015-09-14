@@ -91,15 +91,15 @@ ActiveRecord::Schema.define(version: 20150903182639) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",   default: false
+    t.boolean  "published",             default: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "available",   default: true
+    t.boolean  "available",             default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        default: 0
+    t.integer  "size",        limit: 8, default: 0
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -390,9 +390,9 @@ ActiveRecord::Schema.define(version: 20150903182639) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
-    t.boolean  "shib_update_users",              default: false
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
+    t.boolean  "shib_update_users",              default: false
   end
 
   create_table "spaces", force: true do |t|
