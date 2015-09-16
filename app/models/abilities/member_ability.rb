@@ -59,8 +59,8 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings, :show_news], Space, public: true
-      can [:show, :webconference, :recordings, :show_news], Space do |space|
+      can [:show, :webconference, :recordings, :show_news, :index_event], Space, public: true
+      can [:show, :webconference, :recordings, :show_news, :index_event], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|

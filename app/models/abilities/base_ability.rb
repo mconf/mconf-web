@@ -78,7 +78,7 @@ module Abilities
 
       cannot [:webconference, :recordings, :manage_join_requests,
               :invite, :user_permissions, :manage_news, :show_news,
-              :webconference_options, :edit_recording], Space, approved: false
+              :webconference_options, :edit_recording, :index_event], Space, approved: false
 
       cannot :manage, Post, space: { approved: false }
       cannot :manage, Attachment, space: { approved: false }

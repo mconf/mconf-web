@@ -16,15 +16,19 @@ class SpaceEventsController < ApplicationController
     end
   end
 
-  load_and_authorize_resource :space, :find_by => :permalink
+  load_and_authorize_resource :space, :find_by => :permalink, :parent => true
+  load_and_authorize_resource :event, :through => :space, :class => MwebEvents::Event, :parent => false
   # TODO: #1115, review authorization
-  load_and_authorize_resource :find_by => :permalink, :class => MwebEvents::Event
+  #load_and_authorize_resource :find_by => :permalink, :class => MwebEvents::Event
+
 
   # need it to show info in the sidebar
   before_filter :webconf_room!
 
   # TODO: everything is being filtered by software, this can all be done with db queries
   def index
+    authorize! :index_event, @space
+
     all_events = @space.events(:order => "end_on DESC")
 
     # events happening now
