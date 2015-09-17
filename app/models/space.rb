@@ -114,10 +114,6 @@ class Space < ActiveRecord::Base
   # By default spaces marked as disabled will not show in queries
   default_scope -> { where(:disabled => false) }
 
-  # #1795
-  scope :approved, -> { with_disabled.where(approved: true) }
-  scope :unapproved, -> { with_disabled.where(approved: false) }
-
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
