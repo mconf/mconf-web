@@ -347,13 +347,13 @@ class User < ActiveRecord::Base
     if enrollment.blank?
       false
     else
-      enrollment = I18n.transliterate(enrollment)
+      enrollment_to_match = I18n.transliterate(enrollment)
       # list of enrollments allowed to record
       all_allowed = Site.current.allowed_to_record
 
       all_allowed.each do |allowed|
         allowed = I18n.transliterate(allowed)
-        if enrollment.match(/#{Regexp.quote(allowed)}/i)
+        if enrollment_to_match.match(/#{Regexp.quote(allowed)}/i)
           return true
         end
       end
