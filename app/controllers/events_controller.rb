@@ -1,10 +1,12 @@
 class EventsController < ApplicationController
-  before_filter :concat_datetimes, :only => [:create, :update]
   load_and_authorize_resource :find_by => :permalink
-  before_filter :set_date_locale, if: -> { @event.present? }
 
   before_filter :block_if_events_disabled
-  before_filter :custom_loading, only: [:index]
+
+  before_filter :concat_datetimes, :only => [:create, :update]
+
+  before_filter :set_date_locale, if: -> { @event.present? }
+
   before_filter :find_or_create_participant, only: [:show]
 
   after_filter only: [:create, :update] do
@@ -14,6 +16,23 @@ class EventsController < ApplicationController
   respond_to :html, :json
 
   def index
+    # Filter events for the current user
+    if params[:my_events]
+      if current_user
+        @events = current_user.events
+      else # Remove the parameter if no user is logged
+        redirect_to events_path(params.except(:my_events))
+        return
+      end
+    end
+
+    # Filter events belonging to spaces or users with disabled status
+    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
+    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
+    # If only there was a conjunction operator that returned an AR relation, this would be easier
+    # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
+    @events = Event.where(id: (without_users | without_spaces))
+    @events = @events.page(params[:page])
 
     if params[:show] == 'happening_now'
       @events = @events.happening_now.order('start_on ASC')
@@ -154,26 +173,6 @@ class EventsController < ApplicationController
     unless Mconf::Modules.mod_enabled?('events')
       raise ActionController::RoutingError.new('Not Found')
     end
-  end
-
-  def custom_loading
-    # Filter events for the current user
-    if params[:my_events]
-      if current_user
-        @events = current_user.events
-      else # Remove the parameter if no user is logged
-        redirect_to events_path(params.except(:my_events))
-        return
-      end
-    end
-
-    # Filter events belonging to spaces or users with disabled status
-    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
-    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
-    # If only there was a conjunction operator that returned an AR relation, this would be easier
-    # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
-    @events = Event.where(id: (without_users | without_spaces))
-    @events = @events.accessible_by(current_ability, :index).page(params[:page])
   end
 
   def handle_access_denied(exception)
