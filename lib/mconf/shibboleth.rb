@@ -30,6 +30,7 @@ module Mconf
       shib_data = {}
       env_variables.each do |key, value|
         unless filter.select{ |f| key.to_s.downcase =~ f }.empty?
+          value.force_encoding('UTF-8') if value.present? # see #1774
           shib_data[key.to_s] = value
         end
       end
