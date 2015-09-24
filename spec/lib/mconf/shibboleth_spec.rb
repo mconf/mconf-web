@@ -51,6 +51,14 @@ describe Mconf::Shibboleth do
       it { session[:shib_data]['second'].should eq('second') }
     end
 
+    context "string with encoding ASCII-8BIT" do
+      let(:env) { { :first => 'first', :second => 'çÃïçáõ'.force_encoding("ASCII-8BIT") } }
+      before { shibboleth.save_to_session(env, 'second')}
+      it { session[:shib_data].length.should be(1) }
+      it { session[:shib_data].should have_key('second') }
+      it { session[:shib_data]['second'].should eq('çÃïçáõ') }
+    end
+
     context "accepts keys as strings" do
       let(:env) { { 'first' => 'first', 'second' => 'second' } }
       before { shibboleth.save_to_session(env, 'second') }
