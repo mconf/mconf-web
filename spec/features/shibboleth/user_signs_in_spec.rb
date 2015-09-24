@@ -351,4 +351,17 @@ describe 'User signs in via shibboleth' do
       # redirects the user to the space's page
     end
   end
+
+  context "from UFRGS with encoding ASCII-8BIT" do
+    let(:token) { FactoryGirl.create(:shib_token) }
+    let(:user) { token.user }
+    let(:ascii) { ufrgsVinculo.clone }
+    before {
+      enable_shib
+      setup_shib user.full_name, user.email, user.email, ascii.force_encoding("ASCII-8BIT")
+      visit shibboleth_path
+    }
+    it { current_path.should eq(my_home_path) }
+    it { user.shib_token.reload.data['ufrgsVinculo'].should eq(ufrgsVinculo)}
+  end
 end
