@@ -18,7 +18,7 @@ describe BigbluebuttonRoom do
     describe "#user_created_meeting?" do
       it "false if there's no current meeting running in the room"
       it "false if it was another user that created the current meeting running in the room"
-      it "true if the current meeting runnigitng in the room was created by the user informed"
+      it "true if the current meeting running in the room was created by the user informed"
     end
   end
 
