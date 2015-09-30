@@ -96,5 +96,17 @@ describe JoinRequestSenderWorker do
       it { activity.reload.notified.should be(true) }
     end
 
+    context "when the join request was removed" do
+      let(:admin) { FactoryGirl.create(:user) }
+      before{
+        space.add_member!(admin, "Admin")
+        activity.update_attributes(trackable_id: -1)
+      }
+      before(:each) { worker.perform(activity.id) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:join_request_email, activity.trackable_id, admin.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
   end
 end

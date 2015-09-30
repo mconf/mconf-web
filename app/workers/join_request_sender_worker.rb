@@ -22,8 +22,10 @@ class JoinRequestSenderWorker < BaseWorker
     else
       # notify each admin of the space
       space.admins.each do |admin|
-        Resque.logger.info "Sending join request notification to: #{admin.inspect}"
-        SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
+        if JoinRequest.exists?(:id => activity.trackable_id)
+          Resque.logger.info "Sending join request notification to: #{admin.inspect}"
+          SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
+        end
       end
     end
 
