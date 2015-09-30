@@ -214,7 +214,7 @@ namespace :db do
       available_users = User.all.to_a
       MwebEvents::Event.populate 20..40 do |event|
         event.owner_id = available_users
-        event.owner_type = 'Space'
+        event.owner_type = 'User'
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')
         event.time_zone = Forgery::Time.zone
