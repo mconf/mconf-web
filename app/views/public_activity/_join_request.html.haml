@@ -7,7 +7,7 @@
   - space = Space.find_by_id(activity.owner_id)
 
   .logo-in-thread
-    = link_logo_image(space, size: '84x64', url: space_path(space), class: 'logo logo-space')
+    = link_logo_image(space, size: '84x64', url: space_path(space), class: 'logo logo-space-activity')
 
   .thread-content
     = formatted_time_ago activity.created_at
