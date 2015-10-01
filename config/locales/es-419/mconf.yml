@@ -79,7 +79,6 @@ es-419:
       other: "%{count} participantes"
     publish: "Publicar"
     register: "Registrar"
-    register_to_view_space: "Crear una cuenta para poder unirse y acceder a este espacio"
     save: "Guardar"
     send: "Enviar"
     spam:

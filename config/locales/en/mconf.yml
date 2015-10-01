@@ -82,7 +82,6 @@ en:
       other: "%{count} participants"
     publish: "Publish"
     register: "Register"
-    register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
     not_approved:

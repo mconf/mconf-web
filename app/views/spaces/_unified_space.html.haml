@@ -11,19 +11,12 @@
   = content_tag(:div, :name => space.permalink, :class => "#{'space-waiting-moderation' if !space.approved?} thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
 
     .logo-in-thread
-      - if space_link_visible?(space)
-        = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
-      - else
-        .register-to-view-space
-          = logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
+      = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
 
     .thread-content
       .thread-title
         %span
-          - if space_link_visible?(space)
-            = link_to sanitize(space.name), space_path(space)
-          - else
-            %span{:title => space.name}= sanitize(space.name)
+          = link_to sanitize(space.name), space_path(space)
 
         - if extended
           - if is_member

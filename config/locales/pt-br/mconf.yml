@@ -83,7 +83,6 @@ pt-br:
     publish: "Publicar"
     upload: "Enviar"
     register: "Registrar"
-    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
     not_approved:
