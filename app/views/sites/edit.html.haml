@@ -7,7 +7,8 @@
     = f.input :domain
     = f.input :locale, :collection => available_locales(true)
     = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes
-    = f.input :timezone, :as => :time_zone
+    = f.input :timezone do
+      = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
     = f.input :room_dial_number_pattern, as: :string

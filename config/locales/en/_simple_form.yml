@@ -87,7 +87,7 @@ en:
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
         dial_number: "A dial access number that participants can call in using regular phone."
         superuser: "Check this option to make this user a global administrator of this website"
-        timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"
+        timezone: "The selected time zone will be used to display all dates in the website. Time zones with an asterisk (*) are currently in daylight saving time."
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     placeholders:
       invite:

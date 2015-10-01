@@ -59,7 +59,11 @@ module Mconf
   class DSTTimezone
 
     def initialize(tz)
-      @tz = tz
+      if tz.is_a?(String)
+        @tz = ActiveSupport::TimeZone.new(tz)
+      else
+        @tz = tz
+      end
     end
 
     def self.all
@@ -69,7 +73,11 @@ module Mconf
     end
 
     def dst_string
-      "(GMT#{dst_hours}) #{name}"
+      if dst?
+        "(GMT#{dst_hours}*) #{name}"
+      else
+        "(GMT#{dst_hours}) #{name}"
+      end
     end
 
     def dst_hours
@@ -82,6 +90,10 @@ module Mconf
 
     def tzinfo
       @tz.tzinfo
+    end
+
+    def dst?
+      Time.now.in_time_zone(@tz).dst?
     end
   end
 end
