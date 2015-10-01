@@ -31,6 +31,7 @@ pt-br:
       update_html: atualizou a notícia %{name} na comunidade
       deleted: que não existe mais
     other:
+      admin_html: "Um administrador"
       someone_html: "Um usuário"
     post:
       create_html: enviou a mensagem %{name} na comunidade

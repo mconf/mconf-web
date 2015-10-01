@@ -31,6 +31,7 @@ en:
       update_html: updated the news %{name} in the space
       deleted: that have since been deleted
     other:
+      admin_html: "An administrator"
       someone_html: "Someone"
     post:
       create_html: posted %{name} in the space
