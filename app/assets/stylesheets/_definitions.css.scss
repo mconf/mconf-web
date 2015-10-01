@@ -127,11 +127,11 @@ $mail-font-size: $font-normal;
     &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
 
     // default dimensions for logos inside threads
-    &.logo-space {
+    &.logo-space, &.logo-space-activity {
       width: 40px;
       height: 30px;
     }
-    &.logo-user {
+    &.logo-user, &.logo-user-activity {
       width: 32px;
       height: 32px;
     }
