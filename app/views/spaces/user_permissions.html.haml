@@ -15,10 +15,16 @@
       .thread-content
         .thread-text
           = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
-            .input.select
-              - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
-              = select :permission, :role_id, roles, :selected => permission.role_id
-            = f.submit t('update'), :class => "btn btn-mini"
+            -# Case the user is an Administrator from Space, it can't change his own role
+            -# refs #1770
+            - perm = Permission.find_by(user: user, subject: @space)
+            - if can?(:update, perm)
+              .input.select
+                - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
+                = select :permission, :role_id, roles, selected: permission.role_id
+              = f.submit t('update'), class: "btn btn-mini"
+            - else
+              - icon_help t(".tooltip_last_admin")
 
           - perm = Permission.where(user: user, subject: @space).first
           - if can?(:destroy, perm)

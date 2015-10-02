@@ -66,6 +66,7 @@ module Abilities
       can [:leave], Space do |space|
         space.users.include?(user) && !space.is_last_admin?(user)
       end
+
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,
@@ -145,14 +146,22 @@ module Abilities
       # Permissions
       # Only space admins can update user roles/permissions
       can :index, Permission # restricted through Space
-      can [:show, :edit, :update, :destroy], Permission do |perm|
+      can [:show, :edit], Permission do |perm|
         case perm.subject_type
         when "Space"
-          admins = perm.subject.admins
+          perm.subject.admins.include?(user)
         else
-          admins = []
+          false
         end
-        admins.include?(user)
+      end
+      can [:update, :destroy], Permission do |perm|
+        case perm.subject_type
+        when "Space"
+          perm.subject.admins.include?(user) &&
+            !perm.subject.is_last_admin?(perm.user)
+        else
+          false
+        end
       end
 
       # Events from MwebEvents

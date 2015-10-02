@@ -1662,9 +1662,10 @@ pt-br:
       with_members: "com %{count} membros"
     user_permissions:
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
-      leave_space: "Sair da comunidade"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
