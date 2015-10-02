@@ -1638,9 +1638,10 @@ pt-br:
       with_members: "com %{count} membros"
     user_permissions:
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
-      leave_space: "Sair da comunidade"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
@@ -1736,7 +1737,6 @@ pt-br:
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    last_admin: "Este usuário é Administrador deste espaço"
     latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
     news_item: "Você pode publicar uma notícia para aparecer na página inicial da comunidade"

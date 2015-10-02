@@ -14,16 +14,18 @@ module Abilities
       cannot [:leave], Space do |space|
         !space.users.include?(user) || space.is_last_admin?(user)
       end
-      cannot [:change_role], Permission do |perm|
-        user.id == perm.user.id && perm.subject.admins.include?(user)
-      end
+
       # A Superuser can't remove the last admin of a space neither change its role
-      cannot [:destroy, :change_role], Permission do |perm|
-        cant = false
+      cannot [:destroy, :update], Permission do |perm|
         if perm.subject_type == "Space"
-          cant = perm.subject.is_last_admin?(perm.user) if perm.subject.present?
+          if perm.subject.present?
+            perm.subject.is_last_admin?(perm.user)
+          else
+            false # allowed to
+          end
+        else
+          false # allowed to
         end
-        cant
       end
     end
   end

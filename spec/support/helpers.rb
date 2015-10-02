@@ -47,17 +47,19 @@ module Helpers
     end
   end
 
+  # Sets the custom actions that should also be checked by
+  # the matcher BeAbleToDoAnythingToMatcher
+  def self.set_custom_ability_actions(actions)
+    Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
+      custom_actions = actions
+    Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
+      custom_actions = actions
+  end
+
   module ClassMethods
 
-    # Sets the custom actions that should also be checked by
-    # the matcher BeAbleToDoAnythingToMatcher
     def set_custom_ability_actions(actions)
-      before(:each) do
-        Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
-          custom_actions = actions
-        Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
-          custom_actions = actions
-      end
+      before { Helpers.set_custom_ability_actions(actions) }
     end
 
   end

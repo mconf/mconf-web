@@ -90,6 +90,7 @@ RSpec.configure do |config|
     ResqueSpec.reset!
     ActionMailer::Base.deliveries.clear
     Helpers.setup_site
+    Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
   end
 
