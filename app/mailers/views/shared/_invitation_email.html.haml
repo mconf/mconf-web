@@ -22,4 +22,4 @@
       %label= t('.message.url.event') + ':'
     - else
       %label= t('.message.url.other') + ':'
-    %span= @invitation.url
+    %span= link_to @invitation.url_with_protocol, @invitation.url_with_protocol
