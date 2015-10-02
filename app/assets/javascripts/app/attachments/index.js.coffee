@@ -24,7 +24,7 @@ $ ->
       onSubmit: (id, name) ->
         $('.upload-button').hide()
 
-    $(document).on "modal-shown.attachments-uploader", ->
+    $("#new-file").on "modal-shown", ->
       mconf.Uploader.bind
         dragAndDrop: true
         callbacks: uploaderCallbacks
