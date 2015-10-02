@@ -88,8 +88,10 @@ module Abilities
         !jr.group.approved?
       end
 
-      # Obs: index is restricted now using :inex_event abilit, since the use of :index
-      # below would block the index always
+
+      # TODO: should restrict :index too, but can't since it doesn't evaluate the
+      # block and would restrict it always, not only for unapproved spaces
+      # :index of events inside a space is restricted using :index_event
       cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
         event.owner_type == 'Space' && !event.owner.try(:approved?) # use try because of disabled spaces
       end
