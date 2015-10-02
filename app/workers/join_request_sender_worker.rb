@@ -19,6 +19,8 @@ class JoinRequestSenderWorker < BaseWorker
 
     if space.nil?
       Resque.logger.info "Invalid space in a recent activity item: #{activity.inspect}"
+    elsif !activity.trackable.present?
+      Resque.logger.info "Invalid trackable in a recent activity item: #{activity.inspect}"
     else
       # notify each admin of the space
       space.admins.each do |admin|
