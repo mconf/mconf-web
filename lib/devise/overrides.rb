@@ -28,6 +28,9 @@ Devise::Strategies::DatabaseAuthenticatable.class_eval do
     # account created via shibboleth are also excluded from local auth
     return fail(:shib_auth_disabled) if resource.created_by_shib?
 
+    # same as above but for ldap (the error message is the same as a login failure)
+    return fail(:not_found_in_database) if resource.created_by_ldap?
+
     super_authenticate!
   end
 end
