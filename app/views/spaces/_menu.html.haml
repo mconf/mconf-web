@@ -14,8 +14,7 @@
           %li{ spaces_menu_select_if(:posts) }
             = link_to t('.posts'), space_posts_path(@space)
 
-        -# Can't use can?(:index) here because the ability is defined with a block
-        - if mod_enabled?("events") && can?(:show, MwebEvents::Event.new(owner: @space))
+        - if mod_enabled?("events") && can?(:index_event, @space)
           %li{ spaces_menu_select_if(:events) }
             = link_to t('.events'), space_events_path(@space)
 

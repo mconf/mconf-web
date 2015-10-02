@@ -953,7 +953,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
-      :manage_join_requests, :show_news, :manage_news, :add])
+      :manage_join_requests, :show_news, :manage_news, :add, :index_event])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -1041,7 +1041,7 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :show_news]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :show_news, :index_event]) }
         end
 
         context "he is a member of" do
@@ -1052,7 +1052,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :show_news, :manage_news
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1064,7 +1064,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :show_news, :manage_news
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1086,7 +1086,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news])
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
             }
 
             context "when the space is not approved" do
@@ -1117,7 +1117,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :show_news, :manage_news
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1129,7 +1129,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :show_news, :manage_news
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1151,7 +1151,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news])
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
             }
 
             context "when the space is not approved" do

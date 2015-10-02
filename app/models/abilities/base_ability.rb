@@ -78,7 +78,7 @@ module Abilities
 
       cannot [:webconference, :recordings, :manage_join_requests,
               :invite, :user_permissions, :manage_news, :show_news,
-              :webconference_options, :edit_recording], Space, approved: false
+              :webconference_options, :edit_recording, :index_event], Space, approved: false
 
       cannot :manage, Post, space: { approved: false }
       cannot :manage, Attachment, space: { approved: false }
@@ -88,8 +88,10 @@ module Abilities
         !jr.group.approved?
       end
 
+
       # TODO: should restrict :index too, but can't since it doesn't evaluate the
       # block and would restrict it always, not only for unapproved spaces
+      # :index of events inside a space is restricted using :index_event
       cannot [:show, :create, :new, :invite], MwebEvents::Event do |event|
         event.owner_type == 'Space' && !event.owner.try(:approved?) # use try because of disabled spaces
       end
