@@ -4,14 +4,14 @@
   .thread-content
     .thread-actions
       - target = jr.candidate ? jr.candidate.name : jr.email
-
-      = link_to t('_other.decline'), decline_space_join_request_path(@space, jr), method: :post, class: "btn btn-danger btn-small", data: { confirm: t('.decline_confirmation') }
-      %span.separator= t('or')
-      = simple_form_for [@space, jr], url: accept_space_join_request_path(@space, jr), method: :post do |f|
-        = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
-        %span= t('join_requests.index.accept_as').downcase
-        - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
-        = select :join_request, :role_id, roles, :selected => default_role.id
+      - if (can?(:accept, jr))
+        = link_to t('_other.decline'), decline_space_join_request_path(@space, jr), method: :post, class: "btn btn-danger btn-small", data: { confirm: t('.decline_confirmation') }
+        %span.separator= t('or')
+        = simple_form_for [@space, jr], url: accept_space_join_request_path(@space, jr), method: :post do |f|
+          = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
+          %span= t('join_requests.index.accept_as').downcase
+          - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
+          = select :join_request, :role_id, roles, :selected => default_role.id
 
     .thread-title
       = link_to sanitize(jr.candidate.name), user_path(jr.candidate)
