@@ -23,6 +23,8 @@ en:
     hints:
       bigbluebutton_room:
         dial_number: "A dial access number that participants can call in using regular phone."
+      bigbluebutton_server:
+        version: "The version is automatically fetched from your server whenever you change it's URL or salt."
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:

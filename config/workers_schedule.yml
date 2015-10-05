@@ -58,6 +58,6 @@ update_recordings:
 
 update_server_configs:
   every:
-    - "3h"
+    - "1h"
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."

@@ -23,6 +23,8 @@ pt-br:
     hints:
       bigbluebutton_room:
         dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."
+      bigbluebutton_server:
+        version: "A versão é buscada automaticamente do servidor quando você muda a sua URL ou chave de segurança."
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
