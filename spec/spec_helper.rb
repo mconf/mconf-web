@@ -42,6 +42,10 @@ Geocoder::Lookup::Test.set_default_stub(
 
 BCrypt::Engine.cost = 4
 
+# Disable all external HTTP requests by default
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   # == Mock Framework
   #
