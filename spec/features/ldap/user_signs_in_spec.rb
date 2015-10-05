@@ -26,6 +26,22 @@ describe 'User signs in via ldap' do
       it { should have_content @attrs[:email] }
     end
 
+    context "trying to login in with the account's password" do
+      let(:user) { token.user }
+      before {
+        enable_ldap
+        sign_in_with(user.email, user.password)
+      }
+
+      context "should not work for users created with ldap" do
+        let(:token) { FactoryGirl.create(:ldap_token) }
+
+        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message t('devise.errors.messages.not_found') }
+      end
+
+    end
+
     context 'and the user is already registered for the site' do
 
       context 'and enters valid credentials' do
