@@ -24,10 +24,10 @@ module Abilities
         cant
       end
 
-      # A Superuser can not manage_join_request from spaces he is not admin
+      # A Superuser can not accept his join request for a space
       cannot [:accept], JoinRequest do |jr|
-        group = jr.group
-        !group.admins.include?(user)
+        jr.candidate == user ||
+        (jr.candidate != user and jr.request_type == JoinRequest::TYPES[:invite])
       end
     end
   end
