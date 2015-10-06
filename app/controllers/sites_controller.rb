@@ -47,8 +47,7 @@ class SitesController < ApplicationController
      :smtp_sender, :smtp_domain, :smtp_server, :smtp_port, :smtp_use_tls, :smtp_auto_tls, :smtp_auth_type, :exception_notifications,
      :exception_notifications_email, :exception_notifications_prefix, :chat_enabled, :presence_domain, :xmpp_server, :external_help,
      :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled, :room_dial_number_pattern,
-     :max_upload_size,
-     visible_locales: []
+     :max_upload_size, visible_locales: []
     ]
   end
 end

@@ -173,6 +173,7 @@ en:
         ldap_name_field: "LDAP: Field to obtain the user's full name"
         local_auth_enabled: "Enable local authentication"
         locale: "Language"
+        max_upload_size: "Maximum file size for uploads"
         name: "Name"
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
