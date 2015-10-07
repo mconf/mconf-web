@@ -5,76 +5,67 @@
 # 3 or later. See the LICENSE file.
 
 require 'spec_helper'
+require 'support/feature_helpers'
 
-describe 'User signs in via ldap' do
+describe 'User signs in via ldap', ldap: true do
   subject { page }
   before(:all) {
-    @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
-  }
+    @ldap_attrs = {username: 'passoca', password: 'passocaword', email: 'passoca@amendo.in'}
 
-  skip 'for the first time' do
+    Mconf::LdapServerRunner.add_user @ldap_attrs[:username], @ldap_attrs[:password], @ldap_attrs[:email]
+    Mconf::LdapServerRunner.start
+  }
+  after(:all) { Mconf::LdapServerRunner.stop }
+
+  before { Site.current.update_attributes ldap_enabled: true, ldap_host: '127.0.0.1' }
+
+  context 'for the first time' do
     before {
-      enable_ldap
       visit new_user_session_path
     }
 
     context 'and the user is registered in the ldap server' do
-      before { click_button t('sessions.login_form.login') }
+      before { sign_in_with @ldap_attrs[:username], @ldap_attrs[:password] }
 
       it { current_path.should eq(my_home_path) }
-      it { should have_content @attrs[:_full_name] }
-      it { should have_content @attrs[:email] }
-    end
-
-    context "trying to login in with the account's password" do
-      let(:user) { token.user }
-      before {
-        enable_ldap
-        sign_in_with(user.email, user.password)
-      }
-
-      context "should not work for users created with ldap" do
-        let(:token) { FactoryGirl.create(:ldap_token) }
-
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message t('devise.errors.messages.not_found') }
-      end
-
+      it { should have_content @ldap_attrs[:username] }
+      it { should have_content @ldap_attrs[:email] }
     end
 
     context 'and the user is already registered for the site' do
 
       context 'and enters valid credentials' do
         let(:user) { FactoryGirl.create(:user) }
-        before {
-          fill_in 'user[login]', :with => user.username
-          fill_in 'user[password]', :with => user.password
-          click_button t('sessions.login_form.login')
-        }
+        before { sign_in_with user.username, user.password }
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user._full_name }
         it { should have_content user.email }
       end
 
-      context "the user enters the wrong credentials in the association page" do
-        before { click_button t('sessions.login_form.login') }
+      context "the user's account is disabled" do
+        let(:user) { LdapToken.last.user }
+        before {
+          # create the LDAP token, log out
+          sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          logout_user
+
+          user.disable
+          sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+        }
 
         it { has_failure_message }
         it { current_path.should eq(new_user_session_path) }
       end
 
-      context "the user's account is disabled" do
-        let(:user) { FactoryGirl.create(:user) }
+      context "the site requires approval" do
         before {
-          user.disable
-          fill_in 'user[login]', :with => user.username
-          fill_in 'user[password]', :with => user.password
-          click_button t('sessions.login_form.login')
+          Site.current.update_attributes require_registration_approval: true
+          sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
         }
 
-        it { has_failure_message }
-        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message t('devise.failure.user.not_approved') }
+        it { current_path.should eq(my_approval_pending_path) }
       end
     end
 
@@ -82,23 +73,21 @@ describe 'User signs in via ldap' do
       context "successfully" do
         before {
           expect {
-            click_button t('sessions.login_form.login')
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
           }.to change{ User.count }
         }
 
         it { current_path.should eq(my_home_path) }
         it("creates a LdapToken") { LdapToken.count.should be(1) }
-        it("sends notification emails") { UserMailer.should have_queue_size_of(1) }
-        it("sends notification emails") { UserMailer.should have_queued(:registration_notification_email, User.last.id) }
       end
 
       context "but encountering a server error" do
 
       end
 
-      context "and there's a conflict on the user's username with another user" do
+      skip "and there's a conflict on the user's username with another user" do
         before {
-          FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:user, username: @ldap_attrs[:_full_name].parameterize)
           expect {
             click_button t('sessions.login_form.login')
           }.not_to change{ User.count }
@@ -110,9 +99,9 @@ describe 'User signs in via ldap' do
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
-      context "and there's a conflict on the user's username with a space" do
+      skip "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:space, permalink: @ldap_attrs[:_full_name].parameterize)
           expect {
             click_button t('sessions.login_form.login')
           }.not_to change{ User.count }
@@ -124,9 +113,9 @@ describe 'User signs in via ldap' do
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
-      context "and there's a conflict on the user's username with a room" do
+      skip "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:_full_name].parameterize)
           expect {
             click_button t('sessions.login_form.login')
           }.not_to change{ User.count }
@@ -138,82 +127,20 @@ describe 'User signs in via ldap' do
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
-      context "and there's a conflict in the user's email" do
+      skip "and there's a conflict in the user's email" do
         before {
-          FactoryGirl.create(:user, email: @attrs[:email])
+          FactoryGirl.create(:user, email: @ldap_attrs[:email])
           expect {
             click_button t('sessions.login_form.login')
           }.not_to change{ User.count }
         }
 
         it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message t('shibboleth.create_association.existent_account', email: @attrs[:email]) }
+        it { has_failure_message }
         it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
     end
-  end
-
-  skip "a returning user" do
-    let(:token) { FactoryGirl.create(:ldap_token) }
-    let(:user) { token.user }
-
-    before {
-      enable_ldap
-      # setup_shib user.full_name, user.email, user.email
-    }
-
-    context "that has a valid account" do
-      before {
-        visit new_user_session_path
-      }
-
-      # it { current_path.should eq(my_home_path) }
-      # it { should have_content user.full_name }
-      # it { should have_content user.email }
-    end
-
-    context "that has a disabled account" do
-      before {
-        user.disable
-        visit new_user_session_path
-      }
-
-      it { current_path.should eq(root_path) }
-      it { has_failure_message(I18n.t('shibboleth.login.local_account_disabled')) }
-    end
-  end
-
-  context "redirects the user properly" do
-    # let!(:login_link) { t('devise.shared.links.login.federation') }
-    # before {
-    #   enable_shib
-    #   Site.current.update_attributes :shib_always_new_account => true
-    #   setup_shib 'a full name', 'user@mconf.org', 'user@mconf.org'
-    # }
-
-    # context "when he was in the frontpage" do
-    #   before {
-    #     visit root_url
-    #     click_link login_link
-    #   }
-
-    #   it { current_path.should eq(my_home_path) }
-    # end
-
-    # context "from a space's page" do
-    #   before {
-    #     @space = FactoryGirl.create(:space, :public => true)
-    #     visit space_path(@space)
-
-    #     # Access sign in path via link
-    #     find("a[href='#{new_user_session_path}']").click
-
-    #     click_link login_link
-    #   }
-
-    #   it { current_path.should eq(space_path(@space)) }
-    # end
   end
 
 end

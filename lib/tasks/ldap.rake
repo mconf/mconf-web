@@ -26,6 +26,8 @@ namespace :ldap do
 
     server = Mconf::LdapServer.new args[:port]
     puts "LDAP test server started on port #{args[:port] || 1389}"
+
+    server.add_user 'mconf', 'mconf', 'mconf@test.mconf.org'
     server.run
   end
 end

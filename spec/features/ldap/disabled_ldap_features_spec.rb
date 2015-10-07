@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Disabled ldap features' do
+describe 'Disabled ldap features' , ldap: true do
   subject { page }
   before(:all) { Mconf::LdapServerRunner.start }
   after(:all) { Mconf::LdapServerRunner.stop }

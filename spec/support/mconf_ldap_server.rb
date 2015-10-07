@@ -1,3 +1,5 @@
+require './spec/support/ldap_server'
+
 module Mconf
   class LdapServer
     attr_accessor :running, :port, :uid_field, :name_field, :mail_field
@@ -29,17 +31,22 @@ module Mconf
       end
     end
 
-    def add_user uid, name, mail
-      @server.add_user "#{@uid_field}=mconf,#{@user_tree}", uid,
-        { @uid_field => uid, @name_field => name, @mail_field => mail }
+    def add_user uid, pass, mail
+      @server.add_user "#{@uid_field}=#{uid},#{@user_tree}", pass,
+        { @uid_field => uid, @name_field => uid, @mail_field => mail }
     end
 
   end
 
   # A singleton class with simple start/stop interface to be used by rspec
   class LdapServerRunner
+    def self.init_server(port)
+      @@server ||= LdapServer.new(port)
+    end
+
     def self.start(port=1389)
-      @@server = LdapServer.new(port)
+      init_server(port)
+
       @@pid = fork do
         @@server.run
       end
@@ -50,6 +57,13 @@ module Mconf
       Rails.logger.info " ---- * Stopping ldap server "
 
       Process.kill('SIGTERM', @@pid)
+      Process.wait
+    end
+
+    def self.add_user uid, pass, email, port=1389
+      init_server(port)
+
+      @@server.add_user uid, pass, email
     end
   end
 end
