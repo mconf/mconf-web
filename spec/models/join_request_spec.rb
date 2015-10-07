@@ -225,22 +225,22 @@ describe JoinRequest do
 
       context "in a public space" do
         before { target.group.update_attributes(:public => true) }
-        it { should be_able_to_do_everything_to(target).except([:accept]) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "in a private space" do
         before { target.group.update_attributes(:public => false) }
-        it { should be_able_to_do_everything_to(target).except([:accept]) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "and the target space is disabled" do
         before { target.group.disable }
-        it { should be_able_to_do_everything_to(target).except([:accept]) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "and the target space is not approved" do
         before { target.group.update_attributes(approved: false) }
-        it { should be_able_to_do_everything_to(target).except([:accept]) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
   end
