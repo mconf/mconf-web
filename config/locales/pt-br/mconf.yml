@@ -543,6 +543,7 @@ pt-br:
     recording_links:
       direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
+      confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de clicar 'OK'."
     recordings:
       table:
         links: "Links"
