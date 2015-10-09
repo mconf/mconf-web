@@ -63,12 +63,6 @@ class SpacesController < ApplicationController
   end
 
   def show
-    # news
-    @news_position = params[:news_position] ? params[:news_position].to_i : 0
-    @news = @space.news.order("updated_at DESC").all
-    @news_position = @news.length-1 if @news_position >= @news.length
-    @news_to_show = @news[@news_position]
-
     # posts
     posts = @space.posts
     @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)

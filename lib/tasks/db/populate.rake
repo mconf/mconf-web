@@ -127,14 +127,6 @@ namespace :db do
         post.updated_at = post.created_at..Time.now
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
-
-      News.populate 2..10 do |news|
-        news.space_id = space.id
-        news.title = Populator.words(3..8).titleize
-        news.text = Populator.sentences(2..10)
-        news.created_at = @created_at_start..Time.now
-        news.updated_at = news.created_at..Time.now
-      end
     end
 
     puts "* Create spaces: webconference rooms"
@@ -376,12 +368,6 @@ namespace :db do
             event.new_activity attend, part.user
           end
         end
-      end
-
-      # News activity
-      space.news.each do |news|
-        author = space.admins.sample
-        news.new_activity :create, author
       end
 
       # Attachment activity

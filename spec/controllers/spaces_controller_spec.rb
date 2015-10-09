@@ -133,64 +133,6 @@ describe SpacesController do
 
     it "assigns @space"
 
-    context "assigns @news_position" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-      }
-
-      context "with params[:news_position] if set" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "1" }
-        it { should assign_to(:news_position).with(1) }
-      end
-
-      context "with 0 if params[:news_position] not set" do
-        before(:each) { get :show, :id => target.to_param }
-        it { should assign_to(:news_position).with(0) }
-      end
-
-      context "restricts to the amount of news existent" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "3" }
-        it { should assign_to(:news_position).with(1) }
-      end
-    end
-
-    context "assigns @news" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-        n3 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 2.days)
-        @expected = [n2, n1, n3]
-      }
-      before(:each) { get :show, :id => target.to_param }
-      it { should assign_to(:news).with(@expected) }
-    end
-
-    context "assigns @news_to_show" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-        n3 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 2.days)
-        @expected = [n2, n1, n3]
-      }
-
-      context "when the target news exists" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "1" }
-        it { should assign_to(:news_to_show).with(@expected[1]) }
-      end
-
-      context "when the target news doesn't exist" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "5" }
-        it { should assign_to(:news_to_show).with(@expected[2]) }
-      end
-
-      context "set to nil when the space has no news" do
-        before { News.destroy_all }
-        before(:each) { get :show, :id => target.to_param }
-        it { should assign_to(:news_to_show).with(nil) }
-      end
-    end
-
     context "assigns @latest_posts" do
       before {
         n1 = FactoryGirl.create(:post, :space => target, :updated_at => DateTime.now - 1.day)

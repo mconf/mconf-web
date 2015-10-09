@@ -23,10 +23,10 @@ module Mconf
     end
 
     def self.send_digest(to, date_start, date_end)
-      posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
+      posts, attachments, events, inbox = get_activity(to, date_start, date_end)
 
-      unless posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?
-        ApplicationMailer.digest_email(to.id, posts, news, attachments, events, inbox).deliver
+      unless posts.empty? && attachments.empty? && events.empty? && inbox.empty?
+        ApplicationMailer.digest_email(to.id, posts, attachments, events, inbox).deliver
       end
     end
 
@@ -40,7 +40,6 @@ module Mconf
       }
 
       posts = filter.call(Post)
-      news = filter.call(News)
       attachments = filter.call(Attachment)
 
       # Events that started or finished in the period
@@ -57,7 +56,7 @@ module Mconf
       # Unread messages in the inbox
       inbox = PrivateMessage.where(:checked => [false, nil]).inbox(user)
 
-      [ posts, news, attachments, events, inbox ]
+      [ posts, attachments, events, inbox ]
     end
 
   end
