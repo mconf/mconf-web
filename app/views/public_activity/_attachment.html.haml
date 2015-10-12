@@ -5,7 +5,7 @@
   - if activity.trackable.nil?
     = logo_image_removed(size: '84x64')
   - else
-    = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space')
+    = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
 
 .thread-content
   = formatted_time_ago activity.updated_at

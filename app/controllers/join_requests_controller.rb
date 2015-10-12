@@ -24,7 +24,7 @@ class JoinRequestsController < ApplicationController
   layout 'no_sidebar'
 
   def index
-    authorize! :index_join_requests, @space
+    authorize! :manage_join_requests, @space
   end
 
   def show
@@ -41,13 +41,13 @@ class JoinRequestsController < ApplicationController
 
   def invite
     @join_request = JoinRequest.new
-    authorize! :invite, @space
+    authorize! :manage_join_requests, @space
   end
 
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:type] == 'invite' && can?(:invite, @space)
+    if params[:type] == 'invite' && can?(:manage_join_requests, @space)
       success, errors, already_invited = process_invitations
 
       unless errors.empty?
@@ -267,7 +267,7 @@ class JoinRequestsController < ApplicationController
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
-    if [:new, :index_join_requests, :invite, :show].include? exception.action
+    if [:new, :manage_join_requests, :show].include? exception.action
       if user_signed_in?
         render_403 exception
       else
@@ -280,7 +280,7 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    is_space_admin = @space.present? && can?(:invite, @space)
+    is_space_admin = @space.present? && can?(:manage_join_requests, @space)
     if params[:action] == "create"
       if is_space_admin
         [ :role_id, :comment ]

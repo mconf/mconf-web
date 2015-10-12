@@ -22,6 +22,12 @@ send_user_notifications:
   class: UserNotificationsWorker
   description: "Checks pending user notifications and sends them"
 
+send_space_notifications:
+  every:
+    - "30s"
+  class: SpaceNotificationsWorker
+  description: "Checks pending space notifications and sends them"
+
 send_participant_confirmations_notifications:
   every:
     - "30s"
@@ -52,6 +58,6 @@ update_recordings:
 
 update_server_configs:
   every:
-    - "3h"
+    - "1h"
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."

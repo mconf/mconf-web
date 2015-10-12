@@ -12,7 +12,9 @@ class AttachmentsController < ApplicationController
 
   load_and_authorize_resource :space, :find_by => :permalink
   before_filter :check_repository_enabled
-  load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
+
+  # note: delete_collection is authorized internally
+  load_and_authorize_resource :through => :space, :except => [:delete_collection]
   before_filter :load_attachments, :only => [:index, :delete_collection]
   before_filter :webconf_room!, :only => [:index]
 

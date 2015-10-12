@@ -305,6 +305,21 @@ describe ShibbolethController do
         it { should set_the_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
         it { should redirect_to(root_path) }
       end
+
+      context "updates the data in the token with the data in the session" do
+        let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+        let(:new_data) {
+          { "Shib-inetOrgPerson-cn" => user.full_name,
+            "Shib-inetOrgPerson-mail" => user.email,
+            "Shib-eduPerson-eduPersonPrincipalName" => user.email }
+        }
+        let!(:token) { ShibToken.create!(identifier: user.email, user: user, data: old_data) }
+        before {
+          setup_shib(user.full_name, user.email, user.email)
+          get :login
+        }
+        it { token.reload.data.should eql(new_data) }
+      end
     end
   end
 

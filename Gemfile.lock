@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 6af33f9baf2974bd8fadc04bf91540f89bf90391
+  revision: 1de61968bb21de2e1ac9d2d41d3ac490aee4ce9d
   branch: master
   specs:
     bigbluebutton-api-ruby (1.4.0)
@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: e180bc35f91da5880e16f4426aa945c28ee0b68f
+  revision: 32ba2eb13b8e4611cf297abff42b9257fd71d851
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/mweb_events.git
-  revision: c2f02894b96595d379d7c52e28b62f69d3735837
+  revision: dfb3e345619d6320145fb0b2cd72cad515d0c24f
   branch: master
   specs:
     mweb_events (0.0.1)
@@ -193,6 +193,8 @@ GEM
       compass (>= 0.12.2)
     configatron (2.13.0)
       yamler (>= 0.1.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     css_parser (1.3.5)
       addressable
     daemons (1.2.2)
@@ -454,6 +456,7 @@ GEM
     rubyzip (1.1.6)
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
+    safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -511,6 +514,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.8.0)
     turn (0.8.2)
       ansi (>= 1.2.2)
     twitter-bootstrap-rails (3.2.0)
@@ -531,6 +535,9 @@ GEM
       rack (>= 1.0.0)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -540,6 +547,9 @@ GEM
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    xray-rails (0.1.16)
+      coffee-rails
+      rails (>= 3.1.0)
     ya2yaml (0.31)
     yajl-ruby (1.2.1)
     yamler (0.1.0)
@@ -631,13 +641,16 @@ DEPENDENCIES
   sprockets (~> 2.12.3)
   sqlite3
   therubyracer
+  timecop
   translate-rails3!
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
   valid_email (~> 0.0.10)
   vpim!
+  webmock
   webrat
   will_paginate
+  xray-rails
   yajl-ruby
   yui-compressor
   zip-zip

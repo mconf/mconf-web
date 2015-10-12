@@ -615,6 +615,7 @@ describe CustomBigbluebuttonRoomsController do
               request.env["HTTP_REFERER"] = "/any"
               BigbluebuttonRoom.stub(:find_by!) { room }
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
+              BigBlueButton::BigBlueButtonApi.any_instance.stub(:get_api_version).and_return("0.9")
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
               server.api.stub(:is_meeting_running?) { false }

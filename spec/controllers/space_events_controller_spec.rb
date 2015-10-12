@@ -43,7 +43,7 @@ describe SpaceEventsController, :events => true do
     it "returns an rss with all the events in the space"
   end
 
-  # TODO: #1115, review
+  # TODO: there are several missing tests here
   describe "abilities", :abilities => true do
     render_views(false)
 

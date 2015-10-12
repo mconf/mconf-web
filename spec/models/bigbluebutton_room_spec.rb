@@ -132,7 +132,10 @@ describe BigbluebuttonRoom do
         end
 
         context "when the owner is disabled" do
-          before { target.owner.disable }
+          before {
+            target.owner.disable
+            user.update_attributes(:can_record => true)
+          }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end
@@ -204,7 +207,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -237,7 +243,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -268,7 +277,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -281,7 +293,10 @@ describe BigbluebuttonRoom do
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end

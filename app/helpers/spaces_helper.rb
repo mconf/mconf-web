@@ -19,11 +19,6 @@ module SpacesHelper
       options
   end
 
-  # Determines whether or not a space should have a visible link on the index page
-  def space_link_visible?(space)
-    user_signed_in? || (space.public? && space.approved?)
-  end
-
   # Returns a link to join the space depending on the status of the
   # current user. Possible cases:
   # * If there's no current user, returns a button to register.

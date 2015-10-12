@@ -23,6 +23,7 @@ pt-br:
         published: Publicada
         recordid: "ID da Gravação"
         room_id: "ID da Sala"
+        size: "Tamanho"
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
       bigbluebutton_room:
@@ -145,3 +146,11 @@ pt-br:
           success: "Suas gravações foram ocultadas com sucesso."
         update:
           success: "Seu servidor foi atualizado."
+    server_configs:
+      layouts:
+        defaultlayout: "Layout Padrão"
+        lecture: "Aula"
+        lectureassistant: "Assistente de aula"
+        presentfocus: "Webinar"
+        videochat: "Vídeo Chat"
+        webcamsfocus: "Reunião"

@@ -24,9 +24,10 @@ en:
         recordid: "Record ID"
         room_id: "Room ID"
         server_id: "Server ID"
+        size: "Size"
         start_time: "Start Time"
       bigbluebutton_room:
-        allow_start_stop_recording: "Allow user to start/stop recording"
+        allow_start_stop_recording: "Allow users to start/stop recording"
         attendee_key: "Key for attendees"
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
@@ -145,3 +146,11 @@ en:
           success: "Your recordings were successfully unpublished."
         update:
           success: "Your server was successfully updated."
+    server_configs:
+      layouts:
+        defaultlayout: "Default Layout"
+        lecture: "Lecture"
+        lectureassistant: "Lecture Assistant"
+        presentfocus: "Webinar"
+        videochat: "Video Chat"
+        webcamsfocus: "Meeting"

@@ -7,10 +7,13 @@ class mconf.ConfirmationDialog
 
   # Binds the events for all links with confirmation set.
   @bind: ->
-    $('[data-confirm]').each ->
+    $('[data-confirm]:not(.disabled)').each ->
       $link = $(this)
+
       $link.off "click.mconfConfirmationDialog"
       $link.on "click.mconfConfirmationDialog", (e) ->
+        return if $link.hasClass('disabled') # #1279
+
         e.preventDefault()
 
         # first creates the dialog, will only create if it's not there yet

@@ -31,6 +31,7 @@ pt-br:
       update_html: atualizou a notícia %{name} na comunidade
       deleted: que não existe mais
     other:
+      admin_html: "Um administrador"
       someone_html: "Um usuário"
     post:
       create_html: enviou a mensagem %{name} na comunidade
@@ -88,7 +89,6 @@ pt-br:
     publish: "Publicar"
     upload: "Enviar"
     register: "Registrar"
-    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
     not_approved:
@@ -197,6 +197,7 @@ pt-br:
         shib_login_field: "Shibboleth: Campo para login"
         shib_name_field: "Shibboleth: Campo para nome"
         shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
+        shib_update_users: "Shibboleth: Atualizar informações dos usuários"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
@@ -1695,9 +1696,10 @@ pt-br:
       with_members: "com %{count} membros"
     user_permissions:
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
-      leave_space: "Sair da comunidade"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"

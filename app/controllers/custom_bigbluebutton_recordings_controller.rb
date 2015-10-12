@@ -5,8 +5,8 @@
 # 3 or later. See the LICENSE file.
 
 class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsController
-  # need authentication even to play a recording
-  before_filter :authenticate_user!
+  # need authentication except to play a record (#1675)
+  before_filter :authenticate_user!, except: :play
 
   before_filter :set_parameters, only: :play
 

@@ -32,11 +32,11 @@
     &:hover { border: 1px solid $m-focus-border-color; }
 
     // default dimensions for logos inside threads
-    &.logo-space {
+    &.logo-space, &.logo-space-activity {
       width: 52px;
       height: 39px;
     }
-    &.logo-user {
+    &.logo-user, &.logo-user-activity {
       width: 39px;
       height: 39px;
     }

@@ -751,7 +751,6 @@ describe User do
       it("sets #trackable") { subject.trackable.should eq(user) }
       it("sets #owner") { subject.owner.should eq(approver) }
       it("sets #key") { subject.key.should eq('user.approved') }
-      it("doesn't set #recipient") { subject.recipient.should be_nil }
     end
   end
 
