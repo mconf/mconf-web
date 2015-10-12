@@ -4,26 +4,6 @@
   padding: 10px 0 20px 10px;
   @include make-row;
 
-  .current-page-logo {
-    @include make-xs-column(3);
-    max-width: 250px;
-    min-width: 150px;
-
-    .current-page-logo-content {
-      border: 1px #ccc solid;
-      padding: 2px;
-      @include broken-img-parent;
-      margin-top: 5px;
-
-      &.clean { border: 0; }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
   &.simplified {
     .current-page-title {
       @include make-xs-column(10);
@@ -35,43 +15,6 @@
     .current-page-logo {
       @include make-xs-column(2);
       max-width: 150px;
-    }
-  }
-
-  .current-page-title {
-    color: $m-page-title-color;
-
-    @include make-xs-column(9);
-
-    .main-title {
-
-      @include font-size($m-font-section-title);
-      font-weight: bold;
-      color: $m-page-title-color;
-      margin-bottom: 5px;
-      @include link-style(2);
-      @include text-truncate;
-     }
-
-    .sub-title {
-      display: block;
-      font-weight: normal;
-      margin-top: 10px;
-    }
-
-    // some tweaks for the titles in pages of spaces
-    &.space-page {
-      margin-top: 0;
-
-      // the text that shows the visibility of spaces
-      .resource-visibility {
-        color: $m-dark-gray;
-      }
-
-      // the text that shows when a user is a member of the space
-      .user-is-member {
-        color: $m-dark-gray;
-      }
     }
   }
 }

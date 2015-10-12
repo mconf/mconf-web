@@ -1,12 +1,6 @@
 - page_title t('spaces.menu.posts'), in: @space.name
-
-= render "spaces/title", space: @space, full: false
-
 - spaces_menu_at :posts
-= render :partial => 'spaces/menu'
-
-#page-menu.with-sub-menu
-  = content_for :page_menu
+= render 'spaces/title', space: @space, full: false
 
 - nav = page_navigation_links @posts
 

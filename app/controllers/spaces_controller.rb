@@ -246,7 +246,7 @@ class SpacesController < ApplicationController
     end
     # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
-      .with_or_without_recording().last(3)
+      .with_or_without_recording().last(5)
   end
 
   # Action used to show the recordings of a space

@@ -28,11 +28,16 @@
 
       - if content_for?(:page_header)
         #page-header-wrapper
-          #page-header.container-fluid
-            = yield :page_header
+          - if content_for?(:page_header)
+            - cls = content_for?(:page_menu) ? 'with-menu' : 'without-menu'
+            #page-header{ class: cls }
+              = yield :page_header
           - if content_for?(:page_menu)
             #page-menu
               = yield :page_menu
+              - if content_for?(:page_sub_menu)
+                #page-sub-menu.page-sub-menu
+                  = yield :page_sub_menu
 
       #content.container-fluid
         #content-row

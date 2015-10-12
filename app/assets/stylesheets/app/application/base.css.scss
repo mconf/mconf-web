@@ -426,10 +426,13 @@ form {
   @include make-row;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 25px 0 20px 0;
+  padding: 25px 10px 15px 10px;
   clear: both;
   word-break: break-all;
-  border-bottom: 1px solid $m-page-title-border-color;
+
+  &.without-menu {
+    border-bottom: 1px solid $m-border-color-normal;
+  }
 
   > a {
     @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
@@ -445,58 +448,44 @@ form {
   }
 
   .current-page-logo {
-    float: left;
-    border: 1px #ccc solid;
-    padding: 1px;
-    width: 84px;
-    height: 64px;
-    @include broken-img-parent;
+    @include make-xs-column(3);
+    max-width: 250px;
+    min-width: 150px;
 
-    &.clean { border: 0; }
+    .current-page-logo-content {
+      border: 1px #ccc solid;
+      padding: 2px;
+      @include broken-img-parent;
+      margin-top: 5px;
 
-    // default size for spaces logos
-    img {
-      width: 84px;
-      height: 64px;
+      &.clean { border: 0; }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
   .current-page-title {
-    float: left;
-    margin-left: 10px;
     color: $m-page-title-color;
 
-    // minus the logo and some padding/margin
-    //max-width: $m-contents-width - 120px;
+    @include make-xs-column(9);
 
     .main-title {
 
       @include font-size($m-font-section-title);
-      line-height: 1.0;
       font-weight: bold;
       color: $m-page-title-color;
       margin-bottom: 5px;
-
-      a {
-        $c: $m-page-title-color;
-        @include link-colors($c, lighten($c, 10), lighten($c, 10));
-      }
-
-      // when the title is too big the font is reduced a bit
-      &.small-title {
-        @include font-size($m-font-section-title - 10px);
-        margin-top: 5px;
-      }
-    }
-    a.main-title {
-      @include link-colors($m-page-title-color, $m-link-color-hover, $m-link-color-active);
-    }
+      @include link-style(2);
+      @include text-truncate;
+     }
 
     .sub-title {
-      @include font-size($m-font-normal);
       display: block;
       font-weight: normal;
-      color: lighten($m-page-title-color, 10);
+      margin-top: 10px;
     }
 
     // some tweaks for the titles in pages of spaces
@@ -527,7 +516,7 @@ form {
   width: 100%;
   background-color: $m-site-bg-color;
 
-  margin: 20px auto;
+  margin: 20px auto 20px auto;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
@@ -735,22 +724,21 @@ form {
 }
 
 #page-menu {
-  margin: 5px 0 20px 0;
+  margin: 0;
   clear: both;
   @include mconf-clearfix;
-  border-bottom: 1px solid darken($m-site-bg-color, 10);
-
-  &.with-sub-menu {
-    margin-bottom: 0;
-  }
+  padding: 0 15px;
 
   > ul {
-    margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
+    // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
+    margin: 0;
     padding: 0;
+    border-bottom: 1px solid darken($m-site-bg-color, 10);
 
     > li {
+      margin: 0 15px -2px 0; // -2 so selected items border gets over the default menu border
       display: inline-block;
-      margin-right: 15px;
+      // margin-right: 15px;
       padding: 5px 15px 3px 15px;
       font-weight: bold;
       @include font-size($m-font-medium);
@@ -793,17 +781,16 @@ form {
 
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
-#content .page-sub-menu {
+#page-sub-menu.page-sub-menu {
   clear: both;
-  margin-bottom: 20px;
+  margin: 0;
   @include mconf-clearfix;
   float: none;
   background: $m-very-light-gray;
   $border-color: darken($m-very-light-gray, 8);
   border-bottom: 1px solid $border-color;
-  margin-top: 15px;
-  border-top: 1px solid $border-color;
-  padding: 0 25px;
+  // border-top: 1px solid $border-color;
+  padding: 15px 25px 0 15px;
 
   // use link-style(2) but with a lighter default color
   @include link-style(2);
@@ -822,7 +809,8 @@ form {
     &.active {
       font-weight: bold;
       background: white;
-      border-top: 1px solid white;
+      @include border-radius(0, 5px);
+      border-top: 1px solid $border-color;
       border-bottom: 1px solid white;
       border-right: 1px solid $border-color;
       border-left: 1px solid $border-color;

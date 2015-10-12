@@ -1,31 +1,27 @@
-- if @space && @space.id != nil
-  - member_or_superuser = (current_user && (@space.users.include?(current_user) || current_user.superuser?))
-  - if @space.public? || member_or_superuser
-    = content_for :page_menu do
-      %ul
-        %li{ spaces_menu_select_if(:home) }
-          = link_to t('.home'), space_path(@space)
+%ul
+  %li{ spaces_menu_select_if(:home) }
+    = link_to t('.home'), space_path(@space)
 
-        - if can?(:webconference, @space)
-          %li{ spaces_menu_select_if(:webconference) }
-            = link_to t('.webconference'), webconference_space_path(@space)
+  - if can?(:webconference, @space)
+    %li{ spaces_menu_select_if(:webconference) }
+      = link_to t('.webconference'), webconference_space_path(@space)
 
-        - if can?(:index, Post.new(space: @space))
-          %li{ spaces_menu_select_if(:posts) }
-            = link_to t('.posts'), space_posts_path(@space)
+  - if can?(:index, Post.new(space: @space))
+    %li{ spaces_menu_select_if(:posts) }
+      = link_to t('.posts'), space_posts_path(@space)
 
-        - if mod_enabled?("events") && can?(:index_event, @space)
-          %li{ spaces_menu_select_if(:events) }
-            = link_to t('.events'), space_events_path(@space)
+  - if mod_enabled?("events") && can?(:index_event, @space)
+    %li{ spaces_menu_select_if(:events) }
+      = link_to t('.events'), space_events_path(@space)
 
-        %li{ spaces_menu_select_if(:users) }
-          = link_to t('.users'), space_users_path(@space)
+  %li{ spaces_menu_select_if(:users) }
+    = link_to t('.users'), space_users_path(@space)
 
-        - if @space.repository? && can?(:index, Attachment.new(space: @space))
-          %li{ spaces_menu_select_if(:repository) }
-            = link_to t('.repository'), space_attachments_path(@space)
+  - if @space.repository? && can?(:index, Attachment.new(space: @space))
+    %li{ spaces_menu_select_if(:repository) }
+      = link_to t('.repository'), space_attachments_path(@space)
 
-        - if user_signed_in?
-          - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
-            %li{ spaces_menu_select_if(:admin) }
-              = link_to t('.admin'), edit_space_path(@space), :class => "admin danger-text"
+  - if user_signed_in?
+    - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
+      %li{ spaces_menu_select_if(:admin) }
+        = link_to t('.admin'), edit_space_path(@space), :class => "admin danger-text"

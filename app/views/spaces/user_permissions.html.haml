@@ -1,10 +1,9 @@
-- page_title t('spaces.admin_tabs.users'), :in => @space.name
-
+- page_title t('spaces.admin_tabs.users'), in: @space.name
 - spaces_menu_at :admin
-= render :partial => 'spaces/menu'
+= render 'spaces/title', space: @space, full: false
 
 - spaces_admin_menu_at :users
-= render :partial => 'admin_tabs'
+= render 'spaces/admin_tabs'
 
 #user-permission
   - for permission in @permissions
