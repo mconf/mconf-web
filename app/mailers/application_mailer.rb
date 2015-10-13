@@ -18,11 +18,10 @@ class ApplicationMailer < BaseMailer
     end
   end
 
-  def digest_email(receiver_id, posts, news, attachments, events, inbox)
+  def digest_email(receiver_id, posts, attachments, events, inbox)
     receiver = User.find(receiver_id)
     I18n.with_locale(get_user_locale(receiver, false)) do
       @posts = Post.find(posts)
-      @news = News.find(news)
       @attachments = Attachment.find(attachments)
       @events = MwebEvents::Event.find(events)
       @inbox = PrivateMessage.find(inbox)

@@ -102,14 +102,6 @@
 #   Someone registered to participante in an event.
 #   Created by `MewebEvents::ParticipantsController`, code at `lib/mweb_events/controllers/participants_controller`.
 #
-# * `news.create`:
-#   A news item was created.
-#   Created by `NewsController`.
-#
-# * `news.update`:
-#   A news item was updated.
-#   Created by `NewsController`.
-#
 # * `post.create`:
 #   A post was created.
 #   Created by `PostsController`.

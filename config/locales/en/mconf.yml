@@ -26,10 +26,6 @@ en:
       deleted: that has since been deleted
     mweb_events_participant:
       create_html: will attend to the event %{name} in the space
-    news:
-      create_html: published the news %{name} in the space
-      update_html: updated the news %{name} in the space
-      deleted: that have since been deleted
     other:
       admin_html: "An administrator"
       someone_html: "Someone"
@@ -128,9 +124,6 @@ en:
         users: "Users"
       join_request:
         comment: "Message"
-      news:
-        text: "Text"
-        title: "Title"
       post:
         text: "Message"
         title: "Title"
@@ -240,7 +233,6 @@ en:
     models:
       event: "Event"
       join_request: "Join Request"
-      news: "News"
       space: "Space"
   address: Address
   admin:
@@ -661,7 +653,6 @@ en:
       event: "<b>%{author_name}</b> has created a new event in <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> has sent you a message:"
       message: "Latest activities in your spaces:"
-      news: "A new news was published in <b>%{space_name}</b>:"
       posted: "<b>%{author_name}</b> has posted in <b>%{space_name}</b> the message:"
       title: "%{type} digest with the activity in your spaces"
       type: 
@@ -883,7 +874,6 @@ en:
   language: Language
   last_week: "Last week"
   latest_events: "Latest events"
-  latest_news: "Latest news"
   layouts:
     application_navbar:
       events: "Events"
@@ -1095,24 +1085,6 @@ en:
     one: Name
     other: Names
   new_spam_detected: "New spam detected"
-  news: 
-    created: "News item published successfully"
-    deleted: "News item deleted successfully"
-    edit: "Edit news item"
-    error: 
-      create: "There was a problem publishing the news item"
-      delete: "Error deleting news item"
-      update: "News item could not be updated"
-    item_in_home: "News item in space"
-    more: 
-      one: "and more one new.."
-      other: "and more %{count} news.."
-    none_to_show: "No news items to show"
-    other: News
-    publish_another: "Publish another news item"
-    publish_home: "Publish news item"
-    title: "News (%{count})"
-    updated: "News item updated successfully"
   next: Next
   now_exclamation: Now!
   ok: OK
@@ -1550,7 +1522,6 @@ en:
       admissions: "Admissions"
       general_options: "General options"
       invite: "Invite people"
-      news: "News"
       users: "Users"
       webconf_options: "Webconference options"
       add_member: "Add members"
@@ -1601,7 +1572,6 @@ en:
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
-    news: "Space news"
     recordings:
       title: "Recordings in this space"
       update_recordings:
@@ -1757,9 +1727,7 @@ en:
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     insert: "Use this code to insert this video in your blog or web page."
     invite_people: "Invite people to this Webconference."
-    latest_news: "This section shows the piece of news that the administrators send to all the people in this space"
     leave_space: "This link will allow you to abandon this space definitely"
-    news_item: "You can publish a short news at home"
     num_views: "This number represents the unique views for this page"
     private_profile: "This information is visible only to the people you choose when you edit your profile"
     public_profile: "Anyone can access this information"
