@@ -139,9 +139,15 @@ class RecentActivity < PublicActivity::Activity
   # * +user+ - the user which activities will be returned
   # * +reject_keys+ - an array of keys to reject when querying. Keys are the strings that identify
   #   the recent activity, e.g. "space.leave".
-  def self.user_activity(user, reject_keys=[])
+  def self.user_activity(user, reject_keys=[], public_spaces_only=false)
     user_room = user.bigbluebutton_room
-    spaces = user.spaces
+
+    spaces = if public_spaces_only
+      user.spaces.public_spaces
+    else
+      user.spaces
+    end
+
     space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
 
     # some types of activities we ignore by default
@@ -162,8 +168,10 @@ class RecentActivity < PublicActivity::Activity
 
   # All activities that are public and should be visible for a user
   # * +user+ - the user which activities will be returned
-  def self.user_public_activity user
+  def self.user_public_activity user, opt={}
+    opt[:public_spaces_only] ||= false
+
     # Filter activities done by user_id
-    user_activity(user, ["space.decline"]).where(recipient_id: user.id)
+    user_activity(user, ["space.decline"], opt[:public_spaces_only]).where(recipient_id: user.id)
   end
 end

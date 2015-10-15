@@ -34,7 +34,13 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-    @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
+
+    # if user can't see private profile, only show public space activity
+    only_public = cannot?(:show, @user.profile)
+
+    @recent_activities = RecentActivity.user_public_activity(@user, public_spaces_only: only_public)
+    @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
+
     @profile = @user.profile
     respond_to do |format|
       format.html { render 'profiles/show' }

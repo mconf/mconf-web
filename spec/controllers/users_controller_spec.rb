@@ -42,6 +42,44 @@ describe UsersController do
     end
 
     it { should_authorize an_instance_of(User), :show, id: FactoryGirl.create(:user).to_param }
+
+    # TODO: lot's of cases here (profile visibility settings * types of users )
+    # (anon, logged in, fellow, private fellow, admin, user itself)
+    context "assigns the correct @recent_activities" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:public_space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
+      before {
+        public_space.add_member!(user)
+        private_space.add_member!(user)
+
+        @activities = [
+          public_space.new_activity(:join, user),
+          private_space.new_activity(:join, user),
+          private_space.new_activity(:update, user),
+        ]
+      }
+
+      context 'assuming can?(:show, @user)' do
+        before {
+          expect(controller).to receive(:cannot?).with(:show, user.profile).and_return(false)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+      end
+
+      context 'assuming cannot?(:show, @user)' do
+        before {
+          expect(controller).to receive(:cannot?).with(:show, user.profile).and_return(true)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities[0])) }
+      end
+
+    end
+
   end
 
   describe "#edit" do

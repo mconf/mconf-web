@@ -107,29 +107,58 @@ describe RecentActivity do
       let(:user2) { FactoryGirl.create(:user) }
 
       before {
-        space = FactoryGirl.create(:space_with_associations)
-        posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space) ]
+        space = FactoryGirl.create(:space_with_associations, public: true)
+        private_space = FactoryGirl.create(:space_with_associations, public: false)
+
+        posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space),
+                  FactoryGirl.create(:post, space: private_space), FactoryGirl.create(:post, space: private_space)
+         ]
         # pending: webconf activities
 
         space.add_member!(user)
         space.add_member!(user2)
+        private_space.add_member!(user)
+        private_space.add_member!(user2)
 
         @activities = [
           space.new_activity(:update, user),
           space.new_activity(:join, user),
           posts[0].new_activity(:create, user),
+          posts[2].new_activity(:create, user),
+          private_space.new_activity(:join, user),
+
           space.new_activity(:update, user2),
-          posts[1].new_activity(:create, user2)
+          posts[1].new_activity(:create, user2),
+          posts[3].new_activity(:create, user2),
+          private_space.new_activity(:join, user2)
         ]
         # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
         @activities.map!{|a| RecentActivity.find(a.id)}
       }
 
-      it { RecentActivity.user_public_activity(user).size.should be(3) }
-      it { RecentActivity.user_public_activity(user2).size.should be(2) }
-      it { RecentActivity.user_public_activity(user).should include(*@activities[0..2]) }
-      it { RecentActivity.user_public_activity(user2).should include(*@activities[3..4]) }
-      it { RecentActivity.user_public_activity(user).size.should be(3) }
+      it { RecentActivity.user_public_activity(user).size.should be(5) }
+      it { RecentActivity.user_public_activity(user2).size.should be(4) }
+      it { RecentActivity.user_public_activity(user).should include(*@activities[0..4]) }
+      it { RecentActivity.user_public_activity(user2).should include(*@activities[5..9]) }
+
+      context "with only_public_spaces: true" do
+        it { RecentActivity.user_public_activity(user, public_spaces_only: true).size.should be(3) }
+        it { RecentActivity.user_public_activity(user2, public_spaces_only: true).size.should be(2) }
+        it { RecentActivity.user_public_activity(user, public_spaces_only: true).should include(*@activities[0..2]) }
+        it { RecentActivity.user_public_activity(user2, public_spaces_only: true).should include(*@activities[5..6]) }
+      end
+
+      context "with only_public_spaces: false" do
+        it { RecentActivity.user_public_activity(user).should
+          eq(RecentActivity.user_public_activity(user, only_public_spaces: false)) }
+        it { RecentActivity.user_public_activity(user2).should
+          eq(RecentActivity.user_public_activity(user2, only_public_spaces: false)) }
+      end
+    end
+
+
+    context "" do
+
     end
 
     context "ignores declined join requests" do
