@@ -25,73 +25,107 @@ describe Permission do
     # should validate_uniqueness_of(:role_id).scoped_to(:user_id, :subject_id, :subject_type)
   end
 
-  # Make sure to test in controller
-  # it { should allow_mass_assignment_of(:role_id) }
-
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
 
-    shared_examples_for "for all permission types" do |exceptions|
-      [:space_permission].each do |permission_type|
-        let(:target) { FactoryGirl.create(permission_type) }
-        it "a '#{permission_type}'" do
-          exceptions ||= []
-          ability_check()
+    context "for the subject Space" do
+      let(:space) { FactoryGirl.create(:space) }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      context "when is an anonymous user" do
+        let(:user) { User.new }
+        let(:target) { FactoryGirl.create(:space_permission) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "when is a registered user" do
+        let(:user) { FactoryGirl.create(:user) }
+
+        context "that's not a member of the permission's space" do
+          let(:target) { FactoryGirl.create(:space_permission) }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
+
+        context "that's a normal member of the permission's space" do
+          before {
+            space.add_member!(other_user)
+            space.add_member!(user)
+          }
+          it { should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: user)).except(:index) }
+          it { should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: other_user)).except(:index) }
+        end
+
+        context "that's an admin of the permission's space" do
+          before {
+            space.add_member!(other_user, 'Admin')
+            space.add_member!(user, 'Admin')
+          }
+          it {
+            should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: user))
+              .except([:show, :edit, :update, :destroy, :index])
+          }
+          it {
+            should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: other_user))
+              .except([:show, :edit, :update, :destroy, :index])
+          }
+        end
+
+        context "that's the last admin of the permission's space" do
+          before {
+            space.add_member!(user, 'Admin')
+            space.add_member!(other_user, 'User')
+          }
+          it {
+            should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: user))
+              .except([:show, :edit, :index])
+          }
+          it {
+            should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: other_user))
+              .except([:show, :edit, :update, :destroy, :index])
+          }
         end
       end
-    end
 
-    context "when is an anonymous user" do
-      let(:user) { User.new }
-      let(:ability_check) {
-        should_not be_able_to_do_anything_to(target)
-      }
-      it_should_behave_like "for all permission types"
-    end
+      context "when is a superuser" do
+        let(:user) { FactoryGirl.create(:superuser) }
 
-    context "when is a registered user" do
-      let(:user) { FactoryGirl.create(:user) }
+        context "that's not a member of the permission's space" do
+          let(:target) { FactoryGirl.create(:space_permission) }
+          it { should be_able_to_do_everything_to(target) }
+        end
 
-      context "that's not a member of the permission's space" do
-        let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except(:index)
-        }
-        it_should_behave_like "for all permission types"
-      end
+        context "that's a normal member of the permission's space" do
+          before {
+            space.add_member!(other_user)
+            space.add_member!(user)
+          }
+          it { should be_able_to_do_everything_to(Permission.find_by(subject: space, user: user)) }
+          it { should be_able_to_do_everything_to(Permission.find_by(subject: space, user: other_user)) }
+        end
 
-      context "that's a normal member of the permission's space" do
-        before {
-          case target.subject_type
-          when "Space"
-            target.subject.add_member!(user)
-          end
-        }
-        let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except(:index)
-        }
-        it_should_behave_like "for all permission types"
-      end
+        context "that's an admin of the permission's space" do
+          before {
+            space.add_member!(other_user, 'Admin')
+            space.add_member!(user, 'Admin')
+          }
+          it { should be_able_to_do_everything_to(Permission.find_by(subject: space, user: user)) }
+          it { should be_able_to_do_everything_to(Permission.find_by(subject: space, user: other_user)) }
+        end
 
-      context "that's an admin of the permission's space" do
-        before {
-          case target.subject_type
-          when "Space"
-            target.subject.add_member!(user, "Admin")
-          end
-        }
-        let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:show, :index, :edit, :update, :destroy])
-        }
-        it_should_behave_like "for all permission types"
+        context "that's the last admin of the permission's space" do
+          before {
+            space.add_member!(user, 'Admin')
+            space.add_member!(other_user, 'User')
+          }
+          it {
+            should_not be_able_to_do_anything_to(Permission.find_by(subject: space, user: user))
+              .except([:create, :edit, :index, :manage, :new, :show, :index])
+          }
+          it { should be_able_to_do_everything_to(Permission.find_by(subject: space, user: other_user)) }
+        end
+
       end
     end
-
-    context "when is a superuser" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:ability_check) { should be_able_to_do_everything_to(target) }
-      it_should_behave_like "for all permission types"
-    end
-
   end
 end

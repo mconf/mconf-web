@@ -51,7 +51,7 @@
       %h3= t('.preferences')
 
       = f.input :timezone, :required => false do
-        = f.time_zone_select :timezone, nil, :include_blank => true
+        = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 

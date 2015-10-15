@@ -217,10 +217,10 @@ class UsersController < ApplicationController
 
   allow_params_for :user
   def allowed_params
-    allowed = [ :remember_me, :login, :approved, :disabled,
-                :timezone, :can_record, :receive_digest, :expanded_post ]
+    allowed = [ :remember_me, :login, :timezone, :receive_digest, :expanded_post ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
+    allowed += [:approved, :disabled, :can_record] if current_user.superuser?
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end

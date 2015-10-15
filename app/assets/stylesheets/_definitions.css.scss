@@ -48,6 +48,8 @@ $alert-info-bg: #D9EDF7;
 $alert-info-font: #3A87AD;
 $alert-danger-bg: #F2DEDE;
 $alert-danger-font: #B94A48;
+$alert-warn-bg: #feeba6;
+$alert-warn-font: #BB9403;
 $alert-gray-bg: #f6f6f6;
 $alert-gray-font: #666;
 
@@ -125,11 +127,11 @@ $mail-font-size: $font-normal;
     &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
 
     // default dimensions for logos inside threads
-    &.logo-space {
+    &.logo-space, &.logo-space-activity {
       width: 40px;
       height: 30px;
     }
-    &.logo-user {
+    &.logo-user, &.logo-user-activity {
       width: 32px;
       height: 32px;
     }

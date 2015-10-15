@@ -148,16 +148,6 @@ body.spaces.index {
         color: $dark-gray;
       }
     }
-
-     /*  gray out the space*/
-    .waiting-approval {
-      background: $light-gray;
-
-      /* gray out icons */
-      .resource-visibility i {
-        color: $gray;
-      }
-    }
   }
 
 }

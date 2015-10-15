@@ -35,12 +35,6 @@ class mconf.Base
       $(this).addClass("tooltipped")
       $(this).addClass("upwards")
 
-    # Add a title and tooltip to spaces that can only be used by a logged user
-    $(".register-to-view-space").each ->
-      $(this).attr("title", I18n.t("_other.register_to_view_space"))
-      $(this).addClass("tooltipped")
-      $(this).addClass("upwards")
-
     # Add a title and tooltip to elements that can only be used by a logged user
     $(".webconf-not-allowed-create").each ->
       $(this).attr("title", I18n.t("_other.webconference.not_allowed_to_create"))

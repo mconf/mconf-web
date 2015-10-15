@@ -33,7 +33,7 @@ describe Attachment do
 
       context "and the target space is not approved" do
         before { target.space.update_attributes(approved: false) }
-        it { should_not be_able_to_do_anything_to(target).except(:index) }
+        it { should_not be_able_to_do_anything_to(target) }
       end
     end
 
@@ -57,7 +57,7 @@ describe Attachment do
 
       context "and the target space is not approved" do
         before { target.space.update_attributes(approved: false) }
-        it { should_not be_able_to_do_anything_to(target).except(:index) }
+        it { should_not be_able_to_do_anything_to(target) }
       end
     end
 
@@ -75,7 +75,7 @@ describe Attachment do
 
         context "and the target space is not approved" do
           before { target.space.update_attributes(approved: false) }
-          it { should be_able_to_do_everything_to(target) }
+          it { should_not be_able_to_do_anything_to(target) }
         end
       end
 
@@ -90,7 +90,7 @@ describe Attachment do
 
         context "and the target space is not approved" do
           before { target.space.update_attributes(approved: false) }
-          it { should_not be_able_to_do_anything_to(target).except([:index]) }
+          it { should_not be_able_to_do_anything_to(target) }
         end
       end
 
@@ -112,7 +112,7 @@ describe Attachment do
 
         context "and the target space is not approved" do
           before { target.space.update_attributes(approved: false) }
-          it { should_not be_able_to_do_anything_to(target).except(:index) }
+          it { should_not be_able_to_do_anything_to(target) }
         end
       end
     end

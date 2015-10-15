@@ -7,7 +7,7 @@
     = f.input :domain, :disabled => true
     = f.input :locale, :collection => available_locales(true), :disabled => true
     = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes, :disabled => true
-    = f.input :timezone, :as => :time_zone, :disabled => true
+    = f.input :timezone, :as => :fake, :disabled => true, :input_html => { :value => Mconf::DSTTimezone.new(@site.timezone).dst_string }
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }, :disabled => true
     = f.input :ssl, :as => :boolean, :disabled => true
     = f.input :room_dial_number_pattern, as: :string, disabled: true

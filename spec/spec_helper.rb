@@ -42,6 +42,10 @@ Geocoder::Lookup::Test.set_default_stub(
 
 BCrypt::Engine.cost = 4
 
+# Disable all external HTTP requests by default
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   # == Mock Framework
   #
@@ -92,6 +96,7 @@ RSpec.configure do |config|
     ResqueSpec.reset!
     ActionMailer::Base.deliveries.clear
     Helpers.setup_site
+    Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
   end
 

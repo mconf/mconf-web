@@ -31,6 +31,7 @@ pt-br:
       update_html: atualizou a notícia %{name} na comunidade
       deleted: que não existe mais
     other:
+      admin_html: "Um administrador"
       someone_html: "Um usuário"
     post:
       create_html: enviou a mensagem %{name} na comunidade
@@ -39,6 +40,7 @@ pt-br:
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
+      approved_html: aprovou a comunidade
       create_html: criou a comunidade
       decline_html: teve um convite/pedido negado na comunidade
       deleted: uma comunidade que não existe mais
@@ -82,11 +84,11 @@ pt-br:
     publish: "Publicar"
     upload: "Enviar"
     register: "Registrar"
-    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
     not_approved:
-      tooltip: 'Aguardando aprovação'
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -190,6 +192,7 @@ pt-br:
         shib_login_field: "Shibboleth: Campo para login"
         shib_name_field: "Shibboleth: Campo para nome"
         shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
+        shib_update_users: "Shibboleth: Atualizar informações dos usuários"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
@@ -914,7 +917,7 @@ pt-br:
         change: "Mudar a linguagem"
     spaces_page_title:
       is_member: "Você é membro desta comunidade"
-      manage_to_approve: "ir à gerenciamento para aprovar"
+      manage_to_approve: "gerenciar"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -946,12 +949,12 @@ pt-br:
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
-      approve: "Aprovar: permitir que esta comunidade seja mostrada no site"
-      approve_confirm: "Tem certeza que deseja permitir que esta comunidade seja mostrada no site?"
+      approve: "Aprovar: permitir o acesso a esta comunidade"
+      approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
       disable: "Desabilitar comundiade"
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
-      disapprove: "Desaprovar: bloquear esta comunidade de aparecer no site"
-      disapprove_confirm: "Tem certeza que deseja bloquear esta comunidade de aparecer no site?"
+      disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -1429,7 +1432,7 @@ pt-br:
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
-    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para acessá-la."
+    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para que outros usuários possam acessá-la."
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
     description: "Descrição da comunidade"
@@ -1555,8 +1558,10 @@ pt-br:
       news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
+    approve:
+      approved: "A comunidade %{name} foi aprovada"
     disapprove:
-      disapproved: "A comunidade %{name} foi bloqueada de aparecer no site!"
+      disapproved: "Acesso bloqueado à comunidade %{name}"
       not_enabled: "A aprovação de comunidades não está habilitada"
     edit:
       change_logo: "Mudar imagem"
@@ -1657,9 +1662,10 @@ pt-br:
       with_members: "com %{count} membros"
     user_permissions:
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
-      leave_space: "Sair da comunidade"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"

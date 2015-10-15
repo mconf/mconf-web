@@ -41,7 +41,7 @@ feature "Creating a space" do
   end
 
   context "as private" do
-    let(:attrs) { FactoryGirl.attributes_for(:space, public: false) } 
+    let(:attrs) { FactoryGirl.attributes_for(:space, public: false) }
     before {
       login_as(user, :scope => :user)
       create_space_from_attrs(attrs)
@@ -142,16 +142,15 @@ feature "Creating a space" do
     }
 
     it { Space.last.should_not be_approved }
-    it { current_path.should eq(spaces_path) }
+    it { current_path.should eq(space_path(Space.last)) }
     it { has_success_message t('space.created_waiting_moderation') }
-
-    it { page.should_not have_content(attrs[:name]) }
+    it { page.should have_content(attrs[:name]) }
 
     context '' do
       before { visit spaces_path(my_spaces: 'true', order: 'abc') }
 
       it { page.should have_content(attrs[:name]) }
-      it { page.should have_selector('.waiting-approval', count: 1) }
+      it { page.should have_selector('.space-waiting-moderation', count: 1) }
       it { page.should have_selector('.icon-mconf-waiting-moderation', count: 1)}
     end
   end
@@ -179,7 +178,7 @@ feature "Creating a space" do
     }
     it { expect{ find_link('', href: new_space_path) }.to  raise_error }
 
-    context '' do 
+    context '' do
       before { visit new_space_path }
 
       it { current_path.should eq(spaces_path) }
@@ -197,7 +196,7 @@ feature "Creating a space" do
 
     it { page.find_link('', href: new_space_path).should be_visible }
 
-    context '' do 
+    context '' do
       before { visit new_space_path }
       it { current_path.should eq(new_space_path) }
     end

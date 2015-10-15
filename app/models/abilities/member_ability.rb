@@ -59,17 +59,18 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings], Space, public: true
-      can [:show, :webconference, :recordings], Space do |space|
+      can [:show, :webconference, :recordings, :show_news, :index_event], Space, public: true
+      can [:show, :webconference, :recordings, :show_news, :index_event], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
         space.users.include?(user) && !space.is_last_admin?(user)
       end
+
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,
-        :webconference_options, :disable, :edit_recording], Space do |space|
+           :webconference_options, :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 
@@ -97,9 +98,8 @@ module Abilities
         end
       end
 
-      alias_action :index_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
-      can [:index_news, :manage_join_requests], Space do |s|
+      can [:manage_news, :manage_join_requests], Space do |s|
         s.admins.include?(user)
       end
 
@@ -146,14 +146,22 @@ module Abilities
       # Permissions
       # Only space admins can update user roles/permissions
       can :index, Permission # restricted through Space
-      can [:show, :edit, :update, :destroy], Permission do |perm|
+      can [:show, :edit], Permission do |perm|
         case perm.subject_type
         when "Space"
-          admins = perm.subject.admins
+          perm.subject.admins.include?(user)
         else
-          admins = []
+          false
         end
-        admins.include?(user)
+      end
+      can [:update, :destroy], Permission do |perm|
+        case perm.subject_type
+        when "Space"
+          perm.subject.admins.include?(user) &&
+            !perm.subject.is_last_admin?(perm.user)
+        else
+          false
+        end
       end
 
       # Events from MwebEvents
@@ -237,6 +245,8 @@ module Abilities
       end
 
       # Currently only user rooms can be updated
+      # TODO: rooms in spaces should also be updatable, but for now they
+      # are edited through the space
       can [:update], BigbluebuttonRoom do |room|
         room.owner_type == "User" && room.owner.id == user.id
       end

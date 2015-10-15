@@ -31,6 +31,7 @@ en:
       update_html: updated the news %{name} in the space
       deleted: that have since been deleted
     other:
+      admin_html: "An administrator"
       someone_html: "Someone"
     post:
       create_html: posted %{name} in the space
@@ -39,6 +40,7 @@ en:
       deleted: a message that has since been deleted
     space:
       accept_html: has joined the space
+      approved_html: approved the space
       create_html: created a new space
       decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
@@ -81,11 +83,11 @@ en:
       other: "%{count} participants"
     publish: "Publish"
     register: "Register"
-    register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
     not_approved:
-      tooltip: 'Waiting approval'
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -190,6 +192,7 @@ en:
         shib_login_field: "Shibboleth: Field for login"
         shib_name_field: "Shibboleth: Field for name"
         shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
+        shib_update_users: "Shibboleth: Update user information"
         smtp_auth_type: "STMP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "STMP domain"
@@ -914,7 +917,7 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
-      manage_to_approve: "go to manage to approve"
+      manage_to_approve: "manage"
       private: "Private space"
       public: "Public space"
   less: "less..."
@@ -946,12 +949,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
-      approve: "Approve: allow this space to appear on the website"
-      approve_confirm: "Are you sure you want to allow this space to appear on the website?"
+      approve: "Approve: unlock the access to this space"
+      approve_confirm: "Are you sure you want to unlock the access to this space?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
-      disapprove: "Disapprove: block this community from appearing on the website"
-      disapprove_confirm: "Are you sure you want to block this community from appearing on the website?"
+      disapprove: "Disapprove: block the access to this space"
+      disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -1428,7 +1431,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
-    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before you can access it."
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before other users can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1551,6 +1554,11 @@ en:
       users: "Users"
       webconf_options: "Webconference options"
       add_member: "Add members"
+    approve:
+      approved: "The space %{name} was approved"
+    disapprove:
+      disapproved: "The space %{name} was disapproved"
+      not_enabled: "Moderation of spaces is not enabled"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1650,9 +1658,10 @@ en:
       with_members: "with %{count} members"
     user_permissions:
       confirm_leave_space: "Are you sure you want to leave this space?"
-      leave_space: "Leave this space"
       confirm_remove_user: "Are you sure you want to remove this user from the space?"
+      leave_space: "Leave this space"
       remove_user: "Remove the user from the space"
+      tooltip_last_admin: "This user is the last administrator of this space, therefore he can't leave not have its role changed"
     users: "Users in this space"
     webconference:
       end: "Stop the meeting"

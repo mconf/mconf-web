@@ -2,7 +2,7 @@
 -#   activity (RecentActivity)
 
 .logo-in-thread
-  = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space')
+  = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
 
 .thread-content
   = formatted_time_ago activity.updated_at
@@ -13,11 +13,14 @@
     - elsif activity.key.match(/accept$/)
       = icon_join_space
     - if activity.parameters.has_key?(:username) and activity.recipient.present?
-      - link = user_path(activity.recipient)
-      - if link.nil?
-        = activity.parameters[:username]
+      - if activity.key.match(/approved/)
+        = activity_translate('other.admin')
       - else
-        = link_to activity.parameters[:username], link
+        - link = user_path(activity.recipient)
+        - if link.nil?
+          = activity.parameters[:username]
+        - else
+          = link_to activity.parameters[:username], link
     - else
       = activity_translate('other.someone')
     = activity_translate(activity.key)

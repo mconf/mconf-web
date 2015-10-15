@@ -107,6 +107,17 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  # Get a https/http URL depending on the setting on the site
+  def url_with_protocol
+    begin
+      u = URI.parse(self.url)
+      u.scheme = Site.current.ssl? ? 'https' : 'http'
+      u.to_s
+    rescue URI::InvalidURIError
+      url
+    end
+  end
+
   private
 
   # TODO: this could be used for other messages, not only webconf invitations, could be

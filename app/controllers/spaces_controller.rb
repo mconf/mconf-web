@@ -103,11 +103,10 @@ class SpacesController < ApplicationController
 
         if @space.approved?
           flash[:success] = t('space.created')
-          format.html { redirect_to action: "show", id: @space }
         else
           flash[:success] = t('space.created_waiting_moderation')
-          format.html { redirect_to spaces_path }
         end
+        format.html { redirect_to action: "show", id: @space }
       end
     else
       respond_with @space do |format|
@@ -281,9 +280,9 @@ class SpacesController < ApplicationController
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
     if name.nil?
-      @spaces = Space.limit(limit).all
+      @spaces = Space.where(approved: true).limit(limit).all
     else
-      @spaces = Space.where("name like ?", "%#{name}%").limit(limit)
+      @spaces = Space.where("name like ?", "%#{name}%").where(approved: true).limit(limit)
     end
 
     respond_with @spaces do |format|

@@ -30,6 +30,7 @@ module Mconf
       shib_data = {}
       env_variables.each do |key, value|
         unless filter.select{ |f| key.to_s.downcase =~ f }.empty?
+          value.force_encoding('UTF-8') if value.present? # see #1774
           shib_data[key.to_s] = value
         end
       end
@@ -105,7 +106,20 @@ module Mconf
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
     def find_token
-      ShibToken.find_by_identifier(get_identifier())
+      ShibToken.find_by_identifier(get_identifier)
+    end
+
+    # Finds the ShibToken and updates it with the information in the session, unless
+    # it's empty. Returns the token.
+    # Doesn't raise an exception if it fails to save the token, will return the
+    # errors in the model.
+    def find_and_update_token
+      token = find_token
+      if token.present? && !get_data.blank?
+        token.data = get_data
+        token.save
+      end
+      token
     end
 
     # Searches for a ShibToken using data in the session and returns it. Creates a new

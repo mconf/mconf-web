@@ -11,7 +11,7 @@ module ApprovalHelper
       link_to send("disapprove_#{classname}_path", object), :method => :post, :data => { :confirm => t('.disapprove_confirm') } do
         icon_disapprove(:alt => t('.disapprove'), :title => t('.disapprove'))
       end
-    elsif can?(:approve, object)
+    elsif !object.approved? && can?(:approve, object)
       link_to send("approve_#{classname}_path", object), :method => :post, :data => { :confirm => t('.approve_confirm') } do
         icon_approve(:alt => t('.approve'), :title => t('.approve'))
       end

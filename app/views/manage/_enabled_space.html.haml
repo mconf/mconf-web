@@ -20,6 +20,6 @@
     = sanitize(first_words(space.description, 100))
 
     - if current_site.require_space_approval? && !space.approved?
-      .space-waiting-moderation
+      .resource-waiting-moderation-tooltip
         = icon_waiting_moderation
-        = t("_other.not_approved.tooltip")
+        = t("_other.not_approved.text")

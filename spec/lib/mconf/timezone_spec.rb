@@ -157,3 +157,99 @@ describe Mconf::Timezone do
   end
 
 end
+
+describe Mconf::DSTTimezone do
+  describe "#new" do
+    let(:tz) { ActiveSupport::TimeZone.all.first }
+
+    context "receiving a timezone" do
+      subject { Mconf::DSTTimezone.new(tz) }
+      it{ subject.name.should eq(tz.name) }
+      it{ subject.tzinfo.should eq(tz.tzinfo) }
+    end
+
+    context "receiving a string" do
+      subject { Mconf::DSTTimezone.new(tz.name) }
+      it{ subject.name.should eq(tz.name) }
+      it{ subject.tzinfo.should eq(tz.tzinfo) }
+    end
+  end
+
+  describe "#all" do
+    subject { Mconf::DSTTimezone.all }
+    it { subject.should_not be_empty }
+  end
+
+  describe "#dst_string" do
+
+    context "in August" do
+      let(:date) { DateTime.strptime('05/08/2015 12:00', "%d/%m/%Y %H:%M") }
+      before { Timecop.freeze(date) }
+
+      context "southern hemisphere: Brasilia" do
+        let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst_string.should eq("(GMT-03:00) Brasilia") }
+      end
+
+      context "northern hemisphere: London" do
+        let(:tz) { ActiveSupport::TimeZone.new("London") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst_string.should eq("(GMT+01:00*) London") }
+      end
+    end
+
+    context "in January" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      before { Timecop.freeze(date) }
+
+      context "southern hemisphere: Brasilia" do
+        let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst_string.should eq("(GMT-02:00*) Brasilia") }
+      end
+
+      context "northern hemisphere: London" do
+        let(:tz) { ActiveSupport::TimeZone.new("London") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst_string.should eq("(GMT+00:00) London") }
+      end
+    end
+  end
+
+  describe "#dst?" do
+    context "in August" do
+      let(:date) { DateTime.strptime('05/08/2015 12:00', "%d/%m/%Y %H:%M") }
+      before { Timecop.freeze(date) }
+
+      context "southern hemisphere: Brasilia" do
+        let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst?.should be(false) }
+      end
+
+      context "northern hemisphere: London" do
+        let(:tz) { ActiveSupport::TimeZone.new("London") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst?.should be(true) }
+      end
+    end
+
+    context "in January" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      before { Timecop.freeze(date) }
+
+      context "southern hemisphere: Brasilia" do
+        let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst?.should be(true) }
+      end
+
+      context "northern hemisphere: London" do
+        let(:tz) { ActiveSupport::TimeZone.new("London") }
+        subject { Mconf::DSTTimezone.new(tz) }
+        it { subject.dst?.should be(false) }
+      end
+    end
+  end
+end
