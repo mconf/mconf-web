@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < ApplicationController
-  include SpamControllerModule
 
   before_filter :authenticate_user!, except: [:index, :show]
 
@@ -142,9 +141,4 @@ class PostsController < ApplicationController
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
-
-  def resource_for_spam
-    @post
-  end
-
 end

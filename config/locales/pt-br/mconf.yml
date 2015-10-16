@@ -89,10 +89,6 @@ pt-br:
     not_approved:
       tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
       text: 'Aguardando aprovação'
-    spam:
-      title: "Spam"
-      tooltip: "Reportar este artigo como spam"
-      icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
@@ -673,8 +669,6 @@ pt-br:
     kind_regards: "Atenciosamente,"
     notifications: "notificações por e-mail"
     one: e-mail
-    spam_activation: "Se você não se registrou neste site, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
-    spam_invitation: "Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
     url_activated: "Você agora pode entrar na sua conta com seu email \"%{name}\" e sua senha em <a href=\"%{url}\"> %{url}</a>"
     used_from: "e-mail usado no formulário de contato: %{dir}"
     welcome: "Bem-vindo(a) a %{sitename}"
@@ -969,7 +963,6 @@ pt-br:
     menu:
       general: "Geral"
       spaces: "Comunidades"
-      spam: "Spam"
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Webconferência"
@@ -986,20 +979,6 @@ pt-br:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
-    spam:
-      event:
-        delete_confirmation: "Remover este evento permanentemente?"
-        delete_tooltip: "Este evento é um spam, removê-lo"
-        not_spam_confirmation: "Este evento realmente não é um spam?"
-        not_spam_tooltip: "Este evento não é um spam"
-        title: "Eventos denunciados como spam"
-      no_spam: "Nenhum spam denunciado"
-      post:
-        delete_confirmation: "Remover esta mensagem permanentemente?"
-        delete_tooltip: "Esta mensage é um spam, removê-la"
-        not_spam_confirmation: "Esta mensagem realmente não é um spam?"
-        not_spam_tooltip: "Esta mensagem não é um spam"
-        title: "Mensagens denunciadas como spam"
     users:
       filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
@@ -1095,7 +1074,6 @@ pt-br:
   name:
     one: Nome
     other: Nomes
-  new_spam_detected: "Novo spam detectado"
   news:
     created: "Notícia publicada com sucesso"
     deleted: "Notícia excluída com sucesso"
@@ -1292,7 +1270,6 @@ pt-br:
   reply: Responder
   reply_to: "Responder para:"
   reply_to_words: "Responder para %{words}"
-  report_spam: "Denunciar spam"
   repository:
     download: Download
     loading: "Atualizando repositório de documentos ..."
@@ -1690,20 +1667,6 @@ pt-br:
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"
-  spam:
-    spam_report_create:
-      error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
-      success: "Artigo marcado como spam! Ele será verificado pelos administradores"
-      user_is_member: "Você é um membro"
-    created: "Um e-mail reportando spam foi enviado com sucesso para os administradores. Obrigado."
-    default: spam
-    detected: "Novo spam detectado"
-    error: 
-      check: "Aconteceu um problema marcando este recurso como spam"
-    item: "Este item foi reportado como spam e está sendo analisado pelos administradores"
-    report: "Report spam"
-    reported: "%{name} (%{email}) has reported spam in %{sitename}"
-    valid: "This content is valid"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

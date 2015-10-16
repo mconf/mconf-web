@@ -126,7 +126,6 @@ Mconf::Application.routes.draw do
     resources :posts do
       member do
         get :reply_post
-        post :spam_report, action: :spam_report_create
       end
     end
 
@@ -175,7 +174,7 @@ Mconf::Application.routes.draw do
   resource :site, only: [:show, :edit, :update]
 
   # Management routes
-  ['users', 'spaces', 'spam'].each do |resource|
+  ['users', 'spaces'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end
 

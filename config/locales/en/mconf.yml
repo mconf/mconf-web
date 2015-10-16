@@ -88,10 +88,6 @@ en:
     not_approved:
       text: 'Waiting approval'
       tooltip: 'Waiting approval, users are not able to view nor access this space yet'
-    spam:
-      title: "Spam"
-      tooltip: "Report this item as a spam"
-      icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
     updated_time_ago: "%{time} ago"
@@ -673,8 +669,6 @@ en:
     kind_regards: "Kind regards,"
     notifications: "email notifications"
     one: email
-    spam_activation: "If you did not register at this site, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
-    spam_invitation: "If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
     url_activated: "You can now login to your account with your email \"%{name}\" and your password in <a href=\"%{url}\"> %{url}</a>"
     used_from: "email used in contact form: %{dir}"
     welcome: "Welcome to %{sitename}"
@@ -969,7 +963,6 @@ en:
     menu:
       general: "General"
       spaces: "Spaces"
-      spam: "Spam"
       title: "Site Management"
       users: "Users"
       webconf: "Web Conference"
@@ -986,20 +979,6 @@ en:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
-    spam:
-      event:
-        delete_confirmation: "Remove this event permanently?"
-        delete_tooltip: "This event is a spam, remove it"
-        not_spam_confirmation: "Confirm that this event is not a spam?"
-        not_spam_tooltip: "This event is not a spam"
-        title: "Events marked as spam"
-      no_spam: "No spam reported"
-      post:
-        delete_confirmation: "Remove this post permanently?"
-        delete_tooltip: "This post is a spam, remove it"
-        not_spam_confirmation: "Confirm that this post is not a spam?"
-        not_spam_tooltip: "This post is not a spam"
-        title: "Posts marked as spam"
     users:
       filter_name_or_username: "Filter users by name, username or email"
       new_user: "Create user"
@@ -1094,7 +1073,6 @@ en:
   name: 
     one: Name
     other: Names
-  new_spam_detected: "New spam detected"
   news: 
     created: "News item published successfully"
     deleted: "News item deleted successfully"
@@ -1291,7 +1269,6 @@ en:
   reply: Reply
   reply_to: "Reply to:"
   reply_to_words: "Reply to %{words}"
-  report_spam: "Report spam"
   repository: 
     download: Download
     loading: "Refreshing document repository..."
@@ -1686,20 +1663,6 @@ en:
     webconference_tabs:
       access: "Webconference access"
       recordings: "List of recordings"
-  spam:
-    spam_report_create:
-      error: "Sorry, but there was a problem marking this item as spam"
-      success: "The item was marked as a spam! It will be checked by the administrators"
-      user_is_member: "You're a member"
-    created: "A reporting spam email has been successfully sent to the admins. Thank you."
-    default: spam
-    detected: "New spam detected"
-    error: 
-      check: "There was a problem marking the resource as spam"
-    item: "This item has been reported as spam and is being evaluated by the administrators"
-    report: "Report spam"
-    reported: "%{name} (%{email}) has reported spam in %{sitename}"
-    valid: "This content is valid"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

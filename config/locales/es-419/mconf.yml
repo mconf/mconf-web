@@ -81,10 +81,6 @@ es-419:
     register: "Registrar"
     save: "Guardar"
     send: "Enviar"
-    spam:
-      title: "Spam"
-      tooltip: "Reportar este ítem como spam"
-      icon_tooltip: "Este ítem ha sido reportado como spam y esta siendo evaluado por los administradores"
     unpublish: "Anular publicacion"
     update: "Actualizar"
     upload: "Subir"
@@ -658,8 +654,6 @@ es-419:
     kind_regards: "Un cordial saludo,"
     notifications: "notificaciones por correo electrónico"
     one: correo electrónico
-    spam_activation: "Si no se registró en este sitio, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
-    spam_invitation: "Si considera que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
     url_activated: "Ahora puede acceder a su cuenta con su dirección de correo electrónico \"%{name}\" y su contraseña en <a href=\"%{url}\">%{url}</a>"
     used_from: "correo electrónico utilizado en el formulario de contacto: %{dir}"
     welcome: "Bienvenido a %{sitename}"
@@ -944,7 +938,6 @@ es-419:
     menu:
       general: "General"
       spaces: "Espacios"
-      spam: "Spam"
       title: "Gestión del Sitio"
       users: "Usuarios"
       webconf: "Conferencia Web"
@@ -958,20 +951,6 @@ es-419:
       filter_count_with_text: "Encontrado(s) %{count} espacio(s) para el filtro \"%{value}\""
       filter_count_empty: "Encontrado(s) %{count} espacio(s)"
       no_space_found: "Espacio no encontrado"
-    spam:
-      event:
-        delete_confirmation: "¿Remover este evento permanentemente?"
-        delete_tooltip: "Este evento es spam, remuévelo"
-        not_spam_confirmation: "¿Confirma que este evento no es spam?"
-        not_spam_tooltip: "Este evento no es spam"
-        title: "Eventos marcados como spam"
-      no_spam: "Spam no reportado"
-      post:
-        delete_confirmation: "¿Remover este post permanentemente?"
-        delete_tooltip: "Este post es spam, remuévelo"
-        not_spam_confirmation: "¿Confirma que este post no es spam?"
-        not_spam_tooltip: "Este post no es spam"
-        title: "Posts marcados como spam"
     users:
       filter_name_or_username: "Nombre, nombre de usuario o correo electrónico"
       filter_results: "Filtrar los resultados:"
@@ -1055,7 +1034,6 @@ es-419:
   name:
     one: Nombre
     other: Nombres
-  new_spam_detected: "Nuevo spam detectado"
   news:
     created: "Noticia publicada con éxito"
     deleted: "Noticia eliminada con éxito"
@@ -1249,7 +1227,6 @@ es-419:
   reply: Responder
   reply_to: "Responder a:"
   reply_to_words: "Responder a %{words}"
-  report_spam: "Reportar correo no deseado"
   repository:
     download: Descargar
     loading: "Refrescando el repositorio de documentos..."
@@ -1619,20 +1596,6 @@ es-419:
     webconference_tabs:
       access: "Acceso a la conferencia web"
       recordings: "Lista de grabaciones"
-  spam:
-    spam_report_create:
-      error: "Lo sentimos, pero hubo un problema marcando este ítem como spam"
-      success: "¡El ítem fue marcado como spam! Esto será chequeado por los adminstradores"
-      user_is_member: "Eres un miembro"
-    created: "Un correo electrónico reportando spam ha sido enviado con éxito a los administradores. Gracias."
-    default: spam
-    detected: "Nuevo spam detectado"
-    error:
-      check: "Hubo un problema marcando el recurso como spam"
-    item: "Este ítem ha sido reportado como spam y está siendo evaluado por los administradores"
-    report: "Reportar spam"
-    reported: "%{name} (%{email}) ha reportado spam en %{sitename}"
-    valid: "Este contenido es válido"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
