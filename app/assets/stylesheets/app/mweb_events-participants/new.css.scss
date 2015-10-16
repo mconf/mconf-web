@@ -1,7 +1,7 @@
 @import "definitions";
 @import "compass/css3";
 
-body.mweb_events-participants.new, body.mweb_events-participants.create {
+body.participants.new, body.create {
 
   #new-event-registration {
     @include mconf-clearfix;

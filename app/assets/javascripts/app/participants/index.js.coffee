@@ -1,7 +1,7 @@
-#= require "../mweb_events-events/_invite"
+#= require "../events/_invite"
 
 $ ->
-  if isOnPage 'mweb_events-participants', 'index'
+  if isOnPage 'participants', 'index'
 
     # set to rebind the invitation view when the resources are rebound
     mconf.Resources.addToBind ->
