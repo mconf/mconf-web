@@ -61,10 +61,6 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-refresh icon-mconf-loading icon-spin", options
   end
 
-  def icon_spam(options={})
-    icon_constructor t("_other.spam.tooltip"), "icon-awesome icon-warning-sign icon-mconf-spam", options
-  end
-
   def icon_message(options={})
     if options.has_key?(:class) and options[:class].match(/active/)
       icon_constructor nil, "icon-awesome icon-envelope icon-mconf-message", options

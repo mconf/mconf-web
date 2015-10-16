@@ -122,10 +122,8 @@ namespace :db do
         post.space_id = space.id
         post.title = Populator.words(1..4).titleize
         post.text = Populator.sentences(3..15)
-        post.spam = false
         post.created_at = @created_at_start..Time.now
         post.updated_at = post.created_at..Time.now
-        post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
       News.populate 2..10 do |news|
