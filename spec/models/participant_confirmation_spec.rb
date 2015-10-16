@@ -29,7 +29,7 @@ describe ParticipantConfirmation do
   skip '#send_participant_confirmation'
 
   describe '#confirm!' do
-    let(:participant) { FactoryGirl.create(:participant, email: email) }
+    let(:participant) { FactoryGirl.create(:participant, email: email, owner: nil) }
     let(:pc) { participant.participant_confirmation }
 
     it { pc.should_not be_confirmed }

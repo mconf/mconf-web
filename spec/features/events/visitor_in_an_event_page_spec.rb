@@ -25,11 +25,11 @@ feature "Visitor in an event page" do
     before { visit event_path(public_event) }
 
     it { page.find('#page-header').should have_content(public_event.name) }
-    it { page.find('.resource-visibility.public').should have_content(I18n.t('mweb_events.events.title.public')) }
+    it { page.find('.resource-visibility.public').should have_content(I18n.t('events.title.public')) }
 
     context 'inside event registration area' do
       subject { page.find('.event-registration .event-register') }
-      it { should have_link(I18n.t('mweb_events.events.registration.button'), :href => new_event_participant_path(public_event)) }
+      it { should have_link(I18n.t('events.registration.button'), :href => new_event_participant_path(public_event)) }
       it { should have_css('.btn-success') }
     end
 
@@ -54,7 +54,7 @@ feature "Visitor in an event page" do
       it { should have_content(public_event.start_on.in_time_zone(site_zone).strftime("%A, %d %b %Y, %R")) }
       it { should have_content(public_event.end_on.in_time_zone(site_zone).strftime("%A, %d %b %Y, %R")) }
 
-      it { should have_link(I18n.t('mweb_events.events.summary.calendar'),
+      it { should have_link(I18n.t('events.summary.calendar'),
         :href => event_path(public_event, :format => :ics)) }
     end
   end

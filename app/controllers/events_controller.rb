@@ -15,43 +15,12 @@ class EventsController < ApplicationController
 
   respond_to :html, :json
 
+  before_filter :filter_user_events
   def index
-    # Filter events for the current user
-    if params[:my_events]
-      if current_user
-        @events = current_user.events
-      else # Remove the parameter if no user is logged
-        redirect_to events_path(params.except(:my_events))
-        return
-      end
-    end
-
-    # Filter events belonging to spaces or users with disabled status
-    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
-    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
-    # If only there was a conjunction operator that returned an AR relation, this would be easier
-    # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
-    @events = Event.where(id: (without_users | without_spaces))
-    @events = @events.page(params[:page])
-
-    if params[:show] == 'happening_now'
-      @events = @events.happening_now.order('start_on ASC')
-    elsif params[:show] == 'past_events'
-      @events = @events.past.order('start_on DESC')
-    elsif params[:show] == 'all'
-      @events = @events.order('start_on DESC')
-    elsif params[:show] == 'upcoming_events' || params[:show].blank? #default case
-      @events = @events.upcoming.order('start_on ASC')
-
-      # if there are no upcoming events and user accessed without parameters show all
-      redirect_to events_path(:show => 'all') if @events.empty? && params[:show].blank?
-      return
-    end
-
-    # Use query parameter to search for events
-    if params[:q].present?
-      @events = @events.where("name like ?", "%#{params[:q]}%")
-    end
+    filter_disabled_models
+    search_events
+    apply_scopes
+    paginate
   end
 
   def show
@@ -191,6 +160,59 @@ class EventsController < ApplicationController
   end
 
   private
+  # Filter events for the current user
+  # If accessed with no logged in user, redirect to 'all events' path
+  def filter_user_events
+
+    if params[:my_events]
+      if current_user
+        @events = current_user.events
+      else
+        # Remove the parameter if no user is logged
+        redirect_to events_path(params.except(:my_events))
+        false # interrupt before filter chain
+      end
+    end
+  end
+
+  def filter_disabled_models
+    # Filter events belonging to spaces or users with disabled status
+    without_spaces =
+      @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
+    without_users =
+      @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
+
+    @events = without_users.union(without_spaces)
+  end
+
+  # Use query parameter to search for events
+  def search_events
+    if params[:q].present?
+      @events = @events.where("name like ?", "%#{params[:q]}%")
+    end
+  end
+
+  def apply_scopes
+    case params[:show]
+    when 'happening_now'
+      @events = @events.happening_now.order('start_on ASC')
+    when 'past_events'
+      @events = @events.past.order('start_on DESC')
+    when 'all'
+      @events = @events.order('start_on DESC')
+    when 'upcoming_events', lambda{ |show| show.blank? } #default case
+      @events = @events.upcoming.order('start_on ASC')
+
+      # if there are no upcoming events and user accessed without parameters show all
+      redirect_to events_path(:show => 'all') if @events.empty? && params[:show].blank?
+    end
+
+  end
+
+  def paginate
+    @events = @events.page(params[:page])
+  end
+
   def concat_datetimes
     date_format = I18n.t('_other.datetimepicker.format_display')
 

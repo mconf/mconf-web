@@ -6,12 +6,7 @@ class Participant < ActiveRecord::Base
   validates :email, :presence => true, :email => true, :uniqueness => { :scope => :event_id }
   validates :owner_id, :uniqueness => { :scope => :event_id, :allow_nil => true }
 
-  def email_taken?
-    found = Participant.where(:email => email, :event_id => event).first
-    found && email.present? && found.email == email
-  end
-
- include PublicActivity::Common
+  include PublicActivity::Common
   has_one :participant_confirmation
 
   # create a ParticipantConfirmation request if no user is associated with the participation
@@ -28,6 +23,11 @@ class Participant < ActiveRecord::Base
     else
       true
     end
+  end
+
+  def email_taken?
+    found = Participant.where(:email => email, :event_id => event).first
+    found && email.present? && found.email == email
   end
 
   def new_activity key, user

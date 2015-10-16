@@ -6,7 +6,8 @@
 
 FactoryGirl.define do
   factory :participant, :class => Participant do |e|
-    e.email { Forgery::Internet.email_address }
+    e.email { owner.present? ? owner.email : Forgery::Internet.email_address }
     e.association :event
+    e.association :owner, factory: :user
   end
 end

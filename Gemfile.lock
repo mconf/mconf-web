@@ -60,6 +60,8 @@ GEM
       activesupport (= 4.1.11)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_record_union (1.1.0)
+      activerecord (>= 4.0)
     active_sanity (0.2.0)
       rails (>= 3.1.0)
     activemodel (4.1.11)
@@ -511,6 +513,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_union
   active_sanity
   acts_as_tree (~> 2.0.0)
   better_errors

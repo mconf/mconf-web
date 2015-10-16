@@ -17,5 +17,6 @@ FactoryGirl.define do
     e.social_networks { MwebEvents::SOCIAL_NETWORKS.sample(3) }
     e.start_on { Time.now + 2.hours }
     e.end_on { Time.now + 4.hours }
+    e.association :owner, factory: :user # owner is user class by default but could be space
   end
 end

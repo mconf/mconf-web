@@ -11,6 +11,9 @@ gem 'compass-rails', '~> 2.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
+# To use sql UNION with activerecord
+gem 'active_record_union'
+
 # TODO: remove when compass-rails is updated to support animations
 # This compass is here so we can have css3/animation
 gem 'compass', '~> 0.13.alpha'
@@ -143,7 +146,7 @@ group :development, :test do
   gem 'spring'
   gem 'zonebie'
   gem 'timecop'
-  gem 'webmock'
+  gem 'webmock', require: false
 end
 
 group :test do

@@ -22,8 +22,8 @@ class Event < ActiveRecord::Base
 
   attr_accessor :date_display_format, :date_stored_format
 
-  # geocoded_by :address
-  # after_validation :geocode
+  geocoded_by :address
+  after_validation :geocode
 
   belongs_to :owner, :polymorphic => true
   has_many :participants, :dependent => :destroy
@@ -234,10 +234,10 @@ class Event < ActiveRecord::Base
   # Returns whether a user (any model) or email (a string) is already registered in this event.
   def is_registered?(user_or_email)
     if user_or_email.is_a?(String)
-      Participant.where(:email => user_or_email, :event_id => self.id).count > 0
+      Participant.where(:email => user_or_email, :event_id => id).any?
     else
       Participant.where(:owner_type => user_or_email.class.name, :owner_id => user_or_email.id,
-                        :event_id => self.id).count > 0
+                        :event_id => id).any?
     end
   end
 end

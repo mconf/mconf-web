@@ -7,10 +7,10 @@
 require "spec_helper"
 
 describe Event do
+  before(:each) { Site.current.update_attributes(events_enabled: true) }
   let(:event) { FactoryGirl.create(:event) }
 
-  it "should not validate an event with wrong date range" do
-    pending
+  skip "should not validate an event with wrong date range" do
     FactoryGirl.build(:event,
       :start_on => Date.today, :end_on => Date.today - 1).should_not be_valid
   end
@@ -61,9 +61,9 @@ describe Event do
       e2 = FactoryGirl.create(:event, :start_on => today, :end_on => today + 2.day)
     end
 
-    it { MwebEvents::Event.within(today, today + 2.day).should_not be_empty }
-    it { MwebEvents::Event.within(today + 1.day, today + 2.day).should_not be_empty }
-    it { MwebEvents::Event.within(today + 4.day, today + 5.day).should be_empty }
+    it { Event.within(today, today + 2.day).should_not be_empty }
+    it { Event.within(today + 1.day, today + 2.day).should_not be_empty }
+    it { Event.within(today + 4.day, today + 5.day).should be_empty }
   end
 
   describe ".description_html" do
@@ -110,7 +110,7 @@ describe Event do
       let(:target) { FactoryGirl.create(:event, :social_networks => ['Facistbook', 'Twitter']) }
 
       it { target.social_networks.should_not be_empty }
-      pending { target.social_networks.should_not include('Facistbook') }
+      skip { target.social_networks.should_not include('Facistbook') }
       it { target.social_networks.should include('Twitter') }
     end
 
@@ -147,21 +147,21 @@ describe Event do
     it { target.latitude.should_not be_nil }
   end
 
-  pending "#to_ics"
+  it "#to_ics"
 
   describe "#is_registered?" do
     let(:target) { FactoryGirl.create(:event) }
 
     context "for an email" do
       context "when the email is not registered yet" do
-        it { target.is_registered?("any@any.com").should be_false }
+        it { target.is_registered?("any@any.com").should be(false) }
       end
 
       context "when the email is already registered" do
         before {
           @participant = FactoryGirl.create(:participant, :event => target)
         }
-        it { target.is_registered?(@participant.owner.email).should be_true }
+        it { target.is_registered?(@participant.owner.email).should be(true) }
       end
 
       context "when the email is registered in another event" do
@@ -169,22 +169,22 @@ describe Event do
           second_event = FactoryGirl.create(:event)
           @participant = FactoryGirl.create(:participant, :event => second_event)
         }
-        it { target.is_registered?(@participant.owner.email).should be_false }
+        it { target.is_registered?(@participant.owner.email).should be(false) }
       end
     end
 
     context "for a user" do
-      let(:user) { FactoryGirl.create(:owner) }
+      let(:user) { FactoryGirl.create(:user) }
 
       context "when the user is not registered yet" do
-        it { target.is_registered?(user).should be_false }
+        it { target.is_registered?(user).should be(false) }
       end
 
       context "when the user is already registered" do
         before {
           @participant = FactoryGirl.create(:participant, :event => target, :owner => user)
         }
-        it { target.is_registered?(user).should be_true }
+        it { target.is_registered?(user).should be(true) }
       end
 
       context "when the user is registered in another event" do
@@ -192,14 +192,14 @@ describe Event do
           second_event = FactoryGirl.create(:event)
           @participant = FactoryGirl.create(:participant, :event => second_event, :owner => user)
         }
-        it { target.is_registered?(@participant.owner.email).should be_false }
+        it { target.is_registered?(@participant.owner.email).should be(false) }
       end
     end
   end
 
   describe "abilities", :abilities => true do
     subject { ability }
-    let(:ability) { MwebEvents::Ability.new(owner) }
+    let(:ability) { Abilities.ability_for(owner) }
     let(:target) { FactoryGirl.create(:event) }
 
     context "when it's the event creator" do
@@ -208,8 +208,8 @@ describe Event do
     end
 
     context "when it's not the event creator" do
-      let(:owner) { FactoryGirl.create(:owner) }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
+      let(:owner) { FactoryGirl.create(:user) }
+      it { should_not be_able_to_do_anything_to(target).except([:index, :show, :create, :new]) }
     end
 
   end

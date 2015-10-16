@@ -18,25 +18,25 @@ feature "User registers in an event" do
     before {
       login_as(user, :scope => :user)
       visit event_path(event)
-      click_button t("mweb_events.events.registration.button")
+      click_button t("events.registration.button")
     }
 
-    it { has_success_message t('mweb_events.participant.created') }
+    it { has_success_message t('participant.created') }
     it { current_path.should eq(event_path(event)) }
-    it { should have_content t("mweb_events.events.registration.already_registered") }
-    it { should have_content t("mweb_events.events.registration.unregister") }
-    it { should_not have_content t("mweb_events.events.registration.button") }
+    it { should have_content t("events.registration.already_registered") }
+    it { should have_content t("events.registration.unregister") }
+    it { should_not have_content t("events.registration.button") }
     # updates the number of participants in the event
     # adds the user as a participant in the event
 
     context 'cancel registration after being registered' do
       before {
-        click_link t("mweb_events.events.registration.unregister")
+        click_link t("events.registration.unregister")
       }
 
       it { current_path.should eq(event_path(event)) }
-      it { has_success_message t('mweb_events.participant.destroyed') }
-      it { should_not have_content t("mweb_events.events.registration.unregister") }
+      it { has_success_message t('participant.destroyed') }
+      it { should_not have_content t("events.registration.unregister") }
     end
   end
 
@@ -45,23 +45,23 @@ feature "User registers in an event" do
     let(:user) { FactoryGirl.create(:user) }
     before {
       visit event_path(event)
-      click_link t("mweb_events.events.registration.button")
+      click_link t("events.registration.button")
     }
 
     it { current_path.should eq(new_event_participant_path(event)) }
-    it { should have_content t("mweb_events.participants.split_form.annonymous_title") }
-    it { should have_content t("mweb_events.participants.split_form.member_title") }
+    it { should have_content t("participants.split_form.annonymous_title") }
+    it { should have_content t("participants.split_form.member_title") }
 
     context "register as annonymous" do
       let(:email) { 'cosmo@oot.ze' }
       before {
         fill_in "participant[email]", with: email
-        click_button t('mweb_events.participants.form.submit')
+        click_button t('participants.form.submit')
       }
 
-      it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
+      it { has_success_message t('participants.create.waiting_confirmation') }
       it { current_path.should eq(event_path(event)) }
-      it { should have_content t("mweb_events.events.registration.button") }
+      it { should have_content t("events.registration.button") }
     end
 
     context "register as annonymous and confirms registration via email" do
@@ -82,16 +82,16 @@ feature "User registers in an event" do
 
       it { current_path.should eq(new_event_participant_path(event)) }
       it { should have_content(user.email) }
-      it { should have_content t("mweb_events.participants.form.submit") }
+      it { should have_content t("participants.form.submit") }
 
       context "finish registering" do
-        before { click_button t("mweb_events.participants.form.submit") }
+        before { click_button t("participants.form.submit") }
 
-        it { has_success_message t('mweb_events.participant.created') }
+        it { has_success_message t('participant.created') }
         it { current_path.should eq(event_path(event)) }
-        it { should have_content t("mweb_events.events.registration.already_registered") }
-        it { should have_content t("mweb_events.events.registration.unregister") }
-        it { should_not have_content t("mweb_events.events.registration.button") }
+        it { should have_content t("events.registration.already_registered") }
+        it { should have_content t("events.registration.unregister") }
+        it { should_not have_content t("events.registration.button") }
       end
     end
   end
