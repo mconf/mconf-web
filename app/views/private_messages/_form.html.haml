@@ -1,7 +1,0 @@
-= simple_form_for @private_message, :url => messages_path, :html => { :class => 'single-column' } do |f|
-  - value = @receiver.nil? ? nil : @receiver.id
-  = f.input :users_tokens, :label => t('message.to'), :required => true, :input_html => { :value => value }
-  = f.input :title, :label => t('title')
-  = f.input :body, :as => :text, :label => t('body')
-  = f.hidden_field :parent_id, :value => @private_message.parent_id if @private_message
-  = f.button :wrapped, :cancel => messages_path, :value => t("button.send")

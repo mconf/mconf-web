@@ -8,13 +8,6 @@
       = link_to main_app.my_home_path do
         = t('home.my')
     %li
-      = link_to main_app.messages_path do
-        = t('.inbox')
-        - if current_user.unread_private_messages.size > 0
-          .label.label-important= current_user.unread_private_messages.size
-        - else
-          .label.label-success= 0
-    %li
       = link_to t('space.all'), main_app.spaces_path
     - if mod_enabled?("events")
       %li= link_to t('.events'), mweb_events.events_path

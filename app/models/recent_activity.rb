@@ -122,13 +122,6 @@
 #   Somebody replied to a post.
 #   Created by `PostsController`.
 #
-# * `private_message.sent`:
-#   Somebody sent a private message.
-#   Created by `PrivateMessage`.
-#
-# * `private_message.received`:
-#   Somebody received a private message.
-#   Created by `PrivateMessage`.
 #
 class RecentActivity < PublicActivity::Activity
   # Used for home page and user page pagination

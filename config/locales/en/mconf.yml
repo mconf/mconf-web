@@ -1199,28 +1199,6 @@ en:
     other: "Private Messages"
     send: "Send private message"
     title: "Private Messages (%{count})"
-  private_messages: 
-    index: 
-      title: "Private Messages"
-    menu: 
-      compose: Compose
-      inbox: Inbox
-      sent: Sent
-    new: 
-      title: "Private Messages"
-      users:
-        hint: "Type to start searching"
-        no_results: "No results found"
-        searching: "Searching..."
-    reply_private_message:
-      user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
-    show: 
-      title: "Private Messages"
-    show_received:
-      wrote: wrote
-    show_sent: 
-      wrote_to: Sent
-      titled: the message
   profile: 
     deleted: "Profile deleted successfully"
     description: 
@@ -1710,7 +1688,6 @@ en:
         events: "Events"
         how_many: "How many?"
         posts: "Messages posted"
-        private_messages: "Private messages exchanged"
         spaces: "Spaces"
         users: "Users"
         webconf_rooms: "Available webconference rooms"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903182639) do
+ActiveRecord::Schema.define(version: 20151016172919) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -284,20 +284,6 @@ ActiveRecord::Schema.define(version: 20150903182639) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
-    t.boolean  "spam",        default: false
-  end
-
-  create_table "private_messages", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
-    t.integer  "parent_id"
-    t.boolean  "checked",             default: false
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",   default: false
-    t.boolean  "deleted_by_receiver", default: false
   end
 
   create_table "profiles", force: true do |t|
