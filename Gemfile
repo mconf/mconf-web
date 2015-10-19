@@ -143,10 +143,10 @@ group :development, :test do
   gem 'spring'
   gem 'zonebie'
   gem 'timecop'
-  gem 'webmock'
 end
 
 group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
+  gem 'webmock'
 end
