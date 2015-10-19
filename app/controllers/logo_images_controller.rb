@@ -1,8 +1,14 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 class LogoImagesController < ApplicationController
   def crop
     if params[:model_type] == 'user'
       @user = User.find_by_username(params[:model_id])
-      @model = @user.profile!
+      @model = @user.profile
       @url = user_profile_path(@user)
       @page = t('avatar.crop')
       @aspect_ratio = 1

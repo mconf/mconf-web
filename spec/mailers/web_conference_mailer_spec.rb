@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -48,6 +48,10 @@ describe WebConferenceMailer do
       it("renders the attendee password if the room is private") {
         invitation.target.update_attributes(private: true)
         mail.body.encoded.should match(invitation.target.attendee_key)
+      }
+      it("renders the dial number") {
+        invitation.target.update_attributes(dial_number: '12345')
+        mail.body.encoded.should match('12345')
       }
       it("doesn't render the attendee password if the room is public") {
         invitation.target.update_attributes(private: false)

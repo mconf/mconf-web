@@ -7,19 +7,23 @@
     = f.input :domain
     = f.input :locale, :collection => available_locales(true)
     = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes
-    = f.input :timezone, :as => :time_zone
+    = f.input :timezone do
+      = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
+    = f.input :room_dial_number_pattern, as: :string
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
     = f.input :webconf_auto_record, :as => :boolean
     = f.input :analytics_code
     = f.input :shib_enabled, :as => :boolean
-    = f.input :shib_email_field
+    = f.input :shib_email_field, :as => :string
     = f.input :shib_name_field
     = f.input :shib_principal_name_field
+    #shib-principal-name-warning.alert.alert-danger= t('.shib_warning_html')
     = f.input :shib_login_field
     = f.input :shib_env_variables
     = f.input :shib_always_new_account, :as => :boolean
+    = f.input :shib_update_users, :as => :boolean
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
@@ -50,5 +54,7 @@
     = f.input :registration_enabled, :as => :boolean
     = f.input :require_registration_approval, :as => :boolean
     = f.input :local_auth_enabled, :as => :boolean
+    = f.input :require_space_approval, :as => :boolean
+    = f.input :forbid_user_space_creation, :as => :boolean
     = f.input :events_enabled, :as => :boolean
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

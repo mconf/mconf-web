@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -652,7 +652,7 @@ describe Space do
       context 'with role User' do
         let(:selected_role) { 'User' }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(user_role) }
         it { space.role_for?(user, :name => 'User').should be true }
@@ -662,7 +662,7 @@ describe Space do
       context 'with role Admin' do
         let(:selected_role) { 'Admin' }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(admin_role) }
         it { space.role_for?(user, :name => 'User').should be false }
@@ -672,13 +672,12 @@ describe Space do
       context "defaults the role to 'User'" do
         let(:selected_role) { nil }
 
-        it { space.users include(user) }
+        it { space.users.should include(user) }
         it { space.permissions.last.user.should eq(user) }
         it { space.permissions.last.role.should eq(user_role) }
         it { space.role_for?(user, :name => 'User').should be true }
         it { space.role_for?(user, :name => 'Admin').should be false }
       end
-
     end
 
     context "doesn't add the user if he's already a member" do
@@ -691,10 +690,56 @@ describe Space do
         }.to raise_error(ActiveRecord::RecordInvalid)
       }
 
-      it { space.users include(user) }
+      it { space.users.should include(user) }
       it { space.permissions.last.user.should eq(user) }
     end
+  end
 
+  describe "#remove_member!" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user is a member" do
+      before { space.add_member!(user) }
+      it { space.users.should include(user) }
+
+      context "removes the user from the space" do
+        before {
+          @response = space.remove_member!(user)
+        }
+        it { @response.should be(true) }
+        it { space.users.should_not include(user) }
+        it { Permission.where(user: user, subject: space).should be_empty }
+        it { space.role_for?(user, name: 'User').should be false }
+        it { space.role_for?(user, name: 'Admin').should be false }
+      end
+
+      context "when it fails to remove the user" do
+        before {
+          ActiveRecord::Relation.any_instance.should_receive(:destroy_all).and_return([])
+          @response = space.remove_member!(user)
+        }
+        it { @response.should be(false) }
+      end
+
+      context "doesn't remove other users" do
+        before {
+          space.add_member!(FactoryGirl.create(:user))
+          space.add_member!(FactoryGirl.create(:user))
+          space.remove_member!(user)
+        }
+        it { space.users.should_not include(user) }
+        it { space.users.count.should eql(2) }
+      end
+    end
+
+    context "if the user is not a member" do
+      before {
+        @response = space.remove_member!(user)
+      }
+      it { space.users.should_not include(user) }
+      it { @response.should be(true) }
+    end
   end
 
   it "new_activity"
@@ -723,6 +768,23 @@ describe Space do
     end
 
     context "creates #bigbluebutton_room" do
+
+      context 'intializes dial_number' do
+        let(:space) { FactoryGirl.create(:space_with_associations) }
+
+        context 'with a new random dial number if site is configured' do
+          before { Site.current.update_attributes(room_dial_number_pattern: 'xxxxx') }
+
+          it { space.bigbluebutton_room.dial_number.should be_present }
+          it { space.bigbluebutton_room.dial_number.size.should be(5) }
+        end
+
+        context 'with nil if the site is not configured' do
+          before { Site.current.update_attributes(room_dial_number_pattern: nil) }
+
+          it { space.bigbluebutton_room.dial_number.should be_blank }
+        end
+      end
 
       it "with the space as owner" do
         space.bigbluebutton_room.owner.should be(space)
@@ -891,7 +953,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
-      :index_join_requests, :index_news])
+      :manage_join_requests, :show_news, :manage_news, :add, :index_event])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -903,24 +965,32 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should be_able_to_do_anything_to(target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should be_able_to_do_anything_to(target) }
+
+            context "being the last admin" do
+              it { should be_able_to_do_everything_to(target).except(:leave) }
+            end
+
+            context "when there's another admin" do
+              before { target.add_member!(FactoryGirl.create(:user), "Admin") }
+              it { should be_able_to_do_everything_to(target) }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target) }
           end
         end
 
         context "that is disabled" do
           before { target.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
       end
 
@@ -928,24 +998,38 @@ describe Space do
         let(:target) { FactoryGirl.create(:private_space) }
 
         context "he is not a member of" do
-          it { should be_able_to_do_anything_to(target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target).except(:leave) }
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should be_able_to_do_anything_to(target) }
+            it { should be_able_to_do_everything_to(target) }
           end
         end
 
         context "that is disabled" do
           before { target.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target).except(:leave) }
+        end
+      end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
         end
       end
     end
@@ -957,25 +1041,58 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :show_news, :index_event]) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it {
-              list = [
-                :read, :webconference, :recordings, :create, :select, :leave, :edit,
-                :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                :webconference_options, :index_join_requests, :index_news
-              ]
-              should_not be_able_to_do_anything_to(target).except(list)
-            }
+            context "being the last admin" do
+              it {
+                list = [
+                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
+
+            context "when there's another admin" do
+              before { target.add_member!(FactoryGirl.create(:user), "Admin") }
+              it {
+                list = [
+                  :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it {
+                list = [
+                  :show, :index, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
+            it {
+              should_not be_able_to_do_anything_to(target)
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
+            }
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it { should_not be_able_to_do_anything_to(target).except([:index, :create, :new, :select]) }
+            end
           end
         end
 
@@ -989,31 +1106,78 @@ describe Space do
         let(:target) { FactoryGirl.create(:private_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:create, :select]) }
+          it { should_not be_able_to_do_anything_to(target).except([:create, :new, :select, :index]) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it {
-              list = [
-                :read, :webconference, :recordings, :create, :select, :leave, :edit,
-                :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                :webconference_options, :index_join_requests, :index_news
-              ]
-              should_not be_able_to_do_anything_to(target).except(list)
-            }
+            context "being the last admin" do
+              it {
+                list = [
+                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
+
+            context "when there's another admin" do
+              before { target.add_member!(FactoryGirl.create(:user), "Admin") }
+              it {
+                list = [
+                  :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
+                  :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                  :webconference_options, :manage_join_requests, :show_news, :manage_news, :index_event
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it {
+                list = [
+                  :show, :index, :create, :new, :select, :edit,
+                  :update, :update_logo, :disable,
+                ]
+                should_not be_able_to_do_anything_to(target).except(list)
+              }
+            end
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
+            it {
+              should_not be_able_to_do_anything_to(target)
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
+            }
+
+            context "when the space is not approved" do
+              before { target.update_attributes(approved: false) }
+              it { should_not be_able_to_do_anything_to(target).except([:create, :new, :select, :index]) }
+            end
           end
         end
 
         context "that is disabled" do
           before { target.disable }
           it { should_not be_able_to_do_anything_to(target) }
+        end
+      end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should be_able_to(:create, Space) }
+          it { should be_able_to(:new, Space) }
         end
       end
     end
@@ -1023,21 +1187,45 @@ describe Space do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :select]) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select, :show_news]) }
 
         context "that is disabled" do
           before { target.disable }
           it { should_not be_able_to_do_anything_to(target) }
         end
+
+        context "when the space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except([:select, :index]) }
+        end
       end
 
       context "in a private space" do
         let(:target) { FactoryGirl.create(:private_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:select]) }
+        it { should_not be_able_to_do_anything_to(target).except([:select, :index]) }
 
         context "that is disabled" do
           before { target.disable }
           it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except([:select, :index]) }
+        end
+      end
+
+      context "if the creation of spaces is" do
+        context "disabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: true) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
+        end
+
+        context "enabled" do
+          before { Site.current.update_attributes(forbid_user_space_creation: false) }
+          it { should_not be_able_to(:create, Space) }
+          it { should_not be_able_to(:new, Space) }
         end
       end
     end

@@ -16,6 +16,7 @@ pt-br:
       deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
@@ -30,6 +31,7 @@ pt-br:
       update_html: atualizou a notícia %{name} na comunidade
       deleted: que não existe mais
     other:
+      admin_html: "Um administrador"
       someone_html: "Um usuário"
     post:
       create_html: enviou a mensagem %{name} na comunidade
@@ -38,6 +40,7 @@ pt-br:
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
+      approved_html: aprovou a comunidade
       create_html: criou a comunidade
       decline_html: teve um convite/pedido negado na comunidade
       deleted: uma comunidade que não existe mais
@@ -55,7 +58,7 @@ pt-br:
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
-      format_rails: "%d/%m/%Y %H:%M %z"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
@@ -81,9 +84,11 @@ pt-br:
     publish: "Publicar"
     upload: "Enviar"
     register: "Registrar"
-    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
+    not_approved:
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -160,6 +165,7 @@ pt-br:
         exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
+        forbid_user_space_creation: "Proibir que usuários criem comunidades"
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -175,7 +181,9 @@ pt-br:
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
-        require_registration_approval: "Requerer que administradores aceitem novas contas"
+        require_registration_approval: "Moderar usuários"
+        require_space_approval: "Moderar comunidades"
+        room_dial_number_pattern: "Padrão do número de sala"
         signature: "Assinatura"
         shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
@@ -184,6 +192,7 @@ pt-br:
         shib_login_field: "Shibboleth: Campo para login"
         shib_name_field: "Shibboleth: Campo para nome"
         shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
+        shib_update_users: "Shibboleth: Atualizar informações dos usuários"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
@@ -460,6 +469,7 @@ pt-br:
     edit:
       editing_room: "Editando a sala '%{room}'"
     form:
+      layout_empty_option: "<padrão>"
       metadata:
         add: "Adicionar metadados"
         set_to_remove: "Marcar para remover"
@@ -470,7 +480,9 @@ pt-br:
       at: "às"
       duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
-      timezone: "Você está usando o fuso horário %{timezone}"
+      offset: "Sua diferença de horário atual é \"%{offset}\""
+      offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
+      timezone: "As datas abaixo estão no fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"
@@ -507,8 +519,8 @@ pt-br:
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
-      download_android_tip: "For devices with Android"
-      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
       not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
       notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
       title: "Acesso móvel à sala \"%{room}\""
@@ -808,6 +820,8 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+      users_added: "Você adicionou o(s) usuário(s) %{users} à comunidade"
+      you_are_already_a_member: "Você já é membro desta comunidade"
     decline:
       declined: "Pedido de adesão negado"
       invitation_destroyed: "Convite cancelado com sucesso"
@@ -830,6 +844,9 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      type_add: "Adicionar diretamente"
+      type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
+      type_invite: "Convidar"
       users:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
@@ -900,6 +917,7 @@ pt-br:
         change: "Mudar a linguagem"
     spaces_page_title:
       is_member: "Você é membro desta comunidade"
+      manage_to_approve: "gerenciar"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -931,8 +949,12 @@ pt-br:
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
+      approve: "Aprovar: permitir o acesso a esta comunidade"
+      approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
       disable: "Desabilitar comundiade"
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -952,8 +974,8 @@ pt-br:
       users: "Usuários"
       webconf: "Webconferência"
     spaces:
-      filter_name: "Nome"
-      filter_results: "Filtrar os resultados:"
+      filter_name: "Filtrar comunidades por nome"
+      new_space: "Nova comunidade"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
@@ -979,9 +1001,17 @@ pt-br:
         not_spam_tooltip: "Esta mensagem não é um spam"
         title: "Mensagens denunciadas como spam"
     users:
-      filter_name_or_username: "Nome, identificador ou e-mail"
-      filter_results: "Filtrar os resultados:"
+      filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
+      admin_true: Administradores
+      admin_false: Usuários
+      approved_true: Aprovados
+      approved_false: Não aprovados
+      disabled_true: Desabilitados
+      disabled_false: Habilitados
+      can_record_true: Pode gravar
+      can_record_false: Não pode gravar
+
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
@@ -1220,8 +1250,8 @@ pt-br:
       visibility_everybody: "Todos podem ver o seu perfil privado."
       visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
       visibility_nobody: "Ninguém pode ver o seu perfil privado."
-      visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
-      visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
+      visibility_private_fellows: "Apenas os seus colegas em uma comunidade privada podem ver o seu perfil privado."
+      visibility_public_fellows: "Apenas os seus colegas em uma comunidade pública podem ver o seu perfil privado."
     show:
       vcard:
         export: "Exportar vCard"
@@ -1402,6 +1432,7 @@ pt-br:
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
+    created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para que outros usuários possam acessá-la."
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
     description: "Descrição da comunidade"
@@ -1468,6 +1499,9 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
+    remove_user:
+      confirm: "Tem certeza de que deseja remover este usuário da comunidade?"
+      remove: "Remover usuário"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1512,14 +1546,23 @@ pt-br:
       none: "Nenhum evento no futuro"
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
-  spaces: 
+  spaces:
+    approve:
+      approved: "A comunidade %{name} foi aprovada!"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     admin_tabs:
+      add_member: "Adicionar membros"
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"
       news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
+    approve:
+      approved: "A comunidade %{name} foi aprovada"
+    disapprove:
+      disapproved: "Acesso bloqueado à comunidade %{name}"
+      not_enabled: "A aprovação de comunidades não está habilitada"
     edit:
       change_logo: "Mudar imagem"
       delete_confirmation: "Você tem certeza? Essa comunidade se tornará inacessível a você e a todos outros os usuários!"
@@ -1531,8 +1574,10 @@ pt-br:
       title: "Editar sua gravação"
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
+      creation_forbidden: "Você não possui permissão para criar comunidades"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 
@@ -1577,6 +1622,7 @@ pt-br:
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
+        dial_number: "Número para discagem"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_notifications:
@@ -1614,6 +1660,12 @@ pt-br:
       user_is_member: "Você é membro desta comunidade"
       view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
+    user_permissions:
+      confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
+      confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
+      leave_space: "Sair da comunidade"
+      remove_user: "Remover usuário da comunidade"
+      tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
@@ -1673,6 +1725,9 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
+  sites:
+    edit:
+      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   text: Texto
   the_string: "a string"
   thread:
@@ -1785,7 +1840,7 @@ pt-br:
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
-      approved: "O usuário %{username} foi aprovado para acessar este site!"
+      approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
@@ -1795,7 +1850,7 @@ pt-br:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "O usuário %{username} foi bloqueado de acessar este site!"
+      disapproved: "O usuário %{name} foi bloqueado de acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
       account_info: "Informações da conta"

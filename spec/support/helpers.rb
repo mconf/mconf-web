@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # General purpose helpers
 module Helpers
 
@@ -41,15 +47,19 @@ module Helpers
     end
   end
 
+  # Sets the custom actions that should also be checked by
+  # the matcher BeAbleToDoAnythingToMatcher
+  def self.set_custom_ability_actions(actions)
+    Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
+      custom_actions = actions
+    Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
+      custom_actions = actions
+  end
+
   module ClassMethods
 
-    # Sets the custom actions that should also be checked by
-    # the matcher BeAbleToDoAnythingToMatcher
     def set_custom_ability_actions(actions)
-      before(:each) do
-        Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
-          custom_actions = actions
-      end
+      before { Helpers.set_custom_ability_actions(actions) }
     end
 
   end

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -96,7 +96,7 @@ module Mconf
       username = username.to_s
       full_name = full_name.to_s
 
-      user = User.find_by_email(id)
+      user = User.where('lower(email) = ?', id.downcase).first
       if user
         Rails.logger.info "LDAP: there's already a user with this id (#{id})"
       else
@@ -123,20 +123,21 @@ module Mconf
     end
 
     def user_info(ldap_user, ldap_configs)
-      if ldap_user[ldap_configs.ldap_username_field]
+      if ldap_user[ldap_configs.ldap_username_field] && !ldap_user[ldap_configs.ldap_username_field].empty?
         username = ldap_user[ldap_configs.ldap_username_field].first
       else
-        username = ldap_user.uid
+        username = ldap_user['uid'].first
       end
-      if ldap_user[ldap_configs.ldap_email_field]
+      username.gsub!(/@[^@]+$/, '') unless username.nil? # use only the first part if this is an email
+      if ldap_user[ldap_configs.ldap_email_field] && !ldap_user[ldap_configs.ldap_email_field].empty?
         email = ldap_user[ldap_configs.ldap_email_field].first
       else
-        email = ldap_user.mail
+        email = ldap_user['mail'].first
       end
-      if ldap_user[ldap_configs.ldap_name_field]
+      if ldap_user[ldap_configs.ldap_name_field] && !ldap_user[ldap_configs.ldap_name_field].empty?
         name = ldap_user[ldap_configs.ldap_name_field].first
       else
-        name = ldap_user.cn
+        name = ldap_user['cn'].first
       end
       [username, email, name]
     end

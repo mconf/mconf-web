@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -8,6 +8,8 @@ require "spec_helper"
 
 describe UsersController do
   render_views
+
+  it "includes Mconf::ApprovalControllerModule"
 
   describe "#index" do
     it "loads the space"
@@ -103,8 +105,8 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :password, :password_confirmation, :remember_me, :current_password, :login,
-          :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
+        [ :remember_me, :login, :timezone, :receive_digest, :expanded_post,
+          :password, :password_confirmation, :current_password ]
       }
       before {
         sign_in(user)
@@ -165,7 +167,6 @@ describe UsersController do
           it { response.status.should == 302 }
           it { response.should redirect_to edit_user_path(user) }
           it { user.superuser.should be(false) }
-
         end
 
         context "when admin and target is self" do
@@ -216,6 +217,57 @@ describe UsersController do
         end
       end
 
+      context "trying to update disabled flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, disabled: false) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { disabled: true }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.disabled.should be(false) }
+
+        end
+      end
+
+      context "trying to update can_record flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, can_record: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { can_record: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.can_record.should be(true) }
+        end
+      end
+
+      context "trying to update approved flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, approved: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { approved: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.approved.should be(true) }
+        end
+      end
     end
 
     context "attributes that the user can update" do
@@ -780,10 +832,10 @@ describe UsersController do
         post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.approved', username: user.username)) }
+      it { should set_the_flash.to(I18n.t('users.approve.approved', name: user.name)) }
       it { should redirect_to('/any') }
-      it("approves the user") { user.reload.approved?.should be(true) }
-      it("confirms the user") { user.reload.confirmed?.should be(true) }
+      it("approves the user") { user.reload.should be_approved }
+      it("confirms the user") { user.reload.should be_confirmed }
 
       context "skips the confirmation email" do
         let(:user) { FactoryGirl.create(:unconfirmed_user) }
@@ -836,9 +888,9 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', username: user.username)) }
+      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
       it { should redirect_to('/any') }
-      it("disapproves the user") { user.reload.approved?.should be_falsey }
+      it("disapproves the user") { user.reload.should_not be_approved }
     end
 
     context "if #require_registration_approval is not set in the current site" do
@@ -849,13 +901,27 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
       it { should redirect_to('/any') }
-      it("user is still (auto) approved") { user.reload.approved?.should be_truthy } # auto approved on registration
+      it("user is still (auto) approved") { user.reload.should be_approved } # auto approved on registration
     end
 
     it { should_authorize an_instance_of(User), :disapprove, via: :post, id: user.to_param }
   end
 
   describe "#new" do
+    # see bug #1719
+    context "doesnt store location for redirect from xhr" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before {
+        sign_in superuser
+        controller.session[:user_return_to] = "/home"
+        controller.session[:previous_user_return_to] = "/manage/users"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :new
+      }
+      it { controller.session[:user_return_to].should eq( "/home") }
+      it { controller.session[:previous_user_return_to].should eq("/manage/users") }
+    end
+
     context "logged as a superuser" do
       let(:superuser) { FactoryGirl.create(:superuser) }
       before(:each) { sign_in(superuser) }

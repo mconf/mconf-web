@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.4'
-gem 'sass-rails', '~> 4.0.3'
+gem 'rack', '~> 1.5.4'
+gem 'rails', '~> 4.1.11'
+gem 'sass-rails', '~> 4.0.4'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'
-gem 'jquery-rails', '~> 3.1.1'
+gem 'jquery-rails', '~> 3.1.3'
 gem 'yui-compressor'
-gem 'compass-rails', '~> 1.0'
+gem 'compass-rails', '~> 2.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
@@ -27,7 +28,7 @@ gem 'friendly_id'
 gem 'i18n-js', :git => "https://github.com/fnando/i18n-js.git"
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
-gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
+gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity', '~> 1.4.1'
 
 # For queues
@@ -36,7 +37,7 @@ gem 'resque-scheduler', :require => 'resque/scheduler/server'
 gem 'resque_mailer'
 
 # Authentication and authorization
-gem 'devise', '~> 3.2.4'
+gem 'devise', '~> 3.5.1'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'cancancan', '~> 1.9'
 gem 'devise-async'
@@ -67,6 +68,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'
 
+gem 'sprockets', '~> 2.12.3'
+
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
 
@@ -89,6 +92,10 @@ gem 'dotiw'
 # Sanity check on database
 gem 'active_sanity'
 
+# Turn rails logs into json
+gem "lograge"
+gem "logstash-event"
+
 #
 # TODO: Gems to review if we can remove/update
 #
@@ -99,6 +106,8 @@ gem 'prism'
 
 gem 'fineuploader-rails', '~> 3.3'
 
+gem 'resque-lock-timeout'
+
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
   gem 'rails-footnotes'
@@ -106,6 +115,7 @@ group :development do
   gem 'brakeman', :require => false
   gem 'librarian-chef'
   gem 'mailcatcher'
+  gem 'xray-rails'
 
   # to show better error pages, with more information
   gem 'better_errors'
@@ -131,9 +141,12 @@ group :development, :test do
   gem 'simplecov', :require => false
   gem 'fooldap'
   gem 'spring'
+  gem 'zonebie'
+  gem 'timecop'
 end
 
 group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
+  gem 'webmock'
 end

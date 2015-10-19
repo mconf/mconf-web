@@ -202,7 +202,7 @@ form {
   &.user-detailed {
     .user-text { float: left; }
     .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
-    .user-name { display: block; clear: both; }
+    .user-name { display: block; clear: both; float: left; }
     .user-mail { display: block; clear: both; }
     .user-info-prefix { color: $font-color-gray; float: left; margin-right: 5px; }
     .user-organization { float: left; }
@@ -997,6 +997,11 @@ strong.highlight {
 // for small date/time texts
 .small-date {
   @include small-date;
+}
+
+// resources waiting moderation
+.user-waiting-moderation, .space-waiting-moderation {
+  color: $font-color-gray;
 }
 
 

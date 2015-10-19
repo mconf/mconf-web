@@ -22,8 +22,9 @@
       - else
         = render "spaces/list_view",  spaces: @user_spaces,  user_spaces: @user_spaces
     .content-block-footer
-      = link_to new_space_path,  class: "btn btn-mini btn-primary",  style: "float:left;" do
-        = t('.create_space')
+      - if can?(:create, Space)
+        = link_to new_space_path, class: "btn btn-mini btn-primary" do
+          = t('.create_space')
       = link_to t('.view_all_spaces'), spaces_path
 
 - unless current_user.confirmed?

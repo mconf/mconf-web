@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -65,7 +65,7 @@ class NewsController < ApplicationController
 
   def get_news
     @news = @space.news.order("updated_at DESC")
-    authorize! :index_news, @space
+    authorize! :manage_news, @space
   end
 
   allow_params_for :news

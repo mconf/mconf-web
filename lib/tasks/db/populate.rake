@@ -114,6 +114,7 @@ namespace :db do
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
       space.disabled = false
+      space.approved = true
       space.permalink = name.parameterize
       space.repository = [ true, false ]
 
@@ -177,6 +178,7 @@ namespace :db do
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
         user = available_users.sample
+        available_users -= [user]
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
@@ -212,7 +214,7 @@ namespace :db do
       available_users = User.all.to_a
       MwebEvents::Event.populate 20..40 do |event|
         event.owner_id = available_users
-        event.owner_type = 'Space'
+        event.owner_type = 'User'
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')
         event.time_zone = Forgery::Time.zone
@@ -281,6 +283,7 @@ namespace :db do
         recording.start_time = @created_at_start..Time.now
         recording.end_time = recording.start_time + rand(5).hours
         recording.description = Populator.words(5..8)
+        recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
 
         # Recording metadata
         BigbluebuttonMetadata.populate 0..3 do |meta|

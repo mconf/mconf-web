@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'devise/strategies/database_authenticatable'
 Devise::Strategies::DatabaseAuthenticatable.class_eval do
 
@@ -18,6 +24,9 @@ Devise::Strategies::DatabaseAuthenticatable.class_eval do
     # only superusers are allowed to sign in if the local authentication is disabled
     local_auth = Site.current.local_auth_enabled? || resource.superuser
     return fail(:local_auth_disabled) unless local_auth
+
+    # account created via shibboleth are also excluded from local auth
+    return fail(:shib_auth_disabled) if resource.created_by_shib?
 
     super_authenticate!
   end

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -104,6 +104,17 @@ class Invitation < ActiveRecord::Base
       cal = Icalendar::Calendar.new
       cal.add_event(event)
       cal.to_ical
+    end
+  end
+
+  # Get a https/http URL depending on the setting on the site
+  def url_with_protocol
+    begin
+      u = URI.parse(self.url)
+      u.scheme = Site.current.ssl? ? 'https' : 'http'
+      u.to_s
+    rescue URI::InvalidURIError
+      url
     end
   end
 

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -30,6 +30,7 @@ module Mconf
       shib_data = {}
       env_variables.each do |key, value|
         unless filter.select{ |f| key.to_s.downcase =~ f }.empty?
+          value.force_encoding('UTF-8') if value.present? # see #1774
           shib_data[key.to_s] = value
         end
       end
@@ -41,7 +42,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email && get_name && get_principal_name
+      @session[ENV_KEY] && get_identifier && get_email && get_name && get_principal_name
     end
 
     def get_field field
@@ -51,6 +52,12 @@ module Mconf
         result = result.dup unless result.blank?
       end
       result
+    end
+
+    # The name of the field to be used as the identifier for users signed in via Shibboleth.
+    # By default it currently uses the the EPPN.
+    def get_identifier
+      get_principal_name
     end
 
     # Returns the email stored in the session, if any.
@@ -99,14 +106,27 @@ module Mconf
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
     def find_token
-      ShibToken.find_by_identifier(get_email())
+      ShibToken.find_by_identifier(get_identifier)
+    end
+
+    # Finds the ShibToken and updates it with the information in the session, unless
+    # it's empty. Returns the token.
+    # Doesn't raise an exception if it fails to save the token, will return the
+    # errors in the model.
+    def find_and_update_token
+      token = find_token
+      if token.present? && !get_data.blank?
+        token.data = get_data
+        token.save
+      end
+      token
     end
 
     # Searches for a ShibToken using data in the session and returns it. Creates a new
     # ShibToken if no token is found and returns it.
     def find_or_create_token
       token = find_token
-      token = create_token(get_email) if token.nil?
+      token = create_token(get_identifier) if token.nil?
       token
     end
 
@@ -127,14 +147,32 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
-      if user.save
-        create_notification(user, shib_token)
-      else
+      if !user.save
         Rails.logger.error "Shibboleth: error while saving the user model"
         Rails.logger.error "Shibboleth: errors: " + user.errors.full_messages.join(", ")
       end
 
       user
+    end
+
+    # Update data in the user model which might change in the federation, for now
+    # the only fields used are 'email' and 'name'
+    def update_user(token)
+      user = token.user
+
+      # Don't update anything if it's an associated account
+      if token.new_account?
+        user.update_attributes(email: get_email)
+        user.skip_confirmation_notification!
+        user.confirm
+        user.profile.update_attributes(full_name: get_name)
+      end
+    end
+
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
     end
 
     private
@@ -152,13 +190,7 @@ module Mconf
     end
 
     def create_token(id)
-      ShibToken.create!(:identifier => id)
-    end
-
-    def create_notification(user, token)
-      RecentActivity.create(
-        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
-      )
+      ShibToken.new(identifier: id)
     end
 
   end

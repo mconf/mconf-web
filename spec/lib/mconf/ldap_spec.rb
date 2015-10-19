@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -28,24 +28,116 @@ describe Devise::Strategies::LdapAuthenticatable do
   end
 
   describe "#find_or_create_user" do
+    let(:ldap_user) { FactoryGirl.build(:ldap_user) }
+    let(:ldap_configs) { FactoryGirl.create(:site) }
+
     context "if the username field set in the configurations exists in the user information" do
-      it "uses it"
+      before {
+        ldap_configs.ldap_username_field = 'custom-uid'
+      }
+
+      context "uses it" do
+        before {
+          ldap_user['custom-uid'] = 'my-username'
+          expect {
+            expect {
+              target.find_or_create_user(ldap_user, ldap_configs)
+            }.to change{ LdapToken::count }.by(1)
+          }.to change{ User::count }.by(1)
+        }
+        it { User.last.username.should eql('my-username') }
+      end
+
+      context "if the content is an email, uses only the first part as the username" do
+        before {
+          ldap_user['custom-uid'] = 'my-username@my-domain.com'
+          target.find_or_create_user(ldap_user, ldap_configs)
+        }
+        it { User.last.username.should eql('my-username') }
+      end
     end
-    context "if the username field set in the configurations does not exist in the user information" do
-      it "uses a default username"
+
+    context "if the username field set in the configurations does not exist in the user information"do
+      before {
+        ldap_configs.ldap_username_field = 'custom-uid'
+      }
+
+      context "uses the default field 'uid'" do
+        before {
+          ldap_user['uid'] = 'my-username'
+          ldap_user['custom-uid'] = nil
+          target.find_or_create_user(ldap_user, ldap_configs)
+        }
+        it { User.last.username.should eql('my-username') }
+      end
     end
+
     context "if the name field set in the configurations exists in the user information" do
-      it "uses it"
+      before {
+        ldap_configs.ldap_name_field = 'custom-cn'
+      }
+
+      context "uses it" do
+        before {
+          ldap_user['custom-cn'] = 'my-name'
+          expect {
+            expect {
+              target.find_or_create_user(ldap_user, ldap_configs)
+            }.to change{ LdapToken::count }.by(1)
+          }.to change{ User::count }.by(1)
+        }
+        it { User.last.name.should eql('my-name') }
+      end
     end
-    context "if the name field set in the configurations does not exist in the user information" do
-      it "uses a default name"
+
+    context "if the name field set in the configurations does not exist in the user information"do
+      before {
+        ldap_configs.ldap_name_field = 'custom-cn'
+      }
+
+      context "uses the default field 'cn'" do
+        before {
+          ldap_user['cn'] = 'my-name'
+          ldap_user['custom-cn'] = nil
+          target.find_or_create_user(ldap_user, ldap_configs)
+        }
+        it { User.last.name.should eql('my-name') }
+      end
     end
+
     context "if the email field set in the configurations exists in the user information" do
-      it "uses it"
+      before {
+        ldap_configs.ldap_email_field = 'custom-mail'
+      }
+
+      context "uses it" do
+        before {
+          ldap_user['custom-mail'] = 'my-email@my-domain.com'
+          expect {
+            expect {
+              target.find_or_create_user(ldap_user, ldap_configs)
+            }.to change{ LdapToken::count }.by(1)
+          }.to change{ User::count }.by(1)
+        }
+        it { User.last.email.should eql('my-email@my-domain.com') }
+      end
     end
-    context "if the email field set in the configurations does not exist in the user information" do
-      it "uses a default email"
+
+    context "if the email field set in the configurations does not exist in the user information"do
+      before {
+        ldap_configs.ldap_email_field = 'custom-mail'
+      }
+
+      context "uses the default field 'mail'" do
+        before {
+          ldap_user['mail'] = 'my-email@my-domain.com'
+          ldap_user['custom-mail'] = nil
+          target.find_or_create_user(ldap_user, ldap_configs)
+        }
+        it { User.last.email.should eql('my-email@my-domain.com') }
+      end
     end
+
     it "calls #find_or_create_token with the correct parameters to get the token"
     it "calls #create_account with the correct parameters to get the user"
     it "sets the user in the token and saves it"
@@ -96,6 +188,12 @@ describe Devise::Strategies::LdapAuthenticatable do
     it ("returns the user found if one already exists") {
       ldap.send(:create_account, user.email, user.username, user.name, token)
           .should eql(user)
+    }
+
+    it ("matches the user using a case-insensitive search") {
+      email = user.email.upcase
+      ldap.send(:create_account, email, user.username, user.name, token)
+        .should eql(user)
     }
 
     context "if the target user doesn't exist yet, creates a new user" do

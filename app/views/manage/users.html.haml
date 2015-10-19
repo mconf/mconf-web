@@ -1,10 +1,19 @@
 = render :partial => 'menu'
 
 #manage
+
   .page-tabs.page-tabs-full
-    = link_to t('.new_user'), new_user_path, class: 'open-modal btn btn-primary btn-new-user'
-    %label{ for: 'users_filter_text' }= t('.filter_results')
-    = text_field_tag :users_filter_text, params[:q], placeholder: t('.filter_name_or_username'), 'data-load-url' =>  manage_users_path(partial: 1), :'data-target' => '#users-list', :'data-filter' => '#filter-total', class: 'resource-filter'
+    .search-words
+      = link_to t('.new_user'), new_user_path, class: 'open-modal btn btn-primary btn-new-user'
+      = text_field_tag :users_filter_text, params[:q], placeholder: t('.filter_name_or_username'), 'data-load-url' =>  manage_users_path, :'data-target' => '#users-list', :'data-filter' => '#filter-total', class: 'resource-filter'
+
+    .search-filters
+      - ['admin', 'approved', 'disabled', 'can_record'].each do |field|
+        .search-filter-option
+          = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
+          = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
 
   #users-list
     = render partial: 'users_list', locals: { :users => @users }

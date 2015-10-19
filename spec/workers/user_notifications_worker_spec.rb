@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -162,7 +162,7 @@ describe UserNotificationsWorker do
         it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
         context "should generate the activities anyway" do
           it { RecentActivity.where(trackable: user1, key: 'user.created').first.should_not be_nil }
-          it { RecentActivity.where(trackable: user2, key: 'user.created').first.should_not be_nil }
+          it { RecentActivity.where(trackable_id: user2, key: 'user.created').first.should_not be_nil }
         end
       end
 
@@ -178,9 +178,11 @@ describe UserNotificationsWorker do
 
     shared_examples "creation of activities and mails" do
       context "creates the RecentActivity" do
-        it { activity.trackable.should eql @user }
-        it { activity.owner.should eql token }
+        it { activity.trackable.should eql(@user) }
         it { activity.notified.should be(false) }
+
+        # Now working, see #1737
+        it { activity.owner.should eql(token) }
       end
 
       context "#perform sends the right mails and updates the activity" do
@@ -193,7 +195,7 @@ describe UserNotificationsWorker do
 
     context "notifies the users created via Shibboleth" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
-      let(:token) { ShibToken.create!(identifier: 'any@email.com') }
+      let(:token) { ShibToken.new(identifier: 'any@email.com') }
       let(:activity) { RecentActivity.where(key: 'shibboleth.user.created').last }
 
       before {
@@ -202,7 +204,12 @@ describe UserNotificationsWorker do
         shibboleth.should_receive(:get_name).and_return('Any Name')
       }
       before(:each) {
-        expect { @user = shibboleth.create_user token }.to change{ User.count }.by(1)
+        expect {
+          @user = shibboleth.create_user(token)
+          token.user = @user
+          token.save!
+          shibboleth.create_notification(token.user, token) # TODO: Let's refactor in the future. see #1128
+        }.to change{ User.count }.by(1)
       }
 
       include_examples "creation of activities and mails"

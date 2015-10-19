@@ -2,4 +2,5 @@
  *= require ./app/join_requests/index
  *= require ./app/join_requests/new
  *= require ./app/join_requests/show
+ *= require ./app/join_requests/invite
  */

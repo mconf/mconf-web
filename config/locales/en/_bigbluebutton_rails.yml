@@ -24,11 +24,15 @@ en:
         recordid: "Record ID"
         room_id: "Room ID"
         server_id: "Server ID"
+        size: "Size"
         start_time: "Start Time"
       bigbluebutton_room:
+        allow_start_stop_recording: "Allow users to start/stop recording"
+        attendee_key: "Key for attendees"
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
-        attendee_key: "Key for attendees"
+        auto_start_recording: "Auto start recording"
+        background: "Background image"
         default_layout: "Default Layout"
         dial_number: "Dial Number"
         duration: Duration
@@ -38,6 +42,7 @@ en:
         meetingid: "Meeting ID"
         metadata: Metadata
         moderator_key: "Key for moderators"
+        moderator_only_message: "Message to be shown to moderators only"
         name: Name
         param: "String ID"
         private: Private
@@ -99,6 +104,7 @@ en:
           success: "Your recording was successfully updated."
     rooms:
       default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
+      default_welcome_msg_dial_number: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "There's no server associated with this room."
@@ -140,3 +146,11 @@ en:
           success: "Your recordings were successfully unpublished."
         update:
           success: "Your server was successfully updated."
+    server_configs:
+      layouts:
+        defaultlayout: "Default Layout"
+        lecture: "Lecture"
+        lectureassistant: "Lecture Assistant"
+        presentfocus: "Webinar"
+        videochat: "Video Chat"
+        webcamsfocus: "Meeting"

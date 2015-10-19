@@ -28,6 +28,20 @@
   = f.input :duration, :disabled => !editing
   = f.input :max_participants, :disabled => !editing
   = f.input :param, :disabled => !editing
+  = f.input :moderator_only_message, :disabled => !editing
+  = f.input :auto_start_recording, :disabled => !editing
+  = f.input :allow_start_stop_recording, :disabled => !editing
+
+  #room-advanced-options
+    - if editing
+      = f.input :default_layout do
+        = f.select :default_layout, room.available_layouts_for_select, :include_blank => t('.layout_empty_option')
+    - else
+      = f.input :default_layout, :as => :string, :disabled => true
+    = f.input :presenter_share_only, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.presenter_share_only'), :disabled => !editing
+    = f.input :auto_start_video, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_video'), :disabled => !editing
+    = f.input :auto_start_audio, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_audio'), :disabled => !editing
+    = f.input :background, :as => :string, :disabled => !editing
 
   - if editing
     - if room.new_record?
@@ -47,7 +61,6 @@
             = metadata_form.check_box :_destroy
             = metadata_form.label :_destroy, t(".metadata.set_to_remove")
     = f.button :wrapped, :cancel => cancel_route, :value => t("_other.save")
-
   - else
     - unless room.new_record?
       %label= BigbluebuttonRoom.human_attribute_name(:metadata)

@@ -16,6 +16,7 @@ en:
       deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
       request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
@@ -30,6 +31,7 @@ en:
       update_html: updated the news %{name} in the space
       deleted: that have since been deleted
     other:
+      admin_html: "An administrator"
       someone_html: "Someone"
     post:
       create_html: posted %{name} in the space
@@ -38,6 +40,7 @@ en:
       deleted: a message that has since been deleted
     space:
       accept_html: has joined the space
+      approved_html: approved the space
       create_html: created a new space
       decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
@@ -55,7 +58,7 @@ en:
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
-      format_rails: "%m/%d/%Y %H:%M %z"
+      format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
@@ -80,9 +83,11 @@ en:
       other: "%{count} participants"
     publish: "Publish"
     register: "Register"
-    register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
+    not_approved:
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -160,6 +165,7 @@ en:
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
+        forbid_user_space_creation: "Forbid users from creating spaces"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -175,7 +181,9 @@ en:
         name: "Name"
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
-        require_registration_approval: "Require admins to approve new registrations"
+        require_registration_approval: "Moderate users"
+        require_space_approval: "Moderate spaces"
+        room_dial_number_pattern: 'Room dial number pattern'
         signature: "Signature"
         shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
@@ -184,6 +192,7 @@ en:
         shib_login_field: "Shibboleth: Field for login"
         shib_name_field: "Shibboleth: Field for name"
         shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
+        shib_update_users: "Shibboleth: Update user information"
         smtp_auth_type: "STMP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "STMP domain"
@@ -460,6 +469,7 @@ en:
     edit:
       editing_room: "Editing room '%{room}'"
     form:
+      layout_empty_option: "<default>"
       metadata:
         add: "Add metadata"
         set_to_remove: "Set to remove"
@@ -470,7 +480,9 @@ en:
       at: "at"
       duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the time zone %{timezone}"
+      offset: "Your current time offset is \"%{offset}\""
+      offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "The dates below are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
@@ -507,8 +519,8 @@ en:
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      download_android_tip: "For devices with Android"
+      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
       not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""
@@ -730,7 +742,7 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
+    no_spaces: "You do not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
   icons: 
@@ -808,6 +820,8 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+      users_added: "You have successfully added the user(s) %{users} to this space"
+      you_are_already_a_member: "You are already a member of this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -830,6 +844,9 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      type_add: "Add users directly"
+      type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
+      type_invite: "Invite"
       users:
         hint: "Type to start searching"
         no_results: "No results found"
@@ -900,6 +917,7 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
+      manage_to_approve: "manage"
       private: "Private space"
       public: "Public space"
   less: "less..."
@@ -931,8 +949,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
+      approve: "Approve: unlock the access to this space"
+      approve_confirm: "Are you sure you want to unlock the access to this space?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
+      disapprove: "Disapprove: block the access to this space"
+      disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -952,8 +974,8 @@ en:
       users: "Users"
       webconf: "Web Conference"
     spaces:
-      filter_name: "Name"
-      filter_results: "Filter the results:"
+      filter_name: "Filter spaces by name"
+      new_space: "Create space"
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
@@ -979,9 +1001,16 @@ en:
         not_spam_tooltip: "This post is not a spam"
         title: "Posts marked as spam"
     users:
-      filter_name_or_username: "Name, username or email"
-      filter_results: "Filter the results:"
+      filter_name_or_username: "Filter users by name, username or email"
       new_user: "Create user"
+      admin_true: Admins
+      admin_false: Users
+      approved_true: Approved
+      approved_false: Not approved
+      disabled_true: Disabled
+      disabled_false: Enabled
+      can_record_true: Can record
+      can_record_false: Can't record
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
@@ -1402,6 +1431,7 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before other users can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
@@ -1468,6 +1498,9 @@ en:
     public: 
       one: "Public space"
       other: "Public spaces"
+    remove_user:
+      confirm: "Are you sure you want to remove this user from the space?"
+      remove: "Remove user"
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
@@ -1520,6 +1553,12 @@ en:
       news: "News"
       users: "Users"
       webconf_options: "Webconference options"
+      add_member: "Add members"
+    approve:
+      approved: "The space %{name} was approved"
+    disapprove:
+      disapproved: "The space %{name} was disapproved"
+      not_enabled: "Moderation of spaces is not enabled"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1531,8 +1570,10 @@ en:
       title: "Edit your recording"
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
+      creation_forbidden: "You are not allowed to create spaces"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
+      unapproved: "This space was not yet approved by an administrator."
     index: 
       create_new_space: "Create a new space"
       list_format: 
@@ -1577,6 +1618,7 @@ en:
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
+        dial_number: "Dial number"
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_notifications:
@@ -1614,6 +1656,12 @@ en:
       user_is_member: "You are a member of this space"
       view_join_request: "View the request you sent"
       with_members: "with %{count} members"
+    user_permissions:
+      confirm_leave_space: "Are you sure you want to leave this space?"
+      confirm_remove_user: "Are you sure you want to remove this user from the space?"
+      leave_space: "Leave this space"
+      remove_user: "Remove the user from the space"
+      tooltip_last_admin: "This user is the last administrator of this space, therefore he can't leave not have its role changed"
     users: "Users in this space"
     webconference:
       end: "Stop the meeting"
@@ -1673,6 +1721,9 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
+  sites:
+    edit:
+      shib_warning_html: "This field is used as the unique identifier for Shibboleth users. If you modify it your users may be unable to access their accounts, before changing it read <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">this page</a>."
   text: Text
   the_string: "the string"
   thread: 
@@ -1785,7 +1836,7 @@ en:
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:
-      approved: "The user %{username} was approved to access the website!"
+      approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     create:
       error: "Errors creating the user: %{errors}"
@@ -1795,7 +1846,7 @@ en:
     detailed_user:
       from: "From:"
     disapprove:
-      disapproved: "The user %{username} was blocked from accessing the website!"
+      disapproved: "The user %{name} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"

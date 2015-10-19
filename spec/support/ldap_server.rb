@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'fooldap'
 
 class SpecLdapServer < Fooldap::Server
@@ -13,6 +19,19 @@ class SpecLdapServer < Fooldap::Server
 
   def default_options
     { :operation_class => SpecLdapOperation, :operation_args => [self] }
+  end
+
+  def find_users(basedn, filter)
+    basedn_regex = /#{Regexp.escape(basedn)}$/
+    filter_regex = /^#{filter[1]}=#{filter[3]}$/
+
+    @users.keys.select { |dn|
+      attributes = dn.split(",")
+      if @data[dn]
+        attributes.concat @data[dn].map{ |k, v| "#{k}=#{v}" }
+      end
+      dn =~ basedn_regex && attributes.grep(filter_regex).any?
+    }
   end
 
   def data
@@ -39,6 +58,22 @@ class SpecLdapOperation < Fooldap::Operation
           user_dn = member_eq[3]
           return @server.find_groups(user_dn).each { |group| send_group_result(*group) }
         end
+      end
+    elsif filter.first == :or
+      users = []
+      if filter[1].first == :eq
+        result = @server.find_users(basedn, filter[1]).each do |dn|
+          users << dn
+          send_SearchResultEntry(dn, @server.data[dn])
+        end
+        return result unless result.nil? || result.empty?
+      end
+      if filter[2].first == :eq
+        result = @server.find_users(basedn, filter[2]).each do |dn|
+          users << dn
+          send_SearchResultEntry(dn, @server.data[dn])
+        end
+        return result unless result.nil? || result.empty?
       end
     end
     raise LDAP::ResultError::UnwillingToPerform, "Only some matches are supported"

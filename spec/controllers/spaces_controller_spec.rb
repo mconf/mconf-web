@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -9,73 +9,7 @@ require "spec_helper"
 describe SpacesController do
   render_views
 
-  shared_examples "an action that rescues from CanCan::AccessDenied" do
-    context "when there's a user logged in" do
-      let(:user) { FactoryGirl.create(:user) }
-      before(:each) { sign_in(user) }
-
-      context "and the user has no pending join request" do
-        before(:each) { do_action }
-        it { should redirect_to(new_space_join_request_path(space)) }
-        it { should set_the_flash.to(I18n.t("spaces.error.need_join_to_access")) }
-      end
-
-      context "and the user has a pending invitation" do
-        before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
-        }
-        before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_truthy }
-        it { should redirect_to(space_join_request_path(space, @invitation)) }
-        it { should set_the_flash.to(I18n.t("spaces.error.already_invited")) }
-      end
-
-      context "and the user has a pending join request" do
-        before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
-        }
-        before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_truthy }
-        it { should redirect_to(new_space_join_request_path(space)) }
-        it { should_not set_the_flash }
-      end
-    end
-
-    context "when there's no user logged in" do
-      before { do_action }
-      it("should ask the user to log in") { should redirect_to login_path }
-    end
-  end
-
-  shared_examples "an action that does not rescue from CanCan::AccessDenied" do
-    context "when there's a user logged in" do
-      let(:user) { FactoryGirl.create(:user) }
-      before(:each) { sign_in(user) }
-
-      context "and the user has no pending join request" do
-        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-      end
-
-      context "and the user has a pending invitation" do
-        before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
-        }
-        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-      end
-
-      context "and the user has a pending join request" do
-        before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
-        }
-        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-      end
-    end
-
-    context "when there's no user logged in" do
-      before { do_action }
-      it("should ask the user to log in") { should redirect_to login_path }
-    end
-  end
+  it "includes Mconf::ApprovalControllerModule"
 
   describe "rescue_from exceptions" do
     context "rescues from CanCan::AccessDenied" do
@@ -141,6 +75,7 @@ describe SpacesController do
     end
 
     it "orders by name if params[:order]=='abc'"
+    it "returns only approved spaces"
 
     context "if there's a user signed in" do
 
@@ -372,6 +307,10 @@ describe SpacesController do
         it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
         it { RecentActivity.last.recipient.should eq(user) }
       end
+
+      it "automatically approves the space if it's an admin creating it"
+      it "shows the correct message if the space is approved"
+      it "shows the correct message if the space is not approved yet"
     end
 
     context "with invalid attributes" do

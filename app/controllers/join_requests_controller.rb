@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -14,7 +14,7 @@ class JoinRequestsController < ApplicationController
 
   load_resource :space, :find_by => :permalink
   load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite]
-  load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
+  load_resource :join_request, :through => :space, :only => [:index, :invite] # these are authenticated via space parent
 
   before_filter :webconf_room!, only: [:index, :invite]
   before_filter :check_processed_request, only: [:show, :accept, :decline]
@@ -33,7 +33,7 @@ class JoinRequestsController < ApplicationController
   end
 
   def index
-    authorize! :index_join_requests, @space
+    authorize! :manage_join_requests, @space
   end
 
   def show
@@ -50,13 +50,13 @@ class JoinRequestsController < ApplicationController
 
   def invite
     @join_request = JoinRequest.new
-    authorize! :invite, @space
+    authorize! :manage_join_requests, @space
   end
 
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:invite] && can?(:invite, @space)
+    if params[:type] == 'invite' && can?(:manage_join_requests, @space)
       success, errors, already_invited = process_invitations
 
       unless errors.empty?
@@ -70,9 +70,23 @@ class JoinRequestsController < ApplicationController
       end
       redirect_to invite_space_join_requests_path(@space)
 
+    # if it's a global admin adding people to the space
+    elsif params[:type] == 'add' && can?(:add, @space)
+      success, errors = process_additions
+      unless errors.empty?
+        flash[:error] = t('join_requests.create.error', errors: errors.join(' - '))
+      end
+      unless success.empty?
+        flash[:success] = t('join_requests.create.users_added', users: success.join(', '))
+      end
+      redirect_to invite_space_join_requests_path(@space)
+
     # it's a common user asking for membership in a space
     else
-      if @space.pending_join_request_or_invitation_for?(current_user)
+      if @space.users.include?(current_user)
+        flash[:notice] = t('join_requests.create.you_are_already_a_member')
+        redirect_after_created
+      elsif @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         redirect_after_created
       else
@@ -185,11 +199,55 @@ class JoinRequestsController < ApplicationController
     end
   end
 
+  def process_additions
+    errors = []
+    success = []
+    ids = params[:candidates].try(:split, ',') || []
+    ids.each do |id|
+      user = User.find_by_id(id)
+      # New JoinRequest corresponding to this addition
+      jr = @space.join_requests.new(join_request_params)
+      if user
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = JoinRequest::TYPES[:no_accept]
+        jr.introducer = current_user
+        jr.accepted = true
+        jr.processed = true
+      end
+
+      if @space.pending_join_request_or_invitation_for?(user)
+        # Need to mark the old JoinRequest as processed to avoid
+        # uniqueness conflicts that prevent the creation of the new JoinRequest
+        old_jr = @space.pending_join_request_or_invitation_for(user)
+        old_jr.processed = true
+        old_jr.save
+
+        if jr.save
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      elsif @space.users.include?(user)
+        errors.push t('join_requests.create.already_a_member', name: user.username)
+      elsif user
+        if jr.save
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      else
+        errors.push t('join_requests.create.user_not_found', id: id)
+      end
+    end
+    [success, errors]
+  end
+
   def process_invitations
     already_invited = []
     errors = []
     success = []
-    ids = params[:candidates].split ',' || []
+    ids = params[:candidates].try(:split, ',') || []
     ids.each do |id|
       user = User.find_by_id(id)
       jr = @space.join_requests.new(join_request_params)
@@ -218,7 +276,7 @@ class JoinRequestsController < ApplicationController
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
-    if [:new, :index_join_requests, :invite, :show].include? exception.action
+    if [:new, :manage_join_requests, :show].include? exception.action
       if user_signed_in?
         render_403 exception
       else
@@ -231,7 +289,7 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) && can?(:invite, @join_request.group)
+    is_space_admin = @space.present? && can?(:manage_join_requests, @space)
     if params[:action] == "create"
       if is_space_admin
         [ :role_id, :comment ]

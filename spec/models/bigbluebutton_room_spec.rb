@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -38,22 +38,22 @@ describe BigbluebuttonRoom do
 
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "in another user's room" do
         let(:another_user) { FactoryGirl.create(:user) }
         let(:target) { another_user.bigbluebutton_room }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
@@ -62,17 +62,22 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
@@ -81,28 +86,33 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "for a room without owner" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "for a room with an invalid owner_type" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 
@@ -122,7 +132,10 @@ describe BigbluebuttonRoom do
         end
 
         context "when the owner is disabled" do
-          before { target.owner.disable }
+          before {
+            target.owner.disable
+            user.update_attributes(:can_record => true)
+          }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end
@@ -161,6 +174,11 @@ describe BigbluebuttonRoom do
             before { target.owner.disable }
             it { should_not be_able_to_do_anything_to(target) }
           end
+
+          context "when the space is not approved" do
+            before { target.owner.update_attributes(approved: false) }
+            it { should_not be_able_to_do_anything_to(target) }
+          end
         end
 
         context "he belongs to" do
@@ -189,7 +207,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -222,7 +243,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -253,7 +277,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -266,7 +293,10 @@ describe BigbluebuttonRoom do
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -311,6 +341,11 @@ describe BigbluebuttonRoom do
           before { target.owner.disable }
           it { should_not be_able_to_do_anything_to(target) }
         end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -321,6 +356,11 @@ describe BigbluebuttonRoom do
 
         context "when the owner is disabled" do
           before { target.owner.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end

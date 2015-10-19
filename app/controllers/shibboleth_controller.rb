@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -32,10 +32,10 @@ class ShibbolethController < ApplicationController
       @attrs_informed = @shib.get_data
       render :attribute_error
     else
-      token = @shib.find_token()
+      token = @shib.find_and_update_token
 
       # there's a token with a user associated
-      if !token.nil? && !token.user_with_disabled.nil?
+      if token.present? && !token.user_with_disabled.nil?
         user = token.user_with_disabled
         if user.disabled
           logger.info "Shibolleth: user local account is disabled, can't login"
@@ -45,6 +45,10 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # Update user data with the latest version from the federation
+          @shib.update_user(token) if current_site.shib_update_users?
+
           if token.user.active_for_authentication?
             sign_in token.user
             flash.keep # keep the message set before by #create_association
@@ -148,12 +152,14 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user(token)
+      token.new_account = true # account created by shibboleth, not by the user
       user = token.user
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"
         token.data = shib.get_data
-        token.save! # TODO: what if it fails
-        flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path)
+        token.save!
+        shib.create_notification(token.user, token)
+        flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
         logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
@@ -202,7 +208,7 @@ class ShibbolethController < ApplicationController
       token = shib.find_or_create_token()
       token.user = user
       token.data = shib.get_data()
-      token.save! # TODO: what if it fails
+      token.save!
 
       # If the user comes from shibboleth and is not confirmed we can trust him
       if !user.confirmed?
@@ -230,9 +236,9 @@ class ShibbolethController < ApplicationController
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
       request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
-      request.env["Shib-inetOrgPerson-mail"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
       request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
       request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
       request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone

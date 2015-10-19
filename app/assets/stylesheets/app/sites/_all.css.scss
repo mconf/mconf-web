@@ -26,4 +26,9 @@ body.sites {
     width: $column-width;
     padding-left: 2px; // so inputs' box-shadow aren't cut}
   }
+
+  #shib-principal-name-warning {
+    display: none;
+    margin-bottom: 15px;
+  }
 }

@@ -1,7 +1,7 @@
 - if @space && @space.id != nil
-  .current-page-logo
+  .current-page-logo{class: [!@space.approved? && 'space-waiting-moderation']}
     = link_to space_path(@space) do
-      = logo_image(@space, :size => "84x64", :title => @space.name)
+      = logo_image(@space, :size => "84x64", :title => @space.name, :class => 'logo logo-space')
   .current-page-title.space-page
     - if @space.name.size > 60
       .main-title.small-title
@@ -23,3 +23,10 @@
       %span.user-is-member
         = icon_is_member
         = t(".is_member")
+    - if current_site.require_space_approval? && !@space.approved?
+      .resource-waiting-tooltip
+        = icon_waiting_moderation
+        = t("_other.not_approved.text")
+        - if can?(:approve, @space)
+          - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
+          = ("(" + link + ")").html_safe

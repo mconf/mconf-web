@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -103,6 +103,26 @@ describe JoinRequestsWorker do
         before(:each) { worker.perform }
         it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
         it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
+      end
+
+      context "ignores requests that are not owned by join requests" do
+        let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+        let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+        let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+        before {
+          # clear automatically created activities
+          RecentActivity.destroy_all
+
+          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
+          @activity1.update_attributes(owner: space)
+          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
+          @activity2.update_attributes(owner: space)
+          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+        }
+
+        before(:each) { worker.perform }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
       end
 
       context "warns introducer about declined invitations" do

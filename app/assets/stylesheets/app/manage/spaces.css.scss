@@ -4,16 +4,21 @@
 body.manage.spaces {
 
   .page-tabs {
-    text-align: right;
+    .search-words {
+      text-align: left;
 
-    label {
-      display: inline;
-      margin: 6px 5px 0 5px;
+      label {
+        margin: 3px 7px;
+      }
+
+      input {
+        margin: 0 5px;
+        width: 75%;
+      }
     }
 
-    input {
-      margin: 0 5px;
-      width: 50%;
+    .btn-new-space {
+      float: right;
     }
   }
 
@@ -34,6 +39,10 @@ body.manage.spaces {
   .thread {
     .space-name, .space-description {
       display: block;
+    }
+
+    .space-description {
+      margin-left: 60px;
     }
   }
 

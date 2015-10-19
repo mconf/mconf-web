@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -30,6 +30,7 @@ describe CustomBigbluebuttonRecordingsController do
           BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
           recording.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
+          params[:id] = recording.recordid
           controller.stub(:params).and_return(params)
 
           put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
@@ -49,6 +50,7 @@ describe CustomBigbluebuttonRecordingsController do
           BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
           recording.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
+          params[:id] = recording.recordid
           controller.stub(:params).and_return(params)
 
           put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
@@ -252,7 +254,7 @@ describe CustomBigbluebuttonRecordingsController do
         it { should require_authentication_for(:edit, hash) }
         it { should require_authentication_for(:update, hash).via(:put) }
         it { should require_authentication_for(:destroy, hash).via(:delete) }
-        it { should require_authentication_for(:play, hash) }
+        it { should_not require_authentication_for(:play, hash) }
         it { should require_authentication_for(:publish, hash).via(:post) }
         it { should require_authentication_for(:unpublish, hash).via(:post) }
       end
@@ -263,24 +265,27 @@ describe CustomBigbluebuttonRecordingsController do
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should_not allow_access_to(:play, hash) }
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, :public => true) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should allow_access_to(:play, hash) }
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, :public => false) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should_not allow_access_to(:play, hash) }
       end
     end
   end

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -8,6 +8,8 @@
 require "digest/sha1"
 
 class UsersController < ApplicationController
+  include Mconf::ApprovalControllerModule # for approve and disapprove
+
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
@@ -33,7 +35,7 @@ class UsersController < ApplicationController
   def show
     @user_spaces = @user.spaces
     @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
-    @profile = @user.profile!
+    @profile = @user.profile
     respond_to do |format|
       format.html { render 'profiles/show' }
     end
@@ -70,7 +72,7 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true if current_user == @user
 
       flash = { :success => t("user.updated") }
-      redirect_to edit_user_path(@user), :flash => flash
+      redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
       render "edit", :layout => 'no_sidebar'
     end
@@ -124,19 +126,19 @@ class UsersController < ApplicationController
   # TODO: This is used in a lot of places, but not all want all the filters and all the
   #  results. We could make it configurable.
   def select
-    name = params[:q]
+    words = params[:q].try(:split, /\s+/)
     id = params[:i]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
-    query = User.joins(:profile).includes(:profile).order("profiles.full_name")
+    query = User
     if id
       @users = query.find_by_id(id)
     elsif query.nil?
       @users = query.limit(limit)
     else
       @users = query
-        .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
-        .limit(limit)
+      .search_by_terms(words)
+      .limit(limit)
     end
 
     respond_with @users do |format|
@@ -168,29 +170,8 @@ class UsersController < ApplicationController
   # Confirms a user's account
   def confirm
     if !@user.confirmed?
-      @user.confirm!
+      @user.confirm
       flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
-    end
-    redirect_to :back
-  end
-
-  def approve
-    if current_site.require_registration_approval?
-      @user.approve!
-      @user.create_approval_notification(current_user)
-      flash[:notice] = t('users.approve.approved', :username => @user.username)
-    else
-      flash[:error] = t('users.approve.not_enabled')
-    end
-    redirect_to :back
-  end
-
-  def disapprove
-    if current_site.require_registration_approval?
-      @user.disapprove!
-      flash[:notice] = t('users.disapprove.disapproved', :username => @user.username)
-    else
-      flash[:error] = t('users.disapprove.not_enabled')
     end
     redirect_to :back
   end
@@ -209,7 +190,7 @@ class UsersController < ApplicationController
     @user.skip_confirmation_notification!
 
     if @user.save
-      @user.confirm!
+      @user.confirm
       @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|
@@ -230,11 +211,16 @@ class UsersController < ApplicationController
     authorize! action_name.to_sym, @user
   end
 
+  def require_approval?
+    current_site.require_registration_approval?
+  end
+
   allow_params_for :user
   def allowed_params
-    allowed = [ :password, :password_confirmation, :remember_me, :current_password,
-      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
+    allowed = [ :remember_me, :login, :timezone, :receive_digest, :expanded_post ]
+    allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
+    allowed += [:approved, :disabled, :can_record] if current_user.superuser?
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end

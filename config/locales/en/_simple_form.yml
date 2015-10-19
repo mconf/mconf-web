@@ -21,6 +21,10 @@ en:
         edit:
           password: "New password"
     hints:
+      bigbluebutton_room:
+        dial_number: "A dial access number that participants can call in using regular phone."
+      bigbluebutton_server:
+        version: "The version is automatically fetched from your server whenever you change it's URL or salt."
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
@@ -32,6 +36,7 @@ en:
         exception_notifications_prefix: "Will prefixed in the subject of the email. Defaults to '[ERROR]'."
         external_help: "Insert the URL for an external site that contains the help/FAQ page. Include the entire URL, including the protocol. Example: 'http://server.com'."
         feedback_url: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
+        forbid_user_space_creation: "Only administrators will be able to create spaces"
         ldap_filter: "A custom LDAP filter to restrict the users that can log in using LDAP. Example: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "The IP or domain of the LDAP server. Example: \"192.111.22.33\" or \"ldapserver.any.com\"."
         ldap_port: "The port which will be used to connect to the LDAP server (for LDAPS connection use 636)"
@@ -44,13 +49,16 @@ en:
         local_auth_enabled: "When checked the local authentication will be enabled, otherwise it will be disabled for all users except administrators. Disabling the local authentication is usually used only when other authentication methods are enabled (e.g. LDAP)."
         presence_domain: "Domain used to identify the XMPP server."
         registration_enabled: "If checked, users can create new accounts. Otherwise, users will only be able to access the website if they already have an account. Moreover, if this option is disabled, new accounts can still be created through secondary login methods such as Shibboleth and LDAP."
-        require_registration_approval: "When checked, users will be able to register new accounts, but they will only be allowed to access the site once an administrator approves his account. Otherwise the users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
+        require_registration_approval: "When checked, users will only be allowed to access the site once an administrator approves their account. Otherwise, users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
+        require_space_approval: "When checked, spaces have to be approved by an administrator before other users can see and use them"
+        room_dial_number_pattern: "A pattern to auto generate conference dial numbers. Use an 'x' for random numbers. For example, a valid pattern is '611x-xxxx', that can generate the number '6118-2871'. After setting a pattern, new rooms will automatically receive a dial number. You can also generate a dial number for all existent rooms using the rake task 'mconf:generate_dial_numbers'."
         shib_always_new_account: "When enabled it will force shibboleth to always create a new account when a user signs in for the first time, skipping the association page."
         shib_email_field: "Required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
         shib_env_variables: "Shibboleth returns a set of environment variables when the user authenticates. All the variables specified in this list will be fetched from the environment and set attributes of the user. Specify each variable in a different line. The comparisons are case-insensitive and the strings are trimmed, and you can also use regular expressions. If this field is empty all variables that start with \"Shib-\" will be fetched."
         shib_login_field: "Not required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's login. If not informed the application will generate a login from the user's name. Example: \"Shib-inetOrgPerson-cn\"."
         shib_name_field: "Required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: \"Shib-inetOrgPerson-sn\"."
-        shib_principal_name_field: "Required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's principal name, that contains the user's unique identifier. Example \"Shib-inetOrgPerson-sn\"."
+        shib_principal_name_field: "Required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's \"principal name\", that contains the user's unique identifier. If you change this value after having users already in the database, they might lose access to their account! Example \"Shib-inetOrgPerson-sn\"."
+        shib_update_users: "If set, some of the user attributes will be automatically updated using the information received from the federation (e.g. update the user's email if it changed in the federation). In this case users will also not be able to edit these attributes in the site. If not set, the attributes will not be automatically updated."
         smtp_login: "The login email to your SMTP server"
         smtp_password: "The password for your email account in your SMTP server"
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
@@ -79,8 +87,9 @@ en:
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
+        dial_number: "A dial access number that participants can call in using regular phone."
         superuser: "Check this option to make this user a global administrator of this website"
-        timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"
+        timezone: "The selected time zone will be used to display all dates in the website. Time zones with an asterisk (*) are currently in daylight saving time."
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     placeholders:
       invite:

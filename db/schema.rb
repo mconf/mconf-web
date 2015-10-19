@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318204721) do
+ActiveRecord::Schema.define(version: 20150903182639) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -91,14 +91,15 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",   default: false
+    t.boolean  "published",             default: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "available",   default: true
+    t.boolean  "available",             default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
+    t.integer  "size",        limit: 8, default: 0
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.boolean  "presenter_share_only"
     t.boolean  "auto_start_video"
     t.boolean  "auto_start_audio"
+    t.string   "background"
   end
 
   add_index "bigbluebutton_room_options", ["room_id"], name: "index_bigbluebutton_room_options_on_room_id", using: :btree
@@ -129,16 +131,19 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",                                         default: false
+    t.boolean  "private",                                             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "external",                                        default: false
+    t.boolean  "external",                                            default: false
     t.string   "param"
-    t.boolean  "record_meeting",                                  default: false
-    t.integer  "duration",                                        default: 0
+    t.boolean  "record_meeting",                                      default: false
+    t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
     t.string   "attendee_api_password"
-    t.decimal  "create_time",            precision: 14, scale: 0
+    t.decimal  "create_time",                precision: 14, scale: 0
+    t.string   "moderator_only_message"
+    t.boolean  "auto_start_recording",                                default: false
+    t.boolean  "allow_start_stop_recording",                          default: true
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
@@ -327,6 +332,7 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
@@ -383,6 +389,10 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.boolean  "shib_always_new_account",        default: false
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
+    t.string   "room_dial_number_pattern"
+    t.boolean  "require_space_approval",         default: false
+    t.boolean  "forbid_user_space_creation",     default: false
+    t.boolean  "shib_update_users",              default: false
   end
 
   create_table "spaces", force: true do |t|
@@ -396,6 +406,7 @@ ActiveRecord::Schema.define(version: 20150318204721) do
     t.boolean  "disabled",    default: false
     t.boolean  "repository",  default: false
     t.string   "logo_image"
+    t.boolean  "approved",    default: false
   end
 
   create_table "users", force: true do |t|

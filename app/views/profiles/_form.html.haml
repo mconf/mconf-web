@@ -11,7 +11,7 @@
   .content-block-middle
     - titles = [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms']]
     = f.input :prefix_key, :collection => titles, :include_blank => true
-    = f.input :full_name, :required => true
+    = f.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user.profile)
     = f.input :organization
     = f.input :city
     = f.input :province

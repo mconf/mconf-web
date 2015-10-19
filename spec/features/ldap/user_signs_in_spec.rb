@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 
 describe 'User signs in via ldap' do
@@ -6,7 +12,7 @@ describe 'User signs in via ldap' do
     @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
   }
 
-  context 'for the first time' do
+  skip 'for the first time' do
     before {
       enable_ldap
       visit new_user_session_path
@@ -132,7 +138,7 @@ describe 'User signs in via ldap' do
     end
   end
 
-  context "a returning user" do
+  skip "a returning user" do
     let(:token) { FactoryGirl.create(:ldap_token) }
     let(:user) { token.user }
 
