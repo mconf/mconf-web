@@ -37,7 +37,15 @@ describe ParticipantsController do
 
         it { should render_template("participants/index") }
         it { assigns(:participants) }
-        it "assigns @participants with the correct data"
+        it { assigns(:participants).should eq(event.participants) }
+
+        context "with some participants for the event" do
+          let!(:participant1) { FactoryGirl.create(:participant, event: event) }
+          let!(:participant2) { FactoryGirl.create(:participant, event: event) }
+
+          it { assigns(:participants).should include(participant1, participant2) }
+          it { assigns(:participants).size.should be(2) }
+        end
       end
 
     end
@@ -50,9 +58,9 @@ describe ParticipantsController do
     context "layout and view" do
       before(:each) { get :new, :event_id => event.to_param }
       it { should render_template("participants/new") }
+      it { assigns(:participant) }
     end
 
-    it "assigns @participant"
   end
 
   describe "#concat_datetimes"
@@ -75,7 +83,7 @@ describe ParticipantsController do
       it { redirect_to event_path(event) }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('participant.created'))
+        should set_the_flash.to(I18n.t('participants.create.success'))
       end
 
       it { Participant.last.email.should eql(user.email) }
@@ -112,7 +120,7 @@ describe ParticipantsController do
 
       it { should render_template("participants/new") }
 
-      it "sets the flash with an error message"
+      it { should set_the_flash.to(I18n.t('participants.create.error')) }
 
     end
 
@@ -129,7 +137,7 @@ describe ParticipantsController do
       it { redirect_to event_path(event) }
 
       it "sets the flash with an already registered success message" do
-        should set_the_flash.to(I18n.t('participant.already_created'))
+        should set_the_flash.to(I18n.t('participants.create.already_created'))
       end
 
     end
@@ -170,7 +178,7 @@ describe ParticipantsController do
       it { should redirect_to event_path(event) }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('participant.destroyed'))
+        should set_the_flash.to(I18n.t('participants.destroyed'))
       end
     end
 
@@ -190,7 +198,7 @@ describe ParticipantsController do
       it { should redirect_to referer }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('participant.destroyed'))
+        should set_the_flash.to(I18n.t('participants.destroyed'))
       end
 
     end

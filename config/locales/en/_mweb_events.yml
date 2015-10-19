@@ -27,19 +27,14 @@ en:
 
   valid_email:
     validations:
-      email:
+      email:participant:
         invalid: Isn't a valid e-mail address
 
-  participant:
-    created: Successfully registered for the event
-    already_created: This email is already registered in this event
-    destroyed: Succesfully removed from the event
-  event:
+  events:
     created: Successfully created the event
     destroyed: Successfully deleted the event
     updated: Event information updated
 
-  events:
     show:
       date: When?
       address: Where?
@@ -154,6 +149,11 @@ en:
   participants:
     create:
       waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
+      success: Successfully registered for the event
+      error: There was a problem registering for this event.
+      already_created: This email is already registered in this event
+
+    destroyed: Succesfully removed from the event
 
     form:
       submit: Register

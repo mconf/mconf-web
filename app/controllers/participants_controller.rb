@@ -48,11 +48,12 @@ class ParticipantsController < ApplicationController
     respond_to do |format|
       # If user is already registered with this email succeed with another message and don't save
       taken = @participant.email_taken?
-      notice = taken ? t('participant.already_created') : t('participant.created')
+      notice = taken ? t('participants.create.already_created') : t('participants.create.success')
       if taken || @participant.save
         format.html { redirect_to @event, notice: notice }
         format.json { render json: @participant, status: :created, location: @participant }
       else
+        flash[:error] = t('participants.create.error')
         format.html { render action: "new" }
         format.json { render json: @participant.errors, status: :unprocessable_entity }
       end
@@ -64,7 +65,7 @@ class ParticipantsController < ApplicationController
 
     respond_to do |format|
       path = can?(:update, @event) ? :back : event_path(@event)
-      format.html { redirect_to path, notice: t('participant.destroyed') }
+      format.html { redirect_to path, notice: t('participants.destroyed') }
       format.json { head :no_content }
     end
   end
