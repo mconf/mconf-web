@@ -36,22 +36,22 @@ describe Participant do
 
     context "when it is the same event and same email" do
       let(:late_participant) { FactoryGirl.build(:participant, :email => participant.email, :event => participant.event) }
-      it { late_participant.email_taken?.should be_true }
+      it { late_participant.email_taken?.should be(true) }
     end
 
     context "when it is the same event but different email" do
       let(:late_participant) { FactoryGirl.build(:participant, :event => participant.event) }
-      it { late_participant.email_taken?.should be_false }
+      it { late_participant.email_taken?.should be_falsey }
     end
 
     context "when it is not same event but the same email" do
       let(:late_participant) { FactoryGirl.build(:participant, :email => participant.email) }
-      it { late_participant.email_taken?.should be_false }
+      it { late_participant.email_taken?.should be_falsey }
     end
 
     context "when it is not same event and not the same email" do
       let(:late_participant) { FactoryGirl.build(:participant, :email => participant.email) }
-      it { late_participant.email_taken?.should be_false }
+      it { late_participant.email_taken?.should be_falsey }
     end
   end
 

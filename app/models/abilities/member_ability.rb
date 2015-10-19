@@ -178,12 +178,11 @@ module Abilities
           end
         end
 
-        can [:select, :show, :index], Event
-
-        # Create events if they have a nil owner or are owned by a space you admin
-        can [:create, :new], Event do |e|
-          e.owner.nil? || event_can_be_managed_by(e, user)
+        can :create_space_event, Space do |s|
+          s.admins.include?(user)
         end
+
+        can [:select, :show, :index, :create, :new], Event
 
         can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
           event_can_be_managed_by(e, user)

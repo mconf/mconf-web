@@ -199,16 +199,16 @@ describe Event do
 
   describe "abilities", :abilities => true do
     subject { ability }
-    let(:ability) { Abilities.ability_for(owner) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:event) }
 
     context "when it's the event creator" do
-      let(:owner) { target.owner }
+      let(:user) { target.owner }
       it { should be_able_to_do_anything_to(target).except([:register]) }
     end
 
     context "when it's not the event creator" do
-      let(:owner) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       it { should_not be_able_to_do_anything_to(target).except([:index, :show, :create, :new]) }
     end
 
