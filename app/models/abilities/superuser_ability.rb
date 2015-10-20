@@ -27,6 +27,12 @@ module Abilities
           false # allowed to
         end
       end
+
+      # A superuser can not accept his join request for a space nor invitations for other users
+      cannot [:accept], JoinRequest do |jr|
+        (jr.candidate == user && jr.request_type == JoinRequest::TYPES[:request]) ||
+        (jr.candidate != user && jr.request_type == JoinRequest::TYPES[:invite])
+      end
     end
   end
 end
