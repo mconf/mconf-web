@@ -44,6 +44,6 @@
                 = icon_leave_space
 
         .thread-title
-          = link_to sanitize(user.name), user_path(user)
+          = link_to user.name, user_path(user)
           .user-email
-            = "(#{user.username}#{', ' + user.email if can?(:show, user.profile)})"
+            = user_info_string(user)

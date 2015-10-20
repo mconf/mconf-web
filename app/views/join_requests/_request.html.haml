@@ -3,7 +3,6 @@
     = link_logo_image(jr.candidate, :size => '32', :url => user_path(jr.candidate), :title => jr.candidate.name, :class => "logo logo-user")
   .thread-content
     .thread-actions
-      - target = jr.candidate ? jr.candidate.name : jr.email
 
       = link_to t('_other.decline'), decline_space_join_request_path(@space, jr), method: :post, class: "btn btn-danger btn-small", data: { confirm: t('.decline_confirmation') }
       %span.separator= t('or')
