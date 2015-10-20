@@ -25,6 +25,17 @@ en:
       event: Event
       participant: Participant
 
+  flash:
+    participants:
+      create:
+        waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
+        notice: Successfully registered for the event
+        alert: There was a problem registering for this event.
+        already_created: This email is already registered in this event
+
+      destroy:
+        notice: Succesfully removed from the event
+
   valid_email:
     validations:
       email:participant:
@@ -147,13 +158,6 @@ en:
       starts_at: "Starts at"
 
   participants:
-    create:
-      waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
-      success: Successfully registered for the event
-      error: There was a problem registering for this event.
-      already_created: This email is already registered in this event
-
-    destroyed: Succesfully removed from the event
 
     form:
       submit: Register

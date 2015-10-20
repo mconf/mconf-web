@@ -14,6 +14,9 @@ gem 'select2-rails'
 # To use sql UNION with activerecord
 gem 'active_record_union'
 
+# To DRY controllers
+gem 'inherited_resources'
+
 # TODO: remove when compass-rails is updated to support animations
 # This compass is here so we can have css3/animation
 gem 'compass', '~> 0.13.alpha'
