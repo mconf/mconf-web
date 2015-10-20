@@ -180,23 +180,29 @@ describe Devise::Strategies::LdapAuthenticatable do
     it "converts the id passed to a string"
   end
 
+  describe "#find_account" do
+    let(:ldap) { Mconf::LDAP.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it ("returns the user found if it exists") {
+      ldap.send(:find_account, user.email).should eql(user)
+    }
+
+    it ("matches the user using a case-insensitive search") {
+      ldap.send(:find_account, user.email.upcase).should eql(user)
+    }
+
+    it ("returns nil if the user is not found") {
+      ldap.send(:find_account, user.email + "-invalid").should be_nil
+    }
+  end
+
   describe "#create_account" do
     let(:ldap) { Mconf::LDAP.new({}) }
     let(:user) { FactoryGirl.create(:user) }
     let(:token) { LdapToken.create!(identifier: user.email) }
 
-    it ("returns the user found if one already exists") {
-      ldap.send(:create_account, user.email, user.username, user.name, token)
-          .should eql(user)
-    }
-
-    it ("matches the user using a case-insensitive search") {
-      email = user.email.upcase
-      ldap.send(:create_account, email, user.username, user.name, token)
-        .should eql(user)
-    }
-
-    context "if the target user doesn't exist yet, creates a new user" do
+    context "creates a new user" do
       let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
       before(:each) {
         expect {
