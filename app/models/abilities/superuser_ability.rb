@@ -24,10 +24,10 @@ module Abilities
         cant
       end
 
-      # A Superuser can not accept his join request for a space
+      # A superuser can not accept his join request for a space nor invitations for other users
       cannot [:accept], JoinRequest do |jr|
         (jr.candidate == user && jr.request_type == JoinRequest::TYPES[:request]) ||
-        (jr.candidate != user and jr.request_type == JoinRequest::TYPES[:invite])
+        (jr.candidate != user && jr.request_type == JoinRequest::TYPES[:invite])
       end
     end
   end
