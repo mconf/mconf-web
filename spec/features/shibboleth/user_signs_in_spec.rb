@@ -347,5 +347,28 @@ describe 'User signs in via shibboleth' do
       # user clicks to create a new account
       # redirects the user to the space's page
     end
+
+    context "trying to login in with the account's password" do
+      let(:user) { token.user }
+      before {
+        enable_shib
+        sign_in_with(user.email, user.password)
+      }
+
+      context "should not work for shib created account" do
+        let(:token) { FactoryGirl.create(:shib_token, new_account: true) }
+
+        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message t('devise.failure.shib_auth_disabled') }
+      end
+
+      context "should work for associated account" do
+        let(:token) { FactoryGirl.create(:shib_token, new_account: false) }
+
+        it { current_path.should eq(my_home_path) }
+        it { have_success_message }
+      end
+    end
+
   end
 end

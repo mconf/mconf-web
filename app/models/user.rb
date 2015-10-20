@@ -292,6 +292,14 @@ class User < ActiveRecord::Base
     ShibToken.user_created_by_shib?(self)
   end
 
+  def created_by_ldap?
+    LdapToken.user_created_by_ldap?(self)
+  end
+
+  def no_local_auth?
+    created_by_shib? || created_by_ldap?
+  end
+
   protected
 
   def before_disable_and_destroy

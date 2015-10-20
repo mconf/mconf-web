@@ -19,6 +19,10 @@ module FeatureHelpers
     )
   end
 
+  def enable_ldap
+    Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
+  end
+
   def setup_shib name, email, principal
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
