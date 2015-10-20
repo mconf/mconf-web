@@ -11,7 +11,7 @@
 
   .user-text
     = link_to '#', :class => 'user-name' do
-      = "#{user.username} (#{user.email})".html_safe
+      = "#{user.username} #{'(' + user.email + ')' if can?(:update, @event)}".html_safe
 
     %span.user-category
       = user_category(user)

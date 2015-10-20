@@ -10,13 +10,13 @@
       - if can?(:show, user.profile)
         %span.user-mail= mail_to(user.email, user.email)
 
-      - if !user.organization.blank? || !user.location.blank?
-        %span.user-info-prefix= t(".from")
+        - if !user.organization.blank? || !user.location.blank?
+          %span.user-info-prefix= t(".from")
 
-      - unless user.organization.blank?
-        %span.user-organization= sanitize(user.organization)
+        - unless user.organization.blank?
+          %span.user-organization= sanitize(user.organization)
+          - unless user.location.blank?
+            %span.user-divider= "--"
+
         - unless user.location.blank?
-          %span.user-divider= "--"
-
-      - unless user.location.blank?
-        %span.user-location= sanitize(user.location)
+          %span.user-location= sanitize(user.location)
