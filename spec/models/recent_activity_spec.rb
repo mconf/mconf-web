@@ -105,11 +105,10 @@ describe RecentActivity do
 
     context 'test it returns only activities performed by the user' do
       let(:user2) { FactoryGirl.create(:user) }
+      let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
 
       before {
-        space = FactoryGirl.create(:space_with_associations, public: true)
-        private_space = FactoryGirl.create(:space_with_associations, public: false)
-
         posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space),
                   FactoryGirl.create(:post, space: private_space), FactoryGirl.create(:post, space: private_space)
          ]
@@ -141,19 +140,30 @@ describe RecentActivity do
       it { RecentActivity.user_public_activity(user).should include(*@activities[0..4]) }
       it { RecentActivity.user_public_activity(user2).should include(*@activities[5..9]) }
 
-      context "with only_public_spaces: true" do
-        it { RecentActivity.user_public_activity(user, public_spaces_only: true).size.should be(3) }
-        it { RecentActivity.user_public_activity(user2, public_spaces_only: true).size.should be(2) }
-        it { RecentActivity.user_public_activity(user, public_spaces_only: true).should include(*@activities[0..2]) }
-        it { RecentActivity.user_public_activity(user2, public_spaces_only: true).should include(*@activities[5..6]) }
+      context "return only activities in certain spaces with 'in_spaces'" do
+        context "with no spaces return all" do
+          it { RecentActivity.user_public_activity(user, in_spaces: []).size.should be(5) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: []).size.should be(4) }
+        end
+
+        context "when there are no activities for the spaces" do
+          it { RecentActivity.user_public_activity(user, in_spaces: [FactoryGirl.create(:space)]).size.should be(0) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [FactoryGirl.create(:space)]).size.should be(0) }
+        end
+
+        context "when there are some activities for the space" do
+          it { RecentActivity.user_public_activity(user, in_spaces: [space]).size.should be(3) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space]).size.should be(2) }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: [private_space]).size.should be(2) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space]).size.should be(2) }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user))  }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user2))  }
+        end
+
       end
 
-      context "with only_public_spaces: false" do
-        it { RecentActivity.user_public_activity(user).should
-          eq(RecentActivity.user_public_activity(user, only_public_spaces: false)) }
-        it { RecentActivity.user_public_activity(user2).should
-          eq(RecentActivity.user_public_activity(user2, only_public_spaces: false)) }
-      end
     end
 
 
