@@ -8,7 +8,7 @@ describe 'Disabled ldap features', ldap: true do
   }
   after(:all) { Mconf::LdapServerRunner.stop }
 
-  context "an user account created via ldap" do
+  context "an account created via LDAP" do
     let(:ldap_user) { Mconf::LdapServer.default_user }
     before {
       enable_ldap
