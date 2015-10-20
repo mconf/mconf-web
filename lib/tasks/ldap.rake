@@ -7,7 +7,8 @@ end
 
 namespace :ldap do
 
-  # To connect to this default server, use these configurations on Mconf-Web:
+  # To connect to this default server, use these configurations on Mconf-Web
+  # (they are defined by Mconf::LdapServer::default_ldap_configs):
   #
   # * Server: localhost
   # * Port: 1389
@@ -24,10 +25,18 @@ namespace :ldap do
 
     Kernel.trap( "INT" ) { pretty_exit }
 
-    server = Mconf::LdapServer.new args[:port]
-    puts "LDAP test server started on port #{args[:port] || 1389}"
+    port = args[:port] || 1389
+    configs = Site.current.attributes.select{ |attr| attr.match(/^ldap_/) }.symbolize_keys
+    configs[:ldap_port] = port
+    server = Mconf::LdapServer.new(configs)
+    puts "LDAP test server started on port #{port} with configs: #{configs.inspect}"
 
-    server.add_user 'mconf', 'mconf', 'mconf@test.mconf.org'
+    server.add_default_user
     server.run
+  end
+
+  task :setup_site => :environment do |t|
+    puts "Setting up the site with LDAP attributes: #{Mconf::LdapServer.default_ldap_configs.inspect}"
+    Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
   end
 end

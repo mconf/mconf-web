@@ -10,14 +10,14 @@ require 'support/feature_helpers'
 describe 'User signs in via ldap', ldap: true do
   subject { page }
   before(:all) {
-    @ldap_attrs = {username: 'passoca', password: 'passocaword', email: 'passoca@amendo.in'}
+    @ldap_attrs = { username: 'passoca', password: 'passocaword', email: 'passoca@amendo.in' }
 
     Mconf::LdapServerRunner.add_user @ldap_attrs[:username], @ldap_attrs[:password], @ldap_attrs[:email]
     Mconf::LdapServerRunner.start
   }
   after(:all) { Mconf::LdapServerRunner.stop }
 
-  before { Site.current.update_attributes ldap_enabled: true, ldap_host: '127.0.0.1' }
+  before { enable_ldap }
 
   context 'for the first time' do
     before {

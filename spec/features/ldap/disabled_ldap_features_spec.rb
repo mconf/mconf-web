@@ -1,15 +1,18 @@
 require 'spec_helper'
 
-describe 'Disabled ldap features' , ldap: true do
+describe 'Disabled ldap features', ldap: true do
   subject { page }
-  before(:all) { Mconf::LdapServerRunner.start }
+  before(:all) {
+    Mconf::LdapServerRunner.add_default_user
+    Mconf::LdapServerRunner.start
+  }
   after(:all) { Mconf::LdapServerRunner.stop }
 
   context "an user account created via ldap" do
+    let(:ldap_user) { Mconf::LdapServer.default_user }
     before {
-      Site.current.update_attributes ldap_enabled: true, ldap_host: '127.0.0.1'
-
-      sign_in_with('mconf', 'mconf')
+      enable_ldap
+      sign_in_with(ldap_user[:username], ldap_user[:password])
     }
 
     context "don't show email confirmation page" do
@@ -47,8 +50,8 @@ describe 'Disabled ldap features' , ldap: true do
       before {
         logout_user # user was logged in before to create an ldap token
 
-        user.update_attributes password: '1234578'
-        sign_in_with('mconf', '12345678')
+        user.update_attributes password: ldap_user[:password] + '-1234578'
+        sign_in_with(ldap_user[:username], ldap_user[:password] + '-1234578')
       }
 
       it { current_path.should eq(new_user_session_path) }

@@ -1062,6 +1062,14 @@ describe User do
         it { should be_able_to(:update_password, target) }
       end
 
+      context "cannot edit the password if the account was created by LDAP" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:ldap_token, user: target)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
       context "cannot edit the password if the site has local auth disabled" do
         before {
           Site.current.update_attributes(local_auth_enabled: false)

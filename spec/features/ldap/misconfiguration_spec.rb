@@ -9,19 +9,21 @@ require 'support/feature_helpers'
 
 include ActionView::Helpers::SanitizeHelper
 
-feature 'LDAP is misconfigured' , ldap: true do
+feature 'LDAP is misconfigured', ldap: true do
   subject { page }
-  before(:all) { Mconf::LdapServerRunner.start }
+  before(:all) {
+    Mconf::LdapServerRunner.add_default_user
+    Mconf::LdapServerRunner.start
+  }
   after(:all) { Mconf::LdapServerRunner.stop }
 
-  before {
-    Site.current.update_attributes ldap_enabled: true
-  }
+  before { enable_ldap }
 
   scenario "doesn't break the local sign in with wrong port" do
-    Site.current.update_attributes ldap_host: "127.0.0.1", ldap_port: 1388
+    port = Mconf::LdapServer.default_ldap_configs[:ldap_port]
+    Site.current.update_attributes ldap_port: port + 1
 
-    user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    user = FactoryGirl.create(:user, username: 'user', password: 'password')
     sign_in_with user.email, user.password
 
     expect(page).to have_title(I18n.t('home.my'))
@@ -32,7 +34,7 @@ feature 'LDAP is misconfigured' , ldap: true do
   scenario "doesn't break the local sign in with unreacheable server" do
     Site.current.update_attributes ldap_host: "nonexistanturl.doesntexist"
 
-    user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    user = FactoryGirl.create(:user, username: 'user', password: 'password')
     sign_in_with user.email, user.password
 
     expect(page).to have_title(I18n.t('home.my'))
