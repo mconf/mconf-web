@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user_spaces = @user.spaces
 
     # Show activity only in spaces where the current user is a member
-    @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: current_user.spaces)
+    @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: current_user.try(:spaces))
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 
     @profile = @user.profile

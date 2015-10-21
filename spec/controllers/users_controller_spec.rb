@@ -60,18 +60,53 @@ describe UsersController do
         ]
       }
 
-      context 'assuming can?(:show, @user)' do
+      context 'the user himself' do
         before {
-          expect(controller).to receive(:cannot?).with(:show, user.profile).and_return(false)
+          sign_in(user)
           get :show, id: user.to_param
         }
 
         it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
       end
 
-      context 'assuming cannot?(:show, @user)' do
+      context 'a user belonging to both spaces' do
         before {
-          expect(controller).to receive(:cannot?).with(:show, user.profile).and_return(true)
+          user2 = FactoryGirl.create(:user)
+          public_space.add_member!(user2)
+          private_space.add_member!(user2)
+
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+      end
+
+      context 'a user belonging to the private space' do
+        before {
+          user2 = FactoryGirl.create(:user)
+          private_space.add_member!(user2)
+
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+      end
+
+      context 'a user not belonging to any space' do
+        before {
+          user2 = FactoryGirl.create(:user)
+
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities[0])) }
+      end
+
+      context 'a logged out user' do
+        before {
           get :show, id: user.to_param
         }
 
@@ -607,15 +642,36 @@ describe UsersController do
     context ".json" do
       before { User.destroy_all } # exclude seeded user(s)
 
+      context "when the logged is user is an admin show full user data" do
+        let(:user) { FactoryGirl.create(:user, superuser: true) }
+        before(:each) { login_as(user) }
+
+        let(:expected) {
+          @users.map do |u|
+            { id: u.id, username: u.username, name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
+          end
+        }
+
+        before do
+          10.times { FactoryGirl.create(:user) }
+          @users = User.joins(:profile).order("profiles.full_name").first(5)
+        end
+        before(:each) { get :select, format: :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:users).with(@users) }
+        it { response.body.should == expected.to_json }
+      end
+
       context "when there's a user logged" do
         let(:user) { FactoryGirl.create(:user) }
         before(:each) { login_as(user) }
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
-              text: "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username, name: u.name,
+              text: "#{u.name} (#{u.username})" }
           end
         }
 
@@ -722,9 +778,8 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
-              text: "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username, name: u.name,
+              text: "#{u.name} (#{u.username})" }
           end
         }
 

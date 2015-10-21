@@ -141,9 +141,9 @@ describe RecentActivity do
       it { RecentActivity.user_public_activity(user2).should include(*@activities[5..9]) }
 
       context "return only activities in certain spaces with 'in_spaces'" do
-        context "with no spaces return all" do
-          it { RecentActivity.user_public_activity(user, in_spaces: []).size.should be(5) }
-          it { RecentActivity.user_public_activity(user2, in_spaces: []).size.should be(4) }
+        context "with no spaces return no activities" do
+          it { RecentActivity.user_public_activity(user, in_spaces: []).size.should be(0) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: []).size.should be(0) }
         end
 
         context "when there are no activities for the spaces" do
