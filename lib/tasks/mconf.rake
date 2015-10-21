@@ -1,4 +1,4 @@
-namespace :mconf do
+  namespace :mconf do
 
   desc "Generates new dial numbers for all web conference rooms"
   task :generate_dial_numbers => :environment do
@@ -17,6 +17,9 @@ namespace :mconf do
       puts "Aborting."
       exit 0
     end
+
+    # Reset the current number of patterns generated
+    Site.current.update_attributes(current_room_dial_number_pattern: nil)
 
     BigbluebuttonRoom.find_each do |room|
       number = Mconf::DialNumber.generate(pattern)
