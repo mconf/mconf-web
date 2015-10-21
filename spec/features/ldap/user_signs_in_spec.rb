@@ -67,6 +67,37 @@ describe 'User signs in via ldap', ldap: true do
         it { has_failure_message t('devise.failure.user.not_approved') }
         it { current_path.should eq(my_approval_pending_path) }
       end
+
+      context "the user's account is not approved" do
+        let(:user) { FactoryGirl.create(:user, approved: false) }
+        before {
+          Site.current.update_attributes(require_registration_approval: true)
+
+          fill_in 'user[login]', :with => user.username
+          fill_in 'user[password]', :with => user.password
+
+          click_button t('sessions.login_form.login')
+        }
+
+        it { has_failure_message }
+        it { current_path.should eq(my_approval_pending_path) }
+      end
+
+      context "the user's account is not approved and he's coming from an unsuccessfull page visit" do
+        let(:user) { FactoryGirl.create(:user, approved: false) }
+        before {
+          Site.current.update_attributes(require_registration_approval: true)
+          visit my_home_path
+
+          fill_in 'user[login]', :with => user.username
+          fill_in 'user[password]', :with => user.password
+
+          click_button t('sessions.login_form.login')
+        }
+
+        it { has_failure_message }
+        it { current_path.should eq(my_approval_pending_path) }
+      end
     end
 
     context "creating the user's account" do
