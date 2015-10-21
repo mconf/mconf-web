@@ -140,8 +140,7 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4),
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :attendee_key => SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
   end

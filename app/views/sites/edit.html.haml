@@ -11,7 +11,6 @@
       = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
-    = f.input :room_dial_number_pattern, as: :string
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
     = f.input :webconf_auto_record, :as => :boolean
     = f.input :analytics_code
@@ -51,6 +50,7 @@
     = f.input :presence_domain
     = f.input :xmpp_server
     = f.input :external_help
+    = f.input :room_dial_number_pattern, as: :string
     = f.input :registration_enabled, :as => :boolean
     = f.input :require_registration_approval, :as => :boolean
     = f.input :local_auth_enabled, :as => :boolean

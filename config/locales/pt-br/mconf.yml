@@ -462,6 +462,7 @@ pt-br:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Buscar gravações"
+      generate_dial_number: "Gerar número de discagem"
       invite: "Convidar"
       join_mobile: "Entrar em dispositivo móvel"
       new_room: "Nova sala"

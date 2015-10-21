@@ -311,8 +311,7 @@ class Space < ActiveRecord::Base
       :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/",
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end
