@@ -27,6 +27,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
 
+  # use the patter configured on the site to generate dial numbers
+  before_filter :set_site_pattern, only: [:generate_dial_number]
+
   layout :determine_layout
 
   def determine_layout
@@ -167,6 +170,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         redirect_to request.referer
       end
     end
+  end
+
+  def set_site_pattern
+    params[:pattern] ||= Site.current.room_dial_number_pattern
   end
 
   # For cancan create load_and_authorize

@@ -462,6 +462,7 @@ en:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
+      generate_dial_number: "Generate dial number"
       invite: "Invite"
       join_mobile: "Join from mobile"
       new_room: "New room"
