@@ -19,11 +19,6 @@ describe ApplicationHelper do
     it("returns Mconf.application_revision") { application_revision.should eq('revision') }
   end
 
-  describe "#application_branch" do
-    before { Mconf.should_receive(:application_branch).and_return('branch') }
-    it("returns Mconf.application_branch") { application_branch.should eq('branch') }
-  end
-
   describe "#asset_exists?" do
     it "returns whether an asset file exists"
   end
