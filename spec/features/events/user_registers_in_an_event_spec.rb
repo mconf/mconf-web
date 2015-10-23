@@ -21,7 +21,7 @@ feature "User registers in an event" do
       click_button t("events.registration.button")
     }
 
-    it { has_success_message t('participant.created') }
+    it { has_success_message t('flash.participants.create.notice') }
     it { current_path.should eq(event_path(event)) }
     it { should have_content t("events.registration.already_registered") }
     it { should have_content t("events.registration.unregister") }
@@ -35,7 +35,7 @@ feature "User registers in an event" do
       }
 
       it { current_path.should eq(event_path(event)) }
-      it { has_success_message t('participant.destroyed') }
+      it { has_success_message t('flash.participants.destroy.notice') }
       it { should_not have_content t("events.registration.unregister") }
     end
   end
@@ -59,7 +59,7 @@ feature "User registers in an event" do
         click_button t('participants.form.submit')
       }
 
-      it { has_success_message t('participants.create.waiting_confirmation') }
+      it { has_success_message t('flash.participants.create.waiting_confirmation') }
       it { current_path.should eq(event_path(event)) }
       it { should have_content t("events.registration.button") }
     end
@@ -87,7 +87,7 @@ feature "User registers in an event" do
       context "finish registering" do
         before { click_button t("participants.form.submit") }
 
-        it { has_success_message t('participant.created') }
+        it { has_success_message t('flash.participants.create.notice') }
         it { current_path.should eq(event_path(event)) }
         it { should have_content t("events.registration.already_registered") }
         it { should have_content t("events.registration.unregister") }
