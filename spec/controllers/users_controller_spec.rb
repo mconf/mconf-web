@@ -52,7 +52,6 @@ describe UsersController do
       before {
         public_space.add_member!(user)
         private_space.add_member!(user)
-
         @activities = [
           public_space.new_activity(:join, user),
           private_space.new_activity(:join, user),
@@ -66,7 +65,10 @@ describe UsersController do
           get :show, id: user.to_param
         }
 
-        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
       end
 
       context 'a user belonging to both spaces' do
@@ -74,35 +76,39 @@ describe UsersController do
           user2 = FactoryGirl.create(:user)
           public_space.add_member!(user2)
           private_space.add_member!(user2)
-
           sign_in(user2)
           get :show, id: user.to_param
         }
 
-        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
       end
 
-      context 'a user belonging to the private space' do
+      context 'a user belonging to the private space only' do
         before {
           user2 = FactoryGirl.create(:user)
           private_space.add_member!(user2)
-
           sign_in(user2)
           get :show, id: user.to_param
         }
 
-        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities)) }
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
       end
 
       context 'a user not belonging to any space' do
         before {
           user2 = FactoryGirl.create(:user)
-
           sign_in(user2)
           get :show, id: user.to_param
         }
 
-        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities[0])) }
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
       end
 
       context 'a logged out user' do
@@ -110,11 +116,10 @@ describe UsersController do
           get :show, id: user.to_param
         }
 
-        it { assigns(:recent_activities).with(RecentActivity.where(id: @activities[0])) }
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
       end
-
     end
-
   end
 
   describe "#edit" do
