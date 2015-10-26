@@ -144,9 +144,11 @@ class RecentActivity < PublicActivity::Activity
     user_room = user.bigbluebutton_room
     spaces = user.spaces
 
-    # if there's an array in 'in_space' limit the activity to these spaces
-    if in_spaces.kind_of?(Array)
-      spaces = spaces.where(id: in_spaces.map(&:id))
+    # if there's an array in 'in_space', limit the activity to these spaces plus
+    # any other public space
+    # we filter public spaces here by default and not outside to improve performance
+    unless in_spaces.blank?
+      spaces = spaces.where("spaces.id IN (?) OR spaces.public = ?", in_spaces.map(&:id), true)
     end
 
     space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
