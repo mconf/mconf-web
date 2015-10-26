@@ -59,8 +59,8 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings], Space, public: true
-      can [:show, :webconference, :recordings], Space do |space|
+      can [:show, :webconference, :recordings, :show_news], Space, public: true
+      can [:show, :webconference, :recordings, :show_news], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
@@ -69,7 +69,7 @@ module Abilities
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,
-        :webconference_options, :disable, :edit_recording], Space do |space|
+           :webconference_options, :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 
@@ -97,9 +97,8 @@ module Abilities
         end
       end
 
-      alias_action :index_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
-      can [:index_news, :manage_join_requests], Space do |s|
+      can [:manage_news, :manage_join_requests], Space do |s|
         s.admins.include?(user)
       end
 
@@ -237,6 +236,8 @@ module Abilities
       end
 
       # Currently only user rooms can be updated
+      # TODO: rooms in spaces should also be updatable, but for now they
+      # are edited through the space
       can [:update], BigbluebuttonRoom do |room|
         room.owner_type == "User" && room.owner.id == user.id
       end

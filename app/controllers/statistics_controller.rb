@@ -15,7 +15,6 @@ class StatisticsController < ApplicationController
     @space_count = Space.count
     @post_count = Post.count
     @webconf_room_count = BigbluebuttonRoom.count
-    @private_message_count = PrivateMessage.count
   end
 
   private
