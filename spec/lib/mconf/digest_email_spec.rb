@@ -159,13 +159,8 @@ describe Mconf::DigestEmail do
 
         # unread messages for the target user
         @expected = []
-        @expected << FactoryGirl.create(:private_message, :created_at => start_time, :receiver => user, :sender => sender)
-        @expected << FactoryGirl.create(:private_message, :created_at => start_time + 1.minute, :receiver => user, :sender => sender)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
-        # read message
-        FactoryGirl.create(:private_message, :receiver => user, :sender => sender, :checked => true)
-        # message to another user
-        FactoryGirl.create(:private_message, :receiver => FactoryGirl.create(:user), :sender => sender)
+       
       end
       before(:each) { call_get_activity }
       it { @expected.should == @inbox }
@@ -216,8 +211,6 @@ describe Mconf::DigestEmail do
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id,
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id
         ]
-        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id,
-                   FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
