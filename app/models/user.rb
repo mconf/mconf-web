@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
-  scope :search_by_terms, -> (words) {
+  scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile).order("profiles.full_name")
 
     words ||= []
@@ -99,8 +99,11 @@ class User < ActiveRecord::Base
     query_params = []
 
     words.each do |word|
-      query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
-      query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
+      str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+      str += " OR users.email LIKE ?" if include_private
+      query_strs << str
+      query_params += ["%#{word}%", "%#{word}%"]
+      query_params += ["%#{word}%"] if include_private
     end
 
     query.where(query_strs.join(' OR '), *query_params.flatten)

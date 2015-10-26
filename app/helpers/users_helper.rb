@@ -34,4 +34,12 @@ module UsersHelper
     "GMT#{ActiveSupport::TimeZone.seconds_to_utc_offset(offset)}"
   end
 
+  # Returns a string which can quickly give some info about the user in the form of
+  #   "(username, email)"
+  # The email will not be included if the user seeing the string does not have
+  # permission to view private profile info for the user
+  def user_info_string user
+    "(#{user.username}#{", " + user.email if can?(:show, user.profile)})".html_safe
+  end
+
 end

@@ -42,6 +42,84 @@ describe UsersController do
     end
 
     it { should_authorize an_instance_of(User), :show, id: FactoryGirl.create(:user).to_param }
+
+    # TODO: lot's of cases here (profile visibility settings * types of users )
+    # (anon, logged in, fellow, private fellow, admin, user itself)
+    context "assigns the correct @recent_activities" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:public_space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
+      before {
+        public_space.add_member!(user)
+        private_space.add_member!(user)
+        @activities = [
+          public_space.new_activity(:join, user),
+          private_space.new_activity(:join, user),
+          private_space.new_activity(:update, user),
+        ]
+      }
+
+      context 'the user himself' do
+        before {
+          sign_in(user)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user belonging to both spaces' do
+        before {
+          user2 = FactoryGirl.create(:user)
+          public_space.add_member!(user2)
+          private_space.add_member!(user2)
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user belonging to the private space only' do
+        before {
+          user2 = FactoryGirl.create(:user)
+          private_space.add_member!(user2)
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user not belonging to any space' do
+        before {
+          user2 = FactoryGirl.create(:user)
+          sign_in(user2)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+      end
+
+      context 'a logged out user' do
+        before {
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+      end
+    end
   end
 
   describe "#edit" do
@@ -569,14 +647,35 @@ describe UsersController do
     context ".json" do
       before { User.destroy_all } # exclude seeded user(s)
 
-      context "when there's a user logged" do
-        let(:user) { FactoryGirl.create(:user) }
+      context "when the logged is user is an admin show full user data" do
+        let(:user) { FactoryGirl.create(:user, superuser: true) }
         before(:each) { login_as(user) }
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
+            { id: u.id, username: u.username, name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
+          end
+        }
+
+        before do
+          10.times { FactoryGirl.create(:user) }
+          @users = User.joins(:profile).order("profiles.full_name").first(5)
+        end
+        before(:each) { get :select, format: :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:users).with(@users) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "when there's a user logged" do
+        let(:user) { FactoryGirl.create(:superuser) }
+        before(:each) { login_as(user) }
+
+        let(:expected) {
+          @users.map do |u|
+            { id: u.id, username: u.username, name: u.name, email: u.email,
               text: "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
@@ -617,7 +716,7 @@ describe UsersController do
           it { response.body.should == expected.to_json }
         end
 
-        context "matches users by email" do
+        context "matches users by email if the current user has permission" do
           let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
@@ -629,6 +728,19 @@ describe UsersController do
           before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
+        end
+
+        context "doesn't match users by email if the current user has no permission" do
+          let(:unique_str) { "123123456456" }
+          before do
+            user.update_attributes(superuser: false)
+            FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
+            FactoryGirl.create(:user, email: "Abc-de-Fgh@mconf.org")
+            FactoryGirl.create(:user, email: "Marcos-#{unique_str}@mconf.org")
+          end
+          before(:each) { get :select, q: unique_str, format: :json }
+          it { should assign_to(:users).with([]) }
+          it { response.body.should == [].to_json }
         end
 
         context "has a param to limit the users in the response" do
@@ -684,9 +796,8 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
-              text: "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username, name: u.name,
+              text: "#{u.name} (#{u.username})" }
           end
         }
 

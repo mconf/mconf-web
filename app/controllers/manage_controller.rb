@@ -11,7 +11,7 @@ class ManageController < ApplicationController
 
   def users
     words = params[:q].try(:split, /\s+/)
-    query = User.with_disabled.search_by_terms(words)
+    query = User.with_disabled.search_by_terms(words, can?(:manage, User))
 
     # start applying filters
     [:disabled, :approved, :can_record].each do |filter|
