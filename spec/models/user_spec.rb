@@ -42,7 +42,8 @@ describe User do
       FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
       FactoryGirl.create(:user, username: 'ismael-esteves', email: 'ismael-esteves@email.com', created_at: Time.now + 2.second)
     ]}
-    let(:subject) { User.search_by_terms(terms) }
+    let(:include_private) { false }
+    let(:subject) { User.search_by_terms(terms, include_private) }
 
     before {
       users[0].profile.update_attribute(:full_name, 'Steve and Will Soon')
@@ -57,7 +58,7 @@ describe User do
       it { subject.count.should be(3) }
     end
 
-    context 'Composite term finds something' do
+    context 'composite term finds something' do
       let(:terms) { ['steve hair'] }
 
       it { should include(users[1]) }
@@ -109,6 +110,18 @@ describe User do
       it { subject.should_not include(user2) }
       it { subject.should_not include(user4) }
       it { subject.should_not include(user5) }
+    end
+
+    context "searches by email if include_private is true" do
+      let(:include_private) { true }
+      let(:terms) { 'steve-hairis@email.com' }
+      it { subject.count.should be(1) }
+      it { should include(users[1]) }
+    end
+
+    context "doesn't search by email if include_private is false" do
+      let(:terms) { 'steve-hairis@email.com' }
+      it { subject.count.should be(0) }
     end
   end
 

@@ -665,13 +665,13 @@ describe UsersController do
       end
 
       context "when there's a user logged" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryGirl.create(:superuser) }
         before(:each) { login_as(user) }
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username, name: u.name,
-              text: "#{u.name} (#{u.username})" }
+            { id: u.id, username: u.username, name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
 
@@ -711,7 +711,7 @@ describe UsersController do
           it { response.body.should == expected.to_json }
         end
 
-        context "matches users by email" do
+        context "matches users by email if the current user has permission" do
           let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
@@ -723,6 +723,19 @@ describe UsersController do
           before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
+        end
+
+        context "doesn't match users by email if the current user has no permission" do
+          let(:unique_str) { "123123456456" }
+          before do
+            user.update_attributes(superuser: false)
+            FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
+            FactoryGirl.create(:user, email: "Abc-de-Fgh@mconf.org")
+            FactoryGirl.create(:user, email: "Marcos-#{unique_str}@mconf.org")
+          end
+          before(:each) { get :select, q: unique_str, format: :json }
+          it { should assign_to(:users).with([]) }
+          it { response.body.should == [].to_json }
         end
 
         context "has a param to limit the users in the response" do

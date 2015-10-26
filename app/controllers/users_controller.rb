@@ -141,8 +141,8 @@ class UsersController < ApplicationController
       @users = query.limit(limit)
     else
       @users = query
-      .search_by_terms(words)
-      .limit(limit)
+        .search_by_terms(words, can?(:manage, User))
+        .limit(limit)
     end
 
     respond_with @users do |format|

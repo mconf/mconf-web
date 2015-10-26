@@ -161,14 +161,7 @@ describe RecentActivity do
           it { RecentActivity.user_public_activity(user, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user))  }
           it { RecentActivity.user_public_activity(user2, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user2))  }
         end
-
       end
-
-    end
-
-
-    context "" do
-
     end
 
     context "ignores declined join requests" do
