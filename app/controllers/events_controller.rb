@@ -1,5 +1,5 @@
-class EventsController < ApplicationController
-  load_and_authorize_resource :find_by => :permalink
+class EventsController < InheritedResources::Base
+  respond_to :html, :json
 
   before_filter :block_if_events_disabled
 
@@ -9,14 +9,29 @@ class EventsController < ApplicationController
 
   before_filter :find_or_create_participant, only: [:show]
 
+  load_and_authorize_resource find_by: :permalink
+
   after_filter only: [:create, :update] do
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
-  respond_to :html, :json
+  before_filter only: [:new] do
+    if params[:owner_id] && params[:owner_type]
+      @event.owner_id = params[:owner_id]
+      @event.owner_type = params[:owner_type]
+    else
+      @event.owner_name = current_user.try(:email)
+    end
+  end
 
-  before_filter :filter_user_events
-  def index
+  before_filter only: [:create] do
+    if @event.owner.nil?
+      @event.owner = current_user
+    end
+  end
+
+  before_filter only:[:index] do
+    filter_user_events
     filter_disabled_models
     search_events
     apply_scopes
@@ -27,8 +42,6 @@ class EventsController < ApplicationController
     @time_zone = Time.zone
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @event }
 
       format.ics do
         calendar = Icalendar::Calendar.new
@@ -37,52 +50,6 @@ class EventsController < ApplicationController
         render :text => calendar.to_ical
       end
 
-    end
-  end
-
-  def new
-    if params[:owner_id] && params[:owner_type]
-      @event.owner_id = params[:owner_id]
-      @event.owner_type = params[:owner_type]
-    else
-      @event.owner_name = current_user.try(:email)
-    end
-  end
-
-  def edit
-  end
-
-  def create
-    @event = Event.new(event_params)
-
-    if @event.owner.nil?
-      @event.owner = current_user
-    end
-
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: t('event.created') }
-      else
-        format.html { render action: "new" }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @event.update_attributes(event_params)
-        format.html { redirect_to @event, notice: t('event.updated') }
-      else
-        format.html { render action: "edit" }
-      end
-    end
-  end
-
-  def destroy
-    @event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to events_url, notice: t('event.destroyed') }
     end
   end
 
@@ -129,6 +96,7 @@ class EventsController < ApplicationController
     redirect_to request.referer
   end
 
+  private
   # Load the participant from db if user is already registered or build a new one for the form
   def find_or_create_participant
     if current_user
@@ -159,7 +127,6 @@ class EventsController < ApplicationController
     @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
   end
 
-  private
   # Filter events for the current user
   # If accessed with no logged in user, redirect to 'all events' path
   def filter_user_events
