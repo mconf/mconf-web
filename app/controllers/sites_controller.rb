@@ -7,7 +7,7 @@
 
 class SitesController < ApplicationController
   before_filter :authenticate_user!
-  authorize_resource :class => false
+  authorize_resource class: false
   layout "no_sidebar"
 
   def show
@@ -19,6 +19,8 @@ class SitesController < ApplicationController
   end
 
   def update
+    @site = current_site
+
     # For some reason the form always adds an empty option to this
     # array, so we have to remove it
     if params[:site] && params[:site].key?(:visible_locales)
@@ -26,7 +28,7 @@ class SitesController < ApplicationController
     end
 
     respond_to do |format|
-      if current_site.update_attributes(site_params)
+      if @site.update_attributes(site_params)
         flash[:success] = t('site.updated')
         format.html { redirect_to site_path }
       else
