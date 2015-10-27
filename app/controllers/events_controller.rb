@@ -1,56 +1,47 @@
 class EventsController < InheritedResources::Base
-  respond_to :html, :json
+  respond_to :html, :json, :ics # for ics renderer see config/initializers/renderers.rb
 
   before_filter :block_if_events_disabled
-
   before_filter :concat_datetimes, :only => [:create, :update]
 
-  before_filter :set_date_locale, if: -> { @event.present? }
+  defaults finder: :find_by_permalink!
+  load_and_authorize_resource find_by: :permalink
 
   before_filter :find_or_create_participant, only: [:show]
 
-  load_and_authorize_resource find_by: :permalink
+  # To help with timezone conversions in forms and displaying on the interface
+  # Set this only in methods which use an '@event' instance variable
+  before_filter :set_date_locale, if: -> { @event.present? }
 
   after_filter only: [:create, :update] do
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
-  before_filter only: [:new] do
+  before_filter only: :index do
+    filter_user_events
+    filter_disabled_models
+    search_events
+    filter_by_scopes
+    paginate
+  end
+
+  def new
     if params[:owner_id] && params[:owner_type]
       @event.owner_id = params[:owner_id]
       @event.owner_type = params[:owner_type]
     else
       @event.owner_name = current_user.try(:email)
     end
+
+    new!
   end
 
-  before_filter only: [:create] do
+  def create
     if @event.owner.nil?
       @event.owner = current_user
     end
-  end
 
-  before_filter only:[:index] do
-    filter_user_events
-    filter_disabled_models
-    search_events
-    apply_scopes
-    paginate
-  end
-
-  def show
-    @time_zone = Time.zone
-
-    respond_to do |format|
-
-      format.ics do
-        calendar = Icalendar::Calendar.new
-        calendar.add_event(@event.to_ics)
-        calendar.publish
-        render :text => calendar.to_ical
-      end
-
-    end
+    create!
   end
 
   # Finds events by name (params[:q]) and returns a list of selected attributes
@@ -121,9 +112,9 @@ class EventsController < InheritedResources::Base
   end
 
   def set_date_locale
+    @time_zone = Time.zone
     @date_locale = get_user_locale(current_user)
     @date_format = I18n.t('_other.datetimepicker.format')
-    @event.date_stored_format = I18n.t('_other.datetimepicker.format_rails')
     @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
   end
 
@@ -159,7 +150,7 @@ class EventsController < InheritedResources::Base
     end
   end
 
-  def apply_scopes
+  def filter_by_scopes
     case params[:show]
     when 'happening_now'
       @events = @events.happening_now.order('start_on ASC')
@@ -196,8 +187,10 @@ class EventsController < InheritedResources::Base
 
   def event_params
     params.require(:event).permit(
-      :address, :description, :start_on, :end_on, :location, :name, :time_zone,
-      :summary, :owner_id, :owner_type, :date_stored_format, :social_networks => []
+      :start_on, :start_on_time, :start_on_date,
+      :end_on, :end_on_time, :end_on_date,
+      :address, :description, :location, :name, :time_zone,
+      :summary, :owner_id, :owner_type, :social_networks => []
     )
   end
 end

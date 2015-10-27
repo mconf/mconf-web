@@ -186,7 +186,7 @@ describe EventsController do
       end
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('event.created'))
+        should set_the_flash.to(I18n.t('flash.events.create.notice'))
       end
 
       it "sets the current user as the owner" do
@@ -248,7 +248,7 @@ describe EventsController do
       end
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('event.updated'))
+        should set_the_flash.to(I18n.t('flash.events.update.notice'))
       end
 
     end

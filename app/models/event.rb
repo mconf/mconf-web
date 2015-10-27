@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   include PublicActivity::Common
 
   def self.host
-    Site.current.domain || 'example.com'
+    Site.current.domain
   end
 
   def new_activity key, user
@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  attr_accessor :date_display_format, :date_stored_format
+  attr_accessor :date_display_format
 
   geocoded_by :address
   after_validation :geocode
@@ -67,11 +67,6 @@ class Event < ActiveRecord::Base
   attr_accessor :owner_name
   def owner_name
     @owner_name || owner.try(:name) || owner.try(:email)
-  end
-
-  # Override this method to get a correct url in production
-  def self.host
-    "example.com"
   end
 
   def full_url
@@ -137,6 +132,13 @@ class Event < ActiveRecord::Base
 
   def end_on_time
     end_on_with_time_zone
+  end
+
+  def to_ical
+    calendar = Icalendar::Calendar.new
+    calendar.add_event(self.to_ics)
+    calendar.publish
+    calendar.to_ical
   end
 
   def to_ics
