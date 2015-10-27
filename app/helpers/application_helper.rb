@@ -200,11 +200,7 @@ module ApplicationHelper
 
   # Retrieves max upload size from website or uses a default value
   def max_upload_size
-    if !current_site.max_upload_size.blank?
-      current_site.max_upload_size
-    else
-      '15000000' # 15 MB
-    end
+    current_site.max_upload_size
   end
 
   private

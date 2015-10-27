@@ -388,7 +388,7 @@ ActiveRecord::Schema.define(version: 20150806185429) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
-    t.string   "max_upload_size"
+    t.string   "max_upload_size",                default: "15000000"
   end
 
   create_table "spaces", force: true do |t|

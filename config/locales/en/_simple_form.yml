@@ -44,7 +44,7 @@ en:
         ldap_email_field: "Specifies which attribute returned by LDAP will be used to obtain the email of a user. Example: \"mail\"."
         ldap_name_field: "Specifies which attribute returned by LDAP will be used to obtain the full name of a user. Example: \"cn\"."
         local_auth_enabled: "When checked the local authentication will be enabled, otherwise it will be disabled for all users except administrators. Disabling the local authentication is usually used only when other authentication methods are enabled (e.g. LDAP)."
-        max_upload_size: "Limit the maximum file size for uploads of logos, avatars and attachments (defaults to 15 MB). Leave it empty to disable limiting. Set to 0 to limit all files. Examples: '5 MB', '700 kB'."
+        max_upload_size: "Limit the maximum file size for uploads of logos, avatars and attachments. Leave it empty to disable limiting. Set to 0 to limit all files. Examples: '5 MB', '700 kB'."
         presence_domain: "Domain used to identify the XMPP server."
         registration_enabled: "If checked, users can create new accounts. Otherwise, users will only be able to access the website if they already have an account. Moreover, if this option is disabled, new accounts can still be created through secondary login methods such as Shibboleth and LDAP."
         require_registration_approval: "When checked, users will be able to register new accounts, but they will only be allowed to access the site once an administrator approves his account. Otherwise the users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"

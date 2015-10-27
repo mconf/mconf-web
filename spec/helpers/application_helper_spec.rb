@@ -184,7 +184,6 @@ describe ApplicationHelper do
   end
 
   describe "#max_upload_size" do
-    let(:default_size) { "15000000" }
     before {
       allow(helper).to receive(:current_site) { Site.current }
     }
@@ -200,21 +199,7 @@ describe ApplicationHelper do
       before {
         Site.current.update_attributes(max_upload_size: nil)
       }
-      it { helper.max_upload_size.should eq(default_size) }
-    end
-
-    context "when max_upload_size is empty in the site" do
-      before {
-        Site.current.update_attributes(max_upload_size: "")
-      }
-      it { helper.max_upload_size.should eq(default_size) }
-    end
-
-    context "when max_upload_size has only empty spaces in the site" do
-      before {
-        Site.current.update_attributes(max_upload_size: "  \t")
-      }
-      it { helper.max_upload_size.should eq(default_size) }
+      it { helper.max_upload_size.should be_nil }
     end
   end
 
