@@ -98,7 +98,7 @@ gem "lograge"
 gem "logstash-event"
 
 # Uploads
-gem 'fineuploader-rails', '~> 3.3'
+gem 'fineuploader-rails', git: 'https://github.com/mconf/fineuploader-rails.git'
 gem 'filesize'
 
 #

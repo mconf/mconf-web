@@ -26,6 +26,14 @@ GIT
       resque-scheduler (~> 3.0)
 
 GIT
+  remote: https://github.com/mconf/fineuploader-rails.git
+  revision: 1b30664cec12439c74c0d41bc5510893bc4ccf7e
+  specs:
+    fineuploader-rails (3.3)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+
+GIT
   remote: https://github.com/mconf/mweb_events.git
   revision: c2f02894b96595d379d7c52e28b62f69d3735837
   branch: master
@@ -228,9 +236,6 @@ GEM
       ffi (~> 1.5)
       libyajl2 (~> 1.2)
     filesize (0.1.1)
-    fineuploader-rails (3.3)
-      actionpack (>= 3.1)
-      railties (>= 3.1)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
     fooldap (0.0.2)
@@ -570,7 +575,7 @@ DEPENDENCIES
   exception_notification (~> 4.0.0)
   factory_girl_rails
   filesize
-  fineuploader-rails (~> 3.3)
+  fineuploader-rails!
   font-awesome-rails (~> 4.1.0.0)
   fooldap
   forgery!

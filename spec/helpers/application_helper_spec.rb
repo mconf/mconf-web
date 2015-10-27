@@ -9,7 +9,6 @@ require 'spec_helper'
 include Devise::TestHelpers
 
 describe ApplicationHelper do
-
   describe "#application_version" do
     it("returns the version set on the Mconf object") { application_version.should eq(Mconf::VERSION) }
   end
@@ -181,6 +180,41 @@ describe ApplicationHelper do
 
     context "with no parameters returns only the visible locales" do
       it { available_locales.should eq([:v1, :v2]) }
+    end
+  end
+
+  describe "#max_upload_size" do
+    let(:default_size) { "15000000" }
+    before {
+      allow(helper).to receive(:current_site) { Site.current }
+    }
+
+    context "when max_upload_size is set in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: "25000000")
+      }
+      it { helper.max_upload_size.should eq("25000000") }
+    end
+
+    context "when max_upload_size is not set in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: nil)
+      }
+      it { helper.max_upload_size.should eq(default_size) }
+    end
+
+    context "when max_upload_size is empty in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: "")
+      }
+      it { helper.max_upload_size.should eq(default_size) }
+    end
+
+    context "when max_upload_size has only empty spaces in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: "  \t")
+      }
+      it { helper.max_upload_size.should eq(default_size) }
     end
   end
 

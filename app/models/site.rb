@@ -48,7 +48,9 @@ class Site < ActiveRecord::Base
 
   def validate_and_adjust_max_upload_size
     if max_upload_size_changed?
-      if Mconf::Filesize.is_number?(self.max_upload_size)
+      if self.max_upload_size.blank?
+        write_attribute(:max_upload_size, nil)
+      elsif Mconf::Filesize.is_number?(self.max_upload_size)
         # express size in bytes if a number without units was present
         write_attribute(:max_upload_size, Filesize.from("#{self.max_upload_size} B").to_i)
       elsif Mconf::Filesize.is_filesize?(self.max_upload_size)
