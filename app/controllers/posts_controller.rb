@@ -5,12 +5,21 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class PostsController < ApplicationController
+class PostsController < InheritedResources::Base
   include SpamControllerModule
 
-  before_filter :authenticate_user!, except: [:index, :show]
-
   layout "spaces_show"
+
+  belongs_to :space, finder: :find_by_permalink
+
+  load_and_authorize_resource :space, :find_by => :permalink
+  before_filter :get_posts, :only => [:index]
+  load_and_authorize_resource :through => :space
+
+  # need it to show info in the sidebar
+  before_filter :webconf_room!
+
+  before_filter :set_author, only: [:create]
 
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
@@ -20,23 +29,6 @@ class PostsController < ApplicationController
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
-  load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
-
-  # need it to show info in the sidebar
-  before_filter :webconf_room!
-
-  before_filter :get_posts, :only => [:index]
-  skip_load_resource :only => :index
-
-  def index
-    @post = Post.new
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def show
     if params[:last_page]
       post_comments(@post, {:last => true})
@@ -44,56 +36,7 @@ class PostsController < ApplicationController
       post_comments(@post)
     end
 
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def new
-    respond_to do |format|
-      format.html {
-        render :partial => "new_post"
-      }
-    end
-  end
-
-  def create
-    @post = Post.new(post_params)
-    @post.space = @space
-    @post.author = current_user
-
-    respond_to do |format|
-      if @post.save
-        flash[:success] = t('post.created')
-        format.html { redirect_to request.referer }
-      else
-        flash[:error] = t('post.error.create')
-        format.html { redirect_to request.referer }
-      end
-    end
-
-  end
-
-  def update
-    if @post.update_attributes(post_params)
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('post.updated')
-          redirect_to space_posts_path(@space)
-        }
-      end
-    else
-      flash[:error] = t('post.error.update')
-      redirect_to space_posts_path(@space)
-    end
-  end
-
-  def edit
-    respond_to do |format|
-      format.html {
-        render :partial => "edit_post"
-      }
-    end
+    show!
   end
 
   # Destroys the content of the post. Then its container(post) is
@@ -126,6 +69,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_author
+    @post.author = current_user
+  end
 
   def get_posts
     per_page = params[:extended] ? 6 : 15
