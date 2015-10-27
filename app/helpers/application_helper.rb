@@ -194,6 +194,11 @@ module ApplicationHelper
     content_tag :abbr, "*", :title => I18n.t('_other.form.required')
   end
 
+  # Retrieves max upload size from website or uses a default value
+  def max_upload_size
+    current_site.max_upload_size
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
@@ -203,5 +208,4 @@ module ApplicationHelper
     options.merge!(:body => capture(&block)) if block_given?
     render(:partial => partial_name, :locals => options)
   end
-
 end

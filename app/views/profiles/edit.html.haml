@@ -11,7 +11,7 @@
     #edit-profile-current-logo
       = logo_image(@user, :size => '128', :class => 'profile-logo logo logo-uploadable')
     %ul
-      #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => '5 mb' }
+      #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => max_upload_size }
       %li
         = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
           = link_to t('.vcard.use'), '#profile_vcard', :"data-open-file" => true

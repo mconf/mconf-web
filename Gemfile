@@ -35,6 +35,7 @@ gem 'public_activity', '~> 1.4.1'
 gem 'resque', :require => 'resque/server'
 gem 'resque-scheduler', :require => 'resque/scheduler/server'
 gem 'resque_mailer'
+gem 'resque-lock-timeout'
 
 # Authentication and authorization
 gem 'devise', '~> 3.5.1'
@@ -96,6 +97,10 @@ gem 'active_sanity'
 gem "lograge"
 gem "logstash-event"
 
+# Uploads
+gem 'fineuploader-rails', git: 'https://github.com/mconf/fineuploader-rails.git'
+gem 'filesize'
+
 #
 # TODO: Gems to review if we can remove/update
 #
@@ -103,10 +108,6 @@ gem 'httparty'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem 'prism'
-
-gem 'fineuploader-rails', '~> 3.3'
-
-gem 'resque-lock-timeout'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
