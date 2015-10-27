@@ -7,59 +7,78 @@
 require 'spec_helper'
 
 describe Mconf::Filesize do
+  let(:target) { Mconf::Filesize }
 
   describe '#human_file_size' do
     context 'without arguments' do
-      it { Mconf::Filesize.human_file_size.should eq("0.00 B") }
+      it { target.human_file_size.should eq("0.00 B") }
     end
 
     context 'adjusts the unit returned' do
-      it { Mconf::Filesize.human_file_size(1000).should eq("1.00 kB") }
-      it { Mconf::Filesize.human_file_size(1000000).should eq("1.00 MB") }
-      it { Mconf::Filesize.human_file_size(1000000000).should eq("1.00 GB") }
+      it { target.human_file_size(1000).should eq("1.00 kB") }
+      it { target.human_file_size(1000000).should eq("1.00 MB") }
+      it { target.human_file_size(1000000000).should eq("1.00 GB") }
     end
 
     context 'works if the input is a string' do
-      it { Mconf::Filesize.human_file_size("1000").should eq("1.00 kB") }
-      it { Mconf::Filesize.human_file_size("1000000").should eq("1.00 MB") }
-      it { Mconf::Filesize.human_file_size("1000000000").should eq("1.00 GB") }
+      it { target.human_file_size("1000").should eq("1.00 kB") }
+      it { target.human_file_size("1000000").should eq("1.00 MB") }
+      it { target.human_file_size("1000000000").should eq("1.00 GB") }
     end
   end
 
+  context "#convert" do
+    it("works") { target.convert("15000000").should eql(15000000) }
+    it("works with integers") { target.convert(15000000).should eql(15000000) }
+    it("converts GB properly") { target.convert("15 GB").should eql(15000000000) }
+    it("converts G properly") { target.convert("15 G").should eql(15000000000) }
+    it("converts GiB properly") { target.convert("15 GiB").should eql(16106127360) }
+    it("converts MB properly") { target.convert("15 MB").should eql(15000000) }
+    it("converts M properly") { target.convert("15 M").should eql(15000000) }
+    it("converts MiB properly") { target.convert("15 MiB").should eql(15728640) }
+    it("converts kB properly") { target.convert("15 kB").should eql(15000) }
+    it("converts k properly") { target.convert("15 k").should eql(15000) }
+    it("converts kiB properly") { target.convert("15 kiB").should eql(15360) }
+    it("returns 0 for empty strings") { target.convert("").should eql(0) }
+    it("returns 0 for strings with only blank characters") { target.convert("  \t ").should eql(0) }
+    it("returns 0 for nil values") { target.convert(nil).should eql(0) }
+    it("returns nil for invalid") { target.convert("daileon").should be_nil }
+  end
+
   describe '#is_number?' do
-    it("an int") { Mconf::Filesize.is_number?(1).should be(true) }
-    it("a float") { Mconf::Filesize.is_number?(1.2).should be(true) }
-    it("an object") { Mconf::Filesize.is_number?(Object.new).should be(false) }
-    it("an array") { Mconf::Filesize.is_number?([2]).should be(false) }
-    it("a hash") { Mconf::Filesize.is_number?({ a: 2 }).should be(false) }
+    it("an int") { target.is_number?(1).should be(true) }
+    it("a float") { target.is_number?(1.2).should be(true) }
+    it("an object") { target.is_number?(Object.new).should be(false) }
+    it("an array") { target.is_number?([2]).should be(false) }
+    it("a hash") { target.is_number?({ a: 2 }).should be(false) }
 
     context "a string with" do
-      it("an int") { Mconf::Filesize.is_number?("1").should be(true) }
-      it("a float") { Mconf::Filesize.is_number?("1.2").should be(true) }
-      it("a text") { Mconf::Filesize.is_number?("teste").should be(false) }
-      it("empty") { Mconf::Filesize.is_number?("").should be(false) }
+      it("an int") { target.is_number?("1").should be(true) }
+      it("a float") { target.is_number?("1.2").should be(true) }
+      it("a text") { target.is_number?("teste").should be(false) }
+      it("empty") { target.is_number?("").should be(false) }
     end
   end
 
   describe '#is_filesize?' do
-    it { Mconf::Filesize.is_filesize?("10").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 B").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 kB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 KiB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 M").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 MB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 MiB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 G").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 GB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 GiB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 T").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 TB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("10 TiB").should be(true) }
-    it { Mconf::Filesize.is_filesize?("hi").should be(false) }
-    it { Mconf::Filesize.is_filesize?(10).should be(false) }
-    it { Mconf::Filesize.is_filesize?(10.5).should be(false) }
-    it { Mconf::Filesize.is_filesize?([1, 2]).should be(false) }
-    it { Mconf::Filesize.is_filesize?({ a: 1}).should be(false) }
+    it { target.is_filesize?("10").should be(true) }
+    it { target.is_filesize?("10 B").should be(true) }
+    it { target.is_filesize?("10 kB").should be(true) }
+    it { target.is_filesize?("10 KiB").should be(true) }
+    it { target.is_filesize?("10 M").should be(true) }
+    it { target.is_filesize?("10 MB").should be(true) }
+    it { target.is_filesize?("10 MiB").should be(true) }
+    it { target.is_filesize?("10 G").should be(true) }
+    it { target.is_filesize?("10 GB").should be(true) }
+    it { target.is_filesize?("10 GiB").should be(true) }
+    it { target.is_filesize?("10 T").should be(true) }
+    it { target.is_filesize?("10 TB").should be(true) }
+    it { target.is_filesize?("10 TiB").should be(true) }
+    it { target.is_filesize?("hi").should be(false) }
+    it { target.is_filesize?(10).should be(false) }
+    it { target.is_filesize?(10.5).should be(false) }
+    it { target.is_filesize?([1, 2]).should be(false) }
+    it { target.is_filesize?({ a: 1}).should be(false) }
   end
 
 end

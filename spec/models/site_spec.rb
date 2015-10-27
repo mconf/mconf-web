@@ -10,7 +10,8 @@ describe Site do
 
   describe "before validation" do
     context "formats #max_upload_size" do
-      let(:target) { FactoryGirl.create(:site) }
+      # note: needs a random value set in max_upload_size, different from all tests
+      let(:target) { FactoryGirl.create(:site, max_upload_size: "9999999999") }
 
       it("works") {
         target.max_upload_size = "15000000"

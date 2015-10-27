@@ -18,6 +18,23 @@ module Mconf
       end
     end
 
+    # Converts a value to a file size in bytes. Will try to interpret the value
+    # the best as possible. Understands values such as "15 MB", "5 kiB", "1000",
+    # 35000, etc.
+    # Returns 0 if the value is empty (e.g. blank string) or nil if it's invalid.
+    def self.convert(value)
+      if value.blank?
+        0
+      elsif Mconf::Filesize.is_number?(value)
+        # express size in bytes if a number without units was present
+        ::Filesize.from("#{value} B").to_i
+      elsif Mconf::Filesize.is_filesize?(value)
+        ::Filesize.from(value).to_i
+      else
+        nil
+      end
+    end
+
     def self.is_number? n
       begin
         Float(n)
