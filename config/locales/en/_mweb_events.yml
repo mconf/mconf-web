@@ -26,6 +26,14 @@ en:
       participant: Participant
 
   flash:
+    events:
+      create:
+        notice: Successfully created the event
+      destroy:
+        notice: Successfully deleted the event
+      update:
+        notice: Event information updated
+
     participants:
       create:
         waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
@@ -38,13 +46,10 @@ en:
 
   valid_email:
     validations:
-      email:participant:
+      email:
         invalid: Isn't a valid e-mail address
 
   events:
-    created: Successfully created the event
-    destroyed: Successfully deleted the event
-    updated: Event information updated
 
     show:
       date: When?

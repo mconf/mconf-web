@@ -55,6 +55,7 @@ en:
     accept: "Accept"
     cancel: "Cancel"
     create: "Create"
+    confirm: Ok
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"

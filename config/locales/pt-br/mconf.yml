@@ -55,6 +55,7 @@ pt-br:
     accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
+    confirm: Ok
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
@@ -1522,7 +1523,7 @@ pt-br:
       now: Acontecendo agora
       create_event: "Criar um novo evento"
       events_in: "Eventos em"
-      events_now: "Contecendo agora!"
+      events_now: "Acontecendo agora!"
     past_events:
       last_month: "Nenhum evento no último mês"
       last_week: "Nenhum evento na última semana"
