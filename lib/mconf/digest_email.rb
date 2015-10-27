@@ -54,10 +54,7 @@ module Mconf
         events = []
       end
 
-      # Unread messages in the inbox
-      inbox = PrivateMessage.where(:checked => [false, nil]).inbox(user)
-
-      [ posts, news, attachments, events, inbox ]
+      [ posts, news, attachments, events ]
     end
 
   end

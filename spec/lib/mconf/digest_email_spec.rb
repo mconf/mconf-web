@@ -74,7 +74,7 @@ describe Mconf::DigestEmail do
     let(:date_end) { now }
     let(:space) { FactoryGirl.create(:space) }
     let(:call_get_activity) {
-      @posts, @news, @attachments, @events, @inbox = subject.get_activity(user, date_start, date_end)
+      @posts, @news, @attachments, @events = subject.get_activity(user, date_start, date_end)
     }
     before do
       space.add_member!(user)
@@ -105,7 +105,6 @@ describe Mconf::DigestEmail do
       it { @attachments.should == [] }
       it { @news.should == [] }
       it { @events.should == [] }
-      it { @inbox.should == [] }
     end
 
     context "returns the latest posts in the user's spaces" do
@@ -150,21 +149,6 @@ describe Mconf::DigestEmail do
       it { @expected.should == @events }
     end
 
-    context "returns the unread messages in the inbox" do
-      before do
-        sender = FactoryGirl.create(:user)
-
-        # Time for the message to arrive
-        start_time = Time.zone.now
-
-        # unread messages for the target user
-        @expected = []
-        @expected.sort_by!{ |p| p.updated_at }.reverse!
-       
-      end
-      before(:each) { call_get_activity }
-      it { @expected.should == @inbox }
-    end
   end
 
   describe ".send_digest" do
@@ -213,7 +197,7 @@ describe Mconf::DigestEmail do
         ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
-          and_return([ @posts, @news, @attachments, @events, @inbox ])
+          and_return([ @posts, @news, @attachments, @events])
       end
 
       before(:each) { subject.send_digest(user, date_start, date_end) }
