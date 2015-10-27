@@ -83,6 +83,11 @@ describe Site do
         target.save
         target.reload.max_upload_size.should be_nil
       }
+      it("sets 0 as 0") {
+        target.max_upload_size = 0
+        target.save
+        target.reload.max_upload_size.should eql("0")
+      }
     end
   end
 

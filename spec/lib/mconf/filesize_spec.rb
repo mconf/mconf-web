@@ -11,16 +11,23 @@ describe Mconf::Filesize do
 
   describe '#human_file_size' do
     context 'without arguments' do
-      it { target.human_file_size.should eq("0.00 B") }
+      it { target.human_file_size.should be_nil }
+    end
+
+    context 'with empty values' do
+      it { target.human_file_size("").should be_nil }
+      it { target.human_file_size(" \t  ").should be_nil }
     end
 
     context 'adjusts the unit returned' do
+      it { target.human_file_size(0).should eq("0.00 B") }
       it { target.human_file_size(1000).should eq("1.00 kB") }
       it { target.human_file_size(1000000).should eq("1.00 MB") }
       it { target.human_file_size(1000000000).should eq("1.00 GB") }
     end
 
     context 'works if the input is a string' do
+      it { target.human_file_size("0").should eq("0.00 B") }
       it { target.human_file_size("1000").should eq("1.00 kB") }
       it { target.human_file_size("1000000").should eq("1.00 MB") }
       it { target.human_file_size("1000000000").should eq("1.00 GB") }
@@ -39,9 +46,10 @@ describe Mconf::Filesize do
     it("converts kB properly") { target.convert("15 kB").should eql(15000) }
     it("converts k properly") { target.convert("15 k").should eql(15000) }
     it("converts kiB properly") { target.convert("15 kiB").should eql(15360) }
-    it("returns 0 for empty strings") { target.convert("").should eql(0) }
-    it("returns 0 for strings with only blank characters") { target.convert("  \t ").should eql(0) }
-    it("returns 0 for nil values") { target.convert(nil).should eql(0) }
+    it("returns nil for empty strings") { target.convert("").should be_nil }
+    it("returns nil for strings with only blank characters") { target.convert("  \t ").should be_nil }
+    it("returns nil for nil values") { target.convert(nil).should be_nil}
+    it("returns nil for invalid numbers") { target.convert(-5).should be_nil }
     it("returns nil for invalid") { target.convert("daileon").should be_nil }
   end
 

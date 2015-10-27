@@ -9,12 +9,16 @@ module Mconf
 
     # Human readable file size approximating to
     # the largest unit. Assumes 0 as the size if nil
-    def self.human_file_size(bytes=0)
-      begin
-        bytes = ::Filesize.from("#{bytes} B").to_i # to get an integer
-        ::Filesize.from("#{bytes/1000} KB").pretty
-      rescue ArgumentError
-        bytes
+    def self.human_file_size(bytes=nil)
+      if bytes.blank?
+        nil
+      else
+        begin
+          bytes = ::Filesize.from("#{bytes} B").to_i # to get an integer
+          ::Filesize.from("#{bytes/1000} KB").pretty
+        rescue ArgumentError
+          bytes
+        end
       end
     end
 
@@ -24,12 +28,20 @@ module Mconf
     # Returns 0 if the value is empty (e.g. blank string) or nil if it's invalid.
     def self.convert(value)
       if value.blank?
-        0
+        nil
       elsif Mconf::Filesize.is_number?(value)
-        # express size in bytes if a number without units was present
-        ::Filesize.from("#{value} B").to_i
+        begin
+          # express size in bytes if a number without units was present
+          ::Filesize.from("#{value} B").to_i
+        rescue ArgumentError
+          nil
+        end
       elsif Mconf::Filesize.is_filesize?(value)
-        ::Filesize.from(value).to_i
+        begin
+          ::Filesize.from(value).to_i
+        rescue ArgumentError
+          nil
+        end
       else
         nil
       end

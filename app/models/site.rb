@@ -48,13 +48,15 @@ class Site < ActiveRecord::Base
 
   def validate_and_adjust_max_upload_size
     if max_upload_size_changed?
-      value = Mconf::Filesize.convert(self.max_upload_size)
-      if value == 0
+      if self.max_upload_size.blank?
         write_attribute(:max_upload_size, nil)
-      elsif value.nil?
-        self.errors.add(:max_upload_size, :invalid)
       else
-        write_attribute(:max_upload_size, value.to_s)
+        value = Mconf::Filesize.convert(self.max_upload_size)
+        if value.nil?
+          self.errors.add(:max_upload_size, :invalid)
+        else
+          write_attribute(:max_upload_size, value.to_s)
+        end
       end
     end
   end
