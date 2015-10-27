@@ -46,13 +46,10 @@
         %span.error
           = error_messages[:end_on]
 
-    .input.string.event_time_zone.field_with_hint
 
-      = f.label :time_zone
-      = f.hint :time_zone
+    = f.input :time_zone, :required => false do
+      = f.collection_select :time_zone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
 
-      = f.time_zone_select :time_zone, [Time.zone]
-      #time_zone_options{:'data-default' => Time.zone}
 
     = f.input :location
 
