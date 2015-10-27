@@ -149,4 +149,6 @@ group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
   gem 'webmock'
+
+  gem 'codeclimate-test-reporter', group: :test, require: nil
 end
