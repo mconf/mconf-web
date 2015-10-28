@@ -8,7 +8,6 @@
     .container
       %h3.title= t(".member.title")
 
-      -# TODO: redirect back here after login
       = simple_form_for "user", :url => user_session_path do |f|
         .input
           %label= t(".member.email_or_username")

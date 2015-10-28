@@ -7,7 +7,7 @@
 module Abilities
 
   class SuperUserAbility < BaseAbility
-    # TODO: restrict a bit what superusers can do
+    # TODO: #1251 restrict a bit what superusers can do
     def register_abilities(user)
       can :manage, :all
 

@@ -63,7 +63,6 @@ Mconf::Application.configure do
     Dir.glob("#{Rails.root}/vendor/assets/**/*.{png,jpg,gif}")
 
   # Disable delivery errors, bad email addresses will be ignored
-  # TODO: review
   config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode

@@ -40,7 +40,6 @@ class Space < ActiveRecord::Base
   include PublicActivity::Common
   include Mconf::ApprovalModule
 
-  # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
@@ -218,8 +217,6 @@ class Space < ActiveRecord::Base
   def self.with_disabled
     self.unscoped
   end
-
-  # TODO: review all public methods below
 
   # Disable the space from the website.
   # This can be used by global admins as a mean to disable access and indexing of this space in all areas of

@@ -39,7 +39,7 @@ gem 'resque-lock-timeout'
 
 # Authentication and authorization
 gem 'devise', '~> 3.5.1'
-gem 'devise-encryptable' # TODO: only while we have old station users
+gem 'devise-encryptable' # TODO: #1271 only while we have old station users
 gem 'cancancan', '~> 1.9'
 gem 'devise-async'
 gem 'net-ldap'
@@ -57,7 +57,6 @@ gem 'rmagick'
 gem 'mini_magick'
 
 # global configurations
-# TODO: update to the stable version when out
 gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
