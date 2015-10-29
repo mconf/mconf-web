@@ -5,12 +5,16 @@
 # 3 or later. See the LICENSE file.
 
 require 'spec_helper'
+require 'support/feature_helpers'
 
 describe 'User signs in via ldap' do
   subject { page }
   before(:all) {
     @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
   }
+  after(:all) { Mconf::LdapServerRunner.stop }
+
+  before { enable_ldap }
 
   context 'for the first time' do
     before {
@@ -54,6 +58,7 @@ describe 'User signs in via ldap' do
           user.disable
           fill_in 'user[login]', :with => user.username
           fill_in 'user[password]', :with => user.password
+
           click_button t('sessions.login_form.login')
         }
 
@@ -76,62 +81,54 @@ describe 'User signs in via ldap' do
         it("sends notification emails") { UserMailer.should have_queued(:registration_notification_email, User.last.id) }
       end
 
-      context "but encountering a server error" do
-
-      end
+      it "but encountering a server error"
 
       context "and there's a conflict on the user's username with another user" do
         before {
-          FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:user, username: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:space, permalink: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
       context "and there's a conflict in the user's email" do
         before {
-          FactoryGirl.create(:user, email: @attrs[:email])
+          FactoryGirl.create(:user, email: @ldap_attrs[:email])
           expect {
             click_button t('sessions.login_form.login')
           }.not_to change{ User.count }
         }
 
         it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message t('shibboleth.create_association.existent_account', email: @attrs[:email]) }
+        it { has_failure_message }
         it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
