@@ -635,6 +635,39 @@ describe Mconf::Shibboleth do
       it { subject.username.should eq('my-login-aaee-test') }
     end
 
+    context "doesn't fail if the login already exists" do
+      let(:token) { ShibToken.new(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:user, username: 'any-name')
+        FactoryGirl.create(:user, username: 'any-name-2')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('Any Name')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+      }
+      it {
+        expect {
+          user = shibboleth.create_user(token)
+          user.username.should eq('any-name-3')
+        }.to change{ User.count }.by(1)
+      }
+    end
+
+    context "doesn't fail if the login is already used as the permalink of a space" do
+      let(:token) { ShibToken.new(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:space, permalink: 'any-name')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('Any Name')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+      }
+      it {
+        expect {
+          user = shibboleth.create_user(token)
+          user.username.should eq('any-name-2')
+        }.to change{ User.count }.by(1)
+      }
+    end
+
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { ShibToken.new(identifier: 'dummy_shib@tok.en') }

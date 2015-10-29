@@ -217,17 +217,17 @@ describe Devise::Strategies::LdapAuthenticatable do
 
       context "with email set" do
         it { @subject.email.should_not be_nil }
-        it ("and correct") { @subject.email.should eql('any@ema.il') }
+        it("and correct") { @subject.email.should eql('any@ema.il') }
       end
 
       context "with username set" do
         it { @subject.username.should_not be_nil }
-        it ("and correct") { @subject.username.should eql('any-username') }
+        it("and correct") { @subject.username.should eql('any-username') }
       end
 
       context "with name set" do
         it { @subject.name.should_not be_nil }
-        it ("and correct") { @subject.name.should eql('John Doe') }
+        it("and correct") { @subject.name.should eql('John Doe') }
       end
 
       context "skips the confirmation, marking the user as already confirmed" do
@@ -243,7 +243,33 @@ describe Devise::Strategies::LdapAuthenticatable do
         it ("should be owned by the correct LdapToken") { subject.owner_id.should eql(token.id) }
         it("should be unnotified") { subject.notified.should be(false) }
       end
+    end
 
+    context "doesn't fail if the username already exists" do
+      let(:token) { LdapToken.create!(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:user, username: "any-username")
+        FactoryGirl.create(:user, username: "any-username-2")
+      }
+      it {
+        expect {
+          user = ldap.send(:create_account, 'any@email.com', 'any-username', 'John Doe', token)
+          user.username.should eql("any-username-3")
+        }.to change { User.count }.by(1)
+      }
+    end
+
+    context "doesn't fail if the username is already the identifier of a space" do
+      let(:token) { LdapToken.create!(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:space, permalink: "any-username")
+      }
+      it {
+        expect {
+          user = ldap.send(:create_account, 'any@email.com', 'any-username', 'John Doe', token)
+          user.username.should eql("any-username-2")
+        }.to change { User.count }.by(1)
+      }
     end
 
     shared_examples "fails to create account and RecentActivity" do
@@ -277,7 +303,6 @@ describe Devise::Strategies::LdapAuthenticatable do
         let(:name) { '' }
         include_examples "fails to create account and RecentActivity"
       end
-
     end
 
     # These tests are here to prevent errors when creating the token, because the id passed is
