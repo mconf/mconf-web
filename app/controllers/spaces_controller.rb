@@ -13,7 +13,7 @@ class SpacesController < InheritedResources::Base
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :json, :only => [:update_logo]
-  respond_to :html, :only => [:new, :edit, :index, :show, :destroy]
+  respond_to :html, :only => [:new, :edit, :index, :show, :destroy, :update]
 
   rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
@@ -37,6 +37,16 @@ class SpacesController < InheritedResources::Base
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
+  def set_layout
+    if [:show, :edit, :user_permissions, :webconference_options,
+        :webconference, :recordings, :edit_recording].include? action_name.to_sym
+      'spaces_show'
+    else
+      'application'
+    end
+  end
+  layout :set_layout
+
   def index
     params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
 
@@ -57,23 +67,9 @@ class SpacesController < InheritedResources::Base
 
     # users
     @latest_users = @space.latest_users
-
-    respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
-      format.json
-    end
-  end
-
-  def new
-    @space = Space.new
-    respond_with @space do |format|
-      format.html { render :layout => 'application' }
-    end
   end
 
   def create
-    @space = Space.new(space_params)
-
     if @space.save
       respond_with @space do |format|
 
@@ -92,13 +88,9 @@ class SpacesController < InheritedResources::Base
       end
     else
       respond_with @space do |format|
-        format.html { render :new, :layout => "application" }
+        format.html { render :new }
       end
     end
-  end
-
-  def edit
-    render :layout => 'spaces_show'
   end
 
   def update_logo
@@ -124,19 +116,7 @@ class SpacesController < InheritedResources::Base
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(space_params)
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('space.updated')
-          redirect_to :back
-        }
-      end
-    else
-      respond_to do |format|
-        flash[:error] = t('error.change')
-        format.html { redirect_to :back }
-      end
-    end
+    update! { :back }
   end
 
   def disable
@@ -163,11 +143,9 @@ class SpacesController < InheritedResources::Base
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
-    render :layout => 'spaces_show'
   end
 
   def webconference_options
-    render :layout => 'spaces_show'
   end
 
   def enable
@@ -218,7 +196,6 @@ class SpacesController < InheritedResources::Base
       end
       @webconf_attendees.uniq!
     end
-    render :layout => 'spaces_show'
   end
 
   # Action used to show the recordings of a space
@@ -230,11 +207,8 @@ class SpacesController < InheritedResources::Base
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
-    if params[:partial]
-      render :layout => false
-    else
-      render :layout => 'spaces_show'
-    end
+
+    render layout: false if params[:partial]
   end
 
   # Page to edit a recording.
@@ -242,11 +216,8 @@ class SpacesController < InheritedResources::Base
     @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
-    if request.xhr?
-      render :layout => false
-    else
-      render :layout => "spaces_show"
-    end
+
+    render layout: false if request.xhr?
   end
 
   # Finds spaces by name (params[:q]) and returns a list of selected attributes
@@ -258,10 +229,6 @@ class SpacesController < InheritedResources::Base
       @spaces = Space.where(approved: true).limit(limit).all
     else
       @spaces = Space.where("name like ?", "%#{name}%").where(approved: true).limit(limit)
-    end
-
-    respond_with @spaces do |format|
-      format.json
     end
   end
 
@@ -381,5 +348,9 @@ class SpacesController < InheritedResources::Base
       :bigbluebutton_room_attributes =>
         [ :id, :attendee_key, :moderator_key, :default_layout, :private,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+  end
+
+  def back_url
+    request.referer
   end
 end

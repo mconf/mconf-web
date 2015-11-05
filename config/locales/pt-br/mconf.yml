@@ -243,6 +243,12 @@ pt-br:
       join_request: "Pedido de Adesão"
       news: "Notícia"
       space: "Comunidade"
+
+  flash:
+    spaces:
+      update:
+        notice: "Comunidade atualizada com sucesso"
+
   address: Endereço
   admin:
     one: Administrador
@@ -1510,7 +1516,6 @@ pt-br:
       views: "Visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
-    updated: "Comunidade atualizada com sucesso"
   space_events:
     all_events:
       all_upcoming: "Ver todos eventos futuros"

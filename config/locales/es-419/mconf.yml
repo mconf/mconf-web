@@ -228,6 +228,12 @@ es-419:
       join_request: "Solicitud para unirse"
       news: "Novedades"
       space: "Espacio"
+
+  flash:
+    spaces:
+      update:
+        notice: "Espacio actualizado con éxito"
+
   address: Dirección
   admin:
     one: Administrador
@@ -1456,7 +1462,6 @@ es-419:
       views: "vistas"
     subscribed_to_none: "No está suscrito a ningún espacio"
     update_logo: "Actualizar logo"
-    updated: "Espacio actualizado con éxito"
   space_events:
     all_events:
       all_upcoming: "Ver todos los próximos eventos"

@@ -402,7 +402,7 @@ describe SpacesController do
       }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing no parameters" do
@@ -413,7 +413,7 @@ describe SpacesController do
       }
 
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing some parameters" do
@@ -427,7 +427,7 @@ describe SpacesController do
       it { RecentActivity.last.key.should eq('space.update') }
       it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing the logo_image parameter" do

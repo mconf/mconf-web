@@ -243,6 +243,12 @@ en:
       join_request: "Join Request"
       news: "News"
       space: "Space"
+
+  flash:
+    spaces:
+      update:
+        notice: "Space updated successfully"
+
   address: Address
   admin:
     one: Admin
@@ -1509,7 +1515,6 @@ en:
       views: "views"
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
-    updated: "Space updated successfully"
   space_events:
     all_events:
       all_upcoming: "View all upcoming events"
