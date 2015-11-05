@@ -7,10 +7,15 @@
 
 require "digest/sha1"
 
-class UsersController < ApplicationController
+class UsersController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve and disapprove
   include Mconf::DisableControllerModule # for enable, disable
 
+  respond_to :html, except: [:select, :current, :fellows]
+  respond_to :json, only: [:select, :current, :fellows]
+  respond_to :xml, only: [:current]
+
+  defaults finder: :find_by_permalink!
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
@@ -22,15 +27,19 @@ class UsersController < ApplicationController
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  respond_to :html, :except => [:select, :current, :fellows]
-  respond_to :js, :only => [:select, :current, :fellows]
-  respond_to :xml, :only => [:current]
+  layout :set_layout
+  def set_layout
+    if [:index].include?(action_name.to_sym)
+      'spaces_show'
+    elsif [:edit].include?(action_name.to_sym)
+      'no_sidebar'
+    else
+      'application'
+    end
+  end
 
   def index
     @users = @space.users.sort {|x,y| x.name <=> y.name }
-    respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
-    end
   end
 
   def show
@@ -47,7 +56,6 @@ class UsersController < ApplicationController
       shib = Mconf::Shibboleth.new(session)
       @shib_provider = shib.get_identity_provider
     end
-    render :layout => 'no_sidebar'
   end
 
   def update
@@ -80,13 +88,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html {
-        flash[:notice] = t('user.deleted')
-        redirect_to manage_users_path
-      }
-    end
+    destroy! { manage_users_path }
   end
 
   # Finds users by id (params[:i]) or by name, username or email (params[:q]) and returns
@@ -108,10 +110,6 @@ class UsersController < ApplicationController
       .search_by_terms(words)
       .limit(limit)
     end
-
-    respond_with @users do |format|
-      format.json
-    end
   end
 
   # Returns fellows users - users that a members of spaces
@@ -120,19 +118,12 @@ class UsersController < ApplicationController
   #   for fellows too
   def fellows
     @users = current_user.fellows(params[:q], params[:limit])
-
-    respond_with @users do |format|
-      format.json
-    end
   end
 
   # Returns info of the current user
   def current
     @user = current_user
-    respond_with @user do |format|
-      format.xml
-      format.json
-    end
+    respond_with(@user)
   end
 
   # Confirms a user's account
@@ -146,29 +137,26 @@ class UsersController < ApplicationController
 
   # Methods to let admins create new users
   def new
-    @user = User.new
     respond_to do |format|
       format.html { render layout: !request.xhr? }
     end
   end
 
   def create
-    @user = User.new(user_params)
     @user.created_by = current_user
     @user.skip_confirmation_notification!
 
-    if @user.save
-      @user.confirm
-      @user.approve!
-      flash[:success] = t("users.create.success")
-      respond_to do |format|
-        format.html { redirect_to manage_users_path }
+    respond_to do |format|
+
+      if @user.save
+        @user.confirm
+        @user.approve!
+        flash[:success] = t("users.create.success")
+      else
+        flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))
       end
-    else
-      flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))
-      respond_to do |format|
-        format.html { redirect_to manage_users_path }
-      end
+
+      format.html { redirect_to manage_users_path }
     end
   end
 
