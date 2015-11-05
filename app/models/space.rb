@@ -170,6 +170,16 @@ class Space < ActiveRecord::Base
     self.events.upcoming.order("start_on ASC").first(5)
   end
 
+  # Returns the latest 'count' posts created in this space
+  def latest_posts(count = 3)
+    posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(count)
+  end
+
+  # Returns the latest 'count' users that have joined this space
+  def latest_users(count = 3)
+    users.order("permissions.created_at DESC").first(count)
+  end
+
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
   # TODO: if a user has a pending request to join the space it will still be there after if this
   # method is used, should we check this here?

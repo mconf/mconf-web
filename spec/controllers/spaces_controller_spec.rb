@@ -721,6 +721,9 @@ describe SpacesController do
     let(:user) { FactoryGirl.create(:user) }
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
+
+    it { should_authorize space, :edit_recording, space_id: space.to_param, id: recording.to_param }
+
     before(:each) {
       space.add_member! user, "Admin"
       login_as(user)

@@ -5,13 +5,23 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class SpacesController < ApplicationController
+class SpacesController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve, disapprove
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable, :destroy, :disable]
-  load_resource :find_by => :permalink, :parent => true, :only => [:edit_recording]
+  # TODO: cleanup the other actions adding respond_to blocks here
+  respond_to :js, :only => [:index, :show]
+  respond_to :json, :only => [:update_logo]
+  respond_to :html, :only => [:new, :edit, :index, :show, :destroy]
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
+
+  # Cancan and inherited resources load
+  defaults finder: :find_by_permalink!
+  before_filter :load_space_via_space_id, only: [:edit_recording]
+  before_filter :load_spaces_index, only: [:index]
+  load_and_authorize_resource :find_by => :permalink, :except => [:enable, :destroy, :disable]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the sidebar
@@ -20,15 +30,7 @@ class SpacesController < ApplicationController
               :recordings, :edit_recording, :webconference_options]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
-
   before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
-
-  # TODO: cleanup the other actions adding respond_to blocks here
-  respond_to :js, :only => [:index, :show]
-  respond_to :json, :only => [:update_logo]
-  respond_to :html, :only => [:new, :edit, :index, :show]
-
-  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
   after_filter :only => [:create, :update, :update_logo, :leave] do
@@ -37,29 +39,10 @@ class SpacesController < ApplicationController
 
   def index
     params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
-    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
 
-    spaces = Space.where(approved: true)
-    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
-
-    @spaces = params[:my_spaces] ? @user_spaces : spaces
-    if params[:order] == 'abc'
-      @spaces = @spaces.order('name ASC').paginate(:page => params[:page], :per_page => 18)
-    else
-      @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
-    end
-
-    session[:current_tab] = "Spaces" if @space
-
-    if params[:manage]
-      session[:current_tab] = "Manage"
-      session[:current_sub_tab] = "Spaces"
-    end
-
-    respond_with @spaces do |format|
-      format.html { render :index }
-      format.json
-    end
+    order_spaces
+    paginate_spaces
+    set_menu_tab
   end
 
   def show
@@ -70,11 +53,10 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
 
     # posts
-    posts = @space.posts
-    @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
+    @latest_posts = @space.latest_posts
 
     # users
-    @latest_users = @space.users.order("permissions.created_at DESC").first(3)
+    @latest_users = @space.latest_users
 
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
@@ -172,13 +154,7 @@ class SpacesController < ApplicationController
   end
 
   def destroy
-    @space.destroy
-    respond_to do |format|
-      format.html {
-        flash[:notice] = t('space.deleted')
-        redirect_to manage_spaces_path
-      }
-    end
+    destroy!(notice: t('space.deleted')) { manage_spaces_path }
   end
 
   def user_permissions
@@ -263,7 +239,6 @@ class SpacesController < ApplicationController
 
   # Page to edit a recording.
   def edit_recording
-    # @space = Space.find_by_permalink(params[:space_id])
     @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
@@ -291,6 +266,38 @@ class SpacesController < ApplicationController
   end
 
   private
+  # Load the @spaces and @user_spaces variables
+  # The @spaces variable will only contain approved spaces
+  def load_spaces_index
+    spaces = Space.where(approved: true)
+    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+
+    @spaces = params[:my_spaces] ? @user_spaces : spaces
+  end
+
+  def order_spaces
+    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
+
+    if params[:order] == 'abc'
+      @spaces = @spaces.order('name ASC')
+    else
+      @spaces = @spaces.order_by_activity
+    end
+  end
+
+  def paginate_spaces
+    @spaces = @spaces.paginate(:page => params[:page], :per_page => 18)
+  end
+
+  # Should be on the view?
+  def set_menu_tab
+    session[:current_tab] = "Spaces" if @space
+
+    if params[:manage]
+      session[:current_tab] = "Manage"
+      session[:current_sub_tab] = "Spaces"
+    end
+  end
 
   def load_and_authorize_with_disabled
     @space = Space.with_disabled.find_by_permalink(params[:id])
@@ -305,6 +312,11 @@ class SpacesController < ApplicationController
   def load_events
     @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
     @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
+  end
+
+  # For edit_recording
+  def load_space_via_space_id
+    @space = Space.find_by_permalink(params[:space_id])
   end
 
   def handle_record_not_found exception

@@ -632,6 +632,10 @@ describe Space do
     end
   end
 
+  describe "#latest_posts"
+
+  describe "#latest_users"
+
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
