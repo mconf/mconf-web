@@ -12,6 +12,7 @@ require './lib/mconf/approval_module'
 class User < ActiveRecord::Base
   include PublicActivity::Common
   include Mconf::ApprovalModule
+  include Mconf::DisableModule
 
   # TODO: block :username from being modified after registration
 
@@ -182,15 +183,6 @@ class User < ActiveRecord::Base
     Space.public_spaces.order('name') - spaces
   end
 
-  def disable
-    before_disable_and_destroy
-    update_attribute(:disabled, true)
-  end
-
-  def enable
-    self.update_attribute(:disabled,false)
-  end
-
   def fellows(name=nil, limit=nil)
     limit = limit || 5            # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
@@ -266,10 +258,6 @@ class User < ActiveRecord::Base
     superuser
   end
 
-  def enabled?
-    !disabled?
-  end
-
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
@@ -310,6 +298,11 @@ class User < ActiveRecord::Base
     admin_in.each do |space|
       space.disable if space.admins.empty?
     end
+  end
+
+  # For the disable module
+  def before_disable
+    before_disable_and_destroy
   end
 
   def init

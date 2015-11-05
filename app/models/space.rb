@@ -39,6 +39,7 @@ require './lib/mconf/approval_module'
 class Space < ActiveRecord::Base
   include PublicActivity::Common
   include Mconf::ApprovalModule
+  include Mconf::DisableModule
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
@@ -231,23 +232,6 @@ class Space < ActiveRecord::Base
 
   # TODO: review all public methods below
 
-  # Disable the space from the website.
-  # This can be used by global admins as a mean to disable access and indexing of this space in all areas of
-  # the site. This acts as if it has been deleted, but the data is still there in the database and the space can be
-  # enabled back with the method 'enable'
-  def disable
-    self.disabled = true
-    self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
-    save!
-  end
-
-  # Re-enables a previously disabled space
-  def enable
-    self.disabled = false
-    self.name = "#{name.split(" DISABLED").first} RESTORED"
-    save!
-  end
-
   # Checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
     adm = self.admins
@@ -299,10 +283,6 @@ class Space < ActiveRecord::Base
   # Returns whether the space's logo is being cropped.
   def is_cropping?
     logo_image.present? && crop_x.present?
-  end
-
-  def enabled?
-    !disabled?
   end
 
   def small_logo_image?
