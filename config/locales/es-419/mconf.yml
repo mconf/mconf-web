@@ -234,6 +234,22 @@ es-419:
       update:
         notice: "Espacio actualizado con éxito"
 
+      disable:
+        notice: "Espacio deshabilitado con éxito"
+
+      enable:
+        notice: "Espacio habilitado con éxito"
+        failure: "El espacio %{name} ya está activo"
+
+    users:
+      disable:
+        notice: "Usuario %{usarname} deshabilitado"
+
+      enable:
+        notice: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
+        failure: "El usuario %{name} ya está habilitado"
+
+
   address: Dirección
   admin:
     one: Administrador
@@ -1399,15 +1415,11 @@ es-419:
     description: "Descripción del espacio"
     description_none: "Es necesaria una descripción del espacio para poder crearlo"
     disable: "Deshabilitar el espacio"
-    disabled: "Espacio deshabilitado con éxito"
     edit:
       webconference_passwords: "Claves de las salas de videoconferencias"
     edit_description: "editar descripción"
     edit_name: "editar nombre"
     enable: "Habilitar espacio"
-    enabled: "Espacio habilitado con éxito"
-    error:
-      enabled: "El espacio %{name} ya está activo"
     event_count: "%{count} eventos"
     index:
       filters:
@@ -1726,12 +1738,8 @@ es-419:
     confirm_password: "Confirmar clave"
     delete_from_space: "Eliminar usuario del espacio"
     disable: "Deshabilitar usuario"
-    disabled: "Usuario %{usarname} deshabilitado"
     email_used_to_create_account: "Ingrese la dirección correo electrónico que utilizó para crear su cuenta"
     enable: "Habilitar usuario"
-    enabled: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
-    error:
-      enabled: "El usuario %{name} ya está habilitado"
     filter: "Invitar por nombre de usuario"
     group_invite_email: "Invitar por correo electrónico"
     include_registered: "Incluir usuarios registrados"

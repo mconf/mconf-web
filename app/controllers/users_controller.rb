@@ -9,6 +9,7 @@ require "digest/sha1"
 
 class UsersController < ApplicationController
   include Mconf::ApprovalControllerModule # for approve and disapprove
+  include Mconf::DisableControllerModule # for enable, disable
 
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
@@ -85,39 +86,6 @@ class UsersController < ApplicationController
         flash[:notice] = t('user.deleted')
         redirect_to manage_users_path
       }
-    end
-  end
-
-  def disable
-    @user.disable
-
-    if current_user == @user
-      # the same message devise users when removing a registration
-      flash[:notice] = t('devise.registrations.destroyed')
-    else
-      flash[:notice] = t('user.disabled', :username => @user.username)
-    end
-
-    respond_to do |format|
-      format.html {
-        if current_user.superuser?
-          redirect_to manage_users_path
-        else
-          redirect_to root_path
-        end
-      }
-    end
-  end
-
-  def enable
-    unless @user.disabled?
-      flash[:notice] = t('user.error.enabled', :name => @user.username)
-    else
-      @user.enable
-      flash[:success] = t('user.enabled')
-    end
-    respond_to do |format|
-      format.html { redirect_to manage_users_path }
     end
   end
 
@@ -213,6 +181,23 @@ class UsersController < ApplicationController
 
   def require_approval?
     current_site.require_registration_approval?
+  end
+
+  def disable_notice
+    if current_user == @user
+      # the same message devise users when removing a registration
+      t('devise.registrations.destroyed')
+    else
+      t('flash.users.disable.notice', :username => @user.username)
+    end
+  end
+
+  def disable_back_path
+    if current_user.superuser?
+      manage_users_path
+    else
+      root_path
+    end
   end
 
   allow_params_for :user

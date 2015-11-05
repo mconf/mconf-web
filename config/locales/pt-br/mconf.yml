@@ -249,6 +249,22 @@ pt-br:
       update:
         notice: "Comunidade atualizada com sucesso"
 
+      enable:
+        notice: "Comunidade habilitada com sucesso"
+        failure: "Comunidade %{name} já está habilitada"
+
+      disable:
+        notice: "Comunidade desativada com sucesso"
+
+    users:
+      enable:
+        notice: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
+        failure: "Usuário %{name} já está habilitado"
+
+      disable:
+        notice: "Usuário %{username} desabilitado"
+
+
   address: Endereço
   admin:
     one: Administrador
@@ -1445,15 +1461,11 @@ pt-br:
     description: "Descrição da comunidade"
     description_none: "Uma descrição da comunidade deve ser fornecida para criar uma nova comunidade"
     disable: "Desativar a comunidade"
-    disabled: "Comunidade desativada com sucesso"
     edit:
       webconference_passwords: "Senhas da sala de webconferência"
     edit_description: "editar descrição"
     edit_name: "editar nome"
     enable: "Habilitar comunidade"
-    enabled: "Comunidade habilitada com sucesso"
-    error:
-      enabled: "Comunidade %{name} já está habilitada"
     event_count: "%{count} eventos"
     index:
       filters: 
@@ -1802,12 +1814,8 @@ pt-br:
     delete_from_space: "Excluir usuário da comunidade"
     deleted: "Usuário deletado"
     disable: "Desabilitar usuário"
-    disabled: "Usuário %{username} desabilitado"
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
-    enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
-    error:
-      enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
     group_invite_email: "Convidar por e-mail"
     include_registered: "Incluir usuários registrados"

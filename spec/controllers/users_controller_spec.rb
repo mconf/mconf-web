@@ -497,7 +497,7 @@ describe UsersController do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
       before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
+      it { should set_the_flash.to(I18n.t('flash.users.disable.notice', username: user.username)) }
       it { should redirect_to(manage_users_path) }
       it("disables the user") { user.reload.disabled.should be(true) }
     end
@@ -533,7 +533,10 @@ describe UsersController do
   end
 
   describe "#enable" do
-    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+    before(:each) {
+      request.env["HTTP_REFERER"] = manage_users_path
+      login_as(FactoryGirl.create(:superuser))
+    }
 
     context "loads the user by username" do
       let(:user) { FactoryGirl.create(:user) }
@@ -551,14 +554,14 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user, disabled: false) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.error.enabled', name: user.username)) }
+      it { should set_the_flash.to(I18n.t('flash.users.enable.failure', name: user.name)) }
     end
 
     context "if the user is disabled" do
       let(:user) { FactoryGirl.create(:user, disabled: true) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.enabled')) }
+      it { should set_the_flash.to(I18n.t('flash.users.enable.notice')) }
       it { user.reload.disabled.should be_falsey }
     end
 

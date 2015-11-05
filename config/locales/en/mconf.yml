@@ -248,6 +248,18 @@ en:
     spaces:
       update:
         notice: "Space updated successfully"
+      disable:
+        notice: "Space disabled successfully"
+      enable:
+        notice: "Space enabled successfully"
+        failure: "Space %{name} is already enabled"
+
+    users:
+      disable:
+        notice: "User disabled successfully"
+      enable:
+        notice: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
+        failure: "User %{name} is already enabled"
 
   address: Address
   admin:
@@ -1444,15 +1456,11 @@ en:
     description: "Space Description"
     description_none: "A space description must be given to create a new space"
     disable: "Disable space"
-    disabled: "Space disabled successfully"
     edit: 
       webconference_passwords: "Webconference room passwords"
     edit_description: "edit description"
     edit_name: "edit name"
     enable: "Enable space"
-    enabled: "Space enabled successfully"
-    error: 
-      enabled: "Space %{name} is already enabled"
     event_count: "%{count} events"
     index: 
       filters: 
@@ -1798,12 +1806,8 @@ en:
     delete_from_space: "Delete user from space"
     deleted: "User deleted"
     disable: "Disable user"
-    disabled: "User %{username} disabled"
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
-    enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
-    error: 
-      enabled: "User %{name} is already enabled"
     filter: "Invite by user name"
     group_invite_email: "Invite by e-mail"
     include_registered: "Include registered users"

@@ -7,6 +7,7 @@
 
 class SpacesController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve, disapprove
+  include Mconf::DisableControllerModule # for enable, disable
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
@@ -21,7 +22,7 @@ class SpacesController < InheritedResources::Base
   defaults finder: :find_by_permalink!
   before_filter :load_space_via_space_id, only: [:edit_recording]
   before_filter :load_spaces_index, only: [:index]
-  load_and_authorize_resource :find_by => :permalink, :except => [:enable, :destroy, :disable]
+  load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the sidebar
@@ -119,20 +120,6 @@ class SpacesController < InheritedResources::Base
     update! { :back }
   end
 
-  def disable
-    @space.disable
-    respond_to do |format|
-      format.html {
-        flash[:notice] = t('space.disabled')
-        if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
-          redirect_to manage_spaces_path
-        else
-          redirect_to spaces_path
-        end
-      }
-    end
-  end
-
   def destroy
     destroy!(notice: t('space.deleted')) { manage_spaces_path }
   end
@@ -146,18 +133,6 @@ class SpacesController < InheritedResources::Base
   end
 
   def webconference_options
-  end
-
-  def enable
-    unless @space.disabled?
-      flash[:notice] = t('space.error.enabled', :name => @space.name)
-    else
-      @space.enable
-      flash[:success] = t('space.enabled')
-    end
-    respond_to do |format|
-      format.html { redirect_to manage_spaces_path }
-    end
   end
 
   def leave
@@ -348,6 +323,15 @@ class SpacesController < InheritedResources::Base
       :bigbluebutton_room_attributes =>
         [ :id, :attendee_key, :moderator_key, :default_layout, :private,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+  end
+
+  # For disable controller module
+  def disable_back_path
+    if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
+      manage_spaces_path
+    else
+      spaces_path
+    end
   end
 
   def back_url
