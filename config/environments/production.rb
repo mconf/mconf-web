@@ -89,6 +89,11 @@ Mconf::Application.configure do
         ['password'].include? k
       end
     end
+    unless params["uploaded_file"].nil?
+      params["uploaded_file"] = params["uploaded_file"].reject do |k|
+        ['tempfile'].include? k
+      end
+    end
 
     current_user = event.payload[:current_user] ? event.payload[:current_user] : nil
 
