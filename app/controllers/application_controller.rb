@@ -213,7 +213,7 @@ class ApplicationController < ActionController::Base
         name: @room.name,
         member: !current_user.nil?,
         user: { name: current_user.nil? ? params[:user][:name] : current_user.full_name }
-      }
+      } unless @room.nil?
     end
   end
 

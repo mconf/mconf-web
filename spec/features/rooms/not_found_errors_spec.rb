@@ -12,11 +12,12 @@ feature 'Uses see the correct error for rooms that are not found' do
   context 'When the room exists' do
     let(:user) { FactoryGirl.create(:user) }
     let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: user) }
+    let(:params) { {user: {name: user.full_name}} }
 
     context "for actions that need extra information from the webconf server"  do
       before {
         BigbluebuttonRoom.any_instance.stub(:fetch_is_running?)
-        visit join_bigbluebutton_room_path(room)
+        visit join_bigbluebutton_room_path(room, params)
       }
 
       it { page.status_code.should == 200 }
@@ -24,7 +25,7 @@ feature 'Uses see the correct error for rooms that are not found' do
     end
 
     context "for actions that don't need extra information from the webconf server"  do
-      before { visit join_webconf_path(room) }
+      before { visit join_webconf_path(room, params) }
 
       it { page.status_code.should == 200 }
       it { page.should have_content(room.name) }
