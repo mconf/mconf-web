@@ -23,6 +23,8 @@ class UsersController < InheritedResources::Base
   # #index is nested in spaces
   load_and_authorize_resource :space, find_by: :permalink, only: [:index]
   load_and_authorize_resource through: :space, only: [:index]
+  belongs_to :space, finder: :find_by_permalink
+
   before_filter :webconf_room!, only: [:index]
 
   # Rescue username not found rendering a 404

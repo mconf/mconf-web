@@ -81,11 +81,12 @@ class SpacesController < InheritedResources::Base
         # pre-approve the space if it's an admin creating it
         @space.approve! if can?(:approve, @space)
 
-        if @space.approved?
-          flash[:success] = t('space.created')
+        flash[:notice] = if @space.approved?
+          t('space.created')
         else
-          flash[:success] = t('space.created_waiting_moderation')
+          t('space.created_waiting_moderation')
         end
+
         format.html { redirect_to action: "show", id: @space }
       end
     else
