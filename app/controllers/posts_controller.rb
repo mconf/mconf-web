@@ -8,8 +8,6 @@
 class PostsController < InheritedResources::Base
   include SpamControllerModule
 
-  layout "spaces_show"
-
   belongs_to :space, finder: :find_by_permalink
 
   load_and_authorize_resource :space, :find_by => :permalink
@@ -29,6 +27,15 @@ class PostsController < InheritedResources::Base
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
+  layout :set_layout
+  def set_layout
+    if [:new, :edit].include?(action_name.to_sym) && request.xhr?
+      false
+    else
+      "spaces_show"
+    end
+  end
+
   def show
     if params[:last_page]
       post_comments(@post, {:last => true})
@@ -37,6 +44,14 @@ class PostsController < InheritedResources::Base
     end
 
     show!
+  end
+
+  def create
+    create! { space_posts_path(@space) }
+  end
+
+  def update
+    update! { space_posts_path(@space) }
   end
 
   # Destroys the content of the post. Then its container(post) is

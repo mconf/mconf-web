@@ -12,7 +12,6 @@ def post_to_space title, text
   fill_in 'post[title]', with: title
   fill_in 'post[text]', with: text
   click_button t('_other.send')
-  visit space_posts_path(space)
 end
 
 feature 'Member posts to wall' do
@@ -33,7 +32,7 @@ feature 'Member posts to wall' do
     context 'post valid data to page' do
       before { post_to_space 'my title', 'my text' }
 
-      it { has_success_message t('post.created') }
+      it { has_success_message t('flash.posts.create.notice') }
       it { page.should have_content('my title') }
       it { page.should have_content('my text') }
       it { page.find('#space-posts').should have_css('.thread-post', :count => 1) }

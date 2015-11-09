@@ -254,6 +254,13 @@ en:
         notice: "Space enabled successfully"
         failure: "Space %{name} is already enabled"
 
+    posts:
+      update:
+        notice: "Message updated!"
+
+      create:
+        notice: "Message posted!"
+
     users:
       disable:
         notice: "User disabled successfully"
@@ -1178,8 +1185,7 @@ en:
   place: Place
   please: Please
   popularity: Popularity
-  post: 
-    created: "Message posted!"
+  post:
     deleted: "Comment %{postname} has been deleted"
     reply: "in reply to"
     home: 
@@ -1196,13 +1202,12 @@ en:
     posted: "posted"
     show_expanded_pref: "How would you like to see your messages?"
     title: "Messages (%{count})"
-    updated: "Message updated!"
     wall: Wall
   posts:
     index:
       new_post: "Send a new message"
       no_messages: "There are no messages in the wall"
-    new_post:
+    new:
       title: "Post a new message"
     post_with_children:
       by: "by"

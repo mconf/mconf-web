@@ -256,6 +256,13 @@ pt-br:
       disable:
         notice: "Comunidade desativada com sucesso"
 
+    posts:
+      update:
+        notice: "Mensagem atualizada!"
+
+      create:
+        notice: "Mensagem enviada!"
+
     users:
       enable:
         notice: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
@@ -1184,7 +1191,6 @@ pt-br:
   please: "Por favor"
   popularity: Popularidade
   post:
-    created: "Mensagem enviada!"
     deleted: "Comentário %{postname} foi excluído"
     reply: "em resposta a"
     home:
@@ -1201,13 +1207,12 @@ pt-br:
     posted: "postou"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
     title: "Mensagens (%{count})"
-    updated: "Mensagem atualizada!"
     wall: Mural
   posts:
     index:
       new_post: "Enviar uma mensagem"
       no_messages: "Não existem mensagens no mural"
-    new_post:
+    new:
       title: "Adicionando uma mensagem"
     post_with_children:
       by: "de"

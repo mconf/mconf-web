@@ -51,7 +51,7 @@ describe PostsController do
       }
       it { post_attributes.should have_received(:permit).with(*post_allowed_params) }
       it { should redirect_to(space_posts_path(space)) }
-      it { should set_the_flash.to(I18n.t("post.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.posts.update.notice")) }
     end
 
     context "changing no parameters" do
@@ -62,7 +62,7 @@ describe PostsController do
       }
 
       it { should redirect_to(space_posts_path(space)) }
-      it { should set_the_flash.to(I18n.t("post.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.posts.update.notice")) }
     end
 
     context "changing some parameters" do
@@ -76,7 +76,7 @@ describe PostsController do
       it { RecentActivity.last.key.should eq('post.update') }
       it { RecentActivity.last.parameters[:changed_attributes].should eq(['title', 'text']) }
       it { should redirect_to(space_posts_path(space)) }
-      it { should set_the_flash.to(I18n.t("post.updated")) }
+      it { should set_the_flash.to(I18n.t("flash.posts.update.notice")) }
     end
   end
 

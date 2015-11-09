@@ -241,6 +241,13 @@ es-419:
         notice: "Espacio habilitado con éxito"
         failure: "El espacio %{name} ya está activo"
 
+    posts:
+      create:
+        notice: "¡Mensaje publicado!"
+
+      update:
+        notice: "¡Mensaje actualizado!"
+
     users:
       disable:
         notice: "Usuario %{usarname} deshabilitado"
@@ -1140,7 +1147,6 @@ es-419:
   please: Por favor
   popularity: Popularidad
   post:
-    created: "¡Mensaje publicado!"
     deleted: "Comentario %{postname} ha sido eliminado"
     reply: "en respuesta a "
     home:
@@ -1157,13 +1163,12 @@ es-419:
     posted: "publicado"
     show_expanded_pref: "¿Cómo le gustaría ver sus mensajes?"
     title: "Mensajes (%{count})"
-    updated: "¡Mensaje actualizado!"
     wall: Muro
   posts:
     index:
       new_post: "Enviar un nuevo mensaje"
       no_messages: "No hay mensajes en el muro"
-    new_post:
+    new:
       title: "Publicar un nuevo mensaje"
     post_with_children:
       by: "por"
