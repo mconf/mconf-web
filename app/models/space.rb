@@ -118,6 +118,13 @@ class Space < ActiveRecord::Base
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
+  # Used by select controller method
+  # For now keep old behavior and search for only one word in the name
+  scope :search_by_terms, -> (words) {
+    words = words.join(' ') if words.is_a?(Array)
+    where('name LIKE ?', "%#{words}%")
+  }
+
   # Finds all the valid user roles for a Space
   def self.roles
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }

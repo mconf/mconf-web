@@ -1,4 +1,6 @@
 class EventsController < InheritedResources::Base
+  include Mconf::SelectControllerModule # for select method
+
   respond_to :html, :json, :ics # for ics renderer see config/initializers/renderers.rb
 
   before_filter :block_if_events_disabled
@@ -42,18 +44,6 @@ class EventsController < InheritedResources::Base
     end
 
     create!
-  end
-
-  # Finds events by name (params[:q]) and returns a list of selected attributes
-  def select
-    name = params[:q]
-    limit = params[:limit] || 5
-    limit = 50 if limit.to_i > 50
-    if name.blank?
-      @events = Event.limit(limit).all
-    else
-      @events = Event.where("name like ?", "%#{name}%").limit(limit)
-    end
   end
 
   def invite

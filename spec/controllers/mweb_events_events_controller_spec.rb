@@ -133,6 +133,72 @@ describe EventsController do
     it "returns an rss with all the updates in the event"
   end
 
+  describe "#select" do
+
+    it { should_authorize Event, :select }
+
+    it "event public: [true, false] with space owned events"
+
+    context ".json" do
+      let(:expected) {
+        @events.map do |e|
+          { :id => e.id, :permalink => e.permalink, :public => true,
+            :name => e.name, :text => e.name, :url => event_url(e) }
+        end
+      }
+
+      context "works" do
+        before do
+          10.times { FactoryGirl.create(:event) }
+          @events = Event.all.first(5)
+        end
+        before(:each) { get :select, :format => :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:events).with(@events) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "matches events by name" do
+        let(:unique_str) { "EVENNNT" }
+        before do
+          FactoryGirl.create(:event, :name => "A cool event")
+          FactoryGirl.create(:event, :name => "A random event")
+          FactoryGirl.create(:event, :name => "Event #{unique_str} dude") do |e|
+            @events = [e]
+          end
+        end
+        before(:each) { get :select, :q => unique_str, :format => :json }
+        it { should assign_to(:events).with(@events) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "has a param to limit the events in the response" do
+        before do
+          10.times { FactoryGirl.create(:event) }
+        end
+        before(:each) { get :select, :limit => 3, :format => :json }
+        it { assigns(:events).count.should be(3) }
+      end
+
+      context "limits to 5 events by default" do
+        before do
+          10.times { FactoryGirl.create(:event) }
+        end
+        before(:each) { get :select, :format => :json }
+        it { assigns(:events).count.should be(5) }
+      end
+
+      context "limits to a maximum of 50 events" do
+        before do
+          60.times { FactoryGirl.create(:event) }
+        end
+        before(:each) { get :select, :limit => 51, :format => :json }
+        it { assigns(:events).count.should be(50) }
+      end
+    end
+  end
+
   describe "#show" do
     let(:event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:user)) }
     before(:each) { get :show, :id => event.to_param }

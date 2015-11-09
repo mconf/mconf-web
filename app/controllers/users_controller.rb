@@ -10,6 +10,7 @@ require "digest/sha1"
 class UsersController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve and disapprove
   include Mconf::DisableControllerModule # for enable, disable
+  include Mconf::SelectControllerModule # for select
 
   respond_to :html, except: [:select, :current, :fellows]
   respond_to :json, only: [:select, :current, :fellows]
@@ -93,24 +94,7 @@ class UsersController < InheritedResources::Base
 
   # Finds users by id (params[:i]) or by name, username or email (params[:q]) and returns
   # a list of a few selected attributes
-  # TODO: This is used in a lot of places, but not all want all the filters and all the
-  #  results. We could make it configurable.
-  def select
-    words = params[:q].try(:split, /\s+/)
-    id = params[:i]
-    limit = params[:limit] || 5   # default to 5
-    limit = 50 if limit.to_i > 50 # no more than 50
-    query = User
-    if id
-      @users = query.find_by_id(id)
-    elsif query.nil?
-      @users = query.limit(limit)
-    else
-      @users = query
-      .search_by_terms(words)
-      .limit(limit)
-    end
-  end
+  # Moved to SelectControllerModule
 
   # Returns fellows users - users that a members of spaces
   # the current user is also a member

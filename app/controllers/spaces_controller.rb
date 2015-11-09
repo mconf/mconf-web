@@ -8,6 +8,7 @@
 class SpacesController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve, disapprove
   include Mconf::DisableControllerModule # for enable, disable
+  include Mconf::SelectControllerModule # select
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
@@ -21,7 +22,7 @@ class SpacesController < InheritedResources::Base
   # Cancan and inherited resources load
   defaults finder: :find_by_permalink!
   before_filter :load_space_via_space_id, only: [:edit_recording]
-  before_filter :load_spaces_index, only: [:index]
+  before_filter :load_spaces_index, only: [:index, :select]
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
@@ -193,18 +194,6 @@ class SpacesController < InheritedResources::Base
     authorize! :space_edit, @recording
 
     render layout: false if request.xhr?
-  end
-
-  # Finds spaces by name (params[:q]) and returns a list of selected attributes
-  def select
-    name = params[:q]
-    limit = params[:limit] || 5   # default to 5
-    limit = 50 if limit.to_i > 50 # no more than 50
-    if name.nil?
-      @spaces = Space.where(approved: true).limit(limit).all
-    else
-      @spaces = Space.where("name like ?", "%#{name}%").where(approved: true).limit(limit)
-    end
   end
 
   private

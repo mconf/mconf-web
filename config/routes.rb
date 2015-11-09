@@ -65,6 +65,10 @@ Mconf::Application.routes.draw do
 
     # For invitations
     resources :events do
+      collection do
+        get :select
+      end
+
       resources :participants
 
       member do

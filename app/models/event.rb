@@ -43,6 +43,11 @@ class Event < ActiveRecord::Base
   # Test if we need to clear the coordinates because address was cleared
   before_save :check_coordinates
 
+  scope :search_by_terms, -> (words) {
+    words = words.join(' ') if words.is_a?(Array)
+    where('name LIKE ?', "%#{words}%")
+  }
+
   # Events that are happening currently
   scope :happening_now, lambda {
     where("start_on <= ? AND end_on > ?", Time.zone.now, Time.zone.now)
