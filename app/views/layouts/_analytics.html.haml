@@ -1,12 +1,15 @@
-- exists = Site.table_exists?
-- not_blank = current_site.respond_to?(:analytics_code) and !current_site.analytics_code.blank?
-- if exists and not_blank
+- if Rails.env.production?
   :javascript
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '#{current_site.analytics_code}']);
-    _gaq.push(['_trackPageview']);
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
     (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      var u="//stats.ufrgs.br/piwik/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', 62]);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
+  %noscript
+    %p
+      %img{ src: "//stats.ufrgs.br/piwik/piwik.php?idsite=62", style: "border:0;", alt: ""}
