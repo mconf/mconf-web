@@ -20,13 +20,6 @@ class UsersController < InheritedResources::Base
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
-  # #index is nested in spaces
-  load_and_authorize_resource :space, find_by: :permalink, only: [:index]
-  load_and_authorize_resource through: :space, only: [:index]
-  belongs_to :space, finder: :find_by_permalink
-
-  before_filter :webconf_room!, only: [:index]
-
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
@@ -42,6 +35,11 @@ class UsersController < InheritedResources::Base
   end
 
   def index
+    @space = Space.find_by_permalink!(params[:space_id])
+    webconf_room!
+
+    authorize! :show, @space
+
     @users = @space.users.sort {|x,y| x.name <=> y.name }
   end
 
