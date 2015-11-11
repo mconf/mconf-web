@@ -147,6 +147,21 @@ module ApplicationHelper
     current_site.max_upload_size
   end
 
+  # Includes elements in the page to disable the autocomplete of an input
+  # In some browsers, such as Firefox, setting the attribute 'autocomplete=false' in
+  # the input is not enough to disable its autocomplete, usually for username and
+  # password inputs, so we have to do this workaround.
+  def disable_autocomplete_for(name, type='text')
+    attrs = {
+      type: type,
+      name: name,
+      disabled: true,
+      class: 'input-disable-autocomplete disabled',
+      style: 'display:none;'
+    }
+    content_tag :input, nil, attrs
+  end
+
   #
   # TODO: All the code below should be reviewed
   #

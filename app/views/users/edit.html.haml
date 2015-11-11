@@ -43,9 +43,7 @@
         %h3= t('.change_password')
         - unless current_user.superuser?
           = f.input :current_password
-        -# disabled and invisible input because we have to trick the browser (Firefox mostly) into
-        -# autocompleting this input instead of the real one that we don't want autocompleted
-        = f.input :password, disabled: true, label: false, error: false, hint: false, input_html: { style: 'display:none' }
+        = disable_autocomplete_for('user[password]', 'password')
         = f.input :password, autocomplete: "off", required: false
         = f.input :password_confirmation, required: false
 
