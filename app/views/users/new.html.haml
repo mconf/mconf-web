@@ -9,8 +9,8 @@
       #user-basic-info
         -# disabled and invisible inputs because we have to trick the browser (FireFox mostly )into
         -# autocompleting these inputs instead of the real ones that we don't want autocompleted
-        = f.input :username, required: true, disabled: true, label: false, input_html: { style: 'display:none' }
-        = f.input :password, required: true, disabled: true, label: false, input_html: { style: 'display:none' }
+        = f.input :username, disabled: true, label: false, error: false, hint: false, input_html: { style: 'display:none' }
+        = f.input :password, disabled: true, label: false, error: false, hint: false, input_html: { style: 'display:none' }
 
         = f.input :email, required: true, autofocus: true
         = f.input :_full_name, required: true
