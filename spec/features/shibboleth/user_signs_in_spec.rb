@@ -356,7 +356,7 @@ describe 'User signs in via shibboleth' do
         let(:token) { FactoryGirl.create(:shib_token, new_account: true) }
 
         it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message t('devise.failure.shib_auth_disabled') }
+        it { has_failure_message t('devise.failure.disabled_by_shib_auth') }
       end
 
       context "should work for associated account" do
