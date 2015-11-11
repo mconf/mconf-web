@@ -15,6 +15,10 @@ module Abilities
         !space.users.include?(user) || space.is_last_admin?(user)
       end
 
+      cannot [:update_password], User do |target_user|
+        !Site.current.local_auth_enabled? || target_user.no_local_auth?
+      end
+
       # A Superuser can't remove the last admin of a space neither change its role
       cannot [:destroy, :update], Permission do |perm|
         if perm.subject_type == "Space"
