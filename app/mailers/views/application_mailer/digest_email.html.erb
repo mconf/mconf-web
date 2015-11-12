@@ -25,18 +25,6 @@
         <p><%= t('post.more', :count => @posts.size - 10) %></p>
       <% end %>
     <% end %>
-    <% unless @news.blank? %>
-      <h4><%= t('news.title', :count => @news.size) %></h4>
-      <% @news.take(10).each do |news| %>
-        <p>
-          <%= t('email.digest.news', :space_name => news.space.name).html_safe %> <%= link_to(sanitize(news.title), space_url(news.space)) %>
-          <%= t('_other.updated_time_ago', :time => time_ago_in_words(news.updated_at)) %><br/>
-        </p>
-      <% end %>
-      <% if @news.size > 10 %>
-        <p><%= t('new.more', :count => @news.size - 10) %></p>
-      <% end %>
-    <% end %>
     <% unless @attachments.blank? %>
       <h4><%= t('attachment.title', :count => @attachments.size) %></h4>
       <% @attachments.take(10).each do |att| %>

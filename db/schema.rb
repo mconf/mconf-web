@@ -240,14 +240,6 @@ ActiveRecord::Schema.define(version: 20151029191439) do
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
   add_index "ldap_tokens", ["user_id"], name: "index_ldap_tokens_on_user_id", unique: true, using: :btree
 
-  create_table "news", force: true do |t|
-    t.string   "title"
-    t.text     "text"
-    t.integer  "space_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "participant_confirmations", force: true do |t|
     t.string   "token"
     t.integer  "participant_id"

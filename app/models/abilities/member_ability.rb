@@ -59,8 +59,8 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings, :show_news, :index_event], Space, public: true
-      can [:show, :webconference, :recordings, :show_news, :index_event], Space do |space|
+      can [:show, :webconference, :recordings, :index_event], Space, public: true
+      can [:show, :webconference, :recordings, :index_event], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
@@ -99,7 +99,7 @@ module Abilities
       end
 
       # space admins can list requests and invite new members
-      can [:manage_news, :manage_join_requests], Space do |s|
+      can [:manage_join_requests], Space do |s|
         s.admins.include?(user)
       end
 
@@ -117,17 +117,6 @@ module Abilities
         post.space.users.include?(user)
       end
       can [:show, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
-
-      # News
-      # Only admins can create/alter news, the rest can only read
-      # note: :show because :index is only for space admins
-      can :show, News, space: { public: true }
-      can :show, News do |news|
-        news.space.users.include?(user)
-      end
-      can :manage, News do |news|
-        news.space.admins.include?(user)
-      end
 
       # Attachments
       can :index, Attachment # restricted through Space

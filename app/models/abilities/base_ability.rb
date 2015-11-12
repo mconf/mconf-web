@@ -27,7 +27,6 @@ module Abilities
       cannot :manage, Profile, user: { disabled: true }
       cannot :manage, Post, space: { disabled: true }
       cannot :manage, Attachment, space: { disabled: true }
-      cannot :manage, News, space: { disabled: true }
 
       # won't use :manage so it doesn't block actions such as #index
       cannot [:show, :destroy, :edit, :update, :disable,
@@ -77,12 +76,11 @@ module Abilities
       end
 
       cannot [:webconference, :recordings, :manage_join_requests,
-              :invite, :user_permissions, :manage_news, :show_news,
-              :webconference_options, :edit_recording, :index_event], Space, approved: false
+              :invite, :user_permissions, :webconference_options,
+              :edit_recording, :index_event], Space, approved: false
 
       cannot :manage, Post, space: { approved: false }
       cannot :manage, Attachment, space: { approved: false }
-      cannot :manage, News, space: { approved: false }
 
       cannot [:manage], JoinRequest do |jr|
         !jr.group.approved?

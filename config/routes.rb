@@ -115,8 +115,6 @@ Mconf::Application.routes.draw do
 
     resources :users, only: :index
 
-    resources :news
-
     resources :join_requests, only: [:index, :show, :new, :create] do
       collection do
         get :invite

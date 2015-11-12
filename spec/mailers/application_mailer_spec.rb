@@ -61,13 +61,12 @@ describe ApplicationMailer do
       # create the data to be returned
       user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
       @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-      @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
       @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
       @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
       @locale = user.locale
     }
 
-    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events) }
+    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @attachments, @events) }
 
     describe "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }

@@ -26,10 +26,6 @@ pt-br:
       deleted: que não existe mais
     mweb_events_participant:
       create_html: participará do evento %{name} na comunidade
-    news:
-      create_html: publicou a notícia %{name} na comunidade
-      update_html: atualizou a notícia %{name} na comunidade
-      deleted: que não existe mais
     other:
       admin_html: "Um administrador"
       someone_html: "Um usuário"
@@ -125,9 +121,6 @@ pt-br:
         users: "Usuários"
       join_request:
         comment: "Mensagem"
-      news:
-        text: "Texto"
-        title: "Título"
       post:
         text: "Mensagem"
         title: "Título"
@@ -236,7 +229,6 @@ pt-br:
     models:
       event: "Evento"
       join_request: "Pedido de Adesão"
-      news: "Notícia"
       space: "Comunidade"
 
   flash:
@@ -657,7 +649,6 @@ pt-br:
       event: "<b>%{author_name}</b> criou um novo evento em <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> enviou uma mensagem para você:"
       message: "Últimas atividades em suas comunidades:"
-      news: "Uma nova notícia foi publicada em <b>%{space_name}</b>:"
       posted: "<b>%{author_name}</b> escreveu em <b>%{space_name}</b> a mensagem:"
       title: "Resumo %{type} com as atividades em suas comunidades"
       type:
@@ -877,7 +868,6 @@ pt-br:
   language: Idioma
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
-  latest_news: "Últimas notícias"
   layouts:
     application_navbar:
       events: "Eventos"
@@ -1074,24 +1064,6 @@ pt-br:
   name:
     one: Nome
     other: Nomes
-  news:
-    created: "Notícia publicada com sucesso"
-    deleted: "Notícia excluída com sucesso"
-    edit: "Editar notícia"
-    error:
-      create: "Houve um problema ao publicar a notícia"
-      delete: "Erro ao excluir notícia"
-      update: "Notícia não pôde ser atualizada"
-    item_in_home: "Notícia na comunidade"
-    more:
-      one: "e mais uma notícia..."
-      other: "e mais %{count} notícias..."
-    none_to_show: "Nenhuma notícia para mostrar"
-    other: Notícias
-    publish_another: "Publicar outra notícia"
-    publish_home: "Publicar notícia"
-    title: "Notícias (%{count})"
-    updated: "Notícia atualizada com sucesso"
   next: Próximo
   now_exclamation: Agora!
   ok: OK
@@ -1503,7 +1475,6 @@ pt-br:
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"
-      news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
     approve:
@@ -1553,7 +1524,6 @@ pt-br:
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
-    news: "Notícias na comunidade"
     recordings:
       title: "Gravações desta comunidade"
       update_recordings:
@@ -1694,9 +1664,7 @@ pt-br:
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
-    news_item: "Você pode publicar uma notícia para aparecer na página inicial da comunidade"
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"

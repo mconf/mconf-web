@@ -45,7 +45,6 @@ class Space < ActiveRecord::Base
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
-  has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
