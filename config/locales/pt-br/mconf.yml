@@ -183,6 +183,7 @@ pt-br:
         ldap_name_field: "LDAP: Campo para obter o nome completo"
         local_auth_enabled: "Habilitar autenticação local"
         locale: "Idioma"
+        max_upload_size: "Tamanho máximo para arquivos enviados"
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
         registration_enabled: "Permitir que usuários criem novas contas"
@@ -463,6 +464,7 @@ pt-br:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Buscar gravações"
+      generate_dial_number: "Gerar número de discagem"
       invite: "Convidar"
       join_mobile: "Entrar em dispositivo móvel"
       new_room: "Nova sala"
@@ -982,7 +984,7 @@ pt-br:
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
-    destroy_space:
+    destroy_user:
       destroy: Remover usuário
       destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:

@@ -15,7 +15,7 @@ module Abilities
       can [:edit, :update, :disable], User, id: user.id
       can [:update_password], User do |target_user|
         user == target_user &&
-          (Site.current.local_auth_enabled? && !target_user.created_by_shib?)
+          (Site.current.local_auth_enabled? && !target_user.no_local_auth?)
       end
 
       # User profiles

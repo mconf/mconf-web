@@ -6,6 +6,8 @@
       = link_logo_image(user, :size => '128', :url => user_path(user), :title => user.name, :class => "logo-user")
     .user-information-data
       = link_to sanitize(user.full_name), user_path(user), :class => 'user-name'
+      -# the only information that is private here is the email, the others are
+      -# in the public profile
       - if can?(:show, user.profile)
         %span.user-mail
           = default_separator

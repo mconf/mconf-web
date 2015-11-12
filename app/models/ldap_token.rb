@@ -7,5 +7,9 @@
 class LdapToken < ActiveRecord::Base
   # attr_accessible :data, :identifier, :user_id
   belongs_to :user
-  validates :identifier, :presence => true, :uniqueness => true
+  validates :identifier, presence: true, uniqueness: true
+
+  def self.user_created_by_ldap?(u)
+    LdapToken.where(user_id: u.id, new_account: true).present?
+  end
 end

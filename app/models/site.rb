@@ -9,6 +9,8 @@ class Site < ActiveRecord::Base
 
   serialize :visible_locales, Array
 
+  before_validation :validate_and_adjust_max_upload_size
+
   # Returns the current (default) site
   def self.current
     first || create
@@ -38,4 +40,24 @@ class Site < ActiveRecord::Base
     "#{name} <#{email}>"
   end
 
+  def formatted_max_upload_size
+    Mconf::Filesize.human_file_size(self.max_upload_size)
+  end
+
+  private
+
+  def validate_and_adjust_max_upload_size
+    if max_upload_size_changed?
+      if self.max_upload_size.blank?
+        write_attribute(:max_upload_size, nil)
+      else
+        value = Mconf::Filesize.convert(self.max_upload_size)
+        if value.nil?
+          self.errors.add(:max_upload_size, :invalid)
+        else
+          write_attribute(:max_upload_size, value.to_s)
+        end
+      end
+    end
+  end
 end

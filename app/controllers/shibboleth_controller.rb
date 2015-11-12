@@ -201,6 +201,10 @@ class ShibbolethController < ApplicationController
     # got the user and authenticated, everything ok
     else
       logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+
+      # If there's a previous shibolleth token associated with this account, delete it
+      user.shib_token.destroy if user.shib_token.present? # TODO: yet another failure point
+
       token = shib.find_or_create_token()
       token.user = user
       token.data = shib.get_data()

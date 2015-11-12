@@ -1,17 +1,18 @@
 require 'spec_helper'
 
-describe 'Disabled shibboleth features' do
+describe 'Disabled ldap features', ldap: true do
   subject { page }
   before(:all) {
-    @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
+    Mconf::LdapServerRunner.add_default_user
+    Mconf::LdapServerRunner.start
   }
+  after(:all) { Mconf::LdapServerRunner.stop }
 
-  context "an account created via shibboleth" do
+  context "an account created via LDAP" do
+    let(:ldap_user) { Mconf::LdapServer.default_user }
     before {
-      enable_shib
-      Site.current.update_attributes shib_always_new_account: true
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
-      visit shibboleth_path
+      enable_ldap
+      sign_in_with(ldap_user[:username], ldap_user[:password])
     }
 
     context "don't show email confirmation page" do
@@ -22,7 +23,7 @@ describe 'Disabled shibboleth features' do
     end
 
     context "don't send forgot password email" do
-      let(:user) { ShibToken.last.user }
+      let(:user) { LdapToken.last.user }
 
       before {
         logout_user
@@ -37,7 +38,7 @@ describe 'Disabled shibboleth features' do
     end
 
     context "shouldn't see password fields in edit screen" do
-      before { visit edit_user_path(ShibToken.last.user) }
+      before { visit edit_user_path(LdapToken.last.user) }
 
       it { page.should_not have_field("user_current_password") }
       it { page.should_not have_field("user_password") }
@@ -45,12 +46,12 @@ describe 'Disabled shibboleth features' do
     end
 
     context "shouldn't be able to login with the account password" do
-      let(:user) { ShibToken.last.user }
+      let(:user) { LdapToken.last.user }
       before {
-        logout_user # user was logged in before
+        logout_user # user was logged in before to create an ldap token
 
-        user.update_attributes password: @attrs[:password] + '-1234578'
-        sign_in_with(@attrs[:username], @attrs[:password] + '-1234578')
+        user.update_attributes password: ldap_user[:password] + '-1234578'
+        sign_in_with(ldap_user[:username], ldap_user[:password] + '-1234578')
       }
 
       it { current_path.should eq(new_user_session_path) }

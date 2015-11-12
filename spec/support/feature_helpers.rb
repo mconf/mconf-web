@@ -19,6 +19,10 @@ module FeatureHelpers
     )
   end
 
+  def enable_ldap
+    Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
+  end
+
   def setup_shib name, email, principal
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
@@ -74,16 +78,14 @@ module FeatureHelpers
   end
 
   def has_success_message message=nil
-    # TODO
-    # we sometimes show success on 'notice' and sometimes on 'success'
+    # TODO we sometimes show success on 'notice' and sometimes on 'success'
     success_css = '#notification-flashs > div[name=notice],div[name=success]'
     page.should have_css(success_css)
     page.find(success_css).should have_content(message)
   end
 
   def has_failure_message message=nil
-    # TODO
-    # we sometimes show success on 'alert' and sometimes on 'error'
+    # TODO we sometimes show success on 'alert' and sometimes on 'error'
     error_css = '#notification-flashs > div[name=alert],div[name=error]'
     page.should have_css(error_css)
     page.find(error_css).should have_content(message)

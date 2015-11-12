@@ -28,6 +28,7 @@ en:
         start_time: "Start Time"
       bigbluebutton_room:
         allow_start_stop_recording: "Allow users to start/stop recording"
+        attendee_api_password: "Internal API key for attendees"
         attendee_key: "Key for attendees"
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
@@ -41,6 +42,7 @@ en:
         max_participants: "Maximum Number of Participants"
         meetingid: "Meeting ID"
         metadata: Metadata
+        moderator_api_password: "Internal API key for moderators"
         moderator_key: "Key for moderators"
         moderator_only_message: "Message to be shown to moderators only"
         name: Name
@@ -113,6 +115,8 @@ en:
           failure: "Authentication failure."
           not_running: "The meeting is not running. You must wait for a moderator to join."
           wrong_params: "Wrong params in your request."
+        generate_dial_number:
+          not_unique: "We're sorry, but it wasn't possible to generate a unique dial number for this room. You can either try again or manually set a dial number."
         param_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         server:
           nil: "Your room must be associated to a server to execute this operation."
@@ -128,6 +132,8 @@ en:
           success: "The meeting was successfully ended."
         fetch_recordings:
           success: "The list of recordings for this room was successfully updated."
+        generate_dial_number:
+          success: "A unique dial number was generated and saved."
         update:
           failure: "Your room could not be updated."
           success: "Your room was successfully updated."

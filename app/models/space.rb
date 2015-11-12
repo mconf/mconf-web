@@ -40,7 +40,6 @@ class Space < ActiveRecord::Base
   include PublicActivity::Common
   include Mconf::ApprovalModule
 
-  # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
@@ -219,8 +218,6 @@ class Space < ActiveRecord::Base
     self.unscoped
   end
 
-  # TODO: review all public methods below
-
   # Disable the space from the website.
   # This can be used by global admins as a mean to disable access and indexing of this space in all areas of
   # the site. This acts as if it has been deleted, but the data is still there in the database and the space can be
@@ -311,8 +308,7 @@ class Space < ActiveRecord::Base
       :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/",
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end

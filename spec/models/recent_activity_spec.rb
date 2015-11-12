@@ -98,38 +98,162 @@ describe RecentActivity do
       subject { RecentActivity.user_activity(user) }
       it { subject.length.should be(0) }
     end
+
+    context "filters by :in_spaces" do
+      context "includes only the spaces informed" do
+        let(:space1) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space2) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space3) { FactoryGirl.create(:space_with_associations, public: false) }
+        before do
+          space1.add_member!(user, 'User')
+          space2.add_member!(user, 'User')
+          space3.add_member!(user, 'User')
+          @activity1 = RecentActivity.create(key: default_key, owner: space1.bigbluebutton_room)
+          @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
+          @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
+        end
+        subject { RecentActivity.user_activity(user, [], [space2]) }
+        it { subject.length.should be(1) }
+        it { subject.should_not include(@activity1) }
+        it { subject.should include(@activity2) }
+        it { subject.should_not include(@activity3) }
+      end
+
+      context "includes public spaces" do
+        let(:space1) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space2) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space3) { FactoryGirl.create(:space_with_associations, public: true) }
+        before do
+          space1.add_member!(user, 'User')
+          space2.add_member!(user, 'User')
+          space3.add_member!(user, 'User')
+          @activity1 = RecentActivity.create(key: default_key, owner: space1.bigbluebutton_room)
+          @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
+          @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
+        end
+        subject { RecentActivity.user_activity(user, [], [space2]) }
+        it { subject.length.should be(2) }
+        it { subject.should_not include(@activity1) }
+        it { subject.should include(@activity2) }
+        it { subject.should include(@activity3) }
+      end
+
+      context "ignores the parameter if it's nil" do
+        let(:space1) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space2) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space3) { FactoryGirl.create(:space_with_associations, public: false) }
+        before do
+          space1.add_member!(user, 'User')
+          space2.add_member!(user, 'User')
+          space3.add_member!(user, 'User')
+          @activity1 = RecentActivity.create(key: default_key, owner: space1.bigbluebutton_room)
+          @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
+          @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
+        end
+        subject { RecentActivity.user_activity(user, [], nil) }
+        it { subject.length.should be(3) }
+        it { subject.should include(@activity1) }
+        it { subject.should include(@activity2) }
+        it { subject.should include(@activity3) }
+      end
+
+      context "filters all spaces if the parameter is []" do
+        let(:space1) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space2) { FactoryGirl.create(:space_with_associations, public: false) }
+        let(:space3) { FactoryGirl.create(:space_with_associations, public: false) }
+        before do
+          space1.add_member!(user, 'User')
+          space2.add_member!(user, 'User')
+          space3.add_member!(user, 'User')
+          @activity1 = RecentActivity.create(key: default_key, owner: space1.bigbluebutton_room)
+          @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
+          @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
+        end
+        subject { RecentActivity.user_activity(user, [], []) }
+        it { subject.length.should be(0) }
+      end
+    end
   end
 
   describe "#user_public_activity" do
     let(:user) { FactoryGirl.create(:user) }
 
-    context 'test it returns only activities performed by the user' do
+    context 'returns only activities performed by the user' do
       let(:user2) { FactoryGirl.create(:user) }
+      let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
 
       before {
-        space = FactoryGirl.create(:space_with_associations)
-        posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space) ]
-        # pending: webconf activities
+        posts = [ FactoryGirl.create(:post, space: space),
+                  FactoryGirl.create(:post, space: space),
+                  FactoryGirl.create(:post, space: private_space),
+                  FactoryGirl.create(:post, space: private_space) ]
+        # TODO: include webconf activities
 
         space.add_member!(user)
         space.add_member!(user2)
+        private_space.add_member!(user)
+        private_space.add_member!(user2)
 
         @activities = [
-          space.new_activity(:update, user),
-          space.new_activity(:join, user),
-          posts[0].new_activity(:create, user),
-          space.new_activity(:update, user2),
-          posts[1].new_activity(:create, user2)
+          space.new_activity(:update, user),        # public
+          space.new_activity(:join, user),          # public
+          posts[0].new_activity(:create, user),     # public
+          posts[2].new_activity(:create, user),     # private
+          private_space.new_activity(:join, user),  # private
+
+          space.new_activity(:update, user2),       # public
+          posts[1].new_activity(:create, user2),    # public
+          posts[3].new_activity(:create, user2),    # private
+          private_space.new_activity(:join, user2)  # private
         ]
         # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
         @activities.map!{|a| RecentActivity.find(a.id)}
       }
 
-      it { RecentActivity.user_public_activity(user).size.should be(3) }
-      it { RecentActivity.user_public_activity(user2).size.should be(2) }
-      it { RecentActivity.user_public_activity(user).should include(*@activities[0..2]) }
-      it { RecentActivity.user_public_activity(user2).should include(*@activities[3..4]) }
-      it { RecentActivity.user_public_activity(user).size.should be(3) }
+      it { RecentActivity.user_public_activity(user).size.should be(5) }
+      it { RecentActivity.user_public_activity(user2).size.should be(4) }
+      it { RecentActivity.user_public_activity(user).should include(*@activities[0..4]) }
+      it { RecentActivity.user_public_activity(user2).should include(*@activities[5..9]) }
+
+      context "return only activities in certain spaces with 'in_spaces'" do
+        context "with no spaces return only activities for public spaces" do
+          let(:in_spaces) { [] }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).size.should be(3) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[0]) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[1]) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[2]) }
+
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).size.should be(2) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).should include(@activities[5]) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).should include(@activities[6]) }
+        end
+
+        context "when there are no activities for the spaces" do
+          let(:in_spaces) { [ FactoryGirl.create(:space) ] }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).size.should be(3) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[0]) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[1]) }
+          it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[2]) }
+
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).size.should be(2) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).should include(@activities[5]) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: in_spaces).should include(@activities[6]) }
+        end
+
+        context "when there are some activities for the space" do
+          it { RecentActivity.user_public_activity(user, in_spaces: [space]).size.should be(3) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space]).size.should be(2) }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: [private_space]).size.should be(5) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space]).size.should be(4) }
+
+          it { RecentActivity.user_public_activity(user, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user))  }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user2))  }
+        end
+      end
     end
 
     context "ignores declined join requests" do

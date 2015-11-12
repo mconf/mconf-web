@@ -43,8 +43,9 @@
         %h3= t('.change_password')
         - unless current_user.superuser?
           = f.input :current_password
-        = f.input :password, :autocomplete => "off", :required => false
-        = f.input :password_confirmation, :required => false
+        = disable_autocomplete_for('user[password]', 'password')
+        = f.input :password, autocomplete: "off", required: false
+        = f.input :password_confirmation, required: false
 
   #user-account-panel-2
     #user-account-preferences

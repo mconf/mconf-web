@@ -1,6 +1,6 @@
 = render :partial => 'manage/menu'
 
-= simple_form_for @site, :url => site_path, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
   #site-edit-panel-1
     = f.input :name
     = f.input :domain
@@ -25,6 +25,7 @@
     = f.input :exception_notifications_email
     = f.input :exception_notifications_prefix
     = f.input :analytics_code
+    = f.input :max_upload_size, as: :string, input_html: { value: @site.formatted_max_upload_size }
   #site-edit-panel-2
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password

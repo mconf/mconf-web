@@ -50,7 +50,7 @@ module Abilities
         end
 
         # only actions over members, not actions over the collection
-        actions = [:show, :edit, :update, :destroy] # TODO
+        actions = [:show, :edit, :update, :destroy]
         cannot actions, MwebEvents::Participant do |part|
           part.owner.nil? ||
             (part.owner_type == "User" && part.owner.disabled) ||

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903182639) do
+ActiveRecord::Schema.define(version: 20151020182042) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 20150903182639) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
@@ -392,6 +393,7 @@ ActiveRecord::Schema.define(version: 20150903182639) do
     t.string   "room_dial_number_pattern"
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
+    t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
   end
 
