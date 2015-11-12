@@ -343,20 +343,6 @@ describe ManageController do
     end
   end
 
-  describe "#spam" do
-    let(:user) { FactoryGirl.create(:superuser) }
-
-    before { sign_in(user) }
-
-    it "is successful"
-    it "sets @spam_events to all events marked as spam"
-    it "sets @spam_posts to all posts marked as spam"
-    it "renders manage/spam"
-    it "renders with the layout no_sidebar"
-
-    it { should_authorize :manage, :spam }
-  end
-
   describe "abilities", :abilities => true do
     render_views(false)
 
@@ -365,7 +351,6 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should allow_access_to(:users) }
       it { should allow_access_to(:spaces) }
-      it { should allow_access_to(:spam) }
     end
 
     context "for a normal user", :user => "normal" do
@@ -373,13 +358,11 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
 
     context "for an anonymous user", :user => "anonymous" do
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
   end
 

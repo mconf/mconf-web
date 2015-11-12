@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < InheritedResources::Base
-  include SpamControllerModule
 
   belongs_to :space, finder: :find_by_permalink
 
@@ -104,9 +103,4 @@ class PostsController < InheritedResources::Base
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
-
-  def resource_for_spam
-    @post
-  end
-
 end

@@ -285,7 +285,6 @@ ActiveRecord::Schema.define(version: 20151029191439) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
-    t.boolean  "spam",        default: false
   end
 
   create_table "profiles", force: true do |t|

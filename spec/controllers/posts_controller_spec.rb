@@ -84,10 +84,6 @@ describe PostsController do
   it "#destroy"
   it "#reply_post"
 
-  describe "include SpamControllerModule" do
-    it "#spam_report_create"
-  end
-
   describe "abilities", :abilities => true do
     it "abilities"
   end
