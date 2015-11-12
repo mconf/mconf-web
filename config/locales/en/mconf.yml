@@ -157,7 +157,6 @@ en:
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
-        chat_enabled: "Enable Chat"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
@@ -180,7 +179,6 @@ en:
         local_auth_enabled: "Enable local authentication"
         locale: "Language"
         name: "Name"
-        presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Moderate users"
         require_space_approval: "Moderate spaces"
@@ -420,36 +418,6 @@ en:
   cancel: Cancel
   caption: 
     add: "Add a caption"
-  chat: 
-    add: "Add User"
-    connecting_error_message: "Error while connecting"
-    connecting_message: "Connecting to event chat..."
-    invite: 
-      bbb: "Invite users to your BBB room"
-      button: "Invite Users"
-      hint: "Type to start searching"
-      msg: "Has invited you to participate in a webconference, follow this link: <a href='URL'> URL </a>"
-      msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
-      msg_sender: "Invitation sent. Link to your room: <a href='URL'> URL </a>"
-    me: "me"
-    name: 
-      one: "Name"
-      other: "Names"
-    please_login_message: "Please, login/register to participate"
-    reconnect_button_message: "Click to reconnect"
-    reconnect_message: Reconnect
-    request: 
-      approve: "Approve"
-      deny: "Deny"
-      title: "Friend Request"
-      body: "<b>%{name}</b> want to add you as a friend."
-    status: 
-      online: "Online"
-      busy: "Busy"
-      away: "Away"
-      offline: "Offline"
-    typing: "is typing..."
-    title: "Chat"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -488,6 +456,7 @@ en:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
+      generate_dial_number: "Generate dial number"
       invite: "Invite"
       join_mobile: "Join from mobile"
       new_room: "New room"

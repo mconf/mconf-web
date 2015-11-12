@@ -15,7 +15,6 @@ FactoryGirl.define do
     f.exception_notifications false
     f.signature Forgery::Name.company_name
     f.shib_enabled false
-    f.chat_enabled false
     f.ldap_enabled false
     f.ldap_host "localhost"
     f.ldap_port 389

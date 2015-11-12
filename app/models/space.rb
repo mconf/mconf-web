@@ -120,7 +120,7 @@ class Space < ActiveRecord::Base
 
   # Used by select controller method
   # For now keep old behavior and search for only one word in the name
-  scope :search_by_terms, -> (words) {
+  scope :search_by_terms, -> (words, include_private=false) {
     words = words.join(' ') if words.is_a?(Array)
     where('name LIKE ?', "%#{words}%")
   }
@@ -308,8 +308,7 @@ class Space < ActiveRecord::Base
       :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/",
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end

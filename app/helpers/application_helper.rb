@@ -28,10 +28,6 @@ module ApplicationHelper
     Mconf.application_revision
   end
 
-  def application_branch
-    Mconf.application_branch
-  end
-
   def github_link_to_revision(revision)
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end

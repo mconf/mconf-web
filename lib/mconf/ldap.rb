@@ -45,7 +45,14 @@ module Mconf
       if token.nil?
         nil
       else
-        token.user = create_account(email, username, name, token)
+        token.user = find_account(email)
+        if token.user
+          Rails.logger.info "LDAP: there's already a user with this id (#{email})"
+        else
+          Rails.logger.info "LDAP: creating a new account for email '#{email}', username '#{username}', full name: '#{name}'"
+          token.user = create_account(email, username, name, token)
+          token.new_account = true # account created by LDAP
+        end
         if token.user && token.save
           token.user
         else
@@ -87,6 +94,10 @@ module Mconf
       token
     end
 
+    def find_account(id)
+      User.where('lower(email) = ?', id.downcase).first
+    end
+
     # Create the user account if there is no user with the email provided by ldap
     # Or returns the existing account with the email
     def create_account(id, username, full_name, ldap_token)
@@ -96,28 +107,22 @@ module Mconf
       username = username.to_s
       full_name = full_name.to_s
 
-      user = User.where('lower(email) = ?', id.downcase).first
-      if user
-        Rails.logger.info "LDAP: there's already a user with this id (#{id})"
+      password = SecureRandom.hex(16)
+      params = {
+        :username => username.parameterize,
+        :email => id,
+        :password => password,
+        :password_confirmation => password,
+        :_full_name => full_name
+      }
+      user = User.new(params)
+      user.skip_confirmation!
+      if user.save
+        create_notification(user, ldap_token)
       else
-        Rails.logger.info "LDAP: creating a new account for email '#{id}', username '#{username}', full name: '#{full_name}'"
-        password = SecureRandom.hex(16)
-        params = {
-          :username => username.parameterize,
-          :email => id,
-          :password => password,
-          :password_confirmation => password,
-          :_full_name => full_name
-        }
-        user = User.new(params)
-        user.skip_confirmation!
-        if user.save
-          create_notification(user, ldap_token)
-        else
-          Rails.logger.error "LDAP: error while saving the user model"
-          Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
-          user = nil
-        end
+        Rails.logger.error "LDAP: error while saving the user model"
+        Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
+        user = nil
       end
       user
     end

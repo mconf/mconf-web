@@ -42,5 +42,7 @@
           = link_to t('.sponsors.prav').html_safe, "http://www.inf.ufrgs.br/prav"
     .current-version
       = t('.current_version') + ": "
+      = application_version
+      = "&#149;".html_safe
       = link_to github_link_to_revision(application_revision) do
-        = application_version + "/" + application_branch + "/" + application_revision
+        = application_revision

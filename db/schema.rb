@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910194707) do
+ActiveRecord::Schema.define(version: 20151029191439) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150910194707) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
@@ -365,7 +366,6 @@ ActiveRecord::Schema.define(version: 20150910194707) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.boolean  "chat_enabled",                   default: false
     t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"

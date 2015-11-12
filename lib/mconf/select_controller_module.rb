@@ -3,7 +3,8 @@ module Mconf
 
     def select
       # try to get already set collection (@spaces) or use the class name for a query (Space)
-      collection = instance_variable_get("@#{controller_name}") || controller_name.classify.constantize
+      klass = controller_name.classify.constantize
+      collection = instance_variable_get("@#{controller_name}") || klass
 
       terms = params[:q].try(:split, /\s+/)
       id = params[:i] # select by id
@@ -15,7 +16,7 @@ module Mconf
       elsif collection.nil?
         collection.limit(limit)
       else
-        collection.search_by_terms(terms).limit(limit)
+        collection.search_by_terms(terms, can?(:manage, klass)).limit(limit)
       end
 
       instance_variable_set("@#{controller_name}", result)

@@ -147,7 +147,6 @@ es-419:
         name_admin: "Administrador"
       site:
         analytics_code: "Código Analytics"
-        chat_enabled: "Habilitar Chat"
         description: "Descripción"
         domain: "Dominio de la aplicación"
         events_enabled: "Habilitar modulo de eventos"
@@ -169,7 +168,6 @@ es-419:
         local_auth_enabled: "Habilitar autenticación local"
         locale: "Lenguaje"
         name: "Nombre"
-        presence_domain: "Dominio de chat XMPP"
         registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
         require_registration_approval: "Exigir a los administradores aprobar los nuevos registros"
         signature: "Firma"
@@ -409,36 +407,6 @@ es-419:
   cancel: Cancelar
   caption:
     add: "Agregar descripcion"
-  chat:
-    add: "Agregar usuario"
-    connecting_error_message: "Error al conectar"
-    connecting_message: "Conectando al chat del evento..."
-    invite:
-      bbb: "Invitar usuarios a su sala BBB"
-      button: "Invitar usuarios"
-      hint: "Escriba para iniciar la búsqueda"
-      msg: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: <a href='URL'>URL</a>"
-      msg_clean: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: URL"
-      msg_sender: "Invitación enviada. Enlace a su sala: <a href='URL'>URL</a>"
-    me: "yo"
-    name:
-      one: "Nombre"
-      other: "Nombres"
-    please_login_message: "Por favor, acceda/regístrese para participar"
-    reconnect_button_message: "Click para reconectar"
-    reconnect_message: Reconectar
-    request:
-      approve: "Aprobar"
-      deny: "Denegar"
-      title: "Solicitud de amistad"
-      body: "<b>%{name}</b> quiere agregarte como amigo."
-    status:
-      online: "En linea"
-      busy: "Ocupado"
-      away: "Fuera de linea"
-      offline: "Desconectado"
-    typing: "está escribiendo..."
-    title: "Chat"
   city: Ciudad
   click_here_to_see_more: "Click aquí para ver mas"
   click_to_hide: "Click para ocultar"

@@ -45,7 +45,12 @@ class UsersController < InheritedResources::Base
 
   def show
     @user_spaces = @user.spaces
-    @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
+
+    # Show activity only in spaces where the current user is a member
+    in_spaces = current_user.present? ? current_user.spaces : []
+    @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: in_spaces)
+    @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
+
     @profile = @user.profile
     respond_to do |format|
       format.html { render 'profiles/show' }

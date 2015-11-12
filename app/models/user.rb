@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
-  scope :search_by_terms, -> (words) {
+  scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile).order("profiles.full_name")
 
     words ||= []
@@ -100,8 +100,11 @@ class User < ActiveRecord::Base
     query_params = []
 
     words.each do |word|
-      query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
-      query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
+      str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+      str += " OR users.email LIKE ?" if include_private
+      query_strs << str
+      query_params += ["%#{word}%", "%#{word}%"]
+      query_params += ["%#{word}%"] if include_private
     end
 
     query.where(query_strs.join(' OR '), *query_params.flatten)
@@ -141,8 +144,7 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4),
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :attendee_key => SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
   end
@@ -278,6 +280,14 @@ class User < ActiveRecord::Base
 
   def created_by_shib?
     ShibToken.user_created_by_shib?(self)
+  end
+
+  def created_by_ldap?
+    LdapToken.user_created_by_ldap?(self)
+  end
+
+  def no_local_auth?
+    created_by_shib? || created_by_ldap?
   end
 
   protected

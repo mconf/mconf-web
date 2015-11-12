@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
   # Test if we need to clear the coordinates because address was cleared
   before_save :check_coordinates
 
-  scope :search_by_terms, -> (words) {
+  scope :search_by_terms, -> (words, include_private=false) {
     words = words.join(' ') if words.is_a?(Array)
     where('name LIKE ?', "%#{words}%")
   }

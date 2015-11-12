@@ -10,7 +10,6 @@
     = f.input :timezone, :as => :fake, :disabled => true, :input_html => { :value => Mconf::DSTTimezone.new(@site.timezone).dst_string }
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }, :disabled => true
     = f.input :ssl, :as => :boolean, :disabled => true
-    = f.input :room_dial_number_pattern, as: :string, disabled: true
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path), :disabled => true
     = f.input :webconf_auto_record, :as => :boolean, :disabled => true
     = f.input :analytics_code, :disabled => true
@@ -45,10 +44,10 @@
     = f.input :exception_notifications, :as => :boolean, :disabled => true
     = f.input :exception_notifications_email, :disabled => true
     = f.input :exception_notifications_prefix, :disabled => true
-    = f.input :chat_enabled, :as => :boolean, :disabled => true
     = f.input :presence_domain, :disabled => true
     = f.input :xmpp_server, :disabled => true
     = f.input :external_help, :disabled => true
+    = f.input :room_dial_number_pattern, as: :string, disabled: true
     = f.input :registration_enabled, :as => :boolean, :disabled => true
     = f.input :require_registration_approval, :as => :boolean, :disabled => true
     = f.input :local_auth_enabled, :as => :boolean, :disabled => true

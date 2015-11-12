@@ -7,6 +7,8 @@
     .thread-title
       = link_to sanitize(user.full_name), user_path(user), :class => 'user-name'
     .user-text
+      -# the only information that is private here is the email, the others are
+      -# in the public profile
       - if can?(:show, user.profile)
         %span.user-mail= mail_to(user.email, user.email)
 
