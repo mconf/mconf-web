@@ -24,11 +24,11 @@ feature 'Editing a user account', with_truncation: true do
   scenario "a user cancelling the editing of his account should redirect back to where he previously was" do
     sign_in_with user.username, user.password
 
-    visit spaces_path
+    visit my_home_path
     find("a[href='#{ edit_user_path(user) }']").click
     find("//a[text()='#{ I18n.t('simple_form.buttons.cancel') }']").click
 
-    expect(current_path).to eq(spaces_path)
+    expect(current_path).to eq(my_home_path)
   end
 
   scenario "an admin updating a user account should redirect back to where he previously was" do

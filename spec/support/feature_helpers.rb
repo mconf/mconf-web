@@ -95,7 +95,7 @@ module FeatureHelpers
   # `field_class` is the class added to the field, such as "user_name" or
   # "space_description".
   def has_field_with_error field_class
-    finder = ".#{field_class}.field_with_errors .error"
+    finder = ".#{field_class}.has-error .error-block"
     page.should have_css(finder)
     page.find(finder).should be_visible
   end

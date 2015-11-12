@@ -23,18 +23,22 @@ shared_examples_for "assigns @spaces_examples" do
     before {
       @s1 = FactoryGirl.create(:space)
       @s2 = FactoryGirl.create(:public_space)
-      @s3 = FactoryGirl.create(:private_space)
+      @s3 = FactoryGirl.create(:public_space)
+      @s4 = FactoryGirl.create(:private_space)
+      @s5 = FactoryGirl.create(:private_space)
     }
     before(:each) { do_action }
     it { assigns(:spaces_examples).should be_include(@s1) }
     it { assigns(:spaces_examples).should be_include(@s2) }
     it { assigns(:spaces_examples).should be_include(@s3) }
+    it { assigns(:spaces_examples).should be_include(@s4) }
+    it { assigns(:spaces_examples).should be_include(@s5) }
   end
 
-  context "limits to 3 spaces" do
-    before { 5.times { FactoryGirl.create(:space) } }
+  context "limits to 5 spaces" do
+    before { 8.times { FactoryGirl.create(:space) } }
     before(:each) { do_action }
-    it { assigns(:spaces_examples).count.should be(3) }
+    it { assigns(:spaces_examples).count.should be(5) }
   end
 
   context "returns only approved spaces if the site requires approval" do

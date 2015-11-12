@@ -249,7 +249,7 @@ form {
   margin: 0;
   padding: 0 10px;
   background: $m-navbar-bg-color-dark;
-  @include background(linear-gradient(bottom, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
+  @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: 1px solid $m-navbar-border-color;
   @include font-for-titles;
 }

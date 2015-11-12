@@ -40,7 +40,6 @@ describe 'Space admin in an unapproved space' do
       it { should_not have_link('', href: invite_space_join_requests_path(space)) }
       it { should_not have_link('', href: space_join_requests_path(space)) }
       it { should_not have_link('', href: user_permissions_space_path(space)) }
-      it { should_not have_link('', href: webconference_options_space_path(space)) }
     end
 
   end
@@ -75,7 +74,6 @@ describe 'Space admin in an unapproved space' do
       it { should have_link('', href: invite_space_join_requests_path(space)) }
       it { should have_link('', href: space_join_requests_path(space)) }
       it { should have_link('', href: user_permissions_space_path(space)) }
-      it { should have_link('', href: webconference_options_space_path(space)) }
     end
 
 

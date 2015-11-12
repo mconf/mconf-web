@@ -56,7 +56,7 @@ module LogoImagesHelper
     when :event
       path_no_image = "default_logos/" + options[:size] + "/event.png"
     end
-    cls = "#{options[:class]} empty-logo"
+    cls = "#{options[:class]} empty-logo".strip
     image_tag(path_no_image, class: cls, title: options[:title])
   end
 

@@ -1024,7 +1024,7 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :show_news, :index_event]) }
         end
 
         context "he is a member of" do

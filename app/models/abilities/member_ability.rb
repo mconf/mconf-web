@@ -245,11 +245,9 @@ module Abilities
         user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
-      # Currently only user rooms can be updated
-      # TODO: rooms in spaces should also be updatable, but for now they
-      # are edited through the space
+      # Owners of personal rooms or admins of a space can edit rooms
       can [:user_edit, :update], BigbluebuttonRoom do |room|
-        room.owner_type == "User" && room.owner.id == user.id
+        user_is_owner_or_admin_of_rooms_space(user, room)
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -296,6 +294,22 @@ module Abilities
         space = Space.find_by(id: room.owner.id)
         if space.present?
           space.users.include?(user)
+        else
+          false
+        end
+      else
+        false
+      end
+    end
+
+    # Whether `user` is the owner of `room` or admin of the space that owns `room`.
+    def user_is_owner_or_admin_of_rooms_space(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.admins.include?(user)
         else
           false
         end

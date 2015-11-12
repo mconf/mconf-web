@@ -9,17 +9,12 @@
     - if can?(:create, @space.posts.build)
       = link_to t('.new_post'), new_space_post_path(@space), :class => "btn btn-sm btn-primary open-modal"
 
-#space-posts
-  -# - unless nav.nil?
-  -#   .content-block-header
-  -#     #posts-navigation-top= nav
+#space-posts.content-block-middle
+  - if @posts.empty?
+    %p= t('.no_messages')
+  - else
+    - @posts.each do |post|
+      = render :partial => "unified_post" , locals: { thread: post }
 
-  #space-posts.content-block-middle
-    - if @posts.empty?
-      %p= t('.no_messages')
-    - else
-      - @posts.each do |post|
-        = render :partial => "unified_post" , locals: { thread: post }
-
-  - unless nav.nil?
-    .content-block-footer= nav
+- unless nav.nil?
+  .content-block-footer= nav
