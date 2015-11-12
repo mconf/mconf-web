@@ -64,11 +64,10 @@ describe ApplicationMailer do
       @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
       @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
       @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
-      @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
       @locale = user.locale
     }
 
-    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
+    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events) }
 
     describe "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }

@@ -1152,28 +1152,6 @@ es-419:
     other: "Mensajes privados"
     send: "Enviar un mensaje privado"
     title: "Mensajes privados (%{count})"
-  private_messages:
-    index:
-      title: "Mensajes privados"
-    menu:
-      compose: Componer
-      inbox: Bandeja de entrada
-      sent: Enviados
-    new:
-      title: "Mensajes privados"
-      users:
-        hint: "Escriba para iniciar la búsqueda"
-        no_results: "No se encontraron resultados"
-        searching: "Buscando..."
-    reply_private_message:
-      user_not_registered: "Este usuario ya no está registrado, no podrá responder este mensaje."
-    show:
-      title: "Mensajes privados"
-    show_received:
-      wrote: escribió
-    show_sent:
-      wrote_to: Enviado
-      titled: el mensaje
   profile:
     deleted: "Perfil eliminado con éxito"
     description:
@@ -1634,7 +1612,6 @@ es-419:
         events: "Eventos"
         how_many: "¿Cuántos?"
         posts: "Mensajes publicados"
-        private_messages: "Mensajes privados intercambiados"
         spaces: "Espacios"
         users: "Usuarios"
         webconf_rooms: "Salas de conferencia web disponibles"

@@ -1198,28 +1198,6 @@ pt-br:
     other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
     title: "Mensagens Privadas (%{count})"
-  private_messages: 
-    index: 
-      title: "Mensagens Privadas"
-    menu: 
-      compose: "Escrever"
-      inbox: "Caixa de entrada"
-      sent: Enviadas
-    new: 
-      title: "Mensagens Privadas"
-      users:
-        hint: "Digite para começar a buscar"
-        no_results: "Nenhum resultado encontrado"
-        searching: "Procurando..."
-    reply_private_message:
-      user_not_registered: "Este usuário não está mais registrado, você não poderá responder esta mensagem."
-    show: 
-      title: "Mensagens Privadas"
-    show_received: 
-      wrote: escreveu
-    show_sent: 
-      wrote_to: Escreveu para
-      titled: a mensagem
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
@@ -1708,7 +1686,6 @@ pt-br:
         events: "Eventos"
         how_many: "Quantos?"
         posts: "Mensagens publicadas"
-        private_messages: "Mensagens privadas trocadas"
         spaces: "Comunidades"
         users: "Usuários"
         webconf_rooms: "Salas de webconferência disponíveis"

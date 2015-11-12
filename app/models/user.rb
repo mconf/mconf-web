@@ -228,11 +228,6 @@ class User < ActiveRecord::Base
     rooms
   end
 
-  # Returns the number of unread private messages for this user
-  def unread_private_messages
-    PrivateMessage.inbox(self).select{|msg| !msg.checked}
-  end
-
   # Sets the user as approved and skips confirmation
   def approve!
     skip_confirmation! unless confirmed?

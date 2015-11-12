@@ -288,19 +288,6 @@ ActiveRecord::Schema.define(version: 20151029191439) do
     t.boolean  "spam",        default: false
   end
 
-  create_table "private_messages", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
-    t.integer  "parent_id"
-    t.boolean  "checked",             default: false
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",   default: false
-    t.boolean  "deleted_by_receiver", default: false
-  end
-
   create_table "profiles", force: true do |t|
     t.string  "organization"
     t.string  "phone"
