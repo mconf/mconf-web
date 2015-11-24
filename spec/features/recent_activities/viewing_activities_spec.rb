@@ -5,12 +5,12 @@ def create_attachment_activities space, space2, user, user2
   current_time = Time.now
   space.update_attributes repository: true
   atts = [
-    FactoryGirl.create(:attachment, space: space, author: user),
-    FactoryGirl.create(:attachment, space: space, author: user),
-    FactoryGirl.create(:attachment, space: space, author: user),  # One which will be destroyed
-    FactoryGirl.create(:attachment, space: space, author: user2), # one with the disabled user
-    FactoryGirl.create(:attachment, space: space, author: user2), # one with the disabled and no username in recent activity
-    FactoryGirl.create(:attachment, space: space2, author: user)  # One in a disabled space
+    FactoryGirl.create(:attachment_with_associations, space: space, author: user),
+    FactoryGirl.create(:attachment_with_associations, space: space, author: user),
+    FactoryGirl.create(:attachment_with_associations, space: space, author: user),  # One which will be destroyed
+    FactoryGirl.create(:attachment_with_associations, space: space, author: user2), # one with the disabled user
+    FactoryGirl.create(:attachment_with_associations, space: space, author: user2), # one with the disabled and no username in recent activity
+    FactoryGirl.create(:attachment_with_associations, space: space2, author: user)  # One in a disabled space
   ]
   atts[2].destroy
   atts[3].author.disable
@@ -25,8 +25,8 @@ feature 'Viewing activities' do
   context 'attachment activities on a user homepage' do
     let(:user) { FactoryGirl.create(:user) }
     let(:user2) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space) }
-    let(:space2) { FactoryGirl.create(:space) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:space2) { FactoryGirl.create(:space_with_associations) }
 
     before do
       space.add_member!(user)
