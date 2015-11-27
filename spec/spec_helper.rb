@@ -24,9 +24,8 @@ ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.deliveries = []
 ActionMailer::Base.default_url_options = { :host => 'localhost:3001' }
 
-BCrypt::Engine.cost = 4
+Geocoder.configure(:lookup => :test)
 
-# To mock event geocode external http requests
 Geocoder::Lookup::Test.set_default_stub(
   [
     {
@@ -40,6 +39,8 @@ Geocoder::Lookup::Test.set_default_stub(
     }
   ]
 )
+
+BCrypt::Engine.cost = 4
 
 # Disable all external HTTP requests by default
 require 'webmock/rspec'
@@ -97,7 +98,6 @@ RSpec.configure do |config|
     Helpers.setup_site
     Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
-    Geocoder.configure(:lookup => :test)
   end
 
   # We want features as close to the production environment as possible, so render error
