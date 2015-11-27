@@ -12,15 +12,77 @@ describe UsersController do
   it "includes Mconf::ApprovalControllerModule"
 
   describe "#index" do
-    it "loads the space"
-    it "loads the webconference room information"
-    it "sets @users to all users in the space ordered by name"
-    it "renders users/index"
-    it "renders with the layout spaces_show"
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
 
     # TODO: how to test nested authorization? might have to adapt should_authorize
-    # it { should_authorize Space, :index }
-    # it { should_authorize User, :index }
+    skip { should_authorize Space, :show }
+    skip { should_authorize User, :index, space_id: space.to_param }
+
+    context "loads the space" do
+      before { get :index, space_id: space.to_param }
+      it { should assign_to(:space).with(space) }
+    end
+
+    context "loads the webconference room information" do
+      before { get :index, space_id: space.to_param }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    end
+
+    context "sets @users to all users in the space ordered by name" do
+      before do
+        @users = [
+          FactoryGirl.create(:user, _full_name: 'Dio'),
+          FactoryGirl.create(:user, _full_name: 'Opeth'),
+          FactoryGirl.create(:user, _full_name: 'A Perfect Circle')
+        ]
+
+        @users.each { |user| space.add_member!(user) }
+
+        get :index, space_id: space.to_param
+      end
+
+      it { should assign_to(:users).with([@users[2], @users[0], @users[1]]) }
+    end
+
+    context "renders users/index" do
+      before { get :index, space_id: space.to_param }
+
+      it { should render_template('index') }
+      it { should render_with_layout('spaces_show') }
+    end
+
+    context "with a private space" do
+      before { space.update_attributes(public: false) }
+
+      context 'redirect to login path for a logged out user' do
+        before { get :index, space_id: space.to_param }
+
+        it { should redirect_to(login_path) }
+      end
+
+      context 'deny access to logged in non-member' do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          sign_in(user)
+        }
+
+        it { expect{get :index, space_id: space.to_param}.to raise_error(CanCan::AccessDenied) }
+      end
+
+      context 'show users for logged in member' do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          sign_in(user)
+          space.add_member!(user)
+
+          get :index, space_id: space.to_param
+        }
+
+        it { should render_template('index') }
+      end
+
+    end
+
   end
 
   describe "#show" do
