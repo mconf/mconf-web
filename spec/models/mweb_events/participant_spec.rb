@@ -59,7 +59,20 @@ describe Participant do
   skip "activities"
 
   it { should have_one(:participant_confirmation) }
-  skip '#create_participant_confirmation if annonymous?'
-  skip '#annonymous?'
-  skip '#email_confirmed?'
+
+  context '#create_participant_confirmation if annonymous?' do
+    it { expect{
+        FactoryGirl.create(:participant, owner: nil)
+      }.to change{ParticipantConfirmation.count}.by(1)
+    }
+  end
+
+  context '#annonymous?' do
+    it { FactoryGirl.build(:participant, owner: nil).should be_annonymous }
+  end
+
+  context '#email_confirmed?' do
+    it { FactoryGirl.create(:participant, owner: FactoryGirl.create(:user)).should be_email_confirmed }
+    it { FactoryGirl.create(:participant, owner: nil).should_not be_email_confirmed }
+  end
 end
