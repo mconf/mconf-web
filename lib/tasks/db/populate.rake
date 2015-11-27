@@ -88,23 +88,6 @@ namespace :db do
       end
     end
 
-    puts "* Create private messages"
-    User.all.each do |user|
-      senders = User.ids - [user.id]
-
-      PrivateMessage.populate 5 do |message|
-        message.receiver_id = user.id
-        message.sender_id = senders
-        message.title = Populator.words(1..3).capitalize
-        message.body = Populator.sentences(1..3)
-        message.checked = [ true, false ]
-        message.deleted_by_sender = false
-        message.deleted_by_receiver = false
-        message.created_at = @created_at_start..Time.now
-        message.updated_at = message.created_at..Time.now
-      end
-    end
-
     puts "* Create spaces (10)"
     Space.populate 10 do |space|
       begin
@@ -421,9 +404,6 @@ namespace :db do
     s.new_activity :create, u
     s.add_member!(u, 'Admin')
     s.add_member!(u2)
-
-    message_attrs = [:title, :body]
-    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
 
     post_attrs = [:title, :text]
     p = FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs).merge(author: u2, space: s))
