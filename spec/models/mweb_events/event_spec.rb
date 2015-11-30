@@ -10,9 +10,13 @@ describe Event do
   before(:each) { Site.current.update_attributes(events_enabled: true) }
   let(:event) { FactoryGirl.create(:event) }
 
-  skip "should not validate an event with wrong date range" do
-    FactoryGirl.build(:event,
-      :start_on => Date.today, :end_on => Date.today - 1).should_not be_valid
+  context "should correct and invalid event date range" do
+    let!(:today) { Time.now }
+    let(:event) { FactoryGirl.create(:event, :start_on => today, :end_on => today - 1.day) }
+
+    it { event.should be_valid }
+    it { event.start_on.should eq(today - 1.day) }
+    it { event.end_on.should eq(today) }
   end
 
   it "creates a new instance given valid attributes" do
@@ -53,17 +57,22 @@ describe Event do
   it { should respond_to(:owner_name) }
   it { should respond_to(:owner_name=) }
 
-  describe ".within" do
-    let(:today) { Time.now }
+  describe "#owner_name" do
+    skip
+  end
 
-    before(:each) do
-      e1 = FactoryGirl.create(:event, :start_on => today + 1.day, :end_on => today + 3.day)
-      e2 = FactoryGirl.create(:event, :start_on => today, :end_on => today + 2.day)
-    end
+  describe "#public" do
+    let(:public_event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:space, public: true)) }
+    let(:private_event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:space, public: false)) }
+    let(:user_event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:user)) }
 
-    it { Event.within(today, today + 2.day).should_not be_empty }
-    it { Event.within(today + 1.day, today + 2.day).should_not be_empty }
-    it { Event.within(today + 4.day, today + 5.day).should be_empty }
+    it { public_event.public.should be(true) }
+    it { private_event.public.should be(false) }
+    it { user_event.public.should be(true) }
+  end
+
+  describe ".search_by_terms" do
+    skip
   end
 
   describe ".description_html" do
@@ -87,13 +96,74 @@ describe Event do
     end
   end
 
-  describe ".upcoming" do
+  context "test time scopes" do
+    let!(:today) { Time.now }
+    before(:each) do
+      @events = [
+        FactoryGirl.create(:event, start_on: today - 2.day, end_on: today - 1.day),
+        FactoryGirl.create(:event, start_on: today - 1.day, end_on: today - 1.minute),
+        FactoryGirl.create(:event, start_on: today - 5.minute, end_on: today + 2.day),
+        FactoryGirl.create(:event, start_on: today + 5.minutes, end_on: today + 10.minutes),
+        FactoryGirl.create(:event, start_on: today + 1.day, end_on: today + 3.day),
+      ]
+    end
+
+    describe ".within" do
+      it { Event.within(today, today + 2.day).count.should be(3) }
+      it { Event.within(today, today + 2.day).should include(@events[2], @events[3], @events[4]) }
+
+      it { Event.within(today + 1.day, today + 2.day).count.should be(2) }
+      it { Event.within(today + 1.day, today + 2.day).should include(@events[2], @events[4]) }
+
+      it { Event.within(today + 4.day, today + 5.day).should be_empty }
+
+      it { Event.within(today - 5.day, today - 1.day).count.should eq(2) }
+      it { Event.within(today - 5.day, today - 1.day).should include(@events[0], @events[1]) }
+    end
+
+    describe ".upcoming" do
+      it { Event.upcoming.count.should eq(3) }
+      it { Event.upcoming.should include(@events[2], @events[3], @events[4]) }
+    end
+
+    describe ".past" do
+      it { Event.past.count.should eq(2) }
+      it { Event.past.should include(@events[0], @events[1]) }
+    end
+
+    describe ".happening now" do
+      it { Event.happening_now.count.should eq(1) }
+      it { Event.happening_now.should include(@events[2]) }
+    end
+
+    describe "#past?" do
+      it { @events[0].should be_past }
+      it { @events[1].should be_past }
+      it { @events[2].should_not be_past }
+      it { @events[3].should_not be_past }
+      it { @events[4].should_not be_past }
+    end
+
+    describe "#is_happening_now?" do
+      it { @events[0].is_happening_now?.should be(false) }
+      it { @events[1].is_happening_now?.should be(false) }
+      it { @events[2].is_happening_now?.should be(true) }
+      it { @events[3].is_happening_now?.should be(false) }
+      it { @events[4].is_happening_now?.should be(false) }
+    end
+
+    describe "#future?" do
+      it { @events[0].should_not be_future }
+      it { @events[1].should_not be_future }
+      it { @events[2].should_not be_future }
+      it { @events[3].should be_future }
+      it { @events[4].should be_future }
+    end
+
   end
 
-  describe ".past" do
-  end
-
-  describe ".happening now" do
+  describe "#get_formatted_hour" do
+    skip
   end
 
   describe "social_networks attribute tokenization" do
@@ -147,7 +217,17 @@ describe Event do
     it { target.latitude.should_not be_nil }
   end
 
-  it "#to_ics"
+  describe "#to_ical" do
+    let(:event) { FactoryGirl.create(:event, name: 'DTLaRAH', start_on: Time.now + 1.day, end_on: Time.new + 2.day) }
+
+    it { event.to_ical.lines.first.should match('BEGIN:VCALENDAR') }
+    it { event.to_ical.lines.last.should match('END:VCALENDAR') }
+    it { event.to_ical.should match(/SUMMARY:#{event.name}/) }
+    it { event.to_ical.should match(/URL:#{event.full_url}/) }
+
+    # Doesnt work because the ical file is generate with random line breaks
+    # it { event.to_ical.should match(/DESCRIPTION:#{event.description}/) }
+  end
 
   describe "#is_registered?" do
     let(:target) { FactoryGirl.create(:event) }

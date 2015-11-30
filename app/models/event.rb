@@ -141,26 +141,9 @@ class Event < ActiveRecord::Base
 
   def to_ical
     calendar = Icalendar::Calendar.new
-    calendar.add_event(self.to_ics)
+    calendar.add_event(to_ics)
     calendar.publish
     calendar.to_ical
-  end
-
-  def to_ics
-    event = Icalendar::Event.new
-    event.dtstart = start_on.strftime("%Y%m%dT%H%M%SZ")
-    event.dtend = end_on.strftime("%Y%m%dT%H%M%SZ") if !end_on.blank?
-    event.summary = name
-    event.organizer = owner_name
-    event.description = summary
-    event.location = "#{location}"
-    event.location += " - #{address}" if !address.blank?
-    event.ip_class = "PUBLIC"
-    event.created = created_at.strftime("%Y%m%dT%H%M%S")
-    event.last_modified = updated_at.strftime("%Y%m%dT%H%M%S")
-    event.uid = full_url
-    event.url = full_url
-    event
   end
 
   # Returns wheter the event has already happaned and is finished
@@ -179,7 +162,7 @@ class Event < ActiveRecord::Base
 
   # Returns whether the event will happen in the future or not.
   def future?
-    start_date.future?
+    start_on.future?
   end
 
   # Returns a string with the starting hour of an event in the correct format
@@ -213,6 +196,35 @@ class Event < ActiveRecord::Base
     end
   end
 
+  # Returns whether a user (any model) or email (a string) is already registered in this event.
+  def is_registered?(user_or_email)
+    if user_or_email.is_a?(String)
+      Participant.where(:email => user_or_email, :event_id => id).any?
+    else
+      Participant.where(:owner_type => user_or_email.class.name, :owner_id => user_or_email.id,
+                        :event_id => id).any?
+    end
+  end
+
+  private
+
+  def to_ics
+    event = Icalendar::Event.new
+    event.dtstart = start_on.strftime("%Y%m%dT%H%M%SZ")
+    event.dtend = end_on.strftime("%Y%m%dT%H%M%SZ") if !end_on.blank?
+    event.summary = name
+    event.organizer = owner_name
+    event.description = summary
+    event.location = "#{location}"
+    event.location += " - #{address}" if !address.blank?
+    event.ip_class = "PUBLIC"
+    event.created = created_at.strftime("%Y%m%dT%H%M%S")
+    event.last_modified = updated_at.strftime("%Y%m%dT%H%M%S")
+    event.uid = full_url
+    event.url = full_url
+    event
+  end
+
   def check_end_on
     write_attribute(:end_on, start_on + 1.day) if end_on.blank?
 
@@ -235,16 +247,6 @@ class Event < ActiveRecord::Base
     if persisted? && address.blank?
       write_attribute(:longitude, nil)
       write_attribute(:latitude, nil)
-    end
-  end
-
-  # Returns whether a user (any model) or email (a string) is already registered in this event.
-  def is_registered?(user_or_email)
-    if user_or_email.is_a?(String)
-      Participant.where(:email => user_or_email, :event_id => id).any?
-    else
-      Participant.where(:owner_type => user_or_email.class.name, :owner_id => user_or_email.id,
-                        :event_id => id).any?
     end
   end
 end
