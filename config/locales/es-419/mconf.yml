@@ -895,9 +895,10 @@ es-419:
       public: "Espacio público"
   less: "menos..."
   locales:
-    en: Ingles
+    de: Deutsch
+    en: English
     es-419: "Español (América Latina)"
-    pt-br: "Portugués (Brasil)"
+    pt-br: "Português (Brasil)"
     error: "No se registro la localidad"
   login_or_register: "Acceder / Registrarse"
   login_request: "Tienes que estar logueado para"

@@ -924,6 +924,7 @@ pt-br:
       public: "Comunidade pública"
   less: "menos..."
   locales:
+    de: Deutsch
     en: English
     es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"

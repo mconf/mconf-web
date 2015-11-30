@@ -1,0 +1,104 @@
+de:
+  application_mailer:
+    feedback_email:
+      content: "<b>%{email}</b> hat folgendes Feedback gesendet:"
+      subject: "Feedback"
+  admin_mailer:
+    new_user_waiting_for_approval:
+      click_here: "Benutzer in der Benutzerverwaltung akzeptieren oder zurückweisen: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Ein Benutzer mit dem Namen \"%{name}\" (%{email}) hat sich registriert und wartet auf die Bestätigung."
+      subject: "Ein neuer Nutzer wartet auf Bestätigung"
+    new_user_approved:
+      click_here: "Sie erreichen Ihre Homepage unter: <a href=\"%{url}\">%{url}</a>"
+      message: "Hallo %{name},<br/><br/>Mit dieser Email bestätigen wir, dass der Zugang zu der Seite freigeschalten wurde."
+      subject: "Ihre Registrierung wurde bestätigt."
+  user_mailer:
+    registration_notification_email:
+      click_here: "Sie können Ihre Homepage aufrufen, indem Sie auf diesen Link klicken: <a href=\"%{url}\">%{url}</a>"
+      confirmation_pending: "Sie haben sich erfolgreich auf <a href=\"%{url}\">%{site}</a> registriert und ihr Account wurde zur Bestätigung an einen Administrator übergeben.<br/>Sie werden benachrichtigt, wenn der Account freigeschalten wurde."
+      hello: "Hallo %{name},"
+      message: "Wir senden diese Email um Ihnen mitzuteilen, dass Ihre Registrierung bei  <a href=\"%{url}\">%{site}</a> erfolgreich fertiggestellt wurde!"
+      subject: "Ihre Registrierung wurde fertiggestellt."
+    registration_by_admin_notification_email:
+      click_here: "Sie können Ihre Homepage aufrufen, indem Sie auf diesen Link klicken: <a href=\"%{url}\">%{url}</a>"
+      message: "Hallo %{name},<br/><br/>Wir senden diese Email um Sie zu informieren, dass auf <a href=\"%{url}\">%{site}</a> ein Account für Sie angelegt wurde.<br><br>Der Account wurde von einem Administrator erstellt. Wenn Sie denken, dass das ein Fehler ist, nehmen Sie bitte mit uns Kontakt auf, indem Sie auf diese Mail antworten."
+      subject: "Ein Account wurde für Sie durch einen Administrator erstellt."
+  event_mailer:
+    invitation_email:
+      message:
+        start: "Beginnt am"
+        end: "Endet am"
+        header: "Sie wurden zum Event <b>%{event}</b> durch <b>%{sender}</b> (%{email_sender}) eingeladen:"
+      subject: "Sie wurden zum Event %{event} eingeladen"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "Sie können Ihre Teilnahme am Event jederzeit mit einem Klick auf den folgenden Link beenden:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "Um Ihre Registrierung zu bestätigen, klicken Sie bitte auf folgenden Link:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(Wenn Sie sich nicht für diesen Event registriert haben, ignorieren Sie bitte diese Email.)"
+      hello: "Hallo,"
+      message: "Wir haben gerade eine Registrierung für den Event <b>%{event}</b> für die Email-Adresse <b>%{email}</b> erhalten."
+      subject: "Bestätigen Sie Ihre Registrierung für den Event %{event}"
+  space_mailer:
+    invitation_email:
+      message:
+        header: "Sie wurden von <b>%{sender}</b> (%{email_sender}) eingeladen, folgenden Space <b>%{space}</b> zu betreten."
+        link: "Sie können diese Einladung unter folgendem Link bestätigen oder ablehnen: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>Sie können mehr über diesen Space hier herausfinden: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        user_message: "Dies ist die Nachricht von %{sender}:"
+      subject: "%{username} hat Sie eingelagen, dem Space %{space} beizutreten"
+    join_request_email:
+      message:
+        header: "<b>%{candidate}</b> möchte dem Space <b>%{space}</b>, der von Ihnen verwaltet wird, beitreten."
+        link: "Um diese Anfrage zu beantworten, besuchen Sie bitte <a href=\"%{url}\">%{url}</a>"
+        user_message: "Dies ist die Nachricht von %{candidate}:"
+      subject: "%{candidate} möchte dem Space %{space} beitreten"
+    new_space_waiting_for_approval_email:
+      click_here: "Diesen Space auf der Verwaltungsseite für Spaces akzeptieren oder ablehnen: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Ein Space \"%{name}\" wurde erstellt und wartet auf Ihre Bestätigung."
+      subject: "Ein neuer Space wartet auf Bestätigung"
+    new_space_approved_email:
+      click_here: "Sie können Ihren neuen Space unter: <a href=\"%{url}\">%{url}</a> erreichen."
+      message: "Hallo %{name},<br/><br/>Wir senden diese Email, um Ihnen mitzuteilen, dass Ihr Space \"%{space}\" freigeschalten wurde."
+      subject: "Ihr Space wurde freigeschalten"
+    processed_invitation_email:
+      accepted: "angenommen"
+      message:
+        header: "<b>%{name}</b> hat die Einladung, dem Space <b>%{space}</b> beizutreten, %{action}."
+        link: "Sie können die aktuelle Benutzerliste dieses Spaces unter <br/><a href=\"%{users_url}\">%{users_url}</a> einsehen."
+      rejected: "abgelehnt"
+      subject: "%{name} hat Ihre Einladung %{action}"
+    processed_join_request_email:
+      accepted: "angenommen"
+      message:
+        header: "Ein Administrator von <b>%{space}</b> hat ihre Anfrage %{action}."
+        link:
+          accepted: "Sie sind jetzt ein Mitglied von %{space} können den Space hier erreichen: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "Wenn Sie erneut die Mitgliedschaft beantragen möchten, können Sie das hier tun: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+      rejected: "abgelehnt"
+      subject: "Ihre Bewerbung bei %{space} wurde %{action}"
+    user_added_email:
+      message:
+        header: "Sie wurden von <b>%{sender}</b> (%{email_sender}) zum Space <b>%{space}</b> hinzugefügt."
+        link: "Sie können den Space, zu dem Sie hinzugefügt wurde, unter folgendem Link erreichen: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} hat Sie zum Space %{space} hinzugefügt"
+  web_conference_mailer:
+    invitation_email:
+      event_name: "Meeting mit %{name}"
+      message:
+        description: "Beschreibung"
+        end: "Ende"
+        header: "Sie wurden von <b>%{sender}</b> (%{email_sender}) zu einem Meeting eingeladen:"
+        join: "Raum"
+        password: "Zugangsschlüssel"
+        start: "Beginn"
+        subject: "Betreff"
+      subject: "Webkonferenz-Einladung"
+  shared:
+    invitation_email:
+      message:
+        description: "Beschreibung"
+        end: "Ende "
+        start: "Beginn"
+        subject: "Betreff"
+        url:
+          event: "Event site"
+          other: "Raum"

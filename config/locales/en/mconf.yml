@@ -924,6 +924,7 @@ en:
       public: "Public space"
   less: "less..."
   locales: 
+    de: Deutsch
     en: English
     es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
