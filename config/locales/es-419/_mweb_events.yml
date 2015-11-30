@@ -38,11 +38,13 @@ es-419:
       new:
         page_title: "Crear un nuevo evento"
       registration:
-        already_registered: ¡Usted ya está registrado en este evento!
+        already_registered: Usted está inscripto en este evento!
         closed: El registro para este evento está cerrado.
+        delete_confirmation: ¿Está seguro que desea cancelar su inscripción a este evento?
         invite_button: Invitar a otras personas a este evento
         join_button: Únase a este espacio para registrarse
         need_sign_in: Necesita iniciar sesión para registrarse a este evento
+        unregister: Cancelar mi inscripción
       send_invitation:
         blank_users: "Usuario no seleccionado, la invitación no fue enviada"
         error: "La invitación no pudo ser enviada a:"
@@ -59,6 +61,8 @@ es-419:
         public: "Evento público"
         starts_at: "Comienza a"
     participants:
+      create:
+        waiting_confirmation: Inscripción recibida. Pronto recibirá un correo con las instrucciones para completar su inscripción
       index:
         back_to_event: "Volver a la página del evento"
         disable: Retirar del evento
@@ -67,5 +71,11 @@ es-419:
         message: Enviar mensaje
         no_participants: ¡Aún sin participantes!
         title: "Listando todos los participantes del evento"
+      guest_participant:
+        confirmed: Correo confirmado
+        not_confirmed: Correo no confirmado
+      split_form:
+        member_title: Ingresar para inscribirse a este evento
+        annonymous_title: Inscribirse como usuario anónimo
       new:
         title: "Registrarse en el evento"

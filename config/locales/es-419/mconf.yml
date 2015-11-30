@@ -2,7 +2,7 @@ es-419:
   activities:
     attachment:
       create_html: subió el archivo adjunto %{name} en el espacio
-      delete_html: eliminó el archivo adjunto %{name} del espacio
+      destroy_html: eliminado el archivo adjunto %{name} del espacio
       update_html: actualizó el archivo adjunto %{name} en el espacio
       deleted: que ha sido eliminado
     bigbluebutton_meeting:
@@ -54,7 +54,6 @@ es-419:
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd/MM/yyyy"
-      format_rails: "%d/%m/%Y %H:%M %z"
     decline: "Declinar"
     deny: "Denegar"
     destroy: "Destruir"
@@ -87,10 +86,12 @@ es-419:
       icon_tooltip: "Este ítem ha sido reportado como spam y esta siendo evaluado por los administradores"
     unpublish: "Anular publicacion"
     update: "Actualizar"
+    updated_time_ago: "%{time} pasado"
     upload: "Subir"
     user:
       administrator: "Administrador global"
       normal_user: "Usuario normal"
+      unapproved_user: "Esperando aprobación"
       guest: "Invitado"
       guest_name: "Usuario invitado (%{email})"
       removed: "<usuario eliminado>"
@@ -171,7 +172,6 @@ es-419:
         name: "Nombre"
         presence_domain: "Dominio de chat XMPP"
         registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
-        require_registration_approval: "Exigir a los administradores aprobar los nuevos registros"
         signature: "Firma"
         shib_always_new_account: "Shibboleth: Siempre crear cuentas nuevas"
         shib_enabled: "Shibboleth: Habilitar"
@@ -191,6 +191,7 @@ es-419:
         smtp_use_tls: "Usar TLS en SMTP"
         ssl: "SSL"
         timezone: "Zona horaria"
+        visible_locales: "Lenguajes visibles"
         xmpp_server: "Dirección del servidor XMPP"
         webconf_auto_record: "Activar automáticamente la grabación al crear la conferencia"
       space:
@@ -267,7 +268,7 @@ es-419:
     not_selected: "No hay documentos seleccionados"
     one: Adjunto
     other: Adjuntos
-    repository_disabled: El repositorio de documentos de este espacio no está habilitado.
+    repository_disabled: "El repositorio de documentos de este espacio no está habilitado."
     selected:
       none: "No hay archivos seleccionados"
       one: "archivo seleccionado"
@@ -441,7 +442,7 @@ es-419:
   custom_bigbluebutton_playback_types:
     index:
       default: "Por defecto"
-      description: "Tipos de reproducción son los tipos de reproductores disponible para las grabaciones. Esta lista se llena automáticamente cuando se obtienen las grabaciones de los servidores de conferencia web. Puede ocultar los tipos de reproducción de la interfaz, desmarcando la casilla de verificación visible, y cambiar el reproductor predeterminado, el que se muestra siempre en la parte superior cuando se enumeran los enlaces a todos los reproductores disponibles."
+      description: "Tipos de reproducción son los tipos de reproducciones disponible para las grabaciones. Esta lista se llena automáticamente cuando se obtienen las grabaciones de los servidores de conferencia web. Puede ocultar los tipos de reproducción de la interfaz, desmarcando la casilla de verificación visible, y cambiar el reproductor predeterminado, el que se muestra siempre en la parte superior cuando se enumeran los enlaces a todos los reproductores disponibles."
       list_of_playback_types: "Lista de tipos de reproducción"
       name: "Nombre"
       visible: "Visible"
@@ -465,7 +466,6 @@ es-419:
       at: "en"
       duration: "Duración"
       meeting_in: "Invitar personas a una reunión en:"
-      timezone: "Está utilizando la zona horaria \"%{timezone}\""
       title: "Invitar personas a una reunión"
       users:
         hint: "Escriba para iniciar la búsqueda"
@@ -502,8 +502,6 @@ es-419:
     join_mobile:
       click_to_download_android: "Click aquí para descargar el cliente Android"
       click_to_download_ios: "Click aquí para descargar el cliente iOS (iPad, iPhone)"
-      download_android_tip: "Para dispositivos con Android"
-      download_ios_tip: "Para dispositivos con iOS (iPad, iPhone)"
       not_launched: "Si la aplicación no fue iniciada, asegúrese de que tiene el cliente Android instalado. Puede obtenerlo de: "
       notice: "Está siendo redirigido a la conferencia en su dispositivo móvil. Por favor, espere."
       title: "Acceso móvil a \"%{room}\""
@@ -580,6 +578,9 @@ es-419:
     rooms:
       list_of_rooms: "Lista de todas las salas del servidor '%{server}'"
     show:
+      available_layouts: "Capas disponibles"
+      configurations: "Configuraciones de servidor"
+      configurations_tip: "Estas configuraciones son traidas automáticamente desde el servidor y no pueden ser modificadas. Son traidas periodicamente (cada 3 horas) en segundo plano o cuando la URL, salt o la versión del servidor cambie."
       fetch_recordings_title: "Obtener grabaciones con parámetros"
       fetch_recordings_btn: "Obtener grabaciones"
       publish_recordings_title: "Publicar grabaciones"
@@ -606,12 +607,6 @@ es-419:
     failure:
       user:
         not_approved: "Su cuenta aún no ha sido aprobada por un administrador."
-    mailer:
-      confirmation_instructions:
-        confirmation_link: "Confirmar mi cuenta"
-        confirmation_ok: "Puede confirmar su cuenta de correo electrónico a través del siguiente enlace:"
-        confirmation_pending: "Su cuenta fue creada y está en espera de aprobación de un administrador."
-        welcome: "¡Bienvenido, %{email}!"
     registrations:
       not_enabled: "El registro de nuevas cuentas no está habilitado en este sitio."
     shared:
@@ -727,7 +722,6 @@ es-419:
     invite_url: "URL de invitación"
     my: "Mi Inicio"
     my_spaces: "Mis espacios"
-    no_spaces: "Usted no pertenece a ningún espacio. Puede ver los espacios disponibles <a href=\"%{link}\">aquí</a>."
     one: inicio
     view_invite_url: "Ver URL de invitación"
   icons:
@@ -872,7 +866,7 @@ es-419:
       manage: "Administrar"
       register: "Registrarse"
     footer:
-      copyright: "© 2010-2015 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Versión actual"
       find_us: "Encuentra más acerca de Mconf"
       github: GitHub
@@ -892,7 +886,7 @@ es-419:
         help_us: "¿Quieres este sitio en tu idioma? ¡Has click aquí para ayudarnos a traducirlo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2015 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Cambiar idioma"
     spaces_page_title:
@@ -901,9 +895,9 @@ es-419:
       public: "Espacio público"
   less: "menos..."
   locales:
-    en: English
+    en: Ingles
     es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+    pt-br: "Portugués (Brasil)"
     error: "No se registro la localidad"
   login_or_register: "Acceder / Registrarse"
   login_request: "Tienes que estar logueado para"
@@ -948,12 +942,12 @@ es-419:
       title: "Gestión del Sitio"
       users: "Usuarios"
       webconf: "Conferencia Web"
-    spaces:
-      filter_name: "Nombre"
-      filter_results: "Filtrar los resultados:"
     destroy_space:
       destroy: Eliminar espacio
       destroy_confirm: ¿Está seguro que desea eliminar este espacio y todo el contenido asociado a él? A diferencia de la dehabilitación del espacio, ¡esta operación es irreversible!
+    destroy_user:
+      destroy: Borrar usuario
+      destroy_confirm: ¿Esta seguro que desea borrar este usuario y todo el contenido asociado a este? A diferencia de deshabilitar usuario, esta operacion es irreversible.
     spaces_list:
       filter_count_with_text: "Encontrado(s) %{count} espacio(s) para el filtro \"%{value}\""
       filter_count_empty: "Encontrado(s) %{count} espacio(s)"
@@ -973,8 +967,6 @@ es-419:
         not_spam_tooltip: "Este post no es spam"
         title: "Posts marcados como spam"
     users:
-      filter_name_or_username: "Nombre, nombre de usuario o correo electrónico"
-      filter_results: "Filtrar los resultados:"
       new_user: "Crear usuario"
     users_list:
       filter_count_with_text: "Encontrado(s) %{count} usuario(s) para el filtro \"%{value}\""
@@ -1094,6 +1086,9 @@ es-419:
   past: Anterior
   people: personas
   per_page: "por página"
+  participant_confirmation:
+    confirmed: "El registro para %{email} ha sido confirmado"
+    cancelled: "Su registro para este evento ha sido cancelado"
   permission:
     notification:
       default: "%{username} ha cambiado su rol en %{stage} a %{role}. "
@@ -1407,6 +1402,11 @@ es-419:
       filters:
         all: "Todos los espacios"
         my_spaces: "Mis espacios"
+      order:
+        alphabetic: "Nombre"
+        order_by: "Ordenado por"
+        relevance: "Importancia"
+        relevance_tip: "Muestra los espacios con las actividades más recientes primero"
       select_at_left: "Seleccionar un espacio de la lista para ver la descripción"
       user_is_member: "¡Eres un miembro!"
     is_private: "es un espacio privado. Envie una solicitud al administrador para unirse"
@@ -1720,6 +1720,7 @@ es-419:
     category: Categoría
     confirm_password: "Confirmar clave"
     delete_from_space: "Eliminar usuario del espacio"
+    deleted: "Usuario borrado"
     disable: "Deshabilitar usuario"
     disabled: "Usuario %{usarname} deshabilitado"
     email_used_to_create_account: "Ingrese la dirección correo electrónico que utilizó para crear su cuenta"
@@ -1765,7 +1766,6 @@ es-419:
     vcc_email: "Correo electrónico del usuario Mconf %{dir}"
   users:
     approve:
-      approved: "¡El usuario %{username} fue aprobado para acceder al sito!"
       not_enabled: "La aprobación de registros no está habilitada en este sitio"
     create:
       error: "Errores creando el usuario: %{errors}"
@@ -1775,7 +1775,6 @@ es-419:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "¡El usuario %{username} fue bloqueado para acceder al sitio web!"
       not_enabled: "La aprobación de registros no está habilitada en este sitio web"
     edit:
       account_info: "Información de cuenta"
