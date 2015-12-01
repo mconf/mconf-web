@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_disabled
-    unscope(where: :disabled) # removes the default scope only
+    unscope(where: :disabled) # removes the target scope only
   end
 
   def <=>(user)

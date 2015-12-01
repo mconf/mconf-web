@@ -274,10 +274,10 @@ describe Space do
     it { Space.all.should include(@s2) }
     it { Space.all.should_not include(@s3) }
 
-    it { Space.with_disabled.count.should be 3 }
-    it { Space.with_disabled.should include(@s1) }
-    it { Space.with_disabled.should include(@s2) }
-    it { Space.with_disabled.should include(@s3) }
+    it { Space.unscoped.count.should be 3 }
+    it { Space.unscoped.should include(@s1) }
+    it { Space.unscoped.should include(@s2) }
+    it { Space.unscoped.should include(@s3) }
   end
 
   describe ".public_spaces" do
@@ -745,10 +745,10 @@ describe Space do
   it "new_activity"
 
   describe ".with_disabled" do
-    let(:space1) { FactoryGirl.create(:space, :disabled => true) }
-    let(:space2) { FactoryGirl.create(:space, :disabled => false) }
+    let(:space1) { FactoryGirl.create(:space, disabled: true) }
+    let(:space2) { FactoryGirl.create(:space, disabled: false) }
 
-    context "finds spaces even if disabled" do
+    context "finds spaces that are disabled" do
       subject { Space.with_disabled.all }
       it { should include(space1) }
       it { should include(space2) }
@@ -756,6 +756,24 @@ describe Space do
 
     context "returns a Relation object" do
       it { Space.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "doesn't remove previous scopes from the query" do
+      let(:space1) { FactoryGirl.create(:space, disabled: true, public: true) }
+      let(:space2) { FactoryGirl.create(:space, disabled: true, public: false) }
+
+      subject { Space.where(public: true).with_disabled.all }
+      it { should include(space1) }
+      it { should_not include(space2) }
+    end
+
+    context "is chainable" do
+      let!(:space1) { FactoryGirl.create(:space, public: true, name: "abc") }
+      let!(:space2) { FactoryGirl.create(:space, public: true, name: "def") }
+      let!(:space3) { FactoryGirl.create(:space, public: false, name: "abc-2") }
+      let!(:space4) { FactoryGirl.create(:space, public: false, name: "def-2") }
+      subject { Space.where(public: true).with_disabled.where('spaces.name LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 
