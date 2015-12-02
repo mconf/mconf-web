@@ -45,15 +45,6 @@ module Abilities
           (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
       end
 
-      # Private messages
-      can [:new, :create, :index], PrivateMessage
-      can :show, PrivateMessage do |message|
-        [message.sender_id, message.receiver_id].include?(user.id)
-      end
-      can :destroy, PrivateMessage do |message|
-        [message.sender_id, message.receiver_id].include?(user.id)
-      end
-
       # Spaces
       can :select, Space
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?

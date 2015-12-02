@@ -126,9 +126,9 @@ class EventsController < InheritedResources::Base
   def filter_disabled_models
     # Filter events belonging to spaces or users with disabled status
     without_spaces =
-      @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
+      @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ? && spaces.approved = ?", false, true)
     without_users =
-      @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
+      @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ? && users.approved = ?", false, true)
 
     @events = without_users.union(without_spaces)
   end
