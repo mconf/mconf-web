@@ -229,19 +229,13 @@ describe EventsController do
     before(:each) { sign_in(owner) }
 
     context "with valid attributes" do
-      let(:event) { FactoryGirl.build(:event) }
-      let(:attributes) { FactoryGirl.attributes_for(:event) }
+      let!(:attributes) { FactoryGirl.attributes_for(:event) }
 
       before(:each) {
         expect {
           post :create, :event => attributes
         }.to change(Event, :count).by(1)
       }
-
-      describe "creates the new event with the correct attributes" do
-        # TODO: for some reason the matcher is not found, maybe we just need to update rspec and other gems
-        skip { Event.last.should have_same_attibutes_as(event) }
-      end
 
       it "redirects to the new event" do
         should redirect_to(event_path(Event.last))
@@ -261,18 +255,29 @@ describe EventsController do
 
     end
 
+    context "with empty time_zone" do
+      let!(:attributes) { FactoryGirl.attributes_for(:event, time_zone: '') }
+
+      before(:each) {
+        expect { post :create, :event => attributes }.to change(Event, :count).by(1)
+      }
+
+      it { should redirect_to(event_path(Event.last)) }
+      it { assigns(:event).should eq(Event.last) }
+      it { should set_the_flash.to(I18n.t('flash.events.create.notice')) }
+      it { Event.last.time_zone.should eq(Time.zone.name) }
+    end
+
     context "with invalid attributes" do
       let(:invalid_attributes) { FactoryGirl.attributes_for(:event, :name => nil) }
 
-      before(:each) { post :create, :event => invalid_attributes }
-
-      it "assigns @event with the new event"
+      before(:each) {
+        expect { post :create, :event => invalid_attributes }.to change(Event, :count).by(0)
+      }
 
       describe "renders the view events/new with the correct layout" do
         it { should render_template("events/new") }
       end
-
-      it "sets the flash with an error message"
     end
   end
 
@@ -296,12 +301,13 @@ describe EventsController do
   describe "#update" do
     let(:event) { FactoryGirl.create(:event, owner: owner) }
     let(:owner) { FactoryGirl.create(:user) }
-    before(:each) { sign_in(owner) }
+    before(:each) {
+      sign_in(owner)
+      put :update, :id => event, event: attributes
+    }
 
     context "with valid attributes" do
-      let(:attributes) { FactoryGirl.attributes_for(:event) }
-      before(:each) { put :update, :id => event, event: {name: "#{event.name} New name"}
-      }
+      let(:attributes) { {name: "#{event.name} New name"} }
 
       it "sets the correct attributes in the event"
 
@@ -316,13 +322,20 @@ describe EventsController do
       it "sets the flash with a success message" do
         should set_the_flash.to(I18n.t('flash.events.update.notice'))
       end
+    end
 
+    context "with empty time_zone" do
+      let(:event) { FactoryGirl.create(:event, owner: owner, time_zone: 'American Samoa') }
+      let(:attributes) { {time_zone: ''} }
+
+      it { should redirect_to(event_path(event)) }
+      it { assigns(:event).should eq(event) }
+      it { should set_the_flash.to(I18n.t('flash.events.update.notice')) }
+      it { event.reload.time_zone.should eq(Time.zone.name) }
     end
 
     context "with invalid attributes" do
-      let(:invalid_attributes) { FactoryGirl.attributes_for(:event, :name => nil) }
-
-      before(:each) { put :update, :id => event.to_param, :event => invalid_attributes }
+      let(:attributes) { FactoryGirl.attributes_for(:event, :name => nil) }
 
       it "assigns @event with the event"
 
@@ -330,7 +343,7 @@ describe EventsController do
         it { should render_template("events/edit") }
       end
 
-      it "sets the flash with an error message"
+      skip 'it has errors on the invalid fields (feature test)'
     end
   end
 

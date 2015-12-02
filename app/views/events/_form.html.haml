@@ -1,5 +1,4 @@
 = simple_form_for(@event, :class => 'form-inline') do |f|
-  = f.error_notification
 
   .form-inputs
 
@@ -45,10 +44,8 @@
         %span.error
           = error_messages[:end_on]
 
-
     = f.input :time_zone, :required => false do
-      = f.collection_select :time_zone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
-
+      = f.collection_select :time_zone, Mconf::DSTTimezone.all, :name, :dst_string, include_blank: true, selected: @time_zone.name
 
     = f.input :location
 

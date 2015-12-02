@@ -26,6 +26,14 @@ pt-br:
       participant: Participante
 
   flash:
+    events:
+      create:
+        notice: Evento criado com sucesso
+      destroy:
+        notice: Evento apagado com sucesso
+      update:
+        notice: Informação do evento atualizada com sucesso
+
     participants:
       create:
         waiting_confirmation: Registro completo. Em breve você irá receber um email com instruções para completar sua inscrição
