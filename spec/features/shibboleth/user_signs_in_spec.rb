@@ -144,13 +144,12 @@ describe 'User signs in via shibboleth' do
           FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
-          }.not_to change{ User.count }
+          }.to change{ User.count }.by(1)
         }
 
-        it { current_path.should eq(shibboleth_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a ShibToken") { ShibToken.count.should be(1) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable.should eql(User.last) }
       end
 
       context "and there's a conflict on the user's username with a space" do
@@ -158,13 +157,12 @@ describe 'User signs in via shibboleth' do
           FactoryGirl.create(:space, permalink: @attrs[:_full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
-          }.not_to change{ User.count }
+          }.to change{ User.count }.by(1)
         }
 
-        it { current_path.should eq(shibboleth_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a ShibToken") { ShibToken.count.should be(1) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable.should eql(User.last) }
       end
 
       context "and there's a conflict on the user's username with a room" do
@@ -172,13 +170,12 @@ describe 'User signs in via shibboleth' do
           FactoryGirl.create(:bigbluebutton_room, param: @attrs[:_full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
-          }.not_to change{ User.count }
+          }.to change{ User.count }.by(1)
         }
 
-        it { current_path.should eq(shibboleth_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a ShibToken") { ShibToken.count.should be(1) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable.should eql(User.last) }
       end
 
       context "and there's a conflict in the user's email" do
@@ -359,7 +356,7 @@ describe 'User signs in via shibboleth' do
         let(:token) { FactoryGirl.create(:shib_token, new_account: true) }
 
         it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message t('devise.failure.shib_auth_disabled') }
+        it { has_failure_message t('devise.failure.disabled_by_shib_auth') }
       end
 
       context "should work for associated account" do

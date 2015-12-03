@@ -203,9 +203,18 @@ class ApplicationController < ActionController::Base
       id: current_user.id,
       email: current_user.email,
       username: current_user.username,
+      name: current_user.full_name,
       superuser: current_user.superuser?,
       can_record: current_user.can_record?
     } unless current_user.nil?
+    if (payload[:controller] == "CustomBigbluebuttonRoomsController") and (payload[:action] == "join")
+      payload[:room] = {
+        meetingid: @room.meetingid,
+        name: @room.name,
+        member: !current_user.nil?,
+        user: { name: current_user.nil? ? params[:user][:name] : current_user.full_name }
+      } unless @room.nil?
+    end
   end
 
   private
@@ -215,6 +224,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error_page number
+    # If we're here because of an error in an after_fiter this will trigger a DoubleRender error.
+    # To prevent it we'll just clear the response_body before continuing
+    self.response_body = nil
     render :template => "/errors/error_#{number}", :status => number, :layout => "error"
   end
 

@@ -685,10 +685,9 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let!(:user1) { FactoryGirl.create(:user, disabled: true) }
-    let!(:user2) { FactoryGirl.create(:user, disabled: false) }
-
-    context "finds users even if disabled" do
+    context "finds users that are disabled" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: false) }
       subject { User.with_disabled }
       it { should be_include(user1) }
       it { should be_include(user2) }
@@ -698,11 +697,20 @@ describe User do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
 
+    context "doesn't remove previous scopes from the query" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true, can_record: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: true, can_record: false) }
+
+      subject { User.where(can_record: true).with_disabled.all }
+      it { should include(user1) }
+      it { should_not include(user2) }
+    end
+
     context "is chainable" do
-      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc") }
-      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def") }
-      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
-      let!(:user6) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user3) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
       subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
       it { subject.count.should eq(1) }
     end
@@ -1116,6 +1124,46 @@ describe User do
 
       context "he can do anything over all resources" do
         it { should be_able_to_do_everything_to(:all) }
+      end
+
+      context "cannot edit the password if the account was created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
+      context "can edit the password if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_password, target) }
+      end
+
+      context "cannot edit the password if the account was created by LDAP" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:ldap_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
+      context "can edit the password if the account was not created by LDAP" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:ldap_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_password, target) }
+      end
+
+      context "cannot edit the password if the site has local auth disabled" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: false)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should_not be_able_to(:update_password, target) }
       end
     end
 

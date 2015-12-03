@@ -1,6 +1,6 @@
 = render :partial => 'manage/menu'
 
-= simple_form_for @site, :url => site_path, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
   .left-column
     = f.input :name
     = f.input :description, :as => :text, :input_html => { :rows => 5 }
@@ -56,4 +56,5 @@
     = f.input :require_space_approval, :as => :boolean
     = f.input :forbid_user_space_creation, :as => :boolean
     = f.input :events_enabled, :as => :boolean
+    = f.input :max_upload_size, as: :string, input_html: { value: @site.formatted_max_upload_size }
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

@@ -370,6 +370,7 @@ ActiveRecord::Schema.define(version: 20151029191439) do
     t.string   "room_dial_number_pattern"
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
+    t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
   end
 

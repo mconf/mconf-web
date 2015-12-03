@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
-  # TODO: review, see issue #737
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
@@ -174,7 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_disabled
-    unscope(where: :disabled) # removes the default scope only
+    unscope(where: :disabled) # removes the target scope only
   end
 
   def <=>(user)

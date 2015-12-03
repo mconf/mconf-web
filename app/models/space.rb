@@ -41,7 +41,6 @@ class Space < ActiveRecord::Base
   include Mconf::ApprovalModule
   include Mconf::DisableModule
 
-  # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
@@ -233,11 +232,10 @@ class Space < ActiveRecord::Base
   end
 
   def self.with_disabled
-    self.unscoped
+    unscope(where: :disabled) # removes the target scope only
   end
 
   # TODO: review all public methods below
-
   # Checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
     adm = self.admins

@@ -1004,6 +1004,10 @@ strong.highlight {
   color: $font-color-gray;
 }
 
+// The fake input we use to disable autocomplete in other inputs
+.input-disable-autocomplete {
+  display: none;
+}
 
 // tablets/mobiles
 @media (max-width: 767px) {
