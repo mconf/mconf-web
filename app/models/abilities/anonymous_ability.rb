@@ -41,6 +41,8 @@ module Abilities
         # Pertraining public and private event registration
         can :register, Event, public: true
         can [:create, :new], Participant
+
+        can [:index_event], Space, public: true
       end
 
       restrict_access_to_disabled_resources(user)
