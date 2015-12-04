@@ -1191,7 +1191,7 @@ describe Space do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select]) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select, :index_event]) }
 
         context "that is disabled" do
           before { target.disable }
