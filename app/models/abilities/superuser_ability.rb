@@ -16,7 +16,7 @@ module Abilities
       end
 
       cannot [:update_password], User do |target_user|
-        !Site.current.local_auth_enabled? || target_user.no_local_auth?
+        (!Site.current.local_auth_enabled? || target_user.no_local_auth?) && !target_user.superuser
       end
 
       # A Superuser can't remove the last admin of a space neither change its role

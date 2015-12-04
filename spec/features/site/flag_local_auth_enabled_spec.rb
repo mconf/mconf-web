@@ -91,14 +91,20 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
       it { page.should_not have_css('input#user_password_confirmation') }
     end
 
-    context "shows the password inputs in users/edit if the user is an admin" do
-      before {
-        login_as(admin) # same as above
-        visit edit_user_path(admin)
-      }
+    context "shows the password inputs in users/edit if the user is an admin and edits himself" do
+      before { login_as(admin) }
 
-      it { page.should have_css('input#user_password') }
-      it { page.should have_css('input#user_password_confirmation') }
+      context 'edits himself' do
+        before { visit edit_user_path(admin) }
+        it { page.should have_css('input#user_password') }
+        it { page.should have_css('input#user_password_confirmation') }
+      end
+
+      context 'edits a normal user' do
+        before { visit edit_user_path(user) }
+        it { page.should_not have_css('input#user_password') }
+        it { page.should_not have_css('input#user_password_confirmation') }
+      end
     end
 
     context "shows 'login' link from the navbar if LDAP is also enabled" do
