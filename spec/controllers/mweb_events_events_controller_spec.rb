@@ -122,6 +122,88 @@ describe EventsController do
       end
 
     end
+  end
+
+  describe "disabled owners" do
+    let!(:event) { FactoryGirl.create(:event, owner: owner) }
+    before { event.owner.disable }
+
+    context "dont index events with disabled owners" do
+      before {
+        1.upto(3) { FactoryGirl.create(:event) }
+        get :index
+      }
+
+      context 'that are users' do
+        let(:owner) { FactoryGirl.create(:user) }
+
+        it { assigns(:events).size.should be(3) }
+        it { assigns(:events).should_not include(event) }
+      end
+
+      context 'that are spaces' do
+        let(:owner) { FactoryGirl.create(:space) }
+
+        it { assigns(:events).size.should be(3) }
+        it { assigns(:events).should_not include(event) }
+      end
+    end
+
+    context 'dont show events with disabled owners (not found in database)' do
+      context 'that are users' do
+        let(:owner) { FactoryGirl.create(:user) }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context 'that are spaces' do
+        let(:owner) { FactoryGirl.create(:space) }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+    end
+
+  end
+
+  describe "unapproved owners" do
+    let!(:event) { FactoryGirl.create(:event, owner: owner) }
+    before { event.owner.disapprove! }
+
+    context "dont index events with unapproved owners" do
+      before {
+        1.upto(3) { FactoryGirl.create(:event) }
+        get :index
+      }
+
+      context 'that are users' do
+        let(:owner) { FactoryGirl.create(:user) }
+
+        it { assigns(:events).size.should be(3) }
+        it { assigns(:events).should_not include(event) }
+      end
+
+      context 'that are spaces' do
+        let(:owner) { FactoryGirl.create(:space) }
+
+        it { assigns(:events).size.should be(3) }
+        it { assigns(:events).should_not include(event) }
+      end
+    end
+
+    context 'dont show events with unapproved owners' do
+      context 'that are users' do
+        let(:owner) { FactoryGirl.create(:user) }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(CanCan::AccessDenied) }
+      end
+
+      context 'that are spaces' do
+        let(:owner) { FactoryGirl.create(:space) }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(CanCan::AccessDenied) }
+      end
+    end
+
 
   end
 
