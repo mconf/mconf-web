@@ -6,22 +6,18 @@
 
 module DisableHelper
 
-  def disable_links classname, object, translations=nil
-
-    if object.enabled? && can?(:disapprove, object)
-
-      link_to send("disable_#{classname}_path", object), :method => :post, :data => { :confirm => t('.disable_confirm') } do
-        icon_disapprove(:alt => t('.disapprove'), :title => t('.disapprove'))
+  def disable_links classname, object
+    link = lambda do |action|
+      link_to send("#{action}_#{classname}_path", object), :method => :post, :data => { :confirm => t(".#{action}_confirm") } do
+        send("icon_#{action}" ,:alt => t(".#{action}"), :title => t(".#{action}"))
       end
-
-    elsif !object.approved? && can?(:approve, object)
-
-      link_to send("approve_#{classname}_path", object), :method => :post, :data => { :confirm => t('.enable_confirm') } do
-        icon_approve(:alt => t('.approve'), :title => t('.approve'))
-      end
-
     end
 
+    if object.enabled? && can?(:disable, object)
+      link('disable')
+    elsif !object.disabled? && can?(:enable, object)
+      link('enable')
+    end
   end
 
 end
