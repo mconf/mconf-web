@@ -22,7 +22,7 @@
     = t('.wrote_to')
 
     - if expanded
-      - sender = User.find_by_id_with_disabled(private_message.sender_id)
+      - sender = User.with_disabled.find(private_message.sender_id)
       - if sender.disabled?
         %span.thread-author= sender.name
       - else
