@@ -207,7 +207,6 @@ en:
         timezone: "Timezone"
         visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
-        webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_key: "Key for attendees"
         description: "Description"

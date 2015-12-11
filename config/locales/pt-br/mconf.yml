@@ -207,7 +207,6 @@ pt-br:
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
         xmpp_server: "Endereço do servidor XMPP"
-        webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
         attendee_key: "Chave para participantes"
         description: "Descrição"
