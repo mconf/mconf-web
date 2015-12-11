@@ -8,7 +8,7 @@ namespace :db do
     # production (cannot load such file -- populator)
     require 'populator'
 
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'cassio']
 
     @created_at_start = 1.year.ago
     @created_at_start_months = 12

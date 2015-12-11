@@ -193,7 +193,6 @@ es-419:
         timezone: "Zona horaria"
         visible_locales: "Lenguajes visibles"
         xmpp_server: "Dirección del servidor XMPP"
-        webconf_auto_record: "Activar automáticamente la grabación al crear la conferencia"
       space:
         attendee_key: "Clave para participantes"
         description: "Descripcion "

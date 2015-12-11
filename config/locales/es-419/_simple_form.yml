@@ -50,7 +50,6 @@ es-419:
         smtp_password: "La contraseña de su cuenta de correo electrónico en su servidor SMTP"
         ssl: "Con SSL habilitado todos los links internos (incluyendo páginas, imagenes, adjuntos) utilizarán el protocolo HTTPS en lugar de HTTP"
         xmpp_server: "Dirección donde está ubicado el servidor XMPP."
-        webconf_auto_record: "Si está marcada, la opción de grabación se ajusta automáticamente en función de si el usuario tiene permiso para grabar las reuniones en la sala de destino o no (útil si los servidores de conferencia web tienen el botón de grabación dentro de la sesión). De lo contrario, el usuario tendrá que establecer manualmente la opción de grabación al abrir una nueva conferencia web (sólo si tiene permisos para hacerlo)."
       space:
         bigbluebutton_room:
           attendee_key: "Clave para que los usuarios puedan unirse a la conferencia como asistentes. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
