@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020182042) do
+ActiveRecord::Schema.define(version: 20151210123701) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -372,7 +372,6 @@ ActiveRecord::Schema.define(version: 20151020182042) do
     t.string   "shib_login_field"
     t.string   "timezone",                       default: "UTC"
     t.string   "external_help"
-    t.boolean  "webconf_auto_record",            default: false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
     t.integer  "ldap_port"

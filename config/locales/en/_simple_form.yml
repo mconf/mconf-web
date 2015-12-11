@@ -64,7 +64,6 @@ en:
         smtp_password: "The password for your email account in your SMTP server"
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
         xmpp_server: "Address where's located the XMPP server."
-        webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
         bigbluebutton_room:
           attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
