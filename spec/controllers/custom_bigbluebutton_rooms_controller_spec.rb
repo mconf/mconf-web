@@ -402,8 +402,8 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout, :presenter_share_only,
-            :auto_start_video, :auto_start_audio, :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout, 
+            :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
           BigbluebuttonRoom.stub(:find_by_param).and_return(room)
