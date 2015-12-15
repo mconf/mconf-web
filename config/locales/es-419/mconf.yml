@@ -193,6 +193,7 @@ es-419:
         timezone: "Zona horaria"
         visible_locales: "Lenguajes visibles"
         xmpp_server: "Dirección del servidor XMPP"
+        webconf_auto_record: "Activar automáticamente la grabación al crear la conferencia"
       space:
         attendee_key: "Clave para participantes"
         description: "Descripcion "
@@ -506,6 +507,16 @@ es-419:
       title: "Acceso móvil a \"%{room}\""
       use_default_client: "Si no está en un cliente móvil, haga click aquí para unirse a la sesión usando el cliente de escritorio por defecto."
       try_again: "¿Tiene la aplicación instalada pero no se ejecutó? Haga click aquí para intentarlo de nuevo."
+    join_options:
+      alert_webconf_running: "Una reunión está actualmente desarrollándose en esta sala. Las opciones que cambie aquí no afectarán la reunión actual, solamente afectará futuras reuniones."
+      metadata:
+        description: "Descripción para esta reunión."
+        title: "Título para esta reunión"
+      record:
+        label: "Grabar reunión"
+        tooltip: "Marcar para que esta sala pueda grabar sus reuniones. Esta opción no puede ser modificada luego que la reunión comience. "
+      start: "Hecho, ¡comenzar la reunión!"
+      title: "Opciones de reunión"
     new:
       creating_new_room: "Creando una nueva sala"
     recordings:

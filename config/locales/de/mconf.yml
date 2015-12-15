@@ -206,6 +206,7 @@ de:
         timezone: "Zeitzone"
         visible_locales: "Sichtbare Sprachen"
         xmpp_server: "XMPP Server Address"
+        webconf_auto_record: "Automatisch Haken für Aufzeichnung beim Erstellen einer Webkonferenz setzen"
       space:
         attendee_key: "Schlüssel für Teilnehmer"
         description: "Beschreibung"
@@ -526,6 +527,16 @@ de:
       title: "Smartphone-Zugang zu \"%{room}\""
       use_default_client: "Wenn Sie nicht von einem Smartphone aus arbeiten, klicken Sie hier, um über den Desktop-Client an der Sitzung teilzunehmen."
       try_again: "Sie haben die App installiert aber sie wurde nicht gestartet? Klicken Sie hier, um es erneut zu versuchen."
+    join_options:
+      alert_webconf_running: "In diesem Raum findet derzeit ein Meeting statt. Die Einstellungen, die Sie hier ändern, werden das aktuelle Meeting nicht betreffen, nur zukünftige Meetings in diesem Raum!"
+      metadata:
+        description: "Beschreibung für dieses Meeting"
+        title: "Titel für dieses Meeting"
+      record:
+        label: "Meeting aufzeichnen"
+        tooltip: "Wählen Sie hier aus, ob der Raum die Meetings immer aufzeichnen soll. Dies kann nicht geändert werden, wenn ein Meeting schon läuft."
+      start: "Fertig, Meeting starten!"
+      title: "Meeting-Einstellungen"
     new:
       creating_new_room: "Einen neuen Raum erstellen"
     recordings:

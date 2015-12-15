@@ -1,0 +1,20 @@
+#webconference-join-options-dialog
+
+  .modal-header
+    = modal_close_button
+    %h3= t('.title', :room => @room.name)
+
+  .modal-body
+
+    - if @room.is_running?
+      .alert.alert-danger= t('.alert_webconf_running')
+
+    - form_url = bigbluebutton_room_path(@room, :format => 'json')
+
+    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+      = f.input :record_meeting, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
+      = in_place_edit_indicators
+
+  .modal-footer.form-actions
+    - cls = @room.is_running? ? "disabled" : ""
+    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls} webconf-join-link close-dialog"
