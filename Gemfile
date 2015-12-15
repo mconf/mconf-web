@@ -83,9 +83,6 @@ gem 'font-awesome-rails', '~> 4.1.0.0'
 gem 'premailer-rails'
 gem 'nokogiri'
 
-# event module
-# gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
-
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
 
@@ -163,4 +160,3 @@ gem 'geocoder'
 gem 'redcarpet'
 gem 'epic-editor-rails'
 gem 'leaflet-rails'
-

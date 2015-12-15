@@ -97,10 +97,6 @@ class UsersController < InheritedResources::Base
     destroy! { manage_users_path }
   end
 
-  # Finds users by id (params[:i]) or by name, username or email (params[:q]) and returns
-  # a list of a few selected attributes
-  # Moved to SelectControllerModule
-
   # Returns fellows users - users that a members of spaces
   # the current user is also a member
   # TODO: should use the same base method for the action select, but filtering

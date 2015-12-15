@@ -58,10 +58,7 @@ class SpacesController < InheritedResources::Base
   end
 
   def show
-    # posts
     @latest_posts = @space.latest_posts
-
-    # users
     @latest_users = @space.latest_users
   end
 
@@ -192,6 +189,7 @@ class SpacesController < InheritedResources::Base
   end
 
   private
+
   # Load the @spaces and @user_spaces variables
   # The @spaces variable will only contain approved spaces
   def load_spaces_index

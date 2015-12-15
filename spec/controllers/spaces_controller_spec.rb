@@ -446,8 +446,8 @@ describe SpacesController do
       it { should redirect_to(spaces_path) }
     end
 
-    context "normal users can't disable a space"
-    context "space members can't disable a space"
+    it "normal users can't disable a space"
+    it "space members can't disable a space"
   end
 
   describe "#enable" do
