@@ -444,44 +444,6 @@ describe CustomBigbluebuttonRoomsController do
   #   end
   # end
 
-  describe "#join_options" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:room) { user.bigbluebutton_room }
-    before(:each) { login_as(user) }
-
-    before {
-      # a custom ability to control what the user can do
-      @ability = Object.new
-      @ability.extend(CanCan::Ability)
-      @ability.can :join_options, room
-      Abilities.stub(:ability_for).and_return(@ability)
-      BigbluebuttonRoom.stub(:fetch_is_running?) { true }
-      BigbluebuttonRoom.stub(:fetch_meeting_info) { Hash.new }
-    }
-
-    context "if the user can't record meetings in this room" do
-      before(:each) { get :join_options, :id => room.to_param }
-      it { should redirect_to(join_bigbluebutton_room_path(room)) }
-    end
-
-    context "if the user can record meetings in this room" do
-      before(:each) { @ability.can :record_meeting, room }
-        context "template and layout for html requests" do
-          before(:each) { get :join_options, :id => room.to_param }
-          it { should render_template(:join_options) }
-          it { should render_with_layout("application") }
-        end
-
-        context "template and layout for xhr requests" do
-          before(:each) { xhr :get, :join_options, :id => room.to_param }
-          it { should render_template(:join_options) }
-          it { should_not render_with_layout() }
-        end
-    end
-
-    it "loads and authorizes the room into @room"
-  end
-
   describe "#join" do
 
     # see bug1721
@@ -938,7 +900,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
-        it { should allow_access_to(:join_options, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
         it { should allow_access_to(:invitation, hash) }
         it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1011,7 +972,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
-        it { should allow_access_to(:join_options, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
         it { should allow_access_to(:invitation, hash) }
         it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1030,7 +990,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
-        it { should_not allow_access_to(:join_options, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }
         it { should_not allow_access_to(:invitation, hash) }
         it { should_not allow_access_to(:send_invitation, hash).via(:post) }
@@ -1053,7 +1012,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
           it { should allow_access_to(:invitation, hash) }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1081,7 +1039,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
           it { should allow_access_to(:invitation, hash) }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1099,7 +1056,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should_not allow_access_to(:join_options, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
           it { should_not allow_access_to(:invitation, hash) }
           it { should_not allow_access_to(:send_invitation, hash).via(:post) }
@@ -1123,7 +1079,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
           it { should allow_access_to(:invitation, hash) }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1151,7 +1106,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
           it { should allow_access_to(:invitation, hash) }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
@@ -1169,7 +1123,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
-          it { should_not allow_access_to(:join_options, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
           it { should_not allow_access_to(:invitation, hash) }
           it { should_not allow_access_to(:send_invitation, hash).via(:post) }
@@ -1200,7 +1153,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should require_authentication_for(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
-        it { should require_authentication_for(:join_options, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }
         it { should require_authentication_for(:invitation, hash) }
         it { should require_authentication_for(:send_invitation, hash).via(:post) }
