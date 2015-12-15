@@ -1154,7 +1154,7 @@ pt-br:
     activity: "Atividades recentes"
   recent_activity: 
     empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
-    tooltip: "Aqui você encontra as mensagens, eventos e notícias mais novas das comunidades às quais vocẽ pertence"
+    tooltip: "Aqui você encontra os eventso e mensagens mais atuais das comunidades às quais vocẽ pertence"
   recording:
     automatic: Automático
     box_title: Gravação

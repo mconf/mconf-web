@@ -1148,7 +1148,7 @@ en:
     activity: "Recent activity"
   recent_activity: 
     empty: "You still have no recent activity to be shown. Join spaces and start interacting to have this area filled."
-    tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
+    tooltip: "Here you can find the newest events and messages of the spaces you belong to"
   recording: 
     automatic: Automatic
     box_title: Recording

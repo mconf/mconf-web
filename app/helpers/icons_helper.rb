@@ -38,10 +38,6 @@ module IconsHelper
     icon_constructor title, "icon-awesome icon-calendar icon-mconf-event", options
   end
 
-  def icon_news(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-bullhorn icon-mconf-news", options
-  end
-
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def icon_superuser(options={})
