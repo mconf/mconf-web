@@ -1,4 +1,3 @@
-#= require "../custom_bigbluebutton_rooms/_join_options"
 #= require "../custom_bigbluebutton_rooms/_invitation_form"
 
 mconf.Spaces or= {}
@@ -12,17 +11,11 @@ class mconf.Spaces.Sidebar
 
     # set to rebind JoinOptions when the resources are rebound
     mconf.Resources.addToBind ->
-      mconf.CustomBigbluebuttonRooms.JoinOptions.bind()
       mconf.CustomBigbluebuttonRooms.Invitation.bind()
-
-    # check the inputs for the first time when the modal is opened
-    $(document).on "modal-shown.mconfSpacesSidebar", ->
-      mconf.CustomBigbluebuttonRooms.JoinOptions.verifyInputs()
 
     # this modal binds some things in the modal using "global" selectors such as ".modal"
     # so we make sure we unbind everything when the modal is closed
     $("#sidebar-webconference .webconf-join-group .open-modal").on "modal-hidden.mconfSpacesSidebar", ->
-      mconf.CustomBigbluebuttonRooms.JoinOptions.unbind()
       mconf.CustomBigbluebuttonRooms.Invitation.unbind()
 
   @unbind: ->
