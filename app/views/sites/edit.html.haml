@@ -12,6 +12,7 @@
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
+    = f.input :webconf_auto_record, :as => :boolean
     = f.input :analytics_code
     = f.input :shib_enabled, :as => :boolean
     = f.input :shib_email_field, :as => :string

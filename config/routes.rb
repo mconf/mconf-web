@@ -43,6 +43,9 @@ Mconf::Application.routes.draw do
     playback_types: 'custom_bigbluebutton_playback_types'
   }
   # register a few custom routes that were added to bigbluebutton_rails
+  get '/bigbluebutton/rooms/:id/join_options',
+    to: 'custom_bigbluebutton_rooms#join_options',
+    as: "join_options_bigbluebutton_room"
   get '/bigbluebutton/rooms/:id/invitation',
     to: 'custom_bigbluebutton_rooms#invitation',
     as: "invitation_bigbluebutton_room"

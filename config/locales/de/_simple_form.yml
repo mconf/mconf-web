@@ -60,6 +60,7 @@ de:
         smtp_password: "Das Passwort für den Email-Account auf Ihrem SMTP-Server"
         ssl: "Wenn SSL aktiviert ist, werden alle internen Links (inklusive Seiten Bilder, Anhänge) HTTPS statt HTTP nutzen"
         xmpp_server: "Adresse des XMPP Servers"
+        webconf_auto_record: "Wenn wahr, wird die Option zur automatischen Aufnahme immer in Abhängkeit davon gesetzt, ob der Benutzer im jeweiligen Raum die Aufnahmeberechtigung hat oder nicht. (Hilfreich, wenn die Webkonferenzserver den Aufnahmebutton in der Session haben.) Andernfalls muss der Benutzer die Aufnahmeoption selbst wählen (wenn er die Berechtigung hat)"
       space:
         bigbluebutton_room:
           attendee_key: "Ein Schlüssel für die Benutzer um der Session als Teilnehmer beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
