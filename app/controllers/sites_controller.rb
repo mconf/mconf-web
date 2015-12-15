@@ -42,7 +42,7 @@ class SitesController < ApplicationController
   allow_params_for :site
   def allowed_params
     [
-     :name, :description, :domain, :locale, :timezone, :signature, :ssl, :feedback_url,
+     :name, :description, :domain, :locale, :timezone, :signature, :ssl, :feedback_url, :webconf_auto_record,
      :analytics_code, :shib_enabled, :shib_email_field, :shib_name_field, :shib_principal_name_field, :shib_login_field,
      :shib_env_variables, :shib_always_new_account, :ldap_enabled, :ldap_host, :ldap_port, :ldap_user, :ldap_user_password,
      :ldap_user_treebase, :ldap_username_field, :ldap_email_field, :ldap_name_field, :ldap_filter, :smtp_login, :smtp_password,
