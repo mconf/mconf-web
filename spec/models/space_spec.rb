@@ -957,7 +957,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,
-      :manage_join_requests, :add, :index_event])
+      :manage_join_requests, :add, :index_event, :create_space_event])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -1056,7 +1056,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event, :create_space_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1068,7 +1068,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event, :create_space_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1121,7 +1121,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event, :create_space_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1133,7 +1133,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :webconference_options, :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event, :create_space_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }

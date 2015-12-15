@@ -68,6 +68,7 @@ module Abilities
         # space admins can do it even if not approved yet
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
+      cannot :create_space_event, Space, approved: false
 
       cannot [:webconference, :recordings, :manage_join_requests,
               :invite, :user_permissions, :webconference_options,
