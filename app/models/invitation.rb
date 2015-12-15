@@ -12,9 +12,9 @@ class Invitation < ActiveRecord::Base
   belongs_to :recipient, :class_name => "User"
 
   # Sends the invitation to the recipient.
-  # Respects the preferences of the user, sending the notification either via
-  # email or private message.
-  # Uses the mailer variable to build the correct emails
+  # Respects the preferences of the user, sending the notification
+  # (usually via email).
+  # Uses the mailer variable to build the correct emails.
   def send_invitation
     mailer = if self.is_a? WebConferenceInvitation
                WebConferenceMailer

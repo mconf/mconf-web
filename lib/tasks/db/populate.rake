@@ -20,7 +20,6 @@ namespace :db do
 
     if ENV['CLEAR']
       puts "*** Destroying all resources!"
-      PrivateMessage.destroy_all
       Permission.destroy_all
       Space.destroy_all
       if configatron.modules.events.enabled

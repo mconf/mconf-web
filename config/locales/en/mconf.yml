@@ -218,11 +218,6 @@ en:
         timezone: "Timezone"
         username: "Username"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "must choose at least one receiver"
       messages:
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
@@ -786,7 +781,6 @@ en:
     bad_format: "(bad formatting)"
     email: "email to %{email}"
     title: "Invitation to participate in a webconference"
-    user_private_msg: "private message to the user %{user}"
   invited: Invited
   join: Join
   join_cam: Participate
@@ -982,29 +976,7 @@ en:
       filter_count_empty: "Found %{count} users"
       no_user_found: "No user found"
   mandatory_field: "Mandatory field"
-  message: 
-    created: "Message sent successfully"
-    error:
-      create: "Error sending private message"
   mconf: Mconf
-  message: 
-    created: "Message sent!"
-    error:
-      create: "Error sending message"
-    incoming: 
-      other: "Incoming messages"
-    private: 
-      cant: "You cannot send private messages because you have no partners in any space"
-      editing: "Editing private message"
-      new: "New Private message"
-      none: "There are no messages"
-      send: "Send private message"
-    reply: "Reply to message"
-    sent: 
-      other: "Sent messages"
-    special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
-    special2: "The Mconf Team"
-    to: To
   moderatorPW: "Moderator Password"
   more: more...
   more_arrows: "more >>"
@@ -1136,14 +1108,6 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
-  private_message:
-    more: 
-      one: "and one more private message..."
-      other: "and more %{count} private messages..."
-    one: "Private Message"
-    other: "Private Messages"
-    send: "Send private message"
-    title: "Private Messages (%{count})"
   profile: 
     deleted: "Profile deleted successfully"
     description: 
@@ -1712,7 +1676,6 @@ en:
     not_confirmed: "Not confirmed"
     one: User
     other: Users
-    private_message: "Send Message"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"

@@ -219,11 +219,6 @@ pt-br:
         timezone: "Fuso horário"
         username: "ID"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "deve escolher ao menos um destinatário"
       messages:
         invalid_identifier: "gerou um identificador inválido: \"%{id}\""
         missing: "não encontrado"
@@ -791,7 +786,6 @@ pt-br:
     bad_format: "(e-mail mal formatado)"
     email: "e-mail para %{email}"
     title: "Convite para participar de uma webconferência"
-    user_private_msg: "mensagem privada para o usuário %{user}"
   invited: Convidados
   join: Entrar
   join_cam: Participar
@@ -988,29 +982,7 @@ pt-br:
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
-  message: 
-    created: "Mensagem enviada com sucesso"
-    error:
-      create: "Erro enviando mensagem privada"
   mconf: Mconf
-  message:
-    created: "Mensagem enviada com sucesso"
-    error:
-      create: "Erro ao enviar mensagem privada"
-    incoming:
-      other: "Mensagens recebidas"
-    private:
-      cant: "Você não pode enviar mensagens privadas porque você não tem parceiros em nenhuma comunidade"
-      editing: "Editando mensagem privada"
-      new: "Nova mensagem privada"
-      none: "Não há mensagens"
-      send: "Enviar uma mensagem privada"
-    reply: "Responder à mensagem"
-    sent:
-      other: "Mensagens enviadas"
-    special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
-    special2: "A Equipe do Mconf"
-    to: Para 
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
@@ -1142,14 +1114,6 @@ pt-br:
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
-  private_message:
-    more:
-      one: "e uma outra mensagem privada..."
-      other: "e mais %{count} mensagens privadas..."
-    one: "Mensagem Privada"
-    other: "Mensagens Privadas"
-    send: "Enviar mensagem privada"
-    title: "Mensagens Privadas (%{count})"
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
@@ -1721,7 +1685,6 @@ pt-br:
     not_confirmed: "Não confirmados"
     one: Usuário
     other: Usuários
-    private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
     request_confirmation: "Solicitar e-mail de confirmação"
