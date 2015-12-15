@@ -433,7 +433,7 @@ namespace :db do
     u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
 
     space_attrs = [:name, :description]
-    s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+    s = FactoryGirl.create(:space_with_associations, attrs_to_hash(Space, space_attrs))
     s.new_activity :create, u
     s.add_member!(u, 'Admin')
     s.add_member!(u2)
