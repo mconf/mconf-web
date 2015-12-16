@@ -92,7 +92,7 @@ class PostsController < InheritedResources::Base
     per_page = params[:extended] ? 6 : 15
     @posts = @space.posts
       .order("updated_at DESC")
-      .paginate(:page => params[:page], :per_page => per_page)
+      .paginate(page: params[:page], per_page: per_page)
   end
 
   def post_comments(parent_post, options = {})

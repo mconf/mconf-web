@@ -15,12 +15,11 @@ describe PostsController do
   context "#index" do
     before {
       @posts = [
-        FactoryGirl.create(:post, space: space, created_at: Time.now),
-        FactoryGirl.create(:post, space: space, created_at: Time.now + 1.second),
-        FactoryGirl.create(:post, space: space, created_at: Time.now + 2.second),
-        FactoryGirl.create(:post, created_at: Time.now + 99.second), # not in the same space
+        FactoryGirl.create(:post, space: space, updated_at: Time.now),
+        FactoryGirl.create(:post, space: space, updated_at: Time.now + 1.second),
+        FactoryGirl.create(:post, space: space, updated_at: Time.now + 2.second),
+        FactoryGirl.create(:post, updated_at: Time.now + 99.second), # not in the same space
       ]
-
       get :index, space_id: space.to_param
     }
 
@@ -29,7 +28,14 @@ describe PostsController do
     it { should render_template('index') }
     it { should render_with_layout('spaces_show') }
     it { should assign_to(:space).with(space) }
-    it { should assign_to(:posts).with(Post.where(id: @posts[0,3])) }
+    it {
+      expected = [
+        Post.find(@posts[2]),
+        Post.find(@posts[1]),
+        Post.find(@posts[0])
+      ]
+      should assign_to(:posts).with(expected)
+    }
   end
 
   context "#show" do
