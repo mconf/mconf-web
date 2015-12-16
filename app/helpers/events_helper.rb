@@ -1,16 +1,16 @@
 module EventsHelper
 
   def event_logo(event, options={})
-    options[:class] = "#{options[:class]} mweb_events-event-logo"
+    options[:class] = "#{options[:class]} event-logo"
 
     day = sanitize(event.start_on.strftime("%d"))
     month = localize(event.start_on, :format => "%b")
     hour = event.get_formatted_hour
     year = sanitize(event.start_on.strftime("%Y"))
 
-    hour_tag = content_tag(:div, hour, { :class => 'mweb_events-event-logo-hour' })
-    day_tag = content_tag(:div, day + ' ' + month, { :class => 'mweb_events-event-logo-day' })
-    year_tag = content_tag(:div, year, { :class => 'mweb_events-event-logo-year' })
+    hour_tag = content_tag(:div, hour, { :class => 'event-logo-hour' })
+    day_tag = content_tag(:div, day + ' ' + month, { :class => 'event-logo-day' })
+    year_tag = content_tag(:div, year, { :class => 'event-logo-year' })
 
     content_tag(:div, day_tag + hour_tag + year_tag, options)
   end
@@ -52,7 +52,7 @@ module EventsHelper
 
   def facebook_button_url
     url = CGI.escape(request.original_url)
-    text = I18n.t('mweb_events.events.social_media.facebook_link', :url => url)
+    text = I18n.t('events.social_media.facebook_link', :url => url)
     "https://www.facebook.com/sharer/sharer.php?u=#{url}&t=#{text}"
   end
 

@@ -106,7 +106,7 @@ body.events, body.space_events {
   $font-big: 26px;
   $font-color: #333;
 
-  .mweb_events-event-logo {
+  .event-logo {
     display: inline-block;
     float: left;
     text-align: center;
@@ -114,7 +114,7 @@ body.events, body.space_events {
     width: 95%;
     color: $font-color;
 
-    .mweb_events-event-logo-hour {
+    .event-logo-hour {
       font-size: $font-big * 0.7;
       line-height: $font-big * 0.7;
       white-space: nowrap;
@@ -124,7 +124,7 @@ body.events, body.space_events {
       text-shadow: #ddd 1px 1px 3px;
     }
 
-    .mweb_events-event-logo-day {
+    .event-logo-day {
       font-size: $font-big * 0.75;
       line-height: $font-big * 0.75;
       margin: 6px 0;
@@ -133,7 +133,7 @@ body.events, body.space_events {
       text-shadow: #ccc 1px 1px 3px;
     }
 
-    .mweb_events-event-logo-year {
+    .event-logo-year {
       font-size: $font-big * 0.6;
       line-height: $font-big * 0.6;
       margin: 8px 0;
@@ -160,12 +160,12 @@ body.events, body.space_events {
   }
 
   // apply our colors when the logos are hovered/active
-  a .mweb_events-event-logo:hover {
+  a .event-logo:hover {
     * {
       color: $link-color-hover;
     }
   }
-  a .mweb_events-event-logo:active {
+  a .event-logo:active {
     * {
       color: $link-color-active;
     }

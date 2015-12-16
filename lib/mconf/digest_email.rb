@@ -43,7 +43,6 @@ module Mconf
       attachments = filter.call(Attachment)
 
       # Events that started or finished in the period
-      # TODO: review and improve this with MwebEvents
       if Mconf::Modules.mod_enabled?('events')
         events = Event.
           where(:owner_id => user_spaces, :owner_type => "Space").

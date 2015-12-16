@@ -24,7 +24,15 @@ en:
     models:
       event: Event
       participant: Participant
-
+  activities:
+    event:
+      create_html: created the event %{name} in the space
+      attend_html: will attend to the event %{name} in the space
+      not_attend_html: will not attend to the event %{name} in the space
+      update_html: updated the information of the event %{name} in the space
+      deleted: that has since been deleted
+    participant:
+      create_html: will attend to the event %{name} in the space
   flash:
     events:
       create:
@@ -33,29 +41,23 @@ en:
         notice: Successfully deleted the event
       update:
         notice: Event information updated
-
     participants:
       create:
         waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
         notice: Successfully registered for the event
         alert: There was a problem registering for this event.
         already_created: This email is already registered in this event
-
       destroy:
         notice: Succesfully removed from the event
-
   valid_email:
     validations:
       email:
         invalid: Isn't a valid e-mail address
-
   events:
-
     show:
       date: When?
       address: Where?
       manage: Manage
-
     summary:
       calendar: Add to calendar
       change_dates_info: "See in the event's time zone"
@@ -71,7 +73,6 @@ en:
       where: "Where?"
       where_not_specified: "(Location not specified)"
       your_time_info: "Dates shown in your time zone (%{time_zone})"
-
     social_media:
       title: "Share this event:"
       twitter: Share on Twitter
@@ -80,15 +81,12 @@ en:
       facebook_link: Check out this event at %{url}
       google_plus: Share on Google+
       linkedin: Share on Linkedin
-
     edit:
       page_title: "Editing: %{name}"
-
     form:
       at: "at"
       clear_start_date: "Clear start date"
       clear_end_date: "Clear end date"
-
     index:
       create_new_event: "Add a new event"
       count:
@@ -120,22 +118,17 @@ en:
     invite:
       title: "Inviting to the event"
       invite_title: "Invtitation to the event [%{event}]"
-
     list_view:
       no_events: "There are no events matching this search"
-
     markdown_modal:
       title: How to format the description text?
       description_html: "The description text accepts <a href=\"http://daringfireball.net/projects/markdown/syntax\">Markdown</a> formatted text. Here's a quick cheatsheet (use the text at the left to get the result at the right):"
     no_description: No description available
-
     new:
       page_title: "Create a new event"
-
     organizers:
       organizers: Organizers
       organized_by: "This event is being organized by:"
-
     registration:
       title: Registration
       button: Register in this event
@@ -161,12 +154,9 @@ en:
       private: "Private event"
       public: "Public event"
       starts_at: "Starts at"
-
   participants:
-
     form:
       submit: Register
-
     index:
       back_to_event: "Go back to the event page"
       disable: Remove from event

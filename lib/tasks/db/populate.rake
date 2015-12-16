@@ -201,7 +201,7 @@ namespace :db do
         event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
       end
 
-      # TODO: #1115, populate with models from MwebEvents
+      # TODO: #1115, populate with participants
       # if configatron.modules.events.loaded
       # puts "* Create spaces: \"#{space.name}\" - add users for events"
       # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)

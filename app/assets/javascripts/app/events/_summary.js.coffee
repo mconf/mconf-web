@@ -22,7 +22,7 @@ $ ->
 
     layer.addTo(map)
 
-  if isOnPage 'mweb_events-events', 'show'
+  if isOnPage 'events', 'show'
     renderMap()
 
   $('#change-dates').on 'click', ->

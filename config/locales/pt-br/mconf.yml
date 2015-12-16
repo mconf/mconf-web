@@ -18,14 +18,6 @@ pt-br:
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
-    mweb_events_event:
-      create_html: criou o evento %{name} na comunidade
-      attend_html: participará do evento %{name} da comunidade
-      not_attend_html: não participará do evento %{name} da comunidade
-      update_html: atualizou as informações do event %{name} da comunidade
-      deleted: que não existe mais
-    mweb_events_participant:
-      create_html: participará do evento %{name} na comunidade
     other:
       admin_html: "Um administrador"
       someone_html: "Um usuário"

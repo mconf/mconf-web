@@ -18,14 +18,6 @@ en:
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
       no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
       request_html: "has requested to join the space"
-    mweb_events_event:
-      create_html: created the event %{name} in the space
-      attend_html: will attend to the event %{name} in the space
-      not_attend_html: will not attend to the event %{name} in the space
-      update_html: updated the information of the event %{name} in the space
-      deleted: that has since been deleted
-    mweb_events_participant:
-      create_html: will attend to the event %{name} in the space
     other:
       admin_html: "An administrator"
       someone_html: "Someone"

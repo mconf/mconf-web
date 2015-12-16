@@ -1,5 +1,5 @@
 /*
- *= require ./app/mweb_events-participants/_all
- *= require ./app/mweb_events-participants/index
- *= require ./app/mweb_events-participants/new
+ *= require ./app/participants/_all
+ *= require ./app/participants/index
+ *= require ./app/participants/new
  */

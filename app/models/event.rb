@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
 
   include PublicActivity::Common
 
+  SOCIAL_NETWORKS = ['Facebook', 'Google Plus', 'Twitter', 'Linkedin']
+
   def self.host
     Site.current.domain
   end

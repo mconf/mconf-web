@@ -1,7 +1,12 @@
 /*
- *= require ./app/mweb_events-events/_all
- *= require ./app/mweb_events-events/index
- *= require ./app/mweb_events-events/show
- *= require ./app/mweb_events-events/new
- *= require ./app/mweb_events-events/edit
+ * We add here some global dependencies used for events only,
+ * except the ones already required by the application previously.
+ *= require leaflet
+ *= require base/epiceditor
+ *
+ *= require ./app/events/_all
+ *= require ./app/events/index
+ *= require ./app/events/show
+ *= require ./app/events/new
+ *= require ./app/events/edit
  */

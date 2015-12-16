@@ -18,8 +18,7 @@ module Abilities
 
     # Note: when restricting permissions defined using blocks, we cannot use `:manage`,
     # otherwise it will always block actions over collections, since these don't
-    # evaluate the block. (e.g. MwebEvents::Event#index would be always blocked
-    # for everyone)
+    # evaluate the block. (e.g. Event#index would be always blocked for everyone)
 
     # Remove access for anything related to disabled spaces and users.
     def restrict_access_to_disabled_resources(user)

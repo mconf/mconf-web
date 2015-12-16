@@ -144,7 +144,7 @@ module Abilities
         end
       end
 
-      # Events from MwebEvents
+      # For the event module
       if Mconf::Modules.mod_loaded?('events')
         def event_can_be_managed_by(event, user)
           case event.owner_type
@@ -173,7 +173,6 @@ module Abilities
             (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
         end
 
-        # Participants from MwebEvents
         can :destroy, Participant do |p|
           p.owner == user
         end

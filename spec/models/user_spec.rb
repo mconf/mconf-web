@@ -824,20 +824,6 @@ describe User do
     end
   end
 
-  describe "#admin?" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    context "if the user is a superuser" do
-      before { user.update_attributes(superuser: true) }
-      it { user.admin?.should be(true) }
-    end
-
-    context "if the user is not a superuser" do
-      before { user.update_attributes(superuser: false) }
-      it { user.admin?.should be(false) }
-    end
-  end
-
   describe "#enabled?" do
     let(:user) { FactoryGirl.create(:user) }
 

@@ -90,17 +90,17 @@
 #   Somebody sent a invitation to someone join a space.
 #   Created by `JoinRequest`.
 #
-# * `mweb_events_event.create`:
+# * `event.create`:
 #   An event was created.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `mweb_events_event.update`:
+# * `event.update`:
 #   An event was updated.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `mweb_events_participant.create`:
+# * `participant.create`:
 #   Someone registered to participante in an event.
-#   Created by `MewebEvents::ParticipantsController`, code at `lib/mweb_events/controllers/participants_controller`.
+#   Created by `ParticipantsController`, code at `lib/controllers/participants_controller`.
 #
 # * `post.create`:
 #   A post was created.

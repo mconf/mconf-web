@@ -24,7 +24,15 @@ pt-br:
     models:
       event: Evento
       participant: Participante
-
+  activities:
+    event:
+      create_html: criou o evento %{name} na comunidade
+      attend_html: participará do evento %{name} da comunidade
+      not_attend_html: não participará do evento %{name} da comunidade
+      update_html: atualizou as informações do event %{name} da comunidade
+      deleted: que não existe mais
+    participant:
+      create_html: participará do evento %{name} na comunidade
   flash:
     events:
       create:
@@ -33,31 +41,25 @@ pt-br:
         notice: Evento apagado com sucesso
       update:
         notice: Informação do evento atualizada com sucesso
-
     participants:
       create:
         waiting_confirmation: Registro completo. Em breve você irá receber um email com instruções para completar sua inscrição
         notice: Registrado com sucesso no evento.
         alert: Houve um problema ao se registrar neste evento.
         already_created: Este email já está registrado neste evento.
-
       destroy:
         notice: Removido com sucesso do evento.
-
   valid_email:
     validations:
       email:
         invalid: Não é um endereço de email válido
-
   events:
     edit:
       page_title: "Editando: %{name}"
-
     form:
       at: "às"
       clear_start_date: "Limpar data de início"
       clear_end_date: "Limpar data de término"
-
     index:
       create_new_event: "Adicionar evento"
       count:
@@ -89,16 +91,12 @@ pt-br:
     invite:
       title: Convidando para o evento
       invite_title: "Convite para o evento [%{event}]"
-
     list_view:
       no_events: "Nenhum evento encontrado para esta busca"
-
     markdown_modal:
       title: Como formatar o texto da descrição?
       description_html: "O campo da descrição aceita texto formatado com <a href=\"http://daringfireball.net/projects/markdown/syntax\">Markdown</a>. Aqui vai um guia rápido (use o texto à esquerda para conseguir o resultado à direita):"
-
     no_description: Descrição não disponível
-
     new:
       page_title: "Criar um novo evento"
     registration:
@@ -115,12 +113,10 @@ pt-br:
       error: "Não foi possível enviar o convite para:"
       success: "Convite enviado com sucesso para:"
       error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
-
     show:
       date: Quando?
       address: Onde?
       manage: Administrar
-
     summary:
       calendar: Adicionar ao seu calendário
       change_dates_info: "Ver no fuso horário do evento"
@@ -136,17 +132,14 @@ pt-br:
       where: "Onde?"
       where_not_specified: "(Local não especificado)"
       your_time_info: "Datas mostradas no seu fuso horário (%{time_zone})"
-
     title:
       belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
       belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
       private: "Evento privado"
       public: "Evento público"
-
     organizers:
       organizers: Organizadores
       organized_by: "Este evento está sendo organizado por:"
-
     unified_event:
       closed: inscrições encerradas
       private: "Evento privado"

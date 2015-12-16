@@ -35,7 +35,6 @@ module Abilities
       can :index, Attachment # restricted through Space
       can :show, Attachment, space: { public: true, repository: true }
 
-      # for MwebEvents
       if Mconf::Modules.mod_loaded?('events')
         can [:show, :index, :select], Event
         can :register, Event, public: true

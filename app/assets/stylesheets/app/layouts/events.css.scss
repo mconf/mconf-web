@@ -1,6 +1,6 @@
 // For the 'events' layout
 
-body.mweb_events-events.show {
+body.events.show {
 
   /* #page-header { */
   /*   width: 0 !important; */
@@ -9,11 +9,11 @@ body.mweb_events-events.show {
 
 }
 
-body.mweb_events-events.show,
-body.mweb_events-events.edit,
-body.mweb_events-events.new,
-body.mweb_events-events.create,
-body.mweb_events-events.update
+body.events.show,
+body.events.edit,
+body.events.new,
+body.events.create,
+body.events.update
 {
 
   // we don't have a sidebar, so the content must fill the

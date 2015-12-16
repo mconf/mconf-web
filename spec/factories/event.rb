@@ -14,7 +14,7 @@ FactoryGirl.define do
     e.time_zone { Forgery::Time.zone }
     e.location { Forgery::Address.city }
     e.address { Forgery::Address.street_address }
-    e.social_networks { MwebEvents::SOCIAL_NETWORKS.sample(3) }
+    e.social_networks { Event::SOCIAL_NETWORKS.sample(3) }
     e.start_on { Time.now + 2.hours }
     e.end_on { Time.now + 4.hours }
     e.association :owner, factory: :user # owner is user class by default but could be space

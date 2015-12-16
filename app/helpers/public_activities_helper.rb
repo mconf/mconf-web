@@ -12,7 +12,7 @@ module PublicActivitiesHelper
 
   def link_to_trackable trackable, cls
     if trackable.nil?
-      # e.g. 'MwebEvents::Event' to 'mweb_events_event'
+      # e.g. 'MyModule::Event' to 'my_module_event'
       cls = cls.underscore.gsub(/\//, '_')
       t("activities.#{cls}.deleted")
     else

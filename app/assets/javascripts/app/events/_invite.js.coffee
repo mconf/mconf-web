@@ -3,12 +3,12 @@ searchUsersUrl = '/users/select?limit=7'
 titleSelector = '#invite_title'
 buttonSelector = '#event-invitation input.btn[type=\'submit\']'
 
-mconf.MwebEventsEvents or= {}
+mconf.Events or= {}
 
-class mconf.MwebEventsEvents.Invitation
+class mconf.Events.Invitation
 
   @bind: ->
-    invitation = new mconf.MwebEventsEvents.Invitation()
+    invitation = new mconf.Events.Invitation()
     invitation.checkRequired()
     invitation.bindUsers()
     invitation.bindTitle()

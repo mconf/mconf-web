@@ -6,8 +6,8 @@
   %ul.management-links
 
     - if can? :destroy, @participant
-      = link_to event_participant_path(@event, participant), :data => { :confirm => t('mweb_events.participants.index.disable_confirm') }, :method => :delete do
-        = icon_delete(:alt => t('mweb_events.participants.index.disable'), :title => t('mweb_events.participants.index.disable'))
+      = link_to event_participant_path(@event, participant), :data => { :confirm => t('participants.index.disable_confirm') }, :method => :delete do
+        = icon_delete(:alt => t('participants.index.disable'), :title => t('participants.index.disable'))
 
   .user-text
     = link_to user_path(user), :class => 'user-name' do

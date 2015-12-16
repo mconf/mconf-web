@@ -249,11 +249,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Method used by MwebEvents
-  def admin?
-    superuser
-  end
-
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
