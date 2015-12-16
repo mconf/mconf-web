@@ -144,51 +144,55 @@ module Abilities
         end
       end
 
-      # For the event module
-      if Mconf::Modules.mod_loaded?('events')
-        def event_can_be_managed_by(event, user)
-          case event.owner_type
-          when 'User' then
-            event.owner_id == user.id
-          when 'Space' then
-            !user.permissions.where(subject_type: 'Event',
-              role_id: Role.find_by_name('Organizer'), subject_id: event.id).empty? ||
-            !user.permissions.where(subject_type: 'Space', subject_id: event.owner_id,
-            role_id: Role.find_by_name('Admin')).empty?
-          end
-        end
-
-        can :create_space_event, Space do |s|
-          s.admins.include?(user)
-        end
-
-        can [:select, :show, :index, :create, :new], Event
-
-        can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
-          event_can_be_managed_by(e, user)
-        end
-
-        can :register, Event do |e|
-          Participant.where(owner_id: user.id, event_id: e.id).empty? &&
-            (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
-        end
-
-        can :destroy, Participant do |p|
-          p.owner == user
-        end
-
-        can [:show, :edit, :update, :destroy], Participant do |p|
-          event_can_be_managed_by(p.event, user)
-        end
-
-        can [:index, :create, :new], Participant
-      end
+      permissions_for_events(user)
 
       restrict_access_to_disabled_resources(user)
       restrict_access_to_unapproved_resources(user)
     end
 
     private
+
+    def permissions_for_events(user)
+      can :create_space_event, Space do |s|
+        s.admins.include?(user)
+      end
+
+      can [:select, :show, :index, :create, :new], Event
+
+      can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
+        event_can_be_managed_by(e, user)
+      end
+
+      can :register, Event do |e|
+        Participant.where(owner_id: user.id, event_id: e.id).empty? &&
+          (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
+      end
+
+      can :destroy, Participant do |p|
+        p.owner == user
+      end
+
+      can [:show, :edit, :update, :destroy], Participant do |p|
+        event_can_be_managed_by(p.event, user)
+      end
+
+      can [:index, :create, :new], Participant
+    end
+
+    def event_can_be_managed_by(event, user)
+      case event.owner_type
+      when 'User' then
+        event.owner_id == user.id
+      when 'Space' then
+        organizer = user.permissions.where(
+          subject_type: 'Event', role_id: Role.find_by_name('Organizer'), subject_id: event.id
+        ).any?
+        space_admin = user.permissions.where(
+          subject_type: 'Space', role_id: Role.find_by_name('Admin'), subject_id: event.owner_id
+        ).any?
+        organizer || space_admin
+      end
+    end
 
     # Abilities for the resources from BigbluebuttonRails.
     # Not everything is done here, some authorization steps are done by the gem

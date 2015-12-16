@@ -57,12 +57,10 @@ class Space < ActiveRecord::Base
                           :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
   has_many :join_requests, -> { where(:group_type => 'Space') },
-           :foreign_key => "group_id"
+           foreign_key: "group_id"
 
-  if Mconf::Modules.mod_loaded?('events')
-    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => Event,
-             :foreign_key => "owner_id", :dependent => :destroy
-  end
+  has_many :events, -> { where(:owner_type => 'Space')}, class_name: Event,
+           foreign_key: "owner_id", dependent: :destroy
 
   # for the associated BigbluebuttonRoom
   # attr_accessible :bigbluebutton_room_attributes

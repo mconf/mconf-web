@@ -35,18 +35,20 @@ module Abilities
       can :index, Attachment # restricted through Space
       can :show, Attachment, space: { public: true, repository: true }
 
-      if Mconf::Modules.mod_loaded?('events')
-        can [:show, :index, :select], Event
-        can :register, Event, public: true
-        can [:create, :new], Participant
-        can :index_event, Space, public: true
-      end
+      permissions_for_events(user)
 
       restrict_access_to_disabled_resources(user)
       restrict_access_to_unapproved_resources(user)
     end
 
     private
+
+    def permissions_for_events(user)
+      can [:show, :index, :select], Event
+      can :register, Event, public: true
+      can [:create, :new], Participant
+      can :index_event, Space, public: true
+    end
 
     def abilities_for_bigbluebutton_rails(user)
       # Recordings of public spaces are available to everyone

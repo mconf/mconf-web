@@ -38,19 +38,7 @@ module Abilities
         jr.group.disabled
       end
 
-      if Mconf::Modules.mod_loaded?('events')
-        actions = [:show, :edit, :update, :destroy,
-                   :invite, :send_invitation, :create_participant]
-        cannot actions, Event do |event|
-          event.owner.nil? || event.owner.disabled
-        end
-
-        # only actions over members, not actions over the collection
-        actions = [:show, :edit, :update, :destroy] # TODO
-        cannot actions, Participant do |part|
-          part.owner.nil? || part.owner.disabled
-        end
-      end
+      restrict_access_to_disabled_resources_over_events(user)
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
@@ -58,6 +46,20 @@ module Abilities
                  :recordings, :join_options, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner.nil? || room.owner.disabled
+      end
+    end
+
+    def restrict_access_to_disabled_resources_over_events(user)
+      actions = [:show, :edit, :update, :destroy,
+                 :invite, :send_invitation, :create_participant]
+      cannot actions, Event do |event|
+        event.owner.nil? || event.owner.disabled
+      end
+
+      # only actions over members, not actions over the collection
+      actions = [:show, :edit, :update, :destroy] # TODO
+      cannot actions, Participant do |part|
+        part.owner.nil? || part.owner.disabled
       end
     end
 

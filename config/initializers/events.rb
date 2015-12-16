@@ -5,10 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 Rails.application.config.to_prepare do
-
   Leaflet.tile_layer = "http://b.tile.openstreetmap.org/{z}/{x}/{y}.png"
   Leaflet.attribution = " \u00A9 OpenStreetMap contrib. <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA 2.0</a>"
   Leaflet.max_zoom = 15
-
-  configatron.modules.events.loaded = true
 end

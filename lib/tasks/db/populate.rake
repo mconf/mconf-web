@@ -22,7 +22,7 @@ namespace :db do
       puts "*** Destroying all resources!"
       Permission.destroy_all
       Space.destroy_all
-      if configatron.modules.events.enabled
+      if Mconf::Modules.mod_enabled?('events')
         Event.destroy_all
         Participant.destroy_all
       end
@@ -160,7 +160,7 @@ namespace :db do
       end
     end
 
-    if configatron.modules.events.enabled
+    if Mconf::Modules.mod_enabled?('events')
       puts "* Create events"
 
       puts "* Create events: for spaces (20..40)"
@@ -202,7 +202,7 @@ namespace :db do
       end
 
       # TODO: #1115, populate with participants
-      # if configatron.modules.events.loaded
+      # if Mconf::Modules.mod_enabled?('events')
       # puts "* Create spaces: \"#{space.name}\" - add users for events"
       # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
       # space.events.each do |event|
@@ -341,7 +341,7 @@ namespace :db do
       end
 
       # Event participants activity
-      if configatron.modules.events.enabled
+      if Mconf::Modules.mod_enabled?('events')
         space.events.each do |event|
           event.participants.each do |part|
             attend = part.attend? ? :attend : :not_attend
