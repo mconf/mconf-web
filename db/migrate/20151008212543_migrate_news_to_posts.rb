@@ -3,6 +3,7 @@ NEWS_TITLE = 1
 NEWS_TEXT = 2
 NEWS_SPACE_ID = 3
 NEWS_CREATED_AT = 4
+NEWS_UPDATED_AT = 5
 
 class MigrateNewsToPosts < ActiveRecord::Migration
   def up
@@ -10,6 +11,7 @@ class MigrateNewsToPosts < ActiveRecord::Migration
 
     news = ActiveRecord::Base.connection.execute(sql_news)
 
+    Post.record_timestamps = false
     news.each do |n|
       post = Post.create title: n[NEWS_TITLE], text: n[NEWS_TEXT], space_id: n[NEWS_SPACE_ID]
 
@@ -17,9 +19,10 @@ class MigrateNewsToPosts < ActiveRecord::Migration
       activities.each do |act|
         act.update_attributes trackable_type: 'Post', trackable_id: post.id
         # add the creator of the activity as the post author
-        post.update_attributes author: act.recipient, created_at: n[NEWS_CREATED_AT]
+        post.update_attributes author: act.recipient, created_at: n[NEWS_CREATED_AT], updated_at: n[NEWS_UPDATED_AT]
       end
     end
+    Post.record_timestamps = true
 
   end
 
