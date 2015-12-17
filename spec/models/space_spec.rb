@@ -46,12 +46,12 @@ describe Space do
 
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name).case_insensitive }
-  it { should ensure_length_of(:name).is_at_least(3) }
+  it { should validate_length_of(:name).is_at_least(3) }
 
   describe "#permalink" do
     it { should validate_uniqueness_of(:permalink).case_insensitive }
     it { should validate_presence_of(:permalink) }
-    it { should ensure_length_of(:permalink).is_at_least(3) }
+    it { should validate_length_of(:permalink).is_at_least(3) }
     it { should_not allow_value("123 321").for(:permalink) }
     it { should_not allow_value("").for(:permalink) }
     it { should_not allow_value("ab@c").for(:permalink) }

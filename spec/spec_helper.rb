@@ -15,12 +15,19 @@ SimpleCov.start if ENV["COVERAGE"]
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'shoulda-matchers'
+require 'shoulda/matchers'
 require 'cancan/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -49,6 +56,9 @@ BCrypt::Engine.cost = 4
 # Allow requests to codeclimate for reporinting code coverage
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
+
+# Temporary workaround for https://github.com/thoughtbot/shoulda-matchers/issues/809#issuecomment-165383383
+Shoulda::Matchers::ActionController::RouteParams::PARAMS_TO_SYMBOLIZE = []
 
 RSpec.configure do |config|
   # == Mock Framework

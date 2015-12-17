@@ -28,7 +28,11 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
-  it { should validate_uniqueness_of(:email) }
+  # Not working because of conflict with devise, see https://github.com/thoughtbot/shoulda-matchers/issues/836
+  skip { should validate_uniqueness_of(:email) }
+
+  # Needs a matcher
+  # skip { should validate_email }
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
@@ -170,7 +174,7 @@ describe User do
   describe "#username" do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username).case_insensitive }
-    it { should ensure_length_of(:username).is_at_least(1) }
+    it { should validate_length_of(:username).is_at_least(1) }
     it { should_not allow_value("123 321").for(:username) }
     it { should_not allow_value("").for(:username) }
     it { should_not allow_value("ab@c").for(:username) }

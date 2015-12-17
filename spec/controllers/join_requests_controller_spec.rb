@@ -527,7 +527,7 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do
@@ -645,7 +645,7 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do

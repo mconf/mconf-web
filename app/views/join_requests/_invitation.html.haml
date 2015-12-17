@@ -16,7 +16,7 @@
         = "(#{jr.candidate.username}, #{jr.candidate.email})"
       - if jr.is_invite?
         = t('.invited_as') + ':'
-        %b= t("activerecord.attributes.roles.name_#{jr.role.downcase}")
+        %b= t("activerecord.attributes.roles.name_#{jr.role.name.downcase}")
     .thread-text
       - unless jr.comment.blank?
         %span= t('.message_sent') + ':'
