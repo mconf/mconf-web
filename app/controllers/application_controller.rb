@@ -161,8 +161,8 @@ class ApplicationController < ActionController::Base
   # in the database (e.g. :attendeePW instead of :attendee_key)!
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
-    can_record = ability.can?(:record_meeting, room)
-    { record: can_record }
+    # show the record button if the user has permissions to record
+    { record: ability.can?(:record_meeting, room) }
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information

@@ -457,39 +457,33 @@ describe ApplicationController do
       context "when the user can record" do
         before { @ability.can :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: true }) }
+        end
 
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: true }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            # uses the user's permission only, ignores that the room is not set to record
-            it { assigns(:result).should eql({ record: true }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          # uses the user's permission only, ignores that the room is not set to record
+          it { assigns(:result).should eql({ record: true }) }
         end
       end
 
       context "when the user cannot record" do
         before { @ability.cannot :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
+        end
 
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
         end
       end
     end

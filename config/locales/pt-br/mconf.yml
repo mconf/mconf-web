@@ -1069,7 +1069,6 @@ pt-br:
     webconference_room:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
-      fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas"
       join: "Entrar na reunião!"
       join_mobile_full: "Entrar a partir de um dispositivo móvel"
@@ -1624,7 +1623,6 @@ pt-br:
     sidebar_webconf_buttons:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
-      fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas"
       join: "Entrar!"
       join_mobile: "Entrar/móvel"

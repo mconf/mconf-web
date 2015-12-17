@@ -5,7 +5,7 @@
 $ ->
   if isOnPage 'my', 'home'
 
-    # set to rebind JoinOptions when the resources are rebound
+    # set to rebind things when the resources are rebound
     mconf.Resources.addToBind ->
       mconf.CustomBigbluebuttonRooms.Invitation.bind()
 

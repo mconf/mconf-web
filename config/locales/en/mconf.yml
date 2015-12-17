@@ -1068,7 +1068,6 @@ en:
     webconference_room:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
@@ -1620,7 +1619,6 @@ en:
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"

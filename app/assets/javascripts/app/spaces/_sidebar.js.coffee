@@ -9,7 +9,7 @@ class mconf.Spaces.Sidebar
   @bind: ->
     @unbind()
 
-    # set to rebind JoinOptions when the resources are rebound
+    # set to rebind thing when the resources are rebound
     mconf.Resources.addToBind ->
       mconf.CustomBigbluebuttonRooms.Invitation.bind()
 
