@@ -50,16 +50,16 @@ module Abilities
     end
 
     def restrict_access_to_disabled_resources_over_events(user)
-      actions = [:show, :edit, :update, :destroy,
+      actions = [:show, :edit, :update, :destroy, :register,
                  :invite, :send_invitation, :create_participant]
       cannot actions, Event do |event|
-        event.owner.nil? || event.owner.disabled
+        event.owner.try(:disabled)
       end
 
       # only actions over members, not actions over the collection
-      actions = [:show, :edit, :update, :destroy] # TODO
+      actions = [:show, :edit, :update, :destroy] # TODO review
       cannot actions, Participant do |part|
-        part.owner.nil? || part.owner.disabled
+        part.event.present? && part.event.owner.try(:disabled)
       end
     end
 
@@ -69,7 +69,6 @@ module Abilities
         # space admins can do it even if not approved yet
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
-      cannot :create_space_event, Space, approved: false
 
       cannot [:webconference, :recordings, :manage_join_requests,
               :invite, :user_permissions, :webconference_options,
@@ -82,12 +81,7 @@ module Abilities
         !jr.group.approved?
       end
 
-      # TODO: should restrict :index too, but can't since it doesn't evaluate the
-      # block and would restrict it always, not only for unapproved spaces
-      # :index of events inside a space is restricted using :index_event
-      cannot [:show, :invite], Event do |event|
-        !event.owner.try(:approved?) # use try because of disabled spaces/users
-      end
+      restrict_access_to_unapproved_resources_over_events(user)
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
@@ -99,6 +93,19 @@ module Abilities
 
       cannot [:update, :space_edit, :play, :space_show], BigbluebuttonRecording do |recording|
         recording.room && recording.room.owner && !recording.room.owner.approved
+      end
+    end
+
+    def restrict_access_to_unapproved_resources_over_events(user)
+      actions = [:show, :invite, :register, :update, :destroy, :edit, :send_invitation]
+      cannot actions, Event do |event|
+        !event.owner.try(:approved?)
+      end
+
+      # only actions over members, not actions over the collection
+      actions = [:show, :edit, :update, :destroy] # TODO review
+      cannot actions, Participant do |part|
+        part.event.present? && !part.event.owner.try(:approved?)
       end
     end
   end

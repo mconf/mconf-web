@@ -278,20 +278,124 @@ describe Event do
   end
 
   describe "abilities", :abilities => true do
+    set_custom_ability_actions([:send_invitation, :register, :invite])
+
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:event) }
 
-    context "when it's the event creator" do
-      let(:user) { target.owner }
-      it { should be_able_to_do_anything_to(target).except([:register]) }
+    context "when it's an event of a user" do
+      context "when it's the event creator" do
+        let(:user) { target.owner }
+        before { FactoryGirl.create(:participant, event: target, owner: user) }
+
+        context "and the user is active" do
+          it { should be_able_to_do_everything_to(target).except([:manage, :register]) }
+        end
+
+        context "and the user is disabled" do
+          before { user.disable }
+          it { should_not be_able_to_do_anything_to(target).except([:create, :new, :index]) }
+        end
+
+        context "and the user is not approved" do
+          before { user.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except([:create, :new, :index]) }
+        end
+      end
+
+      context "when it's not the event creator" do
+        let(:user) { FactoryGirl.create(:user) }
+        it { should_not be_able_to_do_anything_to(target).except([:index, :show, :create, :new, :register]) }
+      end
     end
 
-    context "when it's not the event creator" do
+    context "when it's an event of a" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should_not be_able_to_do_anything_to(target).except([:index, :show, :create, :new]) }
-    end
 
+      context "public space" do
+        let(:space) { FactoryGirl.create(:public_space) }
+        let(:target) { FactoryGirl.create(:event, owner: space) }
+
+        context "he is not a member of" do
+          it { should_not be_able_to_do_anything_to(target).except([:index, :show, :register]) }
+
+          context "and he's already registered" do
+            before { FactoryGirl.create(:participant, event: target, owner: user) }
+            it { should_not be_able_to_do_anything_to(target).except([:index, :show]) }
+          end
+        end
+
+        context "he is a member of" do
+          context "with the role 'Admin'" do
+            before { space.add_member!(user, "Admin") }
+            it { should_not be_able_to_do_anything_to(target).except([:create, :destroy, :edit, :index, :new, :show, :update, :send_invitation, :register, :invite]) }
+          end
+
+          context "with the role 'User'" do
+            before { space.add_member!(user, "User") }
+            it { should_not be_able_to_do_anything_to(target).except([:create, :index, :new, :show, :register]) }
+          end
+
+          context "and he's already registered" do
+            before {
+              FactoryGirl.create(:participant, event: target, owner: user)
+              space.add_member!(user, "Admin")
+            }
+            it { should be_able_to_do_everything_to(target).except([:manage, :register]) }
+          end
+        end
+
+        context "that is disabled" do
+          before { space.disable }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
+
+        context "that is not approved" do
+          before { space.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
+      end
+
+      context "private space" do
+        let(:space) { FactoryGirl.create(:private_space) }
+        let(:target) { FactoryGirl.create(:event, owner: space) }
+
+        context "he is not a member of" do
+          it { should_not be_able_to_do_anything_to(target).except([:index, :show]) }
+        end
+
+        context "he is a member of" do
+          context "with the role 'Admin'" do
+            before { space.add_member!(user, "Admin") }
+            it { should_not be_able_to_do_anything_to(target).except([:create, :destroy, :edit, :index, :new, :show, :update, :send_invitation, :register, :invite]) }
+          end
+
+          context "with the role 'User'" do
+            before { space.add_member!(user, "User") }
+            it { should_not be_able_to_do_anything_to(target).except([:create, :index, :new, :show, :register]) }
+          end
+
+          context "and he's already registered" do
+            before {
+              FactoryGirl.create(:participant, event: target, owner: user)
+              space.add_member!(user, "Admin")
+            }
+            it { should be_able_to_do_everything_to(target).except([:manage, :register]) }
+          end
+        end
+
+        context "that is disabled" do
+          before { space.disable }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
+
+        context "that is not approved" do
+          before { space.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
+      end
+    end
   end
 
   skip "abilities (using permissions, space admins, event organizers)"

@@ -155,8 +155,9 @@ module Abilities
     def permissions_for_events(user)
       can [:select, :show, :index, :create, :new], Event
 
-      cannot [:create, :new], Event do |e|
-        e.owner_type == 'Space' && !e.owner.admins.include?(user)
+      # users can't create events in a space they don't belong to
+      cannot [:create, :new], Event do |event|
+        event.owner_type == 'Space' && !event.owner.users.include?(user)
       end
 
       can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
@@ -164,6 +165,7 @@ module Abilities
       end
 
       can :register, Event do |e|
+        # not the owner and the event is public or in a space the user has access to
         Participant.where(owner_id: user.id, event_id: e.id).empty? &&
           (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
       end
