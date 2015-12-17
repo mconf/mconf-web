@@ -143,10 +143,11 @@ class Event < ActiveRecord::Base
 
   def to_ical
     calendar = Icalendar::Calendar.new
-    calendar.add_event(to_ics)
+    calendar.add_event(to_ics_internal)
     calendar.publish
     calendar.to_ical
   end
+  alias_method :to_ics, :to_ical
 
   # Returns wheter the event has already happaned and is finished
   def past?
@@ -210,7 +211,7 @@ class Event < ActiveRecord::Base
 
   private
 
-  def to_ics
+  def to_ics_internal
     event = Icalendar::Event.new
     event.dtstart = start_on.strftime("%Y%m%dT%H%M%SZ")
     event.dtend = end_on.strftime("%Y%m%dT%H%M%SZ") if !end_on.blank?

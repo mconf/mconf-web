@@ -1,7 +1,10 @@
 class EventsController < InheritedResources::Base
   include Mconf::SelectControllerModule # for select method
 
-  respond_to :html, :json, :ics # for ics renderer see config/initializers/renderers.rb
+  respond_to :html, :json
+
+  # for ics renderer see config/initializers/renderers.rb
+  respond_to :ics, only: :show
 
   before_filter :block_if_events_disabled
   before_filter :concat_datetimes, :only => [:create, :update]
