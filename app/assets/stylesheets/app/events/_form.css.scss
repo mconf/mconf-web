@@ -4,7 +4,7 @@
 
 form.edit_event, form.new_event {
 
-  width: 980px;
+  width: $contents-width;
 
   .field_with_errors .error {
     display: block;
