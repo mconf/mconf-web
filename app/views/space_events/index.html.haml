@@ -13,7 +13,7 @@
       = link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => "btn btn-small #{'active' if params[:show] == 'upcoming_events'}"
       = link_to t('past'), space_events_path(@space, :show => "past_events"), :class => "btn btn-small #{'active' if params[:show] == 'past_events'}"
 
-  - if can?(:create_space_event, @space)
+  - if can?(:create, @space.events.build)
     #events-toolbar
       = link_to new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
         = t('.create_event')

@@ -153,11 +153,11 @@ module Abilities
     private
 
     def permissions_for_events(user)
-      can :create_space_event, Space do |s|
-        s.admins.include?(user)
-      end
-
       can [:select, :show, :index, :create, :new], Event
+
+      cannot [:create, :new], Event do |e|
+        e.owner_type == 'Space' && !e.owner.admins.include?(user)
+      end
 
       can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
         event_can_be_managed_by(e, user)
