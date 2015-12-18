@@ -58,7 +58,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
     context "and the user has no pending join request" do
       before(:each) { do_action }
       it { should redirect_to(new_space_join_request_path(space)) }
-      it { should set_the_flash.to(I18n.t("spaces.error.need_join_to_access")) }
+      it { should set_flash.to(I18n.t("spaces.error.need_join_to_access")) }
     end
 
     context "and the user has a pending invitation" do
@@ -68,7 +68,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
       before(:each) { do_action }
       it { space.pending_invitation_for?(user).should be_truthy }
       it { should redirect_to(space_join_request_path(space, @invitation)) }
-      it { should set_the_flash.to(I18n.t("spaces.error.already_invited")) }
+      it { should set_flash.to(I18n.t("spaces.error.already_invited")) }
     end
 
     context "and the user has a pending join request" do
@@ -78,7 +78,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
       before(:each) { do_action }
       it { space.pending_join_request_for?(user).should be_truthy }
       it { should redirect_to(new_space_join_request_path(space)) }
-      it { should_not set_the_flash }
+      it { should_not set_flash }
     end
   end
 

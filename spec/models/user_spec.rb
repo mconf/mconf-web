@@ -26,13 +26,17 @@ describe User do
 
   it { should have_many(:posts) }
 
-  it { should validate_presence_of(:email) }
+  describe 'model validations' do
+    subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
 
-  # Not working because of conflict with devise, see https://github.com/thoughtbot/shoulda-matchers/issues/836
-  skip { should validate_uniqueness_of(:email) }
+    it { should validate_presence_of(:email) }
 
-  # Needs a matcher
-  # skip { should validate_email }
+    # Not working because of conflict with devise, see https://github.com/thoughtbot/shoulda-matchers/issues/836
+    skip { should validate_uniqueness_of(:email) }
+
+    # Needs a matcher
+    # skip { should validate_email }
+  end
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,

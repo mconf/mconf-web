@@ -127,7 +127,7 @@ describe CustomBigbluebuttonRoomsController do
         it { Invitation.last.class.should be(WebConferenceInvitation) }
       end
       it { should redirect_to(referer) }
-      it { should set_the_flash.to success }
+      it { should set_flash.to success }
     end
 
     context "with daylight saving time timezones" do
@@ -191,7 +191,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       it { should redirect_to(referer) }
-      it { should set_the_flash.to success }
+      it { should set_flash.to success }
     end
 
     context "missing users" do
@@ -202,7 +202,7 @@ describe CustomBigbluebuttonRoomsController do
         }.not_to change { Invitation.count }
       }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.blank_users') }
+      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.blank_users') }
     end
 
     context "missing the title" do
@@ -213,7 +213,7 @@ describe CustomBigbluebuttonRoomsController do
         }.not_to change { Invitation.count }
       }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_title') }
+      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_title') }
     end
 
     context "missing the users" do
@@ -224,7 +224,7 @@ describe CustomBigbluebuttonRoomsController do
         }.not_to change { Invitation.count }
       }
       it { should redirect_to(referer) }
-      skip { should set_the_flash.to error }
+      skip { should set_flash.to error }
     end
 
     context "missing the message" do
@@ -240,7 +240,7 @@ describe CustomBigbluebuttonRoomsController do
       end
 
       it { should redirect_to(referer) }
-      it { should set_the_flash.to success }
+      it { should set_flash.to success }
     end
 
     context "missing start date" do
@@ -251,7 +251,7 @@ describe CustomBigbluebuttonRoomsController do
         }.not_to change { Invitation.count }
       }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
     end
 
     context "missing end date" do
@@ -262,7 +262,7 @@ describe CustomBigbluebuttonRoomsController do
         }.not_to change { Invitation.count }
       }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
     end
 
     it { should_authorize an_instance_of(BigbluebuttonRoom), :send_invitation, :id => room.to_param }
@@ -623,7 +623,7 @@ describe CustomBigbluebuttonRoomsController do
             before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
             it { should respond_with(:redirect) }
             it { should redirect_to("/any") }
-            it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
+            it { should set_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
           end
         end
 
@@ -714,7 +714,7 @@ describe CustomBigbluebuttonRoomsController do
               }
 
               it { should redirect_to referer }
-              it { should set_the_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
+              it { should set_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
             end
 
             context "ignores the limit if it's not defined" do
@@ -795,7 +795,7 @@ describe CustomBigbluebuttonRoomsController do
               }
 
               it { should redirect_to referer }
-              it { should set_the_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
+              it { should set_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
             end
 
             context "ignores the limit if it's not defined" do

@@ -30,7 +30,7 @@ describe SessionLocalesController do
         user.reload
       }
       it { should redirect_to url }
-      it { should set_the_flash.to(I18n.t('session_locales.create.success', :value => locale_name, :locale => locale))}
+      it { should set_flash.to(I18n.t('session_locales.create.success', :value => locale_name, :locale => locale))}
       it { get_user_locale(user, false).should eq(locale.to_sym) }
       it { session[:locale].should eq(locale) }
       it { user.locale.should eq(locale) }
@@ -44,7 +44,7 @@ describe SessionLocalesController do
       }
 
       it { should redirect_to url }
-      it { should set_the_flash.to(I18n.t('locales.error'))}
+      it { should set_flash.to(I18n.t('locales.error'))}
       it { get_user_locale(user, false).should_not eq(locale.to_sym) }
       it { session[:locale].should_not eq(locale) }
       it { user.locale.should_not eq(locale) }
@@ -61,7 +61,7 @@ describe SessionLocalesController do
       }
 
       it { should redirect_to url }
-      it { should set_the_flash.to(I18n.t('locales.error'))}
+      it { should set_flash.to(I18n.t('locales.error'))}
       it { get_user_locale(user, false).should_not eq(locale.to_sym) }
       it { session[:locale].should_not eq(locale) }
       it { user.locale.should_not eq(locale) }

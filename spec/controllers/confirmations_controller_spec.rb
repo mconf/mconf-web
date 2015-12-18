@@ -30,7 +30,7 @@ describe ConfirmationsController do
         before { login_as(user) }
         before(:each) { get :new }
         it { should redirect_to(my_home_path) }
-        it { should set_the_flash.to I18n.t('confirmations.check_already_confirmed.already_confirmed') }
+        it { should set_flash.to I18n.t('confirmations.check_already_confirmed.already_confirmed') }
       end
     end
 

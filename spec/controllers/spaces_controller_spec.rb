@@ -288,7 +288,7 @@ describe SpacesController do
 
       describe "sets the flash with a success message" do
         before(:each) { post :create, :space => space_attributes }
-        it { should set_the_flash.to(I18n.t('space.created')) }
+        it { should set_flash.to(I18n.t('space.created')) }
       end
 
       describe "adds the user as an admin in the space" do
@@ -402,7 +402,7 @@ describe SpacesController do
       }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("space.updated")) }
     end
 
     context "changing no parameters" do
@@ -413,7 +413,7 @@ describe SpacesController do
       }
 
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("space.updated")) }
     end
 
     context "changing some parameters" do
@@ -427,7 +427,7 @@ describe SpacesController do
       it { RecentActivity.last.key.should eq('space.update') }
       it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("space.updated")) }
     end
 
     context "changing the logo_image parameter" do
@@ -525,14 +525,14 @@ describe SpacesController do
       let(:space) { FactoryGirl.create(:space, :disabled => false) }
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
-      it { should set_the_flash.to(I18n.t('space.error.enabled', :name => space.name)) }
+      it { should set_flash.to(I18n.t('space.error.enabled', :name => space.name)) }
     end
 
     context "if the space is disabled" do
       let(:space) { FactoryGirl.create(:space, :disabled => true) }
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
-      it { should set_the_flash.to(I18n.t('space.enabled')) }
+      it { should set_flash.to(I18n.t('space.enabled')) }
       it { space.reload.disabled.should be_falsey }
     end
   end
