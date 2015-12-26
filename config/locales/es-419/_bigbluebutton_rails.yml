@@ -23,11 +23,15 @@ es-419:
         recordid: "ID de grabación"
         room_id: "ID de sala"
         server_id: "ID del servidor"
+        size: "Tamaño"
         start_time: "Hora de comienzo"
       bigbluebutton_room:
+        allow_start_stop_recording: "Permitir a los usuarios iniciar/detener las grabaciones"
+        attendee_key: "Clave para participantes"
         auto_start_video: "Inicio automático de vídeo"
         auto_start_audio: "Inicio automático de audio"
-        attendee_key: "Clave para participantes"
+        auto_start_recording: "Inicio automático de grabación"
+        background: "Imagen de fondo"
         default_layout: "Diseño por defecto"
         dial_number: "Discar número"
         duration: Duración
@@ -37,6 +41,7 @@ es-419:
         meetingid: "ID de reunión"
         metadata: Metadatos
         moderator_key: "Clave para moderadores"
+        moderator_only_message: "Mensajes a ser mostrados únicamente a los moderadores"
         name: Nombre
         param: "ID de texto"
         private: Privado
@@ -51,12 +56,15 @@ es-419:
         salt: "Clave de seguirdad"
         url: URL
         version: Versión
+      bigbluebutton_server_config:
+        available_layouts: "Capas disponibles"
     models:
       bigbluebutton_metadata: "Metadatos de la grabación de la conferencia web"
       bigbluebutton_playback_format: "Formato de grabación de la conferencia web"
       bigbluebutton_recording: "Grabación de la conferencia web"
       bigbluebutton_room: "Sala de conferencia web"
       bigbluebutton_server: "Servidor de conferencia web"
+      bigbluebutton_server_config: "Configuracion del Servidor de Conferencias Web"
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     metadata:
@@ -66,9 +74,15 @@ es-419:
       notice:
         update:
           success: "El tipo de reproducción fue actualizado con éxito."
-      presentation: "Reproducir"
-      presentation_export: "Descargar HTML"
-      presentation_video: "Descargar"
+      presentation:
+        name: "Reproducir"
+        tip: "Reproduce lo grabado en una pagina HTML 5. La grabación no se puede descargar a su computadora y requiere de Internet para reproducirla."
+      presentation_export:
+        name: "Descargar HTML"
+        tip: "Descarga una pagina HTML que puede usar para reproducir la grabación fuera de linea utilizando su explorador. Tiene todas las características del HTML del reproductor en línea, además la ventaja de trabajar fuera de línea."
+      presentation_video:
+        name: "Descargar"
+        tip: "Descarga un archivo de video (utiliza el formato WebM) con la grabación. Puede utilizar este archivo de video para mirar la grabación fuera de línea, y para compartir esta grabación en otras páginas web."
     recordings:
       default:
         description: "Reunión realizada el %{time} (UTC)"
@@ -89,6 +103,7 @@ es-419:
           success: "Su grabación se actualizó con éxito."
     rooms:
       default_welcome_msg: "¡Bienvenido a <b>%%CONFNAME%%</b>!<br><br>Para unirse a la transmisión de audio, haga click en el icono de los auriculares (esquina superior izquierda). Utilice auriculares para evitar que el ruido de fondo moleste a otros.<br>"
+      default_welcome_msg_dial_number: "¡Bienvenido a <b>%%CONFNAME%%</b>!<br><br>Para unirse a la transmisión de audio, haga click en el icono de los auriculares (esquina superior izquierda). Utilice auriculares para evitar que el ruido de fondo moleste a otros.<br>Puede llamar a esta conferencia desde un teléfono regular discando el número \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "No hay un servidor asociado a esta sala."
@@ -130,3 +145,11 @@ es-419:
           success: "Sus grabaciones publicadas fueron removidas con éxito."
         update:
           success: "Su servidor fue actualizado con éxito."
+    server_configs:
+      layouts:
+        defaultlayout: "Diseño por defecto"
+        lecture: "Conferencia"
+        lectureassistant: "Conferencista ayudante"
+        presentfocus: "Conferencia web"
+        videochat: "Video Chat"
+        webcamsfocus: "Reunión"

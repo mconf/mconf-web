@@ -1,0 +1,175 @@
+---
+en:
+  activerecord:
+    attributes:
+      event:
+        address: Address
+        description: Description
+        end_on: End date
+        end_on_date: End date
+        location: Location
+        name: Name
+        owner_name: This event belongs to
+        social_networks: Broadcast in social networks
+        start_on: Start date
+        start_on_date: Start date
+        summary: Summary
+        time_zone: Time zone
+      participant:
+        email: Email
+    errors:
+      event:
+        start_on: invalid start date
+        end_on: invalid end date
+    models:
+      event: Event
+      participant: Participant
+  activities:
+    event:
+      create_html: created the event %{name} in the space
+      attend_html: will attend to the event %{name} in the space
+      not_attend_html: will not attend to the event %{name} in the space
+      update_html: updated the information of the event %{name} in the space
+      deleted: that has since been deleted
+    participant:
+      create_html: will attend to the event %{name} in the space
+  flash:
+    events:
+      create:
+        notice: Successfully created the event
+      destroy:
+        notice: Successfully deleted the event
+      update:
+        notice: Event information updated
+    participants:
+      create:
+        waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
+        notice: Successfully registered for the event
+        alert: There was a problem registering for this event.
+        already_created: This email is already registered in this event
+      destroy:
+        notice: Succesfully removed from the event
+  valid_email:
+    validations:
+      email:
+        invalid: Isn't a valid e-mail address
+  events:
+    show:
+      date: When?
+      address: Where?
+      manage: Manage
+    summary:
+      calendar: Add to calendar
+      change_dates_info: "See in the event's time zone"
+      contact: Contact the organizer
+      end_on: "End:"
+      more_options: "More options:"
+      original_time: Date in the event timezone
+      original_time_info: Original date set in the event's organizers timezone
+      rss: RSS
+      start_on: "Start:"
+      time_zone: Time Zone
+      when: "When?"
+      where: "Where?"
+      where_not_specified: "(Location not specified)"
+      your_time_info: "Dates shown in your time zone (%{time_zone})"
+    social_media:
+      title: "Share this event:"
+      twitter: Share on Twitter
+      twitter_link: Check out this event at %{url}
+      facebook: Share on Facebook
+      facebook_link: Check out this event at %{url}
+      google_plus: Share on Google+
+      linkedin: Share on Linkedin
+    edit:
+      page_title: "Editing: %{name}"
+    form:
+      at: "at"
+      clear_start_date: "Clear start date"
+      clear_end_date: "Clear end date"
+    index:
+      create_new_event: "Add a new event"
+      count:
+        zero: (none found)
+        one:  (one found)
+        other:  (%{count} found)
+      filters:
+        all: ''
+        all_events: "All"
+        description: Showing %{your} %{time} events
+        happening_now: current
+        my_events: "My events"
+        past_events: past
+        upcoming_events: upcoming
+        your_events: your
+      now: Happening now
+      participant_count:
+        one: "%{count} participant"
+        other: "%{count} participants"
+      private: Private
+      public: Public
+      search:
+        by_name:
+          no_matches: "No events found for \"%{term}\""
+          placeholder: "Search events..."
+      select_at_left: "Select an event in the list to see it's description here"
+      subtitle: "Create your own events and share with other people"
+      title: "Events"
+    invite:
+      title: "Inviting to the event"
+      invite_title: "Invtitation to the event [%{event}]"
+    list_view:
+      no_events: "There are no events matching this search"
+    markdown_modal:
+      title: How to format the description text?
+      description_html: "The description text accepts <a href=\"http://daringfireball.net/projects/markdown/syntax\">Markdown</a> formatted text. Here's a quick cheatsheet (use the text at the left to get the result at the right):"
+    no_description: No description available
+    new:
+      page_title: "Create a new event"
+    organizers:
+      organizers: Organizers
+      organized_by: "This event is being organized by:"
+    registration:
+      title: Registration
+      button: Register in this event
+      already_registered: You are registered in this event!
+      closed: Registration for this event is closed.
+      delete_confirmation: Are you sure you want to cancel your registration on this event?
+      invite_button: Invite people to this event
+      join_button: Join this space to register
+      need_sign_in: You need to be signed in to register in this event
+      unregister: Cancel my registration
+    send_invitation:
+      blank_users: "No user selected, no invitation was sent"
+      error: "Invitation failed to be sent to:"
+      success: "Invitation successfully sent to:"
+      error_title: "It is mandatory to include a title for your invitation, please try again"
+    title:
+      belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
+      belongs_user: "Event created by <a href='%{url}'>%{user}</a>"
+      private: "Private event"
+      public: "Public event"
+    unified_event:
+      closed: registration closed
+      private: "Private event"
+      public: "Public event"
+      starts_at: "Starts at"
+  participants:
+    form:
+      submit: Register
+    index:
+      back_to_event: "Go back to the event page"
+      disable: Remove from event
+      disable_confirm: Are you sure you want to remove this user from the event?
+      event: "Message in event [%{event}]"
+      message: Send message
+      no_participants: No participants yet!
+      title: "Listing all participants in the event"
+    guest_participant:
+      confirmed: Email confirmed
+      not_confirmed: Email not confirmed
+    split_form:
+      member_title: Login to register in this event
+      annonymous_title: Register as annonymous user
+    new:
+      title: "Registering in the event"

@@ -15,9 +15,6 @@
 // To crop logos.
 //= require jquery/jquery.Jcrop
 
-// Used internally in the chat.
-//= require jquery/jquery.autosize
-
 // For modals.
 //= require bootstrap/bootstrap-modal
 //= require bootstrap/bootstrap-modalmanager
@@ -28,9 +25,6 @@
 
 // Use to search for models (e.g. users) dynamically.
 //= require select2
-
-// Use for XMPP in the chat.
-//= require strophe
 
 //= require i18n/translations
 

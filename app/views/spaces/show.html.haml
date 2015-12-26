@@ -8,12 +8,9 @@
 -#       %h3= t('.events_now')
 -#     .content-block-middle
 -#       - for event in @current_events do
--#         = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+-#         = render :partial => "events/unified_event", :locals => { :event => event }
 
 = render "shared/webconference_join", room: @space.bigbluebutton_room
-
-- if @news_to_show && can?(:show_news, @space)
-  = render :partial => 'latest_news'
 
 -if can?(:read, @space.posts)
   = render :partial => 'latest_posts'

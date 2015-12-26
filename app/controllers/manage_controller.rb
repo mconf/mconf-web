@@ -52,10 +52,4 @@ class ManageController < ApplicationController
     end
   end
 
-  # TODO: paginate
-  def spam
-    @spam_posts = Post.where(:spam => true).all
-    render :layout => 'no_sidebar'
-  end
-
 end

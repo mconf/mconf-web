@@ -1,0 +1,161 @@
+de:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Inhalt
+        name: Name
+        owner: Besitzer
+      bigbluebutton_playback_format:
+        format_type: Typ
+        length: Länge
+        url: URL
+      bigbluebutton_playback_type:
+        default: Standard
+        name: Name
+        visible: Sichtbar
+      bigbluebutton_recording:
+        description: "Beschreibung"
+        end_time: "Ende"
+        meetingid: "Meeting ID"
+        metadata: Metadaten
+        name: Name
+        published: Veröffentlicht
+        recordid: "Aufnahme ID"
+        room_id: "Raum ID"
+        server_id: "Server ID"
+        size: "Größe"
+        start_time: "Start"
+      bigbluebutton_room:
+        allow_start_stop_recording: "Erlaube Benutzern das Starten und Beenden von Aufzeichnungen"
+        attendee_api_password: "Interne API Schlüssel für Teilnehmer"
+        attendee_key: "Schlüssel für Teilnehmer"
+        auto_start_video: "Video automatisch starten"
+        auto_start_audio: "Audio automatisch starten"
+        auto_start_recording: "Aufzeichnung automatisch starten"
+        background: "Hintergrundbild"
+        default_layout: "Standardlayout"
+        dial_number: "Wähle Nummer"
+        duration: Dauer
+        external: "Extern erstellt"
+        logout_url: "Logout URL"
+        max_participants: "Maximale Teilnehmerzahl"
+        meetingid: "Meeting ID"
+        metadata: Metadaten
+        moderator_api_password: "Interner API Schlüssel für Moderatoren"
+        moderator_key: "Schlüssel für Moderatoren"
+        moderator_only_message: "Mitteilung nur für Moderatoren"
+        name: Name
+        param: "String ID"
+        private: Privat
+        presenter_share_only: "Nur der Moderator veröffentlicht Audio und Video"
+        record: Aufzeichnung
+        server_id: "Server ID"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Willkommensnachricht"
+      bigbluebutton_server:
+        name: Name
+        param: "String ID"
+        salt: "Security Salt"
+        url: 'URL '
+        version: Version
+      bigbluebutton_server_config:
+        available_layouts: "Verfügbare Layouts"
+    models:
+      bigbluebutton_metadata: "Webkonferenz Aufzeichnungs-Metadaten"
+      bigbluebutton_playback_format: "Webkonferenz Aufzeichnungs-Wiedergabeformat"
+      bigbluebutton_recording: "Konferenzaufzeichnung"
+      bigbluebutton_room: "Konferenzraum"
+      bigbluebutton_server: "Konferenzserver"
+      bigbluebutton_server_config: "Konferenzserverkonfiguration"
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    metadata:
+      errors:
+        name_format: "es können Buchstaben, Zahlen und die Symbole \"-\" oder \"_\" benutzt werden, aber nur Buchstaben an erster Stelle"
+    playback_types:
+      notice:
+        update:
+          success: "Der Wiedergabetyp wurde erfolgreich aktualisert."
+      presentation:
+        name: "Los"
+        tip: "Zeigt die Aufnahme in einer HTML5 Seite. Die Aufzeichnung wird nicht auf Ihren Rechner heruntergeladen und benötigt eine Internetverbindung, um erneut abgespielt zu werden."
+      presentation_export:
+        name: "HTML herunterladen"
+        tip: "Lädt eine HTML Seite herunter, die Sie zur offline-Wiedergabe der Aufzeichnung im Browser nutzen können. Beinhaltet alle Funktionen der HTML-Wiedergabe und zusätzlich den Vorteil der offline-Wiedergabe. Funktioniert derzeit nur mit dem Firefox-Browser."
+      presentation_video:
+        name: "Herunterladen"
+        tip: "Lädt eine Videodatei der Aufzeichnung (im WebM Format) herunter. Sie können diese Videodatei offline anzeigen oder auf anderen Websites zeigen."
+    recordings:
+      default:
+        description: "Das Meeting findet um %{time} Uhr (UTC) statt"
+      errors:
+        check_for_server:
+          no_server: "Es ist kein Server dieser Aufzeichnung zugeordnet."
+        play:
+          no_format: "Es ist keine Wiedergabe-URL für diese Aufzeichnung angegeben."
+      notice:
+        destroy:
+          success: "Ihre Aufzeichnung wurde erfolgreich vernichtet."
+          success_with_bbb_error: "Die Aufzeichnung wurde erfolgreich zerstört aber nicht vom Webkonferenz-Server gelöscht. (\"%{error})"
+        publish:
+          success: "Ihre Aufzeichnung wurde erfolgreich veröffentlicht."
+        unpublish:
+          success: "Ihre Aufzeichnung wurde erfolgreich depubliziert."
+        update:
+          success: "Ihre Aufzeichnung wurde erfolgreich aktualisiert."
+    rooms:
+      default_welcome_msg: "Willkommen zu <b>%%CONFNAME%%</b>!<br><br>Wenn Sie an der Audioverbindung teilnehmen wollen,  klicken Sie das Headset-Symbol (in der Ecke oben links). Benutzen Sie ein Headset, um Hintergrundgeräusche für die anderen Teilnehmer zu vermeiden.<br>"
+      default_welcome_msg_dial_number: "Willkommen zu <b>%%CONFNAME%%</b>!<br><br>Wenn Sie an der Audioverbindung teilnehmen wollen,  klicken Sie das Headset-Symbol (in der Ecke oben links). Benutzen Sie ein Headset, um Hintergrundgeräusche für die anderen Teilnehmer zu vermeiden.<br>Sie können an dieser Konferenz mit einem normalen Telefon teilnehmen, indem Sie folgende Nummer wählen: \"%%DIALNUM%%\".<br>"
+      errors:
+        fetch_recordings:
+          no_server: "Es ist kein Server mit diesem Raum verknüpft."
+        join:
+          cannot_create: "Sie haben keine Berechtigung, dieses Meeting zu starten."
+          failure: "Anmeldefehler."
+          not_running: "Das Meeting läuft noch nicht. Sie müssen auf die Anmeldung eines Moderators warten."
+          wrong_params: "Falsche Parameter in Ihrer Anforderung."
+        generate_dial_number:
+          not_unique: "Es tut uns leid, aber es war nicht möglich, eine eindeutige Einwahlnummer für diesen Raum zu generieren. Sie können es entweder erneut versuchen oder manuell eine Einwahlnummer vergeben."
+        param_format: "Es können nur Buchstaben, Zahlen und die Symbole \"-\" oder \"_\" (nicht am Anfang oder Ende) benutzt werden."
+        server:
+          nil: "Ihr Raum muss mit einem Server verknüpft sein um diesen Vorgang  auszuführen."
+      notice:
+        create:
+          failure: "Ihr Raum konnte nicht erstellt werden."
+          success: "Ihr Raum wurde erfolgreich erstellt."
+        destroy:
+          success: "Der Raum wurde erfolgreich zerstört."
+          success_with_bbb_error: "Der Raum wurde erfolgreich zerstört, aber das Meeting wurde am Webkonferenzserver nicht beendet. (\"%{error}\")"
+        end:
+          not_running: "Das Meeting konnte nicht beendet werden weil es nicht läuft."
+          success: "Das Meeting wurde erfolgreich beendet."
+        fetch_recordings:
+          success: "Die Liste der Aufzeichnungen für diesen Raum wurde erfolgreich aktualisiert."
+        generate_dial_number:
+          success: "Eine eindeutige Einwahlnummer wurde erzeugt und gespeichert."
+        update:
+          failure: "Ihr Raum konnte nicht aktualisiert werden."
+          success: "Ihr Raum wurde erfolgreich aktualisiert."
+    servers:
+      errors:
+        param_format: "Sie können nur Buchstaben, Zahlen und die Symbole \"-\" oder \"_\" (nicht am Anfang oder Ende) benutzen."
+        url_format: "sollte das Format http://<server>/bigbluebutton/api benutzen"
+      notice:
+        create:
+          success: "Ihr Server wurde erfolgreich erstellt."
+        fetch_recordings:
+          success: "Die Liste der Aufzeichnungen wurde erfolgreich aktualisiert."
+        publish_recordings:
+          success: "Ihre Aufzeichnungen wurden erfolgreich veröffentlicht."
+        unpublish_recordings:
+          success: "Ihre Aufzeichnung wurde erfolgreich depubliziert."
+        update:
+          success: "Ihr Server wurde erfolgreich aktualisiert."
+    server_configs:
+      layouts:
+        defaultlayout: "Standardlayout"
+        lecture: "Vortrag"
+        lectureassistant: "Vortragsassistent"
+        presentfocus: "Webinar"
+        videochat: "Video Chat"
+        webcamsfocus: "Meeting"

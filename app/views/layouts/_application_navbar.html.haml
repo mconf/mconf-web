@@ -15,7 +15,7 @@
       %li
         = link_to t('space.all'), main_app.spaces_path
       - if mod_enabled?("events")
-        %li= link_to t('.events'), mweb_events.events_path
+        %li= link_to t('.events'), events_path
       - if current_user.superuser?
         %li
           = link_to main_app.manage_path do
@@ -24,18 +24,12 @@
       -# for anonymous users
       %li= link_to t('space.all'), main_app.spaces_path
       - if mod_enabled?("events")
-        %li= link_to t('.events'), mweb_events.events_path
+        %li= link_to t('.events'), events_path
 
 #navbar-right
   %ul
     - if user_signed_in?
       %ul#navbar-right-links
-        - if current_user.unread_private_messages.size > 0
-          %li.notification
-            = link_to main_app.messages_path do
-              %span.badge.success
-                = current_user.unread_private_messages.size
-              = "You have new messages!"
         %li.last
           = link_to main_app.logout_path do
             = t('logout', :user => current_user.name)

@@ -10,7 +10,7 @@ describe ParticipantConfirmationsController do
   render_views
 
   describe "#confirm" do
-    let(:pc) { FactoryGirl.create(:participant, email: 'divine@wings.of').participant_confirmation }
+    let(:pc) { FactoryGirl.create(:participant, email: 'divine@wings.of', owner: nil).participant_confirmation }
 
     before {
       expect {
@@ -19,7 +19,7 @@ describe ParticipantConfirmationsController do
     }
 
     it { pc.reload.should be_confirmed }
-    it { should redirect_to(MwebEvents::Engine.routes.url_helpers.event_path(pc.participant.event)) }
+    it { should redirect_to(event_path(pc.participant.event)) }
     it { should set_the_flash.to(I18n.t('participant_confirmation.confirmed', email: pc.email)) }
   end
 

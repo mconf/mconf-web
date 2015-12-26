@@ -1,9 +1,3 @@
-send_private_messages_notifications:
-  every:
-    - "30s"
-  class: PrivateMessagesWorker
-  description: "Sends notifications for all private messages not notified yet"
-
 send_join_requests_notifications:
   every:
     - "30s"

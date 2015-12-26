@@ -98,10 +98,6 @@ a:not(.btn) .icon-awesome {
     &:hover { color: lighten($m-blue, 20); }
   }
 
-  &.icon-mconf-spam {
-    color: $m-red;
-  }
-
   &.icon-mconf-waiting-moderation {
     color: $yellow;
   }
@@ -204,7 +200,6 @@ a:not(.btn) .icon-awesome {
   &.icon-mconf-comment {}
   &.icon-mconf-comments {}
   &.icon-mconf-attachment {}
-  &.icon-mconf-news {}
   &.icon-mconf-users {}
   &.icon-mconf-edit {}
   &.icon-mconf-share {}

@@ -38,10 +38,6 @@ module IconsHelper
     icon_constructor title, "fa fa-calendar icon-awesome icon-mconf-event", options
   end
 
-  def icon_news(title=nil, options={})
-    icon_constructor title, "fa fa-bullhorn icon-awesome icon-mconf-news", options
-  end
-
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def icon_superuser(options={})
@@ -59,10 +55,6 @@ module IconsHelper
 
   def icon_loading(options={})
     icon_constructor nil, "fa-spin fa fa-refresh icon-awesome icon-mconf-loading", options
-  end
-
-  def icon_spam(options={})
-    icon_constructor t("_other.spam.tooltip"), "fa fa-exclamation-triangle icon-awesome icon-mconf-spam", options
   end
 
   def icon_message(options={})

@@ -8,7 +8,6 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag "mod_mweb_events", :media => "screen, projection" if mod_enabled?('events')
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = yield :stylesheets
@@ -57,11 +56,9 @@
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
-    = render :partial => "layouts/chat"
 
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
-    = javascript_include_tag "mod_mweb_events" if mod_enabled?('events')
     = render :partial => 'layouts/javascript_locales'
     = javascript_include_tag_for_controller
     = yield :javascripts

@@ -3,6 +3,6 @@
 - else
   - for event in events
     .event-wrapper
-      = link_to sanitize(event.name), mweb_events.event_path(event), :class => "event-title"
+      = link_to sanitize(event.name), event_path(event), :class => "event-title"
       %span.event-date
         = "#{I18n.l(event.start_on, format: :short)} - #{I18n.l(event.end_on, format: :short)}"

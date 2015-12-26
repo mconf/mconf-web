@@ -19,7 +19,6 @@ describe PublicActivitiesHelper do
     it "returns the correct link for spaces"
     it "returns the correct link for events"
     it "returns the correct link for posts"
-    it "returns the correct link for news"
     it "returns the correct link for attachments"
     it "returns the correct link for bigbluebutton meetings"
   end

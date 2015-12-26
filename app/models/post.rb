@@ -42,10 +42,6 @@ class Post < ActiveRecord::Base
     return self.children.last(3)
   end
 
-  def self.last_news(space)
-    return Post.where(:space_id => space, :parent_id => nil).order("updated_at DESC").limit(4)
-  end
-
   def new_activity(key, user)
     params = { username: user.name, user_id: user.id }
 

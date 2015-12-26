@@ -1,0 +1,26 @@
+.thread.thread-no-hover.user-information.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+  - user = User.build_guest(:email => participant.email)
+  .logo-in-thread
+    = empty_logo_image(:user, :size => '32', :class => 'logo logo-user')
+
+  %ul.management-links
+
+    - if can? :destroy, @participant
+      = link_to event_participant_path(@event, participant), :data => { :confirm => t('participants.index.disable_confirm') }, :method => :delete do
+        = icon_delete(:alt => t('participants.index.disable'), :title => t('participants.index.disable'))
+
+  .user-text
+    = link_to '#', :class => 'user-name' do
+      = "#{user.username} #{'(' + user.email + ')' if can?(:update, @event)}".html_safe
+
+    %span.user-category
+      = user_category(user)
+
+    - if participant.email_confirmed?
+      %p
+        = icon_participant_confirmed
+        = t('.confirmed')
+    - else
+      %p
+        = icon_participant_not_confirmed
+        = t('.not_confirmed')

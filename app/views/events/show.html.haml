@@ -1,0 +1,35 @@
+- content_for :head do
+  = render 'meta_tags'
+
+.event-container.container-fluid{:itemscope=>true, :itemtype=>"http://schema.org/Event"}
+
+  .event-header.masthead
+    = render 'title'
+
+  .row-fluid
+    .span8
+      .well.event-description
+        = render 'description'
+
+      .row-fluid.event-social-media
+        = render 'social_media'
+
+    .span4
+      .well.event-registration
+        = render 'registration'
+
+      .well.event-summary
+        = render 'summary'
+
+      .well.event-organizers
+        %aside
+          = render 'organizers'
+
+  .row-fluid
+    .span12
+      %footer.well.event-footer
+        - if can? :edit, @event
+          %i.icon.icon-edit
+          = link_to t('_other.edit'), edit_event_path(@event)
+        - if can? :update, @event
+          = link_to t('.manage'), event_participants_path(@event)

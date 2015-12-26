@@ -16,8 +16,8 @@ class SpaceEventsController < ApplicationController
     end
   end
 
-  load_and_authorize_resource :space, :find_by => :permalink, :parent => true
-  load_and_authorize_resource :event, :through => :space, :class => MwebEvents::Event, :parent => false
+  load_and_authorize_resource :space, :find_by => :permalink
+  load_and_authorize_resource :find_by => :permalink, :class => Event
 
   # need it to show info in the sidebar
   before_filter :webconf_room!

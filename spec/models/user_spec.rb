@@ -685,10 +685,9 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let!(:user1) { FactoryGirl.create(:user, disabled: true) }
-    let!(:user2) { FactoryGirl.create(:user, disabled: false) }
-
-    context "finds users even if disabled" do
+    context "finds users that are disabled" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: false) }
       subject { User.with_disabled }
       it { should be_include(user1) }
       it { should be_include(user2) }
@@ -698,11 +697,20 @@ describe User do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
 
+    context "doesn't remove previous scopes from the query" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true, can_record: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: true, can_record: false) }
+
+      subject { User.where(can_record: true).with_disabled.all }
+      it { should include(user1) }
+      it { should_not include(user2) }
+    end
+
     context "is chainable" do
-      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc") }
-      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def") }
-      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
-      let!(:user6) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user3) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
       subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
       it { subject.count.should eq(1) }
     end
@@ -813,20 +821,6 @@ describe User do
         let(:user) { FactoryGirl.create(:user, :approved => false) }
         it { user.inactive_message.should be(:inactive) }
       end
-    end
-  end
-
-  describe "#admin?" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    context "if the user is a superuser" do
-      before { user.update_attributes(superuser: true) }
-      it { user.admin?.should be(true) }
-    end
-
-    context "if the user is not a superuser" do
-      before { user.update_attributes(superuser: false) }
-      it { user.admin?.should be(false) }
     end
   end
 

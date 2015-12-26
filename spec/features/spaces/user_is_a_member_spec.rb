@@ -7,7 +7,120 @@
 require 'spec_helper'
 require 'support/feature_helpers'
 
+#
+# Currently the user visits each of the spaces' tabs and we check to see if it worked
+# and the tab is selected. We could test for extra actions in each of these pages too, e.g, 'can an event be created?'
+#
 feature 'User is' do
+
+  context 'a logged out user visiting a public space' do
+    let(:space) { FactoryGirl.create(:space_with_associations, :repository => true, public: true) }
+
+    scenario 'on home page' do
+      visit space_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.home'))
+      end
+    end
+
+    scenario 'on posts page' do
+      visit space_posts_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+      end
+    end
+
+    scenario 'on attachments page' do
+      visit space_attachments_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+      end
+    end
+
+    scenario 'on events page' do
+      visit space_events_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.events'))
+      end
+    end
+
+    scenario 'on users page' do
+      visit space_users_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.users'))
+      end
+    end
+
+    scenario 'on web conference page' do
+      visit webconference_space_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+      end
+    end
+
+  end
+
+  context 'a non member visiting a space' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space_with_associations, :repository => true, public: true) }
+
+    before(:each) { login_as(user, :scope => :user) }
+
+    scenario 'on home page' do
+      visit space_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.home'))
+      end
+    end
+
+    scenario 'on posts page' do
+      visit space_posts_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+      end
+    end
+
+    scenario 'on attachments page' do
+      visit space_attachments_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+      end
+    end
+
+    scenario 'on events page' do
+      visit space_events_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.events'))
+      end
+    end
+
+    scenario 'on users page' do
+      visit space_users_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.users'))
+      end
+    end
+
+    scenario 'on web conference page' do
+      visit webconference_space_path(space)
+
+      within('#page-menu ul li.selected') do
+        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+      end
+    end
+
+  end
 
   context 'a member of the space' do
     let(:user) { FactoryGirl.create(:user) }

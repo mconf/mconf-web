@@ -1,0 +1,137 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+@import "app/events/_unified_event";
+
+body.events.index {
+
+  #content-middle {
+    min-height: 450px;
+  }
+
+  #event-filter-result {
+    float: left;
+    margin: 10px 0 0 5px;
+    @include font-size($m-font-medium);
+  }
+
+  #event-filter-wrapper {
+    @include mconf-clearfix;
+    margin-bottom: 20px;
+    padding: 10px 5px;
+    background: $m-light-gray;
+    @include border-radius(5px);
+    text-align: center;
+
+    .view-types {
+      float: right;
+      margin-top: 1px;
+      margin-right: 10px;
+    }
+
+    .page-sub-menu {
+      float: right;
+      margin: 1px 10px 0 0;
+    }
+
+    .btn-group {
+      margin-left: 15px;
+      float: left;
+
+      .select2-choice {
+        @include border-radius(0 4px 4px 0);
+      }
+
+      #space-filter-text {
+        border-left: 0;
+        margin: 0;
+        @include border-left-radius(0);
+      }
+    }
+  }
+
+  // adjust how the select2 search input looks in this page
+  // note: exactly the same we have in spaces/index.css.scss
+  .select2-container .select2-choice {
+    border-right-width: 1px;
+  }
+  // the results for the filter by name are added to <body>, this is why
+  // this selector is here and not nested
+  .select2-results, .select2-container {
+    .select2-result, .select2-chosen {
+      text-align: left;
+
+      i {
+        float: right;
+        @include font-size($m-font-small);
+        margin: 4px 0 0 0;
+      }
+
+      a {
+        @include font-size($m-font-normal);
+        text-align: left;
+        @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
+        @include transition(none);
+      }
+
+      &.select2-highlighted {
+        i { color: #eee }
+        a { @include link-colors(#eee, #eee, #eee, #eee); }
+      }
+    }
+  }
+
+  #events {
+    .list-text {
+      .thread {
+        margin: 0;
+        // tighter than the default
+        padding: 15px 8px;
+      }
+
+      &.selected .thread {
+        background: $m-light-gray;
+        .logo-in-thread img {
+          border-color: $m-bright-blue;
+        }
+      }
+
+      .resource-visibility {
+        color: $m-dark-gray;
+      }
+    }
+  }
+
+  #event-description-wrapper {
+    width: 230px;
+
+    .content-block-middle {
+
+      .event-logo-wrapper {
+        margin: 5px 0;
+        text-align: center;
+        @include broken-img-parent;
+
+        .logo-event {
+          padding: 20px;
+          background: $m-light-gray;
+          width: 169px;
+          height: 75px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .details {
+      font-style: italic;
+      color: #888;
+      span { display: block; }
+    }
+
+    .action-links {
+      text-align: right;
+    }
+  }
+
+}

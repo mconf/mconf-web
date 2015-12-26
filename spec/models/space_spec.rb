@@ -274,10 +274,10 @@ describe Space do
     it { Space.all.should include(@s2) }
     it { Space.all.should_not include(@s3) }
 
-    it { Space.with_disabled.count.should be 3 }
-    it { Space.with_disabled.should include(@s1) }
-    it { Space.with_disabled.should include(@s2) }
-    it { Space.with_disabled.should include(@s3) }
+    it { Space.unscoped.count.should be 3 }
+    it { Space.unscoped.should include(@s1) }
+    it { Space.unscoped.should include(@s2) }
+    it { Space.unscoped.should include(@s3) }
   end
 
   describe ".public_spaces" do
@@ -632,6 +632,10 @@ describe Space do
     end
   end
 
+  it "#latest_posts"
+
+  it "#latest_users"
+
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
@@ -745,10 +749,10 @@ describe Space do
   it "new_activity"
 
   describe ".with_disabled" do
-    let(:space1) { FactoryGirl.create(:space, :disabled => true) }
-    let(:space2) { FactoryGirl.create(:space, :disabled => false) }
+    let(:space1) { FactoryGirl.create(:space, disabled: true) }
+    let(:space2) { FactoryGirl.create(:space, disabled: false) }
 
-    context "finds spaces even if disabled" do
+    context "finds spaces that are disabled" do
       subject { Space.with_disabled.all }
       it { should include(space1) }
       it { should include(space2) }
@@ -756,6 +760,24 @@ describe Space do
 
     context "returns a Relation object" do
       it { Space.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "doesn't remove previous scopes from the query" do
+      let(:space1) { FactoryGirl.create(:space, disabled: true, public: true) }
+      let(:space2) { FactoryGirl.create(:space, disabled: true, public: false) }
+
+      subject { Space.where(public: true).with_disabled.all }
+      it { should include(space1) }
+      it { should_not include(space2) }
+    end
+
+    context "is chainable" do
+      let!(:space1) { FactoryGirl.create(:space, public: true, name: "abc") }
+      let!(:space2) { FactoryGirl.create(:space, public: true, name: "def") }
+      let!(:space3) { FactoryGirl.create(:space, public: false, name: "abc-2") }
+      let!(:space4) { FactoryGirl.create(:space, public: false, name: "def-2") }
+      subject { Space.where(public: true).with_disabled.where('spaces.name LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 
@@ -936,7 +958,7 @@ describe Space do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :recordings,
-      :manage_join_requests, :show_news, :manage_news, :add, :index_event])
+      :manage_join_requests, :add, :index_event])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -1024,7 +1046,7 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :show_news, :index_event]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :index_event]) }
         end
 
         context "he is a member of" do
@@ -1035,7 +1057,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :show_news, :manage_news, :index_event
+                  :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1047,7 +1069,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :show_news, :manage_news, :index_event
+                  :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1069,7 +1091,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :index_event])
             }
 
             context "when the space is not approved" do
@@ -1100,7 +1122,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :show_news, :manage_news, :index_event
+                  :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1112,7 +1134,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :show_news, :manage_news, :index_event
+                  :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1134,7 +1156,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :show_news, :index_event])
+                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :index_event])
             }
 
             context "when the space is not approved" do
@@ -1170,7 +1192,7 @@ describe Space do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select, :show_news]) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select, :index_event]) }
 
         context "that is disabled" do
           before { target.disable }
