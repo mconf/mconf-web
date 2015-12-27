@@ -54,7 +54,7 @@ body.participants.new, body.create {
       }
 
       .shibboleth-container {
-        @include font-size($font-medium);
+        @include font-size($m-font-medium);
         clear: both;
         max-width: 300px;
         float: right;

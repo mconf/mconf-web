@@ -1011,7 +1011,6 @@ en:
       menu:
         account: "Account"
         activity: "Activity dashboard"
-        inbox: "Inbox (%{unread} unread messages)"
         profile: "Profile"
         webconf_room: "My web conference room"
       spaces:

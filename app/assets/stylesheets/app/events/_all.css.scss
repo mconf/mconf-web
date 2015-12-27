@@ -162,12 +162,12 @@ body.events, body.space_events {
   // apply our colors when the logos are hovered/active
   a .event-logo:hover {
     * {
-      color: $link-color-hover;
+      color: $m-link-color-hover;
     }
   }
   a .event-logo:active {
     * {
-      color: $link-color-active;
+      color: $m-link-color-active;
     }
   }
 

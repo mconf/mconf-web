@@ -4,6 +4,8 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require "simple_form_extensions"
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a

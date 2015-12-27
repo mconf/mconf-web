@@ -1010,7 +1010,6 @@ pt-br:
       menu:
         account: "Conta"
         activity: "Atividades recentes"
-        inbox: "Caixa de entrada (%{unread} não lidas)"
         profile: "Perfil"
         webconf_room: "Minha sala de webconferência"
       spaces:

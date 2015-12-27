@@ -26,7 +26,7 @@ describe PostsController do
     skip { should_authorize Post, :index, space_id: space.to_param }
 
     it { should render_template('index') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('spaces_default') }
     it { should assign_to(:space).with(space) }
     it {
       expected = [
@@ -45,7 +45,7 @@ describe PostsController do
     skip { should_authorize an_instance_of(Post), :show, id: post.to_param, space_id: space.to_param }
 
     it { should render_template('show') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('spaces_default') }
     it { should assign_to(:space).with(space) }
     it { should assign_to(:post).with(post) }
   end
@@ -62,7 +62,7 @@ describe PostsController do
       before { get :new, space_id: space.to_param }
 
       it { should render_template('new') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('spaces_default') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(an_instance_of(Post)) }
     end
@@ -125,7 +125,7 @@ describe PostsController do
       before { get :edit, id: post.to_param, space_id: space.to_param }
 
       it { should render_template('edit') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('spaces_default') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(post) }
     end

@@ -81,6 +81,7 @@ class EventsController < InheritedResources::Base
   end
 
   private
+
   # Load the participant from db if user is already registered or build a new one for the form
   def find_or_create_participant
     if current_user

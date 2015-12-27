@@ -28,20 +28,20 @@ feature 'Behaviour of the flag Site#registration_enabled' do
         visit events_path
       }
 
-      it { within('#content-wrapper') { page.should have_link(t('register.one'), register_path) } }
+      it { page.should have_link(t('register.one'), register_path) }
     end
 
     context "spaces/index shows a link for anonymous to register" do
       before { visit spaces_path }
 
-      it { within('#content-wrapper') { page.should have_link(t('register.one'), register_path) } }
+      it { page.should have_link(t('register.one'), register_path) }
     end
 
     context "the home of a space shows a link for anonymous to register" do
       let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
       before { visit space_path(space) }
 
-      it { within('#content-wrapper') { page.should have_link(t('register.one'), register_path) } }
+      it { page.should have_link(t('register.one'), register_path) }
     end
   end
 
@@ -63,20 +63,20 @@ feature 'Behaviour of the flag Site#registration_enabled' do
         visit events_path
       }
 
-      it { within('#content-wrapper') { page.should_not have_link(t('register.one'), register_path) } }
+      it { page.should_not have_link(t('register.one'), register_path) }
     end
 
     context "spaces/index shows a link for anonymous to register" do
       before { visit spaces_path }
 
-      it { within('#content-wrapper') { page.should_not have_link(t('register.one'), register_path) } }
+      it { page.should_not have_link(t('register.one'), register_path) }
     end
 
     context "the home of a space shows a link for anonymous to register" do
       let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
       before { visit space_path(space) }
 
-      it { within('#content-wrapper') { page.should_not have_link(t('register.one'), register_path) } }
+      it { page.should_not have_link(t('register.one'), register_path) }
     end
 
   end

@@ -27,7 +27,6 @@ describe Space do
 
   it { should have_many(:posts).dependent(:destroy) }
   it { should have_many(:events).dependent(:destroy) }
-  it { should have_many(:news).dependent(:destroy) }
   it { should have_many(:attachments).dependent(:destroy) }
 
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }

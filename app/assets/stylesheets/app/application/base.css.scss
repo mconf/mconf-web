@@ -157,7 +157,7 @@ form {
     }
 
     .thread-playback-unavailable {
-      color: mix($link-color, #888, 70%); // a grayer link
+      color: mix($m-link-color, #888, 70%); // a grayer link
     }
 
     .thread-playback-processing {

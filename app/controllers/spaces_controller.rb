@@ -42,7 +42,7 @@ class SpacesController < InheritedResources::Base
   end
 
   def set_layout
-    if [:index, :new].include? action_name.to_sym
+    if [:index, :new, :create].include? action_name.to_sym
       'application'
     else
       'spaces_default'

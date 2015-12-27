@@ -48,7 +48,7 @@ describe UsersController do
       before { get :index, space_id: space.to_param }
 
       it { should render_template('index') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('spaces_default') }
     end
 
     context "with a private space" do

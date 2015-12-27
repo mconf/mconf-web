@@ -81,7 +81,7 @@ feature "User registers in an event" do
       }
 
       it { current_path.should eq(new_event_participant_path(event)) }
-      it { should have_content(user.email) }
+      it { should have_css("#participant_email[value='#{user.email}']") }
       it { should have_content t("participants.form.submit") }
 
       context "finish registering" do

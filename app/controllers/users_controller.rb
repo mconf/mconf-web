@@ -26,7 +26,7 @@ class UsersController < InheritedResources::Base
   layout :set_layout
   def set_layout
     if [:index].include?(action_name.to_sym)
-      'spaces_show'
+      'spaces_default'
     elsif [:edit].include?(action_name.to_sym)
       'no_sidebar'
     else

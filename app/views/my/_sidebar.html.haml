@@ -19,9 +19,6 @@
   %li{ home_sidebar_menu_select_if(:activity) }
     = link_to my_activity_path do
       = t(".menu.activity")
-  %li{ home_sidebar_menu_select_if(:inbox) }
-    = link_to main_app.messages_path do
-      = t(".menu.inbox", unread: current_user.unread_private_messages.size)
   %li
     = link_to edit_user_path(current_user) do
       = t(".menu.account")
