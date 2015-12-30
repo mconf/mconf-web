@@ -350,6 +350,23 @@ describe Space do
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[2], spaces[0]] }
     end
+
+    context 'returns spaces even if they have no activities' do
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.length.should be(4) }
+    end
+
+    context 'returns spaces even if they have no room' do
+      before {
+        spaces.each do |space|
+          space.bigbluebutton_room.destroy
+        end
+      }
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.length.should be(4) }
+    end
+
+    skip 'calling `order_by_activity.count` works'
   end
 
   describe ".order_by_relevance" do
@@ -506,6 +523,23 @@ describe Space do
         it { Space.order_by_relevance.all.should == [spaces[0], spaces[1], spaces[3], spaces[2]] }
       end
     end
+
+    context 'returns spaces even if they have no activities' do
+      it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_relevance.all.length.should be(4) }
+    end
+
+    context 'returns spaces even if they have no room' do
+      before {
+        spaces.each do |space|
+          space.bigbluebutton_room.destroy
+        end
+      }
+      it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_relevance.all.length.should be(4) }
+    end
+
+    skip 'calling `order_by_relevance.count` works'
   end
 
   describe ".logo_image" do

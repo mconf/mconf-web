@@ -156,16 +156,23 @@ class Space < ActiveRecord::Base
   # Returns a relation with a pre-configured join that can be used in queries to find recent
   # activities related to a space.
   def self.default_join_for_activities(*args)
+    # manually join `:bigbluebutton_room` because we want a "LEFT JOIN" and rails uses
+    # "INNER LEFT JOIN" by default when using `joins()`.
+    join_room_on = BigbluebuttonRoom.arel_table[:owner_type].eq(Space.name)
+              .and(BigbluebuttonRoom.arel_table[:owner_id].eq(Space.arel_table[:id])).to_sql
+    join_room_sql = "LEFT JOIN #{BigbluebuttonRoom.table_name} ON (#{join_room_on})"
+
+    # manually join activities because we also want a "LEFT JOIN"
     join_on = RecentActivity.arel_table[:owner_type].eq(Space.name)
-      .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
-      .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
-            .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
+              .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
+              .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
+                   .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
     join_sql = "LEFT JOIN #{RecentActivity.table_name} ON (#{join_on})"
 
     if args.count > 0
-      select(args).joins(:bigbluebutton_room).joins(join_sql)
+      select(args).joins(join_room_sql).joins(join_sql)
     else
-      joins(:bigbluebutton_room).joins(join_sql)
+      joins(join_room_sql).joins(join_sql)
     end
   end
 
