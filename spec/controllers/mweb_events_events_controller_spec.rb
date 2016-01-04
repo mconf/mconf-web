@@ -138,7 +138,7 @@ describe MwebEvents::EventsController do
           it { Invitation.last.class.should be(EventInvitation) }
         end
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
 
       context "with more than one user invited" do
@@ -154,7 +154,7 @@ describe MwebEvents::EventsController do
         end
 
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
 
       context "missing users" do
@@ -165,7 +165,7 @@ describe MwebEvents::EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        it { should set_the_flash.to I18n.t('mweb_events.events.send_invitation.blank_users') }
+        it { should set_flash.to I18n.t('mweb_events.events.send_invitation.blank_users') }
       end
 
       context "missing the title" do
@@ -176,7 +176,7 @@ describe MwebEvents::EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        it { should set_the_flash.to I18n.t('mweb_events.events.send_invitation.error_title') }
+        it { should set_flash.to I18n.t('mweb_events.events.send_invitation.error_title') }
       end
 
       context "missing the users" do
@@ -187,7 +187,7 @@ describe MwebEvents::EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        skip { should set_the_flash.to error }
+        skip { should set_flash.to error }
       end
 
       context "missing the message" do
@@ -203,7 +203,7 @@ describe MwebEvents::EventsController do
         end
 
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
     end
 

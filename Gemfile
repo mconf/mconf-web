@@ -134,7 +134,7 @@ group :development, :test do
   gem 'capybara'
   gem "capybara-webkit"
   gem 'launchy'
-  gem 'shoulda-matchers', '~> 2.6.1', :require => false
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'shoulda-kept-assign-to'
   gem 'htmlentities', '~> 4.3.3'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?

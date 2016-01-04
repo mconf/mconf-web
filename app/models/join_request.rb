@@ -32,7 +32,7 @@ class JoinRequest < ActiveRecord::Base
   validates :email, :presence => true, :email => true
 
   # The request can either be an invitation or a request for membership
-  validates :request_type, :presence => true
+  validates :request_type, :presence => true, inclusion: { in: JoinRequest::TYPES.values }
 
   after_initialize :init
 
@@ -40,6 +40,8 @@ class JoinRequest < ActiveRecord::Base
   before_save :set_processed_at
   before_save :add_candidate_to_group
   before_save :set_default_role
+
+  validates :candidate_id, presence: true
 
   validates_uniqueness_of :candidate_id,
                           :scope => [ :group_id, :group_type, :processed_at ]
@@ -78,10 +80,6 @@ class JoinRequest < ActiveRecord::Base
     @processed.present?
   end
 
-  def role
-    Role.find_by_id(self.role_id).name
-  end
-
   def space?
     group_type == 'Space'
   end
@@ -98,7 +96,7 @@ class JoinRequest < ActiveRecord::Base
   end
 
   def add_candidate_to_group
-    group.add_member!(candidate, role) if accepted?
+    group.add_member!(candidate, role.name) if accepted?
   end
 
   def set_default_role

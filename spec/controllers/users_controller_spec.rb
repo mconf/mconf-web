@@ -385,7 +385,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -420,7 +420,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -439,7 +439,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -459,7 +459,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { should set_the_flash.to(I18n.t('user.updated')) }
+          it { should set_flash.to(I18n.t('user.updated')) }
           it { response.should redirect_to edit_user_path(@user) }
           it { @user.encrypted_password.should == @old_encrypted }
         end
@@ -575,7 +575,7 @@ describe UsersController do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
       before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
+      it { should set_flash.to(I18n.t('user.disabled', username: user.username)) }
       it { should redirect_to(manage_users_path) }
       it("disables the user") { user.reload.disabled.should be(true) }
     end
@@ -584,7 +584,7 @@ describe UsersController do
       before(:each) { sign_in(user) }
       before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
+      it { should set_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
       it("disables the user") { user.reload.disabled.should be(true) }
     end
@@ -629,14 +629,14 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user, disabled: false) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.error.enabled', name: user.username)) }
+      it { should set_flash.to(I18n.t('user.error.enabled', name: user.username)) }
     end
 
     context "if the user is disabled" do
       let(:user) { FactoryGirl.create(:user, disabled: true) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.enabled')) }
+      it { should set_flash.to(I18n.t('user.enabled')) }
       it { user.reload.disabled.should be_falsey }
     end
 
@@ -943,7 +943,7 @@ describe UsersController do
         post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.approved', name: user.name)) }
+      it { should set_flash.to(I18n.t('users.approve.approved', name: user.name)) }
       it { should redirect_to('/any') }
       it("approves the user") { user.reload.should be_approved }
       it("confirms the user") { user.reload.should be_confirmed }
@@ -977,7 +977,7 @@ describe UsersController do
         post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
+      it { should set_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
       it { user.should be_approved } # auto approved
       it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
@@ -999,7 +999,7 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
+      it { should set_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
       it { should redirect_to('/any') }
       it("disapproves the user") { user.reload.should_not be_approved }
     end
@@ -1010,7 +1010,7 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
+      it { should set_flash.to(I18n.t('users.disapprove.not_enabled')) }
       it { should redirect_to('/any') }
       it("user is still (auto) approved") { user.reload.should be_approved } # auto approved on registration
     end
@@ -1087,7 +1087,7 @@ describe UsersController do
           }.to change(User, :count).by(1)
         }
 
-        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should set_flash.to(I18n.t('users.create.success')) }
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
@@ -1109,7 +1109,7 @@ describe UsersController do
           }.to change(User, :count).by(1)
         }
 
-        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should set_flash.to(I18n.t('users.create.success')) }
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
@@ -1128,7 +1128,7 @@ describe UsersController do
 
         it {
           msg = assigns(:user).errors.full_messages.join(", ")
-          should set_the_flash.to(I18n.t('users.create.error', errors: msg))
+          should set_flash.to(I18n.t('users.create.error', errors: msg))
         }
         it { should redirect_to manage_users_path }
       end
@@ -1150,7 +1150,7 @@ describe UsersController do
             }.to change(User, :count).by(1)
           }
 
-          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should set_flash.to(I18n.t('users.create.success')) }
           it { should redirect_to manage_users_path }
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }
@@ -1173,7 +1173,7 @@ describe UsersController do
             }.to change(User, :count).by(1)
           }
 
-          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should set_flash.to(I18n.t('users.create.success')) }
           it { should redirect_to manage_users_path }
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }

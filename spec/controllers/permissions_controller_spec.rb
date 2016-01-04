@@ -27,7 +27,7 @@ describe PermissionsController do
         }
 
         it { should redirect_to space_path(space) }
-        it { should set_the_flash.to(I18n.t('permission.update.success')) }
+        it { should set_flash.to(I18n.t('permission.update.success')) }
         it { permission.reload.role.should eq(new_role) }
       end
 
@@ -37,7 +37,7 @@ describe PermissionsController do
         }
 
         it { should redirect_to space_path(space) }
-        it { should set_the_flash.to(I18n.t('permission.update.failure')) }
+        it { should set_flash.to(I18n.t('permission.update.failure')) }
         it { permission.reload.role.should_not eq(new_role) }
       end
 

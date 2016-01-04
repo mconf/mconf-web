@@ -20,7 +20,7 @@ describe ParticipantConfirmationsController do
 
     it { pc.reload.should be_confirmed }
     it { should redirect_to(MwebEvents::Engine.routes.url_helpers.event_path(pc.participant.event)) }
-    it { should set_the_flash.to(I18n.t('participant_confirmation.confirmed', email: pc.email)) }
+    it { should set_flash.to(I18n.t('participant_confirmation.confirmed', email: pc.email)) }
   end
 
 end
