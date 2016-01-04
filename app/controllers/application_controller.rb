@@ -207,12 +207,14 @@ class ApplicationController < ActionController::Base
       superuser: current_user.superuser?,
       can_record: current_user.can_record?
     } unless current_user.nil?
-    if (payload[:controller] == "CustomBigbluebuttonRoomsController") and (payload[:action] == "join")
+    if payload[:controller] == "CustomBigbluebuttonRoomsController" && payload[:action] == "join"
       payload[:room] = {
         meetingid: @room.meetingid,
         name: @room.name,
         member: !current_user.nil?,
-        user: { name: current_user.nil? ? params[:user][:name] : current_user.full_name }
+        user: {
+          name: current_user.try(:full_name) || (params[:user].present? ? params[:user][:name] : nil)
+        }
       } unless @room.nil?
     end
   end
