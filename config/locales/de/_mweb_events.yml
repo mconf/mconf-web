@@ -42,7 +42,7 @@ de:
         closed: Registrierung für diesen Event ist geschlossen
         delete_confirmation: Wollen Sie die Registrierung für diesen Event wirklich widerrufen?
         invite_button: Andere zu diesem Event einladen
-        join_button: Diesem Space beitreten, um sich zu registrieren
+        join_button: Dieser Gruppe beitreten, um sich zu registrieren
         need_sign_in: Sie müssen eingeloggt sein, um sich für dieses Event zu registrieren
         unregister: Meine Registrierung abbrechen
       send_invitation:
@@ -51,7 +51,7 @@ de:
         success: "Einladung erfolgreich versendet an:"
         error_title: "Sie müssen einen Titel für Ihre Einladung angeben, bitte versuchen Sie es erneut."
       title:
-        belongs_space: "Dieser Event gehört zum Space <a href='%{url}'>%{space}</a>"
+        belongs_space: "Dieser Event gehört zur Gruppe <a href='%{url}'>%{space}</a>"
         belongs_user: "Event erstellt durch <a href='%{url}'>%{user}</a>"
         private: "Privater Event"
         public: "Öffentlicher Event"

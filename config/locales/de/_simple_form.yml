@@ -32,7 +32,7 @@ de:
         exception_notifications_prefix: "Wird im Betreff einer Email vorangestellt. Standardmäßig '[ERROR]'."
         external_help: "Fügen Sie die URL für eine externe Seite, die die Hilfe/FAQ Seite hostet, ein. Benutzen Sie die ganze URL inklusive Protkoll, beispielsweise: 'http://server.com'"
         feedback_url: "Die Benutzer werden auf diese URL umgeleitet, wenn sie sich von einer Webkonferenz ausloggen. Wenn Sie hier nichts setzen, werden sie auf %{default_url}' umgeleitet."
-        forbid_user_space_creation: "Nur Administratoren werden Spaces erstellen können"
+        forbid_user_space_creation: "Nur Administratoren werden Gruppen erstellen können"
         ldap_filter: "Ein eigener LDAP-Filter, um die Benutzer, die sich einloggen können, einzuschränken. Beispiel: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "Die IP oder Domäne des LDAP-Servers. Beispiel: \"192.111.22.33\" oder \"ldapserver.any.com\"."
         ldap_port: "Der Port, der für die Verbindung mit dem LDAP-Server genutzt wird. (Für LDAPS benutzen Sie 636)"
@@ -47,7 +47,7 @@ de:
         presence_domain: "Domäne für den XMPP Server"
         registration_enabled: "Wenn markiert, können Benutzer neue Accounts anlegen. Anderfalls können Benutzer die Website nur besuchen, wenn Sie schon einen Account haben. Allerdings können auch bei deaktivierter Option neue Accounts über sekundäre Anmeldemethoden wie Shibboleth und LDAP angelegt werden."
         require_registration_approval: "Wenn markiert, können Benutzer nur dann auf die Seite, wenn ein Administrator ihren Account genehmigt hat. Andernfalls können Benutzer die Website sofort nach der Registrierung nutzen. Beachten Sie, dass bei offenen Anfragen und dem Deaktivieren der Option, diese Benutzer nicht automatisch bestätigt werden!"
-        require_space_approval: "Wenn markiert, müssen Spaces von einem Administrator genehmigt werden bevor andere sie sehen und nutzen können"
+        require_space_approval: "Wenn markiert, müssen Gruppen von einem Administrator genehmigt werden bevor andere sie sehen und nutzen können"
         room_dial_number_pattern: "Schema für die automatische Generierung von Einwahlnummern für Konferenzen. Für Zufallsnummern verwenden Sie ein \"x\". Beispiel: '611x-xxxx' -> '6118-2871'. Wenn ein Schema gesetzt wurde, erhalten neue Räume automatisch eine Nummer. You can also generate a dial number for all existent rooms using the rake task 'mconf:generate_dial_numbers'."
         shib_always_new_account: "Wenn aktiviert, wird Shibboleth gezwungen, immer einen neuen Account anzulegen, wenn ein Benutzer sich zum ersten Mal anmeldet und die Verknüpfungsseite überspringen."
         shib_email_field: "Benötigt. Wenn sich ein Benutzer an einem Shibboleth Service Provider anmeldet, wird dieses Feld genutzt um die Email-Adresse des Benutzers zu erhalten. Beispiel: Shib-inetOrgPerson-mail"
@@ -68,11 +68,11 @@ de:
           auto_start_video: "Markieren Sie diese Option, um automatisch die Kamera des Benutzers beim Betreten des Raums zu starten"
           moderator_key: "Ein Schlüssel für die Benutzer um der Session als Moderatoren beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
           presenter_share_only: "Wenn diese Option gesetzt ist, ist nur der Präsentator berechtigt, seine Kamera und sein Mikrofon zu teilen. Das ist geeignet für one-to-many Konferenzen."
-          private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Mitglieder können eine Konferenz in einem Raum eines Spaces beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
+          private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Mitglieder können eine Konferenz in einem Raum einer Gruppe beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
           welcome_msg: "Diese Nachricht wird im Chat gezeigt wenn ein Benutzer an der Konferenz teilnimmt. Wenn Sie nichts eingeben, wird die Standardmitteilung angezeigt. Sie können meetingspezifische Informationen mit den Variablen %%CONFNAME%%, %%DIALNUM%% und %%CONFNUM%% angeben."
-        permalink: "Dieses Attribut wird verwendet, um Ihren Space in URLs, inklusive der URL des Konferenzraums, zu identifizieren. Erlaubt sind Kleinbuchstaben, Nummern und Bindestriche."
-        public: "Spaces können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten des Spaces sehen können"
-        repository: "Die Dokumentenablage ist ein Ort, an dem Benutzer eines Spaces Dokumente jeder Art hochladen und teilen können"
+        permalink: "Dieses Attribut wird verwendet, um Ihre Gruppe in URLs, inklusive der URL des Konferenzraums, zu identifizieren. Erlaubt sind Kleinbuchstaben, Nummern und Bindestriche."
+        public: "Gruppen können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten der Gruppe sehen können"
+        repository: "Die Dokumentenablage ist ein Ort, an dem Benutzer einer Gruppe Dokumente jeder Art hochladen und teilen können"
       user:
         approved: "Wenn dieses Feld markiert ist, kann der Benutzer die Website nutzen, andernfalls ist sein Login blockiert. Dieses Feld wird nur genutzt, wenn die Seite eine Registrierungsbestätigung erfordert."
         bigbluebutton_room:
@@ -83,7 +83,7 @@ de:
           presenter_share_only: "Wenn diese Option gesetzt ist, ist nur der Präsentator berechtigt, seine Kamera und sein Mikrofon zu teilen. Das ist geeignet für one-to-many Konferenzen."
           private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Sie können eine Konferenz in Ihrem Raum beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
           welcome_msg: "Diese Nachricht wird im Chat gezeigt wenn ein Benutzer an der Konferenz teilnimmt. Wenn Sie nichts eingeben, wird die Standardmitteilung angezeigt. Sie können meetingspezifische Informationen mit den Variablen %%CONFNAME%%, %%DIALNUM%% und %%CONFNUM%% angeben."
-        can_record: "Markieren Sie diese Option, um einem Benutzer zu erlauben, Meetings in seinem persönlichen Raum oder in Räumen, zu deren Space er gehört, aufzuzeichnen."
+        can_record: "Markieren Sie diese Option, um einem Benutzer zu erlauben, Meetings in seinem persönlichen Raum oder in Räumen seiner Gruppe aufzuzeichnen."
         dial_number: "Eine Einwahlnummer, mit der Teilnehmer mit einem normalen Telefon teilnehmen können"
         superuser: "Markieren Sie diese Option, um diesen Benutzer zu einem globalen Administrator der Website zu machen"
         timezone: "Die gewählte Zeitzone wird für alle Zeitangaben auf der Website benutzt werden. Zeitzonen mit einem Asterisk (*) sind derzeit in der Sommerzeit."
@@ -99,7 +99,7 @@ de:
         invite:
           comment: "Schreiben Sie eine Nachricht, die an eingeladene(n) Benutzer versendet wird"
         new:
-          comment: "Schreiben Sie eine Nachricht an die Administratoren des Spaces"
+          comment: "Schreiben Sie eine Nachricht an die Administratoren der Gruppe"
       post:
         text: "Inhalt der Nachricht"
         title: "Titel der Nachricht"

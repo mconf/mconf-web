@@ -1,50 +1,50 @@
 de:
   activities:
     attachment:
-      create_html: hat den Anhang %{name} in den Space hochgeladen
-      destroy_html: hat den Anhang %{name} vom Space gelöscht
-      update_html: hat den Anhang %{name} im Space aktualisiert
+      create_html: hat den Anhang %{name} in die Gruppe hochgeladen
+      destroy_html: hat den Anhang %{name} von der Gruppe gelöscht
+      update_html: hat den Anhang %{name} in der Gruppe aktualisiert
       deleted: das mittlerweile gelöscht ist
     bigbluebutton_meeting:
       deleted_html: "Ein Meeting hat stattgefunden aber seine Informationen sind mittlerweile gelöscht"
       user:
         create_html: "Ein Meeting wurde im Raum von Benutzer %{owner} um %{time} gestartet"
       space:
-        create_html: "Ein Meeting wurde im Space %{owner} um %{time} gestartet"
+        create_html: "Ein Meeting wurde in der Gruppe %{owner} um %{time} gestartet"
     join_request:
       deleted: das mittlerweile gelöscht ist
-      invite_html: "wurde eingeladen um dem Space beizutreten"
-      invite_with_introducer_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> eingeladen, dem Space beizutreten"
-      no_accept_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> dem Space hinzugefügt"
-      request_html: "hat beantragt, bem Space beitreten zu dürfen"
+      invite_html: "wurde eingeladen um der Gruppe beizutreten"
+      invite_with_introducer_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> eingeladen, der Gruppe beizutreten"
+      no_accept_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> der Gruppe hinzugefügt"
+      request_html: "hat beantragt, der Gruppe beitreten zu dürfen"
     mweb_events_event:
-      create_html: erstellte das Event %{name} im Space
-      attend_html: wird an %{name} im Space teilnehmen
-      not_attend_html: wird nicht an %{name} im Space teilnehmen
-      update_html: hat die Informationen zu %{name} im Space aktualisiert
+      create_html: erstellte das Event %{name} in der Gruppe
+      attend_html: wird an %{name} der Gruppe teilnehmen
+      not_attend_html: wird nicht an %{name} in der Gruppe teilnehmen
+      update_html: hat die Informationen zu %{name} in der Gruppe aktualisiert
       deleted: das mittlerweile gelöscht ist
     mweb_events_participant:
-      create_html: wird an %{name} im Space teilnehmen
+      create_html: wird an %{name} in der Gruppe teilnehmen
     news:
-      create_html: hat die Neuigkeit %{name} im Space veröffentlicht
-      update_html: hat die Neuigkeit %{name} im Space aktualisiert
+      create_html: hat die Neuigkeit %{name} in der Gruppe veröffentlicht
+      update_html: hat die Neuigkeit %{name} in der Gruppe aktualisiert
       deleted: die mittlerweile gelöscht wurden
     other:
       admin_html: "Ein Administrator"
       someone_html: "Jemand"
     post:
-      create_html: hat %{name} im Space gepostet
-      update_html: hat %{name} im Space aktualsiert
-      reply_html: hat auf %{name} im Space geantwortet
+      create_html: hat %{name} in der Gruppe gepostet
+      update_html: hat %{name}  in der Gruppe aktualsiert
+      reply_html: hat auf %{name} in der Gruppe geantwortet
       deleted: eine Nachricht, die mittlerweile gelöscht wurde
     space:
-      accept_html: ist dem Space beigetreten
-      approved_html: hat den Space freigeschalten
-      create_html: hat einen neuen Space erstellt
+      accept_html: ist der Gruppe beigetreten
+      approved_html: hat die Gruppe freigeschalten
+      create_html: hat eine neue Gruppe erstellt
       decline_html: wurde die Einladung / Anfrage verweigert
-      deleted: ein Space der inzwischen gelöscht wurde
-      leave_html: hat den Space verlassen
-      update_html: hat die Information zum Space aktualisiert
+      deleted: eine Gruppe , die inzwischen gelöscht wurde
+      leave_html: hat die Gruppe verlassen
+      update_html: hat die Information zur Gruppe aktualisiert
   _js:
     confirmation_dialog:
       cancel: "Abbrechen"
@@ -86,7 +86,7 @@ de:
     send: "Senden"
     not_approved:
       text: 'Wartet auf Bestätigung'
-      tooltip: 'Wartet auf Bestätigung, Benutzer sind noch nicht in der Lage, diesen Space zu sehen oder zu betreten.'
+      tooltip: 'Wartet auf Bestätigung, Benutzer sind noch nicht in der Lage, diese Gruppe zu sehen oder zu betreten.'
     spam:
       title: "Spam"
       tooltip: "Dieses Item als Spam melden"
@@ -164,7 +164,7 @@ de:
         exception_notifications_prefix: "Präfix für Betreff bei Fehlerbenachrichtigungen"
         external_help: "Externe Hilfe / FAQ Seite"
         feedback_url: "Feedback URL"
-        forbid_user_space_creation: "Benutzern verbieten, Spaces anzulegen"
+        forbid_user_space_creation: "Benutzern verbieten, Gruppen anzulegen"
         ldap_enabled: "LDAP: Authentifizierung aktivieren"
         ldap_filter: "LDAP: Filter für Benutzersuche"
         ldap_host: "LDAP: Server IP oder Domäne"
@@ -182,7 +182,7 @@ de:
         presence_domain: "XMPP Chat Domain"
         registration_enabled: "Benutzern erlauben, neue Accounts zu erstellen"
         require_registration_approval: "Benutzer moderieren"
-        require_space_approval: "Spaces moderieren"
+        require_space_approval: "Gruppes moderieren"
         room_dial_number_pattern: 'Raumdurchwahlnummern-Pattern'
         signature: "Signatur"
         shib_always_new_account: "Shibboleth: Always create new account"
@@ -193,15 +193,15 @@ de:
         shib_name_field: "Shibboleth: Field for name"
         shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
         shib_update_users: "Shibboleth: Update user information"
-        smtp_auth_type: "STMP authentication type"
+        smtp_auth_type: "SMTP Authentifizierungs Typ"
         smtp_auto_tls: "Auto STARTTLS"
-        smtp_domain: "STMP Domäne"
+        smtp_domain: "SMTP-Domäne"
         smtp_login: "SMTP login"
         smtp_password: "SMTP password"
         smtp_port: "SMTP port"
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
-        smtp_use_tls: "TLS in STMP benutzen"
+        smtp_use_tls: "TLS in SMTP verwenden"
         ssl: "SSL"
         timezone: "Zeitzone"
         visible_locales: "Sichtbare Sprachen"
@@ -241,7 +241,7 @@ de:
       event: "Event"
       join_request: "Betrittsanfrage"
       news: "News"
-      space: "Space"
+      space: "Gruppe"
   address: Adresse
   admin:
     one: Admin
@@ -272,7 +272,7 @@ de:
     file: "Datei:"
     filename: "%{size} Dateien von %{name}.zip"
     home:
-      one: "Dateien im Space %{space}"
+      one: "Dateien in der Gruppe %{space}"
     info: "Dokumenteninformationen"
     more:
       one: "und ein weiterer Anhang"
@@ -281,7 +281,7 @@ de:
     not_selected: "Kein Dokument ausgewählt"
     one: Anhang
     other: Anhänge
-    repository_disabled: "Die Dokumentenablage dieses Spaces ist nicht aktiviert."
+    repository_disabled: "Die Dokumentenablage dieser Gruppe ist nicht aktiviert."
     selected:
       none: "Keine Dateien ausgewählt"
       one: "Datei ausgewählt"
@@ -660,15 +660,15 @@ de:
       attachment: "<b>%{author_name}</b> hat einen neuen Anhang in <b>%{space_name}</b> hochgeladen:"
       event: "<b>%{author_name}</b> hat einen neuen Event in <b>%{space_name}</b> erstellt:"
       inbox: "<b>%{sender_name}</b> hat Ihnen eine Nachricht geschickt:"
-      message: "Letzte Aktivitäten in Ihren Spaces:"
+      message: "Letzte Aktivitäten in Ihren Gruppen:"
       news: "Eine Neuigkeit wurde in  <b>%{space_name}</b> veröffentlicht:"
       posted: "<b>%{author_name}</b> hat in <b>%{space_name}</b> gepostet:"
-      title: "%{type} Übersicht mit den Aktivitäten in Ihren Spaces"
+      title: "%{type} Übersicht mit den Aktivitäten in Ihren Gruppen"
       type:
         daily: täglich
         weekly: wöchentlich
     invitation_result:
-      admin_side: "%{name} hat die Einladung für den Space %{spacename} %{action} "
+      admin_side: "%{name} hat die Einladung für die Gruppe %{spacename} %{action} "
       user_side: "Der Administrator von %{spacename} hat Ihren Beitrittswunsch %{action} "
     kind_regards: "Mit freundlichen Grüßen,"
     notifications: "Email-Benachrichtigungen"
@@ -741,8 +741,8 @@ de:
     activity: "Letzte Aktivitäten"
     invite_url: "Einladungs-URL"
     my: "Home"
-    my_spaces: "Meine Spaces"
-    no_spaces: "Sie sind noch nicht Mitglied eines Spaces. <a href=\"%{link}\">Hier</a> können Sie sehen, welche Spaces verfügbar sind."
+    my_spaces: "Meine Gruppen"
+    no_spaces: "Sie sind noch nicht Mitglied einer Gruppe. <a href=\"%{link}\">Hier</a> können Sie sehen, welche Gruppen verfügbar sind."
     one: Home
     view_invite_url: "Einladungs-URL anzeigen"
   icons:
@@ -757,9 +757,9 @@ de:
       other: "Sie haben %{count} ungelesene Nachrichten!"
   information:
     expand: "Liste erweitern..."
-    information1: "Sie sind Mitglied in diesen Spaces"
+    information1: "Sie sind Mitglied in diesen Gruppen"
     information3: "Hier sehen Sie die letzten Nachrichten oder Events, die Sie erstellt haben"
-    information5: "Hier sehen Sie die anstehenden Events in anderen Spaces"
+    information5: "Hier sehen Sie die anstehenden Events in anderen Gruppen"
     reduce: "Liste reduzieren..."
   internet:
     on_the: "Im Internet"
@@ -770,10 +770,10 @@ de:
     deselect_all_users: "Keinen Benutzer auswählen"
     discard: "Einladung verwerfen"
     email: Email
-    full_message: "<b>%{username} lädt Sie zu %{space} ein.</b><br/><br/>%{comment}<br/><br/> Um meine Einladung anzunehmen, bitte hier klicken: <a href=\"%{url}\">%{url}</a><br/> Mehr über diesen Space herausfinden: <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Mit freundlichen Grüßen,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Wenn Sie denken, dass diese Meldung Spam darstellt, bitte <a href=\"mailto:%{contact}\"> kontaktieren Sie uns </a> oder geben uns <a href=\"%{feedback}\"> Feedback.</a>"
+    full_message: "<b>%{username} lädt Sie zu %{space} ein.</b><br/><br/>%{comment}<br/><br/> Um meine Einladung anzunehmen, bitte hier klicken: <a href=\"%{url}\">%{url}</a><br/> Mehr über diese Gruppe herausfinden: <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Mit freundlichen Grüßen,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Wenn Sie denken, dass diese Meldung Spam darstellt, bitte <a href=\"mailto:%{contact}\"> kontaktieren Sie uns </a> oder geben uns <a href=\"%{feedback}\"> Feedback.</a>"
     hide_all_users: "Alle Benutzer verbergen"
-    info_space: "Hier können Sie mehr über diesen Space herausfinden: <a href=\"%{space_url}\"> %{space_url} </a>"
-    info_users: "Alle Benutzer des Spaces ansehen: <a href=\"%{users_url}\"> %{users_url} </a>"
+    info_space: "Hier können Sie mehr über diese\tGruppe herausfinden: <a href=\"%{space_url}\"> %{space_url} </a>"
+    info_users: "Alle Benutzer des Gruppes ansehen: <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Einführung
     label: "Passen Sie hier Ihre Einladungsnachricht an"
     legend:
@@ -781,24 +781,24 @@ de:
       name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt."
     logout_and_reload: "Sie sind nicht der Benutzer, der die Einladung erhalten hatte. Bitte melden Sie sich ab und versuchen Sie es erneut."
     message_with_start_date:
-      in_person: "<p>Ich möchte Sie zu <b>'event_name' im Space %{space}</b> am/um 'event_date' einladen.</p><p>Um der Einldung zu folgen, besuchen Sie bitte %{url} </p><p>Sie können mehr über das Event unter <a href=\"event_url\">event_url</a> herausfinden</p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      in_person: "<p>Ich möchte Sie zu <b>'event_name' in der Gruppe %{space}</b> am/um 'event_date' einladen.</p><p>Um der Einldung zu folgen, besuchen Sie bitte %{url} </p><p>Sie können mehr über das Event unter <a href=\"event_url\">event_url</a> herausfinden</p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     message_without_start_date:
-      in_person: "<p>Ich möchte Sie zu <b>event 'event_name' im Space %{space}</b>einladen.</p><p>Um der Einladung zu folgen, besuchen Sie bitte: %{url} </p><p>Hier können Sie mehr über das Event herausfinden: <a href=\"event_url\">event_url</a></p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      in_person: "<p>Ich möchte Sie zu <b>event 'event_name' in der Gruppe %{space}</b>einladen.</p><p>Um der Einladung zu folgen, besuchen Sie bitte: %{url} </p><p>Hier können Sie mehr über das Event herausfinden: <a href=\"event_url\">event_url</a></p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     not_accepted: "nicht angenommen"
     not_pending:
       other: "Keine offenen Einladungen"
     pending:
       other: "Offene Einladungen"
-    rejoin_space: "Wenn Sie erneut die Mitgliedschaft in diesem Space anfordern möchten, gehen Sie bitte zu <a href=\"%{space_url}\"> %{space_url} </a>"
+    rejoin_space: "Wenn Sie erneut die Mitgliedschaft in dieser Gruppe anfordern möchten, gehen Sie bitte zu <a href=\"%{space_url}\"> %{space_url} </a>"
     select_all_users: "Alle Benutzer auswählen"
     show_all_users: "Alle Benutzer anzeigen"
     tab:
       title1: "Unregistrierte Benutzer"
       title2: "Registrierte Benutzer"
     title: "Leute einladen"
-    title2: "Space-Einladung"
+    title2: "Gruppen-Einladung"
     to_accept_space: "Um meiner Einladung zu folgen, besuchen Sie bitte 'URL'"
-    to_event: "%{username} hat Sie zum Event %{eventname} im Space %{space} eingeladen"
+    to_event: "%{username} hat Sie zum Event %{eventname} in der Gruppe %{space} eingeladen"
     will_invite: "Sie werden diese Leute einladen"
     yes_accepted: akzeptiert
   invite:
@@ -815,13 +815,13 @@ de:
     create:
       already_invited: "Die folgenden Benutzer haben bereits eine unbeantwortete Einladung: %{users}"
       already_a_member: "%{name} ist schon ein Mitglied"
-      created: "Ihre Anfrage wurde an die Administratoren des Spaces gesendet"
-      duplicated: "Sie haben bereits eine offene Zutrittsanfrage für diesen Space"
+      created: "Ihre Anfrage wurde an die Administratoren der Gruppe gesendet"
+      duplicated: "Sie haben bereits eine offene Zutrittsanfrage für diese Gruppe"
       error: "Etwas ist beim Verarbeiten Ihrer Anfrage schief gegangen, bitte versuchen Sie es erneut. (details: %{errors})"
       sent: "Ihre Einladung wurde erfolgreich versendet an: %{users}"
       user_not_found: "Benutzer nicht gefunden: %{id}"
-      users_added: "Sie haben erfolgreich die (den) Benutzer %{users} zu diesem Space hinzugefügt"
-      you_are_already_a_member: "Sie sind bereits Mitglied in diesem Space"
+      users_added: "Sie haben erfolgreich die (den) Benutzer %{users} zu dieser Gruppe hinzugefügt"
+      you_are_already_a_member: "Sie sind bereits Mitglied in dieser Gruppe"
     decline:
       declined: "Anfrage abgelehnt"
       invitation_destroyed: "Einladung erfolgreich zurückgezogen"
@@ -843,41 +843,41 @@ de:
     invite:
       candidates: "Einzuladende Benutzer suchen"
       role_label: "Rolle für die eingeladenen Benutzer"
-      title: "Leute zu diesem Space einladen"
+      title: "Leute zu dieser Gruppe einladen"
       type_add: "Benutzer direkt hinzufügen"
-      type_add_tooltip: "Die Benutzer werden dem Space ungefragt hinzugefügt. Eine Benachrichtigung über das Hinzufügen wird den Benutzern gesendet."
+      type_add_tooltip: "Die Benutzer werden der Gruppe ungefragt hinzugefügt. Eine Benachrichtigung über das Hinzufügen wird den Benutzern gesendet."
       type_invite: "Einladung"
       users:
         hint: "Tippen sie, um mit der Suche zu beginnen"
         no_results: "Keine Ergebnisse gefunden"
         searching: "Suche..."
     new:
-      already_invited: "Sie haben bereits eine Einladung, um diesem Space beizutreten. Gehen Sie auf die Homepage des Spaces, um die Einladung zu sehen."
-      already_requested: "Sie haben für diesen Space bereits angefragt. Bitte warten Sie auf die Bestätigung durch einen Administrator."
-      message_title: "Senden Sie eine Zutrittsanfrage an die Administatoren des Spaces"
+      already_invited: "Sie haben bereits eine Einladung, um dieser Gruppe beizutreten. Gehen Sie auf die Homepage der Gruppe, um die Einladung zu sehen."
+      already_requested: "Sie haben für diese Gruppe bereits angefragt. Bitte warten Sie auf die Bestätigung durch einen Administrator."
+      message_title: "Senden Sie eine Zutrittsanfrage an die Administatoren der Gruppe"
     request:
       decline_confirmation: "Sind Sie sicher, dass sie diese Anfrage ablehnen woillen?"
     show:
       accept: "Annehmen"
-      already_accepted: "... aber Sie sind bereits ein Mitglied in diesem Space"
+      already_accepted: "... aber Sie sind bereits ein Mitglied in dieser Gruppe"
       cancel_invite: "Einladung abbrechen"
       cancel_invite_confirmation: "Sind Sie sicher, dass Sie die Einladung abbrechen möcchten?"
       cancel_request: "Anfrage abbrechen"
-      cancel_request_confirmation: "Sind Sie sicher, dass Sie Anfrage, diesem Space beizutreten, abbrechen möchten?"
+      cancel_request_confirmation: "Sind Sie sicher, dass Sie Anfrage, dieser Gruppe beizutreten, abbrechen möchten?"
       decline: "Ablehnen"
-      decline_invite_confirmation: "Sind Sie sicher, dass Sie die Einladung zum Beitritt zu diesem Space ablehnen möchten?"
-      decline_request_confirmation: "Sind Sie sicher, dass Sie die Anfrage, diesem Space beizutreten ablehnen möchten?"
+      decline_invite_confirmation: "Sind Sie sicher, dass Sie die Einladung zum Beitritt zu dieser Gruppe ablehnen möchten?"
+      decline_request_confirmation: "Sind Sie sicher, dass Sie die Anfrage, dieser Gruppe beizutreten ablehnen möchten?"
       is_candidate:
         comment_invitation: "Dies ist der Kommentar von %{name}:"
-        comment_request: "Diese Anfrage wurde bereits an die Admins dieses Spaces gesendet. Bitte warten Sie auf eine Antwort. Diesen Kommentar haben Sie geschrieben:"
+        comment_request: "Diese Anfrage wurde bereits an die Admins dieser Gruppe gesendet. Bitte warten Sie auf eine Antwort. Diesen Kommentar haben Sie geschrieben:"
         title_invitation: "Sie wurden am %{date} von \"%{introducer}\" dazu eingeladen, bei \"%{space}\" dabei zu sein"
-        title_request: "Sie haben am %{date} angefragt, den Space \"%{space}\" zu betreten."
+        title_request: "Sie haben am %{date} angefragt, die Gruppe \"%{space}\" zu betreten."
       is_introducer:
         comment_invitation: "Dies ist der von Ihnen verfasste Kommentar:"
         title_invitation: "Sie haben \"%{candidate}\" am %{date} eingeladen, \"%{space}\" beizutreten"
       is_other:
         comment_request: "Dies ist der Kommentar von %{name}:"
-        title_invitation: "\"%{introducer}\" hat\"%{candidate}\" am %{date} eingeladen, dem Space \"%{space}\" beizutreten"
+        title_invitation: "\"%{introducer}\" hat\"%{candidate}\" am %{date} eingeladen, der Gruppe \"%{space}\" beizutreten"
         title_request: "\"%{candidate}\" hat am %{date} angefragt, \"%{space}\" beizutreten"
   keywords: "Keywords (*)"
   language: Sprache
@@ -916,22 +916,22 @@ de:
       translate:
         change: "Sprache ändern"
     spaces_page_title:
-      is_member: "Sie sind Mitglied in diesem Space"
+      is_member: "Sie sind Mitglied in dieser Gruppe"
       manage_to_approve: "verwalten"
-      private: "Privater Space"
-      public: "Öffentliicher Space"
+      private: "Private Gruppe"
+      public: "Öffentliche Gruppe"
   less: "weniger..."
   locales:
     de: Deutsch
-    en: English
-    es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+    en: Englisch
+    es-419: "Spanisch (Lateinamerika)"
+    pt-br: "Portugiesisch (Brasilien)"
     error: "Sprachumgebung"
   login_or_register: "Login / Registrieren"
   login_request: "Sie müssen dazu eingeloggt sein"
   logo:
     created: "Logo erfolgreich hochgeladen"
-    crop: "Space Logo zuschneiden"
+    crop: "Gruppenlogo zuschneiden"
     empty: "Logo ist leer"
     error: "Fehler beim Hochladen des Logos"
     no_image: "Kein Bild ausgewählt"
@@ -944,19 +944,19 @@ de:
   logout: Abmelden
   manage:
     disabled_space:
-      enable: "Space aktivieren"
-      enable_confirm: "Wollen Sie diesen Space wirklich aktivieren?"
+      enable: "Gruppe aktivieren"
+      enable_confirm: "Wollen Sie diesen Gruppe wirklich aktivieren?"
     disabled_user:
       enable: "Benutzer aktivieren"
       enable_confirm: "Wollen Sie diesen Benutzer wirklich aktivieren?"
     enabled_space:
-      approve: "Genehmigen: Freischalten des Zugangs zu diesem Space"
-      approve_confirm: "Wollen Sie den Zugang zu diesem Space wirklich freischalten?"
-      disable: "Space deaktivieren"
-      disable_confirm: "Wollen Sie diesen Space wirklich deaktivieren?"
-      disapprove: "Ablehnen: Zugang zu diesem Space blockieren"
-      disapprove_confirm: "Wollen Sie den Zugang zu diesem Space wirklich blockieren?"
-      edit: "Space bearbeiten"
+      approve: "Genehmigen: Freischalten des Zugangs zu dieser Gruppe"
+      approve_confirm: "Wollen Sie den Zugang zu dieser Gruppe wirklich freischalten?"
+      disable: "Gruppe deaktivieren"
+      disable_confirm: "Wollen Sie dieser Gruppe wirklich deaktivieren?"
+      disapprove: "Ablehnen: Zugang zu dieser Gruppe blockieren"
+      disapprove_confirm: "Wollen Sie den Zugang zu dieser Gruppe wirklich blockieren?"
+      edit: "Gruppe bearbeiten"
     enabled_user:
       approve: "Genehmigen: Diesem Benutzer Zugang zur Website gewähren"
       approve_confirm: "Wollen Sie diesem Benutzer wirklich Zutritt zur Website gewähren?"
@@ -969,24 +969,24 @@ de:
       edit: "Benutzer bearbeiten"
     menu:
       general: "Allgemein"
-      spaces: "Spaces"
+      spaces: "Gruppen"
       spam: "Spam"
       title: "Seitenverwaltung"
       users: "Benutzer"
       webconf: "Webkonferenz"
     spaces:
-      filter_name: "Spaces nach Namen filtern"
-      new_space: "Space erstellen"
+      filter_name: "Gruppen nach Namen filtern"
+      new_space: "Gruppe erstellen"
     destroy_space:
-      destroy: Space löschen
-      destroy_confirm: Wollen Sie diesen Space und allen damit verbundenen Inhalt löschen? Im Gegensatz zum Deaktivieren des Spaces ist dieser Vorgang nicht umkehrbar!
+      destroy: Gruppe löschen
+      destroy_confirm: Wollen Sie diesen Gruppe und allen damit verbundenen Inhalt löschen? Im Gegensatz zum Deaktivieren der Gruppe ist dieser Vorgang nicht umkehrbar!
     destroy_user:
       destroy: Benutzer löschen
       destroy_confirm: Wollen Sie diesen Benutzer und allen damit verbundenen Inhalt löschen? Im Gegensatz zum Deaktivieren des Benutzers ist dieser Vorgang nicht umkehrbar!
     spaces_list:
-      filter_count_with_text: "%{count} Spaces mit dem Filter\"%{value}\" gefunden"
-      filter_count_empty: "%{count} Spaces gefunden"
-      no_space_found: "Kein Space gefunden"
+      filter_count_with_text: "%{count} Gruppen mit dem Filter\"%{value}\" gefunden"
+      filter_count_empty: "%{count} Gruppen gefunden"
+      no_space_found: "Keine Gruppe gefunden"
     spam:
       event:
         delete_confirmation: "Diesen Event permanent entfernen?"
@@ -1025,7 +1025,7 @@ de:
     incoming:
       other: "Eingehende Nachrichten"
     private:
-      cant: "Sie können keine Privatnachrichten verschicken, weil Sie keine Partner in einem Space haben"
+      cant: "Sie können keine Privatnachrichten verschicken, weil Sie keine Partner in einer Gruppe haben"
       editing: "Privatnachricht bearbeiten"
       new: "neue Privatnachricht"
       none: "Keine Nachrichten vorhanden"
@@ -1045,11 +1045,11 @@ de:
       description: Sie haben sich erfolgreich registriert und Ihr Account wurde einem Administrator zur Genehmigung vorgelegt. Sie werden benachrichtigt, wenn der Account bestätigt wurde.
       interesting_links: "Inzwischen können Sie diese offenen Teile der Website erkunden:"
       events_list: Liste der Events
-      spaces_list: Liste der Spaces
+      spaces_list: Liste der Gruppen
     page_header:
       activity_list: "Aktivitätenliste"
     home:
-      create_space: "Neuen Space erstellen"
+      create_space: "Neue Gruppe erstellen"
       events:
         other: "Andere"
         today: "Heute"
@@ -1057,9 +1057,9 @@ de:
       pending_join_requests:
         one: "%{count} offene Anfrage"
         other: "%{count} offene Anfragen"
-      pending_join_requests_tooltip: "Hier sehen Sie die Einladungen, die Sie für den Beitritt zu Spaces empfangen haben oder die Anfragen, die Sie gestellt haben."
+      pending_join_requests_tooltip: "Hier sehen Sie die Einladungen, die Sie für den Beitritt zu Gruppen empfangen haben oder die Anfragen, die Sie gestellt haben."
       view_all_activity: "Alle Aktivitäten"
-      view_all_spaces: "Alle Spaces"
+      view_all_spaces: "Alle Gruppen"
     edit_recording:
       title: "Aufzeichnung bearbeiten"
     edit_room:
@@ -1100,7 +1100,7 @@ de:
       create: "Es gab ein Problem beim Veröffentlichen der Neuigkeit"
       delete: "Fehler beim Löschen der Neuigkeit"
       update: "Neuigkeit konnte nicht aktualisiert werden"
-    item_in_home: "Neuigkeit im Space"
+    item_in_home: "Neuigkeit in der Gruppe"
     more:
       one: "und eine weitere Neuigkeit..."
       other: "und weitere %{count} Neuigkeiten..."
@@ -1161,7 +1161,7 @@ de:
     deleted: "Kommentar %{postname} wurde gelöscht"
     reply: "In Beantwortung von"
     home:
-      one: "Nachricht im Space %{space}"
+      one: "Nachricht in der Gruppe %{space}"
     latest: "Letzte Nachrichten"
     more:
       one: "und eine weitere Nachricht..."
@@ -1170,7 +1170,7 @@ de:
     none_recent: "Keine aktuellen Nachrichten"
     one: Nachricht
     other: Nachrichten
-    other_in_space: "Nachrichten im Space %{space}"
+    other_in_space: "Nachrichten in der Gruppe %{space}"
     posted: "posted"
     show_expanded_pref: "Wie sollten Ihre Nachrichten angezeigt werden?"
     title: "Nachrichten (%{count})"
@@ -1226,7 +1226,7 @@ de:
       exist: "Ihr Profil besteht bereits"
     header_title: "Benutzerprofil"
     must_create: "Bitte erstellen Sie zuerst Ihr Profil"
-    no_spaces: "%{user} ist in keinem Space Mitglied."
+    no_spaces: "%{user} ist in keiner Gruppe Mitglied."
     one: Profil
     private: "Privates Profil"
     public: "Öffentlches Profil"
@@ -1246,8 +1246,8 @@ de:
       visibility_everybody: "Jeder kann ihr privates Profil sehen."
       visibility_members: "Nur registrierten Mitglieder können Ihr privates Profil sehen."
       visibility_nobody: "Niemand kann Ihr privates Profil sehen."
-      visibility_private_fellows: "Nur Ihre Partner in einem privaten Space können Ihr privates Profil sehen."
-      visibility_public_fellows: "Nur Ihre Partner in einem öffentlichen oder privaten Space können Ihr privates Profil sehen."
+      visibility_private_fellows: "Nur Ihre Partner in einer privaten Gruppe können Ihr privates Profil sehen."
+      visibility_public_fellows: "Nur Ihre Partner in einer öffentlichen oder privaten Gruppe können Ihr privates Profil sehen."
     show:
       vcard:
         export: "vCard exportieren"
@@ -1257,8 +1257,8 @@ de:
   recent:
     activity: "Letzte Aktivitäten"
   recent_activity:
-    empty: "Sie haben noch keine Aktivitäten, die angezeigt werden können. Werden Sie Mitglied in Spaces und nehmen Sie Teil um hier etwas anzuzeigen."
-    tooltip: "Hier sehen Sie die neuesten Nachriten, Events und Neuigkeiten aus den Spaces, in denen Sie Mitglied sind."
+    empty: "Sie haben noch keine Aktivitäten, die angezeigt werden können. Werden Sie Mitglied in Gruppen und nehmen Sie Teil um hier etwas anzuzeigen."
+    tooltip: "Hier sehen Sie die neuesten Nachriten, Events und Neuigkeiten aus den Gruppen, in denen Sie Mitglied sind."
   recording:
     automatic: Automatisch
     box_title: Aufzeichnung
@@ -1297,7 +1297,7 @@ de:
     remove: Entfernen
     search: "Dokumentensuche:"
   request:
-    info: "Ihre Mitgliedsanfrage für den Space wurde erfolgreich zu den Space-Admins gesendet. Ein admin wird sich sobald wie möglich darum kümmern."
+    info: "Ihre Mitgliedsanfrage für die Gruppe wurde erfolgreich zu den Gruppen-Admins gesendet. Ein admin wird sich sobald wie möglich darum kümmern."
     sent: "Anfrage gesendet!"
   rnp: RNP
   role:
@@ -1416,56 +1416,56 @@ de:
   skype: Skype
   space:
     about: Über
-    access_forbidden: "Dieser Vorgang ist nur für Mitglieder dieses Spaces verfügbar"
+    access_forbidden: "Dieser Vorgang ist nur für Mitglieder dieser Gruppe verfügbar"
     add_user:
-      other: "Benutzer zum Space hinzufügen"
-    all: "Spaces"
+      other: "Benutzer zur Gruppe hinzufügen"
+    all: "Gruppen"
     allow_public_access: "Öffentlichen Zugang erlauben?"
     attendeePW: "Teilnehmerpasswort ändern"
     clic: "Klicken, um zu bearbeiten..."
     clic_logo: "Klicken Sie, um Ihr Logo zu ändern"
-    configuration: "Space-Einstellungen"
-    confirm: "Wollen Sie diesen Space wirklich verlassen?"
-    created: "Space erfolgreich erstellt"
-    created_waiting_moderation: "Space erfolgreich erstellt! Bitte warten Sie, bis ein Admin den Space genehmigt hat, bevor andere Benutzer beitreten können."
-    delete: "Space löschen"
-    deleted: "Space erfolgreich gelöscht"
-    description: "Space Beschreibung"
-    description_none: "Es muss eine Beschreibung angegeben werden, um den Space zu erstellen"
-    disable: "Space deaktivieren"
-    disabled: "Space erfolgreich deaktiviert"
+    configuration: "Gruppeneinstellungen"
+    confirm: "Wollen Sie diese Gruppe wirklich verlassen?"
+    created: "Gruppe erfolgreich erstellt"
+    created_waiting_moderation: "Gruppe erfolgreich erstellt! Bitte warten Sie, bis ein Admin die Gruppe genehmigt hat, bevor andere Benutzer beitreten können."
+    delete: "Gruppe löschen"
+    deleted: "Gruppe erfolgreich gelöscht"
+    description: "Gruppenbeschreibung"
+    description_none: "Es muss eine Beschreibung angegeben werden, um die Gruppe zu erstellen"
+    disable: "Gruppe deaktivieren"
+    disabled: "Gruppe erfolgreich deaktiviert"
     edit:
       webconference_passwords: "Webkonferenzraumpasswörter"
     edit_description: "Beschreibung bearbeiten"
     edit_name: "Name bearbeiten"
-    enable: "Space aktivieren"
-    enabled: "Space erfolgreich aktiviert"
+    enable: "Gruppe aktivieren"
+    enabled: "Gruppe erfolgreich aktiviert"
     error:
-      enabled: "Space %{name} ist bereits aktiviert"
+      enabled: "Gruppe %{name} ist bereits aktiviert"
     event_count: "%{count} Events"
     index:
       filters:
-        all: "Alle Spaces"
-        my_spaces: "Meine Spaces"
+        all: "Alle Gruppen"
+        my_spaces: "Meine Gruppen"
       order:
         alphabetic: "Name"
         order_by: "Anordnen nach"
         relevance: "Relevanz"
-        relevance_tip: "Zeigt die Space mit der neuesten Aktivität zuerst"
-      select_at_left: "Space in der Liste auswählen, um die Beschreibung hier zu sehen"
+        relevance_tip: "Zeigt die Gruppe mit der neuesten Aktivität zuerst"
+      select_at_left: "Gruppe in der Liste auswählen, um die Beschreibung hier zu sehen"
       user_is_member: "Sie sind ein Mitglied!"
-    is_private: "ist ein privater Space. Senden Sie eine Beitrittsanfrage an den Administrator dieses Spaces."
-    is_private_html: "%{name} ist ein privater Space. Um beizutreten, melden Sie sich an und schicken Sie eine <a href=\"%{path}\">Beitritsanfrage</a> an die Administratoren dieses Spaces."
-    join: "Diesem Space beitreten"
+    is_private: "ist eine private Gruppe. Senden Sie eine Beitrittsanfrage an den Administrator dieser Gruppe."
+    is_private_html: "%{name} ist eine privateGruppe. Um beizutreten, melden Sie sich an und schicken Sie eine <a href=\"%{path}\">Beitritsanfrage</a> an die Administratoren dieser Gruppe."
+    join: "Dieser Gruppe beitreten"
     join_invitation:
-      clarify_registered: "Bitte geben Sie das Passwort ein um diesem Space beizutreten."
-      clarify_unregistered: "Bitte geben Sie Ihren vollständigen Namen und ein Passwort an, um sich bei Mconf zu registrieren und diesen Space zu betreten."
+      clarify_registered: "Bitte geben Sie das Passwort ein um dieser Gruppe beizutreten."
+      clarify_unregistered: "Bitte geben Sie Ihren vollständigen Namen und ein Passwort an, um sich bei Mconf zu registrieren und diese Gruppe zu betreten."
     leave:
-      leave_this_space: "Diesen Space verlassen"
-      success: "Sie haben den Space %{space_name} verlassen"
-    logo: "Space Logo"
+      leave_this_space: "Diese Gruppe verlassen"
+      success: "Sie haben die Gruppe %{space_name} verlassen"
+    logo: "Gruppenlogo"
     logo_selected:
-      default_message: "Space Logo"
+      default_message: "Gruppenlogo"
       enter_text: "Text eingeben, um Logos zu generieren:"
       generate_logo: Generiere
       open_gallery: "Gallerie öffnen"
@@ -1475,12 +1475,12 @@ de:
       upload_text: Hochladen
       use_date: "Eventdatum benutzen"
     member_count: "%{count} MItglieder"
-    member_of: "Mitglieder des Spaces"
+    member_of: "Mitglieder der Gruppe"
     moderatorPW: "Moderatorpasswort ändern"
-    my_spaces: "Meine Spaces"
-    name_none: "Ein Name muss angebeben werden, um einen neuen Space zu erstellen"
-    one: Space
-    other: Spaces
+    my_spaces: "Meine Gruppen"
+    name_none: "Ein Name muss angebeben werden, um einen neue Gruppe zu erstellen"
+    one: Gruppe
+    other: Gruppen
     people_in_conference:
       one: "%{count} Teilnehmer im Raum."
       other: "%{count} Teilnehmer im Raum."
@@ -1488,23 +1488,23 @@ de:
       admin: Administrator
       invited: Eingeladen
       user: Mitglied
-    possesion: "Meine Spaces"
+    possesion: "Meine Gruppen"
     post_count: "%{count} Einträge"
-    private: "Private Spaces"
+    private: "Private Gruppen"
     public:
-      one: "Öffentlicher Space"
-      other: "Öffentliche Spaces"
+      one: "Öffentliche Gruppe"
+      other: "Öffentliche Gruppen"
     remove_user:
-      confirm: "Wollen Sie diesen Benutzer wirklich vom Space entfernen?"
+      confirm: "Wollen Sie diesen Benutzer wirklich von der Gruppe entfernen?"
       remove: "Benutzer entfernen"
-    select: Spaces
-    show: "Spaces anzeigen:"
-    show_all: "Alles Spaces anzeigen"
+    select: Gruppen
+    show: "Gruppen anzeigen:"
+    show_all: "Alles Gruppen anzeigen"
     statistics:
       views: "Aufrufe"
-    subscribed_to_none: "Sie sind in keinem Space Mitlied"
+    subscribed_to_none: "Sie sind in keiner Gruppe Mitlied"
     update_logo: "Logo aktualisieren"
-    updated: "Space erfolgreich aktualisiert"
+    updated: "Gruppe erfolgreich aktualisiert"
   space_events:
     all_events:
       all_upcoming: "Alle zukünftigen Events anzeigen"
@@ -1528,10 +1528,10 @@ de:
       title: "vergangene Events"
       today: "Keine Events gestern oder heute"
     sidebar_events_simple:
-      no_events: "Keine Events in diesem Space bisher"
+      no_events: "Keine Events in dieser Gruppe bisher"
     unified_event:
       ends_at: "Endet um"
-      event_in_the_space: "Event im Space %{space}"
+      event_in_the_space: "Event in der Gruppe %{space}"
       organizers: "Organisatoren"
       starts_at: "Beginnt um"
       where: "Wo"
@@ -1551,38 +1551,38 @@ de:
       webconf_options: "Webkonferenzoptionen"
       add_member: "Mitglieder hinzufügen"
     approve:
-      approved: "Der Space %{name} wurde freigeschalten"
+      approved: "Die Gruppe %{name} wurde freigeschalten"
     disapprove:
-      disapproved: "Der Space %{name} wurde abgelehnt"
-      not_enabled: "Die Moderation von Spaces ist nicht aktiviert"
+      disapproved: "Die Gruppe %{name} wurde abgelehnt"
+      not_enabled: "Die Moderation von Gruppen ist nicht aktiviert"
     edit:
       change_logo: "Bild ändern"
-      delete_confirmation: "Sind Sie sicher? Dieser Space wird für Sie und alle anderen Benutzer nicht zugänglich sein!"
-      delete_space: "Space deaktivieren?"
+      delete_confirmation: "Sind Sie sicher? Diese Gruppe wird für Sie und alle anderen Benutzer nicht zugänglich sein!"
+      delete_space: "Gruppe deaktivieren?"
       other_options: "Andere Optionen"
-      public: "Diesen Space zu einem öffentlichen machen"
-      yes_delete: "Ja, ich will diesen Space deaktivieren"
+      public: "Diese Gruppe zu einer öffentlichen machen"
+      yes_delete: "Ja, ich will diese Gruppe deaktivieren"
     edit_recording:
       title: "Aufzeichnung bearbeiten"
     error:
-      already_invited: "Sie wurden bereits zu diesem Space eingeladen, bitte folgen Sie der Einladung oder lehnen Sie sie ab"
-      creation_forbidden: "Sie sind nicht berechtigt, Spaces zu erstellen"
-      need_join_to_access: "Sie müssen dem Space beitreten, um weiter zu kommen. Senden Sie eine Betrittsanfrage an einen der Administratoren"
-      not_found: "Der Space \"%{permalink}\" wurde nicht gefunden. <br> Möchten sie nach ihm in <a href=\"%{path}\">allen Spaces</a> suchen?"
-      unapproved: "Der Space wurde noch nicht von einem Administrator freigeschalten."
+      already_invited: "Sie wurden bereits zu dieser Gruppe eingeladen, bitte folgen Sie der Einladung oder lehnen Sie sie ab"
+      creation_forbidden: "Sie sind nicht berechtigt, Gruppen zu erstellen"
+      need_join_to_access: "Sie müssen der Gruppe beitreten, um weiter zu kommen. Senden Sie eine Betrittsanfrage an einen der Administratoren"
+      not_found: "Die Gruppe \"%{permalink}\" wurde nicht gefunden. <br> Möchten sie nach ihm in <a href=\"%{path}\">allen Gruppen</a> suchen?"
+      unapproved: "Die Gruppe wurde noch nicht von einem Administrator freigeschalten."
     index:
-      create_new_space: "Neuen Space erstellen"
+      create_new_space: "Neue Gruppe erstellen"
       list_format:
         list: "Liste"
         thumbnails: "Vorschaubilder"
       search:
         by_name:
-          no_matches: "Keine Spaces für \"%{term}\" gefunden"
-          placeholder: "Spaces suchen..."
+          no_matches: "Keine Gruppen für \"%{term}\" gefunden"
+          placeholder: "Gruppen suchen..."
       subtitle: "Suchen Sie nach Benutzergruppen, die die selben Interessen haben"
-      title: "Spaces"
+      title: "Gruppen"
     list_view:
-      no_spaces: "Es wurden noch keine Spaces erstellt!"
+      no_spaces: "Es wurden noch keine Gruppen erstellt!"
     menu:
       admin: "Admin"
       events: "Events"
@@ -1595,11 +1595,11 @@ de:
       private: "Privat"
       public: "Öffentlich"
       spaces_examples:
-        title: "Beispiele für Spaces:"
-      title: "Neuen Space erstellen"
-    news: "Space Neuigkeiten"
+        title: "Beispiele für Gruppen:"
+      title: "Neue Gruppe erstellen"
+    news: "Gruppenneuigkeiten"
     recordings:
-      title: "Aufzeichnungen in diesem Space"
+      title: "Aufzeichnungen in dieser Gruppe"
       update_recordings:
         error: "Fehler beim Aktualisieren Ihrer Aufzeichnungsübersicht, bitte versuchen Sie es später erneut."
         success: "Aufzeichnungsliste aktualisiert!"
@@ -1619,8 +1619,8 @@ de:
       webconference_start: "Beginnen"
     sidebar_notifications:
       pending_join_requests:
-        one: "Dieser Space hat %{count} offene Beitrittsanfrage!"
-        other: "Dieser Space hat %{count} offene Beitrittsanfragen!"
+        one: "Diese Gruppe hat %{count} offene Beitrittsanfrage!"
+        other: "Diese Gruppe hat %{count} offene Beitrittsanfragen!"
     sidebar_webconf_buttons:
       end: "Beenden"
       end_tooltip: "Dieser Vorgang wird die aktuelle Konferenz beenden!"
@@ -1634,31 +1634,31 @@ de:
     space_join_button:
       accept_or_decline: "Bestätigen oder ablehnen"
       already_requested: "Beitrittsanfrage gesendet"
-      already_requested_alert: "Sie haben bereits angefragt, diesem Space beizutreten, bitte warten Sie darauf, dass ein Moderator Sie freischaltet."
+      already_requested_alert: "Sie haben bereits angefragt, dieser Gruppe beizutreten, bitte warten Sie darauf, dass ein Moderator Sie freischaltet."
       cancel_request: "Anfrage abbrechen"
-      invitation_alert: "Sie wurden eingeladen, diesem Space beizutreten, klicken Sie den oben stehenden Button, um der Einladung zu folgen oder Sie abzulehnen."
-      join: "Diesem Space beitreten"
+      invitation_alert: "Sie wurden eingeladen, dieser Gruppe beizutreten, klicken Sie den oben stehenden Button, um der Einladung zu folgen oder Sie abzulehnen."
+      join: "Dieser Gruppe beitreten"
     space_thumbnail:
       private: "Privat"
       public: "Öffentlich"
       reply_invitation: "Einladung beantworten"
       view_join_request: "Ihre Anfrage anzeigen"
     thumbnail_view:
-      no_spaces: "Es wurden noch keine Spaces erstellt!"
+      no_spaces: "Es wurden noch keine Gruppen erstellt!"
     unified_space:
-      private: "Privater Space"
-      public: "Öffentliicher Space"
+      private: "Private Gruppe"
+      public: "Öffentliche Gruppe"
       reply_invitation: "Einladung beantworten"
-      user_is_member: "Sie sind Mitglied in diesem Space"
+      user_is_member: "Sie sind Mitglied in dieser Gruppe"
       view_join_request: "Ihre Anfrage anzeigen"
       with_members: "mit %{count} MItgliedern"
     user_permissions:
-      confirm_leave_space: "Wollen Sie diesen Space wirklich verlassen"
-      confirm_remove_user: "Wollen Sie diesen Benutzer wirklich vom Space entfernen?"
-      leave_space: "Diesen Space verlassen"
-      remove_user: "Benutzer vom Space entfernen"
-      tooltip_last_admin: "Dieser Benutzer ist der letzte Administrator des Spaces, darum kann er den Space nicht verlassen oder die Rolle ändern"
-    users: "Benutzer in diesem Space"
+      confirm_leave_space: "Wollen Sie diese Gruppe wirklich verlassen"
+      confirm_remove_user: "Wollen Sie diesen Benutzer wirklich von der Gruppe entfernen?"
+      leave_space: "Diese Gruppe verlassen"
+      remove_user: "Benutzer von der Gruppe entfernen"
+      tooltip_last_admin: "Dieser Benutzer ist der letzte Administrator der Gruppe, darum kann er die Gruppe nicht verlassen oder die Rolle ändern"
+    users: "Benutzer in dieser Gruppe"
     webconference:
       end: "Meeting stoppen"
       end_tooltip: "Dieser Vorgang wird die aktuelle Konferenz beenden!"
@@ -1671,7 +1671,7 @@ de:
           registered_users: "Registrierte Benutzer"
         description:
           header: "Webkonferenz Zutritt"
-          text: "Der Webkonferenzraum, der zu diesem Space gehört, ist derzeit: <em>%{status}</em> <br/> Benutzen Sie die Buttons der Sidebar rechts um an der Webkonferenz teilzunehmen."
+          text: "Der Webkonferenzraum, der zu dieser Gruppe gehört, ist derzeit: <em>%{status}</em> <br/> Benutzen Sie die Buttons der Sidebar rechts um an der Webkonferenz teilzunehmen."
         share:
           description: "Sie können Leute zu dieser Webkonferenz einladen, indem Sie ihnen diesen Link schicken:"
           header: Teilen
@@ -1708,7 +1708,7 @@ de:
         how_many: "Wie viele?"
         posts: "Nachrichten gesendet"
         private_messages: "Privatnachrichten ausgetauscht"
-        spaces: "Spaces"
+        spaces: "Gruppen"
         users: "Benutzer"
         webconf_rooms: "Verfügbare Webkonferenzräume"
         what: "Was?"
@@ -1753,15 +1753,15 @@ de:
     event_logo: "Sie können Ihr eigenes Logo hochladen, ein Textlogo erstellen oder ein Bild aus der Gallerie auswählen"
     insert: "Benutzen Sie diesen Code, um dieses Video auf Ihrem Blog oder Ihrer Website einzubinden"
     invite_people: "Leute zu dieser Webkonferenz einladen"
-    latest_news: "Dieser Abschnitt zeigt den Teil der Nachrichten, den die Administratoren an alle Leute in diesem Space schicken"
-    leave_space: "Dieser Link wird Ihnen dazu dienen, diesen Space definitiv zu verlassen"
+    latest_news: "Dieser Abschnitt zeigt den Teil der Nachrichten, den die Administratoren an alle Leute in dieser Gruppe schicken"
+    leave_space: "Dieser Link wird Ihnen dazu dienen, diese Gruppe definitiv zu verlassen"
     news_item: "Sie können eine kurze Neuigkeit posten"
     num_views: "Diese Zahl zeigt die eindeutigen Seitenaufrufe für diese Seite"
     private_profile: "Diese Information ist nur für die Leute sichtbar, die Sie beim Bearbeiten Ihres Profils auswählen"
     public_profile: "Diese Information ist für jeden einsehbar"
-    public_space: "Spaces können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten des Spaces sehen können"
+    public_space: "Gruppen können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten der Gruppe sehen können"
     share: "Dies ist die URL, um das Video mit Ihren Kollegen zu teilen"
-    upcoming: "Dieser Abschnitt zeigt die kommenden Events in diesem Space"
+    upcoming: "Dieser Abschnitt zeigt die kommenden Events in dieser Gruppe"
     update_logo: "Sie können Ihr eigenes Logo hochladen, ein Textlogo erstellen oder ein Bild aus der Gallerie auswählen"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
@@ -1779,19 +1779,19 @@ de:
   user:
     add:
       instruction: "Um neue Benutzer hinzuzufügen, geben Sie deren Email-Adressen, getrennt durch \" \", \",\" oder \";\" ein und registrieren Sie sie"
-      note: "Zum Beispiel: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net und ein Klick auf 'als Benutzer registrieren' wird diese 3 Email-Adressen als Mitglieder dieses Spaces registrieren und ihnen eine Bestätigungs-Email senden."
+      note: "Zum Beispiel: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net und ein Klick auf 'als Benutzer registrieren' wird diese 3 Email-Adressen als Mitglieder dieser Gruppen registrieren und ihnen eine Bestätigungs-Email senden."
     admin: Admin
     administrators: Administratoren
     assist: Teilnehmend
     category: Kategorie
     confirm_password: "Passwort bestätigen"
-    delete_from_space: "Benutzer vom Space entfernen"
+    delete_from_space: "Benutzer von der Gruppe entfernen"
     deleted: "Benutzer gelöscht"
     disable: "Benutzer deaktivieren"
     disabled: "Benutzer %{username} deaktiviert"
     email_used_to_create_account: "Geben Sie die Email-Adresse ein, die Sie zum Erstellen Ihres Accounts verwendet haben"
     enable: "Benutzer aktivieren"
-    enabled: "Benutzer erfolgreich aktiviert. Der Benutzer ist derzeit in keinem Space Mitglied und muss diesen erneut beitreten."
+    enabled: "Benutzer erfolgreich aktiviert. Der Benutzer ist derzeit in keiner Gruppe Mitglied und muss diesen erneut beitreten."
     error:
       enabled: "Benutzer%{name} ist bereits aktiviert"
     filter: "Über Benutzernamen einladen"
@@ -1799,7 +1799,7 @@ de:
     include_registered: "eingeladene Benutzer beachten"
     index:
       user_list:
-        header: "Benutzer in diesem Space: %{count}"
+        header: "Benutzer in dieser Gruppe: %{count}"
     invite: "Leute einladen"
     invite_email: "Leute per Email einladen"
     invited: "Benutzer bereits eingeladen"

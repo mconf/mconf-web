@@ -180,15 +180,12 @@ es-419:
         shib_login_field: "Shibboleth: Campo de acceso"
         shib_name_field: "Shibboleth: Campo para nombre"
         shib_principal_name_field: "Shibboleth: Campo para nombre principal (ID único)"
-        smtp_auth_type: "Tipo de autenticacion SMTP "
         smtp_auto_tls: "Inicio automático TLS en SMTP"
-        smtp_domain: "Dominio SMTP"
         smtp_login: "Inicio de sesión SMTP"
         smtp_password: "Contraseña SMTP"
         smtp_port: "Puerto SMTP"
         smtp_sender: "Remitente SMTP"
         smtp_server: "Servidor SMTP"
-        smtp_use_tls: "Usar TLS en SMTP"
         ssl: "SSL"
         timezone: "Zona horaria"
         visible_locales: "Lenguajes visibles"
@@ -895,10 +892,9 @@ es-419:
       public: "Espacio público"
   less: "menos..."
   locales:
-    de: Deutsch
-    en: English
+    en: Ingles
     es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+    pt-br: "Portugués (Brasil)"
     error: "No se registro la localidad"
   login_or_register: "Acceder / Registrarse"
   login_request: "Tienes que estar logueado para"
