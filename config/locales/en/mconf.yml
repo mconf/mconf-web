@@ -226,6 +226,7 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
+        remember_me: "Remember me"
         superuser: "Global administrator"
         timezone: "Timezone"
         username: "Username"
@@ -1289,7 +1290,6 @@ en:
   registrations:
     signup_form:
       register: "Register"
-  remember_me: "Remember me"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"

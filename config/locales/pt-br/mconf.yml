@@ -225,6 +225,7 @@ pt-br:
         expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
+        remember_me: "Permanecer conectado"
         receive_digest: "O quão frequentemente você gostaria de receber emails com um resumo das atividades que aconteceram nas comunidades as quais você pertence?"
         superuser: "Administrador global"
         timezone: "Fuso horário"
@@ -1290,7 +1291,6 @@ pt-br:
   registrations:
     signup_form:
       register: "Registre-se"
-  remember_me: "Lembrar de mim"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
