@@ -187,7 +187,6 @@ en:
         timezone: "Timezone"
         visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
-        webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_key: "Key for attendees"
         description: "Description"
@@ -498,16 +497,6 @@ en:
       title: "Mobile access to \"%{room}\""
       use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
       try_again: "You have the application installed but it wasn't launched? Click here to try again."
-    join_options:
-      alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
-      metadata: 
-        description: "Description for this meeting"
-        title: "Title for this meeting"
-      record:
-        label: "Record meeting"
-        tooltip: "Mark it to set this room to record its meetings. This can't be changed after the meeting is running!"
-      start: "Done, start the meeting!"
-      title: "Meeting options"
     new:
       creating_new_room: "Creating a new room"
     recordings:
@@ -1003,7 +992,6 @@ en:
     webconference_room:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
@@ -1495,7 +1483,6 @@ en:
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"

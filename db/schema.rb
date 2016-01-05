@@ -349,7 +349,6 @@ ActiveRecord::Schema.define(version: 20151215194513) do
     t.string   "shib_login_field"
     t.string   "timezone",                       default: "UTC"
     t.string   "external_help"
-    t.boolean  "webconf_auto_record",            default: false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
     t.integer  "ldap_port"

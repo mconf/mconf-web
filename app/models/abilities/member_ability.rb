@@ -211,7 +211,7 @@ module Abilities
       # Can do the actions below if he's the owner or if he belongs to the space (with any role)
       # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
-      can [:join_options, :create_meeting, :fetch_recordings,
+      can [:create_meeting, :fetch_recordings,
            :invitation, :send_invitation], BigbluebuttonRoom do |room|
         user_is_owner_or_belongs_to_rooms_space(user, room)
       end
