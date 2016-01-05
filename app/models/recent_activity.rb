@@ -40,55 +40,21 @@
 #
 # === List of recent activity types
 # There are several types of activities created by the application. This is a list with all of the
-# types used, indexed by `key`:
+# types used, indexed by `key`.
+# Note: to get the full list of keys, go to a well populated website and run
+# `RecentActivity.pluck(:key).uniq.sort`.
 #
-# * `user.created`:
-#   When a `User` was created (e.g. a user registered was registered by an admin).
-#   Created by: `User`.
+# * `attachment.create`:
+#   When an `Attachment` is created, uploaded to the website.
+#   Created by: `Attachment`.
 #
-# * `shibboleth.user.created`:
-#   When a `User` was created for someone that signed in via Shibboleth.
-#   Created by: `Mconf::Shibboleth`.
-#
-# * `ldap.user.created`:
-#   When a `User` was created for someone that signed in via LDAP.
-#   Created by: `Mconf::LDAP`.
-#
-# * `user.approved`:
-#   When a was approved.
-#   Created by: `User`, in a method that's called from `UsersController`.
+# * `attachment.destroy`:
+#   When an `Attachment` is destroyed, removed from the website.
+#   Created by: `Attachment`.
 #
 # * `bigbluebutton_meeting.create`:
 #   A meeting was created.
 #   Created by `BigbluebuttonMeeting`, code at `config/initializers/bigbluebutton_rails`.
-#
-# * `space.create`:
-#   A space was created.
-#   Created by `SpacesController`.
-#
-# * `space.update`:
-#   A space was updated.
-#   Created by `SpacesController`.
-#
-# * `space.leave`:
-#   Somebody left a space.
-#   Created by `SpacesController`.
-#
-# * `space.accept`:
-#   Somebody accepted an invitation to join a space.
-#   Created by `JoinRequestsController`.
-#
-# * `space.decline`:
-#   Somebody declined an invitation to join a space.
-#   Created by `JoinRequestsController`.
-#
-# * `join_request.request`:
-#   Somebody sent a request to join a space.
-#   Created by `JoinRequest`.
-#
-# * `join_request.invite`:
-#   Somebody sent a invitation to someone join a space.
-#   Created by `JoinRequest`.
 #
 # * `event.create`:
 #   An event was created.
@@ -98,6 +64,18 @@
 #   An event was updated.
 #   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
+# * `join_request.invite`:
+#   Somebody sent a invitation to someone join a space.
+#   Created by `JoinRequest`.
+#
+# * `join_request.request`:
+#   Somebody sent a request to join a space.
+#   Created by `JoinRequest`.
+#
+# * `ldap.user.created`:
+#   When a `User` was created for someone that signed in via LDAP.
+#   Created by: `Mconf::LDAP`.
+#
 # * `participant.create`:
 #   Someone registered to participante in an event.
 #   Created by `ParticipantsController`, code at `lib/controllers/participants_controller`.
@@ -106,14 +84,49 @@
 #   A post was created.
 #   Created by `PostsController`.
 #
-# * `post.update`:
-#   A post was updated.
-#   Created by `PostsController`.
-#
 # * `post.reply`:
 #   Somebody replied to a post.
 #   Created by `PostsController`.
 #
+# * `post.update`:
+#   A post was updated.
+#   Created by `PostsController`.
+#
+# * `shibboleth.user.created`:
+#   When a `User` was created for someone that signed in via Shibboleth.
+#   Created by: `Mconf::Shibboleth`.
+#
+# * `space.accept`:
+#   Somebody accepted an invitation to join a space.
+#   Created by `JoinRequestsController`.
+#
+# * `space.create`:
+#   A space was created.
+#   Created by `SpacesController`.
+#
+# * `space.decline`:
+#   Somebody declined an invitation to join a space.
+#   Created by `JoinRequestsController`.
+#
+# * `space.leave`:
+#   Somebody left a space.
+#   Created by `SpacesController`.
+#
+# * `space.update`:
+#   A space was updated.
+#   Created by `SpacesController`.
+#
+# * `user.approved`:
+#   When a was approved.
+#   Created by: `User`, in a method that's called from `UsersController`.
+#
+# * `user.created`:
+#   When a `User` was created after registering himself/herself.
+#   Created by: `User`.
+#
+# * `user.created_by_admin`:
+#   When a `User` was created after being registered by an admin.
+#   Created by: `User`.
 #
 class RecentActivity < PublicActivity::Activity
   # Used for home page and user page pagination

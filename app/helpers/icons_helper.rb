@@ -139,10 +139,6 @@ module IconsHelper
     icon_constructor nil, "fa fa-eye icon-awesome icon-mconf-space-public", options
   end
 
-  def icon_webconf_start(options={})
-    icon_constructor nil, "fa fa-chevron-right icon-awesome icon-mconf-webconf-start", options
-  end
-
   def icon_mobile(options={})
     icon_constructor nil, "fa fa-mobile icon-awesome icon-mconf-mobile", options
   end

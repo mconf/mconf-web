@@ -83,7 +83,7 @@ describe ParticipantsController do
       it { redirect_to event_path(event) }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.participants.create.notice'))
+        should set_flash.to(I18n.t('flash.participants.create.notice'))
       end
 
       it { Participant.last.email.should eql(user.email) }
@@ -107,7 +107,7 @@ describe ParticipantsController do
       it { redirect_to event_path(event) }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.participants.create.waiting_confirmation'))
+        should set_flash.to(I18n.t('flash.participants.create.waiting_confirmation'))
       end
 
       it { Participant.last.email.should eql(email) }
@@ -124,7 +124,7 @@ describe ParticipantsController do
 
       it { should render_template("participants/new") }
 
-      it { should set_the_flash.to(I18n.t('flash.participants.create.alert')) }
+      it { should set_flash.to(I18n.t('flash.participants.create.alert')) }
 
     end
 
@@ -141,7 +141,7 @@ describe ParticipantsController do
       it { redirect_to event_path(event) }
 
       it "sets the flash with an already registered success message" do
-        should set_the_flash.to(I18n.t('flash.participants.create.already_created'))
+        should set_flash.to(I18n.t('flash.participants.create.already_created'))
       end
 
     end
@@ -182,7 +182,7 @@ describe ParticipantsController do
       it { should redirect_to event_path(event) }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.participants.destroy.notice'))
+        should set_flash.to(I18n.t('flash.participants.destroy.notice'))
       end
     end
 
@@ -202,7 +202,7 @@ describe ParticipantsController do
       it { should redirect_to referer }
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.participants.destroy.notice'))
+        should set_flash.to(I18n.t('flash.participants.destroy.notice'))
       end
 
     end

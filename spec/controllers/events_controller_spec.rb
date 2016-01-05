@@ -328,7 +328,7 @@ describe EventsController do
       end
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.events.create.notice'))
+        should set_flash.to(I18n.t('flash.events.create.notice'))
       end
 
       it "sets the current user as the owner" do
@@ -346,7 +346,7 @@ describe EventsController do
 
       it { should redirect_to(event_path(Event.last)) }
       it { assigns(:event).should eq(Event.last) }
-      it { should set_the_flash.to(I18n.t('flash.events.create.notice')) }
+      it { should set_flash.to(I18n.t('flash.events.create.notice')) }
       it { Event.last.time_zone.should eq(Time.zone.name) }
     end
 
@@ -402,7 +402,7 @@ describe EventsController do
       end
 
       it "sets the flash with a success message" do
-        should set_the_flash.to(I18n.t('flash.events.update.notice'))
+        should set_flash.to(I18n.t('flash.events.update.notice'))
       end
     end
 
@@ -412,7 +412,7 @@ describe EventsController do
 
       it { should redirect_to(event_path(event)) }
       it { assigns(:event).should eq(event) }
-      it { should set_the_flash.to(I18n.t('flash.events.update.notice')) }
+      it { should set_flash.to(I18n.t('flash.events.update.notice')) }
       it { event.reload.time_zone.should eq(Time.zone.name) }
     end
 
@@ -560,7 +560,7 @@ describe EventsController do
           it { Invitation.last.class.should be(EventInvitation) }
         end
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
 
       context "with more than one user invited" do
@@ -576,7 +576,7 @@ describe EventsController do
         end
 
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
 
       context "missing users" do
@@ -587,7 +587,7 @@ describe EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        it { should set_the_flash.to I18n.t('events.send_invitation.blank_users') }
+        it { should set_flash.to I18n.t('events.send_invitation.blank_users') }
       end
 
       context "missing the title" do
@@ -598,7 +598,7 @@ describe EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        it { should set_the_flash.to I18n.t('events.send_invitation.error_title') }
+        it { should set_flash.to I18n.t('events.send_invitation.error_title') }
       end
 
       context "missing the users" do
@@ -609,7 +609,7 @@ describe EventsController do
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
-        skip { should set_the_flash.to error }
+        skip { should set_flash.to error }
       end
 
       context "missing the message" do
@@ -625,7 +625,7 @@ describe EventsController do
         end
 
         it { should redirect_to(referer) }
-        it { should set_the_flash.to success }
+        it { should set_flash.to success }
       end
     end
 

@@ -15,7 +15,7 @@
     .thread-content
       .thread-title
         %span
-          = link_to sanitize(space.name), space_path(space)
+          = link_to space.name, space_path(space)
         .space-description
           - if space.public
             .resource-visibility.small.public
@@ -39,7 +39,7 @@
 
       .thread-text
         - if extended
-          = sanitize(auto_link(space.description))
+          = space.description
         - if show_join_request
           - jr = space.pending_join_request_or_invitation_for(current_user)
           - if jr

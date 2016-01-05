@@ -115,7 +115,7 @@ feature 'Visitor signs up' do
   scenario "send invalid register form and try to change language after" do
     attrs = { email: "", _full_name: "", password: "" }
     register_with attrs
-    click_link I18n.t('locales.pt-br')
+    click_link "Português"
 
     current_path.should eq(register_path)
   end

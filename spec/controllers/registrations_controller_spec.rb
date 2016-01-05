@@ -22,7 +22,7 @@ describe RegistrationsController do
       before { Site.current.update_attribute(:registration_enabled, false) }
       before(:each) { get :new }
       it { should redirect_to(root_path) }
-      it { should set_the_flash.to(I18n.t("devise.registrations.not_enabled")) }
+      it { should set_flash.to(I18n.t("devise.registrations.not_enabled")) }
     end
   end
 
@@ -107,7 +107,7 @@ describe RegistrationsController do
         }.not_to change{ User.count }
       }
       it { should redirect_to(root_path) }
-      it { should set_the_flash.to(I18n.t("devise.registrations.not_enabled")) }
+      it { should set_flash.to(I18n.t("devise.registrations.not_enabled")) }
     end
   end
 

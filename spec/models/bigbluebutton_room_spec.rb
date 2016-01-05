@@ -25,7 +25,7 @@ describe BigbluebuttonRoom do
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
+    set_custom_ability_actions([ :end, :create_meeting, :fetch_recordings,
                                  :invite, :invite_userid, :running, :join, :join_mobile,
                                  :record_meeting, :invitation, :send_invitation, :user_edit ])
 
@@ -121,7 +121,7 @@ describe BigbluebuttonRoom do
 
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
-        let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+        let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :running, :join,
                          :join_mobile, :update, :invitation, :send_invitation, :user_edit] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -183,7 +183,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -217,7 +217,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -253,7 +253,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -287,7 +287,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }

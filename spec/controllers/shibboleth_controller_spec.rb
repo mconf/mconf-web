@@ -72,7 +72,7 @@ describe ShibbolethController do
           subject.data.should eq(expected)
         }
         it { controller.should redirect_to(shibboleth_path) }
-        it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { controller.should set_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
         it { RecentActivity.where(owner: subject, trackable: subject.user, key: 'shibboleth.user.created').should_not be_nil }
       end
 
@@ -86,7 +86,7 @@ describe ShibbolethController do
           expect { run_route }.not_to change{ ShibToken.count }
         }
         it { controller.should redirect_to(shibboleth_path) }
-        it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.error_saving_user', :errors => @user.errors.full_messages.join(', '))) }
+        it { controller.should set_flash.to(I18n.t('shibboleth.create_association.error_saving_user', :errors => @user.errors.full_messages.join(', '))) }
         it { RecentActivity.where(trackable: @user, key: 'shibboleth.user.created').should be_empty }
       end
 
@@ -96,7 +96,7 @@ describe ShibbolethController do
           expect { run_route }.not_to change{ ShibToken.count + RecentActivity.count }
         }
         it { controller.should redirect_to(shibboleth_path) }
-        it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.existent_account', :email => attrs[:email])) }
+        it { controller.should set_flash.to(I18n.t('shibboleth.create_association.existent_account', :email => attrs[:email])) }
       end
     end
   end
@@ -141,7 +141,7 @@ describe ShibbolethController do
         context "if the site does not require admin approval, logs the user in" do
           before(:each) {
             request.flash[:success] = 'message set previously by #create_association'
-            should set_the_flash.to('message set previously by #create_association')
+            should set_flash.to('message set previously by #create_association')
             get :login
           }
           it { subject.current_user.should eq(user) }
@@ -149,7 +149,7 @@ describe ShibbolethController do
           skip("persists the flash messages") {
             # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
             #  Testing in the application the flash is persisted, as it should.
-            should set_the_flash.to('message set previously by #create_association')
+            should set_flash.to('message set previously by #create_association')
           }
         end
 
@@ -162,7 +162,7 @@ describe ShibbolethController do
           }
           it { subject.current_user.should be_nil }
           it { should redirect_to(my_approval_pending_path) }
-          it { should_not set_the_flash }
+          it { should_not set_flash }
         end
       end
 
@@ -285,7 +285,7 @@ describe ShibbolethController do
 
         context "skips the association page" do
           before(:each) { get :login }
-          it { should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+          it { should set_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
           it { should redirect_to(shibboleth_path)}
         end
 
@@ -302,7 +302,7 @@ describe ShibbolethController do
           user.disable
         }
         before(:each) { get :login }
-        it { should set_the_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
+        it { should set_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
         it { should redirect_to(root_path) }
       end
 
@@ -367,7 +367,7 @@ describe ShibbolethController do
       }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
-      it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
+      it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
     end
 
     context "if params[:new_account] is set" do
@@ -391,20 +391,20 @@ describe ShibbolethController do
       context "if there's no user info in the params, goes back to /secure with an error" do
         before(:each) { post :create_association, :existent_account => true }
         it { should redirect_to(shibboleth_path) }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
       context "if the user info in the params is wrong, goes back to /secure with an error" do
         before(:each) { post :create_association, :existent_account => true, :user => { :so_wrong => 2  } }
         it { should redirect_to(shibboleth_path) }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
       context "if the target user is not found goes back to /secure with an error" do
         before(:each) { post :create_association, :existent_account => true, :user => { :login => 'any' } }
         it { User.find_first_by_auth_conditions({ :login => 'any' }).should be_nil}
         it { should redirect_to(shibboleth_path) }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
       context "if found the user but the password is wrong goes back to /secure with an error" do
@@ -414,7 +414,7 @@ describe ShibbolethController do
           User.find_first_by_auth_conditions({ :login => user.username }).should_not be_nil
         }
         it { should redirect_to(shibboleth_path) }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
       context "if the user is disabled goes back to /secure with an error" do
@@ -424,7 +424,7 @@ describe ShibbolethController do
           User.find_first_by_auth_conditions({ :login => user.username }).should be_nil
         }
         it { should redirect_to(shibboleth_path) }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
       context "if the user is found, is authenticated and is not disabled" do
@@ -445,7 +445,7 @@ describe ShibbolethController do
             User.find_first_by_auth_conditions({ :login => user.username }).valid_password?('12345').should be_truthy
           }
           it { should redirect_to(shibboleth_path) }
-          it { should set_the_flash.to(I18n.t("shibboleth.create_association.account_associated", :email => user.email)) }
+          it { should set_flash.to(I18n.t("shibboleth.create_association.account_associated", :email => user.email)) }
         end
 
         context "creates a ShibToken and associates it with the user" do

@@ -26,9 +26,17 @@ describe User do
 
   it { should have_many(:posts) }
 
-  it { should validate_presence_of(:email) }
+  describe 'model validations' do
+    subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
 
-  it { should validate_uniqueness_of(:email) }
+    it { should validate_presence_of(:email) }
+
+    # Not working because of conflict with devise, see https://github.com/thoughtbot/shoulda-matchers/issues/836
+    skip { should validate_uniqueness_of(:email) }
+
+    # Needs a matcher
+    # skip { should validate_email }
+  end
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
@@ -170,7 +178,7 @@ describe User do
   describe "#username" do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username).case_insensitive }
-    it { should ensure_length_of(:username).is_at_least(1) }
+    it { should validate_length_of(:username).is_at_least(1) }
     it { should_not allow_value("123 321").for(:username) }
     it { should_not allow_value("").for(:username) }
     it { should_not allow_value("ab@c").for(:username) }
@@ -1112,44 +1120,92 @@ describe User do
         it { should be_able_to_do_everything_to(:all) }
       end
 
-      context "cannot edit the password if the account was created by shib" do
-        before {
-          Site.current.update_attributes(local_auth_enabled: true)
-          FactoryGirl.create(:shib_token, user: target, new_account: true)
-        }
-        it { should_not be_able_to(:update_password, target) }
+      context "over a normal user" do
+        context "cannot edit the password if the account was created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "cannot edit the password if the account was created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "cannot edit the password if the site has local auth disabled" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: false)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
       end
 
-      context "can edit the password if the account was not created by shib" do
+      context "over a superuser" do
         before {
-          Site.current.update_attributes(local_auth_enabled: true)
-          FactoryGirl.create(:shib_token, user: target, new_account: false)
+          target.update_attributes(superuser: true)
         }
-        it { should be_able_to(:update_password, target) }
-      end
 
-      context "cannot edit the password if the account was created by LDAP" do
-        before {
-          Site.current.update_attributes(local_auth_enabled: true)
-          FactoryGirl.create(:ldap_token, user: target, new_account: true)
-        }
-        it { should_not be_able_to(:update_password, target) }
-      end
+        context "cannot edit the password if the account was created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
 
-      context "can edit the password if the account was not created by LDAP" do
-        before {
-          Site.current.update_attributes(local_auth_enabled: true)
-          FactoryGirl.create(:ldap_token, user: target, new_account: false)
-        }
-        it { should be_able_to(:update_password, target) }
-      end
+        context "can edit the password if the account was not created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
 
-      context "cannot edit the password if the site has local auth disabled" do
-        before {
-          Site.current.update_attributes(local_auth_enabled: false)
-          FactoryGirl.create(:shib_token, user: target, new_account: false)
-        }
-        it { should_not be_able_to(:update_password, target) }
+        context "cannot edit the password if the account was created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password even if the site has local auth disabled" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: false)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
       end
     end
 

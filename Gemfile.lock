@@ -442,8 +442,8 @@ GEM
     sexp_processor (4.4.4)
     shoulda-kept-assign-to (1.0.1)
       shoulda-matchers (>= 2.1.0)
-    shoulda-matchers (2.6.1)
-      activesupport (>= 3.0.0)
+    shoulda-matchers (3.0.1)
+      activesupport (>= 4.0.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -615,7 +615,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.4)
   select2-rails
   shoulda-kept-assign-to
-  shoulda-matchers (~> 2.6.1)
+  shoulda-matchers (~> 3.0)
   simple_form (~> 3.1.0)
   simplecov
   spring

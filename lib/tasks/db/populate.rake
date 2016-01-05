@@ -8,7 +8,7 @@ namespace :db do
     # production (cannot load such file -- populator)
     require 'populator'
 
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'cassio']
 
     @created_at_start = 1.year.ago
     @created_at_start_months = 12
@@ -446,7 +446,7 @@ namespace :db do
     u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
 
     space_attrs = [:name, :description]
-    s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+    s = FactoryGirl.create(:space_with_associations, attrs_to_hash(Space, space_attrs))
     s.new_activity :create, u
     s.add_member!(u, 'Admin')
     s.add_member!(u2)

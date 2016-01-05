@@ -10,7 +10,6 @@ describe CustomBigbluebuttonRoomsController do
   include Shoulda::Matchers::ActionController
 
   describe "routing" do
-    it { should route(:get, "/bigbluebutton/rooms/1/join_options").to(:action => :join_options, :id => "1") }
     it { should route(:get, "/bigbluebutton/rooms/1/user_edit").to(:action => :user_edit, :id => "1") }
   end
 end

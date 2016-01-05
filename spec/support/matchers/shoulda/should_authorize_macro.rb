@@ -12,7 +12,7 @@
 
 module Shoulda
   module Matchers
-    module ActiveModel # :nodoc
+    module ActionController # :nodoc
 
       def should_authorize(target, method, options={})
         options[:via] ||= :get

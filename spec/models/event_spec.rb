@@ -25,7 +25,7 @@ describe Event do
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:permalink) }
-  it { should ensure_length_of(:summary).is_at_most(140) }
+  it { should validate_length_of(:summary).is_at_most(140) }
 
   it { should have_many(:participants).dependent(:destroy) }
 

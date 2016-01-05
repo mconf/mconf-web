@@ -161,12 +161,14 @@ class ShibbolethController < ApplicationController
         shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
-        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        logger.error "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
-          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          logger.error "Shibboleth: there's already a user with this email #{shib.get_email}"
           flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
         else
-          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          message = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          logger.error "Shibboleth: #{message}"
+          flash[:error] = message
         end
         token.destroy
       end

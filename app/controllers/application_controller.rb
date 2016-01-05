@@ -15,14 +15,13 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '29d7fe875960cb1f9357db1445e2b063'
 
-  # Locale as param
-  before_filter :set_current_locale
-
+  before_filter :set_current_locale # Locale as param
   before_filter :set_time_zone
-
   before_filter :store_location
 
   helper_method :current_site
+  helper_method :previous_path_or
+  helper_method :locale_i18n
 
   # Handle errors - error pages
   rescue_from Exception, :with => :render_500
@@ -161,17 +160,8 @@ class ApplicationController < ActionController::Base
   # in the database (e.g. :attendeePW instead of :attendee_key)!
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
-
-    can_record = ability.can?(:record_meeting, room)
-    if current_site.webconf_auto_record
-      # show the record button if the user has permissions to record
-      { record: can_record }
-    else
-      # only enable recording if the room is set to record and if the user has permissions to
-      # used to forcibly disable recording if a user has no permission but the room is set to record
-      record = room.record_meeting && can_record
-      { record: record }
-    end
+    # show the record button if the user has permissions to record
+    { record: ability.can?(:record_meeting, room) }
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information
@@ -188,6 +178,11 @@ class ApplicationController < ActionController::Base
     end
 
     @webconf_room
+  end
+
+  # Returns the translation for of a locale given its acronym (e.g. "en")
+  def locale_i18n(acronym)
+    configatron.locales.names[acronym.to_sym]
   end
 
   # The payload is used by lograge. We add more information to it here so that it is saved
@@ -207,12 +202,14 @@ class ApplicationController < ActionController::Base
       superuser: current_user.superuser?,
       can_record: current_user.can_record?
     } unless current_user.nil?
-    if (payload[:controller] == "CustomBigbluebuttonRoomsController") and (payload[:action] == "join")
+    if payload[:controller] == "CustomBigbluebuttonRoomsController" && payload[:action] == "join"
       payload[:room] = {
         meetingid: @room.meetingid,
         name: @room.name,
         member: !current_user.nil?,
-        user: { name: current_user.nil? ? params[:user][:name] : current_user.full_name }
+        user: {
+          name: current_user.try(:full_name) || (params[:user].present? ? params[:user][:name] : nil)
+        }
       } unless @room.nil?
     end
   end
@@ -316,7 +313,6 @@ class ApplicationController < ActionController::Base
   def previous_path_or(fallback)
     session[:previous_user_return_to] || fallback
   end
-  helper_method :previous_path_or
 
   # A default handler for access denied exceptions. Will simply redirect the user
   # to the sign in page if the user is not logged in yet.

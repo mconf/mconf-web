@@ -179,20 +179,19 @@ en:
         shib_name_field: "Shibboleth: Field for name"
         shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
         shib_update_users: "Shibboleth: Update user information"
-        smtp_auth_type: "STMP authentication type"
+        smtp_auth_type: "SMTP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
-        smtp_domain: "STMP domain"
+        smtp_domain: "SMTP domain"
         smtp_login: "SMTP login"
         smtp_password: "SMTP password"
         smtp_port: "SMTP port"
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
-        smtp_use_tls: "Use TLS in STMP"
+        smtp_use_tls: "Use TLS in SMTP"
         ssl: "SSL"
         timezone: "Timezone"
         visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
-        webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_key: "Key for attendees"
         description: "Description"
@@ -211,6 +210,7 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
+        remember_me: "Remember me"
         superuser: "Global administrator"
         timezone: "Timezone"
         username: "Username"
@@ -499,16 +499,6 @@ en:
       title: "Mobile access to \"%{room}\""
       use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
       try_again: "You have the application installed but it wasn't launched? Click here to try again."
-    join_options:
-      alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
-      metadata: 
-        description: "Description for this meeting"
-        title: "Title for this meeting"
-      record:
-        label: "Record meeting"
-        tooltip: "Mark it to set this room to record its meetings. This can't be changed after the meeting is running!"
-      start: "Done, start the meeting!"
-      title: "Meeting options"
     new:
       creating_new_room: "Creating a new room"
     recordings:
@@ -890,15 +880,11 @@ en:
       private: "Private space"
       public: "Public space"
   less: "less..."
-  locales: 
-    de: Deutsch
-    en: English
-    es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+  locales:
     error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
-  logo: 
+  logo:
     created: "Logo uploaded successfully"
     crop: "Crop space logo"
     empty: "The logo is empty"
@@ -1178,7 +1164,6 @@ en:
   registrations:
     signup_form:
       register: "Register"
-  remember_me: "Remember me"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1269,7 +1254,6 @@ en:
     webconference_join:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
@@ -1533,7 +1517,6 @@ en:
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"
