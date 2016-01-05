@@ -90,25 +90,17 @@
 #   Somebody sent a invitation to someone join a space.
 #   Created by `JoinRequest`.
 #
-# * `mweb_events_event.create`:
+# * `event.create`:
 #   An event was created.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `mweb_events_event.update`:
+# * `event.update`:
 #   An event was updated.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `mweb_events_participant.create`:
+# * `participant.create`:
 #   Someone registered to participante in an event.
-#   Created by `MewebEvents::ParticipantsController`, code at `lib/mweb_events/controllers/participants_controller`.
-#
-# * `news.create`:
-#   A news item was created.
-#   Created by `NewsController`.
-#
-# * `news.update`:
-#   A news item was updated.
-#   Created by `NewsController`.
+#   Created by `ParticipantsController`, code at `lib/controllers/participants_controller`.
 #
 # * `post.create`:
 #   A post was created.
@@ -122,13 +114,6 @@
 #   Somebody replied to a post.
 #   Created by `PostsController`.
 #
-# * `private_message.sent`:
-#   Somebody sent a private message.
-#   Created by `PrivateMessage`.
-#
-# * `private_message.received`:
-#   Somebody received a private message.
-#   Created by `PrivateMessage`.
 #
 class RecentActivity < PublicActivity::Activity
   # Used for home page and user page pagination

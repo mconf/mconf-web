@@ -18,18 +18,6 @@ pt-br:
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
       request_html: "requisitou ingresso na comunidade"
-    mweb_events_event:
-      create_html: criou o evento %{name} na comunidade
-      attend_html: participará do evento %{name} da comunidade
-      not_attend_html: não participará do evento %{name} da comunidade
-      update_html: atualizou as informações do event %{name} da comunidade
-      deleted: que não existe mais
-    mweb_events_participant:
-      create_html: participará do evento %{name} na comunidade
-    news:
-      create_html: publicou a notícia %{name} na comunidade
-      update_html: atualizou a notícia %{name} na comunidade
-      deleted: que não existe mais
     other:
       admin_html: "Um administrador"
       someone_html: "Um usuário"
@@ -55,6 +43,7 @@ pt-br:
     accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
+    confirm: Ok
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
@@ -89,10 +78,6 @@ pt-br:
     not_approved:
       tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
       text: 'Aguardando aprovação'
-    spam:
-      title: "Spam"
-      tooltip: "Reportar este artigo como spam"
-      icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
@@ -128,9 +113,6 @@ pt-br:
         users: "Usuários"
       join_request:
         comment: "Mensagem"
-      news:
-        text: "Texto"
-        title: "Título"
       post:
         text: "Mensagem"
         title: "Título"
@@ -156,7 +138,6 @@ pt-br:
         name_admin: "Administrador"
       site:
         analytics_code: "Código do Google Analytics"
-        chat_enabled: "Habilitar Chat"
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
@@ -231,19 +212,42 @@ pt-br:
         timezone: "Fuso horário"
         username: "ID"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "deve escolher ao menos um destinatário"
       messages:
         invalid_identifier: "gerou um identificador inválido: \"%{id}\""
         missing: "não encontrado"
     models:
       event: "Evento"
       join_request: "Pedido de Adesão"
-      news: "Notícia"
       space: "Comunidade"
+
+  flash:
+    spaces:
+      update:
+        notice: "Comunidade atualizada com sucesso"
+
+      enable:
+        notice: "Comunidade habilitada com sucesso"
+        failure: "Comunidade %{name} já está habilitada"
+
+      disable:
+        notice: "Comunidade desativada com sucesso"
+
+    posts:
+      update:
+        notice: "Mensagem atualizada!"
+
+      create:
+        notice: "Mensagem enviada!"
+
+    users:
+      enable:
+        notice: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
+        failure: "Usuário %{name} já está habilitado"
+
+      disable:
+        notice: "Usuário %{username} desabilitado"
+
+
   address: Endereço
   admin:
     one: Administrador
@@ -396,36 +400,6 @@ pt-br:
   cancel: Cancelar
   caption:
     add: "Adicionar legenda"
-  chat:
-    add: "Adicionar Usuário"
-    connecting_error_message: "Erro conectando"
-    connecting_message: "Conectando ao chat do evento..."
-    invite:
-      bbb: "Convide usuários para sua sala BBB"
-      button: "Convidar Pessoas"
-      hint: "Digite para começar a buscar"
-      msg: "Convidou você para participar de uma webconferência, siga este link: <a href='URL'> URL </a>"
-      msg_clean: "Convidou você para participar de uma webconferência, siga este link: URL"
-      msg_sender: "Convite enviado. Link para sua sala: <a href='URL'> URL </a>"
-    me: "eu"
-    name:
-      one: "Nome"
-      other: "Nomes"
-    please_login_message: "Pro favor, faça login ou registre-se para participar"
-    reconnect_button_message: "Clique para reconectar"
-    reconnect_message: Reconectar
-    request:
-      approve: "Confirmar"
-      deny: "Rejeitar"
-      title: "Solicitação de Amizade"
-      body: "<b>%{name}</b> quer adicionar você como amigo."
-    status:
-      online: "Online"
-      busy: "Ocupado"
-      away: "Ausente"
-      offline: "Offline"
-    typing: "está digitando.."
-    title: "Bate-papo"
   city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
@@ -664,7 +638,6 @@ pt-br:
       event: "<b>%{author_name}</b> criou um novo evento em <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> enviou uma mensagem para você:"
       message: "Últimas atividades em suas comunidades:"
-      news: "Uma nova notícia foi publicada em <b>%{space_name}</b>:"
       posted: "<b>%{author_name}</b> escreveu em <b>%{space_name}</b> a mensagem:"
       title: "Resumo %{type} com as atividades em suas comunidades"
       type:
@@ -676,8 +649,6 @@ pt-br:
     kind_regards: "Atenciosamente,"
     notifications: "notificações por e-mail"
     one: e-mail
-    spam_activation: "Se você não se registrou neste site, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
-    spam_invitation: "Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
     url_activated: "Você agora pode entrar na sua conta com seu email \"%{name}\" e sua senha em <a href=\"%{url}\"> %{url}</a>"
     used_from: "e-mail usado no formulário de contato: %{dir}"
     welcome: "Bem-vindo(a) a %{sitename}"
@@ -808,7 +779,6 @@ pt-br:
     bad_format: "(e-mail mal formatado)"
     email: "e-mail para %{email}"
     title: "Convite para participar de uma webconferência"
-    user_private_msg: "mensagem privada para o usuário %{user}"
   invited: Convidados
   join: Entrar
   join_cam: Participar
@@ -886,7 +856,6 @@ pt-br:
   language: Idioma
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
-  latest_news: "Últimas notícias"
   layouts:
     application_navbar:
       events: "Eventos"
@@ -969,7 +938,6 @@ pt-br:
     menu:
       general: "Geral"
       spaces: "Comunidades"
-      spam: "Spam"
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Webconferência"
@@ -986,20 +954,6 @@ pt-br:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
-    spam:
-      event:
-        delete_confirmation: "Remover este evento permanentemente?"
-        delete_tooltip: "Este evento é um spam, removê-lo"
-        not_spam_confirmation: "Este evento realmente não é um spam?"
-        not_spam_tooltip: "Este evento não é um spam"
-        title: "Eventos denunciados como spam"
-      no_spam: "Nenhum spam denunciado"
-      post:
-        delete_confirmation: "Remover esta mensagem permanentemente?"
-        delete_tooltip: "Esta mensage é um spam, removê-la"
-        not_spam_confirmation: "Esta mensagem realmente não é um spam?"
-        not_spam_tooltip: "Esta mensagem não é um spam"
-        title: "Mensagens denunciadas como spam"
     users:
       filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
@@ -1017,29 +971,7 @@ pt-br:
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
-  message: 
-    created: "Mensagem enviada com sucesso"
-    error:
-      create: "Erro enviando mensagem privada"
   mconf: Mconf
-  message:
-    created: "Mensagem enviada com sucesso"
-    error:
-      create: "Erro ao enviar mensagem privada"
-    incoming:
-      other: "Mensagens recebidas"
-    private:
-      cant: "Você não pode enviar mensagens privadas porque você não tem parceiros em nenhuma comunidade"
-      editing: "Editando mensagem privada"
-      new: "Nova mensagem privada"
-      none: "Não há mensagens"
-      send: "Enviar uma mensagem privada"
-    reply: "Responder à mensagem"
-    sent:
-      other: "Mensagens enviadas"
-    special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
-    special2: "A Equipe do Mconf"
-    to: Para 
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
@@ -1095,25 +1027,6 @@ pt-br:
   name:
     one: Nome
     other: Nomes
-  new_spam_detected: "Novo spam detectado"
-  news:
-    created: "Notícia publicada com sucesso"
-    deleted: "Notícia excluída com sucesso"
-    edit: "Editar notícia"
-    error:
-      create: "Houve um problema ao publicar a notícia"
-      delete: "Erro ao excluir notícia"
-      update: "Notícia não pôde ser atualizada"
-    item_in_home: "Notícia na comunidade"
-    more:
-      one: "e mais uma notícia..."
-      other: "e mais %{count} notícias..."
-    none_to_show: "Nenhuma notícia para mostrar"
-    other: Notícias
-    publish_another: "Publicar outra notícia"
-    publish_home: "Publicar notícia"
-    title: "Notícias (%{count})"
-    updated: "Notícia atualizada com sucesso"
   next: Próximo
   now_exclamation: Agora!
   ok: OK
@@ -1161,7 +1074,6 @@ pt-br:
   please: "Por favor"
   popularity: Popularidade
   post:
-    created: "Mensagem enviada!"
     deleted: "Comentário %{postname} foi excluído"
     reply: "em resposta a"
     home:
@@ -1178,13 +1090,12 @@ pt-br:
     posted: "postou"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
     title: "Mensagens (%{count})"
-    updated: "Mensagem atualizada!"
     wall: Mural
   posts:
     index:
       new_post: "Enviar uma mensagem"
       no_messages: "Não existem mensagens no mural"
-    new_post:
+    new:
       title: "Adicionando uma mensagem"
     post_with_children:
       by: "de"
@@ -1192,36 +1103,6 @@ pt-br:
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
-  private_message:
-    more:
-      one: "e uma outra mensagem privada..."
-      other: "e mais %{count} mensagens privadas..."
-    one: "Mensagem Privada"
-    other: "Mensagens Privadas"
-    send: "Enviar mensagem privada"
-    title: "Mensagens Privadas (%{count})"
-  private_messages: 
-    index: 
-      title: "Mensagens Privadas"
-    menu: 
-      compose: "Escrever"
-      inbox: "Caixa de entrada"
-      sent: Enviadas
-    new: 
-      title: "Mensagens Privadas"
-      users:
-        hint: "Digite para começar a buscar"
-        no_results: "Nenhum resultado encontrado"
-        searching: "Procurando..."
-    reply_private_message:
-      user_not_registered: "Este usuário não está mais registrado, você não poderá responder esta mensagem."
-    show: 
-      title: "Mensagens Privadas"
-    show_received: 
-      wrote: escreveu
-    show_sent: 
-      wrote_to: Escreveu para
-      titled: a mensagem
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
@@ -1262,7 +1143,7 @@ pt-br:
     activity: "Atividades recentes"
   recent_activity: 
     empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
-    tooltip: "Aqui você encontra as mensagens, eventos e notícias mais novas das comunidades às quais vocẽ pertence"
+    tooltip: "Aqui você encontra os eventso e mensagens mais atuais das comunidades às quais vocẽ pertence"
   recording:
     automatic: Automático
     box_title: Gravação
@@ -1291,7 +1172,6 @@ pt-br:
   reply: Responder
   reply_to: "Responder para:"
   reply_to_words: "Responder para %{words}"
-  report_spam: "Denunciar spam"
   repository:
     download: Download
     loading: "Atualizando repositório de documentos ..."
@@ -1437,15 +1317,11 @@ pt-br:
     description: "Descrição da comunidade"
     description_none: "Uma descrição da comunidade deve ser fornecida para criar uma nova comunidade"
     disable: "Desativar a comunidade"
-    disabled: "Comunidade desativada com sucesso"
     edit:
       webconference_passwords: "Senhas da sala de webconferência"
     edit_description: "editar descrição"
     edit_name: "editar nome"
     enable: "Habilitar comunidade"
-    enabled: "Comunidade habilitada com sucesso"
-    error:
-      enabled: "Comunidade %{name} já está habilitada"
     event_count: "%{count} eventos"
     index:
       filters: 
@@ -1508,7 +1384,6 @@ pt-br:
       views: "Visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
-    updated: "Comunidade atualizada com sucesso"
   space_events:
     all_events:
       all_upcoming: "Ver todos eventos futuros"
@@ -1521,7 +1396,7 @@ pt-br:
       now: Acontecendo agora
       create_event: "Criar um novo evento"
       events_in: "Eventos em"
-      events_now: "Contecendo agora!"
+      events_now: "Acontecendo agora!"
     past_events:
       last_month: "Nenhum evento no último mês"
       last_week: "Nenhum evento na última semana"
@@ -1554,7 +1429,6 @@ pt-br:
       admissions: "Admissões"
       general_options: "Opções gerais"
       invite: "Convidar pessoas"
-      news: "Notícias"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
     approve:
@@ -1604,7 +1478,6 @@ pt-br:
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
-    news: "Notícias na comunidade"
     recordings:
       title: "Gravações desta comunidade"
       update_recordings:
@@ -1689,20 +1562,6 @@ pt-br:
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"
-  spam:
-    spam_report_create:
-      error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
-      success: "Artigo marcado como spam! Ele será verificado pelos administradores"
-      user_is_member: "Você é um membro"
-    created: "Um e-mail reportando spam foi enviado com sucesso para os administradores. Obrigado."
-    default: spam
-    detected: "Novo spam detectado"
-    error: 
-      check: "Aconteceu um problema marcando este recurso como spam"
-    item: "Este item foi reportado como spam e está sendo analisado pelos administradores"
-    report: "Report spam"
-    reported: "%{name} (%{email}) has reported spam in %{sitename}"
-    valid: "This content is valid"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
@@ -1714,7 +1573,6 @@ pt-br:
         events: "Eventos"
         how_many: "Quantos?"
         posts: "Mensagens publicadas"
-        private_messages: "Mensagens privadas trocadas"
         spaces: "Comunidades"
         users: "Usuários"
         webconf_rooms: "Salas de webconferência disponíveis"
@@ -1760,9 +1618,7 @@ pt-br:
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
-    news_item: "Você pode publicar uma notícia para aparecer na página inicial da comunidade"
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
@@ -1795,12 +1651,8 @@ pt-br:
     delete_from_space: "Excluir usuário da comunidade"
     deleted: "Usuário deletado"
     disable: "Desabilitar usuário"
-    disabled: "Usuário %{username} desabilitado"
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
-    enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
-    error:
-      enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
     group_invite_email: "Convidar por e-mail"
     include_registered: "Incluir usuários registrados"
@@ -1821,7 +1673,6 @@ pt-br:
     not_confirmed: "Não confirmados"
     one: Usuário
     other: Usuários
-    private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
     request_confirmation: "Solicitar e-mail de confirmação"

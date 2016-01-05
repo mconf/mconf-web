@@ -15,7 +15,7 @@
 
   - if can?(:create, @space.events.build)
     #events-toolbar
-      = link_to mweb_events.new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
+      = link_to new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
         = t('.create_event')
 
   - if params[:show] == 'past_events'
@@ -31,6 +31,6 @@
           %h3= t('.events_now')
         .content-block-middle
           - for event in @current_events
-            = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+            = render :partial => "events/unified_event", :locals => { :event => event }
     - unless params[:show] == 'happening_now'
       = render :partial => 'all_events'

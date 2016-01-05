@@ -12,8 +12,6 @@
       - if can?(:update, @profile)
         %li= link_to t('edit_profile'), edit_user_profile_path(@user)
         %li= link_to t('.vcard.export'), user_profile_path(@user,:format => 'vcf')
-      - if user_signed_in? and @user != current_user
-        %li= link_to t('message.private.new'), new_message_path(:user_id => current_user.to_param, :receiver => @user.id)
 
     = render :partial => 'profiles/public_hcard'
     - if can?(:show, @profile)

@@ -80,10 +80,6 @@ es-419:
     register: "Registrar"
     save: "Guardar"
     send: "Enviar"
-    spam:
-      title: "Spam"
-      tooltip: "Reportar este ítem como spam"
-      icon_tooltip: "Este ítem ha sido reportado como spam y esta siendo evaluado por los administradores"
     unpublish: "Anular publicacion"
     update: "Actualizar"
     updated_time_ago: "%{time} pasado"
@@ -148,7 +144,6 @@ es-419:
         name_admin: "Administrador"
       site:
         analytics_code: "Código Analytics"
-        chat_enabled: "Habilitar Chat"
         description: "Descripción"
         domain: "Dominio de la aplicación"
         events_enabled: "Habilitar modulo de eventos"
@@ -170,7 +165,6 @@ es-419:
         local_auth_enabled: "Habilitar autenticación local"
         locale: "Lenguaje"
         name: "Nombre"
-        presence_domain: "Dominio de chat XMPP"
         registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
         signature: "Firma"
         shib_always_new_account: "Shibboleth: Siempre crear cuentas nuevas"
@@ -226,6 +220,35 @@ es-419:
       join_request: "Solicitud para unirse"
       news: "Novedades"
       space: "Espacio"
+
+  flash:
+    spaces:
+      update:
+        notice: "Espacio actualizado con éxito"
+
+      disable:
+        notice: "Espacio deshabilitado con éxito"
+
+      enable:
+        notice: "Espacio habilitado con éxito"
+        failure: "El espacio %{name} ya está activo"
+
+    posts:
+      create:
+        notice: "¡Mensaje publicado!"
+
+      update:
+        notice: "¡Mensaje actualizado!"
+
+    users:
+      disable:
+        notice: "Usuario %{usarname} deshabilitado"
+
+      enable:
+        notice: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
+        failure: "El usuario %{name} ya está habilitado"
+
+
   address: Dirección
   admin:
     one: Administrador
@@ -378,36 +401,6 @@ es-419:
   cancel: Cancelar
   caption:
     add: "Agregar descripcion"
-  chat:
-    add: "Agregar usuario"
-    connecting_error_message: "Error al conectar"
-    connecting_message: "Conectando al chat del evento..."
-    invite:
-      bbb: "Invitar usuarios a su sala BBB"
-      button: "Invitar usuarios"
-      hint: "Escriba para iniciar la búsqueda"
-      msg: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: <a href='URL'>URL</a>"
-      msg_clean: "Has sido invitado a participar de una conferencia web, siguiendo este enlace: URL"
-      msg_sender: "Invitación enviada. Enlace a su sala: <a href='URL'>URL</a>"
-    me: "yo"
-    name:
-      one: "Nombre"
-      other: "Nombres"
-    please_login_message: "Por favor, acceda/regístrese para participar"
-    reconnect_button_message: "Click para reconectar"
-    reconnect_message: Reconectar
-    request:
-      approve: "Aprobar"
-      deny: "Denegar"
-      title: "Solicitud de amistad"
-      body: "<b>%{name}</b> quiere agregarte como amigo."
-    status:
-      online: "En linea"
-      busy: "Ocupado"
-      away: "Fuera de linea"
-      offline: "Desconectado"
-    typing: "está escribiendo..."
-    title: "Chat"
   city: Ciudad
   click_here_to_see_more: "Click aquí para ver mas"
   click_to_hide: "Click para ocultar"
@@ -650,8 +643,6 @@ es-419:
     kind_regards: "Un cordial saludo,"
     notifications: "notificaciones por correo electrónico"
     one: correo electrónico
-    spam_activation: "Si no se registró en este sitio, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
-    spam_invitation: "Si considera que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos sus <a href=\"%{feedback}\">comentarios.</a>"
     url_activated: "Ahora puede acceder a su cuenta con su dirección de correo electrónico \"%{name}\" y su contraseña en <a href=\"%{url}\">%{url}</a>"
     used_from: "correo electrónico utilizado en el formulario de contacto: %{dir}"
     welcome: "Bienvenido a %{sitename}"
@@ -932,7 +923,6 @@ es-419:
     menu:
       general: "General"
       spaces: "Espacios"
-      spam: "Spam"
       title: "Gestión del Sitio"
       users: "Usuarios"
       webconf: "Conferencia Web"
@@ -946,20 +936,6 @@ es-419:
       filter_count_with_text: "Encontrado(s) %{count} espacio(s) para el filtro \"%{value}\""
       filter_count_empty: "Encontrado(s) %{count} espacio(s)"
       no_space_found: "Espacio no encontrado"
-    spam:
-      event:
-        delete_confirmation: "¿Remover este evento permanentemente?"
-        delete_tooltip: "Este evento es spam, remuévelo"
-        not_spam_confirmation: "¿Confirma que este evento no es spam?"
-        not_spam_tooltip: "Este evento no es spam"
-        title: "Eventos marcados como spam"
-      no_spam: "Spam no reportado"
-      post:
-        delete_confirmation: "¿Remover este post permanentemente?"
-        delete_tooltip: "Este post es spam, remuévelo"
-        not_spam_confirmation: "¿Confirma que este post no es spam?"
-        not_spam_tooltip: "Este post no es spam"
-        title: "Posts marcados como spam"
     users:
       new_user: "Crear usuario"
     users_list:
@@ -1041,7 +1017,6 @@ es-419:
   name:
     one: Nombre
     other: Nombres
-  new_spam_detected: "Nuevo spam detectado"
   news:
     created: "Noticia publicada con éxito"
     deleted: "Noticia eliminada con éxito"
@@ -1107,7 +1082,6 @@ es-419:
   please: Por favor
   popularity: Popularidad
   post:
-    created: "¡Mensaje publicado!"
     deleted: "Comentario %{postname} ha sido eliminado"
     reply: "en respuesta a "
     home:
@@ -1124,13 +1098,12 @@ es-419:
     posted: "publicado"
     show_expanded_pref: "¿Cómo le gustaría ver sus mensajes?"
     title: "Mensajes (%{count})"
-    updated: "¡Mensaje actualizado!"
     wall: Muro
   posts:
     index:
       new_post: "Enviar un nuevo mensaje"
       no_messages: "No hay mensajes en el muro"
-    new_post:
+    new:
       title: "Publicar un nuevo mensaje"
     post_with_children:
       by: "por"
@@ -1146,28 +1119,6 @@ es-419:
     other: "Mensajes privados"
     send: "Enviar un mensaje privado"
     title: "Mensajes privados (%{count})"
-  private_messages:
-    index:
-      title: "Mensajes privados"
-    menu:
-      compose: Componer
-      inbox: Bandeja de entrada
-      sent: Enviados
-    new:
-      title: "Mensajes privados"
-      users:
-        hint: "Escriba para iniciar la búsqueda"
-        no_results: "No se encontraron resultados"
-        searching: "Buscando..."
-    reply_private_message:
-      user_not_registered: "Este usuario ya no está registrado, no podrá responder este mensaje."
-    show:
-      title: "Mensajes privados"
-    show_received:
-      wrote: escribió
-    show_sent:
-      wrote_to: Enviado
-      titled: el mensaje
   profile:
     deleted: "Perfil eliminado con éxito"
     description:
@@ -1238,7 +1189,6 @@ es-419:
   reply: Responder
   reply_to: "Responder a:"
   reply_to_words: "Responder a %{words}"
-  report_spam: "Reportar correo no deseado"
   repository:
     download: Descargar
     loading: "Refrescando el repositorio de documentos..."
@@ -1382,15 +1332,11 @@ es-419:
     description: "Descripción del espacio"
     description_none: "Es necesaria una descripción del espacio para poder crearlo"
     disable: "Deshabilitar el espacio"
-    disabled: "Espacio deshabilitado con éxito"
     edit:
       webconference_passwords: "Claves de las salas de videoconferencias"
     edit_description: "editar descripción"
     edit_name: "editar nombre"
     enable: "Habilitar espacio"
-    enabled: "Espacio habilitado con éxito"
-    error:
-      enabled: "El espacio %{name} ya está activo"
     event_count: "%{count} eventos"
     index:
       filters:
@@ -1450,7 +1396,6 @@ es-419:
       views: "vistas"
     subscribed_to_none: "No está suscrito a ningún espacio"
     update_logo: "Actualizar logo"
-    updated: "Espacio actualizado con éxito"
   space_events:
     all_events:
       all_upcoming: "Ver todos los próximos eventos"
@@ -1613,20 +1558,6 @@ es-419:
     webconference_tabs:
       access: "Acceso a la conferencia web"
       recordings: "Lista de grabaciones"
-  spam:
-    spam_report_create:
-      error: "Lo sentimos, pero hubo un problema marcando este ítem como spam"
-      success: "¡El ítem fue marcado como spam! Esto será chequeado por los adminstradores"
-      user_is_member: "Eres un miembro"
-    created: "Un correo electrónico reportando spam ha sido enviado con éxito a los administradores. Gracias."
-    default: spam
-    detected: "Nuevo spam detectado"
-    error:
-      check: "Hubo un problema marcando el recurso como spam"
-    item: "Este ítem ha sido reportado como spam y está siendo evaluado por los administradores"
-    report: "Reportar spam"
-    reported: "%{name} (%{email}) ha reportado spam en %{sitename}"
-    valid: "Este contenido es válido"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
@@ -1638,7 +1569,6 @@ es-419:
         events: "Eventos"
         how_many: "¿Cuántos?"
         posts: "Mensajes publicados"
-        private_messages: "Mensajes privados intercambiados"
         spaces: "Espacios"
         users: "Usuarios"
         webconf_rooms: "Salas de conferencia web disponibles"
@@ -1716,12 +1646,8 @@ es-419:
     delete_from_space: "Eliminar usuario del espacio"
     deleted: "Usuario borrado"
     disable: "Deshabilitar usuario"
-    disabled: "Usuario %{usarname} deshabilitado"
     email_used_to_create_account: "Ingrese la dirección correo electrónico que utilizó para crear su cuenta"
     enable: "Habilitar usuario"
-    enabled: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
-    error:
-      enabled: "El usuario %{name} ya está habilitado"
     filter: "Invitar por nombre de usuario"
     group_invite_email: "Invitar por correo electrónico"
     include_registered: "Incluir usuarios registrados"

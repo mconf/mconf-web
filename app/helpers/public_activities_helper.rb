@@ -12,14 +12,13 @@ module PublicActivitiesHelper
 
   def link_to_trackable trackable, cls
     if trackable.nil?
-      # e.g. 'MwebEvents::Event' to 'mweb_events_event'
+      # e.g. 'MyModule::Event' to 'my_module_event'
       cls = cls.underscore.gsub(/\//, '_')
       t("activities.#{cls}.deleted")
     else
       case trackable
       when Space then link_to(trackable.name, space_path(trackable))
       when Post  then link_to(trackable.post_title, space_post_path(trackable.space, trackable))
-      when News  then link_to(trackable.title, space_news_path(trackable.space, trackable))
       when Attachment then link_to(trackable.title, space_attachment_path(trackable.space, trackable))
       when BigbluebuttonMeeting
         if trackable.room.owner_type == 'User'
@@ -34,8 +33,8 @@ module PublicActivitiesHelper
       else
         if mod_enabled?('events')
           case trackable
-          when MwebEvents::Event then link_to(trackable.name, mweb_events.event_path(trackable))
-          when MwebEvents::Participant then link_to(trackable.event.name, mweb_events.event_path(trackable.event))
+          when Event then link_to(trackable.name, event_path(trackable))
+          when Participant then link_to(trackable.event.name, event_path(trackable.event))
           end
         end
       end

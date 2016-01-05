@@ -11,6 +11,12 @@ gem 'compass-rails', '~> 2.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
+# To use sql UNION with activerecord
+gem 'active_record_union'
+
+# To DRY controllers
+gem 'inherited_resources'
+
 # TODO: remove when compass-rails is updated to support animations
 # This compass is here so we can have css3/animation
 gem 'compass', '~> 0.13.alpha'
@@ -76,9 +82,6 @@ gem 'font-awesome-rails', '~> 4.1.0.0'
 # to format emails
 gem 'premailer-rails'
 gem 'nokogiri'
-
-# event module
-gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
@@ -148,7 +151,12 @@ end
 group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
-  gem 'webmock'
-
+  gem 'webmock', require: false
   gem 'codeclimate-test-reporter', group: :test, require: nil
 end
+
+# Events module
+gem 'geocoder'
+gem 'redcarpet'
+gem 'epic-editor-rails'
+gem 'leaflet-rails'

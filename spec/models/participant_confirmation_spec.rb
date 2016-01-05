@@ -9,7 +9,7 @@ require 'spec_helper'
 describe ParticipantConfirmation do
   let(:email) { 'sympho@nyxrul.es' }
 
-  it { should belong_to(:participant).dependent(:destroy).class_name("MwebEvents::Participant") }
+  it { should belong_to(:participant).dependent(:destroy).class_name("Participant") }
   it { should delegate_method(:email).to(:participant) }
 
   describe '#generate_token' do
@@ -29,7 +29,7 @@ describe ParticipantConfirmation do
   skip '#send_participant_confirmation'
 
   describe '#confirm!' do
-    let(:participant) { FactoryGirl.create(:participant, email: email) }
+    let(:participant) { FactoryGirl.create(:participant, email: email, owner: nil) }
     let(:pc) { participant.participant_confirmation }
 
     it { pc.should_not be_confirmed }

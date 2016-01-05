@@ -1,0 +1,26 @@
+%a{:href => "#markdown-syntax", :'data-toggle' => "modal"}
+  = t '.title'
+
+#markdown-syntax.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "markdown-syntax", role: "dialog", tabindex: "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} x
+    %h3#markdown-syntax-label
+      %p
+        = t '.title'
+
+  .modal-body
+    %p
+      = t '.description_html'
+
+    - # try to get a partial translated to the current locale
+    - partial_name = "markdown_#{I18n.locale.to_s.underscore}"
+
+    - # fall back to english if not found
+    - begin
+      = render partial_name
+    - rescue ActionView::MissingTemplate
+      = render "markdown_en"
+
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"}
+      = t '_other.confirm'

@@ -31,11 +31,6 @@ config_env = full_config[Rails.env]
 config.merge!(config_env) unless config_env.nil?
 configatron.configure_from_hash(config)
 
-# Whether or not the event module was loaded.
-# Use to know whether things like routes, helpers, and abilities from the module should be
-# loaded.
-configatron.modules.events.loaded = false
-
 # Defaults for redis
 configatron.redis.host = 'localhost' if configatron.redis.host.nil?
 configatron.redis.port = 6379 if configatron.redis.port.nil?

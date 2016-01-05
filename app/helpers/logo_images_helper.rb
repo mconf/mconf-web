@@ -16,7 +16,7 @@ module LogoImagesHelper
     elsif resource.is_a?(Space)
       model_type = :space
     else
-      if mod_enabled?('events') && resource.is_a?(MwebEvents::Event)
+      if mod_enabled?('events') && resource.is_a?(Event)
         model_type = :event
       end
     end

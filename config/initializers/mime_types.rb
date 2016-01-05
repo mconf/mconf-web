@@ -22,7 +22,5 @@ Mime::Type.register "application/vnd.ms-word", :doc, [ "application/msword", "ap
 Mime::Type.register "application/vnd.ms-powerpoint", :ppt, [ "application/mspowerpoint" ]
 Mime::Type.register "application/vnd.ms-excel", :xls, [ "application/msexcel" ]
 Mime::Type.register "application/rar", :rar, [ "application/x-rar" ]
+Mime::Type.register "text/calendar", :ical
 Mime::Type.register_alias "text/html", :m
-
-# for private message views, which are essentially text possibly with html
-Mime::Type.register "text/pm", :pm
