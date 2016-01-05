@@ -17,13 +17,15 @@ class MigrateNewsToPosts < ActiveRecord::Migration
 
       activities = RecentActivity.where(trackable_type: 'News', trackable_id: n[NEWS_ID])
       activities.each do |act|
-        act.update_attributes trackable_type: 'Post', trackable_id: post.id
+        act.update_attributes trackable_type: 'Post', trackable_id: post.id, key: 'post.create'
         # add the creator of the activity as the post author
         post.update_attributes author: act.recipient, created_at: n[NEWS_CREATED_AT], updated_at: n[NEWS_UPDATED_AT]
       end
     end
     Post.record_timestamps = true
 
+    # in case there are still activities for news that were removed, remove them
+    RecentActivity.destroy_all(key: 'news.create')
   end
 
   def down
