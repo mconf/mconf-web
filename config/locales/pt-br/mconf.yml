@@ -925,10 +925,6 @@ pt-br:
       public: "Comunidade pública"
   less: "menos..."
   locales:
-    de: Deutsch
-    en: English
-    es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
     error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"

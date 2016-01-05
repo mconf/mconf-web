@@ -15,14 +15,13 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '29d7fe875960cb1f9357db1445e2b063'
 
-  # Locale as param
-  before_filter :set_current_locale
-
+  before_filter :set_current_locale # Locale as param
   before_filter :set_time_zone
-
   before_filter :store_location
 
   helper_method :current_site
+  helper_method :previous_path_or
+  helper_method :locale_i18n
 
   # Handle errors - error pages
   rescue_from Exception, :with => :render_500
@@ -190,6 +189,11 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  # Returns the translation for of a locale given its acronym (e.g. "en")
+  def locale_i18n(acronym)
+    configatron.locales.names[acronym.to_sym]
+  end
+
   # The payload is used by lograge. We add more information to it here so that it is saved
   # in the log.
   def append_info_to_payload(payload)
@@ -314,7 +318,6 @@ class ApplicationController < ActionController::Base
   def previous_path_or(fallback)
     session[:previous_user_return_to] || fallback
   end
-  helper_method :previous_path_or
 
   # A default handler for access denied exceptions. Will simply redirect the user
   # to the sign in page if the user is not logged in yet.

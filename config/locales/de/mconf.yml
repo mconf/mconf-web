@@ -922,10 +922,6 @@ de:
       public: "Öffentliche Gruppe"
   less: "weniger..."
   locales:
-    de: Deutsch
-    en: Englisch
-    es-419: "Spanisch (Lateinamerika)"
-    pt-br: "Portugiesisch (Brasilien)"
     error: "Sprachumgebung"
   login_or_register: "Login / Registrieren"
   login_request: "Sie müssen dazu eingeloggt sein"

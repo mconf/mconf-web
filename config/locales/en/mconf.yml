@@ -924,15 +924,11 @@ en:
       private: "Private space"
       public: "Public space"
   less: "less..."
-  locales: 
-    de: Deutsch
-    en: English
-    es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+  locales:
     error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
-  logo: 
+  logo:
     created: "Logo uploaded successfully"
     crop: "Crop space logo"
     empty: "The logo is empty"
