@@ -42,7 +42,8 @@ de:
     invitation_email:
       message:
         header: "Sie wurden von <b>%{sender}</b> (%{email_sender}) eingeladen, folgender Gruppe <b>%{space}</b> beizutreten."
-        link: "Sie können diese Einladung unter folgendem Link bestätigen oder ablehnen: <br/> <a href=\"%{url}\">%{url}</a><br/><br/>Sie können mehr über diesen Gruppe hier herausfinden: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        link: "Sie können diese Einladung unter folgendem Link bestätigen oder ablehnen: <br/> <a href=\"%{url}\">%{url}</a>"
+        space_info: "Sie können mehr über diesen Gruppe hier herausfinden: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "Dies ist die Nachricht von %{sender}:"
       subject: "%{username} hat Sie eingelagen, der Gruppe %{space} beizutreten"
     join_request_email:
