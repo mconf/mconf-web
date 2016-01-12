@@ -12,7 +12,7 @@
           - status = t('.running_with.participants', :count => @room.participant_count)
       - else
         - status = t('.not_running')
-      = status.capitalize
+      = status
 
   .invite-url
     = copyable_field 'invite-url-text', join_webconf_url(@room), :label => t('.your_url'), :readonly => true
