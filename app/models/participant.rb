@@ -10,6 +10,11 @@ class Participant < ActiveRecord::Base
 
   has_one :participant_confirmation
 
+  # Ensure participants will never be found if events are disabled.
+  default_scope -> {
+    Participant.none unless Mconf::Modules.mod_enabled?('events')
+  }
+
   # create a ParticipantConfirmation request if no user is associated with the participation
   after_create :create_participant_confirmation, if: :annonymous?
 

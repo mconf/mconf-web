@@ -14,7 +14,7 @@ class MyController < ApplicationController
 
   before_filter :prepare_user_room, only: :home
 
-  after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
+  after_filter :load_events, only: :home
 
   layout :determine_layout
 

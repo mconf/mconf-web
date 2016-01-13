@@ -48,8 +48,8 @@ class SitesController < ApplicationController
      :ldap_user_treebase, :ldap_username_field, :ldap_email_field, :ldap_name_field, :ldap_filter, :smtp_login, :smtp_password,
      :smtp_sender, :smtp_receiver, :smtp_domain, :smtp_server, :smtp_port, :smtp_use_tls, :smtp_auto_tls, :smtp_auth_type, :exception_notifications,
      :exception_notifications_email, :exception_notifications_prefix, :external_help,
-     :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled, :room_dial_number_pattern,
-     :shib_update_users, :require_space_approval, :forbid_user_space_creation, :max_upload_size, :use_gravatar,
+     :registration_enabled, :require_registration_approval, :local_auth_enabled, :spaces_enabled, :events_enabled,
+     :room_dial_number_pattern, :shib_update_users, :require_space_approval, :forbid_user_space_creation, :max_upload_size, :use_gravatar,
      :captcha_enabled, :recaptcha_public_key, :recaptcha_private_key,
      visible_locales: []
     ]

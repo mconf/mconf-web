@@ -11,6 +11,11 @@ class ParticipantConfirmation < ActiveRecord::Base
 
   delegate :email, to: :participant, allow_nil: true
 
+  # Ensure participant confirmations will never be found if events are disabled.
+  default_scope -> {
+    ParticipantConfirmation.none unless Mconf::Modules.mod_enabled?('events')
+  }
+
   def generate_token
     self.token = SecureRandom.urlsafe_base64(16)
   end

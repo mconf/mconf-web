@@ -5,4 +5,10 @@
 # 3 or later. See the LICENSE file.
 
 class EventInvitation < Invitation
+
+  # Ensure invitations will never be found if events are disabled
+  default_scope -> {
+    EventInvitation.none unless Mconf::Modules.mod_enabled?('events')
+  }
+
 end

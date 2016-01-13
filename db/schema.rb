@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 20170207190227) do
     t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
+    t.boolean  "spaces_enabled",                 default: true
     t.string   "smtp_receiver"
   end
 
