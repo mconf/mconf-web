@@ -7,6 +7,8 @@
 
 
 class AttachmentsController < ApplicationController
+  before_filter :require_spaces_mod
+
   # anonymous users can view and download attachments
   before_filter :authenticate_user!, except: [:index, :show]
 

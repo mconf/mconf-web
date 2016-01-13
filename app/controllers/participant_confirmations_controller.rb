@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class ParticipantConfirmationsController < ApplicationController
+  before_filter :require_events_mod
 
   before_filter :find_by_token
 

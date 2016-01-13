@@ -1,12 +1,13 @@
 class ParticipantsController < InheritedResources::Base
   respond_to :html
 
+  before_filter :require_events_mod
+
   load_and_authorize_resource :event, find_by: :permalink
   load_and_authorize_resource :participant, :through => :event
 
   belongs_to :event, finder: :find_by_permalink
 
-  before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
 
   after_filter only: [:create] do
@@ -50,12 +51,6 @@ class ParticipantsController < InheritedResources::Base
   end
 
   private
-  # return 404 for all Participant routes if the events are disabled
-  def block_if_events_disabled
-    unless Mconf::Modules.mod_enabled?('events')
-      raise ActionController::RoutingError.new('Not Found')
-    end
-  end
 
   def custom_loading
     @participants = @participants.accessible_by(current_ability)

@@ -17,7 +17,7 @@ class MyController < ApplicationController
   # For all pages that render the user's sidebar
   before_filter :user_spaces_for_sidebar, :only => [:home, :recordings, :activity]
 
-  after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
+  after_filter :load_events, only: :home
 
   layout :determine_layout
 

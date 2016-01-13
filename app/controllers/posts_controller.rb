@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < InheritedResources::Base
+  before_filter :require_spaces_mod
 
   belongs_to :space, finder: :find_by_permalink
 

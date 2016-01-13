@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215194513) do
+ActiveRecord::Schema.define(version: 20160113213602) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -371,6 +371,7 @@ ActiveRecord::Schema.define(version: 20151215194513) do
     t.boolean  "forbid_user_space_creation",     default: false
     t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
+    t.boolean  "spaces_enabled",                 default: true
   end
 
   create_table "spaces", force: true do |t|

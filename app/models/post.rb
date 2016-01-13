@@ -19,6 +19,11 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
   validates_presence_of :text
 
+  # Ensure posts will never be found if spaces are disabled
+  default_scope -> {
+    Post.none unless Mconf::Modules.mod_enabled?('spaces')
+  }
+
   # Update parent Posts when commenting to it
   after_save do |post|
     post.parent.try(:touch)

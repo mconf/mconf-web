@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestsController < ApplicationController
+  before_filter :require_spaces_mod
 
   # Recent activity for join requests
   after_filter :only => [:accept, :decline] do

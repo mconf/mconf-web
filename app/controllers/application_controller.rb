@@ -93,10 +93,10 @@ class ApplicationController < ActionController::Base
 
     # first make sure the room has a valid owner
     if room.owner_type == "User"
-      user = User.find_by_id(room.owner_id)
+      user = User.find_by(id: room.owner_id)
       return nil if user.nil? || user.disabled
     elsif room.owner_type == "Space"
-      space = Space.find_by_id(room.owner_id)
+      space = Space.find_by(id: room.owner_id)
       return nil if space.nil? || space.disabled
     else
       return nil
@@ -211,6 +211,20 @@ class ApplicationController < ActionController::Base
           name: current_user.try(:full_name) || (params[:user].present? ? params[:user][:name] : nil)
         }
       } unless @room.nil?
+    end
+  end
+
+  # Returns 404 for all routes if the events are disabled
+  def require_events_mod
+    unless Mconf::Modules.mod_enabled?('events')
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
+  # Returns 404 for all routes if the spaces are disabled
+  def require_spaces_mod
+    unless Mconf::Modules.mod_enabled?('spaces')
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 

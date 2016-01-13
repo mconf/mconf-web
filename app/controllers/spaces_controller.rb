@@ -10,6 +10,8 @@ class SpacesController < InheritedResources::Base
   include Mconf::DisableControllerModule # for enable, disable
   include Mconf::SelectControllerModule # select
 
+  before_filter :require_spaces_mod
+
   before_filter :authenticate_user!, :only => [:new, :create]
 
   # TODO: cleanup the other actions adding respond_to blocks here
@@ -32,9 +34,9 @@ class SpacesController < InheritedResources::Base
     :only => [:show, :edit, :user_permissions, :webconference,
               :recordings, :edit_recording]
 
-  before_filter :load_spaces_examples, :only => [:new, :create]
+  before_filter :load_spaces_examples, only: [:new, :create]
 
-  before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
+  before_filter :load_events, only: :show
 
   # Create recent activity
   after_filter :only => [:create, :update, :update_logo, :leave] do

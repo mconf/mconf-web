@@ -7,7 +7,7 @@
   %span= t('.interesting_links')
 
   %ul
-    - if Mconf::Modules.mod_enabled?('events')
+    - if mod_enabled?('events')
       %li= link_to t('.events_list'), events_path
       %span &#149;
 

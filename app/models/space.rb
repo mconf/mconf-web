@@ -108,8 +108,15 @@ class Space < ActiveRecord::Base
   after_create :crop_logo
   after_update :crop_logo
 
-  # By default spaces marked as disabled will not show in queries
-  default_scope -> { where(:disabled => false) }
+  # By default spaces marked as disabled will not show in queries.
+  # Also ensure spaces will never be found if disabled.
+  default_scope -> {
+    if Mconf::Modules.mod_enabled?('spaces')
+      where(disabled: false)
+    else
+      Space.none
+    end
+  }
 
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
@@ -238,6 +245,7 @@ class Space < ActiveRecord::Base
 
   def self.with_disabled
     unscope(where: :disabled) # removes the target scope only
+    # TODO: test what happens when the spaces mod is disabled
   end
 
   # TODO: review all public methods below
