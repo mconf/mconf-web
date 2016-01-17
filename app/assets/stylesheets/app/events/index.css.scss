@@ -21,7 +21,7 @@ body.events.index {
     margin-bottom: 20px;
     padding: 10px 5px;
     background: $m-light-gray;
-    @include border-radius(5px);
+    @include border-radius($m-border-radius-large);
     text-align: center;
 
     .view-types {
@@ -40,7 +40,7 @@ body.events.index {
       float: left;
 
       .select2-choice {
-        @include border-radius(0 4px 4px 0);
+        @include border-radius(0 $m-border-radius-large $m-border-radius-large 0);
       }
 
       #space-filter-text {

@@ -39,7 +39,7 @@ body.spaces.new, body.spaces.create {
           border: 1px solid #ddd;
           padding: 1px;
           @include broken-img-parent;
-          @include border-radius(2);
+          @include border-radius($m-border-radius-small);
 
           &:hover {
             border-color: $m-second-color;

@@ -31,7 +31,7 @@ $m-base-line-height: 1.5;
 
 // standard colors
 $m-green: $olive; //#509F00;
-$m-blue: #005fca;
+$m-blue: #2186DE; //#005fca
 $m-red: #d9534f; // bootstrap's bg red   // #C23321;
 $m-orange: #C47322;
 $m-yellow: #BB9403;
@@ -61,6 +61,9 @@ $m-link-color-3-active: $m-link-color-active;
 // borders
 $m-border-color-normal: #ddd;
 $m-border-color-light: #eee;
+$m-border-radius-base: 3px;
+$m-border-radius-small: 2px;
+$m-border-radius-large: 4px;
 
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;
@@ -87,13 +90,6 @@ $m-sidebar-border: $m-border-color-normal; //darken($m-light-gray, 15);
 $m-sidebar-bg-color: $m-site-bg-color;
 
 // headers
-$m-navbar-bg-color-dark: darken($m-green-logo, 3);
-$m-navbar-bg-color-light: $m-green-logo;
-$m-subnav-bg-color: #eee;
-$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
-$m-navbar-height: 42px;
-$m-navbar-font-color: #ddd;//$m-font-color;
-$m-navbar-font-color-hover: white; //$m-link-color-hover;
 $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
@@ -102,18 +98,44 @@ $m-page-header-link-color: $m-link-color;
 $m-page-header-link-color-hover: $m-link-color-hover;
 $m-page-title-bg: $m-light-gray;
 $m-page-title-border-color: $m-border-color-normal;
+$m-navbar-border-width: 2px;
+// the height is dynamic but we set it here because it's used by some components
+// for positioning
+$m-navbar-height: 42px;
+
+// for a dark green navbar:
+$m-navbar-bg-color-light: $m-green-logo;
+$m-navbar-bg-color-dark: $m-navbar-bg-color-light; //darken($m-green-logo, 3);
+$m-subnav-bg-color: #eee;
+$m-navbar-font-color: #ddd;//$m-font-color;
+$m-navbar-font-color-hover: white; //$m-link-color-hover;
+$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+$m-navbar-font-highlight: #f6f6f6;
+
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */
 /* $m-navbar-bg-color-light: white; */
-/* $m-navbar-border-color: #ccc; */
+/* $m-navbar-border-color: $m-green-logo; */
+/* $m-navbar-border-width: 1px; */
 /* $m-navbar-font-color: $m-font-color; */
 /* $m-navbar-font-color-hover: $m-link-color-hover; */
+/* $m-navbar-font-highlight: #f6f6f6; */
+
 // for a light/gray navbar:
 /* $m-navbar-bg-color-dark: $m-light-gray; */
 /* $m-navbar-bg-color-light: $m-light-gray; */
 /* $m-navbar-border-color: #ccc; */
 /* $m-navbar-font-color: $m-font-color; */
 /* $m-navbar-font-color-hover: $m-link-color-hover; */
+
+// transparent header
+/* $m-page-header-background: $m-site-bg-color; */
+/* $m-page-header-border-width: 0; */
+/* $m-page-header-border-color: #fff; */
+// light gray header
+$m-page-header-background: #fafafa;
+$m-page-header-border-width: 1px;
+$m-page-header-border-color: #d9d9de;
 
 // footer
 $m-footer-height: 75px;
@@ -123,6 +145,11 @@ $m-footer-link-color: $m-link-color;
 $m-footer-link-color-hover: $m-link-color-hover;
 $m-footer-link-color-active: $m-link-color-active;
 $m-footer-border-color: #888;
+
+// dark gray footer:
+$m-footer-bg-color: $m-light-gray;
+$m-footer-border-color: darken($m-light-gray, 15);
+
 // dark green bg footer:
 /* $m-footer-bg-color: darken($m-green-logo, 3);// $m-navbar-bg-color-dark; */
 /* $m-footer-font-color: #bbb; */
@@ -130,6 +157,7 @@ $m-footer-border-color: #888;
 /* $m-footer-link-color: #bbb; */
 /* $m-footer-link-color-hover: #fff; */
 /* $m-footer-link-color-active: $m-link-color-active; */
+
 // dark gray footer:
 /* $m-footer-bg-color: #1B212A; */
 /* $m-footer-font-color: #E5EBF1; */
@@ -137,9 +165,6 @@ $m-footer-border-color: #888;
 /* $m-footer-link-color: #E5EBF1; */
 /* $m-footer-link-color-hover: #fff; */
 /* $m-footer-link-color-active: $m-link-color-active; */
-// dark gray footer:
-$m-footer-bg-color: $m-light-gray;
-$m-footer-border-color: darken($m-light-gray, 15);
 
 // h1, h2, h3, ...
 $m-h-font-color: #404040;
@@ -159,14 +184,12 @@ $m-mail-font-color: $m-font-color;
 $m-mail-header-font-color: $m-navbar-bg-color-dark;
 $m-mail-font-size: $m-font-normal;
 
-@import "bootstrap/mixins";
-@import "mixins";
-@import "mixins-columns-height";
-
+// notifications
+$m-notifications-top: 6px;
 
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
-// Some we just define with their default values because we might need them when using
+// Some are definef here with their default values because we might need them when using
 // bootstrap's mixins in other files (where we import bootstrap/mixins).
 /* $input-color: #666; */
 /* $grid-columns:              12; */
@@ -176,19 +199,25 @@ $m-mail-font-size: $m-font-normal;
 /*
  * Customized variables for bootstrap
  */
-//$m-link-color: #367380;
-// $btn-primary-bg: #5bc0de;
-$brand-primary: $blue;
+// $brand-primary: $blue;
+$brand-primary: #4589C4;//#2186DE;
+$border-radius-base: $m-border-radius-base;
+$border-radius-small: $m-border-radius-small;
+$border-radius-large: $m-border-radius-large;
 $brand-success: $olive;
 $brand-info: $blue;
 $brand-danger: $red; //#d9534f; //$red;
 $brand-warning: $orange;
 $btn-primary-bg: $brand-primary;
+$btn-primary-border: $btn-primary-bg;
 $btn-success-bg: $brand-success;
-$btn-success-border: darken($brand-success, 3);
+$btn-success-border: $btn-success-bg;
 $btn-info-bg: $brand-info;
+$btn-info-border: $btn-info-bg;
 $btn-danger-bg: $brand-danger;
+$btn-danger-border: $btn-danger-bg;
 $btn-warning-bg: $brand-warning;
+$btn-warning-border: $btn-warning-bg;
 $state-primary-bg: $brand-primary;
 $state-success-bg: $brand-success;
 $state-info-bg: $brand-info;
@@ -202,5 +231,11 @@ $label-warning-bg: $brand-warning;
 // $btnPrimaryBackgroundHighlight: #2f96b4;
 $navbar-default-bg: #0a3138;
 // $navbarBackgroundHighlight: #27535C;
-$link-color: $m-link-color; //#1e9a50; //#187d41;
+//$link-color: $m-link-color; //#1e9a50; //#187d41;
+$link-color: #1e9a50; //#187d41;
 $link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
+
+// Important: have to be imported after customizing bootstrap's variables
+@import "bootstrap/mixins";
+@import "mixins";
+@import "mixins-columns-height";

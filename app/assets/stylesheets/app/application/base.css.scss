@@ -59,7 +59,7 @@ form {
 }
 
 #notification-flashs {
-  top: $m-navbar-height;
+  top: $m-notifications-top;
 }
 
 // Unified style for threads: posts, attachments
@@ -247,10 +247,9 @@ form {
 
 #navbar-wrapper {
   margin: 0;
-  padding: 0 10px;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
-  border-bottom: 1px solid $m-navbar-border-color;
+  border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
   @include font-for-titles;
 }
 
@@ -264,8 +263,6 @@ form {
     li {
       display: inline;
       float: left;
-      padding: 11px 10px 0 10px;
-      height: $m-navbar-height + 1px; // + the border
 
       &:first-child { border: 0 }
 
@@ -284,19 +281,26 @@ form {
     }
   }
 
-  a, .icon-awesome {
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+  a {
+    padding: 15px 15px 15px 15px;
+    display: block;
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+
+    $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 5);
+    &:hover {
+      background: $m-navbar-font-highlight;
+    }
   }
 
   .icon-awesome {
     margin: 3px 3px 0px 0px;
     @include font-size($m-font-normal);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
   }
 }
 
 #navbar {
   @include make-row(0);
-  height: $m-navbar-height;
   color: $m-navbar-font-color;
   @include font-size($m-font-medium);
 
@@ -330,7 +334,7 @@ form {
     @include make-sm-column(1);
     float: left;
     white-space: nowrap;
-    margin-top: 4px;
+    margin-top: 8px;
     @include mconf-clearfix;
 
     .title {
@@ -417,9 +421,9 @@ form {
 }
 
 #page-header-wrapper {
-  //border-bottom: 1px solid $m-page-border-color;
-  //background: $m-page-title-bg;
   padding: 0 20px;
+  background: $m-page-header-background;
+  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
 }
 
 #page-header {
@@ -429,10 +433,6 @@ form {
   padding: 25px 10px 15px 10px;
   clear: both;
   word-break: break-all;
-
-  &.without-menu {
-    border-bottom: 1px solid $m-border-color-normal;
-  }
 
   > a {
     @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
@@ -546,7 +546,7 @@ form {
 
   .content-block-wrapper {
     padding: 4px;
-    @include border-radius(5px);
+    @include border-radius($m-border-radius-large);
     background: $m-light-gray;
     margin-bottom: 10px;
     clear: both;
@@ -557,7 +557,7 @@ form {
     clear: both;
     padding: 10px;
     border: 1px solid #ddd;
-    @include border-radius(5px);
+    @include border-radius($m-border-radius-large);
     background: $m-site-bg-color;
   }
 
@@ -598,7 +598,7 @@ form {
     margin-bottom: 10px;
     padding: 5px 10px;
     background: $m-light-gray;
-    @include border-radius(4px);
+    @include border-radius($m-border-radius-base);
     clear: both;
     text-align: center;
   }
@@ -724,73 +724,21 @@ form {
 }
 
 #page-menu {
-  margin: 0;
-  clear: both;
-  @include mconf-clearfix;
-  padding: 0 15px;
-
-  > ul {
-    // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid darken($m-site-bg-color, 10);
-
-    > li {
-      margin: 0 15px -2px 0; // -2 so selected items border gets over the default menu border
-      display: inline-block;
-      // margin-right: 15px;
-      padding: 5px 15px 3px 15px;
-      font-weight: bold;
-      @include font-size($m-font-medium);
-
-      // use link-style(2) but with a lighter default color
-      @include link-style(2);
-      > a:not(.btn) {
-        color: $m-page-menu-font-color;
-        &:visited { color: $m-page-menu-font-color; }
-        &.danger-text {
-          @include danger-text;
-        }
-      }
-
-      &.active {
-        border-bottom: 3px solid $m-second-color;
-        a {
-          $normal: darken($m-page-menu-font-color, 20);
-          $hover: lighten($m-page-menu-font-color, 10);
-          @include link-colors($normal, $hover, $hover, $normal);
-        }
-      }
-
-      .caret-container {
-        padding: 0 5px;
-        display: block;
-      }
-
-      .caret {
-        border-top-color: #888;
-        margin-top: 6px;
-      }
-
-      .dropdown-menu {
-        left: -8px;
-      }
-    }
-  }
+  @include horizontal-menu;
 }
 
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
+#page-sub-menu-wrapper {
+  border-bottom: 1px solid lighten($m-page-header-border-color, 8);
+}
 #page-sub-menu.page-sub-menu {
   clear: both;
-  margin: 0;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 0 12px;
   @include mconf-clearfix;
   float: none;
-  background: $m-very-light-gray;
-  $border-color: darken($m-very-light-gray, 8);
-  border-bottom: 1px solid $border-color;
-  // border-top: 1px solid $border-color;
-  padding: 15px 25px 0 15px;
 
   // use link-style(2) but with a lighter default color
   @include link-style(2);
@@ -799,21 +747,32 @@ form {
     $hover: $m-second-color;
     color: $normal;
     @include link-colors($normal, $hover, $hover, $normal);
-
     padding: 6px 10px;
     display: inline-block;
     margin: -1px 0px; // -1 to go over the external element's border
+    position: relative;
 
-    /* &.danger-text { @include danger-text; } */
+    $border: darken($m-very-light-gray, 8);
+
+    // arrow on top
+    /* &.active:after { */
+    /*   content:''; */
+    /*   position: absolute; */
+    /*   top: 100%; */
+    /*   left: 50%; */
+    /*   margin-left: -7px; */
+    /*   width: 0; */
+    /*   height: 0; */
+    /*   border-top: solid 7px $border; */
+    /*   border-left: solid 7px transparent; */
+    /*   border-right: solid 7px transparent; */
+    /* } */
 
     &.active {
       font-weight: bold;
-      background: white;
-      @include border-radius(0, 5px);
-      border-top: 1px solid $border-color;
-      border-bottom: 1px solid white;
-      border-right: 1px solid $border-color;
-      border-left: 1px solid $border-color;
+      background: #fafafa;
+      @include border-radius($m-border-radius-large);
+      border: 1px solid $border;
       $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
       $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
       @include link-colors($normal, $hover, $hover, $normal);

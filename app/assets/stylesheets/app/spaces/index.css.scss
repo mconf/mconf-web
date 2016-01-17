@@ -9,7 +9,7 @@ body.spaces.index {
     margin-bottom: 10px;
     padding: 10px 10px;
     background: $m-light-gray;
-    @include border-radius(5px);
+    @include border-radius($m-border-radius-large);
     text-align: left;
 
     .filters, .list-types, .list-order {
@@ -117,7 +117,7 @@ body.spaces.index {
       color: $m-alert-success-font;
       background: lighten($m-alert-success-bg, 5);
       padding: 1px 3px;
-      @include border-radius(3px);
+      @include border-radius($m-border-radius-base);
       text-align: center;
       margin: 5px 0 10px 0;
     }

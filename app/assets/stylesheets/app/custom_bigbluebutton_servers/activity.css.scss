@@ -18,7 +18,7 @@ body.custom_bigbluebutton_servers.activity {
 
     #server-activity-content {
       border: 1px solid white;
-      @include border-radius(4px);
+      @include border-radius($m-border-radius-base);
     }
 
     .label-updated {

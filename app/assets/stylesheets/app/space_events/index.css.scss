@@ -11,7 +11,7 @@ body.space_events.index {
     float: right;
     padding: 0 6px 4px 6px;
     background: $m-light-gray;
-    @include border-radius(4px);
+    @include border-radius($m-border-radius-base);
 
     span {
       float: left;
@@ -26,7 +26,7 @@ body.space_events.index {
     .selected-ordering .icon-awesome {
       background: #666;
       color: white;
-      @include border-radius(4px);
+      @include border-radius($m-border-radius-base);
     }
   }
 

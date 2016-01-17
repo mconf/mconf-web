@@ -10,7 +10,7 @@
   &.toast-top-full-width {
     right: 0;
     left: 0;
-    top: $m-navbar-height + 1px;
+    top: $m-notifications-top;
   }
 
   > .toast-error, > .toast-warning {

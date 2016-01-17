@@ -28,7 +28,7 @@
     margin: 2px 0;
     padding: 2px;
     border: 1px solid $m-border-color-normal;
-    @include border-radius(2px);
+    @include border-radius($m-border-radius-small);
     &:hover { border: 1px solid $m-focus-border-color; }
 
     // default dimensions for logos inside threads
@@ -198,4 +198,60 @@
   color: #666;
   font-weight: normal;
   @include font-size($m-font-small);
+}
+
+// default horizontal menu
+@mixin horizontal-menu {
+  margin: 0;
+  clear: both;
+  @include mconf-clearfix;
+  padding: 0 15px;
+
+  > ul {
+    // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0 15px -2px 0; // -2 so selected items border gets over the default menu border
+      display: inline-block;
+      // margin-right: 15px;
+      padding: 5px 15px 3px 15px;
+      font-weight: bold;
+      @include font-size($m-font-medium);
+
+      // use link-style(2) but with a lighter default color
+      @include link-style(2);
+      > a:not(.btn) {
+        color: $m-page-menu-font-color;
+        &:visited { color: $m-page-menu-font-color; }
+        &.danger-text {
+          @include danger-text;
+        }
+      }
+
+      &.active {
+        border-bottom: 3px solid $m-second-color;
+        a {
+          $normal: darken($m-page-menu-font-color, 20);
+          $hover: lighten($m-page-menu-font-color, 10);
+          @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+
+      .caret-container {
+        padding: 0 5px;
+        display: block;
+      }
+
+      .caret {
+        border-top-color: #888;
+        margin-top: 6px;
+      }
+
+      .dropdown-menu {
+        left: -8px;
+      }
+    }
+  }
 }

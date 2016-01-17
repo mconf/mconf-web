@@ -7,7 +7,7 @@ body.events, body.space_events {
   #map {
     height: 180px;
     padding-top: 10px;
-    border-radius: 4px;
+    @include border-radius($m-border-radius-base);
     border: 1px solid #ddd;
   }
 

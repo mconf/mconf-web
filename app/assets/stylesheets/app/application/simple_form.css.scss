@@ -104,7 +104,9 @@
   }
 
   &.form-horizontal {
-    .error-block {
+    label:not(.checkbox) {
+      text-align: right;
+      padding-top: 6px;
     }
   }
 }

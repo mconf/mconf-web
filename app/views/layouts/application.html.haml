@@ -34,10 +34,11 @@
           - if content_for?(:page_menu)
             #page-menu
               = yield :page_menu
-              - if content_for?(:page_sub_menu)
-                #page-sub-menu.page-sub-menu
-                  = yield :page_sub_menu
 
+      - if content_for?(:page_sub_menu)
+        #page-sub-menu-wrapper.container-fluid
+          #page-sub-menu.page-sub-menu
+            = yield :page_sub_menu
       #content.container-fluid
         #content-row
           - if content_for?(:main_sidebar)

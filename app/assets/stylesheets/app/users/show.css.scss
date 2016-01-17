@@ -17,7 +17,7 @@ body.users.show {
   #profile-in-sidebar {
     background: $m-light-gray;
     padding: 20px 10px 10px 10px;
-    @include border-radius(4px);
+    @include border-radius($m-border-radius-base);
     text-align: center;
 
     ul {
@@ -40,7 +40,10 @@ body.users.show {
         }
       }
     }
-
   }
 
+  #page-menu-alt {
+    @include horizontal-menu;
+    border-bottom: 1px solid $m-border-color-normal;
+  }
 }

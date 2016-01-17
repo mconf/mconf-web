@@ -1732,6 +1732,7 @@ en:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
+      other_options: "Other options"
       other_user:
         click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."

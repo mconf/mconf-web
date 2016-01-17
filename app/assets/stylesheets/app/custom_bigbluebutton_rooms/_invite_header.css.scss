@@ -7,7 +7,7 @@ body.custom_bigbluebutton_rooms.auth {
 
   #webconf-room-invite-header {
     text-align: center;
-    @include border-radius(4px);
+    @include border-radius($m-border-radius-base);
     background-color: $m-alert-bg;
     @include font-size($m-font-medium);
     padding: 10px;
@@ -51,7 +51,7 @@ body.custom_bigbluebutton_rooms.auth {
         background: white;
         width: 40px;
         padding: 4px 0;
-        @include border-radius(4px);
+        @include border-radius($m-border-radius-base);
         display: block;
 
         &.active {

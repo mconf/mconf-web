@@ -26,7 +26,7 @@ ul.list-thumbnails {
 
   .list-thumbnail {
     @include mconf-clearfix;
-    @include border-radius(4px);
+    @include border-radius($m-border-radius-base);
 
     .list-logo {
       float: left;
@@ -36,7 +36,7 @@ ul.list-thumbnails {
       border: 1px solid darken($m-light-gray, 12);
       background: white;
       padding: 2px;
-      @include border-radius(3px);
+      @include border-radius($m-border-radius-base);
 
       img {
         width: 84px;

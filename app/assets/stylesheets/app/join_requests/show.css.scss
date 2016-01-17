@@ -21,7 +21,7 @@ body.join_requests.show {
         padding: 10px;
         margin: 10px auto;
         background: $m-light-gray;
-        @include border-radius(4px);
+        @include border-radius($m-border-radius-base);
         max-width: 300px;
       }
     }

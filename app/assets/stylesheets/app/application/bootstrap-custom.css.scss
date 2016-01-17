@@ -33,8 +33,8 @@ label {
 }
 
 // bootstrap puts the checkboxes at the left of labels with a negative margin,
-// so fix their position
-label.control-label.checkbox {
+// we don't like it, so we fix their position
+label.checkbox {
   padding-left: 20px;
 
   // otherwise hints, shown as tooltips, popup in a weird location
@@ -161,7 +161,7 @@ label.control-label.checkbox {
 
 .alert {
   padding: 15px;
-  @include border-radius(3px);
+  @include border-radius($m-border-radius-base);
   @include text-shadow(none);
   border-top-width: 1px;
   border-right-width: 1px;

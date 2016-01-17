@@ -1728,6 +1728,7 @@ pt-br:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
+      other_options: "Outras opções"
       other_user:
         click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."

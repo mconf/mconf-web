@@ -4,7 +4,7 @@
 #profile-in-sidebar {
   background: $m-light-gray;
   padding: 20px 10px 10px 10px;
-  @include border-radius(4px);
+  @include border-radius($m-border-radius-base);
   text-align: center;
 
   #edit-profile-current-logo {
