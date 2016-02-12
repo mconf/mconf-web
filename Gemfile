@@ -31,7 +31,7 @@ gem 'rails_autolink', '~> 1.1.0'
 gem 'simple_form', '~> 3.1.0'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id', '~> 5.0.4'
-gem 'i18n-js', :git => "https://github.com/fnando/i18n-js.git"
+gem 'i18n-js', '~> 3.0.0.rc12'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
@@ -55,7 +55,7 @@ gem 'bigbluebutton-api-ruby', :git => 'https://github.com/mconf/bigbluebutton-ap
 gem 'bigbluebutton_rails', :git => 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
 
 # Used on Profile to generate a vcard
-gem 'vpim', :git => 'https://github.com/sam-github/vpim.git'
+gem 'vpim', '~> 13.11.11'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
