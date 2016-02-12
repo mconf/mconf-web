@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rack', '~> 1.5.4'
-gem 'rails', '~> 4.1.11'
+gem 'rails', '~> 4.1.14'
 gem 'sass-rails', '~> 4.0.4'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'
@@ -12,17 +12,17 @@ gem 'handlebars_assets'
 gem 'select2-rails'
 
 # To use sql UNION with activerecord
-gem 'active_record_union'
+gem 'active_record_union', '~> 1.1.0'
 
 # To DRY controllers
-gem 'inherited_resources'
+gem 'inherited_resources', '~> 1.6.0'
 
 # TODO: remove when compass-rails is updated to support animations
 # This compass is here so we can have css3/animation
 gem 'compass', '~> 0.13.alpha'
 
 gem 'mysql2', '~> 0.3.0'
-gem 'rake'
+gem 'rake', '~> 10.5.0'
 gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
@@ -30,7 +30,7 @@ gem 'chronic'
 gem 'rails_autolink', '~> 1.1.0'
 gem 'simple_form', '~> 3.1.0'
 gem 'acts_as_tree', '~> 2.0.0'
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.0.4'
 gem 'i18n-js', :git => "https://github.com/fnando/i18n-js.git"
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
@@ -38,7 +38,7 @@ gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/val
 gem 'public_activity', '~> 1.4.1'
 
 # For queues
-gem 'resque', :require => 'resque/server'
+gem 'resque', '~> 1.25.2', :require => 'resque/server'
 gem 'resque-scheduler', :require => 'resque/scheduler/server'
 gem 'resque_mailer'
 gem 'resque-lock-timeout'
@@ -59,8 +59,8 @@ gem 'vpim', :git => 'https://github.com/sam-github/vpim.git'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
-gem 'rmagick'
-gem 'mini_magick'
+gem 'rmagick', '~> 2.13.2'
+gem 'mini_magick', '~> 3.8.1'
 
 # global configurations
 gem 'configatron', '~> 2.13.0'
@@ -74,7 +74,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'
 
-gem 'sprockets', '~> 2.12.3'
+gem 'sprockets', '~> 2.12.4'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
