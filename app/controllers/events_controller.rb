@@ -38,6 +38,8 @@ class EventsController < InheritedResources::Base
       @event.owner_name = current_user.try(:email)
     end
 
+    authorize! :new, @event
+
     new!
   end
 
@@ -97,7 +99,10 @@ class EventsController < InheritedResources::Base
   end
 
   def handle_access_denied(exception)
-    if @event.nil? || @event.owner.nil?
+    if ['new', 'create'].include? action_name
+      flash[:error] = t('flash.events.create.alert')
+      redirect_to events_path
+    elsif @event.nil? || @event.owner.nil?
       raise ActiveRecord::RecordNotFound
     else
       raise exception
