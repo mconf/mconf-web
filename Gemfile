@@ -44,7 +44,8 @@ gem 'resque_mailer'
 gem 'resque-lock-timeout'
 
 # Authentication and authorization
-gem 'devise', '~> 3.5.1'
+gem 'bcrypt', '~> 3.1.5'
+gem 'devise', '~> 3.5.4'
 gem 'devise-encryptable' # TODO: #1271 only while we have old station users
 gem 'cancancan', '~> 1.9'
 gem 'devise-async'
