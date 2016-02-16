@@ -19,7 +19,7 @@ module Devise
       end
 
       def authenticate!
-        if ldap_enabled? and params[:user]
+        if ldap_enabled? && valid_params_sent?
           Rails.logger.info "LDAP: LDAP is enabled, trying to connect to LDAP server"
           configs = ldap_configs
           ldap = ldap_connection(configs)
@@ -102,6 +102,10 @@ module Devise
           Rails.logger.info "LDAP: authentication failed: invalid user credentials"
           fail(:invalid)
         end
+      end
+
+      def valid_params_sent?
+        params[:user] && login_from_params.present? && password_from_params.present?
       end
 
       # Returns the login provided by user
