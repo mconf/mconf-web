@@ -44,6 +44,7 @@ en:
     cancel: "Cancel"
     create: "Create"
     confirm: Ok
+    access_denied: "You need to sign in or sign up before continuing."
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"

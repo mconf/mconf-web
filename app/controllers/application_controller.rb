@@ -124,8 +124,8 @@ class ApplicationController < ActionController::Base
           redirect_to login_path
         end
       }
-      format.json { render json: { error: true, message: "You need to sign in or sign up before continuing." }, status: :unauthorized }
-      format.js   { render json: { error: true, message: "You need to sign in or sign up before continuing." }, status: :unauthorized }
+      format.json { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
+      format.js   { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
     end
   end
 end

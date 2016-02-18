@@ -44,6 +44,7 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     confirm: Ok
+    access_denied: "É preciso entrar ou se registrar para poder continuar."
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
