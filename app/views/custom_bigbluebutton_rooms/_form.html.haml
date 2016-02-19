@@ -38,9 +38,9 @@
         = f.select :default_layout, room.available_layouts_for_select, :include_blank => t('.layout_empty_option')
     - else
       = f.input :default_layout, :as => :string, :disabled => true
-    = f.input :presenter_share_only, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.presenter_share_only'), :disabled => !editing
-    = f.input :auto_start_video, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_video'), :disabled => !editing
-    = f.input :auto_start_audio, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_audio'), :disabled => !editing
+    = f.input :presenter_share_only, :as => :select, :hint => t('simple_form.hints.user.bigbluebutton_room.presenter_share_only'), :disabled => !editing
+    = f.input :auto_start_video, :as => :select, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_video'), :disabled => !editing
+    = f.input :auto_start_audio, :as => :select, :hint => t('simple_form.hints.user.bigbluebutton_room.auto_start_audio'), :disabled => !editing
     = f.input :background, :as => :string, :disabled => !editing
 
   - if editing
