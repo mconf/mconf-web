@@ -157,7 +157,10 @@ module Abilities
 
       # users can't create events in a space they don't belong to
       cannot [:create, :new], Event do |event|
-        event.owner_type == 'Space' && !event.owner.users.include?(user)
+        if event.owner_type == 'Space'
+          owner = Space.with_disabled.find(event.owner_id)
+          !owner.approved || owner.disabled || !owner.users.include?(user)
+        end
       end
 
       can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|

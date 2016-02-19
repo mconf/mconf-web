@@ -88,6 +88,7 @@ Mconf::Application.routes.draw do
     get '/recordings/:id/edit', to: 'spaces#edit_recording', as: 'edit_recording'
 
     get '/events', to: 'space_events#index', as: 'events'
+    get '/events/new', to: 'events#new', as: 'new_event'
 
     resources :users, only: :index
 

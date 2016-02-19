@@ -30,10 +30,11 @@ class Event < ActiveRecord::Base
   belongs_to :owner, :polymorphic => true
   has_many :participants, :dependent => :destroy
 
-  validates :name, :presence => true
-  validates :start_on, :presence => true
-  validates :time_zone, :presence => true
-  validates :summary, :length => {:maximum => 140}
+  validates :name, presence: true
+  validates :start_on, presence: true
+  validates :time_zone, presence: true
+  validates :summary, length: {:maximum => 140}
+  validates :owner, presence: true
 
   friendly_id :name, use: :slugged, :slug_column => :permalink
   validates :permalink, :presence => true

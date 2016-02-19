@@ -31,19 +31,27 @@ class EventsController < InheritedResources::Base
   end
 
   def new
-    if params[:owner_id] && params[:owner_type]
-      @event.owner_id = params[:owner_id]
-      @event.owner_type = params[:owner_type]
+    if params[:space_id].present?
+      @event.owner = Space.find_by_permalink!(params[:space_id])
     else
-      @event.owner_name = current_user.try(:email)
+      @event.owner = current_user
     end
+
+    authorize! :new, @event
 
     new!
   end
 
   def create
-    if @event.owner.nil?
-      @event.owner = current_user
+    # TODO: make this better
+    # Unfortunatelly this is here to prevent a bad request with 'owner_type' as an invalid class name
+    # to raise a server error.
+    begin
+      if @event.owner.nil?
+        @event.owner = current_user
+      end
+    rescue NameError
+      @event.owner = nil
     end
 
     create!
@@ -97,7 +105,10 @@ class EventsController < InheritedResources::Base
   end
 
   def handle_access_denied(exception)
-    if @event.nil? || @event.owner.nil?
+    if ['new', 'create'].include? action_name
+      flash[:error] = t('flash.events.create.error')
+      redirect_to events_path
+    elsif @event.nil? || @event.owner.nil?
       raise ActiveRecord::RecordNotFound
     else
       raise exception
