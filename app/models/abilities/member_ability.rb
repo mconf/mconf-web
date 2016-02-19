@@ -159,7 +159,7 @@ module Abilities
       cannot [:create, :new], Event do |event|
         if event.owner_type == 'Space'
           owner = Space.with_disabled.find(event.owner_id)
-          !owner.approved || owner.disabled || !owner.users.include?(user)
+          !owner.users.include?(user)
         end
       end
 
