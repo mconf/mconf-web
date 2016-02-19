@@ -20,7 +20,7 @@
       = render 'manage/destroy_user', user: user
 
   .thread-title
-    - words = params[:q].try(:split)
+    - words = escape_once(params[:q]).try(:split)
     = link_to user_path(user), :class => 'user-name' do
       = highlight(escape_once(user.full_name), words)
     %span.user-email
