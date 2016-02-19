@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => '29d7fe875960cb1f9357db1445e2b063'
+  protect_from_forgery with: :exception
 
   before_filter :set_current_locale # Locale as param
   before_filter :set_time_zone
