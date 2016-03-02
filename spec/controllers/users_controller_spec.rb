@@ -9,6 +9,9 @@ require "spec_helper"
 describe UsersController do
   render_views
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   it "includes Mconf::ApprovalControllerModule"
 
   describe "#index" do
@@ -673,8 +676,8 @@ describe UsersController do
   end
 
   describe "#enable" do
+    let(:referer) { manage_users_path }
     before(:each) {
-      request.env["HTTP_REFERER"] = manage_users_path
       login_as(FactoryGirl.create(:superuser))
     }
 
@@ -980,7 +983,6 @@ describe UsersController do
   describe "#confirm" do
     let(:user) { FactoryGirl.create(:unconfirmed_user) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
     }
 
@@ -989,7 +991,7 @@ describe UsersController do
         post :confirm, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it ("confirms the user") { user.reload.confirmed?.should be(true) }
     end
   end
@@ -998,7 +1000,6 @@ describe UsersController do
     let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
     let(:admin) { FactoryGirl.create(:superuser) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(admin)
     }
 
@@ -1009,7 +1010,7 @@ describe UsersController do
       }
       it { should respond_with(:redirect) }
       it { should set_flash.to(I18n.t('users.approve.approved', name: user.name)) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it("approves the user") { user.reload.should be_approved }
       it("confirms the user") { user.reload.should be_confirmed }
 
@@ -1043,7 +1044,7 @@ describe UsersController do
       }
       it { should respond_with(:redirect) }
       it { should set_flash.to(I18n.t('users.approve.not_enabled')) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it { user.should be_approved } # auto approved
       it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
     end
@@ -1054,7 +1055,6 @@ describe UsersController do
   describe "#disapprove" do
     let(:user) { FactoryGirl.create(:user, approved: true) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
     }
 
@@ -1065,7 +1065,7 @@ describe UsersController do
       }
       it { should respond_with(:redirect) }
       it { should set_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it("disapproves the user") { user.reload.should_not be_approved }
     end
 
@@ -1076,7 +1076,7 @@ describe UsersController do
       }
       it { should respond_with(:redirect) }
       it { should set_flash.to(I18n.t('users.disapprove.not_enabled')) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it("user is still (auto) approved") { user.reload.should be_approved } # auto approved on registration
     end
 

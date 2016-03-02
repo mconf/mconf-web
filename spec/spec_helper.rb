@@ -112,6 +112,9 @@ RSpec.configure do |config|
     Helpers.setup_site
     Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
+
+    # To correctly test cases where referer and hostname are used
+    Capybara.app_host = "http://#{Site.current.domain}"
   end
 
   # We want features as close to the production environment as possible, so render error
