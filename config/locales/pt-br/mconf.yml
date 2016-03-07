@@ -234,9 +234,11 @@ pt-br:
     posts:
       update:
         notice: "Mensagem atualizada!"
+        failure: "Atualização de mensagem falhou: %{errors}"
 
       create:
         notice: "Mensagem enviada!"
+        failure: "Mensagem não pode ser enviada: %{errors}"
 
     users:
       enable:

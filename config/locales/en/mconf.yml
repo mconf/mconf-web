@@ -231,9 +231,11 @@ en:
     posts:
       update:
         notice: "Message updated!"
+        failure: "Message update failed: %{errors}"
 
       create:
         notice: "Message posted!"
+        failure: "Message couldn't be posted: %{errors}"
 
     users:
       disable:

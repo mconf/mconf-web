@@ -14,7 +14,7 @@ class PostsController < InheritedResources::Base
   load_and_authorize_resource :through => :space
 
   # need it to show info in the sidebar
-  before_filter :webconf_room!, only: [:index, :show, :new, :edit], if: -> { set_layout == 'spaces_show' }
+  before_filter :webconf_room!, if: -> { set_layout == 'spaces_show' }
 
   before_filter :set_author, only: [:create]
 
@@ -46,11 +46,11 @@ class PostsController < InheritedResources::Base
   end
 
   def create
-    create! { space_posts_path(@space) }
+    create! { |success, failure| create_update_handler(success, failure) }
   end
 
   def update
-    update! { space_posts_path(@space) }
+    update! { |success, failure| create_update_handler(success, failure) }
   end
 
   # Destroys the content of the post. Then its container(post) is
@@ -83,6 +83,15 @@ class PostsController < InheritedResources::Base
   end
 
   private
+
+  def create_update_handler success, failure
+    success.html { redirect_to space_posts_path(@space) }
+    failure.html {
+      redirect_to space_posts_path(@space), flash: {
+        error: I18n.t("flash.posts.#{action_name}.failure", errors: @post.errors.full_messages.join(', '))
+      }
+    }
+  end
 
   def set_author
     @post.author = current_user
