@@ -10,11 +10,11 @@ module PublicActivitiesHelper
     t("activities.#{key}_html", options)
   end
 
-  def link_to_trackable trackable, cls
+  def link_to_trackable trackable, cls, options={}
     if trackable.nil?
       # e.g. 'MyModule::Event' to 'my_module_event'
       cls = cls.underscore.gsub(/\//, '_')
-      t("activities.#{cls}.deleted")
+      t("activities.#{cls}.deleted", name: options[:trackable_name])
     else
       case trackable
       when Space then link_to(trackable.name, space_path(trackable))

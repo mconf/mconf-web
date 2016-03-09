@@ -5,7 +5,7 @@ en:
       create_html: uploaded the attachment %{name} in the space
       destroy_html: removed the attachment %{name} from the space
       update_html: updated the attachment %{name} in the space
-      deleted: that has since been deleted
+      deleted: "%{name} (that has since been deleted)"
     bigbluebutton_meeting:
       deleted_html: "A meeting has happened but its information have since been deleted"
       user:
@@ -25,13 +25,13 @@ en:
       create_html: posted %{name} in the space
       update_html: updated %{name} in the space
       reply_html: replied to %{name} in the space
-      deleted: a message that has since been deleted
+      deleted: to the message %{name} (that has since been deleted)
     space:
       accept_html: has joined the space
       approved_html: approved the space
       create_html: created a new space
       decline_html: had their invitation/request declined in the space
-      deleted: a space that has since been deleted
+      deleted: the space %{name} that has since been deleted
       leave_html: has left the space
       update_html: updated info on space
   _js:

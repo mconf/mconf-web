@@ -5,7 +5,7 @@ pt-br:
       create_html: enviou o arquivo %{name} na comunidade
       destroy_html: removou o arquivo %{name} na comunidade
       update_html: atualizou o arquivo %{name} na comunidade
-      deleted: que não existe mais
+      deleted: "%{name} (que não existe mais)"
     bigbluebutton_meeting:
       deleted_html: "Uma reunião aconteceu mas suas informações foram desde então removidas"
       user:
@@ -25,13 +25,13 @@ pt-br:
       create_html: enviou a mensagem %{name} na comunidade
       update_html: atualizou a mensagem %{name} na comunidade
       reply_html: respondeu à mensagem %{name} na comunidade
-      deleted: que não existe mais
+      deleted: "%{name} (que não existe mais)"
     space:
       accept_html: tornou-se um membro da comunidade
       approved_html: aprovou a comunidade
       create_html: criou a comunidade
       decline_html: teve um convite/pedido negado na comunidade
-      deleted: uma comunidade que não existe mais
+      deleted: "%{name} (que não existe mais)"
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
   _js:

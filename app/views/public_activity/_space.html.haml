@@ -2,7 +2,10 @@
 -#   activity (RecentActivity)
 
 .logo-in-thread
-  = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
+  - if activity.trackable.nil?
+    = logo_image_removed(size: '84x64')
+  - else
+    = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
 
 .thread-content
   = formatted_time_ago activity.updated_at
@@ -22,6 +25,6 @@
         - else
           = link_to activity.parameters[:username], link
     - else
-      = activity_translate('other.someone')
+      = activity.parameters[:username]
     = activity_translate(activity.key)
-    = link_to_trackable activity.trackable, activity.trackable_type
+    = link_to_trackable activity.trackable, activity.trackable_type, activity.parameters

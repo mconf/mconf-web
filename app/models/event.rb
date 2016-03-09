@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
   end
 
   def new_activity key, user
-    create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
+    create_activity key, owner: owner, recipient: user, parameters: { username: user.try(:name), trackable_name: name }
   end
 
   # Temporary while we have no private events

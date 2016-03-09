@@ -16,6 +16,8 @@
       - link = user_path(activity.recipient)
       = link_to activity.recipient.name, link
     - else
-      = activity_translate('other.someone')
-    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
+      = activity.parameters[:username]
+
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type, activity.parameters))
+
     = link_to activity.owner.name, space_attachments_path(activity.owner)

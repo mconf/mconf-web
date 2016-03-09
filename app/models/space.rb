@@ -210,10 +210,11 @@ class Space < ActiveRecord::Base
 
   # Creates a new activity related to this space
   def new_activity(key, user, join_request = nil)
+    params = { username: user.name, trackable_name: name }
+
     if join_request
-      create_activity key, owner: join_request, recipient: user, parameters: { :username => user.name }
+      create_activity key, owner: join_request, recipient: user, parameters: params
     else
-      params = { username: user.name }
       # Treat update_logo and update as the same key
       key = 'update' if key == 'update_logo'
 

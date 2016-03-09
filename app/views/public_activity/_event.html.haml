@@ -12,13 +12,10 @@
 
   .thread-title
     = icon_event
-    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
-      - link = user_path_from_id(activity.parameters[:user_id])
-      - if link.nil?
-        = activity.parameters[:username]
-      - else
-        = link_to activity.parameters[:username], link
+    - if activity.recipient.present?
+      = link_to activity.parameters[:username], user_path(activity.recipient)
     - else
-      = activity_translate('other.someone')
-    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
+      = activity.parameters[:username]
+
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type, activity.parameters))
     = link_to_trackable activity.owner, activity.owner_type
