@@ -13,7 +13,7 @@ en:
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
     join_request:
-      deleted: that has since been deleted
+      deleted: "%{name} (that has since been deleted)"
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
       no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"

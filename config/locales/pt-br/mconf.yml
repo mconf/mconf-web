@@ -13,7 +13,7 @@ pt-br:
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     join_request:
-      deleted: que não existe mais
+      deleted: "%{name} (que não existe mais)"
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"

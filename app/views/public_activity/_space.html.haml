@@ -25,6 +25,7 @@
         - else
           = link_to activity.parameters[:username], link
     - else
-      = activity.parameters[:username]
+      = activity.parameters[:username] || activity_translate('other.someone')
+
     = activity_translate(activity.key)
     = link_to_trackable activity.trackable, activity.trackable_type, activity.parameters

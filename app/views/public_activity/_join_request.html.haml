@@ -14,14 +14,12 @@
 
     .thread-title
       = icon_join_request
-      - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:candidate_id)
-        - link = user_path_from_id(activity.parameters[:candidate_id])
-        - if link.nil?
-          = activity.parameters[:username]
-        - else
-          = link_to activity.parameters[:username], link
+
+      - if activity.recipient.present?
+        = link_to activity.parameters[:username], user_path_from_id(activity.parameters[:candidate_id])
       - else
-        = activity_translate('other.someone')
+        = activity.parameters[:username] || activity_translate('other.someone')
+
       - if activity.parameters.has_key?(:introducer_id) and activity.parameters.has_key?(:introducer)
         - name = activity.parameters[:introducer]
         - link = user_path_from_id(activity.parameters[:introducer_id])
@@ -32,4 +30,4 @@
           = activity_translate("join_request.invite_with_introducer", introducer: name, introducer_url: link)
       - else
         = activity_translate(activity.key)
-      = link_to_trackable activity.trackable, activity.trackable_type
+      = link_to_trackable activity.trackable, activity.trackable_type, activity.parameters

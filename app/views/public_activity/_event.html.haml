@@ -15,7 +15,7 @@
     - if activity.recipient.present?
       = link_to activity.parameters[:username], user_path(activity.recipient)
     - else
-      = activity.parameters[:username]
+      = activity.parameters[:username] || activity_translate('other.someone')
 
     = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type, activity.parameters))
     = link_to_trackable activity.owner, activity.owner_type
