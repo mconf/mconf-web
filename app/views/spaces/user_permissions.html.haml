@@ -47,3 +47,7 @@
           = link_to user.name, user_path(user)
           .user-email
             = user_info_string(user)
+
+  - nav = page_navigation_links @permissions
+  - unless nav.nil?
+    .content-block-footer= nav
