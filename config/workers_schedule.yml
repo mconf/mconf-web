@@ -55,3 +55,8 @@ update_server_configs:
     - "1h"
   class: BigbluebuttonUpdateServerConfigs
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
+
+update_space_relevance_indexes:
+   cron: "0 4 * * *" # daily at 4am
+   class: UpdateSpaceRelevanceIndexesWorker
+   description: "Recalculate and update indexes used for ordering spaces in the spaces#index page."
