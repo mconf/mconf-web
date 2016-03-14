@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219192916) do
+ActiveRecord::Schema.define(version: 20160314175900) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -385,7 +385,12 @@ ActiveRecord::Schema.define(version: 20160219192916) do
     t.boolean  "repository",  default: false
     t.string   "logo_image"
     t.boolean  "approved",    default: false
+    t.datetime "last_activity"
+    t.integer  "last_activity_count"
   end
+
+  add_index "spaces", ["last_activity"], name: "index_spaces_on_last_activity", using: :btree
+  add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username"

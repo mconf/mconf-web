@@ -205,7 +205,7 @@ class SpacesController < InheritedResources::Base
     if params[:order] == 'abc'
       @spaces = @spaces.order('name ASC')
     else
-      @spaces = @spaces.order_by_activity
+      @spaces = @spaces.order_by_relevance
     end
   end
 
