@@ -33,7 +33,9 @@
           %h3.name= space.name
         %p.description= first_words(space.description, 400)
         %p.details
-          - if space.users.include?(current_user)
+          - space_ids = current_user.try(:space_ids) || []
+
+          - if space_ids.include?(space.id)
             %span.is-member= t('space.index.user_is_member')
           %span= t('space.member_count', :count => space.users.size)
           %span= t('space.post_count', :count => space.posts.size)
