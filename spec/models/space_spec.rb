@@ -306,11 +306,12 @@ describe Space do
         [
          # order: [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
+      before { Space.calculate_last_activity_indexes! }
 
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -321,11 +322,12 @@ describe Space do
         [
          # order: [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
+      before { Space.calculate_last_activity_indexes! }
 
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -337,15 +339,17 @@ describe Space do
          # order: [2], [0]
          # if didn't ignore disabled spaces it would be [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
 
       before {
         spaces[1].disable
         spaces[3].disable
+
+        Space.calculate_last_activity_indexes!
       }
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[2], spaces[0]] }
@@ -375,6 +379,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -390,6 +395,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -410,6 +416,7 @@ describe Space do
         before {
           spaces[1].disable
           spaces[3].disable
+          Space.calculate_last_activity_indexes!
         }
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
@@ -434,6 +441,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
@@ -456,6 +464,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3].bigbluebutton_room, created_at: now)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
@@ -482,6 +491,7 @@ describe Space do
         before {
           spaces[1].disable
           spaces[3].disable
+          Space.calculate_last_activity_indexes!
         }
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
@@ -501,6 +511,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[0], spaces[1], spaces[3], spaces[2]] }
