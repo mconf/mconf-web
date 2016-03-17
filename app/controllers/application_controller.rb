@@ -9,6 +9,7 @@
 # Likewse, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include PublicActivity::StoreController # to automatically track recent activity
   include Mconf::LocaleControllerModule
 
   # See ActionController::RequestForgeryProtection for details
