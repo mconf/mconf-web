@@ -62,12 +62,12 @@ class JoinRequest < ActiveRecord::Base
   # Create a new activity after saving
   after_create :new_activity
   def new_activity
-    parameters = { :candidate_id => candidate.id, :username => candidate.name }
+    parameters = { candidate_id: candidate.id, username: candidate.name }
     unless introducer.nil?
       parameters[:introducer_id] = introducer.id
       parameters[:introducer] = introducer.name
     end
-    create_activity self.request_type, :owner => self.group, :parameters => parameters
+    create_activity self.request_type, owner: self.group, recipient: candidate, parameters: parameters
   end
 
   # Has this Admission been processed?
