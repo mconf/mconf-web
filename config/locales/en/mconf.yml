@@ -13,6 +13,8 @@ en:
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
     join_request:
+      accept_html: has joined the space
+      decline_html: had their invitation/request declined in the space
       deleted: "%{name} (that has since been deleted)"
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
@@ -27,10 +29,8 @@ en:
       reply_html: replied to %{name} in the space
       deleted: to the message %{name} (that has since been deleted)
     space:
-      accept_html: has joined the space
       approved_html: approved the space
       create_html: created a new space
-      decline_html: had their invitation/request declined in the space
       deleted: the space %{name} that has since been deleted
       leave_html: has left the space
       update_html: updated info on space
