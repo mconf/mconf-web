@@ -126,13 +126,7 @@ class Space < ActiveRecord::Base
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
-  def last_activity
-    RecentActivity.where(owner: self).last
-  end
-
   # Order by when the last activity in the space happened.
-  # OPTIMIZE: Couldn't find a way to make Space.order_by_activity.count work. This query
-  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_activity, -> {
     Space.order('last_activity DESC')
   }
