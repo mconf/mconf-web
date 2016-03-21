@@ -48,7 +48,7 @@ class MyController < ApplicationController
   end
 
   def home
-    @user_spaces = current_user.spaces
+    @user_spaces = current_user.spaces.limit(15)
     @user_pending_spaces = current_user.pending_spaces
     @contents_per_page = 15
     @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('updated_at DESC')
