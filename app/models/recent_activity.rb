@@ -18,7 +18,8 @@
 # of how it looks like most of the time:
 #
 # * (trackable_id, trackable_type) trackable: The model to which the activity pertrains
-# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity.
+# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Used when models have a belongs_to or has_(one,many)
+#   relation and should be understood in context of their parent model. For example spaces and posts, spaces and attachments, etc...
 # * (recipient_id, recipient_type) recipient: Tipically used for user responsible for the activity and who should see it in his activity stream
 # * key: A string indicating the trackable model plus the action which happened (e.g. "space.join").
 # * notified: A boolean informing whether the activity has already been notified to the user (usually this is done by a worker in background).
@@ -64,6 +65,14 @@
 #   An event was updated.
 #   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
+# * `join_request.accept`:
+#   Somebody accepted an invitation to join a space.
+#   Created by `JoinRequests` controller.
+#
+# * `join_request.decline`:
+#   Somebody declined an invitation to join a space.
+#   Created by `JoinRequests` controller.
+#
 # * `join_request.invite`:
 #   Somebody sent a invitation to someone join a space.
 #   Created by `JoinRequest`.
@@ -96,17 +105,9 @@
 #   When a `User` was created for someone that signed in via Shibboleth.
 #   Created by: `Mconf::Shibboleth`.
 #
-# * `space.accept`:
-#   Somebody accepted an invitation to join a space.
-#   Created by `JoinRequestsController`.
-#
 # * `space.create`:
 #   A space was created.
 #   Created by `SpacesController`.
-#
-# * `space.decline`:
-#   Somebody declined an invitation to join a space.
-#   Created by `JoinRequestsController`.
 #
 # * `space.leave`:
 #   Somebody left a space.

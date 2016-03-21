@@ -3,7 +3,7 @@
 # This migration adds this data to the models as precisely as we can from the other data.
 #
 # The affect keys are attachment[created, destroyed], user.created,
-# event.[created, updated], join_request.[request invite], bigbluebutton_meeting.create
+# event.[created, updated], join_request.[request invite, accept, decline], bigbluebutton_meeting.create
 #
 class MigrateRecentActivityRecipients < ActiveRecord::Migration
   def up
@@ -44,6 +44,12 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
       end
 
       act.update_attributes(recipient: owner)
+    end
+
+    # accept/decline now have join_request as a trackable and the key is join_request.[accept,decline]
+    RecentActivity.where(key: ["space.accept", "space.decline"]).each do |act|
+      key = (act.key == "space.accept" ? 'join_request.accept' : 'join_request.decline')
+      act.update_attributes(key: key)
     end
 
   end

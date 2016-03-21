@@ -20,7 +20,7 @@
       - else
         = activity.parameters[:username] || activity_translate('other.someone')
 
-      - if activity.parameters.has_key?(:introducer_id) and activity.parameters.has_key?(:introducer)
+      - if !['join_request.accept', 'join_request.decline'].include?(activity.key) && activity.parameters.has_key?(:introducer_id) and activity.parameters.has_key?(:introducer)
         - name = activity.parameters[:introducer]
         - link = user_path_from_id(activity.parameters[:introducer_id])
         - if !activity.trackable.nil? and activity.trackable_type == 'JoinRequest' and

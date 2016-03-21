@@ -13,6 +13,8 @@ pt-br:
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     join_request:
+      accept_html: tornou-se um membro da comunidade
+      decline_html: teve um convite/pedido negado na comunidade
       deleted: "%{name} (que não existe mais)"
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
@@ -27,10 +29,8 @@ pt-br:
       reply_html: respondeu à mensagem %{name} na comunidade
       deleted: "%{name} (que não existe mais)"
     space:
-      accept_html: tornou-se um membro da comunidade
       approved_html: aprovou a comunidade
       create_html: criou a comunidade
-      decline_html: teve um convite/pedido negado na comunidade
       deleted: "%{name} (que não existe mais)"
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
