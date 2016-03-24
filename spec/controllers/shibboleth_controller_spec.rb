@@ -498,12 +498,14 @@ describe ShibbolethController do
   describe "#info" do
     before { Site.current.update_attributes(:shib_enabled => true) }
 
-    context "assigns @data with the data in the session" do
-      let(:expected) { { :one => "anything" } }
-      before { controller.session[:shib_data] = expected }
-      before(:each) { get :info }
-      it { should assign_to(:data).with(expected) }
-    end
+    # We don't read shib data from the session anymore
+    # TODO: Change the purpose of shibboleth_controller#info ?
+    # context "assigns @data with the data in the session" do
+    #   let(:expected) { { :one => "anything" } }
+    #   before { controller.session[:shib_data] = expected }
+    #   before(:each) { get :info }
+    #   it { should assign_to(:data).with(expected) }
+    # end
 
     context "renders with no layout" do
       before(:each) { get :info }
@@ -526,7 +528,7 @@ describe ShibbolethController do
   # Save it to the session, as #login would do
   def save_shib_to_session
     @shib = Mconf::Shibboleth.new(session)
-    @shib.save_to_session(request.env)
+    @shib.load_data(request.env)
   end
 
 end
