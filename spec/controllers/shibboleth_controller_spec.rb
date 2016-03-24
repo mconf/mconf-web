@@ -74,7 +74,7 @@ describe ShibbolethController do
           subject.data.should eq(expected)
         }
         it { controller.should redirect_to(shibboleth_path) }
-        it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { controller.should set_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
         it { RecentActivity.where(owner: subject, trackable: subject.user, key: 'shibboleth.user.created').should_not be_nil }
       end
 
@@ -425,7 +425,7 @@ describe ShibbolethController do
       }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
-      it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
+      it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
     end
 
     context "if params[:new_account] is set" do
@@ -485,7 +485,7 @@ describe ShibbolethController do
         it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if the found the user, authenticated and it's not disabled" do
+      context "if the user is found, is authenticated and is not disabled" do
         let(:user) { FactoryGirl.create(:user, :password => '12345') }
         before {
           # the user that is trying to login has to be the same user that has variables
@@ -519,6 +519,21 @@ describe ShibbolethController do
           it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
+        context "creates a ShibToken and deletes the old one if the user was associated with another federation account" do
+          let!(:old_shib) { ShibToken.create!(:identifier => "ninjaedit#{user.email}", user: user) }
+          before(:each) {
+            user.update_attributes(:confirmed_at => nil)
+            expect {
+              post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
+            }.to change{ ShibToken.count }.by(0) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
+          }
+          subject { ShibToken.last }
+          it("created a different token") { subject.should_not eq(old_shib) }
+          it("sets the user in the token") { subject.user.should eq(user) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
+        end
+
         context "uses the user's ShibToken if it already exists" do
           before { ShibToken.create!(:identifier => user.email, :user_id => user.id) }
           before(:each) {
@@ -541,12 +556,14 @@ describe ShibbolethController do
   describe "#info" do
     before { Site.current.update_attributes(:shib_enabled => true) }
 
-    context "assigns @data with the data in the session" do
-      let(:expected) { { :one => "anything" } }
-      before { controller.session[:shib_data] = expected }
-      before(:each) { get :info }
-      it { should assign_to(:data).with(expected) }
-    end
+    # We don't read shib data from the session anymore
+    # TODO: Change the purpose of shibboleth_controller#info ?
+    # context "assigns @data with the data in the session" do
+    #   let(:expected) { { :one => "anything" } }
+    #   before { controller.session[:shib_data] = expected }
+    #   before(:each) { get :info }
+    #   it { should assign_to(:data).with(expected) }
+    # end
 
     context "renders with no layout" do
       before(:each) { get :info }
@@ -572,7 +589,7 @@ describe ShibbolethController do
   # Save it to the session, as #login would do
   def save_shib_to_session
     @shib = Mconf::Shibboleth.new(session)
-    @shib.save_to_session(request.env, Site.current.shib_env_variables)
+    @shib.load_data(request.env)
   end
 
 end

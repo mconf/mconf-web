@@ -17,7 +17,6 @@ class ShibbolethController < ApplicationController
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
-  before_filter :save_shib_to_session, only: [:login]
   before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
@@ -108,11 +107,7 @@ class ShibbolethController < ApplicationController
   def load_shib_session
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
-  end
-
-  def save_shib_to_session
-    logger.info "Shibboleth: saving env to session"
-    @shib.save_to_session(request.env, current_site.shib_env_variables)
+    @shib.load_data(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
