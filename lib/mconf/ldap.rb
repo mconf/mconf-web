@@ -10,8 +10,7 @@ module Mconf
     # the root key used to store all the information in the session
     ENV_KEY = :ldap_data
 
-    # `session` is the session object where the user information will be stored
-    def initialize(session)
+    def initialize session={}
       @session = session
     end
 
@@ -45,7 +44,15 @@ module Mconf
       if token.nil?
         nil
       else
-        token.user = create_account(email, username, name, token)
+        token.user = find_account(email)
+        token.data = data_from_entry(ldap_user)
+        if token.user
+          Rails.logger.info "LDAP: there's already a user with this id (#{email})"
+        else
+          Rails.logger.info "LDAP: creating a new account for email '#{email}', username '#{username}', full name: '#{name}'"
+          token.user = create_account(email, username, name, token)
+          token.new_account = true # account created by LDAP
+        end
         if token.user && token.save
           token.user
         else
@@ -59,7 +66,7 @@ module Mconf
       @session[ENV_KEY] = { username: user.username, email: user.email }
     end
 
-    # Returns whether the user is signed in via LDAP or not.
+   # Returns whether the user is signed in via LDAP or not.
     def signed_in?
       !@session.nil? && @session.has_key?(ENV_KEY)
     end
@@ -87,6 +94,10 @@ module Mconf
       token
     end
 
+    def find_account(id)
+      User.where('lower(email) = ?', id.downcase).first
+    end
+
     # Create the user account if there is no user with the email provided by ldap
     # Or returns the existing account with the email
     def create_account(id, username, full_name, ldap_token)
@@ -96,28 +107,22 @@ module Mconf
       username = username.to_s
       full_name = full_name.to_s
 
-      user = User.where('lower(email) = ?', id.downcase).first
-      if user
-        Rails.logger.info "LDAP: there's already a user with this id (#{id})"
+      password = SecureRandom.hex(16)
+      params = {
+        username: get_unique_login(username),
+        email: id,
+        password: password,
+        password_confirmation: password,
+        _full_name: full_name
+      }
+      user = User.new(params)
+      user.skip_confirmation!
+      if user.save
+        create_notification(user, ldap_token)
       else
-        Rails.logger.info "LDAP: creating a new account for email '#{id}', username '#{username}', full name: '#{full_name}'"
-        password = SecureRandom.hex(16)
-        params = {
-          :username => username.parameterize,
-          :email => id,
-          :password => password,
-          :password_confirmation => password,
-          :_full_name => full_name
-        }
-        user = User.new(params)
-        user.skip_confirmation!
-        if user.save
-          create_notification(user, ldap_token)
-        else
-          Rails.logger.error "LDAP: error while saving the user model"
-          Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
-          user = nil
-        end
+        Rails.logger.error "LDAP: error while saving the user model"
+        Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
+        user = nil
       end
       user
     end
@@ -142,12 +147,23 @@ module Mconf
       [username, email, name]
     end
 
-    private
+    def data_from_entry ldap_entry
+      data = {}
+      ldap_entry.each { |k, v| data[k] = v }
+      data
+    end
 
     def create_notification(user, token)
       RecentActivity.create(
         key: 'ldap.user.created', owner: token, trackable: user, notified: false
       )
+    end
+
+    # Returns an unique login according to the base login returned by LDAP.
+    # If there's no base login, returns nil. Otherwise will always return
+    # a login that doesn't exist yet.
+    def get_unique_login(base)
+      Mconf::Identifier.unique_mconf_id(base)
     end
 
   end
