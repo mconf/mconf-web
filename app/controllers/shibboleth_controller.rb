@@ -98,7 +98,7 @@ class ShibbolethController < ApplicationController
   end
 
   def info
-    @data = Mconf::Shibboleth.new(session).get_data
+    @data = current_user.shib_token.data if current_user.shib_token
     render :layout => false
   end
 
@@ -143,6 +143,7 @@ class ShibbolethController < ApplicationController
   # When the user selected to create a new account for his shibboleth login.
   def associate_with_new_account(shib)
     token = shib.find_or_create_token()
+
     # if there's already a user and an association, we don't need to do anything, just
     # return and, when the user is redirected back to #login, the token will be checked again
     if token.user.nil?
@@ -157,12 +158,14 @@ class ShibbolethController < ApplicationController
         shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
-        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        logger.error "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
-          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          logger.error "Shibboleth: there's already a user with this email #{shib.get_email}"
           flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
         else
-          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          message = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          logger.error "Shibboleth: #{message}"
+          flash[:error] = message
         end
         token.destroy
       end
@@ -197,6 +200,10 @@ class ShibbolethController < ApplicationController
     # got the user and authenticated, everything ok
     else
       logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+
+      # If there's a previous shibolleth token associated with this account, delete it
+      user.shib_token.destroy if user.shib_token.present? # TODO: yet another failure point
+
       token = shib.find_or_create_token()
       token.user = user
       token.data = shib.get_data()
