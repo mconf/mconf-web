@@ -8,9 +8,9 @@ module Mconf
   class LDAP
 
     # the root key used to store all the information in the session
-    ENV_KEY = :ldap_data
+    SESSION_KEY = :ldap_data
 
-    def initialize session={}
+    def initialize(session = {})
       @session = session
     end
 
@@ -63,12 +63,12 @@ module Mconf
 
     # Sets the user as signed in via LDAP in the session.
     def sign_user_in(user)
-      @session[ENV_KEY] = { username: user.username, email: user.email }
+      @session[SESSION_KEY] = { username: user.username, email: user.email }
     end
 
-   # Returns whether the user is signed in via LDAP or not.
+    # Returns whether the user is signed in via LDAP or not.
     def signed_in?
-      !@session.nil? && @session.has_key?(ENV_KEY)
+      !@session.nil? && @session.has_key?(SESSION_KEY)
     end
 
     private
