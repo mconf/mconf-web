@@ -96,7 +96,7 @@ class ShibbolethController < ApplicationController
   end
 
   def info
-    @data = @shib.get_data
+    @data = current_user.shib_token.data if current_user.shib_token
     render :layout => false
   end
 
