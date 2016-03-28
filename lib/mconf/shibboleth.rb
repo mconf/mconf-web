@@ -44,9 +44,6 @@ module Mconf
       @data ||= {}
       @data.merge!(shib_data)
 
-      # Mark user as logged in on the session
-      @session[SESSION_KEY] = true
-
       Rails.logger.info "Shibboleth: user info loaded as: #{@data.inspect}"
       shib_data
     end
@@ -122,6 +119,11 @@ module Mconf
     # Does it by reading the session data passed in to the constructor
     def signed_in?
       !@session.nil? && @session.has_key?(SESSION_KEY)
+    end
+
+    # Mark in the session that the user signed in via Shibboleth
+    def set_signed_in
+      @session[SESSION_KEY] = true
     end
 
     # Returns the name of the attributes used to get the basic user information from the

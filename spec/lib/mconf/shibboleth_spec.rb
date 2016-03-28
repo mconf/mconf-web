@@ -459,21 +459,32 @@ describe Mconf::Shibboleth do
     context "if the session is not defined" do
       let(:shibboleth) { Mconf::Shibboleth.new(nil) }
       subject { shibboleth.signed_in? }
-      it { should be_falsey }
+      it { should be(false) }
     end
 
-    context "if the session has no :shib_data key" do
+    context "if the session has no #{Mconf::Shibboleth::SESSION_KEY} key" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
       subject { shibboleth.signed_in? }
-      it { should be_falsey }
+      it { should be(false) }
     end
 
-    context "if the session has :shib_data key" do
-      let(:shibboleth) { Mconf::Shibboleth.new({ :shib_data => {} }) }
+    context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key" do
+      let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
       before { shibboleth.set_data({}) }
 
       subject { shibboleth.signed_in? }
-      it { should be_truthy }
+      it { should be(false) }
+    end
+
+    context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key and `set_signed_in` was called" do
+      let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
+      before {
+        shibboleth.set_data({})
+        shibboleth.set_signed_in
+      }
+
+      subject { shibboleth.signed_in? }
+      it { should be(true) }
     end
   end
 
