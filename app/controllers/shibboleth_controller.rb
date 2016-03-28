@@ -45,6 +45,9 @@ class ShibbolethController < ApplicationController
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
 
+          # set that the user signed in via shib
+          @shib.set_signed_in
+
           # Update user data with the latest version from the federation
           @shib.update_user(token) if current_site.shib_update_users?
 
