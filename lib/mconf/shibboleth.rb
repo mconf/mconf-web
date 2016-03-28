@@ -7,12 +7,13 @@
 module Mconf
   class Shibboleth
 
-    # the root key used to store all the information in the session
-    ENV_KEY = :shib_data
+    # the key used to indicate in the session if the user is signed in
+    # via shibboleth or not
+    SESSION_KEY = :shib_login
 
     # `session` is the session object where the user information will be stored
     def initialize(session)
-      # Data will hold the shibolleth data which will later be saved to the DB
+      # Data will hold the shibolleth data read from the environment
       @data = {}
 
       # This holds the session data, but will only write a boolean value to it
@@ -40,28 +41,25 @@ module Mconf
         end
       end
       # Saves data sent by the shib server
-      @data[ENV_KEY] ||= {}
-      @data[ENV_KEY].merge!(shib_data)
+      @data ||= {}
+      @data.merge!(shib_data)
 
       # Mark user as logged in on the session
-      @session[ENV_KEY] = true
+      @session[SESSION_KEY] = true
 
-      Rails.logger.info "Shibboleth: user login to session"
+      Rails.logger.info "Shibboleth: user info loaded as: #{@data.inspect}"
       shib_data
     end
 
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @data[ENV_KEY] && get_identifier && get_email && get_name && get_principal_name
+      @data && get_identifier && get_email && get_name && get_principal_name
     end
 
-    def get_field field
-      result = nil
-      if @data.has_key?(ENV_KEY)
-        result = @data[ENV_KEY][field]
-        result = result.dup unless result.blank?
-      end
+    def get_field(field)
+      result = @data[field]
+      result = result.dup unless result.blank?
       result
     end
 
@@ -106,19 +104,19 @@ module Mconf
 
     # Returns all the shibboleth data stored in the session.
     def get_data
-      @data[ENV_KEY].try(:dup)
+      @data.try(:dup)
     end
 
     # Sets the shibboleth data, without processing the input hash
     # Used when reading saved user data from the session or database
     def set_data session
-      @data[ENV_KEY] = session
+      @data = session
     end
 
     # Returns whether the user is signed in via federation or not.
     # Does it by reading the session data passed in to the constructor
     def signed_in?
-      !@session.nil? && @session.has_key?(ENV_KEY)
+      !@session.nil? && @session.has_key?(SESSION_KEY)
     end
 
     # Returns the name of the attributes used to get the basic user information from the
