@@ -98,7 +98,9 @@ class ShibbolethController < ApplicationController
   end
 
   def info
-    @data = current_user.shib_token.data if current_user.shib_token
+    if user_signed_in? && current_user.shib_token
+      @data = current_user.shib_token.data
+    end
     render :layout => false
   end
 

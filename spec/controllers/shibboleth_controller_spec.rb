@@ -554,16 +554,37 @@ describe ShibbolethController do
   end
 
   describe "#info" do
-    before { Site.current.update_attributes(:shib_enabled => true) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:shib_token) { FactoryGirl.create(:shib_token, user: user) }
+    before {
+      Site.current.update_attributes(:shib_enabled => true)
+    }
 
-    # We don't read shib data from the session anymore
-    # TODO: Change the purpose of shibboleth_controller#info ?
-    # context "assigns @data with the data in the session" do
-    #   let(:expected) { { :one => "anything" } }
-    #   before { controller.session[:shib_data] = expected }
-    #   before(:each) { get :info }
-    #   it { should assign_to(:data).with(expected) }
-    # end
+    context "assigns @data" do
+      context "with the data in the user's token" do
+        let(:expected) { { :one => "anything" } }
+        before {
+          shib_token.update_attributes(data: expected)
+          sign_in(user)
+        }
+        before(:each) { get :info }
+        it { should assign_to(:data).with(expected) }
+      end
+
+      context "with nil if there's no user signed in" do
+        before(:each) { get :info }
+        it { assigns(:data).should be_nil }
+      end
+
+      context "with nil if the user has no shib_token" do
+        before(:each) { get :info }
+        before {
+          shib_token.destroy
+          sign_in(user)
+        }
+        it { assigns(:data).should be_nil }
+      end
+    end
 
     context "renders with no layout" do
       before(:each) { get :info }
