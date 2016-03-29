@@ -237,14 +237,14 @@ class ShibbolethController < ApplicationController
   # be done before calling this.
   def check_active_enrollment(token=nil)
     is_superuser = token.present? && token.user_with_disabled.present? && token.user_with_disabled.superuser?
-    data = session[:shib_data]["ufrgsVinculo"]
+    data = request.env["ufrgsVinculo"]
 
     # "ativo" is at the beggining of line or after a ';'
-    if data.match(/(^|;)ativo/) || is_superuser
+    if data.match(/(^|;)ativo/) || is_superior
       true
     else
       logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +
-        "searched in #{session[:shib_data]["ufrgsVinculo"].inspect}"
+        "searched in #{data}"
       flash[:error] = t("shibboleth.create_association.enrollment_error")
       redirect_to request.referer || root_path
       false

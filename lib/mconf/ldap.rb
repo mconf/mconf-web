@@ -51,7 +51,6 @@ module Mconf
         else
           Rails.logger.info "LDAP: creating a new account for email '#{email}', username '#{username}', full name: '#{name}'"
           token.user = create_account(email, username, name, token)
-          token.new_account = true # account created by LDAP
         end
         if token.user && token.save
           token.user

@@ -74,7 +74,7 @@ describe ShibbolethController do
           subject.data.should eq(expected)
         }
         it { controller.should redirect_to(shibboleth_path) }
-        it { controller.should set_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
         it { RecentActivity.where(owner: subject, trackable: subject.user, key: 'shibboleth.user.created').should_not be_nil }
       end
 
@@ -192,7 +192,6 @@ describe ShibbolethController do
           let(:attrs) { FactoryGirl.attributes_for(:user) }
           before(:each) {
             setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-            save_shib_to_session
 
             # new shib user with federation data
             expect {
@@ -224,7 +223,6 @@ describe ShibbolethController do
           let(:attrs) { FactoryGirl.attributes_for(:user) }
           before(:each) {
             setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-            save_shib_to_session
 
             # new shib user with federation data
             expect {
@@ -261,7 +259,6 @@ describe ShibbolethController do
           let(:attrs) { FactoryGirl.attributes_for(:user) }
           before(:each) {
             setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-            save_shib_to_session
 
             # new shib user with federation data
             expect {
@@ -421,11 +418,10 @@ describe ShibbolethController do
       let(:user) { FactoryGirl.create(:user) }
       before {
         setup_shib(user.full_name, user.email, user.email)
-        save_shib_to_session
       }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
-      it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
+      it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
     end
 
     context "if params[:new_account] is set" do
@@ -433,7 +429,6 @@ describe ShibbolethController do
         let(:run_route) { post :create_association, :new_account => true }
         before {
           setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-          save_shib_to_session
         }
         it_should_behave_like "a caller of #associate_with_new_account"
       end
@@ -443,7 +438,6 @@ describe ShibbolethController do
       let(:attrs) { FactoryGirl.attributes_for(:user) }
       before {
         setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
-        save_shib_to_session
       }
 
       context "if there's no user info in the params, goes back to /secure with an error" do
@@ -491,7 +485,6 @@ describe ShibbolethController do
           # the user that is trying to login has to be the same user that has variables
           # on the session, so we do this setup again
           setup_shib(user.full_name, user.email, user.email)
-          save_shib_to_session
         }
 
         context "goes back to /secure with a success message" do
@@ -515,7 +508,7 @@ describe ShibbolethController do
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("sets the data in the token") { subject.data.should eq(assigns(:shib).get_data()) }
           it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
@@ -530,7 +523,7 @@ describe ShibbolethController do
           subject { ShibToken.last }
           it("created a different token") { subject.should_not eq(old_shib) }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("sets the data in the token") { subject.data.should eq(assigns(:shib).get_data()) }
           it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
@@ -544,7 +537,7 @@ describe ShibbolethController do
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("sets the data in the token") { subject.data.should eq(assigns(:shib).get_data()) }
           it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
@@ -605,12 +598,6 @@ describe ShibbolethController do
     Site.current.update_attributes(:shib_enabled => true)
     Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
     Site.current.update_attributes(:shib_always_new_account => false)
-  end
-
-  # Save it to the session, as #login would do
-  def save_shib_to_session
-    @shib = Mconf::Shibboleth.new(session)
-    @shib.load_data(request.env)
   end
 
 end

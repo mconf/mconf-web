@@ -10,8 +10,4 @@ class LdapToken < ActiveRecord::Base
   validates :identifier, presence: true, uniqueness: true
 
   serialize :data, Hash
-
-  def self.user_created_by_ldap?(u)
-    LdapToken.where(user_id: u.id, new_account: true).present?
-  end
 end
