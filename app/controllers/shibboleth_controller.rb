@@ -17,7 +17,6 @@ class ShibbolethController < ApplicationController
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
-  before_filter :save_shib_to_session, only: [:login]
   before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
@@ -47,6 +46,9 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # set that the user signed in via shib
+          @shib.set_signed_in
 
           # Update user data with the latest version from the federation
           @shib.update_user(token) if current_site.shib_update_users?
@@ -99,7 +101,9 @@ class ShibbolethController < ApplicationController
   end
 
   def info
-    @data = Mconf::Shibboleth.new(session).get_data
+    if user_signed_in? && current_user.shib_token
+      @data = current_user.shib_token.data
+    end
     render :layout => false
   end
 
@@ -108,11 +112,7 @@ class ShibbolethController < ApplicationController
   def load_shib_session
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
-  end
-
-  def save_shib_to_session
-    logger.info "Shibboleth: saving env to session"
-    @shib.save_to_session(request.env, current_site.shib_env_variables)
+    @shib.load_data(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
@@ -148,6 +148,7 @@ class ShibbolethController < ApplicationController
   # When the user selected to create a new account for his shibboleth login.
   def associate_with_new_account(shib)
     token = shib.find_or_create_token()
+
     # if there's already a user and an association, we don't need to do anything, just
     # return and, when the user is redirected back to #login, the token will be checked again
     if token.user.nil?
@@ -162,12 +163,14 @@ class ShibbolethController < ApplicationController
         shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
-        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        logger.error "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
-          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          logger.error "Shibboleth: there's already a user with this email #{shib.get_email}"
           flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
         else
-          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          message = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          logger.error "Shibboleth: #{message}"
+          flash[:error] = message
         end
         token.destroy
       end
@@ -202,6 +205,10 @@ class ShibbolethController < ApplicationController
     # got the user and authenticated, everything ok
     else
       logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+
+      # If there's a previous shibolleth token associated with this account, delete it
+      user.shib_token.destroy if user.shib_token.present? # TODO: yet another failure point
+
       token = shib.find_or_create_token()
       token.user = user
       token.data = shib.get_data()
@@ -230,14 +237,14 @@ class ShibbolethController < ApplicationController
   # be done before calling this.
   def check_active_enrollment(token=nil)
     is_superuser = token.present? && token.user_with_disabled.present? && token.user_with_disabled.superuser?
-    data = session[:shib_data]["ufrgsVinculo"]
+    data = request.env["ufrgsVinculo"]
 
     # "ativo" is at the beggining of line or after a ';'
     if data.match(/(^|;)ativo/) || is_superuser
       true
     else
       logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +
-        "searched in #{session[:shib_data]["ufrgsVinculo"].inspect}"
+        "searched in #{data}"
       flash[:error] = t("shibboleth.create_association.enrollment_error")
       redirect_to request.referer || root_path
       false
@@ -264,7 +271,8 @@ class ShibbolethController < ApplicationController
       request.env["cn"] = "Rick Astley"
       request.env["mail"] = "nevergonnagiveyouup@rick.com"
       request.env["uid"] = "00000000000"
-      request.env["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+      request.env["ufrgsVinculo"] = "ativo:7:Aluno de doutorado:NULL:NULL:NULL:NULL:1:EDUCAÇÃO:01/08/2012:NULL;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/03/1999:30/07/1999;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:07/08/2007:31/12/2007;ativo:2:Docente:7421:Coordenação Acadêmica da SEAD:655:Colégio de Aplicação:NULL:NULL:05/07/1996:NULL;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/08/1998:30/12/1998;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/08/1997:30/12/1997;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:04/08/2008:09/12/2008;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/03/1998:30/07/1998;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:10/03/2008:01/08/2008;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:61:EDUCAÇÃO:01/03/2003:17/11/2008;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):653:Programa de Pós-Graduação em Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:05/08/2002:16/12/2002"
+      # request.env["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
     end
   end
 end

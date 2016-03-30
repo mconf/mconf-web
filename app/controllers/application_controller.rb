@@ -194,10 +194,11 @@ class ApplicationController < ActionController::Base
   # in the log.
   def append_info_to_payload(payload)
     super
+
     payload[:session] = {
       id: session.id,
-      ldap_session: !session[:ldap_data].blank?,
-      shib_session: !session[:shib_data].blank?
+      ldap_session: !session[Mconf::LDAP::SESSION_KEY].blank?,
+      shib_session: !session[Mconf::Shibboleth::SESSION_KEY].blank?
     } unless session.nil?
     payload[:current_user] = {
       id: current_user.id,
