@@ -240,7 +240,7 @@ class ShibbolethController < ApplicationController
     data = request.env["ufrgsVinculo"]
 
     # "ativo" is at the beggining of line or after a ';'
-    if data.match(/(^|;)ativo/) || is_superior
+    if data.match(/(^|;)ativo/) || is_superuser
       true
     else
       logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +
@@ -271,7 +271,8 @@ class ShibbolethController < ApplicationController
       request.env["cn"] = "Rick Astley"
       request.env["mail"] = "nevergonnagiveyouup@rick.com"
       request.env["uid"] = "00000000000"
-      request.env["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+      request.env["ufrgsVinculo"] = "ativo:7:Aluno de doutorado:NULL:NULL:NULL:NULL:1:EDUCAÇÃO:01/08/2012:NULL;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/03/1999:30/07/1999;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:07/08/2007:31/12/2007;ativo:2:Docente:7421:Coordenação Acadêmica da SEAD:655:Colégio de Aplicação:NULL:NULL:05/07/1996:NULL;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/08/1998:30/12/1998;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/08/1997:30/12/1997;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:04/08/2008:09/12/2008;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):706:Programa de Pós-Graduação em Computação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:01/03/1998:30/07/1998;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):1223:Programa de Pós-Graduação em Informática na Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:10/03/2008:01/08/2008;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:61:EDUCAÇÃO:01/03/2003:17/11/2008;inativo:15:Aluno especial de pós-graduação (Especial e Pós-doutorado):653:Programa de Pós-Graduação em Educação:NULL:NULL:NULL:Aluno Especial NA PÓS-GRADUAÇÃO:05/08/2002:16/12/2002"
+      # request.env["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
     end
   end
 end
