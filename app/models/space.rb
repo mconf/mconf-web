@@ -128,14 +128,14 @@ class Space < ActiveRecord::Base
 
   # Order by when the last activity in the space happened.
   scope :order_by_activity, -> {
-    Space.order('last_activity DESC')
+    Space.order('last_activity DESC').order('name ASC')
   }
 
   # Order by relevance: spaces that are currently more relevant to show to the users.
   # Orders primarily by the last activity in the space, considering only the date and ignoring
   # the time. Then orders by the number of activities.
   scope :order_by_relevance, -> {
-    Space.order('last_activity DESC').order('last_activity_count DESC')
+    Space.order('last_activity DESC').order('last_activity_count DESC').order('name ASC')
   }
 
   # Returns a relation with a pre-configured join that can be used in queries to find recent
