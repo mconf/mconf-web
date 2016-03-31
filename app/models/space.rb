@@ -156,13 +156,14 @@ class Space < ActiveRecord::Base
 
   def self.calculate_last_activity_indexes!
     # Big join of all the tables, count activities and find the last activity in each space
+    # Note: DATE() implies that the maximum precision will be a day
     spaces_with_activities =
       Space.default_join_for_activities(Space.arel_table[Arel.star],
         'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
         'COUNT(`activities`.`id`) AS activityCount').group(Space.arel_table[:id])
 
     # Use these calculations to set the indexes in the space table
-    spaces_with_activities.each do |space|
+    spaces_with_activities.find_each do |space|
       space.update_attributes last_activity: space.lastActivity, last_activity_count: space.activityCount
     end
   end
