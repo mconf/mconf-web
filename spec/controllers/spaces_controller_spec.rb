@@ -70,7 +70,10 @@ describe SpacesController do
         RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
       ]}
 
-      before { get :index }
+      before {
+        Space.calculate_last_activity_indexes!
+        get :index
+      }
       it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
     end
 
