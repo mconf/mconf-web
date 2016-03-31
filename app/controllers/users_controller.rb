@@ -40,7 +40,9 @@ class UsersController < InheritedResources::Base
 
     authorize! :show, @space
 
-    @users = @space.users.sort {|x,y| x.name <=> y.name }
+    @users = @space.users.joins(:profile)
+      .order("profiles.full_name ASC")
+      .paginate(:page => params[:page], :per_page => 10)
   end
 
   def show
