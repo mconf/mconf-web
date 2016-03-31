@@ -6,7 +6,7 @@
 
 #user-list.content-block
   .content-block-header
-    %h3= t('user.index.user_list.header', :count => @users.size)
+    %h3= t('user.index.user_list.header', :count => @userCount)
   .content-block-middle
     - for user in @users
       = render :partial => 'users/detailed_user', :locals => { :user => user }

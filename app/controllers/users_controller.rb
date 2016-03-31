@@ -43,6 +43,7 @@ class UsersController < InheritedResources::Base
     @users = @space.users.joins(:profile)
       .order("profiles.full_name ASC")
       .paginate(:page => params[:page], :per_page => 10)
+    @userCount = @space.users.count
   end
 
   def show
