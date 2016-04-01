@@ -635,6 +635,35 @@ describe Space do
 
   it "#latest_users"
 
+  describe "#permissions_ordered_by_name" do
+    let(:target) { FactoryGirl.create(:space) }
+    let!(:admin_role) { Role.find_by(:name => 'Admin') }
+    let!(:user_role) { Role.find_by(:name => 'User') }
+
+    before {
+      user1 = FactoryGirl.create(:user, _full_name: "b123")
+      user2 = FactoryGirl.create(:user, _full_name: "c123")
+      user3 = FactoryGirl.create(:user, _full_name: "a123")
+      @permission1 = Permission.create(user: user1, role: admin_role, subject: target)
+      @permission2 = Permission.create(user: user2, role: user_role, subject: target)
+      @permission3 = Permission.create(user: user3, role: user_role, subject: target)
+    }
+
+    subject { target.permissions_ordered_by_name }
+
+    it { subject.should be_a(ActiveRecord::Relation) }
+    it { subject.count.should eql(3) }
+    it { subject.should include(@permission1) }
+    it { subject.should include(@permission2) }
+    it { subject.should include(@permission3) }
+
+    it "orders by full_name ASC" do
+      subject.all[0].should eql(@permission3)
+      subject.all[1].should eql(@permission1)
+      subject.all[2].should eql(@permission2)
+    end
+  end
+
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
@@ -684,10 +713,9 @@ describe Space do
     end
 
     context "doesn't add the user if he's already a member" do
-      let(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
+      let!(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
 
       before {
-        permission
         expect {
           space.add_member!(user)
         }.to raise_error(ActiveRecord::RecordInvalid)

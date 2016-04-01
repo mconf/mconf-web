@@ -119,9 +119,7 @@ class SpacesController < InheritedResources::Base
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = @space.permissions
-      .joins("LEFT JOIN profiles on permissions.user_id = profiles.user_id")
-      .order("profiles.full_name ASC")
+    @permissions = @space.permissions_ordered_by_name
       .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
   end
