@@ -27,10 +27,7 @@ module Abilities
       can [:show, :current], User, disabled: false
 
       can [:index, :select], Space
-      can [:show, :webconference, :recordings, :show_news], Space, public: true
-
-      can :index, News # restricted through Space
-      can :show, News, space: { public: true }
+      can [:show, :webconference, :recordings], Space, public: true
 
       can :index, Post # restricted through Space
       can :show, Post, space: { public: true }
@@ -38,19 +35,20 @@ module Abilities
       can :index, Attachment # restricted through Space
       can :show, Attachment, space: { public: true, repository: true }
 
-      # for MwebEvents
-      if Mconf::Modules.mod_loaded?('events')
-        can [:show, :index, :select], MwebEvents::Event
-        # Pertraining public and private event registration
-        can :register, MwebEvents::Event, public: true
-        can [:create, :new], MwebEvents::Participant
-      end
+      permissions_for_events(user)
 
       restrict_access_to_disabled_resources(user)
       restrict_access_to_unapproved_resources(user)
     end
 
     private
+
+    def permissions_for_events(user)
+      can [:show, :index, :select], Event
+      can :register, Event, public: true
+      can [:create, :new], Participant
+      can :index_event, Space, public: true
+    end
 
     def abilities_for_bigbluebutton_rails(user)
       # Recordings of public spaces are available to everyone

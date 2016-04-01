@@ -21,37 +21,37 @@ describe AttachmentsController do
         get :index, :space_id => space.to_param
       }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
 
     context "show" do
       before(:each) { get :show, :id => attachment.id, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
 
     context "new" do
       before(:each) { get :new, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
 
     context "create" do
       before(:each) { post :create, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
 
     context "destroy" do
       before(:each) { delete :destroy, :id => attachment.id, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
 
     context "delete_collection" do
       before(:each) { delete :delete_collection, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
-      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+      it { should set_flash.to(I18n.t('attachment.repository_disabled')) }
     end
   end
 

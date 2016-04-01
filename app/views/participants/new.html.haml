@@ -1,0 +1,12 @@
+= render "events/title"
+
+#new-event-registration
+
+  - if current_user.present?
+
+    #member-registration.container-fluid
+      %h3= t('.title')
+      = render 'form'
+
+  - else
+    = render 'split_form'

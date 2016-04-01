@@ -74,7 +74,7 @@ describe FeedbackController do
 
       context 'with valid data' do
         it { should redirect_to url }
-        it { should set_the_flash.to(I18n.t('feedback.create.success')) }
+        it { should set_flash.to(I18n.t('feedback.create.success')) }
         it { ApplicationMailer.should have_queue_size_of(1) }
         it { ApplicationMailer.should have_queued(:feedback_email, email, subj, message) }
       end
@@ -89,7 +89,7 @@ describe FeedbackController do
           let(:email) { '' }
 
           it { should redirect_to url }
-          it { should set_the_flash.to(I18n.t('feedback.create.check_mail')) }
+          it { should set_flash.to(I18n.t('feedback.create.check_mail')) }
           it_behaves_like 'the email is not sent'
         end
 
@@ -97,7 +97,7 @@ describe FeedbackController do
           let(:email) { 'john[at]fruscian.te' }
 
           it { should redirect_to url }
-          it { should set_the_flash.to(I18n.t('feedback.create.check_mail')) }
+          it { should set_flash.to(I18n.t('feedback.create.check_mail')) }
           it_behaves_like 'the email is not sent'
         end
       end
@@ -106,7 +106,7 @@ describe FeedbackController do
         let(:subj) { '' }
 
         it { should redirect_to url }
-        it { should set_the_flash.to(I18n.t('feedback.create.fill_fields')) }
+        it { should set_flash.to(I18n.t('feedback.create.fill_fields')) }
         it_behaves_like 'the email is not sent'
       end
 
@@ -114,7 +114,7 @@ describe FeedbackController do
         let(:message) { '' }
 
         it { should redirect_to url }
-        it { should set_the_flash.to(I18n.t('feedback.create.fill_fields')) }
+        it { should set_flash.to(I18n.t('feedback.create.fill_fields')) }
         it_behaves_like 'the email is not sent'
       end
     end

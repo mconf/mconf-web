@@ -7,12 +7,22 @@
 module Abilities
 
   class SuperUserAbility < BaseAbility
-    # TODO: restrict a bit what superusers can do
+    # TODO: #1251 restrict a bit what superusers can do
     def register_abilities(user)
       can :manage, :all
 
       cannot [:leave], Space do |space|
         !space.users.include?(user) || space.is_last_admin?(user)
+      end
+
+      cannot [:update_password], User do |target_user|
+        enabled = Site.current.local_auth_enabled?
+        local = !target_user.no_local_auth?
+        if target_user.superuser
+          !local
+        else
+          !enabled || !local
+        end
       end
 
       # A Superuser can't remove the last admin of a space neither change its role

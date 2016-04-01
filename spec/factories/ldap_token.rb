@@ -7,7 +7,7 @@
 FactoryGirl.define do
   factory :ldap_token do
     association :user, factory: :user
-    data "MyText"
+    data {}
     after(:build) do |obj|
       obj.identifier = obj.user.email
     end

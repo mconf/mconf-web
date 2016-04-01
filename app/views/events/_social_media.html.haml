@@ -1,0 +1,11 @@
+%section.event-share
+  - if @event.social_networks.length > 0
+    %h3= t('.title')
+
+  %ul.event-social-buttons
+
+    - @event.social_networks.each do |network|
+      %li
+        %a{:href => button_url(network), :target => '_blank'}
+          %i{:class => "icon icon-#{network.downcase.gsub(' ','-')}-sign"}
+          = t(".#{network.downcase.gsub(' ','_')}")

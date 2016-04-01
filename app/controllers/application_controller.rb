@@ -13,16 +13,15 @@ class ApplicationController < ActionController::Base
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => '29d7fe875960cb1f9357db1445e2b063'
+  protect_from_forgery with: :exception
 
-  # Locale as param
-  before_filter :set_current_locale
-
+  before_filter :set_current_locale # Locale as param
   before_filter :set_time_zone
-
   before_filter :store_location
 
   helper_method :current_site
+  helper_method :previous_path_or
+  helper_method :locale_i18n
 
   # Handle errors - error pages
   rescue_from Exception, :with => :render_500
@@ -71,9 +70,28 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    return_to = stored_location_for(resource) || my_home_path
+    if !external_or_blank_referer?
+      previous = stored_location_for(resource)
+    end
+
+    return_to = previous || my_home_path
+
     clear_stored_location
     return_to
+  end
+
+  # Whether the user came from "nowhere" (no referer) or from an external URL.
+  # Because we don't to redirect the user somewhere if he came from outside
+  # or typed something in the address bar
+  def external_or_blank_referer?
+    # compares the hosts only, ignoring protocols and ports
+    # note: we add the "http" part just so the parse works currectly
+    parsed = URI.parse("http://#{current_site.domain}")
+    configured = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
+    parsed = URI.parse(request.referer.to_s)
+    host = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
+
+    host != configured
   end
 
   # overriding bigbluebutton_rails function
@@ -161,17 +179,8 @@ class ApplicationController < ActionController::Base
   # in the database (e.g. :attendeePW instead of :attendee_key)!
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
-
-    can_record = ability.can?(:record_meeting, room)
-    if current_site.webconf_auto_record
-      # show the record button if the user has permissions to record
-      { record: can_record }
-    else
-      # only enable recording if the room is set to record and if the user has permissions to
-      # used to forcibly disable recording if a user has no permission but the room is set to record
-      record = room.record_meeting && can_record
-      { record: record }
-    end
+    # show the record button if the user has permissions to record
+    { record: ability.can?(:record_meeting, room) }
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information
@@ -190,22 +199,39 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  # Returns the translation for of a locale given its acronym (e.g. "en")
+  def locale_i18n(acronym)
+    configatron.locales.names[acronym.to_sym]
+  end
+
   # The payload is used by lograge. We add more information to it here so that it is saved
   # in the log.
   def append_info_to_payload(payload)
     super
+
     payload[:session] = {
       id: session.id,
-      ldap_session: !session[:ldap_data].blank?,
-      shib_session: !session[:shib_data].blank?
+      ldap_session: !session[Mconf::LDAP::SESSION_KEY].blank?,
+      shib_session: !session[Mconf::Shibboleth::SESSION_KEY].blank?
     } unless session.nil?
     payload[:current_user] = {
       id: current_user.id,
       email: current_user.email,
       username: current_user.username,
+      name: current_user.full_name,
       superuser: current_user.superuser?,
       can_record: current_user.can_record?
     } unless current_user.nil?
+    if payload[:controller] == "CustomBigbluebuttonRoomsController" && payload[:action] == "join"
+      payload[:room] = {
+        meetingid: @room.meetingid,
+        name: @room.name,
+        member: !current_user.nil?,
+        user: {
+          name: current_user.try(:full_name) || (params[:user].present? ? params[:user][:name] : nil)
+        }
+      } unless @room.nil?
+    end
   end
 
   private
@@ -215,6 +241,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error_page number
+    # If we're here because of an error in an after_fiter this will trigger a DoubleRender error.
+    # To prevent it we'll just clear the response_body before continuing
+    self.response_body = nil
     render :template => "/errors/error_#{number}", :status => number, :layout => "error"
   end
 
@@ -263,7 +292,7 @@ class ApplicationController < ActionController::Base
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate",
+                      "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
                       "/pending", "/bigbluebutton/rooms/.*/join", "/bigbluebutton/rooms/.*/end"]
 
     # Some xhr request need to be stored
@@ -300,7 +329,6 @@ class ApplicationController < ActionController::Base
   def previous_path_or(fallback)
     session[:previous_user_return_to] || fallback
   end
-  helper_method :previous_path_or
 
   # A default handler for access denied exceptions. Will simply redirect the user
   # to the sign in page if the user is not logged in yet.

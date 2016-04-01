@@ -70,12 +70,16 @@ describe SpacesController do
         RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
       ]}
 
-      before { get :index }
+      before {
+        Space.calculate_last_activity_indexes!
+        get :index
+      }
       it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
     end
 
     it "orders by name if params[:order]=='abc'"
     it "returns only approved spaces"
+    it "should paginate spaces (18 per page)"
 
     context "if there's a user signed in" do
 
@@ -132,64 +136,6 @@ describe SpacesController do
     end
 
     it "assigns @space"
-
-    context "assigns @news_position" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-      }
-
-      context "with params[:news_position] if set" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "1" }
-        it { should assign_to(:news_position).with(1) }
-      end
-
-      context "with 0 if params[:news_position] not set" do
-        before(:each) { get :show, :id => target.to_param }
-        it { should assign_to(:news_position).with(0) }
-      end
-
-      context "restricts to the amount of news existent" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "3" }
-        it { should assign_to(:news_position).with(1) }
-      end
-    end
-
-    context "assigns @news" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-        n3 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 2.days)
-        @expected = [n2, n1, n3]
-      }
-      before(:each) { get :show, :id => target.to_param }
-      it { should assign_to(:news).with(@expected) }
-    end
-
-    context "assigns @news_to_show" do
-      before {
-        n1 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 1.day)
-        n2 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now)
-        n3 = FactoryGirl.create(:news, :space => target, :updated_at => DateTime.now - 2.days)
-        @expected = [n2, n1, n3]
-      }
-
-      context "when the target news exists" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "1" }
-        it { should assign_to(:news_to_show).with(@expected[1]) }
-      end
-
-      context "when the target news doesn't exist" do
-        before(:each) { get :show, :id => target.to_param, :news_position => "5" }
-        it { should assign_to(:news_to_show).with(@expected[2]) }
-      end
-
-      context "set to nil when the space has no news" do
-        before { News.destroy_all }
-        before(:each) { get :show, :id => target.to_param }
-        it { should assign_to(:news_to_show).with(nil) }
-      end
-    end
 
     context "assigns @latest_posts" do
       before {
@@ -288,7 +234,7 @@ describe SpacesController do
 
       describe "sets the flash with a success message" do
         before(:each) { post :create, :space => space_attributes }
-        it { should set_the_flash.to(I18n.t('space.created')) }
+        it { should set_flash.to(I18n.t('space.created')) }
       end
 
       describe "adds the user as an admin in the space" do
@@ -388,8 +334,8 @@ describe SpacesController do
         [ :name, :description, :logo_image, :public, :permalink, :disabled,
           :repository, :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
           :bigbluebutton_room_attributes =>
-          [ :id, :attendee_key, :moderator_key, :default_layout, :private,
-            :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+            [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
+        ]
       }
       before {
         space_attributes.stub(:permit).and_return(space_attributes)
@@ -402,7 +348,7 @@ describe SpacesController do
       }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing no parameters" do
@@ -413,7 +359,7 @@ describe SpacesController do
       }
 
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing some parameters" do
@@ -427,7 +373,7 @@ describe SpacesController do
       it { RecentActivity.last.key.should eq('space.update') }
       it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to(I18n.t("space.updated")) }
+      it { should set_flash.to(I18n.t("flash.spaces.update.notice")) }
     end
 
     context "changing the logo_image parameter" do
@@ -504,10 +450,15 @@ describe SpacesController do
       it { should redirect_to(spaces_path) }
     end
 
+    it "normal users can't disable a space"
+    it "space members can't disable a space"
   end
 
   describe "#enable" do
-    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+    before(:each) {
+      request.env["HTTP_REFERER"] = manage_spaces_path
+      login_as(FactoryGirl.create(:superuser))
+    }
 
     context "loads the space by permalink" do
       let(:space) { FactoryGirl.create(:space) }
@@ -525,14 +476,14 @@ describe SpacesController do
       let(:space) { FactoryGirl.create(:space, :disabled => false) }
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
-      it { should set_the_flash.to(I18n.t('space.error.enabled', :name => space.name)) }
+      it { should set_flash.to(I18n.t('flash.spaces.enable.failure', :name => space.name)) }
     end
 
     context "if the space is disabled" do
       let(:space) { FactoryGirl.create(:space, :disabled => true) }
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
-      it { should set_the_flash.to(I18n.t('space.enabled')) }
+      it { should set_flash.to(I18n.t('flash.spaces.enable.notice')) }
       it { space.reload.disabled.should be_falsey }
     end
   end
@@ -721,6 +672,9 @@ describe SpacesController do
     let(:user) { FactoryGirl.create(:user) }
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
+
+    it { should_authorize space, :edit_recording, space_id: space.to_param, id: recording.to_param }
+
     before(:each) {
       space.add_member! user, "Admin"
       login_as(user)
@@ -847,5 +801,7 @@ describe SpacesController do
 
       it { should respond_with(:success) }
     end
+    it "should paginate user permission (10 per page)"
+
   end
 end

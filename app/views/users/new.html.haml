@@ -3,10 +3,12 @@
     = modal_close_button
     %h3= t('.title')
 
-  = simple_form_for @user, url: users_path, html: { class: 'single-column' } do |f|
+  = simple_form_for @user, url: users_path, html: { class: 'single-column', autocomplete: 'off' } do |f|
 
     .modal-body
       #user-basic-info
+        = disable_autocomplete_for('user[username]')
+        = disable_autocomplete_for('user[password]', 'password')
         = f.input :email, required: true, autofocus: true
         = f.input :_full_name, required: true
         = f.input :username, required: true

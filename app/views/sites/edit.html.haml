@@ -12,7 +12,6 @@
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
-    = f.input :webconf_auto_record, :as => :boolean
     = f.input :analytics_code
     = f.input :shib_enabled, :as => :boolean
     = f.input :shib_email_field, :as => :string
@@ -46,7 +45,6 @@
     = f.input :exception_notifications, :as => :boolean
     = f.input :exception_notifications_email
     = f.input :exception_notifications_prefix
-    = f.input :chat_enabled, :as => :boolean
     = f.input :presence_domain
     = f.input :xmpp_server
     = f.input :external_help

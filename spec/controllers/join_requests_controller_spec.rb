@@ -199,7 +199,7 @@ describe JoinRequestsController do
 
       it { should redirect_to(space_path(space)) }
       it { should assign_to(:space).with(space) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+      it { should set_flash.to(I18n.t('join_requests.create.created')) }
       it { JoinRequest.last.comment.should eql(jr.comment) }
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
@@ -221,7 +221,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
+      it { should set_flash.to(I18n.t('join_requests.create.duplicated')) }
     end
 
     context "user requests membership on a space where he's already requested it" do
@@ -235,7 +235,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.duplicated')) }
+      it { should set_flash.to(I18n.t('join_requests.create.duplicated')) }
     end
 
     context "user requests membership on a space where he's already a member" do
@@ -249,7 +249,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(spaces_path) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
+      it { should set_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
     end
 
     context "user requests membership on a private space" do
@@ -264,7 +264,7 @@ describe JoinRequestsController do
 
       it { should redirect_to(spaces_path) }
       it { should assign_to(:space).with(space) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+      it { should set_flash.to(I18n.t('join_requests.create.created')) }
       it { JoinRequest.last.comment.should eql(jr.comment) }
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
@@ -341,12 +341,12 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
       it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
       it { JoinRequest.last.introducer.should eql(user) }
       it { JoinRequest.last.candidate.should eql(candidate) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.role.should eql(role) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
 
@@ -366,7 +366,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}, #{candidate2.username}")) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}, #{candidate2.username}")) }
     end
 
     context "admin successfully invites a user and fails to invite another" do
@@ -386,8 +386,8 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.error',
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.error',
                                           :errors => errors)) }
     end
 
@@ -408,7 +408,7 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
+      it { should set_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
 
     context "global admin is not a member of the space and successfully invites one user (RM-1458)" do
@@ -433,12 +433,12 @@ describe JoinRequestsController do
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
       it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
       it { JoinRequest.last.introducer.should eql(superuser) }
       it { JoinRequest.last.candidate.should eql(candidate) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.role.should eql(role) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
   end
@@ -516,7 +516,7 @@ describe JoinRequestsController do
         it { jr.should be_accepted }
         it { jr.should be_processed }
         it { jr.introducer.should eq(user) }
-        it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
+        it { should set_flash.to(I18n.t('join_requests.accept.accepted')) }
       end
 
       context "accepts a user request with a role" do
@@ -527,7 +527,7 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do
@@ -575,7 +575,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "accepts a user request from the join request's show view" do
@@ -619,7 +619,7 @@ describe JoinRequestsController do
         it { should redirect_to(space_path(space)) }
         it { jr.should be_accepted }
         it { jr.should be_processed }
-        it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
+        it { should set_flash.to(I18n.t('join_requests.accept.accepted')) }
       end
 
       context "accepts an invite with a role" do
@@ -645,7 +645,7 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do
@@ -694,7 +694,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
     end
   end
@@ -727,7 +727,7 @@ describe JoinRequestsController do
         it { jr.should_not be_accepted }
         it { jr.should be_processed }
         it { jr.introducer.should eq(user) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.declined')) }
       end
 
       context "creates a recent activity" do
@@ -777,7 +777,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "declines a user request from the join request's show view" do
@@ -801,7 +801,7 @@ describe JoinRequestsController do
         }
         it { should redirect_to(space_join_requests_path(space)) }
         it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.invitation_destroyed')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.invitation_destroyed')) }
       end
     end
 
@@ -823,7 +823,7 @@ describe JoinRequestsController do
         it { should redirect_to(my_home_path) }
         it { jr.should_not be_accepted }
         it { jr.should be_processed }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.declined')) }
       end
 
       context "creates a recent activity" do
@@ -873,7 +873,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "declines a request he made" do
@@ -885,7 +885,7 @@ describe JoinRequestsController do
         }
         it { should redirect_to(my_home_path) }
         it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
       end
     end
   end

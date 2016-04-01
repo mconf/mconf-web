@@ -112,53 +112,45 @@ describe 'User signs in via ldap', ldap: true do
         it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
-      context "but encountering a server error" do
+      it "but encountering a server error"
 
-      end
-
-      skip "and there's a conflict on the user's username with another user" do
+      context "and there's a conflict on the user's username with another user" do
         before {
-          FactoryGirl.create(:user, username: @ldap_attrs[:_full_name].parameterize)
+          FactoryGirl.create(:user, username: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
-      skip "and there's a conflict on the user's username with a space" do
+      context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @ldap_attrs[:_full_name].parameterize)
+          FactoryGirl.create(:space, permalink: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
-      skip "and there's a conflict on the user's username with a room" do
+      context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:_full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:username])
           expect {
-            click_button t('sessions.login_form.login')
-          }.not_to change{ User.count }
+            sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
+          }.to change{ User.count }
         }
 
-        it { current_path.should eq(new_user_session_path) }
-        it { has_failure_message "Username has already been taken" }
-        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
-        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+        it { current_path.should eq(my_home_path) }
+        it("creates a LdapToken") { LdapToken.count.should be(1) }
       end
 
-      skip "and there's a conflict in the user's email" do
+      context "and there's a conflict in the user's email" do
         before {
           FactoryGirl.create(:user, email: @ldap_attrs[:email])
           expect {
@@ -171,6 +163,21 @@ describe 'User signs in via ldap', ldap: true do
         it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
+
+      context 'and enters a valid username without password' do
+        before {
+          expect {
+            sign_in_with @ldap_attrs[:username], ''
+            click_button t('sessions.login_form.login')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message }
+        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+      end
+
     end
   end
 

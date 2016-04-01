@@ -1,0 +1,28 @@
+- if @event.past?
+  %section.event-register
+    %p= t('.closed')
+- elsif user_signed_in? && @event.is_registered?(current_user)
+  %section.event-register
+    %p= t('.already_registered')
+
+    %p= link_to t('.unregister'), event_participant_path(@event.to_param, @participant.id), :data => { :confirm => t(".delete_confirmation") }, :method => :delete, :class => 'btn btn-danger btn-block'
+
+- else
+  - if can?(:register, @event)
+    %section.event-register
+      - if current_user
+        = simple_form_for([@event, @participant]) do |f|
+          = f.hidden_field :email
+          = f.button :submit, :value => t(".button"), :class => 'btn btn-success btn-block'
+      - else
+        = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success btn-block'
+
+  - elsif @event.owner_type == 'Space'
+    -# happens for private events that belong to spaces
+    %section.event-register
+      - if user_signed_in?
+        = link_to t('.join_button'), new_space_join_request_path(@event.owner), :class => 'btn btn-success btn-block'
+      - else
+        = t('.need_sign_in')
+
+= render 'invite_button'

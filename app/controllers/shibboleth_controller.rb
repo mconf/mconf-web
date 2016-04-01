@@ -17,7 +17,6 @@ class ShibbolethController < ApplicationController
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
-  before_filter :save_shib_to_session, only: [:login]
   before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
@@ -45,6 +44,9 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # set that the user signed in via shib
+          @shib.set_signed_in
 
           # Update user data with the latest version from the federation
           @shib.update_user(token) if current_site.shib_update_users?
@@ -97,7 +99,9 @@ class ShibbolethController < ApplicationController
   end
 
   def info
-    @data = @shib.get_data
+    if user_signed_in? && current_user.shib_token
+      @data = current_user.shib_token.data
+    end
     render :layout => false
   end
 
@@ -106,11 +110,7 @@ class ShibbolethController < ApplicationController
   def load_shib_session
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
-  end
-
-  def save_shib_to_session
-    logger.info "Shibboleth: saving env to session"
-    @shib.save_to_session(request.env, current_site.shib_env_variables)
+    @shib.load_data(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
@@ -161,12 +161,14 @@ class ShibbolethController < ApplicationController
         shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
       else
-        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        logger.error "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
-          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          logger.error "Shibboleth: there's already a user with this email #{shib.get_email}"
           flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
         else
-          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          message = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+          logger.error "Shibboleth: #{message}"
+          flash[:error] = message
         end
         token.destroy
       end

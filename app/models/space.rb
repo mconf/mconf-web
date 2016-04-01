@@ -39,12 +39,11 @@ require './lib/mconf/approval_module'
 class Space < ActiveRecord::Base
   include PublicActivity::Common
   include Mconf::ApprovalModule
+  include Mconf::DisableModule
 
-  # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
-  has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
@@ -58,12 +57,10 @@ class Space < ActiveRecord::Base
                           :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
   has_many :join_requests, -> { where(:group_type => 'Space') },
-           :foreign_key => "group_id"
+           foreign_key: "group_id"
 
-  if Mconf::Modules.mod_loaded?('events')
-    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => MwebEvents::Event,
-             :foreign_key => "owner_id", :dependent => :destroy
-  end
+  has_many :events, -> { where(:owner_type => 'Space')}, class_name: Event,
+           foreign_key: "owner_id", dependent: :destroy
 
   # for the associated BigbluebuttonRoom
   # attr_accessible :bigbluebutton_room_attributes
@@ -117,36 +114,28 @@ class Space < ActiveRecord::Base
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
+  # Used by select controller method
+  # For now keep old behavior and search for only one word in the name
+  scope :search_by_terms, -> (words, include_private=false) {
+    words = words.join(' ') if words.is_a?(Array)
+    where('name LIKE ?', "%#{words}%")
+  }
+
   # Finds all the valid user roles for a Space
   def self.roles
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
-  def last_activity
-    RecentActivity.where(owner: self).last
-  end
-
   # Order by when the last activity in the space happened.
-  # OPTIMIZE: Couldn't find a way to make Space.order_by_activity.count work. This query
-  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_activity, -> {
-    Space.default_join_for_activities(Space.arel_table[Arel.star],
-                                      'MAX(`activities`.`created_at`) AS lastActivity')
-      .group(Space.arel_table[:id])
-      .order('lastActivity DESC')
+    Space.order('last_activity DESC').order('name ASC')
   }
 
   # Order by relevance: spaces that are currently more relevant to show to the users.
   # Orders primarily by the last activity in the space, considering only the date and ignoring
   # the time. Then orders by the number of activities.
-  # OPTIMIZE: Couldn't find a way to make Space.order_by_relevance.count work. This query
-  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_relevance, -> {
-    Space.default_join_for_activities(Space.arel_table[Arel.star],
-                                      'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
-                                      'COUNT(`activities`.`id`) AS activityCount')
-      .group(Space.arel_table[:id])
-      .order('lastActivity DESC').order('activityCount DESC')
+    Space.order('last_activity DESC').order('last_activity_count DESC').order('name ASC')
   }
 
   # Returns a relation with a pre-configured join that can be used in queries to find recent
@@ -165,9 +154,40 @@ class Space < ActiveRecord::Base
     end
   end
 
+  def self.calculate_last_activity_indexes!
+    # Big join of all the tables, count activities and find the last activity in each space
+    # Note: DATE() implies that the maximum precision will be a day
+    spaces_with_activities =
+      Space.default_join_for_activities(Space.arel_table[Arel.star],
+        'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
+        'COUNT(`activities`.`id`) AS activityCount').group(Space.arel_table[:id])
+
+    # Use these calculations to set the indexes in the space table
+    spaces_with_activities.find_each do |space|
+      space.update_attributes last_activity: space.lastActivity, last_activity_count: space.activityCount
+    end
+  end
+
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count = 5)
     self.events.upcoming.order("start_on ASC").first(5)
+  end
+
+  # Returns the latest 'count' posts created in this space
+  def latest_posts(count = 3)
+    posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(count)
+  end
+
+  # Returns the latest 'count' users that have joined this space
+  def latest_users(count = 3)
+    users.order("permissions.created_at DESC").first(count)
+  end
+
+  # Returns a list of permissions ordered by the user's name
+  def permissions_ordered_by_name
+    permissions
+      .joins("LEFT JOIN profiles on permissions.user_id = profiles.user_id")
+      .order("profiles.full_name ASC")
   end
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
@@ -216,28 +236,10 @@ class Space < ActiveRecord::Base
   end
 
   def self.with_disabled
-    self.unscoped
+    unscope(where: :disabled) # removes the target scope only
   end
 
   # TODO: review all public methods below
-
-  # Disable the space from the website.
-  # This can be used by global admins as a mean to disable access and indexing of this space in all areas of
-  # the site. This acts as if it has been deleted, but the data is still there in the database and the space can be
-  # enabled back with the method 'enable'
-  def disable
-    self.disabled = true
-    self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
-    save!
-  end
-
-  # Re-enables a previously disabled space
-  def enable
-    self.disabled = false
-    self.name = "#{name.split(" DISABLED").first} RESTORED"
-    save!
-  end
-
   # Checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
     adm = self.admins
@@ -289,10 +291,6 @@ class Space < ActiveRecord::Base
   # Returns whether the space's logo is being cropped.
   def is_cropping?
     logo_image.present? && crop_x.present?
-  end
-
-  def enabled?
-    !disabled?
   end
 
   def small_logo_image?

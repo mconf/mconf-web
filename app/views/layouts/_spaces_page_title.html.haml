@@ -6,11 +6,11 @@
     - if @space.name.size > 60
       .main-title.small-title
         = link_to space_path(@space) do
-          = sanitize(first_words(@space.name, 60))
+          = first_words(@space.name, 60)
     - else
       .main-title
         = link_to space_path(@space) do
-          = sanitize(@space.name)
+          = @space.name
     - if @space.public
       .resource-visibility.public
         = icon_space_public

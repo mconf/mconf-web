@@ -9,6 +9,6 @@
 
   .user-text
     %span.user-name
-      - words = params[:q].try(:split)
+      - words = escape_once(params[:q]).try(:split)
       = highlight(escape_once(user.full_name), words)
       = "(#{highlight(user.username, words)}, #{highlight(user.email, words)})".html_safe

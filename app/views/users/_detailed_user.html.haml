@@ -5,7 +5,7 @@
     .logo-in-thread
       = link_logo_image(user, :size => '48', :url => user_path(user), :title => user.name, :class => "logo logo-user-big")
     .thread-title
-      = link_to sanitize(user.full_name), user_path(user), :class => 'user-name'
+      = link_to user.full_name, user_path(user), :class => 'user-name'
     .user-text
       -# the only information that is private here is the email, the others are
       -# in the public profile
@@ -16,9 +16,8 @@
         %span.user-info-prefix= t(".from")
 
       - unless user.organization.blank?
-        %span.user-organization= sanitize(user.organization)
+        %span.user-organization= user.organization
         - unless user.location.blank?
           %span.user-divider= "--"
 
-      - unless user.location.blank?
-        %span.user-location= sanitize(user.location)
+        %span.user-location= user.location

@@ -2,11 +2,11 @@
 @import "definitions";
 
 @import "app/spaces/sidebar";
-@import "app/mweb_events-events/_unified_event";
+@import "app/events/_unified_event";
 
 body.spaces.show {
 
-  // date of comments, news, posts, etc.
+  // date of comments, posts, etc.
   // TODO: maybe move to _base
   .updated-at {
     font-style: italic;
@@ -31,16 +31,6 @@ body.spaces.show {
       clear: both;
       margin-bottom: 10px;
       margin-top: 5px;
-    }
-  }
-
-  #latest-news {
-    .news-title {
-      margin-bottom: 5px;
-    }
-    .updated-at {
-      @include font-size($font-normal);
-      font-weight: normal;
     }
   }
 

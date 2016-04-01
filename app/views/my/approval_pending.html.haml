@@ -8,7 +8,7 @@
 
   %ul
     - if Mconf::Modules.mod_enabled?('events')
-      %li= link_to t('.events_list'), mweb_events.events_path
+      %li= link_to t('.events_list'), events_path
       %span &#149;
 
     %li= link_to t('.spaces_list'), spaces_path

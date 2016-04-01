@@ -5,13 +5,13 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class SessionLocalesController < ActionController::Base
+class SessionLocalesController < ApplicationController
 
   def create
     new_locale = params[:l]
 
     if Site.current.visible_locales.include?(new_locale)
-      locale_name = t("locales.#{new_locale}")
+      name = locale_i18n(new_locale)
 
       # add locale to the session
       session[:locale] = new_locale
@@ -19,9 +19,9 @@ class SessionLocalesController < ActionController::Base
       # set the locale as the default for this user
       current_user.update_attribute(:locale, new_locale) if user_signed_in?
 
-      flash[:success] = t('session_locales.create.success', :value => locale_name, :locale => new_locale)
+      flash[:success] = t('session_locales.create.success', value: name, locale: new_locale)
     else
-      flash[:error] = t('locales.error', :value => locale_name)
+      flash[:error] = t('session_locales.create.error', value: new_locale)
     end
 
     redirect_to after_create_path

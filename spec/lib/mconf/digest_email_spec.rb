@@ -74,7 +74,7 @@ describe Mconf::DigestEmail do
     let(:date_end) { now }
     let(:space) { FactoryGirl.create(:space) }
     let(:call_get_activity) {
-      @posts, @news, @attachments, @events, @inbox = subject.get_activity(user, date_start, date_end)
+      @posts, @attachments, @events = subject.get_activity(user, date_start, date_end)
     }
     before do
       space.add_member!(user)
@@ -82,7 +82,6 @@ describe Mconf::DigestEmail do
       other_space = FactoryGirl.create(:space)
       FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => other_space)
       FactoryGirl.create(:post, :space => other_space)
-      FactoryGirl.create(:news, :space => other_space)
       FactoryGirl.create(:attachment_with_associations, space: other_space)
     end
 
@@ -103,21 +102,13 @@ describe Mconf::DigestEmail do
       before(:each) { call_get_activity }
       it { @posts.should == [] }
       it { @attachments.should == [] }
-      it { @news.should == [] }
       it { @events.should == [] }
-      it { @inbox.should == [] }
     end
 
     context "returns the latest posts in the user's spaces" do
       before { create_default_objects(:post) }
       before(:each) { call_get_activity }
       it { @expected.should == @posts }
-    end
-
-    context "returns the latest news in the user's spaces" do
-      before { create_default_objects(:news) }
-      before(:each) { call_get_activity }
-      it { @expected.should == @news }
     end
 
     context "returns the latest attachments in the user's spaces" do
@@ -150,26 +141,6 @@ describe Mconf::DigestEmail do
       it { @expected.should == @events }
     end
 
-    context "returns the unread messages in the inbox" do
-      before do
-        sender = FactoryGirl.create(:user)
-
-        # Time for the message to arrive
-        start_time = Time.zone.now
-
-        # unread messages for the target user
-        @expected = []
-        @expected << FactoryGirl.create(:private_message, :created_at => start_time, :receiver => user, :sender => sender)
-        @expected << FactoryGirl.create(:private_message, :created_at => start_time + 1.minute, :receiver => user, :sender => sender)
-        @expected.sort_by!{ |p| p.updated_at }.reverse!
-        # read message
-        FactoryGirl.create(:private_message, :receiver => user, :sender => sender, :checked => true)
-        # message to another user
-        FactoryGirl.create(:private_message, :receiver => FactoryGirl.create(:user), :sender => sender)
-      end
-      before(:each) { call_get_activity }
-      it { @expected.should == @inbox }
-    end
   end
 
   describe ".send_digest" do
@@ -208,24 +179,20 @@ describe Mconf::DigestEmail do
         # create the data to be returned
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id,
                    FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-        @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id,
-                  FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
         @attachments = [ FactoryGirl.create(:attachment_with_associations, :space => space, :updated_at => date_start).id,
                          FactoryGirl.create(:attachment_with_associations, :space => space, :updated_at => date_start).id ]
         @events = [
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id,
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id
         ]
-        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id,
-                   FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
-          and_return([ @posts, @news, @attachments, @events, @inbox ])
+          and_return([ @posts, @attachments, @events])
       end
 
       before(:each) { subject.send_digest(user, date_start, date_end) }
       it { ApplicationMailer.should have_queue_size_of(1) }
-      it { ApplicationMailer.should have_queued(:digest_email, user.id, @posts, @news, @attachments, @events, @inbox) }
+      it { ApplicationMailer.should have_queued(:digest_email, user.id, @posts, @attachments, @events, @inbox) }
     end
   end
 

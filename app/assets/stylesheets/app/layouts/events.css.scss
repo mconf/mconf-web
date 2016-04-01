@@ -1,0 +1,30 @@
+// For the 'events' layout
+
+body.events.show {
+
+  /* #page-header { */
+  /*   width: 0 !important; */
+  /*   display: none !important; */
+  /* } */
+
+}
+
+body.events.show,
+body.events.edit,
+body.events.new,
+body.events.create,
+body.events.update
+{
+
+  // we don't have a sidebar, so the content must fill the
+  // entire width of the page
+  #sidebar {
+    width: 0 !important;
+    display: none !important;
+  }
+
+  #content-middle {
+    width: 100% !important;
+  }
+
+}

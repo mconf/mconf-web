@@ -7,23 +7,29 @@
 module Mconf
   class Shibboleth
 
-    # the root key used to store all the information in the session
-    ENV_KEY = :shib_data
+    # the key used to indicate in the session if the user is signed in
+    # via shibboleth or not
+    SESSION_KEY = :shib_login
 
     # `session` is the session object where the user information will be stored
     def initialize(session)
+      # Data will hold the shibolleth data read from the environment
+      @data = {}
+
+      # This holds the session data, but will only write a boolean value to it
+      # denoting whether the user has logged in via shibboleth
       @session = session
     end
 
-    # Saves the information in the environment variables `env_variables` to the
-    # session. Uses `filters` to know which variables should be stored and which
+    # Loads the information from the environment variables `env_variables` into
+    # the object. Uses `filters` to know which variables should be stored and which
     # should be ignored.
     # `filters` is a string with one or more filters separated by '\n' or '\r\n'.
     # The filters can be a simple string or a string in the format of a regex.
     # e.g. `email\nshib-.*\r\nuid`: will get the variables that match /^email$/,
     #   /^shib-.*$/, and /^uid$/
     # If `filters` is blank, will use the default filter /^shib-/
-    def save_to_session(env_variables, filters='')
+    def load_data(env_variables, filters='')
       filter = split_into_regexes(filters)
       filter = [/^shib-/] if filter.empty?
 
@@ -34,23 +40,23 @@ module Mconf
           shib_data[key.to_s] = value
         end
       end
-      @session[ENV_KEY] = shib_data
-      Rails.logger.info "Shibboleth: info saved to session #{@session[ENV_KEY].inspect}"
+      # Saves data sent by the shib server
+      @data ||= {}
+      @data.merge!(shib_data)
+
+      Rails.logger.info "Shibboleth: user info loaded as: #{@data.inspect}"
       shib_data
     end
 
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_identifier && get_email && get_name && get_principal_name
+      @data && get_identifier && get_email && get_name && get_principal_name
     end
 
-    def get_field field
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        result = @session[ENV_KEY][field]
-        result = result.dup unless result.blank?
-      end
+    def get_field(field)
+      result = @data[field]
+      result = result.dup unless result.blank?
       result
     end
 
@@ -60,12 +66,12 @@ module Mconf
       get_principal_name
     end
 
-    # Returns the email stored in the session, if any.
+    # Returns the email stored, if any.
     def get_email
       get_field Site.current.shib_email_field
     end
 
-    # Returns the name of the user stored in the session, if any.
+    # Returns the name of the user stored, if any.
     def get_name
       get_field Site.current.shib_name_field
     end
@@ -76,24 +82,43 @@ module Mconf
       get_field Site.current.shib_principal_name_field
     end
 
-    # Returns the login of the user stored in the session, if any.
+    # Returns the login of the user, if any.
     def get_login
       get_field(Site.current.shib_login_field) || get_name # uses the name by default
     end
 
-    # Returns the shibboleth provider of the user stored in the session, if any.
+    # Returns an unique login according to the login stored in the object.
+    # If there's no login, returns nil. Otherwise will always
+    # return a login that doesn't exist yet.
+    def get_unique_login
+      Mconf::Identifier.unique_mconf_id(get_login)
+    end
+
+    # Returns the shibboleth provider of the user, if any.
     def get_identity_provider
       get_field 'Shib-Identity-Provider'
     end
 
     # Returns all the shibboleth data stored in the session.
     def get_data
-      @session[ENV_KEY].try(:dup)
+      @data.try(:dup)
+    end
+
+    # Sets the shibboleth data, without processing the input hash
+    # Used when reading saved user data from the session or database
+    def set_data session
+      @data = session
     end
 
     # Returns whether the user is signed in via federation or not.
+    # Does it by reading the session data passed in to the constructor
     def signed_in?
-      !@session.nil? && @session.has_key?(ENV_KEY)
+      !@session.nil? && @session.has_key?(SESSION_KEY)
+    end
+
+    # Mark in the session that the user signed in via Shibboleth
+    def set_signed_in
+      @session[SESSION_KEY] = true
     end
 
     # Returns the name of the attributes used to get the basic user information from the
@@ -104,12 +129,12 @@ module Mconf
         Site.current.shib_principal_name_field ]
     end
 
-    # Finds the ShibToken associated with the user whose information is stored in the session.
+    # Finds the ShibToken associated with the user whose information is stored in the object.
     def find_token
       ShibToken.find_by_identifier(get_identifier)
     end
 
-    # Finds the ShibToken and updates it with the information in the session, unless
+    # Finds the ShibToken and updates it with the information in the object, unless
     # it's empty. Returns the token.
     # Doesn't raise an exception if it fails to save the token, will return the
     # errors in the model.
@@ -122,7 +147,7 @@ module Mconf
       token
     end
 
-    # Searches for a ShibToken using data in the session and returns it. Creates a new
+    # Searches for a ShibToken using data in the object and returns it. Creates a new
     # ShibToken if no token is found and returns it.
     def find_or_create_token
       token = find_token
@@ -134,13 +159,11 @@ module Mconf
     # Returns the User created after calling `save`. This might have errors if the call to
     # `save` failed.
     # The shib_token parameter is used as the Owner of the RecentActivity.
-    # Expects that at least the email and name will be set in the session!
+    # Expects that at least the email and name are set!
     def create_user(shib_token)
       password = SecureRandom.hex(16)
-      login = get_login
-      login = login.parameterize unless login.nil?
       params = {
-        username: login, email: get_email,
+        username: get_unique_login, email: get_email,
         password: password, password_confirmation: password,
         _full_name: get_name
       }

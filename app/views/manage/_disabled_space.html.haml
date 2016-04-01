@@ -9,4 +9,4 @@
 
   .space-text
     %span.space-name
-      = highlight(sanitize(space.name), params[:q])
+      = highlight(sanitize(space.name), escape_once(params[:q]))

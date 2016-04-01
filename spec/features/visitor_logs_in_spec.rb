@@ -9,6 +9,7 @@ require 'spec_helper'
 feature 'Visitor logs in' do
   before(:each) {
     @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    page.driver.header 'Referer', "http://#{Site.current.domain}"
   }
 
   scenario 'with valid email and password' do
