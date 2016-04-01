@@ -79,6 +79,7 @@ describe SpacesController do
 
     it "orders by name if params[:order]=='abc'"
     it "returns only approved spaces"
+    it "should paginate spaces (18 per page)"
 
     context "if there's a user signed in" do
 
@@ -800,5 +801,7 @@ describe SpacesController do
 
       it { should respond_with(:success) }
     end
+    it "should paginate user permission (10 per page)"
+
   end
 end

@@ -18,6 +18,8 @@ describe UsersController do
     skip { should_authorize Space, :show }
     skip { should_authorize User, :index, space_id: space.to_param }
 
+    it "should paginate users (10 per page)"
+
     context "loads the space" do
       before { get :index, space_id: space.to_param }
       it { should assign_to(:space).with(space) }
