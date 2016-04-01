@@ -70,7 +70,6 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
   end
 
   context 'when to was set to /feedback/webconf because of a meeting end and user comes from another tab' do
-
     before {
       Site.current.update_attributes(feedback_url: 'https://feedback-place.fun')
       sign_in_with @user.email, @user.password
@@ -84,7 +83,32 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     }
 
     it { current_path.should eq(my_home_path) }
+  end
 
+  context 'considers the protocols when comparing local host with the external host' do
+    before {
+      Site.current.update_attributes(domain: "localhost", ssl: false) # HTTP
+      page.driver.header 'Referer', "https://localhost" # HTTPS
+
+      sign_in_with @user.email, @user.password
+      visit edit_user_path(@user)
+      visit login_path
+    }
+
+    it { current_path.should eq(my_home_path) }
+  end
+
+  context 'considers the ports when comparing local host with the external host' do
+    before {
+      Site.current.update_attributes(domain: "localhost:3000") # HTTP
+      page.driver.header 'Referer', "http://localhost:5000" # HTTPS
+
+      sign_in_with @user.email, @user.password
+      visit edit_user_path(@user)
+      visit login_path
+    }
+
+    it { current_path.should eq(my_home_path) }
   end
 
 end

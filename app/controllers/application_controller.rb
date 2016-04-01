@@ -80,14 +80,18 @@ class ApplicationController < ActionController::Base
     return_to
   end
 
+  # Whether the user came from "nowhere" (no referer) or from an external URL.
   # Because we don't to redirect the user somewhere if he came from outside
   # or typed something in the address bar
   def external_or_blank_referer?
-    url = request.referer.to_s
+    # compares the hosts only, ignoring protocols and ports
+    # note: we add the "http" part just so the parse works currectly
+    parsed = URI.parse("http://#{current_site.domain}")
+    configured = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
+    parsed = URI.parse(request.referer.to_s)
+    host = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
 
-    host = URI.parse(url).try(:host)
-
-    host != current_site.domain
+    host != configured
   end
 
   # overriding bigbluebutton_rails function
