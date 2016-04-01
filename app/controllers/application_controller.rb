@@ -70,9 +70,24 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    return_to = stored_location_for(resource) || my_home_path
+    if !external_or_blank_referer?
+      previous = stored_location_for(resource)
+    end
+
+    return_to = previous || my_home_path
+
     clear_stored_location
     return_to
+  end
+
+  # Because we don't to redirect the user somewhere if he came from outside
+  # or typed something in the address bar
+  def external_or_blank_referer?
+    url = request.referer.to_s
+
+    host = URI.parse(url).try(:host)
+
+    host != current_site.domain
   end
 
   # overriding bigbluebutton_rails function
@@ -273,7 +288,7 @@ class ApplicationController < ActionController::Base
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate",
+                      "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
                       "/pending", "/bigbluebutton/rooms/.*/join", "/bigbluebutton/rooms/.*/end"]
 
     # Some xhr request need to be stored

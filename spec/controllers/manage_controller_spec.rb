@@ -8,6 +8,9 @@ require 'spec_helper'
 
 describe ManageController do
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   describe "#users" do
     before { User.destroy_all } # exclude seeded user(s)
 

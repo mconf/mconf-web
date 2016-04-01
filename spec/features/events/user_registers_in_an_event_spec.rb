@@ -9,7 +9,11 @@ require 'support/feature_helpers'
 
 feature "User registers in an event" do
 
-  before(:all) { Site.current.update_attributes(events_enabled: true) }
+  before(:all) {
+    Site.current.update_attributes(events_enabled: true)
+    page.driver.header 'Referer', "http://#{Site.current.domain}"
+  }
+
   subject { page }
 
   context 'as a logged in user clicking in the link to register' do
