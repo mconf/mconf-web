@@ -5,7 +5,7 @@
   = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
 
 .thread-content
-  = formatted_time_ago activity.updated_at
+  = formatted_time_ago activity.created_at
 
   .thread-title
     - if activity.key.match(/leave$/)

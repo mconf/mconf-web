@@ -13,5 +13,6 @@ FactoryGirl.define do
   factory :attachment_with_associations, parent: :attachment do |a|
     a.association :space, :repository => true
     a.association :author, :factory => :user
+    a.attachment Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-attachment.txt')))
   end
 end
