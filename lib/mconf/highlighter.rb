@@ -6,11 +6,12 @@
 include ActiveSupport::Inflector
 
 module Mconf::Highlighter
-  def self.highlight_word(text, word) # options = {}
-    #text = sanitize(text) if options.fetch(:sanitize, true)
+  def self.highlight_word(text, word)
+    begin_mark = "<mark>"
+    end_mark = "</mark>"
     return "" if text.blank?
     return text if word.blank?
-    text = text.clone #clona texto pra nao usar a mesma variável
+    text = text.clone
     indexes = [] 
     tt = transliterate(text).downcase
     tw = transliterate(word).downcase
@@ -27,12 +28,12 @@ module Mconf::Highlighter
       end
     end
     
-    d = 0
+    d = 0 #explaining: i and d are counters for index and displacement, respectively.
     indexes.each do |i| 
-      text.insert(i + d, '<mark>')
-      d += 6
-      text.insert((i + tw.size + d), '</mark>' )
-      d += 7
+      text.insert(i + d, begin_mark)
+      d += begin_mark.size
+      text.insert((i + tw.size + d), end_mark )
+      d += end_mark.size
     end
     text
   end
