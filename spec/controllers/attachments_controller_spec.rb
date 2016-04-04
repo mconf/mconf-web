@@ -12,7 +12,7 @@ describe AttachmentsController do
   describe "can't access if document repository is false" do
     let(:space) { FactoryGirl.create(:space, :repository => false) }
     let(:user) { FactoryGirl.create(:superuser) }
-    let(:attachment) { FactoryGirl.create(:attachment, :space => space) }
+    let(:attachment) { FactoryGirl.create(:attachment_with_associations, :space => space) }
     before(:each) { sign_in(user) }
 
     context "index" do
@@ -174,7 +174,7 @@ describe AttachmentsController do
   describe "#index.zip"
 
   describe "#show" do
-    let(:attachment) { FactoryGirl.create(:attachment, :space => space) }
+    let(:attachment) { FactoryGirl.create(:attachment_with_associations, :space => space) }
     let(:superuser) { FactoryGirl.create(:superuser) }
     let(:user) { FactoryGirl.create(:user) }
 
@@ -287,7 +287,7 @@ describe AttachmentsController do
       }
 
       context "with valid attributes" do
-        let(:attributes) { FactoryGirl.attributes_for(:attachment) }
+        let(:attributes) { FactoryGirl.attributes_for(:attachment).except(:attachment) }
 
         describe "creates the attachment with correct attributes" do
           before(:each) {
@@ -308,7 +308,7 @@ describe AttachmentsController do
 
       context "with valid attributes but repeated file name" do
         let!(:file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }
-        let!(:attachment) { FactoryGirl.create(:attachment, :space => space, :attachment => file) }
+        let!(:attachment) { FactoryGirl.create(:attachment_with_associations, :space => space, :attachment => file) }
 
         before(:each) {
           expect {
@@ -324,7 +324,7 @@ describe AttachmentsController do
       context "with valid attributes but repeated file name (of a file in another space)" do
         let(:space2) { FactoryGirl.create(:space) }
         let!(:file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }
-        let!(:attachment) { FactoryGirl.create(:attachment, :space => space2, :attachment => file) }
+        let!(:attachment) { FactoryGirl.create(:attachment_with_associations, :space => space2, :attachment => file) }
 
         before(:each) {
           expect {
@@ -378,8 +378,8 @@ describe AttachmentsController do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space, :repository => true) }
     let(:attachments) {
-      [FactoryGirl.create(:attachment, :space => space),
-       FactoryGirl.create(:attachment, :space => space)]
+      [FactoryGirl.create(:attachment_with_associations, :space => space),
+       FactoryGirl.create(:attachment_with_associations, :space => space)]
     }
     let(:params) {
       {:attachment_ids => "#{attachments[0].id},#{attachments[1].id}",

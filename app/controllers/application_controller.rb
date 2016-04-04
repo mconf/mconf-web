@@ -71,9 +71,28 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    return_to = stored_location_for(resource) || my_home_path
+    if !external_or_blank_referer?
+      previous = stored_location_for(resource)
+    end
+
+    return_to = previous || my_home_path
+
     clear_stored_location
     return_to
+  end
+
+  # Whether the user came from "nowhere" (no referer) or from an external URL.
+  # Because we don't to redirect the user somewhere if he came from outside
+  # or typed something in the address bar
+  def external_or_blank_referer?
+    # compares the hosts only, ignoring protocols and ports
+    # note: we add the "http" part just so the parse works currectly
+    parsed = URI.parse("http://#{current_site.domain}")
+    configured = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
+    parsed = URI.parse(request.referer.to_s)
+    host = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
+
+    host != configured
   end
 
   # overriding bigbluebutton_rails function
@@ -190,10 +209,11 @@ class ApplicationController < ActionController::Base
   # in the log.
   def append_info_to_payload(payload)
     super
+
     payload[:session] = {
       id: session.id,
-      ldap_session: !session[:ldap_data].blank?,
-      shib_session: !session[:shib_data].blank?
+      ldap_session: !session[Mconf::LDAP::SESSION_KEY].blank?,
+      shib_session: !session[Mconf::Shibboleth::SESSION_KEY].blank?
     } unless session.nil?
     payload[:current_user] = {
       id: current_user.id,
@@ -273,7 +293,7 @@ class ApplicationController < ActionController::Base
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate",
+                      "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
                       "/pending", "/bigbluebutton/rooms/.*/join", "/bigbluebutton/rooms/.*/end"]
 
     # Some xhr request need to be stored

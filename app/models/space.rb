@@ -126,31 +126,16 @@ class Space < ActiveRecord::Base
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
-  def last_activity
-    RecentActivity.where(owner: self).last
-  end
-
   # Order by when the last activity in the space happened.
-  # OPTIMIZE: Couldn't find a way to make Space.order_by_activity.count work. This query
-  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_activity, -> {
-    Space.default_join_for_activities(Space.arel_table[Arel.star],
-                                      'MAX(`activities`.`created_at`) AS lastActivity')
-      .group(Space.arel_table[:id])
-      .order('lastActivity DESC')
+    Space.order('last_activity DESC').order('name ASC')
   }
 
   # Order by relevance: spaces that are currently more relevant to show to the users.
   # Orders primarily by the last activity in the space, considering only the date and ignoring
   # the time. Then orders by the number of activities.
-  # OPTIMIZE: Couldn't find a way to make Space.order_by_relevance.count work. This query
-  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_relevance, -> {
-    Space.default_join_for_activities(Space.arel_table[Arel.star],
-                                      'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
-                                      'COUNT(`activities`.`id`) AS activityCount')
-      .group(Space.arel_table[:id])
-      .order('lastActivity DESC').order('activityCount DESC')
+    Space.order('last_activity DESC').order('last_activity_count DESC').order('name ASC')
   }
 
   # Returns a relation with a pre-configured join that can be used in queries to find recent
@@ -169,6 +154,20 @@ class Space < ActiveRecord::Base
     end
   end
 
+  def self.calculate_last_activity_indexes!
+    # Big join of all the tables, count activities and find the last activity in each space
+    # Note: DATE() implies that the maximum precision will be a day
+    spaces_with_activities =
+      Space.default_join_for_activities(Space.arel_table[Arel.star],
+        'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
+        'COUNT(`activities`.`id`) AS activityCount').group(Space.arel_table[:id])
+
+    # Use these calculations to set the indexes in the space table
+    spaces_with_activities.find_each do |space|
+      space.update_attributes last_activity: space.lastActivity, last_activity_count: space.activityCount
+    end
+  end
+
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count = 5)
     self.events.upcoming.order("start_on ASC").first(5)
@@ -182,6 +181,13 @@ class Space < ActiveRecord::Base
   # Returns the latest 'count' users that have joined this space
   def latest_users(count = 3)
     users.order("permissions.created_at DESC").first(count)
+  end
+
+  # Returns a list of permissions ordered by the user's name
+  def permissions_ordered_by_name
+    permissions
+      .joins("LEFT JOIN profiles on permissions.user_id = profiles.user_id")
+      .order("profiles.full_name ASC")
   end
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').

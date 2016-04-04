@@ -8,10 +8,9 @@ module Mconf
   class LDAP
 
     # the root key used to store all the information in the session
-    ENV_KEY = :ldap_data
+    SESSION_KEY = :ldap_data
 
-    # `session` is the session object where the user information will be stored
-    def initialize(session)
+    def initialize(session = {})
       @session = session
     end
 
@@ -46,6 +45,7 @@ module Mconf
         nil
       else
         token.user = find_account(email)
+        token.data = data_from_entry(ldap_user)
         if token.user
           Rails.logger.info "LDAP: there's already a user with this id (#{email})"
         else
@@ -63,12 +63,12 @@ module Mconf
 
     # Sets the user as signed in via LDAP in the session.
     def sign_user_in(user)
-      @session[ENV_KEY] = { username: user.username, email: user.email }
+      @session[SESSION_KEY] = { username: user.username, email: user.email }
     end
 
     # Returns whether the user is signed in via LDAP or not.
     def signed_in?
-      !@session.nil? && @session.has_key?(ENV_KEY)
+      !@session.nil? && @session.has_key?(SESSION_KEY)
     end
 
     private
@@ -147,7 +147,11 @@ module Mconf
       [username, email, name]
     end
 
-    private
+    def data_from_entry ldap_entry
+      data = {}
+      ldap_entry.each { |k, v| data[k] = v }
+      data
+    end
 
     def create_notification(user, token)
       RecentActivity.create(

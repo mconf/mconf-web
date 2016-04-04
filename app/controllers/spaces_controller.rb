@@ -119,9 +119,8 @@ class SpacesController < InheritedResources::Base
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = @space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
+    @permissions = @space.permissions_ordered_by_name
+      .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
   end
 
@@ -205,7 +204,7 @@ class SpacesController < InheritedResources::Base
     if params[:order] == 'abc'
       @spaces = @spaces.order('name ASC')
     else
-      @spaces = @spaces.order_by_activity
+      @spaces = @spaces.order_by_relevance
     end
   end
 

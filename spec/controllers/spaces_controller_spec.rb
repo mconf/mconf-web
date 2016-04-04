@@ -70,12 +70,16 @@ describe SpacesController do
         RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
       ]}
 
-      before { get :index }
+      before {
+        Space.calculate_last_activity_indexes!
+        get :index
+      }
       it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
     end
 
     it "orders by name if params[:order]=='abc'"
     it "returns only approved spaces"
+    it "should paginate spaces (18 per page)"
 
     context "if there's a user signed in" do
 
@@ -797,5 +801,7 @@ describe SpacesController do
 
       it { should respond_with(:success) }
     end
+    it "should paginate user permission (10 per page)"
+
   end
 end
