@@ -51,7 +51,7 @@ class MyController < ApplicationController
     @user_spaces = current_user.spaces
     @user_pending_spaces = current_user.pending_spaces
     @contents_per_page = 15
-    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('updated_at DESC')
+    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('created_at DESC')
   end
 
   def approval_pending
@@ -65,7 +65,7 @@ class MyController < ApplicationController
   def activity
     @contents_per_page = params[:per_page] || 20
 
-    @all_contents = RecentActivity.user_activity(current_user).order('updated_at DESC')
+    @all_contents = RecentActivity.user_activity(current_user).order('created_at DESC')
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 

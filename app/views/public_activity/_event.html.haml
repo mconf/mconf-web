@@ -8,7 +8,7 @@
     = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.owner), class: 'logo logo-space-activity')
 
 .thread-content
-  = formatted_time_ago activity.updated_at
+  = formatted_time_ago activity.created_at
 
   .thread-title
     = icon_event
