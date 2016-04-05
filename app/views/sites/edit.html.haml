@@ -1,6 +1,6 @@
 = render :partial => 'manage/menu'
 
-= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column', autocomplete: 'off'} do |f|
   .left-column
     = f.input :name
     = f.input :description, :as => :text, :input_html => { :rows => 5 }
@@ -25,7 +25,9 @@
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
+    = disable_autocomplete_for('site[ldap_user]')
     = f.input :ldap_user
+    = disable_autocomplete_for('site[ldap_user_password]', 'password')
     = f.input :ldap_user_password, :as => :showable_password
     = f.input :ldap_user_treebase
     = f.input :ldap_username_field
