@@ -9,19 +9,19 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
   def up
     scope = RecentActivity.where(recipient_id: nil)
 
-    scope.where(key: 'user.created').each do |act|
+    scope.where(key: 'user.created').find_each do |act|
       act.update_attributes(recipient: act.trackable)
     end
 
-    scope.where(key: ['attachment.create', 'attachment.destroy']).each do |act|
-      # Set the recipient to the author or the an admin of the space.
+    scope.where(key: ['attachment.create', 'attachment.destroy']).find_each do |act|
+      # Set the recipient to the author or an admin of the space.
       # The second case will only happen if the attachment was deleted.
       user = act.trackable.try(:author) || act.owner.try(:admins).try(:first)
 
       act.update_attributes(recipient: user)
     end
 
-    scope.where(key: ['event.create', 'event.update']).each do |act|
+    scope.where(key: ['event.create', 'event.update']).find_each do |act|
       user = User.find(act.parameters[:user_id]) if act.parameters[:user_id].present?
 
       if user.present?
@@ -31,27 +31,26 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
       end
     end
 
-    scope.where(key: ["join_request.request", "join_request.invite"]).each do |act|
+    scope.where(key: ["join_request.request", "join_request.invite"]).find_each do |act|
       act.update_attributes(recipient_id: act.parameters[:candidate_id], recipient_type: 'User')
     end
 
-    scope.where(key: "bigbluebutton_meeting.create").each do |act|
-      owner = act.owner.owner # act.owner is the room, room.owner is a user/space
+    scope.where(key: "bigbluebutton_meeting.create").find_each do |act|
+      owner = act.try(:owner).try(:owner) # act.owner is the room, room.owner is a user/space
 
       # If owner is not an user, get the admin of the space
-      if owner.class == Space
+      if owner && owner.class == Space
         owner = owner.try(:admins).try(:first)
       end
 
-      act.update_attributes(recipient: owner)
+      act.update_attributes(recipient: owner) if owner
     end
 
     # accept/decline now have join_request as a trackable and the key is join_request.[accept,decline]
-    RecentActivity.where(key: ["space.accept", "space.decline"]).each do |act|
+    RecentActivity.where(key: ["space.accept", "space.decline"]).find_each do |act|
       key = (act.key == "space.accept" ? 'join_request.accept' : 'join_request.decline')
       act.update_attributes(key: key)
     end
-
   end
 
   def down
