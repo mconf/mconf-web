@@ -15,7 +15,7 @@
 
   .thread-title
     = link_to space_path(space), :class => 'space-name' do
-      = Mconf::Highlighter.highlight_word(escape_once(space.name), escape_once(params[:q]))
+      = Mconf::Highlighter.highlight(escape_once(space.name), escape_once(params[:q]))
 
   %span.space-description
     = sanitize(first_words(space.description, 100))

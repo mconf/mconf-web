@@ -3,7 +3,7 @@
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
-include ActiveSupport::Inflector
+include 
 
 module Mconf::Highlighter
   def self.highlight_word(text, word)
@@ -13,8 +13,8 @@ module Mconf::Highlighter
     return text if word.blank?
     text = text.clone
     indexes = [] 
-    tt = transliterate(text).downcase
-    tw = transliterate(word).downcase
+    tt = ActiveSupport::Inflector.transliterate(text).downcase
+    tw = ActiveSupport::Inflector.transliterate(word).downcase
     displacement = 0
     i = 0
 
