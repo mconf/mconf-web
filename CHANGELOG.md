@@ -245,6 +245,7 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
+[2.1.0]: http://dev.mconf.org/redmine/versions/39
 [2.0.1]: http://dev.mconf.org/redmine/versions/64
 [2.0.0]: http://dev.mconf.org/redmine/versions/1
 [0.8.1]: http://dev.mconf.org/redmine/versions/33
