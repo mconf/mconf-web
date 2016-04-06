@@ -9,9 +9,9 @@ class Attachment < ActiveRecord::Base
   include PublicActivity::Model
 
   tracked owner: :space,
-    recipient: -> (ctrl, model) { ctrl.try(:current_user) },
+    recipient: -> (ctrl, model) { model.try(:author) },
     params: {
-      username: -> (ctrl, model) { ctrl.try(:current_user).try(:name) },
+      username: -> (ctrl, model) { model.try(:author).try(:name) },
       trackable_name: -> (ctrl, model) { model.title }
     }
 
