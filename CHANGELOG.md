@@ -2,6 +2,45 @@
 
 The complete list of tickets tracked for Mconf-Web can be seen in [our Redmine server](http://dev.mconf.org/redmine/projects/mconf-web/issues?sort=fixed_version%3Adesc%2Cpriority%3Adesc).
 
+
+## [2.1.0] - 2016-04-06
+
+This release removes some underused features (news, private messages and the spam flag) in order to simplify the application. News can be replaced by posts in a space's wall; private messages will, in the future, be replaced by a notification system; the spam flag was not used at all and can be implemented properly in the future if necessary.
+
+Also, the event module, that was previously in a separate repository, was moved to Mconf-Web in order to make it easier to update and adapt it.
+
+* [#1938] Speed up access to `/spaces`. The query that orders the spaces was optimized and now runs in background only. Accessing `/spaces` will only run a very simple query that is very fast.
+* [#1473] Overall improvement in recent activities, including the way the objects are stored and the way they are displayed, specially for recent activities related to resources that were removed (e.g. displaying a recent activity for an attachment that was removed).
+* [#1895] Fix cookie overflow after signing in via Shibboleth. Now Shibboleth and LDAP data are stored in the database only, not in the session anymore.
+* [#1802] Add pagination to the list of users in a space.
+* [#1930] Properly set HTTP or HTTPS in devise emails according to what is configured in the website.
+* [#1748] Never redirect the user back to an external URL. Prevents weird redirections after the user signed in.
+* [#1776] Invitation to a private space now won't send the link to the space, since the user will not be able to view it anyway.
+* [#1811] Don't allow users to change the flags "auto start audio", "auto start video" and "presenter share only". Prevents confusion and inconsistencies when the user saved the room options but didn't set any of these flags. Only admins can change these flags now.
+* [#1928] Never show the page `events/new` for users who can't create space events or for unapproved and disabled events.
+* [#1909] Fix invitation view for the languages `es` and `de`.
+* [#1882] Explicitly fail LDAP authentication if the user has not informed a username or a password.
+* [#1155] Improve messages when a user can't sign in via local authentication.
+* [#1808] All code of the events module previously in the repository `mconf/mweb_events` was moved to the application. The separate repository is now deprecated. Includes also several smaller fixes and improvements in the events.
+* [#1194] Restrict users that can create events that belong to spaces. Users that don't belong to the space cannot create events in the space.
+* [#1293] Start date when creating an event was generating an error that was not shown in the form. Now it shows as any other error.
+* [#1046] News were removed from the application. All existing news were not removed, but migrated to posts in the wall.
+* [#1807] Remove private messages from the application. There's a plan on implementing a notification system in the future to replace them.
+* [#1806] Remove the chat from the application. This feature was experimental only and very outdated.
+* [#1801] Remove the "auto record" flag from the global configurations. Now the website will always behave as if this flag was checked.
+* [#768] Part of the work to start using inherited resources in the controllers was started. Some controllers are already using it, some are not. Doesn't change functionality, only how the code is written.
+* [#1898] Remove unnecessary capitalization in `/app/views/my/_webconference_room.html.haml` to help with translations.
+* Upgrade rails to 4.1.14.
+* Several gem updates and small fixes for security reasons, including modify protect from_forgery to prevent CSRF, update devise, escape more inputs in the HTML.
+* Fix `Space.with_disabled` removing scopes other than `disabled: false`. It would remove all scopes, so if `with_disabled` was called in a chain after any other query, this other query would be ignored.
+* Add translation to German (de) from Transifex.
+* Fix typos on SMTP configurations.
+* Approval and disable methods were moved from specific controllers/models to separate modules. Now any model/controller that needs to be approved and/or disabled can use these modules. Currently used for `User` and `Space`.
+* Don't let admins have their password changed when not using local authentication, as was already done for normal users.
+* Remove duplicated "max_participants" input when editing rooms.
+* Prevent DoubleRender error when an error 500 view is rendered.
+
+
 ## [2.0.1] - 2016-01-05
 
 Bugfixes over 2.0.0.
