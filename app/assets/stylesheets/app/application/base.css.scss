@@ -1009,6 +1009,12 @@ strong.highlight {
   display: none;
 }
 
+// Recent activities
+.removed-object-text {
+  text-decoration: line-through;
+  color: lighten($font-color, 30);
+}
+
 // tablets/mobiles
 @media (max-width: 767px) {
   body.responsive {

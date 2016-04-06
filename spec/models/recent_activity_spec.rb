@@ -112,7 +112,7 @@ describe RecentActivity do
           @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
           @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
         end
-        subject { RecentActivity.user_activity(user, [], [space2]) }
+        subject { RecentActivity.user_activity(user, [], [space2.id]) }
         it { subject.length.should be(1) }
         it { subject.should_not include(@activity1) }
         it { subject.should include(@activity2) }
@@ -131,7 +131,7 @@ describe RecentActivity do
           @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
           @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
         end
-        subject { RecentActivity.user_activity(user, [], [space2]) }
+        subject { RecentActivity.user_activity(user, [], [space2.id]) }
         it { subject.length.should be(2) }
         it { subject.should_not include(@activity1) }
         it { subject.should include(@activity2) }
@@ -231,7 +231,7 @@ describe RecentActivity do
         end
 
         context "when there are no activities for the spaces" do
-          let(:in_spaces) { [ FactoryGirl.create(:space) ] }
+          let(:in_spaces) { [ FactoryGirl.create(:space).id ] }
 
           it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).size.should be(3) }
           it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[0]) }
@@ -244,14 +244,14 @@ describe RecentActivity do
         end
 
         context "when there are some activities for the space" do
-          it { RecentActivity.user_public_activity(user, in_spaces: [space]).size.should be(3) }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [space]).size.should be(2) }
+          it { RecentActivity.user_public_activity(user, in_spaces: [space.id]).size.should be(3) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space.id]).size.should be(2) }
 
-          it { RecentActivity.user_public_activity(user, in_spaces: [private_space]).size.should be(5) }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space]).size.should be(4) }
+          it { RecentActivity.user_public_activity(user, in_spaces: [private_space.id]).size.should be(5) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space.id]).size.should be(4) }
 
-          it { RecentActivity.user_public_activity(user, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user))  }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user2))  }
+          it { RecentActivity.user_public_activity(user, in_spaces: [space.id, private_space.id]).should eq(RecentActivity.user_public_activity(user))  }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space.id, private_space.id]).should eq(RecentActivity.user_public_activity(user2))  }
         end
       end
     end

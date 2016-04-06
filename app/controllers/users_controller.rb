@@ -50,7 +50,7 @@ class UsersController < InheritedResources::Base
     @user_spaces = @user.spaces
 
     # Show activity only in spaces where the current user is a member
-    in_spaces = current_user.present? ? current_user.spaces : []
+    in_spaces = current_user.present? ? current_user.space_ids : []
     @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: in_spaces)
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 

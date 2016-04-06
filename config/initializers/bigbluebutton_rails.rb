@@ -67,13 +67,14 @@ Rails.application.config.to_prepare do
   end
 
   BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Common
-  end
+    include PublicActivity::Model
 
-  BigbluebuttonMeeting.class_eval do
-    after_create {
-      self.create_activity :create, :owner => self.room unless self.errors.any?
-    }
+    tracked only:[:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) { ctrl.current_user.try(:id) },
+        creator_username: -> (ctrl, model) { ctrl.current_user.try(:name) }
+      }
   end
 
 end

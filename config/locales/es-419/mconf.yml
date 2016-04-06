@@ -12,6 +12,8 @@ es-419:
       space:
         create_html: "Una reunión fue iniciada en el espacio de %{owner} a las %{time}"
     join_request:
+      accept_html: se ha unido al espacio
+      decline_html: hubo una invitación/solicitud declinada en el espacio
       deleted: que se ha eliminado
       invite_html: "fue invitado a unirse al espacio"
       invite_with_introducer_html: "fue invitado por <a href=\"%{introducer_url}\">%{introducer}</a> a unirse al espacio"
@@ -36,9 +38,7 @@ es-419:
       reply_html: respondió a %{name} en el espacio
       deleted: un mensaje que ya ha sido eliminado
     space:
-      accept_html: se ha unido al espacio
       create_html: creó un nuevo espacio
-      decline_html: hubo una invitación/solicitud declinada en el espacio
       deleted: un espació que ha sido eliminado
       leave_html: ha abandonado el espacio
       update_html: actualizó la información del espacio

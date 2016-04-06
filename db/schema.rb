@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401205124) do
+ActiveRecord::Schema.define(version: 20160404172014) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
