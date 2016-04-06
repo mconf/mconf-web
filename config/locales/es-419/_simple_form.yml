@@ -5,8 +5,6 @@ es-419:
     required:
       text: 'requerido'
       mark: '*'
-    error_notification:
-      default_message: "Se encontraron algunos errores. Por favor, verifique:"
     buttons:
       cancel: "Cancelar"
       or: "o"
