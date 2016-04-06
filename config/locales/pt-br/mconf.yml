@@ -3,22 +3,28 @@ pt-br:
   activities:
     attachment:
       create_html: enviou o arquivo %{name} na comunidade
-      destroy_html: removou o arquivo %{name} na comunidade
+      destroy_html: removeu o arquivo %{name} da comunidade
       update_html: atualizou o arquivo %{name} na comunidade
-      deleted: "%{name} (que não existe mais)"
+      deleted: "um arquivo que não existe mais"
+      deleted_tooltip: "Este arquivo não está mais disponível"
     bigbluebutton_meeting:
       deleted_html: "Uma reunião aconteceu mas suas informações foram desde então removidas"
       user:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
+    event:
+      deleted_tooltip: "Este evento não está mais disponível"
     join_request:
       accept_html: tornou-se um membro da comunidade
       decline_html: teve um convite/pedido negado na comunidade
-      deleted: "%{name} (que não existe mais)"
+      deleted: "uma requisição que não existe mais"
+      deleted_tooltip: "Esta requisição não está mais disponível"
       invite_html: "foi convidado(a) para entrar na comunidade"
-      invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
-      no_accept_html: "foi adicionado por <a href=\"%{introducer_url}\">%{introducer}</a> à comunidade"
+      invite_with_introducer_1_html: "foi convidado(a) por"
+      invite_with_introducer_2_html: "para entrar na comunidade"
+      no_accept_1_html: "foi adicionado por"
+      no_accept_2_html: "à comunidade"
       request_html: "requisitou ingresso na comunidade"
     other:
       admin_html: "Um administrador"
@@ -27,13 +33,19 @@ pt-br:
       create_html: enviou a mensagem %{name} na comunidade
       update_html: atualizou a mensagem %{name} na comunidade
       reply_html: respondeu à mensagem %{name} na comunidade
-      deleted: "%{name} (que não existe mais)"
+      deleted: "uma mensagem que não existe mais"
+      deleted_tooltip: "Esta mensagem não está mais disponível"
+    resource:
+      deleted_tooltip: "Este recurso não existe mais"
     space:
       approved_html: aprovou a comunidade
       create_html: criou a comunidade
-      deleted: "%{name} (que não existe mais)"
+      deleted: "uma comunidade que não existe mais"
+      deleted_tooltip: "Esta comunidade não está mais disponível"
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
+    user:
+      deleted_tooltip: "Este usuário não está mais registrado"
   _js:
     confirmation_dialog:
       cancel: "Cancelar"

@@ -5,20 +5,26 @@ en:
       create_html: uploaded the attachment %{name} in the space
       destroy_html: removed the attachment %{name} from the space
       update_html: updated the attachment %{name} in the space
-      deleted: "%{name} (that has since been deleted)"
+      deleted: "an attachment that was removed"
+      deleted_tooltip: "This attachment doesn't exist anymore"
     bigbluebutton_meeting:
       deleted_html: "A meeting has happened but its information have since been deleted"
       user:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
+    event:
+      deleted_tooltip: "This event is not available anymore"
     join_request:
       accept_html: has joined the space
       decline_html: had their invitation/request declined in the space
-      deleted: "%{name} (that has since been deleted)"
+      deleted: "a request that was removed"
+      deleted_tooltip: "This request doesn't exist anymore"
       invite_html: "was invited to join the space"
-      invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
-      no_accept_html: "was added by <a href=\"%{introducer_url}\">%{introducer}</a> to the space"
+      invite_with_introducer_1_html: "was invited by"
+      invite_with_introducer_2_html: "to join the space"
+      no_accept_1_html: "was added by"
+      no_accept_2_html: "to the space"
       request_html: "has requested to join the space"
     other:
       admin_html: "An administrator"
@@ -27,13 +33,19 @@ en:
       create_html: posted %{name} in the space
       update_html: updated %{name} in the space
       reply_html: replied to %{name} in the space
-      deleted: to the message %{name} (that has since been deleted)
+      deleted: "a post that was removed"
+      deleted_tooltip: "This post doesn't exist anymore"
+    resource:
+      deleted_tooltip: "This resource doesn't exist anymore"
     space:
       approved_html: approved the space
       create_html: created a new space
-      deleted: the space %{name} that has since been deleted
+      deleted: "a space that doesn't exist anymore"
+      deleted_tooltip: "This space doesn't exist anymore"
       leave_html: has left the space
       update_html: updated info on space
+    user:
+      deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
       cancel: "Cancel"

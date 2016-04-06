@@ -18,17 +18,8 @@
     = icon_attachment
     - if user.present?
       = link_to user.name, user_path(user)
-    - elsif activity.parameters[:username].present? # user deleted, but name was in the activity parameters
-      = activity.parameters[:username]
-    - else # user deleted and no name is the activity (may happen on old version databases)
-      = activity_translate('other.someone')
+    - else
+      = removed_activity_resource_tag(activity.parameters[:username], "User")
 
-    - if attachment.present?
-      - filename = link_to(attachment.title, space_attachment_path(space, attachment))
-    - elsif activity.parameters[:filename].present?
-      - filename = activity.parameters[:filename]
-    -else
-      - filename = t('activities.attachment.deleted')
-
-    = activity_translate(activity.key, name: filename)
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type, activity.parameters))
     = link_to space.name, space_attachments_path(space)

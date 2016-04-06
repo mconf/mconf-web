@@ -18,7 +18,7 @@
 
   .thread-title
     = icon_meeting
-    - unless meeting.nil?
+    - if meeting.present?
       - if meeting.room.owner_type == 'User'
         = activity_translate('bigbluebutton_meeting.user.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
       - elsif meeting.room.owner_type == 'Space'
