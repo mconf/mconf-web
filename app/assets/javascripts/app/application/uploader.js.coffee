@@ -76,7 +76,7 @@ class mconf.Uploader
       validation: {}
 
     if element.attr('data-accept')
-      options.validation.allowedExtensions = getFormatsFromAccept(element.attr('data-accept'))
+      options.validation.allowedExtensions = getAcceptedFormats(element.attr('data-accept'))
       options.validation.acceptFiles = element.attr('data-accept')
 
     if element.attr('data-max-size')
@@ -84,11 +84,7 @@ class mconf.Uploader
 
     uploader = new qq.FineUploader(options)
 
-getFormatsFromAccept = (accept) ->
-  if accept? && accept == 'image/*'
-    ['jpg', 'jpeg', 'png']
+getAcceptedFormats = (accept) ->
+  formats = accept.split(',')
 
-# Use this when firefox is ready to use the accepts='.jpg,.png, ...' (version 37 maybe)
-getFileTypesFromAccept = (accept) ->
-  formats = ('.' + format for format in getFormatsFromAccept(accept))
-  formats.join(',')
+  format.replace('.', '') for format in formats
