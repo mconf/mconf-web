@@ -1,6 +1,11 @@
 # Change Log
 
-The complete list of tickets tracked for Mconf-Web can be seen in [our Redmine server](http://dev.mconf.org/redmine/projects/mconf-web/issues?sort=fixed_version%3Adesc%2Cpriority%3Adesc).
+------------------------------------
+
+All tickets below use references to IDs in our old issue tracking system.
+To find them, search for their description or IDs in the new issue tracker.
+
+------------------------------------
 
 
 ## [2.1.0] - 2016-04-06
@@ -106,7 +111,6 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 
 * Wiki moved to https://github.com/mconf/mconf-web/wiki/
 * [#461] Support for recordings: the application shows the list of recordings for a webconference room (in the user's home and in the webconference section in a space), the user is now be able to select if the meeting will be recorded or not (as well as a title and description), and were also included administration pages to see all recordings, edit, delete, and so on. The support for recordings is only enabled for administrators.
-  * Full list of related issues [here](http://dev.mconf.org/redmine/projects/mconf-web/issues?fields%5B%5D=tags&operators%5Btags%5D=%3D&set_filter=1&values%5Btags%5D%5B%5D=recordings).
 * [#812] Fix unclosed \<b\> tags in the user's home page
 * [#775] Fix error that sometimes the account page couldn't show the IdP name and user data from shibboleth.
 * [#724] Fix error when sending webconference invitations to multiple emails.
@@ -245,16 +249,16 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
-[2.1.0]: http://dev.mconf.org/redmine/versions/39
-[2.0.1]: http://dev.mconf.org/redmine/versions/64
-[2.0.0]: http://dev.mconf.org/redmine/versions/1
-[0.8.1]: http://dev.mconf.org/redmine/versions/33
-[0.8]: http://dev.mconf.org/redmine/versions/20
-[0.7]: http://dev.mconf.org/redmine/versions/2
-[0.6]: http://dev.mconf.org/redmine/versions/21
-[0.5]: http://dev.mconf.org/redmine/versions/22
-[0.4.1]: http://dev.mconf.org/redmine/versions/24
-[0.4]: http://dev.mconf.org/redmine/versions/23
-[0.3]: http://dev.mconf.org/redmine/versions/25
-[0.2]: http://dev.mconf.org/redmine/versions/26
-[0.1]: http://dev.mconf.org/redmine/versions/27
+[2.1.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.1.0
+[2.0.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.1
+[2.0.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.0
+[0.8.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.8.1
+[0.8]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.8.0
+[0.7]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.7.0
+[0.6]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.6.0
+[0.5]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.5.0
+[0.4.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.4.1
+[0.4]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.4.0
+[0.3]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.3.0
+[0.2]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.2.0
+[0.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av0.1.0
