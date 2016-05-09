@@ -473,10 +473,10 @@ GEM
     timecop (0.8.0)
     turn (0.8.2)
       ansi (>= 1.2.2)
-    twitter-bootstrap-rails (2.2.8)
+    twitter-bootstrap-rails (3.2.2)
       actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
+      execjs (>= 2.2.2, >= 2.2)
+      less-rails (>= 2.5.0)
       railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -607,7 +607,7 @@ DEPENDENCIES
   timecop
   translate-rails3!
   turn (= 0.8.2)
-  twitter-bootstrap-rails (~> 2.2.8)
+  twitter-bootstrap-rails (>= 3.2.0)
   uglifier (>= 1.0.3)
   valid_email (~> 0.0.10)
   vpim (~> 13.11.11)
