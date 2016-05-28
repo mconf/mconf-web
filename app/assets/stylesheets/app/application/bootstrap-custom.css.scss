@@ -219,3 +219,26 @@ label.checkbox {
 /* .dropdown-menu { */
 /*   @include box-shadow(1px 4px 4px rgba(0, 0, 0, 0.2)); */
 /* } */
+
+
+// Change the colors for table borders and bgs, make it more like our lists
+.table > thead > tr > th {
+  border-bottom-color: $m-border-color-medium;
+}
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+  border-top-color: $m-border-color-medium;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #f6f6f6;
+}
+
+// Make labels a bit bigger and add a new type of label
+.label {
+  font-size: 85%;
+
+  &.label-flat {
+    background: #fff;
+    color: $m-font-color-gray;
+    border: 1px solid $m-border-color-light;
+  }
+}

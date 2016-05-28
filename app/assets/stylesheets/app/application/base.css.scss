@@ -73,23 +73,11 @@ form {
   // so .thread-action-links is correctly positioned
   position: relative;
 
-  .thread-title {
-
-    // usually seen inside .resource-visibility
-    .small > .icon-awesome {
-      margin-right: 1px;
+      &.thread-no-logo {
+      .thread-content {
+        margin-left: 0;
+      }
     }
-
-    h2 .icon-awesome {
-      margin: 7px 6px 0 0;
-    }
-  }
-
-  &.thread-no-logo {
-    .thread-content {
-      margin-left: 0;
-    }
-  }
 
   .thread-content {
     margin-top: 3px;
@@ -98,30 +86,47 @@ form {
     &.thread-content-full {
       margin-left: 0;
     }
-  }
 
-  .thread-title {
-    overflow: hidden;
+    .thread-title {
+      font-size: $m-font-medium; //font-weight: bold;
+      margin-bottom: 3px;
+      overflow: hidden;
 
-    h2 { margin-bottom: 0; }
-  }
+      // usually seen inside .resource-visibility
+      .small > .icon-awesome {
+        margin-right: 1px;
+      }
 
-  .thread-subtitle {
-    margin: 2px 0;
-    //line-height: $m-font-normal + 6px; // less that in .thread-title
+      h2 {
+        margin-bottom: 0;
 
-    i {
-      margin: 0px 3px 0px 0px;
-      float: none;
+        .icon-awesome {
+          margin: 7px 6px 0 0;
+        }
+      }
     }
 
-    &.thread-subtitle-nested {
-      margin-left: 6px;
+    .thread-description {
+      margin-bottom: 3px;
     }
-  }
 
-  .thread-updated-at {
-    @include small-date;
+    .thread-subtitle {
+      margin: 2px 0;
+      //line-height: $m-font-normal + 6px; // less that in .thread-title
+
+      i {
+        margin: 0px 3px 0px 0px;
+        float: none;
+      }
+
+      &.thread-subtitle-nested {
+        margin-left: 6px;
+      }
+    }
+
+    .thread-updated-at {
+      @include small-date;
+    }
   }
 
   .thread-action-links {
@@ -282,9 +287,10 @@ form {
   }
 
   a {
-    padding: 15px 15px 15px 15px;
+    padding: 15px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+    @include transition(background-color 0.2s ease-in);
 
     $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 5);
     &:hover {
@@ -420,7 +426,7 @@ form {
   span { display: block; }
 }
 
-#page-header-wrapper {
+#page-header-container {
   padding: 0 20px;
   background: $m-page-header-background;
   border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
@@ -730,13 +736,13 @@ form {
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
 #page-sub-menu-wrapper {
-  border-bottom: 1px solid lighten($m-page-header-border-color, 8);
+  border-bottom: 1px solid lighten($m-page-header-border-color, 2);
 }
 #page-sub-menu.page-sub-menu {
   clear: both;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  padding: 0 12px;
+  margin-top: 8px;
+  //margin-bottom: 12px;
+  padding: 0 13px;
   @include mconf-clearfix;
   float: none;
 
@@ -747,14 +753,13 @@ form {
     $hover: $m-second-color;
     color: $normal;
     @include link-colors($normal, $hover, $hover, $normal);
-    padding: 6px 10px;
+    padding: 10px 10px 10px 10px;
     display: inline-block;
-    margin: -1px 0px; // -1 to go over the external element's border
+    margin: -1px 5px -1px 5px; // negative to go over the external element's border
     position: relative;
 
-    $border: darken($m-very-light-gray, 8);
-
-    // arrow on top
+    $border: darken($m-page-header-border-color, 12);
+    /* // arrow on top */
     /* &.active:after { */
     /*   content:''; */
     /*   position: absolute; */
@@ -770,12 +775,10 @@ form {
 
     &.active {
       font-weight: bold;
-      background: #fafafa;
-      @include border-radius($m-border-radius-large);
-      border: 1px solid $border;
       $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
       $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
       @include link-colors($normal, $hover, $hover, $normal);
+      border-bottom: 1px solid $border;
     }
   }
 }

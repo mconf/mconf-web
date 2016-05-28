@@ -20,7 +20,7 @@ $ ->
 submitFormUpdate = ->
   $form = $('#space-recordings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#space-recordings-list-wrapper').html(data)
+    $('#space-recordings-list-container').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->

@@ -12,9 +12,9 @@
         = link_to post.author.name, user_path(post.author), { :class => "thread-author" }
       - else
         %span.post-author= t('_other.user.removed')
-    .thread-text
+    .thread-description
       %p= post.text
-    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{post.id}" }
+    %ul.thread-action-links
       - if can?(:update, post)
         %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { :name => post.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, post)

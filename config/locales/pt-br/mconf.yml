@@ -87,6 +87,7 @@ pt-br:
     updated_time_ago: "%{time} atrás"
     user:
       administrator: "Administrador global"
+      disabled: "Desabilitado"
       normal_user: "Usuário normal"
       unapproved_user: "Aguardando aprovação"
       guest: Convidado
@@ -899,9 +900,6 @@ pt-br:
     disabled_space:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
-    disabled_user:
-      enable: "Habilitar usuário"
-      enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     enabled_space:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
@@ -910,16 +908,6 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
-    enabled_user:
-      approve: "Aprovar: permitir que este usuário acesse o site"
-      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
-      confirm: "Confirmar este usuário"
-      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
-      disable: "Desabilitar usuário"
-      disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
-      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
-      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
-      edit: "Editar usuário"
     menu:
       general: "Geral"
       resque: "Resque"
@@ -930,6 +918,18 @@ pt-br:
     spaces:
       filter_name: "Filtrar comunidades por nome"
       new_space: "Nova comunidade"
+    user_item:
+      approve: "Aprovar: permitir que este usuário acesse o site"
+      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
+      disable: "Desabilitar usuário"
+      disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
+      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
+      edit: "Editar usuário"
+      enable: "Habilitar usuário"
+      enable_confirm: "Tem certeza que deseja habilitar este usuário?"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
@@ -1086,7 +1086,7 @@ pt-br:
     post_with_children:
       by: "de"
     unified_post:
-      read_comments: "ler comentários"
+      read_comments: "ler mais"
   prav: PRAV
   preferences: Preferências
   previous: Anterior

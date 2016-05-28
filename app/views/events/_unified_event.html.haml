@@ -13,7 +13,7 @@
         -#   %span.is-member= t('.user_is_member')
         %span
           = link_to first_words(event.name, 80), event_path(event), :title => event.name, :class => "list-title"
-      .thread-text
+      .thread-description
         - if event.public
           .resource-visibility.small.public
             = icon_space_public

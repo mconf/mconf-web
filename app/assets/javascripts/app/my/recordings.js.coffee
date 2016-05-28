@@ -20,7 +20,7 @@ $ ->
 submitFormUpdate = ->
   $form = $('#my-webconference-recordings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#my-webconference-recordings-list-wrapper').html(data)
+    $('#my-webconference-recordings-list-container').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->

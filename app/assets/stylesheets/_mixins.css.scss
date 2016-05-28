@@ -53,6 +53,40 @@
   @include broken-img-parent;
 }
 
+// general logo style (user avatars, space logos)
+@mixin logo-container {
+  img {
+    margin: 2px 0;
+    padding: 1px;
+    border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-small);
+
+    // default dimensions for logos inside threads
+    &.logo-space, &.logo-space-activity {
+      width: 52px;
+      height: 39px;
+    }
+    &.logo-user, &.logo-user-activity {
+      width: 39px;
+      height: 39px;
+    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
+    &.logo-removed {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  a img {
+    &:hover { border: 1px solid $m-focus-border-color; }
+  }
+
+  @include broken-img-parent;
+}
+
 @mixin mconf-clearfix {
   @include clearfix;
   @include pie-clearfix;
@@ -213,18 +247,21 @@
     padding: 0;
 
     > li {
+      @include mconf-clearfix;
       margin: 0 15px -2px 0; // -2 so selected items border gets over the default menu border
       display: inline-block;
-      // margin-right: 15px;
-      padding: 5px 15px 3px 15px;
+      padding: 0;
       font-weight: bold;
       @include font-size($m-font-medium);
 
       // use link-style(2) but with a lighter default color
       @include link-style(2);
       > a:not(.btn) {
+        display: block;
+        padding: 5px 15px 3px 15px;
         color: $m-page-menu-font-color;
         &:visited { color: $m-page-menu-font-color; }
+        &:hover { color: darken($m-page-menu-font-color, 10); }
         &.danger-text {
           @include danger-text;
         }
@@ -236,6 +273,12 @@
           $normal: darken($m-page-menu-font-color, 20);
           $hover: lighten($m-page-menu-font-color, 10);
           @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+      &:hover {
+        /* border-bottom: 3px solid $m-second-color; */
+        a, a:hover, a:active {
+          color: darken($m-page-menu-font-color, 25);
         }
       }
 

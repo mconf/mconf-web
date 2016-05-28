@@ -26,7 +26,7 @@
           = render :partial => 'layouts/application_navbar'
 
       - if content_for?(:page_header)
-        #page-header-wrapper
+        #page-header-container
           - if content_for?(:page_header)
             - cls = content_for?(:page_menu) ? 'with-menu' : 'without-menu'
             #page-header{ class: cls }

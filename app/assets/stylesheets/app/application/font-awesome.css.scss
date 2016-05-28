@@ -81,6 +81,25 @@ a:not(.btn) .icon-awesome {
 /*   } */
 /* } */
 
+// Icons in labels have a different style
+.label {
+  &.label-default, &.label-primary, &.label-warning, &.label-info,
+  &.label-success, &.label-danger {
+    .icon-awesome {
+      color: #fff;
+    }
+  }
+
+  &.label-flat {
+    .icon-awesome {
+      color: $m-font-color-gray;
+    }
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
 
 /* Some icons have a specific color, set below. */
 /* Some have nothing inside, but are kept here as a reference to all the icons we have. */

@@ -10,7 +10,7 @@
 .thread-content
   = formatted_time_ago activity.updated_at
 
-  .thread-title
+  .thread-description
     = icon_comment
     - if activity.parameters.has_key?(:username) and activity.recipient.present?
       - link = user_path(activity.recipient)

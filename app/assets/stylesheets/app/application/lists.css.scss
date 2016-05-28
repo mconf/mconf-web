@@ -77,3 +77,60 @@ ul.list-thumbnails {
     @include font-size($m-font-medium);
   }
 }
+
+.list-container {
+  padding: 0;
+
+  .list-item-header {
+    border-top-width: 1px;
+    background: $m-light-gray;
+    padding: 3px 0;
+    text-align: center;
+    border-top: 1px solid $m-border-color-medium;
+  }
+
+  .list-item {
+    border-top: 1px solid $m-border-color-medium;
+    clear: both;
+    @include mconf-clearfix;
+    padding: 10px 4px 8px 4px;
+
+    &:first-child {
+      border-top-width: 2px;
+      margin-top: 0;
+    }
+
+    &:hover {
+      background-color: #f6f6f6;
+    }
+
+    &.list-item-disabled {
+      color: #888;
+      background: $m-very-light-gray;
+      opacity: 0.8;
+
+      .logo-in-thread {
+        opacity: 0.7;
+      }
+    }
+
+    .list-text-title {
+      font-size: $m-font-medium;
+      font-weight: bold;
+    }
+
+    .list-text-description {
+      color: #666;
+    }
+
+    .list-actions {
+      font-size: $m-font-medium;
+      text-align: right;
+    }
+  }
+
+  .list-item-logo {
+    text-align: center;
+    @include logo-container;
+  }
+}

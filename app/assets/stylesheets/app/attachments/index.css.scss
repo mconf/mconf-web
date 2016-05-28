@@ -4,6 +4,7 @@ body.attachments.index {
 
   #space-attachments-tabs {
     @include mconf-clearfix;
+    margin-bottom: 15px;
   }
 
   #space-attachments {

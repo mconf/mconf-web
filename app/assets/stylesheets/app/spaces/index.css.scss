@@ -12,19 +12,13 @@ body.spaces.index {
     @include border-radius($m-border-radius-large);
     text-align: left;
 
-    .filters, .list-types, .list-order {
-      @include mconf-clearfix;
-      float: left;
-      margin-top: 8px;
-      width: 33.3%;
+    .filters {
+      margin-top: 10px;
+      text-align: right;
 
       span {
-        margin-right: 5px;
+        margin-left: 10px;
       }
-    }
-
-    .list-types, .list-order {
-      text-align: right;
     }
 
     .search {

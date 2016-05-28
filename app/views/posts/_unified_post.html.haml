@@ -30,12 +30,12 @@
           = "(" + t('thread.comments', children: thread.children.size) + ")"
       = formatted_time_ago thread.updated_at
 
-    .thread-text
+    .thread-description
       %p= thread.text
 
-    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
+    %ul.thread-action-links
       - unless thread.children.empty?
-        %li= link_to t('.read_comments'), space_post_path(space, thread)
+        %li= link_to t('.read_more'), space_post_path(space, thread)
       - if can?(:create, thread.space.posts.build)
         %li= link_to t('reply').downcase, reply_post_space_post_path(thread.space, thread), { name: thread.id, title: t('comment.add'), class: "open-modal" }
       - if can?(:update, thread)

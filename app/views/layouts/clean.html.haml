@@ -24,7 +24,7 @@
       #navbar-wrapper
         = yield :navbar
       - if content_for?(:page_header)
-        #page-header-wrapper
+        #page-header-container
           #page-header
             = yield :page_header
             - if content_for?(:page_menu)

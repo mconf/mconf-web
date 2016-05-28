@@ -12,7 +12,7 @@
       .logo-in-thread
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
-        .thread-text
+        .thread-description
           = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
             -# Case the user is an Administrator from Space, it can't change his own role
             -# refs #1770

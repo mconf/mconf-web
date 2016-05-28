@@ -9,16 +9,26 @@ require 'version'
 module UsersHelper
 
   def user_category user
-    if user.superuser
-      icon_superuser + t('_other.user.administrator')
+    if user.disabled
+      content_tag :div, class: 'label label-flat' do
+        concat t('_other.user.disabled')
+      end
+    elsif user.superuser
+      content_tag :div, class: 'label label-danger' do
+        concat icon_superuser + t('_other.user.administrator')
+      end
     elsif user.new_record?
-      icon_guest + t('_other.user.guest')
+      content_tag :div, class: 'label label-warning' do
+        concat icon_guest + t('_other.user.guest')
+      end
     elsif !user.approved?
-      content_tag :div, :class => 'user-waiting-moderation' do
-        concat icon_user(:class => 'user-unapproved') + t('_other.user.unapproved_user')
+      content_tag :div, class: 'label label-warning' do
+        concat icon_user(class: 'user-unapproved') + t('_other.user.unapproved_user')
       end
     else
-      icon_user + t('_other.user.normal_user')
+      content_tag :div, class: 'label label-flat' do
+        icon_user + t('_other.user.normal_user')
+      end
     end
   end
 

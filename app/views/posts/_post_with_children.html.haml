@@ -10,7 +10,7 @@
           = link_to post.author.name, user_path(post.author)
         - else
           %span= t('_other.user.removed')
-    .thread-text
+    .thread-description
       = render partial: "posts/parent_post" , locals: { post:  post, selected_post: false}
     %ul.thread-action-links
       - if can?(:create, post.space.posts.build)
@@ -19,7 +19,7 @@
         %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { name: post.id, title: t('edit'), class: "open-modal" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(post.space, post), {method: :delete, title: t('delete.one'), data: { confirm: t('delete.confirm', element: post.title) } }
-    .thread-text
+    .thread-description
       - for comment in posts
         - thread_class = cycle("thread-odd" , "thread-even")
         = render partial: "post" , locals: { post:  comment, selected_post: false, thread_class: thread_class}
