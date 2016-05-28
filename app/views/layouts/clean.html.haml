@@ -21,7 +21,7 @@
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
     #site
-      #navbar-wrapper
+      #navbar-container
         = yield :navbar
       - if content_for?(:page_header)
         #page-header-container
@@ -30,7 +30,7 @@
             - if content_for?(:page_menu)
               #page-menu
                 = yield :page_menu
-      #content-wrapper
+      #content-container
         = yield
       #footer-pusher
 

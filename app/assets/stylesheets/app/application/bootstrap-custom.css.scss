@@ -242,3 +242,8 @@ label.checkbox {
     border: 1px solid $m-border-color-light;
   }
 }
+
+// Remove the box-shadow when inputs are focused
+.form-control:focus {
+  box-shadow: none;
+}

@@ -236,65 +236,63 @@
 
 // default horizontal menu
 @mixin horizontal-menu {
-  margin: 0;
+  //margin: 0;
   clear: both;
   @include mconf-clearfix;
   padding: 0 15px;
 
-  > ul {
+  ul {
     // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
     margin: 0;
     padding: 0;
 
-    > li {
+    li {
       @include mconf-clearfix;
-      margin: 0 15px -2px 0; // -2 so selected items border gets over the default menu border
+      margin: 0 15px -1*$m-page-menu-selected-border-width 0; // negative so selected items border gets over the default menu border
       display: inline-block;
       padding: 0;
-      font-weight: bold;
+      //font-weight: bold;
       @include font-size($m-font-medium);
 
-      // use link-style(2) but with a lighter default color
-      @include link-style(2);
-      > a:not(.btn) {
+      &.active {
+        border-bottom: $m-page-menu-selected-border-width solid $m-page-menu-selected-border-color;
+        a {
+          font-weight: bold;
+          $normal: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 20);
+          $hover: $m-page-menu-selected-font-color; //lighten($m-page-menu-font-color, 10);
+          @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+
+      &:hover {
+        a, a:hover, a:active {
+                      color: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 25);
+                    }
+      }
+
+      > a {
+        @include link-colors($m-page-menu-font-color, $m-page-menu-font-color-hover, $m-page-menu-font-color-hover, $m-page-menu-font-color);
+        text-decoration: none;
         display: block;
         padding: 5px 15px 3px 15px;
-        color: $m-page-menu-font-color;
-        &:visited { color: $m-page-menu-font-color; }
-        &:hover { color: darken($m-page-menu-font-color, 10); }
         &.danger-text {
           @include danger-text;
         }
       }
-
-      &.active {
-        border-bottom: 3px solid $m-second-color;
-        a {
-          $normal: darken($m-page-menu-font-color, 20);
-          $hover: lighten($m-page-menu-font-color, 10);
-          @include link-colors($normal, $hover, $hover, $normal);
-        }
-      }
-      &:hover {
-        /* border-bottom: 3px solid $m-second-color; */
-        a, a:hover, a:active {
-          color: darken($m-page-menu-font-color, 25);
-        }
-      }
-
-      .caret-container {
-        padding: 0 5px;
-        display: block;
-      }
-
-      .caret {
-        border-top-color: #888;
-        margin-top: 6px;
-      }
-
-      .dropdown-menu {
-        left: -8px;
-      }
     }
   }
+
+  /* .caret-container { */
+  /*   padding: 0 5px; */
+  /*   display: block; */
+  /* } */
+
+  /* .caret { */
+  /*   border-top-color: #888; */
+  /*   margin-top: 6px; */
+  /* } */
+
+  /* .dropdown-menu { */
+  /*   left: -8px; */
+  /* } */
 }

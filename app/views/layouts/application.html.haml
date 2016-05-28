@@ -21,22 +21,23 @@
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
     #site.container-fluid
-      #navbar-wrapper
+      #navbar-container
         #navbar
           = render :partial => 'layouts/application_navbar'
 
       - if content_for?(:page_header)
-        #page-header-container
+        - cls = content_for?(:page_menu) ? 'with-menu' : 'without-menu'
+        #page-header-container{ class: cls }
           - if content_for?(:page_header)
-            - cls = content_for?(:page_menu) ? 'with-menu' : 'without-menu'
-            #page-header{ class: cls }
+            #page-header
               = yield :page_header
-          - if content_for?(:page_menu)
+        - if content_for?(:page_menu)
+          #page-menu-container
             #page-menu
               = yield :page_menu
 
       - if content_for?(:page_sub_menu)
-        #page-sub-menu-wrapper.container-fluid
+        #page-sub-menu-container
           #page-sub-menu.page-sub-menu
             = yield :page_sub_menu
       #content.container-fluid

@@ -1,4 +1,6 @@
 = content_for :page_sub_menu do
-  -# #space-webconference-tabs.page-sub-menu
-  = link_to t('.access'), webconference_space_path(@space), spaces_webconference_menu_select_if(:access)
-  = link_to t('.recordings'), recordings_space_path(@space), spaces_webconference_menu_select_if(:recordings)
+  %ul
+    %li{ spaces_webconference_menu_select_if(:access) }
+      = link_to t('.access'), webconference_space_path(@space)
+    %li{ spaces_webconference_menu_select_if(:recordings) }
+      = link_to t('.recordings'), recordings_space_path(@space)

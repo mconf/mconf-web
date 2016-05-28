@@ -10,6 +10,14 @@
 @import "../../../vendor/assets/stylesheets/colors";
 
 
+@font-face {
+  font-family: 'Roboto';
+  /* src: url('/assets/Roboto-Regular.eot'); */
+  src: url('/assets/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 // fonts
 $m-font-mini: 10px;
 $m-font-small: 11px;
@@ -23,7 +31,9 @@ $m-font-section-title: 28px;
 $m-font-color: #333;
 $m-font-strong: #000;
 $m-font-color-gray: #888;
-$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+//$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+$m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+
 //$m-font-family-titles: Verdana, Geneva, sans-serif;
 $m-font-family-titles: $m-font-family;
 $m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
@@ -95,11 +105,15 @@ $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
 $m-page-menu-font-color: #808080;
+$m-page-menu-font-color-hover: darken($m-second-color, 5);
+$m-page-menu-selected-font-color: darken($m-second-color, 20);
+$m-page-menu-selected-border-color: $m-second-color;
+$m-page-menu-selected-border-width: 1px;
 $m-page-header-link-color: $m-link-color;
 $m-page-header-link-color-hover: $m-link-color-hover;
 $m-page-title-bg: $m-light-gray;
 $m-page-title-border-color: $m-border-color-normal;
-$m-navbar-border-width: 2px;
+$m-navbar-border-width: 0px;
 // the height is dynamic but we set it here because it's used by some components
 // for positioning
 $m-navbar-height: 42px;

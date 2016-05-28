@@ -1,11 +1,12 @@
 = content_for :page_sub_menu do
-  -# .btn-group{ :"data-toggle" => "buttons-radio" }
-
-  = link_to t('.general_options'), edit_space_path(@space), spaces_admin_menu_select_if(:main)
-
-  - if can?(:manage_join_requests, @space)
-    = link_to t('.invite'), invite_space_join_requests_path(@space), spaces_admin_menu_select_if(:invite)
-    = link_to t('.admissions'), space_join_requests_path(@space), spaces_admin_menu_select_if(:admissions)
-
-  - if can?(:user_permissions, @space)
-    = link_to t('.users'), user_permissions_space_path(@space), spaces_admin_menu_select_if(:users)
+  %ul
+    %li{ spaces_admin_menu_select_if(:main) }
+      = link_to t('.general_options'), edit_space_path(@space)
+    - if can?(:manage_join_requests, @space)
+      %li{ spaces_admin_menu_select_if(:invite) }
+        = link_to t('.invite'), invite_space_join_requests_path(@space)
+      %li{ spaces_admin_menu_select_if(:admissions) }
+        = link_to t('.admissions'), space_join_requests_path(@space)
+    - if can?(:user_permissions, @space)
+      %li{ spaces_admin_menu_select_if(:users) }
+        = link_to t('.users'), user_permissions_space_path(@space)

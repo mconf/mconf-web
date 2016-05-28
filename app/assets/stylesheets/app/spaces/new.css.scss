@@ -18,7 +18,7 @@ body.spaces.new, body.spaces.create {
     }
 
 
-    .content-block-wrapper {
+    .content-block-container {
       @include mconf-clearfix;
       padding: 10px 5px;
 

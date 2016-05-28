@@ -250,7 +250,7 @@ form {
   padding: 0;
 }
 
-#navbar-wrapper {
+#navbar-container {
   margin: 0;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
@@ -352,7 +352,7 @@ form {
 
 }
 
-#footer-wrapper {
+#footer-container {
   clear: both;
   color: $m-footer-font-color;
   //margin-top: 30px;
@@ -429,7 +429,10 @@ form {
 #page-header-container {
   padding: 0 20px;
   background: $m-page-header-background;
-  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
+
+  &.without-menu {
+    border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
+  }
 }
 
 #page-header {
@@ -479,12 +482,14 @@ form {
     @include make-xs-column(9);
 
     .main-title {
-
       @include font-size($m-font-section-title);
       font-weight: bold;
       color: $m-page-title-color;
       margin-bottom: 5px;
-      @include link-style(2);
+      a:not(.btn) {
+        @include link-colors($m-page-title-color, $m-link-color-2-hover, $m-link-color-2-active, $m-page-title-color);
+        text-decoration: none;
+      }
       @include text-truncate;
      }
 
@@ -550,7 +555,7 @@ form {
   @include make-xs-column(12);
   @include make-sm-column(3);
 
-  .content-block-wrapper {
+  .content-block-container {
     padding: 4px;
     @include border-radius($m-border-radius-large);
     background: $m-light-gray;
@@ -675,7 +680,7 @@ form {
     }
   }
 
-  .content-block-wrapper {
+  .content-block-container {
     @include block-wrapper-active;
   }
 
@@ -729,57 +734,27 @@ form {
   }
 }
 
+#page-menu-container {
+  background: $m-page-header-background;
+  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
+}
+
 #page-menu {
   @include horizontal-menu;
 }
 
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
-#page-sub-menu-wrapper {
-  border-bottom: 1px solid lighten($m-page-header-border-color, 2);
+#page-sub-menu-container {
+  background: #fafafa;
+  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
 }
 #page-sub-menu.page-sub-menu {
-  clear: both;
-  margin-top: 8px;
-  //margin-bottom: 12px;
-  padding: 0 13px;
-  @include mconf-clearfix;
-  float: none;
+  @include horizontal-menu;
+  padding-top: 10px;
 
-  // use link-style(2) but with a lighter default color
-  @include link-style(2);
-  > a:not(.btn) {
-    $normal: $m-page-menu-font-color;
-    $hover: $m-second-color;
-    color: $normal;
-    @include link-colors($normal, $hover, $hover, $normal);
-    padding: 10px 10px 10px 10px;
-    display: inline-block;
-    margin: -1px 5px -1px 5px; // negative to go over the external element's border
-    position: relative;
-
-    $border: darken($m-page-header-border-color, 12);
-    /* // arrow on top */
-    /* &.active:after { */
-    /*   content:''; */
-    /*   position: absolute; */
-    /*   top: 100%; */
-    /*   left: 50%; */
-    /*   margin-left: -7px; */
-    /*   width: 0; */
-    /*   height: 0; */
-    /*   border-top: solid 7px $border; */
-    /*   border-left: solid 7px transparent; */
-    /*   border-right: solid 7px transparent; */
-    /* } */
-
-    &.active {
-      font-weight: bold;
-      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
-      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
-      @include link-colors($normal, $hover, $hover, $normal);
-      border-bottom: 1px solid $border;
-    }
+  ul li {
+    @include font-size($m-font-normal);
   }
 }
 
@@ -881,7 +856,7 @@ strong.highlight {
       width: 100%;
     }
 
-    #content-wrapper {
+    #content-container {
       padding-left: 10px;
       padding-right: 10px;
     }
