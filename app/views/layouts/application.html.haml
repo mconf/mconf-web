@@ -27,12 +27,15 @@
 
       - if content_for?(:page_header)
         - cls = content_for?(:page_menu) ? 'with-menu' : 'without-menu'
-        #page-header-container{ class: cls }
-          - if content_for?(:page_header)
+        - if content_for?(:page_header)
+          #page-header-container{ class: cls }
             #page-header
               = yield :page_header
+
+      - if content_for?(:page_menu)
+        - cls = content_for?(:page_header) ? 'with-header' : 'without-header'
         - if content_for?(:page_menu)
-          #page-menu-container
+          #page-menu-container{ class: cls }
             #page-menu
               = yield :page_menu
 

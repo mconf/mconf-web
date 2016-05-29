@@ -259,13 +259,13 @@ form {
 }
 
 @mixin navbar-lists {
-  ul {
+  > ul {
     list-style-type: none;
     float: left;
     margin: 0;
     padding: 0;
 
-    li {
+    > li {
       display: inline;
       float: left;
 
@@ -286,7 +286,8 @@ form {
     }
   }
 
-  a {
+  // very specific selector se we don't mess with dropdowns and others
+  > ul > li > a, > a {
     padding: 17px 15px 13px 15px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
@@ -323,15 +324,42 @@ form {
     @include make-sm-column(5);
     @include navbar-lists;
 
-    ul {
+    > ul {
       float: right;
-      margin-right: 10px;
 
-      li {
+      > li {
         margin-left: 10px;
         margin-right: 0;
         padding-left: 10px;
         padding-right: 0;
+      }
+    }
+
+    .dropdown-user.chip {
+      margin: 10px 0 3px 0;
+      font-size: $m-font-normal;
+      font-weight: normal;
+      border-color: lighten($m-navbar-bg-color-light, 5);
+      color: $m-navbar-font-color;
+      @include transition(background-color 0.2s ease-in);
+      @include text-truncate;
+      max-width: 350px;
+
+      &:hover, &[aria-expanded=true] {
+        background: lighten($m-navbar-bg-color-dark, 5);
+      }
+
+      .caret {
+        margin-top: -2px;
+        margin-right: 2px;
+      }
+    }
+
+    .dropdown-menu {
+      .observation {
+        padding: 3px 14px;
+        font-size: $m-font-small;
+        color: $m-font-color-gray;
       }
     }
   }
@@ -497,6 +525,7 @@ form {
       display: block;
       font-weight: normal;
       margin-top: 10px;
+      color: $m-font-color-gray;
     }
 
     // some tweaks for the titles in pages of spaces
@@ -737,10 +766,17 @@ form {
 #page-menu-container {
   background: $m-page-header-background;
   border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
-}
 
-#page-menu {
-  @include horizontal-menu;
+  #page-menu {
+    @include horizontal-menu;
+  }
+
+  &.without-header {
+    #page-menu ul li > a {
+      padding-top: 17px;
+      padding-bottom: 10px;
+    }
+  }
 }
 
 // A list of tabs inside of a page, to access subpages of it or to include
@@ -899,5 +935,27 @@ strong.highlight {
     .btn, a {
       margin: 0 3px;
     }
+  }
+}
+
+// Chips are small containers with a name and an image, usually used for
+// user identification
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  border: 1px solid #e4e4e4;
+
+  img {
+    float: right;
+    margin: 0 -12px 0 8px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
   }
 }

@@ -220,6 +220,9 @@ label.checkbox {
 /*   @include box-shadow(1px 4px 4px rgba(0, 0, 0, 0.2)); */
 /* } */
 
+.dropdown-menu > li > a {
+  @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
+}
 
 // Change the colors for table borders and bgs, make it more like our lists
 .table > thead > tr > th {

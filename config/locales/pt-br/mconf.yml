@@ -857,10 +857,12 @@ pt-br:
   latest_events: "Últimos eventos"
   layouts:
     application_navbar:
+      account: "Conta"
       events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
+      profile: "Perfil"
       register: "Registre-se"
     footer:
       copyright: "© 2010-%{year} %{site}."

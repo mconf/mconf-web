@@ -859,10 +859,12 @@ en:
   latest_events: "Latest events"
   layouts:
     application_navbar:
+      account: "Account"
       events: "Events"
       inbox: "Inbox"
       login: "Sign in"
       manage: "Manage"
+      profile: "Profile"
       register: "Register"
     footer:
       copyright: "© 2010-%{year} %{site}."

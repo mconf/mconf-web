@@ -27,12 +27,21 @@
         %li= link_to t('.events'), events_path
 
 #navbar-right
-  %ul
+  %ul#navbar-right-links
     - if user_signed_in?
-      %ul#navbar-right-links
-        %li.last
-          = link_to main_app.logout_path do
-            = t('logout', :user => current_user.name)
+      %li.last.dropdown
+        .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
+          = logo_image(current_user, size: '32', class: "logo-user")
+          %span.caret
+          %span.username= current_user.profile.first_names
+        %ul.dropdown-menu.dropdown-menu-right
+          %li
+            .observation= current_user.name
+          %li.divider{ role: 'separator' }
+          %li= link_to t(".account"), main_app.edit_user_path(current_user)
+          %li= link_to t(".profile"), main_app.edit_user_profile_path(current_user)
+          %li.divider{ role: "separator"}
+          %li= link_to t('logout', :user => current_user.name), main_app.logout_path
 
     - else
       - if current_site.local_auth_enabled? || current_site.ldap_enabled?

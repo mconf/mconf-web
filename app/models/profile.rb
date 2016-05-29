@@ -65,6 +65,24 @@ class Profile < ActiveRecord::Base
     self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
   end
 
+  # Returns the user's first name(s) making sure it is at least `min_length` characters
+  # long. Might return a string with more than a word.
+  def first_names(min_length = 5)
+    unless self.full_name.blank?
+      # parse_name(self.full_name)[:first_name]
+      names = self.full_name.split(' ')
+      names.inject('') do |memo, name|
+        if memo.blank?
+          name
+        elsif memo.length < min_length
+          "#{memo} #{name}"
+        else
+          memo
+        end
+      end
+    end
+  end
+
   before_validation :from_vcard
   def from_vcard
     return if @vcard.nil?

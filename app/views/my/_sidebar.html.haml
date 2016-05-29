@@ -12,19 +12,14 @@
     - unless current_user.profile.organization.blank?
       %span.user-organization{ title: current_user.profile.organization }= current_user.profile.organization
 
-%ul#main-sidebar-menu
-  %li{ home_sidebar_menu_select_if(:home) }
-    = link_to main_app.my_home_path do
-      = t(".menu.webconf_room")
-  %li{ home_sidebar_menu_select_if(:activity) }
-    = link_to my_activity_path do
-      = t(".menu.activity")
-  %li
-    = link_to edit_user_path(current_user) do
-      = t(".menu.account")
-  %li
-    = link_to user_path(current_user) do
-      = t(".menu.profile")
+#main-sidebar-menu
+  %ul
+    %li{ home_sidebar_menu_select_if(:home) }
+      = link_to main_app.my_home_path do
+        = t(".menu.webconf_room")
+    %li{ home_sidebar_menu_select_if(:activity) }
+      = link_to my_activity_path do
+        = t(".menu.activity")
 
 #user-spaces
   %h3= t(".spaces.title")
