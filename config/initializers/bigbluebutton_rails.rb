@@ -67,14 +67,17 @@ Rails.application.config.to_prepare do
   end
 
   BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Common
+    include PublicActivity::Model
+
+    tracked only:[:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) { ctrl.current_user.try(:id) },
+        creator_username: -> (ctrl, model) { ctrl.current_user.try(:name) }
+      }
   end
 
   BigbluebuttonMeeting.class_eval do
-    after_create {
-      self.create_activity :create, :owner => self.room unless self.errors.any?
-    }
-
     # Fetches also the recordings associated with the meetings. Returns meetings even if they do not
     # have a recording.
     scope :with_or_without_recording, -> {

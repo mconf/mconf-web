@@ -40,14 +40,17 @@ class UsersController < InheritedResources::Base
 
     authorize! :show, @space
 
-    @users = @space.users.sort { |x,y| x.full_name.downcase <=> y.full_name.downcase }
+    @users = @space.users.joins(:profile)
+      .order("profiles.full_name ASC")
+      .paginate(:page => params[:page], :per_page => 10)
+    @userCount = @space.users.count
   end
 
   def show
     @user_spaces = @user.spaces
 
     # Show activity only in spaces where the current user is a member
-    in_spaces = current_user.present? ? current_user.spaces : []
+    in_spaces = current_user.present? ? current_user.space_ids : []
     @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: in_spaces)
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 

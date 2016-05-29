@@ -43,7 +43,7 @@ class Post < ActiveRecord::Base
   end
 
   def new_activity(key, user)
-    params = { username: user.name, user_id: user.id }
+    params = { username: user.name, trackable_name: post_title }
 
     if key.to_s == 'update'
       # Don't create activity if model was updated and nothing changed

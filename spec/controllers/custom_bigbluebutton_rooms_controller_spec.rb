@@ -9,6 +9,9 @@ require "spec_helper"
 describe CustomBigbluebuttonRoomsController do
   render_views
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   describe "#invite_userid" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
@@ -93,7 +96,6 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#send_invitation" do
-    let!(:referer) { "/any" }
     let!(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
     let(:users) { [FactoryGirl.create(:user)] }
     let(:starts_on) { Time.now }
@@ -402,8 +404,8 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout, :presenter_share_only,
-            :auto_start_video, :auto_start_audio, :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout, 
+            :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
           BigbluebuttonRoom.stub(:find_by_param).and_return(room)
@@ -543,7 +545,6 @@ describe CustomBigbluebuttonRoomsController do
           context "creates the room if the current user is the owner" do
             before :each do
               login_as(user)
-              request.env["HTTP_REFERER"] = "/any"
               BigbluebuttonRoom.stub(:find_by!) { room }
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
@@ -563,7 +564,6 @@ describe CustomBigbluebuttonRoomsController do
             before :each do
               another_user = FactoryGirl.create(:user)
               login_as(another_user)
-              request.env["HTTP_REFERER"] = "/any"
               BigbluebuttonRoom.stub(:find_by!) { room }
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
               BigBlueButton::BigBlueButtonApi.any_instance.stub(:get_api_version).and_return("0.9")
@@ -573,7 +573,7 @@ describe CustomBigbluebuttonRoomsController do
             end
             before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
             it { should respond_with(:redirect) }
-            it { should redirect_to("/any") }
+            it { should redirect_to(referer) }
             it { should set_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
           end
         end
@@ -611,10 +611,8 @@ describe CustomBigbluebuttonRoomsController do
             let(:user) { FactoryGirl.create(:user) }
             let(:room) { user.bigbluebutton_room }
             let(:another_user) { FactoryGirl.create(:user) }
-            let(:referer) { "/back" }
 
             before do
-              request.env["HTTP_REFERER"] = referer
               BigbluebuttonRoom.stub(:find_by!) { room }
             end
 
@@ -691,10 +689,8 @@ describe CustomBigbluebuttonRoomsController do
             let(:space) { FactoryGirl.create(:space_with_associations) }
             let(:room) { space.bigbluebutton_room }
             let(:another_user) { FactoryGirl.create(:user) }
-            let(:referer) { "/back" }
 
             before do
-              request.env["HTTP_REFERER"] = referer
               BigbluebuttonRoom.stub(:find_by!) { room }
               space.add_member!(user, 'Admin')
             end
@@ -774,9 +770,6 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#end" do
-    before {
-      request.env["HTTP_REFERER"] = "/any"
-    }
 
     # see bug1721
     context "doesnt store location for redirect for /bigbluebutton/rooms/:user/end " do

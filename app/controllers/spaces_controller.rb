@@ -120,9 +120,8 @@ class SpacesController < InheritedResources::Base
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = @space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
+    @permissions = @space.permissions_ordered_by_name
+      .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
   end
 
@@ -207,7 +206,7 @@ class SpacesController < InheritedResources::Base
     if params[:order] == 'abc'
       @spaces = @spaces.order('name ASC')
     else
-      @spaces = @spaces.order_by_activity
+      @spaces = @spaces.order_by_relevance
     end
   end
 
@@ -305,8 +304,8 @@ class SpacesController < InheritedResources::Base
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_key, :moderator_key, :default_layout, :private,
-          :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+        [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
+    ]
   end
 
   # For disable controller module

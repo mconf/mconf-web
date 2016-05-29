@@ -538,8 +538,8 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -656,8 +656,8 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -738,8 +738,8 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -834,8 +834,8 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end

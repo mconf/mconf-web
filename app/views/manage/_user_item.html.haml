@@ -5,7 +5,7 @@
       = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')
 
   .col-xs-12.col-sm-7
-    - words = params[:q].try(:split)
+    - words = escape_once(params[:q]).try(:split)
     .user-username.list-text-title
       - if user.disabled?
         = highlight(user.username, words)

@@ -56,6 +56,16 @@ module Abilities
         event.owner.try(:disabled)
       end
 
+      # these actions are allowed if there's no owner set, but not if
+      # the owner is disabled
+      cannot [:create, :new], Event do |event|
+        if ['User', 'Space'].include?(event.owner_type)
+          klass = Object.const_get(event.owner_type)
+          owner = klass.with_disabled.find_by(id: event.owner_id)
+          owner && owner.disabled
+        end
+      end
+
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy] # TODO review
       cannot actions, Participant do |part|
@@ -100,6 +110,16 @@ module Abilities
       actions = [:show, :invite, :register, :update, :destroy, :edit, :send_invitation]
       cannot actions, Event do |event|
         !event.owner.try(:approved?)
+      end
+
+      # these actions are allowed if there's no owner set, but not if
+      # the owner is not approved
+      cannot [:create, :new], Event do |event|
+        if ['User', 'Space'].include?(event.owner_type)
+          klass = Object.const_get(event.owner_type)
+          owner = klass.with_disabled.find_by(id: event.owner_id)
+          owner && !owner.approved?
+        end
       end
 
       # only actions over members, not actions over the collection

@@ -10,11 +10,30 @@ module PublicActivitiesHelper
     t("activities.#{key}_html", options)
   end
 
-  def link_to_trackable trackable, cls
+  # Returns a default HTML tag to display the name of a resource that was removed
+  def removed_activity_resource_tag(text, key = "resource")
+    if text.blank?
+      if key.downcase == "user"
+        activity_translate('other.someone')
+      else
+        nil
+      end
+    else
+      attrs = options_for_tooltip t("activities.#{key.downcase}.deleted_tooltip", name: text), class: 'removed-object-text'
+      content_tag :span, text, attrs
+    end
+  end
+
+  def link_to_trackable(trackable, cls, options = {})
     if trackable.nil?
       # e.g. 'MyModule::Event' to 'my_module_event'
       cls = cls.underscore.gsub(/\//, '_')
-      t("activities.#{cls}.deleted")
+
+      if options[:trackable_name].blank?
+        content_tag :span, t("activities.#{cls}.deleted")
+      else
+        removed_activity_resource_tag(options[:trackable_name], cls)
+      end
     else
       case trackable
       when Space then link_to(trackable.name, space_path(trackable))

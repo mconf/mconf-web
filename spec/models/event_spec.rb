@@ -295,12 +295,12 @@ describe Event do
 
         context "and the user is disabled" do
           before { user.disable }
-          it { should_not be_able_to_do_anything_to(target).except([:create, :new, :index]) }
+          it { should_not be_able_to_do_anything_to(target).except([:index]) }
         end
 
         context "and the user is not approved" do
           before { user.update_attributes(approved: false) }
-          it { should_not be_able_to_do_anything_to(target).except([:create, :new, :index]) }
+          it { should_not be_able_to_do_anything_to(target).except([:index]) }
         end
       end
 

@@ -7,7 +7,13 @@
 
 class Attachment < ActiveRecord::Base
   include PublicActivity::Model
-  tracked owner: :space
+
+  tracked owner: :space,
+    recipient: -> (ctrl, model) { model.try(:author) },
+    params: {
+      username: -> (ctrl, model) { model.try(:author).try(:name) },
+      trackable_name: -> (ctrl, model) { model.title }
+    }
 
   belongs_to :space
   belongs_to :author, :polymorphic => true

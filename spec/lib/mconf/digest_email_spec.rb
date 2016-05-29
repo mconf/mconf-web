@@ -82,7 +82,7 @@ describe Mconf::DigestEmail do
       other_space = FactoryGirl.create(:space)
       FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => other_space)
       FactoryGirl.create(:post, :space => other_space)
-      FactoryGirl.create(:attachment, :space => other_space)
+      FactoryGirl.create(:attachment_with_associations, space: other_space)
     end
 
     def create_default_objects(factory)
@@ -112,7 +112,7 @@ describe Mconf::DigestEmail do
     end
 
     context "returns the latest attachments in the user's spaces" do
-      before { create_default_objects(:attachment) }
+      before { create_default_objects(:attachment_with_associations) }
       before(:each) { call_get_activity }
       it { @expected.should == @attachments }
     end
@@ -179,8 +179,8 @@ describe Mconf::DigestEmail do
         # create the data to be returned
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id,
                    FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-        @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id,
-                         FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
+        @attachments = [ FactoryGirl.create(:attachment_with_associations, :space => space, :updated_at => date_start).id,
+                         FactoryGirl.create(:attachment_with_associations, :space => space, :updated_at => date_start).id ]
         @events = [
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id,
           FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id

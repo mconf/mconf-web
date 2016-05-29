@@ -31,6 +31,8 @@
 // Moment.js for dates
 //= require moment
 //= require moment/pt-br
+//= require moment/de
+//= require moment/es
 
 // Datetime picker for bootstrap
 //= require bootstrap-datetimepicker

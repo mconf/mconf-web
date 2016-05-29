@@ -16,18 +16,6 @@ es-419:
       invite_html: "fue invitado a unirse al espacio"
       invite_with_introducer_html: "fue invitado por <a href=\"%{introducer_url}\">%{introducer}</a> a unirse al espacio"
       request_html: "ha solicitado unirse al espacio"
-    mweb_events_event:
-      create_html: creó el evento %{name} en el espacio
-      attend_html: asistirá al evento %{name} en el espacio
-      not_attend_html: no asistirá al evento %{name} en el espacio
-      update_html: actualizó la información del evento %{name} en el espacio
-      deleted: que ha sido eliminado
-    mweb_events_participant:
-      create_html: asistirá al evento %{name} en el espacio
-    news:
-      create_html: publicó la noticia %{name} en el espacio
-      update_html: actualizaó la noticia %{name} en el espacio
-      deleted: que ha sido eliminado
     other:
       someone_html: "Alguien"
     post:
@@ -116,9 +104,6 @@ es-419:
         users: "Usuarios"
       join_request:
         comment: "Mensajes"
-      news:
-        text: "Texto"
-        title: "Título"
       post:
         text: "Mensaje"
         title: "Título"
@@ -206,48 +191,13 @@ es-419:
         timezone: "Zona horaria"
         username: "Nombre de usuario"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "debe elegir al menos un receptor"
       messages:
         invalid_identifier: "generó el identificador incorrecto: \"%{id}\""
         missing: "esta faltando"
     models:
       event: "Evento"
       join_request: "Solicitud para unirse"
-      news: "Novedades"
       space: "Espacio"
-
-  flash:
-    spaces:
-      update:
-        notice: "Espacio actualizado con éxito"
-
-      disable:
-        notice: "Espacio deshabilitado con éxito"
-
-      enable:
-        notice: "Espacio habilitado con éxito"
-        failure: "El espacio %{name} ya está activo"
-
-    posts:
-      create:
-        notice: "¡Mensaje publicado!"
-
-      update:
-        notice: "¡Mensaje actualizado!"
-
-    users:
-      disable:
-        notice: "Usuario %{usarname} deshabilitado"
-
-      enable:
-        notice: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
-        failure: "El usuario %{name} ya está habilitado"
-
-
   address: Dirección
   admin:
     one: Administrador
@@ -620,7 +570,6 @@ es-419:
       event: "<b>%{author_name}</b> ha creado un nuevo evento en <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> le envió un mensaje:"
       message: "Ultimas actividades en sus espacios:"
-      news: "Una nueva noticia fue publicada en <b>%{space_name}</b>:"
       posted: "<b>%{author_name}</b> ha publicado en <b>%{space_name}</b> el siguiente mensaje:"
       title: "%{type} recopilatorio con la actividad en sus espacios"
       type:
@@ -761,7 +710,6 @@ es-419:
     bad_format: "(formato incorrecto)"
     email: "correo electrónico a %{email}"
     title: "Invitación a participar en una conferencia web"
-    user_private_msg: "mensaje privado del usuario %{user}"
   invited: Invitado
   join: Unirse
   join_cam: Participar
@@ -834,7 +782,6 @@ es-419:
   language: Lenguaje
   last_week: "Última semana"
   latest_events: "Últimos eventos"
-  latest_news: "Últimas noticias"
   layouts:
     application_navbar:
       events: "Eventos"
@@ -933,24 +880,6 @@ es-419:
       no_user_found: "Usuario no encontrado"
   mandatory_field: "Campo obligatorio"
   mconf: Mconf
-  message:
-    created: "¡Mensaje enviado!"
-    error:
-      create: "Error enviando mensaje"
-    incoming:
-      other: "Mensajes entrantes"
-    private:
-      cant: "No puedes enviar mensajes privados porque no tienes miembros en ningún espacio"
-      editing: "Editando mensaje privado"
-      new: "Nuevo mensaje privado"
-      none: "No hay mensajes"
-      send: "Enviar mensaje privado"
-    reply: "Responder el mensaje"
-    sent:
-      other: "Mensajes enviados"
-    special1: "La plataforma Mconf estará baja desde el viernes 17 diciembre a las 16:00 GMT hasta el sábado 18 diciembre 16:00 UTC. Perdón por las molestias."
-    special2: "El Equipo de Mconf"
-    to: Para
   moderatorPW: "Clave del moderador"
   more: más...
   more_arrows: "más >>"
@@ -988,7 +917,6 @@ es-419:
     webconference_room:
       end: "Detener la reunión"
       end_tooltip: "¡Esta acción detendrá la conferencia actual!"
-      fast_start: "Inicio rápido utilizando las opciones por defecto"
       invite: "Invitar a otras personas"
       join: "¡Unirse a la reunión!"
       join_mobile_full: "Unirse desde un dispositivo móvil"
@@ -1006,24 +934,6 @@ es-419:
   name:
     one: Nombre
     other: Nombres
-  news:
-    created: "Noticia publicada con éxito"
-    deleted: "Noticia eliminada con éxito"
-    edit: "Editar noticia"
-    error:
-      create: "Hubo un problema publicando la noticia"
-      delete: "Error eliminando noticia"
-      update: "La noticia no pudo ser actualizada"
-    item_in_home: "Noticia en el espacio"
-    more:
-      one: "y una noticia más..."
-      other: "y %{count} noticias más..."
-    none_to_show: "Sin noticias para mostrar"
-    other: Noticias
-    publish_another: "Publicar otra noticia"
-    publish_home: "Publicar una noticia"
-    title: "Noticias (%{count})"
-    updated: "Noticia actualizada con éxito"
   next: Siguiente
   now_exclamation: ¡Ahora!
   ok: OK
@@ -1092,22 +1002,12 @@ es-419:
     index:
       new_post: "Enviar un nuevo mensaje"
       no_messages: "No hay mensajes en el muro"
-    new:
-      title: "Publicar un nuevo mensaje"
     post_with_children:
       by: "por"
   prav: PRAV
   preferences: Preferencias
   previous: Previo
   privacy: Privacidad
-  private_message:
-    more:
-      one: "y 1 mensaje privado mas ..."
-      other: "y %{count} mensajes privados mas..."
-    one: "Mensaje privado"
-    other: "Mensajes privados"
-    send: "Enviar un mensaje privado"
-    title: "Mensajes privados (%{count})"
   profile:
     deleted: "Perfil eliminado con éxito"
     description:
@@ -1148,7 +1048,6 @@ es-419:
     activity: "Actividad reciente"
   recent_activity:
     empty: "No tiene actividad reciente para mostrar. Únase a salas para comenzar a tener datos en esta área."
-    tooltip: "Aquí puede encontrar los mensajes más nuevos, eventos y noticias de las salas a las que pertenece"
   recording:
     automatic: Automático
     box_title: Grabando
@@ -1173,7 +1072,6 @@ es-419:
   registrations:
     signup_form:
       register: "Registrarse"
-  remember_me: "Recordarme"
   remove: Eliminar
   reply: Responder
   reply_to: "Responder a:"
@@ -1426,7 +1324,6 @@ es-419:
       admissions: "Admisiones"
       general_options: "Opciones generales"
       invite: "Invitar personas"
-      news: "Novedades"
       users: "Usuarios"
       webconf_options: "Opciones de conferencia web"
     edit:
@@ -1469,7 +1366,6 @@ es-419:
       spaces_examples:
         title: "Ejemplos de espacios:"
       title: "Crear un nuevo espacio"
-    news: "Noticias del espacio"
     recordings:
       title: "Grabaciones en este espacio"
       update_recordings:
@@ -1495,7 +1391,6 @@ es-419:
     sidebar_webconf_buttons:
       end: "Detener"
       end_tooltip: "¡Esta acción detendrá la conferencia actual!"
-      fast_start: "Inicio rápido utilizando las opciones por defecto"
       invite: "Invitar a otras personas"
       join: "¡Unirse ahora!"
       join_mobile: "Unirse con móvil"
@@ -1600,9 +1495,7 @@ es-419:
     event_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
     insert: "Utilice este código para insertar este vídeo en su blog o página web."
     invite_people: "Invitar personas a esta conferencia web."
-    latest_news: "Esta sección muestra las noticias que los administradores envían a todas las personas en este espacio"
     leave_space: "Este enlace le permitirá abandonar este espacio definitivamente"
-    news_item: "Usted puede publicar una breve noticia al inicio"
     num_views: "Este número representa las visitas únicas de esta página"
     private_profile: "Esta información es visible únicamente para las personas que usted elija cuando edita su perfil"
     public_profile: "Cualquier persona puede acceder a esta información"
@@ -1657,7 +1550,6 @@ es-419:
     not_confirmed: "No confirmado"
     one: Usuario
     other: Usuarios
-    private_message: "Enviar mensaje"
     recent_join: "Usuarios que se unieron recientemente"
     registered: "¡Gracias por registrarse! Le hemos enviado instrucciones de como activar su cuenta de usuario."
     request_confirmation: "Solicitar correo electrónico de confirmación"

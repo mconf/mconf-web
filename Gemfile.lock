@@ -1,25 +1,18 @@
 GIT
-  remote: https://github.com/fnando/i18n-js.git
-  revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
-  specs:
-    i18n-js (3.0.0.rc6)
-      i18n (~> 0.6)
-
-GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 6af33f9baf2974bd8fadc04bf91540f89bf90391
+  revision: bd3da291b885e230e1cfc4dc2c705a75ec46befa
   branch: master
   specs:
-    bigbluebutton-api-ruby (1.4.0)
+    bigbluebutton-api-ruby (1.5.0)
       xml-simple (~> 1.1)
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: e3bdc3f26405b3de7aabb17a3370652385ebdfa0
+  revision: ca0406edb3f38add1c469d560c8ffe3e01441d39
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
-      bigbluebutton-api-ruby (~> 1.4.0)
+      bigbluebutton-api-ruby (~> 1.4)
       browser (~> 0.8.0)
       rails (>= 4.0.0)
       resque (~> 1.25.1)
@@ -41,12 +34,6 @@ GIT
       ya2yaml (~> 0.30)
 
 GIT
-  remote: https://github.com/sam-github/vpim.git
-  revision: ab68da1a18dc407e088aa9f431883f1e7da9dc27
-  specs:
-    vpim (13.11.11)
-
-GIT
   remote: https://github.com/sevenwire/forgery.git
   revision: b20bb0b99f0d9291d0704827ca86095bae20a192
   specs:
@@ -55,31 +42,31 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.1.11)
-      actionpack (= 4.1.11)
-      actionview (= 4.1.11)
+    actionmailer (4.1.14.2)
+      actionpack (= 4.1.14.2)
+      actionview (= 4.1.14.2)
       mail (~> 2.5, >= 2.5.4)
-    actionpack (4.1.11)
-      actionview (= 4.1.11)
-      activesupport (= 4.1.11)
+    actionpack (4.1.14.2)
+      actionview (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.11)
-      activesupport (= 4.1.11)
+    actionview (4.1.14.2)
+      activesupport (= 4.1.14.2)
       builder (~> 3.1)
       erubis (~> 2.7.0)
     active_record_union (1.1.0)
       activerecord (>= 4.0)
     active_sanity (0.2.0)
       rails (>= 3.1.0)
-    activemodel (4.1.11)
-      activesupport (= 4.1.11)
+    activemodel (4.1.14.2)
+      activesupport (= 4.1.14.2)
       builder (~> 3.1)
-    activerecord (4.1.11)
-      activemodel (= 4.1.11)
-      activesupport (= 4.1.11)
+    activerecord (4.1.14.2)
+      activemodel (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       arel (~> 5.0.0)
-    activesupport (4.1.11)
+    activesupport (4.1.14.2)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -181,7 +168,7 @@ GEM
     daemons (1.2.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    devise (3.5.1)
+    devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -242,6 +229,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    i18n-js (3.0.0.rc12)
+      i18n (~> 0.6, >= 0.6.6)
     icalendar (2.1.1)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -293,7 +282,7 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.6.0)
     minitar (0.5.4)
-    minitest (5.7.0)
+    minitest (5.8.4)
     mixlib-authentication (1.3.0)
       mixlib-log
     mixlib-cli (1.5.0)
@@ -303,7 +292,7 @@ GEM
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     mono_logger (1.1.0)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     mysql2 (0.3.16)
     net-dhcp (1.3.2)
@@ -358,26 +347,26 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.1.11)
-      actionmailer (= 4.1.11)
-      actionpack (= 4.1.11)
-      actionview (= 4.1.11)
-      activemodel (= 4.1.11)
-      activerecord (= 4.1.11)
-      activesupport (= 4.1.11)
+    rails (4.1.14.2)
+      actionmailer (= 4.1.14.2)
+      actionpack (= 4.1.14.2)
+      actionview (= 4.1.14.2)
+      activemodel (= 4.1.14.2)
+      activerecord (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.11)
+      railties (= 4.1.14.2)
       sprockets-rails (~> 2.0)
     rails-footnotes (4.0.2)
       rails (>= 3.2)
     rails_autolink (1.1.6)
       rails (> 3.1)
-    railties (4.1.11)
-      actionpack (= 4.1.11)
-      activesupport (= 4.1.11)
+    railties (4.1.14.2)
+      actionpack (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.4.2)
+    rake (10.5.0)
     redcarpet (3.3.2)
     redis (3.1.0)
     redis-namespace (1.5.0)
@@ -464,12 +453,12 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     spring (1.3.4)
-    sprockets (2.12.3)
+    sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -507,7 +496,8 @@ GEM
       mail (~> 2.6.1)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    warden (1.2.3)
+    vpim (13.11.11)
+    warden (1.2.6)
       rack (>= 1.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
@@ -521,7 +511,7 @@ GEM
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    xray-rails (0.1.16)
+    xray-rails (0.1.18)
       coffee-rails
       rails (>= 3.1.0)
     ya2yaml (0.31)
@@ -536,10 +526,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_record_union
+  active_record_union (~> 1.1.0)
   active_sanity
   acts_as_tree (~> 2.0.0)
   autoprefixer-rails
+  bcrypt (~> 3.1.5)
   better_errors
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
@@ -558,7 +549,7 @@ DEPENDENCIES
   compass-rails (~> 2.0)
   configatron (~> 2.13.0)
   database_cleaner
-  devise (~> 3.5.1)
+  devise (~> 3.5.4)
   devise-async
   devise-encryptable
   dotiw
@@ -570,15 +561,15 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1)
   fooldap
   forgery!
-  friendly_id
+  friendly_id (~> 5.0.4)
   geocoder
   haml
   handlebars_assets
   htmlentities (~> 4.3.3)
   httparty
-  i18n-js!
+  i18n-js (~> 3.0.0.rc12)
   icalendar
-  inherited_resources
+  inherited_resources (~> 1.6.0)
   jquery-rails (~> 3.1.3)
   launchy
   leaflet-rails
@@ -586,7 +577,7 @@ DEPENDENCIES
   lograge
   logstash-event
   mailcatcher
-  mini_magick
+  mini_magick (~> 3.8.1)
   momentjs-rails (>= 2.8.1)
   mysql2 (~> 0.3.0)
   net-ldap
@@ -598,17 +589,17 @@ DEPENDENCIES
   quiet_assets
   rabl
   rack (~> 1.5.4)
-  rails (~> 4.1.11)
+  rails (~> 4.1.14.2)
   rails-footnotes
   rails_autolink (~> 1.1.0)
-  rake
+  rake (~> 10.5.0)
   redcarpet
-  resque
+  resque (~> 1.25.2)
   resque-lock-timeout
   resque-scheduler
   resque_mailer
   resque_spec
-  rmagick
+  rmagick (~> 2.13.2)
   rspec-mocks
   rspec-rails (~> 2.99.0)
   rubyzip (>= 1.0.0)
@@ -619,7 +610,7 @@ DEPENDENCIES
   simple_form (~> 3.1.0)
   simplecov
   spring
-  sprockets (~> 2.12.3)
+  sprockets (~> 2.12.4)
   sqlite3
   therubyracer
   timecop
@@ -627,7 +618,7 @@ DEPENDENCIES
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
   valid_email (~> 0.0.10)
-  vpim!
+  vpim (~> 13.11.11)
   webmock
   webrat
   will_paginate

@@ -163,6 +163,21 @@ describe 'User signs in via ldap', ldap: true do
         it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
         it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
+
+      context 'and enters a valid username without password' do
+        before {
+          expect {
+            sign_in_with @ldap_attrs[:username], ''
+            click_button t('sessions.login_form.login')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message }
+        it("doesn't create a LdapToken") { LdapToken.count.should be(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
+      end
+
     end
   end
 

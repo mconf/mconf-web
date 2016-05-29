@@ -64,7 +64,7 @@ class MyController < ApplicationController
   def activity
     @contents_per_page = params[:per_page] || 20
 
-    @all_contents = RecentActivity.user_activity(current_user).order('updated_at DESC')
+    @all_contents = RecentActivity.user_activity(current_user).order('created_at DESC')
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 

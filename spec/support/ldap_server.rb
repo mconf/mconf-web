@@ -17,6 +17,13 @@ class SpecLdapServer < Fooldap::Server
     @data[user] = data if data
   end
 
+  # This method is overriden to simulate users with a blank password being permited to log in.
+  # This is crazy, but reflects some LDAP configurations where it could happen
+  # and we have to test for empty passwords at the application level and deny the users
+  def valid_credentials?(user, pass)
+    @users.has_key?(user) && (@users[user] == pass || pass.blank?)
+  end
+
   def default_options
     { :operation_class => SpecLdapOperation, :operation_args => [self] }
   end

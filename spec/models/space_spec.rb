@@ -306,11 +306,12 @@ describe Space do
         [
          # order: [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
+      before { Space.calculate_last_activity_indexes! }
 
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -321,11 +322,12 @@ describe Space do
         [
          # order: [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
+      before { Space.calculate_last_activity_indexes! }
 
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -337,18 +339,43 @@ describe Space do
          # order: [2], [0]
          # if didn't ignore disabled spaces it would be [1], [2], [0], [3]
          RecentActivity.create(owner: spaces[0], created_at: now),
-         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
-         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
-         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
         ]
       end
 
       before {
         spaces[1].disable
         spaces[3].disable
+
+        Space.calculate_last_activity_indexes!
       }
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[2], spaces[0]] }
+    end
+
+    context 'orders secondarily by name' do
+      let!(:activities) do
+        [
+          RecentActivity.create(owner: spaces[0], created_at: now),
+          RecentActivity.create(owner: spaces[1], created_at: now),
+          RecentActivity.create(owner: spaces[2], created_at: now),
+          RecentActivity.create(owner: spaces[3], created_at: now)
+        ]
+      end
+      let!(:spaces) do
+        [
+          FactoryGirl.create(:space_with_associations, name: "c123"),
+          FactoryGirl.create(:space_with_associations, name: "D123"),
+          FactoryGirl.create(:space_with_associations, name: "A123"),
+          FactoryGirl.create(:space_with_associations, name: "b123")
+        ]
+      end
+      before { Space.calculate_last_activity_indexes! }
+
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
     end
 
     context 'returns spaces even if they have no activities' do
@@ -392,6 +419,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -407,6 +435,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
@@ -427,6 +456,7 @@ describe Space do
         before {
           spaces[1].disable
           spaces[3].disable
+          Space.calculate_last_activity_indexes!
         }
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
@@ -451,6 +481,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3], created_at: now)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
@@ -473,6 +504,7 @@ describe Space do
            RecentActivity.create(owner: spaces[3].bigbluebutton_room, created_at: now)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
@@ -499,6 +531,7 @@ describe Space do
         before {
           spaces[1].disable
           spaces[3].disable
+          Space.calculate_last_activity_indexes!
         }
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
@@ -507,21 +540,44 @@ describe Space do
       context 'considers the date only, ignores the time' do
         let!(:activities) do
           [
-           # order: [0], [1], [3], [2]
-           # if didn't ignore disabled spaces it would be [1], [0], [2], [3]
-           RecentActivity.create(owner: spaces[0], created_at: now),
-           RecentActivity.create(owner: spaces[0], created_at: now),
-           RecentActivity.create(owner: spaces[1], created_at: now),
-           RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
-           RecentActivity.create(owner: spaces[2], created_at: now - 1.day + 2.seconds),
-           RecentActivity.create(owner: spaces[3], created_at: now - 1.day),
-           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
+            # order: [0], [1], [3], [2]
+            # if didn't ignore the time it would be [1], [0], [2], [3]
+            RecentActivity.create(owner: spaces[0], created_at: now),
+            RecentActivity.create(owner: spaces[0], created_at: now),
+            RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
+            RecentActivity.create(owner: spaces[2], created_at: now - 1.day + 2.seconds),
+            RecentActivity.create(owner: spaces[3], created_at: now - 1.day),
+            RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
+        before { Space.calculate_last_activity_indexes! }
 
         it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
         it { Space.order_by_relevance.all.should == [spaces[0], spaces[1], spaces[3], spaces[2]] }
       end
+    end
+
+    context 'orders tertiarily by name' do
+      let!(:activities) do
+        [
+          RecentActivity.create(owner: spaces[0], created_at: now),
+          RecentActivity.create(owner: spaces[1], created_at: now),
+          RecentActivity.create(owner: spaces[2], created_at: now),
+          RecentActivity.create(owner: spaces[3], created_at: now)
+        ]
+      end
+      let!(:spaces) do
+        [
+          FactoryGirl.create(:space_with_associations, name: "c123"),
+          FactoryGirl.create(:space_with_associations, name: "D123"),
+          FactoryGirl.create(:space_with_associations, name: "A123"),
+          FactoryGirl.create(:space_with_associations, name: "b123")
+        ]
+      end
+      before { Space.calculate_last_activity_indexes! }
+
+      it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
     end
 
     context 'returns spaces even if they have no activities' do
@@ -540,6 +596,68 @@ describe Space do
     end
 
     skip 'calling `order_by_relevance.count` works'
+  end
+
+  describe ".calculate_last_activity_indexes!" do
+    let!(:now) { Time.now.beginning_of_day }
+    let!(:spaces) do
+      [
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations),
+        FactoryGirl.create(:space_with_associations)
+      ]
+    end
+
+    context "sets last_activity and last_activity_count for all spaces" do
+      before {
+        RecentActivity.create(owner: spaces[0], created_at: now)
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.days)
+        RecentActivity.create(owner: spaces[1], created_at: now)
+        RecentActivity.create(owner: spaces[1], created_at: now)
+        RecentActivity.create(owner: spaces[2], created_at: now - 1.day)
+        RecentActivity.create(owner: spaces[2], created_at: now - 2.days)
+      }
+      before { Space.calculate_last_activity_indexes! }
+      it { spaces[0].reload.last_activity.to_date.should eql(now.to_date) }
+      it { spaces[0].reload.last_activity_count.should eql(1) }
+      it { spaces[1].reload.last_activity.to_date.should eql((now + 2.days).to_date) }
+      it { spaces[1].reload.last_activity_count.should eql(3) }
+      it { spaces[2].reload.last_activity.to_date.should eql((now - 1.day).to_date) }
+      it { spaces[2].reload.last_activity_count.should eql(2) }
+    end
+
+    context "considers activities in the rooms" do
+      before {
+        RecentActivity.create(owner: spaces[0], created_at: now)
+        RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days)
+        RecentActivity.create(owner: spaces[1], created_at: now)
+        RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now)
+        RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now - 1.day)
+        RecentActivity.create(owner: spaces[2], created_at: now - 2.days)
+      }
+      before { Space.calculate_last_activity_indexes! }
+      it { spaces[0].reload.last_activity.to_date.should eql(now.to_date) }
+      it { spaces[0].reload.last_activity_count.should eql(1) }
+      it { spaces[1].reload.last_activity.to_date.should eql((now + 2.days).to_date) }
+      it { spaces[1].reload.last_activity_count.should eql(3) }
+      it { spaces[2].reload.last_activity.to_date.should eql((now - 1.day).to_date) }
+      it { spaces[2].reload.last_activity_count.should eql(2) }
+    end
+
+    context "maximum precision is 'day'" do
+      before {
+        RecentActivity.create(owner: spaces[0], created_at: now)
+        RecentActivity.create(owner: spaces[0], created_at: now + 1.second)
+        RecentActivity.create(owner: spaces[1], created_at: now)
+        RecentActivity.create(owner: spaces[1], created_at: now + 1.minute)
+        RecentActivity.create(owner: spaces[2], created_at: now)
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.hour)
+      }
+      before { Space.calculate_last_activity_indexes! }
+      it { spaces[0].reload.last_activity.to_date.should eql(now.to_date) }
+      it { spaces[1].reload.last_activity.to_date.should eql(now.to_date) }
+      it { spaces[2].reload.last_activity.to_date.should eql(now.to_date) }
+    end
   end
 
   describe ".logo_image" do
@@ -669,6 +787,35 @@ describe Space do
 
   it "#latest_users"
 
+  describe "#permissions_ordered_by_name" do
+    let(:target) { FactoryGirl.create(:space) }
+    let!(:admin_role) { Role.find_by(:name => 'Admin') }
+    let!(:user_role) { Role.find_by(:name => 'User') }
+
+    before {
+      user1 = FactoryGirl.create(:user, _full_name: "b123")
+      user2 = FactoryGirl.create(:user, _full_name: "c123")
+      user3 = FactoryGirl.create(:user, _full_name: "a123")
+      @permission1 = Permission.create(user: user1, role: admin_role, subject: target)
+      @permission2 = Permission.create(user: user2, role: user_role, subject: target)
+      @permission3 = Permission.create(user: user3, role: user_role, subject: target)
+    }
+
+    subject { target.permissions_ordered_by_name }
+
+    it { subject.should be_a(ActiveRecord::Relation) }
+    it { subject.count.should eql(3) }
+    it { subject.should include(@permission1) }
+    it { subject.should include(@permission2) }
+    it { subject.should include(@permission3) }
+
+    it "orders by full_name ASC" do
+      subject.all[0].should eql(@permission3)
+      subject.all[1].should eql(@permission1)
+      subject.all[2].should eql(@permission2)
+    end
+  end
+
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
@@ -718,10 +865,9 @@ describe Space do
     end
 
     context "doesn't add the user if he's already a member" do
-      let(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
+      let!(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
 
       before {
-        permission
         expect {
           space.add_member!(user)
         }.to raise_error(ActiveRecord::RecordInvalid)
@@ -990,7 +1136,7 @@ describe Space do
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
-      :user_permissions, :edit_recording, :recordings,
+      :user_permissions, :edit_recording, :webconference_options, :recordings,
       :manage_join_requests, :add, :index_event])
 
     subject { ability }
@@ -1090,7 +1236,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1102,7 +1248,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1155,7 +1301,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }
@@ -1167,7 +1313,7 @@ describe Space do
                 list = [
                   :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                  :manage_join_requests, :index_event
+                  :webconference_options, :manage_join_requests, :index_event
                 ]
                 should_not be_able_to_do_anything_to(target).except(list)
               }

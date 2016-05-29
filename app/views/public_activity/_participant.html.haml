@@ -8,13 +8,14 @@
     = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.owner), class: 'logo logo-space-activity')
 
 .thread-content
-  = formatted_time_ago activity.updated_at
+  = formatted_time_ago activity.created_at
 
   .thread-description
     = icon_event
-    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id) and !activity.parameters[:user_id].blank?
-      = link_to activity.parameters[:username], user_path_from_id(activity.parameters[:user_id])
+    - if activity.recipient.present?
+      = link_to activity.parameters[:username], user_path(activity.recipient)
     - else
-      = activity_translate('other.someone')
-    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
+      = removed_activity_resource_tag(activity.parameters[:username], "User")
+
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type, activity.parameters))
     = link_to_trackable activity.owner, activity.owner_type

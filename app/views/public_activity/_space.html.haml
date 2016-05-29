@@ -2,26 +2,27 @@
 -#   activity (RecentActivity)
 
 .logo-in-thread
-  = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
+  - if activity.trackable.nil?
+    = logo_image_removed(size: '84x64')
+  - else
+    = link_logo_image(activity.trackable, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space-activity')
 
 .thread-content
-  = formatted_time_ago activity.updated_at
+  = formatted_time_ago activity.created_at
 
   .thread-description
     - if activity.key.match(/leave$/)
       = icon_leave_space
-    - elsif activity.key.match(/accept$/)
-      = icon_join_space
-    - if activity.parameters.has_key?(:username) and activity.recipient.present?
-      - if activity.key.match(/approved/)
-        = activity_translate('other.admin')
-      - else
-        - link = user_path(activity.recipient)
-        - if link.nil?
-          = activity.parameters[:username]
-        - else
-          = link_to activity.parameters[:username], link
+
+    -# we purposely don't say who approved the space
+    - if activity.key.match(/approved/)
+      = activity_translate('other.admin')
+
     - else
-      = activity_translate('other.someone')
+      - if activity.parameters.has_key?(:username) && activity.recipient.present?
+        = link_to activity.parameters[:username], user_path(activity.recipient)
+      - else
+        = removed_activity_resource_tag(activity.parameters[:username], "User")
+
     = activity_translate(activity.key)
-    = link_to_trackable activity.trackable, activity.trackable_type
+    = link_to_trackable activity.trackable, activity.trackable_type, activity.parameters
