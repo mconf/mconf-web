@@ -12,7 +12,6 @@
 
 @font-face {
   font-family: 'Roboto';
-  /* src: url('/assets/Roboto-Regular.eot'); */
   src: url('/assets/Roboto-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
@@ -31,8 +30,8 @@ $m-font-section-title: 28px;
 $m-font-color: #333;
 $m-font-strong: #000;
 $m-font-color-gray: #888;
-//$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
-$m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+$m-font-family2: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
 
 //$m-font-family-titles: Verdana, Geneva, sans-serif;
 $m-font-family-titles: $m-font-family;

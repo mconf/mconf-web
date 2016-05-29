@@ -247,3 +247,11 @@ label.checkbox {
 .form-control:focus {
   box-shadow: none;
 }
+
+// mark is used to highlight search terms
+mark {
+  background: rgba(255,255,140,0.5);
+  padding: 2px;
+  margin: 0 -2px;
+  border-radius: 3px;
+}

@@ -88,3 +88,7 @@ a:not(.btn) {
   &:hover, &:active, &:focus { text-decoration: underline; }
   &:focus { color: lighten($m-link-color-active, 7); }
 }
+
+.label {
+  font-family: $m-font-family2;
+}

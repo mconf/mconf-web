@@ -287,7 +287,7 @@ form {
   }
 
   a {
-    padding: 15px;
+    padding: 17px 15px 13px 15px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
