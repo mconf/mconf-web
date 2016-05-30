@@ -2,6 +2,7 @@
 
 defaultOpts =
   tapToDismiss: false
+  # positionClass: 'toast-top-right'
   positionClass: 'toast-top-full-width'
   iconClass: ''
   hideMethod: 'slideUp'
@@ -44,12 +45,24 @@ showNotification = (target, type) ->
       when "success"
         method = toastr.success
         opts = $.extend {}, defaultOpts,
+          timeOut: 4000
+          extendedTimeOut: 4000
       when "error"
         method = toastr.error
         opts = $.extend {}, defaultOpts,
           force: true
           timeOut: 0
           extendedTimeOut: 0
+      when "warning", "warn", "alert"
+        # method = toastr.warning
+        method = toastr.error
+        opts = $.extend {}, defaultOpts,
+          force: true
+          timeOut: 6000
+          extendedTimeOut: 6000
+
+      # this should never happen, but leave it here so it shows a
+      # weird notification when it happens and we can fix it
       else
         method = toastr.warning
 

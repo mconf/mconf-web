@@ -10,10 +10,30 @@
   &.toast-top-full-width {
     right: 0;
     left: 0;
-    top: $m-notifications-top;
+    /* top: $m-notifications-top; */
+    top: 0;
+
+    > div {
+      width: 100%;
+      @include border-radius(0);
+    }
+
+    .toast-message {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
 
-  > .toast-error, > .toast-warning {
+  &.toast-top-center {
+    > div { width: 60%; }
+  }
+
+  &.toast-top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  > .toast-error, > .toast-warning, > .toast-success {
     background-image: none !important;
   }
 
@@ -25,19 +45,25 @@
     text-align: center;
   }
 
+  .toast {
+    @include border-radius(5px);
+  }
+
   > :hover {
     @include box-shadow(none);
     cursor: auto;
   }
 
   .toast-close-button {
-    top: -7px;
-    right: 10px;
+    top: 0;
+    right: 0;
+    padding: 1px 10px 3px 10px;
+    @include border-radius(3px);
   }
 
   .toast-message {
-    padding: 0 25px;
-    @include font-size($m-font-medium);
+    padding: 10px 35px 10px 10px;
+    @include font-size($m-font-big);
     cursor: auto;
   }
 
