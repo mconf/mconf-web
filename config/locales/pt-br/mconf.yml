@@ -1245,6 +1245,9 @@ pt-br:
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
       started_at: "A reunião aconteceu em"
+      publish: Publicar
+      unpublish: Despublicar
+      destroy: Remover
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"

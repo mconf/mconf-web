@@ -26,6 +26,12 @@
                 - if can?(:space_edit, recording)
                   %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
 
+              - if recording.published? && can?(:unpublish, recording)
+                %li= link_to t('.unpublish').downcase, unpublish_bigbluebutton_recording_path(recording), method: :post
+
+              - if can?(:destroy, recording)
+                %li= link_to t('.destroy').downcase, bigbluebutton_recording_path(recording), method: :delete
+
             .thread-title
               = icon_recording
               - if recording.description.blank?

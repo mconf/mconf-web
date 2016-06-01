@@ -14,6 +14,25 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   protected
 
+  def handle_access_denied exception
+
+    # anonymous users are required to sign in
+    if !user_signed_in?
+      redirect_to login_path
+
+    # An space admin or normal user who just tried to update / unpublish a recording
+    # HACK: This is here because changing the behavior of bbb rails without
+    # pulling in all the code is hard
+    elsif [:show].include?(exception.action) &&
+          request.referer.present? &&
+          (/#{my_recordings_path}/.match(request.referer) || /spaces\/\A[A-Za-z0-9\-_]*\z\/recordings/.match(request.referer))
+
+      redirect_to request.referer
+    else
+      super
+    end
+  end
+
   # Checks the URL and sets the parameters as temporary parameters in the playback's URL.
   def set_parameters
     if params[:name] && @playback.present?

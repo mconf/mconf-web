@@ -1239,6 +1239,9 @@ en:
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
       started_at: "The meeting happened at"
+      publish: Publish
+      unpublish: Unpublish
+      destroy: Remove
     recording_playback:
       duration: "duration"
       playback: "Playback links"
