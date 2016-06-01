@@ -117,13 +117,15 @@ describe UsersController do
       let(:public_space) { FactoryGirl.create(:space_with_associations, public: true) }
       let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
       before {
-        public_space.add_member!(user)
-        private_space.add_member!(user)
-        @activities = [
-          public_space.new_activity(:join, user),
-          private_space.new_activity(:join, user),
-          private_space.new_activity(:update, user),
-        ]
+        PublicActivity.with_tracking do
+          public_space.add_member!(user)
+          private_space.add_member!(user)
+          @activities = [
+            public_space.new_activity(:join, user),
+            private_space.new_activity(:join, user),
+            private_space.new_activity(:update, user),
+          ]
+        end
       }
 
       context 'the user himself' do
@@ -140,11 +142,13 @@ describe UsersController do
 
       context 'a user belonging to both spaces' do
         before {
-          user2 = FactoryGirl.create(:user)
-          public_space.add_member!(user2)
-          private_space.add_member!(user2)
-          sign_in(user2)
-          get :show, id: user.to_param
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            public_space.add_member!(user2)
+            private_space.add_member!(user2)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
         }
 
         it { assigns(:recent_activities).count.should be(3) }
@@ -155,10 +159,12 @@ describe UsersController do
 
       context 'a user belonging to the private space only' do
         before {
-          user2 = FactoryGirl.create(:user)
-          private_space.add_member!(user2)
-          sign_in(user2)
-          get :show, id: user.to_param
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            private_space.add_member!(user2)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
         }
 
         it { assigns(:recent_activities).count.should be(3) }
@@ -169,9 +175,11 @@ describe UsersController do
 
       context 'a user not belonging to any space' do
         before {
-          user2 = FactoryGirl.create(:user)
-          sign_in(user2)
-          get :show, id: user.to_param
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
         }
 
         it { assigns(:recent_activities).count.should be(1) }
@@ -1007,8 +1015,10 @@ describe UsersController do
 
     context "if #require_registration_approval is set in the current site" do
       before(:each) {
-        Site.current.update_attributes(require_registration_approval: true)
-        post :approve, id: user.to_param
+        PublicActivity.with_tracking do
+          Site.current.update_attributes(require_registration_approval: true)
+          post :approve, id: user.to_param
+        end
       }
       it { should respond_with(:redirect) }
       it { should set_flash.to(I18n.t('users.approve.approved', name: user.name)) }
@@ -1147,10 +1157,12 @@ describe UsersController do
         let(:user) { FactoryGirl.build(:user) }
         before(:each) {
           expect {
-            post :create, user: {
-              email: user.email, _full_name: "Maria Test", username: "maria-test",
-              password: "test123", password_confirmation: "test123"
-            }
+            PublicActivity.with_tracking do
+              post :create, user: {
+                     email: user.email, _full_name: "Maria Test", username: "maria-test",
+                     password: "test123", password_confirmation: "test123"
+                   }
+            end
           }.to change(User, :count).by(1)
         }
 
@@ -1210,10 +1222,12 @@ describe UsersController do
           let(:user) { FactoryGirl.build(:user) }
           before {
             expect {
-              post :create, user: {
-                email: user.email, _full_name: "Maria Test", username: "maria-test",
-                password: "test123", password_confirmation: "test123"
-              }
+              PublicActivity.with_tracking do
+                post :create, user: {
+                       email: user.email, _full_name: "Maria Test", username: "maria-test",
+                       password: "test123", password_confirmation: "test123"
+                     }
+              end
             }.to change(User, :count).by(1)
           }
 

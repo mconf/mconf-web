@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe UserNeedsApprovalSenderWorker do
+describe UserNeedsApprovalSenderWorker, type: :worker do
   let(:worker) { UserNeedsApprovalSenderWorker }
 
   before {

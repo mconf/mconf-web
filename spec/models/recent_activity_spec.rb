@@ -184,31 +184,33 @@ describe RecentActivity do
       let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
 
       before {
-        posts = [ FactoryGirl.create(:post, space: space),
-                  FactoryGirl.create(:post, space: space),
-                  FactoryGirl.create(:post, space: private_space),
-                  FactoryGirl.create(:post, space: private_space) ]
-        # TODO: include webconf activities
+        PublicActivity.with_tracking do
+          posts = [ FactoryGirl.create(:post, space: space),
+                    FactoryGirl.create(:post, space: space),
+                    FactoryGirl.create(:post, space: private_space),
+                    FactoryGirl.create(:post, space: private_space) ]
+          # TODO: include webconf activities
 
-        space.add_member!(user)
-        space.add_member!(user2)
-        private_space.add_member!(user)
-        private_space.add_member!(user2)
+          space.add_member!(user)
+          space.add_member!(user2)
+          private_space.add_member!(user)
+          private_space.add_member!(user2)
 
-        @activities = [
-          space.new_activity(:update, user),        # public
-          space.new_activity(:join, user),          # public
-          posts[0].new_activity(:create, user),     # public
-          posts[2].new_activity(:create, user),     # private
-          private_space.new_activity(:join, user),  # private
+          @activities = [
+            space.new_activity(:update, user),        # public
+            space.new_activity(:join, user),          # public
+            posts[0].new_activity(:create, user),     # public
+            posts[2].new_activity(:create, user),     # private
+            private_space.new_activity(:join, user),  # private
 
-          space.new_activity(:update, user2),       # public
-          posts[1].new_activity(:create, user2),    # public
-          posts[3].new_activity(:create, user2),    # private
-          private_space.new_activity(:join, user2)  # private
-        ]
-        # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
-        @activities.map!{|a| RecentActivity.find(a.id)}
+            space.new_activity(:update, user2),       # public
+            posts[1].new_activity(:create, user2),    # public
+            posts[3].new_activity(:create, user2),    # private
+            private_space.new_activity(:join, user2)  # private
+          ]
+          # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
+          @activities.map!{|a| RecentActivity.find(a.id)}
+        end
       }
 
       it { RecentActivity.user_public_activity(user).size.should be(5) }
