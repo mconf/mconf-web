@@ -10,6 +10,8 @@ FactoryGirl.define do
     m.association :room, :factory => :bigbluebutton_room
     m.running false
     m.recorded false
+    m.sequence(:creator_id) { |n| n }
+    m.sequence(:creator_name) { |n| Forgery::Name.unique_full_name(n) }
     m.start_time { DateTime.now }
   end
 end

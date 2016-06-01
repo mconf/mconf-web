@@ -69,11 +69,17 @@ Rails.application.config.to_prepare do
   BigbluebuttonMeeting.instance_eval do
     include PublicActivity::Model
 
-    tracked only:[:create], owner: :room,
+    tracked only: [:create], owner: :room,
       recipient: -> (ctrl, model) { model.room.owner },
       params: {
-        creator_id: -> (ctrl, model) { ctrl.current_user.try(:id) },
-        creator_username: -> (ctrl, model) { ctrl.current_user.try(:name) }
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+        creator_username: -> (ctrl, model) {
+          id = model.try(:creator_id)
+          user = User.find_by(id: id)
+          user.try(:username)
+        }
       }
   end
 

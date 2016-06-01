@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe SpaceNeedsApprovalSenderWorker do
+describe SpaceNeedsApprovalSenderWorker, type: :worker do
   let(:worker) { SpaceNeedsApprovalSenderWorker }
 
   before {

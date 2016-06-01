@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe UserRegisteredSenderWorker do
+describe UserRegisteredSenderWorker, type: :worker do
   let(:worker) { UserRegisteredSenderWorker }
 
   it "uses the queue :user_notifications" do

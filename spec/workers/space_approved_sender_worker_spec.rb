@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe SpaceApprovedSenderWorker do
+describe SpaceApprovedSenderWorker, type: :worker do
   let(:approver) { FactoryGirl.create(:user) }
   let(:worker) { SpaceApprovedSenderWorker }
 
