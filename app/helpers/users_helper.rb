@@ -8,7 +8,7 @@ require 'version'
 
 module UsersHelper
 
-  def user_category user
+  def user_category(user)
     if user.disabled
       content_tag :div, class: 'label label-flat' do
         concat t('_other.user.disabled')

@@ -93,4 +93,16 @@ module SpacesHelper
       options.update({ :class => "#{old_class} active" }) :
       options
   end
+
+  def space_visibility(space)
+    if space.public
+      content_tag :div, class: 'label label-success' do
+        concat icon_space_public + t('_other.space.public')
+      end
+    else
+      content_tag :div, class: 'label label-danger' do
+        concat icon_space_private + t('_other.space.private')
+      end
+    end
+  end
 end

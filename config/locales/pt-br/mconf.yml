@@ -94,6 +94,10 @@ pt-br:
     not_approved:
       tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
       text: 'Aguardando aprovação'
+    space:
+      disabled: "Desabilitado"
+      private: "Privado"
+      public: "Público"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
@@ -913,17 +917,12 @@ pt-br:
       aspect_ratio: Relação de aspecto fixa
   logout: Sair
   manage:
-    disabled_space:
-      enable: "Habilitar comunidade"
-      enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
-    enabled_space:
-      approve: "Aprovar: permitir o acesso a esta comunidade"
-      approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
-      disable: "Desabilitar comundiade"
-      disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
-      disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
-      disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
-      edit: "Editar comunidade"
+    destroy_space:
+      destroy: Remover comunidade
+      destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
+    destroy_user:
+      destroy: Remover usuário
+      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     menu:
       general: "Geral"
       resque: "Resque"
@@ -931,9 +930,23 @@ pt-br:
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Webconferência"
+    space_item:
+      approve: "Aprovar: permitir o acesso a esta comunidade"
+      approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
+      disable: "Desabilitar comundiade"
+      disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
+      edit: "Editar comunidade"
+      enable: "Habilitar comunidade"
+      enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     spaces:
       filter_name: "Filtrar comunidades por nome"
       new_space: "Nova comunidade"
+    spaces_list:
+      filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} comunidades encontradas"
+      no_space_found: "Nenhuma comunidade encontrada"
     user_item:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
@@ -946,16 +959,6 @@ pt-br:
       edit: "Editar usuário"
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
-    destroy_space:
-      destroy: Remover comunidade
-      destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
-    destroy_user:
-      destroy: Remover usuário
-      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
-    spaces_list:
-      filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
-      filter_count_empty: "%{count} comunidades encontradas"
-      no_space_found: "Nenhuma comunidade encontrada"
     users:
       filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
@@ -967,7 +970,6 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

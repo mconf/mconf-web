@@ -1,0 +1,32 @@
+- cls = space.disabled? ? "list-item-disabled" : ""
+.list-item{ id: "space-#{space.permalink}", class: cls }
+  .col-xs-12.col-sm-1
+    .list-item-logo
+      = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :class => "logo logo-space"))
+
+  .col-xs-12.col-sm-8
+    .list-text-title
+      = link_to space_path(space), :class => 'space-name' do
+        = highlight(escape_once(space.name), escape_once(params[:q]))
+    .list-text-description
+      = sanitize(first_words(space.description, 200))
+    - if current_site.require_space_approval? && !space.approved?
+      .list-text-description
+        .resource-waiting-moderation-tooltip
+          = icon_waiting_moderation
+          = t("_other.not_approved.text")
+
+  .col-xs-12.col-sm-1.space-category
+    = space_visibility(space)
+
+  .col-xs-12.col-sm-2.management-links.list-actions
+    %ul
+      = link_to (edit_space_path(space)) do
+        = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+
+      - if current_site.require_space_approval?
+        = approval_links :space, space
+
+      = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+        = icon_disable(:alt => t('.disable'), :title => t('.disable'))
+      = render 'manage/destroy_space', :space => space

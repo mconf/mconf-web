@@ -10,43 +10,16 @@ body.manage.spaces {
 
   .page-tools-menu {
     padding-bottom: 5px;
-    @include make-row;
+    margin-bottom: 15px;
 
     .search-words {
-      @include make-xs-column(12);
-    }
-  }
-
-  #filter-total {
-    text-align: center;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    background: $m-light-gray;
-    padding: 3px 10px;
-  }
-
-  .space-disabled {
-    color: #888;
-    background: $m-very-light-gray;
-
-    .logo-in-thread {
-      opacity: 0.5;
-    }
-  }
-
-  .management-links {
-    float: right;
-    padding-top: 8px;
-  }
-
-  .thread {
-    .space-name, .space-description {
-      display: block;
+      @include make-row;
+      input { @include make-xs-column(12); }
     }
 
-    .space-description {
-      margin-left: 60px;
+    .search-filters {
+      margin-top: 10px;
+      @include make-row;
     }
   }
-
 }

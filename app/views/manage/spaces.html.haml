@@ -1,12 +1,13 @@
 = render :partial => 'menu'
 
 #manage
-  - if can?(:create, Space)
-    = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-sm btn-new-space'
 
-  .page-tools-menu
+  .page-tools-menu.container-fluid
     .search-words
       = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'form-control resource-filter'
+    - if can?(:create, Space)
+      .search-filters
+        = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-new-space'
 
   #space-list
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
