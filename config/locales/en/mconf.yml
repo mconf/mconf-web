@@ -895,11 +895,6 @@ en:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Switch language"
-    spaces_page_title:
-      is_member: "You are a member of this space"
-      manage_to_approve: "manage"
-      private: "Private space"
-      public: "Public space"
   less: "less..."
   locales:
     error: "Locale not registered"

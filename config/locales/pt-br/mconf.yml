@@ -893,11 +893,6 @@ pt-br:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Mudar a linguagem"
-    spaces_page_title:
-      is_member: "Você é membro desta comunidade"
-      manage_to_approve: "gerenciar"
-      private: "Comunidade privada"
-      public: "Comunidade pública"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"

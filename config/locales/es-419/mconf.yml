@@ -813,10 +813,6 @@ es-419:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Cambiar idioma"
-    spaces_page_title:
-      is_member: "Eres miembro de este espacio"
-      private: "Espacio privado"
-      public: "Espacio público"
   less: "menos..."
   locales:
     error: "No se registro la localidad"
