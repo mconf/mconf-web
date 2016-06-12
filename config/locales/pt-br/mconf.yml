@@ -1016,7 +1016,7 @@ pt-br:
         title: "Minhas comunidades"
         view_all: "Ver todas comunidades"
     webconference_room:
-      end: "Parar a reunião"
+      end: "Parar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       invite: "Convidar outras pessoas"
       join: "Entrar na reunião!"
@@ -1279,6 +1279,16 @@ pt-br:
       view_recording_list: "Ver lista de gravações"
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
+    webconference_join:
+      end: "Parar"
+      end_tooltip: "Esta ação encerra a reunião atual e remove todos os usuários da sala"
+      invite: "Convidar outras pessoas"
+      join: "Entrar na reunião"
+      join_mobile_full: "Entrar de um dispositivo móvel"
+      preferences: "Preferências"
+      recordings: "Ver gravações"
+      start: "Iniciar uma reunião"
+      your_url: "Seu endereço"
   shibboleth:
     associate:
       existent_account:

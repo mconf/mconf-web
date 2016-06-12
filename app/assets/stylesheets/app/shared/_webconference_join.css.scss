@@ -27,10 +27,31 @@
     background: $m-light-gray;
     @include border-radius($m-border-radius-base);
     border: 1px solid darken($m-light-gray, 7);
+    position: relative;
+
+    .webconference-label {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 2px;
+      text-align: center;
+
+      span {
+        background: lighten($m-green, 50);
+        @include border-radius(0 0 4px 4px);
+        padding: 3px 10px;
+        border: 1px solid $m-green;
+      }
+
+      i {
+        //color: #fff;
+        margin-right: 5px;
+      }
+    }
 
     .webconference-status {
       @include make-xs-column(12);
-      @include make-sm-column(9);
+      @include make-sm-column(6);
       text-align: right;
 
       span {
@@ -41,7 +62,7 @@
 
     .webconference-buttons {
       @include make-xs-column(12);
-      @include make-sm-column(3);
+      @include make-sm-column(6);
       text-align: left;
       padding: 0 0 0 5px;
 

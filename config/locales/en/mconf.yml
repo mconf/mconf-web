@@ -1266,19 +1266,13 @@ en:
       view_room_list: "View room list"
       view_server_list: "View server list"
     webconference_join:
-      end: "Stop the meeting"
-      end_tooltip: "This action will end the current conference!"
+      end: "Stop"
+      end_tooltip: "This action will end the current meeting and kick all users from it"
       invite: "Invite other people"
-      join: "Join the meeting!"
+      join: "Join the meeting"
       join_mobile_full: "Join from a mobile device"
-      not_running: "Your webconference is not in progress."
       preferences: "Preferences"
       recordings: "View recordings"
-      running_with:
-        no_participants: "Your webconference is in progress with no participants."
-        participants:
-          one: "Your webconference is in progress with %{count} participant!"
-          other: "Your webconference is in progress with %{count} participants!"
       start: "Start a new meeting"
       your_url: "Your URL"
   shibboleth:
