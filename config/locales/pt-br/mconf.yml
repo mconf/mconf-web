@@ -1246,8 +1246,8 @@ pt-br:
       no_title: "<nenhum título especificado>"
       started_at: "A reunião aconteceu em"
       publish: Publicar
-      unpublish: Despublicar
-      destroy: Remover
+      unpublish: Remover
+      destroy: Remover do servidor
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"

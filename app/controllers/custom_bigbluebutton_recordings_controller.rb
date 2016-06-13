@@ -53,4 +53,5 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
       [ :description ]
     end
   end
+
 end

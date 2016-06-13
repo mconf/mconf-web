@@ -1240,8 +1240,8 @@ en:
       no_title: "<no title specified>"
       started_at: "The meeting happened at"
       publish: Publish
-      unpublish: Unpublish
-      destroy: Remove
+      unpublish: Remove
+      destroy: Remove from server
     recording_playback:
       duration: "duration"
       playback: "Playback links"
