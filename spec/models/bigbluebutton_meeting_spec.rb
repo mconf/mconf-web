@@ -28,7 +28,7 @@ describe BigbluebuttonMeeting do
       before(:each) {
         expect {
           PublicActivity.with_tracking do
-            params = { room: room, meetingid: room.meetingid, start_time: DateTime.now,
+            params = { room: room, meetingid: room.meetingid, create_time: DateTime.now,
                        creator_id: user.id, creator_name: user.full_name }
             @meeting = BigbluebuttonMeeting.create(params)
           end

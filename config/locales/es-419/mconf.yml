@@ -509,7 +509,7 @@ es-419:
     show:
       available_layouts: "Capas disponibles"
       configurations: "Configuraciones de servidor"
-      configurations_tip: "Estas configuraciones son traidas automáticamente desde el servidor y no pueden ser modificadas. Son traidas periodicamente (cada 3 horas) en segundo plano o cuando la URL, salt o la versión del servidor cambie."
+      configurations_tip: "Estas configuraciones son traidas automáticamente desde el servidor y no pueden ser modificadas. Son traidas periodicamente (cada 3 horas) en segundo plano o cuando la URL, secreto o la versión del servidor cambie."
       fetch_recordings_title: "Obtener grabaciones con parámetros"
       fetch_recordings_btn: "Obtener grabaciones"
       publish_recordings_title: "Publicar grabaciones"

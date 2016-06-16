@@ -45,8 +45,7 @@ default:
   webconf_server:
     name: "Default Server"
     url: "http://my-development-server/bigbluebutton/api"
-    salt: "my-secret-salt"
-    version: "0.8"
+    secret: "my-secret-salt"
 
 #
 # Specific configurations for each environment. Optional.

@@ -56,7 +56,7 @@ pt-br:
       bigbluebutton_server:
         name: Nome
         param: Identificador
-        salt: "Chave de segurança"
+        secret: "Chave de segurança"
         url: URL
         version: Versão
       bigbluebutton_server_config:

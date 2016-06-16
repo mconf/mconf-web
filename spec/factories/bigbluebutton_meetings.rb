@@ -7,11 +7,13 @@
 FactoryGirl.define do
   factory :bigbluebutton_meeting do |m|
     m.sequence(:meetingid) { |n| "meeting-#{n}-" + SecureRandom.hex(4) }
+    m.association :server, :factory => :bigbluebutton_server
     m.association :room, :factory => :bigbluebutton_room
-    m.running false
+    m.sequence(:name) { |n| "Name#{n}" }
     m.recorded false
-    m.sequence(:creator_id) { |n| n }
-    m.sequence(:creator_name) { |n| Forgery::Name.unique_full_name(n) }
-    m.start_time { DateTime.now }
+    m.running false
+    m.ended false
+    m.start_time { Time.at(Time.now.to_i + rand(999999)) }
+    m.create_time { Time.now.to_i + rand(999999) }
   end
 end

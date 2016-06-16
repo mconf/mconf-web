@@ -1,18 +1,18 @@
 GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: bd3da291b885e230e1cfc4dc2c705a75ec46befa
+  revision: 02b317c1a65ab3cbd9c0dbe38874e403936ff5c4
   branch: master
   specs:
-    bigbluebutton-api-ruby (1.5.0)
+    bigbluebutton-api-ruby (1.6.0)
       xml-simple (~> 1.1)
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: ca0406edb3f38add1c469d560c8ffe3e01441d39
+  revision: 2490e243d955b68da7ab5ec04e5d2e660f40e83f
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
-      bigbluebutton-api-ruby (~> 1.4)
+      bigbluebutton-api-ruby (~> 1.6)
       browser (~> 0.8.0)
       rails (>= 4.0.0)
       resque (~> 1.25.1)
@@ -620,3 +620,6 @@ DEPENDENCIES
   yui-compressor
   zip-zip
   zonebie
+
+BUNDLED WITH
+   1.11.2
