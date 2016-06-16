@@ -1,4 +1,4 @@
-class BigbluebuttonRailsTo210 < ActiveRecord::Migration
+class BigbluebuttonRailsTo210A < ActiveRecord::Migration
   def self.up
     add_column :bigbluebutton_meetings, :server_url, :string
     add_column :bigbluebutton_meetings, :server_secret, :string
