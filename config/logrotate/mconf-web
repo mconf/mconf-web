@@ -7,4 +7,5 @@
   compress
   copytruncate
   notifempty
+  su mconf www-data
 }
