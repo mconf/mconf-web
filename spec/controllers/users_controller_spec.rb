@@ -554,6 +554,35 @@ describe UsersController do
       it { user.receive_digest.should eql(old_val) }
       it { should redirect_to login_path }
     end
+
+    context "create recent activity after admin updated approved=true" do
+      let!(:admin) { FactoryGirl.create(:superuser) }
+      let!(:user) { FactoryGirl.create(:user, approved: false) }
+
+      before(:each) do
+        PublicActivity.with_tracking do
+          Site.current.update_attributes(require_registration_approval: true)
+
+          sign_in admin
+
+          expect {
+            put :update, id: user.to_param, user: { approved: true }
+          }.to change{ PublicActivity::Activity.count }.by(1)
+          user.reload
+        end
+      end
+
+      subject { RecentActivity.where(key: 'user.approved').last }
+      it { response.status.should == 302 }
+      it { response.should redirect_to edit_user_path(user) }
+      it { user.approved.should be(true) }
+
+      it { subject.should_not be_nil }
+      it { subject.owner.should eql admin }
+      it { subject.trackable.should eql user}
+      it { subject.notified.should be_falsey }
+    end
+
   end
 
   describe "#destroy" do
