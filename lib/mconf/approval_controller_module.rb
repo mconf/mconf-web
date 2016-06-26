@@ -2,7 +2,7 @@ module Mconf
   module ApprovalControllerModule
 
     def self.included base
-      base.after_filter :create_approval_notification, only:[:approve, :update], if: :require_approval?
+      base.after_filter :create_approval_notification, only: [:approve, :update], if: :require_approval?
     end
 
     def approve

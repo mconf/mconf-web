@@ -560,14 +560,16 @@ describe UsersController do
       let!(:user) { FactoryGirl.create(:user, approved: false) }
 
       before(:each) do
-        Site.current.update_attributes(require_registration_approval: true)
+        PublicActivity.with_tracking do
+          Site.current.update_attributes(require_registration_approval: true)
 
-        sign_in admin
+          sign_in admin
 
-        expect {
-          put :update, id: user.to_param, user: { approved: true }
-        }.to change{ PublicActivity::Activity.count }.by(1)
-        user.reload
+          expect {
+            put :update, id: user.to_param, user: { approved: true }
+          }.to change{ PublicActivity::Activity.count }.by(1)
+          user.reload
+        end
       end
 
       subject { RecentActivity.where(key: 'user.approved').last }
