@@ -13,7 +13,7 @@ class ProcessedJoinRequestSenderWorker < BaseWorker
   # Marks the activity as notified.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    join_request = activity.owner
+    join_request = activity.trackable
 
     return if activity.notified
 

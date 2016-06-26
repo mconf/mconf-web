@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe ParticipantConfirmationsSenderWorker do
+describe ParticipantConfirmationsSenderWorker, type: :worker do
   let(:worker) { ParticipantConfirmationsSenderWorker }
 
   it "uses the queue :participant_confirmations" do

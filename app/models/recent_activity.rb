@@ -18,7 +18,8 @@
 # of how it looks like most of the time:
 #
 # * (trackable_id, trackable_type) trackable: The model to which the activity pertrains
-# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity.
+# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Used when models have a belongs_to or has_(one,many)
+#   relation and should be understood in context of their parent model. For example spaces and posts, spaces and attachments, etc...
 # * (recipient_id, recipient_type) recipient: Tipically used for user responsible for the activity and who should see it in his activity stream
 # * key: A string indicating the trackable model plus the action which happened (e.g. "space.join").
 # * notified: A boolean informing whether the activity has already been notified to the user (usually this is done by a worker in background).
@@ -64,6 +65,14 @@
 #   An event was updated.
 #   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
+# * `join_request.accept`:
+#   Somebody accepted an invitation to join a space.
+#   Created by `JoinRequests` controller.
+#
+# * `join_request.decline`:
+#   Somebody declined an invitation to join a space.
+#   Created by `JoinRequests` controller.
+#
 # * `join_request.invite`:
 #   Somebody sent a invitation to someone join a space.
 #   Created by `JoinRequest`.
@@ -96,17 +105,9 @@
 #   When a `User` was created for someone that signed in via Shibboleth.
 #   Created by: `Mconf::Shibboleth`.
 #
-# * `space.accept`:
-#   Somebody accepted an invitation to join a space.
-#   Created by `JoinRequestsController`.
-#
 # * `space.create`:
 #   A space was created.
 #   Created by `SpacesController`.
-#
-# * `space.decline`:
-#   Somebody declined an invitation to join a space.
-#   Created by `JoinRequestsController`.
 #
 # * `space.leave`:
 #   Somebody left a space.
@@ -137,35 +138,31 @@ class RecentActivity < PublicActivity::Activity
   # * +user+ - the user which activities will be returned
   # * +reject_keys+ - an array of keys to reject when querying. Keys are the strings that identify
   #   the recent activity, e.g. "space.leave".
-  # * +in_spaces+ - limit the returned activity to spaces present in this array of spaces. If `nil`
+  # * +in_space_ids+ - limit the returned activity to spaces present in this array of spaces. If `nil`
   #   will not limit. If empty, will limit everything.
-  def self.user_activity(user, reject_keys=[], in_spaces=nil)
-    user_room = user.bigbluebutton_room
-    spaces = user.spaces
+  def self.user_activity(user, reject_keys=[], in_space_ids=nil)
+    user_room_id = user.bigbluebutton_room.id
+    space_ids = user.space_ids
 
-    # if there's an array in 'in_space', limit the activity to these spaces plus
+    # if there's an array in 'in_space_ids', limit the activity to these spaces plus
     # any other public space
     # we filter public spaces here by default and not outside to improve performance
-    unless in_spaces.nil?
-      spaces = spaces.where("spaces.id IN (?) OR spaces.public = ?", in_spaces.map(&:id), true)
+    unless in_space_ids.nil?
+      space_ids = Space.where('id IN (?) OR public = ?', in_space_ids, true).ids
     end
 
-    space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
+    space_room_ids = BigbluebuttonRoom.where(owner_type: 'Space', owner_id: space_ids).ids
 
     # some types of activities we ignore by default
     reject_keys += ["user.created", "shibboleth.user.created", "ldap.user.created", "user.approved"]
 
     t = RecentActivity.arel_table
-    in_spaces = t[:owner_id].in(spaces.pluck(:id)).and(t[:owner_type].eq('Space'))
-    in_spaces_as_trackable = t[:trackable_id].in(spaces.pluck(:id)).and(t[:trackable_type].eq('Space'))
-    in_room = t[:owner_id].in(user_room.id).and(t[:owner_type].eq('BigbluebuttonRoom'))
-    in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
+    in_spaces = t[:owner_id].in(space_ids).and(t[:owner_type].eq('Space'))
+    in_spaces_as_trackable = t[:trackable_id].in(space_ids).and(t[:trackable_type].eq('Space'))
+    in_rooms = t[:owner_id].in(space_room_ids + [user_room_id]).and(t[:owner_type].eq('BigbluebuttonRoom'))
 
-    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_room).or(in_space_rooms))
-    for key in reject_keys
-      activities = activities.where("activities.key != ?", key)
-    end
-    activities
+    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_rooms))
+    activities.where.not(key: reject_keys)
   end
 
   # All activities that are public and should be visible for a user

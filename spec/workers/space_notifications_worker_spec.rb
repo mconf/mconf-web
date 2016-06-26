@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe SpaceNotificationsWorker do
+describe SpaceNotificationsWorker, type: :worker do
   let(:worker) { SpaceNotificationsWorker }
 
   it "uses the queue :space_notifications" do

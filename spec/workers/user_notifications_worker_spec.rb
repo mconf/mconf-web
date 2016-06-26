@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe UserNotificationsWorker do
+describe UserNotificationsWorker, type: :worker do
   let(:worker) { UserNotificationsWorker }
 
   it "uses the queue :user_notifications" do

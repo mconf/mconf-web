@@ -261,9 +261,9 @@ class User < ActiveRecord::Base
   after_create :new_activity_user_created
   def new_activity_user_created
     if created_by.present?
-      create_activity 'created_by_admin', owner: created_by, notified: false
+      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
     else
-      create_activity 'created', owner: self, notified: !require_approval?
+      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
     end
   end
 

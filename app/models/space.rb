@@ -215,24 +215,21 @@ class Space < ActiveRecord::Base
   end
 
   # Creates a new activity related to this space
-  def new_activity(key, user, join_request = nil)
-    if join_request
-      create_activity key, owner: join_request, recipient: user, parameters: { :username => user.name }
-    else
-      params = { username: user.name }
-      # Treat update_logo and update as the same key
-      key = 'update' if key == 'update_logo'
+  def new_activity(key, user)
+    params = { username: user.name, trackable_name: name }
 
-      if key.to_s == 'update'
-        # Don't create activity if the model was updated and nothing changed
-        attr_changed = previous_changes.except('updated_at').keys
-        return unless attr_changed.present?
+    # Treat update_logo and update as the same key
+    key = 'update' if key == 'update_logo'
 
-        params.merge!(changed_attributes: attr_changed)
-      end
+    if key.to_s == 'update'
+      # Don't create activity if the model was updated and nothing changed
+      attr_changed = previous_changes.except('updated_at').keys
+      return unless attr_changed.present?
 
-      create_activity key, owner: self, recipient: user, parameters: params
+      params.merge!(changed_attributes: attr_changed)
     end
+
+    create_activity key, owner: self, recipient: user, parameters: params
   end
 
   def self.with_disabled

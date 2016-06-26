@@ -7,11 +7,12 @@
 
 class Attachment < ActiveRecord::Base
   include PublicActivity::Model
-  tracked only: [:create],
-    owner: :space, recipient: :author,
+
+  tracked owner: :space,
+    recipient: -> (ctrl, model) { model.try(:author) },
     params: {
-      filename: -> (c,m) { m.attachment.filename },
-      username: -> (c,m) { m.author.name }
+      username: -> (ctrl, model) { model.try(:author).try(:name) },
+      trackable_name: -> (ctrl, model) { model.title }
     }
 
   belongs_to :space

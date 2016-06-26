@@ -52,4 +52,31 @@ feature 'Show user activity' do
     end
   end
 
+  # context "activities with deleted trackable" do
+  #   let(:user) { FactoryGirl.create(:user) }
+
+  #   [:attachment, :bigbluebutton_meeting, :event, :join_request, :participant, :post, :space].each do |model|
+  #     context "Recent activity for a deleted #{model} trackable" do
+  #       let(:target) { FactoryGirl.create(model) }
+  #       let(:activity) { RecentActivity.create(trackable: model, recipient: user, key: "#{model.class_name}.create") }
+
+  #       it { page.should have_content() }
+  #       it { page.should have_content() }
+  #     end
+  #   end
+  # end
+
+  context "activities with deleted recipient" do
+    # attachment bigbluebutton_meeting event join_request participant post  space
+
+  end
+
+  context "activities with deleted owners" do
+    # attachment bigbluebutton_meeting event join_request participant post  space
+
+    # No spaces?
+
+  end
+
+
 end

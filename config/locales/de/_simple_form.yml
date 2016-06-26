@@ -5,8 +5,6 @@ de:
     required:
       text: 'benötigt'
       mark: '*'
-    error_notification:
-      default_message: "Es wurden Fehler gefunden, bitte sehen Sie sich das an:"
     buttons:
       cancel: "Abbrechen"
       or: "oder"
@@ -87,6 +85,17 @@ de:
         superuser: "Markieren Sie diese Option, um diesen Benutzer zu einem globalen Administrator der Website zu machen"
         timezone: "Die gewählte Zeitzone wird für alle Zeitangaben auf der Website benutzt werden. Zeitzonen mit einem Asterisk (*) sind derzeit in der Sommerzeit."
         username: "Diese ID wird verwendet, um Ihren Benutzer und Ihren Webkonferenzraum zu identifizieren. Erlaubt sind Buchtstaben, Zahlen und Bindestriche."
+      event:
+        time_zone: Wählen Sie eine Zeitzone für diesen Event
+        location: 'Allgemeine Beschreibung für den Ort des Events. Beispiel: "Universität XY".'
+        address: Die vollständige Adresse, an der das Event stattfinden wird. Wenn Sie eine gültige Adresse eingeben, wird auf der Veranstaltungsseite eine Karte erstellt und der Veranstaltungsort darauf markiert.
+        social_networks: Welche Teilen-Buttons für soziale Netzwerke sollten auf der Veranstaltungsseite sichtbar sein?
+        summary: Geben Sie eine Zusammenfassung der Veranstaltung in höchstens 140 Zeichen ein.
+        description: Geben Sie hier die Veranstaltungsbeschreibung ein. Sie können Markdown zur Gestaltung des Texts benutzen.
+        start_on: Datum und Zeit für den Veranstaltungsbeginn.
+        end_on: Datum und Zeit für das Ende der Veranstaltung. Die Eingabe ist nicht zwingend, aber wenn Sie nichts eingeben, wird die Veranstaltung 24 Stunden nach Beginn enden.
+    error_notification:
+      default_message: "Bitte überprüfen Sie die folgenden Probleme:"
     placeholders:
       invite:
         ends_on: "Endet am..."

@@ -56,7 +56,7 @@ en:
       bigbluebutton_server:
         name: Name
         param: "String ID"
-        salt: "Security Salt"
+        secret: "Shared Secret"
         url: URL
         version: Version
       bigbluebutton_server_config:

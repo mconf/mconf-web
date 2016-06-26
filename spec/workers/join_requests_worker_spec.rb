@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe JoinRequestsWorker do
+describe JoinRequestsWorker, type: :worker do
   let(:worker) { JoinRequestsWorker }
   let(:space) { FactoryGirl.create(:space) }
 
@@ -69,9 +69,9 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:accept, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:accept, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:accept, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:accept)
+          @activity2 = join_request2.new_activity(:accept)
+          @activity3 = join_request3.new_activity(:accept)
           @activity1.update_attribute(:notified, false)
           @activity2.update_attribute(:notified, nil)
           @activity3.update_attribute(:notified, true)
@@ -95,9 +95,9 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:decline)
+          @activity2 = join_request2.new_activity(:decline)
+          @activity3 = join_request3.new_activity(:decline)
         }
 
         before(:each) { worker.perform }
@@ -105,25 +105,28 @@ describe JoinRequestsWorker do
         it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
       end
 
-      context "ignores requests that are not owned by join requests" do
-        let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        before {
-          # clear automatically created activities
-          RecentActivity.destroy_all
+      #
+      # Trackables on RecentActivities accept/decline are now join_requests and this is
+      # unecessary
+      # context "ignores requests that are not owned by join requests" do
+      #   let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   before {
+      #     # clear automatically created activities
+      #     RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity1.update_attributes(owner: space)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity2.update_attributes(owner: space)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
-        }
+      #     @activity1 = join_request1.new_activity(:decline)
+      #     @activity1.update_attributes(owner: space)
+      #     @activity2 = join_request2.new_activity(:decline)
+      #     @activity2.update_attributes(owner: space)
+      #     @activity3 = join_request3.new_activity(:decline)
+      #   }
 
-        before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
-      end
+      #   before(:each) { worker.perform }
+      #   it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
+      #   it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
+      # end
 
       context "warns introducer about declined invitations" do
         let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, :request_type => 'invite') }
@@ -136,9 +139,9 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:decline)
+          @activity2 = join_request2.new_activity(:decline)
+          @activity3 = join_request3.new_activity(:decline)
         }
 
         before(:each) { worker.perform }
