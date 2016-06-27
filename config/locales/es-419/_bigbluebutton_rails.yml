@@ -53,7 +53,7 @@ es-419:
       bigbluebutton_server:
         name: Nombre
         param: "ID de texto"
-        salt: "Clave de seguirdad"
+        secret: "Clave de seguirdad"
         url: URL
         version: Versión
       bigbluebutton_server_config:

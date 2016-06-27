@@ -22,7 +22,7 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
     end
 
     scope.where(key: ['event.create', 'event.update']).find_each do |act|
-      user = User.find(act.parameters[:user_id]) if act.parameters[:user_id].present?
+      user = User.find_by(id: act.parameters[:user_id]) if act.parameters[:user_id].present?
 
       if user.present?
         act.update_attributes(recipient: user)

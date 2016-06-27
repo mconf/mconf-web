@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe InvitationSenderWorker do
+describe InvitationSenderWorker, type: :worker do
   let(:worker) { InvitationSenderWorker }
 
   it "uses the queue :join_requests" do

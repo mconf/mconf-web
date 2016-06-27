@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe ProcessedJoinRequestSenderWorker do
+describe ProcessedJoinRequestSenderWorker, type: :worker do
   let(:worker) { ProcessedJoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
   let(:admin) { FactoryGirl.create(:user) }
