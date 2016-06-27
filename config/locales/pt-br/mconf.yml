@@ -1248,8 +1248,8 @@ pt-br:
       no_title: "<nenhum título especificado>"
       started_at: "A reunião aconteceu em"
       publish: Publicar
-      unpublish: Remover
-      unpublish_confirm: "Você tem certeza que deseja remover esta gravação?"
+      unpublish: Ocultar
+      unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
       unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
     recording_playback:
       duration: "duração"

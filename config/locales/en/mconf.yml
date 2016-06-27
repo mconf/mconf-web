@@ -1242,7 +1242,7 @@ en:
       no_title: "<no title specified>"
       started_at: "The meeting happened at"
       publish: Publish
-      unpublish: Remove
+      unpublish: Unpublish
       unpublish_confirm: "Are you sure you want to remove this recording?"
       unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
     recording_playback:
