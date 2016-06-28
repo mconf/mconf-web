@@ -538,6 +538,7 @@ en:
     recording_links:
       direct_link: "Direct link"
       playback_links: "Playbacks available"
+      confirm_destroy: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
     recordings:
       table:
         links: "Links"
@@ -1233,11 +1234,17 @@ en:
     recording_list:
       created: "Created"
       created_by: "Created by"
+      destroy_confirm: "Are you sure you want to permanently remove this recording?"
       ended_at: "Ended at"
+      manage: "Manage"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
       started_at: "The meeting happened at"
+      publish: Publish
+      unpublish: Unpublish
+      unpublish_confirm: "Are you sure you want to remove this recording?"
+      unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
     recording_playback:
       duration: "duration"
       playback: "Playback links"
