@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 2490e243d955b68da7ab5ec04e5d2e660f40e83f
+  revision: 31972671b746a662b033becbc49d0399f4b7e9fd
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -620,6 +620,3 @@ DEPENDENCIES
   yui-compressor
   zip-zip
   zonebie
-
-BUNDLED WITH
-   1.11.2
