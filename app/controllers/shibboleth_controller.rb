@@ -23,6 +23,11 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
+
+    # to force a redirect back to where the user was
+    # needed because the app would block a redirect since the auth is in an external url
+    params["return_to"] = user_return_to
+
     unless @shib.has_basic_info
       logger.error "Shibboleth: couldn't find basic user information from session, " +
         "searching fields #{@shib.basic_info_fields.inspect} " +

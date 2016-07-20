@@ -85,7 +85,7 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     it { current_path.should eq(my_home_path) }
   end
 
-  context 'considers the protocols when comparing local host with the external host' do
+  context 'when the referer URL uses a different protocol' do
     before {
       Site.current.update_attributes(domain: "localhost", ssl: false) # HTTP
       page.driver.header 'Referer', "https://localhost" # HTTPS
@@ -98,7 +98,7 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     it { current_path.should eq(my_home_path) }
   end
 
-  context 'considers the ports when comparing local host with the external host' do
+  context 'when the referer URL uses a different port' do
     before {
       Site.current.update_attributes(domain: "localhost:3000") # HTTP
       page.driver.header 'Referer', "http://localhost:5000" # HTTPS
@@ -109,6 +109,63 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     }
 
     it { current_path.should eq(my_home_path) }
+  end
+
+  context 'when return_to is set' do
+    before {
+      # valid referer, to make sure it would redirect to the previous
+      # path if return_to wasn't set
+      Site.current.update_attributes(domain: "localhost:3000")
+      page.driver.header 'Referer', "http://localhost:3000"
+
+      sign_in_with @user.email, @user.password
+    }
+
+    context "to a valid path" do
+      before {
+        visit spaces_path
+        visit login_path(return_to: "/statistics")
+      }
+
+      it { current_path.should eq(show_statistics_path) }
+    end
+
+    context "to a path that is not redirectable" do
+      before {
+        visit spaces_path
+        visit login_path(return_to: "/secure/info")
+      }
+
+      it { current_path.should eq(spaces_path) }
+    end
+
+    context "to an external path" do
+      before {
+        visit spaces_path
+        visit login_path(return_to: "http://google.com")
+      }
+
+      it { current_path.should eq(spaces_path) }
+    end
+
+    context "to a full url" do
+      before {
+        visit spaces_path
+        visit login_path(return_to: "http://localhost:3000/statistics")
+      }
+
+      it { current_path.should eq(show_statistics_path) }
+    end
+
+    context "to a blank url" do
+      before {
+        visit spaces_path
+        visit login_path(return_to: "  ")
+      }
+
+      it { current_path.should eq(spaces_path) }
+    end
+
   end
 
 end

@@ -118,6 +118,18 @@ describe ShibbolethController do
       request.env.each { |key, value| key.should_not match(/shib-/i) }
     end
 
+    context "sets return_to in the params" do
+      before {
+        Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
+        Site.current.update_attributes(:shib_enabled => true)
+        request.env['Shib-Any'] = 'any'
+        session[:user_return_to] = "/spaces"
+      }
+      before(:each) { get :login }
+      it { controller.params["return_to"].should_not be_blank }
+      it { controller.params["return_to"].should eql("/spaces") }
+    end
+
     context "renders an error page if there's not enough information on the session" do
       before {
         Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
