@@ -52,7 +52,14 @@ Rails.application.config.to_prepare do
     end
 
     def invitation_url
-      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain)
+      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain_with_protocol)
+    end
+
+    def dynamic_metadata
+      {
+        "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: Site.current.domain_with_protocol),
+        "mconfweb-room-type" => self.try(:owner).try(:class).try(:name)
+      }
     end
   end
 

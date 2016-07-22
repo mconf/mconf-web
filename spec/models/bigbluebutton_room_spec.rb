@@ -20,6 +20,76 @@ describe BigbluebuttonRoom do
       it "false if it was another user that created the current meeting running in the room"
       it "true if the current meeting running in the room was created by the user informed"
     end
+
+    describe "#invitation_url" do
+      let(:target) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        Site.current.update_attributes(domain: "localhost:4000")
+      }
+
+      it { target.should respond_to(:invitation_url) }
+      it { target.invitation_url.should eql("http://#{Site.current.domain}/webconf/#{target.param}") }
+
+      context "works with HTTPS" do
+        before {
+          Site.current.update_attributes(ssl: true)
+        }
+
+        it { target.invitation_url.should eql("https://#{Site.current.domain}/webconf/#{target.param}") }
+      end
+    end
+
+    describe "#dynamic_metadata" do
+      let(:target) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        Site.current.update_attributes(domain: "localhost:4000")
+      }
+
+      it { target.should respond_to(:dynamic_metadata) }
+
+      context "for a user room" do
+        before {
+          target.update_attributes(owner: FactoryGirl.create(:user))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "http://#{Site.current.domain}/",
+            "mconfweb-room-type" => "User"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+
+      context "for a space room" do
+        before {
+          target.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "http://#{Site.current.domain}/",
+            "mconfweb-room-type" => "Space"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+
+      context "works with HTTPS" do
+        before {
+          Site.current.update_attributes(ssl: true)
+          target.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "https://#{Site.current.domain}/",
+            "mconfweb-room-type" => "Space"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+    end
   end
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
