@@ -1,12 +1,40 @@
 # Change Log
 
+## [2.2.0] - 2016-07-25
+
+Added support for BigBlueButton 1.0. A few other improvements over 2.1.0, but no
+major feature.
+
+Important: `BigbluebuttonServer#salt` was renamed to `BigbluebuttonServer#secret`.
+Might require changes in configuration files (see `setup_conf.yml`).
+
+* Prevent DatesHelper#format_date from breaking if `date` is `nil`.
+* Upgraded bigbluebutton_rails. Add two new metadata to create calls:
+  the domain configured on Mconf-Web and the type of the room being created ("User"
+  or "Space").
+* [#873] Fix redirects after signing in via Shibboleth. Redirects were are always
+  sending the user to `/home`.
+* Upgraded bigbluebutton_rails. Fixes setting recordings as unavailable. When loading
+  the recordings of a room, was setting all recordings from all other rooms as
+  unavailable.
+* Add "su" directive on logrotate's config.
+* Upgraded bigbluebutton_rails. Improves how BigbluebuttonMeeting objects are created
+  and ended. More reliable and works even if the resque workers are not running.
+* [#768] Fix redirects to valid pages when using HTTPS.
+* [#861] Fix how recent activities are created for meetings. Solves
+  "undefined method `current_user' for nil:NilClass".
+* [#823] Allow users to unpublish their recordings. They will be hidden from the user
+  but still available for admins.
+* Now accepts the version 1.0 for BigBlueButton.
+* [#844] Create a recent activity when approving a user from `/users/:id/edit`.
+
+
 ------------------------------------
 
 All tickets below use references to IDs in our old issue tracking system.
 To find them, search for their description or IDs in the new issue tracker.
 
 ------------------------------------
-
 
 ## [2.1.0] - 2016-04-06
 
@@ -249,6 +277,7 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
+[2.2.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.2.0
 [2.1.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.1.0
 [2.0.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.1
 [2.0.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.0
