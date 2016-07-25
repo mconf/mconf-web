@@ -1,3 +1,4 @@
+---
 de:
   activerecord:
     attributes:
@@ -55,7 +56,7 @@ de:
       bigbluebutton_server:
         name: Name
         param: "String ID"
-        secret: "Shared Secret"
+        secret: ""
         url: 'URL '
         version: Version
       bigbluebutton_server_config:

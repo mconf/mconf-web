@@ -1,21 +1,30 @@
+---
 de:
   activities:
     attachment:
       create_html: hat den Anhang %{name} in die Gruppe hochgeladen
       destroy_html: hat den Anhang %{name} von der Gruppe gelöscht
       update_html: hat den Anhang %{name} in der Gruppe aktualisiert
-      deleted: das mittlerweile gelöscht ist
+      deleted: ""
+      deleted_tooltip: ""
     bigbluebutton_meeting:
       deleted_html: "Ein Meeting hat stattgefunden aber seine Informationen sind mittlerweile gelöscht"
       user:
         create_html: "Ein Meeting wurde im Raum von Benutzer %{owner} um %{time} gestartet"
       space:
         create_html: "Ein Meeting wurde in der Gruppe %{owner} um %{time} gestartet"
+    event:
+      deleted_tooltip: ""
     join_request:
-      deleted: das mittlerweile gelöscht ist
+      accept_html: ''
+      decline_html: ''
+      deleted: ""
+      deleted_tooltip: ""
       invite_html: "wurde eingeladen um der Gruppe beizutreten"
-      invite_with_introducer_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> eingeladen, der Gruppe beizutreten"
-      no_accept_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> der Gruppe hinzugefügt"
+      invite_with_introducer_1_html: ""
+      invite_with_introducer_2_html: ""
+      no_accept_1_html: ""
+      no_accept_2_html: ""
       request_html: "hat beantragt, der Gruppe beitreten zu dürfen"
     other:
       admin_html: "Ein Administrator"
@@ -24,15 +33,19 @@ de:
       create_html: hat %{name} in der Gruppe gepostet
       update_html: hat %{name}  in der Gruppe aktualsiert
       reply_html: hat auf %{name} in der Gruppe geantwortet
-      deleted: eine Nachricht, die mittlerweile gelöscht wurde
+      deleted: ""
+      deleted_tooltip: ""
+    resource:
+      deleted_tooltip: ""
     space:
-      accept_html: ist der Gruppe beigetreten
       approved_html: hat die Gruppe freigeschalten
       create_html: hat eine neue Gruppe erstellt
-      decline_html: wurde die Einladung / Anfrage verweigert
-      deleted: eine Gruppe , die inzwischen gelöscht wurde
+      deleted: ""
+      deleted_tooltip: ""
       leave_html: hat die Gruppe verlassen
       update_html: hat die Information zur Gruppe aktualisiert
+    user:
+      deleted_tooltip: ""
   _js:
     confirmation_dialog:
       cancel: "Abbrechen"
@@ -216,6 +229,7 @@ de:
       event: "Event"
       join_request: "Betrittsanfrage"
       space: "Gruppe"
+
   flash:
     spaces:
       update:
@@ -225,17 +239,23 @@ de:
       enable:
         notice: "Gruppe erfolgreich aktiviert"
         failure: "Die Gruppe %{name} ist bereits aktiviert"
+
     posts:
       update:
         notice: "Nachricht aktualisiert!"
+        failure: ""
+
       create:
         notice: "Nachricht gesendet!"
+        failure: ""
+
     users:
       disable:
         notice: "Benutzer erfolgreich deaktiviert"
       enable:
         notice: "Benutzer erfolgreich aktiviert. Der Benutzer gehört zu keiner Gruppe und wird Gruppen erneut beitreten müssen."
         failure: "Benutzer %{name} ist bereits aktiviert"
+
   address: Adresse
   admin:
     one: Admin
@@ -254,7 +274,7 @@ de:
   all_rights_reserved: "Alle Rechte vorbehalten"
   any_field: "beliebiges Feld"
   are_you_sure: "Sind Sie sicher?"
-  attachment:
+  attachment: 
     add: "Anhang hinzufügen"
     created: "Anhang hinzugefügt"
     delete: "Anhang löschen"
@@ -265,10 +285,10 @@ de:
       not_permission: "%{user} kann %{file} nicht löschen. "
     file: "Datei:"
     filename: "%{size} Dateien von %{name}.zip"
-    home:
+    home: 
       one: "Dateien in der Gruppe %{space}"
     info: "Dokumenteninformationen"
-    more:
+    more: 
       one: "und ein weiterer Anhang"
       other: "und %{count} weitere Anhänge"
     new: "Neuer Anhang"
@@ -276,7 +296,7 @@ de:
     one: Anhang
     other: Anhänge
     repository_disabled: "Die Dokumentenablage dieser Gruppe ist nicht aktiviert."
-    selected:
+    selected: 
       none: "Keine Dateien ausgewählt"
       one: "Datei ausgewählt"
       other: "Dateien ausgewählt"
@@ -301,7 +321,7 @@ de:
       title: "eine neue Datei hochladen"
   attendeePW: "Teilnehmerpasswort"
   author: "Hochgeladen von"
-  avatar:
+  avatar: 
     created: "Bild erfolgreich hochgeladen"
     crop: "Bild zuschneiden"
     select: "Bild auswählen"
@@ -310,32 +330,32 @@ de:
   back: zurück
   back_to_inbox: "Zurück zum Posteingang"
   back_to_sent: "Zurück zu Gesendet"
-  bbb_room:
+  bbb_room: 
     attendeePW: "Teilnehmerpasswort"
     edit: "Konfigurieren Sie Ihren Webkonferenz-Raum"
     moderatorPW: "Moderatorpasswort"
     private: "Privater Raum"
   beta: beta
   bigbluebutton: BigBlueButton
-  bigbluebutton_rails:
+  bigbluebutton_rails: 
     activity_monitor: "Aktivitätenmonitor"
-    attendees:
+    attendees: 
       id: ID
       name: Name
       role: Rolle
     new_room: "Neuer Raum"
     new_server: "Neuer Server"
-    rooms:
-      external:
+    rooms: 
+      external: 
         header: "Dieses Meeting wurde durch eine andere Anwendung erstellt.<br/>Sie müssen einen Namen und ein Passwort eingeben, um teilzunehmen:"
-      index:
+      index: 
         back_to_server_list: "Zurück zur Serverliste"
         invite: Einladung
         new_room: "Neuer Raum"
       invite: Einladung
       join_mobile: "Join mobile"
-    servers:
-      activity:
+    servers: 
+      activity: 
         activity: Aktivität
         done: Erledigt!
         ended_at: "Beendet um: %{time} (Erzwungen: %{forcibly})"
@@ -349,13 +369,13 @@ de:
         seconds: Sekunden
         started_at: "Hat begonnen um: %{time}"
         title: "Serveraktivitätsmonitor"
-      index:
+      index: 
         access_links: "Zugangslinks"
     view_room_list: "Raumliste anzeigen"
     view_rooms: "Räume anzeigen"
     view_server_list: "Serverliste anzeigen"
   body: Body
-  button:
+  button: 
     accept: Annehmen
     cancel: Abbrechen
     confirm: Bestätigen
@@ -380,13 +400,13 @@ de:
     update: Aktualisieren
     upload: Hochladen
   by: von
-  cafe:
+  cafe: 
     login: "Einloggen über CAFe"
-  calendar:
+  calendar: 
     my: "Mein Kalender"
     one: Kalender
   cancel: Abbrechen
-  caption:
+  caption: 
     add: "Beschreibung hinzufügen"
   city: Stadt
   click_here_to_see_more: "Klicken Sie, um mehr zu sehen"
@@ -395,7 +415,7 @@ de:
   close: Schließen
   collapse: weniger
   collapse_arrows: "<< weniger"
-  comment:
+  comment: 
     add: "Einen Kommentar hinzufügen"
     add_new: "Einen neuen Kommentar hinzufügen"
     by: "Kommentar von %{author}"
@@ -413,7 +433,7 @@ de:
   create: Erstellen
   create_event: "Event erstellen"
   created_time_ago: "Erstellt vor %{time}"
-  crop_image:
+  crop_image: 
     description: "Wählen Sie einen Bereich auf dem Bildschirm für den Zuschnitt aus"
     title: "Bild zuschneiden"
   custom_bigbluebutton_playback_types:
@@ -487,7 +507,7 @@ de:
       download_android_tip: "Für Android-Geräte"
       download_ios_tip: "Für IOS-Geräte"
       not_launched: "Wenn die Anwendung nicht gestartet wurde, stellen Sie sicher, dass Sie den Android Client installiert haben. Sie können ihn hier bekommen: "
-      notice: "Sie werden zur Konferenz auf Ihrem Smartphone umgeleitet, bitte warten Sie."
+      notice : "Sie werden zur Konferenz auf Ihrem Smartphone umgeleitet, bitte warten Sie."
       title: "Smartphone-Zugang zu \"%{room}\""
       use_default_client: "Wenn Sie nicht von einem Smartphone aus arbeiten, klicken Sie hier, um über den Desktop-Client an der Sitzung teilzunehmen."
       try_again: "Sie haben die App installiert aber sie wurde nicht gestartet? Klicken Sie hier, um es erneut zu versuchen."
@@ -518,6 +538,7 @@ de:
     recording_links:
       direct_link: "Direktlink"
       playback_links: "Wiedergabe möglich"
+      confirm_destroy: ""
     recordings:
       table:
         links: "Links"
@@ -554,7 +575,7 @@ de:
     show:
       available_layouts: "Verfügbare Layouts"
       configurations: "Server Einstellungen"
-      configurations_tip: "Diese Einstellungen wurden automatisch vom Server abgerufen und können hier nicht geändert werden. Sie werden periodisch (etwa alle 3 Stunden) von einem Hintergrundprozess oder bei jeder Änderung einer URL, eines Salts oder einer Version abgerufen."
+      configurations_tip: ""
       fetch_recordings_title: "Aufzeichnungen mit Parametern abrufen"
       fetch_recordings_btn: "Aufzeichnungen abrufen"
       publish_recordings_title: "Aufzeichnungen veröffentlichen"
@@ -563,13 +584,13 @@ de:
       showing_server: "Zeige Server '%{server}'"
       unpublish_recordings_title: "Aufzeichnungen depublizieren"
       unpublish_recordings_btn: "Aufzeichnungen depublizieren"
-  date:
+  date: 
     at: um
     start: "Beginn"
     undefined: undefiniert
   days: Tage
   dblclick: "Doppelklicken zum bearbeiten"
-  delete:
+  delete: 
     confirm: "%{element} löschen?"
     invitation: "Einladung an %{user} löschen?"
     one: Löschen
@@ -583,6 +604,7 @@ de:
         not_approved: "Ihr Account wurde noch nicht von einem Administrator freigeschaltet."
     registrations:
       not_enabled: "Die Registrierung neuer Accounts ist auf dieser Website nicht aktiviert."
+      signed_up_but_not_approved: ""
     shared:
       links:
         login:
@@ -594,7 +616,7 @@ de:
         resend_confirmation_email: "Bestätigungsmail erneut senden"
     strategies:
       ldap_authenticatable:
-        create_failed: "Das Anlegen der internen Strukturen für Ihren LDAP-Account war nicht möglich. Bitte kontaktieren Sie einen Administrator."
+        create_failed: "Das Anlegen der internen Strukturen für Ihren LDAP-Account war nicht möglich. Bitte kontaktieren Sie einen Administrator." 
         invalid_bind: "Die Verbindung mit dem LDAP-Server war nicht möglich, überprüfen Sie die LDAP-Konfiguration in den Webiste-Einstellungen"
         ldap_not_enabled: "LDAP ist auf dieser Website nicht aktiviert"
         missing_username: "Der Benutzername des LDAP-Benutzers, abgerufen vom LDAP-Server, konnte nicht gefunden werden, bitte kontaktieren Sie einen Administrator"
@@ -606,21 +628,21 @@ de:
   edit: Bearbeiten
   edit_hours: "Stunden bearbeiten"
   edit_profile: "Profil bearbeiten"
-  email:
+  email: 
     account_activated: "Ihr Account bei %{sitename} wurde erfolgreich aktiviert."
     commas: "kommagetrennt"
     confirm: "Sie müssen jetzt ihre Registrierung mit einem Klick auf <a href=\"%{url}\"> %{url} </a> bestätigen"
-    digest:
+    digest: 
       attachment: "<b>%{author_name}</b> hat einen neuen Anhang in <b>%{space_name}</b> hochgeladen:"
       event: "<b>%{author_name}</b> hat einen neuen Event in <b>%{space_name}</b> erstellt:"
       inbox: "<b>%{sender_name}</b> hat Ihnen eine Nachricht geschickt:"
       message: "Letzte Aktivitäten in Ihren Gruppen:"
       posted: "<b>%{author_name}</b> hat in <b>%{space_name}</b> gepostet:"
       title: "%{type} Übersicht mit den Aktivitäten in Ihren Gruppen"
-      type:
+      type: 
         daily: täglich
         weekly: wöchentlich
-    invitation_result:
+    invitation_result: 
       admin_side: "%{name} hat die Einladung für die Gruppe %{spacename} %{action} "
       user_side: "Der Administrator von %{spacename} hat Ihren Beitrittswunsch %{action} "
     kind_regards: "Mit freundlichen Grüßen,"
@@ -632,16 +654,16 @@ de:
   enable: Aktivieren
   enabled: Aktiviert
   end: Ende
-  error:
+  error: 
     change: "Ungültiger Wechsel"
     credentials: "Ungültige Zugangsdaten"
-    e403:
+    e403: 
       description: "Die Seite, die Sie aufrufen wollen, ist verboten. Sie sind nicht zur Durchführung dieser Aktion berechtigt."
       title: "Verboten"
-    e404:
+    e404: 
       description: "Hoppla, die Seite \"%{url}\" existiert nicht."
       title: "Nicht gefunden"
-    e500:
+    e500: 
       description: "Es tut uns leid, aber etwas hat nicht funktioniert. Wir wurden darüber informiert und werden uns in Kürze der Sache annehmen."
       title: "Fehler"
     mistyped_or_moved: "Möglicherweise haben Sie sich bei der Adresseingabe vertippt oder die Seite wurde an einen anderen Ort verschoben."
@@ -650,7 +672,7 @@ de:
     other: Fehler
     vcc_warning: "Warnung:"
   fax: Fax
-  feedback:
+  feedback: 
     create:
       check_mail: "Bitte überprüfen Sie die Email-Adresse, die Sie im Feedbackformular angegeben haben, sie sieht fehlerhaft aus."
       fill_fields: "Bitte füllen Sie alle Felder des Kontaktformulars aus, um das Feedback zu senden."
@@ -660,11 +682,11 @@ de:
       title: "Feedback"
     send: "Feedback senden"
     send_us: "Geben Sie uns Feedback!"
-    webconf:
+    webconf: 
       stop_countdown: "Klicken Sie hier um nicht zu schließen, sondern auf der Seite zu bleiben."
       title: "Vielen Dank für die Teilnahme an dieser Konferenz!"
       warning: "Dieses Fenster wird in <span class='countdown'>%{seconds}</span> Sekunden automatisch geschlossen"
-  find:
+  find: 
     browse: Durchsuchen
   find_in: "Suchen in:"
   frontpage:
@@ -679,16 +701,16 @@ de:
         title: "Neuen Account anlegen"
   from: Von
   getting_started: "Loslegen!"
-  group:
+  group: 
     other: "Mailinglisten"
-  hcard:
+  hcard: 
     not_found: "hCard nicht gefunden"
-  header_global:
+  header_global: 
     welcome: "Willkommen, %{user}"
   hello: Hallo
   help: Hilfe
   his_message_reads_thus: "Seine Nachricht lautet also"
-  home:
+  home: 
     activity: "Letzte Aktivitäten"
     invite_url: "Einladungs-URL"
     my: "Home"
@@ -696,23 +718,23 @@ de:
     no_spaces: "Sie sind noch nicht Mitglied einer Gruppe. <a href=\"%{link}\">Hier</a> können Sie sehen, welche Gruppen verfügbar sind."
     one: Home
     view_invite_url: "Einladungs-URL anzeigen"
-  icons:
+  icons: 
     unread_message: "Ungelesene Nachricht!"
     unread_message_by_receiver: "Diese Nachricht wurde noch nicht vom Empfänger gelesen"
   im: IM
-  inbox:
+  inbox: 
     my: "Mein Posteingang (%{checked})"
     one: "Posteingang (%{checked})"
-    unread_text:
+    unread_text: 
       one: "Sie haben %{count} ungelesene Nachricht!"
       other: "Sie haben %{count} ungelesene Nachrichten!"
-  information:
+  information: 
     expand: "Liste erweitern..."
     information1: "Sie sind Mitglied in diesen Gruppen"
     information3: "Hier sehen Sie die letzten Nachrichten oder Events, die Sie erstellt haben"
     information5: "Hier sehen Sie die anstehenden Events in anderen Gruppen"
     reduce: "Liste reduzieren..."
-  internet:
+  internet: 
     on_the: "Im Internet"
     ppal: Internet
   invitation:
@@ -727,23 +749,23 @@ de:
     info_users: "Alle Benutzer der Gruppe ansehen: <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Einführung
     label: "Passen Sie hier Ihre Einladungsnachricht an"
-    legend:
+    legend: 
       URL: "'URL' wird in der Nachricht durch die URL der Einladung ersetzt."
       name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt."
     logout_and_reload: "Sie sind nicht der Benutzer, der die Einladung erhalten hatte. Bitte melden Sie sich ab und versuchen Sie es erneut."
-    message_with_start_date:
+    message_with_start_date: 
       in_person: "<p>Ich möchte Sie zu <b>'event_name' in der Gruppe %{space}</b> am/um 'event_date' einladen.</p><p>Um der Einldung zu folgen, besuchen Sie bitte %{url} </p><p>Sie können mehr über das Event unter <a href=\"event_url\">event_url</a> herausfinden</p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    message_without_start_date:
+    message_without_start_date: 
       in_person: "<p>Ich möchte Sie zu <b>event 'event_name' in der Gruppe %{space}</b>einladen.</p><p>Um der Einladung zu folgen, besuchen Sie bitte: %{url} </p><p>Hier können Sie mehr über das Event herausfinden: <a href=\"event_url\">event_url</a></p><p>Mit freundlichen Grüßen,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     not_accepted: "nicht angenommen"
-    not_pending:
+    not_pending: 
       other: "Keine offenen Einladungen"
-    pending:
+    pending: 
       other: "Offene Einladungen"
     rejoin_space: "Wenn Sie erneut die Mitgliedschaft in dieser Gruppe anfordern möchten, gehen Sie bitte zu <a href=\"%{space_url}\"> %{space_url} </a>"
     select_all_users: "Alle Benutzer auswählen"
     show_all_users: "Alle Benutzer anzeigen"
-    tab:
+    tab: 
       title1: "Unregistrierte Benutzer"
       title2: "Registrierte Benutzer"
     title: "Leute einladen"
@@ -752,7 +774,7 @@ de:
     to_event: "%{username} hat Sie zum Event %{eventname} in der Gruppe %{space} eingeladen"
     will_invite: "Sie werden diese Leute einladen"
     yes_accepted: akzeptiert
-  invite:
+  invite: 
     bad_format: "(schlechte Formatierung)"
     email: "Email an %{email}"
     title: "Einladung zur Teilnahme an einer Webkonferenz"
@@ -999,7 +1021,7 @@ de:
       start: "Neues Meeting starten"
       your_url: "Ihre URL"
   my_friends: "Meine Freunde"
-  name:
+  name: 
     one: Name
     other: Namen
   next: Weiter
@@ -1013,7 +1035,7 @@ de:
   organization: Firma
   organizer: Organisatoren
   other: Andere
-  password:
+  password: 
     confirm: "Passwort bestätigen"
     one: Passwort
     request: "Passwort für %{sitename} zurückgesetzt"
@@ -1030,7 +1052,7 @@ de:
       default: "%{username} hat Ihre Rolle in %{stage} zu %{role} geändert. "
       event: "%{username} hat Ihre Rolle in %{event} zu %{role} geändert. "
       space: "%{username} hat Ihre Rolle in %{space} zu %{role} geändert. "
-      subject:
+      subject: 
         default: "%{username} hat Ihre Rolle in %{stage}"
         event: "%{username} hat Ihre Rolle in %{event} geändert. "
         space: "%{username} hat Ihre Rolle in %{space} geändert. "
@@ -1040,7 +1062,7 @@ de:
       success: "Berechtigungen aktualisiert"
       failure: "Problem beim Aktualisieren von Berechtigungen"
   personal_information: "Persönliche Information"
-  phone:
+  phone: 
     mobile: Mobil
     one: Telefon
     plural: Telefone
@@ -1051,10 +1073,10 @@ de:
   post:
     deleted: "Kommentar %{postname} wurde gelöscht"
     reply: "In Beantwortung von"
-    home:
+    home: 
       one: "Nachricht in der Gruppe %{space}"
     latest: "Letzte Nachrichten"
-    more:
+    more: 
       one: "und eine weitere Nachricht..."
       other: "und %{count} weitere Nachrichten..."
     none_created: "Keine Nachricht erstellt"
@@ -1078,11 +1100,11 @@ de:
   preferences: Voreinstellungen
   previous: Vergangen
   privacy: Privatsphäre
-  profile:
+  profile: 
     deleted: "Profil erfolgreich gelöscht"
-    description:
+    description: 
       add: "Kurzbiografie"
-    error:
+    error: 
       exist: "Ihr Profil besteht bereits"
     header_title: "Benutzerprofil"
     must_create: "Bitte erstellen Sie zuerst Ihr Profil"
@@ -1114,12 +1136,12 @@ de:
   province: Bundesland
   public: Öffentlich
   read_more: "Mehr lesen"
-  recent:
+  recent: 
     activity: "Letzte Aktivitäten"
-  recent_activity:
+  recent_activity: 
     empty: "Sie haben noch keine Aktivitäten, die angezeigt werden können. Werden Sie Mitglied in Gruppen und nehmen Sie Teil um hier etwas anzuzeigen."
     tooltip: "Hier können Sie die neuesten Ereignisse und Nachrichten Ihrer Gruppen finden"
-  recording:
+  recording: 
     automatic: Automatisch
     box_title: Aufzeichnung
     button_continue: "Aufzeichnung fortsetzen"
@@ -1128,7 +1150,7 @@ de:
     button_start: "Aufzeichnung starten"
     manual: Bedienungsanleitung
     none: Kein
-  register:
+  register: 
     and_participate: "Registrieren Sie sich, um teilzunehmen"
     and_participate_description: "Um an diesem Event teilzunehmen, registrieren Sie sich"
     and_participate_description_with_login: "Um am Event teilzunehmen, sollten Sie sich <a href=%{url}>anmelden</a>"
@@ -1147,18 +1169,18 @@ de:
   reply: Antworten
   reply_to: "Antworten an:"
   reply_to_words: "Antworten auf %{words}"
-  repository:
+  repository: 
     download: Herunterladen
     loading: "Dokumentenablage wird aktualisiert..."
     need_javascript: "Bitte aktivieren Sie Javascript, um die Dokuementenablage nutzen zu können."
     one: Dokumente
     remove: Entfernen
     search: "Dokumentensuche:"
-  request:
+  request: 
     info: "Ihre Mitgliedsanfrage für die Gruppe wurde erfolgreich zu den Gruppen-Admins gesendet. Ein admin wird sich sobald wie möglich darum kümmern."
     sent: "Anfrage gesendet!"
   rnp: RNP
-  role:
+  role: 
     added: "%{role} Rollen erfolgreich auf %{agent} angewendet"
     editing: "Rolle bearbeiten"
     listing: "Rollen auflisten"
@@ -1166,10 +1188,10 @@ de:
     one: Rolle
     stage_type: "Stage Type"
     sucess_update: "Rolle erfolgreich aktualisiert..."
-  room:
+  room: 
     other: Räume
-  rooms:
-    invite:
+  rooms: 
+    invite: 
       join_from_desktop: "Auf dieser Seite können Sie von einem <b>Desktop</b> aus an der Konferenz teilnehmen. Um von einem Mobilgerät aus teilzunehmen, <a href=\"%{url}\">klicken Sie hier</a>."
       join_from_mobile: "Auf dieser Seite können Sie von einem <b>Mobilgerät</b> aus an der Konferenz teilnehmen. Um von einem Desktop aus teilzunehmen, <a href=\"%{url}\">klicken Sie hier</a>."
       name: "Name:"
@@ -1178,7 +1200,7 @@ de:
       password_filled: "Dieser Raum ist öffentlich. Das Passwort wurde automatisch mit dem Teilnehmerpasswort ausgefüllt."
       password_role: "Geben Sie das Teilnehmerpasswort oder das Moderatorpasswort ein."
       status: "Meetingstatus:"
-    join:
+    join: 
       msg1: "Das Meeting hat noch nicht begonnen. Sie müssen auf die Anmeldung eines Moderators warten."
       msg2: "Ihr Browser wird die Seite automatisch aktualisieren und dem Meeting beitreten, wenn es beginnt."
       title: "Raum: %{name}"
@@ -1188,8 +1210,8 @@ de:
   save: Speichern
   select_image: "Bitte wählen Sie ein Bild aus."
   send: Senden
-  session:
-    error:
+  session: 
+    error: 
       exist: "Sie sind bereits eingeloggt."
       fill: "Bitte füllen Sie diese Angaben aus"
     one: Session
@@ -1201,7 +1223,7 @@ de:
       password: "Passwort"
     new:
       title: "Anmelden"
-  session_locales:
+  session_locales: 
     create:
       success: "Die Anwendungssprache wurde in %{value} geändert"
       error: "Ändern der Anwendungssprache in %{value} nicht möglich"
@@ -1212,11 +1234,17 @@ de:
     recording_list:
       created: "Erstellt"
       created_by: "Erstellt von"
+      destroy_confirm: ""
       ended_at: "Beendet um"
+      manage: ""
       no_description: "<Keine Beschreibung angegeben>"
       no_recordings: "Ihr Webkonferenzraum hat noch keine Aufzeichnungen"
       no_title: "<kein Titel angegeben>"
       started_at: "Das Meeting fand statt um "
+      publish: ''
+      unpublish: ''
+      unpublish_confirm: ""
+      unpublish_unavailable: ""
     recording_playback:
       duration: "Dauer"
       playback: "Wiedergabelinks"
@@ -1272,11 +1300,12 @@ de:
     updated: "Seiteneinstellungen aktualisiert"
   size: Größe
   skype: Skype
-  space:
+  space: 
     about: Über
     access_forbidden: "Dieser Vorgang ist nur für Mitglieder dieser Gruppe verfügbar"
-    add_user:
+    add_user: 
       other: "Benutzer zur Gruppe hinzufügen"
+    add_user_other: ""
     all: "Gruppen"
     allow_public_access: "Öffentlichen Zugang erlauben?"
     attendeePW: "Teilnehmerpasswort ändern"
@@ -1291,14 +1320,14 @@ de:
     description: "Gruppenbeschreibung"
     description_none: "Es muss eine Beschreibung angegeben werden, um die Gruppe zu erstellen"
     disable: "Gruppe deaktivieren"
-    edit:
+    edit: 
       webconference_passwords: "Webkonferenzraumpasswörter"
     edit_description: "Beschreibung bearbeiten"
     edit_name: "Name bearbeiten"
     enable: "Gruppe aktivieren"
     event_count: "%{count} Events"
-    index:
-      filters:
+    index: 
+      filters: 
         all: "Alle Gruppen"
         my_spaces: "Meine Gruppen"
       order:
@@ -1311,14 +1340,14 @@ de:
     is_private: "ist eine private Gruppe. Senden Sie eine Beitrittsanfrage an den Administrator dieser Gruppe."
     is_private_html: "%{name} ist eine privateGruppe. Um beizutreten, melden Sie sich an und schicken Sie eine <a href=\"%{path}\">Beitritsanfrage</a> an die Administratoren dieser Gruppe."
     join: "Dieser Gruppe beitreten"
-    join_invitation:
+    join_invitation: 
       clarify_registered: "Bitte geben Sie das Passwort ein um dieser Gruppe beizutreten."
       clarify_unregistered: "Bitte geben Sie Ihren vollständigen Namen und ein Passwort an, um sich bei Mconf zu registrieren und diese Gruppe zu betreten."
-    leave:
+    leave: 
       leave_this_space: "Diese Gruppe verlassen"
       success: "Sie haben die Gruppe %{space_name} verlassen"
     logo: "Gruppenlogo"
-    logo_selected:
+    logo_selected: 
       default_message: "Gruppenlogo"
       enter_text: "Text eingeben, um Logos zu generieren:"
       generate_logo: Generiere
@@ -1335,7 +1364,7 @@ de:
     name_none: "Ein Name muss angebeben werden, um einen neue Gruppe zu erstellen"
     one: Gruppe
     other: Gruppen
-    people_in_conference:
+    people_in_conference: 
       one: "%{count} Teilnehmer im Raum."
       other: "%{count} Teilnehmer im Raum."
     performances:
@@ -1345,7 +1374,7 @@ de:
     possesion: "Meine Gruppen"
     post_count: "%{count} Einträge"
     private: "Private Gruppen"
-    public:
+    public: 
       one: "Öffentliche Gruppe"
       other: "Öffentliche Gruppen"
     remove_user:
@@ -1394,7 +1423,7 @@ de:
       none: "Keine anstehenden Events"
       title: "Zukünftige Events"
       today: "Keine Events heute"
-  spaces:
+  spaces: 
     admin_tabs:
       admissions: "Anfragen"
       general_options: "Allgemeine Optionen"
@@ -1422,9 +1451,9 @@ de:
       need_join_to_access: "Sie müssen der Gruppe beitreten, um weiter zu kommen. Senden Sie eine Betrittsanfrage an einen der Administratoren"
       not_found: "Die Gruppe \"%{permalink}\" wurde nicht gefunden. <br> Möchten sie nach ihm in <a href=\"%{path}\">allen Gruppen</a> suchen?"
       unapproved: "Die Gruppe wurde noch nicht von einem Administrator freigeschalten."
-    index:
+    index: 
       create_new_space: "Neue Gruppe erstellen"
-      list_format:
+      list_format: 
         list: "Liste"
         thumbnails: "Vorschaubilder"
       search:
@@ -1532,11 +1561,11 @@ de:
     webconference_tabs:
       access: "Webkonferenz Zutritt"
       recordings: "Liste der Aufzeichnungen"
-  sponsors:
+  sponsors: 
     prav: "-"
     rnp: "-"
   stage_type: "Stage type"
-  statistics:
+  statistics: 
     show:
       description: "Diese Seite zeigt einige Statistiken der Website. Diese Statistiken sind in Echtzeit und zeigen den Status der Website in exakt diesem Moment."
       table:
@@ -1557,7 +1586,7 @@ de:
       shib_warning_html: "Dieses Feld wird als eindeutiger Identifier für Shibboleth-Benutzer verwendet. Wenn Sie ihn ändern, sind Ihre Benutzer vielleicht nicht mehr in der Lage, ihre Accounts zu verwenden. Bevor Sie das ändern, lesen Sie bitte <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">diese Seite</a>."
   text: Text
   the_string: "der Ausdruck"
-  thread:
+  thread: 
     add: "Nachricht an die Wall schreiben"
     comments: "%{children} Kommentare"
     compact_view: "Zu Kompaktansicht wechseln"
@@ -1568,20 +1597,20 @@ de:
     see_less: "Wollen Sie alle Nachrichten komprimieren?"
     see_more: "Wollen Sie mehr über die Nachrichten sehen?"
     show_last_comment: "Zeige die letzten %{size} Kommentare von %{children}"
-  time:
+  time: 
     from: von
     to: an
-  timezone:
+  timezone: 
     one: Zeitzone
     set_up: "Sie haben noch keine Zeitzone gesetzt. <a href=\"%{path}\">Richten Sie sie hier ein</a>"
   title: Titel
-  title_formal:
+  title_formal: 
     mr: Herr
     mrs: Frau
     ms: Frau
   to: an
   today: Heute
-  tooltip:
+  tooltip: 
     admin: "Dieser Bereich zeigt die Leute, die in diesem Bereich Administratorrechte haben"
     advanced_editor: "Dieser Editor ermöglicht Ihnen: den HTML-Sourcecode zu betrachten; Schriftart, Schriftgröße, Textfarbe und Ausrichtung des Textes zu ändern; Links einzufügen und zu bearbeiten; Anhänge und Tags hinzuzufügen"
     doc_search: "Benutzen Sie die Felder auf dieser Seite, um zu filtern und die Dokumentenübersicht mit Ihren Suchergebnissen zu aktualisieren"
@@ -1609,8 +1638,8 @@ de:
   url: Website
   url_add: "Ihre Website hinzufügen"
   url_plain: URL
-  user:
-    add:
+  user: 
+    add: 
       instruction: "Um neue Benutzer hinzuzufügen, geben Sie deren Email-Adressen, getrennt durch \" \", \",\" oder \";\" ein und registrieren Sie sie"
       note: "Zum Beispiel: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net und ein Klick auf 'als Benutzer registrieren' wird diese 3 Email-Adressen als Mitglieder dieser Gruppen registrieren und ihnen eine Bestätigungs-Email senden."
     admin: Admin
@@ -1626,8 +1655,8 @@ de:
     filter: "Über Benutzernamen einladen"
     group_invite_email: "Per Email einladen"
     include_registered: "eingeladene Benutzer beachten"
-    index:
-      user_list:
+    index: 
+      user_list: 
         header: "Benutzer in dieser Gruppe: %{count}"
     invite: "Leute einladen"
     invite_email: "Leute per Email einladen"
@@ -1647,12 +1676,12 @@ de:
     registered: "Vielen Dank für Ihre Registrierung! Wir haben Ihnen Anweisungen geschickt, wie Sie Ihren Benutzeraccount aktivieren können"
     request_confirmation: "Bestätigungsemail anfordern"
     request_password: "Passwort anfordern"
-    resend_confirmation_email:
+    resend_confirmation_email: 
       already_confirmed: "Die Adresse'%{email}' wurde bereits bestätigt"
       link: "Bestätigungsmail erneut senden"
       success: "Bestätigungsmail wurde erfolgreich an '%{email}' gesendet"
     reset_password: "Passwort zurücksetzen"
-    results_count:
+    results_count: 
       one: "Leute, %{users_size} Ergebnis"
       other: "Leute, %{users_size} Ergebnisse"
     results_found: "Benutzer gefunden"
@@ -1723,18 +1752,18 @@ de:
       empty_file: "{file} ist leer, bitte wählen Sie die Dateien erneut ohne diese aus."
       no_files: "Keine Dateien zum hochladen"
       on_leave: "Die Dateien werden hochgeladen. Wenn Sie die Seite jetzt verlassen, wird der Upload abgebrochen."
-  vCard:
+  vCard: 
     corrupt: "Die vCard, die Sie gesendet haben, ist beschädigt oder in einer nicht unterstützten Version"
     message: "Benutzen Sie Ihre vCard um Ihr Profil automatisch auszufüllen"
     upload: "vCard hochladen"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
-  version:
+  version: 
     new: "Neue Version"
     one: Version
   view: "Anzeigen"
   view_more: "Mehr anzeigen"
-  webconference:
+  webconference: 
     invite_webconference: "Leute zur Webkonferenz einladen"
     join: Teilnehmen
     my_webconference: "Mein Webkonferenzraum"
@@ -1742,7 +1771,7 @@ de:
     not_running: "läuft nicht"
     one: Webkonferenz
     running: läuft
-    space:
+    space: 
       join_now: "Jetzt Teilnehmen"
       see_more: "mehr anzeigen"
     start_now: "Los!"
