@@ -76,7 +76,6 @@ class ShibbolethController < ApplicationController
           logger.info "Shibboleth: flag `shib_always_new_account` is set"
           logger.info "Shibboleth: first access for this user, automatically creating a new account"
           associate_with_new_account(@shib)
-          redirect_to shibboleth_path
         end
       end
     end
@@ -98,9 +97,8 @@ class ShibbolethController < ApplicationController
     # invalid request
     else
       flash[:notice] = t('shibboleth.create_association.invalid_parameters')
+      redirect_to shibboleth_path
     end
-
-    redirect_to shibboleth_path
   end
 
   def info
@@ -149,22 +147,26 @@ class ShibbolethController < ApplicationController
   end
 
   # When the user selected to create a new account for his shibboleth login.
+  # Returns true if the user was created and associated successfully.
   def associate_with_new_account(shib)
     token = shib.find_or_create_token()
 
     # if there's already a user and an association, we don't need to do anything, just
     # return and, when the user is redirected back to #login, the token will be checked again
     if token.user.nil?
-
       token.user = shib.create_user(token)
       token.new_account = true # account created by shibboleth, not by the user
       user = token.user
+
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"
         token.data = shib.get_data
         token.save!
         shib.create_notification(token.user, token)
         flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path).html_safe
+        redirect_to shibboleth_path
+
+      # error creating the user/token
       else
         logger.error "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
         if User.where(email: user.email).count > 0
@@ -176,7 +178,12 @@ class ShibbolethController < ApplicationController
           flash[:error] = message
         end
         token.destroy
+        redirect_to :back
       end
+
+    # already has a token
+    else
+      redirect_to shibboleth_path
     end
   end
 
@@ -226,6 +233,7 @@ class ShibbolethController < ApplicationController
       flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
     end
 
+    redirect_to shibboleth_path
   end
 
   # Returns the value of the flag `shib_always_new_account`.
