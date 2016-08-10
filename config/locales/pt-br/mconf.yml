@@ -536,6 +536,7 @@ pt-br:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
+      tip: "A maioria dos atributos não são editáveis pois são obtidos de um servidor remoto e refletem exatamente o estado da gravação nesse servidor"
     show:
       showing_recording: "Mostrando gravação"
     index:

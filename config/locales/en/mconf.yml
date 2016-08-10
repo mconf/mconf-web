@@ -531,6 +531,7 @@ en:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editing recording"
+      tip: "Most of the attributes are not editable because they are fetched from a remote server and reflect the state of the recording in this server"
     show:
       showing_recording: "Showing recording"
     index:

@@ -24,7 +24,7 @@ describe CustomBigbluebuttonRecordingsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :recordid, :meetingid, :name, :published, :start_time, :end_time, :available, :description ]
+          [ :description ]
         }
         it {
           BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
@@ -60,7 +60,7 @@ describe CustomBigbluebuttonRecordingsController do
     end
   end
 
-  describe "#publish"
+  skip "#publish"
 
   describe "#unpublish" do
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
@@ -133,15 +133,10 @@ describe CustomBigbluebuttonRecordingsController do
         it { should redirect_to bigbluebutton_recording_path(recording) }
         it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
       end
-
     end
-
   end
 
-  describe "#destroy" do
-      let(:user) { FactoryGirl.create(:superuser) }
-
-  end
+  skip "#destroy"
 
   describe "#play" do
     let(:user) { FactoryGirl.create(:superuser) }
