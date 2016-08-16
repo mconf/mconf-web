@@ -174,6 +174,7 @@ class SpacesController < InheritedResources::Base
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
+    @redir_url = recordings_space_path(@space)
 
     render layout: false if params[:partial]
   end

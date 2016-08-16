@@ -33,4 +33,3 @@ This project is developed as part of Mconf. Visit:
 
 * [Mconf.org](http://mconf.org)
 * [Mconf at GitHub](https://github.com/mconf)
-* [Issue tracker](http://dev.mconf.org)

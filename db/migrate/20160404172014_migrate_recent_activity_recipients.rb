@@ -9,10 +9,12 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
   def up
     scope = RecentActivity.where(recipient_id: nil)
 
+    puts "Migrating keys: 'user.created'"
     scope.where(key: 'user.created').find_each do |act|
       act.update_attributes(recipient: act.trackable)
     end
 
+    puts "Migrating keys: 'attachment.create', 'attachment.destroy'"
     scope.where(key: ['attachment.create', 'attachment.destroy']).find_each do |act|
       # Set the recipient to the author or an admin of the space.
       # The second case will only happen if the attachment was deleted.
@@ -21,8 +23,9 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
       act.update_attributes(recipient: user)
     end
 
+    puts "Migrating keys: 'event.create', 'event.update'"
     scope.where(key: ['event.create', 'event.update']).find_each do |act|
-      user = User.find(act.parameters[:user_id]) if act.parameters[:user_id].present?
+      user = User.find_by(id: act.parameters[:user_id]) if act.parameters[:user_id].present?
 
       if user.present?
         act.update_attributes(recipient: user)
@@ -31,10 +34,12 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
       end
     end
 
+    puts "Migrating keys: 'join_request.request', 'join_request.invite'"
     scope.where(key: ["join_request.request", "join_request.invite"]).find_each do |act|
       act.update_attributes(recipient_id: act.parameters[:candidate_id], recipient_type: 'User')
     end
 
+    puts "Migrating keys: 'bigbluebutton_meeting.create'"
     scope.where(key: "bigbluebutton_meeting.create").find_each do |act|
       owner = act.try(:owner).try(:owner) # act.owner is the room, room.owner is a user/space
 
@@ -47,6 +52,7 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
     end
 
     # accept/decline now have join_request as a trackable and the key is join_request.[accept,decline]
+    puts "Migrating keys: 'space.accept', 'space.decline"
     RecentActivity.where(key: ["space.accept", "space.decline"]).find_each do |act|
       key = (act.key == "space.accept" ? 'join_request.accept' : 'join_request.decline')
       act.update_attributes(key: key)
@@ -55,5 +61,6 @@ class MigrateRecentActivityRecipients < ActiveRecord::Migration
 
   def down
     # No turning back
+    raise ActiveRecord::IrreversibleMigration
   end
 end

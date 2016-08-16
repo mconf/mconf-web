@@ -37,26 +37,30 @@ describe ShibbolethController do
 
   shared_examples_for "a caller of #associate_with_new_account" do
     let(:attrs) { FactoryGirl.attributes_for(:user) }
+    let(:referer) { "/any" }
+    before {
+      request.env["HTTP_REFERER"] = referer
+    }
 
-    context "redirects to /secure if the user already has a valid token" do
+    context "if the user already has a valid token" do
       let(:user) { FactoryGirl.create(:user) }
       before { ShibToken.create!(:identifier => user.email, :user => user) }
       before(:each) { run_route }
       it { should redirect_to(shibboleth_path) }
+
       context "creates a RecentActivity" do
         subject { RecentActivity.where(key: 'shibboleth.user.created').last }
         it("should exist") { subject.should_not be_nil }
         it("should point to the right trackable") { subject.trackable.should eq(User.last) }
         it("should be unnotified") { subject.notified.should be(false) }
-       # see #1737
+        # see #1737
         it("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
         it("should be owned by the correct ShibToken") { subject.owner_id.should eql(ShibToken.last.id) } # calls the last ShibToken because now the RecentActivity is created after the token is save in the database
       end
     end
 
     context "if there's no valid token yet" do
-
-      context "creates a new token with the correct information and goes back to /secure" do
+      context "creates a new token with the correct information" do
         before(:each) {
           expect { run_route }.to change{ ShibToken.count }.by(1)
         }
@@ -76,7 +80,7 @@ describe ShibbolethController do
         it { RecentActivity.where(owner: subject, trackable: subject.user, key: 'shibboleth.user.created').should_not be_nil }
       end
 
-      context "if fails to create the new user, goes to /secure with an error message" do
+      context "if fails to create the new user" do
         before {
           @user = FactoryGirl.build(:user)
           @user.errors.add(:name, "can't be blank") # any fake error
@@ -85,17 +89,17 @@ describe ShibbolethController do
         before(:each) {
           expect { run_route }.not_to change{ ShibToken.count }
         }
-        it { controller.should redirect_to(shibboleth_path) }
+        it { controller.should redirect_to(referer) }
         it { controller.should set_flash.to(I18n.t('shibboleth.create_association.error_saving_user', :errors => @user.errors.full_messages.join(', '))) }
         it { RecentActivity.where(trackable: @user, key: 'shibboleth.user.created').should be_empty }
       end
 
-      context "if there's already a user with the target email, goes to /secure with an error message" do
+      context "if there's already a user with the target email" do
         before { FactoryGirl.create(:user, :email => attrs[:email]) }
         before(:each) {
           expect { run_route }.not_to change{ ShibToken.count + RecentActivity.count }
         }
-        it { controller.should redirect_to(shibboleth_path) }
+        it { controller.should redirect_to(referer) }
         it { controller.should set_flash.to(I18n.t('shibboleth.create_association.existent_account', :email => attrs[:email])) }
       end
     end
@@ -116,6 +120,18 @@ describe ShibbolethController do
       controller.should_not_receive(:test_data)
       get :login
       request.env.each { |key, value| key.should_not match(/shib-/i) }
+    end
+
+    context "sets return_to in the params" do
+      before {
+        Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
+        Site.current.update_attributes(:shib_enabled => true)
+        request.env['Shib-Any'] = 'any'
+        session[:user_return_to] = "/spaces"
+      }
+      before(:each) { get :login }
+      it { controller.params["return_to"].should_not be_blank }
+      it { controller.params["return_to"].should eql("/spaces") }
     end
 
     context "renders an error page if there's not enough information on the session" do
@@ -278,6 +294,7 @@ describe ShibbolethController do
 
       context "if the flag shib_always_new_account is set" do
         let(:attrs) { FactoryGirl.attributes_for(:user) }
+
         before {
           Site.current.update_attributes(:shib_always_new_account => true)
           setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])

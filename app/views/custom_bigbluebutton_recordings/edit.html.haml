@@ -3,5 +3,7 @@
 = content_for :sidebar do
   = render 'custom_bigbluebutton_recordings/recording_links', :recording => @recording
 
-%h3= t('.editing_recording')
+%h3
+  = t('.editing_recording')
+  = icon_info t('.tip')
 = render 'custom_bigbluebutton_recordings/form', :editing => true, :recording => @recording

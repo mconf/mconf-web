@@ -292,7 +292,9 @@ describe AttachmentsController do
         describe "creates the attachment with correct attributes" do
           before(:each) {
             expect {
-              post :create, :space_id => space.to_param, :attachment => attributes
+              PublicActivity.with_tracking do
+                post :create, :space_id => space.to_param, :attachment => attributes
+              end
             }.to change(space.attachments, :count).by(1)
           }
 

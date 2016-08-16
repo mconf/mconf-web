@@ -758,7 +758,9 @@ describe User do
     context "creates a recent activity" do
       before {
         expect {
-          user.create_approval_notification(approver)
+          PublicActivity.with_tracking do
+            user.create_approval_notification(approver)
+          end
         }.to change{ PublicActivity::Activity.count }.by(1)
       }
       subject { PublicActivity::Activity.last }

@@ -404,7 +404,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout, 
+          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
             :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
@@ -1013,7 +1013,7 @@ describe CustomBigbluebuttonRoomsController do
             before :each do
               meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => room, :running => true,
                                            :creator_id => user.id, :creator_name => user.full_name)
-              BigbluebuttonRoom.any_instance.stub(:start_time).and_return(meeting.start_time.utc)
+              BigbluebuttonRoom.any_instance.stub(:create_time).and_return(meeting.create_time)
             end
             it { should allow_access_to(:end, hash) }
           end
@@ -1080,7 +1080,7 @@ describe CustomBigbluebuttonRoomsController do
             before :each do
               meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => room, :running => true,
                                            :creator_id => user.id, :creator_name => user.full_name)
-              BigbluebuttonRoom.any_instance.stub(:start_time).and_return(meeting.start_time.utc)
+              BigbluebuttonRoom.any_instance.stub(:create_time).and_return(meeting.create_time)
             end
             it { should allow_access_to(:end, hash) }
           end

@@ -536,6 +536,7 @@ pt-br:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
+      tip: "A maioria dos atributos não são editáveis pois são obtidos de um servidor remoto e refletem exatamente o estado da gravação nesse servidor"
     show:
       showing_recording: "Mostrando gravação"
     index:
@@ -543,6 +544,7 @@ pt-br:
     recording_links:
       direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
+      confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
     recordings:
       table:
         links: "Links"
@@ -1239,11 +1241,17 @@ pt-br:
     recording_list:
       created: "Criada"
       created_by: "Criada por"
+      destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       ended_at: "Finalizada em"
+      manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
       started_at: "A reunião aconteceu em"
+      publish: Publicar
+      unpublish: Ocultar
+      unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
+      unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"

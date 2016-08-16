@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe JoinRequestsWorker do
+describe JoinRequestsWorker, type: :worker do
   let(:worker) { JoinRequestsWorker }
   let(:space) { FactoryGirl.create(:space) }
 

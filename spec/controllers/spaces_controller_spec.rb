@@ -245,7 +245,9 @@ describe SpacesController do
       describe "creates a new activity for the space created" do
         before(:each) {
           expect {
-            post :create, :space => space_attributes
+            PublicActivity.with_tracking do
+              post :create, :space => space_attributes
+            end
           }.to change(RecentActivity, :count).by(1)
         }
         it { RecentActivity.last.trackable.should eq(Space.last) }
@@ -343,7 +345,9 @@ describe SpacesController do
       }
       before(:each) {
         expect {
-          put :update, :id => space.to_param, :space => space_attributes
+          PublicActivity.with_tracking do
+            put :update, :id => space.to_param, :space => space_attributes
+          end
         }.to change { RecentActivity.count }.by(1)
       }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
@@ -366,7 +370,9 @@ describe SpacesController do
       let(:space_params) { {name: "#{space.name}_new", description: "#{space.description} new" } }
       before(:each) {
         expect {
-          put :update, :id => space.to_param, :space => space_params
+          PublicActivity.with_tracking do
+            put :update, :id => space.to_param, :space => space_params
+          end
         }.to change {RecentActivity.count}.by(1)
       }
 
@@ -381,7 +387,9 @@ describe SpacesController do
 
       before(:each) {
         expect {
-          post :update_logo, space_params
+          PublicActivity.with_tracking do
+            post :update_logo, space_params
+          end
         }.to change {RecentActivity.count}.by(1)
       }
 
