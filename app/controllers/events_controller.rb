@@ -6,6 +6,8 @@ class EventsController < InheritedResources::Base
   # for ics renderer see config/initializers/renderers.rb
   respond_to :ics, only: :show
 
+  before_filter :authenticate_user!, :only => [:new, :create]
+  
   before_filter :block_if_events_disabled
   before_filter :concat_datetimes, :only => [:create, :update]
 
