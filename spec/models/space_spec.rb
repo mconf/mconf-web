@@ -415,7 +415,7 @@ describe Space do
            RecentActivity.create(owner: spaces[0], created_at: now),
            RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days),
            RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.day),
-           RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
         before { Space.calculate_last_activity_indexes! }
