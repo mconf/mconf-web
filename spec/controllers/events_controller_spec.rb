@@ -295,76 +295,83 @@ describe EventsController do
   describe "#new" do
     let(:user) { FactoryGirl.create(:user) }
     let(:owner) { user }
-    before(:each) { sign_in(owner) }
 
-    context "layout and view" do
-      before { get :new }
-      it { should render_template("events/new") }
-    end
+    context "with a logged user" do
+      before(:each) {sign_in(owner)}
 
-    it { assigns(:event) }
-
-    context 'events belonging to spaces' do
-      let(:space) { FactoryGirl.create(:space) }
-
-      context "tries to access new/event page with 'space_id' as a bad value" do
-        subject { lambda { get :new, space_id: "#{space.to_param}-baaaaaad" } }
-        it { should raise_exception(ActiveRecord::RecordNotFound) }
-      end
-
-      context "tries to access new/event page in a space which he's not a member" do
-        before { get :new, space_id: space.to_param }
-
-        it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
-      end
-
-      context "tries to access new/event page in a space which is disabled" do
-        before { get :new, space_id: space.to_param }
-
-        it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
-      end
-
-      context "tries to access new/event page in a space which is not approved" do
-        before { get :new, space_id: space.to_param }
-
-        it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
-      end
-
-      context "tries to access new/event page in a space which he's a member" do
-        before {
-          space.add_member!(user)
-          get :new, space_id: space.to_param
-        }
-
+      context "layout and view" do
+        before { get :new }
         it { should render_template("events/new") }
       end
 
-      context "tries to access new/event page in a space which is disabled" do
-        subject {
-          lambda {
+      it { assigns(:event) }
+
+      context 'events belonging to spaces' do
+        let(:space) { FactoryGirl.create(:space) }
+
+        context "tries to access new/event page with 'space_id' as a bad value" do
+          subject { lambda { get :new, space_id: "#{space.to_param}-baaaaaad" } }
+          it { should raise_exception(ActiveRecord::RecordNotFound) }
+        end
+
+        context "tries to access new/event page in a space which he's not a member" do
+          before { get :new, space_id: space.to_param }
+
+          it { should redirect_to(events_path) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
+        end
+
+        context "tries to access new/event page in a space which is disabled" do
+          before { get :new, space_id: space.to_param }
+
+          it { should redirect_to(events_path) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
+        end
+
+        context "tries to access new/event page in a space which is not approved" do
+          before { get :new, space_id: space.to_param }
+
+          it { should redirect_to(events_path) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
+        end
+
+        context "tries to access new/event page in a space which he's a member" do
+          before {
             space.add_member!(user)
-            space.update_attribute(:disabled, true)
             get :new, space_id: space.to_param
           }
-        }
 
-        it { should raise_exception(ActiveRecord::RecordNotFound) }
+          it { should render_template("events/new") }
+        end
+
+        context "tries to access new/event page in a space which is disabled" do
+          subject {
+            lambda {
+              space.add_member!(user)
+              space.update_attribute(:disabled, true)
+              get :new, space_id: space.to_param
+            }
+          }
+
+          it { should raise_exception(ActiveRecord::RecordNotFound) }
+        end
+
+        context "tries to access new/event page in a space which is not approved" do
+          before {
+            space.add_member!(user)
+            space.update_attribute(:approved, false)
+            get :new, space_id: space.to_param
+          }
+
+          it { should redirect_to(events_path) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
+        end
       end
+    end
 
-      context "tries to access new/event page in a space which is not approved" do
-        before {
-          space.add_member!(user)
-          space.update_attribute(:approved, false)
-          get :new, space_id: space.to_param
-        }
-
-        it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
-      end
-
+    context "when not logged in" do
+      before(:each) { get :new }
+      it { should redirect_to new_user_session_path }
     end
 
   end
@@ -411,7 +418,7 @@ describe EventsController do
             }.to change { Event.count }.by(0)
         }
 
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event with 'owner_type' as a bad value" do
@@ -428,21 +435,21 @@ describe EventsController do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event in a space which is disabled" do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event in a space which is not approved" do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event page in a space which he's a member" do

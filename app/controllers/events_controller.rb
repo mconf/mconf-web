@@ -106,8 +106,12 @@ class EventsController < InheritedResources::Base
 
   def handle_access_denied(exception)
     if ['new', 'create'].include? action_name
-      flash[:error] = t('flash.events.create.error')
-      redirect_to events_path
+      if user_signed_in?
+        flash[:error] = t('flash.events.create.permission_error')
+        redirect_to events_path
+      else
+        redirect_to new_user_session_path
+      end
     elsif @event.nil? || @event.owner.nil?
       raise ActiveRecord::RecordNotFound
     else
