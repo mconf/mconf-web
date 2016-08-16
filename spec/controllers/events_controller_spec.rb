@@ -296,7 +296,7 @@ describe EventsController do
     let(:user) { FactoryGirl.create(:user) }
     let(:owner) { user }
 
-    context "with a logged user" do 
+    context "with a logged user" do
       before(:each) {sign_in(owner)}
 
       context "layout and view" do
@@ -318,21 +318,21 @@ describe EventsController do
           before { get :new, space_id: space.to_param }
 
           it { should redirect_to(events_path) }
-          it { should set_flash.to(I18n.t('flash.events.create.error')) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
         end
 
         context "tries to access new/event page in a space which is disabled" do
           before { get :new, space_id: space.to_param }
 
           it { should redirect_to(events_path) }
-          it { should set_flash.to(I18n.t('flash.events.create.error')) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
         end
 
         context "tries to access new/event page in a space which is not approved" do
           before { get :new, space_id: space.to_param }
 
           it { should redirect_to(events_path) }
-          it { should set_flash.to(I18n.t('flash.events.create.error')) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
         end
 
         context "tries to access new/event page in a space which he's a member" do
@@ -364,7 +364,7 @@ describe EventsController do
           }
 
           it { should redirect_to(events_path) }
-          it { should set_flash.to(I18n.t('flash.events.create.error')) }
+          it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
         end
       end
     end
@@ -418,7 +418,7 @@ describe EventsController do
             }.to change { Event.count }.by(0)
         }
 
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event with 'owner_type' as a bad value" do
@@ -435,21 +435,21 @@ describe EventsController do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event in a space which is disabled" do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event in a space which is not approved" do
         before { post :create, event: attributes.merge(owner_type: "Space", owner_id: space.id) }
 
         it { should redirect_to(events_path) }
-        it { should set_flash.to(I18n.t('flash.events.create.error')) }
+        it { should set_flash.to(I18n.t('flash.events.create.permission_error')) }
       end
 
       context "tries to create event page in a space which he's a member" do

@@ -107,7 +107,7 @@ class EventsController < InheritedResources::Base
   def handle_access_denied(exception)
     if ['new', 'create'].include? action_name
       if user_signed_in?
-        flash[:error] = t('flash.events.create.error')
+        flash[:error] = t('flash.events.create.permission_error')
         redirect_to events_path
       else
         redirect_to new_user_session_path

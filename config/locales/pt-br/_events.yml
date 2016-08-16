@@ -37,7 +37,7 @@ pt-br:
     events:
       create:
         notice: Evento criado com sucesso
-        alert: Problema ao criar o evento
+        permission_error: Você não possui permissão para criar este evento
       destroy:
         notice: Evento apagado com sucesso
       update:
