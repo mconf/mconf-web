@@ -439,7 +439,7 @@ pt-br:
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
-  crop_image: 
+  crop_image:
     description: "Selecione uma parte da imagem para cortar"
     title: "Cortar imagem"
   custom_bigbluebutton_playback_types:
@@ -483,7 +483,7 @@ pt-br:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
       title: "Acessar sala: %{name}"
-    invite_header: 
+    invite_header:
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
       room_type_private: "Esta é uma conferência <em>privada</em>"
@@ -623,7 +623,7 @@ pt-br:
         resend_confirmation_email: "Reenviar e-mail de confirmação"
     strategies:
       ldap_authenticatable:
-        create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador" 
+        create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador"
         invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
         ldap_not_enabled: "LDAP não esta habilitado neste site"
         missing_username: "Não foi possível encontrar o nome de usuário do LDAP, por favor contate um administrador"
@@ -664,13 +664,13 @@ pt-br:
   error:
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
-    e403: 
+    e403:
       description: "Você não possui permissão para visualizar esta página."
       title: "Proibido"
-    e404: 
+    e404:
       description: "Oops, a página \"%{url}\" não existe."
       title: "Não encontrado"
-    e500: 
+    e500:
       description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
       title: "Erro"
     mistyped_or_moved: "Você pode ter digitado o endereço incorretamente ou a página pode ter sido movida"
@@ -725,14 +725,14 @@ pt-br:
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
     view_invite_url: "Ver URL para convites"
-  icons: 
+  icons:
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
   im: IM
   inbox:
     my: "Caixa de entrada (%{checked})"
     one: "Caixa de entrada (%{checked})"
-    unread_text: 
+    unread_text:
       one: "Você tem %{count} mensagem não lida!"
       other: "Você tem %{count} mensagens não lidas!"
   information:
@@ -1125,7 +1125,8 @@ pt-br:
   profiles:
     edit:
       change_pic: "Mudar foto"
-      explain_gravatar: "Como nenhuma foto foi carregada a do gravatar.com será usada"
+      explain_gravatar: "Esta é a imagem que está associada ao seu e-mail no Gravatar.com"
+      using_gravatar: "Imagem do Gravatar"
       title: "Editar perfil"
       view_your_profile: "Visualizar perfil"
       vcard:
@@ -1147,7 +1148,7 @@ pt-br:
   read_more: "Ler mais"
   recent:
     activity: "Atividades recentes"
-  recent_activity: 
+  recent_activity:
     empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
     tooltip: "Aqui você encontra os eventso e mensagens mais atuais das comunidades às quais vocẽ pertence"
   recording:
@@ -1336,7 +1337,7 @@ pt-br:
     enable: "Habilitar comunidade"
     event_count: "%{count} eventos"
     index:
-      filters: 
+      filters:
         all: "Todas"
         my_spaces: "Minhas comunidades"
       order:
@@ -1463,9 +1464,9 @@ pt-br:
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
-    index: 
+    index:
       create_new_space: "Criar uma comunidade"
-      list_format: 
+      list_format:
         list: "Lista"
         thumbnails: "Miniaturas"
       search:
@@ -1667,8 +1668,8 @@ pt-br:
     filter: "Convidar por nome de usuário"
     group_invite_email: "Convidar por e-mail"
     include_registered: "Incluir usuários registrados"
-    index: 
-      user_list: 
+    index:
+      user_list:
         header: "Usuários nesta comunidade: %{count}"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"

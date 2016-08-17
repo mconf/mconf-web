@@ -51,4 +51,11 @@ body.profiles.edit, body.profiles.update {
     }
   }
 
+  #edit-profile-current-logo {
+    .using-gravatar {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+  }
 }

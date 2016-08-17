@@ -4,7 +4,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-def image_url path
+def image_url(path)
   "#{root_url}/#{image_path(path)}"
 end
 
@@ -28,14 +28,19 @@ module LogoImagesHelper
 
     if resource.respond_to?(:logo_image) && resource.logo_image.present?
       image_tag(resource.logo_image_url(size), options)
-    elsif model_type == :user && Site.current.gravatar? && resource.confirmed? # Try a gravatar image if we have a confirmed user
-      # If no gravatar is found we still use the default image, but this is done in gravatar's side so it won't show in development
-      gravatar_image_tag resource.email, gravatar:
-        { secure: true, size: options[:size], default: image_url(empty_logo_url(model_type, options)) }
+
+    # Try a gravatar image if we have a confirmed user
+    elsif model_type == :user && current_site.use_gravatar? && resource.confirmed?
+      grav_options = {}
+      grav_options[:size] = options[:size]
+      grav_options[:default] = "mm"
+      grav_options[:secure] = true
+      options[:alt] = resource.name
+      image_tag(GravatarImageTag.gravatar_url(resource.email, grav_options), options)
+
     else
       empty_logo_image(model_type, options)
     end
-
   end
 
   def empty_logo_url(resource, options={})

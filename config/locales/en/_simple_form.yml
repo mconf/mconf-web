@@ -63,7 +63,7 @@ en:
         smtp_login: "The login email to your SMTP server"
         smtp_password: "The password for your email account in your SMTP server"
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
-        gravatar: Fetch user avatars from gravatar if none was uploaded
+        use_gravatar: "Fetch user avatars from gravatar if none was uploaded."
         xmpp_server: "Address where's located the XMPP server."
       space:
         bigbluebutton_room:

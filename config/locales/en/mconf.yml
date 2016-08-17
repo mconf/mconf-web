@@ -143,7 +143,6 @@ en:
         prefix_key: "Title"
         province: "Province"
         skype: "Skype"
-        url: "Your website"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
@@ -1118,7 +1117,8 @@ en:
   profiles:
     edit:
       change_pic: "Change picture"
-      explain_gravatar: "You have no picture uploaded so it will be fetched from gravatar.com"
+      explain_gravatar: "This is the image associated with your email on Gravatar.com"
+      using_gravatar: "Image from Gravatar"
       title: "Edit profile"
       view_your_profile: "View profile"
       vcard:

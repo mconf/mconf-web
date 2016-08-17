@@ -74,7 +74,7 @@ pt-br:
         smtp_login: "O e-mail de login no servidor SMTP."
         smtp_password: "A senha para sua conta de e-mail no servidor SMTP."
         ssl: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
-        gravatar: Buscar avatar de usuários do Gravatar se nenhum foi carregado no portal.
+        use_gravatar: "Buscar avatar de usuários do Gravatar se nenhum for carregado no portal."
         xmpp_server: "Endereço onde está localizado o servidor XMPP."
       space:
         bigbluebutton_room:

@@ -1,5 +1,5 @@
 class AddGravatarToSites < ActiveRecord::Migration
   def change
-    add_column :sites, :gravatar, :boolean, default: false
+    add_column :sites, :use_gravatar, :boolean, default: false
   end
 end
