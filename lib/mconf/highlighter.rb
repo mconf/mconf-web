@@ -9,41 +9,63 @@ module Mconf::Highlighter
     return "" if text.blank?
     return text if word.blank?
 
-    begin_mark = "<mark>"
-    end_mark = "</mark>"
-    text = text.clone
-    indexes = []
-    tt = ActiveSupport::Inflector.transliterate(text).downcase
-    tw = ActiveSupport::Inflector.transliterate(word).downcase
-    displacement = 0
-
-    while tt && i = tt.index(/#{tw}[^>]|#{tw}$/)
-      if i
-        i += displacement
-        indexes << i
-        tt = tt[i + 1 , tt.size - tw.size + 1]
-        displacement += i + 1
-      end
-    end
-
-    displacement = 0
-    indexes.each do |i|
-      text.insert(i + displacement, begin_mark)
-      displacement += begin_mark.size
-      text.insert((i + tw.size + displacement), end_mark)
-      displacement += end_mark.size
-    end
-    text
+    indexes = get_highlight_indexes(text, word)
+    set_highlight_on_indexes(text, indexes)
   end
 
   def self.highlight(text, words)
     if words.kind_of?(Array)
+      indexes = []
       words.each do |word|
-        text = highlight_word(text, word)
+        indexes.concat get_highlight_indexes(text, word)
       end
-      text
+      set_highlight_on_indexes(text, indexes.sort{ |a,b| a[0] <=> b[0] })
     else
       highlight_word(text, words)
     end
+  end
+
+  private
+
+  # Returns a list of arrays, each with the [0] position that the mark should
+  # begin and [1] the length of the word being highlighted.
+  def self.get_highlight_indexes(text, word)
+    return [] if text.blank?
+    return [] if word.blank?
+
+    text = text.clone
+    indexes = []
+    tt = ActiveSupport::Inflector.transliterate(text).downcase
+    tw = ActiveSupport::Inflector.transliterate(word).downcase
+    overall_i = 0
+
+    while tt && i = tt.index(/#{tw}/)
+      if i
+        overall_i += i
+        indexes << [overall_i, tw.length]
+        tt = tt[i + tw.length, tt.length - tw.length - i]
+        overall_i += tw.length
+      end
+    end
+
+    indexes
+  end
+
+  def self.set_highlight_on_indexes(text, indexes)
+    text = text.clone
+    begin_mark = "<mark>"
+    end_mark = "</mark>"
+
+    displacement = 0
+    indexes.each do |index_pair|
+      i = index_pair[0]
+      word_length = index_pair[1]
+      text.insert(i + displacement, begin_mark)
+      displacement += begin_mark.length
+      text.insert((i + word_length + displacement), end_mark)
+      displacement += end_mark.length
+    end
+
+    text
   end
 end

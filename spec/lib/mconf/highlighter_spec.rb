@@ -19,6 +19,8 @@ describe Mconf::Highlighter do
       it { subject.highlight_word("", "").should eq('')}
       it { subject.highlight_word("oi", "oi").should eq('<mark>oi</mark>') }
       it { subject.highlight_word("oi oi", "oi").should eq('<mark>oi</mark> <mark>oi</mark>') }
+      it { subject.highlight_word("admin admin", "admin").should eq('<mark>admin</mark> <mark>admin</mark>') }
+      it { subject.highlight_word("mark mark mark", "mark").should eq('<mark>mark</mark> <mark>mark</mark> <mark>mark</mark>') }
       it { subject.highlight_word("found!", "").should eq("found!") }
       it { subject.highlight_word("áchadoñ o cachorro", "áchadoñ").should eq('<mark>áchadoñ</mark> o cachorro') }
       it { subject.highlight_word("como se fala sópa?", "como").should eq("<mark>como</mark> se fala sópa?") }
@@ -29,6 +31,11 @@ describe Mconf::Highlighter do
       it { subject.highlight_word("oì", "ói").should eq('<mark>oì</mark>') }
       it { subject.highlight_word("oi õi ôî", "ói").should eq('<mark>oi</mark> <mark>õi</mark> <mark>ôî</mark>') }
       it { subject.highlight_word("áchadoñ o cachorro", "achadon").should eq('<mark>áchadoñ</mark> o cachorro') }
+      it { subject.highlight_word("Jürgen", "Jurgen").should eq('<mark>Jürgen</mark>') }
+
+      # TODO: these two could also ignore the accents on 'ṕ' and 'ǹ'
+      it { subject.highlight_word("<scríPT> alert() </SCrîṕt>", "script").should eq('<<mark>scríPT</mark>> alert() </SCrîṕt>') }
+      it { subject.highlight_word("admin ÁDmĩǹ", "admin").should eq('<mark>admin</mark> ÁDmĩǹ') }
     end
 
     context "ignores case" do
@@ -43,11 +50,18 @@ describe Mconf::Highlighter do
       it { subject.highlight("oi oi oi", "oi").should eq('<mark>oi</mark> <mark>oi</mark> <mark>oi</mark>') }
       it { subject.highlight("oi OI oI", "Oi").should eq('<mark>oi</mark> <mark>OI</mark> <mark>oI</mark>') }
       it { subject.highlight("ôî õi ói", "oì").should eq('<mark>ôî</mark> <mark>õi</mark> <mark>ói</mark>') }
+      it { subject.highlight("Mark waldberg é um idiota", "mark").should eq("<mark>Mark</mark> waldberg é um idiota") }
+      it { subject.highlight("Mark waldberg é um idiota, mark idiota!", "mark").should eq("<mark>Mark</mark> waldberg é um idiota, <mark>mark</mark> idiota!") }
+      it { subject.highlight("Mark waldberg é um idiota", "idiota").should eq("Mark waldberg é um <mark>idiota</mark>") }
+      it { subject.highlight("Mark waldberg é um idiota, mark idiota!", "idiota").should eq("Mark waldberg é um <mark>idiota</mark>, mark <mark>idiota</mark>!") }
     end
 
     context "for multiple words" do
       it { subject.highlight("atirei no pescador", ["atirei", "pescador"]).should eq("<mark>atirei</mark> no <mark>pescador</mark>") }
       it { subject.highlight("Mark waldberg é um idiota", ["idiota", "mark"]).should eq("<mark>Mark</mark> waldberg é um <mark>idiota</mark>") }
+      it { subject.highlight("Mark waldberg é um idiota, mark idiota!", ["idiota", "mark"]).should eq("<mark>Mark</mark> waldberg é um <mark>idiota</mark>, <mark>mark</mark> <mark>idiota</mark>!") }
+      it { subject.highlight("Mark waldberg é um idiota", ["mark", "idiota"]).should eq("<mark>Mark</mark> waldberg é um <mark>idiota</mark>") }
+      it { subject.highlight("Mark waldberg é um idiota, mark idiota!", ["mark", "idiota"]).should eq("<mark>Mark</mark> waldberg é um <mark>idiota</mark>, <mark>mark</mark> <mark>idiota</mark>!") }
       it { subject.highlight("Mark mata cachorrinhos inocentes", ["cachorrinhos", "cachorros"]).should eq("Mark mata <mark>cachorrinhos</mark> inocentes") }
     end
   end
