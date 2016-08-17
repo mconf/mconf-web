@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 Rails.application.config.to_prepare do
 
   # Monkey-patches to add support for guest users in bigbluebutton_rails.
@@ -44,6 +50,17 @@ Rails.application.config.to_prepare do
     def public?
       owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
     end
+
+    def invitation_url
+      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain_with_protocol)
+    end
+
+    def dynamic_metadata
+      {
+        "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: Site.current.domain_with_protocol),
+        "mconfweb-room-type" => self.try(:owner).try(:class).try(:name)
+      }
+    end
   end
 
   BigbluebuttonServer.instance_eval do
@@ -57,13 +74,20 @@ Rails.application.config.to_prepare do
   end
 
   BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Common
-  end
+    include PublicActivity::Model
 
-  BigbluebuttonMeeting.class_eval do
-    after_create {
-      self.create_activity :create, :owner => self.room unless self.errors.any? 
-    }
+    tracked only: [:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+        creator_username: -> (ctrl, model) {
+          id = model.try(:creator_id)
+          user = User.find_by(id: id)
+          user.try(:username)
+        }
+      }
   end
 
 end

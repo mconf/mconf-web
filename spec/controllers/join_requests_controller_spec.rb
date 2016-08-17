@@ -1,5 +1,5 @@
-# This file is part of  Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -18,7 +18,7 @@ describe JoinRequestsController do
         sign_in(user)
       }
 
-      it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :index_join_requests }
+      it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :manage_join_requests }
 
       context "template and layout" do
         before(:each) { get :index, :space_id => space.to_param }
@@ -108,6 +108,18 @@ describe JoinRequestsController do
       }
       it { should redirect_to(login_path) }
     end
+
+    # There's no link shown in the interface to permit this, but we'll block it on a controller level
+    context "a logged in user trying to join an unapproved space" do
+      subject { get :new, space_id: space.to_param }
+      before(:each) {
+        space.update_attributes(approved: false)
+        sign_in(user)
+      }
+
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
+    end
+
   end
 
   describe "#show" do
@@ -187,13 +199,57 @@ describe JoinRequestsController do
 
       it { should redirect_to(space_path(space)) }
       it { should assign_to(:space).with(space) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+      it { should set_flash.to(I18n.t('join_requests.create.created')) }
       it { JoinRequest.last.comment.should eql(jr.comment) }
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
       it { JoinRequest.last.role_id.should eq(JoinRequest.default_role.id) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
+    end
+
+    # The user can't do this via interface but could still happen by modifying a form
+    # or directly posting to a url
+    context "user requests membership on a space where he's already invited" do
+      before(:each) {
+        space.join_requests.create(candidate: user, email: user.email, request_type: 'invite')
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_flash.to(I18n.t('join_requests.create.duplicated')) }
+    end
+
+    context "user requests membership on a space where he's already requested it" do
+      before(:each) {
+        space.join_requests.create(candidate: user, email: user.email, request_type: 'request')
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_flash.to(I18n.t('join_requests.create.duplicated')) }
+    end
+
+    context "user requests membership on a space where he's already a member" do
+      before(:each) {
+        space.add_member!(user)
+        sign_in(user)
+
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(0)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should set_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
     end
 
     context "user requests membership on a private space" do
@@ -208,7 +264,7 @@ describe JoinRequestsController do
 
       it { should redirect_to(spaces_path) }
       it { should assign_to(:space).with(space) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+      it { should set_flash.to(I18n.t('join_requests.create.created')) }
       it { JoinRequest.last.comment.should eql(jr.comment) }
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
@@ -258,7 +314,7 @@ describe JoinRequestsController do
     end
   end
 
-  describe "#create?invite=true" do
+  describe "#create?type=invite" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
     let(:candidate) { FactoryGirl.create(:user) }
@@ -268,82 +324,91 @@ describe JoinRequestsController do
       sign_in(user)
     }
 
-    it { should_authorize an_instance_of(JoinRequest), :create, :space_id => space.to_param, :via => :post }
+    it { should_authorize an_instance_of(JoinRequest), :create, space_id: space.to_param, via: :post }
 
     context "admin succesfully invites one user" do
       let(:attributes) {
-        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
       it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
       it { JoinRequest.last.introducer.should eql(user) }
       it { JoinRequest.last.candidate.should eql(candidate) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.role.should eql(role) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
 
     context "admin successfully invites more than one user" do
       let(:candidate2) { FactoryGirl.create(:user) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: "#{candidate.id},#{candidate2.id}",
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(2)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}, #{candidate2.username}")) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}, #{candidate2.username}")) }
     end
 
     context "admin successfully invites a user and fails to invite another" do
-      let(:candidate2) { user } #is invalid because he's already a member
+      let(:candidate2) { user } # is invalid because he's already a member
       let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate2.username) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: "#{candidate.id},#{candidate2.id}",
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}")) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.error',
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.error',
                                           :errors => errors)) }
     end
 
     context "admin fails to invite a user" do
-      let(:candidate) { user } #is invalid because he's already a member
+      let(:candidate) { user } # is invalid because he's already a member
       let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate.username) }
       let(:attributes) {
-        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
-                                                      :role_id => role.id), :candidates => "#{candidate.id}" }
+        { join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param }.merge(attributes)
         }.to change{space.pending_invitations.count}.by(0)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
+      it { should set_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
 
     context "global admin is not a member of the space and successfully invites one user (RM-1458)" do
@@ -354,32 +419,35 @@ describe JoinRequestsController do
       }
 
       let(:attributes) {
-        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+        {
+          join_request: FactoryGirl.attributes_for(:join_request, email: nil, role_id: role.id),
+          candidates: candidate.id,
+          type: 'invite'
+        }
       }
 
       before(:each) {
         expect {
-          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+          post :create, { space_id: space.to_param }.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
       }
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
-      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { should set_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
       it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
       it { JoinRequest.last.introducer.should eql(superuser) }
       it { JoinRequest.last.candidate.should eql(candidate) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.role.should eql(role) }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
-
   end
 
   describe "#invite" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize space, :invite, :space_id => space.to_param }
+    it { should_authorize space, :invite, :space_id => space.to_param, :ability_name => :manage_join_requests }
 
     context "if the user is not a member of the space" do
       before(:each) {
@@ -448,7 +516,7 @@ describe JoinRequestsController do
         it { jr.should be_accepted }
         it { jr.should be_processed }
         it { jr.introducer.should eq(user) }
-        it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
+        it { should set_flash.to(I18n.t('join_requests.accept.accepted')) }
       end
 
       context "accepts a user request with a role" do
@@ -459,19 +527,21 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
+            PublicActivity.with_tracking do
+              post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -507,7 +577,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "accepts a user request from the join request's show view" do
@@ -551,7 +621,7 @@ describe JoinRequestsController do
         it { should redirect_to(space_path(space)) }
         it { jr.should be_accepted }
         it { jr.should be_processed }
-        it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
+        it { should set_flash.to(I18n.t('join_requests.accept.accepted')) }
       end
 
       context "accepts an invite with a role" do
@@ -577,19 +647,21 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { jr.role.should eq(role.name) }
+        it { jr.role.should eq(role) }
       end
 
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :accept, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -626,7 +698,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
     end
   end
@@ -659,19 +731,21 @@ describe JoinRequestsController do
         it { jr.should_not be_accepted }
         it { jr.should be_processed }
         it { jr.introducer.should eq(user) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.declined')) }
       end
 
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :decline, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -709,7 +783,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "declines a user request from the join request's show view" do
@@ -733,7 +807,7 @@ describe JoinRequestsController do
         }
         it { should redirect_to(space_join_requests_path(space)) }
         it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.invitation_destroyed')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.invitation_destroyed')) }
       end
     end
 
@@ -755,19 +829,21 @@ describe JoinRequestsController do
         it { should redirect_to(my_home_path) }
         it { jr.should_not be_accepted }
         it { jr.should be_processed }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.declined')) }
       end
 
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :decline, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
 
-        it { RecentActivity.last.trackable.should eq(jr.group) }
-        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.trackable.should eq(jr) }
+        it { RecentActivity.last.owner.should eq(jr.group) }
         it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
@@ -805,7 +881,7 @@ describe JoinRequestsController do
         it { space.users.should_not include(jr.candidate) }
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
-        it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+        it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
       context "declines a request he made" do
@@ -817,7 +893,7 @@ describe JoinRequestsController do
         }
         it { should redirect_to(my_home_path) }
         it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_the_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
       end
     end
   end

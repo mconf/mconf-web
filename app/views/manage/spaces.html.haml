@@ -3,8 +3,10 @@
 #manage
 
   .page-tabs.page-tabs-full
-    %label{ :for => 'spaces_filter_text' }= t('.filter_results')
-    = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path(:partial => 1), :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'resource-filter'
+    .search-words
+      - if can?(:create, Space)
+        = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-new-space'
+      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'resource-filter'
 
   #space-list
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }

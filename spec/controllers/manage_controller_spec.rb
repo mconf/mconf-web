@@ -1,11 +1,34 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 
 describe ManageController do
+
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
 
   describe "#users" do
     before { User.destroy_all } # exclude seeded user(s)
 
     it "should require authentication"
+
+    # see bug #1719
+    context "stores location for redirect from xhr" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        sign_in superuser
+        controller.session[:user_return_to] = "/home"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :users
+      }
+      it { controller.session[:user_return_to].should eq("/manage/users") }
+      it { controller.session[:previous_user_return_to].should eq("/home") }
+    end
 
     context "authorizes" do
       let(:user) { FactoryGirl.create(:superuser) }
@@ -93,7 +116,7 @@ describe ManageController do
             @u2.profile.update_attributes(:full_name => 'Second')
             @u3 = FactoryGirl.create(:user, :_full_name => 'Secondary')
           }
-          before(:each) { get :users, :q => 'sec' }
+          before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
           it { assigns(:users).should include(@u2) }
           it { assigns(:users).should include(@u3) }
@@ -106,47 +129,122 @@ describe ManageController do
             @u2.update_attributes(:username => 'Second')
             @u3 = FactoryGirl.create(:user, :username => 'Secondary')
           }
-          before(:each) { get :users, :q => 'sec' }
+          before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
           it { assigns(:users).should include(@u2) }
           it { assigns(:users).should include(@u3) }
         end
 
-        # TODO: This is triggering an error related to delayed_job. Test this when delayed_job
-        #   is removed, see #811.
-        # context "by email" do
-        #   before {
-        #     @u1 = User.first # the seeded user
-        #     @u1.update_attributes(:email => 'first@here.com')
-        #     @u2 = user
-        #     @u2.update_attributes(:email => 'second@there.com')
-        #     @u3 = FactoryGirl.create(:user, :email => 'my@secondary.org')
-        #   }
-        #   before(:each) { get :users, :q => 'sec' }
-        #   it { assigns(:users).count.should be(2) }
-        #   it { assigns(:users).should include(@u2) }
-        #   it { assigns(:users).should include(@u3) }
-        # end
+        context "by email" do
+          before {
+            @u1 = FactoryGirl.create(:user, :email => 'first@here.com')
+            @u2 = FactoryGirl.create(:user, :email => 'second@there.com')
+            @u3 = FactoryGirl.create(:user, :email => 'my@secondary.org')
+          }
+          before(:each) { get :users, :q => 'second' }
+          it { assigns(:users).count.should be(2) }
+          it { assigns(:users).should include(@u2) }
+          it { assigns(:users).should include(@u3) }
+        end
 
       end
 
-      context "removes partial from params" do
-        before(:each) { get :users, :partial => true }
-        it { controller.params.should_not have_key(:partial) }
+      context "use params [:admin, :approved, :disabled, :can_record] to filter the results" do
+        let!(:users) {[
+          FactoryGirl.create(:user, username: 'el-magron'),
+          FactoryGirl.create(:superuser, username: 'el-admin'),
+          FactoryGirl.create(:user, username: 'el-debilitado', disabled: true),
+          FactoryGirl.create(:user, username: 'reprovado'),
+          FactoryGirl.create(:user, username: 'remembrador', can_record: true),
+          User.first # the original admin user
+        ]}
+        before {
+          users[3].disapprove!
+          get :users, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:users).count.should be(6) }
+          it { assigns(:users).should include(*users) }
+        end
+
+        context "params[:admin]" do
+          context 'is true' do
+            let(:params) { {admin: 'true'} }
+            it { assigns(:users).count.should be(2) }
+            it { assigns(:users).should include(users[1], users[5]) }
+          end
+
+          context 'is false' do
+            let(:params) { {admin: 'false'} }
+            it { assigns(:users).count.should be(4) }
+            it { assigns(:users).should include(users[0], users[2], users[3], users[4]) }
+          end
+        end
+
+        context "params[:approved]" do
+          context 'is true' do
+            let(:params) { {approved: 'true'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[2], users[4], users[5]) }
+          end
+
+          context 'is false' do
+            let(:params) { {approved: 'false'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[3]) }
+          end
+        end
+
+        context "params[:disabled]" do
+          context 'is true' do
+            let(:params) { {disabled: 'true'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[2]) }
+          end
+
+          context 'is false' do
+            let(:params) { {disabled: 'false'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[3], users[4], users[5]) }
+          end
+        end
+
+        context "params[:can_record]" do
+          context 'is true' do
+            let(:params) { {can_record: 'true'} }
+            it { assigns(:users).count.should be(1) }
+            it { assigns(:users).should include(users[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {can_record: 'false'} }
+            it { assigns(:users).count.should be(5) }
+            it { assigns(:users).should include(users[0], users[1], users[2], users[3], users[5]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {admin: 'false', approved: 'true', q: 'el re'} }
+
+          it { assigns(:users).count.should be(3) }
+          it { assigns(:users).should include(users[0], users[2], users[4]) }
+        end
       end
 
-      context "if params[:partial] is set" do
-        before(:each) { get :users, :partial => true }
+      context "if xhr request" do
+        before(:each) { xhr :get, :users }
         it { should render_template('manage/_users_list') }
         it { should_not render_with_layout }
       end
 
-      context "if params[:partial] is not set" do
+      context "not xhr request" do
         before(:each) { get :users }
         it { should render_template(:users) }
         it { should render_with_layout('no_sidebar') }
       end
-
     end
   end
 
@@ -234,37 +332,18 @@ describe ManageController do
         end
       end
 
-      context "removes partial from params" do
-        before(:each) { get :spaces, :partial => true }
-        it { controller.params.should_not have_key(:partial) }
-      end
-
-      context "if params[:partial] is set" do
-        before(:each) { get :spaces, :partial => true }
+      context "if xhr request" do
+        before(:each) { xhr :get, :spaces }
         it { should render_template('manage/_spaces_list') }
         it { should_not render_with_layout }
       end
 
-      context "if params[:partial] is not set" do
+      context "not xhr request" do
         before(:each) { get :spaces }
         it { should render_template(:spaces) }
         it { should render_with_layout('no_sidebar') }
       end
     end
-  end
-
-  describe "#spam" do
-    let(:user) { FactoryGirl.create(:superuser) }
-
-    before { sign_in(user) }
-
-    it "is successful"
-    it "sets @spam_events to all events marked as spam"
-    it "sets @spam_posts to all posts marked as spam"
-    it "renders manage/spam"
-    it "renders with the layout no_sidebar"
-
-    it { should_authorize :manage, :spam }
   end
 
   describe "abilities", :abilities => true do
@@ -275,7 +354,6 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should allow_access_to(:users) }
       it { should allow_access_to(:spaces) }
-      it { should allow_access_to(:spam) }
     end
 
     context "for a normal user", :user => "normal" do
@@ -283,13 +361,11 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
 
     context "for an anonymous user", :user => "anonymous" do
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
   end
 

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -9,7 +9,6 @@ require 'spec_helper'
 include Devise::TestHelpers
 
 describe ApplicationHelper do
-
   describe "#application_version" do
     it("returns the version set on the Mconf object") { application_version.should eq(Mconf::VERSION) }
   end
@@ -17,11 +16,6 @@ describe ApplicationHelper do
   describe "#application_revision" do
     before { Mconf.should_receive(:application_revision).and_return('revision') }
     it("returns Mconf.application_revision") { application_revision.should eq('revision') }
-  end
-
-  describe "#application_branch" do
-    before { Mconf.should_receive(:application_branch).and_return('branch') }
-    it("returns Mconf.application_branch") { application_branch.should eq('branch') }
   end
 
   describe "#asset_exists?" do
@@ -181,6 +175,26 @@ describe ApplicationHelper do
 
     context "with no parameters returns only the visible locales" do
       it { available_locales.should eq([:v1, :v2]) }
+    end
+  end
+
+  describe "#max_upload_size" do
+    before {
+      allow(helper).to receive(:current_site) { Site.current }
+    }
+
+    context "when max_upload_size is set in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: "25000000")
+      }
+      it { helper.max_upload_size.should eq("25000000") }
+    end
+
+    context "when max_upload_size is not set in the site" do
+      before {
+        Site.current.update_attributes(max_upload_size: nil)
+      }
+      it { helper.max_upload_size.should be_nil }
     end
   end
 

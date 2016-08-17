@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -12,9 +12,9 @@ class Invitation < ActiveRecord::Base
   belongs_to :recipient, :class_name => "User"
 
   # Sends the invitation to the recipient.
-  # Respects the preferences of the user, sending the notification either via
-  # email or private message.
-  # Uses the mailer variable to build the correct emails
+  # Respects the preferences of the user, sending the notification
+  # (usually via email).
+  # Uses the mailer variable to build the correct emails.
   def send_invitation
     mailer = if self.is_a? WebConferenceInvitation
                WebConferenceMailer
@@ -83,9 +83,7 @@ class Invitation < ActiveRecord::Base
 
   def to_ical
     if self.is_a? EventInvitation
-      cal = Icalendar::Calendar.new
-      cal.add_event(target.to_ics)
-      cal.to_ical
+      target.to_ical
     else
       event = Icalendar::Event.new
 
@@ -107,26 +105,14 @@ class Invitation < ActiveRecord::Base
     end
   end
 
-  private
-
-  # TODO: this could be used for other messages, not only webconf invitations, could be
-  #   moved somewhere else
-  # TODO: not sure if here is the best place for this, maybe it should be done asynchronously
-  #   together with emails, maybe in a class that abstracts "notifications" in general
-  def send_private_message(user)
-    I18n.with_locale(get_user_locale(user, false)) do
-      content = ActionView::Base.new(Rails.configuration.paths["app/views"])
-        .render(:partial => 'web_conference_mailer/invitation_email',
-                :format => :pm,
-                :locals => { :invitation => self })
-      opts = {
-        :sender_id => self.sender.id,
-        :receiver_id => user.id,
-        :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_email.subject')
-      }
-      private_message = PrivateMessage.new(opts)
-      private_message.save
+  # Get a https/http URL depending on the setting on the site
+  def url_with_protocol
+    begin
+      u = URI.parse(self.url)
+      u.scheme = Site.current.ssl? ? 'https' : 'http'
+      u.to_s
+    rescue URI::InvalidURIError
+      url
     end
   end
 

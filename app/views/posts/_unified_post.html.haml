@@ -1,4 +1,4 @@
-- return if cannot?(:read, thread)
+- return if cannot?(:show, thread)
 
 %div.thread.thread-post{class: "#{cycle("thread-even" , "thread-odd")}", id: "parent-#{thread.id}"}
   .logo-in-thread
@@ -15,12 +15,9 @@
         %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { name: thread.id, title: t('edit'), class: "open-modal" }
       - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {method: :delete, title: t('delete.one'), data: { confirm: t('delete.confirm', element: thread.title) } }
-      - if user_signed_in? and !thread.spam
-        %li= link_to t('_other.spam.title').downcase, spam_report_space_post_path(thread.space, thread), options_for_tooltip(t('_other.spam.tooltip'), method: :post, data: { confirm: t('are_you_sure') })
 
     .thread-title
       = icon_comments t('post.home.one', space: thread.space.name)
-      = icon_spam if thread.spam
       - if thread.author && thread.author.enabled?
         = link_to thread.author.name, user_path(thread.author), { class: "post-author" }
       - else
@@ -47,7 +44,7 @@
         - unless thread.children.size < 4
           .thread-observation
             = t('thread.show_last_comment', size: thread.three_last_comment().size, children: thread.children.size)
-            = link_to(t('comment.show_all'), space_post_path(thread.space,thread)) if can?(:read, thread.space)
+            = link_to(t('comment.show_all'), space_post_path(thread.space,thread)) if can?(:show, thread.space)
         %a.link-to-collapse{href: "parent-#{thread.id}"}= t('less')
         %div
           - for comment in thread.three_last_comment()

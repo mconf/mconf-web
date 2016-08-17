@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 
 describe Resque do
@@ -6,10 +12,6 @@ describe Resque do
   # TODO: have to do this after running rake resque:setup or resque:scheduler
   #  to do so we have to setup a way to run rake tasks here
 
-  skip("schedules PrivateMessagesWorker") {
-    puts Resque.schedule.inspect
-    should_have_scheduled(schedule, PrivateMessagesWorker, "30s")
-  }
   skip("schedules JoinRequestsWorker") {
     should_have_scheduled(schedule, JoinRequestsWorker, "30s")
   }

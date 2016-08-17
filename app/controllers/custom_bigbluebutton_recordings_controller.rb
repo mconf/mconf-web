@@ -1,12 +1,28 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsController
-  # need authentication even to play a recording
-  before_filter :authenticate_user!
+  # need authentication except to play a record (#1675)
+  before_filter :authenticate_user!, except: :play
 
   before_filter :set_parameters, only: :play
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
   protected
+
+  def handle_access_denied exception
+
+    # anonymous users are required to sign in
+    if !user_signed_in?
+      redirect_to login_path
+    else
+      super
+    end
+  end
 
   # Checks the URL and sets the parameters as temporary parameters in the playback's URL.
   def set_parameters
@@ -28,4 +44,5 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
       [ :description ]
     end
   end
+
 end

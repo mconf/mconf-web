@@ -5,44 +5,47 @@ en:
       create_html: uploaded the attachment %{name} in the space
       destroy_html: removed the attachment %{name} from the space
       update_html: updated the attachment %{name} in the space
-      deleted: that has since been deleted
+      deleted: "an attachment that was removed"
+      deleted_tooltip: "This attachment doesn't exist anymore"
     bigbluebutton_meeting:
       deleted_html: "A meeting has happened but its information have since been deleted"
       user:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
+    event:
+      deleted_tooltip: "This event is not available anymore"
     join_request:
-      deleted: that has since been deleted
+      accept_html: has joined the space
+      decline_html: had their invitation/request declined in the space
+      deleted: "a request that was removed"
+      deleted_tooltip: "This request doesn't exist anymore"
       invite_html: "was invited to join the space"
-      invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      invite_with_introducer_1_html: "was invited by"
+      invite_with_introducer_2_html: "to join the space"
+      no_accept_1_html: "was added by"
+      no_accept_2_html: "to the space"
       request_html: "has requested to join the space"
-    mweb_events_event:
-      create_html: created the event %{name} in the space
-      attend_html: will attend to the event %{name} in the space
-      not_attend_html: will not attend to the event %{name} in the space
-      update_html: updated the information of the event %{name} in the space
-      deleted: that has since been deleted
-    mweb_events_participant:
-      create_html: will attend to the event %{name} in the space
-    news:
-      create_html: published the news %{name} in the space
-      update_html: updated the news %{name} in the space
-      deleted: that have since been deleted
     other:
+      admin_html: "An administrator"
       someone_html: "Someone"
     post:
       create_html: posted %{name} in the space
       update_html: updated %{name} in the space
       reply_html: replied to %{name} in the space
-      deleted: a message that has since been deleted
+      deleted: "a post that was removed"
+      deleted_tooltip: "This post doesn't exist anymore"
+    resource:
+      deleted_tooltip: "This resource doesn't exist anymore"
     space:
-      accept_html: has joined the space
+      approved_html: approved the space
       create_html: created a new space
-      decline_html: had their invitation/request declined in the space
-      deleted: a space that has since been deleted
+      deleted: "a space that doesn't exist anymore"
+      deleted_tooltip: "This space doesn't exist anymore"
       leave_html: has left the space
       update_html: updated info on space
+    user:
+      deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
       cancel: "Cancel"
@@ -52,10 +55,11 @@ en:
     accept: "Accept"
     cancel: "Cancel"
     create: "Create"
+    confirm: Ok
     datetimepicker:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
-      format_rails: "%m/%d/%Y %H:%M %z"
+      format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
@@ -80,13 +84,11 @@ en:
       other: "%{count} participants"
     publish: "Publish"
     register: "Register"
-    register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
-    spam:
-      title: "Spam"
-      tooltip: "Report this item as a spam"
-      icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
+    not_approved:
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     unpublish: "Unpublish"
     update: "Update"
     updated_time_ago: "%{time} ago"
@@ -123,9 +125,6 @@ en:
         users: "Users"
       join_request:
         comment: "Message"
-      news:
-        text: "Text"
-        title: "Title"
       post:
         text: "Message"
         title: "Title"
@@ -144,14 +143,12 @@ en:
         prefix_key: "Title"
         province: "Province"
         skype: "Skype"
-        url: "Your website"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
-        chat_enabled: "Enable Chat"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
@@ -160,6 +157,7 @@ en:
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
+        forbid_user_space_creation: "Forbid users from creating spaces"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -172,10 +170,12 @@ en:
         ldap_name_field: "LDAP: Field to obtain the user's full name"
         local_auth_enabled: "Enable local authentication"
         locale: "Language"
+        max_upload_size: "Maximum file size for uploads"
         name: "Name"
-        presence_domain: "XMPP Chat Domain"
         registration_enabled: "Allow users to create new accounts"
-        require_registration_approval: "Require admins to approve new registrations"
+        require_registration_approval: "Moderate users"
+        require_space_approval: "Moderate spaces"
+        room_dial_number_pattern: 'Room dial number pattern'
         signature: "Signature"
         shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
@@ -184,20 +184,20 @@ en:
         shib_login_field: "Shibboleth: Field for login"
         shib_name_field: "Shibboleth: Field for name"
         shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
-        smtp_auth_type: "STMP authentication type"
+        shib_update_users: "Shibboleth: Update user information"
+        smtp_auth_type: "SMTP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
-        smtp_domain: "STMP domain"
+        smtp_domain: "SMTP domain"
         smtp_login: "SMTP login"
         smtp_password: "SMTP password"
         smtp_port: "SMTP port"
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
-        smtp_use_tls: "Use TLS in STMP"
+        smtp_use_tls: "Use TLS in SMTP"
         ssl: "SSL"
         timezone: "Timezone"
         visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
-        webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_key: "Key for attendees"
         description: "Description"
@@ -216,23 +216,45 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
+        remember_me: "Remember me"
         superuser: "Global administrator"
         timezone: "Timezone"
         username: "Username"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "must choose at least one receiver"
       messages:
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
     models:
       event: "Event"
       join_request: "Join Request"
-      news: "News"
       space: "Space"
+
+  flash:
+    spaces:
+      update:
+        notice: "Space updated successfully"
+      disable:
+        notice: "Space disabled successfully"
+      enable:
+        notice: "Space enabled successfully"
+        failure: "Space %{name} is already enabled"
+
+    posts:
+      update:
+        notice: "Message updated!"
+        failure: "Message update failed: %{errors}"
+
+      create:
+        notice: "Message posted!"
+        failure: "Message couldn't be posted: %{errors}"
+
+    users:
+      disable:
+        notice: "User disabled successfully"
+      enable:
+        notice: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
+        failure: "User %{name} is already enabled"
+
   address: Address
   admin:
     one: Admin
@@ -385,36 +407,6 @@ en:
   cancel: Cancel
   caption: 
     add: "Add a caption"
-  chat: 
-    add: "Add User"
-    connecting_error_message: "Error while connecting"
-    connecting_message: "Connecting to event chat..."
-    invite: 
-      bbb: "Invite users to your BBB room"
-      button: "Invite Users"
-      hint: "Type to start searching"
-      msg: "Has invited you to participate in a webconference, follow this link: <a href='URL'> URL </a>"
-      msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
-      msg_sender: "Invitation sent. Link to your room: <a href='URL'> URL </a>"
-    me: "me"
-    name: 
-      one: "Name"
-      other: "Names"
-    please_login_message: "Please, login/register to participate"
-    reconnect_button_message: "Click to reconnect"
-    reconnect_message: Reconnect
-    request: 
-      approve: "Approve"
-      deny: "Deny"
-      title: "Friend Request"
-      body: "<b>%{name}</b> want to add you as a friend."
-    status: 
-      online: "Online"
-      busy: "Busy"
-      away: "Away"
-      offline: "Offline"
-    typing: "is typing..."
-    title: "Chat"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -453,6 +445,7 @@ en:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
+      generate_dial_number: "Generate dial number"
       invite: "Invite"
       join_mobile: "Join from mobile"
       new_room: "New room"
@@ -460,6 +453,7 @@ en:
     edit:
       editing_room: "Editing room '%{room}'"
     form:
+      layout_empty_option: "<default>"
       metadata:
         add: "Add metadata"
         set_to_remove: "Set to remove"
@@ -470,7 +464,9 @@ en:
       at: "at"
       duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the time zone %{timezone}"
+      offset: "Your current time offset is \"%{offset}\""
+      offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "The dates below are using the time zone \"%{timezone}\""
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
@@ -507,23 +503,13 @@ en:
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      download_android_tip: "For devices with Android"
+      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
       not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""
       use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
       try_again: "You have the application installed but it wasn't launched? Click here to try again."
-    join_options:
-      alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
-      metadata: 
-        description: "Description for this meeting"
-        title: "Title for this meeting"
-      record:
-        label: "Record meeting"
-        tooltip: "Mark it to set this room to record its meetings. This can't be changed after the meeting is running!"
-      start: "Done, start the meeting!"
-      title: "Meeting options"
     new:
       creating_new_room: "Creating a new room"
     recordings:
@@ -544,6 +530,7 @@ en:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editing recording"
+      tip: "Most of the attributes are not editable because they are fetched from a remote server and reflect the state of the recording in this server"
     show:
       showing_recording: "Showing recording"
     index:
@@ -551,6 +538,7 @@ en:
     recording_links:
       direct_link: "Direct link"
       playback_links: "Playbacks available"
+      confirm_destroy: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
     recordings:
       table:
         links: "Links"
@@ -587,7 +575,7 @@ en:
     show:
       available_layouts: "Available layouts"
       configurations: "Server configurations"
-      configurations_tip: "These configurations are automatically fetched from the server and cannot be modified here. They are fetched periodically (every ~3h) by a background process and also whenever the URL, salt or version of the server change."
+      configurations_tip: "These configurations are automatically fetched from the server and cannot be modified here. They are fetched periodically (every ~3h) by a background process and also whenever the URL, secret or version of the server change."
       fetch_recordings_title: "Fetch recordings with parameters"
       fetch_recordings_btn: "Fetch recordings"
       publish_recordings_title: "Publish recordings"
@@ -649,7 +637,6 @@ en:
       event: "<b>%{author_name}</b> has created a new event in <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> has sent you a message:"
       message: "Latest activities in your spaces:"
-      news: "A new news was published in <b>%{space_name}</b>:"
       posted: "<b>%{author_name}</b> has posted in <b>%{space_name}</b> the message:"
       title: "%{type} digest with the activity in your spaces"
       type: 
@@ -661,8 +648,6 @@ en:
     kind_regards: "Kind regards,"
     notifications: "email notifications"
     one: email
-    spam_activation: "If you did not register at this site, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
-    spam_invitation: "If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
     url_activated: "You can now login to your account with your email \"%{name}\" and your password in <a href=\"%{url}\"> %{url}</a>"
     used_from: "email used in contact form: %{dir}"
     welcome: "Welcome to %{sitename}"
@@ -730,7 +715,7 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
+    no_spaces: "You do not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
   icons: 
@@ -793,7 +778,6 @@ en:
     bad_format: "(bad formatting)"
     email: "email to %{email}"
     title: "Invitation to participate in a webconference"
-    user_private_msg: "private message to the user %{user}"
   invited: Invited
   join: Join
   join_cam: Participate
@@ -808,6 +792,8 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+      users_added: "You have successfully added the user(s) %{users} to this space"
+      you_are_already_a_member: "You are already a member of this space"
     decline:
       declined: "Join request declined"
       invitation_destroyed: "Invitation successfully cancelled"
@@ -830,6 +816,9 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      type_add: "Add users directly"
+      type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
+      type_invite: "Invite"
       users:
         hint: "Type to start searching"
         no_results: "No results found"
@@ -866,7 +855,6 @@ en:
   language: Language
   last_week: "Last week"
   latest_events: "Latest events"
-  latest_news: "Latest news"
   layouts:
     application_navbar:
       events: "Events"
@@ -900,17 +888,15 @@ en:
         change: "Switch language"
     spaces_page_title:
       is_member: "You are a member of this space"
+      manage_to_approve: "manage"
       private: "Private space"
       public: "Public space"
   less: "less..."
-  locales: 
-    en: English
-    es-419: "Español (América Latina)"
-    pt-br: "Português (Brasil)"
+  locales:
     error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
-  logo: 
+  logo:
     created: "Logo uploaded successfully"
     crop: "Crop space logo"
     empty: "The logo is empty"
@@ -931,8 +917,12 @@ en:
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
     enabled_space:
+      approve: "Approve: unlock the access to this space"
+      approve_confirm: "Are you sure you want to unlock the access to this space?"
       disable: "Disable space"
       disable_confirm: "Are you sure you want to disable this space?"
+      disapprove: "Disapprove: block the access to this space"
+      disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
       approve: "Approve: allow this user to access the website"
@@ -947,13 +937,12 @@ en:
     menu:
       general: "General"
       spaces: "Spaces"
-      spam: "Spam"
       title: "Site Management"
       users: "Users"
       webconf: "Web Conference"
     spaces:
-      filter_name: "Name"
-      filter_results: "Filter the results:"
+      filter_name: "Filter spaces by name"
+      new_space: "Create space"
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
@@ -964,52 +953,23 @@ en:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
-    spam:
-      event:
-        delete_confirmation: "Remove this event permanently?"
-        delete_tooltip: "This event is a spam, remove it"
-        not_spam_confirmation: "Confirm that this event is not a spam?"
-        not_spam_tooltip: "This event is not a spam"
-        title: "Events marked as spam"
-      no_spam: "No spam reported"
-      post:
-        delete_confirmation: "Remove this post permanently?"
-        delete_tooltip: "This post is a spam, remove it"
-        not_spam_confirmation: "Confirm that this post is not a spam?"
-        not_spam_tooltip: "This post is not a spam"
-        title: "Posts marked as spam"
     users:
-      filter_name_or_username: "Name, username or email"
-      filter_results: "Filter the results:"
+      filter_name_or_username: "Filter users by name, username or email"
       new_user: "Create user"
+      admin_true: Admins
+      admin_false: Users
+      approved_true: Approved
+      approved_false: Not approved
+      disabled_true: Disabled
+      disabled_false: Enabled
+      can_record_true: Can record
+      can_record_false: Can't record
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
       no_user_found: "No user found"
   mandatory_field: "Mandatory field"
-  message: 
-    created: "Message sent successfully"
-    error:
-      create: "Error sending private message"
   mconf: Mconf
-  message: 
-    created: "Message sent!"
-    error:
-      create: "Error sending message"
-    incoming: 
-      other: "Incoming messages"
-    private: 
-      cant: "You cannot send private messages because you have no partners in any space"
-      editing: "Editing private message"
-      new: "New Private message"
-      none: "There are no messages"
-      send: "Send private message"
-    reply: "Reply to message"
-    sent: 
-      other: "Sent messages"
-    special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
-    special2: "The Mconf Team"
-    to: To
   moderatorPW: "Moderator Password"
   more: more...
   more_arrows: "more >>"
@@ -1047,7 +1007,6 @@ en:
     webconference_room:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
@@ -1065,25 +1024,6 @@ en:
   name: 
     one: Name
     other: Names
-  new_spam_detected: "New spam detected"
-  news: 
-    created: "News item published successfully"
-    deleted: "News item deleted successfully"
-    edit: "Edit news item"
-    error: 
-      create: "There was a problem publishing the news item"
-      delete: "Error deleting news item"
-      update: "News item could not be updated"
-    item_in_home: "News item in space"
-    more: 
-      one: "and more one new.."
-      other: "and more %{count} news.."
-    none_to_show: "No news items to show"
-    other: News
-    publish_another: "Publish another news item"
-    publish_home: "Publish news item"
-    title: "News (%{count})"
-    updated: "News item updated successfully"
   next: Next
   now_exclamation: Now!
   ok: OK
@@ -1130,8 +1070,7 @@ en:
   place: Place
   please: Please
   popularity: Popularity
-  post: 
-    created: "Message posted!"
+  post:
     deleted: "Comment %{postname} has been deleted"
     reply: "in reply to"
     home: 
@@ -1148,13 +1087,12 @@ en:
     posted: "posted"
     show_expanded_pref: "How would you like to see your messages?"
     title: "Messages (%{count})"
-    updated: "Message updated!"
     wall: Wall
   posts:
     index:
       new_post: "Send a new message"
       no_messages: "There are no messages in the wall"
-    new_post:
+    new:
       title: "Post a new message"
     post_with_children:
       by: "by"
@@ -1162,36 +1100,6 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
-  private_message:
-    more: 
-      one: "and one more private message..."
-      other: "and more %{count} private messages..."
-    one: "Private Message"
-    other: "Private Messages"
-    send: "Send private message"
-    title: "Private Messages (%{count})"
-  private_messages: 
-    index: 
-      title: "Private Messages"
-    menu: 
-      compose: Compose
-      inbox: Inbox
-      sent: Sent
-    new: 
-      title: "Private Messages"
-      users:
-        hint: "Type to start searching"
-        no_results: "No results found"
-        searching: "Searching..."
-    reply_private_message:
-      user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
-    show: 
-      title: "Private Messages"
-    show_received:
-      wrote: wrote
-    show_sent: 
-      wrote_to: Sent
-      titled: the message
   profile: 
     deleted: "Profile deleted successfully"
     description: 
@@ -1209,6 +1117,8 @@ en:
   profiles:
     edit:
       change_pic: "Change picture"
+      explain_gravatar: "This is the image associated with your email on Gravatar.com"
+      using_gravatar: "Image from Gravatar"
       title: "Edit profile"
       view_your_profile: "View profile"
       vcard:
@@ -1232,7 +1142,7 @@ en:
     activity: "Recent activity"
   recent_activity: 
     empty: "You still have no recent activity to be shown. Join spaces and start interacting to have this area filled."
-    tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
+    tooltip: "Here you can find the newest events and messages of the spaces you belong to"
   recording: 
     automatic: Automatic
     box_title: Recording
@@ -1257,12 +1167,10 @@ en:
   registrations:
     signup_form:
       register: "Register"
-  remember_me: "Remember me"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
   reply_to_words: "Reply to %{words}"
-  report_spam: "Report spam"
   repository: 
     download: Download
     loading: "Refreshing document repository..."
@@ -1331,11 +1239,17 @@ en:
     recording_list:
       created: "Created"
       created_by: "Created by"
+      destroy_confirm: "Are you sure you want to permanently remove this recording?"
       ended_at: "Ended at"
+      manage: "Manage"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
       started_at: "The meeting happened at"
+      publish: Publish
+      unpublish: Unpublish
+      unpublish_confirm: "Are you sure you want to remove this recording?"
+      unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
     recording_playback:
       duration: "duration"
       playback: "Playback links"
@@ -1405,20 +1319,17 @@ en:
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
     created: "Space created successfully"
+    created_waiting_moderation: "Space created successfully! Please wait for an admin to approve your space before other users can access it."
     delete: "Delete Space"
     deleted: "Space removed successfully"
     description: "Space Description"
     description_none: "A space description must be given to create a new space"
     disable: "Disable space"
-    disabled: "Space disabled successfully"
     edit: 
       webconference_passwords: "Webconference room passwords"
     edit_description: "edit description"
     edit_name: "edit name"
     enable: "Enable space"
-    enabled: "Space enabled successfully"
-    error: 
-      enabled: "Space %{name} is already enabled"
     event_count: "%{count} events"
     index: 
       filters: 
@@ -1471,6 +1382,9 @@ en:
     public: 
       one: "Public space"
       other: "Public spaces"
+    remove_user:
+      confirm: "Are you sure you want to remove this user from the space?"
+      remove: "Remove user"
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
@@ -1478,7 +1392,6 @@ en:
       views: "views"
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
-    updated: "Space updated successfully"
   space_events:
     all_events:
       all_upcoming: "View all upcoming events"
@@ -1520,9 +1433,14 @@ en:
       admissions: "Admissions"
       general_options: "General options"
       invite: "Invite people"
-      news: "News"
       users: "Users"
       webconf_options: "Webconference options"
+      add_member: "Add members"
+    approve:
+      approved: "The space %{name} was approved"
+    disapprove:
+      disapproved: "The space %{name} was disapproved"
+      not_enabled: "Moderation of spaces is not enabled"
     edit:
       change_logo: "Change picture"
       delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
@@ -1534,8 +1452,10 @@ en:
       title: "Edit your recording"
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
+      creation_forbidden: "You are not allowed to create spaces"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
+      unapproved: "This space was not yet approved by an administrator."
     index: 
       create_new_space: "Create a new space"
       list_format: 
@@ -1563,7 +1483,6 @@ en:
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
-    news: "Space news"
     recordings:
       title: "Recordings in this space"
       update_recordings:
@@ -1580,6 +1499,7 @@ en:
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
+        dial_number: "Dial number"
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_notifications:
@@ -1589,7 +1509,6 @@ en:
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
       invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"
@@ -1617,6 +1536,12 @@ en:
       user_is_member: "You are a member of this space"
       view_join_request: "View the request you sent"
       with_members: "with %{count} members"
+    user_permissions:
+      confirm_leave_space: "Are you sure you want to leave this space?"
+      confirm_remove_user: "Are you sure you want to remove this user from the space?"
+      leave_space: "Leave this space"
+      remove_user: "Remove the user from the space"
+      tooltip_last_admin: "This user is the last administrator of this space, therefore he can't leave not have its role changed"
     users: "Users in this space"
     webconference:
       end: "Stop the meeting"
@@ -1641,20 +1566,6 @@ en:
     webconference_tabs:
       access: "Webconference access"
       recordings: "List of recordings"
-  spam:
-    spam_report_create:
-      error: "Sorry, but there was a problem marking this item as spam"
-      success: "The item was marked as a spam! It will be checked by the administrators"
-      user_is_member: "You're a member"
-    created: "A reporting spam email has been successfully sent to the admins. Thank you."
-    default: spam
-    detected: "New spam detected"
-    error: 
-      check: "There was a problem marking the resource as spam"
-    item: "This item has been reported as spam and is being evaluated by the administrators"
-    report: "Report spam"
-    reported: "%{name} (%{email}) has reported spam in %{sitename}"
-    valid: "This content is valid"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
@@ -1666,7 +1577,6 @@ en:
         events: "Events"
         how_many: "How many?"
         posts: "Messages posted"
-        private_messages: "Private messages exchanged"
         spaces: "Spaces"
         users: "Users"
         webconf_rooms: "Available webconference rooms"
@@ -1676,6 +1586,9 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
+  sites:
+    edit:
+      shib_warning_html: "This field is used as the unique identifier for Shibboleth users. If you modify it your users may be unable to access their accounts, before changing it read <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">this page</a>."
   text: Text
   the_string: "the string"
   thread: 
@@ -1709,9 +1622,7 @@ en:
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     insert: "Use this code to insert this video in your blog or web page."
     invite_people: "Invite people to this Webconference."
-    latest_news: "This section shows the piece of news that the administrators send to all the people in this space"
     leave_space: "This link will allow you to abandon this space definitely"
-    news_item: "You can publish a short news at home"
     num_views: "This number represents the unique views for this page"
     private_profile: "This information is visible only to the people you choose when you edit your profile"
     public_profile: "Anyone can access this information"
@@ -1744,12 +1655,8 @@ en:
     delete_from_space: "Delete user from space"
     deleted: "User deleted"
     disable: "Disable user"
-    disabled: "User %{username} disabled"
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
-    enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
-    error: 
-      enabled: "User %{name} is already enabled"
     filter: "Invite by user name"
     group_invite_email: "Invite by e-mail"
     include_registered: "Include registered users"
@@ -1770,7 +1677,6 @@ en:
     not_confirmed: "Not confirmed"
     one: User
     other: Users
-    private_message: "Send Message"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"
@@ -1788,7 +1694,7 @@ en:
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:
-      approved: "The user %{username} was approved to access the website!"
+      approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     create:
       error: "Errors creating the user: %{errors}"
@@ -1798,7 +1704,7 @@ en:
     detailed_user:
       from: "From:"
     disapprove:
-      disapproved: "The user %{username} was blocked from accessing the website!"
+      disapproved: "The user %{name} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"

@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 class Attachment < ActiveRecord::Base
   include PublicActivity::Model
-  tracked owner: :space
+
+  tracked owner: :space,
+    recipient: -> (ctrl, model) { model.try(:author) },
+    params: {
+      username: -> (ctrl, model) { model.try(:author).try(:name) },
+      trackable_name: -> (ctrl, model) { model.title }
+    }
 
   belongs_to :space
   belongs_to :author, :polymorphic => true
@@ -58,14 +64,6 @@ class Attachment < ActiveRecord::Base
       att_ids = params[:attachment_ids].split(",")
       attachments = attachments.where :id => att_ids
     end
-
-    # TODO: this can and should be done in the sql query
-    # attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
-    # attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
-    # attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
-    # attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
-    # attachments.sort!{|x,y| x.created_at <=> y.created_at } if params[:order] == 'created_at' && params[:direction] == 'desc'
-    # attachments.sort!{|x,y| y.created_at <=> x.created_at } if params[:order] == 'created_at' && params[:direction] == 'asc'
 
     attachments
   end

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -48,16 +48,15 @@ class MyController < ApplicationController
   end
 
   def home
-    @user_spaces = current_user.spaces
+    @user_spaces = current_user.spaces.limit(15)
     @user_pending_spaces = current_user.pending_spaces
     @contents_per_page = 15
-    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('updated_at DESC')
-    @private_messages = current_user.unread_private_messages
+    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('created_at DESC')
   end
 
   def approval_pending
     # don't show it unless user is coming from a login or register
-    referers = [login_url, register_url, root_url, shibboleth_url]
+    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url]
     if user_signed_in? || !referers.include?(request.referrer)
       redirect_to root_path
     end
@@ -66,7 +65,7 @@ class MyController < ApplicationController
   def activity
     @contents_per_page = params[:per_page] || 20
 
-    @all_contents = RecentActivity.user_activity(current_user).order('updated_at DESC')
+    @all_contents = RecentActivity.user_activity(current_user).order('created_at DESC')
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 
@@ -110,11 +109,12 @@ class MyController < ApplicationController
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
+    @redir_url = my_recordings_path
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = my_recordings_path # TODO: not working, no support on bbb_rails
+    @redir_url = my_recordings_path
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end
@@ -147,11 +147,11 @@ class MyController < ApplicationController
   def load_events
     unless @user_spaces.empty?
       # TODO: move these methods to the model
-      @today_events = MwebEvents::Event.
+      @today_events = Event.
         within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
         where(:owner_id => @user_spaces, :owner_type => "Space").
         order("start_on ASC").all
-      @upcoming_events = MwebEvents::Event.where(:owner_id => @user_spaces, :owner_type => "Space").
+      @upcoming_events = Event.where(:owner_id => @user_spaces, :owner_type => "Space").
         where('end_on >= ?', DateTime.now.end_of_day).
         limit(5).order("start_on ASC").all
     end

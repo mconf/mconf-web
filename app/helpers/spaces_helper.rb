@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -92,20 +92,6 @@ module SpacesHelper
     @spaces_webconference_menu_tab == tab ?
     options.update({ :class => "#{old_class} active" }) :
       options
-  end
-
-  # TODO: check the methods below
-
-  def max_word_length text
-    first_pos = 0
-    max_length = 0
-    while !((pos = (text+" ").index(' ', first_pos)).nil?)
-      if (pos - first_pos) > max_length
-        max_length = pos - first_pos
-      end
-      first_pos = pos + 1
-    end
-    return max_length
   end
 
 end

@@ -1,5 +1,5 @@
-# This file is part of  Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -61,14 +61,12 @@ describe ApplicationMailer do
       # create the data to be returned
       user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
       @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-      @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
       @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
       @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
-      @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
       @locale = user.locale
     }
 
-    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
+    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @attachments, @events) }
 
     describe "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }

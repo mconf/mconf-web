@@ -6,6 +6,7 @@
   %li= link_to t('_other.edit'), edit_bigbluebutton_recording_path(recording)
   %li= link_to t('_other.publish'), publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
   %li= link_to t('_other.unpublish'), unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
+  %li= link_to t('_other.destroy'), bigbluebutton_recording_path(recording), class: 'destroy-recording', :data => { :confirm => t('.confirm_destroy') }, :method => :delete
 
 .content-block-wrapper.nav-playback-links
   .content-block

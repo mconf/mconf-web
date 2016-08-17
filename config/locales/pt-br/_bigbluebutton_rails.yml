@@ -23,12 +23,17 @@ pt-br:
         published: Publicada
         recordid: "ID da Gravação"
         room_id: "ID da Sala"
+        size: "Tamanho"
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
       bigbluebutton_room:
+        allow_start_stop_recording: "Permitir ao usuário iniciar/parar a gravação"
+        attendee_api_password: "Chave interna da API para participantes"
+        attendee_key: "Chave para participantes"
         auto_start_video: "Auto iniciar vídeo"
         auto_start_audio: "Auto iniciar áudio"
-        attendee_key: "Chave para participantes"
+        auto_start_recording: "Auto iniciar gravação"
+        background: "Imagem de fundo"
         default_layout: "Layout Padrão"
         dial_number: "Número de discagem"
         duration: Duração
@@ -37,7 +42,9 @@ pt-br:
         max_participants: "Número Máximo de Participantes"
         meetingid: "ID da Reunião"
         metadata: Metadados
+        moderator_api_password: "Chave interna da API para moderadores"
         moderator_key: "Chave para moderadores"
+        moderator_only_message: "Mensagem mostrada somente aos moderadores"
         name: Nome
         param: Identificador
         private: Privada
@@ -49,7 +56,7 @@ pt-br:
       bigbluebutton_server:
         name: Nome
         param: Identificador
-        salt: "Chave de segurança"
+        secret: "Chave de segurança"
         url: URL
         version: Versão
       bigbluebutton_server_config:
@@ -78,7 +85,7 @@ pt-br:
         tip: "Faz o download de uma página HTML que você pode usar para reproduzir a gravação usando o seu navegador mesmo sem conexão com a internet. Tem todas as características da versão online, mas com a vantagem de não exigir internet. Atualmente só pode ser reproduzida usando o navegador Firefox."
       presentation_video:
         name: "Download"
-        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação mesmo sem conexão com a internet e/ou compartilhar esta gravação em outros sites."
+        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação offline e/ou compartilhar esta gravação em outros sites."
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"
@@ -99,6 +106,7 @@ pt-br:
           success: "Sua gravação foi atualizada com sucesso."
     rooms:
       default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
+      default_welcome_msg_dial_number: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>Você pode discar para esta conferência através de um telefone usando o número \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "Não há nenhum servidor associado a esta sala."
@@ -107,6 +115,8 @@ pt-br:
           failure: "Falha de autenticação."
           not_running: "A reunião não está em andamento. Você deve aguardar por um moderador para ingressar."
           wrong_params: "Parâmetros errados na sua requisição."
+        generate_dial_number:
+          not_unique: "Desculpe, mas não foi possível gerar um número de discagem único. Você pode tentar novamente ou então atribuir um número manualmente."
         param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         server:
           nil: "Sua sala deve ser associada a um servidor para executar esta operação."
@@ -122,6 +132,8 @@ pt-br:
           success: "A reunião foi finalizada com sucesso."
         fetch_recordings:
           success: "A lista de gravações para esta sala foi atualizada com sucesso."
+        generate_dial_number:
+          success: "Um número de discagem único foi gerado e gravado."
         update:
           failure: "Sua sala não pode ser atualizada."
           success: "Sua sala foi atualizada com sucesso."
@@ -140,3 +152,11 @@ pt-br:
           success: "Suas gravações foram ocultadas com sucesso."
         update:
           success: "Seu servidor foi atualizado."
+    server_configs:
+      layouts:
+        defaultlayout: "Layout Padrão"
+        lecture: "Aula"
+        lectureassistant: "Assistente de aula"
+        presentfocus: "Webinar"
+        videochat: "Vídeo Chat"
+        webcamsfocus: "Reunião"

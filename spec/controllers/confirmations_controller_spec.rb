@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -30,7 +30,7 @@ describe ConfirmationsController do
         before { login_as(user) }
         before(:each) { get :new }
         it { should redirect_to(my_home_path) }
-        it { should set_the_flash.to I18n.t('confirmations.check_already_confirmed.already_confirmed') }
+        it { should set_flash.to I18n.t('confirmations.check_already_confirmed.already_confirmed') }
       end
     end
 

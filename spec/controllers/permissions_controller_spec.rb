@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -27,7 +27,7 @@ describe PermissionsController do
         }
 
         it { should redirect_to space_path(space) }
-        it { should set_the_flash.to(I18n.t('permission.update.success')) }
+        it { should set_flash.to(I18n.t('permission.update.success')) }
         it { permission.reload.role.should eq(new_role) }
       end
 
@@ -37,7 +37,7 @@ describe PermissionsController do
         }
 
         it { should redirect_to space_path(space) }
-        it { should set_the_flash.to(I18n.t('permission.update.failure')) }
+        it { should set_flash.to(I18n.t('permission.update.failure')) }
         it { permission.reload.role.should_not eq(new_role) }
       end
 

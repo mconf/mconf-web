@@ -1,6 +1,0 @@
-- if expanded
-  = sanitize(private_message.title)
-- else
-  = link_to sanitize(private_message.title), message_path(private_message)
-
-= formatted_time_ago private_message.created_at

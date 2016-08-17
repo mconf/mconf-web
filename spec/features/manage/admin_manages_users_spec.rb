@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -8,6 +14,8 @@ describe 'Admin manages users' do
 
     let(:admin) { User.first } # admin is already created
     before {
+      Site.current.update_attributes(require_registration_approval: true)
+
       login_as(admin, :scope => :user)
       @user1 = FactoryGirl.create(:user)
       @unapproved_user = FactoryGirl.create(:user)
@@ -24,7 +32,12 @@ describe 'Admin manages users' do
 
       it { should have_css '.user-simple', :count => 7 }
       it { should have_css '.icon-mconf-delete', :count => 6 }
+
       it { should have_css '.user-disabled', :count => 2 }
+      it { should have_css '.icon-mconf-enable', :count => 2 }
+
+      it { should have_css '.icon-mconf-confirm-user', :count => 2 }
+      it { should have_css '.icon-mconf-approve', :count => 2 }
       it { should have_css '.icon-mconf-superuser', :count => 1 }
 
       it { should have_content user_description(@user1) }

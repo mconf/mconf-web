@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -20,12 +20,82 @@ describe BigbluebuttonRoom do
       it "false if it was another user that created the current meeting running in the room"
       it "true if the current meeting running in the room was created by the user informed"
     end
+
+    describe "#invitation_url" do
+      let(:target) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        Site.current.update_attributes(domain: "localhost:4000")
+      }
+
+      it { target.should respond_to(:invitation_url) }
+      it { target.invitation_url.should eql("http://#{Site.current.domain}/webconf/#{target.param}") }
+
+      context "works with HTTPS" do
+        before {
+          Site.current.update_attributes(ssl: true)
+        }
+
+        it { target.invitation_url.should eql("https://#{Site.current.domain}/webconf/#{target.param}") }
+      end
+    end
+
+    describe "#dynamic_metadata" do
+      let(:target) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        Site.current.update_attributes(domain: "localhost:4000")
+      }
+
+      it { target.should respond_to(:dynamic_metadata) }
+
+      context "for a user room" do
+        before {
+          target.update_attributes(owner: FactoryGirl.create(:user))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "http://#{Site.current.domain}/",
+            "mconfweb-room-type" => "User"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+
+      context "for a space room" do
+        before {
+          target.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "http://#{Site.current.domain}/",
+            "mconfweb-room-type" => "Space"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+
+      context "works with HTTPS" do
+        before {
+          Site.current.update_attributes(ssl: true)
+          target.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          expected = {
+            "mconfweb-url" => "https://#{Site.current.domain}/",
+            "mconfweb-room-type" => "Space"
+          }
+          target.dynamic_metadata.should eql(expected)
+        }
+      end
+    end
   end
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
+    set_custom_ability_actions([ :end, :create_meeting, :fetch_recordings,
                                  :invite, :invite_userid, :running, :join, :join_mobile,
                                  :record_meeting, :invitation, :send_invitation ])
 
@@ -38,22 +108,22 @@ describe BigbluebuttonRoom do
 
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "in another user's room" do
         let(:another_user) { FactoryGirl.create(:user) }
         let(:target) { another_user.bigbluebutton_room }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
@@ -62,17 +132,22 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
@@ -81,28 +156,33 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
         end
 
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to(:manage, target) }
+          it { should be_able_to_do_everything_to(target) }
+        end
+
+        context "when the space is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should be_able_to_do_everything_to(target) }
         end
       end
 
       context "for a room without owner" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "for a room with an invalid owner_type" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
     end
 
@@ -111,7 +191,7 @@ describe BigbluebuttonRoom do
 
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
-        let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+        let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :running, :join,
                          :join_mobile, :update, :invitation, :send_invitation] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -122,7 +202,10 @@ describe BigbluebuttonRoom do
         end
 
         context "when the owner is disabled" do
-          before { target.owner.disable }
+          before {
+            target.owner.disable
+            user.update_attributes(:can_record => true)
+          }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end
@@ -161,11 +244,16 @@ describe BigbluebuttonRoom do
             before { target.owner.disable }
             it { should_not be_able_to_do_anything_to(target) }
           end
+
+          context "when the space is not approved" do
+            before { target.owner.update_attributes(approved: false) }
+            it { should_not be_able_to_do_anything_to(target) }
+          end
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -189,14 +277,17 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -222,14 +313,17 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -253,20 +347,26 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end
@@ -311,6 +411,11 @@ describe BigbluebuttonRoom do
           before { target.owner.disable }
           it { should_not be_able_to_do_anything_to(target) }
         end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -321,6 +426,11 @@ describe BigbluebuttonRoom do
 
         context "when the owner is disabled" do
           before { target.owner.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "when the owner is not approved" do
+          before { target.owner.update_attributes(approved: false) }
           it { should_not be_able_to_do_anything_to(target) }
         end
       end

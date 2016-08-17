@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # encoding: utf-8
 
 class AttachmentUploader < CarrierWave::Uploader::Base
@@ -21,7 +27,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
     tries = 1
     name = original_name
-    while (att = model.space.attachments.find { |a| a.title == name && a != model })
+    while model.space.attachments.find { |a| a.title == name && a != model }
       ext = File.extname(original_name)
       base = File.basename(original_name, ext)
       name = "#{base}_#{tries}#{ext}"

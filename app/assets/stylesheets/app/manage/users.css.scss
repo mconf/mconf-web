@@ -4,20 +4,38 @@
 body.manage.users {
 
   .page-tabs {
-    text-align: right;
 
-    label {
-      display: inline;
-      margin: 6px 5px 0 5px;
+    .search-words {
+      text-align: left;
+
+      label {
+        margin: 3px 7px;
+      }
+
+      input {
+        margin: 0 5px;
+        width: 75%;
+      }
     }
 
-    input {
-      margin: 0 5px;
-      width: 50%;
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        float: left;
+        width: 20%;
+      }
+
+      .checkbox {
+        text-align: right;
+        margin: 0 5px;
+        float: left;
+        padding: 0;
+      }
     }
 
     .btn-new-user {
-      float: left;
+      float: right;
     }
   }
 

@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -22,7 +22,5 @@ Mime::Type.register "application/vnd.ms-word", :doc, [ "application/msword", "ap
 Mime::Type.register "application/vnd.ms-powerpoint", :ppt, [ "application/mspowerpoint" ]
 Mime::Type.register "application/vnd.ms-excel", :xls, [ "application/msexcel" ]
 Mime::Type.register "application/rar", :rar, [ "application/x-rar" ]
+Mime::Type.register "text/calendar", :ical
 Mime::Type.register_alias "text/html", :m
-
-# for private message views, which are essentially text possibly with html
-Mime::Type.register "text/pm", :pm

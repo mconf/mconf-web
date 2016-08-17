@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -168,8 +174,7 @@ feature "Viewing join requests" do
       invite.update_attributes(introducer: admin)
       visit space_join_request_path(space, invite)
 
-      accept = page.find("a[href='#{accept_space_join_request_path(space, invite)}']")
-      accept[:'data-method'].should eql("post")
+      expect(page).not_to have_selector("a[href='#{accept_space_join_request_path(space, invite)}']")
       expect(page).not_to have_selector("[name='join_request[role_id]']")
 
       decline = page.find("a[href='#{decline_space_join_request_path(space, invite)}']")
@@ -189,8 +194,7 @@ feature "Viewing join requests" do
       request.update_attributes(candidate: admin)
       visit space_join_request_path(space, request)
 
-      expect(page).to have_selector("[name='join_request[role_id]']")
-      expect(page).to have_css("input[value='#{t('_other.accept')}']")
+      expect(page).not_to have_selector("[name='join_request[role_id]']")
 
       decline = page.find("a[href='#{decline_space_join_request_path(space, request)}']")
       decline[:'data-method'].should eql("post")
@@ -228,8 +232,7 @@ feature "Viewing join requests" do
     scenario "viewing an invitation he has no relationship with" do
       visit space_join_request_path(space, invite)
 
-      accept = page.find("a[href='#{accept_space_join_request_path(space, invite)}']")
-      accept[:'data-method'].should eql("post")
+      expect(page).not_to have_selector("a[href='#{accept_space_join_request_path(space, invite)}']")
       expect(page).not_to have_selector("[name='join_request[role_id]']")
 
       decline = page.find("a[href='#{decline_space_join_request_path(space, invite)}']")

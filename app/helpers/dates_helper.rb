@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -22,6 +22,10 @@ module DatesHelper
 
   # Formats a date object to be shown in a view
   def format_date(date)
-    I18n.l(date, format: :short)
+    if date.present?
+      I18n.l(date, format: :short)
+    else
+      nil
+    end
   end
 end

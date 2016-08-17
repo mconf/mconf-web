@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -8,8 +8,9 @@ class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
   TYPES = {
-    invite: "invite",
-    request: "request"
+    invite: "invite",      # someone inviting someone else to join something
+    request: "request",    # someone requesting to join something
+    no_accept: "no_accept" # someone adding someone to something without asking
   }
 
   TYPES.each_pair do |type, value|
@@ -31,7 +32,7 @@ class JoinRequest < ActiveRecord::Base
   validates :email, :presence => true, :email => true
 
   # The request can either be an invitation or a request for membership
-  validates :request_type, :presence => true
+  validates :request_type, :presence => true, inclusion: { in: JoinRequest::TYPES.values }
 
   after_initialize :init
 
@@ -39,6 +40,8 @@ class JoinRequest < ActiveRecord::Base
   before_save :set_processed_at
   before_save :add_candidate_to_group
   before_save :set_default_role
+
+  validates :candidate_id, presence: true
 
   validates_uniqueness_of :candidate_id,
                           :scope => [ :group_id, :group_type, :processed_at ]
@@ -58,13 +61,15 @@ class JoinRequest < ActiveRecord::Base
 
   # Create a new activity after saving
   after_create :new_activity
-  def new_activity
-    parameters = { :candidate_id => candidate.id, :username => candidate.name }
+  def new_activity key=nil
+    key ||= self.request_type
+
+    parameters = { candidate_id: candidate.id, username: candidate.name }
     unless introducer.nil?
       parameters[:introducer_id] = introducer.id
       parameters[:introducer] = introducer.name
     end
-    create_activity self.request_type, :owner => self.group, :parameters => parameters
+    create_activity key, owner: self.group, recipient: candidate, parameters: parameters
   end
 
   # Has this Admission been processed?
@@ -75,10 +80,6 @@ class JoinRequest < ActiveRecord::Base
   # Has this Admission been recently processed? (typically in this request)
   def recently_processed?
     @processed.present?
-  end
-
-  def role
-    Role.find_by_id(self.role_id).name
   end
 
   def space?
@@ -97,7 +98,7 @@ class JoinRequest < ActiveRecord::Base
   end
 
   def add_candidate_to_group
-    group.add_member!(candidate, role) if accepted?
+    group.add_member!(candidate, role.name) if accepted?
   end
 
   def set_default_role

@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # encoding: utf-8
 require 'carrierwave/processing/mini_magick'
 
@@ -8,6 +14,16 @@ class LogoImageUploader < CarrierWave::Uploader::Base
   MAX_HEIGHT = 350
 
   storage :file
+
+  def height
+    get_dimensions
+    @height
+  end
+
+  def width
+    get_dimensions
+    @width
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -86,6 +102,14 @@ class LogoImageUploader < CarrierWave::Uploader::Base
         img.crop("#{w}x#{h}+#{x}+#{y}")
         img
       end
+    end
+  end
+
+  private
+
+  def get_dimensions
+    if @width.blank? || @height.blank?
+      @width, @height = ::MiniMagick::Image.open(file.file)[:dimensions]
     end
   end
 

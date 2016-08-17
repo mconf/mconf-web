@@ -21,7 +21,7 @@ body.spaces.user_permissions {
     }
 
     .btn {
-      margin: 4px 0 0 5px;
+      margin-left: 5px;
     }
   }
 
@@ -29,4 +29,12 @@ body.spaces.user_permissions {
     float: right;
   }
 
+  .user-remove {
+    float: right;
+    margin: 2px 0 0 15px;
+
+    .icon-awesome {
+      margin: 0;
+    }
+  }
 }

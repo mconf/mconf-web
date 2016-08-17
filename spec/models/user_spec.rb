@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -26,13 +26,112 @@ describe User do
 
   it { should have_many(:posts) }
 
-  it { should validate_presence_of(:email) }
+  describe 'model validations' do
+    subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
+
+    it { should validate_presence_of(:email) }
+
+    # Not working because of conflict with devise, see https://github.com/thoughtbot/shoulda-matchers/issues/836
+    skip { should validate_uniqueness_of(:email) }
+
+    # Needs a matcher
+    # skip { should validate_email }
+  end
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
   #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
   #   it { should allow_mass_assignment_of(attribute) }
   # end
+
+  describe ".search_by_terms" do
+    let(:users) {[
+      FactoryGirl.create(:user, username: 'steve', email: 'steve@email.com', created_at: Time.now),
+      FactoryGirl.create(:user, username: 'steve-hairis', email: 'steve-hairis@email.com', created_at: Time.now + 1.second),
+      FactoryGirl.create(:user, username: 'ismael-esteves', email: 'ismael-esteves@email.com', created_at: Time.now + 2.second)
+    ]}
+    let(:include_private) { false }
+    let(:subject) { User.search_by_terms(terms, include_private) }
+
+    before {
+      users[0].profile.update_attribute(:full_name, 'Steve and Will Soon')
+      users[1].profile.update_attribute(:full_name, 'Steve Hair is')
+      users[2].profile.update_attribute(:full_name, 'Ismael Esteves')
+    }
+
+    context '1 term finds something' do
+      let(:terms) { ['steve'] }
+
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context 'composite term finds something' do
+      let(:terms) { ['steve hair'] }
+
+      it { should include(users[1]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '2 terms find something' do
+      let(:terms) { ['esteves', 'hair'] }
+      it { should include(users[1], users[2]) }
+      it { subject.count.should be(2) }
+    end
+
+    context '1 term finds nothing 1 term finds something' do
+      let(:terms) { ['mikael', 'esteves'] }
+      it { should include(users[2]) }
+      it { subject.count.should be(1) }
+    end
+
+    context '1 term finds nothing' do
+      let(:terms) { ['mikael'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context 'multiple terms find nothing' do
+      let(:terms) { ['Maninho', 'das', 'Qebrada'] }
+      it { subject.count.should eq(0) }
+    end
+
+    context "returns a Relation object" do
+      let(:terms) { [''] }
+      it { subject.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "accepts a string as parameter" do
+      let(:terms) { 'steve' }
+      it { should include(users[0], users[1], users[2]) }
+      it { subject.count.should be(3) }
+    end
+
+    context "is chainable" do
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc", superuser: false) }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def", superuser: false) }
+      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc-2", superuser: true) }
+      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
+      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
+      subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
+      it { subject.should include(user3) }
+      it { subject.should_not include(user1) }
+      it { subject.should_not include(user2) }
+      it { subject.should_not include(user4) }
+      it { subject.should_not include(user5) }
+    end
+
+    context "searches by email if include_private is true" do
+      let(:include_private) { true }
+      let(:terms) { 'steve-hairis@email.com' }
+      it { subject.count.should be(1) }
+      it { should include(users[1]) }
+    end
+
+    context "doesn't search by email if include_private is false" do
+      let(:terms) { 'steve-hairis@email.com' }
+      it { subject.count.should be(0) }
+    end
+  end
 
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
@@ -79,7 +178,7 @@ describe User do
   describe "#username" do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username).case_insensitive }
-    it { should ensure_length_of(:username).is_at_least(1) }
+    it { should validate_length_of(:username).is_at_least(1) }
     it { should_not allow_value("123 321").for(:username) }
     it { should_not allow_value("").for(:username) }
     it { should_not allow_value("ab@c").for(:username) }
@@ -269,6 +368,7 @@ describe User do
   end
 
   describe "on create" do
+
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
         before { Site.current.update_attributes(require_registration_approval: false) }
@@ -290,22 +390,98 @@ describe User do
     end
   end
 
+  describe "on destroy" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context 'removes all permissions' do
+      let(:space) { FactoryGirl.create(:space) }
+      before { space.add_member!(user) }
+
+      it {
+        expect { user.destroy }.to change{
+          Permission.where(user: user, subject: space).count
+        }.by(-1)
+      }
+    end
+
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.destroy }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.destroy }.not_to change(JoinRequest, :count) }
+    end
+
+    context "when the user is admin of a space" do
+      let(:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and is the last admin left and there are other members" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'User')
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let(:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'Admin')
+          user.destroy
+        end
+
+        it { space.disabled.should be(false) }
+      end
+
+      context "doesn't break if there are disabled spaces" do
+        let(:space2) { FactoryGirl.create(:space) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space2.add_member!(user, 'Admin')
+          space2.disable
+          user.destroy
+        end
+
+        it { space.reload.disabled.should be(true) }
+      end
+    end
+  end
+
   describe "#events", :events => true do
     let(:user) { FactoryGirl.create(:user) }
-    let(:other_user) { FactoryGirl.create(:user)}
+    let(:other_user) { FactoryGirl.create(:user) }
+    let(:another_one) { FactoryGirl.create(:user) }
 
     before(:each) do
       @events = [
       FactoryGirl.create(:event, :owner => user),
       FactoryGirl.create(:event, :owner => user),
-      FactoryGirl.create(:event, :owner => nil)
+      FactoryGirl.create(:event, :owner => other_user)
       ]
     end
 
     it { user.events.size.should eql(2) }
     it { user.events.should include(@events[0], @events[1]) }
     it { user.events.should_not include(@events[2]) }
-    it { other_user.events.should be_empty }
+    it { other_user.events.should include(@events[2]) }
+    it { another_one.events.should be_empty }
   end
 
   skip "#has_events_in_this_space?"
@@ -519,10 +695,9 @@ describe User do
   end
 
   describe ".with_disabled" do
-    let(:user1) { FactoryGirl.create(:user, :disabled => true) }
-    let(:user2) { FactoryGirl.create(:user, :disabled => false) }
-
-    context "finds users even if disabled" do
+    context "finds users that are disabled" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: false) }
       subject { User.with_disabled }
       it { should be_include(user1) }
       it { should be_include(user2) }
@@ -530,6 +705,24 @@ describe User do
 
     context "returns a Relation object" do
       it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
+    end
+
+    context "doesn't remove previous scopes from the query" do
+      let!(:user1) { FactoryGirl.create(:user, disabled: true, can_record: true) }
+      let!(:user2) { FactoryGirl.create(:user, disabled: true, can_record: false) }
+
+      subject { User.where(can_record: true).with_disabled.all }
+      it { should include(user1) }
+      it { should_not include(user2) }
+    end
+
+    context "is chainable" do
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user3) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
+      let!(:user4) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
+      subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
+      it { subject.count.should eq(1) }
     end
   end
 
@@ -565,14 +758,15 @@ describe User do
     context "creates a recent activity" do
       before {
         expect {
-          user.create_approval_notification(approver)
+          PublicActivity.with_tracking do
+            user.create_approval_notification(approver)
+          end
         }.to change{ PublicActivity::Activity.count }.by(1)
       }
       subject { PublicActivity::Activity.last }
       it("sets #trackable") { subject.trackable.should eq(user) }
       it("sets #owner") { subject.owner.should eq(approver) }
       it("sets #key") { subject.key.should eq('user.approved') }
-      it("doesn't set #recipient") { subject.recipient.should be_nil }
     end
   end
 
@@ -642,20 +836,6 @@ describe User do
     end
   end
 
-  describe "#admin?" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    context "if the user is a superuser" do
-      before { user.update_attributes(superuser: true) }
-      it { user.admin?.should be(true) }
-    end
-
-    context "if the user is not a superuser" do
-      before { user.update_attributes(superuser: false) }
-      it { user.admin?.should be(false) }
-    end
-  end
-
   describe "#enabled?" do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -698,6 +878,37 @@ describe User do
 
     it "doesn't return spaces that are disabled" do
       @user.pending_spaces.should_not include(@spaces[3])
+    end
+  end
+
+  describe "#created_by_shib?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when another user has a token created by shib" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: false)
+        FactoryGirl.create(:shib_token, user: another_user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(false) }
+    end
+
+    context "when the user has an account created by shib" do
+      before {
+        FactoryGirl.create(:shib_token, user: user, new_account: true)
+      }
+      it { user.created_by_shib?.should be(true) }
     end
   end
 
@@ -816,7 +1027,9 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable, :confirm])
+    set_custom_ability_actions([
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm, :update_password
+    ])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -825,51 +1038,188 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select]
+        allowed = [:show, :index, :edit, :update, :disable, :fellows, :current, :select,
+                   :update_password]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
       context "and he is disabled" do
-        before { target.disable() }
-        it { should_not be_able_to_do_anything_to(target) }
+        before { target.disable }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
+      end
+
+      context "cannot edit the password if the account was created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
+      context "can edit the password if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_password, target) }
+      end
+
+      context "cannot edit the password if the account was created by LDAP" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:ldap_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_password, target) }
+      end
+
+      context "can edit the password if the account was not created by LDAP" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:ldap_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_password, target) }
+      end
+
+      context "cannot edit the password if the site has local auth disabled" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: false)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should_not be_able_to(:update_password, target) }
       end
     end
 
     context "when is another normal user" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :current, :fellows, :select]) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current, :fellows, :select]) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
-        it { should_not be_able_to_do_anything_to(target) }
+        before { target.disable }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
+      end
+
+      context "cannot edit the password even if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(local_auth_enabled: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should_not be_able_to(:update_password, target) }
       end
     end
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
+      it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should be_able_to(:manage, target) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "over his own account" do
-        it { should be_able_to(:manage, user) }
+        it { should be_able_to_do_everything_to(target) }
       end
 
       context "he can do anything over all resources" do
-        it { should be_able_to(:manage, :all) }
+        it { should be_able_to_do_everything_to(:all) }
+      end
+
+      context "over a normal user" do
+        context "cannot edit the password if the account was created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "cannot edit the password if the account was created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "cannot edit the password if the site has local auth disabled" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: false)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+      end
+
+      context "over a superuser" do
+        before {
+          target.update_attributes(superuser: true)
+        }
+
+        context "cannot edit the password if the account was created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by shib" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "cannot edit the password if the account was created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: true)
+          }
+          it { should_not be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password if the account was not created by LDAP" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: true)
+            FactoryGirl.create(:ldap_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
+
+        context "can edit the password even if the site has local auth disabled" do
+          before {
+            Site.current.update_attributes(local_auth_enabled: false)
+            FactoryGirl.create(:shib_token, user: target, new_account: false)
+          }
+          it { should be_able_to(:update_password, target) }
+        end
       end
     end
 
     context "when is an anonymous user" do
       let(:user) { User.new }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :current]) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current]) }
 
       context "and the target user is disabled" do
         before { target.disable() }
-        it { should_not be_able_to_do_anything_to(target) }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
     end
   end

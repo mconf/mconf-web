@@ -9,5 +9,6 @@
 
   .user-text
     %span.user-name
-      = highlight(sanitize(user.full_name), params[:q])
-      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+      - words = escape_once(params[:q]).try(:split)
+      = Mconf::Highlighter.highlight(escape_once(user.full_name), words)
+      = "(#{Mconf::Highlighter.highlight(user.username, words)}, #{Mconf::Highlighter.highlight(user.email, words)})".html_safe

@@ -95,7 +95,7 @@ es-419:
       month: Mes
       second: Segundos
       year: Año
-  errors:
+  errors: &errors
     format: '%{attribute} %{message}'
     messages:
       accepted: debe ser aceptado
@@ -142,11 +142,17 @@ es-419:
       format:
         delimiter: '.'
         format: '%n %u'
+        precision: 2
         separator: ','
+        significant: false
+        strip_insignificant_zeros: false
         unit: $
     format:
       delimiter: '.'
+      precision: 3
       separator: ','
+      significant: false
+      strip_insignificant_zeros: false
     human:
       decimal_units:
         format: '%n %u'
@@ -156,6 +162,12 @@ es-419:
           quadrillion: mil billones
           thousand: mil
           trillion: billón
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
       storage_units:
         format: '%n %u'
         units:
@@ -166,6 +178,12 @@ es-419:
           kb: KB
           mb: MB
           tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
   support:
     array:
       last_word_connector: ', y '
@@ -178,3 +196,10 @@ es-419:
       long: '%d de %B de %Y %H:%M'
       short: '%d de %b %H:%M'
     pm: pm
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors

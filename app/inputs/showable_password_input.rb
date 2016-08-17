@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -12,12 +12,14 @@
 class ShowablePasswordInput < SimpleForm::Inputs::StringInput
   include ActionView::Helpers::FormTagHelper
 
-  def input
+  def input(wrapper_options)
+    options = merge_wrapper_options(input_html_options, wrapper_options)
+
     # set the value or the input will be empty, as is done by default for password inputs
-    input_html_options[:value] = object.try(attribute_name)
+    options[:value] = object.try(attribute_name)
 
     # the initial input is always a password input to hide the value
-    field = @builder.password_field(attribute_name, input_html_options)
+    field = @builder.password_field(attribute_name, options)
 
     # add a checkbox
     cb_name = attribute_name.to_s + '_show'

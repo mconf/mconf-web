@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -23,10 +23,10 @@ module Mconf
     end
 
     def self.send_digest(to, date_start, date_end)
-      posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
+      posts, attachments, events, inbox = get_activity(to, date_start, date_end)
 
-      unless posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?
-        ApplicationMailer.digest_email(to.id, posts, news, attachments, events, inbox).deliver
+      unless posts.empty? && attachments.empty? && events.empty? && inbox.empty?
+        ApplicationMailer.digest_email(to.id, posts, attachments, events, inbox).deliver
       end
     end
 
@@ -40,13 +40,11 @@ module Mconf
       }
 
       posts = filter.call(Post)
-      news = filter.call(News)
       attachments = filter.call(Attachment)
 
       # Events that started or finished in the period
-      # TODO: review and improve this with MwebEvents
       if Mconf::Modules.mod_enabled?('events')
-        events = MwebEvents::Event.
+        events = Event.
           where(:owner_id => user_spaces, :owner_type => "Space").
           within(date_start, date_end).
           order('updated_at desc').pluck(:id)
@@ -54,10 +52,7 @@ module Mconf
         events = []
       end
 
-      # Unread messages in the inbox
-      inbox = PrivateMessage.where(:checked => [false, nil]).inbox(user)
-
-      [ posts, news, attachments, events, inbox ]
+      [ posts, attachments, events ]
     end
 
   end

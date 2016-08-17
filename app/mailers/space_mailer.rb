@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -36,6 +36,19 @@ class SpaceMailer < BaseMailer
     end
   end
 
+  def user_added_email(jr_id)
+    jr = JoinRequest.find(jr_id)
+    @introducer = jr.introducer
+    @space = jr.group
+
+    locale = get_user_locale(jr.candidate, false)
+    I18n.with_locale(locale) do
+      subject = t("space_mailer.user_added_email.subject",
+                  space: @space.name, username: @introducer.full_name).html_safe
+      create_email(jr.email, @introducer.email, subject)
+    end
+  end
+
   def join_request_email(jr_id, receiver_id)
     @join_request = JoinRequest.find(jr_id)
     receiver = User.find(receiver_id)
@@ -58,6 +71,26 @@ class SpaceMailer < BaseMailer
       subject = t("space_mailer.processed_join_request_email.subject", :action => @action, :space => @space.name)
 
       create_email(to, nil, subject)
+    end
+  end
+
+  def new_space_waiting_for_approval_email(admin_id, space_id)
+    admin = User.find(admin_id)
+    space = Space.find(space_id)
+    I18n.with_locale(default_email_locale(admin, nil)) do
+      @space_name = space.name
+      @subject = t('space_mailer.new_space_waiting_for_approval_email.subject')
+      create_email(admin.email, Site.current.smtp_sender, @subject)
+    end
+  end
+
+  def new_space_approved_email(user_id, space_id)
+    user = User.find(user_id)
+    @space = Space.find(space_id)
+    I18n.with_locale(default_email_locale(user, nil)) do
+      @user_name = user.name
+      @subject = t('space_mailer.new_space_approved_email.subject')
+      create_email(user.email, Site.current.smtp_sender, @subject)
     end
   end
 

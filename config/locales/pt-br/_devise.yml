@@ -8,6 +8,7 @@ pt-br:
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá uma mensagem com instruções para confirmação da sua conta.'
     failure:
       already_authenticated: 'Você já está logado.'
+      disabled_by_shib_auth: 'Seu usuário não possui permissão de utilizar o acesso local. Por favor faça login via federação.'
       inactive: 'Sua conta ainda não foi ativada.'
       invalid: 'E-mail ou senha inválidos.'
       invalid_token: 'O token de autenticação não é válido.'

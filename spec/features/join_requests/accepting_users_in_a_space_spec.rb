@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -224,6 +230,6 @@ def check_invite(invite)
   expect(page).to have_content(invite.candidate.username)
   expect(page).to have_content(invite.candidate.email)
   expect(page).to have_content(invite.comment)
-  expect(page).to have_content(invite.role)
+  expect(page).to have_content(invite.role.name)
   expect(page).to have_link(I18n.t("_other.cancel"), href: decline_space_join_request_path(space, invite))
 end

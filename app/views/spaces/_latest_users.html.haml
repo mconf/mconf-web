@@ -9,4 +9,4 @@
       = render :partial => 'users/simple_user', :locals => { :user => user }
 
   .content-block-footer.content-block-footer-fancy
-    = link_to t('read_more'), space_users_path(@space) if can?(:read, @space)
+    = link_to t('read_more'), space_users_path(@space) if can?(:show, @space)

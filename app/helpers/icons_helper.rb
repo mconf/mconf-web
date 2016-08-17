@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -38,10 +38,6 @@ module IconsHelper
     icon_constructor title, "icon-awesome icon-calendar icon-mconf-event", options
   end
 
-  def icon_news(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-bullhorn icon-mconf-news", options
-  end
-
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def icon_superuser(options={})
@@ -59,10 +55,6 @@ module IconsHelper
 
   def icon_loading(options={})
     icon_constructor nil, "icon-awesome icon-refresh icon-mconf-loading icon-spin", options
-  end
-
-  def icon_spam(options={})
-    icon_constructor t("_other.spam.tooltip"), "icon-awesome icon-warning-sign icon-mconf-spam", options
   end
 
   def icon_message(options={})
@@ -155,10 +147,6 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-space-public", options
   end
 
-  def icon_webconf_start(options={})
-    icon_constructor nil, "icon-awesome icon-chevron-sign-right icon-mconf-webconf-start", options
-  end
-
   def icon_mobile(options={})
     icon_constructor nil, "icon-awesome icon-mobile-phone icon-mconf-mobile", options
   end
@@ -221,6 +209,10 @@ module IconsHelper
 
   def icon_approve(options={})
     icon_constructor nil, "icon-awesome fa fa-thumbs-up icon-mconf-approve", options
+  end
+
+  def icon_waiting_moderation(options={})
+    icon_constructor t("_other.not_approved.tooltip"), "icon-awesome icon-warning-sign icon-mconf-waiting-moderation", options
   end
 
   def icon_disapprove(options={})

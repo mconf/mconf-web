@@ -1,5 +1,5 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
@@ -79,7 +79,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not the owner but is a superuser and the room is not running" do
@@ -121,7 +121,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not the owner but is a superuser and the room is not running" do
@@ -243,7 +243,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not a member of the space but is a superuser and the room is not running" do
@@ -322,7 +322,7 @@ describe ApplicationController do
             BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
           }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:attendee) }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not a member of the space but is a superuser and the room is not running" do
@@ -457,76 +457,34 @@ describe ApplicationController do
       context "when the user can record" do
         before { @ability.can :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => true) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: true }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            # uses the user's permission only, ignores that the room is not set to record
-            it { assigns(:result).should eql({ record: true }) }
-          end
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: true }) }
         end
 
-        context "and the site is not set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => false) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: true }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          # uses the user's permission only, ignores that the room is not set to record
+          it { assigns(:result).should eql({ record: true }) }
         end
-
       end
 
       context "when the user cannot record" do
         before { @ability.cannot :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => true) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
         end
 
-        context "and the site is not set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => false) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
         end
-
       end
     end
   end
