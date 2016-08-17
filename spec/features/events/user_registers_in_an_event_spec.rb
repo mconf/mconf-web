@@ -56,42 +56,43 @@ feature "User registers in an event" do
     it { should have_content t("participants.split_form.annonymous_title") }
     it { should have_content t("participants.split_form.member_title") }
 
-    let(:email) { 'cosmo@oot.ze' }
     context "with captcha disabled" do
+      let(:email) { 'cosmo@oot.ze' }
       context "register as annonymous with valid captcha" do
         before {
           fill_in "participant[email]", with: email
-          click_button t('mweb_events.participants.form.submit')
+          click_button t('participants.form.submit')
         }
 
-        it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
-        it { current_path.should eq(mweb_events.event_path(event)) }
-        it { should have_content t("mweb_events.events.registration.button") }
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
       end
     end
 
     context "with captcha enabled" do
+      let(:email) { 'cosmo@oot.ze' }
       context "register as annonymous with valid captcha" do
         before {
-          MwebEvents::ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(true)
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(true)
           fill_in "participant[email]", with: email
-          click_button t('mweb_events.participants.form.submit')
+          click_button t('participants.form.submit')
         }
 
-        it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
-        it { current_path.should eq(mweb_events.event_path(event)) }
-        it { should have_content t("mweb_events.events.registration.button") }
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
       end
 
       context "try to register as annonymous with invalid captcha" do
         before {
-          MwebEvents::ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(false)
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(false)
           fill_in "participant[email]", with: email
-          click_button t('mweb_events.participants.form.submit')
+          click_button t('participants.form.submit')
         }
 
         it { has_failure_message t('recaptcha.errors.verification_failed') }
-        it { current_path.should eq(mweb_events.new_event_participant_path(event)) }
+        it { current_path.should eq(new_event_participant_path(event)) }
       end
 
     end
