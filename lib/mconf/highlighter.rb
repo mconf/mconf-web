@@ -6,33 +6,32 @@
 
 module Mconf::Highlighter
   def self.highlight_word(text, word)
-    begin_mark = "<mark>"
-    end_mark = "</mark>"
     return "" if text.blank?
     return text if word.blank?
+
+    begin_mark = "<mark>"
+    end_mark = "</mark>"
     text = text.clone
-    indexes = [] 
+    indexes = []
     tt = ActiveSupport::Inflector.transliterate(text).downcase
     tw = ActiveSupport::Inflector.transliterate(word).downcase
     displacement = 0
-    i = 0
 
     while tt && i = tt.index(/#{tw}[^>]|#{tw}$/)
       if i
         i += displacement
         indexes << i
         tt = tt[i + 1 , tt.size - tw.size + 1]
-
         displacement += i + 1
       end
     end
-    
-    d = 0 #explaining: i and d are counters for index and displacement, respectively.
-    indexes.each do |i| 
-      text.insert(i + d, begin_mark)
-      d += begin_mark.size
-      text.insert((i + tw.size + d), end_mark )
-      d += end_mark.size
+
+    displacement = 0
+    indexes.each do |i|
+      text.insert(i + displacement, begin_mark)
+      displacement += begin_mark.size
+      text.insert((i + tw.size + displacement), end_mark)
+      displacement += end_mark.size
     end
     text
   end
@@ -44,8 +43,7 @@ module Mconf::Highlighter
       end
       text
     else
-      highlight_word(text,words) #as the function might receive a string or an array, this test is necessary.
+      highlight_word(text, words)
     end
   end
 end
-
