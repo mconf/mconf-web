@@ -26,6 +26,19 @@
                 - if can?(:space_edit, recording)
                   %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
 
+              - if recording.published? && can?(:unpublish, recording)
+                - if recording.available?
+                  %li= link_to t('.unpublish').downcase, unpublish_bigbluebutton_recording_path(recording, redir_url: @redir_url), method: :post, data: { confirm: t('.unpublish_confirm') }
+                - else
+                  %li
+                    -# TODO: for now we don't allow users to unpublish unavailable recordings because it would only generate
+                    -# an error in the API call and would not actually unpublish it.
+                    = content_tag :span, options_for_tooltip(t('.unpublish_unavailable'), { class: "disabled" }) do
+                      = t('.unpublish').downcase
+
+              - if can?(:manage, recording)
+                %li= link_to t('.manage').downcase, edit_bigbluebutton_recording_path(recording)
+
             .thread-title
               = icon_recording
               - if recording.description.blank?

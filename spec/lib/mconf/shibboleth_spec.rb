@@ -19,97 +19,104 @@ describe Mconf::Shibboleth do
     end
   end
 
-  describe "#save_to_session" do
+  describe "#load_data" do
     let(:session) { {} }
     let(:shibboleth) { Mconf::Shibboleth.new(session) }
 
     context "saves the variables in the environment to the session" do
       let(:env) { { :'shib-var1' => 'first', :'shib-var2' => 'second' } }
-      before { shibboleth.save_to_session(env) }
-      it { session.length.should be(1) }
-      it { session.should have_key(:shib_data) }
-      it { session[:shib_data].length.should be(2) }
-      it { session[:shib_data].should have_key('shib-var1') }
-      it { session[:shib_data]['shib-var1'].should eq('first') }
-      it { session[:shib_data].should have_key('shib-var2') }
-      it { session[:shib_data]['shib-var2'].should eq('second') }
+      before { shibboleth.load_data(env) }
+      it { shibboleth.get_data.length.should be() }
+      it { shibboleth.get_data.length.should be(2) }
+      it { shibboleth.get_data.should have_key('shib-var1') }
+      it { shibboleth.get_data['shib-var1'].should eq('first') }
+      it { shibboleth.get_data.should have_key('shib-var2') }
+      it { shibboleth.get_data['shib-var2'].should eq('second') }
     end
 
     context "if no filters are passed, uses /^shib-/" do
       let(:env) { { :'shib-var1' => 'first', :anything => 'anything', :'other-shib-invalid' => 'anything' } }
-      before { shibboleth.save_to_session(env) }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('shib-var1') }
-      it { session[:shib_data]['shib-var1'].should eq('first') }
+      before { shibboleth.load_data(env) }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('shib-var1') }
+      it { shibboleth.get_data['shib-var1'].should eq('first') }
     end
 
     context "accepts string filters" do
       let(:env) { { :first => 'first', :second => 'second' } }
-      before { shibboleth.save_to_session(env, 'second') }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('second') }
-      it { session[:shib_data]['second'].should eq('second') }
+      before { shibboleth.load_data(env, 'second') }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('second') }
+      it { shibboleth.get_data['second'].should eq('second') }
+    end
+
+    context "string with encoding ASCII-8BIT" do
+      let(:env) { { :first => 'first', :second => 'çÃïçáõ'.force_encoding("ASCII-8BIT") } }
+      before { shibboleth.load_data(env, 'second')}
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('second') }
+      it { shibboleth.get_data['second'].should eq('çÃïçáõ') }
     end
 
     context "accepts keys as strings" do
       let(:env) { { 'first' => 'first', 'second' => 'second' } }
-      before { shibboleth.save_to_session(env, 'second') }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('second') }
-      it { session[:shib_data]['second'].should eq('second') }
+      before { shibboleth.load_data(env, 'second') }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('second') }
+      it { shibboleth.get_data['second'].should eq('second') }
     end
 
     context "accepts regex filters" do
       let(:env) { { :any_one => 'first', :any_two => 'second', :other_any => 'third' } }
-      before { shibboleth.save_to_session(env, 'any.*') }
-      it { session[:shib_data].length.should be(2) }
-      it { session[:shib_data].should have_key('any_one') }
-      it { session[:shib_data]['any_one'].should eq('first') }
-      it { session[:shib_data].should have_key('any_two') }
-      it { session[:shib_data]['any_two'].should eq('second') }
+      before { shibboleth.load_data(env, 'any.*') }
+      it { shibboleth.get_data.length.should be(2) }
+      it { shibboleth.get_data.should have_key('any_one') }
+      it { shibboleth.get_data['any_one'].should eq('first') }
+      it { shibboleth.get_data.should have_key('any_two') }
+      it { shibboleth.get_data['any_two'].should eq('second') }
     end
 
     context "transform filters into exact regexes" do
       let(:env) { { :pre => 'first', :prefix => 'second', :preamble => 'third' } }
-      before { shibboleth.save_to_session(env, 'pre') }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('pre') }
-      it { session[:shib_data]['pre'].should eq('first') }
+      before { shibboleth.load_data(env, 'pre') }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('pre') }
+      it { shibboleth.get_data['pre'].should eq('first') }
     end
 
     context "accepts multiple filters separated by '\\n' or '\\r\\n'" do
       let(:env) { { :first => 'first', :second => 'second', :second_b => 'second_b', :third => 'third', :fourth => 'fourth' } }
-      before { shibboleth.save_to_session(env, "first\nsecond.*\r\nthird") }
-      it { session[:shib_data].length.should be(4) }
-      it { session[:shib_data].should have_key('first') }
-      it { session[:shib_data]['first'].should eq('first') }
-      it { session[:shib_data].should have_key('second') }
-      it { session[:shib_data]['second'].should eq('second') }
-      it { session[:shib_data].should have_key('second_b') }
-      it { session[:shib_data]['second_b'].should eq('second_b') }
-      it { session[:shib_data].should have_key('third') }
-      it { session[:shib_data]['third'].should eq('third') }
+      before { shibboleth.load_data(env, "first\nsecond.*\r\nthird") }
+      it { shibboleth.get_data.length.should be(4) }
+      it { shibboleth.get_data.should have_key('first') }
+      it { shibboleth.get_data['first'].should eq('first') }
+      it { shibboleth.get_data.should have_key('second') }
+      it { shibboleth.get_data['second'].should eq('second') }
+      it { shibboleth.get_data.should have_key('second_b') }
+      it { shibboleth.get_data['second_b'].should eq('second_b') }
+      it { shibboleth.get_data.should have_key('third') }
+      it { shibboleth.get_data['third'].should eq('third') }
     end
 
     context "ignores cases in the filters" do
       let(:env) { { :firsT => 'first', :second => 'second' } }
-      before { shibboleth.save_to_session(env, 'FiRsT') }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('firsT') }
-      it { session[:shib_data]['firsT'].should eq('first') }
+      before { shibboleth.load_data(env, 'FiRsT') }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('firsT') }
+      it { shibboleth.get_data['firsT'].should eq('first') }
     end
 
     context "ignores white spaces in the front and end of filters" do
       let(:env) { { :first => 'first', :second => 'second' } }
-      before { shibboleth.save_to_session(env, '   first   ') }
-      it { session[:shib_data].length.should be(1) }
-      it { session[:shib_data].should have_key('first') }
-      it { session[:shib_data]['first'].should eq('first') }
+      before { shibboleth.load_data(env, '   first   ') }
+      it { shibboleth.get_data.length.should be(1) }
+      it { shibboleth.get_data.should have_key('first') }
+      it { shibboleth.get_data['first'].should eq('first') }
     end
 
     context "returns the data stored in the session" do
       let(:env) { { :first => 'first', :second => 'second' } }
-      before { @result = shibboleth.save_to_session(env, "first\nsecond") }
+      before { @result = shibboleth.load_data(env, "first\nsecond") }
       it { @result.length.should be(2) }
       it { @result.should have_key('first') }
       it { @result['first'].should eq('first') }
@@ -130,6 +137,8 @@ describe Mconf::Shibboleth do
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
       before {
+        shibboleth.set_data(session[:shib_data])
+
         Site.current.update_attributes(:shib_email_field => 'email',
                                        :shib_name_field => 'name',
                                        :shib_principal_name_field => 'principal_name')
@@ -162,12 +171,14 @@ describe Mconf::Shibboleth do
   describe "#get_email" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.load_data({}) }
       subject { shibboleth.get_email }
       it { should be_nil }
     end
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
 
       context "returns the email pointed by the site's 'shib_email_field'" do
         let(:session) { { :shib_data => { 'email' => 'my-email@anything' } } }
@@ -217,12 +228,14 @@ describe Mconf::Shibboleth do
   describe "#get_name" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.set_data({}) }
       subject { shibboleth.get_name }
       it { should be_nil }
     end
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
 
       context "returns the name pointed by the site's 'shib_name_field'" do
         let(:session) { { :shib_data => { 'name' => 'my-name' } } }
@@ -271,12 +284,14 @@ describe Mconf::Shibboleth do
   describe "#get_principal_name" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.set_data({}) }
       subject { shibboleth.get_principal_name }
       it { should be_nil }
     end
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
 
       context "returns the name pointed by the site's 'shib_principal_name_field'" do
         let(:session) { { :shib_data => { 'principal_name' => 'my-name' } } }
@@ -325,12 +340,14 @@ describe Mconf::Shibboleth do
   describe "#get_login" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.set_data({}) }
       subject { shibboleth.get_login }
       it { should be_nil }
     end
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
 
       context "returns the login pointed by the site's 'shib_login_field'" do
         let(:session) { { :shib_data => { 'login' => 'my-login' } } }
@@ -378,12 +395,14 @@ describe Mconf::Shibboleth do
   describe "#get_identity_provider" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.set_data({}) }
       subject { shibboleth.get_identity_provider }
       it { should be_nil }
     end
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
 
       context "returns the identity provider using a default key" do
         let(:session) { { :shib_data => { 'Shib-Identity-Provider' => 'my-idp' } } }
@@ -416,13 +435,16 @@ describe Mconf::Shibboleth do
   describe "#get_data" do
     context "returns nil if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      before { shibboleth.set_data({}) }
       subject { shibboleth.get_data }
-      it { should be_nil }
+      it { should be_blank }
     end
 
     context "returns the data when there's shib data in the session" do
       let(:session) { { :shib_data => { 'first' => 'any', 'second' => 'other' } } }
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before { shibboleth.set_data(session[:shib_data]) }
+
       subject { shibboleth.get_data }
       it { should eq(session[:shib_data]) }
     end
@@ -432,19 +454,32 @@ describe Mconf::Shibboleth do
     context "if the session is not defined" do
       let(:shibboleth) { Mconf::Shibboleth.new(nil) }
       subject { shibboleth.signed_in? }
-      it { should be_falsey }
+      it { should be(false) }
     end
 
-    context "if the session has no :shib_data key" do
+    context "if the session has no #{Mconf::Shibboleth::SESSION_KEY} key" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
       subject { shibboleth.signed_in? }
-      it { should be_falsey }
+      it { should be(false) }
     end
 
-    context "if the session has :shib_data key" do
-      let(:shibboleth) { Mconf::Shibboleth.new({ :shib_data => {} }) }
+    context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key" do
+      let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
+      before { shibboleth.set_data({}) }
+
       subject { shibboleth.signed_in? }
-      it { should be_truthy }
+      it { should be(false) }
+    end
+
+    context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key and `set_signed_in` was called" do
+      let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
+      before {
+        shibboleth.set_data({})
+        shibboleth.set_signed_in
+      }
+
+      subject { shibboleth.signed_in? }
+      it { should be(true) }
     end
   end
 
@@ -487,6 +522,83 @@ describe Mconf::Shibboleth do
       subject { shibboleth.find_token }
       it { subject.should be_nil }
     end
+  end
+
+  describe "#find_and_update_token" do
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "returns the token using the information in the session" do
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject { shibboleth.find_and_update_token }
+      it { subject.identifier.should eq('any@email.com') }
+      it { subject.user.should eq(user) }
+    end
+
+    context "returns nil of there's no token" do
+      before {
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject { shibboleth.find_and_update_token }
+      it { subject.should be_nil }
+    end
+
+    context "updates the token with the info in the session" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { { "Shib-cn": "New Name", "AnotherParam": 12345 } }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+
+        shibboleth.set_data(new_data)
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(new_data) }
+    end
+
+    context "doesn't save if there's no data in the session" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { nil }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+
+        shibboleth.set_data(new_data)
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(old_data) }
+    end
+
+    context "doesn't save if the data in the session is empty" do
+      let(:old_data) { { "Shib-cn": "My Name", "Shib-id": 12345, "AnotherParam": "no value" } }
+      let(:new_data) { {} }
+      let(:shibboleth) { Mconf::Shibboleth.new({ shib_data: new_data }) }
+      before {
+        ShibToken.create!(identifier: 'any@email.com', user: user, data: old_data)
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
+      }
+      subject {
+        token = shibboleth.find_and_update_token
+        token.reload
+        token
+      }
+      it { subject.data.should eq(old_data) }
+    end
+
+    it "returns the errors in the token if it failed to update"
   end
 
   describe "#find_or_create_token" do
@@ -541,17 +653,6 @@ describe Mconf::Shibboleth do
       it("should be confirmed") { @subject.confirmed_at.should_not be_nil }
       it("should not be disabled") { @subject.disabled.should be_falsey }
       it("should not be a superuser") { @subject.superuser.should be_falsey }
-
-      context "creates a RecentActivity" do
-        subject { RecentActivity.where(key: 'shibboleth.user.created').last }
-        it("should exist") { subject.should_not be_nil }
-        it("should point to the right trackable") { subject.trackable.should eq(User.last) }
-        it("should be unnotified") { subject.notified.should be(false) }
-
-        # see #1737
-        skip("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
-        skip("should be owned by the correct ShibToken") { subject.owner_id.should eql(token.id) }
-      end
     end
 
     context "parameterizes the login" do
@@ -565,13 +666,46 @@ describe Mconf::Shibboleth do
       it { subject.username.should eq('my-login-aaee-test') }
     end
 
+    context "doesn't fail if the login already exists" do
+      let(:token) { ShibToken.new(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:user, username: 'any-name')
+        FactoryGirl.create(:user, username: 'any-name-2')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('Any Name')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+      }
+      it {
+        expect {
+          user = shibboleth.create_user(token)
+          user.username.should eq('any-name-3')
+        }.to change{ User.count }.by(1)
+      }
+    end
+
+    context "doesn't fail if the login is already used as the permalink of a space" do
+      let(:token) { ShibToken.new(identifier: 'any@email.com') }
+      before {
+        FactoryGirl.create(:space, permalink: 'any-name')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('Any Name')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+      }
+      it {
+        expect {
+          user = shibboleth.create_user(token)
+          user.username.should eq('any-name-2')
+        }.to change{ User.count }.by(1)
+      }
+    end
+
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { ShibToken.new(identifier: 'dummy_shib@tok.en') }
       subject {
         expect {
           @user = shibboleth.create_user(token)
-        }.not_to change{ RecentActivity.count + User.count }
+        }.not_to change{ User.count }
         @user
       }
       it("should return the user") { subject.should_not be_nil }
@@ -580,7 +714,6 @@ describe Mconf::Shibboleth do
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
-      it("should not create an activity") { RecentActivity.where(key: 'shibboleth.user.created').should be_empty }
     end
   end
 

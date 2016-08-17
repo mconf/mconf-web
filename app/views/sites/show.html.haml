@@ -1,18 +1,16 @@
 = render :partial => 'manage/menu'
 
-= simple_form_for @site, :url => "", :html => { :class => 'single-column' } do |f|
+= simple_form_for @site, :html => { :class => 'single-column' } do |f|
   .left-column
     = f.input :name, :disabled => true
     = f.input :description, :as => :text, :input_html => { :rows => 5 }, :disabled => true
     = f.input :domain, :disabled => true
     = f.input :locale, :collection => available_locales(true), :disabled => true
     = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes, :disabled => true
-    = f.input :timezone, :as => :time_zone, :disabled => true
+    = f.input :timezone, :as => :fake, :disabled => true, :input_html => { :value => Mconf::DSTTimezone.new(@site.timezone).dst_string }
     = f.input :signature, :as => :text, :input_html => { :rows => 5 }, :disabled => true
     = f.input :ssl, :as => :boolean, :disabled => true
-    = f.input :room_dial_number_pattern, as: :string, disabled: true
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path), :disabled => true
-    = f.input :webconf_auto_record, :as => :boolean, :disabled => true
     = f.input :analytics_code, :disabled => true
     = f.input :shib_enabled, :as => :boolean, :disabled => true
     = f.input :shib_email_field, :as => :string, :disabled => true
@@ -45,14 +43,17 @@
     = f.input :exception_notifications, :as => :boolean, :disabled => true
     = f.input :exception_notifications_email, :disabled => true
     = f.input :exception_notifications_prefix, :disabled => true
-    = f.input :chat_enabled, :as => :boolean, :disabled => true
     = f.input :presence_domain, :disabled => true
     = f.input :xmpp_server, :disabled => true
     = f.input :external_help, :disabled => true
+    = f.input :room_dial_number_pattern, as: :string, disabled: true
     = f.input :registration_enabled, :as => :boolean, :disabled => true
     = f.input :require_registration_approval, :as => :boolean, :disabled => true
     = f.input :local_auth_enabled, :as => :boolean, :disabled => true
+    = f.input :require_space_approval, :as => :boolean, :disabled => true
+    = f.input :forbid_user_space_creation, :as => :boolean, :disabled => true
     = f.input :events_enabled, :as => :boolean, :disabled => true
     = f.input :gravatar, :as => :boolean, :disabled => true
+    = f.input :max_upload_size, as: :string, disabled: true, input_html: { value: @site.formatted_max_upload_size }
   .form-actions
     = link_to t('_other.edit'), edit_site_path, :class => "btn btn-primary"

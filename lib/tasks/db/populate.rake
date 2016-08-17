@@ -8,7 +8,7 @@ namespace :db do
     # production (cannot load such file -- populator)
     require 'populator'
 
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'cassio']
 
     @created_at_start = 1.year.ago
     @created_at_start_months = 12
@@ -20,12 +20,11 @@ namespace :db do
 
     if ENV['CLEAR']
       puts "*** Destroying all resources!"
-      PrivateMessage.destroy_all
       Permission.destroy_all
       Space.destroy_all
-      if configatron.modules.events.enabled
-        MwebEvents::Event.destroy_all
-        MwebEvents::Participant.destroy_all
+      if Mconf::Modules.mod_enabled?('events')
+        Event.destroy_all
+        Participant.destroy_all
       end
       RecentActivity.destroy_all
       User.with_disabled.where.not(id: User.first.id).destroy_all
@@ -88,23 +87,6 @@ namespace :db do
       end
     end
 
-    puts "* Create private messages"
-    User.all.each do |user|
-      senders = User.ids - [user.id]
-
-      PrivateMessage.populate 5 do |message|
-        message.receiver_id = user.id
-        message.sender_id = senders
-        message.title = Populator.words(1..3).capitalize
-        message.body = Populator.sentences(1..3)
-        message.checked = [ true, false ]
-        message.deleted_by_sender = false
-        message.deleted_by_receiver = false
-        message.created_at = @created_at_start..Time.now
-        message.updated_at = message.created_at..Time.now
-      end
-    end
-
     puts "* Create spaces (10)"
     Space.populate 10 do |space|
       begin
@@ -114,6 +96,7 @@ namespace :db do
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
       space.disabled = false
+      space.approved = true
       space.permalink = name.parameterize
       space.repository = [ true, false ]
 
@@ -121,18 +104,8 @@ namespace :db do
         post.space_id = space.id
         post.title = Populator.words(1..4).titleize
         post.text = Populator.sentences(3..15)
-        post.spam = false
         post.created_at = @created_at_start..Time.now
         post.updated_at = post.created_at..Time.now
-        post.spam = rand(0) > 0.9 # ~10% marked as spam
-      end
-
-      News.populate 2..10 do |news|
-        news.space_id = space.id
-        news.title = Populator.words(3..8).titleize
-        news.text = Populator.sentences(2..10)
-        news.created_at = @created_at_start..Time.now
-        news.updated_at = news.created_at..Time.now
       end
     end
 
@@ -187,12 +160,12 @@ namespace :db do
       end
     end
 
-    if configatron.modules.events.enabled
+    if Mconf::Modules.mod_enabled?('events')
       puts "* Create events"
 
       puts "* Create events: for spaces (20..40)"
       available_spaces = Space.all.to_a
-      MwebEvents::Event.populate 20..40 do |event|
+      Event.populate 20..40 do |event|
         event.owner_id = available_spaces
         event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
@@ -211,9 +184,9 @@ namespace :db do
 
       puts "* Create events: for users (20..40)"
       available_users = User.all.to_a
-      MwebEvents::Event.populate 20..40 do |event|
+      Event.populate 20..40 do |event|
         event.owner_id = available_users
-        event.owner_type = 'Space'
+        event.owner_type = 'User'
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')
         event.time_zone = Forgery::Time.zone
@@ -228,8 +201,8 @@ namespace :db do
         event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
       end
 
-      # TODO: #1115, populate with models from MwebEvents
-      # if configatron.modules.events.loaded
+      # TODO: #1115, populate with participants
+      # if Mconf::Modules.mod_enabled?('events')
       # puts "* Create spaces: \"#{space.name}\" - add users for events"
       # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
       # space.events.each do |event|
@@ -282,6 +255,7 @@ namespace :db do
         recording.start_time = @created_at_start..Time.now
         recording.end_time = recording.start_time + rand(5).hours
         recording.description = Populator.words(5..8)
+        recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
 
         # Recording metadata
         BigbluebuttonMetadata.populate 0..3 do |meta|
@@ -367,19 +341,13 @@ namespace :db do
       end
 
       # Event participants activity
-      if configatron.modules.events.enabled
+      if Mconf::Modules.mod_enabled?('events')
         space.events.each do |event|
           event.participants.each do |part|
             attend = part.attend? ? :attend : :not_attend
             event.new_activity attend, part.user
           end
         end
-      end
-
-      # News activity
-      space.news.each do |news|
-        author = space.admins.sample
-        news.new_activity :create, author
       end
 
       # Attachment activity
@@ -431,23 +399,20 @@ namespace :db do
     u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
 
     space_attrs = [:name, :description]
-    s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+    s = FactoryGirl.create(:space_with_associations, attrs_to_hash(Space, space_attrs))
     s.new_activity :create, u
     s.add_member!(u, 'Admin')
     s.add_member!(u2)
-
-    message_attrs = [:title, :body]
-    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
 
     post_attrs = [:title, :text]
     p = FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs).merge(author: u2, space: s))
     p.new_activity :create, u2
 
     event_attrs = [:name, :summary, :description, :location, :address]
-    e = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+    e = FactoryGirl.create(:event, attrs_to_hash(Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
     e.new_activity :create, u
 
-    e2 = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
+    e2 = FactoryGirl.create(:event, attrs_to_hash(Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
     e2.new_activity :create, u2
 
     jr_attrs = [:comment]

@@ -27,16 +27,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
 
+  # use the patter configured on the site to generate dial numbers
+  before_filter :set_site_pattern, only: [:generate_dial_number]
+
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
-    when :join_options
-      if request.xhr?
-        false
-      else
-        "application"
-      end
     when :join_mobile
       "mobile"
     when :running
@@ -62,21 +59,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     # no user logged and no user set in the URL, go back to the identification step
     if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
-    end
-  end
-
-  def join_options
-    # don't let the user access this dialog if he can't record meetings
-    # or if the feature to automatically set the record flag is disabled in the site
-    # an extra protection, since the views that point to this route filter this as well
-    ability = Abilities.ability_for(current_user)
-    if ability.can?(:record_meeting, @room) && !current_site.webconf_auto_record
-      begin
-        @room.fetch_is_running?
-      rescue BigBlueButton::BigBlueButtonException
-      end
-    else
-      redirect_to join_bigbluebutton_room_path(@room)
     end
   end
 
@@ -169,6 +151,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def set_site_pattern
+    params[:pattern] ||= Site.current.room_dial_number_pattern
+  end
+
   # For cancan create load_and_authorize
   def create_params
     room_params
@@ -181,8 +167,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       super
     else
       [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
-        :presenter_share_only, :auto_start_video, :auto_start_audio, :welcome_msg,
-        :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+        :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end
 end

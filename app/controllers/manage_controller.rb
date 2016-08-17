@@ -11,7 +11,7 @@ class ManageController < ApplicationController
 
   def users
     words = params[:q].try(:split, /\s+/)
-    query = User.with_disabled.search_by_terms(words)
+    query = User.with_disabled.search_by_terms(words, can?(:manage, User))
 
     # start applying filters
     [:disabled, :approved, :can_record].each do |filter|
@@ -51,10 +51,4 @@ class ManageController < ApplicationController
       render :layout => 'no_sidebar'
     end
   end
-
-  def spam
-    @spam_posts = Post.where(:spam => true).all
-    render :layout => 'no_sidebar'
-  end
-
 end

@@ -7,9 +7,12 @@
 
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
+require './lib/mconf/approval_module'
 
 class User < ActiveRecord::Base
   include PublicActivity::Common
+  include Mconf::ApprovalModule
+  include Mconf::DisableModule
 
   # TODO: block :username from being modified after registration
 
@@ -69,7 +72,6 @@ class User < ActiveRecord::Base
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
-  # TODO: review, see issue #737
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
@@ -78,8 +80,6 @@ class User < ActiveRecord::Base
 
   after_create :create_webconf_room
   after_update :update_webconf_room
-
-  before_create :automatically_approve, unless: :site_needs_approval?
 
   before_destroy :before_disable_and_destroy, prepend: true
 
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
 
-  scope :search_by_terms, -> (words) {
+  scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile).order("profiles.full_name")
 
     words ||= []
@@ -99,8 +99,11 @@ class User < ActiveRecord::Base
     query_params = []
 
     words.each do |word|
-      query_strs << "profiles.full_name LIKE ? OR users.username LIKE ? OR users.email LIKE ?"
-      query_params += ["%#{word}%", "%#{word}%", "%#{word}%"]
+      str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+      str += " OR users.email LIKE ?" if include_private
+      query_strs << str
+      query_params += ["%#{word}%", "%#{word}%"]
+      query_params += ["%#{word}%"] if include_private
     end
 
     query.where(query_strs.join(' OR '), *query_params.flatten)
@@ -128,7 +131,7 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
-  def site_needs_approval?
+  def require_approval?
     Site.current.require_registration_approval
   end
 
@@ -140,8 +143,7 @@ class User < ActiveRecord::Base
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4),
-      :dial_number => Mconf::DialNumber.generate(Site.current.try(:room_dial_number_pattern))
+      :attendee_key => SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
   end
@@ -171,7 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_disabled
-    unscope(where: :disabled) # removes the default scope only
+    unscope(where: :disabled) # removes the target scope only
   end
 
   def <=>(user)
@@ -180,15 +182,6 @@ class User < ActiveRecord::Base
 
   def other_public_spaces
     Space.public_spaces.order('name') - spaces
-  end
-
-  def disable
-    before_disable_and_destroy
-    update_attribute(:disabled, true)
-  end
-
-  def enable
-    self.update_attribute(:disabled,false)
   end
 
   def fellows(name=nil, limit=nil)
@@ -214,9 +207,9 @@ class User < ActiveRecord::Base
   end
 
   def events
-    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).ids
-    ids += permissions.where(:subject_type => 'MwebEvents::Event').pluck(:subject_id)
-    MwebEvents::Event.where(:id => ids)
+    ids = Event.where(:owner_type => 'User', :owner_id => id).ids
+    ids += permissions.where(:subject_type => 'Event').pluck(:subject_id)
+    Event.where(:id => ids)
   end
 
   def has_events_in_this_space?(space)
@@ -234,31 +227,10 @@ class User < ActiveRecord::Base
     rooms
   end
 
-  # Returns the number of unread private messages for this user
-  def unread_private_messages
-    PrivateMessage.inbox(self).select{|msg| !msg.checked}
-  end
-
-  # Automatically approves the user if the current site is not requiring approval
-  # on registration.
-  def automatically_approve
-    self.approved = true
-  end
-
-  # Sets the user as approved
+  # Sets the user as approved and skips confirmation
   def approve!
     skip_confirmation! unless confirmed?
     update_attributes(approved: true)
-  end
-
-  # Starts the process of sending a notification to the user that was approved.
-  def create_approval_notification(approved_by)
-    create_activity 'approved', owner: approved_by
-  end
-
-  # Sets the user as not approved
-  def disapprove!
-    update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
@@ -277,15 +249,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Method used by MwebEvents
-  def admin?
-    superuser
-  end
-
-  def enabled?
-    !disabled?
-  end
-
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
@@ -298,14 +261,22 @@ class User < ActiveRecord::Base
   after_create :new_activity_user_created
   def new_activity_user_created
     if created_by.present?
-      create_activity 'created_by_admin', owner: created_by, notified: false
+      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
     else
-      create_activity 'created', owner: self, notified: !site_needs_approval?
+      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
     end
   end
 
   def created_by_shib?
     ShibToken.user_created_by_shib?(self)
+  end
+
+  def created_by_ldap?
+    LdapToken.user_created_by_ldap?(self)
+  end
+
+  def no_local_auth?
+    created_by_shib? || created_by_ldap?
   end
 
   protected
@@ -326,6 +297,11 @@ class User < ActiveRecord::Base
     admin_in.each do |space|
       space.disable if space.admins.empty?
     end
+  end
+
+  # For the disable module
+  def before_disable
+    before_disable_and_destroy
   end
 
   def init

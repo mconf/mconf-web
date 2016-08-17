@@ -1,0 +1,70 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+de:
+  devise:
+    confirmations:
+      confirmed: "Ihr Account wurde erfolgreich bestätigt."
+      send_instructions: "Sie werden in ein paar Minuten eine Email mit Anweisungen zur Bestätigung Ihres Accounts erhalten."
+      send_paranoid_instructions: "Wenn Ihre Email-Adresse in unserer Datenbank vorhanden ist, werden Sie in wenigen Minuten eine Email mit Anweisungen zur Bestätigung Ihres Accounts erhalten."
+    failure:
+      already_authenticated: "Sie sind bereits angemeldet."
+      disabled_by_shib_auth: 'Ihr Benutzer ist nicht berechtigt, sich lokal anzumelden. Bitte melden Sie sich über die Organisation an.'
+      inactive: "Ihr Account wurde noch nicht aktiviert."
+      invalid: "Email-Adresse oder Passwort falsch."
+      invalid_token: "Ungültiger Authentifizierungstoken."
+      local_auth_disabled: "Lokale Anmeldung ist derzeit auf dieser Website nicht möglich."
+      locked: "Ihr Account wurde gesperrt."
+      not_found_in_database: "Email-Adresse oder Passwort falsch."
+      timeout: "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an, um fortzufahren."
+      unauthenticated: "Sie müssen sich registrieren oder anmelden bevor Sie fortfahren können."
+      unconfirmed: "Sie müssen Ihren Account bestätigen bevor Sie fortfahren können."
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Meinen Account bestätigen."
+        confirmation_ok: "Sie können die Email-Adresse Ihres Accounts durch den unten stehenden Link bestätigen:"
+        confirmation_pending: "Ihr Account wurde erstellt und wartet auf die Bestätigung durch einen Administrator."
+        subject: "Registrierung erfolgreich"
+        welcome: "Willkommen %{email}!"
+      reset_password_instructions:
+        subject: "Anweisungen zum Zurücksetzen des Passworts"
+        greeting: "Hallo %{email},"
+        requested: "Jemand hat einen Link zum Ändern Ihres Passworts angefragt. Sie können dies über folgenden Link tun:"
+        change_password: "Passwort ändern"
+        ignore: "Wenn Sie die Anforderung nicht getätigt haben, ignorieren Sie bitte diese Email."
+        wont_change: "Ihr Passwort wird nicht geändert solange Sie nicht dem oben stehenden Link folgen und ein neues Passwort vergeben."
+      unlock_instructions:
+        subject: "Anleitung zum Entsperren"
+    omniauth_callbacks:
+      failure: "Sie konnten nicht mit %{kind} angemeldet werden aufgrund von \"%{reason}\"."
+      success: "Erfolgreich über %{kind} angemeldet."
+    passwords:
+      no_token: "Sie können diese Seite nicht öffnen, ohne von einer Email für das Zurücksetzen des Passworts zu kommen. Wenn Sie von einer solchen Email kommen, stellen Sie bitte sicher, dass Sie die komplette URL von dort benutzen."
+      send_instructions: "In wenigen Minuten werden Sie eine Email mit den Anweisungen zum Zurücksetzen Ihres Passworts erhalten."
+      send_paranoid_instructions: "Wenn Ihre Email-Adresse in unserer Datenbank vorhanden ist, werden Sie in wenigen Minuten eine Email mit Anweisungen zum Zurücksetzen Ihres Passworts erhalten."
+      updated: "Ihr Passwort wurde erfolgreich geändert."
+      updated_not_active: "Ihr Passwort wurde erfolgreich geändert."
+    registrations:
+      destroyed: "Auf Wiedersehen! Ihr Account wurde erfolgreich beendet. Wir hoffen, sie bald wieder begrüßen zu können."
+      signed_up: "Willkommen! Sie haben sich erfolgreich registriert."
+      signed_up_but_inactive: "Sie haben sich erfolgreich registriert. Leider konnten wir Sie nicht anmelden, weil ihr Account noch nicht aktiviert ist."
+      signed_up_but_locked: "Sie haben sich erfolgreich registriert. Leider konnten wir Sie nicht anmelden, weil ihr Account gesperrt ist."
+      signed_up_but_unconfirmed: "Eine Nachricht mit einem Link zur Bestätigung wurde an Ihre Email-Adresse gesendet. Bitte öffnen Sie den Link um Ihren Account zu aktivieren."
+      update_needs_confirmation: "Sie haben Ihren Account erfolgreich aktualisiert, aber wir müssen ihre neue Email-Adresse verifizieren. Bitte prüfen Sie Ihre Emails und klicken Sie auf den Link zur Bestätigung Ihrer neuen Email-Adresse."
+      updated: "Sie haben Ihren Account erfolgreich aktualisiert."
+    sessions:
+      signed_in: "Erfolgreich angemeldet."
+      signed_out: "Erfolgreich abgemeldet."
+    unlocks:
+      send_instructions: "Sie werden in ein paar Minuten eine Email mit Anweisungen zum Entsperren Ihres Accounts erhalten."
+      send_paranoid_instructions: "Wenn Ihre Account existiert, werden Sie in wenigen Minuten eine Email mit Anweisungen zum Entsperren Ihres Accounts erhalten."
+      unlocked: "Ihr Account wurde erfolgreich entsperrt. Bitte melden Sie sich an, um fortzufahren."
+  errors:
+    messages:
+      already_confirmed: "wurde bereits bestätigt, bitte versuchen Sie, sich anzumelden"
+      confirmation_period_expired: "muss innerhalb von %{period} bestätigt werden, bitte fordern Sie erneut einen Link an"
+      expired: "ist abgelaufen, bitte stellen Sie eine neue Anforderung."
+      not_found: "nicht gefunden"
+      not_locked: "wurde nicht gesperrt"
+      not_saved:
+        one: "Ein Fehler hinderte %{resource} daran, gespeichert zu werden:"
+        other: "%{count} Fehler hinderten %{resource} daran, gespeichert zu werden:"

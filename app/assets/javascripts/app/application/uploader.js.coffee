@@ -17,12 +17,10 @@ class mconf.Uploader
       if response.success
         # Hide progress bar on successs
         $(".progress .bar:hidden").parent().hide()
-
       onComplete?(id, name, response)
 
     callbacks.onSubmit = (id, name) ->
       $('.drag-files').hide()
-
       onSubmit?(id, name)
 
     # Uploader options
@@ -78,41 +76,15 @@ class mconf.Uploader
       validation: {}
 
     if element.attr('data-accept')
-      options.validation.allowedExtensions = getFormatsFromAccept(element.attr('data-accept'))
+      options.validation.allowedExtensions = getAcceptedFormats(element.attr('data-accept'))
       options.validation.acceptFiles = element.attr('data-accept')
 
     if element.attr('data-max-size')
-      options.validation.sizeLimit = convertSize(element.attr('data-max-size'))
+      options.validation.sizeLimit = element.attr('data-max-size')
 
     uploader = new qq.FineUploader(options)
 
-# Converts sizes like 1kb to 1024 bytes, 5mb to 5*1024^2 bytes and so on
-convertSize = (str) ->
-  units =
-    kb: 1024
-    mb: Math.pow(1024,2)
-    gb: Math.pow(1024,3)
-    tb: Math.pow(1024,4)
+getAcceptedFormats = (accept) ->
+  formats = accept.split(',')
 
-  validUnit = (unit) ->
-    units.hasOwnProperty(unit)
-
-  pattern = /([0-9]+)\s*([a-zA-Z]{2})|[0-9]+/
-  result = pattern.exec(str.toLowerCase()) if str?
-
-  if result?
-    if result[1] and result[2] and validUnit(result[2]) # is in the form '5 mb'
-      result[1] * units[result[2]]
-    else if result[0]? && !result[1]? # is just a number of bytes
-      result[0]
-  else
-    null
-
-getFormatsFromAccept = (accept) ->
-  if accept? && accept == 'image/*'
-    ['jpg', 'jpeg', 'png']
-
-# Use this when firefox is ready to use the accepts='.jpg,.png, ...' (version 37 maybe)
-getFileTypesFromAccept = (accept) ->
-  formats = ('.' + format for format in getFormatsFromAccept(accept))
-  formats.join(',')
+  format.replace('.', '') for format in formats

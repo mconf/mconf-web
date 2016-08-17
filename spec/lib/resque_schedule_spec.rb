@@ -12,10 +12,6 @@ describe Resque do
   # TODO: have to do this after running rake resque:setup or resque:scheduler
   #  to do so we have to setup a way to run rake tasks here
 
-  skip("schedules PrivateMessagesWorker") {
-    puts Resque.schedule.inspect
-    should_have_scheduled(schedule, PrivateMessagesWorker, "30s")
-  }
   skip("schedules JoinRequestsWorker") {
     should_have_scheduled(schedule, JoinRequestsWorker, "30s")
   }

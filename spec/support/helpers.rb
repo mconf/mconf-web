@@ -33,8 +33,7 @@ module Helpers
       require_registration_approval: false,
       shib_enabled: false,
       shib_always_new_account: false,
-      smtp_sender: Forgery::Internet.email_address,
-      webconf_auto_record: true
+      smtp_sender: Forgery::Internet.email_address
     }
     Site.current.update_attributes(attributes)
     I18n.locale = "en"
@@ -47,17 +46,19 @@ module Helpers
     end
   end
 
+  # Sets the custom actions that should also be checked by
+  # the matcher BeAbleToDoAnythingToMatcher
+  def self.set_custom_ability_actions(actions)
+    Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
+      custom_actions = actions
+    Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
+      custom_actions = actions
+  end
+
   module ClassMethods
 
-    # Sets the custom actions that should also be checked by
-    # the matcher BeAbleToDoAnythingToMatcher
     def set_custom_ability_actions(actions)
-      before(:each) do
-        Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
-          custom_actions = actions
-        Shoulda::Matchers::ActiveModel::BeAbleToDoEverythingToMatcher.
-          custom_actions = actions
-      end
+      before { Helpers.set_custom_ability_actions(actions) }
     end
 
   end

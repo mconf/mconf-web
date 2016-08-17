@@ -14,6 +14,8 @@ describe 'Admin manages users' do
 
     let(:admin) { User.first } # admin is already created
     before {
+      Site.current.update_attributes(require_registration_approval: true)
+
       login_as(admin, :scope => :user)
       @user1 = FactoryGirl.create(:user)
       @unapproved_user = FactoryGirl.create(:user)
@@ -30,7 +32,12 @@ describe 'Admin manages users' do
 
       it { should have_css '.user-simple', :count => 7 }
       it { should have_css '.icon-mconf-delete', :count => 6 }
+
       it { should have_css '.user-disabled', :count => 2 }
+      it { should have_css '.icon-mconf-enable', :count => 2 }
+
+      it { should have_css '.icon-mconf-confirm-user', :count => 2 }
+      it { should have_css '.icon-mconf-approve', :count => 2 }
       it { should have_css '.icon-mconf-superuser', :count => 1 }
 
       it { should have_content user_description(@user1) }

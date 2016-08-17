@@ -7,7 +7,7 @@
 module Abilities
 
   class SuperUserAbility < BaseAbility
-    # TODO: restrict a bit what superusers can do
+    # TODO: #1251 restrict a bit what superusers can do
     def register_abilities(user)
       can :manage, :all
 
@@ -15,13 +15,33 @@ module Abilities
         !space.users.include?(user) || space.is_last_admin?(user)
       end
 
-      # A Superuser can't remove the last admin of a space
-      cannot [:destroy], Permission do |perm|
-        cant = false
-        if perm.subject_type == "Space"
-          cant = perm.subject.is_last_admin?(perm.user) if perm.subject.present?
+      cannot [:update_password], User do |target_user|
+        enabled = Site.current.local_auth_enabled?
+        local = !target_user.no_local_auth?
+        if target_user.superuser
+          !local
+        else
+          !enabled || !local
         end
-        cant
+      end
+
+      # A Superuser can't remove the last admin of a space neither change its role
+      cannot [:destroy, :update], Permission do |perm|
+        if perm.subject_type == "Space"
+          if perm.subject.present?
+            perm.subject.is_last_admin?(perm.user)
+          else
+            false # allowed to
+          end
+        else
+          false # allowed to
+        end
+      end
+
+      # A superuser can not accept his join request for a space nor invitations for other users
+      cannot [:accept], JoinRequest do |jr|
+        (jr.candidate == user && jr.request_type == JoinRequest::TYPES[:request]) ||
+        (jr.candidate != user && jr.request_type == JoinRequest::TYPES[:invite])
       end
     end
   end

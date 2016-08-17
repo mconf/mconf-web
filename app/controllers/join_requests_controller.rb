@@ -9,7 +9,7 @@ class JoinRequestsController < ApplicationController
 
   # Recent activity for join requests
   after_filter :only => [:accept, :decline] do
-    @space.new_activity(params[:action], @join_request.candidate, @join_request) unless @join_request.errors.any?
+    @join_request.new_activity(params[:action]) if !@join_request.errors.any? && @join_request.persisted?
   end
 
   load_resource :space, :find_by => :permalink
@@ -33,7 +33,7 @@ class JoinRequestsController < ApplicationController
   end
 
   def index
-    authorize! :index_join_requests, @space
+    authorize! :manage_join_requests, @space
   end
 
   def show
@@ -50,13 +50,13 @@ class JoinRequestsController < ApplicationController
 
   def invite
     @join_request = JoinRequest.new
-    authorize! :invite, @space
+    authorize! :manage_join_requests, @space
   end
 
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:type] == 'invite' && can?(:invite, @space)
+    if params[:type] == 'invite' && can?(:manage_join_requests, @space)
       success, errors, already_invited = process_invitations
 
       unless errors.empty?
@@ -83,7 +83,10 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.pending_join_request_or_invitation_for?(current_user)
+      if @space.users.include?(current_user)
+        flash[:notice] = t('join_requests.create.you_are_already_a_member')
+        redirect_after_created
+      elsif @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         redirect_after_created
       else
@@ -199,7 +202,7 @@ class JoinRequestsController < ApplicationController
   def process_additions
     errors = []
     success = []
-    ids = params[:candidates].split ',' || []
+    ids = params[:candidates].try(:split, ',') || []
     ids.each do |id|
       user = User.find_by_id(id)
       # New JoinRequest corresponding to this addition
@@ -244,7 +247,7 @@ class JoinRequestsController < ApplicationController
     already_invited = []
     errors = []
     success = []
-    ids = params[:candidates].split ',' || []
+    ids = params[:candidates].try(:split, ',') || []
     ids.each do |id|
       user = User.find_by_id(id)
       jr = @space.join_requests.new(join_request_params)
@@ -273,7 +276,7 @@ class JoinRequestsController < ApplicationController
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
-    if [:new, :index_join_requests, :invite, :show].include? exception.action
+    if [:new, :manage_join_requests, :show].include? exception.action
       if user_signed_in?
         render_403 exception
       else
@@ -286,7 +289,7 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) && can?(:invite, @join_request.group)
+    is_space_admin = @space.present? && can?(:manage_join_requests, @space)
     if params[:action] == "create"
       if is_space_admin
         [ :role_id, :comment ]

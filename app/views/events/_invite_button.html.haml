@@ -1,0 +1,5 @@
+- if !@event.past? && can?(:invite, @event)
+  %session.event-invite
+    = link_to invite_event_path(@event), :class => 'open-modal btn btn-info btn-block' do
+      %i.icon.icon-envelope
+      = t('events.registration.invite_button')

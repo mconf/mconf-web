@@ -63,7 +63,6 @@ Mconf::Application.configure do
     Dir.glob("#{Rails.root}/vendor/assets/**/*.{png,jpg,gif}")
 
   # Disable delivery errors, bad email addresses will be ignored
-  # TODO: review
   config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
@@ -82,14 +81,26 @@ Mconf::Application.configure do
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
     params = event.payload[:params].reject do |k|
-      ['controller', 'action'].include? k
+      ['controller', 'action', 'commit', 'utf8'].include? k
     end
-    hash = {
-      time: event.time,
-      current_user: event.payload[:current_user]
-    }
-    hash.merge!({ params: params }) unless params.blank?
-    hash.merge!({ session: event.payload[:session] }) unless event.payload[:session].nil?
+    unless params["user"].nil?
+      params["user"] = params["user"].reject do |k|
+        ['password'].include? k
+      end
+    end
+    unless params["uploaded_file"].nil?
+      params["uploaded_file"] = params["uploaded_file"].reject do |k|
+        ['tempfile'].include? k
+      end
+    end
+
+    current_user = event.payload[:current_user] ? event.payload[:current_user] : nil
+
+    hash = {:time => event.time, "current_user" => current_user}
+    hash.merge!({"params" => params}) unless params.blank?
+    hash.merge!({"session" => event.payload[:session]}) unless event.payload[:session].nil?
+    hash.merge!({"webconf" => event.payload[:room]}) unless event.payload[:room].nil?
+
     hash
   end
   config.lograge.keep_original_rails_log = true

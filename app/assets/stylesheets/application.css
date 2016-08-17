@@ -25,7 +25,6 @@
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
  *= require ./app/application/logo_images
- *= require ./app/application/chat
  *= require ./app/application/footer
  *= require ./app/application/lists
  *= require ./app/application/select2

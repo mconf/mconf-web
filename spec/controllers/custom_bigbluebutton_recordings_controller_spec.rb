@@ -24,12 +24,13 @@ describe CustomBigbluebuttonRecordingsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :recordid, :meetingid, :name, :published, :start_time, :end_time, :available, :description ]
+          [ :description ]
         }
         it {
           BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
           recording.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
+          params[:id] = recording.recordid
           controller.stub(:params).and_return(params)
 
           put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
@@ -49,6 +50,7 @@ describe CustomBigbluebuttonRecordingsController do
           BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
           recording.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
+          params[:id] = recording.recordid
           controller.stub(:params).and_return(params)
 
           put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
@@ -57,6 +59,84 @@ describe CustomBigbluebuttonRecordingsController do
       end
     end
   end
+
+  skip "#publish"
+
+  describe "#unpublish" do
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    let(:server_return) { lambda {true} }
+
+    before do
+      login_as(user)
+
+      # For the seconf block of tests
+      if defined?(space) && !user.superuser?
+        space.add_member!(user, 'Admin')
+      end
+
+      # Mock BBB server message
+      BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
+      recording.server.stub(:send_publish_recordings) { server_return.call }
+
+      post :unpublish, id: recording.recordid
+      recording.reload
+    end
+
+    context "if it's a superuser unpublishing" do
+      let(:user) { FactoryGirl.create(:superuser) }
+
+      context "his recording" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: user) }
+
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
+      end
+
+      context "a recording in a space" do
+        let(:space) { FactoryGirl.create(:space) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: space) }
+
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
+      end
+
+      context "a recording via manage interface" do
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
+      end
+
+    end
+
+    context "if is a normal user unpublishing" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context "his recording" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: user) }
+
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
+      end
+
+      context "his recordings, but there is a server error" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: user) }
+
+        let(:server_return) { lambda {raise BigBlueButton::BigBlueButtonException.new('Server error')} }
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to('Server error') }
+      end
+
+      context "a recording in a space he is an admin" do
+        let(:space) { FactoryGirl.create(:space) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: space) }
+
+        it { should redirect_to bigbluebutton_recording_path(recording) }
+        it { should set_flash.to(I18n.t('bigbluebutton_rails.recordings.notice.unpublish.success')) }
+      end
+    end
+  end
+
+  skip "#destroy"
 
   describe "#play" do
     let(:user) { FactoryGirl.create(:superuser) }
@@ -187,7 +267,9 @@ describe CustomBigbluebuttonRecordingsController do
           room = user.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
-        it_should_behave_like "a normal user accessing any webconf recording"
+        it { should_not allow_access_to(:destroy, hash).via(:delete) }
+        it { should_not allow_access_to(:publish, hash).via(:post) }
+        it { should allow_access_to(:unpublish, hash).via(:post) }
         it { should allow_access_to(:play, hash) }
       end
 
@@ -218,6 +300,15 @@ describe CustomBigbluebuttonRecordingsController do
           it_should_behave_like "a normal user accessing any webconf recording"
           it { should allow_access_to(:play, hash) }
         end
+
+        context "he is an admin of" do
+          before { space.add_member!(user, 'Admin') }
+
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should_not allow_access_to(:publish, hash).via(:post) }
+          it { should allow_access_to(:unpublish, hash).via(:post) }
+          it { should allow_access_to(:play, hash) }
+        end
       end
 
       context "in a recording of a private space" do
@@ -237,6 +328,15 @@ describe CustomBigbluebuttonRecordingsController do
           it_should_behave_like "a normal user accessing any webconf recording"
           it { should_not allow_access_to(:play, hash) }
         end
+
+        context "he is an admin of" do
+          before { space.add_member!(user, 'Admin') }
+
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should_not allow_access_to(:publish, hash).via(:post) }
+          it { should allow_access_to(:unpublish, hash).via(:post) }
+          it { should allow_access_to(:play, hash) }
+        end
       end
 
     end
@@ -252,7 +352,7 @@ describe CustomBigbluebuttonRecordingsController do
         it { should require_authentication_for(:edit, hash) }
         it { should require_authentication_for(:update, hash).via(:put) }
         it { should require_authentication_for(:destroy, hash).via(:delete) }
-        it { should require_authentication_for(:play, hash) }
+        it { should_not require_authentication_for(:play, hash) }
         it { should require_authentication_for(:publish, hash).via(:post) }
         it { should require_authentication_for(:unpublish, hash).via(:post) }
       end
@@ -263,24 +363,27 @@ describe CustomBigbluebuttonRecordingsController do
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should_not allow_access_to(:play, hash) }
       end
 
       context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:space) { FactoryGirl.create(:space_with_associations, :public => true) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should allow_access_to(:play, hash) }
       end
 
       context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:space) { FactoryGirl.create(:space_with_associations, :public => false) }
         let(:recording) {
           room = space.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "an anonymous user accessing any webconf recording"
+        it { should_not allow_access_to(:play, hash) }
       end
     end
   end

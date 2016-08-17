@@ -17,7 +17,6 @@
         %li= link_to t('.project_website'), "http://www.inf.ufrgs.br/prav/gtmconf"
         %li= link_to t('.github'), "https://github.com/mconf"
         %li= link_to t('.wiki'), "https://github.com/mconf/wiki/wiki"
-        %li= link_to t('.issues'), "http://dev.mconf.org"
     .link-group.footer-languages
       %h3
         = link_to 'https://github.com/mconf/mconf-web/wiki/Mconf-Web-Localization' do
@@ -27,9 +26,9 @@
         %ul
           - locales.each do |locale|
             %li
-              - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
-              - text = t('locales.' + locale.to_s)
-              - link = link_to(text, main_app.session_locale_path(:l => locale.to_s), :method => :post)
+              - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
+              - name = locale_i18n(locale)
+              - link = link_to(name, main_app.session_locale_path(l: locale.to_s), method: :post)
               = (flag + " " + link).html_safe
     .link-group.footer-sponsors
       %h3= t('.sponsors.title')
@@ -42,5 +41,7 @@
           = link_to t('.sponsors.prav').html_safe, "http://www.inf.ufrgs.br/prav"
     .current-version
       = t('.current_version') + ": "
+      = application_version
+      = "&#149;".html_safe
       = link_to github_link_to_revision(application_revision) do
-        = application_version + "/" + application_branch + "/" + application_revision
+        = application_revision

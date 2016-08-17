@@ -1,0 +1,7 @@
+%h3
+  = t('.organizers')
+
+%p
+  = t('.organized_by')
+  %ul
+    %li= @event.owner.try(:name) || @event.owner.try(:email)

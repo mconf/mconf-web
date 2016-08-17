@@ -8,10 +8,27 @@ require 'spec_helper'
 
 describe ManageController do
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   describe "#users" do
     before { User.destroy_all } # exclude seeded user(s)
 
     it "should require authentication"
+
+    # see bug #1719
+    context "stores location for redirect from xhr" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        sign_in superuser
+        controller.session[:user_return_to] = "/home"
+        request.env['CONTENT_TYPE'] = "text/html"
+        xhr :get, :users
+      }
+      it { controller.session[:user_return_to].should eq("/manage/users") }
+      it { controller.session[:previous_user_return_to].should eq("/home") }
+    end
 
     context "authorizes" do
       let(:user) { FactoryGirl.create(:superuser) }
@@ -329,20 +346,6 @@ describe ManageController do
     end
   end
 
-  describe "#spam" do
-    let(:user) { FactoryGirl.create(:superuser) }
-
-    before { sign_in(user) }
-
-    it "is successful"
-    it "sets @spam_events to all events marked as spam"
-    it "sets @spam_posts to all posts marked as spam"
-    it "renders manage/spam"
-    it "renders with the layout no_sidebar"
-
-    it { should_authorize :manage, :spam }
-  end
-
   describe "abilities", :abilities => true do
     render_views(false)
 
@@ -351,7 +354,6 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should allow_access_to(:users) }
       it { should allow_access_to(:spaces) }
-      it { should allow_access_to(:spam) }
     end
 
     context "for a normal user", :user => "normal" do
@@ -359,13 +361,11 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
 
     context "for an anonymous user", :user => "anonymous" do
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
   end
 

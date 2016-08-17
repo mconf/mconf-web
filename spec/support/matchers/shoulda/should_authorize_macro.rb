@@ -12,7 +12,7 @@
 
 module Shoulda
   module Matchers
-    module ActiveModel # :nodoc
+    module ActionController # :nodoc
 
       def should_authorize(target, method, options={})
         options[:via] ||= :get
@@ -21,6 +21,7 @@ module Shoulda
         # which is called in join_requests#index
         if options[:ability_name]
           ability_name = options[:ability_name]
+          options.delete(:ability_name)
         else
           ability_name = method
         end

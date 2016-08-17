@@ -1,0 +1,59 @@
+%table.table.table-bordered.table-striped
+  %tr
+    %td _your text_
+    %td
+      %em your text
+  %tr
+    %td **your text**
+    %td
+      %strong your text
+  %tr
+    %td `my code`
+    %td
+      %code my code
+  %tr
+    %td
+      * Bulleted list
+      %br>/
+      * Second item
+    %td
+      \• Bulleted list
+      %br>/
+      \• Second item
+  %tr
+    %td
+      1. Numbered list
+      %br>/
+      2. Second item
+    %td
+      1. Numbered list
+      %br>/
+      2. Second item
+  %tr
+    %td [link name](URL)
+    %td
+      %a{href: "URL"} link name
+  %tr
+    %td ![Alt text](URL)
+    %td (The image from the URL appears in the comment)
+  %tr
+    %td
+      \## Header
+      %br>/
+      \### Subheader
+      %br>/
+      \#### Subsubhead
+      %br>/
+      \##### Etc.
+    %td
+      %b
+        %span{style: "font-size:1.73em"} Header
+        %br/
+        %span{style: "font-size:1.44em"} Subheader
+        %br/
+        %span{style: "font-size:1.2em"} Subsubhead
+        %br/
+        %span{style: "font-size:1em"} Etc.
+  %tr
+    %td ***
+    %td (Horizontal rule)

@@ -19,7 +19,7 @@ module Devise
       end
 
       def authenticate!
-        if ldap_enabled? and params[:user]
+        if ldap_enabled? && valid_params_sent?
           Rails.logger.info "LDAP: LDAP is enabled, trying to connect to LDAP server"
           configs = ldap_configs
           ldap = ldap_connection(configs)
@@ -84,14 +84,11 @@ module Devise
                   Rails.logger.error "LDAP: authentication failed: application wasn't able to create a new user"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
                 else
-                  if user.active_for_authentication?
-                    ldap_helper.sign_user_in(user)
-                    success!(user)
-                  else
-                    # throw the not_approved error that will take the user to the pending approval page
-                    throw(:warden, message: :not_approved)
-                  end
-
+                  # if user.active_for_authentication?
+                  # We don't check authentication here, let devise find out about an
+                  # unapproved user later and show the errors there
+                  ldap_helper.sign_user_in(user)
+                  success!(user)
                 end
               end
             end
@@ -105,6 +102,10 @@ module Devise
           Rails.logger.info "LDAP: authentication failed: invalid user credentials"
           fail(:invalid)
         end
+      end
+
+      def valid_params_sent?
+        params[:user] && login_from_params.present? && password_from_params.present?
       end
 
       # Returns the login provided by user

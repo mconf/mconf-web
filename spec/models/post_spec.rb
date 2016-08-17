@@ -17,10 +17,15 @@ describe Post do
 
     context "when is the post author" do
       let(:user) { target.author }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :reply_post, :edit, :update, :destroy]) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :reply_post, :edit, :update, :destroy]) }
 
       context "and the target space is disabled" do
         before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "and the target space is not approved" do
+        before { target.space.update_attributes(approved: false) }
         it { should_not be_able_to_do_anything_to(target) }
       end
     end
@@ -30,16 +35,21 @@ describe Post do
 
       context "and the post is in a public space" do
         before { target.space.update_attributes(:public => true) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index]) }
       end
 
       context "and the post is in a private space" do
         before { target.space.update_attributes(:public => false) }
-        it { should_not be_able_to_do_anything_to(target) }
+        it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
 
       context "and the target space is disabled" do
         before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "and the target space is not approved" do
+        before { target.space.update_attributes(approved: false) }
         it { should_not be_able_to_do_anything_to(target) }
       end
     end
@@ -49,22 +59,39 @@ describe Post do
 
       context "that's a member of the space the post is in" do
         before { target.space.add_member!(user) }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :reply_post]) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :create, :new, :reply_post]) }
+
+        context "and the target space is disabled" do
+          before { target.space.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "and the space is not approved" do
+          before { target.space.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
-      context "that's not a member of the private space the post is in" do
-        before { target.space.update_attributes(:public => false) }
-        it { should_not be_able_to_do_anything_to(target) }
-      end
+      context "that's not a member of the space the post is in" do
+        context "and the space is private" do
+          before { target.space.update_attributes(:public => false) }
+          it { should_not be_able_to_do_anything_to(target).except(:index) }
+        end
 
-      context "that's not a member of the public space the post is in" do
-        before { target.space.update_attributes(:public => true) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
-      end
+        context "and the space is public" do
+          before { target.space.update_attributes(:public => true) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index]) }
+        end
 
-      context "and the target space is disabled" do
-        before { target.space.disable }
-        it { should_not be_able_to_do_anything_to(target) }
+        context "and the target space is disabled" do
+          before { target.space.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "and the space is not approved" do
+          before { target.space.update_attributes(approved: false) }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 
@@ -74,6 +101,11 @@ describe Post do
 
       context "and the target space is disabled" do
         before { target.space.disable }
+        it { should be_able_to_do_everything_to(target) }
+      end
+
+      context "and the target space is not approved" do
+        before { target.space.update_attributes(approved: false) }
         it { should be_able_to_do_everything_to(target) }
       end
     end

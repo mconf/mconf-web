@@ -27,7 +27,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
     tries = 1
     name = original_name
-    while (att = model.space.attachments.find { |a| a.title == name && a != model })
+    while model.space.attachments.find { |a| a.title == name && a != model }
       ext = File.extname(original_name)
       base = File.basename(original_name, ext)
       name = "#{base}_#{tries}#{ext}"

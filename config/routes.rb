@@ -43,9 +43,6 @@ Mconf::Application.routes.draw do
     playback_types: 'custom_bigbluebutton_playback_types'
   }
   # register a few custom routes that were added to bigbluebutton_rails
-  get '/bigbluebutton/rooms/:id/join_options',
-    to: 'custom_bigbluebutton_rooms#join_options',
-    as: "join_options_bigbluebutton_room"
   get '/bigbluebutton/rooms/:id/invitation',
     to: 'custom_bigbluebutton_rooms#invitation',
     as: "invitation_bigbluebutton_room"
@@ -60,20 +57,6 @@ Mconf::Application.routes.draw do
     to: 'custom_bigbluebutton_rooms#invite_userid',
     as: "join_webconf"
 
-  # event module
-  if Mconf::Modules.mod_loaded?('events')
-    mount MwebEvents::Engine => '/'
-
-    # For invitations
-    resources :events, only: [] do
-      member do
-        post :send_invitation, controller: 'mweb_events/events'
-        get  :invite, controller: 'mweb_events/events'
-      end
-    end
-  end
-  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
-  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
 
   # shibboleth controller
   get '/secure', to: 'shibboleth#login', as: "shibboleth"
@@ -94,6 +77,8 @@ Mconf::Application.routes.draw do
       post :update_logo
       delete :disable
       post :leave
+      post :approve
+      post :disapprove
       get :user_permissions
       get :webconference_options
       get :webconference
@@ -102,13 +87,10 @@ Mconf::Application.routes.draw do
 
     get '/recordings/:id/edit', to: 'spaces#edit_recording', as: 'edit_recording'
 
-    if Mconf::Modules.mod_loaded?('events')
-      get '/events', to: 'space_events#index', as: 'events'
-    end
+    get '/events', to: 'space_events#index', as: 'events'
+    get '/events/new', to: 'events#new', as: 'new_event'
 
     resources :users, only: :index
-
-    resources :news
 
     resources :join_requests, only: [:index, :show, :new, :create] do
       collection do
@@ -124,15 +106,12 @@ Mconf::Application.routes.draw do
     resources :posts do
       member do
         get :reply_post
-        post :spam_report, action: :spam_report_create
       end
     end
 
     resources :attachments, except: [:edit, :update]
     delete 'attachments', to: 'attachments#delete_collection'
   end
-
-  resources :permissions, only: [:update, :destroy]
 
   resources :users, except: [:index] do
     collection do
@@ -163,17 +142,17 @@ Mconf::Application.routes.draw do
   get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
   get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'
 
-  resources :messages, controller: :private_messages, except: [:edit]
-
   resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection
   end
+
+  resources :permissions, only: [:update, :destroy]
 
   # The unique Site is created in db/seeds and can only be edited
   resource :site, only: [:show, :edit, :update]
 
   # Management routes
-  ['users', 'spaces', 'spam'].each do |resource|
+  ['users', 'spaces'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end
 
@@ -182,6 +161,21 @@ Mconf::Application.routes.draw do
 
   # General statistics for the website
   get '/statistics', to: 'statistics#show', as: 'show_statistics'
+
+  # Events
+  # Note: we load the routes even if the events are disabled in the site
+  resources :events do
+    collection do
+      get :select
+    end
+    resources :participants
+    member do
+      post :send_invitation
+      get  :invite
+    end
+  end
+  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
+  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
 
   # To treat errors on pages that don't fall on any other controller
   match ':status', to: 'errors#on_error', constraints: { status: /\d{3}/ }, via: :all

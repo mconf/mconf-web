@@ -101,14 +101,14 @@ describe Profile do
         visibilities.each do |visibility|
           it "'#{visibility}'" do
             target.visibility = Profile::VISIBILITY.index(visibility)
-            should_not be_able_to_do_anything_to(target).except(:read)
+            should_not be_able_to_do_anything_to(target).except([:index, :show])
           end
         end
         Profile::VISIBILITY.each do |visibility|
           unless visibilities.include?(visibility)
             it "'#{visibility}'" do
               target.visibility = Profile::VISIBILITY.index(visibility)
-              should_not be_able_to_do_anything_to(target)
+              should_not be_able_to_do_anything_to(target).except(:index)
             end
           end
         end
@@ -120,7 +120,7 @@ describe Profile do
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
-          it { should be_able_to(:read, target) }
+          it { should be_able_to(:show, target) }
           it { should be_able_to(:update, target) }
           it { should be_able_to(:update_logo, target) }
         end

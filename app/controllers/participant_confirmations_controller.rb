@@ -10,12 +10,12 @@ class ParticipantConfirmationsController < ApplicationController
 
   def confirm
     @pc.confirm!
-    redirect_to mweb_events.event_path(@pc.participant.event), notice: t('participant_confirmation.confirmed', email: @pc.participant.email)
+    redirect_to event_path(@pc.participant.event), notice: t('participant_confirmation.confirmed', email: @pc.participant.email)
   end
 
   def destroy
     @pc.destroy
-    redirect_to mweb_events.event_path(@pc.participant.event), notice: t('participant_confirmation.cancelled')
+    redirect_to event_path(@pc.participant.event), notice: t('participant_confirmation.cancelled')
   end
 
   private

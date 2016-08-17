@@ -12,6 +12,5 @@ describe ManageController do
   describe "routing" do
     it { should route(:get, "/manage/users").to(:action => :users) }
     it { should route(:get, "/manage/spaces").to(:action => :spaces) }
-    it { should route(:get, "/manage/spam").to(:action => :spam) }
   end
 end

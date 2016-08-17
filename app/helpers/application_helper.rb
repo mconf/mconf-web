@@ -11,8 +11,6 @@ require './lib/mconf/modules'
 module ApplicationHelper
   include Mconf::Modules # so the views can access it too
 
-  include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
-
   def copyable_field(id, content, opt={})
     opt[:label] ||= id
     content_tag :div, :class => 'input-append copyable-field' do
@@ -30,10 +28,6 @@ module ApplicationHelper
     Mconf.application_revision
   end
 
-  def application_branch
-    Mconf.application_branch
-  end
-
   def github_link_to_revision(revision)
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
@@ -45,7 +39,7 @@ module ApplicationHelper
     end
   end
 
-  # Ex: asset_exists?('news/edit', 'css')
+  # Ex: asset_exists?('posts/edit', 'css')
   def asset_exists?(asset_name, default_ext)
     !Mconf::Application.assets.find_asset(asset_name + '.' + default_ext).nil?
   end
@@ -140,23 +134,40 @@ module ApplicationHelper
     end
   end
 
+  # Includes the "*" to denote that a field is required in a form. Useful when we can't use
+  # the standard methods from simple_form for some reason.
+  def form_required_label
+    content_tag :abbr, "*", :title => I18n.t('_other.form.required')
+  end
+
+  # Retrieves max upload size from website or uses a default value
+  def max_upload_size
+    current_site.max_upload_size
+  end
+
+  # Returns an array with all image extensions supported by the application
+  def supported_image_formats
+    ['.jpg', '.jpeg', '.png']
+  end
+
+  # Includes elements in the page to disable the autocomplete of an input
+  # In some browsers, such as Firefox, setting the attribute 'autocomplete=false' in
+  # the input is not enough to disable its autocomplete, usually for username and
+  # password inputs, so we have to do this workaround.
+  def disable_autocomplete_for(name, type='text')
+    attrs = {
+      type: type,
+      name: name,
+      disabled: true,
+      class: 'input-disable-autocomplete disabled',
+      style: 'display:none;'
+    }
+    content_tag :input, nil, attrs
+  end
 
   #
   # TODO: All the code below should be reviewed
   #
-
-  def options_for_select_with_class_selected(container, selected = nil)
-    container = container.to_a if Hash === container
-    selected, disabled = extract_selected_and_disabled(selected)
-
-    options_for_select = container.inject([]) do |options, element|
-      text, value = option_text_and_value(element)
-      selected_attribute = ' selected="selected" class="selected"' if option_value_selected?(value, selected)
-      disabled_attribute = ' disabled="disabled"' if disabled && option_value_selected?(value, disabled)
-      options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{html_escape(text.to_s)}</option>)
-    end
-    options_for_select.join("\n")
-  end
 
   # Initialize an object for a form with suitable params
   # TODO: not really needed, can be replaced by @space.post.build, for example
@@ -182,20 +193,9 @@ module ApplicationHelper
     Role.default_role
   end
 
-  # Given a paginated query it uses the number and pagination methods to calculate the last page
-  def last_page models
-    (models.count/models.per_page.to_f).ceil
-  end
-
   # First 'size' characters of a text
   def first_words(text, size)
     truncate(text, :length => size)
-  end
-
-  # Includes the "*" to denote that a field is required in a form. Useful when we can't use
-  # the standard methods from simple_form for some reason.
-  def form_required_label
-    content_tag :abbr, "*", :title => I18n.t('_other.form.required')
   end
 
   private
@@ -207,5 +207,4 @@ module ApplicationHelper
     options.merge!(:body => capture(&block)) if block_given?
     render(:partial => partial_name, :locals => options)
   end
-
 end

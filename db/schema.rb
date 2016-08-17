@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820212558) do
+ActiveRecord::Schema.define(version: 20160707152830) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -49,15 +49,19 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.string   "meetingid"
     t.string   "name"
     t.datetime "start_time"
-    t.boolean  "running",      default: false
-    t.boolean  "recorded",     default: false
+    t.boolean  "running",                                default: false
+    t.boolean  "recorded",                               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.string   "creator_name"
+    t.string   "server_url"
+    t.string   "server_secret"
+    t.decimal  "create_time",   precision: 14, scale: 0
+    t.boolean  "ended",                                  default: false
   end
 
-  add_index "bigbluebutton_meetings", ["meetingid", "start_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_start_time", unique: true, using: :btree
+  add_index "bigbluebutton_meetings", ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true, using: :btree
 
   create_table "bigbluebutton_metadata", force: true do |t|
     t.integer  "owner_id"
@@ -91,14 +95,15 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",   default: false
+    t.boolean  "published",             default: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "available",   default: true
+    t.boolean  "available",             default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
+    t.integer  "size",        limit: 8, default: 0
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -158,7 +163,7 @@ ActiveRecord::Schema.define(version: 20150820212558) do
   create_table "bigbluebutton_servers", force: true do |t|
     t.string   "name"
     t.string   "url"
-    t.string   "salt"
+    t.string   "secret"
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -168,6 +173,27 @@ ActiveRecord::Schema.define(version: 20150820212558) do
   create_table "db_files", force: true do |t|
     t.binary "data"
   end
+
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.text     "summary"
+    t.text     "description"
+    t.string   "social_networks"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "time_zone"
+    t.string   "location"
+    t.string   "address"
+    t.float    "latitude",        limit: 24
+    t.float    "longitude",       limit: 24
+    t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
@@ -212,54 +238,26 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
   add_index "ldap_tokens", ["user_id"], name: "index_ldap_tokens_on_user_id", unique: true, using: :btree
-
-  create_table "mweb_events_events", force: true do |t|
-    t.string   "name"
-    t.text     "summary"
-    t.text     "description"
-    t.string   "social_networks"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.datetime "start_on"
-    t.datetime "end_on"
-    t.string   "time_zone"
-    t.string   "location"
-    t.string   "address"
-    t.float    "latitude",        limit: 24
-    t.float    "longitude",       limit: 24
-    t.string   "permalink"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "mweb_events_events", ["permalink"], name: "index_mweb_events_events_on_permalink", using: :btree
-
-  create_table "mweb_events_participants", force: true do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.integer  "event_id"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "news", force: true do |t|
-    t.string   "title"
-    t.text     "text"
-    t.integer  "space_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "participant_confirmations", force: true do |t|
     t.string   "token"
     t.integer  "participant_id"
     t.datetime "confirmed_at"
     t.datetime "email_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", force: true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "event_id"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -283,20 +281,6 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
-    t.boolean  "spam",        default: false
-  end
-
-  create_table "private_messages", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
-    t.integer  "parent_id"
-    t.boolean  "checked",             default: false
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",   default: false
-    t.boolean  "deleted_by_receiver", default: false
   end
 
   create_table "profiles", force: true do |t|
@@ -364,13 +348,11 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.boolean  "chat_enabled",                   default: false
     t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
     t.string   "timezone",                       default: "UTC"
     t.string   "external_help"
-    t.boolean  "webconf_auto_record",            default: false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
     t.integer  "ldap_port"
@@ -389,6 +371,9 @@ ActiveRecord::Schema.define(version: 20150820212558) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.boolean  "require_space_approval",         default: false
+    t.boolean  "forbid_user_space_creation",     default: false
+    t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
     t.boolean  "gravatar",                       default: false
   end
@@ -396,15 +381,21 @@ ActiveRecord::Schema.define(version: 20150820212558) do
   create_table "spaces", force: true do |t|
     t.string   "name"
     t.boolean  "deleted"
-    t.boolean  "public",      default: false
+    t.boolean  "public",              default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    default: false
-    t.boolean  "repository",  default: false
+    t.boolean  "disabled",            default: false
+    t.boolean  "repository",          default: false
     t.string   "logo_image"
+    t.boolean  "approved",            default: false
+    t.datetime "last_activity"
+    t.integer  "last_activity_count"
   end
+
+  add_index "spaces", ["last_activity"], name: "index_spaces_on_last_activity", using: :btree
+  add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username"
