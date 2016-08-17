@@ -104,6 +104,9 @@ gem "logstash-event"
 gem 'fineuploader-rails', git: 'https://github.com/mconf/fineuploader-rails.git'
 gem 'filesize'
 
+# For gravatar user images
+gem 'gravatar_image_tag'
+
 #
 # TODO: Gems to review if we can remove/update
 #
