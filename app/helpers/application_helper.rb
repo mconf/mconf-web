@@ -145,6 +145,11 @@ module ApplicationHelper
     current_site.max_upload_size
   end
 
+  # Returns an array with all image extensions supported by the application
+  def supported_image_formats
+    ['.jpg', '.jpeg', '.png']
+  end
+
   # Includes elements in the page to disable the autocomplete of an input
   # In some browsers, such as Firefox, setting the attribute 'autocomplete=false' in
   # the input is not enough to disable its autocomplete, usually for username and
