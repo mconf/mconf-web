@@ -1,5 +1,14 @@
+# -*- coding: utf-8 -*-
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 class ParticipantsController < InheritedResources::Base
   respond_to :html
+
+  layout "no_sidebar", only: [:new, :create]
 
   load_and_authorize_resource :event, find_by: :permalink
   load_and_authorize_resource :participant, :through => :event
@@ -11,7 +20,7 @@ class ParticipantsController < InheritedResources::Base
   before_filter only: [:create] do
     if verify_captcha == false
       flash[:error] = I18n.t('recaptcha.errors.verification_failed')
-      redirect_to new_event_participant_path
+      render :new
     end
   end
 
@@ -20,8 +29,6 @@ class ParticipantsController < InheritedResources::Base
   end
 
   after_filter :waiting_for_confirmation_message, only: [:create]
-
-  layout "no_sidebar", only: [:new]
 
   def create
     @participant.event = @event

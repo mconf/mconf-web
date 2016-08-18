@@ -92,9 +92,9 @@ feature "User registers in an event" do
         }
 
         it { has_failure_message t('recaptcha.errors.verification_failed') }
-        it { current_path.should eq(new_event_participant_path(event)) }
+        it { current_path.should eq(event_participants_path(event)) }
+        it { page.should have_css("input[name='participant[email]'][value='#{email}']") }
       end
-
     end
 
     context "register as annonymous and confirms registration via email" do

@@ -199,10 +199,9 @@ module ApplicationHelper
   end
 
   def captcha_tags
-    site = Site.current
-    if site.captcha_enabled?
+    if current_site.captcha_enabled?
       content_tag :div, class: 'captcha' do
-        recaptcha_tags public_key: site.recaptcha_public_key
+        recaptcha_tags public_key: current_site.recaptcha_public_key, hl: I18n.locale
       end
     end
   end

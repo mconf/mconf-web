@@ -371,7 +371,7 @@ ActiveRecord::Schema.define(version: 20160707152830) do
     t.boolean  "local_auth_enabled",             default: true
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
-    t.boolean  "captcha_enabled"
+    t.boolean  "captcha_enabled",                default: false
     t.string   "recaptcha_public_key"
     t.string   "recaptcha_private_key"
     t.boolean  "require_space_approval",         default: false

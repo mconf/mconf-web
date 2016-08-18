@@ -13,7 +13,11 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter only: [:create] do
     if verify_captcha == false
       flash[:error] = I18n.t('recaptcha.errors.verification_failed')
-      redirect_to new_user_registration_path
+
+      # build the resource so we keep the information the user already filled
+      # in the form
+      build_resource(sign_up_params)
+      render :new
     end
   end
 

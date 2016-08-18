@@ -1183,7 +1183,7 @@ en:
     sent: "Request sent!"
   recaptcha:
     errors:
-      verification_failed: "You have typed the wrong captcha text. Please try again."
+      verification_failed: "You have not passed the captcha challenge, please try again."
   rnp: RNP
   role: 
     added: "%{role} role successfully added to %{agent}"

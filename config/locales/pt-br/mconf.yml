@@ -1191,7 +1191,7 @@ pt-br:
     sent: "Solicitação enviada!"
   recaptcha:
     errors:
-      verification_failed: "Você preencheu o captcha incorretamente. Por favor tente novamente."
+      verification_failed: "Você não preencheu o captcha corretamente, por favor tente novamente."
   rnp: RNP
   role:
     added: "Função %{role} adicionado com sucesso a %{agent}"

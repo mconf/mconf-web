@@ -65,8 +65,13 @@ feature 'Creating a user account' do
           register_user(params)
         }
 
-        it { current_path.should eq(new_user_registration_path) }
+        it { current_path.should eq(user_registration_path) }
         it { has_failure_message t('recaptcha.errors.verification_failed') }
+        it { page.should have_css("input[name='user[email]'][value='#{params[:email]}']") }
+        it { page.should have_css("input[name='user[_full_name]'][value='#{params[:_full_name]}']") }
+        it { page.should have_css("input[name='user[username]'][value='#{params[:username]}']") }
+        it { find_field('user[password]').value.should be_nil }
+        it { find_field('user[password_confirmation]').value.should be_nil }
       end
 
       context 'sending the form with right captcha' do
