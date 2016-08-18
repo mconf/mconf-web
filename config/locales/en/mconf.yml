@@ -1181,6 +1181,9 @@ en:
   request: 
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
+  recaptcha:
+    errors:
+      verification_failed: "You have not passed the captcha challenge, please try again."
   rnp: RNP
   role: 
     added: "%{role} role successfully added to %{agent}"

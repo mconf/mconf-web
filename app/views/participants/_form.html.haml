@@ -1,4 +1,10 @@
 = simple_form_for [@event, @participant], :html => { :class => "single-column" } do |f|
   .form-inputs
-    = f.input :email, :readonly => current_user.present?, :autofocus => true
-  = f.button :submit, t(".submit"), :class => "btn btn-primary"
+    - if current_user.present?
+      = f.input :email, :readonly => true, :autofocus => true, :input_html => { :value => current_user.email }
+    - else
+      = f.input :email, :autofocus => true
+    - unless current_user.present?
+      = captcha_tags
+
+  = f.button :submit, t(".submit"), :class => "pull-left btn btn-primary"

@@ -107,6 +107,9 @@ gem 'filesize'
 # For gravatar user images
 gem 'gravatar_image_tag'
 
+# Captcha
+gem 'recaptcha', require: 'recaptcha/rails'
+
 #
 # TODO: Gems to review if we can remove/update
 #

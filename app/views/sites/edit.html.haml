@@ -50,6 +50,9 @@
     = f.input :presence_domain
     = f.input :xmpp_server
     = f.input :external_help
+    = f.input :captcha_enabled
+    = f.input :recaptcha_public_key
+    = f.input :recaptcha_private_key
     = f.input :room_dial_number_pattern, as: :string
     = f.input :registration_enabled, :as => :boolean
     = f.input :require_registration_approval, :as => :boolean

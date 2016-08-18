@@ -198,6 +198,14 @@ module ApplicationHelper
     truncate(text, :length => size)
   end
 
+  def captcha_tags
+    if current_site.captcha_enabled?
+      content_tag :div, class: 'captcha' do
+        recaptcha_tags public_key: current_site.recaptcha_public_key, hl: I18n.locale
+      end
+    end
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
