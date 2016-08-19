@@ -23,7 +23,7 @@ Might require changes in configuration files (see `setup_conf.yml`).
 * [#768] Fix redirects to valid pages when using HTTPS.
 * [#861] Fix how recent activities are created for meetings. Solves
   "undefined method `current_user' for nil:NilClass".
-* [#823] Allow users to unpublish their recordings. They will be hidden from the user
+* [#447] Allow users to unpublish their recordings. They will be hidden from the user
   but still available for admins.
 * Now accepts the version 1.0 for BigBlueButton.
 * [#844] Create a recent activity when approving a user from `/users/:id/edit`.
