@@ -50,54 +50,6 @@ describe ApplicationMailer do
     end
   end
 
-  describe ".digest_email" do
-    let(:user) { FactoryGirl.create(:user, :locale => "pt-br") }
-    let(:space) { FactoryGirl.create(:space) }
-    let(:now) { Time.now }
-    let(:date_start) { now - 1.day }
-    let(:date_end) { now }
-
-    before {
-      # create the data to be returned
-      user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
-      @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-      @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
-      @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
-      @locale = user.locale
-    }
-
-    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @attachments, @events) }
-
-    describe "in the standard case" do
-      it("sets 'to'") { mail.to.should eql([user.email]) }
-      it("sets 'subject'") {
-        text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => @locale), :locale => @locale)
-        text = "[#{Site.current.name}] #{text}"
-        mail.subject.should eql(text)
-      }
-      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
-      it("sets 'headers'") { mail.headers.should eql({}) }
-      # it("sets 'reply_to'") { mail.reply_to.should eql([user.email]) }
-      it "includes the correct information in the email"
-    end
-
-    context "uses the site's locale if the user has no locale set" do
-      before {
-        Site.current.update_attributes(:locale => "pt-br")
-        user.update_attribute(:locale, nil)
-      }
-      it {
-        text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => "pt-br"), :locale => "pt-br")
-        text = "[#{Site.current.name}] #{text}"
-        mail.subject.should eql(text)
-      }
-      it {
-        content = I18n.t('email.digest.message', :locale => "pt-br")
-        mail.body.encoded.should match(content)
-      }
-    end
-  end
-
   context "calls the error handler on exceptions" do
     let(:exception) { Exception.new("test exception") }
     it {

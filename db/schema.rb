@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707152830) do
+ActiveRecord::Schema.define(version: 20160822201056) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -410,7 +410,6 @@ ActiveRecord::Schema.define(version: 20160707152830) do
     t.string   "timezone"
     t.boolean  "expanded_post",                     default: false
     t.string   "locale"
-    t.integer  "receive_digest",                    default: 0
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
