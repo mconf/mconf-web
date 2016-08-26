@@ -9,4 +9,4 @@
 
   .space-text
     %span.space-name
-      = Mconf::Highlighter.highlight(sanitize(space.name), escape_once(params[:q]))
+      = html_escape(Mconf::Highlighter.highlight((space.name), (params[:q]).try(:split)))

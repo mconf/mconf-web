@@ -66,6 +66,23 @@ module Mconf::Highlighter
       displacement += end_mark.length
     end
 
-    text
+    #The following block splits the resulting text to make it
+    #possible to escape the user input and keep the marks we
+    #just added as html - the resulting text is html_safe and
+    #will produce the expected marked text when we search and
+    #highlight text on Manage > Spaces.
+    result = ""
+    textsplit = text.split(/<\/?mark>/)
+    textsplit.map.with_index do |splits, i|
+      result += ERB::Util.html_escape(splits)
+      if i%2 == 0
+        result += begin_mark if i != textsplit.size-1
+      else
+        result += end_mark
+      end
+    end
+
+    result.html_safe
+
   end
 end

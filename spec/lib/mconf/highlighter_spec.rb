@@ -34,7 +34,7 @@ describe Mconf::Highlighter do
       it { subject.highlight_word("Jürgen", "Jurgen").should eq('<mark>Jürgen</mark>') }
 
       # TODO: these two could also ignore the accents on 'ṕ' and 'ǹ'
-      it { subject.highlight_word("<scríPT> alert() </SCrîṕt>", "script").should eq('<<mark>scríPT</mark>> alert() </SCrîṕt>') }
+      it { subject.highlight_word("<scríPT> alert() </SCrîṕt>", "script").should eq('&lt;<mark>scríPT</mark>&gt; alert() &lt;/SCrîṕt&gt;') }
       it { subject.highlight_word("admin ÁDmĩǹ", "admin").should eq('<mark>admin</mark> ÁDmĩǹ') }
     end
 
@@ -42,6 +42,11 @@ describe Mconf::Highlighter do
       it { subject.highlight_word("oI õi OI", "oi").should eq('<mark>oI</mark> <mark>õi</mark> <mark>OI</mark>') }
       it { subject.highlight_word("Atiramos no Átila", "átila").should eq("Atiramos no <mark>Átila</mark>") }
       it { subject.highlight_word("Atiramos no átila", "Átila").should eq("Atiramos no <mark>átila</mark>") }
+    end
+
+    context "ignores entities" do
+      it { subject.highlight_word("rafael &nbsp; rafael", "&nbsp;").should eq('rafael <mark>&amp;nbsp;</mark> rafael') }
+      it { subject.highlight_word("<scriptero> rafael </scriptero>", "<scr").should eq("<mark>&lt;scr</mark>iptero&gt; rafael &lt;/scriptero&gt;") }
     end
   end
 
