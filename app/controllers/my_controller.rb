@@ -55,10 +55,9 @@ class MyController < ApplicationController
   end
 
   def approval_pending
-    # don't show it unless user is coming from a login or register (even if he has been to another site meanwhile,
-    # like when shibboleth sends him to the federation site)
-    referers = [new_user_session_path, login_path, register_path, root_path, shibboleth_path]
-    if  user_signed_in? || !referers.include?(session[:user_return_to])
+    # don't show it unless user is coming from a login or register
+    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url]
+    if  user_signed_in? || (!referers.include?(request.referrer) && !session[:shib_login])
       redirect_to root_path
     end
   end
