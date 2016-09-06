@@ -15,7 +15,7 @@
 
   .thread-title
     = link_to space_path(space), :class => 'space-name' do
-      = html_escape(Mconf::Highlighter.highlight((space.name), (params[:q]).try(:split)))
+      = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
 
   %span.space-description
     = sanitize(first_words(space.description, 100))

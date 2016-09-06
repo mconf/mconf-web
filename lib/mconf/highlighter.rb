@@ -52,37 +52,48 @@ module Mconf::Highlighter
   end
 
   def self.set_highlight_on_indexes(text, indexes)
-    text = text.clone
+    result = ""
     begin_mark = "<mark>"
     end_mark = "</mark>"
+    text_displacement = 0
 
-    displacement = 0
+    # We navigate the original text mounting a new result string with highlight marks to the
+    # positions set in `indexes`. All the text outside and inside highlighted areas is escaped,
+    # so that the only HTML in the resulting string will be the highlight marks.
+    # The original string in `text` is not modified.
     indexes.each do |index_pair|
-      i = index_pair[0]
-      word_length = index_pair[1]
-      text.insert(i + displacement, begin_mark)
-      displacement += begin_mark.length
-      text.insert((i + word_length + displacement), end_mark)
-      displacement += end_mark.length
+
+      # first is the position of the mark in the original text, second is
+      # the length of the word/text being highlighted
+      text_pos = index_pair[0]
+      text_length = index_pair[1]
+
+      # block before the mark
+      if text_pos > text_displacement
+        block = ERB::Util.html_escape(text[text_displacement..text_pos-1])
+        result += block
+      end
+
+      # open highlight mark
+      result += begin_mark
+
+      # block inside the mark
+      if text_length > 0
+        block = ERB::Util.html_escape(text[text_pos..text_pos+text_length-1])
+        result += block
+      end
+      text_displacement = text_pos + text_length
+
+      # close highlight mark
+      result += end_mark
     end
 
-    #The following block splits the resulting text to make it
-    #possible to escape the user input and keep the marks we
-    #just added as html - the resulting text is html_safe and
-    #will produce the expected marked text when we search and
-    #highlight text on Manage > Spaces.
-    result = ""
-    textsplit = text.split(/<\/?mark>/)
-    textsplit.map.with_index do |splits, i|
-      result += ERB::Util.html_escape(splits)
-      if i%2 == 0
-        result += begin_mark if i != textsplit.size-1
-      else
-        result += end_mark
-      end
+    # block after the last </mark>
+    if text_displacement < text.length
+      block = ERB::Util.html_escape(text[text_displacement..-1])
+      result += block
     end
 
     result.html_safe
-
   end
 end
