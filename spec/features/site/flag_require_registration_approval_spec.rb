@@ -9,6 +9,28 @@ require 'support/feature_helpers'
 
 include ActionView::Helpers::SanitizeHelper
 
+def register_with_wrong_passconf(attrs)
+  name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
+  password_confirmation = attrs[:password_confirmation] || attrs[:password]
+  visit register_path
+  fill_in "user[email]", with: attrs[:email]
+  fill_in "user[_full_name]", with: attrs[:_full_name]
+  fill_in "user[username]", with: name
+  fill_in "user[password]", with: attrs[:password]
+  fill_in "user[password_confirmation]", with: attrs[:email]
+  click_button I18n.t("registrations.signup_form.register")
+end
+
+def register_after_error(attrs)
+  name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
+  password_confirmation = attrs[:password_confirmation] || attrs[:password]
+  fill_in "user[email]", with: attrs[:email]
+  fill_in "user[_full_name]", with: attrs[:_full_name]
+  fill_in "user[username]", with: name
+  fill_in "user[password]", with: attrs[:password]
+  fill_in "user[password_confirmation]", with: attrs[:password_confirmation]
+  click_button I18n.t("registrations.signup_form.register")
+end
 feature 'Behaviour of the flag Site#require_registration_approval' do
   let(:attrs) { FactoryGirl.attributes_for(:user) }
 
@@ -54,6 +76,54 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         Site.current.update_attributes(events_enabled: true)
         current_path.should eq(my_approval_pending_path)
         page.should have_link('', :href => spaces_path)
+      end
+    end
+
+    context "registering in the website with failing first try" do
+      before {
+        with_resque do
+          expect { register_with_wrong_passconf(attrs) }.to change{ User.count }.by(0)
+        end
+      }
+
+      context "shows the user registration page" do
+        it { current_path.should eq (user_registration_path) }
+        it { page.should have_link('', :href => login_path) }
+        it { page.should have_link('', :href => new_user_password_path) }
+        it { page.should have_content('Register') }
+        it { page.should have_content(I18n.t("register.confirmation")) }
+
+        context "registering with correct data to succed the second try" do
+          before {
+            with_resque do
+              expect { register_after_error(attrs) }.to change{ User.count }.by(1)
+            end
+          }
+
+          it { User.last.confirmed?.should be false }
+          it { User.last.approved?.should be false }
+
+          it "sends the correct confirmation email to the user", with_truncation: true do
+            mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
+            mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+          end
+
+          context "shows the pending approval page" do
+            it { current_path.should eq(my_approval_pending_path) }
+            it { page.should have_content('Pending approval') }
+            it { page.should have_content(I18n.t("my.approval_pending.description")) }
+          end
+
+          # empty notification, the message is shown in the page
+          it "shows no notification" do
+            have_empty_notification
+          end
+
+          it "when the event module is enabled" do
+            Site.current.update_attributes(events_enabled: true)
+            current_path.should eq(my_approval_pending_path)
+          end
+        end
       end
     end
 
