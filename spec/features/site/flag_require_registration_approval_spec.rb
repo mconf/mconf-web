@@ -9,28 +9,6 @@ require 'support/feature_helpers'
 
 include ActionView::Helpers::SanitizeHelper
 
-def register_with_wrong_passconf(attrs)
-  name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
-  password_confirmation = attrs[:password_confirmation] || attrs[:password]
-  visit register_path
-  fill_in "user[email]", with: attrs[:email]
-  fill_in "user[_full_name]", with: attrs[:_full_name]
-  fill_in "user[username]", with: name
-  fill_in "user[password]", with: attrs[:password]
-  fill_in "user[password_confirmation]", with: attrs[:email]
-  click_button I18n.t("registrations.signup_form.register")
-end
-
-def register_after_error(attrs)
-  name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
-  password_confirmation = attrs[:password_confirmation] || attrs[:password]
-  fill_in "user[email]", with: attrs[:email]
-  fill_in "user[_full_name]", with: attrs[:_full_name]
-  fill_in "user[username]", with: name
-  fill_in "user[password]", with: attrs[:password]
-  fill_in "user[password_confirmation]", with: attrs[:password_confirmation]
-  click_button I18n.t("registrations.signup_form.register")
-end
 feature 'Behaviour of the flag Site#require_registration_approval' do
   let(:attrs) { FactoryGirl.attributes_for(:user) }
 
@@ -79,10 +57,10 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       end
     end
 
-    context "registering in the website with failing first try" do
+    context "registering in the website after failing the first try" do
       before {
         with_resque do
-          expect { register_with_wrong_passconf(attrs) }.to change{ User.count }.by(0)
+          expect { register_with_error(attrs) }.to change{ User.count }.by(0)
         end
       }
 
@@ -96,7 +74,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         context "registering with correct data to succed the second try" do
           before {
             with_resque do
-              expect { register_after_error(attrs) }.to change{ User.count }.by(1)
+              expect { register_with(attrs, false) }.to change{ User.count }.by(1)
             end
           }
 
