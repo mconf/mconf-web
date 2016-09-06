@@ -219,7 +219,6 @@ pt-br:
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Permanecer conectado"
-        receive_digest: "O quão frequentemente você gostaria de receber emails com um resumo das atividades que aconteceram nas comunidades as quais você pertence?"
         superuser: "Administrador global"
         timezone: "Fuso horário"
         username: "ID"
@@ -639,16 +638,6 @@ pt-br:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
     confirm: "Você agora precisa confirmar seu registro clicando em <a href=\"%{url}\"> %{url} </a>"
-    digest:
-      attachment: "<b>%{author_name}</b> enviou um novo anexo em <b>%{space_name}</b>:"
-      event: "<b>%{author_name}</b> criou um novo evento em <b>%{space_name}</b>:"
-      inbox: "<b>%{sender_name}</b> enviou uma mensagem para você:"
-      message: "Últimas atividades em suas comunidades:"
-      posted: "<b>%{author_name}</b> escreveu em <b>%{space_name}</b> a mensagem:"
-      title: "Resumo %{type} com as atividades em suas comunidades"
-      type:
-        daily: diário
-        weekly: semanal
     invitation_result:
       admin_side: "%{name} %{action} o convite para a comunidade %{spacename}"
       user_side: "Seu pedido de autorização na comunidade %{spacename} foi: %{action}"
@@ -1742,10 +1731,6 @@ pt-br:
         not_confirmed: "Este usuário ainda não confirmou sua conta."
         title: "Editar conta de usuário"
       preferences: "Preferências"
-      receive_digest:
-        daily: "Diariamente"
-        never: "Nunca"
-        weekly: "Semanalmente"
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
     errors:

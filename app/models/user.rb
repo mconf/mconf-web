@@ -85,11 +85,6 @@ class User < ActiveRecord::Base
 
   default_scope { where(disabled: false) }
 
-  # constants for the receive_digest attribute
-  RECEIVE_DIGEST_NEVER = 0
-  RECEIVE_DIGEST_DAILY = 1
-  RECEIVE_DIGEST_WEEKLY = 2
-
   scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile).order("profiles.full_name")
 

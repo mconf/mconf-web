@@ -215,7 +215,6 @@ en:
         expanded_post: "Show messages in wall with the expanded view by default"
         password: "Password"
         password_confirmation: "Password confirmation"
-        receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
         remember_me: "Remember me"
         superuser: "Global administrator"
         timezone: "Timezone"
@@ -632,16 +631,6 @@ en:
     account_activated: "Your account at %{sitename} has been activated successfully."
     commas: "Separated by commas"
     confirm: "You need now to confirm your registration by clicking on <a href=\"%{url}\"> %{url} </a>"
-    digest: 
-      attachment: "<b>%{author_name}</b> has uploaded a new attachment in <b>%{space_name}</b>:"
-      event: "<b>%{author_name}</b> has created a new event in <b>%{space_name}</b>:"
-      inbox: "<b>%{sender_name}</b> has sent you a message:"
-      message: "Latest activities in your spaces:"
-      posted: "<b>%{author_name}</b> has posted in <b>%{space_name}</b> the message:"
-      title: "%{type} digest with the activity in your spaces"
-      type: 
-        daily: Daily
-        weekly: Weekly
     invitation_result: 
       admin_side: "%{name} has %{action} the invitation to space %{spacename}"
       user_side: "The administrator of %{spacename} has %{action} your join request"
@@ -1731,10 +1720,6 @@ en:
         not_confirmed: "This user has not confirmed his/her account yet."
         title: "Edit user account"
       preferences: "Preferences"
-      receive_digest:
-        daily: "Every day"
-        never: "Never"
-        weekly: "Every week"
       title: "Edit your account"
       yes_cancel_account: "Yes, cancel my account"
     errors:

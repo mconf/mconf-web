@@ -258,7 +258,7 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :remember_me, :login, :timezone, :receive_digest, :expanded_post,
+        [ :remember_me, :login, :timezone, :expanded_post,
           :password, :password_confirmation, :current_password ]
       }
       before {
@@ -542,17 +542,20 @@ describe UsersController do
     end
 
     context "as anonymous user" do
-      let!(:old_val) { User::RECEIVE_DIGEST_NEVER } # it could be any other attribute
-      let(:user) { FactoryGirl.create(:user, receive_digest: old_val) }
-      let!(:new_val) { User::RECEIVE_DIGEST_DAILY }
-      before {
-        expect {
-          put :update, id: user.to_param, user: { receive_digest: new_val }
-          user.reload
+      let!(:old_tz) { "Mountain Time (US & Canada)" }
+      let(:user) { FactoryGirl.create(:user, timezone: old_tz) }
+      let!(:new_tz) { "Dublin" }
+
+      before{
+        expect{
+        put :update, id: user.to_param, user: { timezone: new_tz }
+        user.reload
         }.not_to change { user }
       }
-      it { user.receive_digest.should eql(old_val) }
+
+      it { user.timezone.should eql(old_tz) }
       it { should redirect_to login_path }
+
     end
 
     context "create recent activity after admin updated approved=true" do

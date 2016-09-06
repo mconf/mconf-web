@@ -28,16 +28,6 @@ send_participant_confirmations_notifications:
   class: ParticipantConfirmationsWorker
   description: "Checks pending event confirmations email and sends them"
 
-# TODO: use it after #1292
-# send_daily_digest:
-#   cron: "0 14 * * *" # daily at 2pm
-#   class: DailyDigest
-#   description: "Sends the daily digest."
-# send_weekly_digest:
-#   cron: "0 14 * * 1" # mondays at 2pm
-#   class: WeeklyDigest
-#   description: "Sends the weekly digest."
-
 finish_meetings:
   every:
     - "30s"

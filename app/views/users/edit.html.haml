@@ -56,13 +56,6 @@
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 
-      = f.input :receive_digest, :required => false do
-        - collection = []
-        - collection.push([User::RECEIVE_DIGEST_NEVER, t('.receive_digest.never')])
-        - collection.push([User::RECEIVE_DIGEST_DAILY, t('.receive_digest.daily')])
-        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('.receive_digest.weekly')])
-        = f.collection_radio_buttons :receive_digest, collection, :first, :last
-
   - if user_signed_in? && current_user.superuser
     #management-options.alert.alert-gray
       %h3= t('.management_options')
