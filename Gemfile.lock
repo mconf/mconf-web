@@ -152,7 +152,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
-    commonjs (0.2.7)
     compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -245,13 +244,6 @@ GEM
     launchy (2.4.2)
       addressable (~> 2.3)
     leaflet-rails (0.7.4)
-    less (2.6.0)
-      commonjs (~> 0.2.7)
-    less-rails (2.7.0)
-      actionpack (>= 4.0)
-      less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
     librarian (0.1.2)
       highline
       thor (~> 0.15)
@@ -480,11 +472,6 @@ GEM
     timecop (0.8.0)
     turn (0.8.2)
       ansi (>= 1.2.2)
-    twitter-bootstrap-rails (3.2.0)
-      actionpack (~> 4.1)
-      execjs (~> 2.2)
-      rails (~> 4.1)
-      railties (~> 4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.1)
