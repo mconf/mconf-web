@@ -13,10 +13,6 @@ describe UserNeedsApprovalSenderWorker, type: :worker do
     Site.current.update_attributes(require_registration_approval: true)
   }
 
-  it "uses the queue :user_notifications" do
-    worker.instance_variable_get(:@queue).should eql(:user_notifications)
-  end
-
   describe "#perform" do
     let(:user) { FactoryGirl.create(:user) }
     let(:activity) { RecentActivity.where(trackable_type: 'User', key: 'user.created',

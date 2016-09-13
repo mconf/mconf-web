@@ -8,7 +8,6 @@
 # Finds all Invitation objects not sent yet and ready to be sent and schedules a
 # worker to send them.
 class InvitationsWorker < BaseWorker
-  @queue = :invitations
 
   def self.perform
     all_invitations
@@ -17,7 +16,7 @@ class InvitationsWorker < BaseWorker
   def self.all_invitations
     invitations = Invitation.where sent: false, ready: true
     invitations.each do |invitation|
-      Resque.enqueue(InvitationSenderWorker, invitation.id)
+      Queue::High.enqueue(InvitationSenderWorker, :perform, invitation.id)
     end
   end
 
