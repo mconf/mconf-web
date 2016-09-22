@@ -27,7 +27,7 @@ Might require changes in configuration files (see `setup_conf.yml`).
   but still available for admins.
 * Now accepts the version 1.0 for BigBlueButton.
 * [#844] Create a recent activity when approving a user from `/users/:id/edit`.
-
+* [#721] Fix `ActiveRecord::RecordNotUnique on table "bigbluebutton_meetings`.
 
 ------------------------------------
 
