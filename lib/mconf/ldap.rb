@@ -64,6 +64,13 @@ module Mconf
     # Sets the user as signed in via LDAP in the session.
     def sign_user_in(user)
       @session[SESSION_KEY] = { username: user.username, email: user.email }
+      token = find_or_create_token(user.email)
+      if token.present?
+        token.last_sign_in_at = Time.now.utc
+        token.save
+      else
+        puts Rails.logger.info "LDAP: the token was nil and last_sign_in_at could not be set"
+      end
     end
 
     # Returns whether the user is signed in via LDAP or not.
