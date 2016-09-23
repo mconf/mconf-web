@@ -112,6 +112,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
 
         with_resque do
           expect {
+            visit "http://www.google.com"
             visit shibboleth_path
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
