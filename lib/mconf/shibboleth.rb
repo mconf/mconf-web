@@ -117,15 +117,15 @@ module Mconf
     end
 
     # Mark in the session that the user signed in via Shibboleth and
-    #set the last time user signed in
+    #set the current time user signed in
     def set_signed_in
       @session[SESSION_KEY] = true
       token = find_token
       if token.present?
-        token.last_sign_in_at = Time.now.utc
+        token.current_sign_in_at = Time.now.utc
         token.save
       else
-        Rails.logger.info "Shibboleth: the token was nil and last_sign_in_at could not be set"
+        Rails.logger.info "Shibboleth: the token was nil and current_sign_in_at could not be set"
       end
     end
 

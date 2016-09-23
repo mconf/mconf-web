@@ -66,10 +66,10 @@ module Mconf
       @session[SESSION_KEY] = { username: user.username, email: user.email }
       token = find_or_create_token(user.email)
       if token.present?
-        token.last_sign_in_at = Time.now.utc
+        token.current_sign_in_at = Time.now.utc
         token.save
       else
-        puts Rails.logger.info "LDAP: the token was nil and last_sign_in_at could not be set"
+        puts Rails.logger.info "LDAP: the token was nil and current_sign_in_at could not be set"
       end
     end
 
