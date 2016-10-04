@@ -87,6 +87,7 @@ module Devise
                   # if user.active_for_authentication?
                   # We don't check authentication here, let devise find out about an
                   # unapproved user later and show the errors there
+                  user.signed_in_via_external = true
                   ldap_helper.sign_user_in(user)
                   success!(user)
                 end
