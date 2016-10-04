@@ -31,22 +31,27 @@ describe 'User signs in via ldap', ldap: true do
       it { current_path.should eq(my_home_path) }
       it { should have_content @ldap_attrs[:username] }
       it { should have_content @ldap_attrs[:email] }
-      #since it's the first time and the user is not registered in local, should be nil
-      it ("does not update local sign in date") { LdapToken.last.user.current_local_sign_in_at.should eq nil }
+      it("does not update local sign in date") {
+        LdapToken.last.user.current_local_sign_in_at.should eq nil
+      }
     end
 
     context 'and the user is already registered for the site' do
 
       context 'and enters valid credentials' do
         let(:user) { FactoryGirl.create(:user) }
-        before { user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
-                 sign_in_with user.username, user.password }
+        before {
+          @startedAt = Time.now.utc
+          user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
+          sign_in_with user.username, user.password
+        }
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user._full_name }
         it { should have_content user.email }
-        #sign in with the local credentials, should update
-        it ("updates local sign in date") { user.reload.current_local_sign_in_at.to_i.should be > (old_current_local_sign_in_at.to_i + 23.hour) }
+        it("updates local sign in date") {
+          user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i
+        }
       end
 
       context "the user's account is disabled" do
@@ -116,8 +121,9 @@ describe 'User signs in via ldap', ldap: true do
 
         it { current_path.should eq(my_home_path) }
         it("creates a LdapToken") { LdapToken.count.should be(1) }
-        #since it's the first time and the user is not registered in local, should be nil
-        it ("does not update local sign in date") { LdapToken.last.user.current_local_sign_in_at.should eq nil }
+        it("does not update local sign in date") {
+          LdapToken.last.user.current_local_sign_in_at.should eq nil
+        }
       end
 
       it "but encountering a server error"

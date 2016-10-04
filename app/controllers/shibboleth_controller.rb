@@ -51,8 +51,7 @@ class ShibbolethController < ApplicationController
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
 
           # set that the user signed in via shib
-          @shib.set_signed_in
-          user.signed_in_via_external = true
+          @shib.set_signed_in(user, token)
           # Update user data with the latest version from the federation
           @shib.update_user(token) if current_site.shib_update_users?
 

@@ -117,16 +117,12 @@ module Mconf
     end
 
     # Mark in the session that the user signed in via Shibboleth and
-    #set the current time user signed in
-    def set_signed_in
+    # set the current time user signed in
+    def set_signed_in(user, token)
+      user.signed_in_via_external = true
       @session[SESSION_KEY] = true
-      token = find_token
-      if token.present?
-        token.current_sign_in_at = Time.now.utc
-        token.save
-      else
-        Rails.logger.info "Shibboleth: the token was nil and current_sign_in_at could not be set"
-      end
+      token.current_sign_in_at = Time.now.utc
+      token.save
     end
 
     # Returns the name of the attributes used to get the basic user information from the

@@ -27,14 +27,20 @@ describe SessionsController do
       #setting a previous local sign in date
       user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
       @request.env["devise.mapping"] = Devise.mappings[:user]
+      @startedAt = Time.now.utc
       PublicActivity.with_tracking do
-         post :create, user: { login: user.email, password: user.password }
-        end
+        post :create, user: { login: user.email, password: user.password }
+      end
     }
 
     it { response.should redirect_to my_home_path }
-    #should be a day newer than the last login
-    it ("updates local sign in date") { user.reload.current_local_sign_in_at.to_i.should be > (old_current_local_sign_in_at.to_i + 23.hour) }
+    it "updates local sign in date" do
+      user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i
+    end
+    it "sets the local sign in date to the same as current_sign_in_at" do
+      user.reload
+      user.current_local_sign_in_at.to_i.should eql(user.current_sign_in_at.to_i)
+    end
   end
 
   # The class used to authenticate users via LDAP is a custom strategy for devise, that has its

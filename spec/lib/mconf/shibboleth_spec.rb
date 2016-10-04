@@ -473,9 +473,10 @@ describe Mconf::Shibboleth do
 
     context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key and `set_signed_in` was called" do
       let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
+      let(:shib_token) { FactoryGirl.create(:shib_token) }
       before {
         shibboleth.set_data({})
-        shibboleth.set_signed_in
+        shibboleth.set_signed_in(shib_token.user, shib_token)
       }
 
       subject { shibboleth.signed_in? }

@@ -92,12 +92,13 @@ describe Devise::Strategies::LdapAuthenticatable do
               }
 
               it("calls and returns #success!(user)") {
+                Mconf::LDAP.any_instance.stub(:set_signed_in)
                 target.should_receive(:success!).with(@user).and_return("return of success!")
                 target.authenticate!.should eq("return of success!")
               }
 
               it("sets the user as signed in in the session") {
-                Mconf::LDAP.any_instance.should_receive(:sign_user_in).with(@user)
+                Mconf::LDAP.any_instance.should_receive(:set_signed_in).with(@user, @user.ldap_token)
                 target.authenticate!
               }
             end
