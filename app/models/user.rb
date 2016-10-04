@@ -110,6 +110,9 @@ class User < ActiveRecord::Base
 
   delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
 
+  # set to true when the user signs in via an external authentication method (e.g. LDAP)
+  attr_accessor :signed_in_via_external
+
   # In case the profile is accessed before it is created, we build one on the fly.
   # Important specially because we have method delegated to the profile.
   def profile_with_initialize
@@ -302,4 +305,13 @@ class User < ActiveRecord::Base
   def init
     @created_by = nil
   end
+
+  # This overrides the method from Devise::Models::Trackable
+  def update_tracked_fields(request)
+    super (request)
+    unless signed_in_via_external
+      self.current_local_sign_in_at = self.current_sign_in_at
+    end
+  end
+
 end

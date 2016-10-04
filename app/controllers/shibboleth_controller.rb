@@ -51,13 +51,12 @@ class ShibbolethController < ApplicationController
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
 
           # set that the user signed in via shib
-          @shib.set_signed_in
-
+          @shib.set_signed_in(user, token)
           # Update user data with the latest version from the federation
           @shib.update_user(token) if current_site.shib_update_users?
 
           if token.user.active_for_authentication?
-            sign_in token.user
+            sign_in user
             flash.keep # keep the message set before by #create_association
             redirect_to after_sign_in_path_for(token.user)
           else

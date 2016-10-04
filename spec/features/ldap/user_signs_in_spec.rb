@@ -20,6 +20,7 @@ describe 'User signs in via ldap', ldap: true do
   before { enable_ldap }
 
   context 'for the first time' do
+    let(:old_current_local_sign_in_at) { Time.now.utc - 1.day }
     before {
       visit new_user_session_path
     }
@@ -30,17 +31,27 @@ describe 'User signs in via ldap', ldap: true do
       it { current_path.should eq(my_home_path) }
       it { should have_content @ldap_attrs[:username] }
       it { should have_content @ldap_attrs[:email] }
+      it("does not update local sign in date") {
+        LdapToken.last.user.current_local_sign_in_at.should eq nil
+      }
     end
 
     context 'and the user is already registered for the site' do
 
       context 'and enters valid credentials' do
         let(:user) { FactoryGirl.create(:user) }
-        before { sign_in_with user.username, user.password }
+        before {
+          @startedAt = Time.now.utc
+          user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
+          sign_in_with user.username, user.password
+        }
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user._full_name }
         it { should have_content user.email }
+        it("updates local sign in date") {
+          user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i
+        }
       end
 
       context "the user's account is disabled" do
@@ -110,6 +121,9 @@ describe 'User signs in via ldap', ldap: true do
 
         it { current_path.should eq(my_home_path) }
         it("creates a LdapToken") { LdapToken.count.should be(1) }
+        it("does not update local sign in date") {
+          LdapToken.last.user.current_local_sign_in_at.should eq nil
+        }
       end
 
       it "but encountering a server error"

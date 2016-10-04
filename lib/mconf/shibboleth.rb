@@ -116,9 +116,13 @@ module Mconf
       !@session.nil? && @session.has_key?(SESSION_KEY)
     end
 
-    # Mark in the session that the user signed in via Shibboleth
-    def set_signed_in
+    # Mark in the session that the user signed in via Shibboleth and
+    # set the current time user signed in
+    def set_signed_in(user, token)
+      user.signed_in_via_external = true
       @session[SESSION_KEY] = true
+      token.current_sign_in_at = Time.now.utc
+      token.save
     end
 
     # Returns the name of the attributes used to get the basic user information from the

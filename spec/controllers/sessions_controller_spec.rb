@@ -20,6 +20,29 @@ describe SessionsController do
     end
   end
 
+  describe "#create" do
+    let(:old_current_local_sign_in_at) { Time.now.utc - 1.day }
+    let(:user) { FactoryGirl.create(:user) }
+    before(:each) {
+      #setting a previous local sign in date
+      user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      @startedAt = Time.now.utc
+      PublicActivity.with_tracking do
+        post :create, user: { login: user.email, password: user.password }
+      end
+    }
+
+    it { response.should redirect_to my_home_path }
+    it "updates local sign in date" do
+      user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i
+    end
+    it "sets the local sign in date to the same as current_sign_in_at" do
+      user.reload
+      user.current_local_sign_in_at.to_i.should eql(user.current_sign_in_at.to_i)
+    end
+  end
+
   # The class used to authenticate users via LDAP is a custom strategy for devise, that has its
   # own unit tests. The block here is to test it integrated with devise, calling the action
   # directly on the controller.
