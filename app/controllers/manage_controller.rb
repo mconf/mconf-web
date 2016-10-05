@@ -9,6 +9,8 @@ class ManageController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource :class => false
 
+  load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
+
   def users
     words = params[:q].try(:split, /\s+/)
     query = User.with_disabled.search_by_terms(words, can?(:manage, User))
@@ -51,4 +53,23 @@ class ManageController < ApplicationController
       render :layout => 'no_sidebar'
     end
   end
+
+  def recordings
+    name = params[:q]
+    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
+
+    query = BigbluebuttonRecording.order("name")
+
+    if name.present?
+      query = query.where("name like ?", "%#{name}%")
+    end
+    @recordings = query.paginate(:page => params[:page], :per_page => 20)
+
+    if request.xhr?
+      render :partial => 'recordings_list', :layout => false, :locals => { :recordings => @recordings }
+    else
+      render :layout => 'no_sidebar'
+    end
+  end
+
 end

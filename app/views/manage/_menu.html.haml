@@ -15,6 +15,10 @@
       %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
         = link_to t('.spaces'), manage_spaces_path
 
+    - if can?(:recordings, :manage)
+      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'recordings'}" }
+        = link_to t('.recordings'), manage_recordings_path
+
     - if can?(:manage, BigbluebuttonServer) && can?(:manage, BigbluebuttonRoom)
       - webconf_controllers = ['custom_bigbluebutton_servers', 'custom_bigbluebutton_rooms', 'custom_bigbluebutton_recordings']
       %li{ :class => "#{'selected' if webconf_controllers.include?(params[:controller]) }" }

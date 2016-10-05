@@ -1,0 +1,26 @@
+.thread.thread-recording.recording-wrapper.recording-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+
+  %ul.management-links
+    = link_to (edit_bigbluebutton_recording_path(recording)) do
+      = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+
+    - if recording.published
+      = link_to (publish_bigbluebutton_recording_path(recording)), :data => { :confirm => t('are_you_sure') }, :method => :post do
+        = icon_publish(:alt => t('.publish'), :title => t('.publish'))
+
+    - if !recording.published
+      = link_to (unpublish_bigbluebutton_recording_path(recording)), :data => { :confirm => t('are_you_sure') }, :method => :post do
+        = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
+
+    = link_to (bigbluebutton_recording_path(recording)), :data => { :confirm => t('.confirm_delete') }, :method => :delete do
+      = icon_delete(:alt => t('.delete'), :title => t('.delete'))
+
+    - if current_site.require_space_approval?
+      = approval_links :recording, recording
+
+  .thread-title
+    = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
+      = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
+
+  %span.recording-description
+    = sanitize(first_words(recording.description, 100))

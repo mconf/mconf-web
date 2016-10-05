@@ -1,0 +1,10 @@
+= render :partial => 'menu'
+
+#manage
+
+  .page-tabs.page-tabs-full
+    .search-words
+      = text_field_tag :recordings_filter_text, params[:q], placeholder: t('.filter_name'), :'data-load-url' =>  manage_recordings_path, :'data-target' => '#recordings-list', :'data-filter' => '#filter-total', class: 'resource-filter'
+
+  #recordings-list
+    = render :partial => 'recordings_list', :locals => { :recordings => @recordings }
