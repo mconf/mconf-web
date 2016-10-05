@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class UserNeedsApprovalSenderWorker < BaseWorker
-  @queue = :user_notifications
 
   # Sends a notification to all recipients in the array of ids `recipient_ids`
   # informing that the user with id `user_id` needs to be approved.

@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class ProcessedJoinRequestSenderWorker < BaseWorker
-  @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
   # a notification to the users that the join request was accepted/declined.
