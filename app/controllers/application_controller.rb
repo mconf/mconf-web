@@ -49,6 +49,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #add some stack trace info to production log
+  def log_stack_trace exception
+      Rails.logger.info exception.message
+      st = exception.backtrace.first(10).join("\n")
+      Rails.logger.info st
+  end
+
   # Splits a comma separated list of emails into a list of emails without trailing spaces
   def split_emails email_string
     email_string.split(/[\s,;]/).select { |e| !e.empty? }
@@ -257,6 +264,7 @@ class ApplicationController < ActionController::Base
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
       render_error_page 404
+      log_stack_trace exception
     else
       raise exception
     end
@@ -267,6 +275,7 @@ class ApplicationController < ActionController::Base
       @exception = exception
       ExceptionNotifier.notify_exception exception
       render_error_page 500
+      log_stack_trace exception
     else
       raise exception
     end
