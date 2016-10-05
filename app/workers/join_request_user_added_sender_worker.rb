@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestUserAddedSenderWorker < BaseWorker
-  @queue = :join_requests
 
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)

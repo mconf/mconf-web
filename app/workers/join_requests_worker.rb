@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestsWorker < BaseWorker
-  @queue = :join_requests
 
   # Finds all join requests with pending notifications and sends them
   def self.perform
@@ -21,7 +20,7 @@ class JoinRequestsWorker < BaseWorker
   def self.invite_notifications
     invites = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.invite', notified: [nil,false]
     invites.each do |activity|
-      Resque.enqueue(JoinRequestInviteSenderWorker, activity.id)
+      Queue::High.enqueue(JoinRequestInviteSenderWorker, :perform, activity.id)
     end
   end
 
@@ -30,7 +29,7 @@ class JoinRequestsWorker < BaseWorker
   def self.request_notifications
     requests = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.request', notified: [nil,false]
     requests.each do |activity|
-      Resque.enqueue(JoinRequestSenderWorker, activity.id)
+      Queue::High.enqueue(JoinRequestSenderWorker, :perform, activity.id)
     end
   end
 
@@ -46,7 +45,7 @@ class JoinRequestsWorker < BaseWorker
     end
 
     requests.each do |activity|
-      Resque.enqueue(ProcessedJoinRequestSenderWorker, activity.id)
+      Queue::High.enqueue(ProcessedJoinRequestSenderWorker, :perform, activity.id)
     end
   end
 
@@ -54,7 +53,7 @@ class JoinRequestsWorker < BaseWorker
     joins = RecentActivity.where trackable_type: 'JoinRequest', key: ['join_request.no_accept'], notified: [nil, false]
 
     joins.each do |activity|
-      Resque.enqueue(JoinRequestUserAddedSenderWorker, activity.id)
+      Queue::High.enqueue(JoinRequestUserAddedSenderWorker, :perform, activity.id)
     end
   end
 end

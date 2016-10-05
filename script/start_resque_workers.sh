@@ -37,7 +37,7 @@ cd $APP_PATH
 if [ "$1" != "stop" ]; then
   if [ "$2" == "all" ]; then
     # for all queues
-    /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE QUEUE="*" TERM_CHILD=1 >> $LOGFILE 2>&1 &
+    /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE QUEUE="mailer, high, bigbluebutton_rails, normal, low" TERM_CHILD=1 >> $LOGFILE 2>&1 &
   else
     # for specific queues
     /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE QUEUE=$2 TERM_CHILD=1 >> $LOGFILE 2>&1 &

@@ -9,9 +9,6 @@ require 'spec_helper'
 describe ParticipantConfirmationsSenderWorker, type: :worker do
   let(:worker) { ParticipantConfirmationsSenderWorker }
 
-  it "uses the queue :participant_confirmations" do
-    worker.instance_variable_get(:@queue).should eql(:participant_confirmations)
-  end
 
   describe "#perform" do
     let(:pc1) { FactoryGirl.create(:participant, email: 'abc@def.cam', owner: nil).participant_confirmation }
