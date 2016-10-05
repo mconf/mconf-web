@@ -49,11 +49,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #add some stack trace info to production log
+  # Add some stack trace info to production log
   def log_stack_trace exception
-      Rails.logger.info exception.message
-      st = exception.backtrace.first(10).join("\n")
-      Rails.logger.info st
+    Rails.logger.info "#{exception.class.name} (#{exception.message}):"
+    st = "  " + exception.backtrace.first(15).join("\n  ")
+    Rails.logger.info st
   end
 
   # Splits a comma separated list of emails into a list of emails without trailing spaces
