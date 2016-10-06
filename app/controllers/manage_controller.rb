@@ -60,9 +60,26 @@ class ManageController < ApplicationController
 
     query = BigbluebuttonRecording.order("name")
 
-    if name.present?
-      query = query.where("name like ?", "%#{name}%")
+    [:published, :available].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
     end
+
+    if params[:playback] == "true"
+      query = query.joins(:playback_formats)
+    end
+
+    if params[:playback] == "false"
+      query = query.where("id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
+
+    end
+
+    if name.present?
+      query = query.where("name like ? or description like ?", "%#{name}%", "%#{name}%")
+    end
+
     @recordings = query.paginate(:page => params[:page], :per_page => 20)
 
     if request.xhr?

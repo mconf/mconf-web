@@ -18,6 +18,23 @@ body.manage.recordings {
     }
   }
 
+  .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        float: left;
+        width: 20%;
+      }
+
+      .checkbox {
+        text-align: right;
+        margin: 0 5px;
+        float: left;
+        padding: 0;
+      }
+    }
+
+
   .management-links {
     float: right;
     padding-top: 8px;
@@ -30,6 +47,24 @@ body.manage.recordings {
 
     .recording-description {
       margin-left: 3px;
+    }
+  }
+
+  .playback-types {
+    display: none;
+  }
+
+  .icon-awesome {
+    display:inline-block;
+    line-height: 27px;
+    text-align: center;
+    vertical-align: bottom;
+  }
+
+  .recording-not-available-name {
+    background: #fcfcfc;
+    a {
+      color: #888;
     }
   }
 

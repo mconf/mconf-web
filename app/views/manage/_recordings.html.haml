@@ -1,26 +1,47 @@
 .thread.thread-recording.recording-wrapper.recording-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
 
   %ul.management-links
-    = link_to (edit_bigbluebutton_recording_path(recording)) do
+    -if recording.available
+      - if recording.playback_formats.size > 0
+        = link_to "#", class: 'showplayback' do
+          = icon_list(:alt => t('.show_playback'), :title => t('.show_playback'))
+      - if recording.playback_formats.size == 0
+        = icon_list(:alt => t('.show_playback_none'), :title => t('.show_playback_none'), :class => "disabled")
+
+    = link_to edit_bigbluebutton_recording_path(recording) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
-    - if recording.published
-      = link_to (publish_bigbluebutton_recording_path(recording)), :data => { :confirm => t('are_you_sure') }, :method => :post do
-        = icon_publish(:alt => t('.publish'), :title => t('.publish'))
+    -if recording.available
+      - if recording.published
+        = link_to publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
+          = icon_publish(:alt => t('.publish'), :title => t('.publish'))
 
-    - if !recording.published
-      = link_to (unpublish_bigbluebutton_recording_path(recording)), :data => { :confirm => t('are_you_sure') }, :method => :post do
-        = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
+    -if recording.available
+      - if !recording.published
+        = link_to unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
+          = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
 
-    = link_to (bigbluebutton_recording_path(recording)), :data => { :confirm => t('.confirm_delete') }, :method => :delete do
+    = link_to bigbluebutton_recording_path(recording, :redir_url => manage_recordings_path), :data => { :confirm => t('.confirm_delete') }, :method => :delete do
       = icon_delete(:alt => t('.delete'), :title => t('.delete'))
 
-    - if current_site.require_space_approval?
-      = approval_links :recording, recording
-
   .thread-title
-    = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
-      = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
+    -if recording.available
+      = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
+        = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
+
+    -if !recording.available
+      %span.recording-not-available-name
+        = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
+          = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
 
   %span.recording-description
-    = sanitize(first_words(recording.description, 100))
+    = Mconf::Highlighter.highlight(sanitize(first_words(recording.description, 100)), params[:q].try(:split))
+
+  .playback-types
+    %h5= t(".playback_links")
+    %ul
+      - recording.playback_formats.each do |playback|
+        %li
+          = link_to playback.format_type, play_bigbluebutton_recording_path(recording, type: playback.format_type), :class => "open-new-window"
+          = "&#149;".html_safe
+          = link_to t(".direct_link"), playback.url, :class => "open-new-window"

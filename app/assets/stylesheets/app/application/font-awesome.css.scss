@@ -197,6 +197,13 @@ a .icon-awesome {
   color: $red;
 }
 
+.icon-mconf-list {
+  color: #888;
+  &.disabled{
+    color: #CCC;
+  }
+}
+
 .icon-mconf-event {}
 .icon-mconf-home {}
 .icon-mconf-logout {}
