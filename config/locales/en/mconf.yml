@@ -975,6 +975,9 @@ en:
       available_false: "Not Available"
       playback_true: "With Playback"
       playback_false: "Without Playback"
+      recordid: "Recording ID: "
+      room_name: "Room Name: "
+      created_at: "Created at: "
     recordings_list:
       filter_count_with_text: "Found %{count} recordings for filter \"%{value}\""
       filter_count_empty: "Found %{count} recordings"

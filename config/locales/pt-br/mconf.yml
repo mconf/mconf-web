@@ -983,6 +983,9 @@ pt-br:
       available_false: "Não Disponíveis"
       playback_true: "Com Reproduções"
       playback_false: "Sem Reproduções"
+      recordid: "ID da Gravação: "
+      room_name: "Nome da Sala: "
+      created_at: "Criado em: "
     recordings_list:
       filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} gravações encontradas"

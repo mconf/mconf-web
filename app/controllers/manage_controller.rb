@@ -77,7 +77,11 @@ class ManageController < ApplicationController
     end
 
     if name.present?
-      query = query.where("name like ? or description like ?", "%#{name}%", "%#{name}%")
+      query = query.joins(:room).where("bigbluebutton_recordings.name like ?
+                                         OR bigbluebutton_recordings.description like ?
+                                         OR bigbluebutton_recordings.recordid like ?
+                                         OR bigbluebutton_rooms.name like ?",
+                                         "%#{name}%", "%#{name}%", "%#{name}%", "%#{name}%")
     end
 
     @recordings = query.paginate(:page => params[:page], :per_page => 20)
