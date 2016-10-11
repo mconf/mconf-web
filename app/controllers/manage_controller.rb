@@ -55,10 +55,8 @@ class ManageController < ApplicationController
   end
 
   def recordings
-    name = params[:q]
-    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
-
-    query = BigbluebuttonRecording.order("name")
+    words = params[:q].try(:split, /\s+/)
+    query = BigbluebuttonRecording.search_by_terms(words)
 
     [:published, :available].each do |filter|
       if !params[filter].nil?
@@ -72,16 +70,8 @@ class ManageController < ApplicationController
     end
 
     if params[:playback] == "false"
-      query = query.where("id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
+      query = query.where("bigbluebutton_recordings.id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
 
-    end
-
-    if name.present?
-      query = query.joins(:room).where("bigbluebutton_recordings.name like ?
-                                         OR bigbluebutton_recordings.description like ?
-                                         OR bigbluebutton_recordings.recordid like ?
-                                         OR bigbluebutton_rooms.name like ?",
-                                         "%#{name}%", "%#{name}%", "%#{name}%", "%#{name}%")
     end
 
     @recordings = query.paginate(:page => params[:page], :per_page => 20)
