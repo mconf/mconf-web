@@ -95,7 +95,7 @@ de:
       month: Monat
       second: Sekunde
       year: Jahr
-  errors: &errors
+  errors:
     format: '%{attribute} %{message}'
     messages:
       accepted: muss akzeptiert werden
@@ -142,17 +142,11 @@ de:
       format:
         delimiter: ','
         format: '%n%u'
-        precision: 2
         separator: .
-        significant: false
-        strip_insignificant_zeros: false
         unit: €
     format:
       delimiter: ','
-      precision: 3
       separator: .
-      significant: false
-      strip_insignificant_zeros: false
     human:
       decimal_units:
         format: '%n %u'
@@ -162,12 +156,6 @@ de:
           quadrillion: muadrillion
           thousand: tausend
           trillion: trillion
-          unit: ''
-      format:
-        delimiter: ''
-        precision: 3
-        significant: true
-        strip_insignificant_zeros: true
       storage_units:
         format: '%n %u'
         units:
@@ -178,12 +166,6 @@ de:
           kb: KB
           mb: MB
           tb: TB
-    percentage:
-      format:
-        delimiter: ''
-    precision:
-      format:
-        delimiter: ''
   support:
     array:
       last_word_connector: 'und'
@@ -196,10 +178,3 @@ de:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: pm
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    errors:
-      <<: *errors

@@ -6,7 +6,7 @@ require 'fileutils'
 
 g_languages = ["es_419", "de"] # how they are called in Transifex
 g_uri_resources = 'http://www.transifex.com/api/2/project/mconf-web/resources/'
-g_uri_translation = 'http://www.transifex.com/api/2/project/mconf-web/resource/%%RES%%/translation/%%LANG%%/?mode=onlytranslated&file'
+g_uri_translation = 'http://www.transifex.com/api/2/project/mconf-web/resource/%%RES%%/translation/%%LANG%%/?mode=default&file'
 g_locales_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'locales'))
 
 puts "Languages requested: " + g_languages.to_s

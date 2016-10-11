@@ -1,16 +1,10 @@
 de:
   simple_form:
-    "yes": 'Ja'
-    "no": 'Nein'
+    'yes': 'Ja'
+    'no': 'Nein'
     required:
       text: 'benötigt'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
-    error_notification:
-      default_message: "Some errors were found, please take a look:"
-
     buttons:
       cancel: "Abbrechen"
       or: "oder"
@@ -23,8 +17,6 @@ de:
     hints:
       bigbluebutton_room:
         dial_number: "Eine Einwahlnummer, mit der Teilnehmer mit einem normalen Telefon teilnehmen können"
-      bigbluebutton_server:
-        version: ""
       invite:
         users: "Nach Name oder Email suchen. Wenn Sie jemanden nicht finden, tragen Sie einfach die Email-Adresse ein. Drücken Sie Eingabe, um ein neues Item anzulegen."
       site:
@@ -91,7 +83,6 @@ de:
         superuser: "Markieren Sie diese Option, um diesen Benutzer zu einem globalen Administrator der Website zu machen"
         timezone: "Die gewählte Zeitzone wird für alle Zeitangaben auf der Website benutzt werden. Zeitzonen mit einem Asterisk (*) sind derzeit in der Sommerzeit."
         username: "Diese ID wird verwendet, um Ihren Benutzer und Ihren Webkonferenzraum zu identifizieren. Erlaubt sind Buchtstaben, Zahlen und Bindestriche."
-
       event:
         time_zone: Wählen Sie eine Zeitzone für diesen Event
         location: 'Allgemeine Beschreibung für den Ort des Events. Beispiel: "Universität XY".'
@@ -103,7 +94,6 @@ de:
         end_on: Datum und Zeit für das Ende der Veranstaltung. Die Eingabe ist nicht zwingend, aber wenn Sie nichts eingeben, wird die Veranstaltung 24 Stunden nach Beginn enden.
     error_notification:
       default_message: "Bitte überprüfen Sie die folgenden Probleme:"
-
     placeholders:
       invite:
         ends_on: "Endet am..."
@@ -122,4 +112,3 @@ de:
       user:
         edit:
           current_password: "Lassen Sie das frei, wenn Sie nichts ändern wollen"
-    # labels:

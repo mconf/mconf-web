@@ -1,51 +1,30 @@
----
 es-419:
   activities:
     attachment:
       create_html: subió el archivo adjunto %{name} en el espacio
       destroy_html: eliminado el archivo adjunto %{name} del espacio
       update_html: actualizó el archivo adjunto %{name} en el espacio
-      deleted: ""
-      deleted_tooltip: ""
+      deleted: "un adjunto que fue eliminado"
+      deleted_tooltip: "Este archivo adjunto ya no existe."
     bigbluebutton_meeting:
       deleted_html: "Ha ocurrido una reunión, pero desde entonces se ha eliminado su información"
       user:
         create_html: "Una reunión fue iniciada la sala del usuario %{owner} a las %{time}"
       space:
         create_html: "Una reunión fue iniciada en el espacio de %{owner} a las %{time}"
-    event:
-      deleted_tooltip: ""
     join_request:
-      accept_html: ''
-      decline_html: ''
-      deleted: ""
-      deleted_tooltip: ""
       invite_html: "fue invitado a unirse al espacio"
-      invite_with_introducer_1_html: ""
-      invite_with_introducer_2_html: ""
-      no_accept_1_html: ""
-      no_accept_2_html: ""
       request_html: "ha solicitado unirse al espacio"
     other:
-      admin_html: ""
       someone_html: "Alguien"
     post:
       create_html: publicó %{name} en el espacio
       update_html: actualizó %{name} en el espacio
       reply_html: respondió a %{name} en el espacio
-      deleted: ""
-      deleted_tooltip: ""
-    resource:
-      deleted_tooltip: ""
     space:
-      approved_html: ''
       create_html: creó un nuevo espacio
-      deleted: ""
-      deleted_tooltip: ""
       leave_html: ha abandonado el espacio
       update_html: actualizó la información del espacio
-    user:
-      deleted_tooltip: ""
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
@@ -55,11 +34,9 @@ es-419:
     accept: "Aceptar"
     cancel: "Cancelar"
     create: "Crear"
-    confirm: ''
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd/MM/yyyy"
-      format_rails: ""
     decline: "Declinar"
     deny: "Denegar"
     destroy: "Destruir"
@@ -86,9 +63,6 @@ es-419:
     register: "Registrar"
     save: "Guardar"
     send: "Enviar"
-    not_approved:
-      text: ''
-      tooltip: ''
     unpublish: "Anular publicacion"
     update: "Actualizar"
     updated_time_ago: "%{time} pasado"
@@ -143,7 +117,6 @@ es-419:
         prefix_key: "Título"
         province: "Provincia"
         skype: "Skype"
-        url: "Su sitio web"
         zipcode: "Código postal"
       roles:
         name_user: "Usuario"
@@ -158,7 +131,6 @@ es-419:
         exception_notifications_prefix: "Prefijo del asunto de las notificaciones de excepción"
         external_help: "Página externa de ayuda/FAQ"
         feedback_url: "URL de comentarios"
-        forbid_user_space_creation: ""
         ldap_enabled: "LDAP: Habilitar autenticación"
         ldap_filter: "LDAP: Filtro para la busqueda de usuarios"
         ldap_host: "LDAP: IP o dominio del servidor"
@@ -171,12 +143,8 @@ es-419:
         ldap_name_field: "LDAP: Campo para obtener el nombre completo del usuario"
         local_auth_enabled: "Habilitar autenticación local"
         locale: "Lenguaje"
-        max_upload_size: ""
         name: "Nombre"
         registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
-        require_registration_approval: ""
-        require_space_approval: ""
-        room_dial_number_pattern: ''
         signature: "Firma"
         shib_always_new_account: "Shibboleth: Siempre crear cuentas nuevas"
         shib_enabled: "Shibboleth: Habilitar"
@@ -185,16 +153,12 @@ es-419:
         shib_login_field: "Shibboleth: Campo de acceso"
         shib_name_field: "Shibboleth: Campo para nombre"
         shib_principal_name_field: "Shibboleth: Campo para nombre principal (ID único)"
-        shib_update_users: ""
-        smtp_auth_type: ""
         smtp_auto_tls: "Inicio automático TLS en SMTP"
-        smtp_domain: ""
         smtp_login: "Inicio de sesión SMTP"
         smtp_password: "Contraseña SMTP"
         smtp_port: "Puerto SMTP"
         smtp_sender: "Remitente SMTP"
         smtp_server: "Servidor SMTP"
-        smtp_use_tls: ""
         ssl: "SSL"
         timezone: "Zona horaria"
         visible_locales: "Lenguajes visibles"
@@ -217,7 +181,6 @@ es-419:
         password: "Contraseña"
         password_confirmation: "Confirmación de contraseña"
         receive_digest: "¿Con qué frecuencia desea recibir correos electrónicos recopilatorios con la actividad reciente de las comunidades que usted forma parte?"
-        remember_me: ""
         superuser: "Administrador global"
         timezone: "Zona horaria"
         username: "Nombre de usuario"
@@ -229,33 +192,6 @@ es-419:
       event: "Evento"
       join_request: "Solicitud para unirse"
       space: "Espacio"
-
-  flash:
-    spaces:
-      update:
-        notice: ""
-      disable:
-        notice: ""
-      enable:
-        notice: ""
-        failure: ""
-
-    posts:
-      update:
-        notice: ""
-        failure: ""
-
-      create:
-        notice: ""
-        failure: ""
-
-    users:
-      disable:
-        notice: ""
-      enable:
-        notice: ""
-        failure: ""
-
   address: Dirección
   admin:
     one: Administrador
@@ -274,7 +210,7 @@ es-419:
   all_rights_reserved: "Todos los derechos reservados"
   any_field: "Cualquier campo"
   are_you_sure: "¿Está seguro?"
-  attachment: 
+  attachment:
     add: "Agregar adjunto"
     created: "Adjunto agregado"
     delete: "Eliminar adjunto"
@@ -285,10 +221,10 @@ es-419:
       not_permission: "%{user} no puede eliminar %{file}. "
     file: "Archivo:"
     filename: "%{size} archivos en %{name}.zip"
-    home: 
+    home:
       one: "Archivo en el espacio %{space}"
     info: "Información del documento"
-    more: 
+    more:
       one: "y un archivo adjunto más..."
       other: "y %{count} archivos adjuntos más..."
     new: "Nuevo adjunto"
@@ -296,7 +232,7 @@ es-419:
     one: Adjunto
     other: Adjuntos
     repository_disabled: "El repositorio de documentos de este espacio no está habilitado."
-    selected: 
+    selected:
       none: "No hay archivos seleccionados"
       one: "archivo seleccionado"
       other: "archivos seleccionados"
@@ -321,7 +257,7 @@ es-419:
       title: "Subir un nuevo archivo"
   attendeePW: "Clave de participantes"
   author: "Subido por"
-  avatar: 
+  avatar:
     created: "Imagen subida correctamente"
     crop: "Recorte su imagen"
     select: "Seleccionar imagen"
@@ -330,32 +266,32 @@ es-419:
   back: Atrás
   back_to_inbox: "Volver a Bandeja de entrada"
   back_to_sent: "Volver a Enviados"
-  bbb_room: 
+  bbb_room:
     attendeePW: "Clave de participantes"
     edit: "Configurar su sala de conferencia web"
     moderatorPW: "Clave de moderadores"
     private: "Sala privada"
   beta: beta
   bigbluebutton: BigBlueButton
-  bigbluebutton_rails: 
+  bigbluebutton_rails:
     activity_monitor: "Monitor de actividad"
-    attendees: 
+    attendees:
       id: ID
       name: Nombre
       role: Rol
     new_room: "Nueva sala"
     new_server: "Nuevo servidor"
-    rooms: 
-      external: 
+    rooms:
+      external:
         header: "Esta reunión fue creada por otra aplicación.<br/>Debes proporcionar un nombre y una contraseña para unirte:"
-      index: 
+      index:
         back_to_server_list: "Volver a la lista de servidores"
         invite: Invitar
         new_room: "Nueva sala"
       invite: Invitar
       join_mobile: "Unirse desde un dispositivo móvil"
-    servers: 
-      activity: 
+    servers:
+      activity:
         activity: Actividad
         done: ¡Hecho!
         ended_at: "Finaliza a: %{time} (finalizada: %{forcibly})"
@@ -369,13 +305,13 @@ es-419:
         seconds: segundos
         started_at: "Comenzó a: %{time}"
         title: "Monitor de actividad del servidor"
-      index: 
+      index:
         access_links: "Enlaces de acceso"
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
   body: Cuerpo
-  button: 
+  button:
     accept: Aceptar
     cancel: Cancelar
     confirm: Confirmar
@@ -400,13 +336,13 @@ es-419:
     update: Actualizar
     upload: Subir
   by: por
-  cafe: 
+  cafe:
     login: "Acceder usando CAFe"
-  calendar: 
+  calendar:
     my: "Mi calendario"
     one: Calendario
   cancel: Cancelar
-  caption: 
+  caption:
     add: "Agregar descripcion"
   city: Ciudad
   click_here_to_see_more: "Click aquí para ver mas"
@@ -415,7 +351,7 @@ es-419:
   close: Cerrar
   collapse: menos
   collapse_arrows: "<< menos"
-  comment: 
+  comment:
     add: "Agregar un comentario"
     add_new: "Agregar un nuevo comentario"
     by: "comentado por %{author}"
@@ -433,7 +369,7 @@ es-419:
   create: Crear
   create_event: "Crear evento"
   created_time_ago: "Creado hace %{time} "
-  crop_image: 
+  crop_image:
     description: "Selecciona una parte de la imagen para recortar"
     title: "Recortar imágen"
   custom_bigbluebutton_playback_types:
@@ -446,7 +382,6 @@ es-419:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Obtener grabaciones"
-      generate_dial_number: ""
       invite: "Invitar"
       join_mobile: "Unirse desde un dispositivo móvil"
       new_room: "Nueva sala"
@@ -454,7 +389,6 @@ es-419:
     edit:
       editing_room: "Editando la sala '%{room}'"
     form:
-      layout_empty_option: ""
       metadata:
         add: "Agregar metadata"
         set_to_remove: "Seleccionar para eliminar"
@@ -465,9 +399,6 @@ es-419:
       at: "en"
       duration: "Duración"
       meeting_in: "Invitar personas a una reunión en:"
-      offset: ""
-      offset_daylight_savings: ""
-      timezone: ""
       title: "Invitar personas a una reunión"
       users:
         hint: "Escriba para iniciar la búsqueda"
@@ -504,10 +435,8 @@ es-419:
     join_mobile:
       click_to_download_android: "Click aquí para descargar el cliente Android"
       click_to_download_ios: "Click aquí para descargar el cliente iOS (iPad, iPhone)"
-      download_android_tip: ""
-      download_ios_tip: ""
       not_launched: "Si la aplicación no fue iniciada, asegúrese de que tiene el cliente Android instalado. Puede obtenerlo de: "
-      notice : "Está siendo redirigido a la conferencia en su dispositivo móvil. Por favor, espere."
+      notice: "Está siendo redirigido a la conferencia en su dispositivo móvil. Por favor, espere."
       title: "Acceso móvil a \"%{room}\""
       use_default_client: "Si no está en un cliente móvil, haga click aquí para unirse a la sesión usando el cliente de escritorio por defecto."
       try_again: "¿Tiene la aplicación instalada pero no se ejecutó? Haga click aquí para intentarlo de nuevo."
@@ -538,7 +467,6 @@ es-419:
     recording_links:
       direct_link: "Enlace directo"
       playback_links: "Reproductores disponibles"
-      confirm_destroy: ""
     recordings:
       table:
         links: "Enlaces"
@@ -575,7 +503,6 @@ es-419:
     show:
       available_layouts: "Capas disponibles"
       configurations: "Configuraciones de servidor"
-      configurations_tip: ""
       fetch_recordings_title: "Obtener grabaciones con parámetros"
       fetch_recordings_btn: "Obtener grabaciones"
       publish_recordings_title: "Publicar grabaciones"
@@ -584,13 +511,13 @@ es-419:
       showing_server: "Mostrando servidor '%{server}'"
       unpublish_recordings_title: "Anular publicacion de grabaciones"
       unpublish_recordings_btn: "Anular publicacion de grabaciones"
-  date: 
+  date:
     at: en
     start: "Fecha de comienzo"
     undefined: Indefinido
   days: Días
   dblclick: "Doble click para editar..."
-  delete: 
+  delete:
     confirm: "¿Eliminar %{element}?"
     invitation: "¿Eliminar invitación a %{user}?"
     one: Eliminar
@@ -604,7 +531,6 @@ es-419:
         not_approved: "Su cuenta aún no ha sido aprobada por un administrador."
     registrations:
       not_enabled: "El registro de nuevas cuentas no está habilitado en este sitio."
-      signed_up_but_not_approved: ""
     shared:
       links:
         login:
@@ -616,7 +542,7 @@ es-419:
         resend_confirmation_email: "Reenviar correo electrónico de confirmación"
     strategies:
       ldap_authenticatable:
-        create_failed: "No se pudo crear las estructuras internas para su cuenta LDAP. Por favor, póngase en contacto con un administrador." 
+        create_failed: "No se pudo crear las estructuras internas para su cuenta LDAP. Por favor, póngase en contacto con un administrador."
         invalid_bind: "No se pudo enlazar con el servidor LDAP. Compruebe la configuración de LDAP."
         ldap_not_enabled: "LDAP no esta habilitado en este sitio web"
         missing_username: "No se pudo encontrar el nombre de usuario del usuario LDAP recuperado del servidor LDAP. Por favor, póngase en contacto con un administrador."
@@ -628,21 +554,21 @@ es-419:
   edit: Editar
   edit_hours: "Editar horas"
   edit_profile: "Editar perfil"
-  email: 
+  email:
     account_activated: "Su cuenta en %{sitename} ha sido activada con éxito."
     commas: "Separado por comas"
     confirm: "Necesitas confirmar su registro haciendo click en <a href=\"%{url}\">%{url}</a>"
-    digest: 
+    digest:
       attachment: "<b>%{author_name}</b> ha subido un nuevo archivo adjunto en <b>%{space_name}</b>:"
       event: "<b>%{author_name}</b> ha creado un nuevo evento en <b>%{space_name}</b>:"
       inbox: "<b>%{sender_name}</b> le envió un mensaje:"
       message: "Ultimas actividades en sus espacios:"
       posted: "<b>%{author_name}</b> ha publicado en <b>%{space_name}</b> el siguiente mensaje:"
       title: "%{type} recopilatorio con la actividad en sus espacios"
-      type: 
+      type:
         daily: Diario
         weekly: Semanal
-    invitation_result: 
+    invitation_result:
       admin_side: "%{name} ha %{action} la invitación al espacio %{spacename}"
       user_side: "El administrador de %{space} ha %{action} su solicitud para unirse."
     kind_regards: "Un cordial saludo,"
@@ -654,16 +580,16 @@ es-419:
   enable: Habilitar
   enabled: Habilitado
   end: Finalizar
-  error: 
+  error:
     change: "Cambio inválido"
     credentials: "Credenciales no válidas"
-    e403: 
+    e403:
       description: "La página que estás buscando es de acceso restringido. Usted no está autorizado para realizar esa acción."
       title: "Prohibido"
-    e404: 
+    e404:
       description: "Opps, la página \"%{url}\" no existe."
       title: "No encontrado"
-    e500: 
+    e500:
       description: "Lo sentimos, pero algo salió mal. Nos han comunicado el problema y vamos a echar un vistazo a él en breve."
       title: "Error"
     mistyped_or_moved: "Es posible que haya escrito mal la dirección o la página puede haber sido movida"
@@ -672,7 +598,7 @@ es-419:
     other: Errores
     vcc_warning: "Advertencia:"
   fax: Fax
-  feedback: 
+  feedback:
     create:
       check_mail: "Por favor, revise el correo electrónico informado en el formulario de comentarios, parece incorrecto."
       fill_fields: "Es obligatorio rellenar todos los campos del formulario para enviar sus comentarios."
@@ -682,11 +608,11 @@ es-419:
       title: "Comentarios"
     send: "Enviar comentarios"
     send_us: "¡Envíenos sus comentarios!"
-    webconf: 
+    webconf:
       stop_countdown: "Haga click aquí para evitar que se cierre y utilícela para navegar por este sitio"
       title: "¡Gracias por participar en esta conferencia!"
       warning: "Esta ventana se cerrará automáticamente en <span class='countdown'>%{seconds}</span> segundos."
-  find: 
+  find:
     browse: Navegar
   find_in: "Buscar en:"
   frontpage:
@@ -701,40 +627,39 @@ es-419:
         title: "Crear una nueva cuenta"
   from: De
   getting_started: "¡Comenzando!"
-  group: 
+  group:
     other: "Listas de correo"
-  hcard: 
+  hcard:
     not_found: "hCard no encotrada"
-  header_global: 
+  header_global:
     welcome: "Bienvenido, %{user}"
   hello: Hola
   help: Ayuda
   his_message_reads_thus: "Su mensaje dice así"
-  home: 
+  home:
     activity: "Actividad reciente"
     invite_url: "URL de invitación"
     my: "Mi Inicio"
     my_spaces: "Mis espacios"
-    no_spaces: ""
     one: inicio
     view_invite_url: "Ver URL de invitación"
-  icons: 
+  icons:
     unread_message: "¡Mensaje sin leer!"
     unread_message_by_receiver: "Este mensaje aún no ha sido leído por el destinatario"
   im: IM
-  inbox: 
+  inbox:
     my: "Mi Bandeja de entrada (%{checked})"
     one: "Bandeja de entrada (%{checked})"
-    unread_text: 
+    unread_text:
       one: "¡Tiene %{count} mensaje sin leer!"
       other: "¡Tiene %{count} mensajes sin leer!"
-  information: 
+  information:
     expand: "Expandir lista..."
     information1: "Estos son los espacios a los que pertenece"
     information3: "Estos son los últimos mensajes o eventos que ha creado"
     information5: "Estos son los próximos eventos de otros espacios."
     reduce: "Colapsar lista..."
-  internet: 
+  internet:
     on_the: "En Internet"
     ppal: Internet
   invitation:
@@ -749,23 +674,23 @@ es-419:
     info_users: "Puede ver la lista actual de usuarios de la sala en <a href=\"%{users_url}\">%{users_url}</a>"
     introducer: Introductor
     label: "Personalice su mensaje de invitación"
-    legend: 
+    legend:
       URL: "'URL' se reemplaza en el mensaje por la URL de la invitación."
       name: "'Nombre' se reemplaza en el mensaje por el nombre del destinatario."
     logout_and_reload: "Usted no es el usuario que recibió esta invitación. Por favor, cierre la sesión y vuelva a intentarlo"
-    message_with_start_date: 
+    message_with_start_date:
       in_person: "<p>Me gustaría invitarte al <b>evento 'nombre_evento' en el espacio %{space}</b> el día 'fecha_evento'.</p><p>Para aceptar mi invitación, por favor visite %{url}</p><p>Puede encontrar más información de este evento en <a href=\"event_url\">url_evento</a></p><p>Saludos cordiales,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    message_without_start_date: 
+    message_without_start_date:
       in_person: "<p>Me gustaría invitarte al <b>evento 'nombre_evento' en el espacio %{space}</b>.</p><p>Para aceptar mi invitación, por favor visita %{url}</p><p>Puede encontrar más información de este evento en <a href=\"event_url\">url_evento</a></p><p>Saludos cordiales,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     not_accepted: "no aceptado"
-    not_pending: 
+    not_pending:
       other: "No hay invitaciones pendientes"
-    pending: 
+    pending:
       other: "Invitaciones pendientes"
     rejoin_space: "Si desea solicitar la membresía de nuevo por favor ingrese a <a href=\"%{space_url}\">%{space_url}</a>"
     select_all_users: "Seleccionar todos los usuarios"
     show_all_users: "Mostrar todos los usuarios"
-    tab: 
+    tab:
       title1: "Usuarios no registrados"
       title2: "Usuarios registrados"
     title: "Invitar personas"
@@ -774,7 +699,7 @@ es-419:
     to_event: "%{username} lo invitó al evento %{eventname} en el espacio %{space}"
     will_invite: "Personas que invitarás"
     yes_accepted: aceptó
-  invite: 
+  invite:
     bad_format: "(formato incorrecto)"
     email: "correo electrónico a %{email}"
     title: "Invitación a participar en una conferencia web"
@@ -792,8 +717,6 @@ es-419:
       error: "Algo salió mal al procesar su solicitud. Por favor, intente de nuevo. (detalles: %{errors})"
       sent: "Su invitación fue enviada con éxito a: %{users}"
       user_not_found: "Usuario no encontrado: %{id}"
-      users_added: ""
-      you_are_already_a_member: ""
     decline:
       declined: "Solicitud para unirse rechazada"
       invitation_destroyed: "Invitación cancelada con éxito"
@@ -816,9 +739,6 @@ es-419:
       candidates: "Buscar usuarios para invitar"
       role_label: "Rol para los usuarios invitados"
       title: "Invita a otras personas a unirse a este espacio"
-      type_add: ""
-      type_add_tooltip: ""
-      type_invite: ""
       users:
         hint: "Escriba para iniciar la búsqueda"
         no_results: "No se encontraron resultados"
@@ -888,7 +808,6 @@ es-419:
         change: "Cambiar idioma"
     spaces_page_title:
       is_member: "Eres miembro de este espacio"
-      manage_to_approve: ""
       private: "Espacio privado"
       public: "Espacio público"
   less: "menos..."
@@ -917,12 +836,8 @@ es-419:
       enable: "Habilitar usuario"
       enable_confirm: "¿Está seguro que desea habilitar a este usuario?"
     enabled_space:
-      approve: ""
-      approve_confirm: ""
       disable: "Deshabilitar espacio"
       disable_confirm: "¿Está seguro que desea deshabilitar este espacio?"
-      disapprove: ""
-      disapprove_confirm: ""
       edit: "Editar espacio"
     enabled_user:
       approve: "Aprobar: permitir a este usuario acceder a la web"
@@ -940,9 +855,6 @@ es-419:
       title: "Gestión del Sitio"
       users: "Usuarios"
       webconf: "Conferencia Web"
-    spaces:
-      filter_name: ""
-      new_space: ""
     destroy_space:
       destroy: Eliminar espacio
       destroy_confirm: ¿Está seguro que desea eliminar este espacio y todo el contenido asociado a él? A diferencia de la dehabilitación del espacio, ¡esta operación es irreversible!
@@ -954,16 +866,7 @@ es-419:
       filter_count_empty: "Encontrado(s) %{count} espacio(s)"
       no_space_found: "Espacio no encontrado"
     users:
-      filter_name_or_username: ""
       new_user: "Crear usuario"
-      admin_true: ''
-      admin_false: ''
-      approved_true: ''
-      approved_false: ''
-      disabled_true: ''
-      disabled_false: ''
-      can_record_true: ''
-      can_record_false: ''
     users_list:
       filter_count_with_text: "Encontrado(s) %{count} usuario(s) para el filtro \"%{value}\""
       filter_count_empty: "Encontrado(s) %{count} usuario(s)"
@@ -1021,7 +924,7 @@ es-419:
       start: "Comenzar una nueva reunión"
       your_url: "Su URL"
   my_friends: "Mis amigos"
-  name: 
+  name:
     one: Nombre
     other: Nombres
   next: Siguiente
@@ -1035,7 +938,7 @@ es-419:
   organization: Organización
   organizer: Organizadores
   other: Otros
-  password: 
+  password:
     confirm: "Confirmar contraseña"
     one: Contraseña
     request: "Contraseña reseteada en %{sitename}"
@@ -1052,7 +955,7 @@ es-419:
       default: "%{username} ha cambiado su rol en %{stage} a %{role}. "
       event: "%{username} ha cambiado su rol en el evento %{event} a %{role}."
       space: "%{username} ha cambiado su rol en el espacio %{space} a %{role}."
-      subject: 
+      subject:
         default: "%{username} ha cambiado su rol en %{stage}"
         event: "%{username} ha cambiado su rol en el evento %{event} "
         space: "%{username} ha cambiado su rol en el espacio %{space}"
@@ -1062,7 +965,7 @@ es-419:
       success: "Permisos actualizados"
       failure: "Problema al actualizar permisos"
   personal_information: "Información personal"
-  phone: 
+  phone:
     mobile: Móvil
     one: Teléfono
     plural: Teléfonos
@@ -1073,10 +976,10 @@ es-419:
   post:
     deleted: "Comentario %{postname} ha sido eliminado"
     reply: "en respuesta a "
-    home: 
+    home:
       one: "Mensaje en el espacio %{space}"
     latest: "Últimos mensajes"
-    more: 
+    more:
       one: "y un mensaje más..."
       other: "y %{count} mensajes más..."
     none_created: "Ningún mensaje creado"
@@ -1092,19 +995,17 @@ es-419:
     index:
       new_post: "Enviar un nuevo mensaje"
       no_messages: "No hay mensajes en el muro"
-    new:
-      title: ""
     post_with_children:
       by: "por"
   prav: PRAV
   preferences: Preferencias
   previous: Previo
   privacy: Privacidad
-  profile: 
+  profile:
     deleted: "Perfil eliminado con éxito"
-    description: 
+    description:
       add: "Breve biografía"
-    error: 
+    error:
       exist: "Su perfil ya existe"
     header_title: "Perfil de usuario"
     must_create: "Por favor, cree su perfil primero"
@@ -1136,12 +1037,11 @@ es-419:
   province: Localidad
   public: Público
   read_more: "Leer más"
-  recent: 
+  recent:
     activity: "Actividad reciente"
-  recent_activity: 
+  recent_activity:
     empty: "No tiene actividad reciente para mostrar. Únase a salas para comenzar a tener datos en esta área."
-    tooltip: ""
-  recording: 
+  recording:
     automatic: Automático
     box_title: Grabando
     button_continue: "Continuar grabando"
@@ -1150,7 +1050,7 @@ es-419:
     button_start: "Comenzar grabación"
     manual: Manual
     none: Ninguno
-  register: 
+  register:
     and_participate: "Regístrese para participar"
     and_participate_description: "Para participar en el evento debe registrarse"
     and_participate_description_with_login: "Para participar en el evento debe registrarse o <a href=%{url}>acceder</a>"
@@ -1169,18 +1069,18 @@ es-419:
   reply: Responder
   reply_to: "Responder a:"
   reply_to_words: "Responder a %{words}"
-  repository: 
+  repository:
     download: Descargar
     loading: "Refrescando el repositorio de documentos..."
     need_javascript: "Por favor, active javascript para ver el repositorio de documentos"
     one: Documentos
     remove: Eliminar
     search: "Búsqueda de documentos:"
-  request: 
+  request:
     info: "Su solicitud para unirse al espacio ha sido enviada con éxito a los administradores del mismo. Recibirás una respuesta tan pronto como les sea posible."
     sent: "¡Solicitud enviada!"
   rnp: RNP
-  role: 
+  role:
     added: "Rol %{role} agregado con éxito a %{agent}"
     editing: "Editando rol"
     listing: "Listando roles"
@@ -1188,10 +1088,10 @@ es-419:
     one: Rol
     stage_type: "Tipo de estado"
     sucess_update: "Rol actualizado con éxito..."
-  room: 
+  room:
     other: Salas
-  rooms: 
-    invite: 
+  rooms:
+    invite:
       join_from_desktop: "En esta página usted puede unirse a la conferencia desde un <b>PC de escritorio</b>. Para unirse desde un dispositivo móvil <a href=\"%{url}\">haga click aquí</a>."
       join_from_mobile: "En esta página usted puede unirse a la conferencia desde un <b>dispositivo móvil</b>. Para unirse desde una PC de escritorio <a href=\"%{url}\">haga click aquí</a>."
       name: "Nombre:"
@@ -1200,7 +1100,7 @@ es-419:
       password_filled: "Esta sala es pública. La clave fue auto completada con la clave de participante."
       password_role: "Ingrese la clave de perticipante o moderador."
       status: "Estado de la reunión:"
-    join: 
+    join:
       msg1: "La reunión aún no ha comenzado, debe esperar que el moderador inicie la misma."
       msg2: "Su navegador se refrescará automaticamente y se unirá a la reunión cuando comience."
       title: "Sala: %{name}"
@@ -1210,8 +1110,8 @@ es-419:
   save: Guardar
   select_image: "Elija una imágen, por favor"
   send: Enviar
-  session: 
-    error: 
+  session:
+    error:
       exist: "Usted ya se ha autenticado"
       fill: "Por favor, ingrese los datos"
     one: Sesión
@@ -1223,7 +1123,7 @@ es-419:
       password: "Contraseña"
     new:
       title: "Iniciar sesión"
-  session_locales: 
+  session_locales:
     create:
       success: "Idioma de la aplicación cambiado a %{value}"
       error: "No es posible cambiar el idioma de la aplicación a %{value}"
@@ -1234,17 +1134,11 @@ es-419:
     recording_list:
       created: "Creado"
       created_by: "Creado por"
-      destroy_confirm: ""
       ended_at: "Finalizado en "
-      manage: ""
       no_description: "<descripción no especificada>"
       no_recordings: "Tu sala de conferencias web aún no tiene grabaciones"
       no_title: "<título no especificado>"
       started_at: "La reunión ocurrio a las"
-      publish: ''
-      unpublish: ''
-      unpublish_confirm: ""
-      unpublish_unavailable: ""
     recording_playback:
       duration: "duración"
       playback: "Enlaces de reproductores"
@@ -1300,12 +1194,11 @@ es-419:
     updated: "Configuracion del sitio actualizada"
   size: Tamaño
   skype: Skype
-  space: 
+  space:
     about: Acerca de
     access_forbidden: "Esta acción está solamente disponible para miembros del espacio."
-    add_user: 
+    add_user:
       other: "Agregar usuarios al espacio"
-    add_user_other: ""
     all: "Espacios"
     allow_public_access: "¿Permitir acceso público?"
     attendeePW: "editar clave de participante"
@@ -1314,20 +1207,19 @@ es-419:
     configuration: "Configuración del espacio"
     confirm: "¿Esta seguro que desea abandonar este espacio?"
     created: "Espacio creado con éxito"
-    created_waiting_moderation: ""
     delete: "Eliminar espacio"
     deleted: "Espacio eliminado con éxito"
     description: "Descripción del espacio"
     description_none: "Es necesaria una descripción del espacio para poder crearlo"
     disable: "Deshabilitar el espacio"
-    edit: 
+    edit:
       webconference_passwords: "Claves de las salas de videoconferencias"
     edit_description: "editar descripción"
     edit_name: "editar nombre"
     enable: "Habilitar espacio"
     event_count: "%{count} eventos"
-    index: 
-      filters: 
+    index:
+      filters:
         all: "Todos los espacios"
         my_spaces: "Mis espacios"
       order:
@@ -1340,14 +1232,14 @@ es-419:
     is_private: "es un espacio privado. Envie una solicitud al administrador para unirse"
     is_private_html: "%{name} es un espacio privado. Para acceder, inicie sesión y envíe una <a href=\"%{path}\">solicitud para unirse</a> a los administradores del espacio."
     join: "Unirse a este espacio"
-    join_invitation: 
+    join_invitation:
       clarify_registered: "Por favor, introduzca la clave para unirse a este espacio."
       clarify_unregistered: "Por favor, introduzca su nombre completo y contraseña para registrarse en Mconf y unirse a este espacio."
-    leave: 
+    leave:
       leave_this_space: "Abandonar este espacio"
       success: "Usted abandonó el espacio %{space_name}"
     logo: "Logo del espacio"
-    logo_selected: 
+    logo_selected:
       default_message: "Logo del espacio"
       enter_text: "Ingresar un texto para crear logos:"
       generate_logo: Generar
@@ -1364,7 +1256,7 @@ es-419:
     name_none: "Debe ingresar un nombre para poder crear el espacio"
     one: Espacio
     other: Espacios
-    people_in_conference: 
+    people_in_conference:
       one: "%{count} participante en la sala."
       other: "%{count} participantes en la sala."
     performances:
@@ -1374,12 +1266,9 @@ es-419:
     possesion: "Mis espacios"
     post_count: "%{count} mensaje(s)"
     private: "Espacios privados"
-    public: 
+    public:
       one: "Espacio público"
       other: "Espacios públicos"
-    remove_user:
-      confirm: ""
-      remove: ""
     select: Espacios
     show: "Mostrar espacios:"
     show_all: "Mostrar todos los espacios"
@@ -1423,19 +1312,13 @@ es-419:
       none: "No hay próximos eventos"
       title: "Próximos eventos"
       today: "No hay eventos hoy"
-  spaces: 
+  spaces:
     admin_tabs:
       admissions: "Admisiones"
       general_options: "Opciones generales"
       invite: "Invitar personas"
       users: "Usuarios"
       webconf_options: "Opciones de conferencia web"
-      add_member: ""
-    approve:
-      approved: ""
-    disapprove:
-      disapproved: ""
-      not_enabled: ""
     edit:
       change_logo: "Cambiar imágen"
       delete_confirmation: "¿Está seguro? ¡Este espacio será inaccesible para usted y todos los usuarios!"
@@ -1447,13 +1330,11 @@ es-419:
       title: "Editar sus grabaciones"
     error:
       already_invited: "Ya ha sido invitado a unirse a este espacio. Por favor, acepte o rechace la invitación"
-      creation_forbidden: ""
       need_join_to_access: "Necesita unirse a este espacio para acceder. Envíe una solicitud a los administradores."
       not_found: "El espacio \"%{permalink}\" no fue encontrado.<br>¿Le gustaría buscarlo en <a href=\"%{path}\">todos los espacios</a>?"
-      unapproved: ""
-    index: 
+    index:
       create_new_space: "Crear un nuevo espacio"
-      list_format: 
+      list_format:
         list: "Lista"
         thumbnails: "Vistas previas"
       search:
@@ -1494,7 +1375,6 @@ es-419:
         currently_running:
           one: "La conferencia web está actualmente en progreso con %{count} participante"
           other: "La conferencia web está actualmente en progreso con %{count} participantes"
-        dial_number: ""
       webconference_join: "Unirse"
       webconference_start: "Comenzar"
     sidebar_notifications:
@@ -1531,12 +1411,6 @@ es-419:
       user_is_member: "Eres miembro de este espacio"
       view_join_request: "Ver las solicitudes que enviaste"
       with_members: "con %{count} miembros"
-    user_permissions:
-      confirm_leave_space: ""
-      confirm_remove_user: ""
-      leave_space: ""
-      remove_user: ""
-      tooltip_last_admin: ""
     users: "Usuarios en este espacio"
     webconference:
       end: "Detener la reunión"
@@ -1561,11 +1435,11 @@ es-419:
     webconference_tabs:
       access: "Acceso a la conferencia web"
       recordings: "Lista de grabaciones"
-  sponsors: 
+  sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de estado"
-  statistics: 
+  statistics:
     show:
       description: "Esta página muestra algunas estadísticas del sitio. Estas estadísticas son en tiempo real y reflejan el estado de la página web en este preciso instante."
       table:
@@ -1581,12 +1455,9 @@ es-419:
   subject: "Asunto:"
   summary: "Información del vídeo"
   superuser: "Administrador"
-  sites:
-    edit:
-      shib_warning_html: ""
   text: Texto
   the_string: "la cadena de texto"
-  thread: 
+  thread:
     add: "Publicar mensaje en el muro"
     comments: "comentarios %{children}"
     compact_view: "Cambiar a vista compacta"
@@ -1597,20 +1468,20 @@ es-419:
     see_less: "¿Quiere comprimir todos los mensajes?"
     see_more: "¿Quiere ver más acerca de los mensajes?"
     show_last_comment: "Viendo los últimos %{size} comentarios de %{children}"
-  time: 
+  time:
     from: de
     to: para
-  timezone: 
+  timezone:
     one: Zona horaria
     set_up: "No ha configurado su zona horaria. <a href=\"%{path}\">Configúrela ahora</a>"
   title: Título
-  title_formal: 
+  title_formal:
     mr: Sr.
     mrs: Sra.
     ms: Srta.
   to: para
   today: Hoy
-  tooltip: 
+  tooltip:
     admin: "Esta sección muestra las personas que tienen permisos de administrador en este espacio"
     advanced_editor: "Este editor le permite: ver código html; cambiar el estilo de fuente, tamaño, color y alineación; insertar/editar enlaces; agregar adjuntos y etiquetas"
     doc_search: "Utilice los campos de este lado para filtrar y actualizar la tabla de documentos con los resultados de la búsqueda"
@@ -1638,8 +1509,8 @@ es-419:
   url: Sitio web
   url_add: "Agregar su sitio web"
   url_plain: URL
-  user: 
-    add: 
+  user:
+    add:
       instruction: "Para agregar nuevos usuarios ingrese uno o mas direcciones de correo electrónico separados por espacios, comas o puntos y comas para registrarlos"
       note: "Por ejemplo: \"Juan Perez\" <\"jperez@example.com\"> \", jct@dit.es; jfernandez@example.net y haciendo click en \"Registrarse como usuario\" registrará las 3 direcciones de correo como miembros del espacio y enviará un mensaje de validación."
     admin: Administrar
@@ -1655,8 +1526,8 @@ es-419:
     filter: "Invitar por nombre de usuario"
     group_invite_email: "Invitar por correo electrónico"
     include_registered: "Incluir usuarios registrados"
-    index: 
-      user_list: 
+    index:
+      user_list:
         header: "Usuarios en este espacio: %{count}"
     invite: "Invitar personas"
     invite_email: "Invitar personas por correo electrónico"
@@ -1676,12 +1547,12 @@ es-419:
     registered: "¡Gracias por registrarse! Le hemos enviado instrucciones de como activar su cuenta de usuario."
     request_confirmation: "Solicitar correo electrónico de confirmación"
     request_password: "Solicitar contraseña"
-    resend_confirmation_email: 
+    resend_confirmation_email:
       already_confirmed: "El correo electrónico '%{email}' ya fue confirmado"
       link: "Reenviar correo electrónico de confirmación"
       success: "Correo electrónico de confirmación enviado a '%{email}'"
     reset_password: "Restablecer su contraseña"
-    results_count: 
+    results_count:
       one: "Estimados, %{users_size} resultado"
       other: "Estimados, %{users_size} resultados"
     results_found: "Usuarios encontrados"
@@ -1689,7 +1560,6 @@ es-419:
     vcc_email: "Correo electrónico del usuario Mconf %{dir}"
   users:
     approve:
-      approved: ""
       not_enabled: "La aprobación de registros no está habilitada en este sitio"
     create:
       error: "Errores creando el usuario: %{errors}"
@@ -1699,7 +1569,6 @@ es-419:
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: ""
       not_enabled: "La aprobación de registros no está habilitada en este sitio web"
     edit:
       account_info: "Información de cuenta"
@@ -1752,18 +1621,18 @@ es-419:
       empty_file: "{file} está vacío. Por favor, seleccione los archivos de nuevo sin este."
       no_files: "No hay archivos para subir."
       on_leave: "Los archivos están siendo subidos, si se va ahora se cancelará la subida."
-  vCard: 
+  vCard:
     corrupt: "La vCard que envió esta corrupta o no es una versión soportada."
     message: "Utilice su vCard para automaticamente llenar su perfil"
     upload: "Subir su vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
-  version: 
+  version:
     new: "Nueva versión"
     one: Versión
   view: "Vista"
   view_more: "Ver más"
-  webconference: 
+  webconference:
     invite_webconference: "Invitar personas a la conferencia web"
     join: Unirse
     my_webconference: "Mi sala de conferencia web"
@@ -1771,7 +1640,7 @@ es-419:
     not_running: "no está en ejecución"
     one: Conferencia web
     running: en ejecución
-    space: 
+    space:
       join_now: "Unirse ahora"
       see_more: "ver más"
     start_now: "¡Comenzar ahora!"
