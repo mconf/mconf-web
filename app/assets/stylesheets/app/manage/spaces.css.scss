@@ -17,6 +17,22 @@ body.manage.spaces {
       }
     }
 
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        float: left;
+        width: 20%;
+      }
+
+      .checkbox {
+        text-align: right;
+        margin: 0 5px;
+        float: left;
+        padding: 0;
+      }
+    }
+
     .btn-new-space {
       float: right;
     }

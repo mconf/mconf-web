@@ -332,6 +332,61 @@ describe ManageController do
         end
       end
 
+      context "use params [:approved, :disabled] to filter the results" do
+        let!(:spaces) {[
+            FactoryGirl.create(:space, :name => 'Approved', :approved => true),
+            FactoryGirl.create(:space, :name => 'Not Approved', :approved => false),
+            FactoryGirl.create(:space, :name => 'Enabled', :disabled => false),
+            FactoryGirl.create(:space, :name => 'Disabled', :disabled => true)
+        ]}
+        before {
+          spaces[1].disapprove!
+          get :spaces, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(*spaces) }
+        end
+
+        context "params[:approved]" do
+          context 'is true' do
+            let(:params) { {approved: 'true'} }
+            it { assigns(:spaces).count.should be(3) }
+            it { assigns(:spaces).should include(spaces[0], spaces[2], spaces[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {approved: 'false'} }
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[1]) }
+          end
+        end
+
+        context "params[:disabled]" do
+          context 'is true' do
+            let(:params) { {disabled: 'true'} }
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {disabled: 'false'} }
+            it { assigns(:spaces).count.should be(3) }
+            it { assigns(:spaces).should include(spaces[0], spaces[1], spaces[2]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {approved: 'true', disabled: 'false', q: 'b'} }
+
+          it { assigns(:spaces).count.should be(1) }
+          it { assigns(:spaces).should include(spaces[2]) }
+        end
+      end
+
       context "if xhr request" do
         before(:each) { xhr :get, :spaces }
         it { should render_template('manage/_spaces_list') }

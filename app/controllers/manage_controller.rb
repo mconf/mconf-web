@@ -40,6 +40,16 @@ class ManageController < ApplicationController
     partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     query = Space.with_disabled.order("name")
+
+    # start applying filters
+    [:disabled, :approved].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
+    end
+
+
     if name.present?
       query = query.where("name like ?", "%#{name}%")
     end

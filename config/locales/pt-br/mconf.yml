@@ -939,6 +939,10 @@ pt-br:
     spaces:
       filter_name: "Filtrar comunidades por nome"
       new_space: "Nova comunidade"
+      approved_true: "Aprovados"
+      approved_false: "Não aprovados"
+      disabled_true: "Desabilitados"
+      disabled_false: "Habilitados"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
