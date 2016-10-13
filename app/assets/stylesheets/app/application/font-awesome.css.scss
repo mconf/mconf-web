@@ -198,7 +198,9 @@ a .icon-awesome {
 }
 
 .icon-mconf-list {
-  color: #888;
+  &.enabled{
+    color: #888;
+  }
   &.disabled{
     color: #CCC;
   }

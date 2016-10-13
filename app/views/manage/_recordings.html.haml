@@ -1,10 +1,10 @@
-.thread.thread-recording.recording-wrapper.recording-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-recording.recording-wrapper.recording-simple{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "recording-#{recording.id}"}
 
   %ul.management-links
     -if recording.available
       - if recording.playback_formats.size > 0
         = link_to "#", class: 'showplayback' do
-          = icon_list(:alt => t('.show_playback'), :title => t('.show_playback'))
+          = icon_list(:alt => t('.show_playback'), :title => t('.show_playback'), :class => "enabled")
       - if recording.playback_formats.size == 0
         = icon_list(:alt => t('.show_playback_none'), :title => t('.show_playback_none'), :class => "disabled")
 
@@ -12,12 +12,12 @@
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
     -if recording.available
-      - if recording.published
+      - if !recording.published
         = link_to publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
           = icon_publish(:alt => t('.publish'), :title => t('.publish'))
 
     -if recording.available
-      - if !recording.published
+      - if recording.published
         = link_to unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
           = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
 
@@ -52,8 +52,6 @@
     = t('.created_at')
     %span.tooltipped{title: recording.start_time}
       = format_date(recording.start_time)
-
-
 
   .playback-types
     %h5= t(".playback_links")
