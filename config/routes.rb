@@ -33,6 +33,9 @@ Mconf::Application.routes.draw do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
     get "register", to: "registrations#new"
+
+    # so admins can log in even if local auth is disabled
+    get "admin", to: "sessions#new"
   end
 
   # bigbluebutton_rails default routes
