@@ -37,9 +37,7 @@ class ManageController < ApplicationController
 
   def spaces
     words = params[:q].try(:split, /\s+/)
-    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
-
-    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space))
+    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).order("name")
 
     # start applying filters
     [:disabled, :approved].each do |filter|

@@ -116,7 +116,7 @@ class Space < ActiveRecord::Base
 
   # Used by select controller method
   scope :search_by_terms, -> (words, include_private=false) {
-    query = Space.with_disabled.order("name")
+    query = Space.with_disabled
 
     words ||= []
     words = [words] unless words.is_a?(Array)
