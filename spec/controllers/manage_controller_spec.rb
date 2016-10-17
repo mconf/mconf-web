@@ -380,7 +380,7 @@ describe ManageController do
         end
 
         context "mixed params" do
-          let(:params) { {approved: 'true', disabled: 'false', q: 'b'} }
+          let(:params) { {approved: 'true', disabled: 'false', q: 'Ena'} }
 
           it { assigns(:spaces).count.should be(1) }
           it { assigns(:spaces).should include(spaces[2]) }
