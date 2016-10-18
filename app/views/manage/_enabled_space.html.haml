@@ -18,7 +18,7 @@
       = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
 
   %span.space-description
-    = Mconf::Highlighter.highlight(sanitize(first_words(space.description, 100)), params[:q].try(:split))
+    = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
 
     - if current_site.require_space_approval? && !space.approved?
       .resource-waiting-moderation-tooltip

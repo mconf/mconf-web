@@ -43,7 +43,7 @@ describe 'Admin manages spaces' do
       it { should have_content @enabled_space.name }
       it { should have_content @enabled_space.description }
       it { should have_content @disabled_space.name }
-      it { should_not have_content @disabled_space.description }
+      it { should have_content @disabled_space.description }
 
       context 'elements for an approved space' do
         let(:space) { @approved_space }
