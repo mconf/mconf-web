@@ -83,6 +83,27 @@ describe Mconf::Highlighter do
       it { subject.highlight("Mark waldberg é um idiota, mark idiota!", ["mark", "idiota"]).should eq("<mark>Mark</mark> waldberg é um <mark>idiota</mark>, <mark>mark</mark> <mark>idiota</mark>!") }
       it { subject.highlight("Mark mata cachorrinhos inocentes", ["cachorrinhos", "cachorros"]).should eq("Mark mata <mark>cachorrinhos</mark> inocentes") }
       it { subject.highlight("</script> admin &nbsp; &gt; &amp;", ["&", "<", ">", ";"]).should eq("<mark>&lt;</mark>/script<mark>&gt;</mark> admin <mark>&amp;</mark>nbsp<mark>;</mark> <mark>&amp;</mark>gt<mark>;</mark> <mark>&amp;</mark>amp<mark>;</mark>") }
-    end
+      it { subject.highlight("Teste de repetição", ["e", "e", "e"]).should eq("T<mark>e</mark>st<mark>e</mark> d<mark>e</mark> r<mark>e</mark>p<mark>e</mark>tição") }
+      it { subject.highlight("Teste de repetição", ["e", "est"]).should eq("T<mark>este</mark> d<mark>e</mark> r<mark>e</mark>p<mark>e</mark>tição") }
+      it { subject.highlight("Teste de repetição", ["ste", "est"]).should eq("T<mark>este</mark> de repetição") }
+      it { subject.highlight("Tesste de letra repetida", ["s"]).should eq("Te<mark>ss</mark>te de letra repetida") }
+      it { subject.highlight("Amanda Jackson", ["a", "ja"]).should eq("<mark>A</mark>m<mark>a</mark>nd<mark>a</mark> <mark>Ja</mark>ckson") }
+      it { subject.highlight("Amanda (Jackson)", ["("]).should eq("Amanda <mark>(</mark>Jackson)") }
+      it { subject.highlight("Amanda (Jackson)", [" "]).should eq("Amanda (Jackson)") }
+      end
   end
+
+  context "crop_indexes" do
+    it { subject.crop_indexes([]).should eq([]) }
+    it { subject.crop_indexes([[0,3]]).should eq([[0,3]]) }
+    it { subject.crop_indexes([[0,3],[4,5]]).should eq([[0,3],[4,5]]) }
+    it { subject.crop_indexes([[0,3],[0,4]]).should eq([[0,4]]) }
+    it { subject.crop_indexes([[0,3],[0,4],[0,6],[0,7]]).should eq([[0,7]]) }
+    it { subject.crop_indexes([[0,3],[0,4],[1,6],[5,3]]).should eq([[0,8]]) }
+    it { subject.crop_indexes([[0,3],[0,4],[5,6],[5,7]]).should eq([[0,4],[5,7]]) }
+    it { subject.crop_indexes([[0,3],[0,4],[4,6],[5,7]]).should eq([[0,12]]) }
+    it { subject.crop_indexes([[0,3],[0,4],[5,2],[5,3],[9,1],[9,3]]).should eq([[0,4],[5,3],[9,3]]) }
+    it { subject.crop_indexes([[0,3],[4,5],[4,8]]).should eq([[0,3],[4,8]]) }
+  end
+
 end
