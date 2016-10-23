@@ -14,7 +14,7 @@
 
 = render_page_title t('.title', name: @user.full_name)
 
-= content_for :main_sidebar do
+= content_for :sidebar do
   #profile-in-sidebar
     #edit-profile-current-logo
       = logo_image(@user, :size => '128', :class => 'profile-logo logo logo-uploadable')

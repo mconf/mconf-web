@@ -1,6 +1,6 @@
-- page_title t('spaces.menu.posts'), in: @space.name
+- page_title t('spaces.sidebar.posts'), in: @space.name
 - spaces_menu_at :posts
-= render "spaces/title", space: @space, full: false
+= render "spaces/sidebar", space: @space, full: false
 
 = render partial: 'post_with_children', locals: { post: @post, posts: @posts }
 - nav = page_navigation_links @posts

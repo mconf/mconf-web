@@ -1,29 +1,28 @@
 // Locals:
 //   user_spaces (array of Space): spaces the user is a member of
 
-#user-info
-  .user-avatar
+.resource-card.user
+  .avatar
     = logo_image(current_user, :size => '300', :title => current_user.name)
     - if current_user.superuser?
       = icon_superuser(:title => t('admin.one'))
-  .user-data
-    %span.user-name{ title: current_user.name }= current_user.name
-    %span.user-email{ title:current_user.email }= current_user.email
+  .data
+    %span.data-main{ title: current_user.name }= current_user.name
+    %span.data-other{ title:current_user.email }= current_user.email
     - unless current_user.profile.organization.blank?
-      %span.user-organization{ title: current_user.profile.organization }= current_user.profile.organization
+      %span.data-other{ title: current_user.profile.organization }= current_user.profile.organization
 
-#main-sidebar-menu
+#sidebar-menu
   %ul
     %li{ home_sidebar_menu_select_if(:home) }
       = link_to main_app.my_home_path do
-        = t(".menu.webconf_room")
+        = t(".menu.home")
     %li{ home_sidebar_menu_select_if(:activity) }
       = link_to my_activity_path do
         = t(".menu.activity")
-
-#user-spaces
-  %h3= t(".spaces.title")
-  = render "spaces/list_view", :spaces => user_spaces, :user_spaces => user_spaces
-  = link_to t(".spaces.view_all"), spaces_path(my_spaces: true), :class => "btn btn-sm btn-default col-xs-12"
-  - if can?(:create, Space)
-    = link_to t(".spaces.create"), new_space_path, :class => "btn btn-sm btn-primary col-xs-12"
+    %li{ home_sidebar_menu_select_if(:meetings) }
+      = link_to my_recordings_path do
+        = t(".menu.meetings")
+    %li{ home_sidebar_menu_select_if(:spaces) }
+      = link_to "/my-spaces" do
+        = t(".menu.spaces")

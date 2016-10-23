@@ -31,7 +31,7 @@ class ManageController < ApplicationController
     if request.xhr?
       render :partial => 'users_list', :layout => false
     else
-      render :layout => 'no_sidebar'
+      render :layout => 'manage'
     end
   end
 
@@ -48,7 +48,7 @@ class ManageController < ApplicationController
     if request.xhr?
       render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
     else
-      render :layout => 'no_sidebar'
+      render :layout => 'manage'
     end
   end
 

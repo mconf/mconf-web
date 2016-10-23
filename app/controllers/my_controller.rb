@@ -14,9 +14,6 @@ class MyController < ApplicationController
 
   before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
 
-  # For all pages that render the user's sidebar
-  before_filter :user_spaces_for_sidebar, :only => [:home, :recordings, :activity]
-
   after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   layout :determine_layout
@@ -50,7 +47,9 @@ class MyController < ApplicationController
 
     # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
-      .with_or_without_recording().last(15)
+                                    .with_or_without_recording().last(5)
+
+    @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
 
   def approval_pending

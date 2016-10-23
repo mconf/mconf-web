@@ -11,8 +11,6 @@
 // some styles defined in the partial below
 @import "app/shared/recording_list";
 
-@import "app/shared/user_sidebar";
-
 @import "app/shared/webconference_join";
 
 body.my.home, body.my.activity, body.my.recordings {
@@ -22,10 +20,6 @@ body.my.home, body.my.activity, body.my.recordings {
 
   #webconference-room {
     margin-top: 20px;
-  }
-
-  #main-sidebar-menu {
-    @include vertical-menu;
   }
 
 }

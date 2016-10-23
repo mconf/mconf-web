@@ -26,11 +26,8 @@ class SpacesController < InheritedResources::Base
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
-  # all actions that render the sidebar
-  # TODO: 1087 without a sidebar, we don't need to do this for all pages
-  before_filter :webconf_room!,
-    :only => [:show, :edit, :user_permissions, :webconference,
-              :recordings, :edit_recording]
+  # all actions that render the web conference room snippetB
+  before_filter :webconf_room!, :only => [:show, :webconference]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -42,11 +39,7 @@ class SpacesController < InheritedResources::Base
   end
 
   def set_layout
-    if [:index, :new, :create].include? action_name.to_sym
-      'application'
-    else
-      'spaces_default'
-    end
+    'application'
   end
   layout :set_layout
 

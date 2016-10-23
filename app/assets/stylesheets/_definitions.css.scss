@@ -97,7 +97,7 @@ $m-contents-width: 980px;
 $m-contents-max-width: 1180px;
 $m-sidebar-width: 240px;
 $m-sidebar-border: $m-border-color-normal; //darken($m-light-gray, 15);
-$m-sidebar-bg-color: $m-site-bg-color;
+$m-sidebar-bg-color: #f6f6f6; //#fafafa; //$m-site-bg-color;
 
 // headers
 $m-navbar-menu-open-bg: $m-site-bg-color;
@@ -124,7 +124,8 @@ $m-subnav-bg-color: #eee;
 $m-navbar-font-color: #ddd;//$m-font-color;
 $m-navbar-font-color-hover: white; //$m-link-color-hover;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
-$m-navbar-font-highlight: #f6f6f6;
+/* $m-navbar-font-highlight: #f6f6f6; */
+$m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */
@@ -153,16 +154,12 @@ $m-page-header-border-color: #e6e6e6; //#d9d9de;
 
 // footer
 $m-footer-height: 75px;
-$m-footer-bg-color: white;
 $m-footer-font-color: $m-font-color;
 $m-footer-link-color: $m-link-color;
 $m-footer-link-color-hover: $m-link-color-hover;
 $m-footer-link-color-active: $m-link-color-active;
-$m-footer-border-color: #888;
-
-// dark gray footer:
-$m-footer-bg-color: $m-light-gray;
-$m-footer-border-color: darken($m-light-gray, 15);
+$m-footer-bg-color: #fff; //darken($m-light-gray, 5);
+$m-footer-border-color: $m-sidebar-border; // darken($m-light-gray, 15);
 
 // dark green bg footer:
 /* $m-footer-bg-color: darken($m-green-logo, 3);// $m-navbar-bg-color-dark; */

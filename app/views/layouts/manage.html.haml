@@ -1,0 +1,9 @@
+-# Application layout with a custom sidebar menu
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'manage/menu'
+
+= render :file => 'layouts/application'

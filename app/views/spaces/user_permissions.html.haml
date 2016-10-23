@@ -1,6 +1,6 @@
 - page_title t('spaces.admin_tabs.users'), in: @space.name
 - spaces_menu_at :admin
-= render 'spaces/title', space: @space, full: false
+= render 'spaces/sidebar', space: @space, full: false
 
 - spaces_admin_menu_at :users
 = render 'spaces/admin_tabs'

@@ -47,7 +47,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         "no_sidebar"
       end
     else
-      "application"
+      "manage"
     end
   end
 

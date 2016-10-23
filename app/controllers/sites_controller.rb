@@ -8,7 +8,7 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource class: false
-  layout "no_sidebar"
+  layout "manage"
 
   def show
     redirect_to edit_site_path

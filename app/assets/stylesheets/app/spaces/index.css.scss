@@ -71,6 +71,8 @@ body.spaces.index {
 
   #space-description-wrapper {
 
+    border-top: 1px solid $m-sidebar-border;
+
     // When the description is floating over the page, it has to be restricted
     // to the exact size of the sidebar. So we set it to be the min size of the sidebar
     // minus paddings+margings+borders.
@@ -109,11 +111,11 @@ body.spaces.index {
     .is-member {
       width: 100%;
       color: $m-alert-success-font;
-      background: lighten($m-alert-success-bg, 5);
-      padding: 1px 3px;
-      @include border-radius($m-border-radius-base);
-      text-align: center;
-      margin: 5px 0 10px 0;
+      /* background: $m-site-bg-color; //lighten($m-alert-success-bg, 5); */
+      /* padding: 5px 10px; */
+      /* @include border-radius($m-border-radius-base); */
+      /* text-align: center; */
+      margin: 5px 0 15px 0;
     }
 
     .details {

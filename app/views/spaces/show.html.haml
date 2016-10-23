@@ -1,6 +1,6 @@
 - page_title @space.name
 - spaces_menu_at :home
-= render 'spaces/title', space: @space, full: false
+= render 'spaces/sidebar', space: @space, full: false
 
 -# - if mod_enabled?("events") && !@current_events.empty?
 -#   #events-current.content-block.event-block.events-hapenning-now
@@ -9,6 +9,13 @@
 -#     .content-block-middle
 -#       - for event in @current_events do
 -#         = render :partial => "events/unified_event", :locals => { :event => event }
+
+
+.content-block
+  .content-block-header
+    %h3= "Description"
+  .content-block-middle
+    = sanitize(@space.description)
 
 = render "shared/webconference_join", room: @space.bigbluebutton_room
 

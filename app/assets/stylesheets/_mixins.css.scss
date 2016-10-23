@@ -295,31 +295,3 @@
   /*   left: -8px; */
   /* } */
 }
-
-// default vertical menu
-@mixin vertical-menu {
-  clear: both;
-  @include mconf-clearfix;
-
-  ul {
-    margin: 0;
-    padding: 0;
-
-    li {
-      a:not(.btn) {
-        $normal: $m-page-menu-font-color;
-        $hover: $m-second-color;
-        color: $normal;
-        @include link-colors($normal, $hover, $hover, $normal);
-      }
-
-      &.active a:not(.btn) {
-        font-weight: bold;
-        $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
-        $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
-        @include link-colors($normal, $hover, $hover, $normal);
-        position: relative;
-      }
-    }
-  }
-}

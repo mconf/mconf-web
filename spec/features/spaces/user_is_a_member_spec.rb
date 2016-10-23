@@ -20,7 +20,7 @@ feature 'User is' do
       visit space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
@@ -28,7 +28,7 @@ feature 'User is' do
       visit space_posts_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
@@ -36,7 +36,7 @@ feature 'User is' do
       visit space_attachments_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
@@ -44,7 +44,7 @@ feature 'User is' do
       visit space_events_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
@@ -52,7 +52,7 @@ feature 'User is' do
       visit space_users_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
@@ -60,7 +60,7 @@ feature 'User is' do
       visit webconference_space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
 
@@ -76,7 +76,7 @@ feature 'User is' do
       visit space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
@@ -84,7 +84,7 @@ feature 'User is' do
       visit space_posts_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
@@ -92,7 +92,7 @@ feature 'User is' do
       visit space_attachments_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
@@ -100,7 +100,7 @@ feature 'User is' do
       visit space_events_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
@@ -108,7 +108,7 @@ feature 'User is' do
       visit space_users_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
@@ -116,7 +116,7 @@ feature 'User is' do
       visit webconference_space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
 
@@ -135,7 +135,7 @@ feature 'User is' do
       visit space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
@@ -143,7 +143,7 @@ feature 'User is' do
       visit space_posts_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
@@ -151,7 +151,7 @@ feature 'User is' do
       visit space_attachments_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
@@ -159,7 +159,7 @@ feature 'User is' do
       visit space_events_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
@@ -167,7 +167,7 @@ feature 'User is' do
       visit space_users_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
@@ -175,7 +175,7 @@ feature 'User is' do
       visit webconference_space_path(space)
 
       within('#page-menu ul li.active') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
   end

@@ -1,9 +1,9 @@
-- page_title t('spaces.menu.webconference'), in: @space.name
+- page_title t('spaces.sidebar.webconference'), in: @space.name
 - spaces_menu_at :webconference
-= render 'spaces/title', space: @space, full: false
+= render 'spaces/sidebar', space: @space, full: false
 
-- spaces_webconference_menu_at :access
-= render 'spaces/webconference_tabs'
+-# - spaces_webconference_menu_at :access
+-# = render 'spaces/webconference_tabs'
 
 = render "shared/webconference_join", room: @space.bigbluebutton_room
 

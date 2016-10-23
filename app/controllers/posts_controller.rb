@@ -13,9 +13,6 @@ class PostsController < InheritedResources::Base
   before_filter :get_posts, :only => [:index]
   load_and_authorize_resource :through => :space
 
-  # need it to show info in the sidebar
-  before_filter :webconf_room!, if: -> { set_layout == 'spaces_default' }
-
   before_filter :set_author, only: [:create]
 
   after_filter :only => [:update] do
@@ -31,7 +28,7 @@ class PostsController < InheritedResources::Base
     if [:new, :edit].include?(action_name.to_sym) && request.xhr?
       false
     else
-      "spaces_default"
+      "application"
     end
   end
 

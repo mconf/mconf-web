@@ -14,3 +14,7 @@
   @include make-xs-column(12);
   @include make-sm-column(12);
 }
+
+body {
+  background: $m-site-bg-color;
+}

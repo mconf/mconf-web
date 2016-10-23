@@ -9,6 +9,13 @@
 
 body {
   background-color: $m-site-bg-color;
+  background: linear-gradient(
+    to right,
+    $m-sidebar-bg-color 0%,
+    $m-sidebar-bg-color 25%,
+    $m-site-bg-color 25%,
+    $m-site-bg-color 100%
+  );
 }
 
 p {
@@ -244,9 +251,6 @@ form {
 //
 
 #site {
-  background-color: $m-site-bg-color;
-  /* margin: 0px auto; */
-  /* width: 100%; */
   padding: 0;
 }
 
@@ -293,7 +297,6 @@ form {
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
 
-    $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 5);
     &:hover {
       background: $m-navbar-font-highlight;
     }
@@ -307,84 +310,91 @@ form {
 }
 
 #navbar {
-  @include make-row(0);
+  /* @include make-row(0); */
   color: $m-navbar-font-color;
   @include font-size($m-font-medium);
+  text-align: center;
+  @include mconf-clearfix;
+  padding: 0 15px;
 
   a {
     @include link-on-menus;
   }
-
-  #navbar-left {
-    @include make-sm-column(6);
-    @include navbar-lists;
-  }
-
-  #navbar-right {
-    @include make-sm-column(5);
-    @include navbar-lists;
-
-    > ul {
-      float: right;
-
-      > li {
-        margin-left: 10px;
-        margin-right: 0;
-        padding-left: 10px;
-        padding-right: 0;
-      }
-    }
-
-    .dropdown-user.chip {
-      margin: 10px 0 3px 0;
-      font-size: $m-font-normal;
-      font-weight: normal;
-      border-color: lighten($m-navbar-bg-color-light, 5);
-      color: $m-navbar-font-color;
-      @include transition(background-color 0.2s ease-in);
-      @include text-truncate;
-      max-width: 350px;
-
-      &:hover, &[aria-expanded=true] {
-        background: lighten($m-navbar-bg-color-dark, 5);
-      }
-
-      .caret {
-        margin-top: -2px;
-        margin-right: 2px;
-      }
-    }
-
-    .dropdown-menu {
-      .observation {
-        padding: 3px 14px;
-        font-size: $m-font-small;
-        color: $m-font-color-gray;
-      }
-    }
-  }
-
-  #navbar-logo {
-    @include make-sm-column(1);
-    float: left;
-    white-space: nowrap;
-    margin-top: 8px;
-    @include mconf-clearfix;
-
-    .title {
-      @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
-      @include font-size($m-font-bigger);
-      float: left;
-    }
-  }
-
 }
+
+#navbar-left {
+  /* @include make-sm-column(6); */
+  @include navbar-lists;
+  float: left;
+}
+
+#navbar-right {
+  /* @include make-sm-column(5); */
+  @include navbar-lists;
+  float: right;
+
+  > ul {
+    float: right;
+
+    > li {
+      margin-left: 10px;
+      margin-right: 0;
+      padding-left: 10px;
+      padding-right: 0;
+    }
+  }
+
+  .dropdown-user.chip {
+    margin: 10px 0 3px 0;
+    font-size: $m-font-normal;
+    font-weight: normal;
+    border-color: lighten($m-navbar-font-highlight, 5);
+    color: $m-navbar-font-color;
+    @include transition(background-color 0.2s ease-in);
+    @include text-truncate;
+    max-width: 350px;
+
+    &:hover, &[aria-expanded=true] {
+      background: $m-navbar-font-highlight;
+    }
+
+    .caret {
+      margin-top: -2px;
+      margin-right: 2px;
+    }
+  }
+
+  .dropdown-menu {
+    .observation {
+      padding: 3px 14px;
+      font-size: $m-font-small;
+      color: $m-font-color-gray;
+    }
+  }
+}
+
+#navbar-logo {
+  /* @include make-sm-column(1); */
+  /* float: left; */
+  white-space: nowrap;
+  margin-top: 8px;
+  @include mconf-clearfix;
+  display: inline-block;
+
+  .title {
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
+    @include font-size($m-font-bigger);
+    float: left;
+  }
+}
+
 
 #footer-container {
   clear: both;
   color: $m-footer-font-color;
   //margin-top: 30px;
   background: $m-footer-bg-color;
+  border-top: 1px solid $m-footer-border-color;
 }
 
 #footer, #footer-mconf {
@@ -554,9 +564,10 @@ form {
 #content {
   @include make-sm-container-height;
   width: 100%;
-  background-color: $m-site-bg-color;
+  /* background-color: $m-site-bg-color; */
 
-  margin: 20px auto 20px auto;
+  /* margin: 20px auto 20px auto; */
+  margin: 0 auto;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
@@ -569,36 +580,161 @@ form {
   @include make-row;
 }
 
-#main-sidebar {
+#sidebar {
   @include make-xs-column(12);
   @include make-sm-column(3);
   @include make-sm-column-height;
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding-right: 25px;
-  padding-bottom: 30px;
-  min-width: 300px;
+  padding: 30px 25px;
+  min-width: 250px;
+
+  .sidebar-title {
+    font-size: 26px;
+    font-size: 1.625rem;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  .sidebar-subtitle {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    color: $m-font-color-gray;
+  }
+
+  .sidebar-actions {
+    margin: 20px 0;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .resource-card {
+    position: relative;
+    @include broken-img-parent;
+    margin: 0 auto 20px 0;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 300px;
+      border: 1px solid darken($m-light-gray, 10);
+      padding: 3px;
+      background: $m-site-bg-color;
+    }
+
+    .icon-awesome.icon-mconf-superuser {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      @include font-size($m-font-medium);
+      padding: 6px 5px;
+      @include border-radius($m-border-radius-small);
+      color: white;
+      background: $m-red;
+    }
+
+    .data {
+      @include mconf-clearfix;
+      text-align: center;
+      margin-top: 10px;
+
+      a, span {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .data-main {
+        @include font-size($m-font-big);
+        font-weight: bold;
+        @include text-truncate;
+      }
+
+      .data-other {
+        min-height: $m-font-big + 2px;
+        @include text-truncate;
+      }
+    }
+
+  }
 }
+
+#sidebar-menu {
+  /* border-top: 1px solid $m-sidebar-border; */
+  margin: 0 -20px;
+  padding: 0;
+
+  ul {
+    margin: 0 0 0 15px;
+    padding: 0;
+  }
+
+  li {
+    /* border-bottom: 1px solid $m-sidebar-border; */
+    border-left: 1px solid $m-transparent;
+    @include font-size($m-font-medium);
+
+    &.active a {
+      background: $m-site-bg-color;
+      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
+      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
+      @include link-colors($normal, $hover, $hover, $normal);
+      border-bottom: 1px solid $m-sidebar-border;
+      border-top: 1px solid $m-sidebar-border;
+      border-left: 1px solid $m-sidebar-border;
+
+      &:hover,
+      &:active {
+        background: $m-site-bg-color;
+      }
+    }
+
+    a {
+      display: block;
+      font-size: 16px;
+      line-height: 18px;
+      @include mconf-clearfix;
+      transition: all .3s ease;
+      margin: 2px 0;
+      padding: 15px;
+
+      /* border-bottom: 1px solid $m-transparent; */
+      /* border-top: 1px solid $m-transparent; */
+      /* border-left: 1px solid $m-transparent; */
+
+      $normal: $m-page-menu-font-color;
+      $hover: darken($m-second-color, 20);
+      color: $normal;
+      @include link-colors($normal, $hover, $hover, $normal);
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background: $m-sidebar-border;
+        /* border-bottom: 1px solid $m-sidebar-border; */
+        /* border-top: 1px solid $m-sidebar-border; */
+        /* border-left: 1px solid $m-sidebar-border; */
+      }
+    }
+  }
+}
+
 
 #sidebar, .sidebar {
   @include make-xs-column(12);
   @include make-sm-column(3);
 
   .content-block-container {
-    padding: 4px;
-    @include border-radius($m-border-radius-large);
-    background: $m-light-gray;
     margin-bottom: 10px;
     clear: both;
-    @include block-wrapper-active;
   }
 
   .content-block {
     clear: both;
     padding: 10px;
-    border: 1px solid #ddd;
-    @include border-radius($m-border-radius-large);
-    background: $m-site-bg-color;
   }
 
   .content-block-middle {
@@ -668,7 +804,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding-left: 25px;
+  padding: 25px;
 
   h3 {
     color: #404040;

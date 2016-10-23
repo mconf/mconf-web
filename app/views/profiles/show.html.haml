@@ -5,7 +5,7 @@
 
 = render_page_title @user.full_name
 
-= content_for :main_sidebar do
+= content_for :sidebar do
   #profile-in-sidebar
     = logo_image(@user, :size => '300', :class => 'profile-logo')
     = render :partial => 'profiles/public_hcard'
