@@ -927,8 +927,8 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
-      last_login: "Last login date: "
-      never_login: "This user never logged in this account"
+      last_sign_in: "Last login date: "
+      never_sign_in: "This user never logged in this account"
     menu:
       general: "General"
       spaces: "Spaces"

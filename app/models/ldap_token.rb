@@ -13,4 +13,12 @@ class LdapToken < ActiveRecord::Base
   def self.user_created_by_ldap?(u)
     LdapToken.where(user_id: u.id, new_account: true).present?
   end
+
+  def last_sign_in_date
+    current_sign_in_at
+  end
+
+  def sign_in_method_name
+    "ldap"
+  end
 end

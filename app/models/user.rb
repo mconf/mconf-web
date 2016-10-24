@@ -281,12 +281,24 @@ class User < ActiveRecord::Base
     !no_local_auth?
   end
 
-  def login_methods
+  def sign_in_methods
     {
       shibboleth: self.shib_token.present?,
       ldap: self.ldap_token.present?,
       local: self.local_auth?
     }
+  end
+
+  def last_sign_in_date
+    current_local_sign_in_at
+  end
+
+  def sign_in_method_name
+    "local"
+  end
+
+  def last_sign_in_method
+    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
   end
 
   protected

@@ -934,8 +934,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
-      last_login: "Última data de login: "
-      never_login: "Este usuário nunca realizou login"
+      last_sign_in: "Última data de login: "
+      never_sign_in: "Este usuário nunca realizou login"
     menu:
       general: "Geral"
       spaces: "Comunidades"
