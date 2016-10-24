@@ -27,3 +27,12 @@
       = "(#{Mconf::Highlighter.highlight(user.username, words)}, #{Mconf::Highlighter.highlight(user.email, words)})".html_safe
     %span.user-category
       = user_category(user)
+    .current-login-date
+      = t('.last_login')
+      %span.tooltipped{title: user.current_sign_in_at}
+        -if user.current_sign_in_at
+          = "#{format_date(user.current_sign_in_at)}"
+        -else
+          = t('.never_login')
+    .available-login-methods
+      = user_login_methods(user)

@@ -100,6 +100,10 @@ en:
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
+      methods: "Available login methods: "
+      shibboleth: "Shibboleth "
+      ldap: "LDAP "
+      local: "Local "
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -923,6 +927,8 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
+      last_login: "Last login date: "
+      never_login: "This user never logged in this account"
     menu:
       general: "General"
       spaces: "Spaces"

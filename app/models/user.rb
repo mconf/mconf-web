@@ -277,6 +277,18 @@ class User < ActiveRecord::Base
     created_by_shib? || created_by_ldap?
   end
 
+  def local_auth?
+    !no_local_auth?
+  end
+
+  def login_methods
+    {
+      shibboleth: self.shib_token.present?,
+      ldap: self.ldap_token.present?,
+      local: self.local_auth?
+    }
+  end
+
   protected
 
   def before_disable_and_destroy

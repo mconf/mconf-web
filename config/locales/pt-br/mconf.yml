@@ -100,6 +100,10 @@ pt-br:
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
+      methods: "Métodos de login disponíveis: "
+      shibboleth: "Shibboleth "
+      ldap: "LDAP "
+      local: "Local "
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -930,6 +934,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
+      last_login: "Última data de login: "
+      never_login: "Este usuário nunca realizou login"
     menu:
       general: "Geral"
       spaces: "Comunidades"
