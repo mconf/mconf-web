@@ -27,11 +27,13 @@
       = "(#{Mconf::Highlighter.highlight(user.username, words)}, #{Mconf::Highlighter.highlight(user.email, words)})".html_safe
     %span.user-category
       = user_category(user)
-    .current-sign-in-date
+
+    .current-sign-in
       = t('.last_sign_in')
-      %span.tooltipped{title: user.current_sign_in_at}
+      %span.current-sign-in-date
         -if user.current_sign_in_at
-          = "#{format_date(user.current_sign_in_at)} - from #{user_last_sign_in_method(user).to_s}"
+          %span.tooltipped{title: user.current_sign_in_at}= "#{format_date(user.current_sign_in_at)}"
+          = "- from #{user_last_sign_in_method(user).to_s}"
         -else
           = t('.never_sign_in')
     .available-sign-in-methods
