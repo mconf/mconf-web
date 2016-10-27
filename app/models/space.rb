@@ -72,6 +72,10 @@ class Space < ActiveRecord::Base
     Site.current.require_space_approval?
   end
 
+  def is_approved?
+    require_approval? || ( !require_approval? && !approved? )
+  end
+
   validates :description, :presence => true
 
   validates :name, :presence => true,

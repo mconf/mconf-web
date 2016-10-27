@@ -23,7 +23,7 @@
       %span.user-is-member
         = icon_is_member
         = t(".is_member")
-    - if current_site.require_space_approval? && !@space.approved?
+    - if !@space.approved?
       .resource-waiting-tooltip
         = icon_waiting_moderation
         = t("_other.not_approved.text")

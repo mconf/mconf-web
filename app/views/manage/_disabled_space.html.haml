@@ -1,4 +1,4 @@
-.thread.thread-space.space-wrapper.space-simple.space-disabled{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-space.space-wrapper.space-simple.space-disabled{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "space-#{space.permalink}"}
   .logo-in-thread
     = raw logo_image(space, :size => '84x64', :title => space.name, :class => 'logo logo-space')
 
