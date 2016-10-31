@@ -87,11 +87,15 @@ class Invitation < ActiveRecord::Base
     else
       event = Icalendar::Event.new
 
+      attendee_list = WebConferenceInvitation.where(['owner_id = :owner_id', { owner_id: self.owner_id}])
+                      .joins('LEFT JOIN users ON recipient_id = users.id')
+                      .pluck("users.email, recipient_email")
       # We send the dates always in UTC to make it easier. The 'Z' in the ends denotes
       # that it's in UTC.
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
       event.organizer = sender.email
+      event.attendee = attendee_list.flatten.compact unless self.owner_id.blank?
       event.ip_class = "PUBLIC"
       event.uid = self.url
       event.url = self.url
