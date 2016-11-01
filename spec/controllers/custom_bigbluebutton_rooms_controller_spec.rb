@@ -97,7 +97,7 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#send_invitation" do
     let!(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
-    let(:users) { [FactoryGirl.create(:user)] }
+    let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
     let(:starts_on) { Time.now }
     let(:ends_on) { Time.now + 10.day }
     let(:title) { 'Title' }
@@ -123,13 +123,20 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
+
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(2)
       }
       context "with the right type set" do
         it { Invitation.last.class.should be(WebConferenceInvitation) }
       end
       it { should redirect_to(referer) }
       it { should set_flash.to success }
+      it { Invitation.last.owner_id.should_not be_nil }
+      it { Invitation.last.owner_id.should eql(Invitation.last(2).first.owner_id) }
+      it { Invitation.last.owner_id.should_not eql(Invitation.last(3).first.owner_id) }
     end
 
     context "with daylight saving time timezones" do
@@ -138,7 +145,7 @@ describe CustomBigbluebuttonRoomsController do
 
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
       }
 
       context "Eastern Time without daylight savings time" do
@@ -146,6 +153,7 @@ describe CustomBigbluebuttonRoomsController do
         let(:starts_on) { DateTime.strptime("11/02/2015 23:50", "%m/%d/%Y %H:%M") }
         let(:inv) { Invitation.last }
 
+        it {puts Invitation.all}
         it { inv.starts_on.utc.hour.should eq(4) }
         it { inv.starts_on.utc.day.should eq(3) }
       end
@@ -234,7 +242,7 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
       }
 
       context "with the right type set" do
