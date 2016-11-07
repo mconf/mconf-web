@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
 
   scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile)
-    puts words.inspect
+
     if words.present?
       words ||= []
       words = [words] unless words.is_a?(Array)

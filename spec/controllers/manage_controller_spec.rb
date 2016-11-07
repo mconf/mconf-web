@@ -82,6 +82,21 @@ describe ManageController do
         it { assigns(:users)[3].should eql(@u1) }
       end
 
+      context "on a search_by_terms orders @users by more hits" do
+        before {
+          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u2 = user
+          @u2.profile.update_attributes(:full_name => 'Second user created')
+          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
+          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+        }
+        before(:each) { get :users, :q => 'second user' }
+        it { assigns(:users).count.should be(3) }
+        it ("On top the user with 2 matches") { assigns(:users)[0].should eql(@u2) }
+        it ("Then another user with 1 match and has higher alphabetical order") { assigns(:users)[1].should eql(@u3) }
+        it ("Then another user with 1 match and has lower alphabetical order") { assigns(:users)[2].should eql(@u1) }
+      end
+
       context "paginates the list of users" do
         before {
           45.times { FactoryGirl.create(:user) }
