@@ -14,7 +14,7 @@ class ApplicationMailer < BaseMailer
       subject = "#{I18n.t("application_mailer.feedback_email.subject")}: #{subject}"
       @text = body
       @email = email
-      create_email(Site.current.smtp_sender, email, subject)
+      create_email(Site.current.smtp_receiver, email, subject)
     end
   end
 end
