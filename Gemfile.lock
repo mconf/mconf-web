@@ -72,11 +72,14 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
     acts_as_tree (2.0.0)
       activerecord (>= 3.0.0)
     addressable (2.3.6)
     ansi (1.4.3)
     arel (5.0.1.20140414130214)
+    awesome_print (1.7.0)
     bcrypt (3.1.10)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -523,7 +526,9 @@ PLATFORMS
 DEPENDENCIES
   active_record_union (~> 1.1.0)
   active_sanity
+  acts-as-taggable-on (~> 4.0)
   acts_as_tree (~> 2.0.0)
+  awesome_print
   bcrypt (~> 3.1.5)
   better_errors
   bigbluebutton-api-ruby!
