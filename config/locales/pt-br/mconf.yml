@@ -194,7 +194,7 @@ pt-br:
         smtp_password: "Senha SMTP"
         smtp_port: "Porta SMTP"
         smtp_sender: "Remetente SMTP"
-        smtp_sender: "Destinatário SMTP"
+        smtp_receiver: "Destinatário SMTP"
         smtp_server: "Servidor SMTP"
         smtp_use_tls: "Usar TLS no STMP"
         ssl: "SSL"
