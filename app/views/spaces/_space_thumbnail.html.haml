@@ -12,10 +12,6 @@
   .list-description
     = icon_waiting_moderation if !space.approved?
 
-    - space.tag_list.each do |tag|
-      .label.label-default
-        = tag
-
     = link_to first_words(space.name, 30), space_path(space), :title => space.name, :class => "list-title"
 
     - if space.public?
@@ -38,3 +34,7 @@
           = link_to t(".view_join_request"), space_join_request_path(space, jr)
     - if show_members
       %span= t('_other.members', :count => space.users.size)
+
+- space.tag_list.each do |tag|
+  .label.label-default
+    = tag

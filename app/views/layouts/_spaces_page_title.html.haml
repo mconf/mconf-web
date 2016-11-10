@@ -11,6 +11,10 @@
       .main-title
         = link_to space_path(@space) do
           = @space.name
+    %span 
+      - @space.tag_list.each do |tag|
+        .label.label-default
+          = tag
     - if @space.public
       .resource-visibility.public
         = icon_space_public
