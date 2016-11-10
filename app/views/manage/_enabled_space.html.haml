@@ -26,6 +26,7 @@
         = t("_other.not_approved.text")
   
   - space.tag_list.each do |tag|
-    .label.label-default
-      = tag
+    .label.label-tag
+      = link_to space_path(space) do
+        = tag
 

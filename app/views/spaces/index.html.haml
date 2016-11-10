@@ -43,8 +43,9 @@
             %span= t('space.event_count', :count => space.events.size)
           %span
             - space.tag_list.each do |tag|
-              .label.label-default
-                = tag
+              .label.label-tag
+                = link_to space_path(space) do
+                  = tag
         - if has_access
           %p.action-links
             = link_to t('more'), space_path(space)

@@ -1,0 +1,13 @@
+@import "compass/css3";
+@import "definitions";
+
+.label.label-tag {
+  background-color: #BBB;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag:hover {
+  background-color: #DDD;
+}

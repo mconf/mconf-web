@@ -13,8 +13,9 @@
           = @space.name
     %span 
       - @space.tag_list.each do |tag|
-        .label.label-default
-          = tag
+        .label.label-tag
+          = link_to space_path(@space) do
+            = tag
     - if @space.public
       .resource-visibility.public
         = icon_space_public
