@@ -190,6 +190,10 @@ class SpacesController < InheritedResources::Base
     render layout: false if request.xhr?
   end
 
+  def tags
+    @tags = ['tag', 'tag2']  
+  end
+
   private
 
   # Load the @spaces and @user_spaces variables

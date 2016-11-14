@@ -11,3 +11,14 @@
 .label.label-tag:hover {
   background-color: #DDD;
 }
+
+.label.label-tag-more {
+  background-color: #8BB;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag-more:hover {
+  background-color: #8DD;
+}

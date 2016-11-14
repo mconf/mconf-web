@@ -42,7 +42,7 @@
           - if mod_enabled?("events")
             %span= t('space.event_count', :count => space.events.size)
           %span
-            - space.tag_list.each do |tag|
+            - space.tag_list.first(5).each do |tag|
               .label.label-tag
                 = link_to space_path(space) do
                   = tag
