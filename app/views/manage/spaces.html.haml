@@ -17,4 +17,4 @@
           %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
 
   #space-list
-    = render :partial => 'spaces_list', :spaces => @spaces
+    = render :partial => 'spaces_list', :locals => { :spaces => @spaces }

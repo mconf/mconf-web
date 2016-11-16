@@ -35,4 +35,4 @@
     - if show_members
       %span= t('_other.members', :count => space.users.size)
 
-= render "space_tags", :space => @space
+= render :partial => "space_tags", :locals => { :space => space }
