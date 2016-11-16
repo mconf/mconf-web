@@ -22,3 +22,16 @@
 .label.label-tag-more:hover {
   background-color: #8DD;
 }
+
+.label.label-tag-less {
+  background-color: #8BB;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag-less:hover {
+  background-color: #8DD;
+}
+
+.more-tags { }

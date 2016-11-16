@@ -35,7 +35,4 @@
     - if show_members
       %span= t('_other.members', :count => space.users.size)
 
-- space.tag_list.first(5).each do |tag|
-  .label.label-tag
-    = link_to space_path(space) do
-      = tag
+= render "space_tags", :space => @space

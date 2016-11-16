@@ -105,6 +105,9 @@ pt-br:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
       not_running: "não iniciada"
       running: "em andamento"
+    more_tags: "+ %{count} tags"
+    more_tag: "+ 1 tag"
+    less_tags: "esconder tags"
   GMT: GMT
   RSS: RSS
   abc: ABC

@@ -41,11 +41,9 @@
           %span= t('space.post_count', :count => space.posts.size)
           - if mod_enabled?("events")
             %span= t('space.event_count', :count => space.events.size)
-          %span
-            - space.tag_list.first(5).each do |tag|
-              .label.label-tag
-                = link_to space_path(space) do
-                  = tag
+          
+          = render "space_tags", :space => space
+        
         - if has_access
           %p.action-links
             = link_to t('more'), space_path(space)

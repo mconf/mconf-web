@@ -4,6 +4,17 @@
 $ ->
   if isOnPage 'spaces', 'index'
 
+    showMoreTags = ->
+      $(".toggle-tags").on 'click', (e) ->
+        parentElement = $(this).parent().parent()
+        $('.more-tags', $(this).parent().parent()).toggleClass("hidden")
+        $(".label-tag-more", parentElement).toggleClass("hidden")
+        $(".label-tag-less", parentElement).toggleClass("hidden")
+        e.preventDefault()
+
+    showMoreTags()
+    mconf.Resources.addToBind showMoreTags
+
     # how results are formatted in the search input
     format = (state) ->
       if state.public

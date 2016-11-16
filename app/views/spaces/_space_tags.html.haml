@@ -1,0 +1,22 @@
+%span 
+  - space.tag_list.first(5).each do |tag|
+    .label.label-tag
+      = link_to space_path(space) do
+        = tag
+%span
+  - if space.tag_list.count > 5 
+    %span.more-tags.hidden
+      - space.tag_list[5..-1].each do |tag|
+        .label.label-tag
+          =link_to space_path(space) do
+            =tag
+    .label.label-tag-less.hidden
+      = link_to "#", class: 'toggle-tags' do
+        = t('_other.less_tags')
+    .label.label-tag-more
+      - if space.tag_list.count == 6
+        = link_to "#", class: 'toggle-tags' do
+          = t('_other.more_tag') 
+      - else
+        = link_to "#", class: 'toggle-tags' do
+          = t('_other.more_tags', :count => (space.tag_list.count - 5)) 

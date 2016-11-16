@@ -25,8 +25,5 @@
         = icon_waiting_moderation
         = t("_other.not_approved.text")
   
-  - space.tag_list.first(5).each do |tag|
-    .label.label-tag
-      = link_to space_path(space) do
-        = tag
+  = render :partial => "spaces/space_tags", :locals => { :space => space }
 

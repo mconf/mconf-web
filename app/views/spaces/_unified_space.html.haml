@@ -50,11 +50,4 @@
             - else
               = link_to t(".view_join_request"), space_join_request_path(space, jr)
 
-      - space.tag_list.first(5).each do |tag|
-        .label.label-tag
-          = link_to space_path(space) do
-            = tag
-      %span
-        - if space.tag_list.count > 5 
-          .label.label-tag-more
-            = "mais " + (space.tag_list.count - 5).to_s + " tags" 
+      = render "space_tags", :space => space

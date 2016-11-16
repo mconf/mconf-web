@@ -49,7 +49,6 @@ $ ->
         data: (term, page) ->
           q: term
         results: (data, page) ->
-          console.log(data)
           results: data.map (term) -> { id: term.name, text: term.name }
 
 updatePasswords = (checked) ->

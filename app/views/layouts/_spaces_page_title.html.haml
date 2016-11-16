@@ -11,11 +11,9 @@
       .main-title
         = link_to space_path(@space) do
           = @space.name
-    %span 
-      - @space.tag_list.first(5).each do |tag|
-        .label.label-tag
-          = link_to space_path(@space) do
-            = tag
+
+    = render "space_tags", :space => @space
+
     - if @space.public
       .resource-visibility.public
         = icon_space_public
