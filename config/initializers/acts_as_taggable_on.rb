@@ -30,5 +30,9 @@ Rails.application.config.to_prepare do
       query.where(query_strs.join(' OR '), *query_params.flatten)
       }
     end
+
+    ActsAsTaggableOn.remove_unused_tags = true
+    ActsAsTaggableOn.force_lowercase = true
+
   end
 end

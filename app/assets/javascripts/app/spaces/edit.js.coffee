@@ -9,17 +9,25 @@ $ ->
     mconf.Uploader.bind
       callbacks: uploaderCallbacks
 
+    tag_list_id = "#space_tag_list"
+
+    #select values already tagged
+    $(tag_list_id).ready ->
+      values = []
+
+      for value in $(tag_list_id).val().split(',')
+        values.push {id: value, text: value} if value != ''
+
+      $(tag_list_id).select2 'data', values
+      $(tag_list_id).show()
 
     # select input to search for spaces
-    $("#tag_list").select2
+    $(tag_list_id).select2
       minimumInputLength: 1
       multiple: true
       tags: true
       tokenSeparators: [',', ' ']
       placeholder:  "Add a tag"
-      initSelection: (element, callback) ->
-        data = { text: element.data("tag-name") }
-        callback(data)
 
       createSearchChoice: (term, data) ->
           { id: term, text: term }
@@ -41,7 +49,8 @@ $ ->
         data: (term, page) ->
           q: term
         results: (data, page) ->
-          results: data
+          console.log(data)
+          results: data.map (term) -> { id: term.name, text: term.name }
 
 updatePasswords = (checked) ->
   $('#space_bigbluebutton_room_attributes_attendee_key').prop('disabled', checked)

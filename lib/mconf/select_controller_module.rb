@@ -3,7 +3,6 @@ module Mconf
 
     def select
       # try to get already set collection (@spaces) or use the class name for a query (Space)
-      puts controller_name
       klass = if controller_name == "tags" 
         ActsAsTaggableOn::Tag
       else 
