@@ -1455,6 +1455,8 @@ pt-br:
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, quero desabilitar esta comunidade"
+      tags:
+        placeholder: "Adicionar uma tag..."
     edit_recording:
       title: "Editar sua gravação"
     error:

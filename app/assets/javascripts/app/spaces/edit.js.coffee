@@ -27,7 +27,7 @@ $ ->
       multiple: true
       tags: true
       tokenSeparators: [',', ';']
-      placeholder:  "Add a tag"
+      placeholder:  I18n.t('spaces.edit.tags.placeholder')
 
       createSearchChoice: (term, data) ->
           { id: term, text: term }
