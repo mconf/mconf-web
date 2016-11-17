@@ -26,7 +26,7 @@ $ ->
       minimumInputLength: 1
       multiple: true
       tags: true
-      tokenSeparators: [',', ' ']
+      tokenSeparators: [',', ';']
       placeholder:  "Add a tag"
 
       createSearchChoice: (term, data) ->

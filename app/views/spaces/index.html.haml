@@ -42,7 +42,7 @@
           - if mod_enabled?("events")
             %span= t('space.event_count', :count => space.events.size)
           
-          = render :partial => "space_tags", :locals => { :space => space }
+          = render :partial => "spaces/space_tags", :locals => { :space => space }
 
         - if has_access
           %p.action-links
