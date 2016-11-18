@@ -2,19 +2,19 @@
   %span
     - space.tag_list.first(5).each do |tag|
       .label.label-tag
-        - if current_page?("/manage/spaces")
-          = link_to tag, manage_spaces_path( params.merge( :tag => tag ) )
-        - if current_page?("/spaces")
-          = link_to tag, spaces_path( params.merge( :tag => tag ) )
+        - if find_tags_manage
+          = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter(tag) ) )
+        - else
+          = link_to tag, spaces_path( params.merge( :tag => tags_filter(tag) ) )
   %span
     - if space.tag_list.count > 5
       %span.more-tags.hidden
         - space.tag_list[5..-1].each do |tag|
           .label.label-tag
-            - if current_page?("/manage/spaces")
-              = link_to tag, manage_spaces_path( params.merge( :tag => tag ) )
-            - if current_page?("/spaces")
-              = link_to tag, spaces_path( params.merge( :tag => tag ) )
+            - if find_tags_manage
+              = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter(tag) ) )
+            - else
+              = link_to tag, spaces_path( params.merge( :tag => tags_filter(tag) ) )
 
       .label.label-tag-less.hidden
         = link_to "#", class: 'toggle-tags' do

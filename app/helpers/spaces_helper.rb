@@ -94,4 +94,18 @@ module SpacesHelper
       options
   end
 
+  def find_tags_manage
+    current_page?(manage_spaces_path) && can?(:manage, Space)
+  end
+
+  def tags_filter(tag)
+    filter = []
+    filter = params[:tag] ? params[:tag].split(',') : []
+    filter = filter.append(tag)
+    filter = filter.uniq
+    filter = filter.join(',')
+    puts "BBBBBBBBB " + filter
+    filter
+  end
+
 end
