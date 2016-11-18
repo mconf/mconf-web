@@ -47,6 +47,8 @@ class ManageController < ApplicationController
       end
     end
 
+    query = params[:tag] ? query.tagged_with(params[:tag]) : query
+
     @spaces = query.paginate(:page => params[:page], :per_page => 20)
 
     if request.xhr?

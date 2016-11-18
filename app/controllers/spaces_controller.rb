@@ -190,10 +190,6 @@ class SpacesController < InheritedResources::Base
     render layout: false if request.xhr?
   end
 
-  def tags
-    @tags = ['tag', 'tag2']  
-  end
-
   private
 
   # Load the @spaces and @user_spaces variables
@@ -203,6 +199,7 @@ class SpacesController < InheritedResources::Base
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
+    @spaces = params[:tag] ? @spaces.tagged_with(params[:tag]) : @spaces
   end
 
   def order_spaces

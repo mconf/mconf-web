@@ -1,22 +1,28 @@
 #space-tags
-%span 
-  - space.tag_list.first(5).each do |tag|
-    .label.label-tag
-      = link_to tag, spaces_path( :tag => tag )
-%span
-  - if space.tag_list.count > 5 
-    %span.more-tags.hidden
-      - space.tag_list[5..-1].each do |tag|
-        .label.label-tag
-          = link_to tag, spaces_path( :tag => tag )
+  %span
+    - space.tag_list.first(5).each do |tag|
+      .label.label-tag
+        - if current_page?("/manage/spaces")
+          = link_to tag, manage_spaces_path( params.merge( :tag => tag ) )
+        - if current_page?("/spaces")
+          = link_to tag, spaces_path( params.merge( :tag => tag ) )
+  %span
+    - if space.tag_list.count > 5
+      %span.more-tags.hidden
+        - space.tag_list[5..-1].each do |tag|
+          .label.label-tag
+            - if current_page?("/manage/spaces")
+              = link_to tag, manage_spaces_path( params.merge( :tag => tag ) )
+            - if current_page?("/spaces")
+              = link_to tag, spaces_path( params.merge( :tag => tag ) )
 
-    .label.label-tag-less.hidden
-      = link_to "#", class: 'toggle-tags' do
-        = t('_other.less_tags')
-    .label.label-tag-more
-      - if space.tag_list.count == 6
+      .label.label-tag-less.hidden
         = link_to "#", class: 'toggle-tags' do
-          = t('_other.more_tag') 
-      - else
-        = link_to "#", class: 'toggle-tags' do
-          = t('_other.more_tags', :count => (space.tag_list.count - 5)) 
+          = t('_other.less_tags')
+      .label.label-tag-more
+        - if space.tag_list.count == 6
+          = link_to "#", class: 'toggle-tags' do
+            = t('_other.more_tag')
+        - else
+          = link_to "#", class: 'toggle-tags' do
+            = t('_other.more_tags', :count => (space.tag_list.count - 5))
