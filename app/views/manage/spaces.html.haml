@@ -9,20 +9,22 @@
       = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'resource-filter'
 
     .search-filters
-      - ['approved', 'disabled'].each do |field|
-        .search-filter-option
-          = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
-          = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
+      %div.clearfix
+        - ['approved', 'disabled'].each do |field|
+          .search-filter-option
+            = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+            %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
+            = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+            %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
+      %div
+        #space-list
+          - if !params[:tag].nil?
+            = t('_other.filtered_tags')
+            %span.search-tags
+              - params[:tag].split(',').each do |tag|
+                .label.label-tag
+                  = link_to manage_spaces_path( make_tag_params( tag ) ) do
+                    = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
+                    = tag
 
-  #space-list
-    - if !params[:tag].nil?
-      = t('_other.filtered_tags')
-      %span.search-tags
-        - params[:tag].split(',').each do |tag|
-          .label.label-tag
-            = link_to manage_spaces_path( make_tag_params( tag ) ) do
-              = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
-              = tag
-    = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
+  = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
