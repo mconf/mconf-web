@@ -108,6 +108,8 @@ en:
     more_tags: "+ %{count} tags"
     more_tag: "+ 1 tag"
     less_tags: "hide tags"
+    filtered_tags: "Filtering tags: "
+    remove_tag: "Remove tag from filter"
   GMT: GMT
   RSS: RSS
   abc: ABC

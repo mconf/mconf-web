@@ -64,6 +64,16 @@
         = t('space.index.filters.my_spaces')
     = hidden_field_tag :space_filter_text
 
+#space-tags-filtered
+  - if !params[:tag].nil?
+    = t('_other.filtered_tags')
+    %span.search-tags
+      - params[:tag].split(',').each do |tag|
+        .label.label-tag
+          = link_to spaces_path( make_tag_params( tag ) ) do
+            = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
+            = tag
+
 #space-order-wrapper
   = t('space.index.order.order_by') + ':'
   .btn-group{ :"data-toggle" => "buttons-radio" }

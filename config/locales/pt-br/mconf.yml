@@ -108,6 +108,8 @@ pt-br:
     more_tags: "+ %{count} tags"
     more_tag: "+ 1 tag"
     less_tags: "esconder tags"
+    filtered_tags: "Filtrando por tags: "
+    remove_tag: "Remover tag da busca"
   GMT: GMT
   RSS: RSS
   abc: ABC

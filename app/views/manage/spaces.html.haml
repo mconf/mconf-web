@@ -17,4 +17,12 @@
           %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
 
   #space-list
+    - if !params[:tag].nil?
+      = t('_other.filtered_tags')
+      %span.search-tags
+        - params[:tag].split(',').each do |tag|
+          .label.label-tag
+            = link_to manage_spaces_path( make_tag_params( tag ) ) do
+              = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
+              = tag
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
