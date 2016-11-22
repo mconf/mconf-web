@@ -396,6 +396,26 @@ describe SpacesController do
       it { RecentActivity.last.key.should eq('space.update') }
       it { RecentActivity.last.parameters[:changed_attributes].should eq(['logo_image']) }
     end
+
+    context "adding tags" do
+      let(:space_params) { {:tag_list => "one tag, two tags, three tags"} }
+      before(:each) {
+        space.update_attributes(:tag_list => ["one tag", "two tags"])
+        put :update, :id => space.to_param, :space => space_params
+      }
+
+      it { space.reload.tag_list.size.should eql(3) }
+    end
+
+    context "removing tags" do
+      let(:space_params) { {:tag_list => "one tag"} }
+      before(:each) {
+        space.update_attributes(:tag_list => ["one tag", "two tags"])
+        put :update, :id => space.to_param, :space => space_params
+      }
+
+      it { space.reload.tag_list.size.should eql(1) }
+    end
   end
 
   describe "#destroy" do

@@ -13,13 +13,15 @@ describe 'User accesses spaces index' do
   context 'showing as' do
     let!(:default_logo84x64) { '/assets/default_logos/84x64/space.png' }
     let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
-    before { space }
+    before { space
+             space.update_attributes(:tag_list => ["a tag"]) }
 
     context 'thumb view' do
       before { visit spaces_path(:view => 'thumbnails') }
 
       it { should have_css '.space-container', :count => 1 }
       it { should have_content space.name }
+      it { should have_content space.tag_list.first }
       it { should have_image default_logo84x64 }
     end
 
@@ -29,6 +31,7 @@ describe 'User accesses spaces index' do
 
         it { should have_css '.space-container', :count => 1 }
         it { should have_content space.name }
+        it { should have_content space.tag_list.first }
         it { should have_content space.description }
         it { should have_image default_logo84x64 }
       end
