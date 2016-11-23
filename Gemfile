@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem "awesome_print", require:"ap"
 gem 'rack', '~> 1.5.4'
 gem 'rails', '~> 4.1.14.2'
 gem 'sass-rails', '~> 4.0.4'
