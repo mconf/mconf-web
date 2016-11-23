@@ -212,7 +212,6 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.boolean  "result",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner_id"
   end
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree
@@ -239,8 +238,7 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "new_account",        default: false
-    t.datetime "current_sign_in_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
@@ -317,8 +315,7 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "new_account",        default: false
-    t.datetime "current_sign_in_at"
+    t.boolean  "new_account", default: false
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
@@ -382,7 +379,6 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
-    t.string   "smtp_receiver"
   end
 
   create_table "spaces", force: true do |t|
@@ -433,21 +429,21 @@ ActiveRecord::Schema.define(version: 20161109164815) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.string   "email",                               default: "",    null: false
-    t.string   "encrypted_password",                  default: "",    null: false
-    t.string   "password_salt",            limit: 40
+    t.string   "email",                             default: "",    null: false
+    t.string   "encrypted_password",                default: "",    null: false
+    t.string   "password_salt",          limit: 40
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "superuser",                           default: false
-    t.boolean  "disabled",                            default: false
+    t.boolean  "superuser",                         default: false
+    t.boolean  "disabled",                          default: false
     t.datetime "confirmed_at"
     t.string   "timezone"
-    t.boolean  "expanded_post",                       default: false
+    t.boolean  "expanded_post",                     default: false
     t.string   "locale"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       default: 0
+    t.integer  "sign_in_count",                     default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -456,8 +452,7 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.boolean  "can_record"
-    t.boolean  "approved",                            default: false, null: false
-    t.datetime "current_local_sign_in_at"
+    t.boolean  "approved",                          default: false, null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
