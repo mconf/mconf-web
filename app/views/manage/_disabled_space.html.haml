@@ -14,3 +14,5 @@
   %span.space-description
     = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
 
+    = render :partial => "spaces/space_tags", :locals => { :space => space }
+

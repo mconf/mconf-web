@@ -46,6 +46,17 @@ describe 'User accesses spaces index' do
       end
     end
 
+    context "thumb and it is filetring tags by \"a tag\"" do
+      before { visit spaces_path(:view => 'thumbnails', :tag => space.tag_list.first) }
+      it { should have_content space.name }
+      it { should have_content space.tag_list.first }
+    end
+
+    context "thumb and it is filetring tags by \"missing tag\"" do
+      before { visit spaces_path(:view => 'thumbnails', :tag => 'missing tag') }
+      it { should_not have_content space.name }
+      it { should_not have_content space.tag_list.first }
+    end
   end
 
   context 'anonymously' do
