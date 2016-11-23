@@ -65,16 +65,21 @@ module FeatureHelpers
     click_button I18n.t("sessions.login_form.login")
   end
 
-  def register_with(attrs)
+  def register_with(attrs, visit=true)
     name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
-    password_confirmation = attrs[:password_confirmation] || attrs[:password]
-    visit register_path
+    visit register_path if visit
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[_full_name]", with: attrs[:_full_name]
     fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
-    fill_in "user[password_confirmation]", with: password_confirmation
+    fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]
     click_button I18n.t("registrations.signup_form.register")
+  end
+
+  def register_with_error(attrs, visit=true)
+    new_attrs = attrs.clone
+    new_attrs[:password_confirmation] = attrs[:password_confirmation] + "-wrong" # force error
+    register_with(new_attrs, visit)
   end
 
   def has_success_message message=nil

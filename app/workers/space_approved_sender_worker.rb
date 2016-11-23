@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class SpaceApprovedSenderWorker < BaseWorker
-  @queue = :space_notifications
 
   # Sends a notification to the space creator and all admins that the space with id `space_id` was approved.
   def self.perform(activity_id)

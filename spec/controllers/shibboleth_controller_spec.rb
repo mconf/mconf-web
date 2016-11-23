@@ -148,8 +148,12 @@ describe ShibbolethController do
     end
 
     context "if the user's information is ok" do
+      let(:old_current_local_sign_in_at) { Time.zone.now - 1.day}
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email, user.email) }
+      before {
+        setup_shib(user.full_name, user.email, user.email)
+        user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
+      }
 
       context "if the user already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }
@@ -162,6 +166,9 @@ describe ShibbolethController do
           }
           it { subject.current_user.should eq(user) }
           it { should redirect_to(my_home_path) }
+          it("does not update local sign in date") {
+            user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
+          }
           skip("persists the flash messages") {
             # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
             #  Testing in the application the flash is persisted, as it should.
@@ -196,6 +203,7 @@ describe ShibbolethController do
             # new shib user with federation data
             expect {
               post :create_association, :new_account => true
+              ShibToken.last.user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
             }.to change{ ShibToken.count }.by(1)
 
             sign_out ShibToken.last.user
@@ -215,6 +223,9 @@ describe ShibbolethController do
           it { @old_email.should_not eq(new_email) }
           it { @old_name.should_not eq(new_name) }
           it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it("does not update local sign in date") {
+            ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
+          }
         end
 
         context "doesn't update the user data if the account was not created by shib" do
@@ -228,6 +239,7 @@ describe ShibbolethController do
             # new shib user with federation data
             expect {
               post :create_association, :new_account => true
+              ShibToken.last.user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
             }.to change{ ShibToken.count }.by(1)
 
             sign_out ShibToken.last.user
@@ -248,6 +260,9 @@ describe ShibbolethController do
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
           it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it("does not update local sign in date") {
+            ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
+          }
         end
       end
 
@@ -265,6 +280,7 @@ describe ShibbolethController do
             # new shib user with federation data
             expect {
               post :create_association, :new_account => true
+              ShibToken.last.user.update_attribute(:current_local_sign_in_at, old_current_local_sign_in_at)
             }.to change{ ShibToken.count }.by(1)
 
             sign_out ShibToken.last.user
@@ -283,6 +299,9 @@ describe ShibbolethController do
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
           it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it("does not update local sign in date") {
+            ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
+          }
         end
       end
 

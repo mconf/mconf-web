@@ -60,24 +60,33 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
   context "when the flag is not set" do
     before { Site.current.update_attributes(local_auth_enabled: false) }
 
-    scenario 'blocks sign in for normal users' do
-      sign_in_with user.username, user.password
-      expect(current_path).to eq(new_user_session_path)
+    scenario 'accessing the standard login route' do
+      visit new_user_session_path
+      expect(current_path).to eq(root_path)
     end
 
-    scenario 'allows the sign in of admins' do
-      sign_in_with admin.username, admin.password
-      expect(current_path).to eq(my_home_path)
-    end
+    context "accessing from /admin" do
+      scenario 'blocks sign in for normal users' do
+        visit "/admin"
+        sign_in_with user.username, user.password, false
+        expect(current_path).to eq(root_path)
+      end
 
-    context "still shows login links in login page for admin" do
-      before { visit new_user_session_path }
+      scenario 'allows the sign in of admins' do
+        visit "/admin"
+        sign_in_with admin.username, admin.password, false
+        expect(current_path).to eq(my_home_path)
+      end
 
-      it { page.should have_content(t('devise.shared.links.lost_password')) }
-      it { page.should have_css("input[type='submit'][value='Login']") }
+      context "still shows login links in login page for admin" do
+        before { visit "/admin" }
 
-      it "hide 'login' link from navbar if ldap is not enabled" do
-        page.should_not have_css("#navbar a[href='#{login_path}']")
+        it { page.should have_content(t('devise.shared.links.lost_password')) }
+        it { page.should have_css("input[type='submit'][value='Login']") }
+
+        it "hide 'login' link from navbar if ldap is not enabled" do
+          page.should_not have_css("#navbar a[href='#{login_path}']")
+        end
       end
     end
 

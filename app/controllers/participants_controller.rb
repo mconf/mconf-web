@@ -54,7 +54,7 @@ class ParticipantsController < InheritedResources::Base
 
   def destroy
     @participant.destroy
-    destroy! { can?(:update, @event) ? request.referrer : event_path(@event) }
+    destroy! { can?(:update, @event) ? request.referer : event_path(@event) }
   end
 
   private

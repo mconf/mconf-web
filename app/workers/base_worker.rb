@@ -3,6 +3,7 @@
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
+require './lib/mconf/mconf_resque'
 
 class BaseWorker
   # Make everyone who inherits from BaseWorker an exclusive lock worker

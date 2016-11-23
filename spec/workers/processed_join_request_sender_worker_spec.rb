@@ -17,10 +17,6 @@ describe ProcessedJoinRequestSenderWorker, type: :worker do
     space.add_member!(admin2, 'Admin')
   }
 
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
-
   describe "#perform" do
     context "for a request" do
       let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }

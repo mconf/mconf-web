@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestInviteSenderWorker < BaseWorker
-  @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
   # a notification to the user that he/she was invited to join the space.

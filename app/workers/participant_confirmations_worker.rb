@@ -6,13 +6,12 @@
 # 3 or later. See the LICENSE file.
 
 class ParticipantConfirmationsWorker < BaseWorker
-  @queue = :participant_confirmations
 
   # Finds all unsent participant confirmations
   def self.perform
     confirmations = ParticipantConfirmation.where(email_sent_at: [nil])
     confirmations.each do |confirmation|
-      Resque.enqueue(ParticipantConfirmationsSenderWorker, confirmation.id)
+      Queue::High.enqueue(ParticipantConfirmationsSenderWorker, :perform, confirmation.id)
     end
   end
 end

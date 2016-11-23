@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class UpdateSpaceRelevanceIndexesWorker < BaseWorker
-  @queue = :update_space_relevance_indexes
 
   def self.perform
     Resque.logger.info "* [space_indexes] Updating space relevance indexes."
