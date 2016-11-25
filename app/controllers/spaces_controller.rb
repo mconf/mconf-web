@@ -50,8 +50,6 @@ class SpacesController < InheritedResources::Base
   layout :set_layout
 
   def index
-    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
-
     order_spaces
     paginate_spaces
     set_menu_tab

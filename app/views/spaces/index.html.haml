@@ -50,13 +50,6 @@
 
 #space-filter-wrapper
   %div.clearfix
-    .view-types
-      .btn-group{ :"data-toggle" => "buttons-radio" }
-        = link_to spaces_path(params.merge(view: 'thumbnails')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
-          = t('.list_format.thumbnails')
-        = link_to spaces_path(params.merge(view: 'list')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
-          = t('.list_format.list')
-
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to spaces_path(params.merge(my_spaces: nil)), :id => "show-spaces-all", :class => "btn #{'active' unless params[:my_spaces]}", :type => "button" do
         = t('space.index.filters.all')
@@ -83,12 +76,7 @@
     = link_to spaces_path(params.merge(order: 'abc')), class: "btn btn-mini #{'active' if params[:order] == 'abc'}" do
       = t('space.index.order.alphabetic')
 
-- if params[:view] == 'list'
   = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
-- else
-  #spaces.content-block
-    .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @spaces
 
 - nav = page_navigation_links @spaces
 - unless nav.nil?
