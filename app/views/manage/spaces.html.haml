@@ -17,14 +17,13 @@
             = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
             %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
       %div
-        #space-list
-          - if !params[:tag].nil?
-            = t('_other.filtered_tags')
-            %span.search-tags
-              - params[:tag].split(',').each do |tag|
-                .label.label-tag
-                  = link_to manage_spaces_path( make_tag_params( tag ) ) do
-                    = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
-                    = tag
-
-  = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
+        - if !params[:tag].nil?
+          = t('_other.filtered_tags')
+          %span.search-tags
+            - params[:tag].split(',').each do |tag|
+              .label.label-tag
+                = link_to manage_spaces_path( make_tag_params( tag ) ) do
+                  = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
+                  = tag
+  #space-list
+    = render :partial => 'spaces_list', :locals => { :spaces => @spaces }
