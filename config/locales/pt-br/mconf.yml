@@ -1348,6 +1348,7 @@ pt-br:
         relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
+      filter_name: "Filtrar comunidades por nome"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
     is_private_html: "A comunidade %{name} é privada. Para acessá-la, faça o login e mande uma <a href=\"%{path}\">requisição</a> para os administradores da comunidade."
     join: "Entrar na comunidade"
