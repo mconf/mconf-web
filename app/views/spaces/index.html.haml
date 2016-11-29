@@ -56,7 +56,7 @@
       - if user_signed_in?
         = link_to spaces_path(params.merge(my_spaces: true)), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
           = t('space.index.filters.my_spaces')
-      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('space.index.filter_name'), :'data-load-url' => spaces_path, :'data-target' => '#space-order-wrapper', :'data-filter' => '#filter-total', :class => 'resource-filter'
+      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('space.index.filter_name'), :'data-load-url' => spaces_path, :'data-target' => '#space-list',  :class => 'resource-filter'
   %div
     #space-filter-tags
       - if !params[:tag].nil?
@@ -75,7 +75,7 @@
       = t('space.index.order.relevance')
     = link_to spaces_path(params.merge(order: 'abc')), class: "btn btn-mini #{'active' if params[:order] == 'abc'}" do
       = t('space.index.order.alphabetic')
-
+#space-list
   = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
 
 - nav = page_navigation_links @spaces

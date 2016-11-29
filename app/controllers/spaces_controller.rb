@@ -199,6 +199,21 @@ class SpacesController < InheritedResources::Base
     @spaces = params[:my_spaces] ? @user_spaces : spaces
     @spaces = params[:tag] ? @spaces.tagged_with(params[:tag]) : @spaces
   end
+#this in that
+  def spaces
+    words = params[:q].try(:split, /\s+/)
+    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).order("name")
+
+    query = params[:tag] ? query.tagged_with(params[:tag]) : query
+
+    @spaces = query.paginate(:page => params[:page], :per_page => 20)
+
+    if request.xhr?
+      render :partial => "spaces/list_view", :layout => false, :locals => { :spaces => @spaces }
+    else
+      render :layout => 'no_sidebar'
+    end
+  end
 
   def order_spaces
     params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
