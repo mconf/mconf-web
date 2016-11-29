@@ -53,6 +53,10 @@ pt-br:
       title: "Confirmação"
   _other:
     accept: "Aceitar"
+    auth:
+      ldap: "LDAP"
+      local: "autenticação local"
+      shibboleth: "shibboleth"
     cancel: "Cancelar"
     create: "Criar"
     confirm: Ok
@@ -100,10 +104,6 @@ pt-br:
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
-      methods: "Métodos de login disponíveis: "
-      shibboleth: "Shibboleth "
-      ldap: "LDAP "
-      local: "Local "
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -914,8 +914,12 @@ pt-br:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     disabled_user:
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     enabled_space:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
@@ -927,6 +931,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
       confirm: "Confirmar este usuário"
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
@@ -934,8 +940,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
-      last_sign_in: "Última data de login: "
-      never_sign_in: "Este usuário nunca realizou login"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     menu:
       general: "Geral"
       spaces: "Comunidades"

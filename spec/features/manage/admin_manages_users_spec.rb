@@ -60,9 +60,8 @@ describe 'Admin manages users' do
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
         it { should have_content t('.manage.enabled_user.last_sign_in') }
-        it { should have_content format_date(user.current_sign_in_at.in_time_zone) }
-        it { should have_content t('_other.user.methods') }
-        it { should have_content t('_other.user.local') }
+        it { should have_content format_date(user.current_sign_in_at.in_time_zone, :long) }
+        it { should have_content t('_other.auth.local') }
       end
 
       context 'elements for a normal user' do
@@ -202,9 +201,8 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content format_date(user.current_sign_in_at.in_time_zone) }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.local') }
+          it { should have_content format_date(user.current_sign_in_at.in_time_zone, :long) }
+          it { should have_content t('_other.auth.local') }
         end
 
         context 'elements for a local user' do
@@ -212,9 +210,8 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.local') }
+          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { should have_content t('_other.auth.local') }
         end
 
         context 'elements for a shib user' do
@@ -222,10 +219,9 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.shibboleth') }
-          it { should_not have_content t('_other.user.local') }
+          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { should have_content t('_other.auth.shibboleth') }
+          it { should_not have_content t('_other.auth.local') }
         end
 
         context 'elements for a ldap user' do
@@ -233,10 +229,9 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.ldap') }
-          it { should_not have_content t('_other.user.local') }
+          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { should have_content t('_other.auth.ldap') }
+          it { should_not have_content t('_other.auth.local') }
         end
 
         context 'elements for a shib and local user' do
@@ -244,11 +239,10 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.local') }
-          it { should have_content t('_other.user.shibboleth') }
-          it { should_not have_content t('_other.user.ldap') }
+          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { should have_content t('_other.auth.local') }
+          it { should have_content t('_other.auth.shibboleth') }
+          it { should_not have_content t('_other.auth.ldap') }
         end
 
         context 'elements for a ldap and local user' do
@@ -256,11 +250,10 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.local') }
-          it { should have_content t('_other.user.ldap') }
-          it { should_not have_content t('_other.user.shibboleth') }
+          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { should have_content t('_other.auth.local') }
+          it { should have_content t('_other.auth.ldap') }
+          it { should_not have_content t('_other.auth.shibboleth') }
         end
 
         context 'elements for a shib and ldap and local user' do
@@ -268,11 +261,9 @@ describe 'Admin manages users' do
           subject { page.find("#user-#{user.permalink}") }
 
           it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('.manage.enabled_user.never_sign_in') }
-          it { should have_content t('_other.user.methods') }
-          it { should have_content t('_other.user.local') }
-          it { should have_content t('_other.user.shibboleth') }
-          it { should have_content t('_other.user.ldap') }
+          it { should have_content t('_other.auth.local') }
+          it { should have_content t('_other.auth.shibboleth') }
+          it { should have_content t('_other.auth.ldap') }
         end
       end
 

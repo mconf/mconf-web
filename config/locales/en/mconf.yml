@@ -53,6 +53,10 @@ en:
       title: "Confirmation"
   _other:
     accept: "Accept"
+    auth:
+      ldap: "LDAP"
+      local: "local auth"
+      shibboleth: "shibboleth"
     cancel: "Cancel"
     create: "Create"
     confirm: Ok
@@ -100,10 +104,6 @@ en:
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
-      methods: "Available login methods: "
-      shibboleth: "Shibboleth "
-      ldap: "LDAP "
-      local: "Local "
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -907,8 +907,12 @@ en:
       enable: "Enable space"
       enable_confirm: "Are you sure you want to enable this space?"
     disabled_user:
+      auth_using: "using"
+      available_auth: "available methods"
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
+      last_sign_in: "Last login at"
+      never_sign_in: "This user has never signed in"
     enabled_space:
       approve: "Approve: unlock the access to this space"
       approve_confirm: "Are you sure you want to unlock the access to this space?"
@@ -920,6 +924,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      auth_using: "using"
+      available_auth: "available methods"
       confirm: "Confirm this user"
       confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
@@ -927,8 +933,8 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
-      last_sign_in: "Last login date: "
-      never_sign_in: "This user never logged in this account"
+      last_sign_in: "Last login at"
+      never_sign_in: "This user has never signed in"
     menu:
       general: "General"
       spaces: "Spaces"

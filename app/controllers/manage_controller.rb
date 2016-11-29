@@ -13,7 +13,6 @@ class ManageController < ApplicationController
     words = params[:q].try(:split, /\s+/)
     query = User.with_disabled.search_by_terms(words, can?(:manage, User))
 
-    # start applying filters
     [:disabled, :approved, :can_record].each do |filter|
       if !params[filter].nil?
         val = (params[filter] == 'true') ? true : [false, nil]
@@ -21,39 +20,23 @@ class ManageController < ApplicationController
       end
     end
 
-    query = query.joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
-    query = query.joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
-
-    arr = []
-
-    if params[:login_method_shib] == 'true'
-      arr.push("shib_tokens.id IS NOT NULL")
-    end
-    if params[:login_method_ldap] == 'true'
-      arr.push("ldap_tokens.id IS NOT NULL")
-    end
-
-    if params[:login_method_local] == 'true'
-      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
-    end
-
-    arr = arr.join(" OR ")
-
-    if !arr.empty?
-      query = query.where(arr)
-    end
+    auth_methods = []
+    auth_methods << :shibboleth if params[:login_method_shib] == 'true'
+    auth_methods << :ldap if params[:login_method_ldap] == 'true'
+    auth_methods << :local if params[:login_method_local] == 'true'
+    query = query.with_auth(auth_methods)
 
     if params[:admin].present?
       val = (params[:admin] == 'true') ? true : [false, nil]
       query = query.where(superuser: val)
     end
 
-    @users = query.paginate(:page => params[:page], :per_page => 20)
+    @users = query.paginate(page: params[:page], per_page: 20)
 
     if request.xhr?
-      render :partial => 'users_list', :layout => false
+      render partial: 'users_list', layout: false
     else
-      render :layout => 'no_sidebar'
+      render layout: 'no_sidebar'
     end
   end
 

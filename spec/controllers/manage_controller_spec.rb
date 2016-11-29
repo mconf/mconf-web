@@ -276,20 +276,20 @@ describe ManageController do
 
         context "params[:login_method_local] and params[:login_method_shib]" do
           let(:params) { {login_method_local: 'true', login_method_shib: 'true'} }
-          it { assigns(:users).count.should be(6) }
-          it("includes all locals and shibs") { assigns(:users).should include(users[0], users[2], users[3], users[4], users[5], users[6]) }
+          it { assigns(:users).count.should be(2) }
+          it("includes all locals and shibs") { assigns(:users).should include(users[4], users[5]) }
         end
 
         context "params[:login_method_ldap] and params[:login_method_shib]" do
           let(:params) { {login_method_ldap: 'true', login_method_shib: 'true'} }
-          it { assigns(:users).count.should be(5) }
-          it("includes all ldaps and shibs") { assigns(:users).should include(users[1], users[2], users[3], users[4], users[5]) }
+          it { assigns(:users).count.should be(1) }
+          it("includes all ldaps and shibs") { assigns(:users).should include(users[5]) }
         end
 
         context "params[:login_method_ldap] and params[:login_method_shib] and params[:login_method_local]" do
           let(:params) { {login_method_ldap: 'true', login_method_shib: 'true', login_method_local: 'true'} }
-          it { assigns(:users).count.should be(7) }
-          it("includes all ldaps and shibs and locals") { assigns(:users).should include(*users) }
+          it { assigns(:users).count.should be(1) }
+          it("includes all ldaps and shibs and locals") { assigns(:users).should include(users[5]) }
         end
 
       end

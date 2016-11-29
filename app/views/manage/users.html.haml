@@ -14,7 +14,7 @@
           %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
           = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
           %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
-      .search-filter-sign-in-methods
+      .search-filter-option
         - ['login_method_shib'].each do |field|
           .search-filter-option-sign-in
             = check_box_tag :"users_filter_#{field}_shib", true, params[field] == 'true', 'data-attr-filter': field, class: ' resource-filter-field checkbox'

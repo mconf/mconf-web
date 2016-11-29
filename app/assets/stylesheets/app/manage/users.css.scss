@@ -26,11 +26,6 @@ body.manage.users {
         width: 16%;
       }
 
-      .search-filter-sign-in-methods  {
-        float: left;
-        width: 16%;
-      }
-
       .checkbox {
         text-align: right;
         margin: 0 5px;
@@ -71,13 +66,5 @@ body.manage.users {
     .user-category {
       display: block;
     }
-  }
-
-  .current-sign-in{
-    color: #888;
-  }
-
-  .available-sign-in-methods {
-    color: #888;
   }
 }

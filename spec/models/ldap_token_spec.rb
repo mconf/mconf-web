@@ -8,4 +8,9 @@ require 'spec_helper'
 
 describe LdapToken do
   skip "add some examples to (or delete) #{__FILE__}"
+
+  describe "#last_sign_in_date" do
+    it "returns the last sign in date"
+    it "returns the same as #current_sign_in_at"
+  end
 end

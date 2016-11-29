@@ -21,9 +21,9 @@ module DatesHelper
   end
 
   # Formats a date object to be shown in a view
-  def format_date(date)
+  def format_date(date, format=:short)
     if date.present?
-      I18n.l(date, format: :short)
+      I18n.l(date, format: format)
     else
       nil
     end
