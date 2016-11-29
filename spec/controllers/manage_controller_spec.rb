@@ -234,6 +234,66 @@ describe ManageController do
         end
       end
 
+      context "use params [:login_method_shib, :login_method_ldap, :login_method_local] to filter the results" do
+        let!(:users) {[
+          FactoryGirl.create(:user, username: 'el-magron'),
+          FactoryGirl.create(:ldap_token, identifier: 'el-ldap', new_account: true).user,
+          FactoryGirl.create(:shib_token, identifier: 'el-shib', new_account: true).user,
+          FactoryGirl.create(:ldap_token, identifier: 'el-ldap-e-local', new_account: false).user,
+          FactoryGirl.create(:shib_token, identifier: 'el-shib-e-local', new_account: false).user,
+          FactoryGirl.create(:shib_token, identifier: 'el-shib-e-ldap-e-local', new_account: false).user,
+          User.first # the original admin user
+        ]}
+        before {
+          FactoryGirl.create(:ldap_token, user: users[5])
+          get :users, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:users).count.should be(7) }
+          it("includes all users") { assigns(:users).should include(*users) }
+        end
+
+        context "params[:login_method_shib]" do
+          let(:params) { {login_method_shib: 'true'} }
+          it { assigns(:users).count.should be(3) }
+          it("includes all shibs") { assigns(:users).should include(users[2], users[4], users[5]) }
+        end
+
+        context "params[:login_method_ldap]" do
+          let(:params) { {login_method_ldap: 'true'} }
+          it { assigns(:users).count.should be(3) }
+          it("includes all ldaps") { assigns(:users).should include(users[1], users[3], users[5]) }
+        end
+
+        context "params[:login_method_local]" do
+          let(:params) { {login_method_local: 'true'} }
+          it { assigns(:users).count.should be(5) }
+          it("includes all locals") { assigns(:users).should include(users[0], users[3], users[4], users[5], users[6]) }
+        end
+
+        context "params[:login_method_local] and params[:login_method_shib]" do
+          let(:params) { {login_method_local: 'true', login_method_shib: 'true'} }
+          it { assigns(:users).count.should be(2) }
+          it("includes all locals and shibs") { assigns(:users).should include(users[4], users[5]) }
+        end
+
+        context "params[:login_method_ldap] and params[:login_method_shib]" do
+          let(:params) { {login_method_ldap: 'true', login_method_shib: 'true'} }
+          it { assigns(:users).count.should be(1) }
+          it("includes all ldaps and shibs") { assigns(:users).should include(users[5]) }
+        end
+
+        context "params[:login_method_ldap] and params[:login_method_shib] and params[:login_method_local]" do
+          let(:params) { {login_method_ldap: 'true', login_method_shib: 'true', login_method_local: 'true'} }
+          it { assigns(:users).count.should be(1) }
+          it("includes all ldaps and shibs and locals") { assigns(:users).should include(users[5]) }
+        end
+
+      end
+
       context "if xhr request" do
         before(:each) { xhr :get, :users }
         it { should render_template('manage/_users_list') }

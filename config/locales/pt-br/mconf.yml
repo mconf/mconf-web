@@ -53,6 +53,10 @@ pt-br:
       title: "Confirmação"
   _other:
     accept: "Aceitar"
+    auth:
+      ldap: "LDAP"
+      local: "autenticação local"
+      shibboleth: "shibboleth"
     cancel: "Cancelar"
     create: "Criar"
     confirm: Ok
@@ -910,8 +914,12 @@ pt-br:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     disabled_user:
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     enabled_space:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
@@ -923,6 +931,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
       confirm: "Confirmar este usuário"
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
@@ -930,6 +940,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -965,6 +977,9 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

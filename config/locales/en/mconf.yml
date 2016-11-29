@@ -53,6 +53,10 @@ en:
       title: "Confirmation"
   _other:
     accept: "Accept"
+    auth:
+      ldap: "LDAP"
+      local: "local auth"
+      shibboleth: "shibboleth"
     cancel: "Cancel"
     create: "Create"
     confirm: Ok
@@ -903,8 +907,12 @@ en:
       enable: "Enable space"
       enable_confirm: "Are you sure you want to enable this space?"
     disabled_user:
+      auth_using: "using"
+      available_auth: "available methods"
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
+      last_sign_in: "Last login at"
+      never_sign_in: "This user has never signed in"
     enabled_space:
       approve: "Approve: unlock the access to this space"
       approve_confirm: "Are you sure you want to unlock the access to this space?"
@@ -916,6 +924,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      auth_using: "using"
+      available_auth: "available methods"
       confirm: "Confirm this user"
       confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
@@ -923,6 +933,8 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
+      last_sign_in: "Last login at"
+      never_sign_in: "This user has never signed in"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -958,6 +970,9 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"

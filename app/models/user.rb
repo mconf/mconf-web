@@ -104,6 +104,29 @@ class User < ActiveRecord::Base
     query.where(query_strs.join(' OR '), *query_params.flatten)
   }
 
+  # Returns only the users that have the authentication methods selected.
+  # `auth_methods` is an array with one or more of the following auth methods:
+  # * `:shibboleth`
+  # * `:ldap`
+  # * `:local`
+  scope :with_auth, -> (auth_methods, connector="AND") {
+    arr = []
+
+    arr.push("shib_tokens.id IS NOT NULL") if auth_methods.include?(:shibboleth)
+    arr.push("ldap_tokens.id IS NOT NULL") if auth_methods.include?(:ldap)
+    if auth_methods.include?(:local)
+      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
+    end
+
+    arr = arr.join(" #{connector} ")
+
+    unless arr.empty?
+      joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
+        .joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
+        .where(arr)
+    end
+  }
+
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username
@@ -273,8 +296,28 @@ class User < ActiveRecord::Base
     LdapToken.user_created_by_ldap?(self)
   end
 
-  def no_local_auth?
-    created_by_shib? || created_by_ldap?
+  def local_auth?
+    !created_by_shib? && !created_by_ldap?
+  end
+
+  def sign_in_methods
+    {
+      shibboleth: self.shib_token.present?,
+      ldap: self.ldap_token.present?,
+      local: self.local_auth?
+    }
+  end
+
+  def last_sign_in_date
+    current_local_sign_in_at
+  end
+
+  def sign_in_method_name
+    "local"
+  end
+
+  def last_sign_in_method
+    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
   end
 
   protected
