@@ -938,7 +938,11 @@ pt-br:
       recordings: "Gravações"
       webconf: "Webconferência"
     spaces:
-      filter_name: "Filtrar comunidades por nome"
+      approved_false: "Não aprovados"
+      approved_true: "Aprovados"
+      disabled_false: "Habilitados"
+      disabled_true: "Desabilitados"
+      filter_name: "Filtrar por nome ou descrição"
       new_space: "Nova comunidade"
     destroy_space:
       destroy: Remover comunidade

@@ -931,7 +931,11 @@ en:
       recordings: "Recordings"
       webconf: "Web Conference"
     spaces:
-      filter_name: "Filter spaces by name"
+      approved_false: "Not approved"
+      approved_true: "Approved"
+      disabled_false: "Enabled"
+      disabled_true: "Disabled"
+      filter_name: "Filter by name or description"
       new_space: "Create space"
     destroy_space:
       destroy: Delete space

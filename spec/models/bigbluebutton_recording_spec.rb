@@ -8,6 +8,38 @@ require "spec_helper"
 
 describe BigbluebuttonRecording do
 
+  describe "from initializers/bigbluebutton_rails" do
+    it("should have a method .search_by_terms") {
+      BigbluebuttonRecording.should respond_to(:search_by_terms)
+    }
+
+    describe ".search_by_terms" do
+      it "includes the associated room"
+      it "searches by name"
+      it "searches by description"
+      it "searches by room name"
+      it "searches by recordid"
+      it "searches by all attributes together"
+      it "searches with multiple words"
+    end
+
+    it("should have a method .has_playback") {
+      BigbluebuttonRecording.should respond_to(:has_playback)
+    }
+
+    describe ".has_playback" do
+      it "filters the query to return only recordings with at least one playback"
+    end
+
+    it("should have a method .no_playback") {
+      BigbluebuttonRecording.should respond_to(:no_playback)
+    }
+
+    describe ".no_playback" do
+      it "filters the query to return only recordings with no playback"
+    end
+  end
+
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do

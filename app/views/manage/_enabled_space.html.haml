@@ -1,4 +1,4 @@
-.thread.thread-space.space-wrapper.space-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-space.space-wrapper.space-simple{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "space-#{space.permalink}"}
   .logo-in-thread
     = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :class => "logo logo-space"))
 
@@ -17,8 +17,8 @@
     = link_to space_path(space), :class => 'space-name' do
       = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
 
-  %span.space-description
-    = sanitize(first_words(space.description, 100))
+  .space-description
+    = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
 
     - if current_site.require_space_approval? && !space.approved?
       .resource-waiting-moderation-tooltip

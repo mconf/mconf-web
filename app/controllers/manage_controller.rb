@@ -36,13 +36,17 @@ class ManageController < ApplicationController
   end
 
   def spaces
-    name = params[:q]
-    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
+    words = params[:q].try(:split, /\s+/)
+    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).order("name")
 
-    query = Space.with_disabled.order("name")
-    if name.present?
-      query = query.where("name like ?", "%#{name}%")
+    # start applying filters
+    [:disabled, :approved].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
     end
+
     @spaces = query.paginate(:page => params[:page], :per_page => 20)
 
     if request.xhr?
@@ -64,12 +68,12 @@ class ManageController < ApplicationController
     end
 
     if params[:playback] == "true"
-      query = query.joins(:playback_formats)
+      query = query.has_playback
+    elsif params[:playback] == "false"
+      query = query.no_playback
     end
 
-    if params[:playback] == "false"
-      query = query.where("bigbluebutton_recordings.id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
-    end
+    query = query.order("bigbluebutton_recordings.start_time DESC")
 
     @recordings = query.paginate(page: params[:page], per_page: 20)
 
