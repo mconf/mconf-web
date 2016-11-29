@@ -109,5 +109,15 @@ Rails.application.config.to_prepare do
 
       query.where(query_strs.join(' OR '), *query_params.flatten)
     }
+
+    # Filters a query to return only recordings that have at least one playback format
+    scope :has_playback, -> {
+      where(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
+    }
+
+    # Filters a query to return only recordings that have no playback format
+    scope :no_playback, -> {
+      where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
+    }
   end
 end

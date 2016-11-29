@@ -68,11 +68,9 @@ class ManageController < ApplicationController
     end
 
     if params[:playback] == "true"
-      query = query.joins(:playback_formats)
-    end
-
-    if params[:playback] == "false"
-      query = query.where("bigbluebutton_recordings.id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
+      query = query.has_playback
+    elsif params[:playback] == "false"
+      query = query.no_playback
     end
 
     query = query.order("bigbluebutton_recordings.start_time DESC")
