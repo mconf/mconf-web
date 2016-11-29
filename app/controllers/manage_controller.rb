@@ -21,6 +21,28 @@ class ManageController < ApplicationController
       end
     end
 
+    query = query.joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
+    query = query.joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
+
+    arr = []
+
+    if params[:login_method_shib] == 'true'
+      arr.push("shib_tokens.id IS NOT NULL")
+    end
+    if params[:login_method_ldap] == 'true'
+      arr.push("ldap_tokens.id IS NOT NULL")
+    end
+
+    if params[:login_method_local] == 'true'
+      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
+    end
+
+    arr = arr.join(" OR ")
+
+    if !arr.empty?
+      query = query.where(arr)
+    end
+
     if params[:admin].present?
       val = (params[:admin] == 'true') ? true : [false, nil]
       query = query.where(superuser: val)

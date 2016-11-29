@@ -100,6 +100,10 @@ en:
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
+      methods: "Available login methods: "
+      shibboleth: "Shibboleth "
+      ldap: "LDAP "
+      local: "Local "
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -923,6 +927,8 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
+      last_sign_in: "Last login date: "
+      never_sign_in: "This user never logged in this account"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -958,6 +964,9 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"

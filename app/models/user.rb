@@ -277,6 +277,30 @@ class User < ActiveRecord::Base
     created_by_shib? || created_by_ldap?
   end
 
+  def local_auth?
+    !no_local_auth?
+  end
+
+  def sign_in_methods
+    {
+      shibboleth: self.shib_token.present?,
+      ldap: self.ldap_token.present?,
+      local: self.local_auth?
+    }
+  end
+
+  def last_sign_in_date
+    current_local_sign_in_at
+  end
+
+  def sign_in_method_name
+    "local"
+  end
+
+  def last_sign_in_method
+    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
+  end
+
   protected
 
   def before_disable_and_destroy

@@ -42,4 +42,21 @@ module UsersHelper
     "(#{user.username}#{", " + user.email if can?(:show, user.profile)})".html_safe
   end
 
+  def user_sign_in_methods user
+    methods = t('_other.user.methods')
+    user.sign_in_methods.each do |method, value|
+      if value
+        methods = methods + t("_other.user.#{method}")
+      end
+    end
+    methods
+  end
+
+  def user_last_sign_in_method user
+    last = user.last_sign_in_method
+    if last.present?
+      t("_other.user.#{last}")
+    end
+  end
+
 end

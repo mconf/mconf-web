@@ -100,6 +100,10 @@ pt-br:
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
+      methods: "Métodos de login disponíveis: "
+      shibboleth: "Shibboleth "
+      ldap: "LDAP "
+      local: "Local "
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -930,6 +934,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
+      last_sign_in: "Última data de login: "
+      never_sign_in: "Este usuário nunca realizou login"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -965,6 +971,9 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

@@ -6,6 +6,7 @@
 
 require 'spec_helper'
 require 'support/feature_helpers'
+include DatesHelper
 
 describe 'Admin manages users' do
   subject { page }
@@ -58,6 +59,10 @@ describe 'Admin manages users' do
         it { should_not have_link_to_destroy_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
+        it { should have_content t('.manage.enabled_user.last_sign_in') }
+        it { should have_content format_date(user.current_sign_in_at.in_time_zone) }
+        it { should have_content t('_other.user.methods') }
+        it { should have_content t('_other.user.local') }
       end
 
       context 'elements for a normal user' do
@@ -162,6 +167,114 @@ describe 'Admin manages users' do
         it { should have_link_to_approve_user(user) }
       end
     end
+  end
+
+    context 'checking the Login Methods and Last Login Date' do
+      let(:admin) { User.first } # admin is already created
+      before {
+        login_as(admin, :scope => :user)
+
+        @user_local = FactoryGirl.create(:user, username: 'el-magron')
+        @user_ldap = FactoryGirl.create(:ldap_token, identifier: 'el-ldap', new_account: true).user
+        @user_shib = FactoryGirl.create(:shib_token, identifier: 'el-shib', new_account: true).user
+        @user_ldap_local = FactoryGirl.create(:ldap_token, identifier: 'el-ldap-e-local', new_account: false).user
+        @user_shib_local = FactoryGirl.create(:shib_token, identifier: 'el-shib-e-local', new_account: false).user
+        @user_ldap_shib_local = FactoryGirl.create(:shib_token, identifier: 'el-shib-e-ldap-e-local', new_account: false).user
+        FactoryGirl.create(:ldap_token, user: @user_ldap_shib_local)
+      }
+
+      context 'listing users in management screen' do
+        before { visit manage_users_path }
+
+        it { should have_css '.user-simple', :count => 7 }
+        it { should have_css '.icon-mconf-delete', :count => 6 }
+        it { should have_css '.icon-mconf-superuser', :count => 1 }
+
+        it { should have_content user_description(@user_local) }
+        it { should have_content user_description(@user_ldap) }
+        it { should have_content user_description(@user_shib) }
+        it { should have_content user_description(@user_ldap_local) }
+        it { should have_content user_description(@user_shib_local) }
+        it { should have_content user_description(@user_ldap_shib_local) }
+
+        context 'elements for admin' do
+          let(:user) { User.first }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content format_date(user.current_sign_in_at.in_time_zone) }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.local') }
+        end
+
+        context 'elements for a local user' do
+          let(:user) { @user_local }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.local') }
+        end
+
+        context 'elements for a shib user' do
+          let(:user) { @user_shib }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.shibboleth') }
+          it { should_not have_content t('_other.user.local') }
+        end
+
+        context 'elements for a ldap user' do
+          let(:user) { @user_ldap }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.ldap') }
+          it { should_not have_content t('_other.user.local') }
+        end
+
+        context 'elements for a shib and local user' do
+          let(:user) { @user_shib_local }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.local') }
+          it { should have_content t('_other.user.shibboleth') }
+          it { should_not have_content t('_other.user.ldap') }
+        end
+
+        context 'elements for a ldap and local user' do
+          let(:user) { @user_ldap_local }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.local') }
+          it { should have_content t('_other.user.ldap') }
+          it { should_not have_content t('_other.user.shibboleth') }
+        end
+
+        context 'elements for a shib and ldap and local user' do
+          let(:user) { @user_ldap_shib_local }
+          subject { page.find("#user-#{user.permalink}") }
+
+          it { should have_content t('.manage.enabled_user.last_sign_in') }
+          it { should have_content t('.manage.enabled_user.never_sign_in') }
+          it { should have_content t('_other.user.methods') }
+          it { should have_content t('_other.user.local') }
+          it { should have_content t('_other.user.shibboleth') }
+          it { should have_content t('_other.user.ldap') }
+        end
+      end
 
   end
 end
