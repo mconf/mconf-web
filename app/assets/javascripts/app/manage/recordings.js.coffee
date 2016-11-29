@@ -9,8 +9,7 @@ $ ->
     showplay()
     mconf.Resources.addToBind showplay
 
-  $('input.resource-filter-field').each ->
-      input = $(this)
+    $('input.resource-filter-field').each ->
       field = $(this).attr('data-attr-filter')
       baseUrl = $('input.resource-filter').data('load-url')
 

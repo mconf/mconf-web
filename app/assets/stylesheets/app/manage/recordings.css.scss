@@ -19,21 +19,20 @@ body.manage.recordings {
   }
 
   .search-filters {
-      margin-top: 10px;
+    margin-top: 10px;
 
-      .search-filter-option {
-        float: left;
-        width: 20%;
-      }
-
-      .checkbox {
-        text-align: right;
-        margin: 0 5px;
-        float: left;
-        padding: 0;
-      }
+    .search-filter-option {
+      float: left;
+      width: 20%;
     }
 
+    .checkbox {
+      text-align: right;
+      margin: 0 5px;
+      float: left;
+      padding: 0;
+    }
+  }
 
   .management-links {
     float: right;
@@ -41,20 +40,19 @@ body.manage.recordings {
   }
 
   .thread {
-    .recording-name, .recording-description {
-      display: block;
-    }
-
-    .recording-description {
-      margin-left: 3px;
-    }
     .recording-metadata {
-      margin-left: 3px;
+      margin-top: 7px;
     }
   }
 
   .playback-types {
     display: none;
+    margin-left: 20px;
+
+    ul {
+      margin: 0;
+      border: 0;
+    }
   }
 
   .icon-awesome {

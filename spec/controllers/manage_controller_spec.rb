@@ -400,12 +400,12 @@ describe ManageController do
         it { assigns(:recordings).should include(@s3) }
       end
 
-      context "orders @recordings by name" do
+      context "orders @recordings by start_time" do
         before {
-          @s1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Last one')
-          @s2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Ce space')
-          @s3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'A space')
-          @s4 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Be space')
+          @s1 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 3.days)
+          @s2 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 2.days)
+          @s3 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now)
+          @s4 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 1.days)
         }
         before(:each) { get :recordings }
         it { assigns(:recordings).count.should be(4) }
@@ -430,7 +430,7 @@ describe ManageController do
           before(:each) { get :recordings, :page => 2 }
           it { assigns(:recordings).size.should be(20) }
           it("includes the correct recordings in @recordings") {
-            page = BigbluebuttonRecording.order('name').paginate(:page => 2, :per_page => 20)
+            page = BigbluebuttonRecording.order('start_time DESC').paginate(page: 2, per_page: 20)
             page.each do |recording|
               assigns(:recordings).should include(recording)
             end

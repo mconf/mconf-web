@@ -92,7 +92,7 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonRecording.class_eval do
     scope :search_by_terms, -> (words) {
-      query = joins(:room).includes(:room).order("bigbluebutton_recordings.name")
+      query = joins(:room).includes(:room).order("bigbluebutton_recordings.start_time DESC")
 
       words ||= []
       words = [words] unless words.is_a?(Array)
