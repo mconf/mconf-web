@@ -8,6 +8,22 @@ require "spec_helper"
 
 describe BigbluebuttonRecording do
 
+  describe "from initializers/bigbluebutton_rails" do
+    it("should have a method .search_by_terms") {
+      BigbluebuttonRecording.new.should respond_to(:search_by_terms)
+    }
+
+    describe ".search_by_terms" do
+      it "includes the associated room"
+      it "searches by name"
+      it "searches by description"
+      it "searches by room name"
+      it "searches by recordid"
+      it "searches by all attributes together"
+      it "searches with multiple words"
+    end
+  end
+
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do

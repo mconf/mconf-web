@@ -938,12 +938,12 @@ pt-br:
       recordings: "Gravações"
       webconf: "Webconferência"
     spaces:
-      filter_name: "Filtrar comunidades por nome"
-      new_space: "Nova comunidade"
-      approved_true: "Aprovados"
       approved_false: "Não aprovados"
-      disabled_true: "Desabilitados"
+      approved_true: "Aprovados"
       disabled_false: "Habilitados"
+      disabled_true: "Desabilitados"
+      filter_name: "Filtrar por nome ou descrição"
+      new_space: "Nova comunidade"
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!

@@ -75,6 +75,8 @@ class ManageController < ApplicationController
       query = query.where("bigbluebutton_recordings.id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
     end
 
+    query = query.order("bigbluebutton_recordings.start_time DESC")
+
     @recordings = query.paginate(page: params[:page], per_page: 20)
 
     if request.xhr?

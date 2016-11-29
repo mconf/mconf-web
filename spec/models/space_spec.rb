@@ -1100,6 +1100,14 @@ describe Space do
     end
   end
 
+  describe ".search_by_terms" do
+    it "includes disabled spaces"
+    it "searches by name"
+    it "searches by description"
+    it "searches by name and description"
+    it "searches with multiple words"
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording, :webconference_options, :recordings,

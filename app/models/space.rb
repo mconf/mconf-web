@@ -115,7 +115,8 @@ class Space < ActiveRecord::Base
   scope :public_spaces, -> { where(:public => true) }
 
   # Used by select controller method
-  scope :search_by_terms, -> (words, include_private=false) {
+  # TODO: can_manage is never used, should hide private spaces
+  scope :search_by_terms, -> (words, can_manage=false) {
     query = Space.with_disabled
 
     words ||= []

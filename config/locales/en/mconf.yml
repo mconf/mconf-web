@@ -931,12 +931,12 @@ en:
       recordings: "Recordings"
       webconf: "Web Conference"
     spaces:
-      filter_name: "Filter spaces by name"
-      new_space: "Create space"
-      approved_true: "Approved"
       approved_false: "Not approved"
-      disabled_true: "Disabled"
+      approved_true: "Approved"
       disabled_false: "Enabled"
+      disabled_true: "Disabled"
+      filter_name: "Filter by name or description"
+      new_space: "Create space"
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
