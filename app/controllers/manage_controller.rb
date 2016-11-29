@@ -9,6 +9,8 @@ class ManageController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource :class => false
 
+  load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
+
   def users
     words = params[:q].try(:split, /\s+/)
     query = User.with_disabled.search_by_terms(words, can?(:manage, User))
@@ -51,4 +53,34 @@ class ManageController < ApplicationController
       render :layout => 'no_sidebar'
     end
   end
+
+  def recordings
+    words = params[:q].try(:split, /\s+/)
+    query = BigbluebuttonRecording.search_by_terms(words)
+
+    [:published, :available].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
+    end
+
+    if params[:playback] == "true"
+      query = query.joins(:playback_formats)
+    end
+
+    if params[:playback] == "false"
+      query = query.where("bigbluebutton_recordings.id NOT IN (?)", query.joins(:playback_formats).pluck(:id))
+
+    end
+
+    @recordings = query.paginate(:page => params[:page], :per_page => 20)
+
+    if request.xhr?
+      render :partial => 'recordings_list', :layout => false, :locals => { :recordings => @recordings }
+    else
+      render :layout => 'no_sidebar'
+    end
+  end
+
 end

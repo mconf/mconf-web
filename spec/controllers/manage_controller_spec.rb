@@ -369,4 +369,200 @@ describe ManageController do
     end
   end
 
+  describe "#recordings" do
+    it "should require authentication"
+
+    context "authorizes" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+      it { should_authorize :manage, :recordings }
+    end
+
+    describe "if the current user is a superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+
+      it {
+        get :recordings
+        should respond_with(:success)
+      }
+
+      context "sets @recordings to a list of all recordings, including not available recordings" do
+        before {
+          @s1 = FactoryGirl.create(:bigbluebutton_recording, :available => true)
+          @s2 = FactoryGirl.create(:bigbluebutton_recording, :available => true)
+          @s3 = FactoryGirl.create(:bigbluebutton_recording, :available => false)
+        }
+        before(:each) { get :recordings }
+        it { assigns(:recordings).count.should be(3) }
+        it { assigns(:recordings).should include(@s1) }
+        it { assigns(:recordings).should include(@s2) }
+        it { assigns(:recordings).should include(@s3) }
+      end
+
+      context "orders @recordings by name" do
+        before {
+          @s1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Last one')
+          @s2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Ce space')
+          @s3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'A space')
+          @s4 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Be space')
+        }
+        before(:each) { get :recordings }
+        it { assigns(:recordings).count.should be(4) }
+        it { assigns(:recordings)[0].should eql(@s3) }
+        it { assigns(:recordings)[1].should eql(@s4) }
+        it { assigns(:recordings)[2].should eql(@s2) }
+        it { assigns(:recordings)[3].should eql(@s1) }
+      end
+
+      context "paginates the list of recordings" do
+        before {
+          45.times { FactoryGirl.create(:bigbluebutton_recording) }
+        }
+
+        context "if no page is passed in params" do
+          before(:each) { get :recordings }
+          it { assigns(:recordings).size.should be(20) }
+          it { controller.params[:page].should be_nil }
+        end
+
+        context "if a page is passed in params" do
+          before(:each) { get :recordings, :page => 2 }
+          it { assigns(:recordings).size.should be(20) }
+          it("includes the correct recordings in @recordings") {
+            page = BigbluebuttonRecording.order('name').paginate(:page => 2, :per_page => 20)
+            page.each do |recording|
+              assigns(:recordings).should include(recording)
+            end
+          }
+          it { controller.params[:page].should eql("2") }
+        end
+      end
+
+      context "use params[:q] to filter the results" do
+
+        context "by name" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'First')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Second')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Secondary')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+        context "by description" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :description => 'First description')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :description => 'Second description')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :description => 'Secondary description')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+        context "by record id" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'First recordid')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'Second recordid')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'Secondary recordid')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+      end
+
+      context "use params [:published, :available, :playback] to filter the results" do
+        let!(:playback_formats) {[
+          FactoryGirl.create(:bigbluebutton_playback_format, recording: FactoryGirl.create(:bigbluebutton_recording, name: 'has_playback_rec'))
+        ]}
+        let!(:recordings) {[
+          FactoryGirl.create(:bigbluebutton_recording, name: 'published_rec'),
+          FactoryGirl.create(:bigbluebutton_recording, name: 'unpublished_rec', published: false),
+          FactoryGirl.create(:bigbluebutton_recording, name: 'unavailable_rec', available: false),
+          playback_formats[0].recording,
+          FactoryGirl.create(:bigbluebutton_recording, name: 'no_playback_rec'),
+        ]}
+
+        before {
+          get :recordings, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:recordings).count.should be(5) }
+          it { assigns(:recordings).should include(*recordings) }
+        end
+
+        context "params[:published]" do
+          context 'is true' do
+            let(:params) { {published: 'true'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[2], recordings[3], recordings[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {published: 'false'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[1]) }
+          end
+        end
+
+        context "params[:available]" do
+          context 'is true' do
+            let(:params) { {available: 'true'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[1], recordings[3], recordings[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {available: 'false'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[2]) }
+          end
+        end
+
+        context "params[:playback]" do
+          context 'is true' do
+            let(:params) { {playback: 'true'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {playback: 'false'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[1], recordings[2], recordings[4]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {published: 'true', available: 'true', q: 'rec'} }
+
+          it { assigns(:recordings).count.should be(3) }
+          it { assigns(:recordings).should include(recordings[0], recordings[3], recordings[4]) }
+        end
+      end
+
+      context "if xhr request" do
+        before(:each) { xhr :get, :recordings }
+        it { should render_template('manage/_recordings_list') }
+        it { should_not render_with_layout }
+      end
+
+      context "not xhr request" do
+        before(:each) { get :recordings }
+        it { should render_template(:recordings) }
+        it { should render_with_layout('no_sidebar') }
+      end
+    end
+  end
 end
