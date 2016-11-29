@@ -15,10 +15,12 @@ module Mconf::Highlighter
 
   def self.highlight(text, words)
     if words.kind_of?(Array)
+      words = words.uniq
       indexes = []
       words.each do |word|
         indexes.concat get_highlight_indexes(text, word)
       end
+      indexes = crop_indexes(indexes)
       set_highlight_on_indexes(text, indexes.sort{ |a,b| a[0] <=> b[0] })
     else
       highlight_word(text, words)
@@ -26,6 +28,30 @@ module Mconf::Highlighter
   end
 
   private
+
+
+  def self.crop_indexes(indexes)
+    idx = indexes.clone
+    idx = idx.sort_by{ |id| id[0] }
+    i = 0
+    while i+1 < idx.length
+
+      start_first = idx[i][0]
+      start_second = idx[i+1][0]
+      end_first = idx[i][0]+idx[i][1]
+      end_second = idx[i+1][0]+idx[i+1][1]
+
+      if idx[i+1]
+        if end_first >= start_second
+          idx[i+1] = [ start_first, [end_first, end_second].max - start_first ]
+          idx.delete_at(i)
+        else
+          i += 1
+        end
+      end
+    end
+    idx
+  end
 
   # Returns a list of arrays, each with the [0] position that the mark should
   # begin and [1] the length of the word being highlighted.
@@ -39,7 +65,7 @@ module Mconf::Highlighter
     tw = ActiveSupport::Inflector.transliterate(word).downcase
     overall_i = 0
 
-    while tt && i = tt.index(/#{tw}/)
+    while tt && i = tt.index(/#{Regexp.escape(tw)}/)
       if i
         overall_i += i
         indexes << [overall_i, tw.length]
