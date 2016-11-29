@@ -935,6 +935,7 @@ pt-br:
       spaces: "Comunidades"
       title: "Gerenciamento do Site"
       users: "Usuários"
+      recordings: "Gravações"
       webconf: "Webconferência"
     spaces:
       filter_name: "Filtrar comunidades por nome"
@@ -960,11 +961,36 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
+    recordings:
+      available_false: "Não disponíveis"
+      available_true: "Disponíveis"
+      confirm_delete: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
+      created_at: "Criado em"
+      delete: "Remover gravação"
+      direct_link: "Link direto"
+      edit: "Editar gravação"
+      filter_name: "Filtrar por nome, descrição ou ID da gravação"
+      playback_links: "Reproduções disponíveis"
+      playback_false: "Sem reproduções"
+      playback_true: "Com reproduções"
+      publish: "Publicar gravação"
+      published: "Publicada"
+      published_false: "Despublicadas"
+      published_true: "Publicadas"
+      recordid: "ID da dravação"
+      room_name: "Sala"
+      show_playback: "Mostrar reproduções disponíveis"
+      show_playback_none: "Não existem reproduções disponíveis"
+      unpublish: "Despublicar gravação"
+      unpublished: "Não publicada"
+    recordings_list:
+      filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} gravações encontradas"
+      no_recording_found: "Nenhuma gravação encontrada"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   moderatorPW: "Senha de Moderador"

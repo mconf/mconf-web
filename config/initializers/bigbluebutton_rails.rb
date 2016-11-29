@@ -90,4 +90,24 @@ Rails.application.config.to_prepare do
       }
   end
 
+  BigbluebuttonRecording.class_eval do
+    scope :search_by_terms, -> (words) {
+      query = joins(:room).includes(:room).order("bigbluebutton_recordings.start_time DESC")
+
+      words ||= []
+      words = [words] unless words.is_a?(Array)
+      query_strs = []
+      query_params = []
+
+      words.each do |word|
+        str  = "bigbluebutton_recordings.name LIKE ? OR bigbluebutton_recordings.description LIKE ?"
+        str += " OR bigbluebutton_recordings.recordid LIKE ? OR bigbluebutton_rooms.name LIKE ?"
+        query_strs << str
+        query_params += ["%#{word}%", "%#{word}%"]
+        query_params += ["%#{word}%", "%#{word}%"]
+      end
+
+      query.where(query_strs.join(' OR '), *query_params.flatten)
+    }
+  end
 end

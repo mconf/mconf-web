@@ -155,7 +155,7 @@ Mconf::Application.routes.draw do
   resource :site, only: [:show, :edit, :update]
 
   # Management routes
-  ['users', 'spaces'].each do |resource|
+  ['users', 'spaces', 'recordings'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end
 
