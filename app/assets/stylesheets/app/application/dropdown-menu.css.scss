@@ -60,13 +60,17 @@ ul.dropdown-menu {
 
   > li:not(.divider) {
     a {
-      padding: 6px 14px;
+      padding: 12px 14px;
 
       &:hover, &:active {
         background: $m-light-gray;
         @include link-colors(#808080, $m-link-color-hover, $m-link-color-active);
       }
     }
+  }
+
+  > li.divider {
+    margin: 3px 0;
   }
 
   /* &.arrow-left { @include dropdown-menu-arrow; } */

@@ -345,14 +345,19 @@ form {
   }
 
   .dropdown-user.chip {
-    margin: 10px 0 3px 0;
+    /* margin: 10px 0 3px 0; */
+    margin: 0;
     font-size: $m-font-normal;
     font-weight: normal;
-    border-color: lighten($m-navbar-font-highlight, 5);
+    border: none;
     color: $m-navbar-font-color;
     @include transition(background-color 0.2s ease-in);
     @include text-truncate;
     max-width: 350px;
+    padding: 11px 15px 8px 25px;
+    @include border-radius(0);
+    height: auto;
+    overflow: inherit;
 
     &:hover, &[aria-expanded=true] {
       background: $m-navbar-font-highlight;
@@ -360,11 +365,20 @@ form {
 
     .caret {
       margin-top: -2px;
-      margin-right: 2px;
+      margin-left: 2px;
+    }
+
+    img {
+      float: left;
+      margin: 0 8px 0 -12px;
     }
   }
 
   .dropdown-menu {
+    margin: 0;
+    @include border-radius(0);
+    @include box-shadow(none);
+
     .observation {
       padding: 3px 14px;
       font-size: $m-font-small;
