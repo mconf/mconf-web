@@ -1,5 +1,6 @@
 #= require "../users/new"
 
+# TODO: the search is exactly like we do at manage/spaces.js, should be a common component
 $ ->
   if isOnPage 'manage', 'users'
     mconf.Resources.addToBind ->

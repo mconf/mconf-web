@@ -1110,6 +1110,7 @@ strong.highlight {
   }
 }
 
+/* Labels for authentication methods */
 .label-auth-local {
   background: $m-green;
 }
@@ -1118,4 +1119,9 @@ strong.highlight {
 }
 .label-auth-shibboleth {
   background: darken($m-green, 15);
+}
+
+/* A warning for resources not yet approved */
+.resource-waiting-moderation-tooltip {
+  color: #bd972b;
 }

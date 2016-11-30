@@ -3,34 +3,29 @@
 
 body.manage.spaces {
 
-  .btn-new-space {
-    margin-bottom: 10px;
-    float: right;
-  }
-
   .page-tools-menu {
     padding-bottom: 5px;
     margin-bottom: 15px;
 
     .search-words {
-      @include make-row;
-      input { @include make-xs-column(12); }
+      input { width: 100%; }
     }
 
     .search-filters {
       margin-top: 10px;
-      @include make-row;
-      
-      .search-filter-option {
-        float: left;
-        width: 20%;
-      }
 
-      .checkbox {
-        text-align: right;
-        margin: 0 5px;
-        float: left;
-        padding: 0;
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-space {
+        margin-bottom: 10px;
+        float: right;
       }
     }
   }

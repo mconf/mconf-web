@@ -916,6 +916,7 @@ pt-br:
       destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     menu:
       general: "Geral"
+      recordings: "Gravações"
       resque: "Resque"
       spaces: "Comunidades"
       title: "Gerenciamento do Site"

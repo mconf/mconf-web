@@ -6,15 +6,17 @@
 
   .col-xs-12.col-sm-8
     .list-text-title
-      = link_to space_path(space), :class => 'space-name' do
+      - if space.disabled?
         = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
+      - else
+        = link_to space_path(space), :class => 'space-name' do
+          = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
     .list-text-description
       = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
     - if current_site.require_space_approval? && !space.approved?
-      .list-text-description
-        .resource-waiting-moderation-tooltip
-          = icon_waiting_moderation
-          = t("_other.not_approved.text")
+      .resource-waiting-moderation-tooltip
+        = icon_waiting_moderation
+        = t("_other.not_approved.text")
 
   .col-xs-12.col-sm-1.space-category
     = space_visibility(space)
