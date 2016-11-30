@@ -1109,3 +1109,13 @@ strong.highlight {
     border-radius: 50%;
   }
 }
+
+.label-auth-local {
+  background: $m-green;
+}
+.label-auth-ldap {
+  background: lighten($m-green, 15);
+}
+.label-auth-shibboleth {
+  background: darken($m-green, 15);
+}

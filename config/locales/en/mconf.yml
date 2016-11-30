@@ -971,9 +971,9 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
-      login_method_shib: Login Shibboleth
+      login_method_shib: Shibboleth
       login_method_local: Login Local
-      login_method_ldap: Login LDAP
+      login_method_ldap: LDAP
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
@@ -1817,6 +1817,3 @@ en:
   when: When
   where: Where
   yesterday: Yesterday
-
-
-

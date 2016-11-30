@@ -52,10 +52,8 @@ module UsersHelper
     "(#{user.username}#{", " + user.email if can?(:show, user.profile)})".html_safe
   end
 
-  def user_sign_in_methods user
-    user.sign_in_methods
-      .select{ |m,v| v }
-      .map{ |m, v| t("_other.auth.#{m}") }
+  def user_sign_in_methods(user)
+    user.sign_in_methods.select{ |m,v| v }.map{ |m, v| m }
   end
 
   def user_last_sign_in_method user

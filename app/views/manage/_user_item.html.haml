@@ -4,30 +4,35 @@
     .list-item-logo
       = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')
 
-  .col-xs-12.col-sm-7
+  .col-xs-12.col-sm-5
     - words = params[:q].try(:split)
-    .user-username.list-text-title
+    .list-text-title
       - if user.disabled?
         = Mconf::Highlighter.highlight(user.username, words)
       - else
         = link_to user_path(user) do
           = Mconf::Highlighter.highlight(user.username, words)
-    .user-name.list-text-description
+    .list-text-description
       = Mconf::Highlighter.highlight(user.full_name, words)
-    .user-email.list-text-description
+    .list-text-description
       = Mconf::Highlighter.highlight(user.email, words)
-    .current-sign-in
+    .list-text-description
       = t('.last_sign_in')
       - if user.current_sign_in_at
-        %span.tooltipped{ title: user.current_sign_in_at }= "#{format_date(user.current_sign_in_at, :long) }"
-        = " #{t('.auth_using')} #{user_last_sign_in_method(user).to_s}"
+        %span.tooltipped{ title: user.current_sign_in_at }
+          = "#{format_date(user.current_sign_in_at, :numeric) }"
+          = t('.auth_using')
+        - method = user.last_sign_in_method
+        .label{ class: "label-auth-#{method}" }= method
       - else
         %span.tooltipped{ title: t('.never_sign_in') }= "?"
-      - methods = user_sign_in_methods(user).join(", ")
-      = "(#{t('.available_auth')}: #{methods})"
 
   .col-xs-12.col-sm-2.user-category
     = user_category(user)
+
+  .col-xs-12.col-sm-2.user-login
+    - user_sign_in_methods(user).each do |method|
+      .label{ class: "label-auth-#{method}" }= method
 
   .col-xs-12.col-sm-2.management-links.list-actions
     %ul

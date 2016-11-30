@@ -34,7 +34,7 @@ class ManageController < ApplicationController
     @users = query.paginate(page: params[:page], per_page: 40)
 
     if request.xhr?
-      render partial: 'users_list', layout: false
+      render partial: 'users_list', layout: false, locals: { users: @users }
     else
       render layout: 'manage'
     end

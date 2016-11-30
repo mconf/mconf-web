@@ -3,26 +3,29 @@
 
 body.manage.users {
 
-  .btn-new-user {
-    margin-bottom: 10px;
-    float: right;
-  }
-
   .page-tools-menu {
     padding-bottom: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     .search-words {
-      @include make-row;
-      input { @include make-xs-column(12); }
+      input { width: 100%; }
     }
 
     .search-filters {
       margin-top: 10px;
-      @include make-row;
 
       .search-filter-option {
         margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-user {
+        margin-bottom: 10px;
+        float: right;
       }
     }
   }
