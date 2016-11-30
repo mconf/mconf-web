@@ -51,6 +51,19 @@ label.checkbox {
   }
 }
 
+// make the background of modals darker
+.modal-scrollable {
+  background: rgba(0,0,0,0.4);
+}
+.modal-open .modal {
+  background: none;
+}
+
+// for some reason it stays on top of modals if not resetting the z-index
+.input-group .form-control {
+  z-index: auto;
+}
+
 
 /* .form-inline { */
 /*   padding: 0; */

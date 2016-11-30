@@ -12,7 +12,7 @@ class MyController < ApplicationController
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
-  before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
+  before_filter :prepare_user_room, only: :home
 
   after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
@@ -20,13 +20,11 @@ class MyController < ApplicationController
 
   def determine_layout
     case params[:action].to_sym
-    when :activity
-      "no_sidebar"
     when :recordings
       if params[:partial]
         false
       else
-        "no_sidebar"
+        "application"
       end
     when :edit_recording
       if request.xhr?
