@@ -57,6 +57,10 @@ en:
       title: Press Ctrl+C to copy the text
   _other:
     accept: "Accept"
+    auth:
+      ldap: "LDAP"
+      local: "local auth"
+      shibboleth: "shibboleth"
     cancel: "Cancel"
     create: "Create"
     confirm: Ok
@@ -153,7 +157,6 @@ en:
         prefix_key: "Title"
         province: "Province"
         skype: "Skype"
-        url: "Your website"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
@@ -226,7 +229,6 @@ en:
         expanded_post: "Show messages in wall with the expanded view by default"
         password: "Password"
         password_confirmation: "Password confirmation"
-        receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
         remember_me: "Remember me"
         superuser: "Global administrator"
         timezone: "Timezone"
@@ -540,6 +542,7 @@ en:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editing recording"
+      tip: "Most of the attributes are not editable because they are fetched from a remote server and reflect the state of the recording in this server"
     show:
       showing_recording: "Showing recording"
     index:
@@ -547,6 +550,7 @@ en:
     recording_links:
       direct_link: "Direct link"
       playback_links: "Playbacks available"
+      confirm_destroy: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
     recordings:
       table:
         links: "Links"
@@ -583,7 +587,7 @@ en:
     show:
       available_layouts: "Available layouts"
       configurations: "Server configurations"
-      configurations_tip: "These configurations are automatically fetched from the server and cannot be modified here. They are fetched periodically (every ~3h) by a background process and also whenever the URL, salt or version of the server change."
+      configurations_tip: "These configurations are automatically fetched from the server and cannot be modified here. They are fetched periodically (every ~3h) by a background process and also whenever the URL, secret or version of the server change."
       fetch_recordings_title: "Fetch recordings with parameters"
       fetch_recordings_btn: "Fetch recordings"
       publish_recordings_title: "Publish recordings"
@@ -638,16 +642,6 @@ en:
     account_activated: "Your account at %{sitename} has been activated successfully."
     commas: "Separated by commas"
     confirm: "You need now to confirm your registration by clicking on <a href=\"%{url}\"> %{url} </a>"
-    digest:
-      attachment: "<b>%{author_name}</b> has uploaded a new attachment in <b>%{space_name}</b>:"
-      event: "<b>%{author_name}</b> has created a new event in <b>%{space_name}</b>:"
-      inbox: "<b>%{sender_name}</b> has sent you a message:"
-      message: "Latest activities in your spaces:"
-      posted: "<b>%{author_name}</b> has posted in <b>%{space_name}</b> the message:"
-      title: "%{type} digest with the activity in your spaces"
-      type:
-        daily: Daily
-        weekly: Weekly
     invitation_result:
       admin_side: "%{name} has %{action} the invitation to space %{spacename}"
       user_side: "The administrator of %{spacename} has %{action} your join request"
@@ -940,13 +934,19 @@ en:
       enable: "Enable space"
       enable_confirm: "Are you sure you want to enable this space?"
     spaces:
-      filter_name: "Filter spaces by name"
+      approved_false: "Not approved"
+      approved_true: "Approved"
+      disabled_false: "Enabled"
+      disabled_true: "Disabled"
+      filter_name: "Filter by name or description"
       new_space: "Create space"
     spaces_list:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     user_item:
+      auth_using: "using"
+      available_auth: "available methods"
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
       confirm: "Confirm this user"
@@ -958,6 +958,8 @@ en:
       edit: "Edit user"
       enable: "Enable user"
       enable_confirm: "Are you sure you want to enable this user?"
+      last_sign_in: "Last login at"
+      never_sign_in: "This user has never signed in"
     users:
       filter_name_or_username: "Filter users by name, username or email"
       new_user: "Create user"
@@ -969,10 +971,39 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
       no_user_found: "No user found"
+    recordings:
+      available_false: "Not available"
+      available_true: "Available"
+      confirm_delete: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
+      delete: "Delete recording"
+      direct_link: "Direct link"
+      edit: "Edit recording"
+      filter_name: "Filter by name, description, or record ID"
+      playback_links: "Playbacks available"
+      playback_true: "Has playback"
+      playback_false: "No playback"
+      publish: "Publish recording"
+      published: "Published"
+      published_false: "Unpublished"
+      published_true: "Published"
+      recordid: "Recording ID"
+      room_name: "Room"
+      show_playback: "Show available playbacks"
+      show_playback_none: "There are no playbacks available"
+      unpublish: "Unpublish recording"
+      unpublished: "Unpublished"
+      created_at: "Created at"
+    recordings_list:
+      filter_count_with_text: "Found %{count} recordings for filter \"%{value}\""
+      filter_count_empty: "Found %{count} recordings"
+      no_recording_found: "No recordings found"
   mandatory_field: "Mandatory field"
   mconf: Mconf
   moderatorPW: "Moderator Password"
@@ -1113,6 +1144,8 @@ en:
   profiles:
     edit:
       change_pic: "Change picture"
+      explain_gravatar: "This is the image associated with your email on Gravatar.com"
+      using_gravatar: "Image from Gravatar"
       title: "%{name}: edit profile"
       view_your_profile: "View profile"
       vcard:
@@ -1155,6 +1188,9 @@ en:
         export: "Export vCard"
   public: Public
   read_more: "Read more"
+  recaptcha:
+    errors:
+      verification_failed: "You have not passed the captcha challenge, please try again."
   recent:
     activity: "Recent activity"
   recent_activity:
@@ -1249,7 +1285,9 @@ en:
   shared:
     recording_list:
       created_by: "Created by"
+      destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
+      manage: "Manage"
       no_description: "<no description specified>"
       no_meetings: "There are no meetings or recordings in this room yet."
       not_recorded: "(This meeting was not recorded.)"
@@ -1257,6 +1295,10 @@ en:
       started_at: "Date"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
+      publish: Publish
+      unpublish: Unpublish
+      unpublish_confirm: "Are you sure you want to remove this recording?"
+      unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
     recording_playback:
       duration: "duration"
       playback: "Playback links"
@@ -1727,10 +1769,6 @@ en:
         not_confirmed: "This user has not confirmed his/her account yet."
         title: "Edit user account"
       preferences: "Preferences"
-      receive_digest:
-        daily: "Every day"
-        never: "Never"
-        weekly: "Every week"
       title: "Edit your account"
       yes_cancel_account: "Yes, cancel my account"
     errors:
@@ -1779,3 +1817,6 @@ en:
   when: When
   where: Where
   yesterday: Yesterday
+
+
+

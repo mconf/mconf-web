@@ -533,7 +533,9 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
+            PublicActivity.with_tracking do
+              post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -651,7 +653,9 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :accept, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -733,7 +737,9 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :decline, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -829,7 +835,9 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr
+            PublicActivity.with_tracking do
+              post :decline, space_id: space.to_param, id: jr
+            end
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }

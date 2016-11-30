@@ -6,46 +6,45 @@
 
 require 'spec_helper'
 
-describe InvitationsWorker do
+describe InvitationsWorker, type: :worker do
   let(:worker) { InvitationsWorker }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:invitations)
-  end
+  let(:sender) { InvitationSenderWorker }
+  let(:queue) { Queue::High }
+  let(:params) {{"method"=>:perform, "class"=>sender.to_s}}
 
   describe "#perform" do
 
-    describe "queues unsent invitations for web conferences and events" do
+    describe "queues unsent invitations for web conferences and events in the specified queue" do
       let!(:invitation_conference) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true) }
       let!(:invitation_event) { FactoryGirl.create(:event_invitation, :sent => false, :ready => true) }
 
       before(:each) { worker.perform }
 
-      it { expect(InvitationSenderWorker).to have_queue_size_of(2) }
-      it { expect(InvitationSenderWorker).to have_queued(invitation_conference.id) }
-      it { expect(InvitationSenderWorker).to have_queued(invitation_event.id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(params, invitation_conference.id) }
+      it { expect(queue).to have_queued(params, invitation_event.id) }
     end
 
-    describe "doesn't queue unready invitations" do
+    describe "doesn't queue unready invitations in the specified queue" do
       let!(:invitation_ready) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true) }
       let!(:invitation_not_ready) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => false) }
 
       before(:each) { worker.perform }
 
-      it { expect(InvitationSenderWorker).to have_queue_size_of(1) }
-      it { expect(InvitationSenderWorker).to have_queued(invitation_ready.id) }
-      it { expect(InvitationSenderWorker).not_to have_queued(invitation_not_ready.id) }
+      it { expect(queue).to have_queue_size_of(1) }
+      it { expect(queue).to have_queued(params, invitation_ready.id) }
+      it { expect(queue).not_to have_queued(params, invitation_not_ready.id) }
     end
 
-    describe "doesn't queue already sent invitations" do
+    describe "doesn't queue already sent invitations in the specified queue" do
       let!(:invitation_sent) { FactoryGirl.create(:web_conference_invitation, :sent => true, :ready => true) }
       let!(:invitation_not_sent) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true) }
 
       before(:each) { worker.perform }
 
-      it { expect(InvitationSenderWorker).to have_queue_size_of(1) }
-      it { expect(InvitationSenderWorker).to have_queued(invitation_not_sent.id) }
-      it { expect(InvitationSenderWorker).not_to have_queued(invitation_sent.id) }
+      it { expect(queue).to have_queue_size_of(1) }
+      it { expect(queue).to have_queued(params, invitation_not_sent.id) }
+      it { expect(queue).not_to have_queued(params, invitation_sent.id) }
     end
 
     # describe "saves in the invitation the return if Invitation#send_invitation" do

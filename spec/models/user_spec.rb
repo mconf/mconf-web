@@ -40,7 +40,7 @@ describe User do
 
   # Make sure it's being tested in the controller
   # [ :email, :password, :password_confirmation,
-  #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
+  #   :remember_me, :login, :username, :approved ].each do |attribute|
   #   it { should allow_mass_assignment_of(attribute) }
   # end
 
@@ -131,6 +131,16 @@ describe User do
       let(:terms) { 'steve-hairis@email.com' }
       it { subject.count.should be(0) }
     end
+  end
+
+  describe ".with_auth" do
+    it "filters by local authentication"
+    it "filters by shibboleth authentication"
+    it "filters by LDAP authentication"
+    it "uses AND as the default connector"
+    it "uses the connector chosen"
+    it "doesn't filter anything if no auth method was selected"
+    it "doesn't clean up previous queries if no auth method was selected"
   end
 
   describe "#profile" do
@@ -758,7 +768,9 @@ describe User do
     context "creates a recent activity" do
       before {
         expect {
-          user.create_approval_notification(approver)
+          PublicActivity.with_tracking do
+            user.create_approval_notification(approver)
+          end
         }.to change{ PublicActivity::Activity.count }.by(1)
       }
       subject { PublicActivity::Activity.last }
@@ -908,6 +920,26 @@ describe User do
       }
       it { user.created_by_shib?.should be(true) }
     end
+  end
+
+  describe "#local_auth?" do
+    it "false if has LDAP auth"
+    it "false if has shibboleth auth"
+    it "true if has no LDAP nor shibboleth auth"
+  end
+
+  it "#sign_in_methods"
+
+  describe "#last_sign_in_date" do
+    it "returns the last sign in date"
+    it "returns the same as #current_sign_in_at"
+  end
+
+  describe "#last_sign_method" do
+    it "returns 'ldap' if the last method was LDAP"
+    it "returns 'shibboleth' if the last method was Shibboleth"
+    it "returns 'local' if the last method was local"
+    it "returns nil if the user never signed in"
   end
 
   describe "#disable" do

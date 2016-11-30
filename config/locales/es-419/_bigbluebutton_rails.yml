@@ -27,6 +27,7 @@ es-419:
         start_time: "Hora de comienzo"
       bigbluebutton_room:
         allow_start_stop_recording: "Permitir a los usuarios iniciar/detener las grabaciones"
+        attendee_api_password: "Clave interna de la API para participantes"
         attendee_key: "Clave para participantes"
         auto_start_video: "Inicio automático de vídeo"
         auto_start_audio: "Inicio automático de audio"
@@ -40,6 +41,7 @@ es-419:
         max_participants: "Número máximo de participantes"
         meetingid: "ID de reunión"
         metadata: Metadatos
+        moderator_api_password: "Clave interna de la API para moderadores"
         moderator_key: "Clave para moderadores"
         moderator_only_message: "Mensajes a ser mostrados únicamente a los moderadores"
         name: Nombre
@@ -53,7 +55,7 @@ es-419:
       bigbluebutton_server:
         name: Nombre
         param: "ID de texto"
-        salt: "Clave de seguirdad"
+        secret: "Clave secreta"
         url: URL
         version: Versión
       bigbluebutton_server_config:
@@ -112,6 +114,8 @@ es-419:
           failure: "Fallo de autenticación."
           not_running: "La reunión no se está llevando a cabo. Debe esperar que un moderador se una a la misma."
           wrong_params: "Parámetros incorrectos en su solicitud."
+        generate_dial_number:
+          not_unique: "Lo sentimos, pero no fue posible generar un número de marcación único para esta sala. Puede intentarlo de nuevo o configurarlo manualmente."
         param_format: "utilizar únicamente letras, números, símbolos \"-\" o \"_\" (no al comienzo o fin)"
         server:
           nil: "Su sala debe asociarse a un servidor para ejecutar esta operación."
@@ -127,6 +131,8 @@ es-419:
           success: "La reunión fue finalizada con éxito."
         fetch_recordings:
           success: "La lista de grabaciones para esta sala fue actualizada con éxito."
+        generate_dial_number:
+          success: "Un número de marcación único fue generado y guardado."
         update:
           failure: "Su sala no pudo ser actualizada."
           success: "Su sala fue actualizada con éxito."

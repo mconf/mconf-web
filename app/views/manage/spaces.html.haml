@@ -7,5 +7,13 @@
       .search-filters
         = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-new-space'
 
+    .search-filters
+      - ['approved', 'disabled'].each do |field|
+        .search-filter-option
+          = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
+          = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
+
   #space-list
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }

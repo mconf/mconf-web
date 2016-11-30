@@ -4,7 +4,8 @@ es-419:
       create_html: subió el archivo adjunto %{name} en el espacio
       destroy_html: eliminado el archivo adjunto %{name} del espacio
       update_html: actualizó el archivo adjunto %{name} en el espacio
-      deleted: que ha sido eliminado
+      deleted: "un adjunto que fue eliminado"
+      deleted_tooltip: "Este archivo adjunto ya no existe."
     bigbluebutton_meeting:
       deleted_html: "Ha ocurrido una reunión, pero desde entonces se ha eliminado su información"
       user:
@@ -12,9 +13,7 @@ es-419:
       space:
         create_html: "Una reunión fue iniciada en el espacio de %{owner} a las %{time}"
     join_request:
-      deleted: que se ha eliminado
       invite_html: "fue invitado a unirse al espacio"
-      invite_with_introducer_html: "fue invitado por <a href=\"%{introducer_url}\">%{introducer}</a> a unirse al espacio"
       request_html: "ha solicitado unirse al espacio"
     other:
       someone_html: "Alguien"
@@ -22,12 +21,8 @@ es-419:
       create_html: publicó %{name} en el espacio
       update_html: actualizó %{name} en el espacio
       reply_html: respondió a %{name} en el espacio
-      deleted: un mensaje que ya ha sido eliminado
     space:
-      accept_html: se ha unido al espacio
       create_html: creó un nuevo espacio
-      decline_html: hubo una invitación/solicitud declinada en el espacio
-      deleted: un espació que ha sido eliminado
       leave_html: ha abandonado el espacio
       update_html: actualizó la información del espacio
   _js:
@@ -122,7 +117,6 @@ es-419:
         prefix_key: "Título"
         province: "Provincia"
         skype: "Skype"
-        url: "Su sitio web"
         zipcode: "Código postal"
       roles:
         name_user: "Usuario"
@@ -509,7 +503,6 @@ es-419:
     show:
       available_layouts: "Capas disponibles"
       configurations: "Configuraciones de servidor"
-      configurations_tip: "Estas configuraciones son traidas automáticamente desde el servidor y no pueden ser modificadas. Son traidas periodicamente (cada 3 horas) en segundo plano o cuando la URL, salt o la versión del servidor cambie."
       fetch_recordings_title: "Obtener grabaciones con parámetros"
       fetch_recordings_btn: "Obtener grabaciones"
       publish_recordings_title: "Publicar grabaciones"

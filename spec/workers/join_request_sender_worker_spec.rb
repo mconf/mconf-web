@@ -6,13 +6,9 @@
 
 require 'spec_helper'
 
-describe JoinRequestSenderWorker do
+describe JoinRequestSenderWorker, type: :worker do
   let(:worker) { JoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
 
   describe "#perform" do
     let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }

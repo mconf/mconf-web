@@ -35,7 +35,7 @@ gem 'i18n-js', '~> 3.0.0.rc12'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
-gem 'public_activity', '~> 1.4.1'
+gem 'public_activity', '~> 1.5.0'
 
 # For queues
 gem 'resque', '~> 1.25.2', :require => 'resque/server'
@@ -103,6 +103,12 @@ gem "logstash-event"
 # Uploads
 gem 'fineuploader-rails', git: 'https://github.com/mconf/fineuploader-rails.git'
 gem 'filesize'
+
+# For gravatar user images
+gem 'gravatar_image_tag'
+
+# Captcha
+gem 'recaptcha', require: 'recaptcha/rails'
 
 #
 # TODO: Gems to review if we can remove/update

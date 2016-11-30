@@ -22,18 +22,27 @@ describe BigbluebuttonMeeting do
 
   context "after_create" do
     let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    let!(:user) { FactoryGirl.create(:user) }
 
     context "if the meeting is saved successfully creates an activity" do
       before(:each) {
         expect {
-          params = { :room => room, :meetingid => room.meetingid, :start_time => DateTime.now }
-          @meeting = BigbluebuttonMeeting.create(params)
+          PublicActivity.with_tracking do
+            params = { room: room, meetingid: room.meetingid, create_time: DateTime.now,
+                       creator_id: user.id, creator_name: user.full_name }
+            @meeting = BigbluebuttonMeeting.create(params)
+          end
         }.to change{ PublicActivity::Activity.count }.by(1)
       }
       subject { PublicActivity::Activity.last }
       it("sets #trackable") { subject.trackable.should eq(@meeting) }
       it("sets #owner") { subject.owner.should eq(room) }
       it("sets #key") { subject.key.should eq('bigbluebutton_meeting.create') }
+      it("sets #parameters") {
+        subject.parameters.should be_a(Hash)
+        subject.parameters[:creator_id].should eq(user.id)
+        subject.parameters[:creator_username].should eq(user.username)
+      }
       it("doesn't set #recipient") { subject.recipient.should be_nil }
     end
 

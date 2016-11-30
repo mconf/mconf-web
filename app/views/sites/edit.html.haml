@@ -1,4 +1,4 @@
-= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column', autocomplete: 'off'} do |f|
   #site-edit-panel-1
     = f.input :name
     = f.input :domain
@@ -45,11 +45,17 @@
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
+    = disable_autocomplete_for('site[ldap_user]')
     = f.input :ldap_user
+    = disable_autocomplete_for('site[ldap_user_password]', 'password')
     = f.input :ldap_user_password, :as => :showable_password
     = f.input :ldap_user_treebase
     = f.input :ldap_username_field
     = f.input :ldap_email_field
     = f.input :ldap_name_field
     = f.input :ldap_filter
+    = f.input :captcha_enabled
+    = f.input :recaptcha_public_key
+    = f.input :recaptcha_private_key
+    = f.input :use_gravatar, :as => :boolean
   = f.button :wrapped, :cancel => edit_site_path, :value => t("_other.save")

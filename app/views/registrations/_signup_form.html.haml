@@ -12,4 +12,5 @@
     = f.input_field :username
   = f.input :password, :required => true
   = f.input :password_confirmation, :required => true
+  = captcha_tags
   = f.button :wrapped, :value => t(".register")

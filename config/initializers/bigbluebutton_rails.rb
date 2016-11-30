@@ -52,7 +52,14 @@ Rails.application.config.to_prepare do
     end
 
     def invitation_url
-      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain)
+      Rails.application.routes.url_helpers.join_webconf_url(self, host: Site.current.domain_with_protocol)
+    end
+
+    def dynamic_metadata
+      {
+        "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: Site.current.domain_with_protocol),
+        "mconfweb-room-type" => self.try(:owner).try(:class).try(:name)
+      }
     end
   end
 
@@ -69,11 +76,17 @@ Rails.application.config.to_prepare do
   BigbluebuttonMeeting.instance_eval do
     include PublicActivity::Model
 
-    tracked only:[:create], owner: :room,
+    tracked only: [:create], owner: :room,
       recipient: -> (ctrl, model) { model.room.owner },
       params: {
-        creator_id: -> (ctrl, model) { ctrl.current_user.try(:id) },
-        creator_username: -> (ctrl, model) { ctrl.current_user.try(:name) }
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+        creator_username: -> (ctrl, model) {
+          id = model.try(:creator_id)
+          user = User.find_by(id: id)
+          user.try(:username)
+        }
       }
   end
 
@@ -86,4 +99,34 @@ Rails.application.config.to_prepare do
     }
   end
 
+  BigbluebuttonRecording.class_eval do
+    scope :search_by_terms, -> (words) {
+      query = joins(:room).includes(:room)
+
+      words ||= []
+      words = [words] unless words.is_a?(Array)
+      query_strs = []
+      query_params = []
+
+      words.each do |word|
+        str  = "bigbluebutton_recordings.name LIKE ? OR bigbluebutton_recordings.description LIKE ?"
+        str += " OR bigbluebutton_recordings.recordid LIKE ? OR bigbluebutton_rooms.name LIKE ?"
+        query_strs << str
+        query_params += ["%#{word}%", "%#{word}%"]
+        query_params += ["%#{word}%", "%#{word}%"]
+      end
+
+      query.where(query_strs.join(' OR '), *query_params.flatten)
+    }
+
+    # Filters a query to return only recordings that have at least one playback format
+    scope :has_playback, -> {
+      where(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
+    }
+
+    # Filters a query to return only recordings that have no playback format
+    scope :no_playback, -> {
+      where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
+    }
+  end
 end

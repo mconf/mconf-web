@@ -4,6 +4,10 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+def image_url(path)
+  "#{root_url}/#{image_path(path)}"
+end
+
 module LogoImagesHelper
 
   # Helper method to render an avatar or logo for a resource.
@@ -40,24 +44,35 @@ module LogoImagesHelper
       else
         empty_logo_image(model_type, options)
       end
+
+    # Try a gravatar image if we have a confirmed user
+    elsif model_type == :user && current_site.use_gravatar? && resource.confirmed?
+      grav_options = {}
+      grav_options[:size] = options[:size]
+      grav_options[:default] = "mm"
+      grav_options[:secure] = true
+      options[:alt] = resource.name
+      image_tag(GravatarImageTag.gravatar_url(resource.email, grav_options), options)
+
     else
       empty_logo_image(model_type, options)
     end
   end
 
-  def empty_logo_image(resource, options={})
-    options[:size] = validate_logo_size(options[:size])
-
+  def empty_logo_url(resource, options={})
     case resource
     when :user
-      path_no_image = "default_logos/" + options[:size] + "/user.png"
+      "default_logos/" + options[:size] + "/user.png"
     when :space
-      path_no_image = "default_logos/" + options[:size] + "/space.png"
+      "default_logos/" + options[:size] + "/space.png"
     when :event
-      path_no_image = "default_logos/" + options[:size] + "/event.png"
+      "default_logos/" + options[:size] + "/event.png"
     end
+  end
+
+  def empty_logo_image(resource, options={})
     cls = "#{options[:class]} empty-logo".strip
-    image_tag(path_no_image, class: cls, title: options[:title])
+    image_tag(empty_logo_url(resource, options), class: cls, title: options[:title])
   end
 
   def link_logo_image(resource, options={})

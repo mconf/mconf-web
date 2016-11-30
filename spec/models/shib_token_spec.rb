@@ -67,6 +67,11 @@ describe ShibToken do
     end
   end
 
+  describe "#last_sign_in_date" do
+    it "returns the last sign in date"
+    it "returns the same as #current_sign_in_at"
+  end
+
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

@@ -432,7 +432,7 @@ describe Space do
            RecentActivity.create(owner: spaces[0], created_at: now),
            RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days),
            RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.day),
-           RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
           ]
         end
         before { Space.calculate_last_activity_indexes! }
@@ -1132,6 +1132,14 @@ describe Space do
       it { space.enabled?.should be(false) }
       it { space.disabled?.should be(true) }
     end
+  end
+
+  describe ".search_by_terms" do
+    it "includes disabled spaces"
+    it "searches by name"
+    it "searches by description"
+    it "searches by name and description"
+    it "searches with multiple words"
   end
 
   describe "abilities", :abilities => true do

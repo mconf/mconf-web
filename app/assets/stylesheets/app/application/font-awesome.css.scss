@@ -211,6 +211,23 @@ a:not(.btn) .icon-awesome {
     color: $red;
   }
 
+  &.icon-mconf-publish {
+    color: $green;
+  }
+
+  &.icon-mconf-unpublish {
+    color: $yellow
+  }
+
+  &.icon-mconf-list {
+    &.enabled {
+      color: #888;
+    }
+    &.disabled {
+      color: #CCC;
+    }
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}

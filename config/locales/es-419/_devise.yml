@@ -6,6 +6,7 @@ es-419:
       send_paranoid_instructions: "Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un correo electrónico con instrucciones sobre cómo confirmar su cuenta en unos minutos."
     failure:
       already_authenticated: "Usted ya está registrado."
+      disabled_by_shib_auth: 'Su usuario no tiene permiso para acceder a través de la autenticación local. Por favor, inicie sesión con la federación.'
       inactive: "Su cuenta aún no se ha activado."
       invalid: "Correo electrónico o contraseña incorrectos."
       invalid_token: "Token de autenticación incorrecto."

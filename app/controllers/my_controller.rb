@@ -52,10 +52,11 @@ class MyController < ApplicationController
 
   def approval_pending
     # don't show it unless user is coming from a login or register
-    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url]
-    if user_signed_in? || !referers.include?(request.referrer)
-      redirect_to root_path
-    end
+    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url, user_registration_url]
+    # if the user is signing in via Shibboleth he will be coming from an external URL, so
+    # it's an exception
+    show_pending = !user_signed_in? && (referers.include?(request.referer) || Mconf::Shibboleth.new(session).signed_in?)
+    redirect_to root_path unless show_pending
   end
 
   def activity
@@ -100,11 +101,12 @@ class MyController < ApplicationController
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end
+    @redir_url = my_recordings_path
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = my_recordings_path # TODO: not working, no support on bbb_rails
+    @redir_url = my_recordings_path
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end

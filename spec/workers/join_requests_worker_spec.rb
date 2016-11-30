@@ -6,13 +6,16 @@
 
 require 'spec_helper'
 
-describe JoinRequestsWorker do
+describe JoinRequestsWorker, type: :worker do
   let(:worker) { JoinRequestsWorker }
+  let(:senderInv) { JoinRequestInviteSenderWorker }
+  let(:senderS) { JoinRequestSenderWorker }
+  let(:senderProc) { ProcessedJoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
+  let(:queue) { Queue::High }
+  let(:paramsInv) {{"method"=>:perform, "class"=>senderInv.to_s}}
+  let(:paramsS) {{"method"=>:perform, "class"=>senderS.to_s}}
+  let(:paramsProc) {{"method"=>:perform, "class"=>senderProc.to_s}}
 
   describe "#perform" do
 
@@ -32,10 +35,10 @@ describe JoinRequestsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestInviteSenderWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity[0].id) }
-      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity[1].id) }
-      it { expect(JoinRequestInviteSenderWorker).not_to have_queued(@activity[2].id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(paramsInv, @activity[0].id) }
+      it { expect(queue).to have_queued(paramsInv, @activity[1].id) }
+      it { expect(queue).not_to have_queued(paramsInv, @activity[2].id) }
     end
 
     context "enqueues all unnotified requests" do
@@ -54,10 +57,10 @@ describe JoinRequestsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestSenderWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestSenderWorker).to have_queued(@activity[0].id) }
-      it { expect(JoinRequestSenderWorker).to have_queued(@activity[1].id) }
-      it { expect(JoinRequestSenderWorker).not_to have_queued(@activity[2].id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(paramsS, @activity[0].id) }
+      it { expect(queue).to have_queued(paramsS, @activity[1].id) }
+      it { expect(queue).not_to have_queued(paramsS, @activity[2].id) }
     end
 
     context "for unnotified processed requests" do
@@ -78,10 +81,10 @@ describe JoinRequestsWorker do
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(2) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).not_to have_queued(@activity3.id) }
+        it { expect(queue).to have_queue_size_of(2) }
+        it { expect(queue).to have_queued(paramsProc, @activity1.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
+        it { expect(queue).not_to have_queued(paramsProc, @activity3.id) }
       end
 
       context "ignores requests declined by admins" do
@@ -101,8 +104,8 @@ describe JoinRequestsWorker do
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
+        it { expect(queue).to have_queue_size_of(1) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
       end
 
       #
@@ -145,10 +148,10 @@ describe JoinRequestsWorker do
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(3) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
+        it { expect(queue).to have_queue_size_of(3) }
+        it { expect(queue).to have_queued(paramsProc, @activity1.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity3.id) }
       end
     end
   end

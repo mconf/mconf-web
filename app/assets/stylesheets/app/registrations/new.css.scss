@@ -37,7 +37,11 @@ body.registrations.new, body.registrations.create {
        span { display: block; }
      }
    }
-
   }
 
+  .captcha {
+    float: right;
+    margin-bottom: 10px;
+  }
 }
+

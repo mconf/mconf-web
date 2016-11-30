@@ -37,7 +37,7 @@ en:
     events:
       create:
         notice: Successfully created the event
-        error: There was a problem creating this event
+        permission_error: "You don't have permission to create this event"
       destroy:
         notice: Successfully deleted the event
       update:

@@ -13,8 +13,18 @@ class ErrorsController < ApplicationController
 
   def on_error
     @exception = env["action_dispatch.exception"]
-    @route = @exception.message.split('"')[1]
-    status = request.path[1..-1]
+
+    # Prevent further errors if for some reason we reach this controller with no exception.
+    # We 'll just fill the variables with an 'Unknown error' and let the application render it
+    if @exception.blank?
+      @exception = StandardError.new 'Unknown error'
+      @route = my_home_path
+      status = 500
+    else
+      @route = @exception.message.split('"')[1]
+      status = request.path[1..-1]
+    end
+
     respond_to do |format|
       format.html { send("render_#{status}", @exception) }
       format.json { render json: { status: status, error: @exception.message } }

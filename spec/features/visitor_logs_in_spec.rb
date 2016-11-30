@@ -88,6 +88,19 @@ feature 'Visitor logs in' do
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(space_path(space))
     end
+
+    scenario 'if the site is configured to use HTTPS' do
+      # Capybara has to respond to HTTPS and the app has to be configured to use it
+      Capybara.app_host = "https://#{Site.current.domain}"
+      Site.current.update_attributes(ssl: true)
+
+      user = FactoryGirl.create(:user)
+      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      visit invite_bigbluebutton_room_path(room)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(invite_bigbluebutton_room_path(room))
+    end
   end
 
   feature "isn't redirected back to routes he shouldn't return to" do

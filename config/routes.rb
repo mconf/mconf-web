@@ -33,6 +33,9 @@ Mconf::Application.routes.draw do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
     get "register", to: "registrations#new"
+
+    # so admins can log in even if local auth is disabled
+    get "admin", to: "sessions#new"
   end
 
   # bigbluebutton_rails default routes
@@ -154,7 +157,7 @@ Mconf::Application.routes.draw do
 
   # Management routes
   get "/manage", to: redirect('/site'), as: "manage"
-  ['users', 'spaces'].each do |resource|
+  ['users', 'spaces', 'recordings'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end
 

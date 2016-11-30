@@ -95,7 +95,9 @@ class SpacesController < InheritedResources::Base
         }
       end
     else
-      format.json { render json: { success: false } }
+      respond_to do |format|
+        format.json { render json: { success: false } }
+      end
     end
   end
 
@@ -169,6 +171,7 @@ class SpacesController < InheritedResources::Base
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end
+    @redir_url = recordings_space_path(@space)
 
     render layout: false if params[:partial]
   end

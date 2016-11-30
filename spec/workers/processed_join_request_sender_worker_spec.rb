@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe ProcessedJoinRequestSenderWorker do
+describe ProcessedJoinRequestSenderWorker, type: :worker do
   let(:worker) { ProcessedJoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
   let(:admin) { FactoryGirl.create(:user) }
@@ -16,10 +16,6 @@ describe ProcessedJoinRequestSenderWorker do
     space.add_member!(admin, 'Admin')
     space.add_member!(admin2, 'Admin')
   }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
 
   describe "#perform" do
     context "for a request" do

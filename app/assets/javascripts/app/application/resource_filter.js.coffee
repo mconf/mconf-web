@@ -66,7 +66,7 @@ updateResources = ($input, $target, force = false) ->
     # adjust the params in the URL
     params = mconf.Base.getUrlParts(String(window.location))
     if searchQuery?.length > 0
-      params.q = encodeURI(searchQuery)
+      params.q = encodeURIComponent(searchQuery)
     else
       delete params.q
     url = $input.attr("data-load-url") + mconf.Base.urlFromParts(params)

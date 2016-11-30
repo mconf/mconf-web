@@ -6,12 +6,11 @@
 
 require 'spec_helper'
 
-describe ParticipantConfirmationsWorker do
+describe ParticipantConfirmationsWorker, type: :worker do
   let(:worker) { ParticipantConfirmationsWorker }
-
-  it "uses the queue :participant_confirmations" do
-    worker.instance_variable_get(:@queue).should eql(:participant_confirmations)
-  end
+  let(:sender) { ParticipantConfirmationsSenderWorker }
+  let(:queue) { Queue::High }
+  let(:params) {{"method"=>:perform, "class"=>sender.to_s}}
 
   describe "#perform" do
     before { ParticipantConfirmation.delete_all }
@@ -23,11 +22,11 @@ describe ParticipantConfirmationsWorker do
       let!(:pc4) { FactoryGirl.create(:participant_confirmation, email_sent_at: Time.now) }
 
       before(:each) { worker.perform }
-      it { expect(ParticipantConfirmationsSenderWorker).to have_queue_size_of(2) }
-      it { expect(ParticipantConfirmationsSenderWorker).to have_queued(pc1.id) }
-      it { expect(ParticipantConfirmationsSenderWorker).to have_queued(pc3.id) }
-      it { expect(ParticipantConfirmationsSenderWorker).not_to have_queued(pc2.id) }
-      it { expect(ParticipantConfirmationsSenderWorker).not_to have_queued(pc4.id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(params, pc1.id) }
+      it { expect(queue).to have_queued(params, pc3.id) }
+      it { expect(queue).not_to have_queued(params, pc2.id) }
+      it { expect(queue).not_to have_queued(params, pc4.id) }
     end
 
   end

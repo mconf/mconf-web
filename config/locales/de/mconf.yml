@@ -4,7 +4,6 @@ de:
       create_html: hat den Anhang %{name} in die Gruppe hochgeladen
       destroy_html: hat den Anhang %{name} von der Gruppe gelöscht
       update_html: hat den Anhang %{name} in der Gruppe aktualisiert
-      deleted: das mittlerweile gelöscht ist
     bigbluebutton_meeting:
       deleted_html: "Ein Meeting hat stattgefunden aber seine Informationen sind mittlerweile gelöscht"
       user:
@@ -12,10 +11,7 @@ de:
       space:
         create_html: "Ein Meeting wurde in der Gruppe %{owner} um %{time} gestartet"
     join_request:
-      deleted: das mittlerweile gelöscht ist
       invite_html: "wurde eingeladen um der Gruppe beizutreten"
-      invite_with_introducer_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> eingeladen, der Gruppe beizutreten"
-      no_accept_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> der Gruppe hinzugefügt"
       request_html: "hat beantragt, der Gruppe beitreten zu dürfen"
     other:
       admin_html: "Ein Administrator"
@@ -24,13 +20,9 @@ de:
       create_html: hat %{name} in der Gruppe gepostet
       update_html: hat %{name}  in der Gruppe aktualsiert
       reply_html: hat auf %{name} in der Gruppe geantwortet
-      deleted: eine Nachricht, die mittlerweile gelöscht wurde
     space:
-      accept_html: ist der Gruppe beigetreten
       approved_html: hat die Gruppe freigeschalten
       create_html: hat eine neue Gruppe erstellt
-      decline_html: wurde die Einladung / Anfrage verweigert
-      deleted: eine Gruppe , die inzwischen gelöscht wurde
       leave_html: hat die Gruppe verlassen
       update_html: hat die Information zur Gruppe aktualisiert
   _js:
@@ -130,7 +122,6 @@ de:
         prefix_key: "Titel"
         province: "Bundesland"
         skype: "Skype"
-        url: "Ihre Website"
         zipcode: "Postleitzahl"
       roles:
         name_user: "Benutzer"
@@ -554,7 +545,6 @@ de:
     show:
       available_layouts: "Verfügbare Layouts"
       configurations: "Server Einstellungen"
-      configurations_tip: "Diese Einstellungen wurden automatisch vom Server abgerufen und können hier nicht geändert werden. Sie werden periodisch (etwa alle 3 Stunden) von einem Hintergrundprozess oder bei jeder Änderung einer URL, eines Salts oder einer Version abgerufen."
       fetch_recordings_title: "Aufzeichnungen mit Parametern abrufen"
       fetch_recordings_btn: "Aufzeichnungen abrufen"
       publish_recordings_title: "Aufzeichnungen veröffentlichen"

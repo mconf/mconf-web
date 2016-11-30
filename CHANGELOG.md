@@ -1,12 +1,90 @@
 # Change Log
 
+
+## [2.3.0] - 2016-10-05
+
+Upgraded ruby from 2.2.0 to 2.2.5.
+
+This version includes a few new features such as support for reCaptcha and support for avatars
+from Gravatar, new queues for resque that organize jobs by priority, and better error messages
+in the log when in production.
+
+Also includes several bug fixes over the previous version.
+
+* Update ruby to 2.2.5 (from 2.2.0).
+* [#787] Improve resque queues to be ordered by priority and not just by name. Now jobs are
+  distributed in three queues ordered by priority (`high`, `normal`, `low`), plus the standard
+  `mailer` queue and the queue `bigbluebutton_rails` from the gem.
+* [#818] Log the entire stack trace on errors when in production.
+* [#767] Added `current_sign_in_at` to Shibboleth and LDAP tokens. Now it's possible to know
+  when the user signed in the last time for each of the 3 authentication mechanisms available.
+* [#877] Fix redirection to `/pending` When the user signs in via Shibboleth when he wasn't
+  already signed into the federation.
+* [#868] Properly send user to pending approval page if he registers after failing the first
+  registration attempt.
+* [#839] Fix the highlight method in the management lists of users and spaces to properly
+  show HTML entities (e.g. "&nbsp;") as text if they are set as part of the text by the user.
+* [#516] Removing old references to digest emails and digest email frequency settings.
+  Digest emails were disabled for a long time already, but were still available in views.
+* [#871] Now only the description is editable in recordings, since all other attributes
+  come from the web conference server and editing them in Mconf-Web wouldn't change them
+  in the web conference server. Includes an upgrade in `bigbluebutton_rails`.
+* [#876] Fix redirect loop if `shib_always_new_account` is on and there's an error creating
+  the user.
+* [#819] Inputs to edit LDAP configurations are not autocompleted anymore with username and
+  password saved by the browser.
+* Add `/secure/associate` to Apache's shibboleth routes. Since 2.1.0, the environment
+  variables should be set when `/secure/associate` and Apache wasn't doing so.
+* [#756] Fix access to `#new` for events when logged out, it would raise an exception.
+* [#501, #353] Explicitly require file type in upload forms. Filters the type of images
+  supported and prevents issues with e.g. `.svg` files.
+* [#549] Fix the highlight of results in the management lists of users and spaces. It
+  didn't work with special characters as for example `á` or `ô`.
+* [#823] Fix `undefined method 'message' for nil:NilClass in ErrorsController`.
+* [#425] Use avatars from Gravatar for users when the user has not uploaded any
+  custom avatar. Off by default, can be turned in and configured in the website management
+  page.
+* [#335, #729] Add support for reCaptcha in the registration form and in the form to
+  register as an anonymous user in an event. Off by default, can be turned in and
+  configured in the website management page.
+* Security fixes by upgrading uglifier and nokogiri.
+
+
+## [2.2.0] - 2016-07-25
+
+Added support for BigBlueButton 1.0. A few other improvements over 2.1.0, but no
+major feature.
+
+Important: `BigbluebuttonServer#salt` was renamed to `BigbluebuttonServer#secret`.
+Might require changes in configuration files (see `setup_conf.yml`).
+
+* Prevent DatesHelper#format_date from breaking if `date` is `nil`.
+* Upgraded bigbluebutton_rails. Add two new metadata to create calls:
+  the domain configured on Mconf-Web and the type of the room being created ("User"
+  or "Space").
+* [#873] Fix redirects after signing in via Shibboleth. Redirects were are always
+  sending the user to `/home`.
+* Upgraded bigbluebutton_rails. Fixes setting recordings as unavailable. When loading
+  the recordings of a room, was setting all recordings from all other rooms as
+  unavailable.
+* Add "su" directive on logrotate's config.
+* Upgraded bigbluebutton_rails. Improves how BigbluebuttonMeeting objects are created
+  and ended. More reliable and works even if the resque workers are not running.
+* [#768] Fix redirects to valid pages when using HTTPS.
+* [#861] Fix how recent activities are created for meetings. Solves
+  "undefined method `current_user' for nil:NilClass".
+* [#447] Allow users to unpublish their recordings. They will be hidden from the user
+  but still available for admins.
+* Now accepts the version 1.0 for BigBlueButton.
+* [#844] Create a recent activity when approving a user from `/users/:id/edit`.
+* [#721] Fix `ActiveRecord::RecordNotUnique on table "bigbluebutton_meetings`.
+
 ------------------------------------
 
 All tickets below use references to IDs in our old issue tracking system.
 To find them, search for their description or IDs in the new issue tracker.
 
 ------------------------------------
-
 
 ## [2.1.0] - 2016-04-06
 
@@ -249,6 +327,8 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
+[2.3.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.3.0
+[2.2.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.2.0
 [2.1.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.1.0
 [2.0.1]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.1
 [2.0.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.0.0

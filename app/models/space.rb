@@ -115,10 +115,22 @@ class Space < ActiveRecord::Base
   scope :public_spaces, -> { where(:public => true) }
 
   # Used by select controller method
-  # For now keep old behavior and search for only one word in the name
-  scope :search_by_terms, -> (words, include_private=false) {
-    words = words.join(' ') if words.is_a?(Array)
-    where('name LIKE ?', "%#{words}%")
+  # TODO: can_manage is never used, should hide private spaces
+  scope :search_by_terms, -> (words, can_manage=false) {
+    query = Space.with_disabled
+
+    words ||= []
+    words = [words] unless words.is_a?(Array)
+    query_strs = []
+    query_params = []
+
+    words.each do |word|
+      str  = "name LIKE ? OR description LIKE ?"
+      query_strs << str
+      query_params += ["%#{word}%", "%#{word}%"]
+    end
+
+    query.where(query_strs.join(' OR '), *query_params.flatten)
   }
 
   # Finds all the valid user roles for a Space

@@ -57,6 +57,10 @@ pt-br:
       title: Aperte Ctrl+C para copiar o texto
   _other:
     accept: "Aceitar"
+    auth:
+      ldap: "LDAP"
+      local: "autenticação local"
+      shibboleth: "shibboleth"
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
@@ -204,6 +208,7 @@ pt-br:
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
+        gravatar: Usar gravatar
         xmpp_server: "Endereço do servidor XMPP"
       space:
         attendee_key: "Chave para participantes"
@@ -222,7 +227,6 @@ pt-br:
         expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
-        receive_digest: "O quão frequentemente você gostaria de receber emails com um resumo das atividades que aconteceram nas comunidades as quais você pertence?"
         remember_me: "Permanecer conectado"
         superuser: "Administrador global"
         timezone: "Fuso horário"
@@ -538,6 +542,7 @@ pt-br:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
+      tip: "A maioria dos atributos não são editáveis pois são obtidos de um servidor remoto e refletem exatamente o estado da gravação nesse servidor"
     show:
       showing_recording: "Mostrando gravação"
     index:
@@ -545,6 +550,7 @@ pt-br:
     recording_links:
       direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
+      confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
     recordings:
       table:
         links: "Links"
@@ -636,16 +642,6 @@ pt-br:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
     confirm: "Você agora precisa confirmar seu registro clicando em <a href=\"%{url}\"> %{url} </a>"
-    digest:
-      attachment: "<b>%{author_name}</b> enviou um novo anexo em <b>%{space_name}</b>:"
-      event: "<b>%{author_name}</b> criou um novo evento em <b>%{space_name}</b>:"
-      inbox: "<b>%{sender_name}</b> enviou uma mensagem para você:"
-      message: "Últimas atividades em suas comunidades:"
-      posted: "<b>%{author_name}</b> escreveu em <b>%{space_name}</b> a mensagem:"
-      title: "Resumo %{type} com as atividades em suas comunidades"
-      type:
-        daily: diário
-        weekly: semanal
     invitation_result:
       admin_side: "%{name} %{action} o convite para a comunidade %{spacename}"
       user_side: "Seu pedido de autorização na comunidade %{spacename} foi: %{action}"
@@ -936,13 +932,19 @@ pt-br:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     spaces:
-      filter_name: "Filtrar comunidades por nome"
+      approved_false: "Não aprovados"
+      approved_true: "Aprovados"
+      disabled_false: "Habilitados"
+      disabled_true: "Desabilitados"
+      filter_name: "Filtrar por nome ou descrição"
       new_space: "Nova comunidade"
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     user_item:
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
       confirm: "Confirmar este usuário"
@@ -954,6 +956,8 @@ pt-br:
       edit: "Editar usuário"
       enable: "Habilitar usuário"
       enable_confirm: "Tem certeza que deseja habilitar este usuário?"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     users:
       filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
@@ -965,10 +969,39 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
+      login_method_shib: Login Shibboleth
+      login_method_local: Login Local
+      login_method_ldap: Login LDAP
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
+    recordings:
+      available_false: "Não disponíveis"
+      available_true: "Disponíveis"
+      confirm_delete: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
+      created_at: "Criado em"
+      delete: "Remover gravação"
+      direct_link: "Link direto"
+      edit: "Editar gravação"
+      filter_name: "Filtrar por nome, descrição ou ID da gravação"
+      playback_links: "Reproduções disponíveis"
+      playback_false: "Sem reproduções"
+      playback_true: "Com reproduções"
+      publish: "Publicar gravação"
+      published: "Publicada"
+      published_false: "Despublicadas"
+      published_true: "Publicadas"
+      recordid: "ID da dravação"
+      room_name: "Sala"
+      show_playback: "Mostrar reproduções disponíveis"
+      show_playback_none: "Não existem reproduções disponíveis"
+      unpublish: "Despublicar gravação"
+      unpublished: "Não publicada"
+    recordings_list:
+      filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} gravações encontradas"
+      no_recording_found: "Nenhuma gravação encontrada"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   moderatorPW: "Senha de Moderador"
@@ -1121,6 +1154,8 @@ pt-br:
   profiles:
     edit:
       change_pic: "Mudar foto"
+      explain_gravatar: "Esta é a imagem que está associada ao seu e-mail no Gravatar.com"
+      using_gravatar: "Imagem do Gravatar"
       title: "%{name}: editar perfil"
       view_your_profile: "Visualizar perfil"
       vcard:
@@ -1163,6 +1198,9 @@ pt-br:
         export: "Exportar vCard"
   public: Público
   read_more: "Ler mais"
+  recaptcha:
+    errors:
+      verification_failed: "Você não preencheu o captcha corretamente, por favor tente novamente."
   recent:
     activity: "Atividades recentes"
   recent_activity:
@@ -1257,7 +1295,9 @@ pt-br:
   shared:
     recording_list:
       created_by: "Criada por"
+      destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
+      manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
       no_meetings: "Ainda não existem reuniões ou gravações nesta sala."
       not_recorded: "(Esta reunião não foi gravada.)"
@@ -1265,6 +1305,10 @@ pt-br:
       started_at: "Data"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
+      publish: Publicar
+      unpublish: Ocultar
+      unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
+      unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"
@@ -1735,10 +1779,6 @@ pt-br:
         not_confirmed: "Este usuário ainda não confirmou sua conta."
         title: "Editar conta de usuário"
       preferences: "Preferências"
-      receive_digest:
-        daily: "Diariamente"
-        never: "Nunca"
-        weekly: "Semanalmente"
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
     errors:
@@ -1787,3 +1827,5 @@ pt-br:
   when: Quando
   where: Onde
   yesterday: Ontem
+
+

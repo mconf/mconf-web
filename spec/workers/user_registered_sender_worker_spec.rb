@@ -6,12 +6,8 @@
 
 require 'spec_helper'
 
-describe UserRegisteredSenderWorker do
+describe UserRegisteredSenderWorker, type: :worker do
   let(:worker) { UserRegisteredSenderWorker }
-
-  it "uses the queue :user_notifications" do
-    worker.instance_variable_get(:@queue).should eql(:user_notifications)
-  end
 
   describe "#perform" do
     let(:user) { FactoryGirl.create(:user) }

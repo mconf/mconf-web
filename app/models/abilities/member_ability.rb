@@ -15,7 +15,7 @@ module Abilities
       can [:edit, :update, :disable], User, id: user.id
       can [:update_password], User do |target_user|
         user == target_user &&
-          (Site.current.local_auth_enabled? && !target_user.no_local_auth?)
+          (Site.current.local_auth_enabled? && target_user.local_auth?)
       end
 
       # User profiles
@@ -250,8 +250,8 @@ module Abilities
           user_is_owner_of_recording(user, recording)
       end
 
-      # a user can edit his recordings and recordings in spaces where he's an admin
-      can [:update], BigbluebuttonRecording do |recording|
+      # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
+      can [:update, :unpublish], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
           user_is_admin_of_recordings_space(user, recording)
       end

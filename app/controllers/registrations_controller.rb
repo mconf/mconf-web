@@ -10,6 +10,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   before_filter :check_registration_enabled, :only => [:new, :create]
   before_filter :configure_permitted_parameters, :only => [:create]
+  before_filter only: [:create] do
+    if verify_captcha == false
+      flash[:error] = I18n.t('recaptcha.errors.verification_failed')
+
+      # build the resource so we keep the information the user already filled
+      # in the form
+      build_resource(sign_up_params)
+      render :new
+    end
+  end
 
   def new
   end

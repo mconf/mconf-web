@@ -17,8 +17,6 @@ de:
     hints:
       bigbluebutton_room:
         dial_number: "Eine Einwahlnummer, mit der Teilnehmer mit einem normalen Telefon teilnehmen können"
-      bigbluebutton_server:
-        version: "Die Version wird automatisch vom Server geholt, wenn Sie die URL oder den Salt ändern"
       invite:
         users: "Nach Name oder Email suchen. Wenn Sie jemanden nicht finden, tragen Sie einfach die Email-Adresse ein. Drücken Sie Eingabe, um ein neues Item anzulegen."
       site:

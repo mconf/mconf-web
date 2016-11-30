@@ -139,6 +139,14 @@ module IconsHelper
     icon_constructor nil, "fa fa-eye icon-awesome icon-mconf-space-public", options
   end
 
+  def icon_publish(options={})
+    icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-publish", options
+  end
+
+  def icon_unpublish(options={})
+    icon_constructor nil, "icon-awesome icon-eye-close icon-mconf-unpublish", options
+  end
+
   def icon_mobile(options={})
     icon_constructor nil, "fa fa-mobile icon-awesome icon-mconf-mobile", options
   end

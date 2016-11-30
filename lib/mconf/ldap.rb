@@ -62,8 +62,11 @@ module Mconf
     end
 
     # Sets the user as signed in via LDAP in the session.
-    def sign_user_in(user)
+    def set_signed_in(user, token)
+      user.signed_in_via_external = true
       @session[SESSION_KEY] = { username: user.username, email: user.email }
+      token.current_sign_in_at = Time.now.utc
+      token.save
     end
 
     # Returns whether the user is signed in via LDAP or not.

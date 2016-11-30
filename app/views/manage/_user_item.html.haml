@@ -5,17 +5,26 @@
       = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')
 
   .col-xs-12.col-sm-7
-    - words = escape_once(params[:q]).try(:split)
+    - words = params[:q].try(:split)
     .user-username.list-text-title
       - if user.disabled?
-        = highlight(user.username, words)
+        = Mconf::Highlighter.highlight(user.username, words)
       - else
         = link_to user_path(user) do
-          = highlight(escape_once(user.username), words)
+          = Mconf::Highlighter.highlight(user.username, words)
     .user-name.list-text-description
-      = highlight(escape_once(user.full_name), words)
+      = Mconf::Highlighter.highlight(user.full_name, words)
     .user-email.list-text-description
-      = highlight(user.email, words)
+      = Mconf::Highlighter.highlight(user.email, words)
+    .current-sign-in
+      = t('.last_sign_in')
+      - if user.current_sign_in_at
+        %span.tooltipped{ title: user.current_sign_in_at }= "#{format_date(user.current_sign_in_at, :long) }"
+        = " #{t('.auth_using')} #{user_last_sign_in_method(user).to_s}"
+      - else
+        %span.tooltipped{ title: t('.never_sign_in') }= "?"
+      - methods = user_sign_in_methods(user).join(", ")
+      = "(#{t('.available_auth')}: #{methods})"
 
   .col-xs-12.col-sm-2.user-category
     = user_category(user)

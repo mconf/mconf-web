@@ -56,16 +56,45 @@ feature "User registers in an event" do
     it { should have_content t("participants.split_form.annonymous_title") }
     it { should have_content t("participants.split_form.member_title") }
 
-    context "register as annonymous" do
+    context "with captcha disabled" do
       let(:email) { 'cosmo@oot.ze' }
-      before {
-        fill_in "participant[email]", with: email
-        click_button t('participants.form.submit')
-      }
+      context "register as annonymous with valid captcha" do
+        before {
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
 
-      it { has_success_message t('flash.participants.create.waiting_confirmation') }
-      it { current_path.should eq(event_path(event)) }
-      it { should have_content t("events.registration.button") }
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
+      end
+    end
+
+    context "with captcha enabled" do
+      let(:email) { 'cosmo@oot.ze' }
+      context "register as annonymous with valid captcha" do
+        before {
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(true)
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
+
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
+      end
+
+      context "try to register as annonymous with invalid captcha" do
+        before {
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(false)
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
+
+        it { has_failure_message t('recaptcha.errors.verification_failed') }
+        it { current_path.should eq(event_participants_path(event)) }
+        it { page.should have_css("input[name='participant[email]'][value='#{email}']") }
+      end
     end
 
     context "register as annonymous and confirms registration via email" do

@@ -13,7 +13,6 @@ class ManageController < ApplicationController
     words = params[:q].try(:split, /\s+/)
     query = User.with_disabled.search_by_terms(words, can?(:manage, User))
 
-    # start applying filters
     [:disabled, :approved, :can_record].each do |filter|
       if !params[filter].nil?
         val = (params[filter] == 'true') ? true : [false, nil]
@@ -21,35 +20,72 @@ class ManageController < ApplicationController
       end
     end
 
+    auth_methods = []
+    auth_methods << :shibboleth if params[:login_method_shib] == 'true'
+    auth_methods << :ldap if params[:login_method_ldap] == 'true'
+    auth_methods << :local if params[:login_method_local] == 'true'
+    query = query.with_auth(auth_methods)
+
     if params[:admin].present?
       val = (params[:admin] == 'true') ? true : [false, nil]
       query = query.where(superuser: val)
     end
 
-    @users = query.paginate(:page => params[:page], :per_page => 40)
+    @users = query.paginate(page: params[:page], per_page: 40)
 
     if request.xhr?
-      render :partial => 'users_list', :layout => false
+      render partial: 'users_list', layout: false
     else
-      render :layout => 'manage'
+      render layout: 'manage'
     end
   end
 
   def spaces
-    name = params[:q]
-    params.delete(:partial) # otherwise the pagination links in the view will include this param
+    words = params[:q].try(:split, /\s+/)
+    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).order("name")
 
-    query = Space.with_disabled.order("name")
-    if name.present?
-      query = query.where("name like ?", "%#{name}%")
+    # start applying filters
+    [:disabled, :approved].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
     end
-    @spaces = query.paginate(:page => params[:page], :per_page => 40)
+
+    @spaces = query.paginate(:page => params[:page], :per_page => 20)
 
     if request.xhr?
       render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
     else
-      render :layout => 'manage'
+      render :layout => 'no_sidebar'
     end
   end
 
+  def recordings
+    words = params[:q].try(:split, /\s+/)
+    query = BigbluebuttonRecording.search_by_terms(words)
+
+    [:published, :available].each do |filter|
+      if !params[filter].nil?
+        val = (params[filter] == 'true') ? true : [false, nil]
+        query = query.where(filter => val)
+      end
+    end
+
+    if params[:playback] == "true"
+      query = query.has_playback
+    elsif params[:playback] == "false"
+      query = query.no_playback
+    end
+
+    query = query.order("bigbluebutton_recordings.start_time DESC")
+
+    @recordings = query.paginate(page: params[:page], per_page: 20)
+
+    if request.xhr?
+      render partial: 'recordings_list', layout: false, locals: { recordings: @recordings }
+    else
+      render layout: 'no_sidebar'
+    end
+  end
 end

@@ -2,61 +2,60 @@ send_join_requests_notifications:
   every:
     - "30s"
   class: JoinRequestsWorker
+  queue: high
   description: "Sends notifications for all join requests not notified yet"
 
 send_invitations:
   every:
     - "30s"
   class: InvitationsWorker
+  queue: high
   description: "Finds all invitations still not sent and sends them"
 
 send_user_notifications:
   every:
     - "30s"
   class: UserNotificationsWorker
+  queue: high
   description: "Checks pending user notifications and sends them"
 
 send_space_notifications:
   every:
     - "30s"
   class: SpaceNotificationsWorker
+  queue: high
   description: "Checks pending space notifications and sends them"
 
 send_participant_confirmations_notifications:
   every:
     - "30s"
   class: ParticipantConfirmationsWorker
+  queue: normal
   description: "Checks pending event confirmations email and sends them"
-
-# TODO: use it after #1292
-# send_daily_digest:
-#   cron: "0 14 * * *" # daily at 2pm
-#   class: DailyDigest
-#   description: "Sends the daily digest."
-# send_weekly_digest:
-#   cron: "0 14 * * 1" # mondays at 2pm
-#   class: WeeklyDigest
-#   description: "Sends the weekly digest."
 
 finish_meetings:
   every:
     - "30s"
   class: BigbluebuttonFinishMeetings
+  queue: low
   description: "Checks for meetings that finished and mark as finished. Same as 'rake bigbluebutton_rails:meetings:finish'."
 
 update_recordings:
   every:
     - "30m"
   class: BigbluebuttonUpdateRecordings
+  queue: low
   description: "Gets the recordings in the server to populate the db. Same as 'rake bigbluebutton_rails:recordings:update'."
 
 update_server_configs:
   every:
     - "1h"
   class: BigbluebuttonUpdateServerConfigs
+  queue: low
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
 
 update_space_relevance_indexes:
    cron: "0 4 * * *" # daily at 4am
    class: UpdateSpaceRelevanceIndexesWorker
+   queue: low
    description: "Recalculate and update indexes used for ordering spaces in the spaces#index page."

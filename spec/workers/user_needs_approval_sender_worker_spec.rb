@@ -6,16 +6,12 @@
 
 require 'spec_helper'
 
-describe UserNeedsApprovalSenderWorker do
+describe UserNeedsApprovalSenderWorker, type: :worker do
   let(:worker) { UserNeedsApprovalSenderWorker }
 
   before {
     Site.current.update_attributes(require_registration_approval: true)
   }
-
-  it "uses the queue :user_notifications" do
-    worker.instance_variable_get(:@queue).should eql(:user_notifications)
-  end
 
   describe "#perform" do
     let(:user) { FactoryGirl.create(:user) }

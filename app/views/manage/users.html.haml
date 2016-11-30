@@ -10,8 +10,21 @@
             = t(".#{field}_true")
           = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'false'}", type: "button", 'data-attr-filter': field, 'data-attr-value': false do
             = t(".#{field}_false")
+      - ['login_method_shib'].each do |field|
+        .search-filter-option-sign-in
+          = check_box_tag :"users_filter_#{field}_shib", true, params[field] == 'true', 'data-attr-filter': field, class: ' resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_shib" }= t(".#{field}")
+      - ['login_method_local'].each do |field|
+        .search-filter-option-sign-in
+          = check_box_tag :"users_filter_#{field}_local", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_local" }= t(".#{field}")
+      - ['login_method_ldap'].each do |field|
+        .search-filter-option-sign-in
+          = check_box_tag :"users_filter_#{field}_ldap", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+          %label{ for: "users_filter_#{field}_ldap" }= t(".#{field}")
 
       = link_to t('.new_user'), new_user_path, class: 'open-modal btn btn-primary btn-new-user'
 
   #users-list
     = render partial: 'users_list', locals: { :users => @users }
+

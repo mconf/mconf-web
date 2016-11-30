@@ -17,22 +17,4 @@ class ApplicationMailer < BaseMailer
       create_email(Site.current.smtp_sender, email, subject)
     end
   end
-
-  def digest_email(receiver_id, posts, attachments, events)
-    receiver = User.find(receiver_id)
-    I18n.with_locale(get_user_locale(receiver, false)) do
-      @posts = Post.find(posts)
-      @attachments = Attachment.find(attachments)
-      @events = Event.find(events)
-      if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
-        @type = t('email.digest.type.daily')
-      else
-        @type = t('email.digest.type.weekly')
-      end
-      @subject = t('email.digest.title', :type => @type)
-      @signature  = Site.current.signature_in_html
-
-      create_email(receiver.email, nil, @subject)
-    end
-  end
 end

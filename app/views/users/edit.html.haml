@@ -56,12 +56,6 @@
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 
-      - collection = []
-      - collection.push([t('.receive_digest.never'), User::RECEIVE_DIGEST_NEVER])
-      - collection.push([t('.receive_digest.daily'), User::RECEIVE_DIGEST_DAILY])
-      - collection.push([t('.receive_digest.weekly'), User::RECEIVE_DIGEST_WEEKLY])
-      = f.input :receive_digest, as: :radio_buttons, collection: collection, required: false
-
   - if user_signed_in? && current_user.superuser
     #user-management-options.alert.alert-info.alert-clean
       %h4= t('.management_options')
@@ -90,3 +84,4 @@
       %h4= t('.other_options')
       %span= t('.cancel_account')
       = link_to t('.yes_cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'danger-text'
+

@@ -7,9 +7,9 @@
   .col-xs-12.col-sm-8
     .list-text-title
       = link_to space_path(space), :class => 'space-name' do
-        = highlight(escape_once(space.name), escape_once(params[:q]))
+        = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
     .list-text-description
-      = sanitize(first_words(space.description, 200))
+      = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
     - if current_site.require_space_approval? && !space.approved?
       .list-text-description
         .resource-waiting-moderation-tooltip
