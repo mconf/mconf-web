@@ -86,22 +86,26 @@ class User < ActiveRecord::Base
   default_scope { where(disabled: false) }
 
   scope :search_by_terms, -> (words, include_private=false) {
-    query = joins(:profile).includes(:profile).order("profiles.full_name")
+    query = joins(:profile).includes(:profile)
 
-    words ||= []
-    words = [words] unless words.is_a?(Array)
-    query_strs = []
-    query_params = []
+    if words.present?
+      words ||= []
+      words = [words] unless words.is_a?(Array)
+      query_strs = []
+      query_params = []
+      query_orders = []
 
-    words.each do |word|
-      str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
-      str += " OR users.email LIKE ?" if include_private
-      query_strs << str
-      query_params += ["%#{word}%", "%#{word}%"]
-      query_params += ["%#{word}%"] if include_private
+      words.each do |word|
+        str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+        str += " OR users.email LIKE ?" if include_private
+        query_strs << str
+        query_params += ["%#{word}%", "%#{word}%"]
+        query_params += ["%#{word}%"] if include_private
+        query_orders += ["CASE WHEN  profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + CASE WHEN  users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"]
+      end
+      query = query.where(query_strs.join(' OR '), *query_params.flatten).order(query_orders.join(' + ') + " DESC")
     end
-
-    query.where(query_strs.join(' OR '), *query_params.flatten)
+    query.order("profiles.full_name")
   }
 
   # Returns only the users that have the authentication methods selected.
