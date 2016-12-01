@@ -212,7 +212,6 @@ ActiveRecord::Schema.define(version: 20161108173649) do
     t.boolean  "result",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner_id"
   end
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree

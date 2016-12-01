@@ -46,11 +46,10 @@ class Site < ActiveRecord::Base
 
   def smtp_receiver
     if read_attribute(:smtp_receiver).blank?
-      smtp_to = read_attribute(:smtp_sender)
+      read_attribute(:smtp_sender)
     else
-      smtp_to = read_attribute(:smtp_receiver)
+      read_attribute(:smtp_receiver)
     end
-    smtp_to
   end
 
   private
