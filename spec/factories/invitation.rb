@@ -17,12 +17,12 @@ FactoryGirl.define do
     invitation.ready true
     invitation.sent true
     invitation.result true
+    invitation.invitation_group { SecureRandom.uuid }
   end
 
   factory :web_conference_invitation, parent: :invitation, class: WebConferenceInvitation do |invitation|
     invitation.association :target, factory: :bigbluebutton_room
     invitation.type "WebConferenceInvitation"
-    invitation.owner_id { SecureRandom.uuid }
   end
 
   factory :event_invitation, parent: :invitation, class: EventInvitation do |invitation|

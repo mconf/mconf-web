@@ -134,9 +134,9 @@ describe CustomBigbluebuttonRoomsController do
       end
       it { should redirect_to(referer) }
       it { should set_flash.to success }
-      it { Invitation.last.owner_id.should_not be_nil }
-      it { Invitation.last.owner_id.should eql(Invitation.last(2).first.owner_id) }
-      it { Invitation.last.owner_id.should_not eql(Invitation.last(3).first.owner_id) }
+      it { Invitation.last.invitation_group.should_not be_nil }
+      it { Invitation.last.invitation_group.should eql(Invitation.last(2).first.invitation_group) }
+      it { Invitation.last.invitation_group.should_not eql(Invitation.last(3).first.invitation_group) }
     end
 
     context "with daylight saving time timezones" do
@@ -153,7 +153,6 @@ describe CustomBigbluebuttonRoomsController do
         let(:starts_on) { DateTime.strptime("11/02/2015 23:50", "%m/%d/%Y %H:%M") }
         let(:inv) { Invitation.last }
 
-        it {puts Invitation.all}
         it { inv.starts_on.utc.hour.should eq(4) }
         it { inv.starts_on.utc.day.should eq(3) }
       end

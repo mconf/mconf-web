@@ -83,7 +83,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
     else
       invitations = WebConferenceInvitation.create_invitations params[:invite][:users],
-        owner_id: SecureRandom.uuid,
+        invitation_group: SecureRandom.uuid,
         sender: current_user,
         target: @room,
         starts_on: params[:invite][:starts_on],
