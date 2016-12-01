@@ -46,9 +46,15 @@ class Event < ActiveRecord::Base
   # Test if we need to clear the coordinates because address was cleared
   before_save :check_coordinates
 
+  # Search events based on a list of words
   scope :search_by_terms, -> (words, include_private=false) {
     words = words.join(' ') if words.is_a?(Array)
     where('name LIKE ?', "%#{words}%")
+  }
+
+  # The default ordering for search methods
+  scope :search_order, -> {
+    order("start_on DESC")
   }
 
   # Events that are happening currently

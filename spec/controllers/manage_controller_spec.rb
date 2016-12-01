@@ -66,7 +66,7 @@ describe ManageController do
         end
       end
 
-      context "orders @users by the user's full name" do
+      context "orders users by the user's full name" do
         before {
           @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
           @u2 = user
@@ -80,6 +80,21 @@ describe ManageController do
         it { assigns(:users)[1].should eql(@u4) }
         it { assigns(:users)[2].should eql(@u2) }
         it { assigns(:users)[3].should eql(@u1) }
+      end
+
+      context "orders @users by the number of matches" do
+        before {
+          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u2 = user
+          @u2.profile.update_attributes(:full_name => 'Second user created')
+          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
+          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+        }
+        before(:each) { get :users, :q => 'second user' }
+        it { assigns(:users).count.should be(3) }
+        it { assigns(:users)[0].should eql(@u2) }
+        it { assigns(:users)[1].should eql(@u3) }
+        it { assigns(:users)[2].should eql(@u1) }
       end
 
       context "paginates the list of users" do

@@ -232,7 +232,7 @@ describe EventsController do
       context "works" do
         before do
           10.times { FactoryGirl.create(:event) }
-          @events = Event.all.first(5)
+          @events = Event.all.search_order.first(5)
         end
         before(:each) { get :select, :format => :json }
         it { should respond_with(:success) }

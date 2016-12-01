@@ -16,7 +16,8 @@ module Mconf
       elsif collection.nil?
         collection.limit(limit)
       else
-        collection.search_by_terms(terms, can?(:manage, klass)).limit(limit)
+        collection.search_by_terms(terms, can?(:manage, klass))
+          .search_order.limit(limit)
       end
 
       instance_variable_set("@#{controller_name}", result)

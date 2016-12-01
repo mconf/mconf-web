@@ -11,7 +11,7 @@ class ManageController < ApplicationController
 
   def users
     words = params[:q].try(:split, /\s+/)
-    query = User.with_disabled.search_by_terms(words, can?(:manage, User))
+    query = User.with_disabled.search_by_terms(words, can?(:manage, User)).search_order
 
     [:disabled, :approved, :can_record].each do |filter|
       if !params[filter].nil?
@@ -42,7 +42,7 @@ class ManageController < ApplicationController
 
   def spaces
     words = params[:q].try(:split, /\s+/)
-    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).order("name")
+    query = Space.with_disabled.search_by_terms(words, can?(:manage, Space)).search_order
 
     # start applying filters
     [:disabled, :approved].each do |filter|
@@ -63,7 +63,7 @@ class ManageController < ApplicationController
 
   def recordings
     words = params[:q].try(:split, /\s+/)
-    query = BigbluebuttonRecording.search_by_terms(words)
+    query = BigbluebuttonRecording.search_by_terms(words).search_order
 
     [:published, :available].each do |filter|
       if !params[filter].nil?
@@ -77,8 +77,6 @@ class ManageController < ApplicationController
     elsif params[:playback] == "false"
       query = query.no_playback
     end
-
-    query = query.order("bigbluebutton_recordings.start_time DESC")
 
     @recordings = query.paginate(page: params[:page], per_page: 20)
 
