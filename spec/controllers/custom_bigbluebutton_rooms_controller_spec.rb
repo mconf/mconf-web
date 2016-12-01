@@ -97,7 +97,7 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#send_invitation" do
     let!(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
-    let(:users) { [FactoryGirl.create(:user)] }
+    let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
     let(:starts_on) { Time.now }
     let(:ends_on) { Time.now + 10.day }
     let(:title) { 'Title' }
@@ -123,13 +123,20 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
+
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(2)
       }
       context "with the right type set" do
         it { Invitation.last.class.should be(WebConferenceInvitation) }
       end
       it { should redirect_to(referer) }
       it { should set_flash.to success }
+      it { Invitation.last.invitation_group.should_not be_nil }
+      it { Invitation.last.invitation_group.should eql(Invitation.last(2).first.invitation_group) }
+      it { Invitation.last.invitation_group.should_not eql(Invitation.last(3).first.invitation_group) }
     end
 
     context "with daylight saving time timezones" do
@@ -138,7 +145,7 @@ describe CustomBigbluebuttonRoomsController do
 
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
       }
 
       context "Eastern Time without daylight savings time" do
@@ -234,7 +241,7 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(1)
+        }.to change { Invitation.count }.by(2)
       }
 
       context "with the right type set" do

@@ -30,13 +30,19 @@ class Invitation < ActiveRecord::Base
   end
 
   def self.create_invitations(user_list, params)
+    params = params.clone
+
     # creates an invitation for each user
     users = user_list.try(:split, ",") || []
+    users.map! { |u| u.strip }
+
     users.map do |user_str|
-      user = User.where(:id => user_str).first
+      user = User.find_by(id: user_str)
       if user
         params[:recipient] = user
+        params[:recipient_email] = nil
       else
+        params[:recipient] = nil
         params[:recipient_email] = user_str
       end
       self.create(params)
@@ -87,11 +93,18 @@ class Invitation < ActiveRecord::Base
     else
       event = Icalendar::Event.new
 
+      attendee_list = WebConferenceInvitation
+                        .where(invitation_group: self.invitation_group)
+                        .includes(:recipient)
+                        .pluck(:email, :recipient_email)
+                        .flatten.compact.uniq
+
       # We send the dates always in UTC to make it easier. The 'Z' in the ends denotes
       # that it's in UTC.
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
       event.organizer = sender.email
+      event.attendee = attendee_list.flatten.compact unless self.invitation_group.blank?
       event.ip_class = "PUBLIC"
       event.uid = self.url
       event.url = self.url

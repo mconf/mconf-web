@@ -689,6 +689,7 @@ describe EventsController do
         end
         it { should redirect_to(referer) }
         it { should set_flash.to success }
+        it { Invitation.last.invitation_group.should be_nil }
       end
 
       context "with more than one user invited" do

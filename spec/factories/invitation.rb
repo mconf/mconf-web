@@ -17,6 +17,7 @@ FactoryGirl.define do
     invitation.ready true
     invitation.sent true
     invitation.result true
+    invitation.invitation_group { SecureRandom.uuid }
   end
 
   factory :web_conference_invitation, parent: :invitation, class: WebConferenceInvitation do |invitation|
