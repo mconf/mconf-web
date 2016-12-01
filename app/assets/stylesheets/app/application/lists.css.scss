@@ -130,6 +130,11 @@ ul.list-thumbnails {
     .list-actions {
       font-size: $m-font-medium;
       text-align: right;
+
+      /* because they are always just icons */
+      a:hover, a:focus {
+        text-decoration: none;
+      }
     }
   }
 

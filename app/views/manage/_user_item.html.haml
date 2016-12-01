@@ -35,23 +35,22 @@
       .label{ class: "label-auth-#{method}" }= method
 
   .col-xs-12.col-sm-2.management-links.list-actions
-    %ul
-      - if user.disabled?
-        = link_to enable_user_path(user), :data => { :confirm => t('.enable_confirm') }, :method => :post do
-          = icon_enable(:alt => t('.enable'), :title => t('.enable'))
+    - if user.disabled?
+      = link_to enable_user_path(user), :data => { :confirm => t('.enable_confirm') }, :method => :post do
+        = icon_enable(:alt => t('.enable'), :title => t('.enable'))
+      = render 'manage/destroy_user', user: user
+
+    - else
+      = link_to (edit_user_path(user)) do
+        = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+      - if !user.confirmed?
+        = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') }, :method => :post do
+          = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
+
+      -# prevent admins from disabling and unapproving themselves
+      - unless current_user == user && user.superuser
+        - if current_site.require_registration_approval?
+          = approval_links :user, user
+        = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+          = icon_disable(:alt => t('.disable'), :title => t('.disable'))
         = render 'manage/destroy_user', user: user
-
-      - else
-        = link_to (edit_user_path(user)) do
-          = icon_edit(:alt => t('.edit'), :title => t('.edit'))
-        - if !user.confirmed?
-          = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') }, :method => :post do
-            = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
-
-        -# prevent admins from disabling and unapproving themselves
-        - unless current_user == user && user.superuser
-          - if current_site.require_registration_approval?
-            = approval_links :user, user
-          = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-            = icon_disable(:alt => t('.disable'), :title => t('.disable'))
-          = render 'manage/destroy_user', user: user

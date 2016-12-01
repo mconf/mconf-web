@@ -16,7 +16,7 @@
         = link_to t('.spaces'), manage_spaces_path
 
     - if can?(:manage, BigbluebuttonRecording)
-      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'recordings'}" }
+      %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'recordings'}" }
         = link_to t('.recordings'), manage_recordings_path
 
     - if can?(:manage, BigbluebuttonServer) && can?(:manage, BigbluebuttonRoom)

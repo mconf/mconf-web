@@ -1,18 +1,30 @@
-= render :partial => 'menu'
-
 #manage
 
-  .page-tabs.page-tabs-full
+  .page-tools-menu
     .search-words
-      = text_field_tag :recordings_filter_text, params[:q], placeholder: t('.filter_name'), :'data-load-url' =>  manage_recordings_path, :'data-target' => '#recordings-list', :'data-filter' => '#filter-total', class: 'resource-filter'
-
+      = text_field_tag :recordings_filter_text, params[:q], placeholder: t('.filter_name'), 'data-load-url' =>  manage_recordings_path, :'data-target' => '#recordings-list', :'data-filter' => '#filter-total', class: 'resource-filter'
     .search-filters
       - ['published', 'available', 'playback'].each do |field|
-        .search-filter-option
-          = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
-          = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
+        .btn-group.search-filter-option
+          = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'true'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
+            = t(".#{field}_true")
+          = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'false'}", type: "button", 'data-attr-filter': field, 'data-attr-value': false do
+            = t(".#{field}_false")
 
   #recordings-list
-    = render :partial => 'recordings_list', :locals => { :recordings => @recordings }
+    = render partial: 'recordings_list', locals: { :recordings => @recordings }
+
+
+-# #manage
+
+-#   .page-tabs.page-tabs-full
+-#     .search-words
+-#       = text_field_tag :recordings_filter_text, params[:q], placeholder: t('.filter_name'), :'data-load-url' =>  manage_recordings_path, :'data-target' => '#recordings-list', :'data-filter' => '#filter-total', class: 'resource-filter'
+
+-#     .search-filters
+-#       - ['published', 'available', 'playback'].each do |field|
+-#         .search-filter-option
+-#           = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+-#           %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
+-#           = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+-#           %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")

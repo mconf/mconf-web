@@ -1,17 +1,31 @@
 -# locals:
 -#  recordings (array of BigbluebuttonRecording)
 
-#filter-total.resource-filter-total
-  .resource-filter-with-text
-    = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{recordings.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
-  .resource-filter-without-text
-    = t('.filter_count_empty', :count => recordings.count)
+.list-container.list-tablefied.container-fluid
+  .resource-filter-container.list-item-header
+    .resource-filter-with-text
+      = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{recordings.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+    .resource-filter-without-text
+      = t('.filter_count_empty', count: recordings.count)
+  - for recording in recordings
+    = render partial: 'recording_item', locals: { recording: recording }
 
 - if recordings.count > 0
-
-  - for recording in recordings
-    = render :partial => 'recordings', :locals => { :recording => recording }
-
   - nav = page_navigation_links recordings
   - unless nav.nil?
     .content-block-footer= nav
+
+-# #filter-total.resource-filter-total
+-#   .resource-filter-with-text
+-#     = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{recordings.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+-#   .resource-filter-without-text
+-#     = t('.filter_count_empty', :count => recordings.count)
+
+-# - if recordings.count > 0
+
+-#   - for recording in recordings
+-#     = render :partial => 'recordings', :locals => { :recording => recording }
+
+-#   - nav = page_navigation_links recordings
+-#   - unless nav.nil?
+-#     .content-block-footer= nav

@@ -92,6 +92,11 @@ en:
       one: "%{count} participant"
       other: "%{count} participants"
     publish: "Publish"
+    recording:
+      available: "Available"
+      published: "Published"
+      unavailable: "Unavailable"
+      unpublished: "Unpublished"
     register: "Register"
     save: "Save"
     send: "Send"
@@ -979,7 +984,7 @@ en:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
       no_user_found: "No user found"
-    recordings:
+    recording_item:
       available_false: "Not available"
       available_true: "Available"
       confirm_delete: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
@@ -987,6 +992,7 @@ en:
       direct_link: "Direct link"
       edit: "Edit recording"
       filter_name: "Filter by name, description, or record ID"
+      from: "From"
       playback_links: "Playbacks available"
       playback_true: "Has playback"
       playback_false: "No playback"
@@ -1000,7 +1006,6 @@ en:
       show_playback_none: "There are no playbacks available"
       unpublish: "Unpublish recording"
       unpublished: "Unpublished"
-      created_at: "Created at"
     recordings_list:
       filter_count_with_text: "Found %{count} recordings for filter \"%{value}\""
       filter_count_empty: "Found %{count} recordings"

@@ -1121,6 +1121,20 @@ strong.highlight {
   background: darken($m-green, 15);
 }
 
+/* Labels for recording status */
+.label-recording-published {
+  background: $m-green;
+}
+.label-recording-unpublished {
+  background: $m-yellow;
+}
+.label-recording-available {
+  background: $m-green;
+}
+.label-recording-unavailable {
+  background: $m-yellow;
+}
+
 /* A warning for resources not yet approved */
 .resource-waiting-moderation-tooltip {
   color: #bd972b;

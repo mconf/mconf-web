@@ -140,11 +140,11 @@ module IconsHelper
   end
 
   def icon_publish(options={})
-    icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-publish", options
+    icon_constructor nil, "fa fa-eye icon-awesome icon-mconf-publish", options
   end
 
   def icon_unpublish(options={})
-    icon_constructor nil, "icon-awesome icon-eye-close icon-mconf-unpublish", options
+    icon_constructor nil, "fa fa-eye-slash icon-awesome icon-mconf-unpublish", options
   end
 
   def icon_mobile(options={})
