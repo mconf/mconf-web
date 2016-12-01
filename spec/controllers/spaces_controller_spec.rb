@@ -720,7 +720,7 @@ describe SpacesController do
       context "works" do
         before do
           10.times { FactoryGirl.create(:space) }
-          @spaces = Space.all.first(5)
+          @spaces = Space.all.search_order.first(5)
         end
         before(:each) { get :select, :format => :json }
         it { should respond_with(:success) }

@@ -114,7 +114,7 @@ class Space < ActiveRecord::Base
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
-  # Used by select controller method
+  # Search spaces based on a list of words
   # TODO: can_manage is never used, should hide private spaces
   scope :search_by_terms, -> (words, can_manage=false) {
     query = Space.with_disabled
@@ -131,6 +131,11 @@ class Space < ActiveRecord::Base
     end
 
     query.where(query_strs.join(' OR '), *query_params.flatten)
+  }
+
+  # The default ordering for search methods
+  scope :search_order, -> {
+    order("name")
   }
 
   # Finds all the valid user roles for a Space

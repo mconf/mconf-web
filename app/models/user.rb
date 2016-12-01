@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
 
   default_scope { where(disabled: false) }
 
+  # Search users based on a list of words
   scope :search_by_terms, -> (words, include_private=false) {
     query = joins(:profile).includes(:profile)
 
@@ -110,7 +111,13 @@ class User < ActiveRecord::Base
       query = query.where(query_strs.join(' OR '), *query_params.flatten)
                 .order(query_orders.join(' + ') + " DESC")
     end
-    query.order("profiles.full_name")
+
+    query
+  }
+
+  # The default ordering for search methods
+  scope :search_order, -> {
+    order("profiles.full_name")
   }
 
   # Returns only the users that have the authentication methods selected.

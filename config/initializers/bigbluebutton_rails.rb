@@ -91,6 +91,8 @@ Rails.application.config.to_prepare do
   end
 
   BigbluebuttonRecording.class_eval do
+
+    # Search recordings based on a list of words
     scope :search_by_terms, -> (words) {
       query = joins(:room).includes(:room)
 
@@ -108,6 +110,11 @@ Rails.application.config.to_prepare do
       end
 
       query.where(query_strs.join(' OR '), *query_params.flatten)
+    }
+
+    # The default ordering for search methods
+    scope :search_order, -> {
+      order("bigbluebutton_recordings.start_time DESC")
     }
 
     # Filters a query to return only recordings that have at least one playback format
