@@ -101,9 +101,14 @@ class User < ActiveRecord::Base
         query_strs << str
         query_params += ["%#{word}%", "%#{word}%"]
         query_params += ["%#{word}%"] if include_private
-        query_orders += ["CASE WHEN  profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + CASE WHEN  users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"]
+        query_orders += [
+          "CASE WHEN profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"
+        ]
       end
-      query = query.where(query_strs.join(' OR '), *query_params.flatten).order(query_orders.join(' + ') + " DESC")
+      query = query.where(query_strs.join(' OR '), *query_params.flatten)
+                .order(query_orders.join(' + ') + " DESC")
     end
     query.order("profiles.full_name")
   }
