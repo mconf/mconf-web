@@ -195,6 +195,7 @@ en:
         smtp_login: "SMTP login"
         smtp_password: "SMTP password"
         smtp_port: "SMTP port"
+        smtp_receiver: "SMTP receiver"
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
         smtp_use_tls: "Use TLS in SMTP"

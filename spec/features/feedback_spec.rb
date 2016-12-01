@@ -24,8 +24,6 @@ feature 'Sending a feedback' do
       visit new_feedback_path
     }
 
-    it { should have_selector('#feedback_from', visible: false) }
-
     context 'sending the form' do
       let(:message) { 'Lá nas minhas Minas Gerais' }
       let(:subject) { 'A vida é boa' }

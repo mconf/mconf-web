@@ -72,6 +72,8 @@ pt-br:
         shib_update_users: "Se habilitado, alguns atributos do usuário serão atualizados automaticamente com dados recebidos da federação (e.g. atualizar o e-mail do usuário caso tenha mudado na federação). Neste caso usuários também não poderão editar esses atributos através do site. Se não habilitado, os atributos não serão atualizados automaticamente."
         smtp_login: "O e-mail de login no servidor SMTP."
         smtp_password: "A senha para sua conta de e-mail no servidor SMTP."
+        smtp_receiver: "Um e-mail utilizado para receber e-mails enviados por usuários, como o e-mail de feedback, por exemplo. Se deixado em branco, é utilizado o \"remetente SMTP\"."
+        smtp_sender: "O e-mail utilizado no campo \"De\" ao enviar e-mails automatizados aos usuários, normalmente um e-mail \"no-reply\"."
         ssl: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
         use_gravatar: "Buscar avatar de usuários do Gravatar se nenhum for carregado no portal."
         xmpp_server: "Endereço onde está localizado o servidor XMPP."
