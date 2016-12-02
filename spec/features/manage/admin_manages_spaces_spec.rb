@@ -65,12 +65,12 @@ describe 'Admin manages spaces' do
 
         it { should have_css 'img.logo-space' }
         it { should have_css '.management-links' }
-        it { should_not have_content t('._other.not_approved.text') }
+        it { should have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
         it { should have_link_to_destroy_space(space) }
         it { should have_link_to_disable_space(space) }
-        it { should_not have_link_to_approve_space(space) }
-        it { should_not have_link_to_approve_space(space) }
+        it { should have_link_to_approve_space(space) }
+        it { should_not have_link_to_disapprove_space(space) }
       end
 
       context 'elements for a disabled space' do
