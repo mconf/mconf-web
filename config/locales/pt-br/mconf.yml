@@ -1484,6 +1484,7 @@ pt-br:
       webconf_options: "Opções de webconferência"
     approve:
       approved: "A comunidade %{name} foi aprovada"
+      not_enabled: "A aprovação de comunidades não está habilitada ou a comunidade já está aprovada"
     disapprove:
       disapproved: "Acesso bloqueado à comunidade %{name}"
       not_enabled: "A aprovação de comunidades não está habilitada"
@@ -1741,7 +1742,7 @@ pt-br:
   users:
     approve:
       approved: "O usuário %{name} foi aprovado para acessar este site!"
-      not_enabled: "A aprovação de registros não está habilitada neste site"
+      not_enabled: "A aprovação de registros não está habilitada neste site ou o usuário já está aprovado"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
     create:

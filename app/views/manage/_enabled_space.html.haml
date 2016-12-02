@@ -6,7 +6,7 @@
     = link_to (edit_space_path(space)) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
-    - if current_site.require_space_approval?
+    - if space.require_approval? || !space.approved?
       = approval_links :space, space
 
     = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
@@ -20,7 +20,7 @@
   .space-description
     = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
 
-    - if current_site.require_space_approval? && !space.approved?
+    - if !space.approved?
       .resource-waiting-moderation-tooltip
         = icon_waiting_moderation
         = t("_other.not_approved.text")

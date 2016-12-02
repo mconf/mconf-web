@@ -6,7 +6,8 @@ module Mconf
     end
 
     def approve
-      if require_approval?
+      # resources that are not approved can always be approved
+      if require_approval? || !resource.approved?
         resource = instance_variable_get("@#{controller_name.singularize}")
 
         resource.approve!
