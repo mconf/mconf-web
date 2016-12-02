@@ -1474,6 +1474,7 @@ en:
       add_member: "Add members"
     approve:
       approved: "The space %{name} was approved"
+      not_enabled: "Moderation of spaces is not enabled or the space is already approved"
     disapprove:
       disapproved: "The space %{name} was disapproved"
       not_enabled: "Moderation of spaces is not enabled"
@@ -1731,7 +1732,7 @@ en:
   users:
     approve:
       approved: "The user %{name} was approved to access the website!"
-      not_enabled: "Approval of registrations is not enabled in this website"
+      not_enabled: "Approval of users is not enabled in this website or the user is already approved"
     create:
       error: "Errors creating the user: %{errors}"
       success: "User created successfully"

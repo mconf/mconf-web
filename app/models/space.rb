@@ -68,14 +68,6 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
-  def require_approval?
-    Site.current.require_space_approval?
-  end
-
-  def is_approved?
-    require_approval? || ( !require_approval? && !approved? )
-  end
-
   validates :description, :presence => true
 
   validates :name, :presence => true,
@@ -187,6 +179,10 @@ class Space < ActiveRecord::Base
     spaces_with_activities.find_each do |space|
       space.update_attributes last_activity: space.lastActivity, last_activity_count: space.activityCount
     end
+  end
+
+  def require_approval?
+    Site.current.require_space_approval?
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.
