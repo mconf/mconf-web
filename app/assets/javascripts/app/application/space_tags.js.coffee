@@ -2,7 +2,7 @@ class mconf.SpaceTags
 
   @bind: ->
     if ("#space-tags").length
-    
+
         showMoreTags = ->
           $(".toggle-tags").on 'click', (e) ->
             parentElement = $(this).parent().parent()
@@ -10,7 +10,7 @@ class mconf.SpaceTags
             $(".label-tag-more", parentElement).toggleClass("hidden")
             $(".label-tag-less", parentElement).toggleClass("hidden")
             e.preventDefault()
-    
+
         showMoreTags()
 
 $ ->

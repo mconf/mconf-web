@@ -3,9 +3,9 @@ module Mconf
 
     def select
       # try to get already set collection (@spaces) or use the class name for a query (Space)
-      klass = if controller_name == "tags" 
+      klass = if controller_name == "tags"
         ActsAsTaggableOn::Tag
-      else 
+      else
         controller_name.classify.constantize
       end
       collection = instance_variable_get("@#{controller_name}") || klass

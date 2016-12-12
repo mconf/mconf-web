@@ -16,7 +16,8 @@
     .thread-content
       .thread-title
         %span
-          = link_to space.name, space_path(space)
+          = link_to space_path(space) do
+            = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
 
         - if extended
           - if is_member
@@ -40,7 +41,7 @@
 
       .thread-text
         - if extended
-          = space.description
+          = Mconf::Highlighter.highlight(space.description, params[:q].try(:split))
         - if show_join_request
           - jr = space.pending_join_request_or_invitation_for(current_user)
           - if jr

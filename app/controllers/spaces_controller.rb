@@ -195,9 +195,15 @@ class SpacesController < InheritedResources::Base
   def load_spaces_index
     spaces = Space.where(approved: true)
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    words = params[:q].try(:split, /\s+/)
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
     @spaces = params[:tag] ? @spaces.tagged_with(params[:tag]) : @spaces
+    @spaces = params[:q] ? @spaces.search_by_terms(words, can?(:manage, Space)) : @spaces
+
+    if request.xhr?
+      render "spaces/_list_view", layout: false, locals: { spaces: @spaces, user_spaces: @user_spaces , extended: true }
+    end
   end
 
   def order_spaces
