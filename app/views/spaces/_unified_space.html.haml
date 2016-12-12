@@ -41,7 +41,7 @@
 
       .thread-text
         - if extended
-          = Mconf::Highlighter.highlight(space.description, params[:q].try(:split))
+          = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
         - if show_join_request
           - jr = space.pending_join_request_or_invitation_for(current_user)
           - if jr
