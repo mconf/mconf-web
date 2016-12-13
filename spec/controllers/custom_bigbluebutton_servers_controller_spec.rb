@@ -17,6 +17,11 @@ describe CustomBigbluebuttonServersController do
     skip "calls before filter #sort_meetings"
   end
 
+  describe "#check" do
+    skip "doesn't require authentication"
+    skip "doesn't authorize resources"
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
     let(:server) { FactoryGirl.create(:bigbluebutton_server) }
