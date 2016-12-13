@@ -54,15 +54,16 @@ module FeatureHelpers
   end
 
   def show_page
-    save_page Rails.root.join( 'public', 'capybara.html' )
+    save_page Rails.root.join('public', 'capybara.html')
     %x(launchy http://localhost:3000/capybara.html)
   end
 
   def sign_in_with(user_email, password, visit_page=true)
     visit(new_user_session_path) if visit_page
-    fill_in 'user[login]', with: user_email
-    fill_in 'user[password]', with: password
-    click_button I18n.t("sessions.login_form.login")
+    form = "form[action='#{user_session_path}']"
+    page.find(:css, "#user_login").set(user_email)
+    page.find(:css, "#user_password").set(password)
+    page.find(:css, "form[action='#{user_session_path}'] input[type=submit]").click
   end
 
   def register_with(attrs, visit=true)
