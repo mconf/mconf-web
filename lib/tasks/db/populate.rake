@@ -229,6 +229,15 @@ namespace :db do
       # end
     end
 
+    puts "* Create tags: for half the spaces"
+    tag_list_pop = Populator.words(20).split(' ')
+    ids = Space.ids
+    ids = ids.sample(Space.count/2) # half spaces have tags
+    Space.where(:id => ids).each do |space|
+      puts "* Create tags: Space \"#{space.name}\" - add (4..6) tags"
+      space.update_attributes(:tag_list => tag_list_pop.sample(rand(2) + 4))
+    end
+
     puts "* Create recordings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
 
     # Playback types

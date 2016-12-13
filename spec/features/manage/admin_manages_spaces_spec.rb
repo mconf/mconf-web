@@ -18,8 +18,10 @@ describe 'Admin manages spaces' do
 
       login_as(admin, :scope => :user)
       @approved_space = FactoryGirl.create(:space, :name => 'Approved', :approved => true, :description => "This space is approved")
+      @approved_space.update_attributes(:tag_list => ["this one has tags", "two tags"])
       @not_approved_space = FactoryGirl.create(:space, :name => 'Not Approved', :approved => false, :description => "This space is not approved")
       @enabled_space = FactoryGirl.create(:space, :name => 'Enabled', :disabled => false, :description => "This space is enabled")
+      @enabled_space.update_attributes(:tag_list => ["this one has a tag too"])
       @disabled_space =FactoryGirl.create(:space, :name => 'Disabled', :disabled => true, :description => "This space is disabled")
       @not_approved_space.disapprove!
     }
@@ -36,6 +38,9 @@ describe 'Admin manages spaces' do
       it { should have_css '.icon-mconf-edit', :count => 3 }
       it { should have_css '.icon-mconf-disable', :count => 3 }
 
+      it { should have_css '.label.label-tag', :count => 3 }
+
+      it { should have_content "this one has a tag too"}
       it { should have_content @approved_space.name }
       it { should have_content @approved_space.description }
       it { should have_content @not_approved_space.name }

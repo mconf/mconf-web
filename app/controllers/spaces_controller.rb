@@ -199,6 +199,7 @@ class SpacesController < InheritedResources::Base
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
+    @spaces = params[:tag] ? @spaces.tagged_with(params[:tag]) : @spaces
   end
 
   def order_spaces
@@ -303,7 +304,7 @@ class SpacesController < InheritedResources::Base
   allow_params_for :space
   def allowed_params
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
-      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
       :bigbluebutton_room_attributes =>
         [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
     ]

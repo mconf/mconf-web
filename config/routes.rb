@@ -69,6 +69,9 @@ Mconf::Application.routes.draw do
   # to crop images
   get "logo_images/crop", to: 'logo_images#crop'
 
+  # to crop images
+  get "tags/select", to: 'tags#select'
+
   resources :spaces do
 
     collection do

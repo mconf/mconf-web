@@ -109,6 +109,11 @@ pt-br:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
       not_running: "não iniciada"
       running: "em andamento"
+    more_tags: "+ %{count} tags"
+    more_tag: "+ 1 tag"
+    less_tags: "esconder tags"
+    filtered_tags: "Filtrando por tags: "
+    remove_tag: "Remover tag da busca"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -1495,6 +1500,8 @@ pt-br:
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, quero desabilitar esta comunidade"
+      tags:
+        placeholder: "Adicionar uma tag..."
     edit_recording:
       title: "Editar sua gravação"
     error:

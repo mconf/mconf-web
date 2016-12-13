@@ -68,6 +68,8 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
+  acts_as_taggable
+
   validates :description, :presence => true
 
   validates :name, :presence => true,

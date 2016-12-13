@@ -1,0 +1,37 @@
+@import "compass/css3";
+@import "definitions";
+
+.label.label-tag {
+  background-color: #AAA;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag:hover {
+  background-color: #BBB;
+}
+
+.label.label-tag-more {
+  background-color: #8BB;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag-more:hover {
+  background-color: #8DD;
+}
+
+.label.label-tag-less {
+  background-color: #8BB;
+  a {
+    color: white;
+  }
+}
+
+.label.label-tag-less:hover {
+  background-color: #8DD;
+}
+
+.more-tags { }

@@ -109,6 +109,11 @@ en:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
       not_running: "not running"
       running: running
+    more_tags: "+ %{count} tags"
+    more_tag: "+ 1 tag"
+    less_tags: "hide tags"
+    filtered_tags: "Filtering tags: "
+    remove_tag: "Remove tag from filter"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -1485,6 +1490,8 @@ en:
       other_options: "Other options"
       public: "Make this a public space"
       yes_delete: "Yes, I want to disable this space"
+      tags:
+        placeholder: "Add a tag..."
     edit_recording:
       title: "Edit your recording"
     error:

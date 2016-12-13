@@ -99,6 +99,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-trash icon-mconf-delete", options
   end
 
+  def icon_remove(options={})
+    icon_constructor nil, "icon-awesome icon-remove icon-moconf-remove", options
+  end
+
   def icon_disable(options={})
     icon_constructor nil, "icon-awesome icon-ban-circle icon-mconf-disable", options
   end
