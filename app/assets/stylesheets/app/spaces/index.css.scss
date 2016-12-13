@@ -53,9 +53,10 @@ body.spaces.index {
   }
 
   #space-order-wrapper {
-    float: right;
+    float: left;
     margin-right: 15px;
     margin-bottom: 10px;
+    width: 100%;
   }
 
   // adjust how the select2 search input looks in this page
