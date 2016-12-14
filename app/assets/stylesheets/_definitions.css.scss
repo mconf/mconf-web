@@ -96,6 +96,11 @@ $mail-font-color: $font-color;
 $mail-header-font-color: $navbar-bg-color-dark;
 $mail-font-size: $font-normal;
 
+// tags
+$tags-font-color: #39739d;
+$tags-bg-color: #E1ECF4;
+$tags-bg-color-hover: #cee0ed;
+
 // In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
 // text set to it, and the dimensions of the image won't respect the width/height set by the css.
 // This might break the layout in some cases.

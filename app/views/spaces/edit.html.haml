@@ -20,6 +20,8 @@
       = f.input :description, :as => :text, :input_html => { :rows => 5 }
       = f.input :repository
       = f.input :public, :label => t('.public')
+      = f.input :tag_list, :input_html => { :value => @space.tag_list.join(",") }
+
 
     = f.button :wrapped, :value => t("_other.save")
 

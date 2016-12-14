@@ -11,6 +11,9 @@
       .main-title
         = link_to space_path(@space) do
           = @space.name
+
+    = render :partial => "spaces/space_tags", :locals => { :space => @space }
+
     - if @space.public
       .resource-visibility.public
         = icon_space_public

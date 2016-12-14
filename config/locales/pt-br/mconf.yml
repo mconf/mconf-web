@@ -70,6 +70,7 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    filtered_tags: "Filtrando por tags: "
     form:
       required: "obrigatório"
     index: Listando
@@ -77,26 +78,31 @@ pt-br:
       error: "erro"
       success: "gravado"
     join: "Entrar"
+    less_tags: "menos"
     login: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     members:
       one: "%{count} membro"
       other: "%{count} membros"
+    more_tags:
+      one: "+1 tag"
+      other: "+%{count} tags"
     no_: "Não"
+    not_approved:
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     participants:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
-    upload: "Enviar"
     register: "Registrar"
+    remove_tag: "Remover tag da busca"
     save: "Salvar"
     send: "Enviar"
-    not_approved:
-      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
-      text: 'Aguardando aprovação'
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
+    upload: "Enviar"
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
@@ -1495,6 +1501,8 @@ pt-br:
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, quero desabilitar esta comunidade"
+      tags:
+        placeholder: "Adicionar uma tag..."
     edit_recording:
       title: "Editar sua gravação"
     error:

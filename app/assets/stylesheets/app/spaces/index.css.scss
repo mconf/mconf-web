@@ -41,6 +41,12 @@ body.spaces.index {
         @include border-left-radius(0);
       }
     }
+
+    #space-filter-tags {
+      margin-left: 17px;
+      margin-top: 8px;
+      text-align: left;
+    }
   }
 
   #space-order-wrapper {

@@ -19,6 +19,7 @@
  *= require ./app/application/dropdown-menu
  *= require ./app/application/notifications
  *= require ./app/application/tooltips
+ *= require ./app/application/tags
  *= require ./app/application/input-placeholder
  *= require ./app/application/in_place_edit
  *= require ./app/application/resource_filter

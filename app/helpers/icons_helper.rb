@@ -135,10 +135,6 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-plus-sign icon-mconf-attachment-new-version", options
   end
 
-  def icon_new_tag(options={})
-    icon_constructor nil, "icon-awesome icon-tags icon-mconf-new-tag", options
-  end
-
   def icon_space_private(options={})
     icon_constructor nil, "icon-awesome icon-lock icon-mconf-space-private", options
   end
