@@ -15,6 +15,11 @@
       @include border-radius(3px);
     }
 
+    .thread-text {
+      margin-left: 20px;
+      word-wrap: break-word;
+    }
+
   }
 
 }

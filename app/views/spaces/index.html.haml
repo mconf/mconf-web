@@ -50,20 +50,13 @@
 
 #space-filter-wrapper
   %div.clearfix
-    .view-types
-      .btn-group{ :"data-toggle" => "buttons-radio" }
-        = link_to spaces_path(params.merge(view: 'thumbnails')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
-          = t('.list_format.thumbnails')
-        = link_to spaces_path(params.merge(view: 'list')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
-          = t('.list_format.list')
-
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to spaces_path(params.merge(my_spaces: nil)), :id => "show-spaces-all", :class => "btn #{'active' unless params[:my_spaces]}", :type => "button" do
         = t('space.index.filters.all')
       - if user_signed_in?
         = link_to spaces_path(params.merge(my_spaces: true)), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
           = t('space.index.filters.my_spaces')
-      = hidden_field_tag :space_filter_text
+      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('space.index.filter_name'), :'data-load-url' => spaces_path, :'data-target' => '#space-list-render', :'data-filter' => '#filter-total', :class => 'resource-filter'
   %div
     #space-filter-tags
       - if !params[:tag].nil?
@@ -81,13 +74,9 @@
     = link_to spaces_path(params.merge(order: 'abc')), class: "btn btn-mini #{'active' if params[:order] == 'abc'}" do
       = t('space.index.order.alphabetic')
 
-- if params[:view] == 'list'
-  = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
-- else
-  #spaces.content-block
-    .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @spaces
+  #space-list-render
+    = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
 
-- nav = page_navigation_links @spaces
-- unless nav.nil?
-  .content-block-footer= nav
+  - nav = page_navigation_links @spaces
+  - unless nav.nil?
+    .content-block-footer= nav
