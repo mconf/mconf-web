@@ -9,7 +9,7 @@ $ ->
     mconf.Uploader.bind
       callbacks: uploaderCallbacks
 
-    tag_list_id = "#space_tag_list"
+    tag_list_id = "#space-tag-list"
 
     #select values already tagged
     $(tag_list_id).ready ->

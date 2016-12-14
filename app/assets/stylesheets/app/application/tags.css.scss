@@ -1,37 +1,34 @@
 @import "compass/css3";
 @import "definitions";
 
-.label.label-tag {
-  background-color: #AAA;
-  a {
-    color: white;
+.label {
+
+  &.label-tag, &.label-tag-more, &.label-tag-less {
+    background: none;
+    text-shadow: none;
+    font-size: 95%;
+    font-weight: 300;
+    padding: 0;
+    margin-bottom: 3px;
+    background: $tags-bg-color;
+
+    a {
+      padding: 2px 4px;
+      display: inline-block;
+      color: $tags-font-color;
+    }
+
+    &:hover {
+      background-color: $tags-bg-color-hover;
+    }
+  }
+
+  &.label-tag-more, &.label-tag-less {
+    background: none;
+
+    &:hover {
+      color: lighten($tags-font-color, 10);
+      background: none;
+    }
   }
 }
-
-.label.label-tag:hover {
-  background-color: #BBB;
-}
-
-.label.label-tag-more {
-  background-color: #8BB;
-  a {
-    color: white;
-  }
-}
-
-.label.label-tag-more:hover {
-  background-color: #8DD;
-}
-
-.label.label-tag-less {
-  background-color: #8BB;
-  a {
-    color: white;
-  }
-}
-
-.label.label-tag-less:hover {
-  background-color: #8DD;
-}
-
-.more-tags { }

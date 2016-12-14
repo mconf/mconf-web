@@ -166,7 +166,7 @@ namespace :db do
       puts "* Create events: for spaces (20..40)"
       available_spaces = Space.all.to_a
       Event.populate 20..40 do |event|
-        event.owner_id = available_spaces
+        event.owner_id = available_spaces.sample.id
         event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')

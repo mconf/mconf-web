@@ -18,10 +18,6 @@ body.spaces.index {
     @include border-radius(5px);
     text-align: center;
 
-    .row {
-      margin-left: 0px;
-    }
-
     .view-types {
       float: right;
       margin-top: 1px;
@@ -45,9 +41,10 @@ body.spaces.index {
         @include border-left-radius(0);
       }
     }
+
     #space-filter-tags {
-      margin-left: 15px;
-      margin-top: 5px;
+      margin-left: 17px;
+      margin-top: 8px;
       text-align: left;
     }
   }

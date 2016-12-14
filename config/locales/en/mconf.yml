@@ -70,6 +70,7 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    filtered_tags: "Filtering tags: "
     form:
       required: "required"
     index: Listing
@@ -77,22 +78,27 @@ en:
       error: "error"
       success: "saved"
     join: "Join"
+    less_tags: "less"
     login: "Sign in"
     login_to_enable: "You need to be logged in to perform this action"
     members:
       one: "%{count} member"
       other: "%{count} members"
+    more_tags:
+      one: "+1 tag"
+      other: "+%{count} tags"
     no_: "No"
+    not_approved:
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     participants:
       one: "%{count} participant"
       other: "%{count} participants"
     publish: "Publish"
     register: "Register"
+    remove_tag: "Remove tag from filter"
     save: "Save"
     send: "Send"
-    not_approved:
-      text: 'Waiting approval'
-      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     unpublish: "Unpublish"
     update: "Update"
     updated_time_ago: "%{time} ago"
@@ -109,11 +115,6 @@ en:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
       not_running: "not running"
       running: running
-    more_tags: "+ %{count} tags"
-    more_tag: "+ 1 tag"
-    less_tags: "hide tags"
-    filtered_tags: "Filtering tags: "
-    remove_tag: "Remove tag from filter"
   GMT: GMT
   RSS: RSS
   abc: ABC

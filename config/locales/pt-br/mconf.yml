@@ -70,6 +70,7 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    filtered_tags: "Filtrando por tags: "
     form:
       required: "obrigatório"
     index: Listando
@@ -77,26 +78,31 @@ pt-br:
       error: "erro"
       success: "gravado"
     join: "Entrar"
+    less_tags: "menos"
     login: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     members:
       one: "%{count} membro"
       other: "%{count} membros"
+    more_tags:
+      one: "+1 tag"
+      other: "+%{count} tags"
     no_: "Não"
+    not_approved:
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     participants:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
-    upload: "Enviar"
     register: "Registrar"
+    remove_tag: "Remover tag da busca"
     save: "Salvar"
     send: "Enviar"
-    not_approved:
-      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
-      text: 'Aguardando aprovação'
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
+    upload: "Enviar"
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
@@ -109,11 +115,6 @@ pt-br:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
       not_running: "não iniciada"
       running: "em andamento"
-    more_tags: "+ %{count} tags"
-    more_tag: "+ 1 tag"
-    less_tags: "esconder tags"
-    filtered_tags: "Filtrando por tags: "
-    remove_tag: "Remover tag da busca"
   GMT: GMT
   RSS: RSS
   abc: ABC

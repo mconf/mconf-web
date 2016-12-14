@@ -41,7 +41,7 @@
           %span= t('space.post_count', :count => space.posts.size)
           - if mod_enabled?("events")
             %span= t('space.event_count', :count => space.events.size)
-          
+
           = render :partial => "spaces/space_tags", :locals => { :space => space }
 
         - if has_access
@@ -71,9 +71,7 @@
         %span.search-tags
           - params[:tag].split(',').each do |tag|
             .label.label-tag
-              = link_to spaces_path( make_tag_params( tag ) ) do
-                = icon_remove :class => "tooltipped", :title => t("_other.remove_tag")
-                = tag
+              = link_to tag, spaces_path( make_tag_params( tag )), class: "tooltipped", title: t("_other.remove_tag")
 
 #space-order-wrapper
   = t('space.index.order.order_by') + ':'
