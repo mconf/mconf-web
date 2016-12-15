@@ -64,11 +64,6 @@
         = link_to spaces_path(params.merge(my_spaces: true)), :id => "show-spaces-mine", :class => "btn btn-default btn-sm #{'active' if params[:my_spaces]}", :type => "button" do
           = t('space.index.filters.my_spaces')
 
-    %span= t('space.index.order.show_as') + ':'
-    .btn-group
-      = link_to t('.list_format.thumbnails'), spaces_path(params.merge(view: 'thumbnails')), :class => "btn btn-default btn-sm tooltipped #{'active' if params[:view] == 'thumbnails'}"
-      = link_to t('.list_format.list'), spaces_path(params.merge(view: 'list')), :class => "btn btn-default btn-sm tooltipped #{'active' if params[:view] == 'list'}"
-
     %span= t('space.index.order.order_by') + ':'
     .btn-group
       = link_to t('space.index.order.relevance'), spaces_path(params.merge(order: 'relevance')), class: "btn btn-default btn-sm tooltipped #{'active' if params[:order] == 'relevance'}", title: t('space.index.order.relevance_tip')
@@ -76,14 +71,8 @@
 
 #space-order-wrapper
 
-- if params[:view] == 'list'
-  = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
-- else
-  #spaces.content-block
-    .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @spaces
+= render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
 
 - nav = page_navigation_links @spaces
 - unless nav.nil?
   .content-block-footer= nav
-

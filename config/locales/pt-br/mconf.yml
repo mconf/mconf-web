@@ -1423,7 +1423,6 @@ pt-br:
       order:
         alphabetic: "Nome"
         order_by: "Ordenar por"
-        show_as: "Exibir como"
         relevance: "Relevância"
         relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
@@ -1551,9 +1550,6 @@ pt-br:
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index:
       create_new_space: "Criar uma comunidade"
-      list_format:
-        list: "Lista"
-        thumbnails: "Miniaturas"
       search:
         by_name:
           no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
@@ -1596,8 +1592,6 @@ pt-br:
       public: "Pública"
       reply_invitation: "Responder ao convite"
       view_join_request: "Ver a requisição que você enviou"
-    thumbnail_view:
-      no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space:
       is_member: "Você é membro desta comunidade"
       private: "Comunidade privada"
