@@ -100,19 +100,19 @@ module SpacesHelper
 
   def tags_filter_add(tag)
     filter = []
-    filter = params[:tag] ? params[:tag].split(',') : []
+    filter = params[:tag] ? params[:tag].split(ActsAsTaggableOn.delimiter) : []
     filter = filter.append(tag)
     filter = filter.uniq
-    filter = filter.join(',')
+    filter = filter.join(ActsAsTaggableOn.delimiter)
     filter
   end
 
   def tags_filter_remove(tag)
     filter = []
-    filter = params[:tag] ? params[:tag].split(',') : []
+    filter = params[:tag] ? params[:tag].split(ActsAsTaggableOn.delimiter) : []
     filter = filter.uniq
     filter.delete(tag)
-    filter = filter.join(',')
+    filter = filter.join(ActsAsTaggableOn.delimiter)
     filter
   end
 

@@ -220,6 +220,7 @@ pt-br:
         permalink: "Identificador"
         public: "Pública"
         repository: "Repositório de documentos"
+        tag_list: "Tags"
       user:
         _full_name: "Nome completo"
         approved: "Aprovado"
@@ -970,7 +971,7 @@ pt-br:
       destroy: Remover usuário
       destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:
-      filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
+      filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     users:
@@ -1524,7 +1525,8 @@ pt-br:
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
     list_view:
-      no_spaces: "Nenhuma comunidade foi criada até o momento!"
+      filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
+      filter_count_empty: "%{count} comunidades encontradas"
     menu:
       admin: "Admin"
       events: "Eventos"

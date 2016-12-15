@@ -217,6 +217,7 @@ en:
         permalink: "Identifier"
         public: "Public"
         repository: "Document repository"
+        tag_list: "Tags"
       user:
         _full_name: "Full name"
         approved: "Approved"
@@ -963,7 +964,7 @@ en:
       destroy: Delete user
       destroy_confirm: Are you sure you want to delete this user and all content associated with it? Unlike disabling the user this operation is irreversible!
     spaces_list:
-      filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
+      filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     users:
@@ -1514,7 +1515,8 @@ en:
       subtitle: "Search for communities of users that share the same interests"
       title: "Spaces"
     list_view:
-      no_spaces: "There are no spaces created yet!"
+      filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
+      filter_count_empty: "Found %{count} spaces"
     menu:
       admin: "Admin"
       events: "Events"

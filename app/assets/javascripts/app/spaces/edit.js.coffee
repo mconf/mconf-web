@@ -9,13 +9,14 @@ $ ->
     mconf.Uploader.bind
       callbacks: uploaderCallbacks
 
-    tag_list_id = "#space-tag-list"
+    tag_list_id = "#space_tag_list"
 
     #select values already tagged
     $(tag_list_id).ready ->
       values = []
 
-      for value in $(tag_list_id).val().split(',')
+      sep = $(tag_list_id).data('sep')
+      for value in $(tag_list_id).val().split(sep)
         values.push {id: value, text: value} if value != ''
 
       $(tag_list_id).select2 'data', values
@@ -35,14 +36,14 @@ $ ->
       width: '98%'
       formatResult: (object, container) ->
         text = if object.name?
-          object.name
+          object.name.toLowerCase()
         else
-          object.text
+          object.text.toLowerCase()
       formatSelection:  (object, container) ->
         text = if object.name?
-          object.name
+          object.name.toLowerCase()
         else
-          object.text
+          object.text.toLowerCase()
       ajax:
         url: '/tags/select.json'
         dataType: 'json'
