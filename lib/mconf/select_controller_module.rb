@@ -3,7 +3,11 @@ module Mconf
 
     def select
       # try to get already set collection (@spaces) or use the class name for a query (Space)
-      klass = controller_name.classify.constantize
+      klass = if controller_name == "tags" 
+        ActsAsTaggableOn::Tag
+      else 
+        controller_name.classify.constantize
+      end
       collection = instance_variable_get("@#{controller_name}") || klass
 
       terms = params[:q].try(:split, /\s+/)
@@ -16,7 +20,8 @@ module Mconf
       elsif collection.nil?
         collection.limit(limit)
       else
-        collection.search_by_terms(terms, can?(:manage, klass)).limit(limit)
+        collection.search_by_terms(terms, can?(:manage, klass))
+          .search_order.limit(limit)
       end
 
       instance_variable_set("@#{controller_name}", result)

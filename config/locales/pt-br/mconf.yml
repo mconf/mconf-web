@@ -73,6 +73,7 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    filtered_tags: "Filtrando por tags: "
     form:
       required: "obrigatório"
     index: Listando
@@ -80,13 +81,20 @@ pt-br:
       error: "erro"
       success: "gravado"
     join: "Entrar"
+    less_tags: "menos"
     login: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     members:
       one: "%{count} membro"
       other: "%{count} membros"
     moderator: "Moderador"
+    more_tags:
+      one: "+1 tag"
+      other: "+%{count} tags"
     no_: "Não"
+    not_approved:
+      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
+      text: 'Aguardando aprovação'
     participants:
       one: "%{count} participante"
       other: "%{count} participantes"
@@ -96,13 +104,10 @@ pt-br:
       published: "Publicada"
       unavailable: "Indisponível"
       unpublished: "Não publicada"
-    upload: "Enviar"
     register: "Registrar"
+    remove_tag: "Remover tag da busca"
     save: "Salvar"
     send: "Enviar"
-    not_approved:
-      tooltip: 'Aguardando aprovação, usuários não podem ver nem acessar esta comunidade ainda'
-      text: 'Aguardando aprovação'
     space:
       disabled: "Desabilitado"
       private: "Privado"
@@ -110,6 +115,7 @@ pt-br:
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
+    upload: "Enviar"
     user:
       administrator: "Administrador global"
       disabled: "Desabilitado"
@@ -207,6 +213,7 @@ pt-br:
         smtp_login: "Login SMTP"
         smtp_password: "Senha SMTP"
         smtp_port: "Porta SMTP"
+        smtp_receiver: "Recipiente SMTP"
         smtp_sender: "Remetente SMTP"
         smtp_server: "Servidor SMTP"
         smtp_use_tls: "Usar TLS no STMP"
@@ -1517,7 +1524,7 @@ pt-br:
       webconf_options: "Opções de webconferência"
     approve:
       approved: "A comunidade %{name} foi aprovada"
-      not_enabled: "A aprovação de comunidades não está habilitada"
+      not_enabled: "A aprovação de comunidades não está habilitada ou a comunidade já está aprovada"
     disapprove:
       disapproved: "Acesso bloqueado à comunidade %{name}"
       not_enabled: "A aprovação de comunidades não está habilitada"
@@ -1527,6 +1534,8 @@ pt-br:
       delete_space: "Desabilitar esta comunidade?"
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
+      tags:
+        placeholder: "Adicionar uma tag..."
       yes_delete: "Sim, quero desabilitar esta comunidade"
       webconference_room_options:
         click_here: "clique aqui"
@@ -1748,7 +1757,7 @@ pt-br:
   users:
     approve:
       approved: "O usuário %{name} foi aprovado para acessar este site!"
-      not_enabled: "A aprovação de registros não está habilitada neste site"
+      not_enabled: "A aprovação de registros não está habilitada neste site ou o usuário já está aprovado"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
     create:

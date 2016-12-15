@@ -108,13 +108,11 @@ feature "User registers in an event" do
     context "login then register as member" do
       before {
         user.update_attributes password: '123456', password_confirmation: '123456'
-        fill_in "user[login]", with: user.permalink
-        fill_in "user[password]", with: '123456'
-        click_button t("sessions.login_form.login")
+        sign_in_with user.email, '123456', false
       }
 
       it { current_path.should eq(new_event_participant_path(event)) }
-      it { should have_css("#participant_email[value='#{user.email}']") }
+      it { should have_css("input[name='participant[email]'][value='#{user.email}']") }
       it { should have_content t("participants.form.submit") }
 
       context "finish registering" do

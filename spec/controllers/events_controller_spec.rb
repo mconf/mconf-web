@@ -232,7 +232,7 @@ describe EventsController do
       context "works" do
         before do
           10.times { FactoryGirl.create(:event) }
-          @events = Event.all.first(5)
+          @events = Event.all.search_order.first(5)
         end
         before(:each) { get :select, :format => :json }
         it { should respond_with(:success) }
@@ -689,6 +689,7 @@ describe EventsController do
         end
         it { should redirect_to(referer) }
         it { should set_flash.to success }
+        it { Invitation.last.invitation_group.should be_nil }
       end
 
       context "with more than one user invited" do

@@ -68,9 +68,7 @@ class Space < ActiveRecord::Base
   after_update :update_webconf_room
   after_create :create_webconf_room
 
-  def require_approval?
-    Site.current.require_space_approval?
-  end
+  acts_as_taggable
 
   validates :description, :presence => true
 
@@ -114,11 +112,9 @@ class Space < ActiveRecord::Base
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
-  # Used by select controller method
+  # Search spaces based on a list of words
   # TODO: can_manage is never used, should hide private spaces
   scope :search_by_terms, -> (words, can_manage=false) {
-    query = Space.with_disabled
-
     words ||= []
     words = [words] unless words.is_a?(Array)
     query_strs = []
@@ -130,7 +126,12 @@ class Space < ActiveRecord::Base
       query_params += ["%#{word}%", "%#{word}%"]
     end
 
-    query.where(query_strs.join(' OR '), *query_params.flatten)
+    Space.where(query_strs.join(' OR '), *query_params.flatten)
+  }
+
+  # The default ordering for search methods
+  scope :search_order, -> {
+    order("name")
   }
 
   # Finds all the valid user roles for a Space
@@ -185,6 +186,10 @@ class Space < ActiveRecord::Base
     spaces_with_activities.find_each do |space|
       space.update_attributes last_activity: space.lastActivity, last_activity_count: space.activityCount
     end
+  end
+
+  def require_approval?
+    Site.current.require_space_approval?
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.

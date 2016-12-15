@@ -19,6 +19,7 @@ describe Mconf::ApprovalControllerModule do
     context "if not #require_approval?" do
       it "sets the correct flash message"
       it "redirects back"
+      it "lets the resource be approved if not approved yet"
     end
   end
 

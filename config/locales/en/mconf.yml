@@ -74,6 +74,7 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    filtered_tags: "Filtering tags: "
     form:
       required: "required"
     index: Listing
@@ -81,13 +82,20 @@ en:
       error: "error"
       success: "saved"
     join: "Join"
+    less_tags: "less"
     login: "Sign in"
     login_to_enable: "You need to be logged in to perform this action"
     members:
       one: "%{count} member"
       other: "%{count} members"
     moderator: "Moderator"
+    more_tags:
+      one: "+1 tag"
+      other: "+%{count} tags"
     no_: "No"
+    not_approved:
+      text: 'Waiting approval'
+      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     participants:
       one: "%{count} participant"
       other: "%{count} participants"
@@ -98,11 +106,9 @@ en:
       unavailable: "Unavailable"
       unpublished: "Unpublished"
     register: "Register"
+    remove_tag: "Remove tag from filter"
     save: "Save"
     send: "Send"
-    not_approved:
-      text: 'Waiting approval'
-      tooltip: 'Waiting approval, users are not able to view nor access this space yet'
     space:
       disabled: "Disabled"
       private: "Private"
@@ -210,6 +216,7 @@ en:
         smtp_login: "SMTP login"
         smtp_password: "SMTP password"
         smtp_port: "SMTP port"
+        smtp_receiver: "SMTP receiver"
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
         smtp_use_tls: "Use TLS in SMTP"
@@ -1504,6 +1511,7 @@ en:
       add_member: "Add members"
     approve:
       approved: "The space %{name} was approved"
+      not_enabled: "Moderation of spaces is not enabled or the space is already approved"
     disapprove:
       disapproved: "The space %{name} was disapproved"
       not_enabled: "Moderation of spaces is not enabled"
@@ -1513,6 +1521,8 @@ en:
       delete_space: "Disable this space?"
       other_options: "Other options"
       public: "Make this a public space"
+      tags:
+        placeholder: "Add a tag..."
       yes_delete: "Yes, I want to disable this space"
       webconference_room_options:
         click_here: "click here"
@@ -1738,7 +1748,7 @@ en:
   users:
     approve:
       approved: "The user %{name} was approved to access the website!"
-      not_enabled: "Approval of registrations is not enabled in this website"
+      not_enabled: "Approval of users is not enabled in this website or the user is already approved"
     create:
       error: "Errors creating the user: %{errors}"
       success: "User created successfully"

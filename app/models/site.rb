@@ -44,6 +44,14 @@ class Site < ActiveRecord::Base
     Mconf::Filesize.human_file_size(self.max_upload_size)
   end
 
+  def smtp_receiver
+    if read_attribute(:smtp_receiver).blank?
+      read_attribute(:smtp_sender)
+    else
+      read_attribute(:smtp_receiver)
+    end
+  end
+
   private
 
   def validate_and_adjust_max_upload_size

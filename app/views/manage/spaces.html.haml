@@ -6,13 +6,20 @@
         = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-new-space'
     .search-words
       = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'form-control resource-filter'
-    .search-filters
+    .search-filters.clearfix
       - ['approved', 'disabled'].each do |field|
         .btn-group.search-filter-option
           = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'true'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
             = t(".#{field}_true")
           = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'false'}", type: "button", 'data-attr-filter': field, 'data-attr-value': false do
             = t(".#{field}_false")
+
+    - if !params[:tag].nil?
+      .search-tags
+        = t('_other.filtered_tags')
+        - params[:tag].split(',').each do |tag|
+          .label.label-tag
+            = link_to tag, manage_spaces_path(make_tag_params(tag)), class: "tooltipped", title: t("_other.remove_tag")
 
   #space-list
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }

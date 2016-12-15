@@ -47,9 +47,9 @@
         = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') }, :method => :post do
           = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
 
-      -# prevent admins from disabling and unapproving themselves
+      -# prevent admins from disabling and disapproving themselves
       - unless current_user == user && user.superuser
-        - if current_site.require_registration_approval?
+        - if user.require_approval? || !user.approved?
           = approval_links :user, user
         = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
           = icon_disable(:alt => t('.disable'), :title => t('.disable'))

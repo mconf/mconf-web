@@ -89,16 +89,18 @@ describe FeedbackController do
           let(:email) { '' }
 
           it { should redirect_to url }
-          it { should set_flash.to(I18n.t('feedback.create.check_mail')) }
-          it_behaves_like 'the email is not sent'
+          it { should set_flash.to(I18n.t('feedback.create.success')) }
+          it { ApplicationMailer.should have_queue_size_of(1) }
+          it { ApplicationMailer.should have_queued(:feedback_email, user.email, subj, message) }
         end
 
         context 'is not a valid email' do
           let(:email) { 'john[at]fruscian.te' }
 
           it { should redirect_to url }
-          it { should set_flash.to(I18n.t('feedback.create.check_mail')) }
-          it_behaves_like 'the email is not sent'
+          it { should set_flash.to(I18n.t('feedback.create.success')) }
+          it { ApplicationMailer.should have_queue_size_of(1) }
+          it { ApplicationMailer.should have_queued(:feedback_email, user.email, subj, message) }
         end
       end
 

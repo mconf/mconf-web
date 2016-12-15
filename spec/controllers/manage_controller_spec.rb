@@ -66,7 +66,7 @@ describe ManageController do
         end
       end
 
-      context "orders @users by the user's full name" do
+      context "orders users by the user's full name" do
         before {
           @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
           @u2 = user
@@ -80,6 +80,21 @@ describe ManageController do
         it { assigns(:users)[1].should eql(@u4) }
         it { assigns(:users)[2].should eql(@u2) }
         it { assigns(:users)[3].should eql(@u1) }
+      end
+
+      context "orders @users by the number of matches" do
+        before {
+          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u2 = user
+          @u2.profile.update_attributes(:full_name => 'Second user created')
+          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
+          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+        }
+        before(:each) { get :users, :q => 'second user' }
+        it { assigns(:users).count.should be(3) }
+        it { assigns(:users)[0].should eql(@u2) }
+        it { assigns(:users)[1].should eql(@u3) }
+        it { assigns(:users)[2].should eql(@u1) }
       end
 
       context "paginates the list of users" do
@@ -445,6 +460,53 @@ describe ManageController do
           it { assigns(:spaces).count.should be(1) }
           it { assigns(:spaces).should include(spaces[2]) }
         end
+      end
+
+      context "use tags to filter the results" do
+        before {
+            @s1 = FactoryGirl.create(:space, :name => 'Approved', :approved => true)
+            @s2 = FactoryGirl.create(:space, :name => 'Not Approved', :approved => false)
+            @s3 = FactoryGirl.create(:space, :name => 'Enabled', :disabled => false)
+            @s4 = FactoryGirl.create(:space, :name => 'Disabled', :disabled => true)
+            @s1.update_attributes(:tag_list => ["one tag", "tag", "first space", "extra tag"])
+            @s2.update_attributes(:tag_list => ["one tag", "tag", "second space", "disabled"])
+            @s3.update_attributes(:tag_list => ["one tag", "tag", "third space", "last two", "extra tag"])
+            @s4.update_attributes(:tag_list => ["one tag", "tag", "fourth space", "last two"])
+            @s2.disapprove!
+        }
+        before(:each) { get :spaces, params }
+
+        context "no tags" do
+          let(:params) { {} }
+
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(@s1, @s2, @s3, @s4) }
+        end
+
+        context "tag is \"tag\"" do
+          let(:params) { {:tag => 'tag'} }
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(@s1, @s2, @s3, @s4) }
+        end
+
+        context "tag is \"disabled\"" do
+          let(:params) { {tag: "disabled"} }
+          it { assigns(:spaces).count.should be(1) }
+          it { assigns(:spaces).should include(@s2) }
+        end
+
+        context "tag is \"last two\"" do
+          let(:params) { {tag: "last two"} }
+          it { assigns(:spaces).count.should be(2) }
+          it { assigns(:spaces).should include(@s3, @s4) }
+        end
+
+        context "tags are \"one tag\" and \"extra tag\"" do
+          let(:params) { {tag: "extra tag, one tag"} }
+          it { assigns(:spaces).count.should be(2) }
+          it { assigns(:spaces).should include(@s1, @s3) }
+        end
+
       end
 
       context "if xhr request" do

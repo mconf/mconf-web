@@ -48,3 +48,5 @@
               = link_to t(".reply_invitation"), space_join_request_path(space, jr)
             - else
               = link_to t(".view_join_request"), space_join_request_path(space, jr)
+
+      = render :partial => "spaces/space_tags", :locals => { :space => space }
