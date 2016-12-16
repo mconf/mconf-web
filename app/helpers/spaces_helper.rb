@@ -94,37 +94,12 @@ module SpacesHelper
       options
   end
 
-  def find_tags_manage
-    current_page?(manage_spaces_path) && can?(:manage, Space)
-  end
-
-  def tags_filter_add(tag)
-    filter = []
-    filter = params[:tag] ? params[:tag].split(ActsAsTaggableOn.delimiter) : []
-    filter = filter.append(tag)
-    filter = filter.uniq
-    filter = filter.join(ActsAsTaggableOn.delimiter)
-    filter
-  end
-
-  def tags_filter_remove(tag)
-    filter = []
-    filter = params[:tag] ? params[:tag].split(ActsAsTaggableOn.delimiter) : []
-    filter = filter.uniq
-    filter.delete(tag)
-    filter = filter.join(ActsAsTaggableOn.delimiter)
-    filter
-  end
-
-  def make_tag_params(tag)
-    new_params = {}
-    new_tag_params = tags_filter_remove(tag)
-    new_params = if new_tag_params.blank?
-      params.except(:tag)
+  def link_for_tag(options)
+    if current_page?(manage_spaces_path) && can?(:manage, Space)
+      manage_spaces_path(options)
     else
-      params.merge(:tag => new_tag_params)
+      spaces_path(options)
     end
-    new_params
   end
 
 end

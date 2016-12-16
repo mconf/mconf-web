@@ -12,7 +12,7 @@
         = link_to space_path(@space) do
           = @space.name
 
-    = render :partial => "spaces/space_tags", :locals => { :space => @space }
+    = render :partial => "spaces/space_tags", :locals => { :space => @space, :static_links => true }
 
     - if @space.public
       .resource-visibility.public

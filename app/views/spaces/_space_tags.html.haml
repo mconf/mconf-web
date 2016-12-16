@@ -1,20 +1,27 @@
+-# Locals:
+-#   static_links:
+-#     If false or not set will add statuc href attributes to the tags.
+-#     Otherwise uses ParamsMerge to just add the tag to the current search.
+
+- static_links = defined?(static_links) ? static_links : false
+
 #space-tags
 
   - space.tags.first(5).each do |tag|
     .label.label-tag
-      - if find_tags_manage
-        = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+      - if static_links
+        = link_to tag, link_for_tag(params.merge(tag: tag))
       - else
-        = link_to tag, spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+        = link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
 
   - if space.tags.count > 5
     %span.more-tags.hidden
       - space.tags[5..-1].each do |tag|
         .label.label-tag
-          - if find_tags_manage
-            = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+          - if static_links
+            = link_to tag, link_for_tag(params.merge(tag: tag))
           - else
-            = link_to tag, spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+            = link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
 
     .label.label-tag-less.hidden
       = link_to "#", class: 'toggle-tags' do
