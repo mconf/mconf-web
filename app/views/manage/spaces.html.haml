@@ -19,9 +19,9 @@
     - if !params[:tag].nil?
       .search-tags
         = t('_other.filtered_tags')
-        - params[:tag].split(',').each do |tag|
+        - params[:tag].split(ActsAsTaggableOn.delimiter).each do |tag|
           .label.label-tag
-            = link_to tag, manage_spaces_path(make_tag_params(tag)), class: "tooltipped", title: t("_other.remove_tag")
+            = link_to tag, '#', title: t("_other.remove_tag"), class: 'tooltipped', data: { qstring: "tag-=#{tag}", "qstring-sep": "," }
 
   #space-list
     = render :partial => 'spaces_list', :locals => { :spaces => @spaces }

@@ -50,11 +50,15 @@ class SpacesController < InheritedResources::Base
   layout :set_layout
 
   def index
-    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
-
     order_spaces
     paginate_spaces
-    set_menu_tab
+
+    if request.xhr?
+      render "spaces/_list_view", layout: false, locals: { spaces: @spaces, user_spaces: @user_spaces , extended: true }
+    else
+      set_menu_tab
+      render :index
+    end
   end
 
   def show
@@ -197,9 +201,15 @@ class SpacesController < InheritedResources::Base
   def load_spaces_index
     spaces = Space.where(approved: true)
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    words = params[:q].try(:split, /\s+/)
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
-    @spaces = params[:tag] ? @spaces.tagged_with(params[:tag]) : @spaces
+    @spaces = params[:q] ? @spaces.search_by_terms(words, can?(:manage, Space)) : @spaces
+
+    params[:tag] = "" if params[:tag].blank? || !params[:tag].split(ActsAsTaggableOn.delimiter).any?
+    @spaces = params[:tag].blank? ? @spaces : @spaces.tagged_with(params[:tag])
+
+    @spaces = @spaces.includes(:tags)
   end
 
   def order_spaces
@@ -213,7 +223,7 @@ class SpacesController < InheritedResources::Base
   end
 
   def paginate_spaces
-    @spaces = @spaces.paginate(:page => params[:page], :per_page => 18)
+    @spaces = @spaces.paginate(:page => params[:page], :per_page => 15)
   end
 
   # Should be on the view?

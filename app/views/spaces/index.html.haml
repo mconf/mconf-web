@@ -49,45 +49,32 @@
             = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
-  %div.clearfix
-    .view-types
-      .btn-group{ :"data-toggle" => "buttons-radio" }
-        = link_to spaces_path(params.merge(view: 'thumbnails')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
-          = t('.list_format.thumbnails')
-        = link_to spaces_path(params.merge(view: 'list')), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
-          = t('.list_format.list')
 
+  #space-type
     .btn-group{ :"data-toggle" => "buttons-radio" }
-      = link_to spaces_path(params.merge(my_spaces: nil)), :id => "show-spaces-all", :class => "btn #{'active' unless params[:my_spaces]}", :type => "button" do
+      = link_to '#', :id => "show-spaces-all", :class => "btn btn-mini #{'active' unless params[:my_spaces]}", :data => { :qstring => "my_spaces=" } do
         = t('space.index.filters.all')
       - if user_signed_in?
-        = link_to spaces_path(params.merge(my_spaces: true)), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
+        = link_to '#', :id => "show-spaces-mine", :class => "btn btn-mini #{'active' if params[:my_spaces]}", :data => { :qstring => "my_spaces=true" } do
           = t('space.index.filters.my_spaces')
-      = hidden_field_tag :space_filter_text
-  %div
+
+  #space-order
+    = t('space.index.order.order_by') + ':'
+    .btn-group{ :"data-toggle" => "buttons-radio" }
+      = link_to '#', class: "tooltipped btn btn-mini #{'active' if params[:order] == 'relevance'}", title: t('space.index.order.relevance_tip'), :data => { :qstring => "order=relevance" } do
+        = t('space.index.order.relevance')
+      = link_to '#', class: "btn btn-mini #{'active' if params[:order] == 'abc'}", :data => { :qstring => "order=abc" } do
+        = t('space.index.order.alphabetic')
+
+  = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('space.index.filter_name'), :'data-load-url' => spaces_path, :'data-target' => '#space-list-render', :'data-filter' => '#filter-total', :class => 'resource-filter'
+
+  - if params[:tag].present?
     #space-filter-tags
-      - if !params[:tag].nil?
-        = t('_other.filtered_tags')
-        %span.search-tags
-          - params[:tag].split(',').each do |tag|
-            .label.label-tag
-              = link_to tag, spaces_path( make_tag_params( tag )), class: "tooltipped", title: t("_other.remove_tag")
+      = t('_other.filtered_tags')
+      %span.search-tags
+        - params[:tag].split(ActsAsTaggableOn.delimiter).each do |tag|
+          .label.label-tag
+            = link_to tag, '#', class: "tooltipped", title: t("_other.remove_tag"), data: { qstring: "tag-=#{tag}", "qstring-sep": "," }
 
-#space-order-wrapper
-  = t('space.index.order.order_by') + ':'
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to spaces_path(params.merge(order: 'relevance')), class: "tooltipped btn btn-mini #{'active' if params[:order] == 'relevance'}", title: t('space.index.order.relevance_tip') do
-      = t('space.index.order.relevance')
-    = link_to spaces_path(params.merge(order: 'abc')), class: "btn btn-mini #{'active' if params[:order] == 'abc'}" do
-      = t('space.index.order.alphabetic')
-
-- if params[:view] == 'list'
+#space-list-render
   = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
-- else
-  #spaces.content-block
-    .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @spaces
-
-- nav = page_navigation_links @spaces
-- unless nav.nil?
-  .content-block-footer= nav

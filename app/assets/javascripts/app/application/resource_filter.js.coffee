@@ -64,16 +64,21 @@ updateResources = ($input, $target, force = false) ->
   if force or (searchQuery isnt lastValue)
 
     # adjust the params in the URL
-    params = mconf.Base.getUrlParts(String(window.location))
+    url = new URL(window.location)
+    params = mconf.Base.parseQueryString(url.search)
+
     if searchQuery?.length > 0
-      params.q = encodeURIComponent(searchQuery)
+      params.q = searchQuery
     else
       delete params.q
-    url = $input.attr("data-load-url") + mconf.Base.urlFromParts(params)
-    history.replaceState(params, '', url)
+
+    url.search = mconf.Base.makeQueryString(params)
+    url.pathname = $input.attr("data-load-url")
+
+    history.replaceState(params, '', url.toString())
 
     # load the resources and update the page
-    $target.load url, ->
+    $target.load url.toString(), ->
       mconf.Resources.bind()
 
 $ ->

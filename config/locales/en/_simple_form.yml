@@ -80,6 +80,7 @@ en:
         permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room. Use only lowercase letters, numbers or dashes."
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
+        tag_list: "Write a tag name and select it on the list or type a comma (',')  to create it"
       user:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked. This flag is used only if the site is configured to require registration approval."
         bigbluebutton_room:
