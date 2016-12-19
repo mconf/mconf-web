@@ -22,6 +22,7 @@
           %li.list-text{:name => space.permalink}
             = render "spaces/unified_space", :space => space, :is_member => is_member, :extended => extended, :show_join_request => show_join_request
 
-    - nav = page_navigation_links spaces
-    - unless nav.nil?
-      .content-block-footer= nav
+    - if is_paginated?(spaces)
+      - nav = page_navigation_links spaces
+      - unless nav.nil?
+        .content-block-footer= nav
