@@ -150,7 +150,7 @@ feature "Creating a space" do
       before { visit spaces_path(my_spaces: 'true', order: 'abc') }
 
       it { page.should have_content(attrs[:name]) }
-      it { page.should have_selector('.space-waiting-moderation', count: 2) }
+      it { page.should have_selector('.space-waiting-moderation', count: 1) }
       it { page.should have_selector('.icon-mconf-waiting-moderation', count: 1)}
     end
   end
