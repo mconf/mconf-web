@@ -10,7 +10,7 @@
   - space.tags.first(5).each do |tag|
     .label.label-tag
       - if static_links
-        = link_to tag, link_for_tag(params.merge(tag: tag))
+        = link_to tag, link_for_tag(params.merge(tag: tag.name))
       - else
         = link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
 
@@ -19,7 +19,7 @@
       - space.tags[5..-1].each do |tag|
         .label.label-tag
           - if static_links
-            = link_to tag, link_for_tag(params.merge(tag: tag))
+            = link_to tag, link_for_tag(params.merge(tag: tag.name))
           - else
             = link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
 

@@ -65,7 +65,8 @@ addParam = (query, qstring, sep) ->
 
   if value? and value.trim() isnt ''
     if query[param]
-      unless query[param].match(value) # no duplicates
+      currentValues = query[param].split(sep)
+      unless _.contains(currentValues, value) # no duplicates
         query[param] = query[param] + sep + value
     else
       query[param] = value

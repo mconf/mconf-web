@@ -135,7 +135,12 @@ class mconf.Base
   # in the format { param: '1', other: 'two two' }
   @parseQueryString = (search) ->
     objURL = {}
-    replacer = ($0, $1, $2, $3) -> objURL[$1] = decodeURIComponent($3)
+
+    replacer = ($0, $1, $2, $3) ->
+      objURL[$1] = decodeURIComponent($3.replace(/\+/g, ' '))
+      # replace '+' by ' ' because that's what the browser does and
+      # decodeURIComponent doesn't
+
     search.replace(new RegExp( "([^?=&]+)(=([^&]*))?", "g" ), replacer)
     return objURL
 
