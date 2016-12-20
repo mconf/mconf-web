@@ -71,7 +71,7 @@ $m-z-index-footer: 0;
     }
   }
 
-  @media (max-width: $screen-xs-max) {
+  @include breakpoint(xs) {
     .title, .error-description {
       max-width: 95;
     }

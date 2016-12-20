@@ -11,6 +11,7 @@
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = yield :stylesheets
+    = stylesheet_link_tag 'clean'
 
     /[if IE]
       // HTML5 shim, for IE6-8 support of HTML elements

@@ -9,13 +9,6 @@
 
 body {
   background-color: $m-site-bg-color;
-  background: linear-gradient(
-    to right,
-    $m-sidebar-bg-color 0%,
-    $m-sidebar-bg-color 25%,
-    $m-site-bg-color 25%,
-    $m-site-bg-color 100%
-  );
 }
 
 p {
@@ -594,14 +587,11 @@ form {
   @include make-row;
 }
 
-#sidebar {
-  @include make-xs-column(12);
-  @include make-sm-column(3);
+#sidebar, .sidebar {
   @include make-sm-column-height;
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
   padding: 30px 25px;
-  min-width: 250px;
 
   .sidebar-title {
     font-size: 26px;
@@ -672,74 +662,7 @@ form {
         @include text-truncate;
       }
     }
-
   }
-}
-
-#sidebar-menu {
-  /* border-top: 1px solid $m-sidebar-border; */
-  margin: 0 -20px;
-  padding: 0;
-
-  ul {
-    margin: 0 0 0 15px;
-    padding: 0;
-  }
-
-  li {
-    /* border-bottom: 1px solid $m-sidebar-border; */
-    border-left: 1px solid $m-transparent;
-    @include font-size($m-font-medium);
-
-    &.active a {
-      background: $m-site-bg-color;
-      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
-      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
-      @include link-colors($normal, $hover, $hover, $normal);
-      border-bottom: 1px solid $m-sidebar-border;
-      border-top: 1px solid $m-sidebar-border;
-      border-left: 1px solid $m-sidebar-border;
-
-      &:hover,
-      &:active {
-        background: $m-site-bg-color;
-      }
-    }
-
-    a {
-      display: block;
-      font-size: 16px;
-      line-height: 18px;
-      @include mconf-clearfix;
-      transition: all .3s ease;
-      margin: 2px 0;
-      padding: 15px;
-
-      /* border-bottom: 1px solid $m-transparent; */
-      /* border-top: 1px solid $m-transparent; */
-      /* border-left: 1px solid $m-transparent; */
-
-      $normal: $m-page-menu-font-color;
-      $hover: darken($m-second-color, 20);
-      color: $normal;
-      @include link-colors($normal, $hover, $hover, $normal);
-      text-decoration: none;
-
-      &:hover,
-      &:active {
-        background: $m-sidebar-border;
-        /* border-bottom: 1px solid $m-sidebar-border; */
-        /* border-top: 1px solid $m-sidebar-border; */
-        /* border-left: 1px solid $m-sidebar-border; */
-      }
-    }
-  }
-}
-
-
-#sidebar, .sidebar {
-  @include make-xs-column(12);
-  @include make-sm-column(3);
 
   .content-block-container {
     margin-bottom: 10px;
@@ -811,9 +734,67 @@ form {
   }
 }
 
+#sidebar-menu {
+  /* border-top: 1px solid $m-sidebar-border; */
+  margin: 0 -26px;
+  padding: 0;
+
+  ul {
+    margin: 0 0 0 15px;
+    padding: 0;
+  }
+
+  li {
+    /* border-bottom: 1px solid $m-sidebar-border; */
+    border-left: 1px solid $m-transparent;
+    @include font-size($m-font-medium);
+
+    &.active a {
+      background: $m-site-bg-color;
+      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
+      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
+      @include link-colors($normal, $hover, $hover, $normal);
+      border-bottom: 1px solid $m-sidebar-border;
+      border-top: 1px solid $m-sidebar-border;
+      border-left: 1px solid $m-sidebar-border;
+
+      &:hover,
+      &:active {
+        background: $m-site-bg-color;
+      }
+    }
+
+    a {
+      display: block;
+      font-size: 16px;
+      line-height: 18px;
+      @include mconf-clearfix;
+      transition: all .3s ease;
+      margin: 2px 0;
+      padding: 15px;
+
+      /* border-bottom: 1px solid $m-transparent; */
+      /* border-top: 1px solid $m-transparent; */
+      /* border-left: 1px solid $m-transparent; */
+
+      $normal: $m-page-menu-font-color;
+      $hover: darken($m-second-color, 20);
+      color: $normal;
+      @include link-colors($normal, $hover, $hover, $normal);
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background: darken($m-sidebar-bg-color, 5); //$m-sidebar-border;
+        /* border-bottom: 1px solid $m-sidebar-border; */
+        /* border-top: 1px solid $m-sidebar-border; */
+        /* border-left: 1px solid $m-sidebar-border; */
+      }
+    }
+  }
+}
+
 #content-middle {
-  @include make-xs-column(12);
-  @include make-sm-column(9);
   @include make-sm-column-height;
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
@@ -1139,3 +1120,8 @@ strong.highlight {
 .resource-waiting-moderation-tooltip {
   color: #bd972b;
 }
+
+
+/* #content, #content-row { */
+/*   height: 100%; */
+/* } */
