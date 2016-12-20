@@ -8,14 +8,18 @@
     text-shadow: none;
     font-size: 95%;
     font-weight: 300;
-    padding: 0;
-    margin-bottom: 3px;
+    padding: 3px;
+    margin: 0 5px 3px 0;
     background: $tags-bg-color;
 
     a {
       padding: 2px 4px;
       display: inline-block;
       color: $tags-font-color;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     &:hover {
