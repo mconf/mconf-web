@@ -94,12 +94,16 @@ module SpacesHelper
       options
   end
 
-  def link_for_tag(options)
-    options.delete(:id) if options.has_key?(:id)
-    if current_page?(manage_spaces_path) && can?(:manage, Space)
-      manage_spaces_path(options)
+  def link_to_tag(tag)
+    if current_page?(manage_spaces_path) || current_page?(spaces_path)
+      # in these pages, the links are to add a tag to the current filters
+      link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
+
     else
-      spaces_path(options)
+      # in all other pages the link is to space/index filtering by the tag clicked
+      options = params.clone
+      options.delete(:id) if options.has_key?(:id)
+      link_to tag.name, spaces_path(options.merge(tag: tag.name))
     end
   end
 
