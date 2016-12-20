@@ -89,6 +89,7 @@ pt-br:
         permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
+        tag_list: "Digite uma tag e selecione-a na lista ou digite uma vírgula (',') para criá-la"
       user:
         approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo. Esta opção só é usada se o site estiver configurado para requerer aprovação de registro."
         bigbluebutton_room:

@@ -13,7 +13,8 @@ $ ->
       baseUrl = $('input.resource-filter').data('load-url')
 
       $(this).on 'click', ->
-        params = mconf.Base.getUrlParts(String(window.location))
+        url = new URL(window.location)
+        params = mconf.Base.parseQueryString(url.search)
 
         if !$(this).hasClass('active')
           $(".search-filter-option .btn[data-attr-filter='#{field}']").removeClass('active')
@@ -27,10 +28,12 @@ $ ->
           $(this).removeClass('active')
           $(this).blur()
 
-        history.pushState(params, '', baseUrl + mconf.Base.urlFromParts(params))
+        url.search = mconf.Base.makeQueryString(params)
+        history.pushState(params, '', url.toString())
         $('input.resource-filter').trigger('update-resources')
 
 #   showplay = ->
 #     $(".showplayback").on 'click', (e) ->
 #       $('.playback-types', $(this).parent().parent()).toggle(100)
 #       e.preventDefault()
+

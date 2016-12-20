@@ -1,24 +1,18 @@
 #space-tags
 
-  - space.tag_list.first(5).each do |tag|
+  - space.tags.first(5).each do |tag|
     .label.label-tag
-      - if find_tags_manage
-        = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
-      - else
-        = link_to tag, spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+      = link_to_tag(tag)
 
-  - if space.tag_list.count > 5
+  - if space.tags.count > 5
     %span.more-tags.hidden
-      - space.tag_list[5..-1].each do |tag|
+      - space.tags[5..-1].each do |tag|
         .label.label-tag
-          - if find_tags_manage
-            = link_to tag, manage_spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
-          - else
-            = link_to tag, spaces_path( params.merge( :tag => tags_filter_add(tag) ) )
+          = link_to_tag(tag)
 
     .label.label-tag-less.hidden
       = link_to "#", class: 'toggle-tags' do
         = t('_other.less_tags')
     .label.label-tag-more
       = link_to "#", class: 'toggle-tags' do
-        = t('_other.more_tags', :count => (space.tag_list.count - 5))
+        = t('_other.more_tags', :count => (space.tags.count - 5))

@@ -16,6 +16,10 @@
       = t('.room_name') + ": "
       = link_to bigbluebutton_room_path(recording.room), :class => 'recording-metadata' do
         = Mconf::Highlighter.highlight(recording.room.name, params[:q].try(:split))
+    - if recording.room.owner.present?
+      .list-text-description
+        = t(".owner_type_#{recording.room.owner.class.name.downcase}") + ": "
+        = link_to recording.room.owner.name, polymorphic_path(recording.room.owner)
 
   .col-xs-12.col-sm-2
     = t('.from') + " "

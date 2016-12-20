@@ -232,6 +232,7 @@ en:
         permalink: "Identifier"
         public: "Public"
         repository: "Document repository"
+        tag_list: "Tags"
       user:
         _full_name: "Full name"
         approved: "Approved"
@@ -954,7 +955,7 @@ en:
       filter_name: "Filter by name or description"
       new_space: "Create space"
     spaces_list:
-      filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
+      filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     user_item:
@@ -1000,6 +1001,8 @@ en:
       edit: "Edit recording"
       filter_name: "Filter by name, description, or record ID"
       from: "From"
+      owner_type_space: "Space"
+      owner_type_user: "User"
       playback_links: "Playbacks available"
       playback_true: "Has playback"
       playback_false: "No playback"
@@ -1414,6 +1417,7 @@ en:
         relevance_tip: "Shows the spaces with the most recent activities at the top"
       select_at_left: "Select a space in the list to see its description here"
       user_is_member: "You are a member!"
+      filter_name: "Filter spaces by name"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     is_private_html: "%{name} is a private space. To access it, sign in and send a <a href=\"%{path}\">join request</a> to the administrators of this space."
     join: "Join this space"
@@ -1544,7 +1548,8 @@ en:
       subtitle: "Search for communities of users that share the same interests"
       title: "Spaces"
     list_view:
-      no_spaces: "There are no spaces created yet!"
+      filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
+      filter_count_empty: "Found %{count} spaces"
     new:
       private: "Private"
       public: "Public"

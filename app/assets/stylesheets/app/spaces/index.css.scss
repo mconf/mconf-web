@@ -44,37 +44,6 @@ body.spaces.index {
     margin-bottom: 10px;
   }
 
-  // adjust how the select2 search input looks in this page
-  // note: exactly the same we have in events/index.css.scss
-  .select2-container .select2-choice {
-    border-right-width: 1px;
-  }
-  // the results for the filter by name are added to <body>, this is why
-  // this selector is here and not nested
-  .select2-results, .select2-container {
-    .select2-result, .select2-chosen {
-      text-align: left;
-
-      i {
-        float: right;
-        @include font-size($m-font-small);
-        margin: 4px 0 0 0;
-      }
-
-      a {
-        @include font-size($m-font-normal);
-        text-align: left;
-        @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
-        @include transition(none);
-      }
-
-      &.select2-highlighted {
-        i { color: #eee }
-        a { @include link-colors(#eee, #eee, #eee, #eee); }
-      }
-    }
-  }
-
   #space-description-wrapper {
 
     border-top: 1px solid $m-sidebar-border;
@@ -166,3 +135,5 @@ body.spaces.index {
   }
 
 }
+
+

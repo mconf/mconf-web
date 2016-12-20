@@ -7,7 +7,7 @@ $ ->
       mconf.Users.New.bind()
 
     window.onpopstate = (event) ->
-      window.location.href = mconf.Base.urlFromParts(event.state)
+      window.location.href = mconf.Base.makeQueryString(event.state) if event.state
       event.state
 
     $('.search-filter-option .btn').each ->
@@ -18,7 +18,8 @@ $ ->
 
       $(this).on 'click', (e) ->
         e.preventDefault()
-        params = mconf.Base.getUrlParts(String(window.location))
+        url = new URL(window.location)
+        params = mconf.Base.parseQueryString(url.search)
 
         if !$(this).hasClass('active')
           $(".search-filter-option .btn[data-attr-filter='#{field}']").removeClass('active')
@@ -32,5 +33,6 @@ $ ->
           $(this).removeClass('active')
           $(this).blur()
 
-        history.pushState(params, '', baseUrl + mconf.Base.urlFromParts(params))
+        url.search = mconf.Base.makeQueryString(params)
+        history.pushState(params, '', url.toString())
         $('input.resource-filter').trigger('update-resources')

@@ -106,36 +106,16 @@ module SpacesHelper
     end
   end
 
-  def find_tags_manage
-    current_page?(manage_spaces_path) && can?(:manage, Space)
-  end
-
-  def tags_filter_add(tag)
-    filter = []
-    filter = params[:tag] ? params[:tag].split(',') : []
-    filter = filter.append(tag)
-    filter = filter.uniq
-    filter = filter.join(',')
-    filter
-  end
-
-  def tags_filter_remove(tag)
-    filter = []
-    filter = params[:tag] ? params[:tag].split(',') : []
-    filter = filter.uniq
-    filter.delete(tag)
-    filter = filter.join(',')
-    filter
-  end
-
-  def make_tag_params(tag)
-    new_params = {}
-    new_tag_params = tags_filter_remove(tag)
-    new_params = if new_tag_params.blank?
-      params.except(:tag)
+  def link_to_tag(tag)
+    if current_page?(manage_spaces_path) || current_page?(spaces_path)
+      # in these pages, the links are to add a tag to the current filters
+      link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
     else
-      params.merge(:tag => new_tag_params)
+      # in all other pages the link is to space/index filtering by the tag clicked
+      options = params.clone
+      options.delete(:id) if options.has_key?(:id)
+      link_to tag.name, spaces_path(options.merge(tag: tag.name))
     end
-    new_params
   end
+
 end

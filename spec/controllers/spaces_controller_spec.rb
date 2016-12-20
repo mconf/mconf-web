@@ -833,4 +833,19 @@ describe SpacesController do
     it "should paginate user permission (10 per page)"
 
   end
+
+  context "use params[:q] to filter the results" do
+    context "by name" do
+      before {
+        @s1 = FactoryGirl.create(:space, :name => 'First')
+        @s2 = FactoryGirl.create(:space, :name => 'Second')
+        @s3 = FactoryGirl.create(:space, :name => 'Secondary')
+      }
+      before(:each) { get :index, :q => 'sec' }
+      it { assigns(:spaces).count.should be(2) }
+      it { assigns(:spaces).should include(@s2) }
+      it { assigns(:spaces).should include(@s3) }
+    end
+  end
+
 end
