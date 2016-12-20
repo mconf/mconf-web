@@ -993,6 +993,8 @@ en:
       direct_link: "Direct link"
       edit: "Edit recording"
       filter_name: "Filter by name, description, or record ID"
+      owner_type_space: "Space"
+      owner_type_user: "User"
       playback_links: "Playbacks available"
       playback_true: "Has playback"
       playback_false: "No playback"

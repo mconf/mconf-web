@@ -1001,6 +1001,8 @@ pt-br:
       direct_link: "Link direto"
       edit: "Editar gravação"
       filter_name: "Filtrar por nome, descrição ou ID da gravação"
+      owner_type_space: "Comunidade"
+      owner_type_user: "Usuário"
       playback_links: "Reproduções disponíveis"
       playback_false: "Sem reproduções"
       playback_true: "Com reproduções"
