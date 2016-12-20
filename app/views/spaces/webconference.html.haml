@@ -38,7 +38,7 @@
       = t('.recordings.title')
   - if @meetings.count > 0
     #space-recordings-list-container.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: webconference_space_path(@space) }
   - else
     %span= t('.recordings.no_recordings')
   .content-block-footer.content-block-footer-fancy

@@ -1,10 +1,12 @@
 -# Locals:
 -#   recordings (Array of Recording)
 -#   show_authors (boolean): show who created the recording?
+-#   redir_to (string): where to redirect back to when e.g. deleting a recording
 
 -# TODO: #1087 show only recordings that are published
 
 - show_authors = set_default(local_assigns, "show_authors", true)
+- redir_to = set_default(local_assigns, "redir_to", "")
 
 %table.recording-list.table.table-hover
   %thead
@@ -12,12 +14,14 @@
       - if show_authors
         %th.col-sm-2.meeting-date-col= t(".started_at")
         %th.col-sm-2.rec-author-col= t(".created_by")
-        %th.col-sm-5.rec-description-col= t(".description")
+        %th.col-sm-4.rec-description-col= t(".description")
         %th.col-sm-3.rec-playback-col= t(".playback_links")
+        %th.col-sm-1.rec-playback-col
       - else
         %th.col-sm-2.meeting-date-col= t(".started_at")
-        %th.col-sm-6.rec-description-col= t(".description")
+        %th.col-sm-5.rec-description-col= t(".description")
         %th.col-sm-4.rec-playback-col= t(".playback_links")
+        %th.col-sm-1.rec-playback-col
   %tbody
     - if meetings.count <= 0
       %tr
@@ -56,27 +60,6 @@
             -#   - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
 
             %td.rec-description-col
-              -# Edit description button
-              - if recording.room.owner_type == "User"
-                - if can?(:user_edit, recording)
-                  = link_to icon_edit, edit_my_recording_path(recording), :class => "open-modal"
-              - else
-                - if can?(:space_edit, recording)
-                  = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
-
-              - if recording.published? && can?(:unpublish, recording)
-                - if recording.available?
-                  %li= link_to t('.unpublish').downcase, unpublish_bigbluebutton_recording_path(recording, redir_url: @redir_url), method: :post, data: { confirm: t('.unpublish_confirm') }
-                - else
-                  %li
-                    -# TODO: for now we don't allow users to unpublish unavailable recordings because it would only generate
-                    -# an error in the API call and would not actually unpublish it.
-                    = content_tag :span, options_for_tooltip(t('.unpublish_unavailable'), { class: "disabled" }) do
-                      = t('.unpublish').downcase
-
-              - if can?(:manage, recording)
-                %li= link_to t('.manage').downcase, edit_bigbluebutton_recording_path(recording)
-
               - if recording.description.blank?
                 %span= t('.no_description')
               - else
@@ -85,8 +68,29 @@
             %td.rec-playback-col
               = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
 
+            %td.rec-actions-col
+              -# Edit description button
+              - if recording.room.owner_type == "User"
+                - if can?(:user_edit, recording)
+                  = link_to icon_edit, edit_my_recording_path(recording), class: "open-modal"
+              - else
+                - if can?(:space_edit, recording)
+                  = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), class: "open-modal"
+
+              - if recording.published? && can?(:unpublish, recording)
+                - if recording.available?
+                  = link_to icon_delete, unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), method: :post, data: { confirm: t('.unpublish_confirm') }
+                - else
+                  -# TODO: for now we don't allow users to unpublish unavailable recordings because it would only generate
+                  -# an error in the API call and would not actually unpublish it.
+                  = content_tag :span, options_for_tooltip(t('.unpublish_unavailable'), { class: "disabled" }) do
+                    = icon_unpublish
+
+              -# - if can?(:manage, recording)
+              -#   = link_to t('.manage').downcase, edit_bigbluebutton_recording_path(recording)
+
           - else
             - if show_authors
-              %td.rec-not-recorded-col{ :colspan => "3" }= t('.not_recorded')
+              %td.rec-not-recorded-col{ :colspan => "4" }= t('.not_recorded')
             - else
-              %td.rec-not-recorded-col{ :colspan => "2" }= t('.not_recorded')
+              %td.rec-not-recorded-col{ :colspan => "3" }= t('.not_recorded')

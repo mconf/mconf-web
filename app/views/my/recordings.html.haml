@@ -1,7 +1,7 @@
 - home_sidebar_menu_at(:meetings)
 
 - if params[:partial]
-  = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => false }
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_recordings_path }
 
 - else
 
@@ -34,4 +34,4 @@
         = form_tag my_recordings_path(:partial => true), :method => :get, :remote => true, :id => 'my-webconference-recordings-update'
 
     #my-webconference-recordings-list-container.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => false }
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_recordings_path }

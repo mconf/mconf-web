@@ -14,7 +14,7 @@
   -# = icon_info t('recent_activity.tooltip')
 
   #users-recent-activity-content.content-block-middle
-    = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => false }
+    = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
       = link_to t('.past_meetings.view_more'), my_recordings_path

@@ -1,7 +1,7 @@
 # Notifications using toastr
 
 defaultOpts =
-  tapToDismiss: false
+  tapToDismiss: true
   # positionClass: 'toast-top-right'
   positionClass: 'toast-top-full-width'
   iconClass: ''
@@ -9,7 +9,7 @@ defaultOpts =
   hideDuration: 200
   showMethod: 'slideDown'
   showDuration: 400
-  closeButton: true
+  closeButton: false
 
 class mconf.Notification
 

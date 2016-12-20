@@ -27,7 +27,7 @@ class SpacesController < InheritedResources::Base
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the web conference room snippetB
-  before_filter :webconf_room!, :only => [:show, :webconference]
+  before_filter :webconf_room!, :only => [:show, :webconference, :recordings]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -175,14 +175,13 @@ class SpacesController < InheritedResources::Base
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end
-    @redir_url = recordings_space_path(@space)
 
     render layout: false if params[:partial]
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
 

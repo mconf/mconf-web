@@ -101,12 +101,11 @@ class MyController < ApplicationController
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end
-    @redir_url = my_recordings_path
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = my_recordings_path
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end

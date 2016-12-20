@@ -1,5 +1,5 @@
 - if params[:partial]
-  = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }
 
 - else
 
@@ -38,4 +38,4 @@
         = form_tag recordings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
 
     #space-recordings-list-container.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }

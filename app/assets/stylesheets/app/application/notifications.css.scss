@@ -46,12 +46,12 @@
   }
 
   .toast {
+    cursor: pointer;
     @include border-radius(5px);
   }
 
   > :hover {
     @include box-shadow(none);
-    cursor: auto;
   }
 
   .toast-close-button {
@@ -64,7 +64,7 @@
   .toast-message {
     padding: 10px 35px 10px 10px;
     @include font-size($m-font-big);
-    cursor: auto;
+    cursor: pointer;
   }
 
   .toast-warning {
