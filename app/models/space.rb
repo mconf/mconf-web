@@ -115,18 +115,27 @@ class Space < ActiveRecord::Base
   # Search spaces based on a list of words
   # TODO: can_manage is never used, should hide private spaces
   scope :search_by_terms, -> (words, can_manage=false) {
-    words ||= []
-    words = [words] unless words.is_a?(Array)
-    query_strs = []
-    query_params = []
+    if words.present?
+      words ||= []
+      words = [words] unless words.is_a?(Array)
+      query_strs = []
+      query_params = []
+      query_orders = []
 
-    words.each do |word|
-      str  = "name LIKE ? OR description LIKE ?"
-      query_strs << str
-      query_params += ["%#{word}%", "%#{word}%"]
+      words.each do |word|
+        str  = "name LIKE ? OR description LIKE ?"
+        query_strs << str
+        query_params += ["%#{word}%", "%#{word}%"]
+        query_orders += [
+          "CASE WHEN name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN description LIKE '%#{word}%' THEN 1 ELSE 0 END"
+        ]
+      end
+      query = Space.where(query_strs.join(' OR '), *query_params.flatten)
+                .order(query_orders.join(' + ') + " DESC")
     end
 
-    Space.where(query_strs.join(' OR '), *query_params.flatten)
+    query
   }
 
   # The default ordering for search methods
