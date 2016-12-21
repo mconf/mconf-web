@@ -937,6 +937,7 @@ pt-br:
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
     enabled_user:
+      allow_record: "Conceder permissão de gravação"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
       auth_using: "usando"
@@ -945,6 +946,7 @@ pt-br:
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
+      disallow_record: "Remover permissão de gravação"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
@@ -1735,6 +1737,7 @@ pt-br:
     normal_user: "Usuário comum"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
+    not_updated: "Usuário não atualizado! Atualização falhou!"
     one: Usuário
     other: Usuários
     recent_join: "Usuários recentemente inscritos"

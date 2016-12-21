@@ -403,4 +403,20 @@ class ApplicationController < ActionController::Base
       format.js   { render json: { error: true, message: "You need to sign in or sign up before continuing." }, status: :unauthorized }
     end
   end
+
+  def redirect_to_using_params(options={}, response_status={})
+    unless params[:redir_url].blank?
+      redirect_to params[:redir_url], response_status
+    else
+      redirect_to options, response_status
+    end
+  end
+
+  def redirect_to_params_or_render(action=nil, response_status={})
+    unless params[:redir_url].blank?
+      redirect_to params[:redir_url], response_status
+    else
+      render action, response_status
+    end
+  end
 end
