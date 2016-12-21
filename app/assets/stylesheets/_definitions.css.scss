@@ -41,11 +41,12 @@ $m-base-line-height: 1.5;
 // standard colors
 $m-green: $olive; //#509F00;
 $m-blue: #2186DE; //#005fca
-$m-red: #d9534f; // bootstrap's bg red   // #C23321;
+$m-red: #ff5b5b;// #d9534f; // bootstrap's bg red   // #C23321;
 $m-orange: #C47322;
 $m-yellow: #BB9403;
 $m-cyan: #00ffff;
-$m-green-logo: #27535C;
+// $m-green-logo: #27535C;
+$m-green-logo: #004956;
 $m-gray: #ccc;
 $m-dark-gray: #666;
 $m-light-gray: #f6f6f6;
@@ -59,9 +60,10 @@ $m-second-color: $m-bright-blue;
 $m-focus-border-color: $m-second-color;
 $m-font-h-color: $m-green-logo;
 // link colors
-$m-link-color: #3e7294; //$olive; //#187aca //#4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
+//$m-link-color: lighten(#3e7294, 10); //$olive; //#187aca //#4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
+$m-link-color: #2274A5;
 $m-link-color-hover: lighten($m-link-color, 10); //$green; //$m-bright-blue; //m-orange;
-$m-link-color-active: darken($m-link-color-hover, 15);
+$m-link-color-active: darken($m-link-color-hover, 10);
 $m-link-color-2: #111;
 $m-link-color-2-hover: $m-link-color;
 $m-link-color-2-active: $m-link-color-active;
@@ -217,7 +219,7 @@ $m-notifications-top: 6px;
  * Customized variables for bootstrap
  */
 // $brand-primary: $blue;
-$brand-primary: #4589C4;//#2186DE;
+$brand-primary: $m-link-color; //#4589C4;//#2186DE;
 $border-radius-base: $m-border-radius-base;
 $border-radius-small: $m-border-radius-small;
 $border-radius-large: $m-border-radius-large;
