@@ -1,0 +1,105 @@
+ru:
+  application_mailer:
+    feedback_email:
+      content: "<b>%{email}</b> отправить отзыв:"
+      subject: "Отзыв"
+  admin_mailer:
+    new_user_waiting_for_approval:
+      click_here: "Принять или отклонить пользователя на странице \"Управление пользователями\": <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Пользователь \"%{name}\" (%{email}) зарегистрирован и ожидает подтверждения регистрации."
+      subject: "Новый пользователь ожидает подтверждения регистрации"
+    new_user_approved:
+      click_here: "Перейти на главную страницу: <a href=\"%{url}\">%{url}</a>"
+      message: "Здравствуйте %{name},<br/><br/>Информируем Вас о том, что Ваша регистрация была подтверждена."
+      subject: "Ваша регистрация была подтверждена"
+  user_mailer:
+    registration_notification_email:
+      click_here: "Перейти на главную страницу: <a href=\"%{url}\">%{url}</a>"
+      confirmation_pending: "Вы были зарегистрированы <a href=\"%{url}\">%{site}</a> и Ваша учётная запись ожидает подтверждения администратора.<br/>Вы будете оповещены, когда учётная запись будет подтверждена."
+      hello: "Здравствуйте %{name},"
+      message: "Ваша регистрация на <a href=\"%{url}\">%{site}</a> успешно завершена!"
+      subject: "Ваша регистрация завершена"
+    registration_by_admin_notification_email:
+      click_here: "Перейти на главную страницу: <a href=\"%{url}\">%{url}</a>"
+      message: "Здравствуйте %{name},<br/><br/>Информируем Вас, что для Вас была создана учётная запись на <a href=\"%{url}\">%{site}</a>.<br><br>Эта учётная запись была создана администратором. Если произошла ошибка, свяжитесь с нами, ответив на это сообщение."
+      subject: "Ваша учётная запись была создана администратором"
+  event_mailer:
+    invitation_email:
+      message:
+        start: "Начинается в"
+        end: "Заканчивается в"
+        header: "Вы были приглашены на мероприятие <b>%{event}</b> пользователем <b>%{sender}</b> (%{email_sender}):"
+      subject: "Вы были приглашены на мероприятие %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      cancel: "Вы можете отказаться от участия в любой момент перейдя по ссылке:<br/><a href=\"%{url}\">%{url}</a>"
+      confirm: "Для подтверждения регистрации перейдите по ссылке:<br/><a href=\"%{url}\">%{url}</a>"
+      footer: "(Если Вы не регистрировались на это мероприятие просто проигнорируйте данное сообщение.)"
+      hello: "Здравствуйте,"
+      message: "Мы только что получили регистрация на мероприятие <b>%{event}</b> для адреса <b>%{email}</b>."
+      subject: "Подтвердите Ваше участие на мероприятии %{event}"
+  space_mailer:
+    invitation_email:
+      message:
+        header: "Вы были приглашены в сообщество <b>%{space}</b> пользователем <b>%{sender}</b> (%{email_sender})."
+        link: "Вы можете принять или отклонить данное приглашение, пройдя по ссылке: <br/> <a href=\"%{url}\">%{url}</a>"
+        space_info: "Вы можете найти больше информации о сообществе на этой странице: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+        user_message: "Это сообщение отправлено пользователем %{sender}:"
+      subject: "%{username} пригласил Вас в сообщество %{space}"
+    join_request_email:
+      message:
+        header: "<b>%{candidate}</b> желает присоединиться к сообществу <b>%{space}</b>, в котором Вы являетесь администратором."
+        link: "Ответить на заявку <a href=\"%{url}\">%{url}</a>"
+        user_message: "Это сообщение отправлено пользователем %{candidate}:"
+      subject: "<b>%{candidate}</b> желает присоединиться к сообществу <b>%{space}</b>"
+    new_space_waiting_for_approval_email:
+      click_here: "Подтвердить или отклонить это сообщество на странице \"Управление сообществами\": <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Сообщество \"%{name}\" было создано и ожидает подтверждения."
+      subject: "Новое сообщество ожидает подтверждения"
+    new_space_approved_email:
+      click_here: "Перейти к новому сообществу: <a href=\"%{url}\">%{url}</a>"
+      message: "Здравствуйте %{name},<br/><br/>Информируем, что Ваше сообщество \"%{space}\" было одобрено."
+      subject: "Ваше сообщество было одобрено"
+    processed_invitation_email:
+      accepted: "принял"
+      message:
+        header: "<b>%{name}</b> %{action} приглашение присоединиться к сообществу <b>%{space}</b>."
+        link: "Просмотреть список пользователей сообщества: <br/><a href=\"%{users_url}\">%{users_url}</a>"
+      rejected: "отклонил"
+      subject: "%{name} %{action} Ваше приглашение"
+    processed_join_request_email:
+      accepted: "принял"
+      message:
+        header: "Администратор <b>%{space}</b> %{action} Вашу заявку."
+        link:
+          accepted: "Вы теперь участник %{space} перейти к сообществу: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "Отправить заявку повторно: <br/><a href=\"%{space_url}\">%{space_url}</a>"
+      rejected: "отклонил"
+      subject: "Ваши полномочия %{space} были %{action}"
+    user_added_email:
+      message:
+        header: "Вы были добавлены пользователем <b>%{sender}</b> (%{email_sender}) в сообщество <b>%{space}</b>."
+        link: "Перейти к сообществу: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} добавил Вас в сообщество %{space}"
+  web_conference_mailer:
+    invitation_email:
+      event_name: "Встреча %{name}"
+      message:
+        description: "Описание"
+        end: "Конец"
+        header: "Вы были приглашены пользователем <b>%{sender}</b> (%{email_sender}) на встречу:"
+        join: "Комната"
+        password: "Пароль"
+        start: "Начало"
+        subject: "Тема"
+      subject: "Приглашение на веб-конференцию"
+  shared:
+    invitation_email:
+      message:
+        description: "Описание"
+        end: "Конец"
+        start: "Начало"
+        subject: "Тема"
+        url:
+          event: "Место мероприятия"
+          other: "Комната"

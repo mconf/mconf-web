@@ -1,0 +1,24 @@
+bg:
+  datetime:
+    dotiw:
+      seconds:
+        one: '%{count} секунда'
+        other: '%{count} секунди'
+      minutes:
+        one: '%{count} минута'
+        other: ' %{count} минути'
+      hours:
+        one: '%{count} час'
+        other: '%{count} часа'
+      days:
+        one: '%{count} ден'
+        other: '%{count} дни'
+      weeks:
+        one: '%{count} седмица'
+        other: '%{count} седмици'
+      months:
+        one: '%{count} месец'
+        other: '%{count} месеци'
+      years:
+        one: '%{count} година'
+        other: '%{count} години'

@@ -1,0 +1,114 @@
+ru:
+  activerecord:
+    attributes:
+      event:
+        address: Адрес
+        description: Описание
+        end_on: Завершение
+        end_on_date: Дата завершения
+        location: Местоположение
+        name: Имя
+        owner_name: Это событие относится к
+        social_networks: Трансляция в социальных сетях
+        start_on: Начало
+        start_on_date: Дата начала
+        summary: Краткое описание
+        time_zone: Временная зона
+      participant:
+        email: Почта
+    errors:
+      event:
+        start_on: Неверная дата начала
+        end_on: Неверная дата завершения
+    models:
+      event: Событие
+      participant: Участник
+  activities:
+    event:
+      create_html: в сообществе создано событие %{name}
+      attend_html: будет присутствовать на событии %{name} в сообществе
+      not_attend_html: не будет присутствовать на событии %{name} в сообществе
+      update_html: информация о событии %{name} в сообществе обновлена
+      deleted: "%{name} (был удален)"
+    participant:
+      create_html: будет присутствовать на событии %{name} в сообществе
+  flash:
+    events:
+      create:
+        notice: Событие успешно создано
+      destroy:
+        notice: Событие успешно удалено
+      update:
+        notice: Информация о событии обновлена
+    participants:
+      create:
+        waiting_confirmation: Регистрация проведена. На email Вы получите инструкции для подтверждения регистрации.
+        notice: Успешная регистрация на событие
+        alert: Ошибка при попытке регистрации на событие
+        already_created: Этот email уже зарегистрирован на данного события
+      destroy:
+        notice: Успешно удален из события
+  valid_email:
+    validations:
+      email:
+        invalid: Неверный email адрес
+  events:
+    show:
+      date: Когда?
+      address: Где?
+      manage: Управление
+    summary:
+      calendar: Добавить в календарь
+      change_dates_info: "Показать в часовом поясе события"
+      contact: Связаться с организатором
+      end_on: "Завершение:"
+      more_options: "Больше опций:"
+      original_time: Дата в часовом поясе события
+      original_time_info: Оригинальные установки времени для часового пояса события
+      rss: RSS
+      start_on: "Начало:"
+      time_zone: Часовой пояс
+      when: "Когда?"
+      where: "Где?"
+      where_not_specified: "(Местонахождение не важно)"
+      your_time_info: "Дата указана для Вашего часового пояса (%{time_zone})"
+    social_media:
+      title: "Рассказать об этом событии"
+      twitter: Рассказать в Twitter
+      twitter_link: Посетите событие по ссылке %{url}
+      facebook: Поделиться в Facebook
+      facebook_link: Посетите событие по ссылке %{url}
+      google_plus: Поделиться в Google+
+      linkedin: Поделиться в Linkedin
+    edit:
+      page_title: "Редактирование: %{name}"
+    form:
+      at: "в"
+      clear_start_date: "Очистить дату начала"
+      clear_end_date: "Очистить дату завершения"
+    index:
+      create_new_event: "Добавить новое событие"
+      count:
+        zero: (ничего не найдено)
+        one: (найден)
+        other: (%{count} найдено)
+      filters:
+        all_events: "Все"
+        description: Показать %{your} %{time} события
+        happening_now: текущий
+        my_events: "Мои события"
+        past_events: прошедшие
+        upcoming_events: будут
+        your_events: Ваши
+      now: Происходят сейчас
+      participant_count:
+        one: "%{count} участник"
+        few: "%{count} участников"
+        many: "%{count} участников"
+        other: "%{count} участников"
+      private: Приватный
+      public: Публичный
+      search:
+        by_name:
+          no_matches: "События \"%{term}\" не найдены"
+          placeholder: "Поиск событий..."

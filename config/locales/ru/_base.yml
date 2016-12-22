@@ -1,0 +1,212 @@
+ru:
+  date:
+    abbr_day_names:
+    - Вс
+    - Пн
+    - Вт
+    - Ср
+    - Чт
+    - Пт
+    - Сб
+    abbr_month_names:
+    - null
+    - Янв
+    - Фев
+    - Мрт
+    - Апр
+    - Май
+    - Июн
+    - Июл
+    - Авг
+    - Сен
+    - Окт
+    - Ноя
+    - Дек
+    day_names:
+    - Воскресенье
+    - Понедельник
+    - Вторник
+    - Среда
+    - Четверг
+    - Пятница
+    - Суббота
+    formats:
+      default: '%Y-%m-%d'
+      long: '%B %d, %Y'
+      short: '%b %d'
+    month_names:
+    - null
+    - Январь
+    - Февраль
+    - Март
+    - Апрель
+    - Май
+    - Июнь
+    - Июль
+    - Август
+    - Сентябрь
+    - Октябрь
+    - Ноябрь
+    - Декабрь
+    order:
+    - :год
+    - :месяц
+    - :день
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: около %{count} часа
+        few: около %{count} часов
+        many: около %{count} часов
+        other: около %{count} часов
+      about_x_months:
+        one: около %{count} месяца
+        few: около %{count} месяцев
+        many: около %{count} месяцев
+        other: около %{count} месяцев
+      about_x_years:
+        one: около %{count} года
+        few: около %{count} лет
+        many: около %{count} лет
+        other: около %{count} лет
+      almost_x_years:
+        one: почти %{count} год
+        few: почти %{count} года
+        many: почти %{count} лет
+        other: почти %{count} лет
+      half_a_minute: полминуты
+      less_than_x_minutes:
+        one: меньше %{count} минуты
+        few: меньше %{count} минут
+        many: меньше %{count} минут
+        other: меньше %{count} минут
+      less_than_x_seconds:
+        one: меньше %{count} секунды
+        few: меньше %{count} секунд
+        many: меньше %{count} секунд
+        other: меньше %{count} секунд
+      over_x_years:
+        one: больше %{count} года
+        few: больше %{count} лет
+        many: больше %{count} лет
+        other: больше %{count} лет
+      x_days:
+        one: '%{count} день'
+        few: '%{count} дня'
+        many: '%{count} дней'
+        other: '%{count} дней'
+      x_minutes:
+        one: '%{count} минут'
+        few: '%{count} минуты'
+        many: '%{count} минут'
+        other: '%{count} минут'
+      x_months:
+        one: '%{count} месяц'
+        few: '%{count} месяца'
+        many: '%{count} месяцев'
+        other: '%{count} месяцев'
+      x_seconds:
+        one: '%{count} секунда'
+        few: '%{count} секунды'
+        many: '%{count} секунд'
+        other: '%{count} секунд'
+    prompts:
+      day: День
+      hour: Час
+      minute: Минута
+      month: Месяц
+      second: Секунды
+      year: Год
+  errors:
+    format: '%{attribute} %{message}'
+    messages:
+      accepted: должен быть принят
+      blank: не может быть пустым
+      confirmation: не совпадают
+      empty: не может быть пустым
+      equal_to: должно быть равно %{count}
+      even: должно быть еще
+      exclusion: занят
+      greater_than: должно быть больше чем %{count}
+      greater_than_or_equal_to: должно быть больше или равно %{count}
+      inclusion: не включен в список
+      invalid: неверен
+      less_than: должно быть меньше %{count}
+      less_than_or_equal_to: должно быть меньше или равно %{count}
+      not_a_number: не число
+      not_an_integer: должно быть числовым
+      odd: должно быть нечетным
+      record_invalid: 'Ошибка: %{errors}'
+      taken: уже зарегистрирован
+      too_long:
+        one: слишком длинный (максимум %{count} символ)
+        few: слишком длинный (максимум %{count} символа)
+        many: слишком длинный (максимум %{count} символов)
+        other: слишком длинный (максимум %{count} символов)
+      too_short:
+        one: слишком короткий (минимум %{count} символ)
+        few: слишком короткий (минимум %{count} символа)
+        many: слишком короткий (минимум %{count} символов)
+        other: слишком короткий (минимум %{count} символов)
+      wrong_length:
+        one: неправильная длина (должна быть %{count} символ)
+        few: неправильная длина (должна быть %{count} символа)
+        many: неправильная длина (должна быть %{count} символов)
+        other: неправильная длина (должна быть %{count} символов)
+    template:
+      body: 'Неправильно заполнены поля:'
+      header:
+        one: '%{count} error prohibited this %{model} from being saved'
+        few: '%{count} errorы prohibited this %{model} from being saved'
+        many: '%{count} errorы prohibited this %{model} from being saved'
+        other: '%{count} errorы prohibited this %{model} from being saved'
+  helpers:
+    select:
+      prompt: Выберите
+    submit:
+      create: Создать %{model}
+      submit: Сохранить %{model}
+      update: Обновить %{model}
+  number:
+    currency:
+      format:
+        delimiter: ','
+        format: '%u%n'
+        separator: .
+        unit: $
+    format:
+      delimiter: ','
+      separator: .
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: Миллиард
+          million: Миллион
+          quadrillion: Квадрильон
+          thousand: Тысяча
+          trillion: Триллион
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Байт
+            few: Байта
+            many: Байт
+            other: Байт
+          gb: Гб
+          kb: Кб
+          mb: Мб
+          tb: Тб
+  support:
+    array:
+      last_word_connector: ', и '
+      two_words_connector: 'и'
+      words_connector: ', '
+  time:
+    am: am
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: pm

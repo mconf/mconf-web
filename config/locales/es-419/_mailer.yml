@@ -21,6 +21,7 @@ es-419:
       subject: "Su registro ha sido completado"
     registration_by_admin_notification_email:
       click_here: "Puede ir a su página de inicio haciendo clic en este enlace: <a href=\"%{url}\">%{url}</a>"
+      message: "Hola %{name},<br/><br/>Le estamos enviando este correo para informarle que una cuenta se ha creado para usted en <a href=\"%{url}\">%{site}</a>.<br><br>Esta cuenta fue creada por un administrador. Si piensa que fue un error, por favor contáctenos respondiendo este correo."
       subject: "Una cuenta ha sido creada para usted por un Administrador."
   event_mailer:
     invitation_email:
@@ -41,16 +42,28 @@ es-419:
     invitation_email:
       message:
         header: "Ha sido invitado por <b>%{sender}</b> (%{email_sender}) para unirse al espacio  <b>%{space}</b>."
+        link: "Usted puede aceptar o rechazar esta invitación haciendo click en el enlace: <br/> <a href=\"%{url}\">%{url}</a>"
+        space_info: "Puede encontrar más información de este espacio en la página: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "Este es el mensaje escrito por %{sender}:"
       subject: "%{username} lo invitó a unirse al espacio %{space}"
     join_request_email:
       message:
         header: "<b>%{candidate}</b> desea unirse al espacio <b>%{space}</b>, que es administrado por usted."
+        link: "Para responder esta solicitud, por favor visite <a href=\"%{url}\">%{url}</a>"
         user_message: "Este es el mensaje escrito por %{candidate}:"
       subject: "%{candidate} desea unirse al espacio %{space}"
+    new_space_waiting_for_approval_email:
+      click_here: "Aceptar o rechazar este espacio desde la pagina de administración de espacios: <br/><a href=\"%{url}\">%{url}</a>"
+      message: "Un espacio llamado \"%{name}\" ha si do creado y está esperando ser aprobado."
+      subject: "Un nuevo espacio está esperando ser aprobado"
+    new_space_approved_email:
+      click_here: "Puede acceder a su nuevo espacio en: <a href=\"%{url}\">%{url}</a>"
+      message: "Hola %{name},<br/><br/>le estamos enviando este correo para informarle que el espacio \"%{space}\" que creó ha sido aprobado."
+      subject: "Su espacio ha sido aprobado"
     processed_invitation_email:
       accepted: "aceptó"
       message:
+        header: "<b>%{name}</b> ha %{action} la invitación para unirse al espacio <b>%{space}</b>."
         link: "Puede ver la lista actual de usuarios de este espacio en: <br/><a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "no aceptó"
       subject: "%{name} %{action} su invitación"
@@ -63,6 +76,11 @@ es-419:
           rejected: "Si desea volver a solicitar mebresía de nuevo lo puede hacer en: <br/><a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "no aceptó"
       subject: "Su admisión en %{space} fue %{action}"
+    user_added_email:
+      message:
+        header: "Ha sido agregado por <b>%{sender}</b> (%{email_sender}) al espacio <b>%{space}</b>."
+        link: "Puede ver el espacio al que ha sido agregado haciendo click en el siguiente enlace: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} lo agregó al espacio %{space}"
   web_conference_mailer:
     invitation_email:
       event_name: "Reunión con %{name}"

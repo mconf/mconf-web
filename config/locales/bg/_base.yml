@@ -1,0 +1,180 @@
+bg:
+  date:
+    abbr_day_names:
+    - Нд
+    - Пн
+    - Вт
+    - Ср
+    - Чт
+    - Пт
+    - Сб
+    abbr_month_names:
+    - null
+    - Яну
+    - Фев
+    - Мар
+    - Апр
+    - Май
+    - Юни
+    - Юли
+    - Авг
+    - Сеп
+    - Окт
+    - Ное
+    - Дек
+    day_names:
+    - Неделя
+    - Понеделник
+    - Вторник
+    - Сряда
+    - Четвъртък
+    - Петък
+    - Събота
+    formats:
+      default: '%Y-%m-%d'
+      long: '%B %d, %Y'
+      short: '%b %d'
+    month_names:
+    - null
+    - Януари
+    - Февруари
+    - Март
+    - Април
+    - Май
+    - Юни
+    - Юли
+    - Август
+    - Септември
+    - Октомври
+    - Ноември
+    - Декември
+    order:
+    - :година
+    - :месец
+    - :ден
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: около %{count} час
+        other: около %{count} часа
+      about_x_months:
+        one: около %{count} месец
+        other: около %{count} месеца
+      about_x_years:
+        one: около %{count} година
+        other: около %{count} години
+      almost_x_years:
+        one: почти %{count} година
+        other: почти %{count} години
+      half_a_minute: половин минута
+      less_than_x_minutes:
+        one: по-малко от %{count} минута
+        other: ' по-малко от %{count} минути'
+      less_than_x_seconds:
+        one: по-малко от %{count} секунда
+        other: по-малко от %{count} секунди
+      over_x_years:
+        one: повече от %{count} година
+        other: повече от %{count} години
+      x_days:
+        one: '%{count} ден'
+        other: '%{count} дни'
+      x_minutes:
+        one: '%{count} минута'
+        other: ' %{count} минути'
+      x_months:
+        one: 1 месец
+        other: '%{count} месеца'
+      x_seconds:
+        one: '%{count} секунда'
+        other: '%{count} секунди'
+    prompts:
+      day: Ден
+      hour: Час
+      minute: Минута
+      month: Месец
+      second: Секунди
+      year: Година
+  errors:
+    format: '%{attribute} %{message}'
+    messages:
+      accepted: трябва да бъде приет
+      blank: не може да е празен
+      confirmation: потвърждението не съвпада
+      empty: не може да е празно
+      equal_to: трябва да е равен на %{count}
+      even: трябва да бъде четен
+      exclusion: е зает
+      greater_than: трябва да бъде по-голям от %{count}
+      greater_than_or_equal_to: трябва да бъде по-голям или равен на %{count}
+      inclusion: не е включен в списъка
+      invalid: неправилен
+      less_than: трябва да бъде по-малко от %{count}
+      less_than_or_equal_to: трябва да бъде по-малко или равно на %{count}
+      not_a_number: не е число
+      not_an_integer: трябва да бъде цяло число
+      odd: трябва да бъде нечетно
+      record_invalid: 'Грешка: %{errors}'
+      taken: вече е регистриран
+      too_long:
+        one: твърде дълъг (максимум %{count} символа)
+        other: твърде дълъг (максимум %{count} символа)
+      too_short:
+        one: твърде кратък (минимум %{count} символа)
+        other: твърде кратки (минимум %{count} символа)
+      wrong_length:
+        one: неправилна дължина (трябва да бъде %{count} символа)
+        other: неправилни дължини (трябва да бъдат %{count} символа)
+    template:
+      body: 'Неправилно попълнено поле:'
+      header:
+        one: '%{count} error prohibited this %{model} from being saved'
+        other: '%{count} errors prohibited this %{model} from being saved'
+  helpers:
+    select:
+      prompt: Изберете
+    submit:
+      create: Създайте %{model}
+      submit: Запазете %{model}
+      update: Променете %{model}
+  number:
+    currency:
+      format:
+        delimiter: ','
+        format: '%u%n'
+        separator: .
+        unit: $
+    format:
+      delimiter: ','
+      separator: .
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: Милиард
+          million: Милион
+          quadrillion: Квадрилион
+          thousand: Хиляда
+          trillion: Трилион
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Байт
+            other: Байта
+          gb: Гб
+          kb: Кб
+          mb: Мб
+          tb: Тб
+  support:
+    array:
+      last_word_connector: ', и '
+      two_words_connector: 'и'
+      words_connector: ', '
+  time:
+    am: сутр.
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: сл.обяд

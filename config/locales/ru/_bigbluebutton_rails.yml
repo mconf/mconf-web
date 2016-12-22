@@ -1,0 +1,160 @@
+ru:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Содержание
+        name: Имя
+        owner: Владелец
+      bigbluebutton_playback_format:
+        format_type: Тип
+        length: Длина
+        url: Ссылка
+      bigbluebutton_playback_type:
+        default: По умолчанию
+        name: Имя
+        visible: Видимый
+      bigbluebutton_recording:
+        description: "Описание"
+        end_time: "Время окончания"
+        meetingid: "ID встречи"
+        metadata: Метаданные
+        name: Имя
+        published: Опубликованный
+        recordid: "ID записи"
+        room_id: "ID комнаты"
+        server_id: "ID сервера"
+        size: "Размер"
+        start_time: "Время начала"
+      bigbluebutton_room:
+        allow_start_stop_recording: "Разрешить пользователям управлять записью"
+        attendee_api_password: "Внутренний API ключ для посетителей"
+        attendee_key: "Ключ для посетителей"
+        auto_start_video: "Автоматический запуск видео"
+        auto_start_audio: "Автоматический запуск аудио"
+        auto_start_recording: "Автоматический запуск записи"
+        background: "Фоновое изображение"
+        default_layout: "Макет по умолчанию "
+        dial_number: "Номер для звонка"
+        duration: Длительность
+        external: "Создан извне"
+        logout_url: "Ссылка для выхода"
+        max_participants: "Максимальное количество участников"
+        meetingid: "ID встречи"
+        metadata: Метаданные
+        moderator_api_password: "Внутренний API ключ для модераторов"
+        moderator_key: "Ключ для модераторов"
+        moderator_only_message: "Сообщение для модераторов"
+        name: Имя
+        param: "ID строки"
+        private: Личные
+        presenter_share_only: "Только ведущий может включить аудио и видео"
+        record: Запись
+        server_id: "ID сервера"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Приветствие"
+      bigbluebutton_server:
+        name: Имя
+        param: "ID строки"
+        url: Ссылка
+        version: Версия
+      bigbluebutton_server_config:
+        available_layouts: "Доступные макеты"
+    models:
+      bigbluebutton_metadata: "Метаданные записи веб-конференции"
+      bigbluebutton_playback_format: "Формат записи веб-конференции"
+      bigbluebutton_recording: "Запись веб-конференции"
+      bigbluebutton_room: "Комната веб-конференций"
+      bigbluebutton_server: "Сервер веб-конференций"
+      bigbluebutton_server_config: "Настройки сервера веб-конференций"
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    metadata:
+      errors:
+        name_format: "используйте буквы, числа и символы \"-\" or \"_\", символы не могут быть использованы в начале или конце"
+    playback_types:
+      notice:
+        update:
+          success: "Тип записи был успешно обновлён."
+      presentation:
+        name: "Прослушать"
+        tip: "Проиграет запись на HTML5 странице. Запись не будет загружена на Ваш компьютер и требует постоянное соединение для воспроизведения."
+      presentation_export:
+        name: "Скачать HTML"
+        tip: "Сохранив HTML страницу Вы можете воспроизвести запись офлайн используя Ваш браузер. На данный момент может быть воспроизведено только в браузере Firefox."
+      presentation_video:
+        name: "Скачать"
+        tip: "Скачать видео файл (используя формат WebM). Вы можете использовать этот файл для просмотра записи оффлайн или чтобы загрузить на другой веб-сайт."
+    recordings:
+      default:
+        description: "Встреча состоялась %{time} (UTC)"
+      errors:
+        check_for_server:
+          no_server: "Нет сервера, связанного с этой записью."
+        play:
+          no_format: "Нет ссылки для прослушивания этой записи."
+      notice:
+        destroy:
+          success: "Ваша запись была успешно удалена."
+          success_with_bbb_error: "Запись была успешно уничтожена, но не была удалена с сервера веб-конференций (\"%{error}\")"
+        publish:
+          success: "Ваша запись была успешно опубликована."
+        unpublish:
+          success: "Ваша запись не опубликована."
+        update:
+          success: "Ваша запись успешно обновлена."
+    rooms:
+      default_welcome_msg: "Добро пожаловать <b>%%CONFNAME%%</b>!<br><br>Чтобы включить аудио нажмите на иконку гарнитуры (верхний левый угол). Рекомендуется использовать гарнитуру, чтобы не мешать другим участникам фоновым шумом.<br>"
+      default_welcome_msg_dial_number: "Добро пожаловать <b>%%CONFNAME%%</b>!<br><br>Чтобы включить аудио нажмите на иконку гарнитуры (верхний левый угол). Рекомендуется использовать гарнитуру, чтобы не мешать другим участникам фоновым шумом.<br>Вы можете позвонить в эту веб-конференцию с обычного телефона по номеру \"%%DIALNUM%%\".<br>"
+      errors:
+        fetch_recordings:
+          no_server: "Нет сервера, связанного с этой комнатой."
+        join:
+          cannot_create: "У Вас недостаточно прав для начала этой встречи."
+          failure: "Ошибка аутентификации."
+          not_running: "Встреча еще не началась. Дождитесь модератора."
+          wrong_params: "Неверные параметры в Вашем запросе"
+        generate_dial_number:
+          not_unique: "Извините, невозможно сгенерировать уникальный номер для звонка в эту комнату. Попробуйте снова или введите номер вручную."
+        param_format: "используйте буквы, числа и символы \"-\" or \"_\" (символы не могут быть использованы в начале или конце)"
+        server:
+          nil: "Для выполнения операция комната должна быть связана с сервером."
+      notice:
+        create:
+          failure: "Комната не может быть создана."
+          success: "Комната успешно создана."
+        destroy:
+          success: "Комната успешно удалена."
+          success_with_bbb_error: "Комната успешно удалена, но встреча не была закончена на сервер веб-конференций (\"%{error}\")"
+        end:
+          not_running: "Встреча не может быть завершена, т.к. она не запущена."
+          success: "Встреча успешно завершена."
+        fetch_recordings:
+          success: "Список записей для этой комнаты успешно обновлён."
+        generate_dial_number:
+          success: "Уникальный номер для звонка был сгенерирован и сохранён."
+        update:
+          failure: "Ваша комната не может быть обновлена."
+          success: "Ваша комната успешно обновлена."
+    servers:
+      errors:
+        param_format: "используйте буквы, числа и символы \"-\" or \"_\" (символы не могут быть использованы в начале или конце)"
+        url_format: "используйте шаблон http://<server>/bigbluebutton/api"
+      notice:
+        create:
+          success: "Сервер успешно создан."
+        fetch_recordings:
+          success: "Список записей успешно обновлён."
+        publish_recordings:
+          success: "Записи были успешно опубликованы."
+        unpublish_recordings:
+          success: "Записи не опубликованы."
+        update:
+          success: "Сервер был успешно обновлён."
+    server_configs:
+      layouts:
+        defaultlayout: "Макет по умолчанию "
+        lecture: "Лектор"
+        lectureassistant: "Помощник лектора"
+        presentfocus: "Вебинар"
+        videochat: "Видеочат"
+        webcamsfocus: "Встреча"
