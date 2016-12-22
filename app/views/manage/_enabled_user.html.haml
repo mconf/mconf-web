@@ -13,10 +13,10 @@
 
     - if !user.can_record?
       = link_to user_path(user, user: {can_record: true}, redir_url: manage_users_path(params)), method: :patch do
-        = icon_recording(:alt => t('.allow_record'), :title => t('.allow_record'))
+        = icon_cant_rec(alt: t('.allow_record'), title: t('.allow_record'))
     - else
       = link_to user_path(user, user: {can_record: false}, redir_url: manage_users_path(params)), method: :patch do
-        = icon_error(:alt => t('.disallow_record'), :title => t('.disallow_record'))
+        = icon_can_rec(alt: t('.disallow_record'), title: t('.disallow_record'))
 
     - unless user.superuser  # prevent admins from disabling and disapproving themselves
       - if user.require_approval? || !user.approved?
