@@ -5,38 +5,60 @@ es-419:
       destroy_html: eliminado el archivo adjunto %{name} del espacio
       update_html: actualizó el archivo adjunto %{name} en el espacio
       deleted: "un adjunto que fue eliminado"
-      deleted_tooltip: "Este archivo adjunto ya no existe."
+      deleted_tooltip: "Este archivo adjunto ya no existe"
     bigbluebutton_meeting:
       deleted_html: "Ha ocurrido una reunión, pero desde entonces se ha eliminado su información"
       user:
         create_html: "Una reunión fue iniciada la sala del usuario %{owner} a las %{time}"
       space:
         create_html: "Una reunión fue iniciada en el espacio de %{owner} a las %{time}"
+    event:
+      deleted_tooltip: "Este evento ya no está disponible"
     join_request:
+      accept_html: se ha unido al espacio
+      decline_html: hubo una invitación/solicitud declinada en el espacio
+      deleted: "una solicitud que fue eliminada"
+      deleted_tooltip: "Esta solicitud ya no existe"
       invite_html: "fue invitado a unirse al espacio"
+      invite_with_introducer_1_html: "fue invitado por"
+      invite_with_introducer_2_html: "para unirse al espacio"
+      no_accept_1_html: "fue agregado por"
+      no_accept_2_html: "al espacio"
       request_html: "ha solicitado unirse al espacio"
     other:
+      admin_html: "Un administrador"
       someone_html: "Alguien"
     post:
       create_html: publicó %{name} en el espacio
       update_html: actualizó %{name} en el espacio
       reply_html: respondió a %{name} en el espacio
+      deleted: "una publicación que fue eliminada"
+      deleted_tooltip: "Esta publicación ya no existe"
+    resource:
+      deleted_tooltip: "Este recurso ya no existe"
     space:
+      approved_html: ha aprobado el espacio
       create_html: creó un nuevo espacio
+      deleted: "un espacio que ya no existe"
+      deleted_tooltip: "Este espacio ya no existe"
       leave_html: ha abandonado el espacio
       update_html: actualizó la información del espacio
+    user:
+      deleted_tooltip: "Este usuario ya no está registrado"
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
       confirm: "Confirmar"
-      title: "Confiración"
+      title: "Confirmación"
   _other:
     accept: "Aceptar"
     cancel: "Cancelar"
     create: "Crear"
+    confirm: OK
     datetimepicker:
       format_display: "%d/%m/%Y"
       format: "dd/MM/yyyy"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Declinar"
     deny: "Denegar"
     destroy: "Destruir"
@@ -63,6 +85,9 @@ es-419:
     register: "Registrar"
     save: "Guardar"
     send: "Enviar"
+    not_approved:
+      text: 'Esperando aprobación'
+      tooltip: 'Esperando aprobación, los usuarios aún no pueden acceder a este espacio'
     unpublish: "Anular publicacion"
     update: "Actualizar"
     updated_time_ago: "%{time} pasado"
@@ -131,6 +156,7 @@ es-419:
         exception_notifications_prefix: "Prefijo del asunto de las notificaciones de excepción"
         external_help: "Página externa de ayuda/FAQ"
         feedback_url: "URL de comentarios"
+        forbid_user_space_creation: "Prohibir a los usuarios crear espacios"
         ldap_enabled: "LDAP: Habilitar autenticación"
         ldap_filter: "LDAP: Filtro para la busqueda de usuarios"
         ldap_host: "LDAP: IP o dominio del servidor"
@@ -143,8 +169,12 @@ es-419:
         ldap_name_field: "LDAP: Campo para obtener el nombre completo del usuario"
         local_auth_enabled: "Habilitar autenticación local"
         locale: "Lenguaje"
+        max_upload_size: "Tamaño máximo de archivos para subidas"
         name: "Nombre"
         registration_enabled: "Permitir a los usuarios crear nuevas cuentas"
+        require_registration_approval: "Moderar registro de usuarios"
+        require_space_approval: "Moderar creación de espacios"
+        room_dial_number_pattern: 'Patrón de número de marcación de sala'
         signature: "Firma"
         shib_always_new_account: "Shibboleth: Siempre crear cuentas nuevas"
         shib_enabled: "Shibboleth: Habilitar"
@@ -153,12 +183,16 @@ es-419:
         shib_login_field: "Shibboleth: Campo de acceso"
         shib_name_field: "Shibboleth: Campo para nombre"
         shib_principal_name_field: "Shibboleth: Campo para nombre principal (ID único)"
+        shib_update_users: "Shibboleth: Actualización de la información del usuario"
+        smtp_auth_type: "Tipo de autenticacion SMTP "
         smtp_auto_tls: "Inicio automático TLS en SMTP"
+        smtp_domain: "Dominio SMTP"
         smtp_login: "Inicio de sesión SMTP"
         smtp_password: "Contraseña SMTP"
         smtp_port: "Puerto SMTP"
         smtp_sender: "Remitente SMTP"
         smtp_server: "Servidor SMTP"
+        smtp_use_tls: "Usar TLS en SMTP"
         ssl: "SSL"
         timezone: "Zona horaria"
         visible_locales: "Lenguajes visibles"
@@ -181,6 +215,7 @@ es-419:
         password: "Contraseña"
         password_confirmation: "Confirmación de contraseña"
         receive_digest: "¿Con qué frecuencia desea recibir correos electrónicos recopilatorios con la actividad reciente de las comunidades que usted forma parte?"
+        remember_me: "Recordarme"
         superuser: "Administrador global"
         timezone: "Zona horaria"
         username: "Nombre de usuario"
@@ -192,6 +227,28 @@ es-419:
       event: "Evento"
       join_request: "Solicitud para unirse"
       space: "Espacio"
+  flash:
+    spaces:
+      update:
+        notice: "Espacio actualizado con éxito"
+      disable:
+        notice: "Espacio deshabilitado con éxito"
+      enable:
+        notice: "Espacio habilitado con éxito"
+        failure: "El espacio %{name} ya está habilitado"
+    posts:
+      update:
+        notice: "Mensaje actualizado!"
+        failure: "La actualización del mensaje falló: %{errors}"
+      create:
+        notice: "Mensaje publicado!"
+        failure: "El mensaje no pudo ser publicado: %{errors}"
+    users:
+      disable:
+        notice: "Usuario desactivado correctamente"
+      enable:
+        notice: "Usuario habilitado con éxito. El usuario actual no pertenece a ningún espacio y tendrá que unirse a los espacios de nuevo."
+        failure: "El usuario %{name} ya está habilitado"
   address: Dirección
   admin:
     one: Administrador
@@ -382,6 +439,7 @@ es-419:
   custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Obtener grabaciones"
+      generate_dial_number: "Generare número de discado"
       invite: "Invitar"
       join_mobile: "Unirse desde un dispositivo móvil"
       new_room: "Nueva sala"
@@ -389,6 +447,7 @@ es-419:
     edit:
       editing_room: "Editando la sala '%{room}'"
     form:
+      layout_empty_option: "<por defecto>"
       metadata:
         add: "Agregar metadata"
         set_to_remove: "Seleccionar para eliminar"
@@ -399,6 +458,7 @@ es-419:
       at: "en"
       duration: "Duración"
       meeting_in: "Invitar personas a una reunión en:"
+      timezone: "Las citas a continuación están utilizando la zona horaria \"%{timezone}\""
       title: "Invitar personas a una reunión"
       users:
         hint: "Escriba para iniciar la búsqueda"
@@ -435,6 +495,8 @@ es-419:
     join_mobile:
       click_to_download_android: "Click aquí para descargar el cliente Android"
       click_to_download_ios: "Click aquí para descargar el cliente iOS (iPad, iPhone)"
+      download_android_tip: "Para dispositivos con Android"
+      download_ios_tip: "Para dispositivos con Apple iOS (iPad, iPhone)"
       not_launched: "Si la aplicación no fue iniciada, asegúrese de que tiene el cliente Android instalado. Puede obtenerlo de: "
       notice: "Está siendo redirigido a la conferencia en su dispositivo móvil. Por favor, espere."
       title: "Acceso móvil a \"%{room}\""
@@ -460,6 +522,7 @@ es-419:
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando grabacion"
+      tip: "La mayor parte de los atributos no son editables, ya que se recuperan desde un servidor remoto y reflejan el estado de la grabación en este servidor"
     show:
       showing_recording: "Mostrando grabacion"
     index:
@@ -467,6 +530,7 @@ es-419:
     recording_links:
       direct_link: "Enlace directo"
       playback_links: "Reproductores disponibles"
+      confirm_destroy: "¿Está seguro que desea eliminar esta grabación? Esta acción también eliminará los archivos del servidor y es irreversible. Asegúrese de que ha descargado o realizado una copia de seguridad de esta grabación antes de continuar."
     recordings:
       table:
         links: "Enlaces"
@@ -503,6 +567,7 @@ es-419:
     show:
       available_layouts: "Capas disponibles"
       configurations: "Configuraciones de servidor"
+      configurations_tip: "Estas configuraciones son traidas automáticamente desde el servidor y no pueden ser modificadas. Son traidas periodicamente (cada 3 horas) en segundo plano o cuando la URL, salt o la versión del servidor cambie."
       fetch_recordings_title: "Obtener grabaciones con parámetros"
       fetch_recordings_btn: "Obtener grabaciones"
       publish_recordings_title: "Publicar grabaciones"
@@ -641,6 +706,7 @@ es-419:
     invite_url: "URL de invitación"
     my: "Mi Inicio"
     my_spaces: "Mis espacios"
+    no_spaces: "Usted no pertenece a ningún espacio. Puede ver los espacios disponibles <a href=\"%{link}\">aquí</a>."
     one: inicio
     view_invite_url: "Ver URL de invitación"
   icons:
@@ -717,6 +783,8 @@ es-419:
       error: "Algo salió mal al procesar su solicitud. Por favor, intente de nuevo. (detalles: %{errors})"
       sent: "Su invitación fue enviada con éxito a: %{users}"
       user_not_found: "Usuario no encontrado: %{id}"
+      users_added: "Ha agregado al(a los) usuario(s) %{users} a este espacio con éxito"
+      you_are_already_a_member: "Usted ya es un miembro de este espacio"
     decline:
       declined: "Solicitud para unirse rechazada"
       invitation_destroyed: "Invitación cancelada con éxito"
@@ -739,6 +807,9 @@ es-419:
       candidates: "Buscar usuarios para invitar"
       role_label: "Rol para los usuarios invitados"
       title: "Invita a otras personas a unirse a este espacio"
+      type_add: "Agregar usuarios directamente"
+      type_add_tooltip: "Los usuarios serán agregados al espacio sin que se le pida confirmación. Se envía una notificación a los usuarios para informarles fueron agregados."
+      type_invite: "Invitar"
       users:
         hint: "Escriba para iniciar la búsqueda"
         no_results: "No se encontraron resultados"
@@ -806,6 +877,11 @@ es-419:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Cambiar idioma"
+    spaces_page_title:
+      is_member: "Eres miembro de este espacio"
+      manage_to_approve: "administrar"
+      private: "Espacio privado"
+      public: "Espacio público"
   less: "menos..."
   locales:
     error: "No se registro la localidad"
@@ -832,8 +908,12 @@ es-419:
       enable: "Habilitar usuario"
       enable_confirm: "¿Está seguro que desea habilitar a este usuario?"
     enabled_space:
+      approve: "Aprobar: desbloquear el acceso a este espacio"
+      approve_confirm: "¿Esta seguro que desea desbloquear el acceso de este espacio?"
       disable: "Deshabilitar espacio"
       disable_confirm: "¿Está seguro que desea deshabilitar este espacio?"
+      disapprove: "Desaprobar: bloquear el acceso a este espacio"
+      disapprove_confirm: "¿Esta seguro que desea bloquear el acceso de este espacio?"
       edit: "Editar espacio"
     enabled_user:
       approve: "Aprobar: permitir a este usuario acceder a la web"
@@ -851,6 +931,9 @@ es-419:
       title: "Gestión del Sitio"
       users: "Usuarios"
       webconf: "Conferencia Web"
+    spaces:
+      filter_name: "Filtrar espacios por nombre"
+      new_space: "Crear espacio"
     destroy_space:
       destroy: Eliminar espacio
       destroy_confirm: ¿Está seguro que desea eliminar este espacio y todo el contenido asociado a él? A diferencia de la dehabilitación del espacio, ¡esta operación es irreversible!
@@ -862,7 +945,16 @@ es-419:
       filter_count_empty: "Encontrado(s) %{count} espacio(s)"
       no_space_found: "Espacio no encontrado"
     users:
+      filter_name_or_username: "Filtrar usuarios por su nombre, nombre de usuario o email"
       new_user: "Crear usuario"
+      admin_true: Administradores
+      admin_false: Usuarios
+      approved_true: Aprobado
+      approved_false: No aprobado
+      disabled_true: Deshabilitado
+      disabled_false: Habilitado
+      can_record_true: Puede grabar
+      can_record_false: No puede grabar
     users_list:
       filter_count_with_text: "Encontrado(s) %{count} usuario(s) para el filtro \"%{value}\""
       filter_count_empty: "Encontrado(s) %{count} usuario(s)"
@@ -991,6 +1083,8 @@ es-419:
     index:
       new_post: "Enviar un nuevo mensaje"
       no_messages: "No hay mensajes en el muro"
+    new:
+      title: "Publicar un nuevo mensaje"
     post_with_children:
       by: "por"
   prav: PRAV
@@ -1014,6 +1108,8 @@ es-419:
   profiles:
     edit:
       change_pic: "Cambiar imágen"
+      explain_gravatar: "Esta es la imagen asociada con su email en Gravatar.com"
+      using_gravatar: "Imagen de Gravatar"
       title: "Editar perfil"
       view_your_profile: "Ver perfil"
       vcard:
@@ -1037,6 +1133,7 @@ es-419:
     activity: "Actividad reciente"
   recent_activity:
     empty: "No tiene actividad reciente para mostrar. Únase a salas para comenzar a tener datos en esta área."
+    tooltip: "Aquí podrá encontrar los eventos más recientes y los mensajes de los espacios a los que pertenece"
   recording:
     automatic: Automático
     box_title: Grabando
@@ -1075,6 +1172,9 @@ es-419:
   request:
     info: "Su solicitud para unirse al espacio ha sido enviada con éxito a los administradores del mismo. Recibirás una respuesta tan pronto como les sea posible."
     sent: "¡Solicitud enviada!"
+  recaptcha:
+    errors:
+      verification_failed: "No ha pasado la prueba de captcha, por favor intente nuevamente."
   rnp: RNP
   role:
     added: "Rol %{role} agregado con éxito a %{agent}"
@@ -1130,11 +1230,17 @@ es-419:
     recording_list:
       created: "Creado"
       created_by: "Creado por"
+      destroy_confirm: "¿Está seguro que desea eliminar permanentemente esta grabación?"
       ended_at: "Finalizado en "
+      manage: "Administrar"
       no_description: "<descripción no especificada>"
       no_recordings: "Tu sala de conferencias web aún no tiene grabaciones"
       no_title: "<título no especificado>"
       started_at: "La reunión ocurrio a las"
+      publish: Publicar
+      unpublish: Anular publicación
+      unpublish_confirm: "¿Está seguro que desea eliminar esta grabación?"
+      unpublish_unavailable: "Esta acción no es posible porque la grabación no esta disponible actualmente. Contacte a un administrador si desea eliminarla de su lista."
     recording_playback:
       duration: "duración"
       playback: "Enlaces de reproductores"
@@ -1203,6 +1309,7 @@ es-419:
     configuration: "Configuración del espacio"
     confirm: "¿Esta seguro que desea abandonar este espacio?"
     created: "Espacio creado con éxito"
+    created_waiting_moderation: "Espacio creado con éxito! Por favor espere a que un administrador apruebe su espacio antes de que otros usuarios puedan acceder a él."
     delete: "Eliminar espacio"
     deleted: "Espacio eliminado con éxito"
     description: "Descripción del espacio"
@@ -1265,6 +1372,9 @@ es-419:
     public:
       one: "Espacio público"
       other: "Espacios públicos"
+    remove_user:
+      confirm: "¿Está seguro de desea eliminar a este usuario del espacio?"
+      remove: "Eliminar usuario"
     select: Espacios
     show: "Mostrar espacios:"
     show_all: "Mostrar todos los espacios"
@@ -1315,6 +1425,12 @@ es-419:
       invite: "Invitar personas"
       users: "Usuarios"
       webconf_options: "Opciones de conferencia web"
+      add_member: "Agregar miembros"
+    approve:
+      approved: "El espacio %{name} fue aprobado"
+    disapprove:
+      disapproved: "El espacio %{name} no fue aprobado"
+      not_enabled: "Moderación de espacios no está activado"
     edit:
       change_logo: "Cambiar imágen"
       delete_confirmation: "¿Está seguro? ¡Este espacio será inaccesible para usted y todos los usuarios!"
@@ -1326,8 +1442,10 @@ es-419:
       title: "Editar sus grabaciones"
     error:
       already_invited: "Ya ha sido invitado a unirse a este espacio. Por favor, acepte o rechace la invitación"
+      creation_forbidden: "No está autorizado a crear espacios"
       need_join_to_access: "Necesita unirse a este espacio para acceder. Envíe una solicitud a los administradores."
       not_found: "El espacio \"%{permalink}\" no fue encontrado.<br>¿Le gustaría buscarlo en <a href=\"%{path}\">todos los espacios</a>?"
+      unapproved: "Este espacio aún no ha sido aprobado por un administrador."
     index:
       create_new_space: "Crear un nuevo espacio"
       list_format:
@@ -1371,6 +1489,7 @@ es-419:
         currently_running:
           one: "La conferencia web está actualmente en progreso con %{count} participante"
           other: "La conferencia web está actualmente en progreso con %{count} participantes"
+        dial_number: "Discar número"
       webconference_join: "Unirse"
       webconference_start: "Comenzar"
     sidebar_notifications:
@@ -1407,6 +1526,12 @@ es-419:
       user_is_member: "Eres miembro de este espacio"
       view_join_request: "Ver las solicitudes que enviaste"
       with_members: "con %{count} miembros"
+    user_permissions:
+      confirm_leave_space: "¿Esta seguro que desea abandonar este espacio?"
+      confirm_remove_user: "¿Está seguro de desea eliminar a este usuario del espacio?"
+      leave_space: "Abandonar este espacio"
+      remove_user: "Eliminar usuario del espacio"
+      tooltip_last_admin: "Este usuario es el último administrador de este espacio, por lo tanto, no puede cambiar su rol"
     users: "Usuarios en este espacio"
     webconference:
       end: "Detener la reunión"
@@ -1451,6 +1576,9 @@ es-419:
   subject: "Asunto:"
   summary: "Información del vídeo"
   superuser: "Administrador"
+  sites:
+    edit:
+      shib_warning_html: "Este campo se utiliza como el identificador único para los usuarios de Shibboleth. Si lo modifica sus usuarios tal vez no puedan acceder a sus cuentas. Antes de modificarlo lea <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   text: Texto
   the_string: "la cadena de texto"
   thread:
@@ -1556,6 +1684,7 @@ es-419:
     vcc_email: "Correo electrónico del usuario Mconf %{dir}"
   users:
     approve:
+      approved: "El usuario %{name} fue aprobado para acceder al sitio!"
       not_enabled: "La aprobación de registros no está habilitada en este sitio"
     create:
       error: "Errores creando el usuario: %{errors}"
@@ -1565,6 +1694,7 @@ es-419:
     detailed_user:
       from: "De:"
     disapprove:
+      disapproved: "¡El usuario %{username} fue bloqueado para acceder al sito!"
       not_enabled: "La aprobación de registros no está habilitada en este sitio web"
     edit:
       account_info: "Información de cuenta"

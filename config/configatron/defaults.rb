@@ -39,9 +39,12 @@ configatron.redis.db = 0 if configatron.redis.db.nil?
 # Translations for the languages available. The names of the languages are not
 # translated, so it's better to have them here than in the locale files.
 # See `config.i18n.available_locales` in `config/application.rb`
-configatron.locales.names = {
-  de: "Deutsch",
-  en: "English",
-  "es-419": "Español",
-  "pt-br": "Português"
-}
+configatron.locales.names =
+  {
+    bg: "Български",
+    de: "Deutsch",
+    en: "English",
+    "es-419": "Español",
+    "pt-br": "Português",
+    ru: "Pусский"
+  }

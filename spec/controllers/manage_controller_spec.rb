@@ -369,6 +369,21 @@ describe ManageController do
         it { assigns(:spaces)[3].should eql(@s1) }
       end
 
+      context "orders @spaces by the number of matches" do
+        before {
+          @s1 = FactoryGirl.create(:space, :name => 'First space created')
+          @s2 = FactoryGirl.create(:space, :name => 'Second space created')
+          @s3 = FactoryGirl.create(:space, :name => 'A space starting with letter A')
+          @s4 = FactoryGirl.create(:space, :name => 'Being one starting with B')
+        }
+        before(:each) { get :spaces, :q => 'second space' }
+        it { assigns(:spaces).count.should be(3) }
+        it { assigns(:spaces)[0].should eql(@s2) }
+        it { assigns(:spaces)[1].should eql(@s3) }
+        it { assigns(:spaces)[2].should eql(@s1) }
+      end
+
+
       context "paginates the list of spaces" do
         before {
           45.times { FactoryGirl.create(:space) }
@@ -590,6 +605,20 @@ describe ManageController do
         it { assigns(:recordings)[1].should eql(@s4) }
         it { assigns(:recordings)[2].should eql(@s2) }
         it { assigns(:recordings)[3].should eql(@s1) }
+      end
+
+      context "orders @recordings by the number of matches" do
+        before {
+          @r1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'First records created' , start_time: DateTime.now - 1.days)
+          @r2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Second records created')
+          @r3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'A records starting with letter A', start_time: DateTime.now - 2.days)
+          @r4 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Being one starting with B', start_time: DateTime.now - 3.days)
+        }
+        before(:each) { get :recordings, :q => 'second records' } #using "records" because "recordings" is in the description which is also in the search by terms scope
+        it { assigns(:recordings).count.should be(3) }
+        it { assigns(:recordings)[0].should eql(@r2) }
+        it { assigns(:recordings)[1].should eql(@r1) }
+        it { assigns(:recordings)[2].should eql(@r3) }
       end
 
       context "paginates the list of recordings" do

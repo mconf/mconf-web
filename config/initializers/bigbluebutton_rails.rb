@@ -105,20 +105,31 @@ Rails.application.config.to_prepare do
     scope :search_by_terms, -> (words) {
       query = joins(:room).includes(:room)
 
-      words ||= []
-      words = [words] unless words.is_a?(Array)
-      query_strs = []
-      query_params = []
+      if words.present?
+        words ||= []  
+        words = [words] unless words.is_a?(Array)
+        query_strs = []
+        query_params = []
+        query_orders = []
 
-      words.each do |word|
-        str  = "bigbluebutton_recordings.name LIKE ? OR bigbluebutton_recordings.description LIKE ?"
-        str += " OR bigbluebutton_recordings.recordid LIKE ? OR bigbluebutton_rooms.name LIKE ?"
-        query_strs << str
-        query_params += ["%#{word}%", "%#{word}%"]
-        query_params += ["%#{word}%", "%#{word}%"]
+        words.each do |word|
+          str  = "bigbluebutton_recordings.name LIKE ? OR bigbluebutton_recordings.description LIKE ?"
+          str += " OR bigbluebutton_recordings.recordid LIKE ? OR bigbluebutton_rooms.name LIKE ?"
+          query_strs << str
+          query_params += ["%#{word}%", "%#{word}%"]
+          query_params += ["%#{word}%", "%#{word}%"]
+          query_orders += [
+            "CASE WHEN bigbluebutton_recordings.name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+             CASE WHEN bigbluebutton_recordings.description LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+             CASE WHEN bigbluebutton_recordings.recordid LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+             CASE WHEN bigbluebutton_rooms.name LIKE '%#{word}%' THEN 1 ELSE 0 END"
+          ]
+        end
+        query = query.where(query_strs.join(' OR '), *query_params.flatten).order(query_orders.join(' + ') + " DESC")
+     
       end
 
-      query.where(query_strs.join(' OR '), *query_params.flatten)
+      query
     }
 
     # The default ordering for search methods
