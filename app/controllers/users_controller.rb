@@ -23,14 +23,7 @@ class UsersController < InheritedResources::Base
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  layout :set_layout
-  def set_layout
-    if [:edit].include?(action_name.to_sym)
-      'no_sidebar'
-    else
-      'application'
-    end
-  end
+  layout 'application'
 
   def index
     @space = Space.find_by_permalink!(params[:space_id])
@@ -63,7 +56,6 @@ class UsersController < InheritedResources::Base
       shib = Mconf::Shibboleth.new(session)
       @shib_provider = shib.get_identity_provider
     end
-    render :layout => 'no_sidebar'
   end
 
   def update
@@ -91,7 +83,7 @@ class UsersController < InheritedResources::Base
       flash = { :success => t("user.updated") }
       redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
-      render "edit", :layout => 'no_sidebar'
+      render :edit
     end
   end
 

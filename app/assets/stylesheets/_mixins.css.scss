@@ -140,28 +140,6 @@
   &:not(.btn) { @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5), lighten($m-red, 5)); }
 }
 
-// TODO: old method, not useful with bootstrap3 anymore
-@mixin set-sidebar-width($new-width) {
-  #sidebar {
-    width: $new-width;
-  }
-  #content-middle {
-    width: $m-contents-width - $new-width - 20px; // less right-margin
-  }
-}
-
-// TODO: old method, not useful with bootstrap3 anymore
-@mixin sidebar-position($pos) {
-  @if $pos == 'left' {
-    #sidebar {
-      float: left;
-    }
-    #content-middle {
-      float: right;
-    }
-  }
-}
-
 @function lighten-or-darken($bg, $color, $amountToLighten, $amountToDarken) {
   @if (lightness( $bg ) > 40) {
     $color: darken($color, $amountToDarken);
@@ -204,44 +182,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-}
-
-@mixin link-on-menus {
-  &:hover { text-decoration: none; }
-}
-
-@mixin link-style($style) {
-
-  @if ($style == 3) {
-    a:not(.btn) {
-      @include link-colors($m-link-color-3, $m-link-color-3-hover, $m-link-color-3-active, $m-link-color-3);
-      text-decoration: none;
-      //font-weight: bold;
-    }
-  }
-
-  // link style usually used in menus of all kinds
-  @elseif ($style == 2) {
-    a:not(.btn) {
-      @include link-colors($m-link-color-2, $m-link-color-2-hover, $m-link-color-2-active, $m-link-color-2);
-      text-decoration: none;
-    }
-  }
-
-  // default link styles
-  @else {
-    a:not(.btn) {
-      @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
-    }
-  }
-}
-
-@mixin font-for-titles {
-  font-family: $m-font-family-titles;
-}
-
-@mixin font-for-code {
-  font-family: $m-font-family-mono;
 }
 
 @mixin text-truncate {

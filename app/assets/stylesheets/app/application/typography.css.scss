@@ -26,9 +26,14 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
+  color: $m-font-h1-color;
   font-style: normal;
-  @include font-for-titles;
-  @include link-style(2);
+  font-family: $m-font-family-titles;
+
+  a:not(.btn) {
+    @include link-colors($m-font-h1-color, $m-font-h1-color-hover, $m-font-h1-color-active, $m-font-h1-color);
+    text-decoration: none;
+  }
 }
 
 h1, .h1 {
@@ -75,7 +80,7 @@ p {
 
 pre,
 code {
-  @include font-for-code;
+  font-family: $m-font-family-mono;
 }
 
 .unordered-list { list-style-type: disc; }

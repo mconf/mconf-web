@@ -1,23 +1,25 @@
-- if can?(:update, @profile)
-  = content_for :page_header_extra do
-    = link_to t('.edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
-    = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
-
-= render_page_title @user.full_name
+= page_title @user.full_name
 
 = content_for :sidebar do
-  #profile-in-sidebar
-    = logo_image(@user, :size => '300', :class => 'profile-logo')
+
+  - if can?(:update, @profile)
+    .sidebar-top-action-button
+      = link_to t('.edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
+      = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
+
+  = render 'shared/user_card', user: @user
+
+  #sidebar-menu.page-menu-js
+    %ul
+      %li.active= link_to t('.info'), "#tab-user-info"
+      %li= link_to t('.activities'), "#tab-recent-activity"
+      %li= link_to t('.spaces'), "#tab-spaces"
+
+#user-profile-tabs.page-menu-js-tabs
+  #tab-user-info
     = render :partial => 'profiles/public_hcard'
     - if can?(:show, @profile)
       = render :partial => 'profiles/private_hcard'
-
-#page-menu-alt.page-menu-js
-  %ul
-    %li.active= link_to t('recent.activity'), "#tab-recent-activity"
-    %li= link_to t('space.other'), "#tab-spaces"
-
-#user-profile-tabs.page-menu-js-tabs
   #tab-spaces
     = render 'users/user_spaces', user: @user, spaces: @user_spaces
   #tab-recent-activity

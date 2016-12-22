@@ -5,45 +5,4 @@
 
 body.users.show {
 
-  // the default areas are a little bit different in this page
-  #sidebar {
-    border: 0;
-    padding-right: 0;
-  }
-  #page-header {
-    padding-left: 20px;
-  }
-
-  #profile-in-sidebar {
-    background: $m-light-gray;
-    padding: 20px 10px 10px 10px;
-    @include border-radius($m-border-radius-base);
-    text-align: center;
-
-    ul {
-      margin: 5px 0;
-      padding: 0;
-    }
-
-    .profile-hcard {
-      text-align: left;
-      margin: 10px 8px 30px 8px;
-
-      .hcard-content {
-        .sub-section {
-          font-weight: bold;
-          margin-top: 10px;
-        }
-
-        .key {
-          color: lighten($m-font-color, 20);
-        }
-      }
-    }
-  }
-
-  #page-menu-alt {
-    @include horizontal-menu;
-    border-bottom: 1px solid $m-border-color-normal;
-  }
 }

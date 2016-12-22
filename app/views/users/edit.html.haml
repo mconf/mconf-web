@@ -1,16 +1,21 @@
 -# Note: this view can be seen by the user himself or by an admin.
 -#   It will behave differently in each case.
 
-- if current_user == @user
-  = content_for :page_header_extra do
+= content_for :sidebar do
+  .sidebar-title
+    - if current_user == @user
+      = t('.title')
+    - else
+      = t('.other_user.title')
+
+  = render 'shared/user_card', user: @user
+
+  .alert.alert-info.alert-clean
     %span= t('.did_not_find_info')
-    = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
-  = render_page_title t('.title')
-- else
-  = content_for :page_header_extra do
-    %span= t('.did_not_find_info')
-    = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
-  = render_page_title t('.other_user.title')
+    - if current_user == @user
+      = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
+    - else
+      = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
@@ -38,9 +43,7 @@
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
-    - if can?(:update_password, @user)
-      #user-change-password
-        %h3= t('.change_password')
+      - if can?(:update_password, @user)
         - unless current_user.superuser?
           = f.input :current_password
         = disable_autocomplete_for('user[password]', 'password')
@@ -57,8 +60,8 @@
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 
   - if user_signed_in? && current_user.superuser
-    #user-management-options.alert.alert-info.alert-clean
-      %h4= t('.management_options')
+    #user-management-options
+      %h3= t('.management_options')
       = f.input :can_record, :required => false
 
       -# prevent admins from mistakenly removing themselves from being admins or blocking
@@ -80,8 +83,7 @@
   = f.button :wrapped, :cancel => cancel_path, :value => t("_other.save")
 
   - if current_user == @user
-    #user-cancel-account.alert.alert-danger.alert-clean
-      %h4= t('.other_options')
+    #user-cancel-account
+      %h3= t('.other_options')
       %span= t('.cancel_account')
-      = link_to t('.yes_cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'danger-text'
-
+      = link_to t('.yes_cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'btn btn-danger btn-sm'

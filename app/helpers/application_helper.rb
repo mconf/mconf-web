@@ -84,7 +84,7 @@ module ApplicationHelper
   # useful to simplify the calls from the views
   # Now also sets the html title tag for the page
   # Ex:
-  #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
+  #   <%= page_title('users', 'logos/user.png', { :transparent => true }) %>
   def render_page_title(title, logo=nil, options={})
     page_title title
     block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))

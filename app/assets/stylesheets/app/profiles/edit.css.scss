@@ -5,14 +5,7 @@
 
 body.profiles.edit, body.profiles.update {
 
-  // the default areas are a little bit different in this page
   #sidebar {
-    border: 0;
-    padding-right: 0;
-  }
-  #page-header {
-    padding-left: 20px;
-
     form {
       display: inline;
 
@@ -36,6 +29,7 @@ body.profiles.edit, body.profiles.update {
 
   #profile-logo-uploader {
     margin: 20px 0 10px 0;
+    text-align: center;
   }
 
   #edit-profile-current-logo {

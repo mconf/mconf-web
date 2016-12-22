@@ -1,4 +1,4 @@
-= render_page_title t(".title", :name => @room.name).html_safe
+= page_title t(".title", :name => @room.name).html_safe
 
 = render :partial => "invite_header", :locals => { :page => 1 }
 

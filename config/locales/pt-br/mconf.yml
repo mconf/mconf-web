@@ -1216,8 +1216,11 @@ pt-br:
       url: "Website"
       zipcode: "CEP"
     show:
+      activities: "Atividades recentes"
       edit_profile: "Editar perfil"
+      info: "Informações de contato"
       send_pm: "Enviar mensagem privada"
+      spaces: "Comunidades"
       vcard:
         export: "Exportar vCard"
   public: Público

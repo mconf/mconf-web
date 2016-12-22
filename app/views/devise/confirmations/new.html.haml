@@ -1,4 +1,4 @@
-= render_page_title t("user.resend_confirmation_email.link")
+= page_title t("user.resend_confirmation_email.link")
 
 #form-wrapper
   = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-inline' }) do |f|

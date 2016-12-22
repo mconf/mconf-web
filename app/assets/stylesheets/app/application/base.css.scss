@@ -23,8 +23,6 @@ form {
   margin: 0;
 }
 
-@include set-sidebar-width($m-sidebar-width);
-
 //
 // Components used site-wide, in any layout
 //
@@ -252,7 +250,7 @@ form {
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
-  @include font-for-titles;
+  font-family: $m-font-family-titles;
 }
 
 @mixin navbar-lists {
@@ -310,9 +308,7 @@ form {
   @include mconf-clearfix;
   padding: 0 15px;
 
-  a {
-    @include link-on-menus;
-  }
+  a:hover { text-decoration: none; }
 }
 
 #navbar-left {
@@ -409,7 +405,6 @@ form {
   @include make-row;
   margin: 0 auto;
   padding: 10px 0 0 0;
-  border-top: 1px dotted darken($m-footer-border-color, 15);
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
@@ -522,17 +517,16 @@ form {
   }
 
   .current-page-title {
-    color: $m-page-title-color;
+    color: $m-font-h1-color;
 
     @include make-xs-column(9);
 
     .main-title {
       @include font-size($m-font-section-title);
       font-weight: bold;
-      color: $m-page-title-color;
+      color: $m-font-h1-color;
       margin-bottom: 5px;
       a:not(.btn) {
-        @include link-colors($m-page-title-color, $m-link-color-2-hover, $m-link-color-2-active, $m-page-title-color);
         text-decoration: none;
       }
       @include text-truncate;
@@ -616,18 +610,21 @@ form {
   }
 
   .resource-card {
-    position: relative;
     @include broken-img-parent;
     margin: 0 auto 20px 0;
     text-align: center;
 
-    img {
-      width: 100%;
-      height: auto;
-      max-width: 250px;
-      border: 1px solid darken($m-light-gray, 10);
-      padding: 3px;
-      background: $m-site-bg-color;
+    .avatar {
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+        border: 1px solid darken($m-light-gray, 10);
+        padding: 3px;
+        background: $m-site-bg-color;
+      }
     }
 
     .icon-awesome.icon-mconf-superuser {
@@ -698,12 +695,16 @@ form {
   .sidebar-top-action-button {
     @include mconf-clearfix;
     text-align: center;
-    padding: 0 10px 10px 10px;
+    margin: 0 10px 20px 10px;
 
     /* reduce the buttons a bit */
     .btn-large {
       padding-top: 7px;
       padding-bottom: 7px;
+    }
+
+    .btn {
+      margin-bottom: 5px;
     }
   }
 
@@ -745,9 +746,10 @@ form {
   }
 
   li {
-    /* border-bottom: 1px solid $m-sidebar-border; */
-    border-left: 1px solid $m-transparent;
     @include font-size($m-font-medium);
+    border-left: 1px solid $m-transparent;
+    border-bottom: 1px solid $m-transparent;
+    border-top: 1px solid $m-transparent;
 
     &.active a {
       background: $m-site-bg-color;
@@ -802,7 +804,6 @@ form {
   padding: 25px;
 
   h3 {
-    color: #404040;
     margin-bottom: 5px;
 
     // horitontal line in the title
@@ -928,8 +929,6 @@ form {
 // the upcoming events are shown in spaces/show and my/home
 #sidebar-upcoming-events {
   .event-timezone {
-    //float: left;
-    //margin-bottom: 5px;
     color: #777;
     @include font-size($m-font-small);
   }

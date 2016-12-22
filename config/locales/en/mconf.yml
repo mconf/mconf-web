@@ -1206,8 +1206,11 @@ en:
       url: "Website"
       zipcode: "Zip code"
     show:
+      activities: "Recent activities"
       edit_profile: "Edit profile"
+      info: "Contact information"
       send_pm: "Send a private message"
+      spaces: "Spaces"
       vcard:
         export: "Export vCard"
   public: Public
