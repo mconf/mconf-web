@@ -619,7 +619,6 @@ describe ManageController do
         it { assigns(:recordings)[0].should eql(@r2) }
         it { assigns(:recordings)[1].should eql(@r1) }
         it { assigns(:recordings)[2].should eql(@r3) }
-        it { save_page Rails.root.join('public', 'capybara.html') }
       end
 
       context "paginates the list of recordings" do
