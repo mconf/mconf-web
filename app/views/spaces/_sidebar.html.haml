@@ -3,8 +3,9 @@
 
 = content_for :sidebar do
   .resource-card
-    = link_to space_path(space) do
-      = logo_image(space, :size => "336x256", :title => space.name)
+    .resource-logo
+      = link_to space_path(space) do
+        = logo_image(space, :size => "336x256", :title => space.name)
 
     .data
       - if space.name.size > 60

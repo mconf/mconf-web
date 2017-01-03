@@ -614,7 +614,7 @@ form {
     margin: 0 auto 20px 0;
     text-align: center;
 
-    .avatar {
+    .resource-logo {
       position: relative;
 
       img {
@@ -651,12 +651,10 @@ form {
       .data-main {
         @include font-size($m-font-big);
         font-weight: bold;
-        @include text-truncate;
       }
 
       .data-other {
         min-height: $m-font-big + 2px;
-        @include text-truncate;
       }
     }
   }
