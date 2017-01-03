@@ -93,7 +93,7 @@ class UsersController < InheritedResources::Base
       redirect_to_using_params edit_user_path(@user), :flash => flash
     else
       flash = { :error => t("user.not_updated") }
-      render "edit", layout: 'no_sidebar', flash: flash
+      redirect_to_params_or_render "edit", layout: 'no_sidebar', flash: flash
     end
   end
 
