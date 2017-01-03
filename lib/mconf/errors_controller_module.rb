@@ -1,4 +1,4 @@
-module Mconf::ErrorRenderingModule
+module Mconf::ErrorsControllerModule
 
   # TODO: refactor so that the 'unless all_resquests_local' is in
   # render_error_page and things get a little more DRY
@@ -53,6 +53,22 @@ module Mconf::ErrorRenderingModule
       render(nothing: true, status: 400)
     else
       raise exception
+    end
+  end
+
+  # A default handler for access denied exceptions. Will simply redirect the user
+  # to the sign in page if the user is not logged in yet.
+  def handle_access_denied(exception)
+    respond_to do |format|
+      format.html {
+        if user_signed_in?
+          render_403 exception
+        else
+          redirect_to login_path
+        end
+      }
+      format.json { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
+      format.js   { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
     end
   end
 

@@ -1,4 +1,4 @@
-module Mconf::BigbluebuttonRailsAdditions
+module Mconf::BigbluebuttonRailsControllerModule
 
   # overriding bigbluebutton_rails function
   def bigbluebutton_user

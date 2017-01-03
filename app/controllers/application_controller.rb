@@ -12,15 +12,14 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController # to automatically track recent activity
   include Mconf::LocaleControllerModule
 
-  # For extra methods like 'bigbluebutton_user', 'bigbluebutton_room', 'webconf_room!'
-  include Mconf::BigbluebuttonRailsAdditions
+  # To configure and customize BigbluebuttonRails
+  include Mconf::BigbluebuttonRailsControllerModule
 
-  # For 'append_info_to_payload'
-  include Mconf::LogrageAdditions
+  # To configure lograge
+  include Mconf::LogrageControllerModule
 
-  # To ease the management of mass assignment, this adds
-  # the method 'allow_params_for' in each controller
-  extend Mconf::AllowParamsForModule
+  # Controls the automatic redirects (e.g. after a sign in)
+  include Mconf::RedirectControllerModule
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -33,8 +32,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_site
   helper_method :locale_i18n
 
-  # Includes methods like render_404 and render_500
-  include Mconf::ErrorRenderingModule
+  # Methods to render error pages and deal with exceptions
+  include Mconf::ErrorsControllerModule
 
   # Handle errors - error pages
   rescue_from Exception, :with => :render_500
@@ -43,7 +42,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :render_404
   rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied, with: :handle_access_denied
-
   rescue_from ActionController::InvalidCrossOriginRequest, with: :render_400
   rescue_from ActionController::UnknownFormat, with: :render_404
 
@@ -55,20 +53,6 @@ class ApplicationController < ActionController::Base
   # views, since it caches the object.
   def current_site
     @current_site ||= Site.current
-  end
-
-  # Where to redirect to after sign in with Devise
-  def after_sign_in_path_for(resource)
-    if !params["return_to"].blank? && is_return_to_valid?(params["return_to"])
-      previous = params["return_to"]
-    elsif !external_or_blank_referer?
-      previous = user_return_to
-    end
-
-    return_to = previous || my_home_path
-
-    clear_stored_location
-    return_to
   end
 
   # Returns the translation for of a locale given its acronym (e.g. "en")
@@ -92,96 +76,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Code that to DRY out permitted param filtering
+  # The controller declares allow_params_for :model_name and defines allowed_params
+  def self.allow_params_for(instance_name)
+    instance_name ||= controller_name.singularize.to_sym
+
+    define_method("#{instance_name}_params") do
+      unless params[instance_name].blank?
+        params[instance_name].permit(*allowed_params)
+      else
+        {}
+      end
+    end
+  end
+
   private
 
   def set_time_zone
     Time.zone = Mconf::Timezone.user_time_zone(current_user)
-  end
-
-  # Checks if it's ok to redirect the user to `path`. Considers only the URL, not
-  # the type of the request or anything else.
-  def path_is_redirectable?(path)
-    # Paths to which users should never be redirected back to.
-    ignored_paths = [ "/login", "/users/login", "/users",
-                      "/register", "/users/registration",
-                      "/users/registration/signup", "/users/registration/cancel",
-                      "/users/password", "/users/password/new",
-                      "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
-                      "/pending", "/bigbluebutton/rooms/.*/join", "/bigbluebutton/rooms/.*/end"]
-    ignored_paths.select{ |ignored| path.match("^"+ignored+"$") }.empty?
-  end
-
-  # If the `path` passed as a parameter to redirect the user to it is valid or not.
-  # It's not valid for paths we can't redirect to or external links.
-  def is_return_to_valid?(path)
-    return true if path.blank?
-    path_is_redirectable?(path) && !external_or_blank_url?(path)
-  end
-
-  # Store last url for post-login redirect to whatever the user last visited.
-  # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
-  def store_location
-    if request_is_redirectable?(request) #&& !external_or_blank_url?(request.url)
-      # Used by Mconf-Web. Can't use user_return_to because it is overridden
-      # before actions and views are executed.
-      session[:previous_user_return_to] = session[:user_return_to]
-
-      # used by devise
-      session[:user_return_to] = request.fullpath
-      # session[:last_request_time] = Time.now.utc.to_i
-    end
-  end
-
-  # Removes the stored location used to redirect post-login.
-  def clear_stored_location
-    session[:user_return_to] = nil
-  end
-
-  # Path to where the user would be redirect back to
-  def user_return_to
-    session[:user_return_to]
-  end
-
-  # Whether the user came from "nowhere" (no referer) or from an external URL.
-  # Because we don't to redirect the user somewhere if he came from outside
-  # or typed something in the address bar
-  def external_or_blank_referer?
-    external_or_blank_url?(request.referer)
-  end
-
-  def external_or_blank_url?(url)
-    return true if url.blank?
-
-    parsed = URI.parse(url.to_s)
-
-    # no host on it means it's only a path, so it's not external
-    return false if !parsed.try(:host)
-
-    site_scheme = current_site.ssl? ? 'https' : 'http'
-    parsed = URI.parse("#{site_scheme}://#{current_site.domain}")
-    site = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
-
-    parsed = URI.parse(url.to_s)
-    from_url = "#{parsed.try(:scheme)}://#{parsed.try(:host)}:#{parsed.try(:port)}"
-
-    from_url != site
-  end
-
-  # A default handler for access denied exceptions. Will simply redirect the user
-  # to the sign in page if the user is not logged in yet.
-  def handle_access_denied exception
-    respond_to do |format|
-      format.html {
-        if user_signed_in?
-          render_403 exception
-        else
-          redirect_to login_path
-        end
-      }
-      format.json { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
-      format.js   { render json: { error: true, message: I18n.t('_other.access_denied') }, status: :unauthorized }
-    end
   end
 
 end

@@ -1,4 +1,4 @@
-module Mconf::LogrageAdditions
+module Mconf::LogrageControllerModule
 
   # The payload is used by lograge. We add more information to it here so that it is saved
   # in the log.
