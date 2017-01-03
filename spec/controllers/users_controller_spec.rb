@@ -53,7 +53,7 @@ describe UsersController do
       before { get :index, space_id: space.to_param }
 
       it { should render_template('index') }
-      it { should render_with_layout('spaces_default') }
+      it { should render_with_layout('application') }
     end
 
     context "with a private space" do
@@ -206,7 +206,7 @@ describe UsersController do
       before(:each) { sign_in(user) }
       before(:each) { get :edit, id: user.to_param }
       it { should render_template('edit') }
-      it { should render_with_layout('no_sidebar') }
+      it { should render_with_layout('application') }
     end
 
     context "if the user is editing himself" do

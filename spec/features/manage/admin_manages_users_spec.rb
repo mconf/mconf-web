@@ -9,26 +9,24 @@ require 'support/feature_helpers'
 
 describe 'Admin manages users' do
   subject { page }
+  let(:admin) { User.first } # admin is already created
 
   context 'with require registration approval disabled' do
 
-    let(:admin) { User.first } # admin is already created
-    before {
-      Site.current.update_attributes(require_registration_approval: true)
-
-      login_as(admin, :scope => :user)
-      @user1 = FactoryGirl.create(:user)
-      @user_admin = FactoryGirl.create(:user, superuser: true)
-      @unapproved_user = FactoryGirl.create(:user)
-      @unapproved_user.update_attributes(:approved => false)
-      @disabled_user1 = FactoryGirl.create(:user, disabled: true)
-      @disabled_user2 = FactoryGirl.create(:user, disabled: true)
-      @unconfirmed_user = FactoryGirl.create(:unconfirmed_user)
-      @unconfirmed_unapproved_user = FactoryGirl.create(:unconfirmed_user)
-      @unconfirmed_unapproved_user.update_attributes(:approved => false)
-    }
-
     context 'listing users in management screen' do
+      before {
+        login_as(admin, :scope => :user)
+        @user1 = FactoryGirl.create(:user)
+        @user_admin = FactoryGirl.create(:user, superuser: true)
+        @unapproved_user = FactoryGirl.create(:user)
+        @unapproved_user.update_attributes(:approved => false)
+        @disabled_user1 = FactoryGirl.create(:user, disabled: true)
+        @disabled_user2 = FactoryGirl.create(:user, disabled: true)
+        @unconfirmed_user = FactoryGirl.create(:unconfirmed_user)
+        @unconfirmed_unapproved_user = FactoryGirl.create(:unconfirmed_user)
+        @unconfirmed_unapproved_user.update_attributes(:approved => false)
+      }
+
       before { visit manage_users_path }
 
       it { should have_css '#users-list .list-item', count: 8 }
@@ -52,12 +50,11 @@ describe 'Admin manages users' do
         it { should_not have_link_to_destroy_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
-        it { subject.find('.user-username').should have_content(user.username) }
-        it { subject.find('.user-name').should have_content(user.full_name) }
-        it { subject.find('.user-email').should have_content(user.email) }
-        it { should have_content t('.manage.enabled_user.last_sign_in') }
-        it { should have_content format_date(user.current_sign_in_at.in_time_zone, :long) }
-        it { should have_content t('_other.auth.local') }
+        it { subject.should have_content(user.username) }
+        it { subject.should have_content(user.full_name) }
+        it { subject.should have_content(user.email) }
+        it { should have_content user.last_sign_in_method }
+        it { should have_content I18n.l(user.current_sign_in_at.in_time_zone, format: :numeric) }
       end
 
       context 'elements for a normal user' do
@@ -71,9 +68,9 @@ describe 'Admin manages users' do
         it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
-        it { subject.find('.user-username').should have_content(user.username) }
-        it { subject.find('.user-name').should have_content(user.full_name) }
-        it { subject.find('.user-email').should have_content(user.email) }
+        it { subject.should have_content(user.username) }
+        it { subject.should have_content(user.full_name) }
+        it { subject.should have_content(user.email) }
       end
 
       context 'elements for an admin' do
@@ -87,9 +84,9 @@ describe 'Admin manages users' do
         it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
-        it { subject.find('.user-username').should have_content(user.username) }
-        it { subject.find('.user-name').should have_content(user.full_name) }
-        it { subject.find('.user-email').should have_content(user.email) }
+        it { subject.should have_content(user.username) }
+        it { subject.should have_content(user.full_name) }
+        it { subject.should have_content(user.email) }
       end
 
       context 'elements for a disabled user' do
@@ -102,9 +99,9 @@ describe 'Admin manages users' do
         it { should_not have_link_to_edit_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
-        it { subject.find('.user-username').should have_content(user.username) }
-        it { subject.find('.user-name').should have_content(user.full_name) }
-        it { subject.find('.user-email').should have_content(user.email) }
+        it { subject.should have_content(user.username) }
+        it { subject.should have_content(user.full_name) }
+        it { subject.should have_content(user.email) }
       end
 
       context 'elements for an unconfirmed normal user' do
@@ -115,15 +112,27 @@ describe 'Admin manages users' do
         it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disable_user(user) }
         it { should have_link_to_confirm_user(user) }
-        it { subject.find('.user-username').should have_content(user.username) }
-        it { subject.find('.user-name').should have_content(user.full_name) }
-        it { subject.find('.user-email').should have_content(user.email) }
+        it { subject.should have_content(user.username) }
+        it { subject.should have_content(user.full_name) }
+        it { subject.should have_content(user.email) }
       end
     end
 
     context 'with require registration approval enabled' do
       before {
-        Site.current.update_attributes(:require_registration_approval => true)
+        Site.current.update_attributes(require_registration_approval: true)
+
+        login_as(admin, :scope => :user)
+        @user1 = FactoryGirl.create(:user)
+        @user_admin = FactoryGirl.create(:user, superuser: true)
+        @unapproved_user = FactoryGirl.create(:user)
+        @unapproved_user.update_attributes(:approved => false)
+        @disabled_user1 = FactoryGirl.create(:user, disabled: true)
+        @disabled_user2 = FactoryGirl.create(:user, disabled: true)
+        @unconfirmed_user = FactoryGirl.create(:unconfirmed_user)
+        @unconfirmed_unapproved_user = FactoryGirl.create(:unconfirmed_user)
+        @unconfirmed_unapproved_user.update_attributes(:approved => false)
+
         visit manage_users_path
       }
 
@@ -185,7 +194,6 @@ describe 'Admin manages users' do
     end
 
     context 'checking the Login Methods and Last Login Date' do
-      let(:admin) { User.first } # admin is already created
       before {
         login_as(admin, :scope => :user)
 
@@ -201,41 +209,41 @@ describe 'Admin manages users' do
       context 'listing users in management screen' do
         before { visit manage_users_path }
 
-        it { should have_css '.user-simple', :count => 7 }
+        it { should have_css '.list-item', :count => 7 }
         it { should have_css '.icon-mconf-delete', :count => 6 }
         it { should have_css '.icon-mconf-superuser', :count => 1 }
 
-        it { should have_content user_description(@user_local) }
-        it { should have_content user_description(@user_ldap) }
-        it { should have_content user_description(@user_shib) }
-        it { should have_content user_description(@user_ldap_local) }
-        it { should have_content user_description(@user_shib_local) }
-        it { should have_content user_description(@user_ldap_shib_local) }
+        it { should have_content @user_local.full_name }
+        it { should have_content @user_ldap.full_name }
+        it { should have_content @user_shib.full_name }
+        it { should have_content @user_ldap_local.full_name }
+        it { should have_content @user_shib_local.full_name }
+        it { should have_content @user_ldap_shib_local.full_name }
 
         context 'elements for admin' do
           let(:user) { User.first }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content format_date(user.current_sign_in_at.in_time_zone, :long) }
-          it { should have_content t('_other.auth.local') }
+          it { should have_content user.last_sign_in_method }
+          it { should have_content I18n.l(user.current_sign_in_at.in_time_zone, format: :numeric) }
         end
 
         context 'elements for a local user' do
           let(:user) { @user_local }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
-          it { should have_content t('_other.auth.local') }
+          it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
         end
 
         context 'elements for a shib user' do
           let(:user) { @user_shib }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
+          it { subject.find(".user-login").should_not have_content User.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }
+          it { subject.find(".user-login").should_not have_content LdapToken.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
           it { should have_content t('_other.auth.shibboleth') }
           it { should_not have_content t('_other.auth.local') }
         end
@@ -244,42 +252,40 @@ describe 'Admin manages users' do
           let(:user) { @user_ldap }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
-          it { should have_content t('_other.auth.ldap') }
-          it { should_not have_content t('_other.auth.local') }
+          it { subject.find(".user-login").should_not have_content User.last.sign_in_method_name }
+          it { subject.find(".user-login").should_not have_content ShibToken.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content LdapToken.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
         end
 
         context 'elements for a shib and local user' do
           let(:user) { @user_shib_local }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
-          it { should have_content t('_other.auth.local') }
-          it { should have_content t('_other.auth.shibboleth') }
-          it { should_not have_content t('_other.auth.ldap') }
+          it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }
+          it { subject.find(".user-login").should_not have_content LdapToken.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
         end
 
         context 'elements for a ldap and local user' do
           let(:user) { @user_ldap_local }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_css "[title='#{t('.manage.enabled_user.never_sign_in')}']" }
-          it { should have_content t('_other.auth.local') }
-          it { should have_content t('_other.auth.ldap') }
-          it { should_not have_content t('_other.auth.shibboleth') }
+          it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
+          it { subject.find(".user-login").should_not have_content ShibToken.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content LdapToken.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
         end
 
         context 'elements for a shib and ldap and local user' do
           let(:user) { @user_ldap_shib_local }
           subject { page.find("#user-#{user.permalink}") }
 
-          it { should have_content t('.manage.enabled_user.last_sign_in') }
-          it { should have_content t('_other.auth.local') }
-          it { should have_content t('_other.auth.shibboleth') }
-          it { should have_content t('_other.auth.ldap') }
+          it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }
+          it { subject.find(".user-login").should have_content LdapToken.last.sign_in_method_name }
+          it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
         end
       end
     end
@@ -313,4 +319,3 @@ end
 def have_link_to_approve_user(user)
   have_link '', :href => approve_user_path(user)
 end
-

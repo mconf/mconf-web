@@ -92,7 +92,7 @@ describe MyController do
     context "html full request" do
       before(:each) { get :recordings }
       it { should render_template(:recordings) }
-      it { should render_with_layout("no_sidebar") }
+      it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
 
@@ -166,17 +166,18 @@ describe MyController do
     end
   end
 
-  describe "#recording_edit" do
+  describe "#edit_recording" do
     let(:user) { FactoryGirl.create(:user) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
     before(:each) { login_as(user) }
 
     context "html request" do
+      before { request.env["HTTP_REFERER"] = "/test" }
       before(:each) { get :edit_recording, :id => recording.to_param }
       it { should render_template(:edit_recording) }
       it { should render_with_layout("application") }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redir_url).with(my_recordings_path) }
+      it { should assign_to(:redir_url).with("/test") }
     end
 
     context "xhr request" do

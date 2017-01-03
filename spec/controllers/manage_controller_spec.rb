@@ -318,7 +318,7 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :users }
         it { should render_template(:users) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
     end
   end
@@ -391,15 +391,15 @@ describe ManageController do
 
         context "if no page is passed in params" do
           before(:each) { get :spaces }
-          it { assigns(:spaces).size.should be(40) }
+          it { assigns(:spaces).size.should be(20) }
           it { controller.params[:page].should be_nil }
         end
 
         context "if a page is passed in params" do
           before(:each) { get :spaces, :page => 2 }
-          it { assigns(:spaces).size.should be(40) }
+          it { assigns(:spaces).size.should be(20) }
           it("includes the correct spaces in @spaces") {
-            page = Space.order('name').paginate(:page => 2, :per_page => 40)
+            page = Space.order('name').paginate(:page => 2, :per_page => 20)
             page.each do |space|
               assigns(:spaces).should include(space)
             end
@@ -533,7 +533,7 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :spaces }
         it { should render_template(:spaces) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
     end
   end
@@ -767,7 +767,7 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :recordings }
         it { should render_template(:recordings) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
     end
   end

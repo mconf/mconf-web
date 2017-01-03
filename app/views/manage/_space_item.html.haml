@@ -22,12 +22,14 @@
     = space_visibility(space)
 
   .col-xs-12.col-sm-2.management-links.list-actions
-    = link_to (edit_space_path(space)) do
-      = icon_edit(:alt => t('.edit'), :title => t('.edit'))
-
-    - if space.require_approval? || !space.approved?
-      = approval_links :space, space
-
-    = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-      = icon_disable(:alt => t('.disable'), :title => t('.disable'))
+    - if space.disabled?
+      = link_to enable_space_path(space), :data => { :confirm => t('.enable_confirm') }, :method => :post do
+        = icon_enable(:alt => t('.enable'), :title => t('.enable'))
+    - else
+      = link_to (edit_space_path(space)) do
+        = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+      - if space.require_approval? || !space.approved?
+        = approval_links :space, space
+      = link_to disable_space_path(space), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+        = icon_disable(:alt => t('.disable'), :title => t('.disable'))
     = render 'manage/destroy_space', :space => space

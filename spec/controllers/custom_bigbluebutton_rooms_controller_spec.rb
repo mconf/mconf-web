@@ -283,7 +283,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :index }
       it { should render_template(:index) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads the rooms into @rooms"
@@ -295,7 +295,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :show, :id => room.to_param }
       it { should render_template(:show) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -306,7 +306,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :new }
       it { should render_template(:new) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -318,7 +318,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :edit, :id => room.to_param }
       it { should render_template(:edit) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -347,7 +347,7 @@ describe CustomBigbluebuttonRoomsController do
         post :create, :bigbluebutton_room => attrs
       end
       it { should render_template(:new) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -365,7 +365,7 @@ describe CustomBigbluebuttonRoomsController do
         put :update, :id => room.to_param, :bigbluebutton_room => attrs
       }
       it { should render_template(:edit) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     # This is an adapted copy of the same test done for this controller action in BigbluebuttonRails
@@ -449,7 +449,7 @@ describe CustomBigbluebuttonRoomsController do
   #     before(:each) { login_as(FactoryGirl.create(:superuser)) }
   #     before(:each) { get :recordings, :id => room.to_param }
   #     it { should render_template(:recordings) }
-  #     it { should render_with_layout("application") }
+  #     it { should render_with_layout("manage") }
   #   end
   # end
 

@@ -130,7 +130,7 @@ describe SpacesController do
     context "layout and view" do
       before(:each) { get :show, :id => target.to_param }
       it { should render_template("spaces/show") }
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
     end
 
     it "assigns @space"
@@ -301,7 +301,7 @@ describe SpacesController do
     before(:each) { get :edit, :id => space.to_param }
 
     context "template and view" do
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
       it { should render_template("spaces/edit") }
     end
 
@@ -529,7 +529,7 @@ describe SpacesController do
       }
 
       it { should render_template(:webconference) }
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
     end
@@ -621,7 +621,7 @@ describe SpacesController do
     context "html full request" do
       before(:each) { get :recordings, :id => space.to_param }
       it { should render_template(:recordings) }
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
       context "assigns @recordings" do
       end
@@ -710,13 +710,13 @@ describe SpacesController do
     }
 
     context "html request" do
+      before { request.env["HTTP_REFERER"] = "/test" }
       before(:each) { get :edit_recording, :space_id => space.to_param, :id => recording.to_param }
       it { should render_template(:edit_recording) }
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
-      it { should assign_to(:redir_url).with(recordings_space_path(space.to_param)) }
+      it { should assign_to(:redir_url).with("/test") }
     end
 
     context "xhr request" do
@@ -803,7 +803,7 @@ describe SpacesController do
       it { should respond_with(:success) }
       it { assigns(:space).should eq(target) }
       it { should render_template(/user_permissions/) }
-      it { should render_with_layout("spaces_default") }
+      it { should render_with_layout("application") }
     end
 
     context "user is not a member of the space" do

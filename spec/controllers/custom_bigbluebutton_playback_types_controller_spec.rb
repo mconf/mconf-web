@@ -17,7 +17,7 @@ describe CustomBigbluebuttonPlaybackTypesController do
 
     context "template and layout" do
       it { should render_template(:index) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     context "loads the playback types into @playback_types" do
