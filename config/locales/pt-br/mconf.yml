@@ -57,6 +57,7 @@ pt-br:
       title: Aperte Ctrl+C para copiar o texto
   _other:
     accept: "Aceitar"
+    access_denied: "É preciso entrar ou se registrar para poder continuar."
     auth:
       ldap: "LDAP"
       local: "autenticação local"

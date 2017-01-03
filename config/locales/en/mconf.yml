@@ -57,6 +57,7 @@ en:
       title: Press Ctrl+C to copy the text
   _other:
     accept: "Accept"
+    access_denied: "You need to sign in or sign up before continuing."
     auth:
       ldap: "LDAP"
       local: "local auth"

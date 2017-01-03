@@ -176,6 +176,12 @@ module ApplicationHelper
     content_tag :input, nil, attrs
   end
 
+  # Returns the previous path (the referer), if it exists and is a 'redirectable to'
+  # path. Otherwise returns the fallback.
+  def previous_path_or(fallback)
+    session[:previous_user_return_to] || fallback
+  end
+
   #
   # TODO: All the code below should be reviewed
   #
