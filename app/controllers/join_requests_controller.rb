@@ -9,7 +9,7 @@ class JoinRequestsController < ApplicationController
 
   # Recent activity for join requests
   after_filter :only => [:accept, :decline] do
-    @space.new_activity(params[:action], @join_request.candidate, @join_request) unless @join_request.errors.any?
+    @join_request.new_activity(params[:action]) if !@join_request.errors.any? && @join_request.persisted?
   end
 
   load_resource :space, :find_by => :permalink
@@ -21,16 +21,7 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
-  layout :determine_layout
-
-  def determine_layout
-    case params[:action].to_sym
-    when :new, :show
-      "no_sidebar"
-    else
-      "spaces_show"
-    end
-  end
+  layout 'no_sidebar'
 
   def index
     authorize! :manage_join_requests, @space

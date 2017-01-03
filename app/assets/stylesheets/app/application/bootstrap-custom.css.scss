@@ -1,0 +1,273 @@
+/*
+ * Load bootstrap and redefine some styles.
+ */
+
+/*
+ * Load bootstrap
+ */
+@import "bootstrap-compass";
+@import "bootstrap-sprockets";
+@import "definitions";
+@import "bootstrap";
+
+/*
+ * Customized styles
+ */
+
+
+input[type="radio"], input[type="checkbox"] {
+  margin-top: 3px; // a bit upper than the default
+}
+
+.modal .modal-header {
+  padding-top: 20px;
+
+  h1, h2, h3, h4, h5 {
+    margin: 0;
+  }
+}
+
+label {
+  font-weight: normal;
+  color: $m-font-strong;
+}
+
+// bootstrap puts the checkboxes at the left of labels with a negative margin,
+// we don't like it, so we fix their position
+label.checkbox {
+  padding-left: 20px;
+
+  // otherwise hints, shown as tooltips, popup in a weird location
+  display: inline;
+}
+
+// the background on selected items in a pagination list is dark, so we have to make
+// the links bright
+.pagination {
+  > .active {
+    > a {
+      @include link-colors(white, white, white, white);
+    }
+  }
+}
+
+// make the background of modals darker
+.modal-scrollable {
+  background: rgba(0,0,0,0.4);
+}
+.modal-open .modal {
+  background: none;
+}
+
+// for some reason it stays on top of modals if not resetting the z-index
+.input-group .form-control {
+  z-index: auto;
+}
+
+
+/* .form-inline { */
+/*   padding: 0; */
+/*   margin: 0; */
+/*   text-align: right; */
+/*   vertical-align: top; */
+/*   float: left; */
+
+/*   label { */
+/*     margin-right: 10px; */
+/*     margin-top: 7px; */
+/*   } */
+
+/*   input.string, input.password, */
+/*   textarea.text { */
+/*     width: 60%; */
+/*     clear: both; */
+/*   } */
+/*   select { */
+/*     width: 62%; */
+/*     clear: both; */
+/*   } */
+/*   input.showable_password { */
+/*     width: 50%; */
+/*     clear: both; */
+/*   } */
+/* } */
+
+/* input, select, textarea { */
+/*   font-size: $m-font-normal !important; */
+/*   //line-height: $m-font-normal+2px !important; */
+/* } */
+
+/* // a slight larger padding for inputs to look the same as a.btn */
+/* form { */
+/*   .btn:not(.btn-large):not(.btn-mini):not(.btn-small) { padding: 6px 12px; } */
+/*   .btn-mini { padding: 4px 8px; } */
+/*   .btn-small { padding: 6px 10px; } */
+/* } */
+
+/* .btn { */
+/*   font-size: $m-font-normal !important; */
+/*   //line-height: $m-font-normal+2px !important; */
+
+/*   &.btn-large { */
+/*     font-size: $m-font-big !important; */
+/*     //line-height: $m-font-big+2px !important; */
+/*   } */
+/*   &.btn-mini, &.btn-small { */
+/*     font-size: $m-font-small !important; */
+/*     //line-height: $m-font-small+2px !important; */
+/*   } */
+/* } */
+
+/* label { */
+/*   font-size: $m-font-normal !important; */
+/*   line-height: $m-font-normal+4px !important; */
+/* } */
+
+/* input[type="radio"], input[type="checkbox"] { */
+/*   margin: 0; */
+/* } */
+
+/* .nav-list { */
+/*   list-style: none; */
+/*   margin: 0; */
+/*   padding: 0; */
+/*   @include border-radius(6px); */
+/*   @include box-shadow(0 1px 4px rgba(0, 0, 0, .065)); */
+
+/*   li { */
+/*     a { */
+/*       display: block; */
+/*       padding: 9px 15px; */
+/*       border: 1px solid #E5E5E5; */
+/*       margin: 0 0 -1px; */
+/*     } */
+/*   } */
+
+/*   li:first-child > a { */
+/*     @include border-top-radius(6px); */
+/*   } */
+
+/*   li:last-child > a { */
+/*     @include border-bottom-radius(6px); */
+/*   } */
+/* } */
+
+/* .form-actions { */
+/*   margin-top: 5px; */
+/*   clear: both; */
+/*   text-align: right; */
+/*   padding: 10px; */
+
+/*   a { */
+/*     display: inline; */
+/*   } */
+
+/*   * { */
+/*     margin-left: 4px; */
+/*     margin-right: 4px; */
+/*   } */
+/* } */
+
+/* .nav-tabs li a { */
+/*   background: white; */
+/* } */
+
+.alert {
+  padding: 15px;
+  @include border-radius($m-border-radius-base);
+  @include text-shadow(none);
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 5px;
+  color: $m-font-color;
+
+  &.alert-clean {
+    background: $m-site-bg-color;
+  }
+
+  h3, h4 {
+    font-weight: bold;
+  }
+
+  &.alert-danger {
+    border-left-color: $state-danger-text;
+    h3, h4 { color: $state-danger-text; }
+  }
+
+  &.alert-success {
+    border-left-color: $state-success-text;
+    h3, h4 { color: $state-success-text; }
+  }
+
+  &.alert-info {
+    border-left-color: $state-info-text;
+    h3, h4 { color: $state-info-text; }
+  }
+
+  &.alert-warning {
+    border-left-color: $state-warning-text;
+    h3, h4 { color: $state-warning-text; }
+  }
+
+  &.alert-gray {
+    background: $m-alert-gray-bg;
+    border-color: darken($m-alert-gray-bg, 10);
+    color: $m-alert-gray-font;
+  }
+}
+
+/* // bootstrap makes links in the footer look like the close button at the header of a */
+/* // modal, so we make it look like a normal link again */
+/* .modal-footer a.close { */
+/*   @include font-size($m-font-normal); */
+/*   float: none; */
+/*   opacity: 1; */
+/*   text-shadow: none; */
+/*   font-weight: normal; */
+/*   @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active); */
+/*   &:focus { color: lighten($m-link-color-active, 7); } */
+/* } */
+
+/* .dropdown-menu { */
+/*   @include box-shadow(1px 4px 4px rgba(0, 0, 0, 0.2)); */
+/* } */
+
+.dropdown-menu > li > a {
+  @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
+}
+
+// Change the colors for table borders and bgs, make it more like our lists
+.table > thead > tr > th {
+  border-bottom-color: $m-border-color-medium;
+}
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+  border-top-color: $m-border-color-medium;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #f6f6f6;
+}
+
+// Make labels a bit bigger and add a new type of label
+.label {
+  font-size: 85%;
+
+  &.label-flat {
+    background: #fff;
+    color: $m-font-color-gray;
+    border: 1px solid $m-border-color-light;
+  }
+}
+
+// Remove the box-shadow when inputs are focused
+.form-control:focus {
+  box-shadow: none;
+}
+
+// mark is used to highlight search terms
+mark {
+  background: rgba(255,255,140,0.5);
+  padding: 2px;
+  margin: 0 -2px;
+  border-radius: 3px;
+}

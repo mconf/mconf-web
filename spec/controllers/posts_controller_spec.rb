@@ -26,7 +26,7 @@ describe PostsController do
     skip { should_authorize Post, :index, space_id: space.to_param }
 
     it { should render_template('index') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('spaces_default') }
     it { should assign_to(:space).with(space) }
     it {
       expected = [
@@ -45,7 +45,7 @@ describe PostsController do
     skip { should_authorize an_instance_of(Post), :show, id: post.to_param, space_id: space.to_param }
 
     it { should render_template('show') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('spaces_default') }
     it { should assign_to(:space).with(space) }
     it { should assign_to(:post).with(post) }
   end
@@ -62,7 +62,7 @@ describe PostsController do
       before { get :new, space_id: space.to_param }
 
       it { should render_template('new') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('spaces_default') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(an_instance_of(Post)) }
     end
@@ -98,7 +98,9 @@ describe PostsController do
         controller.stub(:params).and_return(params)
 
         expect {
-          put :create, space_id: space.to_param, post: post_attributes
+          PublicActivity.with_tracking do
+            put :create, space_id: space.to_param, post: post_attributes
+          end
         }.to change { space.posts.count }.by(1) && change { RecentActivity.count }.by(1)
       }
       it { post_attributes.should have_received(:permit).with(*post_allowed_params) }
@@ -125,7 +127,7 @@ describe PostsController do
       before { get :edit, id: post.to_param, space_id: space.to_param }
 
       it { should render_template('edit') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('spaces_default') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(post) }
     end
@@ -169,7 +171,9 @@ describe PostsController do
       }
       before(:each) {
         expect {
-          put :update, id: post.to_param, space_id: space.to_param, post: post_attributes
+          PublicActivity.with_tracking do
+            put :update, id: post.to_param, space_id: space.to_param, post: post_attributes
+          end
         }.to change { RecentActivity.count }.by(1)
       }
       it { post_attributes.should have_received(:permit).with(*post_allowed_params) }
@@ -192,7 +196,9 @@ describe PostsController do
       let(:post_params) { {title: "#{post.title}_new", text: "#{post.text} new" } }
       before(:each) {
         expect {
-          put :update, id: post.to_param, space_id: space.to_param, post: post_params
+          PublicActivity.with_tracking do
+            put :update, id: post.to_param, space_id: space.to_param, post: post_params
+          end
         }.to change { RecentActivity.count }.by(1)
       }
 

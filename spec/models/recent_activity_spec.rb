@@ -112,7 +112,7 @@ describe RecentActivity do
           @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
           @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
         end
-        subject { RecentActivity.user_activity(user, [], [space2]) }
+        subject { RecentActivity.user_activity(user, [], [space2.id]) }
         it { subject.length.should be(1) }
         it { subject.should_not include(@activity1) }
         it { subject.should include(@activity2) }
@@ -131,7 +131,7 @@ describe RecentActivity do
           @activity2 = RecentActivity.create(key: default_key, owner: space2.bigbluebutton_room)
           @activity3 = RecentActivity.create(key: default_key, owner: space3.bigbluebutton_room)
         end
-        subject { RecentActivity.user_activity(user, [], [space2]) }
+        subject { RecentActivity.user_activity(user, [], [space2.id]) }
         it { subject.length.should be(2) }
         it { subject.should_not include(@activity1) }
         it { subject.should include(@activity2) }
@@ -184,31 +184,33 @@ describe RecentActivity do
       let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
 
       before {
-        posts = [ FactoryGirl.create(:post, space: space),
-                  FactoryGirl.create(:post, space: space),
-                  FactoryGirl.create(:post, space: private_space),
-                  FactoryGirl.create(:post, space: private_space) ]
-        # TODO: include webconf activities
+        PublicActivity.with_tracking do
+          posts = [ FactoryGirl.create(:post, space: space),
+                    FactoryGirl.create(:post, space: space),
+                    FactoryGirl.create(:post, space: private_space),
+                    FactoryGirl.create(:post, space: private_space) ]
+          # TODO: include webconf activities
 
-        space.add_member!(user)
-        space.add_member!(user2)
-        private_space.add_member!(user)
-        private_space.add_member!(user2)
+          space.add_member!(user)
+          space.add_member!(user2)
+          private_space.add_member!(user)
+          private_space.add_member!(user2)
 
-        @activities = [
-          space.new_activity(:update, user),        # public
-          space.new_activity(:join, user),          # public
-          posts[0].new_activity(:create, user),     # public
-          posts[2].new_activity(:create, user),     # private
-          private_space.new_activity(:join, user),  # private
+          @activities = [
+            space.new_activity(:update, user),        # public
+            space.new_activity(:join, user),          # public
+            posts[0].new_activity(:create, user),     # public
+            posts[2].new_activity(:create, user),     # private
+            private_space.new_activity(:join, user),  # private
 
-          space.new_activity(:update, user2),       # public
-          posts[1].new_activity(:create, user2),    # public
-          posts[3].new_activity(:create, user2),    # private
-          private_space.new_activity(:join, user2)  # private
-        ]
-        # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
-        @activities.map!{|a| RecentActivity.find(a.id)}
+            space.new_activity(:update, user2),       # public
+            posts[1].new_activity(:create, user2),    # public
+            posts[3].new_activity(:create, user2),    # private
+            private_space.new_activity(:join, user2)  # private
+          ]
+          # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
+          @activities.map!{|a| RecentActivity.find(a.id)}
+        end
       }
 
       it { RecentActivity.user_public_activity(user).size.should be(5) }
@@ -231,7 +233,7 @@ describe RecentActivity do
         end
 
         context "when there are no activities for the spaces" do
-          let(:in_spaces) { [ FactoryGirl.create(:space) ] }
+          let(:in_spaces) { [ FactoryGirl.create(:space).id ] }
 
           it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).size.should be(3) }
           it { RecentActivity.user_public_activity(user, in_spaces: in_spaces).should include(@activities[0]) }
@@ -244,14 +246,14 @@ describe RecentActivity do
         end
 
         context "when there are some activities for the space" do
-          it { RecentActivity.user_public_activity(user, in_spaces: [space]).size.should be(3) }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [space]).size.should be(2) }
+          it { RecentActivity.user_public_activity(user, in_spaces: [space.id]).size.should be(3) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space.id]).size.should be(2) }
 
-          it { RecentActivity.user_public_activity(user, in_spaces: [private_space]).size.should be(5) }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space]).size.should be(4) }
+          it { RecentActivity.user_public_activity(user, in_spaces: [private_space.id]).size.should be(5) }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [private_space.id]).size.should be(4) }
 
-          it { RecentActivity.user_public_activity(user, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user))  }
-          it { RecentActivity.user_public_activity(user2, in_spaces: [space, private_space]).should eq(RecentActivity.user_public_activity(user2))  }
+          it { RecentActivity.user_public_activity(user, in_spaces: [space.id, private_space.id]).should eq(RecentActivity.user_public_activity(user))  }
+          it { RecentActivity.user_public_activity(user2, in_spaces: [space.id, private_space.id]).should eq(RecentActivity.user_public_activity(user2))  }
         end
       end
     end

@@ -63,4 +63,21 @@ describe Invitation do
     end
   end
 
+  describe ".create_invitations" do
+    it "creates an invitation for each user in the list"
+    it "uses the params passed as arguments"
+    it "if the recipient exists in the database, sets recipient and not recipient_email"
+    it "if the recipient does not exist in the database, sets recipient_email and not recipient"
+
+    describe "doesn't carry the param recipient or recipient_email from one user to the next" do
+      let!(:user) { FactoryGirl.create(:user) }
+      before { Invitation.create_invitations("anyone@mconf.org, #{user.id}, other@mconf.org", {}) }
+      it { Invitation.first.recipient.should be_nil }
+      it { Invitation.first.recipient_email.should eql("anyone@mconf.org") }
+      it { Invitation.second.recipient.should eql(user) }
+      it { Invitation.second.recipient_email.should be_nil }
+      it { Invitation.last.recipient.should be_nil }
+      it { Invitation.last.recipient_email.should eql("other@mconf.org") }
+    end
+  end
 end

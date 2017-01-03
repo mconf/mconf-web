@@ -74,8 +74,10 @@ describe ParticipantsController do
       before(:each) {
 
         expect {
-          sign_in(user)
-          post :create, :event_id => event, :participant => FactoryGirl.attributes_for(:participant)
+          PublicActivity.with_tracking do
+            sign_in(user)
+            post :create, :event_id => event, :participant => FactoryGirl.attributes_for(:participant)
+          end
         }.to change(Participant, :count).by(1)
 
       }
@@ -99,7 +101,9 @@ describe ParticipantsController do
       before(:each) {
 
         expect {
-          post :create, :event_id => event, :participant => FactoryGirl.attributes_for(:participant, :email => email)
+          PublicActivity.with_tracking do
+            post :create, :event_id => event, :participant => FactoryGirl.attributes_for(:participant, :email => email)
+          end
         }.to change(Participant, :count).by(1)
 
       }

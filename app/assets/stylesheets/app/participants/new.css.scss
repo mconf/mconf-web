@@ -3,6 +3,15 @@
 
 body.participants.new, body.create {
 
+  #content {
+    width: $m-contents-width*0.7;
+    margin: 0 auto;
+
+    h3 {
+      text-align: center;
+    }
+  }
+
   #new-event-registration {
     @include mconf-clearfix;
     padding: 30px 0;
@@ -45,7 +54,7 @@ body.participants.new, body.create {
       }
 
       .shibboleth-container {
-        @include font-size($font-medium);
+        @include font-size($m-font-medium);
         clear: both;
         max-width: 300px;
         float: right;

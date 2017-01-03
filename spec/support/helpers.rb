@@ -23,6 +23,7 @@ module Helpers
   # not on git.
   def self.setup_site
     attributes = {
+      domain: Forgery::Internet.domain_name,
       events_enabled: true,
       exception_notifications: false,
       ldap_enabled: false,

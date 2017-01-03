@@ -1,25 +1,20 @@
-- page_title t('spaces.menu.posts'), :in => @space.name
-
+- page_title t('spaces.sidebar.posts'), in: @space.name
 - spaces_menu_at :posts
-= render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
 - nav = page_navigation_links @posts
 
-.content-block-header
-
-  - unless nav.nil?
-    #posts-navigation-top= nav
-
+#space-posts-tabs.page-sub-menu
   #space-posts-create
     - if can?(:create, @space.posts.build)
-      = link_to t('.new_post'), new_space_post_path(@space), :class => "btn btn-small btn-primary open-modal"
+      = link_to t('.new_post'), new_space_post_path(@space), :class => "btn btn-sm btn-primary open-modal"
 
 #space-posts.content-block-middle
   - if @posts.empty?
     %p= t('.no_messages')
   - else
-    - @posts.each do |thread|
-      = render :partial => "unified_post" , :locals => { :thread => thread }
+    - @posts.each do |post|
+      = render :partial => "unified_post" , locals: { thread: post }
 
 - unless nav.nil?
   .content-block-footer= nav

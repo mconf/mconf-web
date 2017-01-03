@@ -3,59 +3,59 @@
 
 #webconference-invitation {
 
-  .meeting-url {
-    font-weight: bold;
+  #invite-dates-wrapper {
+    background: $m-light-gray;
+    @include mconf-clearfix;
+    margin-bottom: 10px;
+    padding: 10px 10px 0 10px;
   }
 
-  .invitation-header {
-    background: $light-gray;
-    padding: 5px;
-    margin-bottom: 15px;
-    text-align: center;
-    @include border-radius(4px);
-  }
-
-  .simple_form .input {
-    width: 100%;
-
-    .invite_message {
-      margin-bottom: 0;
-    }
-
-    textarea {
-      height: 50px;
-      resize: vertical;
-      margin: 0;
-    }
-  }
-
-  .invitation-dates {
+  .invitation-date {
     @include mconf-clearfix;
     clear: both;
+
+    // divs with the dates
+    #invite_starts_on, #invite_ends_on {
+      max-width: 200px;
+      float: left;
+    }
+
+    // divider between date and time inputs
+    .date-time-divider {
+      float: left;
+      margin: 7px 10px 0 10px;
+    }
+
+    // divs with the times
+    #invite_starts_on_time, #invite_ends_on_time {
+      float: left;
+      margin-left: 10px;
+
+      select {
+        display: inline-block;
+        width: 70px;
+      }
+    }
   }
 
-  #invite_starts_on, #invite_starts_on_time, #invite_ends_on, #invite_ends_on_time {
-    display: inline-block;
-    width: auto;
-  }
+  #invite_timezone {
+    color: lighten($m-dark-gray, 10);
+    margin: 0 10px 0 0;
+    float: right;
 
-  .simple_form.single-column .input.invite_starts_on_time,
-  .simple_form.single-column .input.invite_ends_on_time {
-    margin: 0;
-
-    select {
-      width: 60px;
-      margin-right: 5px;
-      margin-bottom: 5px;
+    .icon-mconf-info {
+      float: none;
+      margin: 0 1px 0 0;
     }
   }
 
   #invite_duration {
-    clear: both;
+    float: left;
     margin: 0;
+    margin-bottom: 5px;
 
     .error {
-      color: $red;
+      color: $m-red;
     }
     .duration {
       font-weight: bold;
@@ -75,18 +75,7 @@
     }
   }
 
-  #invite_timezone {
-    display: block;
-    color: lighten($dark-gray, 10);
-    margin-bottom: 5px;
-    text-align: center;
-    background: $light-gray;
-    padding: 5px;
-    @include border-radius(4px);
-
-    .icon-mconf-info {
-      float: none;
-      margin: 0 1px 0 0;
-    }
+  textarea {
+    resize: vertical;
   }
 }

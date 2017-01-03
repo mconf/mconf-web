@@ -1,240 +1,243 @@
 @import "compass/utilities/general";
 
+// import bootstrap's default variables so we have access to them
+// especially important when using bootstrap's mixins (wherever we
+// import bootstrap/mixins)
+@import "bootstrap/variables";
+
+// colors library, better default colors
+// use it with $blue, $red, $yellow, etc.
+@import "../../../vendor/assets/stylesheets/colors";
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// link colors
+$m-link-color: #2274A5;
+$m-link-color-hover: lighten($m-link-color, 10);
+$m-link-color-active: darken($m-link-color-hover, 10);
+
 // fonts
-$font-mini: 10px;
-$font-small: 11px;
-$font-normal: 13px;
-$font-medium: 14px;
-$font-big: 16px;
-$font-bigger: 21px;
-$font-biggest: 25px;
-$font-gigantic: 28px;
-$font-section-title: 28px;
-$font-color: #333;
-$font-color-gray: #888;
-$font-family: Arial, sans-serif;
-$base-line-height: 1.5;
+$m-font-mini: 10px;
+$m-font-small: 11px;
+$m-font-normal: 13px;
+$m-font-medium: 14px;
+$m-font-big: 16px;
+$m-font-bigger: 21px;
+$m-font-biggest: 25px;
+$m-font-gigantic: 28px;
+$m-font-section-title: 28px;
+$m-font-color: #333;
+$m-font-strong: #000;
+$m-font-color-gray: #888;
+$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+$m-font-family2: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+$m-font-h1-color: #111;
+$m-font-h1-color-hover: $m-link-color-hover;
+$m-font-h1-color-active: $m-link-color-active;
+
+//$m-font-family-titles: Verdana, Geneva, sans-serif;
+$m-font-family-titles: $m-font-family;
+$m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
+$m-base-line-height: 1.5;
 
 // standard colors
-$green: #509F00;
-$blue: #005fca;
-$red: #C23321;
-$orange: #C47322;
-$yellow: #BB9403;
-$green-logo: #27535C;
-$gray: #ccc;
-$dark-gray: #666;
-$light-gray: #f6f6f6;
-$very-light-gray: #fcfcfc;
-$bright-blue: #49afcd;
-$transparent: rgba(255,255,255,0);
+$m-green: $olive;
+$m-blue: #2186DE;
+$m-red: #ff5b5b;
+$m-orange: #C47322;
+$m-yellow: #BB9403;
+$m-cyan: #00ffff;
+// $m-green-logo: #27535C;
+$m-green-logo: #004956;
+$m-gray: #ccc;
+$m-dark-gray: #666;
+$m-light-gray: #f6f6f6;
+$m-very-light-gray: #fcfcfc;
+$m-bright-blue: #49afcd;
+$m-transparent: rgba(255,255,255,0);
+
 // site colors
-$site-bg-color: #fff;
-$main-color: $green-logo;
-$second-color: $bright-blue;
-$focus-border-color: $second-color;
-$font-h-color: $green-logo;
-// link colors
-$link-color: lighten($main-color, 15);
-$link-color-hover: $second-color;
-$link-color-active: darken($link-color-hover, 15);
+$m-site-bg-color: #fff;
+$m-main-color: $m-green-logo;
+$m-second-color: $m-bright-blue;
+$m-focus-border-color: $m-second-color;
+
+// borders
+$m-border-color-normal: #ddd;
+$m-border-color-medium: #e6e6e6;
+$m-border-color-light: #eee;
+$m-border-radius-base: 3px;
+$m-border-radius-small: 2px;
+$m-border-radius-large: 4px;
 
 // alert colors, like the ones in bootstrap alerts
-$alert-bg: #FCF8E3;
-$alert-font: #C09853;
-$alert-success-bg: #DFF0D8;
-$alert-success-font: #468847;
-$alert-info-bg: #D9EDF7;
-$alert-info-font: #3A87AD;
-$alert-danger-bg: #F2DEDE;
-$alert-danger-font: #B94A48;
-$alert-warn-bg: #feeba6;
-$alert-warn-font: #BB9403;
-$alert-gray-bg: #f6f6f6;
-$alert-gray-font: #666;
+$m-alert-bg: #FCF8E3;
+$m-alert-font: #C09853;
+$m-alert-success-bg: #DFF0D8;
+$m-alert-success-font: #468847;
+$m-alert-info-bg: #D9EDF7;
+$m-alert-info-font: #3A87AD;
+$m-alert-danger-bg: #F2DEDE;
+$m-alert-danger-font: #B94A48;
+$m-alert-warn-bg: #feeba6;
+$m-alert-warn-font: #BB9403;
+$m-alert-gray-bg: #f6f6f6;
+$m-alert-gray-font: #666;
 
 // color for elements highlighted using rails' highlight() view helper.
-$highlight-bg: #ffff81;
+$m-highlight-bg: #ffff81;
 
 // width of the central container and standard sidebar
-$contents-width: 980px;
-$sidebar-width: 240px;
+$m-contents-width: 980px;
+$m-contents-max-width: 1180px;
+$m-sidebar-width: 240px;
+$m-sidebar-border: $m-border-color-normal;
+$m-sidebar-bg-color: #f6f6f6;
 
 // headers
-$navbar-bg-color-dark: darken($green-logo, 3);
-$navbar-bg-color-light: $green-logo;
-$subnav-bg-color: #eee;
-$navbar-height: 35px;
-$navbar-font-color: #bbb;
-$navbar-font-color-hover: white;
-$navbar-menu-open-bg: $site-bg-color;
-$navbar-menu-open-link: $link-color;
-$navbar-menu-open-link-hover: $link-color-hover;
-$page-menu-font-color: #808080;
-$page-header-link-color: $link-color;
-$page-header-link-color-hover: $link-color-hover;
+$m-navbar-menu-open-bg: $m-site-bg-color;
+$m-navbar-menu-open-link: $m-link-color;
+$m-navbar-menu-open-link-hover: $m-link-color-hover;
+$m-page-menu-font-color: #808080;
+$m-page-menu-font-color-hover: darken($m-second-color, 5);
+$m-page-menu-selected-font-color: darken($m-second-color, 20);
+$m-page-menu-selected-border-color: $m-second-color;
+$m-page-menu-selected-border-width: 1px;
+$m-page-header-link-color: $m-link-color;
+$m-page-header-link-color-hover: $m-link-color-hover;
+$m-page-title-bg: $m-light-gray;
+$m-page-title-border-color: $m-border-color-normal;
+$m-navbar-border-width: 0px;
+// the height is dynamic but we set it here because it's used by some components
+// for positioning
+$m-navbar-height: 42px;
 
-// global footer
-$footer-bg-color: $light-gray;
-$footer-height: 165px;
+// for a dark green navbar:
+$m-navbar-bg-color-light: $m-green-logo;
+$m-navbar-bg-color-dark: $m-navbar-bg-color-light; //darken($m-green-logo, 3);
+$m-subnav-bg-color: #eee;
+$m-navbar-font-color: #ddd;//$m-font-color;
+$m-navbar-font-color-hover: white; //$m-link-color-hover;
+$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+/* $m-navbar-font-highlight: #f6f6f6; */
+$m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 
-// h1, h2, h3, ...
-$h-font-color: #404040;
-$h-font-color-alternative: $green-logo;
+// for a light/white navbar:
+/* $m-navbar-bg-color-dark: white; */
+/* $m-navbar-bg-color-light: white; */
+/* $m-navbar-border-color: $m-green-logo; */
+/* $m-navbar-border-width: 1px; */
+/* $m-navbar-font-color: $m-font-color; */
+/* $m-navbar-font-color-hover: $m-link-color-hover; */
+/* $m-navbar-font-highlight: #f6f6f6; */
 
-// titles in the page headers
-$page-title-color: #505050;
+// transparent header
+/* $m-page-header-background: $m-site-bg-color; */
+/* $m-page-header-border-width: 0; */
+/* $m-page-header-border-color: #fff; */
+// light gray header
+$m-page-header-background: #fafafa;
+$m-page-header-border-width: 1px;
+$m-page-header-border-color: #e6e6e6; //#d9d9de;
+
+// footer
+$m-footer-height: 75px;
+$m-footer-font-color: $m-font-color;
+$m-footer-link-color: $m-link-color;
+$m-footer-link-color-hover: $m-link-color-hover;
+$m-footer-link-color-active: $m-link-color-active;
+$m-footer-bg-color: #fff;
+$m-footer-border-color: $m-sidebar-border;
+
+// dark green bg footer:
+/* $m-footer-bg-color: darken($m-green-logo, 3);// $m-navbar-bg-color-dark; */
+/* $m-footer-font-color: #bbb; */
+/* $m-footer-border-color: darken($m-footer-bg-color, 10); */
+/* $m-footer-link-color: #bbb; */
+/* $m-footer-link-color-hover: #fff; */
+/* $m-footer-link-color-active: $m-link-color-active; */
+
+// dark gray footer:
+/* $m-footer-bg-color: #1B212A; */
+/* $m-footer-font-color: #E5EBF1; */
+/* $m-footer-border-color: darken($m-footer-bg-color, 10); */
+/* $m-footer-link-color: #E5EBF1; */
+/* $m-footer-link-color-hover: #fff; */
+/* $m-footer-link-color-active: $m-link-color-active; */
 
 // z-indexes
 // TODO: not being used yet
-$z-index-navbar: 100;
-$z-index-dialog: 200;
-$z-index-tooltip: 999999;
+$m-z-index-navbar: 100;
+$m-z-index-dialog: 200;
+$m-z-index-tooltip: 999999;
 
 // mailers
-$mail-font-color: $font-color;
-$mail-header-font-color: $navbar-bg-color-dark;
-$mail-font-size: $font-normal;
+$m-mail-font-color: $m-font-color;
+$m-mail-header-font-color: $m-navbar-bg-color-dark;
+$m-mail-font-size: $m-font-normal;
 
-// In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
-// text set to it, and the dimensions of the image won't respect the width/height set by the css.
-// This might break the layout in some cases.
-// So, if an element might have a broken image inside it, it can include this mixin to deal with it.
-// The image will still be replaced by the text, but it shouldn't break the layout anymore.
-// In some cases the element that includes this might also have to specify its own width and height.
-@mixin broken-img-parent($float:left) {
-  overflow: hidden;
+// notifications
+$m-notifications-top: 6px;
 
-  img:-moz-broken {
-    float: $float;
-    font-size: 8px;
-    word-wrap: break-word;
-    background: white;
-  }
-}
+// tags
+$tags-font-color: #39739d;
+$tags-bg-color: #E1ECF4;
+$tags-bg-color-hover: #cee0ed;
 
-// user logos in a thread with several snippets
-// e.g. list of posts, list of recent users, etc.
-@mixin logo-in-thread {
-  float: left;
-  margin-right: 10px;
+// Bootstrap variables
+// See all available at http://getbootstrap.com/customize/#less-variables
+// Some are definef here with their default values because we might need them when using
+// bootstrap's mixins in other files (where we import bootstrap/mixins).
+/* $input-color: #666; */
+/* $grid-columns:              12; */
+/* $grid-gutter-width:         30px; */
+/* $grid-float-breakpoint:     768px; */
 
-  img.logo {
-    margin: 2px 0;
-    padding: 2px;
-    border: 1px solid #ddd;
-    @include border-radius(2px);
-    &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
+/*
+ * Customized variables for bootstrap
+ */
+// $brand-primary: $blue;
+$brand-primary: $m-link-color; //#4589C4;//#2186DE;
+$border-radius-base: $m-border-radius-base;
+$border-radius-small: $m-border-radius-small;
+$border-radius-large: $m-border-radius-large;
+$brand-success: $olive;
+$brand-info: $blue;
+$brand-danger: $red; //#d9534f; //$red;
+$brand-warning: $orange;
+$btn-primary-bg: $brand-primary;
+$btn-primary-border: $btn-primary-bg;
+$btn-success-bg: $brand-success;
+$btn-success-border: $btn-success-bg;
+$btn-info-bg: $brand-info;
+$btn-info-border: $btn-info-bg;
+$btn-danger-bg: $brand-danger;
+$btn-danger-border: $btn-danger-bg;
+$btn-warning-bg: $brand-warning;
+$btn-warning-border: $btn-warning-bg;
+$state-primary-bg: $brand-primary;
+$state-success-bg: $brand-success;
+$state-info-bg: $brand-info;
+$state-danger-bg: $brand-danger;
+$state-warning-bg: $brand-warning;
+$label-primary-bg: $brand-primary;
+$label-success-bg: $brand-success;
+$label-info-bg: $brand-info;
+$label-danger-bg: $brand-danger;
+$label-warning-bg: $brand-warning;
+// $btnPrimaryBackgroundHighlight: #2f96b4;
+$navbar-default-bg: #0a3138;
+// $navbarBackgroundHighlight: #27535C;
+//$link-color: $m-link-color; //#1e9a50; //#187d41;
+$link-color: $m-link-color; //#1e9a50; //#187d41;
+$link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
 
-    // default dimensions for logos inside threads
-    &.logo-space, &.logo-space-activity {
-      width: 40px;
-      height: 30px;
-    }
-    &.logo-user, &.logo-user-activity {
-      width: 32px;
-      height: 32px;
-    }
-    &.logo-user-big {
-      width: 48px;
-      height: 48px;
-    }
-    &.logo-removed {
-      width: 32px;
-      height: 32px;
-    }
-  }
-
-  @include broken-img-parent;
-}
-
-@mixin mconf-clearfix {
-  @include clearfix;
-  @include pie-clearfix;
-}
-
-// to 'hide' it and move it off the screen
-// we can't just hide it because it won't be clickable
-@mixin hide-input-file {
-  opacity: 0;
-  position: absolute;
-  left: -1000px;
-  top: -1000px;
-  width: 0;
-  height: 0;
-
-  label { display: none; }
-  input[type=file] {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-}
-
-@mixin danger-text {
-  color: $red;
-  @include link-colors($red, lighten($red, 10), darken($red, 10));
-}
-
-@mixin set-sidebar-width($new-width) {
-  #sidebar {
-    width: $new-width;
-  }
-  #content-middle {
-    width: $contents-width - $new-width - 20px; // less right-margin
-  }
-}
-
-@mixin sidebar-position($pos) {
-  @if $pos == 'left' {
-    #sidebar {
-      float: left;
-    }
-    #content-middle {
-      float: right;
-    }
-  }
-}
-
-@function lighten-or-darken($bg, $color, $amountToLighten, $amountToDarken) {
-  @if (lightness( $bg ) > 40) {
-    $color: darken($color, $amountToDarken);
-  }
-  @else {
-    $color: lighten($color, $amountToDarken);
-  }
-  @return $color;
-}
-
-//
-// Methods below from: https://github.com/stubbornella/oocss
-//
-// Function for converting a px based font-size to rem.
-@function calculate-rem($size) {
-  $remSize: $size / 16px;
-  // Default font size on html element is 100%, equivalent to 16px;
-  @return #{$remSize}rem;
-}
-// Mixin that will include the fall back px declaration as well as the calculated rem value.
-@mixin font-size($size) {
-  font-size: $size;
-  font-size: calculate-rem($size);
-}
-
-// Highlighted content blocks
-@mixin block-wrapper-active {
-  &.active {
-    background: $alert-success-bg;
-    .content-block, .list-thumbnail {
-      border-color: darken($alert-success-bg, 15);
-      border-width: 1px;
-    }
-  }
-}
-
-@mixin small-date {
-  color: #666;
-  font-weight: normal;
-  @include font-size($font-small);
-}
+// Important: have to be imported after customizing bootstrap's variables
+@import "bootstrap/mixins";
+@import "mixins";
+@import "mixins-columns-height";

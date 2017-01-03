@@ -1,0 +1,174 @@
+bg:
+  activerecord:
+    attributes:
+      event:
+        address: Адрес
+        description: Описание
+        end_on: Крайна дата
+        end_on_date: Крайна дата
+        location: Местоположение
+        name: Име
+        owner_name: Това събитие принадлежи на
+        social_networks: Излъчвайте в социалните мрежи
+        start_on: Начална дата
+        start_on_date: Начална дата
+        summary: Резюме
+        time_zone: Времева зона
+      participant:
+        email: Ел. поща
+    errors:
+      event:
+        start_on: Невалидна начална дата
+        end_on: Невалидна крайна дата
+    models:
+      event: Събитие
+      participant: Участник
+  activities:
+    event:
+      create_html: създаде събитие %{name} в общността
+      attend_html: ще присъства на събитието %{name} в общността
+      not_attend_html: няма да присъства на събитието %{name} в общността
+      update_html: актуализира информацията за събитието %{name} в общността
+      deleted: "%{name} (което междувременно е изтрито)"
+    participant:
+      create_html: ще присъства на събитието %{name} в общността
+  flash:
+    events:
+      create:
+        notice: Успешно създадохте събитието
+        permission_error: "Нямате права за да създадете това събитие"
+      destroy:
+        notice: Успешно изтрихте събитието
+      update:
+        notice: Информацията за събитието е актуализирана
+    participants:
+      create:
+        waiting_confirmation: Регистрацията ви е получена. Скоро ще получите електронна поща с инстукции как да завършите вашата регистрация
+        notice: Успешно се регистрирахте за събитието
+        alert: Възникна проблем при регистрацията за това събитие
+        already_created: Потребител с тази електронна поща вече е регистриран за това събитие
+      destroy:
+        notice: Успешно отписване от събитието
+  valid_email:
+    validations:
+      email:
+        invalid: Това не е валидна електронна поща
+  events:
+    show:
+      date: Кога?
+      address: Къде?
+      manage: Администрация
+    summary:
+      calendar: Добавяне към календар
+      change_dates_info: "Вижте в часовата зона на събитието"
+      contact: Свържете се с организатора
+      end_on: "Край:"
+      more_options: "Допълнителни опции:"
+      original_time: Дата в часовата зона на събитието
+      original_time_info: Първоначална дата, зададена в часовата зона на организатора
+      rss: RSS емисия
+      start_on: "Начало:"
+      time_zone: Часова зона
+      when: "Кога?"
+      where: "Къде?"
+      where_not_specified: "(Не е зададено местоположение)"
+      your_time_info: "Датите са показани във вашата часова зона (%{time_zone})"
+    social_media:
+      title: "Споделете това събитие:"
+      twitter: Споделете в Twitter
+      twitter_link: Прегледайте това събитие на адрес %{url}
+      facebook: Споделете във Facebook
+      facebook_link: Прегледайте това събитие на адрес %{url}
+      google_plus: Споделете в Google+
+      linkedin: Споделете в Linkedin
+    edit:
+      page_title: "Редактиране на: %{name}"
+    form:
+      at: "в"
+      clear_start_date: "Изчистване на началната дата"
+      clear_end_date: "Изчистване на крайната дата"
+    index:
+      create_new_event: "Добавяне на ново събитие"
+      count:
+        zero: (нищо не е намерено)
+        one: (намерено едно)
+        other: (намерени %{count})
+      filters:
+        all_events: "Всички"
+        description: Показване на %{your} %{time} събития
+        happening_now: текущо
+        my_events: "Моите събития"
+        past_events: минали
+        upcoming_events: предстоящи
+        your_events: ваше
+      now: Провеждащи се в момента
+      participant_count:
+        one: "%{count} участник"
+        other: "%{count} участника"
+      private: Частно
+      public: Публично
+      search:
+        by_name:
+          no_matches: "Не са  намерени събития за \"%{term}\""
+          placeholder: "Търси събития..."
+      select_at_left: "Изберете събитие в списъка, за да видите описанието му тук"
+      subtitle: "Създайте свои събития и ги споделете с други потребители"
+      title: "Събития"
+    invite:
+      title: "Покана за събитие"
+      invite_title: "Покана за събитието [%{event}]"
+    list_view:
+      no_events: "Няма събития, които да отговарят на това  търсене"
+    markdown_modal:
+      title: Как да форматирате текста за описание?
+      description_html: "Текста за описание може да включва  <a href=\"http://daringfireball.net/projects/markdown/syntax\">Markdown</a> форматиран текст. Тук има кратък списък с примери (използвай текста в лявно, за да получиш резултата в дясно)"
+    no_description: Няма описание
+    new:
+      page_title: "Създайте ново събитие"
+    organizers:
+      organizers: Организатори
+      organized_by: "Това събитие е организирано от:"
+    registration:
+      title: Регистрация
+      button: Регистриране на това събитие
+      already_registered: Регистриран/а си за това събитие
+      closed: Регистрацията за това събитие е приключила
+      delete_confirmation: Сигурни ли сте, че искате да отмените вашата регистрация за това събитие?
+      invite_button: Поканете хора за участие това събитие
+      join_button: Присъединете се към тази общност, за да се регистрираш
+      need_sign_in: Трябва да сте регистриран потребител на системата, за да се регистрирате за това събитие
+      unregister: Отмяна на моята регистрация
+    send_invitation:
+      blank_users: "Не е избран потребител, не е изпратена покана"
+      error: "Възникна проблем с изпращането на поканата до:"
+      success: "Поканата беше изпратена успешно до:"
+      error_title: "Задължително е да добавите заглавие за вашата покана, моля опитайте отново"
+    title:
+      belongs_space: "Това събитие принадлежи на общността <a href='%{url}'>%{space}</a>"
+      belongs_user: "Събитието е създадено от <a href='%{url}'>%{user}</a>"
+      private: "Частно събитие"
+      public: "Публично събитие"
+    unified_event:
+      closed: регистрацията е приключила
+      private: "Частно събитие"
+      public: "Публично събитие"
+      starts_at: "Започва в"
+  participants:
+    form:
+      submit: Регистрирай се
+    index:
+      back_to_event: "Обратно към страницата със събития"
+      disable: Премахни от събитието
+      disable_confirm: Сигурни ли сте, че искате да премахнете този потребител от събитието?
+      event: "Съобщение в събитието [%{event}]"
+      message: Изпращане на съобщение
+      no_participants: Все още няма участници!
+      title: "Списък на всички участници в събитието"
+    guest_participant:
+      confirmed: Ел. поща е потвърдена
+      not_confirmed: Ел. поща не е потвърдена
+    split_form:
+      member_title: Влез в профила си,. за да се регистрираш за това събитие
+      annonymous_title: Регистрирай се като анонимен потребител
+    new:
+      title: "Регистриране за събитието"

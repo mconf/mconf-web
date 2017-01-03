@@ -1,0 +1,81 @@
+// Mixins to make columns maintain the same width.
+// Adapted from: http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height
+
+@mixin make-xs-container-height {
+  display: table;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+@mixin make-xs-row-height {
+  display: table-row;
+  /* width: 100%; */
+}
+@mixin make-xs-column-height($align: top) {
+  display: table-cell;
+  // TODO: is there a way to remove this !important?
+  float: none !important;
+  vertical-align: $align;
+}
+
+@mixin make-sm-container-height {
+  @include breakpoint(sm) {
+    display: table;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+@mixin make-sm-row-height {
+  @include breakpoint(sm) {
+    display: table-row;
+   }
+}
+@mixin make-sm-column-height($align: top) {
+  @include breakpoint(sm) {
+    display: table-cell;
+    float: none !important;
+    /* float:none; */
+    vertical-align: $align;
+  }
+}
+
+@mixin make-md-container-height {
+  @include breakpoint(md) {
+    display: table;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+@mixin make-md-row-height {
+  @include breakpoint(md) {
+    display: table-row;
+   }
+}
+@mixin make-md-column-height($align: top) {
+  @include breakpoint(md) {
+    display: table-cell;
+    float: none !important;
+    /* float:none; */
+    vertical-align: $align;
+  }
+}
+
+@mixin make-lg-container-height {
+  @include breakpoint(lg) {
+    display: table;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+@mixin make-lg-row-height {
+  @include breakpoint(lg) {
+    display: table-row;
+   }
+}
+@mixin make-lg-column-height($align: top) {
+  @include breakpoint(lg) {
+    display: table-cell;
+    float: none !important;
+    /* float:none; */
+    vertical-align: $align;
+  }
+}

@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap-sprockets
 //= require lodash
 //= require handlebars.runtime
 //= require diacritics
@@ -10,7 +10,7 @@
 //= require jquery/jquery.placeholder
 
 // Notifications (flash messages).
-//= require jquery/jquery.noty
+//= require toastr
 
 // To crop logos.
 //= require jquery/jquery.Jcrop
@@ -31,6 +31,8 @@
 // Moment.js for dates
 //= require moment
 //= require moment/pt-br
+//= require moment/de
+//= require moment/es
 
 // Datetime picker for bootstrap
 //= require bootstrap-datetimepicker

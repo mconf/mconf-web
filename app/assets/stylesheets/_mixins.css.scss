@@ -1,0 +1,260 @@
+@import "compass/css3";
+@import "compass/typography/links";
+
+
+@mixin breakpoint($point) {
+
+  @if ($point == lg) {
+    @media (min-width: $screen-lg-min) { @content }
+  }
+
+  @else if ($point == md) {
+    @media (min-width: $screen-md-min) and (max-width: ($screen-lg-min - 1)) { @content }
+  }
+
+  @else if ($point == sm) {
+    @media (min-width: $screen-sm-min) and (max-width: ($screen-md-min - 1)) { @content }
+  }
+
+  @else if ($point == xs) {
+    @media (max-width: ($screen-sm-min - 1)) { @content }
+  }
+  /* @else if ($point == xs) { */
+  /*   @media (min-width: $screen-xs-min) and (max-width: ($screen-sm-min - 1)) { @content } */
+  /* } */
+}
+
+// In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
+// text set to it, and the dimensions of the image won't respect the width/height set by the css.
+// This might break the layout in some cases.
+// So, if an element might have a broken image inside it, it can include this mixin to deal with it.
+// The image will still be replaced by the text, but it shouldn't break the layout anymore.
+// In some cases the element that includes this might also have to specify its own width and height.
+@mixin broken-img-parent($float:left) {
+  overflow: hidden;
+
+  img:-moz-broken {
+    float: $float;
+    font-size: 8px;
+    word-wrap: break-word;
+    background: white;
+  }
+}
+
+// user logos in a thread with several snippets
+// e.g. list of posts, list of recent users, etc.
+@mixin logo-in-thread {
+  float: left;
+  margin-right: 10px;
+
+  img {
+    margin: 2px 0;
+    padding: 2px;
+    border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-small);
+    &:hover { border: 1px solid $m-focus-border-color; }
+
+    // default dimensions for logos inside threads
+    &.logo-space, &.logo-space-activity {
+      width: 52px;
+      height: 39px;
+    }
+    &.logo-user, &.logo-user-activity {
+      width: 39px;
+      height: 39px;
+    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
+    &.logo-removed {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  @include broken-img-parent;
+}
+
+// general logo style (user avatars, space logos)
+@mixin logo-container {
+  img {
+    margin: 2px 0;
+    padding: 1px;
+    border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-small);
+
+    // default dimensions for logos inside threads
+    &.logo-space, &.logo-space-activity {
+      width: 52px;
+      height: 39px;
+    }
+    &.logo-user, &.logo-user-activity {
+      width: 39px;
+      height: 39px;
+    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
+    &.logo-removed {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  a img {
+    &:hover { border: 1px solid $m-focus-border-color; }
+  }
+
+  @include broken-img-parent;
+}
+
+@mixin mconf-clearfix {
+  @include clearfix;
+  @include pie-clearfix;
+}
+
+// to 'hide' it and move it off the screen
+// we can't just hide it because it won't be clickable
+@mixin hide-input-file {
+  opacity: 0;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+  width: 0;
+  height: 0;
+
+  label { display: none; }
+  input[type=file] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}
+
+@mixin danger-text {
+  color: $m-red;
+  @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5), lighten($m-red, 5));
+  &:not(.btn) { @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5), lighten($m-red, 5)); }
+}
+
+@function lighten-or-darken($bg, $color, $amountToLighten, $amountToDarken) {
+  @if (lightness( $bg ) > 40) {
+    $color: darken($color, $amountToDarken);
+  }
+  @else {
+    $color: lighten($color, $amountToDarken);
+  }
+  @return $color;
+}
+
+//
+// Methods below from: https://github.com/stubbornella/oocss
+//
+// Function for converting a px based font-size to rem.
+@function calculate-rem($size) {
+  $remSize: $size / 16px;
+  // Default font size on html element is 100%, equivalent to 16px;
+  @return #{$remSize}rem;
+}
+// Mixin that will include the fall back px declaration as well as the calculated rem value.
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculate-rem($size);
+}
+
+// Highlighted content blocks
+@mixin block-wrapper-active {
+  &.active {
+    background: $m-alert-success-bg;
+    .content-block, .list-thumbnail {
+      border-color: darken($m-alert-success-bg, 15);
+      border-width: 1px;
+    }
+  }
+}
+
+@mixin set-max-site-width {
+  @media (min-width: $screen-lg-min) {
+    max-width: $m-contents-max-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@mixin text-truncate {
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin small-date {
+  color: #666;
+  font-weight: normal;
+  @include font-size($m-font-small);
+}
+
+// default horizontal menu
+@mixin horizontal-menu {
+  clear: both;
+  @include mconf-clearfix;
+  padding: 0 15px;
+
+  ul {
+    // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
+    margin: 0;
+    padding: 0;
+
+    li {
+      @include mconf-clearfix;
+      margin: 0 15px -1*$m-page-menu-selected-border-width 0; // negative so selected items border gets over the default menu border
+      display: inline-block;
+      padding: 0;
+      //font-weight: bold;
+      @include font-size($m-font-medium);
+
+      &.active {
+        border-bottom: $m-page-menu-selected-border-width solid $m-page-menu-selected-border-color;
+        a {
+          font-weight: bold;
+          $normal: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 20);
+          $hover: $m-page-menu-selected-font-color; //lighten($m-page-menu-font-color, 10);
+          @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+
+      &:hover {
+        a, a:hover, a:active {
+                      color: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 25);
+                    }
+      }
+
+      > a {
+        @include link-colors($m-page-menu-font-color, $m-page-menu-font-color-hover, $m-page-menu-font-color-hover, $m-page-menu-font-color);
+        text-decoration: none;
+        display: block;
+        padding: 5px 15px 3px 15px;
+        &.danger-text {
+          @include danger-text;
+        }
+      }
+    }
+  }
+
+  /* .caret-container { */
+  /*   padding: 0 5px; */
+  /*   display: block; */
+  /* } */
+
+  /* .caret { */
+  /*   border-top-color: #888; */
+  /*   margin-top: 6px; */
+  /* } */
+
+  /* .dropdown-menu { */
+  /*   left: -8px; */
+  /* } */
+}

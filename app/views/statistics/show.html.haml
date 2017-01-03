@@ -1,33 +1,31 @@
-= render_page_title t('statistics.show.title')
+= page_title t('statistics.show.title')
 
-.row-fluid
 
-  .about.alert.alert-info.span4
-    = t('statistics.show.description')
+.notice
+  = t('statistics.show.description')
 
-  .span7
-    %table.table.table-striped.table-hover
-      %thead
-        %tr
-          %th= t('statistics.show.table.what')
-          %th= t('statistics.show.table.how_many')
-      %tbody
-        %tr
-          %td= t('statistics.show.table.users')
-          %td= @user_count
-        %tr
-          %td= t('statistics.show.table.spaces')
-          %td= @space_count
-        - if mod_enabled?("events")
-          %tr
-            %td= t('statistics.show.table.events')
-            %td= @event_count
-        %tr
-          %td= t('statistics.show.table.posts')
-          %td= @post_count
-        %tr
-          %td= t('statistics.show.table.webconf_rooms')
-          %td= @webconf_room_count
-        -# %tr
-        -#   %td= "Active meetings"
-        -#   %td= @meeting_count
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th= t('statistics.show.table.what')
+      %th= t('statistics.show.table.how_many')
+  %tbody
+    %tr
+      %td= t('statistics.show.table.users')
+      %td= @user_count
+    %tr
+      %td= t('statistics.show.table.spaces')
+      %td= @space_count
+    - if mod_enabled?("events")
+      %tr
+        %td= t('statistics.show.table.events')
+        %td= @event_count
+    %tr
+      %td= t('statistics.show.table.posts')
+      %td= @post_count
+    %tr
+      %td= t('statistics.show.table.webconf_rooms')
+      %td= @webconf_room_count
+    -# %tr
+    -#   %td= "Active meetings"
+    -#   %td= @meeting_count

@@ -6,17 +6,13 @@
 
 require 'spec_helper'
 
-describe SpaceApprovedSenderWorker do
+describe SpaceApprovedSenderWorker, type: :worker do
   let(:approver) { FactoryGirl.create(:user) }
   let(:worker) { SpaceApprovedSenderWorker }
 
   before {
     Site.current.update_attributes(require_space_approval: true)
   }
-
-  it "uses the queue :space_notifications" do
-    worker.instance_variable_get(:@queue).should eql(:space_notifications)
-  end
 
   describe "#perform" do
     let(:user) { FactoryGirl.create(:user) }

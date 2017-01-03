@@ -1,5 +1,14 @@
+# -*- coding: utf-8 -*-
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 class ParticipantsController < InheritedResources::Base
   respond_to :html
+
+  layout "no_sidebar", only: [:new, :create]
 
   load_and_authorize_resource :event, find_by: :permalink
   load_and_authorize_resource :participant, :through => :event
@@ -8,14 +17,18 @@ class ParticipantsController < InheritedResources::Base
 
   before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
+  before_filter only: [:create] do
+    if verify_captcha == false
+      flash[:error] = I18n.t('recaptcha.errors.verification_failed')
+      render :new
+    end
+  end
 
   after_filter only: [:create] do
     @participant.new_activity(params[:action], current_user) if @participant.persisted?
   end
 
   after_filter :waiting_for_confirmation_message, only: [:create]
-
-  layout "no_sidebar", only: [:new]
 
   def create
     @participant.event = @event
@@ -41,7 +54,7 @@ class ParticipantsController < InheritedResources::Base
 
   def destroy
     @participant.destroy
-    destroy! { can?(:update, @event) ? request.referrer : event_path(@event) }
+    destroy! { can?(:update, @event) ? request.referer : event_path(@event) }
   end
 
   private

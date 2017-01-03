@@ -1,8 +1,9 @@
 @import "compass/css3";
 @import "definitions";
 
-@import "app/spaces/sidebar";
 @import "app/events/_unified_event";
+
+@import "app/shared/webconference_join";
 
 body.spaces.show {
 
@@ -27,7 +28,7 @@ body.spaces.show {
   }
 
   #latest-users {
-    .user-wrapper {
+    .user-information {
       clear: both;
       margin-bottom: 10px;
       margin-top: 5px;

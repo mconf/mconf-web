@@ -7,13 +7,23 @@
 - show_join_request ||= false
 - extended ||= false
 
-#spaces
-  .content-block-middle.clearfix
-    %ul.list-texts
-      - if spaces.size > 0
+.list-container
+  .resource-filter-container.list-item-header
+    .resource-filter-with-text
+      = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+    .resource-filter-without-text
+      = t('.filter_count_empty', :count => spaces.count)
+
+- if spaces.count > 0
+  #spaces
+    .content-block-middle.clearfix
+      %ul.list-texts
         - spaces.each do |space|
           - is_member = user_spaces && user_spaces.include?(space)
           %li.list-text{:name => space.permalink}
             = render "spaces/unified_space", :space => space, :is_member => is_member, :extended => extended, :show_join_request => show_join_request
-      - else
-        = t(".no_spaces")
+
+    - if is_paginated?(spaces)
+      - nav = page_navigation_links spaces
+      - unless nav.nil?
+        .content-block-footer= nav

@@ -15,7 +15,8 @@ feature 'Visitor signs up' do
     register_with attrs
 
     current_path.should eq(my_home_path)
-    page.find("#user-notifications").should have_link('', href: new_user_confirmation_path)
+    # TODO: #1087 include the confirmation link somewhere
+    # page.find("#notification-flashs").should have_link('', href: new_user_confirmation_path)
     has_success_message(I18n.t('devise.registrations.signed_up'))
     page.should have_content('Logout')
   end
@@ -25,6 +26,7 @@ feature 'Visitor signs up' do
     register_with attrs
 
     current_path.should eq(user_registration_path)
+
     has_field_with_error "user_email"
     page.should have_content('Sign in')
   end

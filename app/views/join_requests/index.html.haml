@@ -1,10 +1,9 @@
-- page_title t('spaces.admin_tabs.admissions'), :in => @space.name
-
+- page_title t('spaces.admin_tabs.admissions'), in: @space.name
 - spaces_menu_at :admin
-= render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
 - spaces_admin_menu_at :admissions
-= render :partial => 'spaces/admin_tabs'
+= render 'spaces/admin_tabs'
 
 #join-requests
 

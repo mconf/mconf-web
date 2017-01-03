@@ -306,7 +306,8 @@ describe 'User signs in via shibboleth' do
   end
 
   context "redirects the user properly" do
-    let!(:login_link) { t('devise.shared.links.login.federation') }
+    let(:login_link) { find(:xpath, "//a[@href='#{shibboleth_path}']", match: :first) }
+
     before {
       enable_shib
       Site.current.update_attributes :shib_always_new_account => true
@@ -316,7 +317,7 @@ describe 'User signs in via shibboleth' do
     context "when he was in the frontpage" do
       before {
         visit root_url
-        click_link login_link
+        login_link.click
       }
 
       it { current_path.should eq(my_home_path) }
@@ -324,16 +325,51 @@ describe 'User signs in via shibboleth' do
 
     context "from a space's page" do
       before {
-        @space = FactoryGirl.create(:space, :public => true)
+        @space = FactoryGirl.create(:space, public: true)
         visit space_path(@space)
 
         # Access sign in path via link
         find("a[href='#{login_path}']").click
 
-        click_link login_link
+        login_link.click
       }
 
       it { current_path.should eq(space_path(@space)) }
+    end
+
+    # TODO: skipping because setting the referer is not working
+    skip "from an external page redirects to the last redirectable path" do
+      context "if the user already has an account" do
+        before {
+          # the user has to already have an account
+          user = FactoryGirl.create(:shib_token).user
+          setup_shib user.full_name, user.email, user.email
+
+          @space = FactoryGirl.create(:space, public: true)
+          @room = FactoryGirl.create(:bigbluebutton_room, owner: @space)
+          visit invite_bigbluebutton_room_path(@room)
+
+          page.driver.header('Referer', 'http://mconf.org/about')
+
+          login_link.click
+        }
+
+        it { current_path.should eq(invite_bigbluebutton_room_path(@room)) }
+      end
+
+      context "if the user doesn't have an account yet" do
+        before {
+          @space = FactoryGirl.create(:space, public: true)
+          @room = FactoryGirl.create(:bigbluebutton_room, owner: @space)
+          visit invite_bigbluebutton_room_path(@room)
+
+          page.driver.header('Referer', 'http://mconf.org/about')
+
+          login_link.click
+        }
+
+        it { current_path.should eq(invite_bigbluebutton_room_path(@room)) }
+      end
     end
 
     context "from the association page" do

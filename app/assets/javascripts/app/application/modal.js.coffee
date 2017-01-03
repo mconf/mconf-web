@@ -9,7 +9,8 @@
 #
 # Modals have a default width set by bootstrap. To set a different width, set `data-modal-width`
 # in your element. The values accepted are:
-# * `small`: Adds a css class to force the modal to be smaller/narrower
+# * `small`: Adds a css class to force the modal to be narrower
+# * `large`: Adds a css class to force the modal to be wider
 #
 # Triggers the events:
 # * `modal-before-configure`: First event triggered when the modal starts being configured.
@@ -37,9 +38,6 @@ class mconf.Modal
       # maxHeight: 0.7 * $(window).height()
       # modalOverflow: true
 
-    # show the loading bar
-    $("body").modalmanager("loading")
-
     # if target is a url, the content will be loaded from it
     href = options.target
     if href? and href[0] is "#" and $(href)?
@@ -51,9 +49,15 @@ class mconf.Modal
     else
       $modal = $("<div/>")
       $modal.addClass('modal')
+      $modalDialog = $("<div/>")
+      $modalDialog.addClass("modal-dialog")
+      $modalContent = $("<div/>")
+      $modalContent.addClass("modal-content")
+      $modalDialog.append($modalContent)
+      $modal.append($modalDialog)
       if options.data?
         isRemote = false
-        $modal.append(options.data)
+        $modalContent.append(options.data)
       else
         isRemote = true
 
@@ -65,14 +69,15 @@ class mconf.Modal
     modalWidth = $(options.element).attr("data-modal-width") || options.modalWidth
     switch modalWidth
       when "small"
-        $modal.addClass("modal-small")
+        $modal.children(".modal-dialog").addClass("modal-sm")
+      when "large"
+        $modal.children(".modal-dialog").addClass("modal-lg")
 
     # set up the events
     $modal.on "show", ->
       $(options.element).trigger("modal-show")
     $modal.on "shown", ->
       $modal.modal("layout")
-      $("body").modalmanager("removeLoading")
       mconf.Resources.bind() # bind resources to the new modal
       $("[autofocus]", $modal).focus()
       $(options.element).trigger("modal-shown")
@@ -85,7 +90,7 @@ class mconf.Modal
 
     # if its a link, load the content and then show it
     if isRemote
-      $modal.load options.target, "", ->
+      $modal.find(".modal-content").load options.target, "", ->
         $modal.modal(localOptions)
 
     # not a link, simply show the content

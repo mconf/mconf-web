@@ -1,21 +1,31 @@
-= render_page_title t('.title')
+-# = page_title t('.title')
 
-= content_for :page_menu do
+= content_for :sidebar_menu do
   %ul
 
     - if can?(:sites, :manage)
-      %li{ :class => "#{'selected' if params[:controller] == 'sites'}" }
+      %li{ :class => "#{'active' if params[:controller] == 'sites'}" }
         = link_to t('.general'), site_path
 
     - if can?(:users, :manage)
-      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}" }
+      %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'users'}" }
         = link_to t('.users'), manage_users_path
 
     - if can?(:spaces, :manage)
-      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
+      %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
         = link_to t('.spaces'), manage_spaces_path
+
+    - if can?(:manage, BigbluebuttonRecording)
+      %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'recordings'}" }
+        = link_to t('.recordings'), manage_recordings_path
 
     - if can?(:manage, BigbluebuttonServer) && can?(:manage, BigbluebuttonRoom)
       - webconf_controllers = ['custom_bigbluebutton_servers', 'custom_bigbluebutton_rooms', 'custom_bigbluebutton_recordings']
-      %li{ :class => "#{'selected' if webconf_controllers.include?(params[:controller]) }" }
+      %li{ :class => "#{'active' if webconf_controllers.include?(params[:controller]) }" }
         = link_to t('.webconf'), bigbluebutton_servers_path
+
+    - if can?(:resque, :manage)
+      %li
+        = link_to resque_server_path do
+          = t('.resque')
+          = icon_external_link

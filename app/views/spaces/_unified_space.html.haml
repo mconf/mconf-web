@@ -8,19 +8,15 @@
 - show_join_request ||= false
 
 - unless space.nil?
-  = content_tag(:div, :name => space.permalink, :class => "#{'space-waiting-moderation' if !space.approved?} thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
-
+  = content_tag(:div, :name => space.permalink, :class => "thread space-container thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
     .logo-in-thread
       = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
 
     .thread-content
       .thread-title
         %span
-          = link_to space.name, space_path(space)
-
-        - if extended
-          - if is_member
-            %span.is-member= t('.user_is_member')
+          = link_to space_path(space) do
+            = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
         .space-description
           - if space.public
             .resource-visibility.small.public
@@ -32,15 +28,19 @@
               = icon_space_private
               = t(".private")
               = t('.with_members', :count => space.users.size)
+          - if extended && is_member
+            .resource-visibility.small
+              = icon_is_member
+              = t(".is_member")
 
           - if current_site.require_space_approval? && !space.approved?
             .space-waiting-moderation.resource-visibility.small
               = icon_waiting_moderation
               = t("_other.not_approved.text")
 
-      .thread-text
+      .thread-description
         - if extended
-          = space.description
+          = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
         - if show_join_request
           - jr = space.pending_join_request_or_invitation_for(current_user)
           - if jr
@@ -49,3 +49,5 @@
               = link_to t(".reply_invitation"), space_join_request_path(space, jr)
             - else
               = link_to t(".view_join_request"), space_join_request_path(space, jr)
+
+      = render :partial => "spaces/space_tags", :locals => { :space => space }

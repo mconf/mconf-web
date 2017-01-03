@@ -30,13 +30,14 @@ pt-br:
       attend_html: participará do evento %{name} da comunidade
       not_attend_html: não participará do evento %{name} da comunidade
       update_html: atualizou as informações do event %{name} da comunidade
-      deleted: que não existe mais
+      deleted: "%{name} (que não existe mais)"
     participant:
       create_html: participará do evento %{name} na comunidade
   flash:
     events:
       create:
         notice: Evento criado com sucesso
+        permission_error: Você não possui permissão para criar este evento
       destroy:
         notice: Evento apagado com sucesso
       update:

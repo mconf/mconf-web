@@ -75,11 +75,24 @@ class mconf.Base
     # Items with this class will only be visible when the item defined
     # by the id in the 'data-hover-tracked' attribute is hovered. Ex:
     # <div class="visible-on-hover" data-hover-tracked="event_123"></div>
+    # It will wait a little while before showing the element to make it less intrusive
+    # and annoying. So it only appears when the user hovers the parent element for
+    # time enough.
     $('.visible-on-hover').each ->
+      showAnimationDelay = 150
+      hideAnimationDelay = 150
+      showDelay          = 350
+
       $target = $(this)
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
-      $tracked.on "mouseenter.mconfBase", (e) -> $target.show()
-      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide()
+      $tracked.on "mouseenter.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", true)
+        setTimeout( ->
+          $target.show(showAnimationDelay) if $target.data("visible-on-hover-show")
+        , showDelay)
+      $tracked.on "mouseleave.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", false)
+        $target.hide(hideAnimationDelay)
 
     # Links with 'data-open-file' will trigger a click
     # in the input[type=file] element pointed by 'href'
@@ -131,36 +144,24 @@ class mconf.Base
     escape.innerHTML = string
     escape.innerHTML
 
-  # taken from http://shiplu.mokadd.im/61/parse-query-string-by-pure-javascrirpt/
-  @getUrlParts = (url) ->
-    # url contains your data.
-    qs = url.indexOf('?')
-    if qs == -1
-      return []
-    fr = url.indexOf('#')
-    q = ''
-    q = if fr == -1 then url.substr(qs + 1) else url.substr(qs + 1, fr - qs - 1)
-    parts = q.split('&')
-    vars = {}
-    i = 0
-    while i < parts.length
-      p = parts[i].split('=')
-      if p[1]
-        vars[decodeURIComponent(p[0])] = decodeURIComponent(p[1])
-      else
-        vars[decodeURIComponent(p[0])] = ''
-      i++
-    # vars contain all the variables in an array.
-    vars
+  # Parses a query string in the format '?param=1&other=two%20two' into an object
+  # in the format { param: '1', other: 'two two' }
+  @parseQueryString = (search) ->
+    objURL = {}
 
-  @urlFromParts = (parts) ->
-    if parts? and Object.keys(parts).length > 0
-      url = '?'
-      arr = []
-      for name, value of parts
-        arr.push "#{name}=#{value}"
+    replacer = ($0, $1, $2, $3) ->
+      objURL[$1] = decodeURIComponent($3.replace(/\+/g, ' '))
+      # replace '+' by ' ' because that's what the browser does and
+      # decodeURIComponent doesn't
 
-      url + arr.join('&')
+    search.replace(new RegExp( "([^?=&]+)(=([^&]*))?", "g" ), replacer)
+    return objURL
+
+  # Transforms a hash in the format { param: '1', other: 'two two' } into
+  # a string in the format '?param=1&other=two%20two'.
+  @makeQueryString = (params) ->
+    if params and not _.isEmpty?(params)
+      '?' + _.map(params, (v, k) -> k+'='+encodeURIComponent(v)).join('&')
     else
       ''
 

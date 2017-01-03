@@ -8,7 +8,7 @@
 //
 
 body {
-  background-color: $site-bg-color;
+  background-color: $m-site-bg-color;
 }
 
 p {
@@ -23,8 +23,6 @@ form {
   margin: 0;
 }
 
-@include set-sidebar-width($sidebar-width);
-
 //
 // Components used site-wide, in any layout
 //
@@ -35,12 +33,12 @@ form {
     float: none;
     margin: 0;
     padding: 0;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
     color: white;
     &:hover { color: white; }
   }
   .btn-small i.icon-awesome {
-    @include font-size($font-small);
+    @include font-size($m-font-small);
   }
 }
 
@@ -54,18 +52,18 @@ form {
   @include mconf-clearfix; // in _definitions
 }
 
-.danger-text {
+.danger-text, a.danger-text {
   @include danger-text;
 }
 
 #notification-flashs {
-  top: $navbar-height;
+  top: $m-notifications-top;
 }
 
 // Unified style for threads: posts, attachments
 .thread {
   clear: both;
-  padding: 20px 4px 8px 4px;
+  padding: 10px 4px 8px 4px;
   margin: 1px 0;
   @include mconf-clearfix;
   //border-bottom: 1px solid #eee;
@@ -73,83 +71,76 @@ form {
   // so .thread-action-links is correctly positioned
   position: relative;
 
-  .thread-title {
-
-    .icon-awesome {
-      margin: 1px 5px 0px 0px;
+      &.thread-no-logo {
+      .thread-content {
+        margin-left: 0;
+      }
     }
-
-    // usually seen inside .resource-visibility
-    .small > .icon-awesome {
-      margin-right: 1px;
-    }
-
-    h2 .icon-awesome {
-      margin: 7px 6px 0 0;
-    }
-  }
-
-  &.thread-no-logo {
-    .thread-content {
-      margin-left: 0;
-    }
-  }
 
   .thread-content {
-    margin-left: 55px;
+    margin-top: 3px;
+    margin-left: 65px;
 
     &.thread-content-full {
       margin-left: 0;
     }
-  }
 
-  .thread-title {
-    overflow: hidden;
+    .thread-title {
+      font-size: $m-font-medium; //font-weight: bold;
+      margin-bottom: 3px;
+      overflow: hidden;
 
-    h2 { margin-bottom: 0; }
-  }
+      // usually seen inside .resource-visibility
+      .small > .icon-awesome {
+        margin-right: 1px;
+      }
 
-  .thread-subtitle {
-    margin: 2px 0;
-    //line-height: $font-normal + 6px; // less that in .thread-title
+      h2 {
+        margin-bottom: 0;
 
-    i {
-      margin: 0px 3px 0px 0px;
-      float: none;
+        .icon-awesome {
+          margin: 7px 6px 0 0;
+        }
+      }
     }
 
-    &.thread-subtitle-nested {
-      margin-left: 6px;
+    .thread-description {
+      margin-bottom: 3px;
     }
-  }
 
-  .thread-updated-at {
-    @include small-date;
-    padding: 2px 0;
+    .thread-subtitle {
+      margin: 2px 0;
+      //line-height: $m-font-normal + 6px; // less that in .thread-title
+
+      i {
+        margin: 0px 3px 0px 0px;
+        float: none;
+      }
+
+      &.thread-subtitle-nested {
+        margin-left: 6px;
+      }
+    }
+
+    .thread-updated-at {
+      @include small-date;
+    }
   }
 
   .thread-action-links {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 0;
-    padding: 0;
+    margin: 5px 0 5px 0;
+    padding: 3px 0 3px 10px;
     @include mconf-clearfix;
-    @include border-radius(4px);
-    background: $very-light-gray;
-    border: 1px solid #e0e0e0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 
     li {
       margin: 0;
       padding: 0;
       float: left;
       display: inline-block;
-      margin-left: 10px;
-      &:last-child {
-        margin-right: 10px;
-      }
+      margin-right: 15px;
     }
-
   }
 
   .thread-observation {
@@ -169,11 +160,11 @@ form {
     }
 
     .thread-playback-unavailable {
-      color: mix($link-color, #888, 70%); // a grayer link
+      color: mix($m-link-color, #888, 70%); // a grayer link
     }
 
     .thread-playback-processing {
-      color: darken($yellow, 10);
+      color: darken($m-yellow, 10);
     }
   }
 
@@ -188,25 +179,60 @@ form {
 
 // Wrapper around information about a user
 // See users/_simple_user and users/_detailed_user
-.user-wrapper {
+.user-information {
   clear: both;
   @include mconf-clearfix;
 
   &.user-simple {
     margin: 5px 0;
     .user-text { margin-left: 45px; }
-    .user-name { display: block; }
-    .user-organization { display: block; }
+    .user-name {
+      display: inline-block;
+      /* @include text-truncate; */
+    }
+    .user-organization {
+      display: block;
+      /* @include text-truncate; */
+    }
   }
 
   &.user-detailed {
-    .user-text { float: left; }
-    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
-    .user-name { display: block; clear: both; float: left; }
-    .user-mail { display: block; clear: both; }
-    .user-info-prefix { color: $font-color-gray; float: left; margin-right: 5px; }
-    .user-organization { float: left; }
-    .user-location { float: left; }
+    @include make-row;
+    padding: 10px 0;
+
+    .user-information-logo {
+      @include make-xs-column(2);
+      padding: 0;
+      text-align: center;
+      max-width: 64px;
+    }
+    .user-information-data {
+      padding: 0;
+      @include make-xs-column(9);
+    }
+
+    img.logo-user {
+      width: 100%;
+      height: 100%;
+      max-width: 64px;
+      max-height: 64px;
+    }
+    .user-name {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-mail {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-organization {
+      display: block;
+      @include text-truncate;
+    }
+    .user-location {
+      display: block;
+      @include text-truncate;
+    }
   }
 }
 
@@ -216,132 +242,212 @@ form {
 //
 
 #site {
-  background-color: $site-bg-color;
-  margin: 0px auto;
-  width: 100%;
+  padding: 0;
 }
 
-#navbar-wrapper {
+#navbar-container {
   margin: 0;
-  padding: 0 10px;
-  background: $navbar-bg-color-dark;
-  @include background(linear-gradient(bottom, $navbar-bg-color-light, $navbar-bg-color-dark));
+  background: $m-navbar-bg-color-dark;
+  @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
+  border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
+  font-family: $m-font-family-titles;
+}
+
+@mixin navbar-lists {
+  > ul {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline;
+      float: left;
+
+      &:first-child { border: 0 }
+
+      .label { margin-left: 3px; }
+
+      &.notification {
+        //background: lighten($m-navbar-bg-color-light, 5);
+        margin: 0 10px 0 0;
+
+        .badge {
+          background-color: $brand-success;
+          color: white;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  // very specific selector se we don't mess with dropdowns and others
+  > ul > li > a, > a {
+    padding: 17px 15px 13px 15px;
+    display: block;
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+    @include transition(background-color 0.2s ease-in);
+
+    &:hover {
+      background: $m-navbar-font-highlight;
+    }
+  }
+
+  .icon-awesome {
+    margin: 3px 3px 0px 0px;
+    @include font-size($m-font-normal);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+  }
 }
 
 #navbar {
-  width: $contents-width;
-  margin: 0 auto;
-  padding: 0;
-  height: $navbar-height;
-  color: $navbar-font-color;
-  @include font-size(12px);
-}
-
-#content-wrapper {
-  padding-bottom: 20px;
-  margin: 0;
-}
-
-#footer-wrapper {
-  border-top: 1px solid darken($footer-bg-color, 10);
-  background: $footer-bg-color;
-  color: #444;
-  clear: both;
-  padding: 10px 0;
-  margin-top: 20px;
-}
-
-#footer {
+  /* @include make-row(0); */
+  color: $m-navbar-font-color;
+  @include font-size($m-font-medium);
+  text-align: center;
   @include mconf-clearfix;
-  width: $contents-width;
-  margin: 0 auto;
-  padding: 0;
-  color: #666;
+  padding: 0 15px;
 
-  a {
-    @include link-colors($link-color, $link-color-hover, $link-color-active);
-    text-decoration: none;
+  a:hover { text-decoration: none; }
+}
+
+#navbar-left {
+  /* @include make-sm-column(6); */
+  @include navbar-lists;
+  float: left;
+}
+
+#navbar-right {
+  /* @include make-sm-column(5); */
+  @include navbar-lists;
+  float: right;
+
+  > ul {
+    float: right;
+
+    > li {
+      margin-left: 10px;
+      margin-right: 0;
+      padding-left: 10px;
+      padding-right: 0;
+    }
   }
 
-  h3 {
-    @include font-size($font-normal);
-    color: #888;
-    margin-bottom: 7px;
-    font-weight: bold;
-    padding-bottom: 3px;
-    border-bottom: 1px solid darken($footer-bg-color, 8);
+  .dropdown-user.chip {
+    /* margin: 10px 0 3px 0; */
+    margin: 0;
+    font-size: $m-font-normal;
+    font-weight: normal;
+    border: none;
+    color: $m-navbar-font-color;
+    @include transition(background-color 0.2s ease-in);
+    @include text-truncate;
+    max-width: 350px;
+    padding: 11px 15px 8px 25px;
+    @include border-radius(0);
+    height: auto;
+    overflow: inherit;
+
+    &:hover, &[aria-expanded=true] {
+      background: $m-navbar-font-highlight;
+    }
+
+    .caret {
+      margin-top: -2px;
+      margin-left: 2px;
+    }
+
+    img {
+      float: left;
+      margin: 0 8px 0 -12px;
+    }
+  }
+
+  .dropdown-menu {
+    margin: 0;
+    @include border-radius(0);
+    @include box-shadow(none);
+
+    .observation {
+      padding: 3px 14px;
+      font-size: $m-font-small;
+      color: $m-font-color-gray;
+    }
+  }
+}
+
+#navbar-logo {
+  /* @include make-sm-column(1); */
+  /* float: left; */
+  white-space: nowrap;
+  margin-top: 8px;
+  @include mconf-clearfix;
+  display: inline-block;
+
+  .title {
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
+    @include font-size($m-font-bigger);
+    float: left;
+  }
+}
+
+
+#footer-container {
+  clear: both;
+  color: $m-footer-font-color;
+  //margin-top: 30px;
+  background: $m-footer-bg-color;
+  border-top: 1px solid $m-footer-border-color;
+}
+
+#footer, #footer-mconf {
+  @include mconf-clearfix;
+  @include make-row;
+  margin: 0 auto;
+  padding: 10px 0 0 0;
+
+  a {
+    @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
   }
 
   ul {
     list-style-type: none;
     margin: 0;
+    padding-left: 0;
+    @include mconf-clearfix;
+
     li {
-      display: block;
-      position: relative;
-      margin-bottom: 5px;
-    }
-  }
-
-  .link-group {
-    float: left;
-    margin-right: 35px;
-    margin-top: 5px;
-  }
-
-  .footer-sponsors {
-    width: 200px;
-    float: right;
-    margin-right: 0;
-    margin-left: 20px;
-    text-align: right;
-    h3 { text-align: right; }
-    li { margin-bottom: 15px; }
-    img {
-      float: right;
-      margin-left: 10px;
-    }
-  }
-
-  .footer-languages {
-    img { margin-top: -4px; }
-    ul { float: left; margin-right: 20px; }
-    .icon-awesome { float: right; }
-  }
-
-  .current-version {
-    clear: both;
-    text-align: right;
-    @include font-size($font-small);
-  }
-}
-
-/* Simplified version */
-#footer-wrapper.simple-footer {
-  background: none;
-  border: 0;
-  @include box-shadow(none);
-
-  #footer {
-    h3 {
       float: left;
-      border: 0;
-      margin: 0 15px 0 0;
-    }
-
-    .languages {
-      margin: 40px 0 0 0;
-      float: right;
-      ul {
-        float: right;
-        margin: 0;
-        li {
-          display: inline;
-          float: left;
-          margin: 0 10px 0 0;
-        }
-      }
+      margin: 5px 10px;
     }
   }
+
+  #footer-powered {
+    clear: both;
+    margin-left: 8px;
+    margin-top: 5px;
+    text-align: left;
+    @include font-size($m-font-small);
+  }
+
+  #footer-left {
+    text-align: left;
+    @include make-xs-column(7);
+  }
+
+  #footer-right {
+    //margin-top: 7px;
+    text-align: right;
+    @include make-xs-column(5);
+
+    ul { float: right; }
+  }
+
+  /* .current-version { */
+  /*   clear: both; */
+  /*   text-align: right; */
+  /*   @include font-size($m-font-small); */
+  /* } */
 }
 
 #footer-logo {
@@ -350,236 +456,40 @@ form {
   float: left;
   margin-right: 35px;
 
-  a { @include link-colors(#bbb, $link-color-hover, $link-color-active); }
+  a { @include link-colors(#bbb, $m-link-color-hover, $m-link-color-active); }
 
   .title {
     font-weight: bold;
-    @include font-size($font-gigantic);
+    @include font-size($m-font-gigantic);
   }
 
   span { display: block; }
 }
 
-ul#navbar-left-links {
-  list-style-type: none;
-  float: left;
-  margin: 0 10px;
+#page-header-container {
+  padding: 0 20px;
+  background: $m-page-header-background;
 
-  a, .icon-awesome {
-    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover);
+  &.without-menu {
+    border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
   }
-
-  .icon-awesome {
-    margin: 3px 3px 0px 0px;
-    @include font-size($font-normal);
-  }
-
-  li {
-    display: inline;
-    float: left;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 15px;
-
-    &:first-child { border: 0 }
-
-    .label { margin-left: 3px; }
-  }
-}
-
-#navbar #navbar-right-links {
-  @extend ul#navbar-left-links;
-  float: right;
-  margin-right: 10px;
-
-  li {
-    margin-left: 10px;
-    margin-right: 0;
-    padding-left: 10px;
-    padding-right: 0;
-  }
-
-  .user-info-dropdown {
-    margin: 0;
-    padding: 4px 10px 3px 10px;
-  }
-
-  // small user info in the navbar
-  .user-info {
-
-    .user-name {
-      padding: 4px 10px 4px 5px;
-      float: right;
-      display: block;
-    }
-
-    .user-avatar {
-      position: relative;
-      float: right;
-      padding: 2px;
-      height: 22px;
-      width: 22px;
-      background: lighten($navbar-bg-color-dark, 10);
-      @include border-radius(3px);
-      @include broken-img-parent;
-
-      img.logo-user {
-        height: 22px;
-        width: 22px;
-      }
-    }
-  }
-
-  // dropdown menu with the user information
-  // it needs some adjustments over the default style
-  .dropdown {
-    &.open {
-      $color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 40);
-      $color-hover: lighten($color, 15);
-
-      background: $navbar-menu-open-bg;
-      color: $color;
-      .caret {
-        border-top-color: $color;
-      }
-      .user-info {
-        color: $color;
-      }
-      a { @include link-colors($color, $color-hover, $color-hover, $color); }
-    }
-
-    .caret {
-      border-top-color: $navbar-font-color;
-      margin-top: 11px;
-      margin-right: 4px;
-    }
-
-    .dropdown-menu {
-      color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 30);
-      background: $navbar-menu-open-bg;
-      top: $navbar-height - 2px;
-      right: -1px;
-      left: auto;
-      min-width: 300px;
-      width: 300px;
-      border: 1px solid #ccc;
-      border-top: 0;
-      padding: 10px;
-      @include border-radius(4px, 0);
-      //&.arrow-right:after { border-bottom-color: white; }
-
-      a {
-        @include link-colors($navbar-menu-open-link, $navbar-menu-open-link-hover, $navbar-menu-open-link-hover, $navbar-menu-open-link);
-        padding: 0;
-        &:hover {
-          @include text-shadow(none);
-          background-color: $transparent;
-          background-image: none;
-        }
-      }
-    }
-  }
-
-  // big user info shown in the dropdown clicking in the navbar
-  .user-info-big {
-    @include mconf-clearfix;
-
-    .user-data {
-      @include mconf-clearfix;
-      padding-left: 7px;
-      a, span {
-        display: block;
-        float: left;
-        clear: left;
-        margin-bottom: 3px;
-      }
-    }
-
-    .user-name {
-      padding: 4px 10px 4px 5px;
-      float: right;
-      display: block;
-    }
-
-    .user-avatar {
-      position: relative;
-      float: left;
-      border: 1px solid darken($navbar-menu-open-bg, 10);
-      padding: 1px;
-      height: 64px;
-      width: 64px;
-      background: white;
-      @include border-radius(3px);
-      @include broken-img-parent;
-
-      img.logo-user {
-        height: 64px;
-        width: 64px;
-      }
-    }
-  }
-
-  // user links shown in the dropdown clicking in the navbar
-  .user-links {
-    @include mconf-clearfix;
-    clear: both;
-    margin-top: 10px;
-    background: darken($navbar-menu-open-bg, 5);
-    padding: 2px;
-    @include border-radius(4px);
-    border: 1px solid darken($navbar-menu-open-bg, 10);
-
-    ul {
-      margin: 0;
-      li {
-        float: right;
-        margin: 0;
-        border: 0;
-        padding: 0 10px;
-        white-space: nowrap;
-        a {
-          clear: none;
-          float: none;
-          display: inline;
-        }
-      }
-    }
-  }
-
-}
-
-#main-logo {
-  float: left;
-  white-space: nowrap;
-  margin-top: 2px;
-  margin-right: 5px;
-  @include mconf-clearfix;
-
-  .title {
-    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover, $navbar-font-color);
-    @include font-size($font-bigger);
-    float: left;
-  }
-}
-
-#page-header-wrapper {
-  border-bottom: 1px solid darken($light-gray, 7);
-  background: $light-gray;
-  padding: 0;
 }
 
 #page-header {
-  width: $contents-width;
-  margin: 0 auto;
+  @include make-row;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 25px 0 20px 0;
+  padding: 25px 10px 15px 10px;
   clear: both;
   word-break: break-all;
 
-  > a, .current-page-extra > a {
-    @include link-colors($page-header-link-color, $page-header-link-color-hover, $page-header-link-color-hover, $page-header-link-color);
+  > a {
+    @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
   }
+  /* .current-page-extra > a { */
+  /*   @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color); */
+  /* } */
+
 
   h1 {
     margin: 0;
@@ -587,58 +497,46 @@ ul#navbar-left-links {
   }
 
   .current-page-logo {
-    float: left;
-    border: 1px #ccc solid;
-    padding: 1px;
-    width: 84px;
-    height: 64px;
-    @include broken-img-parent;
+    @include make-xs-column(3);
+    max-width: 250px;
+    min-width: 150px;
 
-    &.clean { border: 0; }
+    .current-page-logo-content {
+      border: 1px #ccc solid;
+      padding: 2px;
+      @include broken-img-parent;
+      margin-top: 5px;
 
-    // default size for spaces logos
-    img {
-      width: 84px;
-      height: 64px;
+      &.clean { border: 0; }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
   .current-page-title {
-    float: left;
-    margin-left: 10px;
-    color: $page-title-color;
+    color: $m-font-h1-color;
 
-    // minus the logo and some padding/margin
-    max-width: $contents-width - 120px;
+    @include make-xs-column(9);
 
     .main-title {
-
-      @include font-size($font-section-title);
-      line-height: 1.0;
+      @include font-size($m-font-section-title);
       font-weight: bold;
-      color: $page-title-color;
+      color: $m-font-h1-color;
       margin-bottom: 5px;
-
-      a {
-        $c: $page-title-color;
-        @include link-colors($c, lighten($c, 10), lighten($c, 10));
+      a:not(.btn) {
+        text-decoration: none;
       }
-
-      // when the title is too big the font is reduced a bit
-      &.small-title {
-        @include font-size($font-section-title - 10px);
-        margin-top: 5px;
-      }
-    }
-    a.main-title {
-      @include link-colors($page-title-color, $link-color-hover, $link-color-active);
-    }
+      @include text-truncate;
+     }
 
     .sub-title {
-      @include font-size($font-normal);
       display: block;
       font-weight: normal;
-      color: lighten($page-title-color, 10);
+      margin-top: 10px;
+      color: $m-font-color-gray;
     }
 
     // some tweaks for the titles in pages of spaces
@@ -647,12 +545,12 @@ ul#navbar-left-links {
 
       // the text that shows the visibility of spaces
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
 
       // the text that shows when a user is a member of the space
       .user-is-member {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
   }
@@ -665,9 +563,12 @@ ul#navbar-left-links {
 }
 
 #content {
-  width: $contents-width;
+  @include make-sm-container-height;
+  width: 100%;
+  /* background-color: $m-site-bg-color; */
+
+  /* margin: 20px auto 20px auto; */
   margin: 0 auto;
-  padding: 20px 10px 0 0;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
@@ -675,24 +576,99 @@ ul#navbar-left-links {
   overflow: visible;
 }
 
-#sidebar, .sidebar {
-  float: right;
+#content-row {
+  @include make-sm-row-height;
+  @include make-row;
+}
 
-  .content-block-wrapper {
-    padding: 4px;
-    @include border-radius(5px);
-    background: $light-gray;
+#sidebar, .sidebar {
+  @include make-sm-column-height;
+  background: $m-sidebar-bg-color;
+  border-right: 1px solid $m-sidebar-border;
+  padding: 30px 25px;
+
+  .sidebar-title {
+    font-size: 26px;
+    font-size: 1.625rem;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  .sidebar-subtitle {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    color: $m-font-color-gray;
+  }
+
+  .sidebar-actions {
+    margin: 20px 0;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .resource-card {
+    @include broken-img-parent;
+    margin: 0 auto 20px 0;
+    text-align: center;
+
+    .avatar {
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+        border: 1px solid darken($m-light-gray, 10);
+        padding: 3px;
+        background: $m-site-bg-color;
+      }
+    }
+
+    .icon-awesome.icon-mconf-superuser {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      @include font-size($m-font-medium);
+      padding: 6px 5px;
+      @include border-radius($m-border-radius-small);
+      color: white;
+      background: $m-red;
+    }
+
+    .data {
+      @include mconf-clearfix;
+      text-align: center;
+      margin-top: 10px;
+
+      a, span {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .data-main {
+        @include font-size($m-font-big);
+        font-weight: bold;
+        @include text-truncate;
+      }
+
+      .data-other {
+        min-height: $m-font-big + 2px;
+        @include text-truncate;
+      }
+    }
+  }
+
+  .content-block-container {
     margin-bottom: 10px;
     clear: both;
-    @include block-wrapper-active;
   }
 
   .content-block {
     clear: both;
     padding: 10px;
-    border: 1px solid #ddd;
-    @include border-radius(5px);
-    background: $site-bg-color;
   }
 
   .content-block-middle {
@@ -719,20 +695,24 @@ ul#navbar-left-links {
   .sidebar-top-action-button {
     @include mconf-clearfix;
     text-align: center;
-    padding: 0 10px 10px 10px;
+    margin: 0 10px 20px 10px;
 
     /* reduce the buttons a bit */
     .btn-large {
       padding-top: 7px;
       padding-bottom: 7px;
     }
+
+    .btn {
+      margin-bottom: 5px;
+    }
   }
 
   .toolbar {
     margin-bottom: 10px;
     padding: 5px 10px;
-    background: $light-gray;
-    @include border-radius(4px);
+    background: $m-light-gray;
+    @include border-radius($m-border-radius-base);
     clear: both;
     text-align: center;
   }
@@ -751,17 +731,79 @@ ul#navbar-left-links {
 
   /* navbars in the sidebar */
   .nav {
-    width: $sidebar-width - 12px; // all width minus spaces and borders
+    width: $m-sidebar-width - 12px; // all width minus spaces and borders
+  }
+}
+
+#sidebar-menu {
+  /* border-top: 1px solid $m-sidebar-border; */
+  margin: 0 -26px;
+  padding: 0;
+
+  ul {
+    margin: 0 0 0 15px;
+    padding: 0;
+  }
+
+  li {
+    @include font-size($m-font-medium);
+    border-left: 1px solid $m-transparent;
+    border-bottom: 1px solid $m-transparent;
+    border-top: 1px solid $m-transparent;
+
+    &.active a {
+      background: $m-site-bg-color;
+      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
+      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
+      @include link-colors($normal, $hover, $hover, $normal);
+      border-bottom: 1px solid $m-sidebar-border;
+      border-top: 1px solid $m-sidebar-border;
+      border-left: 1px solid $m-sidebar-border;
+
+      &:hover,
+      &:active {
+        background: $m-site-bg-color;
+      }
+    }
+
+    a {
+      display: block;
+      font-size: 16px;
+      line-height: 18px;
+      @include mconf-clearfix;
+      transition: all .3s ease;
+      margin: 2px 0;
+      padding: 15px;
+
+      /* border-bottom: 1px solid $m-transparent; */
+      /* border-top: 1px solid $m-transparent; */
+      /* border-left: 1px solid $m-transparent; */
+
+      $normal: $m-page-menu-font-color;
+      $hover: darken($m-second-color, 20);
+      color: $normal;
+      @include link-colors($normal, $hover, $hover, $normal);
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background: darken($m-sidebar-bg-color, 5); //$m-sidebar-border;
+        /* border-bottom: 1px solid $m-sidebar-border; */
+        /* border-top: 1px solid $m-sidebar-border; */
+        /* border-left: 1px solid $m-sidebar-border; */
+      }
+    }
   }
 }
 
 #content-middle {
-  float: left;
+  @include make-sm-column-height;
+  background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
+  padding: 25px;
 
   h3 {
-    color: #404040;
     margin-bottom: 5px;
 
     // horitontal line in the title
@@ -799,39 +841,48 @@ ul#navbar-left-links {
     }
   }
 
-  .content-block-wrapper {
+  .content-block-container {
     @include block-wrapper-active;
   }
 
   .content-block {
     clear: both;
-    margin-bottom: 20px;
+    margin: 10px 0 30px 0;
   }
 
   .content-block-footer {
-    padding: 4px 10px;
     text-align: right;
     clear: both;
+    margin: 5px 0;
 
     &.content-block-footer-fancy {
-      background: $light-gray;
-      border-top: 1px solid #eee;
+      //background: $m-light-gray;
+      border-top: 1px solid darken($m-light-gray, 5);
+    }
+
+    .content-block-footer-middle {
+      margin-top: -12px;
+      background: white;
+      float: right;
+      padding: 0 10px;
     }
 
     @include content-block-pagination;
   }
 
   .content-block-middle {
-    padding: 10px 5px;
+    padding: 5px 0;
     clear: both;
   }
 
   .content-block-header {
     @include mconf-clearfix;
+    margin: 5px 0;
+
     img { float: left; }
     h3, h4 {
       float: left;
-      margin: 0 4px;
+      margin: 0;
     }
 
     .toolbar {
@@ -844,90 +895,42 @@ ul#navbar-left-links {
   }
 }
 
-#page-menu {
-  margin-bottom: -21px; // #page-header's bottom margin -2px
-  padding-top: 15px;
-  clear: both;
+#page-menu-container {
+  background: $m-page-header-background;
+  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
 
-  > ul {
-    margin: 0;
+  #page-menu {
+    @include horizontal-menu;
+  }
 
-    > li {
-      display: inline-block;
-      margin-left: 10px;
-      padding: 5px 10px 3px 10px;
-      font-weight: bold;
-      @include font-size($font-medium);
-
-      &.selected {
-        @include border-top-radius(4px);
-        /* border-bottom: 3px solid $bright-blue; */
-        border: 1px solid darken($site-bg-color, 20);
-        border-bottom-color: $site-bg-color;
-        background: $site-bg-color;
-        > a {
-          $normal: darken($page-menu-font-color, 20);
-          $hover: lighten($page-menu-font-color, 10);
-          @include link-colors($normal, $hover, $hover, $normal);
-        }
-      }
-
-      > a {
-        display: inline-block;
-        margin-bottom: 0px;
-        $normal: $page-menu-font-color;
-        $hover: lighten($page-menu-font-color, 10);
-        @include link-colors($normal, $hover, $hover, $normal);
-        &.danger-text {
-          @include danger-text;
-          @include opacity(0.8);
-          &.selected { @include opacity(1); }
-        }
-      }
-
-      .caret-container {
-        padding: 0 5px;
-        display: block;
-      }
-
-      .caret {
-        border-top-color: #888;
-        margin-top: 6px;
-      }
-
-      .dropdown-menu {
-        left: -8px;
-      }
+  &.without-header {
+    #page-menu ul li > a {
+      padding-top: 17px;
+      padding-bottom: 10px;
     }
   }
 }
 
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
-#content .page-tabs {
-  float: left;
-  clear: both;
-  margin-bottom: 20px;
+#page-sub-menu-container {
+  background: #fafafa;
+  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
+}
+#page-sub-menu.page-sub-menu {
+  @include horizontal-menu;
+  padding-top: 10px;
 
-  // when the div should be shown in fill width
-  &.page-tabs-full {
-    float: none;
-    background: $very-light-gray;
-    $border-color: darken($very-light-gray, 8);
-    border-bottom: 1px solid $border-color;
-    border-top: 1px solid $border-color;
-    padding: 10px;
-    @include mconf-clearfix;
+  ul li {
+    @include font-size($m-font-normal);
   }
 }
 
 // the upcoming events are shown in spaces/show and my/home
 #sidebar-upcoming-events {
   .event-timezone {
-    //float: left;
-    //margin-bottom: 5px;
     color: #777;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
   }
 
   .event-wrapper {
@@ -940,7 +943,7 @@ ul#navbar-left-links {
 
     .event-date {
       display: block;
-      @include font-size($font-small);
+      @include font-size($m-font-small);
       color: #777;
     }
   }
@@ -957,14 +960,14 @@ ul#navbar-left-links {
 // and in spaces.
 .events-hapenning-now {
   .thread {
-    background: $light-gray;
-    border-left: 5px solid $bright-blue;
+    background: $m-light-gray;
+    border-left: 5px solid $m-bright-blue;
   }
 }
 
 // for elements highlighted using rails' highlight() view helper.
 strong.highlight {
-  background: $highlight-bg;
+  background: $m-highlight-bg;
 }
 
 // for elements that might contain long words that can break the layout
@@ -982,13 +985,13 @@ strong.highlight {
   }
 
   &.small {
-    @include font-size($font-small);
+    @include font-size($m-font-small);
 
     .icon-awesome {
-      @include font-size($font-small);
-      width: $font-small;
-      height: $font-small;
-      line-height: $font-small;
+      @include font-size($m-font-small);
+      width: $m-font-small;
+      height: $m-font-small;
+      line-height: $m-font-small;
       margin: 0;
     }
   }
@@ -1001,12 +1004,18 @@ strong.highlight {
 
 // resources waiting moderation
 .user-waiting-moderation, .space-waiting-moderation {
-  color: $font-color-gray;
+  color: $m-font-color-gray;
 }
 
 // The fake input we use to disable autocomplete in other inputs
 .input-disable-autocomplete {
   display: none;
+}
+
+// Recent activities
+.removed-object-text {
+  text-decoration: line-through;
+  color: lighten($m-font-color, 30);
 }
 
 // tablets/mobiles
@@ -1019,7 +1028,7 @@ strong.highlight {
       width: 100%;
     }
 
-    #content-wrapper {
+    #content-container {
       padding-left: 10px;
       padding-right: 10px;
     }
@@ -1032,3 +1041,86 @@ strong.highlight {
     }
   }
 }
+
+// We override this because the lib bootstrap-modal also does it and it doesn't really
+// work well with boostrap 3's new markup, that includes .modal-dialog and .modal-content
+.modal {
+  background: inherit;
+  border: 0;
+  box-shadow: none;
+}
+
+#confirmation-dialog {
+  .modal-body {
+    text-align: center;
+  }
+
+  .modal-body {
+    @include font-size($m-font-medium);
+    padding: 30px;
+  }
+
+  .modal-footer {
+    // wider space between footer buttons and links
+    .btn, a {
+      margin: 0 3px;
+    }
+  }
+}
+
+// Chips are small containers with a name and an image, usually used for
+// user identification
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  border: 1px solid #e4e4e4;
+
+  img {
+    float: right;
+    margin: 0 -12px 0 8px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+}
+
+/* Labels for authentication methods */
+.label-auth-local {
+  background: $m-green;
+}
+.label-auth-ldap {
+  background: lighten($m-green, 15);
+}
+.label-auth-shibboleth {
+  background: darken($m-green, 15);
+}
+
+/* Labels for recording status */
+.label-recording-published {
+  background: $m-green;
+}
+.label-recording-unpublished {
+  background: $m-yellow;
+}
+.label-recording-available {
+  background: $m-green;
+}
+.label-recording-unavailable {
+  background: $m-yellow;
+}
+
+/* A warning for resources not yet approved */
+.resource-waiting-moderation-tooltip {
+  color: #bd972b;
+}
+
+
+/* #content, #content-row { */
+/*   height: 100%; */
+/* } */

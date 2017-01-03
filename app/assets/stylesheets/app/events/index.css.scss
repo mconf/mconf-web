@@ -13,15 +13,15 @@ body.events.index {
   #event-filter-result {
     float: left;
     margin: 10px 0 0 5px;
-    @include font-size($font-medium);
+    @include font-size($m-font-medium);
   }
 
   #event-filter-wrapper {
     @include mconf-clearfix;
     margin-bottom: 20px;
     padding: 10px 5px;
-    background: $light-gray;
-    @include border-radius(5px);
+    background: $m-light-gray;
+    @include border-radius($m-border-radius-large);
     text-align: center;
 
     .view-types {
@@ -30,7 +30,7 @@ body.events.index {
       margin-right: 10px;
     }
 
-    .page-tabs {
+    .page-sub-menu {
       float: right;
       margin: 1px 10px 0 0;
     }
@@ -40,7 +40,7 @@ body.events.index {
       float: left;
 
       .select2-choice {
-        @include border-radius(0 4px 4px 0);
+        @include border-radius(0 $m-border-radius-large $m-border-radius-large 0);
       }
 
       #space-filter-text {
@@ -64,14 +64,14 @@ body.events.index {
 
       i {
         float: right;
-        @include font-size($font-small);
+        @include font-size($m-font-small);
         margin: 4px 0 0 0;
       }
 
       a {
-        @include font-size($font-normal);
+        @include font-size($m-font-normal);
         text-align: left;
-        @include link-colors($font-color, $font-color, $font-color, $font-color);
+        @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
         @include transition(none);
       }
 
@@ -91,14 +91,14 @@ body.events.index {
       }
 
       &.selected .thread {
-        background: $light-gray;
+        background: $m-light-gray;
         .logo-in-thread img {
-          border-color: $bright-blue;
+          border-color: $m-bright-blue;
         }
       }
 
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
   }
@@ -115,7 +115,7 @@ body.events.index {
 
         .logo-event {
           padding: 20px;
-          background: $light-gray;
+          background: $m-light-gray;
           width: 169px;
           height: 75px;
           margin-bottom: 5px;

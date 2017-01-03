@@ -25,7 +25,6 @@ pt-br:
         dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."
       bigbluebutton_server:
         version: "A versão é buscada automaticamente do servidor quando você muda a sua URL ou chave de segurança."
-
       event:
         time_zone: Escolha o fuso horário no qual este evento está sendo configurado.
         location: Uma descrição breve de onde o evento irá acontecer. Por exemplo 'Universidade XY'.
@@ -35,11 +34,11 @@ pt-br:
         summary: Digite um resumo do evento em 140 caracteres ou menos.
         start_on: Data e horário de início do evento.
         end_on: Data e horário de fim do evento. É opcional, e se não informado o evento acabará 24 horas depois do início.
-
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
+        captcha_enabled: "Requerer que os usuários resolvam um captcha para se registrarem em qualquer seção do site que não requer autenticação (e.g. registro de usuários e registro em eventos)"
         domain: "O domínio do seu site. Não inclua o protocolo (e.g. \"http\"), apenas o domínio completo. Exemplo: \"servidor.org/portal\""
         events_enabled: "Habilita ou desabilita o módulo de eventos no site. Para habilitá-lo, você deve possuir o módulo de eventos instalado. Reinicie a aplicação para aplicar as mudanças."
         exception_notifications: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
@@ -73,7 +72,10 @@ pt-br:
         shib_update_users: "Se habilitado, alguns atributos do usuário serão atualizados automaticamente com dados recebidos da federação (e.g. atualizar o e-mail do usuário caso tenha mudado na federação). Neste caso usuários também não poderão editar esses atributos através do site. Se não habilitado, os atributos não serão atualizados automaticamente."
         smtp_login: "O e-mail de login no servidor SMTP."
         smtp_password: "A senha para sua conta de e-mail no servidor SMTP."
+        smtp_receiver: "Um e-mail utilizado para receber e-mails enviados por usuários, como o e-mail de feedback, por exemplo. Se deixado em branco, é utilizado o \"remetente SMTP\"."
+        smtp_sender: "O e-mail utilizado no campo \"De\" ao enviar e-mails automatizados aos usuários, normalmente um e-mail \"no-reply\"."
         ssl: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
+        use_gravatar: "Buscar avatar de usuários do Gravatar se nenhum for carregado no portal."
         xmpp_server: "Endereço onde está localizado o servidor XMPP."
       space:
         bigbluebutton_room:
@@ -87,6 +89,7 @@ pt-br:
         permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
+        tag_list: "Digite uma tag e selecione-a na lista ou digite uma vírgula (',') para criá-la"
       user:
         approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo. Esta opção só é usada se o site estiver configurado para requerer aprovação de registro."
         bigbluebutton_room:

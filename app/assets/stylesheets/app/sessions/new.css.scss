@@ -4,7 +4,7 @@
 body.sessions.new, body.sessions.create {
 
   $login-box-width: 440px;
-  $right-side-width: $contents-width - $login-box-width - 50px;
+  $right-side-width: $m-contents-width - $login-box-width - 50px;
 
   #login-wrapper {
     @include mconf-clearfix;
@@ -18,16 +18,9 @@ body.sessions.new, body.sessions.create {
       // every field is required, we don't need to show it
       abbr[title=required] { display: none; }
 
-      input[type=text], input[type=password], input[type=email] {
-        width: 250px;
-      }
-
-      input[type=submit] {
-        float: right;
-      }
-
       .remember-me {
         float: right;
+        margin-right: 20px;
 
         label { margin-top: 0; }
 

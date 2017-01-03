@@ -20,28 +20,41 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
-    #site
-      #navbar-wrapper
+    #site.container-fluid
+      #navbar-container
         #navbar
           = render :partial => 'layouts/application_navbar'
 
-      #page-header-wrapper
-        #page-header
-          - if content_for?(:page_header)
-            = yield :page_header
-          - else
-            = render :partial => "layouts/spaces_page_title"
-          - if content_for?(:page_menu)
-            #page-menu
-              = yield :page_menu
+      - if content_for?(:page_header)
+        - if content_for?(:page_header)
+          #page-header-container
+            #page-header
+              = yield :page_header
 
-      #content-wrapper
-        #content
-          #content-middle
-            = yield
-          - if content_for?(:sidebar)
+      #content.container-fluid
+        #content-row
+          - if content_for?(:sidebar) || content_for?(:sidebar_menu)
             #sidebar
               = yield :sidebar
+              - if content_for?(:sidebar_menu)
+                #sidebar-menu
+                  = yield :sidebar_menu
+
+          #content-middle
+
+            -# TODO: remove page_menu or move somewhere
+            - if content_for?(:page_menu)
+              - cls = content_for?(:page_header) ? 'with-header' : 'without-header'
+              - if content_for?(:page_menu)
+                #page-menu-container{ class: cls }
+                  #page-menu
+                    = yield :page_menu
+            - if content_for?(:page_sub_menu)
+              #page-sub-menu-container
+                #page-sub-menu.page-sub-menu
+                  = yield :page_sub_menu
+
+            = yield
 
       #footer-pusher
 
@@ -49,7 +62,6 @@
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
-    = render :partial => "shared/copy_modal"
 
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"

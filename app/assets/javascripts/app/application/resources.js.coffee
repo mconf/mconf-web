@@ -20,12 +20,14 @@ class mconf.Resources
     mconf.Crop.bind()
     mconf.Dropdown.bind()
     mconf.Notification.bind()
-    mconf.SelectableButtons.bind()
+    mconf.PageMenuJs.bind()
     mconf.ShowablePassword.bind()
     mconf.Modal.bind()
     mconf.ConfirmationDialog.bind()
     mconf.ResourceFilter.bind()
     mconf.DateTimeInput.bind()
+    mconf.QueryString.bind()
+    mconf.Tags.bind()
     for method in temporaryBinds
       method.call()
 

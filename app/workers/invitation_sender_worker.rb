@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class InvitationSenderWorker < BaseWorker
-  @queue = :invitations
 
   # Finds the target notification and sends it. Marks it as notified.
   def self.perform(invitation_id)

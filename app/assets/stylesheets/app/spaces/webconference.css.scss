@@ -1,7 +1,6 @@
 @import "compass/css3";
 @import "definitions";
 
-@import "app/spaces/sidebar";
 @import "app/custom_bigbluebutton_rooms/invitation_form";
 
 body.spaces.webconference {
@@ -9,14 +8,14 @@ body.spaces.webconference {
   #webconference-description {
     .running {
       em {
-        color: $green;
+        color: $m-green;
         font-weight: bold;
       }
     }
 
     .not-running {
       em {
-        color: $red;
+        color: $m-red;
         font-weight: bold;
       }
     }
@@ -43,9 +42,9 @@ body.spaces.webconference {
         width: 360px;
         margin: 0;
         margin-right: 10px;
-        background: $site-bg-color;
+        background: $m-site-bg-color;
         &:focus {
-          border-color: $second-color;
+          border-color: $m-second-color;
         }
       }
     }

@@ -1,9 +1,10 @@
-@import "app/spaces/sidebar";
+@import "definitions";
 
 body.attachments.index {
 
   #space-attachments-tabs {
     @include mconf-clearfix;
+    margin-bottom: 15px;
   }
 
   #space-attachments {
@@ -12,7 +13,6 @@ body.attachments.index {
 
   #space-attachments-create {
     float: right;
-    @include mconf-clearfix;
   }
 
   #space-attachments-selected {

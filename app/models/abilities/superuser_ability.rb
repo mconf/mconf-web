@@ -17,7 +17,7 @@ module Abilities
 
       cannot [:update_password], User do |target_user|
         enabled = Site.current.local_auth_enabled?
-        local = !target_user.no_local_auth?
+        local = target_user.local_auth?
         if target_user.superuser
           !local
         else

@@ -9,6 +9,7 @@ require 'spec_helper'
 feature 'Visitor logs in' do
   before(:each) {
     @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    page.driver.header 'Referer', "http://#{Site.current.domain}"
   }
 
   scenario 'with valid email and password' do
@@ -71,7 +72,7 @@ feature 'Visitor logs in' do
   feature "is redirected back to the page he was previously" do
     scenario 'previously in /spaces' do
       visit spaces_path
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -81,11 +82,24 @@ feature 'Visitor logs in' do
     scenario 'previously in /spaces/:id' do
       space = FactoryGirl.create(:space, public: true)
       visit space_path(space)
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(space_path(space))
+    end
+
+    scenario 'if the site is configured to use HTTPS' do
+      # Capybara has to respond to HTTPS and the app has to be configured to use it
+      Capybara.app_host = "https://#{Site.current.domain}"
+      Site.current.update_attributes(ssl: true)
+
+      user = FactoryGirl.create(:user)
+      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      visit invite_bigbluebutton_room_path(room)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(invite_bigbluebutton_room_path(room))
     end
   end
 
@@ -93,7 +107,7 @@ feature 'Visitor logs in' do
     scenario 'from the login page (/login)' do
       visit login_path
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -111,7 +125,7 @@ feature 'Visitor logs in' do
     scenario 'from the register page (/register)' do
       visit register_path
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -121,7 +135,7 @@ feature 'Visitor logs in' do
     scenario 'from the register page 2 (/users/registration/signup)' do
       visit new_user_registration_path
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -133,7 +147,7 @@ feature 'Visitor logs in' do
       click_button 'Register'
       expect(current_path).to eq("/users/registration")
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -142,7 +156,7 @@ feature 'Visitor logs in' do
 
     scenario 'from the page to request a new password (/users/password/new)' do
       visit new_user_password_path
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -154,7 +168,7 @@ feature 'Visitor logs in' do
       click_button "Request password"
       expect(current_path).to eq("/users/login")
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -164,7 +178,7 @@ feature 'Visitor logs in' do
 
     scenario 'from the page to resend confirmation (/users/confirmation/new)' do
       visit new_user_confirmation_path
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -176,7 +190,7 @@ feature 'Visitor logs in' do
       click_button 'Request confirmation email'
       expect(current_path).to eq("/users/login")
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -189,7 +203,7 @@ feature 'Visitor logs in' do
       visit shibboleth_path
       expect(current_path).to eq("/secure")
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
@@ -214,7 +228,7 @@ feature 'Visitor logs in' do
       visit shibboleth_path
       click_button 'Log in and link accounts'
 
-      click_link 'Sign in'
+      find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false

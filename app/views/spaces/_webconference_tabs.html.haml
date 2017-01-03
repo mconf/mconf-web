@@ -1,4 +1,6 @@
-#space-webconference-tabs.page-tabs
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to t('.access'), webconference_space_path(@space), spaces_webconference_menu_select_if(:access, :class => "btn btn-small")
-    = link_to t('.recordings'), recordings_space_path(@space), spaces_webconference_menu_select_if(:recordings, :class => "btn btn-small")
+= content_for :page_sub_menu do
+  %ul
+    %li{ spaces_webconference_menu_select_if(:access) }
+      = link_to t('.access'), webconference_space_path(@space)
+    %li{ spaces_webconference_menu_select_if(:recordings) }
+      = link_to t('.recordings'), recordings_space_path(@space)

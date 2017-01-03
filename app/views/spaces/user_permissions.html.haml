@@ -1,10 +1,9 @@
-- page_title t('spaces.admin_tabs.users'), :in => @space.name
-
+- page_title t('spaces.admin_tabs.users'), in: @space.name
 - spaces_menu_at :admin
-= render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
 - spaces_admin_menu_at :users
-= render :partial => 'admin_tabs'
+= render 'spaces/admin_tabs'
 
 #user-permission
   - for permission in @permissions
@@ -13,7 +12,7 @@
       .logo-in-thread
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
-        .thread-text
+        .thread-description
           = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
             -# Case the user is an Administrator from Space, it can't change his own role
             -# refs #1770
@@ -47,3 +46,7 @@
           = link_to user.name, user_path(user)
           .user-email
             = user_info_string(user)
+
+  - nav = page_navigation_links @permissions
+  - unless nav.nil?
+    .content-block-footer= nav

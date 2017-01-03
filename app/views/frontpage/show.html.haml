@@ -1,6 +1,6 @@
 - content_for :navbar do
   #navbar
-    #main-logo
+    #navbar-logo
       %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
 
 - content_for :page_header do
@@ -12,11 +12,14 @@
       - headline += ": " + current_site.description
     = headline
 
-#content
+#content.container-fluid
 
   - if current_site.local_auth_enabled? || current_site.ldap_enabled?
     #login-box.form-area
-      %h2= t('.login.title')
+      .container-fluid
+        .col-sm-12.col-md-4
+        .col-sm-12.col-md-8
+          %h2= t('.login.title')
       = render :partial => 'sessions/login_form'
       .action-links
         %ul
@@ -26,5 +29,8 @@
 
   - if current_site.registration_enabled?
     #registration-box.form-area
-      %h2= t('.register.title')
+      .container-fluid
+        .col-sm-12.col-md-4
+        .col-sm-12.col-md-8
+          %h2= t('.register.title')
       = render :partial => 'registrations/signup_form'

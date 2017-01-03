@@ -14,7 +14,6 @@ FactoryGirl.define do
     disabled false
     approved true
     superuser false
-    receive_digest { User::RECEIVE_DIGEST_NEVER }
     password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     password_confirmation { |user| user.password }
     before(:create) { |user| user.skip_confirmation_notification! }

@@ -1,0 +1,61 @@
+- cls = !recording.available? ? "list-item-disabled" : ""
+.list-item{ id: "recording-#{recording.recordid}", class: cls }
+
+  .col-xs-12.col-sm-6
+    - words = params[:q].try(:split)
+    .list-text-title
+      - cls = recording.available ? "" : "recording-not-available-name"
+      = link_to bigbluebutton_recording_path(recording), class: "recording-name #{cls}" do
+        = Mconf::Highlighter.highlight(recording.name, words)
+    .list-text-description
+      = Mconf::Highlighter.highlight(recording.description, words)
+    .list-text-description
+      = "ID: "
+      = Mconf::Highlighter.highlight(recording.recordid, params[:q].try(:split))
+    .list-text-description
+      = t('.room_name') + ": "
+      = link_to bigbluebutton_room_path(recording.room), :class => 'recording-metadata' do
+        = Mconf::Highlighter.highlight(recording.room.name, params[:q].try(:split))
+    - if recording.room.owner.present?
+      .list-text-description
+        = t(".owner_type_#{recording.room.owner.class.name.downcase}") + ": "
+        = link_to recording.room.owner.name, polymorphic_path(recording.room.owner)
+
+  .col-xs-12.col-sm-2
+    = t('.from') + " "
+    %span.tooltipped{title: recording.start_time}
+      = I18n.l(recording.start_time, format: :numeric)
+
+  .col-xs-12.col-sm-2
+    = recording_available(recording)
+    = recording_published(recording)
+
+  .col-xs-12.col-sm-2.management-links.list-actions
+    = link_to edit_bigbluebutton_recording_path(recording) do
+      = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+
+    - if recording.available?
+      - if recording.published?
+        = link_to unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
+          = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
+      - else
+        = link_to publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
+          = icon_publish(:alt => t('.publish'), :title => t('.publish'))
+
+    = link_to bigbluebutton_recording_path(recording, :redir_url => manage_recordings_path), :data => { :confirm => t('.confirm_delete') }, :method => :delete do
+      = icon_delete(:alt => t('.delete'), :title => t('.delete'))
+
+      -# - if recording.playback_formats.size > 0
+      -#   = link_to "#", class: 'showplayback' do
+      -#     = icon_list(:alt => t('.show_playback'), :title => t('.show_playback'), :class => "enabled")
+      -# - if recording.playback_formats.size == 0
+      -#   = icon_list(:alt => t('.show_playback_none'), :title => t('.show_playback_none'), :class => "disabled")
+
+  -# .playback-types
+  -#   %h5= t(".playback_links")
+  -#   %ul
+  -#     - recording.playback_formats.each do |playback|
+  -#       %li
+  -#         = link_to playback.format_type, play_bigbluebutton_recording_path(recording, type: playback.format_type), :class => "open-new-window"
+  -#         = "&#149;".html_safe
+  -#         = link_to t(".direct_link"), playback.url, :class => "open-new-window"

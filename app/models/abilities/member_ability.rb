@@ -15,7 +15,7 @@ module Abilities
       can [:edit, :update, :disable], User, id: user.id
       can [:update_password], User do |target_user|
         user == target_user &&
-          (Site.current.local_auth_enabled? && !target_user.no_local_auth?)
+          (Site.current.local_auth_enabled? && target_user.local_auth?)
       end
 
       # User profiles
@@ -89,6 +89,7 @@ module Abilities
         end
       end
 
+      alias_action :index_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
       can [:manage_join_requests], Space do |s|
         s.admins.include?(user)
@@ -157,7 +158,10 @@ module Abilities
 
       # users can't create events in a space they don't belong to
       cannot [:create, :new], Event do |event|
-        event.owner_type == 'Space' && !event.owner.users.include?(user)
+        if event.owner_type == 'Space'
+          owner = Space.with_disabled.find(event.owner_id)
+          !owner.users.include?(user)
+        end
       end
 
       can [:edit, :update, :destroy, :invite, :send_invitation], Event do |e|
@@ -228,11 +232,9 @@ module Abilities
         user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
-      # Currently only user rooms can be updated
-      # TODO: rooms in spaces should also be updatable, but for now they
-      # are edited through the space
-      can [:update], BigbluebuttonRoom do |room|
-        room.owner_type == "User" && room.owner.id == user.id
+      # Owners of personal rooms or admins of a space can edit rooms
+      can [:user_edit, :update], BigbluebuttonRoom do |room|
+        user_is_owner_or_admin_of_rooms_space(user, room)
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -248,8 +250,8 @@ module Abilities
           user_is_owner_of_recording(user, recording)
       end
 
-      # a user can edit his recordings and recordings in spaces where he's an admin
-      can [:update], BigbluebuttonRecording do |recording|
+      # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
+      can [:update, :unpublish], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
           user_is_admin_of_recordings_space(user, recording)
       end
@@ -271,13 +273,33 @@ module Abilities
       end
     end
 
-    # Whether `user` is the owner of `room` of belongs to the space that owns `room`.
+    # Whether `user` is the owner of `room` or belongs to the space that owns `room`.
     def user_is_owner_or_belongs_to_rooms_space(user, room)
       if (room.owner_type == "User" && room.owner.id == user.id)
         true
       elsif (room.owner_type == "Space")
-        space = Space.find(room.owner.id)
-        space.users.include?(user)
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.users.include?(user)
+        else
+          false
+        end
+      else
+        false
+      end
+    end
+
+    # Whether `user` is the owner of `room` or admin of the space that owns `room`.
+    def user_is_owner_or_admin_of_rooms_space(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.admins.include?(user)
+        else
+          false
+        end
       else
         false
       end

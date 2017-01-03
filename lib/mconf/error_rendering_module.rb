@@ -9,11 +9,19 @@ module Mconf::ErrorRenderingModule
     render :template => "/errors/error_#{number}", :status => number, :layout => "error"
   end
 
+  # Add some stack trace info to production log
+  def log_stack_trace exception
+    Rails.logger.info "#{exception.class.name} (#{exception.message}):"
+    st = "  " + exception.backtrace.first(15).join("\n  ")
+    Rails.logger.info st
+  end
+
   def render_404(exception)
     @route ||= request.path
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
       render_error_page 404
+      log_stack_trace exception
     else
       raise exception
     end
@@ -24,6 +32,7 @@ module Mconf::ErrorRenderingModule
       @exception = exception
       ExceptionNotifier.notify_exception exception
       render_error_page 500
+      log_stack_trace exception
     else
       raise exception
     end

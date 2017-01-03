@@ -12,7 +12,21 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
+  layout "manage"
+
+  # TODO: #1087 redirect back after updating the desc of a recording
+
   protected
+
+  def handle_access_denied exception
+
+    # anonymous users are required to sign in
+    if !user_signed_in?
+      redirect_to login_path
+    else
+      super
+    end
+  end
 
   # Checks the URL and sets the parameters as temporary parameters in the playback's URL.
   def set_parameters
@@ -34,4 +48,5 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
       [ :description ]
     end
   end
+
 end

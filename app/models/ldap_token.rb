@@ -5,11 +5,20 @@
 # 3 or later. See the LICENSE file.
 
 class LdapToken < ActiveRecord::Base
-  # attr_accessible :data, :identifier, :user_id
   belongs_to :user
   validates :identifier, presence: true, uniqueness: true
 
+  serialize :data, Hash
+
   def self.user_created_by_ldap?(u)
     LdapToken.where(user_id: u.id, new_account: true).present?
+  end
+
+  def last_sign_in_date
+    current_sign_in_at
+  end
+
+  def sign_in_method_name
+    "ldap"
   end
 end

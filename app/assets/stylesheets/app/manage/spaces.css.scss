@@ -3,47 +3,35 @@
 
 body.manage.spaces {
 
-  .page-tabs {
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+
     .search-words {
-      text-align: left;
+      input { width: 100%; }
+    }
 
-      label {
-        margin: 3px 7px;
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
       }
+    }
 
-      input {
-        margin: 0 5px;
-        width: 75%;
+    .search-tags {
+      margin: 5px 7px 0 7px;
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-space {
+        margin-bottom: 10px;
+        float: right;
       }
     }
-
-    .btn-new-space {
-      float: right;
-    }
   }
-
-  .space-disabled {
-    color: #888;
-    background: $very-light-gray;
-
-    .logo-in-thread {
-      opacity: 0.5;
-    }
-  }
-
-  .management-links {
-    float: right;
-    padding-top: 8px;
-  }
-
-  .thread {
-    .space-name, .space-description {
-      display: block;
-    }
-
-    .space-description {
-      margin-left: 60px;
-    }
-  }
-
 }
+

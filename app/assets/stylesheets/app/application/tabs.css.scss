@@ -32,20 +32,20 @@
     a {
       display: inline-block;
       margin-bottom: -5px;
-      @include link-colors(#808080, $link-color-hover, $link-color-active);
+      @include link-colors(#808080, $m-link-color-hover, $m-link-color-active);
       padding: 5px 10px;
       font-weight: bold;
-      @include font-size($font-medium);
+      @include font-size($m-font-medium);
     }
 
     &.ui-tabs-selected a {
-      color: $blue;
+      color: $m-blue;
       @include border-top-radius(5px);
       border-top: 1px solid #ddd;
       border-left: 1px solid #ddd;
       border-right: 1px solid #ddd;
       border-bottom: 1px solid white;
-      background: $site-bg-color;
+      background: $m-site-bg-color;
     }
   }
 }

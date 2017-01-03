@@ -19,18 +19,19 @@ namespace :db do
     username_offset = 0 # to prevent duplicated usernames
 
     if ENV['CLEAR']
-      puts "*** Destroying all resources!"
-      Permission.destroy_all
-      Space.destroy_all
+      print "*** Destroying all resources! "
+      Permission.destroy_all; print "."
+      Space.destroy_all; print "."
       if Mconf::Modules.mod_enabled?('events')
         Event.destroy_all
         Participant.destroy_all
       end
-      RecentActivity.destroy_all
-      User.with_disabled.where.not(id: User.first.id).destroy_all
-      BigbluebuttonRoom.where.not(owner: User.first).destroy_all
-      BigbluebuttonPlaybackType.destroy_all
-      BigbluebuttonRecording.destroy_all
+      RecentActivity.destroy_all; print "."
+      User.with_disabled.where.not(id: User.first.id).destroy_all; print "."
+      BigbluebuttonRoom.where.not(owner: User.first).destroy_all; print "."
+      BigbluebuttonPlaybackType.destroy_all; print "."
+      BigbluebuttonRecording.destroy_all; print "."
+      BigbluebuttonMeeting.destroy_all; print ". DONE!"
     end
 
     puts
@@ -166,7 +167,7 @@ namespace :db do
       puts "* Create events: for spaces (20..40)"
       available_spaces = Space.all.to_a
       Event.populate 20..40 do |event|
-        event.owner_id = available_spaces
+        event.owner_id = available_spaces.sample.id
         event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')
@@ -229,55 +230,108 @@ namespace :db do
       # end
     end
 
-    puts "* Create recordings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
-
-    # Playback types
-    ids = ["presentation", "presentation_video", "presentation_export"]
-    ids.each_with_index do |id, i|
-      params = {
-        identifier: id,
-        visible: i==0 ? true : [true, false],
-        default: i==0
-      }
-      BigbluebuttonPlaybackType.create(params)
+    puts "* Create tags: for #{Space.count/2} spaces"
+    tag_list_pop = (0..20).map { Populator.words(1..3) }
+    ids = Space.ids
+    ids = ids.sample(Space.count/2) # half spaces have tags
+    Space.where(:id => ids).each do |space|
+      puts "* Create tags: Space \"#{space.name}\" - add (1..6) tags"
+      space.update_attributes(:tag_list => tag_list_pop.sample(rand(5) + 1))
     end
 
+    puts "* Create recordings, meetings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
+
+    # Playback types
+    unless BigbluebuttonPlaybackType.count >= 3
+      ids = ["presentation", "presentation_video", "presentation_export"]
+      ids.each_with_index do |id, i|
+        params = {
+          identifier: id,
+          visible: true,
+          default: i==0
+        }
+        BigbluebuttonPlaybackType.create(params)
+      end
+    end
+
+    # Create recordings and meetings for all rooms
     BigbluebuttonRoom.all.each do |room|
 
-      BigbluebuttonRecording.populate 2..10 do |recording|
-        recording.room_id = room.id
-        recording.server_id = room.server.id
-        recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
-        recording.meetingid = room.meetingid
-        recording.name = Populator.words(3..5).titleize
-        recording.published = true
-        recording.available = true
-        recording.start_time = @created_at_start..Time.now
-        recording.end_time = recording.start_time + rand(5).hours
-        recording.description = Populator.words(5..8)
-        recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
-
-        # Recording metadata
-        BigbluebuttonMetadata.populate 0..3 do |meta|
-          meta.owner_id = recording.id
-          meta.owner_type = recording.class.to_s
-          meta.name = "#{Populator.words(1)}-#{meta.id}"
-          meta.content = Populator.words(2..8)
+      # Several meetings with recordings
+      BigbluebuttonMeeting.populate 0..35 do |meeting|
+        meeting.room_id = room.id
+        meeting.server_id = room.server.id
+        meeting.meetingid = room.meetingid
+        meeting.start_time = @created_at_start..Time.now
+        meeting.name = Populator.words(3..5).titleize
+        meeting.recorded = true
+        if room.owner.present? # not for disabled resources
+          if room.owner_type == "Space"
+            user = room.owner.users.sample
+          else
+            user = room.owner
+          end
+          meeting.creator_id = user.id
+          meeting.creator_name = user.full_name
         end
+        meeting.running = false
 
-        # Recording playback formats
-        # Note: make a few recordings without playback formats, meaning that the recording is still
-        # being processed
-        playback_types = BigbluebuttonPlaybackType.pluck(:id)
-        BigbluebuttonPlaybackFormat.populate 0..3 do |format|
-          format.recording_id = recording.id
-          format.url = "http://#{Forgery::Internet.domain_name}/playback/#{Populator.words(1)}"
-          format.length = Populator.value_in_range(32..128)
+        BigbluebuttonRecording.populate 1..1 do |recording|
+          recording.room_id = room.id
+          recording.server_id = room.server.id
+          recording.meeting_id = meeting.id
+          recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
+          recording.meetingid = room.meetingid
+          recording.name = meeting.name
+          recording.published = true
+          recording.available = true
+          recording.start_time = meeting.start_time
+          recording.end_time = recording.start_time + rand(5).hours
+          recording.description = Populator.words(5..8)
+          recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
 
-          id = playback_types.sample
-          playback_types.delete(id)
-          format.playback_type_id = id
+          # Recording playback formats
+          # Make a few recordings without playback formats, meaning that the recording is still
+          # being processed
+          playback_types = BigbluebuttonPlaybackType.pluck(:id)
+          BigbluebuttonPlaybackFormat.populate 0..3 do |format|
+            format.recording_id = recording.id
+            format.url = "http://#{Forgery::Internet.domain_name}/playback/#{Populator.words(1)}"
+            format.length = Populator.value_in_range(32..128)
+
+            id = playback_types.sample
+            playback_types.delete(id)
+            format.playback_type_id = id
+          end
+
+          # Recording metadata
+          BigbluebuttonMetadata.populate 0..3 do |meta|
+            meta.owner_id = recording.id
+            meta.owner_type = "BigbluebuttonRecording"
+            meta.name = "#{Populator.words(1)}-#{meta.id}"
+            meta.content = Populator.words(2..8)
+          end
         end
+      end
+
+      # Create a few meetings that have no recording associated
+      BigbluebuttonMeeting.populate 0..10 do |meeting|
+        meeting.room_id = room.id
+        meeting.server_id = room.server.id
+        meeting.meetingid = room.meetingid
+        meeting.start_time = @created_at_start..Time.now
+        meeting.name = Populator.words(3..5).titleize
+        meeting.recorded = false
+        if room.owner.present? # not for disabled resources
+          if room.owner_type == "Space"
+            user = room.owner.users.sample
+          else
+            user = room.owner
+          end
+          meeting.creator_id = user.id
+          meeting.creator_name = user.full_name
+        end
+        meeting.running = false
       end
 
       # Basic metadata needed in all recordings
@@ -351,9 +405,11 @@ namespace :db do
       end
 
       # Attachment activity
-      space.attachments.each do |att|
-        author = space.admins.sample
-        att.new_activity :create, author
+      if space.users.length > 0
+        space.attachments.each do |att|
+          author = space.admins.sample
+          att.new_activity :create, author
+        end
       end
 
     end

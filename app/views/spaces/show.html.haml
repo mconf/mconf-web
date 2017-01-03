@@ -1,22 +1,23 @@
 - page_title @space.name
-
 - spaces_menu_at :home
+= render 'spaces/sidebar', space: @space, full: false
 
-= render :partial => 'spaces/menu'
+-# - if mod_enabled?("events") && !@current_events.empty?
+-#   #events-current.content-block.event-block.events-hapenning-now
+-#     .content-block-header
+-#       %h3= t('.events_now')
+-#     .content-block-middle
+-#       - for event in @current_events do
+-#         = render :partial => "events/unified_event", :locals => { :event => event }
 
-- if mod_enabled?("events") && !@current_events.empty?
-  #events-current.content-block.event-block.events-hapenning-now
-    .content-block-header
-      %h3= t('.events_now')
-    .content-block-middle
-      - for event in @current_events do
-        = render :partial => "events/unified_event", :locals => { :event => event }
 
 .content-block
   .content-block-header
-    %h3= t('space.description')
+    %h3= "Description"
   .content-block-middle
-    = @space.description
+    = sanitize(@space.description)
+
+= render "shared/webconference_join", room: @space.bigbluebutton_room
 
 -if can?(:read, @space.posts)
   = render :partial => 'latest_posts'

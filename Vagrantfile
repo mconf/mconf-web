@@ -52,6 +52,7 @@ Vagrant.configure(2) do |config|
     rb_version = IO.read(File.join(File.dirname(__FILE__), '.ruby-version')).chomp
     chef.json = {
       rbenv: {
+        git_ref: 'master',
         user_installs: [{
           user: 'vagrant',
           rubies: [rb_version],
@@ -60,7 +61,11 @@ Vagrant.configure(2) do |config|
             rb_version => [
               { name: "bundler" }
             ]
-          }
+          },
+          plugins: [
+            { 'name' => 'ruby-build',
+              'git_url' => 'https://github.com/rbenv/ruby-build.git' }
+          ]
         }]
       },
       mysql: {

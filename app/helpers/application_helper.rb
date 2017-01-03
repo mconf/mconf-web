@@ -12,11 +12,16 @@ module ApplicationHelper
   include Mconf::Modules # so the views can access it too
 
   def copyable_field(id, content, opt={})
-    opt[:label] ||= id
-    content_tag :div, :class => 'input-append copyable-field' do
-      concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
-      concat text_field_tag(id, content, opt.except(:label))
-      concat content_tag(:a, '', :class => "icon-awesome icon-paste add-on", :href => "#")
+    content_tag :div, :class => 'form-group copyable-field' do
+      content_tag :div, :class => 'input-group' do
+        input_class = "#{opt[:class]} form-control"
+        concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
+        concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
+        btn = content_tag :a, '', :class => 'input-group-addon btn', :href => '#' do
+          concat content_tag(:i, '', :class => "icon-awesome fa fa-paste")
+        end
+        concat btn
+      end
     end
   end
 
@@ -37,6 +42,12 @@ module ApplicationHelper
     content_for :title do
       "#{title} &#149;#{inside_resource} #{current_site.name}".html_safe
     end
+  end
+
+  def default_separator(no_space=false)
+    s  = "&#149;"
+    s += " " unless no_space
+    s.html_safe
   end
 
   # Ex: asset_exists?('posts/edit', 'css')
@@ -73,7 +84,7 @@ module ApplicationHelper
   # useful to simplify the calls from the views
   # Now also sets the html title tag for the page
   # Ex:
-  #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
+  #   <%= page_title('users', 'logos/user.png', { :transparent => true }) %>
   def render_page_title(title, logo=nil, options={})
     page_title title
     block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
@@ -145,6 +156,11 @@ module ApplicationHelper
     current_site.max_upload_size
   end
 
+  # Returns an array with all image extensions supported by the application
+  def supported_image_formats
+    ['.jpg', '.jpeg', '.png']
+  end
+
   # Includes elements in the page to disable the autocomplete of an input
   # In some browsers, such as Firefox, setting the attribute 'autocomplete=false' in
   # the input is not enough to disable its autocomplete, usually for username and
@@ -197,6 +213,27 @@ module ApplicationHelper
   # First 'size' characters of a text
   def first_words(text, size)
     truncate(text, :length => size)
+  end
+
+  # Sets the default value for a local variable in a view in case this variable is not set yet.
+  # Preserves false and nil values set in the variable.
+  # Example:
+  #   show_authors = set_default(local_assigns, "show_authors", true)
+  # TODO: find a way to access `local_assigns` here without passing in as a param.
+  def set_default(local_assigns, var_name, value)
+    if local_assigns.has_key?(var_name.to_sym)
+      local_assigns[var_name.to_sym]
+    else
+      value
+    end
+  end
+
+  def captcha_tags
+    if current_site.captcha_enabled?
+      content_tag :div, class: 'captcha' do
+        recaptcha_tags public_key: current_site.recaptcha_public_key, hl: I18n.locale
+      end
+    end
   end
 
   private

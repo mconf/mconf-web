@@ -1,6 +1,5 @@
-# What is done here is almost duplicated at spaces/recordings.js.coffee
-# The ids are slightly different, so we didn't make this a partial. But whatever is
-# done here might have to be done at spaces/recordings.js.coffee as well.
+# TODO: What is done here is almost duplicated at spaces/recordings.js.coffee, find a way to merge
+# them together.
 
 $ ->
   if isOnPage 'my', 'recordings'
@@ -21,7 +20,7 @@ $ ->
 submitFormUpdate = ->
   $form = $('#my-webconference-recordings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#my-webconference-recordings-list-wrapper').html(data)
+    $('#my-webconference-recordings-list-container').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->
@@ -35,7 +34,7 @@ showStatus = (status) ->
   $("#my-webconference-recordings-#{status}").show()
   window.setTimeout ->
     $("#my-webconference-recordings-#{status}").hide()
-  , 10000
+  , 15000
 
 # Show a notification with the error that occurred in the request `xhr`.
 showErrorNotification = (xhr) ->

@@ -1,18 +1,38 @@
-= render :partial => 'manage/menu'
-
-= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
-  .left-column
+= simple_form_for @site, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column', autocomplete: 'off'} do |f|
+  #site-edit-panel-1
     = f.input :name
-    = f.input :description, :as => :text, :input_html => { :rows => 5 }
     = f.input :domain
+    = f.input :description, :as => :text, :input_html => { :rows => 5 }
+    = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :locale, :collection => available_locales(true)
     = f.input :visible_locales, :collection => available_locales(true), :as => :check_boxes
     = f.input :timezone do
       = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
-    = f.input :signature, :as => :text, :input_html => { :rows => 5 }
     = f.input :ssl, :as => :boolean
     = f.input :feedback_url, :hint => t('simple_form.hints.site.feedback_url', :default_url => webconf_feedback_index_path)
+    = f.input :events_enabled, :as => :boolean
+    = f.input :external_help
+    = f.input :registration_enabled, :as => :boolean
+    = f.input :require_registration_approval, :as => :boolean
+    = f.input :local_auth_enabled, :as => :boolean
+    = f.input :require_space_approval, :as => :boolean
+    = f.input :forbid_user_space_creation, :as => :boolean
+    = f.input :room_dial_number_pattern, as: :string
+    = f.input :exception_notifications, :as => :boolean
+    = f.input :exception_notifications_email
+    = f.input :exception_notifications_prefix
     = f.input :analytics_code
+    = f.input :max_upload_size, as: :string, input_html: { value: @site.formatted_max_upload_size }
+  #site-edit-panel-2
+    = f.input :smtp_login
+    = f.input :smtp_password, :as => :showable_password
+    = f.input :smtp_sender
+    = f.input :smtp_domain
+    = f.input :smtp_server
+    = f.input :smtp_port
+    = f.input :smtp_use_tls
+    = f.input :smtp_auto_tls
+    = f.input :smtp_auth_type
     = f.input :shib_enabled, :as => :boolean
     = f.input :shib_email_field, :as => :string
     = f.input :shib_name_field
@@ -25,35 +45,18 @@
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
+    = disable_autocomplete_for('site[ldap_user]')
     = f.input :ldap_user
+    = disable_autocomplete_for('site[ldap_user_password]', 'password')
     = f.input :ldap_user_password, :as => :showable_password
     = f.input :ldap_user_treebase
     = f.input :ldap_username_field
     = f.input :ldap_email_field
     = f.input :ldap_name_field
     = f.input :ldap_filter
-  .right-column
-    = f.input :smtp_login
-    = f.input :smtp_password, :as => :showable_password
-    = f.input :smtp_sender
-    = f.input :smtp_domain
-    = f.input :smtp_server
-    = f.input :smtp_port
-    = f.input :smtp_use_tls
-    = f.input :smtp_auto_tls
-    = f.input :smtp_auth_type
-    = f.input :exception_notifications, :as => :boolean
-    = f.input :exception_notifications_email
-    = f.input :exception_notifications_prefix
-    = f.input :presence_domain
-    = f.input :xmpp_server
-    = f.input :external_help
-    = f.input :room_dial_number_pattern, as: :string
-    = f.input :registration_enabled, :as => :boolean
-    = f.input :require_registration_approval, :as => :boolean
-    = f.input :local_auth_enabled, :as => :boolean
-    = f.input :require_space_approval, :as => :boolean
-    = f.input :forbid_user_space_creation, :as => :boolean
-    = f.input :events_enabled, :as => :boolean
-    = f.input :max_upload_size, as: :string, input_html: { value: @site.formatted_max_upload_size }
-  = f.button :wrapped, :cancel => site_path, :value => t("_other.save")
+    = f.input :smtp_receiver
+    = f.input :captcha_enabled
+    = f.input :recaptcha_public_key
+    = f.input :recaptcha_private_key
+    = f.input :use_gravatar, :as => :boolean
+  = f.button :wrapped, :cancel => edit_site_path, :value => t("_other.save")

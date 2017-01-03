@@ -26,12 +26,11 @@ class SpacesController < InheritedResources::Base
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
-  # all actions that render the sidebar
-  before_filter :webconf_room!,
-    :only => [:show, :edit, :user_permissions, :webconference,
-              :recordings, :edit_recording, :webconference_options]
+  # all actions that render the web conference room snippetB
+  before_filter :webconf_room!, :only => [:show, :webconference, :recordings]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
+
   before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   # Create recent activity
@@ -40,21 +39,20 @@ class SpacesController < InheritedResources::Base
   end
 
   def set_layout
-    if [:show, :edit, :user_permissions, :webconference_options,
-        :webconference, :recordings, :edit_recording].include? action_name.to_sym
-      'spaces_show'
-    else
-      'application'
-    end
+    'application'
   end
   layout :set_layout
 
   def index
-    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
-
     order_spaces
     paginate_spaces
-    set_menu_tab
+
+    if request.xhr?
+      render "spaces/_list_view", layout: false, locals: { spaces: @spaces, user_spaces: @user_spaces , extended: true }
+    else
+      set_menu_tab
+      render :index
+    end
   end
 
   def show
@@ -101,7 +99,9 @@ class SpacesController < InheritedResources::Base
         }
       end
     else
-      format.json { render json: { success: false } }
+      respond_to do |format|
+        format.json { render json: { success: false } }
+      end
     end
   end
 
@@ -119,13 +119,9 @@ class SpacesController < InheritedResources::Base
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = @space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
+    @permissions = @space.permissions_ordered_by_name
+      .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
-  end
-
-  def webconference_options
   end
 
   def leave
@@ -155,7 +151,6 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    # FIXME: Temporarily matching users by name, should use the userID
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
@@ -164,6 +159,9 @@ class SpacesController < InheritedResources::Base
       end
       @webconf_attendees.uniq!
     end
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
+      .with_or_without_recording().last(5)
   end
 
   # Action used to show the recordings of a space
@@ -171,9 +169,11 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def recordings
-    @recordings = @webconf_room.recordings.published().order("end_time DESC")
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_or_without_recording()
+    @recording_count = @meetings.count
     if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
+      @meetings = @meetings.first(params[:limit].to_i)
     end
 
     render layout: false if params[:partial]
@@ -181,7 +181,7 @@ class SpacesController < InheritedResources::Base
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
 
@@ -195,8 +195,15 @@ class SpacesController < InheritedResources::Base
   def load_spaces_index
     spaces = Space.where(approved: true)
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    words = params[:q].try(:split, /\s+/)
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
+    @spaces = params[:q] ? @spaces.search_by_terms(words, can?(:manage, Space)) : @spaces
+
+    params[:tag] = "" if params[:tag].blank? || !params[:tag].split(ActsAsTaggableOn.delimiter).any?
+    @spaces = params[:tag].blank? ? @spaces : @spaces.tagged_with(params[:tag])
+
+    @spaces = @spaces.includes(:tags)
   end
 
   def order_spaces
@@ -205,12 +212,12 @@ class SpacesController < InheritedResources::Base
     if params[:order] == 'abc'
       @spaces = @spaces.order('name ASC')
     else
-      @spaces = @spaces.order_by_activity
+      @spaces = @spaces.order_by_relevance
     end
   end
 
   def paginate_spaces
-    @spaces = @spaces.paginate(:page => params[:page], :per_page => 18)
+    @spaces = @spaces.paginate(:page => params[:page], :per_page => 15)
   end
 
   # Should be on the view?
@@ -230,7 +237,7 @@ class SpacesController < InheritedResources::Base
 
   def load_spaces_examples
     # TODO: RAND() is specific for mysql
-    @spaces_examples = Space.where(approved: true).order('RAND()').limit(3)
+    @spaces_examples = Space.where(approved: true).order_by_activity.limit(20).sample(5)
   end
 
   def load_events
@@ -301,10 +308,10 @@ class SpacesController < InheritedResources::Base
   allow_params_for :space
   def allowed_params
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
-      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_key, :moderator_key, :default_layout, :private,
-          :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+        [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
+    ]
   end
 
   # For disable controller module

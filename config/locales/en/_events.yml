@@ -30,13 +30,14 @@ en:
       attend_html: will attend to the event %{name} in the space
       not_attend_html: will not attend to the event %{name} in the space
       update_html: updated the information of the event %{name} in the space
-      deleted: that has since been deleted
+      deleted: "%{name} (that has since been deleted)"
     participant:
       create_html: will attend to the event %{name} in the space
   flash:
     events:
       create:
         notice: Successfully created the event
+        permission_error: "You don't have permission to create this event"
       destroy:
         notice: Successfully deleted the event
       update:

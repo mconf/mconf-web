@@ -14,11 +14,11 @@
       = link_logo_image(meeting.room.owner, size: '84x64', url: space_path(meeting.room.owner), class: 'logo logo-space-activity')
 
 .thread-content
-  = formatted_time_ago activity.updated_at
+  = formatted_time_ago activity.created_at
 
-  .thread-title
+  .thread-description
     = icon_meeting
-    - unless meeting.nil?
+    - if meeting.present?
       - if meeting.room.owner_type == 'User'
         = activity_translate('bigbluebutton_meeting.user.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
       - elsif meeting.room.owner_type == 'Space'

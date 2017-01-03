@@ -1,10 +1,11 @@
 /*
  * Vendored stylesheets
- *= require ./bootstrap_and_overrides
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
- *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
+ *= require ./app/application/bootstrap-custom
  *= require font-awesome
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
+ *= require ../../../vendor/assets/stylesheets/toastr
+
+ *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require select2
  *= require ../../../vendor/assets/stylesheets/bootstrap/select2-bootstrap
  *= require bootstrap-datetimepicker
@@ -13,24 +14,25 @@
  * Note: the order matters!
  *= require ./app/application/typography
  *= require ./app/application/base
- *= require ./app/application/bootstrap
+ *= require ./app/application/sidebar-size
+ * require ./app/application/set-max-width # disabled for now
  *= require ./app/application/font-awesome
  *= require ./app/application/simple_form
  *= require ./app/application/dropdown-menu
  *= require ./app/application/notifications
  *= require ./app/application/tooltips
+ *= require ./app/application/tags
  *= require ./app/application/input-placeholder
  *= require ./app/application/in_place_edit
  *= require ./app/application/resource_filter
- *= require ./app/application/modal
- *= require ./app/application/showable_password_input
  *= require ./app/application/logo_images
  *= require ./app/application/footer
  *= require ./app/application/lists
  *= require ./app/application/select2
+ *= require ./app/application/copy-modal
+ *= require ./app/application/page-menu-js
  *
  * Some partials are necessary everywhere
- *= require ./app/shared/_copy_modal
  *= require ./app/feedback/_new
  *
  */

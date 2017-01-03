@@ -1,48 +1,31 @@
-#footer-wrapper
+#footer-container
   #footer
-    #footer-logo
-      = link_to current_site.name, "/", :class => 'title'
-      %span= t('.copyright', site: current_site.name, year: Time.now.year)
-    .link-group
-      %h3= t('.links.title')
-      %ul
-        - unless current_site.external_help.blank?
-          %li= link_to(t('.links.help'), current_site.external_help)
-        - if user_signed_in?
-          %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
-        %li= link_to(t('.links.statistics'), main_app.show_statistics_path )
-    .link-group
-      %h3= t('.find_us')
-      %ul
-        %li= link_to t('.project_website'), "http://www.inf.ufrgs.br/prav/gtmconf"
-        %li= link_to t('.github'), "https://github.com/mconf"
-        %li= link_to t('.wiki'), "https://github.com/mconf/wiki/wiki"
-        %li= link_to t('.issues'), "http://dev.mconf.org"
-    .link-group.footer-languages
-      %h3
-        = link_to 'https://github.com/mconf/mconf-web/wiki/Mconf-Web-Localization' do
-          = icon_info t('.translate.help_us'), :class => 'help-translate-icon'
-        = t('.translate.change')
-      - available_locales.each_slice(3) do |locales|
+    #footer-content
+      #footer-left.col-xs-7
         %ul
-          - locales.each do |locale|
-            %li
-              - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
-              - name = locale_i18n(locale)
-              - link = link_to(name, main_app.session_locale_path(l: locale.to_s), method: :post)
-              = (flag + " " + link).html_safe
-    .link-group.footer-sponsors
-      %h3= t('.sponsors.title')
-      %ul
-        %li
-          = image_tag("logos/rnp_small.jpg")
-          = link_to t('.sponsors.rnp').html_safe, "http://www.rnp.br"
-        %li
-          = image_tag("logos/prav_small.png")
-          = link_to t('.sponsors.prav').html_safe, "http://www.inf.ufrgs.br/prav"
-    .current-version
-      = t('.current_version') + ": "
-      = application_version
-      = "&#149;".html_safe
-      = link_to github_link_to_revision(application_revision) do
-        = application_revision
+          %li= t('.copyright', site: current_site.name, year: Time.now.year)
+          - unless current_site.external_help.blank?
+            %li= link_to(t('.links.help'), current_site.external_help)
+          - if user_signed_in?
+            %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
+          %li= link_to t('.links.statistics'), main_app.show_statistics_path
+        #footer-powered
+          = image_tag "logos/mconf-ico-color-transp.png", size: "14x14"
+          = t('.links.powered_by')
+          = link_to "mconf.org", "http://mconf.org"
+          %span.current-version
+            = t('.current_version') + ": "
+            = "&#149;".html_safe
+            = application_version
+            = link_to github_link_to_revision(application_revision) do
+              = application_revision
+
+      #footer-right.col-xs-5
+        - available_locales.each_slice(3) do |locales|
+          %ul
+            - locales.each do |locale|
+              %li
+                - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
+                - name = locale_i18n(locale)
+                - link = link_to(name, main_app.session_locale_path(l: locale.to_s), method: :post)
+                = (flag + " " + link).html_safe

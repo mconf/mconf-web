@@ -9,34 +9,34 @@ ul.list-thumbnails {
 
   .list-thumbnail-wrapper {
     float: left;
-    background: $light-gray;
     padding: 5px;
     margin: 0px 10px 5px 0px;
-    @include border-radius(4px);
     @include mconf-clearfix;
     width: 47%;
     @include block-wrapper-active;
 
     &.selected {
-      .list-thumbnail {
-        border-color: $second-color;
-        @include box-shadow(0 0 5px lighten($second-color, 10));
+      background: $m-light-gray;
+
+      .list-logo {
+        border-color: $m-second-color;
       }
     }
   }
 
   .list-thumbnail {
     @include mconf-clearfix;
-    border: 1px solid darken($light-gray, 12);
-    @include border-radius(4px);
-    background: white;
+    @include border-radius($m-border-radius-base);
 
     .list-logo {
       float: left;
-      width: 84px;
-      height: 64px;
+      width: 90px;
+      height: 70px;
       @include broken-img-parent;
-      border-right: 1px solid darken($light-gray, 12);
+      border: 1px solid darken($m-light-gray, 12);
+      background: white;
+      padding: 2px;
+      @include border-radius($m-border-radius-base);
 
       img {
         width: 84px;
@@ -60,7 +60,7 @@ ul.list-thumbnails {
 
 .list-texts {
   margin: 0;
-  pading: 0;
+  padding: 0;
 
   .thread {
     margin-top: 5px;
@@ -74,6 +74,72 @@ ul.list-thumbnails {
   }
 
   .thread-title {
-    @include font-size($font-medium);
+    @include font-size($m-font-medium);
+  }
+}
+
+.list-container {
+  padding: 0;
+
+  .list-item-header {
+    border-top-width: 1px;
+    background: $m-light-gray;
+    padding: 3px 0;
+    text-align: center;
+    border-top: 1px solid $m-border-color-medium;
+  }
+
+  .list-item {
+    border-top: 1px solid $m-border-color-medium;
+    clear: both;
+    @include mconf-clearfix;
+    padding: 10px 4px 8px 4px;
+
+    &:first-child {
+      border-top-width: 2px;
+      margin-top: 0;
+    }
+
+    &:hover {
+      background-color: #f6f6f6;
+    }
+
+    &.list-item-disabled {
+      color: #888;
+      background: $m-very-light-gray;
+      opacity: 0.8;
+
+      .logo-in-thread {
+        opacity: 0.7;
+      }
+
+      .label {
+        opacity: 0.5;
+      }
+    }
+
+    .list-text-title {
+      font-size: $m-font-medium;
+      font-weight: bold;
+    }
+
+    .list-text-description {
+      color: #666;
+    }
+
+    .list-actions {
+      font-size: $m-font-medium;
+      text-align: right;
+
+      /* because they are always just icons */
+      a:hover, a:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .list-item-logo {
+    text-align: center;
+    @include logo-container;
   }
 }

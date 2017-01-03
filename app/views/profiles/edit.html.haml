@@ -1,24 +1,27 @@
 -# Note: this view can be seen by the user himself or by an admin.
--#   The page and strings have to look good in both cases.
+-#   The page and the strings have to look good in both cases.
 
-= render_page_title t('.title')
+
+= page_title t('.title', name: @user.full_name)
 
 = content_for :sidebar do
-  #profile-in-sidebar
-    %ul
-      %li
-        = link_to t('.view_your_profile'), user_profile_path(current_user)
-    #edit-profile-current-logo
-      = logo_image(@user, :size => '128', :class => 'profile-logo logo logo-uploadable')
-    %ul
-      #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => max_upload_size }
-      %li
-        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
-          = link_to t('.vcard.use'), '#profile_vcard', :"data-open-file" => true
-          = icon_help t(".vcard.tooltip")
-          = f.input :vcard, :as => :file, :id => 'profile_vcard'
-          = f.submit :id => 'profile-vcard-submit'
-      %li= link_to t('.vcard.export'), user_profile_path(@user, :format => "vcf")
 
-= simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'single-column' } do |f|
+  - if can?(:update, @profile)
+    .sidebar-top-action-button
+      = link_to t('.view_your_profile'), user_profile_path(@user), class: "btn btn-default"
+      = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
+      = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
+        = link_to '#profile_vcard', :"data-open-file" => true, :class => "btn btn-default" do
+          = icon_help t(".vcard.tooltip")
+          = t('.vcard.use')
+        = f.input :vcard, :as => :file, :id => 'profile_vcard'
+        = f.submit :id => 'profile-vcard-submit'
+
+  = render 'shared/user_card', user: @user
+
+  - if @profile.logo_image.blank? && current_site.use_gravatar?
+    .using-gravatar.tooltipped{ title: t('.explain_gravatar') }= t('.using_gravatar')
+  #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => supported_image_formats.join(','), :'data-max-size' => max_upload_size }
+
+= simple_form_for @profile, :url => user_profile_path(@user), :html => { :class => 'single-column' } do |f|
   = render :partial => 'form', :locals => { :f => f, :user => @user }

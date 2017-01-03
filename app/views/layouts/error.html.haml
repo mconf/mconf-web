@@ -21,10 +21,10 @@
 
   %body{ :class => "errors" }
     #site
-      #navbar-wrapper
+      #navbar-container
         #navbar
           = render :partial => 'layouts/application_navbar'
-      #content-wrapper
+      #content-container
         #content
           = render :partial => "errors/default_content"
           = yield

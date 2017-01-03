@@ -4,7 +4,6 @@ de:
       create_html: hat den Anhang %{name} in die Gruppe hochgeladen
       destroy_html: hat den Anhang %{name} von der Gruppe gelöscht
       update_html: hat den Anhang %{name} in der Gruppe aktualisiert
-      deleted: das mittlerweile gelöscht ist
     bigbluebutton_meeting:
       deleted_html: "Ein Meeting hat stattgefunden aber seine Informationen sind mittlerweile gelöscht"
       user:
@@ -12,23 +11,8 @@ de:
       space:
         create_html: "Ein Meeting wurde in der Gruppe %{owner} um %{time} gestartet"
     join_request:
-      deleted: das mittlerweile gelöscht ist
       invite_html: "wurde eingeladen um der Gruppe beizutreten"
-      invite_with_introducer_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> eingeladen, der Gruppe beizutreten"
-      no_accept_html: "wurde von <a href=\"%{introducer_url}\">%{introducer}</a> der Gruppe hinzugefügt"
       request_html: "hat beantragt, der Gruppe beitreten zu dürfen"
-    mweb_events_event:
-      create_html: erstellte das Event %{name} in der Gruppe
-      attend_html: wird an %{name} der Gruppe teilnehmen
-      not_attend_html: wird nicht an %{name} in der Gruppe teilnehmen
-      update_html: hat die Informationen zu %{name} in der Gruppe aktualisiert
-      deleted: das mittlerweile gelöscht ist
-    mweb_events_participant:
-      create_html: wird an %{name} in der Gruppe teilnehmen
-    news:
-      create_html: hat die Neuigkeit %{name} in der Gruppe veröffentlicht
-      update_html: hat die Neuigkeit %{name} in der Gruppe aktualisiert
-      deleted: die mittlerweile gelöscht wurden
     other:
       admin_html: "Ein Administrator"
       someone_html: "Jemand"
@@ -36,13 +20,9 @@ de:
       create_html: hat %{name} in der Gruppe gepostet
       update_html: hat %{name}  in der Gruppe aktualsiert
       reply_html: hat auf %{name} in der Gruppe geantwortet
-      deleted: eine Nachricht, die mittlerweile gelöscht wurde
     space:
-      accept_html: ist der Gruppe beigetreten
       approved_html: hat die Gruppe freigeschalten
       create_html: hat eine neue Gruppe erstellt
-      decline_html: wurde die Einladung / Anfrage verweigert
-      deleted: eine Gruppe , die inzwischen gelöscht wurde
       leave_html: hat die Gruppe verlassen
       update_html: hat die Information zur Gruppe aktualisiert
   _js:
@@ -54,6 +34,7 @@ de:
     accept: "Annehmen"
     cancel: "Abbrechen"
     create: "Erstellen"
+    confirm: Ok
     datetimepicker:
       format_display: "%d. %m. %Y"
       format: "dd-MM-yyyy"
@@ -87,13 +68,9 @@ de:
     not_approved:
       text: 'Wartet auf Bestätigung'
       tooltip: 'Wartet auf Bestätigung, Benutzer sind noch nicht in der Lage, diese Gruppe zu sehen oder zu betreten.'
-    spam:
-      title: "Spam"
-      tooltip: "Dieses Item als Spam melden"
-      icon_tooltip: "Dieses Item wurde als Spam gemeldet und wird von den Administratoren ausgewertet"
     unpublish: "Depublizieren"
     update: "Aktualisieren"
-    updated_time_ago: "seit %{time}"
+    updated_time_ago: "vor %{time}"
     upload: "Hochladen"
     user:
       administrator: "Globaler Administrator"
@@ -127,9 +104,6 @@ de:
         users: "Benutzer"
       join_request:
         comment: "Nachricht"
-      news:
-        text: "Text"
-        title: "Titel"
       post:
         text: "Nachricht"
         title: "Titel"
@@ -148,16 +122,14 @@ de:
         prefix_key: "Titel"
         province: "Bundesland"
         skype: "Skype"
-        url: "Ihre Website"
         zipcode: "Postleitzahl"
       roles:
         name_user: "Benutzer"
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
-        chat_enabled: "Chat aktivieren"
         description: "Beschreibung"
-        domain: "Application domain"
+        domain: "Domäne der Anwendung"
         events_enabled: "Event-Modul aktivieren"
         exception_notifications: "Benachrichtigung bei Ausnahmefehlern schicken"
         exception_notifications_email: "Empfänger für Benachrichtigungen"
@@ -179,10 +151,9 @@ de:
         locale: "Sprache"
         max_upload_size: "Maximale Dateigröße für Uploads"
         name: "Name"
-        presence_domain: "XMPP Chat Domain"
         registration_enabled: "Benutzern erlauben, neue Accounts zu erstellen"
         require_registration_approval: "Benutzer moderieren"
-        require_space_approval: "Gruppes moderieren"
+        require_space_approval: "Gruppen moderieren"
         room_dial_number_pattern: 'Raumdurchwahlnummern-Pattern'
         signature: "Signatur"
         shib_always_new_account: "Shibboleth: Always create new account"
@@ -196,11 +167,11 @@ de:
         smtp_auth_type: "SMTP Authentifizierungs Typ"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "SMTP-Domäne"
-        smtp_login: "SMTP login"
-        smtp_password: "SMTP password"
-        smtp_port: "SMTP port"
-        smtp_sender: "SMTP sender"
-        smtp_server: "SMTP server"
+        smtp_login: "SMTP Login"
+        smtp_password: "SMTP Passwort"
+        smtp_port: "SMTP Port"
+        smtp_sender: "SMTP Sender"
+        smtp_server: "SMTP Server"
         smtp_use_tls: "TLS in SMTP verwenden"
         ssl: "SSL"
         timezone: "Zeitzone"
@@ -224,23 +195,38 @@ de:
         password: "Passwort"
         password_confirmation: "Passwortbestätigung"
         receive_digest: "Wie oft möchten Sie Übersichtsmails mit Neuigkeiten ihrer abonnierten Communities erhalten?"
+        remember_me: "Login speichern"
         superuser: "Globaler Administrator"
         timezone: "Zeitzone"
         username: "Benutzername"
     errors:
-      models:
-        private_message:
-          attributes:
-            users_tokens:
-              accepted: "es muss mindestens ein Empfänger ausgewählt werden"
       messages:
         invalid_identifier: "erzeugt eine ungültige Bezeichnung: \"%{id}\""
         missing: "fehlt"
     models:
       event: "Event"
       join_request: "Betrittsanfrage"
-      news: "News"
       space: "Gruppe"
+  flash:
+    spaces:
+      update:
+        notice: "Gruppe erfolgreich aktualisiert"
+      disable:
+        notice: "Gruppe erfolgreich deaktiviert"
+      enable:
+        notice: "Gruppe erfolgreich aktiviert"
+        failure: "Die Gruppe %{name} ist bereits aktiviert"
+    posts:
+      update:
+        notice: "Nachricht aktualisiert!"
+      create:
+        notice: "Nachricht gesendet!"
+    users:
+      disable:
+        notice: "Benutzer erfolgreich deaktiviert"
+      enable:
+        notice: "Benutzer erfolgreich aktiviert. Der Benutzer gehört zu keiner Gruppe und wird Gruppen erneut beitreten müssen."
+        failure: "Benutzer %{name} ist bereits aktiviert"
   address: Adresse
   admin:
     one: Admin
@@ -393,36 +379,6 @@ de:
   cancel: Abbrechen
   caption:
     add: "Beschreibung hinzufügen"
-  chat:
-    add: "Benutzer hinzufügen"
-    connecting_error_message: "Fehler beim Verbinden"
-    connecting_message: "Verbinde mit Event Chat"
-    invite:
-      bbb: "Laden Sie Benutzer in Ihren Konferenzraum ein"
-      button: "Benutzer einladen"
-      hint: "Tippen sie, um mit der Suche zu beginnen"
-      msg: "Hat Sie eingeladen, an einer Webkonferenz teilzunehmen: <a href='URL'> URL </a>"
-      msg_clean: "Hat Sie eingeladen, an einer Webkonferenz teilzunehmen, folgen Sie diesem Link: URL"
-      msg_sender: "Einladung versendet. Link zu Ihrem Raum: <a href='URL'> URL </a>"
-    me: "mich"
-    name:
-      one: "Name"
-      other: "Namen"
-    please_login_message: "Bitte melden Sie sich an oder registrieren Sie sich, um teilzunehmen"
-    reconnect_button_message: "Klicken Sie für eine erneute Verbindung"
-    reconnect_message: Wiederverbinden
-    request:
-      approve: "Bestätigen"
-      deny: "Verweigern"
-      title: "Freundschaftsanfrage"
-      body: "<b>%{name}</b> will Sie als Freund hinzufügen."
-    status:
-      online: "Online"
-      busy: "Beschäftigt"
-      away: "Abwesend"
-      offline: "Offline"
-    typing: "schreibt gerade..."
-    title: "Chat"
   city: Stadt
   click_here_to_see_more: "Klicken Sie, um mehr zu sehen"
   click_to_hide: "Klicken, um zu verbergen"
@@ -477,7 +433,7 @@ de:
       list_of_rooms: "Liste aller registrierten Räume"
     important: Wichtig
     invitation_form:
-      at: "bei"
+      at: "um"
       duration: "Dauer"
       meeting_in: "Leute einladen zu einem Meeting in:"
       offset: "Ihr aktueller Zeitunterschied ist: \"%{offset}\""
@@ -498,7 +454,7 @@ de:
       room_type_private: "Dies ist ein <em>privater</em> Webkonferenzraum"
       room_type_public: "Dies ist ein <em>öffentlicher</em> Webkonferenzraum"
       running: "läuft!"
-      status: "Das Meeting ist aktuell"
+      status: "Status des Meetings:"
       status_unknown: "unbekannt"
       steps: "Schritte:"
     invite_userid:
@@ -589,7 +545,6 @@ de:
     show:
       available_layouts: "Verfügbare Layouts"
       configurations: "Server Einstellungen"
-      configurations_tip: "Diese Einstellungen wurden automatisch vom Server abgerufen und können hier nicht geändert werden. Sie werden periodisch (etwa alle 3 Stunden) von einem Hintergrundprozess oder bei jeder Änderung einer URL, eines Salts oder einer Version abgerufen."
       fetch_recordings_title: "Aufzeichnungen mit Parametern abrufen"
       fetch_recordings_btn: "Aufzeichnungen abrufen"
       publish_recordings_title: "Aufzeichnungen veröffentlichen"
@@ -599,7 +554,7 @@ de:
       unpublish_recordings_title: "Aufzeichnungen depublizieren"
       unpublish_recordings_btn: "Aufzeichnungen depublizieren"
   date:
-    at: bei
+    at: um
     start: "Beginn"
     undefined: undefiniert
   days: Tage
@@ -621,7 +576,7 @@ de:
     shared:
       links:
         login:
-          default: "Melden Sie sich an Ihrem Account an."
+          default: "Melden Sie sich an an."
           federation: "Login über Organisation"
         lost_password: "Passwort vergessen?"
         other_options: "Andere Optionen"
@@ -650,7 +605,6 @@ de:
       event: "<b>%{author_name}</b> hat einen neuen Event in <b>%{space_name}</b> erstellt:"
       inbox: "<b>%{sender_name}</b> hat Ihnen eine Nachricht geschickt:"
       message: "Letzte Aktivitäten in Ihren Gruppen:"
-      news: "Eine Neuigkeit wurde in  <b>%{space_name}</b> veröffentlicht:"
       posted: "<b>%{author_name}</b> hat in <b>%{space_name}</b> gepostet:"
       title: "%{type} Übersicht mit den Aktivitäten in Ihren Gruppen"
       type:
@@ -662,8 +616,6 @@ de:
     kind_regards: "Mit freundlichen Grüßen,"
     notifications: "Email-Benachrichtigungen"
     one: Email
-    spam_activation: "Eine Bitte: Wenn Sie sich nicht auf dieser Website registriert haben <a href=\"mailto:%{contact}\"> kontaktieren Sie uns</a> oder senden Sie uns <a href=\"%{feedback}\"> Feedback.</a>"
-    spam_invitation: "Wenn Sie diese Meldung für Spam halten <a href=\"mailto:%{contact}\"> kontaktieren Sie uns </a> oder senden Sie uns <a href=\"%{feedback}\"> Feedback.</a>"
     url_activated: "Sie können sich jetzt an Ihrem Account anmelden mit der Email \"%{name}\" und Ihrem Passwort: <a href=\"%{url}\"> %{url}</a>"
     used_from: "Im Kontaktformular benutzte Emailadresse: %{dir}"
     welcome: "Willkommen bei %{sitename}"
@@ -762,7 +714,7 @@ de:
     full_message: "<b>%{username} lädt Sie zu %{space} ein.</b><br/><br/>%{comment}<br/><br/> Um meine Einladung anzunehmen, bitte hier klicken: <a href=\"%{url}\">%{url}</a><br/> Mehr über diese Gruppe herausfinden: <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Mit freundlichen Grüßen,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Wenn Sie denken, dass diese Meldung Spam darstellt, bitte <a href=\"mailto:%{contact}\"> kontaktieren Sie uns </a> oder geben uns <a href=\"%{feedback}\"> Feedback.</a>"
     hide_all_users: "Alle Benutzer verbergen"
     info_space: "Hier können Sie mehr über diese\tGruppe herausfinden: <a href=\"%{space_url}\"> %{space_url} </a>"
-    info_users: "Alle Benutzer des Gruppes ansehen: <a href=\"%{users_url}\"> %{users_url} </a>"
+    info_users: "Alle Benutzer der Gruppe ansehen: <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Einführung
     label: "Passen Sie hier Ihre Einladungsnachricht an"
     legend:
@@ -794,7 +746,6 @@ de:
     bad_format: "(schlechte Formatierung)"
     email: "Email an %{email}"
     title: "Einladung zur Teilnahme an einer Webkonferenz"
-    user_private_msg: "Privatnachricht an den Benutzer %{user}"
   invited: Eingeladen
   join: Teilnehmen
   join_cam: Teilnehmen
@@ -872,7 +823,6 @@ de:
   language: Sprache
   last_week: "Letzte Woche"
   latest_events: "Letzte Ereignisse"
-  latest_news: "Letzte Neuigkeiten"
   layouts:
     application_navbar:
       events: "Events"
@@ -904,11 +854,6 @@ de:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Sprache ändern"
-    spaces_page_title:
-      is_member: "Sie sind Mitglied in dieser Gruppe"
-      manage_to_approve: "verwalten"
-      private: "Private Gruppe"
-      public: "Öffentliche Gruppe"
   less: "weniger..."
   locales:
     error: "Sprachumgebung"
@@ -955,7 +900,6 @@ de:
     menu:
       general: "Allgemein"
       spaces: "Gruppen"
-      spam: "Spam"
       title: "Seitenverwaltung"
       users: "Benutzer"
       webconf: "Webkonferenz"
@@ -972,20 +916,6 @@ de:
       filter_count_with_text: "%{count} Gruppen mit dem Filter\"%{value}\" gefunden"
       filter_count_empty: "%{count} Gruppen gefunden"
       no_space_found: "Keine Gruppe gefunden"
-    spam:
-      event:
-        delete_confirmation: "Diesen Event permanent entfernen?"
-        delete_tooltip: "Dieser Event ist Spam, bitte entfernen"
-        not_spam_confirmation: "Können Sie bestätigen, dass dieser Event kein Spam ist?"
-        not_spam_tooltip: "Dieser Event ist kein Spam"
-        title: "Events, die als Spam markiert sind"
-      no_spam: "Kein Spam gemeldet"
-      post:
-        delete_confirmation: "Diesen Eintrag dauerhaft entfernen?"
-        delete_tooltip: "Dieser Eintrag ist Spam, bitte entfernen"
-        not_spam_confirmation: "Können Sie bestätigen, dass dieser Eintrag kein Spam ist?"
-        not_spam_tooltip: "Dieser Eintrag ist kein Spam"
-        title: "Einträge, die als Spam markiert sind"
     users:
       filter_name_or_username: "Benutzer nach Namen, Benutzer oder Email filtern"
       new_user: "Benutzer erstellen"
@@ -1003,24 +933,6 @@ de:
       no_user_found: "Kein Benutzer gefunden"
   mandatory_field: "Pflichtfeld"
   mconf: Mconf
-  message:
-    created: "Nachricht gesendet!"
-    error:
-      create: "Fehler beim Senden der Nachricht"
-    incoming:
-      other: "Eingehende Nachrichten"
-    private:
-      cant: "Sie können keine Privatnachrichten verschicken, weil Sie keine Partner in einer Gruppe haben"
-      editing: "Privatnachricht bearbeiten"
-      new: "neue Privatnachricht"
-      none: "Keine Nachrichten vorhanden"
-      send: "Privatnachricht senden"
-    reply: "Auf diese Nachricht antworten"
-    sent:
-      other: "Gesendete Nachrichten"
-    special1: "Die Mconf Plattform wird von Freitag, 17. 12. 16:00 Uhr UTC bis Samstag, 18. 12. 16:00 Uhr nicht verfügbar sein. Bitte entschuldigen Sie die Unannehmlichkeiten."
-    special2: "Das Mconf Team"
-    to: An
   moderatorPW: "Moderatorpasswort"
   more: mehr...
   more_arrows: "mehr >>"
@@ -1058,7 +970,6 @@ de:
     webconference_room:
       end: "Meeting stoppen"
       end_tooltip: "Dieser Vorgang wird die aktuelle Konferenz beenden!"
-      fast_start: "Schnellstart mit den bereits konfigurierten Einstellungen"
       invite: "Andere einladen"
       join: "Am Meeting teilnehmen!"
       join_mobile_full: "Von einem Smartphone aus teilnehmen"
@@ -1076,25 +987,6 @@ de:
   name:
     one: Name
     other: Namen
-  new_spam_detected: "Neuer Spam erkannt"
-  news:
-    created: "Neuigkeit erfolgreich veröffentlicht"
-    deleted: "Neuigkeit erfolgreich gelöscht"
-    edit: "Neuigkeit bearbeiten"
-    error:
-      create: "Es gab ein Problem beim Veröffentlichen der Neuigkeit"
-      delete: "Fehler beim Löschen der Neuigkeit"
-      update: "Neuigkeit konnte nicht aktualisiert werden"
-    item_in_home: "Neuigkeit in der Gruppe"
-    more:
-      one: "und eine weitere Neuigkeit..."
-      other: "und weitere %{count} Neuigkeiten..."
-    none_to_show: "Keine Neuigkeiten anzuzeigen"
-    other: Neuigkeiten
-    publish_another: "weitere Neuigkeit veröffentlichen"
-    publish_home: "Neuigkeit veröffentlichen"
-    title: "Neuigkeiten (%{count})"
-    updated: "Neuifkeit erfolgreich aktualisiert"
   next: Weiter
   now_exclamation: Jetzt!
   ok: OK
@@ -1132,7 +1024,7 @@ de:
     update:
       success: "Berechtigungen aktualisiert"
       failure: "Problem beim Aktualisieren von Berechtigungen"
-  personal_information: "Personliche Information"
+  personal_information: "Persönliche Information"
   phone:
     mobile: Mobil
     one: Telefon
@@ -1142,7 +1034,6 @@ de:
   please: Bitte
   popularity: Beliebtheit
   post:
-    created: "Nachricht gepostet!"
     deleted: "Kommentar %{postname} wurde gelöscht"
     reply: "In Beantwortung von"
     home:
@@ -1159,50 +1050,19 @@ de:
     posted: "posted"
     show_expanded_pref: "Wie sollten Ihre Nachrichten angezeigt werden?"
     title: "Nachrichten (%{count})"
-    updated: "Nachricht aktualisiert!"
     wall: Wall
   posts:
     index:
       new_post: "Neue Nachricht senden"
       no_messages: "Keine Nachrichten auf der Wall"
-    new_post:
-      title: "Neue Nachricht posten"
+    new:
+      title: "Neue Nachricht schreiben"
     post_with_children:
       by: "von"
   prav: PRAV
   preferences: Voreinstellungen
   previous: Vergangen
   privacy: Privatsphäre
-  private_message:
-    more:
-      one: "und eine weitere private Nachrichte..."
-      other: "und %{count} weitere private Nachrichten..."
-    one: "Private Nachricht"
-    other: "Private Nachrichten"
-    send: "Privatnachricht senden"
-    title: "Private Nachrichten (%{count})"
-  private_messages:
-    index:
-      title: "Private Nachrichten"
-    menu:
-      compose: Verfassen
-      inbox: Posteingang
-      sent: Gesendet
-    new:
-      title: "Private Nachrichten"
-      users:
-        hint: "Tippen sie, um mit der Suche zu beginnen"
-        no_results: "Keine Ergebnisse gefunden"
-        searching: "Suche..."
-    reply_private_message:
-      user_not_registered: "Dieser Benutzer ist nicht mehr registriert, Sie werden nicht auf seine Nachricht antworten können."
-    show:
-      title: "Private Nachrichten"
-    show_received:
-      wrote: schrieb
-    show_sent:
-      wrote_to: Gesendet
-      titled: die Nachricht
   profile:
     deleted: "Profil erfolgreich gelöscht"
     description:
@@ -1243,7 +1103,7 @@ de:
     activity: "Letzte Aktivitäten"
   recent_activity:
     empty: "Sie haben noch keine Aktivitäten, die angezeigt werden können. Werden Sie Mitglied in Gruppen und nehmen Sie Teil um hier etwas anzuzeigen."
-    tooltip: "Hier sehen Sie die neuesten Nachriten, Events und Neuigkeiten aus den Gruppen, in denen Sie Mitglied sind."
+    tooltip: "Hier können Sie die neuesten Ereignisse und Nachrichten Ihrer Gruppen finden"
   recording:
     automatic: Automatisch
     box_title: Aufzeichnung
@@ -1268,12 +1128,10 @@ de:
   registrations:
     signup_form:
       register: "Registrieren"
-  remember_me: "Meine Angaben merken"
   remove: Löschen
   reply: Antworten
   reply_to: "Antworten an:"
   reply_to_words: "Antworten auf %{words}"
-  report_spam: "Spam melden"
   repository:
     download: Herunterladen
     loading: "Dokumentenablage wird aktualisiert..."
@@ -1418,15 +1276,11 @@ de:
     description: "Gruppenbeschreibung"
     description_none: "Es muss eine Beschreibung angegeben werden, um die Gruppe zu erstellen"
     disable: "Gruppe deaktivieren"
-    disabled: "Gruppe erfolgreich deaktiviert"
     edit:
       webconference_passwords: "Webkonferenzraumpasswörter"
     edit_description: "Beschreibung bearbeiten"
     edit_name: "Name bearbeiten"
     enable: "Gruppe aktivieren"
-    enabled: "Gruppe erfolgreich aktiviert"
-    error:
-      enabled: "Gruppe %{name} ist bereits aktiviert"
     event_count: "%{count} Events"
     index:
       filters:
@@ -1489,7 +1343,6 @@ de:
       views: "Aufrufe"
     subscribed_to_none: "Sie sind in keiner Gruppe Mitlied"
     update_logo: "Logo aktualisieren"
-    updated: "Gruppe erfolgreich aktualisiert"
   space_events:
     all_events:
       all_upcoming: "Alle zukünftigen Events anzeigen"
@@ -1531,7 +1384,6 @@ de:
       admissions: "Anfragen"
       general_options: "Allgemeine Optionen"
       invite: "Leute einladen"
-      news: "News"
       users: "Benutzer"
       webconf_options: "Webkonferenzoptionen"
       add_member: "Mitglieder hinzufügen"
@@ -1582,7 +1434,6 @@ de:
       spaces_examples:
         title: "Beispiele für Gruppen:"
       title: "Neue Gruppe erstellen"
-    news: "Gruppenneuigkeiten"
     recordings:
       title: "Aufzeichnungen in dieser Gruppe"
       update_recordings:
@@ -1609,7 +1460,6 @@ de:
     sidebar_webconf_buttons:
       end: "Beenden"
       end_tooltip: "Dieser Vorgang wird die aktuelle Konferenz beenden!"
-      fast_start: "Schnellstart mit den bereits konfigurierten Einstellungen"
       invite: "Andere einladen"
       join: "Jetzt teilnehmen!"
       join_mobile: "Teilnehmen mobil"
@@ -1667,20 +1517,6 @@ de:
     webconference_tabs:
       access: "Webkonferenz Zutritt"
       recordings: "Liste der Aufzeichnungen"
-  spam:
-    spam_report_create:
-      error: "Es tut uns Leid, aber es gab ein Problem beim Markieren dieser Nachricht als Spam"
-      success: "Dieses Item wurde als Spam gemeldet und wird von den Administratoren ausgewertet"
-      user_is_member: "Sie sind ein Mitglied"
-    created: "Eine Email mit der Spammeldung wurde erfolgreich an die Administratoren gesendet. Danke."
-    default: Spam
-    detected: "Neuer Spam erkannt"
-    error:
-      check: "Es gab ein Problem beim Markieren der Ressource als Spam"
-    item: "Dieses Item wurde als Spam gemeldet und wird von den Administratoren ausgewertet"
-    report: "Spam melden"
-    reported: "%{name} (%{email}) hat Spam auf %{sitename} gemeldet"
-    valid: "Der Inhalt ist ungültig"
   sponsors:
     prav: "-"
     rnp: "-"
@@ -1692,7 +1528,6 @@ de:
         events: "Events"
         how_many: "Wie viele?"
         posts: "Nachrichten gesendet"
-        private_messages: "Privatnachrichten ausgetauscht"
         spaces: "Gruppen"
         users: "Benutzer"
         webconf_rooms: "Verfügbare Webkonferenzräume"
@@ -1738,9 +1573,7 @@ de:
     event_logo: "Sie können Ihr eigenes Logo hochladen, ein Textlogo erstellen oder ein Bild aus der Gallerie auswählen"
     insert: "Benutzen Sie diesen Code, um dieses Video auf Ihrem Blog oder Ihrer Website einzubinden"
     invite_people: "Leute zu dieser Webkonferenz einladen"
-    latest_news: "Dieser Abschnitt zeigt den Teil der Nachrichten, den die Administratoren an alle Leute in dieser Gruppe schicken"
     leave_space: "Dieser Link wird Ihnen dazu dienen, diese Gruppe definitiv zu verlassen"
-    news_item: "Sie können eine kurze Neuigkeit posten"
     num_views: "Diese Zahl zeigt die eindeutigen Seitenaufrufe für diese Seite"
     private_profile: "Diese Information ist nur für die Leute sichtbar, die Sie beim Bearbeiten Ihres Profils auswählen"
     public_profile: "Diese Information ist für jeden einsehbar"
@@ -1773,12 +1606,8 @@ de:
     delete_from_space: "Benutzer von der Gruppe entfernen"
     deleted: "Benutzer gelöscht"
     disable: "Benutzer deaktivieren"
-    disabled: "Benutzer %{username} deaktiviert"
     email_used_to_create_account: "Geben Sie die Email-Adresse ein, die Sie zum Erstellen Ihres Accounts verwendet haben"
     enable: "Benutzer aktivieren"
-    enabled: "Benutzer erfolgreich aktiviert. Der Benutzer ist derzeit in keiner Gruppe Mitglied und muss diesen erneut beitreten."
-    error:
-      enabled: "Benutzer%{name} ist bereits aktiviert"
     filter: "Über Benutzernamen einladen"
     group_invite_email: "Per Email einladen"
     include_registered: "eingeladene Benutzer beachten"
@@ -1799,7 +1628,6 @@ de:
     not_confirmed: "Nicht bestätigt"
     one: Benutzer
     other: Benutzer
-    private_message: "Nachricht senden"
     recent_join: "Kürzlich angemeldete Benutzer"
     registered: "Vielen Dank für Ihre Registrierung! Wir haben Ihnen Anweisungen geschickt, wie Sie Ihren Benutzeraccount aktivieren können"
     request_confirmation: "Bestätigungsemail anfordern"

@@ -4,14 +4,22 @@
 
 // small adjustments in the height of the inputs - they are shorter in our app than
 // they are by default in bootstrap-select2
+// they are meant to be used with btn-sm
 .select2-container {
   .select2-choice {
-    height: 28px;
+    height: 30px;
   }
 }
 .select2-container-multi .select2-choices .select2-search-field input {
   height: auto;
   padding: 4px 4px;
+}
+
+// no underline on links inside a select2
+.select2-container {
+  a.select2-choice, .select2-choice a {
+    text-decoration: none;
+  }
 }
 
 // a select2 inside a form and an .input, should behave just like any other input
@@ -34,7 +42,11 @@
   margin-top: 4px;
   margin-bottom: 3px;
   margin-left: 4px;
-  padding-top: 2px;
+  background: $tags-bg-color;
+  color: $tags-font-color;
+  border: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 // adjust the borders of the input when inside a .btn-group

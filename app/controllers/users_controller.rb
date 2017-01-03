@@ -23,16 +23,7 @@ class UsersController < InheritedResources::Base
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  layout :set_layout
-  def set_layout
-    if [:index].include?(action_name.to_sym)
-      'spaces_show'
-    elsif [:edit].include?(action_name.to_sym)
-      'no_sidebar'
-    else
-      'application'
-    end
-  end
+  layout 'application'
 
   def index
     @space = Space.find_by_permalink!(params[:space_id])
@@ -40,14 +31,17 @@ class UsersController < InheritedResources::Base
 
     authorize! :show, @space
 
-    @users = @space.users.sort {|x,y| x.name <=> y.name }
+    @users = @space.users.joins(:profile)
+      .order("profiles.full_name ASC")
+      .paginate(:page => params[:page], :per_page => 10)
+    @userCount = @space.users.count
   end
 
   def show
     @user_spaces = @user.spaces
 
     # Show activity only in spaces where the current user is a member
-    in_spaces = current_user.present? ? current_user.spaces : []
+    in_spaces = current_user.present? ? current_user.space_ids : []
     @recent_activities = RecentActivity.user_public_activity(@user, in_spaces: in_spaces)
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 
@@ -89,7 +83,7 @@ class UsersController < InheritedResources::Base
       flash = { :success => t("user.updated") }
       redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
     else
-      render "edit", :layout => 'no_sidebar'
+      render :edit
     end
   end
 
@@ -103,6 +97,10 @@ class UsersController < InheritedResources::Base
   #   for fellows too
   def fellows
     @users = current_user.fellows(params[:q], params[:limit])
+
+    respond_with @users do |format|
+      format.json
+    end
   end
 
   # Returns info of the current user
@@ -122,12 +120,14 @@ class UsersController < InheritedResources::Base
 
   # Methods to let admins create new users
   def new
+    @user = User.new
     respond_to do |format|
       format.html { render layout: !request.xhr? }
     end
   end
 
   def create
+    @user = User.new(user_params)
     @user.created_by = current_user
     @user.skip_confirmation_notification!
 
@@ -175,7 +175,7 @@ class UsersController < InheritedResources::Base
 
   allow_params_for :user
   def allowed_params
-    allowed = [ :remember_me, :login, :timezone, :receive_digest, :expanded_post ]
+    allowed = [ :remember_me, :login, :timezone, :expanded_post ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:approved, :disabled, :can_record] if current_user.superuser?

@@ -3,10 +3,6 @@
 
 body.sites {
 
-  form {
-    width: 100%;
-  }
-
   form textarea {
     resize: none;
   }
@@ -15,16 +11,16 @@ body.sites {
     display: none;
   }
 
-  $column-width: (($contents-width) / 2) - 30px;
-  .right-column {
-    float: right;
-    width: $column-width;
-    padding-right: 2px; // so inputs' box-shadow aren't cut
+  #site-edit-panel-1 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
   }
-  .left-column {
-    float: left;
-    width: $column-width;
-    padding-left: 2px; // so inputs' box-shadow aren't cut}
+
+  #site-edit-panel-2 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
   }
 
   #shib-principal-name-warning {

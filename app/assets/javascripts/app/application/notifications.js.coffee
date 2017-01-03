@@ -1,16 +1,15 @@
-# Notifications using jquery.noty
+# Notifications using toastr
 
-# Default options for noty
 defaultOpts =
-  closable: true
-  timeout: true
-  force: false
-  modal: false
-  timeout: 6000
-  speed: 200
-  textAlign: 'center'
-  layout: 'topCenter'
-  closeButton: true
+  tapToDismiss: true
+  # positionClass: 'toast-top-right'
+  positionClass: 'toast-top-full-width'
+  iconClass: ''
+  hideMethod: 'slideUp'
+  hideDuration: 200
+  showMethod: 'slideDown'
+  showDuration: 400
+  closeButton: false
 
 class mconf.Notification
 
@@ -44,26 +43,31 @@ showNotification = (target, type) ->
     opts = {}
     switch type
       when "success"
+        method = toastr.success
         opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'success'
+          timeOut: 4000
+          extendedTimeOut: 4000
       when "error"
+        method = toastr.error
         opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'error'
           force: true
-          timeout: false
-      when "warn"
+          timeOut: 0
+          extendedTimeOut: 0
+      when "warning", "warn", "alert"
+        # method = toastr.warning
+        method = toastr.error
         opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'alert'
-      else
-        opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'alert'
+          force: true
+          timeOut: 6000
+          extendedTimeOut: 6000
 
-    opts.text = mconf.Base.escapeHTML(opts.text)
-    noty(opts)
+      # this should never happen, but leave it here so it shows a
+      # weird notification when it happens and we can fix it
+      else
+        method = toastr.warning
+
+    toastr.options = opts
+    method mconf.Base.escapeHTML($target.text())
 
 $ ->
   mconf.Notification.bind()

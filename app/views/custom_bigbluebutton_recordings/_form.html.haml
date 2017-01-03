@@ -8,18 +8,17 @@
   - url = bigbluebutton_recording_path(recording)
 
 = simple_form_for recording, :url => url, :html => { :class => 'single-column' } do |f|
-  - if !editing
-    = f.input :id, :disabled => true
-  = f.input :recordid, :disabled => !editing
-  = f.input :name, :disabled => !editing
   = f.input :description, :disabled => !editing
+
+  = f.input :recordid, :disabled => true
+  = f.input :name, :disabled => true
   = f.input :server_id, :disabled => true
   = f.input :room_id, :disabled => true
   = f.input :size, :disabled => true
-  = f.input :published, :as => :boolean, :disabled => !editing
-  = f.input :available, :as => :boolean, :disabled => !editing
-  = f.input :start_time, :disabled => !editing
-  = f.input :end_time, :disabled => !editing
+  = f.input :published, :as => :boolean, :disabled => true
+  = f.input :available, :as => :boolean, :disabled => true
+  = f.input :start_time, :disabled => true
+  = f.input :end_time, :disabled => true
 
   %label= BigbluebuttonRecording.human_attribute_name(:metadata)
   #recording-metadata

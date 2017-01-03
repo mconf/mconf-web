@@ -3,7 +3,7 @@
 
 body.custom_bigbluebutton_rooms.join_mobile {
 
-  #page-header-wrapper .current-page-title {
+  #page-header-container .current-page-title {
     width: 100%;
     max-width: 100%;
     text-align: center;
@@ -15,7 +15,7 @@ body.custom_bigbluebutton_rooms.join_mobile {
     }
   }
 
-  #content-wrapper {
+  #content-container {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -29,10 +29,10 @@ body.custom_bigbluebutton_rooms.join_mobile {
         display: inline-block;
 
         .tip {
-          border: 1px solid $gray;
+          border: 1px solid $m-gray;
           padding: 3px 5px;
-          @include border-radius(5px);
-          background: $light-gray;
+          @include border-radius($m-border-radius-large);
+          background: $m-light-gray;
           max-width: 150px;
           margin: 10px auto;
         }
@@ -49,7 +49,7 @@ body.custom_bigbluebutton_rooms.join_mobile {
     }
   }
 
-  #footer-wrapper {
+  #footer-container {
     display: none;
   }
 

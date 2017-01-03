@@ -18,6 +18,10 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'cancan/matchers'
 
+# Load public activity to disabled it and reduce load
+# Disabled in all tests and enabled for all features
+require 'public_activity/testing'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -112,12 +116,27 @@ RSpec.configure do |config|
     Helpers.setup_site
     Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
+
+    # To correctly test cases where referer and hostname are used
+    Capybara.app_host = "http://#{Site.current.domain}"
+
+    PublicActivity.enabled = false
+    # To enable in a block of tests, use:
+    #   PublicActivity.with_tracking do
+    #     # your test code goes here
+    #   end
+  end
+
+  config.before(:each, type: :worker) do |example|
+    # most of the workers rely on recent activities
+    PublicActivity.enabled = true
   end
 
   # We want features as close to the production environment as possible, so render error
   # pages instead of raising exceptions.
   config.before(:each, type: :feature) do |example|
     Rails.application.config.consider_all_requests_local = false
+    PublicActivity.enabled = true
   end
 
   config.around(:each) do |example|

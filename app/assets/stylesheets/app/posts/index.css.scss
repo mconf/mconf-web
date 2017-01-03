@@ -1,12 +1,10 @@
 @import "definitions";
 
-@import "app/spaces/sidebar";
-
 body.posts.index {
 
   #space-posts-create {
-    margin-top: 5px;
-    float: left;
+    margin: 7px 0;
+    float: right;
   }
 
   #posts-navigation-top {

@@ -1,12 +1,14 @@
-- page_title t('spaces.menu.users'), :in => @space.name
+- page_title t('spaces.sidebar.users'), in: @space.name
 - spaces_menu_at :users
-
-= content_for :menu do
-  = render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
 #user-list.content-block
   .content-block-header
-    %h3= t('user.index.user_list.header', :count => @users.size)
-  .content-block-middle
+    %h3= t('user.index.user_list.header', :count => @userCount)
+  .content-block-middle.row-fluid
     - for user in @users
-      = render :partial => 'users/detailed_user', :locals => { :user => user }
+      .user-on-index
+        = render :partial => 'users/detailed_user', :locals => { :user => user }
+    - nav = page_navigation_links @users
+    - unless nav.nil?
+      .content-block-footer= nav

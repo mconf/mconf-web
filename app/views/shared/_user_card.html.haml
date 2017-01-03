@@ -1,0 +1,9 @@
+.resource-card.user
+  .avatar
+    = logo_image(user, size: '300', title: user.name)
+    = icon_superuser(:title => t('admin.one')) if user.superuser?
+  .data
+    %span.data-main{ title: user.name }= user.name
+    %span.data-other{ title:user.email }= user.email
+    - unless user.profile.organization.blank?
+      %span.data-other{ title: user.profile.organization }= user.profile.organization

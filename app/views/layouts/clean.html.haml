@@ -11,6 +11,7 @@
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = yield :stylesheets
+    = stylesheet_link_tag 'clean'
 
     /[if IE]
       // HTML5 shim, for IE6-8 support of HTML elements
@@ -21,16 +22,16 @@
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
     #site
-      #navbar-wrapper
+      #navbar-container
         = yield :navbar
       - if content_for?(:page_header)
-        #page-header-wrapper
+        #page-header-container
           #page-header
             = yield :page_header
             - if content_for?(:page_menu)
               #page-menu
                 = yield :page_menu
-      #content-wrapper
+      #content-container
         = yield
       #footer-pusher
 

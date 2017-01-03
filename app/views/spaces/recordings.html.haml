@@ -1,20 +1,26 @@
 - if params[:partial]
-  = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }
 
 - else
 
+  - page_title t('spaces.sidebar.webconference'), in: @space.name
   - spaces_menu_at :webconference
-  = render :partial => 'spaces/menu'
+  = render 'spaces/sidebar', space: @space, full: false
 
-  - spaces_webconference_menu_at :recordings
-  = render :partial => 'webconference_tabs'
+  -# - spaces_webconference_menu_at :recordings
+  -# = render 'webconference_tabs'
 
   #space-recordings.content-block
     .content-block-header
-      %h3= t('.title')
+      %h3
+        = icon_recording
+        = t('.title')
 
       -# only update the recording db if the user has permission to
       - if can?(:fetch_recordings, @webconf_room)
+
+        -# TODO: This block below is almost duplicated at my/recordings.html.haml, find a way to merge
+        -# them together.
 
         -# a form to trigger the method that will fetch the recordings in the webconf server
         -# TODO: setting data-type to html because bigbluebutton_rails is not returning a proper json on success yet
@@ -31,5 +37,5 @@
         -# a form to get the html with the list of recordings after the list is updated
         = form_tag recordings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
 
-    #space-recordings-list-wrapper.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+    #space-recordings-list-container.content-block-middle
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }

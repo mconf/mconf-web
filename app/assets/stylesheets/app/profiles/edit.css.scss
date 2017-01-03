@@ -5,50 +5,38 @@
 
 body.profiles.edit, body.profiles.update {
 
-  $edit-area-width: ($contents-width - $sidebar-width - 20px) / 2 - 10px;
-  .left-column {
-    float: left;
-    width: $edit-area-width;
-  }
-  .right-column {
-    float: right;
-    width: $edit-area-width;
-  }
+  #sidebar {
+    form {
+      display: inline;
 
-  #edit-public-profile {
-    @include mconf-clearfix;
-    float: left;
-
-    input, textarea, select { width: $edit-area-width - 20px; }
-  }
-
-  #edit-private-profile {
-    @include mconf-clearfix;
-    float: right;
-    margin-left: 10px;
-
-    input { width: $edit-area-width - 20px; }
-    input[type=radio] { width: auto; }
-  }
-
-  .visibility-options {
-
-    // each options is wrapped by a span
-    span {
-      @include mconf-clearfix;
-      display: block;
-      clear: both;
-      margin-bottom: 5px;
-
-      // radio buttons
-      input { float: left; }
-      // labels at the right
-      label {
-        width: $edit-area-width - 60px;
-        float: left;
-        margin-left: 5px;
+      .profile_vcard {
+        display: none;
+        label, input { display: none; }
       }
+      #profile-vcard-submit { display: none; }
     }
   }
 
+  #edit-public-profile {
+    @include make-xs-column(12);
+    @include make-md-column(6);
+  }
+
+  #edit-private-profile {
+    @include make-xs-column(12);
+    @include make-md-column(6);
+  }
+
+  #profile-logo-uploader {
+    margin: 20px 0 10px 0;
+    text-align: center;
+  }
+
+  #edit-profile-current-logo {
+    .using-gravatar {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+  }
 }

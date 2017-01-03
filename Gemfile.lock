@@ -1,25 +1,18 @@
 GIT
-  remote: https://github.com/fnando/i18n-js.git
-  revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
-  specs:
-    i18n-js (3.0.0.rc6)
-      i18n (~> 0.6)
-
-GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 6af33f9baf2974bd8fadc04bf91540f89bf90391
+  revision: 41fbc58ad108bd1d1097495eb3621beafcfd724f
   branch: master
   specs:
-    bigbluebutton-api-ruby (1.4.0)
+    bigbluebutton-api-ruby (1.6.0)
       xml-simple (~> 1.1)
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: e3bdc3f26405b3de7aabb17a3370652385ebdfa0
+  revision: 9093ebd799b3417c725ce837f5b580e5a61b1bd2
   branch: master
   specs:
-    bigbluebutton_rails (2.0.0)
-      bigbluebutton-api-ruby (~> 1.4.0)
+    bigbluebutton_rails (2.1.0)
+      bigbluebutton-api-ruby (~> 1.6)
       browser (~> 0.8.0)
       rails (>= 4.0.0)
       resque (~> 1.25.1)
@@ -41,12 +34,6 @@ GIT
       ya2yaml (~> 0.30)
 
 GIT
-  remote: https://github.com/sam-github/vpim.git
-  revision: ab68da1a18dc407e088aa9f431883f1e7da9dc27
-  specs:
-    vpim (13.11.11)
-
-GIT
   remote: https://github.com/sevenwire/forgery.git
   revision: b20bb0b99f0d9291d0704827ca86095bae20a192
   specs:
@@ -55,47 +42,54 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.1.11)
-      actionpack (= 4.1.11)
-      actionview (= 4.1.11)
+    actionmailer (4.1.14.2)
+      actionpack (= 4.1.14.2)
+      actionview (= 4.1.14.2)
       mail (~> 2.5, >= 2.5.4)
-    actionpack (4.1.11)
-      actionview (= 4.1.11)
-      activesupport (= 4.1.11)
+    actionpack (4.1.14.2)
+      actionview (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.11)
-      activesupport (= 4.1.11)
+    actionview (4.1.14.2)
+      activesupport (= 4.1.14.2)
       builder (~> 3.1)
       erubis (~> 2.7.0)
     active_record_union (1.1.0)
       activerecord (>= 4.0)
     active_sanity (0.2.0)
       rails (>= 3.1.0)
-    activemodel (4.1.11)
-      activesupport (= 4.1.11)
+    activemodel (4.1.14.2)
+      activesupport (= 4.1.14.2)
       builder (~> 3.1)
-    activerecord (4.1.11)
-      activemodel (= 4.1.11)
-      activesupport (= 4.1.11)
+    activerecord (4.1.14.2)
+      activemodel (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       arel (~> 5.0.0)
-    activesupport (4.1.11)
+    activesupport (4.1.14.2)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
     acts_as_tree (2.0.0)
       activerecord (>= 3.0.0)
     addressable (2.3.6)
     ansi (1.4.3)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (5.2.1.1)
+      execjs
+      json
     bcrypt (3.1.10)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.1.0)
+      sass (~> 3.2)
     bootstrap3-datetimepicker-rails (3.1.3)
       momentjs-rails (>= 2.8.1)
     brakeman (2.6.3)
@@ -160,11 +154,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
-    commonjs (0.2.7)
-    compass (0.13.alpha.4)
+    compass (0.12.7)
       chunky_png (~> 1.2)
-      listen (<= 0.9.9)
-      sass (~> 3.2.5)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
     configatron (2.13.0)
@@ -176,7 +169,7 @@ GEM
     daemons (1.2.2)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    devise (3.5.1)
+    devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -199,7 +192,7 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.2.1)
+    execjs (2.6.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -207,7 +200,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.6)
-    ffi-yajl (1.3.1)
+    ffi-yajl (1.4.0)
       ffi (~> 1.5)
       libyajl2 (~> 1.2)
     filesize (0.1.1)
@@ -217,7 +210,9 @@ GEM
       ruby-ldapserver
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    fssm (0.2.10)
     geocoder (1.2.9)
+    gravatar_image_tag (1.2.0)
     haml (4.0.5)
       tilt
     handlebars_assets (0.17.1)
@@ -236,6 +231,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    i18n-js (3.0.0.rc12)
+      i18n (~> 0.6, >= 0.6.6)
     icalendar (2.1.1)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -250,11 +247,6 @@ GEM
     launchy (2.4.2)
       addressable (~> 2.3)
     leaflet-rails (0.7.4)
-    less (2.5.1)
-      commonjs (~> 0.2.7)
-    less-rails (2.5.0)
-      actionpack (>= 3.1)
-      less (~> 2.5.0)
     librarian (0.1.2)
       highline
       thor (~> 0.15)
@@ -264,14 +256,13 @@ GEM
       minitar (>= 0.5.2)
     libv8 (3.16.14.3)
     libyajl2 (1.2.0)
-    listen (0.7.3)
     lograge (0.3.2)
       actionpack (>= 3)
       activesupport (>= 3)
       railties (>= 3)
     logstash-event (1.2.02)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     mailcatcher (0.6.1)
       activesupport (>= 4.0.0, < 5)
       eventmachine (~> 1.0.0, <= 1.0.5)
@@ -284,9 +275,9 @@ GEM
     mime-types (1.25.1)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
-    mini_portile (0.6.0)
+    mini_portile2 (2.0.0)
     minitar (0.5.4)
-    minitest (5.7.0)
+    minitest (5.8.4)
     mixlib-authentication (1.3.0)
       mixlib-log
     mixlib-cli (1.5.0)
@@ -296,19 +287,19 @@ GEM
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     mono_logger (1.1.0)
-    multi_json (1.11.1)
+    multi_json (1.12.0)
     multi_xml (0.5.5)
     mysql2 (0.3.16)
     net-dhcp (1.3.2)
     net-ldap (0.6.1)
-    net-ssh (2.9.3.beta1)
+    net-ssh (2.9.2)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     net-ssh-multi (1.2.0)
       net-ssh (>= 2.6.5)
       net-ssh-gateway (>= 1.2.0)
-    nokogiri (1.6.2.1)
-      mini_portile (= 0.6.0)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
     ohai (8.0.1)
       ffi (~> 1.9)
       ffi-yajl (~> 1.1)
@@ -337,7 +328,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_activity (1.4.1)
+    public_activity (1.5.0)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
@@ -351,26 +342,28 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.1.11)
-      actionmailer (= 4.1.11)
-      actionpack (= 4.1.11)
-      actionview (= 4.1.11)
-      activemodel (= 4.1.11)
-      activerecord (= 4.1.11)
-      activesupport (= 4.1.11)
+    rails (4.1.14.2)
+      actionmailer (= 4.1.14.2)
+      actionpack (= 4.1.14.2)
+      actionview (= 4.1.14.2)
+      activemodel (= 4.1.14.2)
+      activerecord (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.11)
+      railties (= 4.1.14.2)
       sprockets-rails (~> 2.0)
     rails-footnotes (4.0.2)
       rails (>= 3.2)
     rails_autolink (1.1.6)
       rails (> 3.1)
-    railties (4.1.11)
-      actionpack (= 4.1.11)
-      activesupport (= 4.1.11)
+    railties (4.1.14.2)
+      actionpack (= 4.1.14.2)
+      activesupport (= 4.1.14.2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.4.2)
+    rake (10.5.0)
+    recaptcha (3.3.0)
+      json
     redcarpet (3.3.2)
     redis (3.1.0)
     redis-namespace (1.5.0)
@@ -457,12 +450,12 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     spring (1.3.4)
-    sprockets (2.12.3)
+    sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -484,23 +477,18 @@ GEM
     timecop (0.8.0)
     turn (0.8.2)
       ansi (>= 1.2.2)
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.5.1)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
     uuidtools (2.1.5)
     valid_email (0.0.11)
       activemodel
       mail (~> 2.6.1)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    warden (1.2.3)
+    vpim (13.11.11)
+    warden (1.2.6)
       rack (>= 1.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
@@ -514,7 +502,7 @@ GEM
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    xray-rails (0.1.16)
+    xray-rails (0.1.18)
       coffee-rails
       rails (>= 3.1.0)
     ya2yaml (0.31)
@@ -529,13 +517,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_record_union
+  active_record_union (~> 1.1.0)
   active_sanity
+  acts-as-taggable-on (~> 4.0)
   acts_as_tree (~> 2.0.0)
+  autoprefixer-rails
+  bcrypt (~> 3.1.5)
   better_errors
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
   binding_of_caller
+  bootstrap-sass (~> 3.3)
   bootstrap3-datetimepicker-rails (~> 3.1.3)
   brakeman
   cancancan (~> 1.9)
@@ -545,11 +537,11 @@ DEPENDENCIES
   chronic
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
-  compass (~> 0.13.alpha)
+  compass (~> 0.12)
   compass-rails (~> 2.0)
   configatron (~> 2.13.0)
   database_cleaner
-  devise (~> 3.5.1)
+  devise (~> 3.5.4)
   devise-async
   devise-encryptable
   dotiw
@@ -558,27 +550,27 @@ DEPENDENCIES
   factory_girl_rails
   filesize
   fineuploader-rails!
-  font-awesome-rails (~> 4.1.0.0)
+  font-awesome-rails (~> 4.1)
   fooldap
   forgery!
-  friendly_id
+  friendly_id (~> 5.0.4)
   geocoder
+  gravatar_image_tag
   haml
   handlebars_assets
   htmlentities (~> 4.3.3)
   httparty
-  i18n-js!
+  i18n-js (~> 3.0.0.rc12)
   icalendar
-  inherited_resources
+  inherited_resources (~> 1.6.0)
   jquery-rails (~> 3.1.3)
   launchy
   leaflet-rails
-  less-rails
   librarian-chef
   lograge
   logstash-event
   mailcatcher
-  mini_magick
+  mini_magick (~> 3.8.1)
   momentjs-rails (>= 2.8.1)
   mysql2 (~> 0.3.0)
   net-ldap
@@ -586,21 +578,22 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
-  public_activity (~> 1.4.1)
+  public_activity (~> 1.5.0)
   quiet_assets
   rabl
   rack (~> 1.5.4)
-  rails (~> 4.1.11)
+  rails (~> 4.1.14.2)
   rails-footnotes
   rails_autolink (~> 1.1.0)
-  rake
+  rake (~> 10.5.0)
+  recaptcha
   redcarpet
-  resque
+  resque (~> 1.25.2)
   resque-lock-timeout
   resque-scheduler
   resque_mailer
   resque_spec
-  rmagick
+  rmagick (~> 2.13.2)
   rspec-mocks
   rspec-rails (~> 2.99.0)
   rubyzip (>= 1.0.0)
@@ -611,16 +604,15 @@ DEPENDENCIES
   simple_form (~> 3.1.0)
   simplecov
   spring
-  sprockets (~> 2.12.3)
+  sprockets (~> 2.12.4)
   sqlite3
   therubyracer
   timecop
   translate-rails3!
   turn (= 0.8.2)
-  twitter-bootstrap-rails (~> 2.2.8)
   uglifier (>= 1.0.3)
   valid_email (~> 0.0.10)
-  vpim!
+  vpim (~> 13.11.11)
   webmock
   webrat
   will_paginate
@@ -629,3 +621,6 @@ DEPENDENCIES
   yui-compressor
   zip-zip
   zonebie
+
+BUNDLED WITH
+   1.13.1

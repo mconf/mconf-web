@@ -33,6 +33,9 @@ Mconf::Application.routes.draw do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
     get "register", to: "registrations#new"
+
+    # so admins can log in even if local auth is disabled
+    get "admin", to: "sessions#new"
   end
 
   # bigbluebutton_rails default routes
@@ -49,6 +52,9 @@ Mconf::Application.routes.draw do
   post '/bigbluebutton/rooms/:id/send_invitation',
     to: 'custom_bigbluebutton_rooms#send_invitation',
     as: "send_invitation_bigbluebutton_room"
+  get '/bigbluebutton/rooms/:id/user_edit',
+    to: 'custom_bigbluebutton_rooms#user_edit',
+    as: "user_edit_bigbluebutton_room"
   get '/bigbluebutton/playback_types',
     to: 'custom_bigbluebutton_playback_types#index',
     as: "bigbluebutton_playback_types"
@@ -66,6 +72,9 @@ Mconf::Application.routes.draw do
   # to crop images
   get "logo_images/crop", to: 'logo_images#crop'
 
+  # tags
+  get "tags/select", to: 'tags#select'
+
   resources :spaces do
 
     collection do
@@ -80,7 +89,6 @@ Mconf::Application.routes.draw do
       post :approve
       post :disapprove
       get :user_permissions
-      get :webconference_options
       get :webconference
       get :recordings
     end
@@ -88,6 +96,7 @@ Mconf::Application.routes.draw do
     get '/recordings/:id/edit', to: 'spaces#edit_recording', as: 'edit_recording'
 
     get '/events', to: 'space_events#index', as: 'events'
+    get '/events/new', to: 'events#new', as: 'new_event'
 
     resources :users, only: :index
 
@@ -136,7 +145,6 @@ Mconf::Application.routes.draw do
   get '/home', to: 'my#home', as: 'my_home'
   get '/activity', to: 'my#activity', as: 'my_activity'
   get '/rooms', to: 'my#rooms', as: 'my_rooms'
-  get '/room/edit', to: 'my#edit_room', as: 'edit_my_room'
   get '/recordings', to: 'my#recordings', as: 'my_recordings'
   get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
   get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'
@@ -151,7 +159,8 @@ Mconf::Application.routes.draw do
   resource :site, only: [:show, :edit, :update]
 
   # Management routes
-  ['users', 'spaces'].each do |resource|
+  get "/manage", to: redirect('/site'), as: "manage"
+  ['users', 'spaces', 'recordings'].each do |resource|
     get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
   end
 

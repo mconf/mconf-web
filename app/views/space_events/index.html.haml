@@ -1,12 +1,10 @@
-- page_title t('spaces.menu.events'), :in => @space.name
-
+- page_title t('spaces.sidebar.events'), in: @space.name
 - spaces_menu_at :events
-= content_for :menu do
-  = render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
 #events-wrapper
 
-  #events-filters.page-tabs
+  #events-filters.page-sub-menu
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to t('all'), space_events_path(@space, :show => "all"), :id => 'all_link', :class => "btn btn-small #{'active' if params[:show] == 'all' or !params[:show]}"
       = link_to t('.now'), space_events_path(@space, :show => "happening_now"), :class => "btn btn-small #{'active' if params[:show] == 'happening_now'}"
@@ -15,7 +13,7 @@
 
   - if can?(:create, @space.events.build)
     #events-toolbar
-      = link_to new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
+      = link_to space_new_event_path(:space_id => @space.to_param), :class => "btn btn-primary btn-small" do
         = t('.create_event')
 
   - if params[:show] == 'past_events'

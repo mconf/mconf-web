@@ -12,7 +12,7 @@
       %input#aspect-ratio{ :type => 'checkbox', :checked => 'checked' }
       %label{ :for => "aspect-ratio" }= t('.aspect_ratio')
 
-  .modal-footer.form-actions
+  .modal-footer
     = simple_form_for @model, :url => @url do |f|
       - %w[x y w h img_w img_h].each do |attribute|
         = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute.gsub(/_/, '-')}"

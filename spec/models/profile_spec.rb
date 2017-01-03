@@ -58,6 +58,29 @@ describe Profile do
 
   end
 
+  describe "#first_names" do
+    context 'returns the first name if is longer than min length' do
+      let(:profile) { FactoryGirl.create(:profile, full_name: 'Richard Bawlins') }
+      it { profile.first_names(5).should eq('Richard') }
+    end
+
+    context 'returns more than one name if the first are shorter than min length' do
+      let(:profile) { FactoryGirl.create(:profile, full_name: 'A Mr. Dawn of the Night') }
+      it { profile.first_names(6).should eq('A Mr. Dawn') }
+    end
+
+    context "returns the entire first name even if it's a lot longer than min length" do
+      let(:profile) { FactoryGirl.create(:profile, full_name: 'Mesopopoulousnacious Ternaris') }
+      it { profile.first_names(2).should eq('Mesopopoulousnacious') }
+    end
+
+    context "uses 5 as the default min length" do
+      it { FactoryGirl.create(:profile, full_name: 'Marko C').first_names.should eq('Marko') }
+      it { FactoryGirl.create(:profile, full_name: 'M C Donna').first_names.should eq('M C Donna') }
+      it { FactoryGirl.create(:profile, full_name: 'M C D O').first_names.should eq('M C D') }
+    end
+  end
+
   describe "#from_vcard" do
     let(:old_email) { 'old@email.com' }
     let(:profile) { FactoryGirl.create(:user, email: old_email).profile }

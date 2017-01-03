@@ -1,17 +1,16 @@
-#filter-total.resource-filter-total
-  .resource-filter-with-text
-    = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{@users.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
-  .resource-filter-without-text
-    = t('.filter_count_empty', :count => @users.count)
+-# locals:
+-#  spaces (array of User)
 
-- if @users.count > 0
+.list-container.list-tablefied.container-fluid
+  .resource-filter-container.list-item-header
+    .resource-filter-with-text
+      = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{users.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+    .resource-filter-without-text
+      = t('.filter_count_empty', count: users.count)
+  - for user in users
+    = render partial: 'user_item', locals: { user: user }
 
-  - for user in @users
-    - if user.disabled?
-      = render :partial => 'disabled_user', :locals => { :user => user }
-    - else
-      = render :partial => 'enabled_user', :locals => { :user => user }
-
-  - nav = page_navigation_links @users
+- if users.count > 0
+  - nav = page_navigation_links users
   - unless nav.nil?
     .content-block-footer= nav

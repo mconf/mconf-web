@@ -20,7 +20,7 @@
       = link_to sanitize(jr.candidate.name), user_path(jr.candidate)
       .user-email
         = "(#{jr.candidate.username}, #{jr.candidate.email})"
-    .thread-text
+    .thread-description
       - unless jr.comment.blank?
         %span= t('join_requests.index.user_message') + ':'
         %span= "\"#{jr.comment}\""

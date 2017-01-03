@@ -6,14 +6,13 @@
 # 3 or later. See the LICENSE file.
 
 class ProcessedJoinRequestSenderWorker < BaseWorker
-  @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
   # a notification to the users that the join request was accepted/declined.
   # Marks the activity as notified.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    join_request = activity.owner
+    join_request = activity.trackable
 
     return if activity.notified
 

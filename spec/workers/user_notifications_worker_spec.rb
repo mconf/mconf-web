@@ -6,12 +6,17 @@
 
 require 'spec_helper'
 
-describe UserNotificationsWorker do
+describe UserNotificationsWorker, type: :worker do
   let(:worker) { UserNotificationsWorker }
-
-  it "uses the queue :user_notifications" do
-    worker.instance_variable_get(:@queue).should eql(:user_notifications)
-  end
+  let(:senderRBA) { UserRegisteredByAdminSenderWorker }
+  let(:senderNA) { UserNeedsApprovalSenderWorker }
+  let(:senderA) { UserApprovedSenderWorker }
+  let(:senderR) { UserRegisteredSenderWorker }
+  let(:queue) { Queue::High }
+  let(:paramsRBA) {{"method"=>:perform, "class"=>senderRBA.to_s}}
+  let(:paramsNA) {{"method"=>:perform, "class"=>senderNA.to_s}}
+  let(:paramsA) {{"method"=>:perform, "class"=>senderA.to_s}}
+  let(:paramsR) {{"method"=>:perform, "class"=>senderR.to_s}}
 
   describe "#perform" do
 
@@ -26,8 +31,8 @@ describe UserNotificationsWorker do
 
         before(:each) { worker.perform }
 
-          it { expect(UserRegisteredByAdminSenderWorker).to have_queue_size_of(1) }
-          it { expect(UserRegisteredByAdminSenderWorker).to have_queued(activity.id) }
+          it { expect(queue).to have_queue_size_of(1) }
+          it { expect(queue).to have_queued(paramsRBA, activity.id) }
       end
     end
 
@@ -50,9 +55,9 @@ describe UserNotificationsWorker do
 
           before(:each) { worker.perform }
 
-          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(2) }
-          it { expect(UserNeedsApprovalSenderWorker).to have_queued(user1.id, admin_ids) }
-          it { expect(UserNeedsApprovalSenderWorker).to have_queued(user2.id, admin_ids) }
+          it { expect(queue).to have_queue_size_of(2) }
+          it { expect(queue).to have_queued(paramsNA, user1.id, admin_ids) }
+          it { expect(queue).to have_queued(paramsNA, user2.id, admin_ids) }
         end
 
         context "ignores users not approved but that already had their notification sent" do
@@ -67,7 +72,7 @@ describe UserNotificationsWorker do
           }
           before(:each) { worker.perform }
 
-          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
 
         context "ignores users that were already approved" do
@@ -77,7 +82,7 @@ describe UserNotificationsWorker do
 
           before(:each) { worker.perform }
 
-          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
 
         context "when there are no recipients" do
@@ -85,7 +90,7 @@ describe UserNotificationsWorker do
 
           before(:each) { worker.perform }
 
-          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
 
         context "when the target user cannot be found" do
@@ -98,7 +103,7 @@ describe UserNotificationsWorker do
             worker.perform
           }
 
-          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
       end
 
@@ -120,9 +125,9 @@ describe UserNotificationsWorker do
             worker.perform
           }
 
-          it { expect(UserApprovedSenderWorker).to have_queue_size_of_at_least(2) }
-          it { expect(UserApprovedSenderWorker).to have_queued(activity1.id) }
-          it { expect(UserApprovedSenderWorker).to have_queued(activity2.id) }
+          it { expect(queue).to have_queue_size_of_at_least(2) }
+          it { expect(queue).to have_queued(paramsA, activity1.id) }
+          it { expect(queue).to have_queued(paramsA, activity2.id) }
         end
 
         context "ignores users that were not approved yet" do
@@ -131,7 +136,7 @@ describe UserNotificationsWorker do
 
           before(:each) { worker.perform }
 
-          it { expect(UserApprovedSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
 
         context "ignores users that already received the notification" do
@@ -140,7 +145,7 @@ describe UserNotificationsWorker do
 
           before(:each) { worker.perform }
 
-          it { expect(UserApprovedSenderWorker).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(0) }
         end
 
       end
@@ -159,7 +164,7 @@ describe UserNotificationsWorker do
 
         before(:each) { worker.perform }
 
-        it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+        it { expect(queue).to have_queue_size_of(0) }
         context "should generate the activities anyway" do
           it { RecentActivity.where(trackable: user1, key: 'user.created').first.should_not be_nil }
           it { RecentActivity.where(trackable_id: user2, key: 'user.created').first.should_not be_nil }
@@ -172,7 +177,7 @@ describe UserNotificationsWorker do
 
         before(:each) { worker.perform }
 
-        it { expect(UserApprovedSenderWorker).to have_queue_size_of(0) }
+        it { expect(queue).to have_queue_size_of(0) }
       end
     end
 
@@ -188,8 +193,8 @@ describe UserNotificationsWorker do
       context "#perform sends the right mails and updates the activity" do
         before(:each) { worker.perform }
 
-        it { expect(UserRegisteredSenderWorker).to have_queue_size_of(1) }
-        it { expect(UserRegisteredSenderWorker).to have_queued(activity.id) }
+        it { expect(queue).to have_queue_size_of(1) }
+        it { expect(queue).to have_queued(paramsR, activity.id) }
       end
     end
 

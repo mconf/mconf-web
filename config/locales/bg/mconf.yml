@@ -1,0 +1,1779 @@
+bg:
+  activities:
+    attachment:
+      create_html: е добавил файл %{name} в общността
+      destroy_html: е премахнал файл %{name} от общността
+      update_html: е актуализирал файл %{name} в общността
+      deleted: "прикачен файл, който беше изтрит"
+      deleted_tooltip: "Този прикачен файл вече не съществува"
+    bigbluebutton_meeting:
+      deleted_html: "Срещата е проведена, но информацията за нея е изтрита"
+      user:
+        create_html: "Срещата започна в стаята на потребителя %{owner} на %{time}"
+      space:
+        create_html: "Срещата започна в общността  %{owner} на %{time}"
+    event:
+      deleted_tooltip: "Това събитие вече не е достъпно"
+    join_request:
+      accept_html: се присъедини към общността
+      decline_html: отказа поканата/заявката за общността
+      deleted: "заявка, която беше изтрита"
+      deleted_tooltip: "Тази заявка вече не съществува"
+      invite_html: "бяха поканени в общността"
+      invite_with_introducer_1_html: "беше поканен/а от"
+      invite_with_introducer_2_html: "за да се присъединиш към общността"
+      no_accept_1_html: "беше добавен/а от"
+      no_accept_2_html: "към общността"
+      request_html: "желае да се присъедини към общността"
+    other:
+      admin_html: "Администратор"
+      someone_html: "Някой"
+    post:
+      create_html: публикува %{name} в общността
+      update_html: обнови %{name} в общността
+      reply_html: отговори на %{name} в общността
+      deleted: "публикация, която беше изтрита"
+      deleted_tooltip: "тази публикация вече не съществува"
+    resource:
+      deleted_tooltip: "този ресурс вече не съществува"
+    space:
+      approved_html: одобри общността
+      create_html: създаде нова общност
+      deleted: "общост, която вече не съществува"
+      deleted_tooltip: "Тази общност вече не съществува"
+      leave_html: напусна общността
+      update_html: е актуализирал информацията в общността
+    user:
+      deleted_tooltip: "Този потребител вече не е регистриран"
+  _js:
+    confirmation_dialog:
+      cancel: "Отказ"
+      confirm: "Да"
+      title: "Потвърждаване"
+  _other:
+    accept: "Приеми"
+    cancel: "Отказ"
+    create: "Създай"
+    confirm: Ок
+    datetimepicker:
+      format_display: "%d.%m.%Y"
+      format: "dd.MM.yyyy"
+      format_rails: "%d.%m.%Y %H:%M"
+    decline: "Отхвърли"
+    deny: "Забрани"
+    destroy: "Изтрий"
+    details: "Подробности"
+    edit: "Редактирай"
+    end: "Край"
+    form:
+      required: "задължително"
+    index: Списък
+    in_place_edit:
+      error: "грешка"
+      success: "запазено"
+    join: "Включете се"
+    login: "Влез"
+    login_to_enable: "Трябва да сте регистрирани, за да изпълните това действие"
+    members:
+      one: "%{count} член"
+      other: "%{count} членове"
+    no_: "Няма"
+    participants:
+      one: "%{count} участник"
+      other: "%{count} участници"
+    publish: "Публикувайте"
+    register: "Регистрация"
+    save: "Запази"
+    send: "Изпрати"
+    not_approved:
+      text: 'Очаква потвърждение'
+      tooltip: 'Потребители, очакващи потвърждение, не могат да преглеждат или да влизат в тази общност'
+    unpublish: "Отмяна на публикацията"
+    update: "Обновете"
+    updated_time_ago: "%{time} назад"
+    upload: "Качване"
+    user:
+      administrator: "Главен администратор"
+      normal_user: "Обикновен потребител"
+      unapproved_user: "Чакащ потвърждение"
+      guest: "Гост"
+      guest_name: "Гост (%{email})"
+      removed: "<премахнат>"
+    yes_: "Да"
+    webconference:
+      not_allowed_to_create: "Не можете да създавате среща в тази стая"
+      not_running: "в момента не е активна"
+      running: в процес
+  GMT: GMT
+  RSS: RSS
+  abc: ABC
+  about_me: "За мен"
+  about_sxsw: "За SXSW"
+  account: Профил
+  account_activated: "Вашият профил е активиран!"
+  action:
+    other: Действия
+  actions: Действия
+  activerecord:
+    attributes:
+      invite:
+        ends_on: "Приключва на"
+        message: "Описание"
+        starts_on: "Започва на"
+        title: "Заглавие"
+        users: "Потребители"
+      join_request:
+        comment: "Коментар"
+      post:
+        text: "Съобщение"
+        title: "Заглавие"
+      profile:
+        address: "Адрес"
+        city: "Град"
+        country: "Държава"
+        description: "Описание"
+        email: "И-мейл"
+        fax: "Факс"
+        full_name: "Пълно име"
+        im: "IM"
+        mobile: "Мобилен телефон"
+        organization: "Организация"
+        phone: "Телефон"
+        prefix_key: "Заглавие"
+        province: "Област"
+        skype: "Skype"
+        zipcode: "Пощенски код"
+      roles:
+        name_user: "Потребител"
+        name_admin: "Администратор"
+      site:
+        analytics_code: "Код Google Analytics"
+        description: "Описание"
+        domain: "Домейн"
+        events_enabled: "Включване на модула на събитията"
+        exception_notifications: "Изпращане на уведомления за грешки"
+        exception_notifications_email: "Получаване на уведомления за грешки"
+        exception_notifications_prefix: "Префикс на темата за уведомления за грешки"
+        external_help: "Линк към външна страница за помощ или FAQ"
+        feedback_url: "Страница за обратна връзка"
+        forbid_user_space_creation: "Забраняване на създаване на общност"
+        ldap_enabled: "LDAP: Включване на удостоверяване"
+        ldap_filter: "LDAP: Филтър за търсене на потребители"
+        ldap_host: "LDAP: IP - адрес или домейн"
+        ldap_port: "LDAP: Порт"
+        ldap_user: "LDAP: Потребител"
+        ldap_user_password: "LDAP: Парола"
+        ldap_user_treebase: "LDAP: Пълен DN на потребителското дърво"
+        ldap_username_field: "LDAP: Поле на атрибута \"username\""
+        ldap_email_field: "LDAP: Поле на атрибута \"email\""
+        ldap_name_field: "LDAP: Поле на атрибута \"full name\""
+        local_auth_enabled: "Включване на локално удостоверяване"
+        locale: "Език"
+        max_upload_size: "Максимален размер на файл за качване"
+        name: "Име"
+        registration_enabled: "Разрешаване създаването на нови профили"
+        require_registration_approval: "Управление на потребителите"
+        require_space_approval: "Управление на общност"
+        room_dial_number_pattern: 'Шаблон на номер за набиране на стая'
+        signature: "Подпис"
+        shib_always_new_account: "Shibboleth: Винаги създавай нов профил"
+        shib_enabled: "Shibboleth: Включване"
+        shib_email_field: "Shibboleth: Поле email"
+        shib_env_variables: "Shibboleth: Променливи на средата"
+        shib_login_field: "Shibboleth: Поле логин"
+        shib_name_field: "Shibboleth: Поле име"
+        shib_principal_name_field: "Shibboleth: Поле име (уникален ID номер)"
+        shib_update_users: "Shibboleth: Обновяване на потребителската информация"
+        smtp_auth_type: "Тип удостоверение SMTP"
+        smtp_auto_tls: "Автоматично използване на STARTTLS"
+        smtp_domain: "SMTP домейн"
+        smtp_login: "SMTP логин"
+        smtp_password: "SMTP парола"
+        smtp_port: "SMTP порт"
+        smtp_sender: "SMTP подател"
+        smtp_server: "SMTP сървър"
+        smtp_use_tls: "Използване на TLS в SMTP връзки"
+        ssl: "SSL"
+        timezone: "Времева зона"
+        visible_locales: "Показваневане на езици"
+        xmpp_server: "Адрес на XMPP сървър"
+      space:
+        attendee_key: "Парола за присъстващи"
+        description: "Описание"
+        moderator_key: "Парола за модератори"
+        name: "Име"
+        permalink: "Идентификатор"
+        public: "Публичен"
+        repository: "Хранилище за документи"
+      user:
+        _full_name: "Пълно име"
+        approved: "Потвърдено"
+        can_record: "Позволяване на използване на запис на срещата"
+        current_password: "Текуща парола"
+        email: "Email"
+        expanded_post: "Разширено показване на съобщения на стената"
+        password: "Парола"
+        password_confirmation: "Потвърждаване на парола"
+        receive_digest: "Колко често желаете да получавате информация за обновения на общности, към които принадлежите?"
+        remember_me: "Запомни ме"
+        superuser: "Главен администратор"
+        timezone: "Времева зона"
+        username: "Потребителско име"
+    errors:
+      messages:
+        invalid_identifier: "генерира невалиден идентификатор: \"%{id}\""
+        missing: "липсва"
+    models:
+      event: "Събитие"
+      join_request: "Заявка за присъединяване"
+      space: "Пространство"
+  flash:
+    spaces:
+      update:
+        notice: "Пространството е обновено успешно"
+      disable:
+        notice: "Пространството е деактивировано успешно"
+      enable:
+        notice: "Пространството е активировано успешно"
+        failure: "Пространството %{name} вече е активно"
+    posts:
+      update:
+        notice: "Съобщението е обновено!"
+        failure: "Неуспешна актуализация на съобщението: %{errors}"
+      create:
+        notice: "Съобщението е публикувано!"
+        failure: "Неуспешно публикуване на съобщението: %{errors}"
+    users:
+      disable:
+        notice: "Потребителят е деактивиран успешно"
+      enable:
+        notice: "Потребителят е активиран успешно. В момента потребителят не принадлежи към никоя общност и ще бъде присъединен наново."
+        failure: "Потребителят %{name} вече е активиран"
+  address: Адрес
+  admin:
+    one: Настройки
+    space: "Администратор %{spacename}"
+  admission:
+    other: Разрешение
+  advanced: Допълнително
+  advanced_editor: "Разширен редактор"
+  agent:
+    authentication:
+      confirm_password: "Потвърждаване на парола"
+      password: Парола
+  agree: "Да"
+  all: Всичко
+  all_events: "Събития"
+  all_rights_reserved: "Всички права са запазени"
+  any_field: "Произволно поле"
+  are_you_sure: "Сигурни ли сте?"
+  attachment:
+    add: "Прикачване на файл"
+    created: "Файлът е прикачен"
+    delete: "Изтриване на файл"
+    deleted: "Файлът е изтрит успешно"
+    error:
+      malformed: "Грешка при изтриване на файлове"
+      not_deleted: "%{file} не беше изтрит."
+      not_permission: "%{user} не може да изтрие файл %{file}."
+    file: "Файл:"
+    filename: "%{size} файлове от %{name}.zip"
+    home:
+      one: "Файл в общност %{space}"
+    info: "Информация за документ"
+    more:
+      one: "още %{count} файл..."
+      other: "още %{count} файлов..."
+    new: "Нов файл"
+    not_selected: "Документите не са избрани"
+    one: Файл
+    other: Файлове
+    repository_disabled: "Хранилището за документи не е включено в тази общност"
+    selected:
+      none: "Файловете не са избрани"
+      one: "файлът е избран"
+      other: "файловете са избрани"
+    title: "Файлове(%{count})"
+    upload_with_post: "Съобщаване за качването на стената"
+  attachments:
+    index:
+      author: "Качено"
+      download_multiple: "Сваляне"
+      file: "Файл"
+      new_file: "Качване на файл"
+      no_attachments: "Зареденият файл не е намерен"
+      remove_multiple: "Премахване"
+      remove_multiple_confirmation: "Сигурни ли сте, че искате да премахнете избраните файлове? Тази операция е необратима!"
+      uploaded: "Качено"
+    single_attachment:
+      ago: "назад"
+      delete_confirmation: "Сигурни ли сте, че искате да изтриете този файл? Тази операция е необратима!"
+      delete_tooltip: "Изтриване на файл"
+      download_tooltip: "Сваляне"
+    upload_form:
+      title: "Качване на файл"
+  attendeePW: "Парола за участващи"
+  author: "Качено"
+  avatar:
+    created: "Изображението е създадено успешно"
+    crop: "по-малко на изображение"
+    select: "Избиране на изображение"
+    select_new: "Избиране на ново изображение"
+    upload: "Качване на изображение"
+  back: Назад
+  back_to_inbox: "Назад към входяши"
+  back_to_sent: "Назад към изпращане"
+  bbb_room:
+    attendeePW: "Парола за участващи"
+    edit: "Настройки на конферентната стая"
+    moderatorPW: "Парола за модератори"
+    private: "Частна стая"
+  beta: бета
+  bigbluebutton: BigBlueButton
+  bigbluebutton_rails:
+    activity_monitor: "Монитор на активности"
+    attendees:
+      id: ID
+      name: Име
+      role: Роля
+    new_room: "Нова стая"
+    new_server: "Нов сървър"
+    rooms:
+      external:
+        header: "Тази среща е създадена от друго приложение. <br/> Трябват ви име и парола, за да влезете:"
+      index:
+        back_to_server_list: "Назад към списъка със сървъри"
+        invite: Покани
+        new_room: "Нова стая"
+      invite: Покани
+      join_mobile: "Влизане от мобилно устройство"
+    servers:
+      activity:
+        activity: Активност
+        done: Готово!
+        ended_at: "Ще завърши в: %{time} (принудително ще завърши в: %{forcibly})"
+        information: Информация
+        not_running: "Не е включено"
+        now: Сега!
+        participants: "(%{total} участника, %{mods} модератора):"
+        refresh_now: "Обновяване сега"
+        refreshing_in: "Обновяване след:"
+        running: Включено!
+        seconds: секунди
+        started_at: "Започнало в : %{time}"
+        title: "Монитор на активности на сървъра"
+      index:
+        access_links: "Линкове за достъп"
+    view_room_list: "Преглед на списъка със стаи"
+    view_rooms: "Преглед на стаите"
+    view_server_list: "Преглед на списъка със сървъри"
+  body: Съобщение
+  button:
+    accept: Приемам
+    cancel: Отказ
+    confirm: Потвърди
+    create: Създай
+    creating: "Създаване на събитие..."
+    edit: Промени
+    editing: Промяна...
+    finish: Завърши
+    go: Напред!
+    invite: Покани
+    join: Присъединяване
+    join_webconference: "Присъединяване към конференцията"
+    join_webconference_mobile: "Присъединяване от мобилно устройство"
+    new_room: "Нова стая"
+    next: "Следваща стъпка"
+    post: Публикация
+    publish: Публикувай
+    remove: Изтриване
+    search: Търсене
+    send: Изпрати
+    sending: Изпращане...
+    update: Обновяване
+    upload: Качване
+  by: от
+  cafe:
+    login: "Влез с CAFe"
+  calendar:
+    my: "Мой календар"
+    one: Календар
+  cancel: Отказ
+  caption:
+    add: "Добавяне на подпис"
+  city: Град
+  click_here_to_see_more: "Кликнете тук, за да видите подробности"
+  click_to_hide: "Кликнете тук за скриване"
+  click_to_see_all: "Преглед на всичко"
+  close: Затваряне
+  collapse: по-малко
+  collapse_arrows: "<< по-малко"
+  comment:
+    add: "Добавяне на коментар"
+    add_new: "Добавяне на нов коментар"
+    by: "коментар от %{author}"
+    edit: "Промяна на коментар"
+    new: "Нов коментар"
+    one: Коментар
+    other: Други
+    show_all: "Показваневане на всички коментари"
+  configurations: Настройки
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "Вече сте потвърдили профила си"
+  contact_information: "Информация за контакт"
+  country: Държава
+  create: Създаване
+  create_event: "Създаване на събитие"
+  created_time_ago: "Създадено преди %{time}"
+  crop_image:
+    description: "Изберете част от изображението за изрязване"
+    title: "по-малко на изображението"
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "По подразбиране"
+      description: "Възпроизвеждания на записи. Този списък се попълва автоматично, когато запис от конференция се зарежда от сървъра. Можете да скриете възпроизвежданията като махнете отметката и промените стандартното възпроизвеждане, което винаги стои отгоре на списъка за всички достъпни възпроизвеждания."
+      list_of_playback_types: "Списък с възпроизвеждания"
+      name: "Име"
+      visible: "Видимост"
+  custom_bigbluebutton_rooms:
+    _other:
+      fetch_recordings: "Получаване на записи"
+      generate_dial_number: "Генериране на dial номер"
+      invite: "Покани"
+      join_mobile: "Присъединяване от мобилно устройство"
+      new_room: "Нова стая"
+      view_recordings: "Преглед на записи"
+    edit:
+      editing_room: "Промяна на стая '%{room}'"
+    form:
+      layout_empty_option: "<по подразбиране>"
+      metadata:
+        add: "Добавяне на метаданни"
+        set_to_remove: "Set to remove"
+    index:
+      list_of_rooms: "Списък на всички регистрирани стаи"
+    important: Важно
+    invitation_form:
+      at: "в"
+      duration: "Продължителност"
+      meeting_in: "Покана за среща в:"
+      offset: "Вашатата текуща времева разлика \"%{offset}\""
+      offset_daylight_savings: "Вашатата текуща времева разлика \"%{offset}\" (daylight saving time is in effect)"
+      timezone: "Датите, показани по-горе, принадлежат към времева зона \"%{timezone}\""
+      title: "Покани за среща"
+      users:
+        hint: "Започнете да пишете, за да започнете търсене"
+        no_results: "Не са намерени резултати"
+        searching: "Търсене..."
+    invite:
+      field_name: "Присъединявате се като"
+      field_password: "Въведете парола за достъп"
+      title: "Присъединяване към: %{name}"
+    invite_header:
+      not_running: "не е започнала"
+      refresh: "Тази информация се обновява автоматично"
+      room_type_private: "Това е <em>частна</em> конференция"
+      room_type_public: "Това е <em>публична</em> конференция"
+      running: "започнала!"
+      status: "Срещата в момента се състои"
+      status_unknown: "неизвестно"
+      steps: "стъпки:"
+    invite_userid:
+      login: "Вход"
+      member:
+        email_or_username: "Email или потребителско име"
+        password: "Парола"
+        shibboleth:
+          click_here: "Кликнете тук, за да използвате federated login"
+        title: "Аз съм участник в този уеб-сайт"
+      non_member:
+        name: "вашияияето пълно име"
+        next: "Напред"
+        title: "Нямам профил, ще вляза като гост"
+      title: "Присъединяване към: %{name}"
+    join:
+      user_limit_exceeded: "Тази среща е достигнала максималното количество участници. Свържете се с модератор за уточнение на информацията"
+    join_mobile:
+      click_to_download_android: "Кликнете тук, за да заредите Android клиент"
+      click_to_download_ios: "Кликнете тук, за да заредите Apple iOS (iPad, iPhone) клиент"
+      download_android_tip: "За Android устройства"
+      download_ios_tip: "За устройства с Apple iOS (iPad, iPhone)"
+      not_launched: "Ако приложението не е стартирало, то се убедете, че сте го пуснали с Android клиент. Можете да го свалите:"
+      notice: "Пренасочване към конференция на мобилно устройство, моля изчакайте."
+      title: "Мобилен достъп до \"%{room}\""
+      use_default_client: "Ако не сте на мобилно устройство, натиснете тук, за да се присъедините към сесията през десктоп версията."
+      try_again: "Приложението е инсталирано, но не е включено? Кликнете тук, за да опитате отново."
+    new:
+      creating_new_room: "Създаване на нова стая"
+    recordings:
+      list_of_recordings: "Списък на всички записи от стая \"%{room}\""
+    rooms:
+      table:
+        links: "Линкове"
+        room_meetingid: "Meeting ID"
+        room_name: "Име на стаята"
+    send_invitation:
+      blank_users: "Потребителите не са избрани, поканите не са изпратени"
+      error: "Грешка при изпращане на покана до:"
+      error_date_format: "Датите, които сте избрали, са грешни, опитайте отново"
+      error_title: "Избирането на тема на поканата е задължително, опитайте отново"
+      success: "Поканата е изпратена успешно до:"
+    show:
+      showing_room: "Показваневане на стая \"%{room}\""
+  custom_bigbluebutton_recordings:
+    edit:
+      editing_recording: "Промяна на запис"
+      tip: "Повечето от атрибутите не могат даа се редактират, защиото са заредени от тодалечен сървър и отразявт състоянието на записа на този сървър."
+    show:
+      showing_recording: "Показване на запис"
+    index:
+      list_of_recordings: "Списък на всички достъпни записи"
+    recording_links:
+      direct_link: "Директен линк"
+      playback_links: "Достъпни възпроизвеждания"
+      confirm_destroy: "Сигурен ли си, че искаш да изтриеш този запис? Ще бъде изтрити файловете от сървъра, което е необратимо действие. Бъди сигурен, че си си заредил или архивирал този запис, преди да го изтриеш."
+    recordings:
+      table:
+        links: "Линкове"
+        recordid: "Record ID"
+        room: "Стая"
+        server: "Сървър"
+  custom_bigbluebutton_servers:
+    _other:
+      activity_monitor: "Монитор на активности"
+      fetch_recordings: "Получаване на записи"
+      new_server: "Нов сървър"
+      view_recordings: "Преглед на записи"
+      view_rooms: "Преглед на стаи"
+    activity:
+      activity: "Активност на сървъра"
+      automatically_updated: "Автоматично се обновява на всичкики 30 секунди"
+      information: "Информация за сървъра"
+      title: "Монитор на активности на сървъра"
+      updated: "Обновено!"
+    edit:
+      editing_server: "Променяне на сървъра \"%{server}\""
+    index:
+      list_of_servers: "Списък на регистрираните сървъри"
+      table:
+        links: "Линкове"
+        server_name: "Име на сървъра"
+        url: "URL"
+    new:
+      creating_new_server: "Създаване на нов сървър"
+    recordings:
+      list_of_recordings: "Списък на всички записи на сървър \"%{server}\""
+    rooms:
+      list_of_rooms: "Списък на всички стаи на сървър \"%{server}\""
+    show:
+      available_layouts: "Достъпни слоеве"
+      configurations: "Конфигурация на сървъра"
+      configurations_tip: "Тези конфигурации за заредени автоматично то сървъра и не могат да бъдат редактирани тук. Те се зареждат периодично (прибл. всеки 3ч.) от фонов процес а също и когато бъде посе тена връзката, или се промени версията на сървъра."
+      fetch_recordings_title: "Получаване на записи с параметри"
+      fetch_recordings_btn: "Получаване на записи"
+      publish_recordings_title: "Публикуване на записи"
+      publish_recordings_btn: "Публикуване на записи"
+      recordings: "Записи"
+      showing_server: "Показване на сървър \"%{server}\""
+      unpublish_recordings_title: "Премахване на публикувани записи"
+      unpublish_recordings_btn: "Премахване на публикувани записи"
+  date:
+    at: в
+    start: "Начална дата"
+    undefined: Неопределено
+  days: Дни
+  dblclick: "Двоен клик за промяна.."
+  delete:
+    confirm: "Изтриване на %{element}?"
+    invitation: "Изтриване на покана за %{user}?"
+    one: Изтриване
+    select: "Избиране за изтриване"
+  deny: "Не"
+  description: Описание
+  destroy: Изтриване
+  devise:
+    failure:
+      user:
+        not_approved: "Вашатата регистрация не е потвърдена от администратор."
+    registrations:
+      not_enabled: "Регистрация на нови потребители не е достъпна на този сайт."
+    shared:
+      links:
+        login:
+          default: "Вход в потребителски профил"
+          federation: "Login via federation"
+        lost_password: "Забравена парола?"
+        other_options: "Други опции"
+        register: "Създаване на потребителски профил"
+        resend_confirmation_email: "Повторно изпращане на потвърждение"
+    strategies:
+      ldap_authenticatable:
+        create_failed: "Невъзможно създаване на вътрешна структура за вашата LDAP регистрация, моля свържете се с администратор"
+        invalid_bind: "Невозможно присъединяване към сървъра с LDAP, проверете конфигурацията"
+        ldap_not_enabled: "LDAP не е включен на този сайт"
+        missing_username: "Невозможно получаване на логин с LDAP на сървъра, моля, свържете се с администратор"
+        missing_name: "Невозможно получаване на потребителско име с LDAP на сървъра, моля, свържете се с администратор"
+        missing_email: "Невозможно получаване email с LDAP на сървъра, моля, свържете се с администратор"
+  disable: Изключване
+  disabled: Изключено
+  download_file: "Качване на файл"
+  edit: Промяна
+  edit_hours: "Промяна на часове"
+  edit_profile: "Промяна на профил"
+  email:
+    account_activated: "вашият потребителски профил от %{sitename} бе успешно активиран."
+    commas: "Разделено със запетаи"
+    confirm: "Трябва да потвърдите регистрацията си като кликнете на <a href=\"%{url}\"> %{url} </a>"
+    digest:
+      attachment: "<b>%{author_name}</b> е качил нов файл в <b>%{space_name}</b>:"
+      event: "<b>%{author_name}</b> е създал ново събитие в  <b>%{space_name}</b>:"
+      inbox: "<b>%{sender_name}</b> ви е изпратил(а) съобщение:"
+      message: "Следна активност във вашите общности:"
+      posted: "<b>%{author_name}</b> е публикувал съобщение в <b>%{space_name}</b>:"
+      title: "%{type} дайджест с активности във вашите общности"
+      type:
+        daily: Ежедневно
+        weekly: Ежеседмично
+    invitation_result:
+      admin_side: "%{name} %{action} покана в общност %{spacename}"
+      user_side: "Администратор на общност%{spacename} %{action} вашияияето питане за покана."
+    kind_regards: "С уважение,"
+    notifications: "email уведомление"
+    one: email
+    url_activated: "Можете да влезете в потребителския си профил с email \"%{name}\" и парола <a href=\"%{url}\"> %{url}</a>"
+    used_from: "email за връзка: %{dir}"
+    welcome: "Добре дошли на %{sitename}"
+  enable: Включване
+  enabled: Включен
+  end: Приключване
+  error:
+    change: "Грешна промяна"
+    credentials: "Грешни акредитиви"
+    e403:
+      description: "За съжаление, тази страница не е достъпна за вас."
+      title: "Забранено"
+    e404:
+      description: "Тази страница \"%{url}\" не съществува."
+      title: "Не е намерено"
+    e500:
+      description: "Нещо не стана както трябва."
+      title: "Грешка"
+    mistyped_or_moved: "Грешно въведен адрес или преместена страница"
+    not_allowed: "Не може да извършите това действие"
+    one: Грешка
+    other: Грешки
+    vcc_warning: "Предупреждение:"
+  fax: Факс
+  feedback:
+    create:
+      check_mail: "Проверете email-а за връзка, който сте указали, може би не е валиден."
+      fill_fields: "Моля, попълнете всичките полета във формата."
+      success: "вашият отзив бе изпратен успешно. Благодаря!"
+    new:
+      note: "Помогнете ни да подобрим Mconf. Моля, изпратете вашите коментари, забележки и пожелания. Ще ви отговорим възможно най-бързо."
+      title: "Отзив"
+    send: "Изпращане на отзив"
+    send_us: "Изпратете ни отзив!"
+    webconf:
+      stop_countdown: "Кликнете тук, за да отмените затварянето и използвайте за търсене в сайта"
+      title: "Благодарим ви за участието в нашата конференцията!"
+      warning: "Този прозорец ще се затвори автоматично след <span class=\"countdown\">%{seconds}</span> секунди"
+  find:
+    browse: Търсене
+  find_in: "Намери в:"
+  frontpage:
+    show:
+      headline: " Глобална разширяваща се система с изходен код за уеб и мобилни приложения"
+      login:
+        federation: "Влизане via federation"
+        lost_password: "Забравена парола?"
+        title: "Влезте в профила си"
+        resend_confirmation_email: "Повторно изпращане на подтвърждение"
+      register:
+        title: "Създаване на потребителски профил"
+  from: От
+  getting_started: "Начало!"
+  group:
+    other: "Списъци на изпращане на имейли"
+  hcard:
+    not_found: "hCard не е намерена"
+  header_global:
+    welcome: "Добре дошъл(а), %{user}"
+  hello: Здравейте
+  help: Помощ
+  his_message_reads_thus: "Съобщението гласи"
+  home:
+    activity: "Активност"
+    invite_url: "Покана URL"
+    my: "Моята страница"
+    my_spaces: "Мои общности"
+    no_spaces: "Не сте част от общности. Можете да прегледате списъка с общности <a href=\"%{link}\">тук</a>."
+    one: home
+    view_invite_url: "View Invite URL"
+  icons:
+    unread_message: "Непрочетено съобщение!"
+    unread_message_by_receiver: "Това съобщение още не е прочетено от получателя"
+  im: IM
+  inbox:
+    my: "Входящи (%{checked})"
+    one: "Входящи (%{checked})"
+    unread_text:
+      one: "%{count} непрочетено съобщение"
+      other: "%{count} непрочетени съобщения"
+  information:
+    expand: "Разширяване на списък.."
+    information1: "Общности, към които принадлежите"
+    information3: "Последни съобщения и събития създадени от вас"
+    information5: "Предстоящи събития в общностите"
+    reduce: "Свиване на списък.."
+  internet:
+    on_the: "В интернета"
+    ppal: Интернет
+  invitation:
+    accept: "Приемам поканата"
+    access_space: "Вече сте част от общност %{spacename} , отидете на линка за да получите достъп <a href=\"%{space_url}\"> %{space_url} </a>"
+    deselect_all_users: "Отказване от селектиране на потребители"
+    discard: "Отказ на покана"
+    email: E-mail
+    full_message: "<b>%{username} ви покани в общност %{space}.</b><br/><br/>%{comment}<br/><br/> За да приемете поканата отидете на <a href=\"%{url}\">%{url}</a><br/> Повече за общността на <a href=\"%{space_url}\">%{space_url}</a><br/><br/> С уважение,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Ако мислите, че това съобщение е спам, моля свържете се с нас на <a href=\"mailto:%{contact}\">  </a> или ни изпратете <a href=\"%{feedback}\"> отзив.</a>"
+    hide_all_users: "Скриване на всички потребители"
+    info_space: "Преглед на информация за тази общност<a href=\"%{space_url}\"> %{space_url} </a>"
+    info_users: "Преглед на текущ списък на протребителите в общността <a href=\"%{users_url}\"> %{users_url} </a>"
+    introducer: Въвеждаш
+    label: "Промяна на вашата покана"
+    legend:
+      URL: "\"URL\" ще бъде заменено с адреса на поканата."
+      name: "\"Name\" ще бъде заменено с името на получателя."
+    logout_and_reload: "Поканата не беше предназначена за вас, моля излезте от профила си и влезте наново"
+    message_with_start_date:
+      in_person: "<p>Бих искал(а) да ви поканя на  <b>събитието \"event_name\" в общността %{space}</b>, на  \"event_date\".</p><p>За да приемете поканата отидете на %{url} </p><p>Повече за събитието на <a href=\"event_url\">event_url</a></p><p>С уважение ,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    message_without_start_date:
+      in_person: "<p>Бих искал(а) да ви поканя на <b>събитието \"event_name\" в общността %{space}</b>.</p><p>За да приемете поканата отидете на%{url} </p><p>Повече за събитието на<a href=\"event_url\">event_url</a></p><p>С уважение ,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    not_accepted: "отклонени"
+    not_pending:
+      other: "Няма покани, чакащи потвърждение"
+    pending:
+      other: "Чакащи потвърждение"
+    rejoin_space: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space_url} </a>"
+    select_all_users: "Избор на всички потребители"
+    show_all_users: "Показване на всички потребители"
+    tab:
+      title1: "Нерегистрирани потребители"
+      title2: "Регистрирани потребители"
+    title: "Покани потребители"
+    title2: "Покана в общност"
+    to_accept_space: "За да приемете покана, моля, отидете на \"URL\""
+    to_event: "%{username} ви кани на събитието %{eventname} в общността %{space}"
+    will_invite: "Участниците, които сте поканили"
+    yes_accepted: приети
+  invite:
+    bad_format: "(лошо форматиране)"
+    email: "изпращане на %{email}"
+    title: "Покана за участие конференция"
+  invited: Поканени
+  join: Присъединяване
+  join_cam: Приемам участие
+  join_requests:
+    accept:
+      accepted: "Заявката е приета"
+    create:
+      already_invited: "На тези потребители вече е изпратена покана, очаквайте потвърждение от: %{users}"
+      already_a_member: "%{name} вече е участник"
+      created: "Вашатата заявка вече е изпратена до администратора на обшността"
+      duplicated: "Вече сте изпратили заявката за участие в тази общност"
+      error: "Възникна грешка по време на обработването на вашата заявка, моля опитайте отново. (повече: %{errors})"
+      sent: "Вашатата покана до: %{users} е изпратена успешно"
+      user_not_found: "Потребителят : %{id} не е намерен"
+      users_added: "Успешно добавихте потребителя(ите) %{users} в тази общност"
+      you_are_already_a_member: "Вече сте член на тази общност"
+    decline:
+      declined: "Запитването е отказано"
+      invitation_destroyed: "Поканата е отменена успешно"
+      request_destroyed: "Запитването е отменено успешно"
+    index:
+      accept: "Приемам заявката на %{user}?"
+      accept_as: "as"
+      deny: "Отказвам заявката на %{user}?"
+      no_pending_invitations: "Нема покани, чакащи потвърждение"
+      no_pending_requests: "Няма заявки, чакащи потвърждение"
+      or: "или"
+      pending_invitations_title: "Покани, чакащи потвърждение"
+      pending_requests_title: "Заявки, чакащи потвърждение"
+      user_message: "Съобщение"
+    invitation:
+      cancel: "Отказ на покана за %{user}?"
+      invited_as: "Поканен(а) като"
+      message_sent: "Съобщението е изпратено до потребителя"
+    invite:
+      candidates: "Търсене на потребители"
+      role_label: "Изберете роля за поканените потребители"
+      title: "Покани участници в тази общност"
+      type_add: "Добавяне на потребители без потвърждение"
+      type_add_tooltip: "Потребителите ще бъдат добавени в общността без подтвърждение. Те ще получат уведомление, че са добавени."
+      type_invite: "Покани"
+      users:
+        hint: "Начните набирать, за да начать поиск"
+        no_results: "Не са намерени резултати"
+        searching: "Търсене..."
+    new:
+      already_invited: "Вече имате покана в тази общност! Отидете на главната страница на общността за преглед"
+      already_requested: "Вече сте изпратили заявка за участване в общността! Очаквайте потвърждение от администратор"
+      message_title: "Изпращане на заявката до администратора на общността"
+    request:
+      decline_confirmation: "Наистина ли искате да откажете заявката?"
+    show:
+      accept: "Приемам"
+      already_accepted: "... Вече сте участник в тази общност."
+      cancel_invite: "Отказ на поканата"
+      cancel_invite_confirmation: "Наистина ли искате да отмените тази покана?"
+      cancel_request: "Отказ на заявката"
+      cancel_request_confirmation: "Наистина ли искате да отмените тази заявка?"
+      decline: "Отклонить"
+      decline_invite_confirmation: "Наистина ли искате да откажете тази покана?"
+      decline_request_confirmation: "Наистина ли искате да отмените тази заявка?"
+      is_candidate:
+        comment_invitation: "Коментар от потребител %{name}:"
+        comment_request: "Заявката  вече беше изпратена до администраторите на общността, очаквайте отговор. вашият коментар:"
+        title_invitation: "Вие  сте поканени \"%{introducer}\" %{date} в общността \"%{space}\""
+        title_request: "Вие  сте подали заявка за участие в общността \"%{space}\" %{date}"
+      is_introducer:
+        comment_invitation: "вашият коментар:"
+        title_invitation: "Вие  сте поканили  \"%{candidate}\" %{date} в общност \"%{space}\""
+      is_other:
+        comment_request: "Коментар от потребител %{name}:"
+        title_invitation: "\"%{introducer}\" е поканил(а) \"%{candidate}\" %{date} в общност \"%{space}\""
+        title_request: "\"%{candidate}\" изпратил(а)  заявката на %{date} за участие в общност \"%{space}\""
+  keywords: "Ключови думи (*)"
+  language: Език
+  last_week: "Миналата седмица"
+  latest_events: "Последни събития"
+  layouts:
+    application_navbar:
+      events: "Събития"
+      inbox: "Входящи"
+      login: "Вход"
+      manage: "Настройки"
+      register: "Регистрация"
+    footer:
+      copyright: "© 2010-%{year} %{site}."
+      current_version: "Текуща версия"
+      find_us: "Подробно за Mconf"
+      github: GitHub
+      issues: "Issue tracker"
+      links:
+        feedback: "Изпращане на отзив"
+        help: Помощ
+        statistics: Статистика
+        title: Линкове
+      project_website: "Уеб-сайт на проекта"
+      sponsors:
+        prav: "Projetos em<br/>Áudio e Vídeo"
+        rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+        title: Спонсори
+      translate:
+        change: "Промяна на език"
+        help_us: "Want this site in your language? Click to see how to help us translate it!"
+      wiki: "Wiki"
+    footer_simple:
+      copyright: "© 2010-%{year} %{site}."
+      translate:
+        change: "Смяна на език"
+    spaces_page_title:
+      is_member: "Вие  сте участник на тази общност"
+      manage_to_approve: "manage"
+      private: "Затворена общност"
+      public: "Отворена общност"
+  less: "по-малко..."
+  locales:
+    error: "Преводът не е регистриран"
+  login_or_register: "Вход / Регистрация"
+  login_request: "Необходимо е да влезете във вашия профил или да се регистрирате"
+  logo:
+    created: "Логотип успешно създаден"
+    crop: "Изрязване логотип на общността "
+    empty: "The logo is empty"
+    error: "Грешка при зареждане на логотипа"
+    no_image: "Не е избрано изображение"
+    updated: "Логотипът успешно обновен"
+  logo_images:
+    crop:
+      crop_it: "Изрязване!"
+      preview: "Преглеждане"
+      aspect_ratio: Fixed aspect ratio
+  logout: Изход
+  manage:
+    disabled_space:
+      enable: "Активиране на общност"
+      enable_confirm: "Наистина ли искате да активирате общността?"
+    disabled_user:
+      enable: "Активиране на потребителя"
+      enable_confirm: "Наистина ли искате да активирате потребителя?"
+    enabled_space:
+      approve: "Одобряване: отключване на достъп до тази общност"
+      approve_confirm: "Наистина ли искате да позволите достъп до общността?"
+      disable: "Изключване общност"
+      disable_confirm: "Наистина ли искате да изключите общността?"
+      disapprove: "Не одобрявам: блокиране на достъп до тази общност"
+      disapprove_confirm: "Наистина ли искате да забраните достъпа до тази общност?"
+      edit: "Редакция на общност"
+    enabled_user:
+      approve: "Одобряване: позволяване на потребител за достъп до сайта"
+      approve_confirm: "Наистина ли искате да позволите достъп на потребителите до този сайт?"
+      confirm: "Потвърждавам потребителя"
+      confirm_confirm: "Наистина ли искате да потвърдите този потребител?"
+      disable: "Изключване на потребителя"
+      disable_confirm: "Наистина ли искате да изключите този потребител?"
+      disapprove: "Не одобрявам: блокиране на достъп на потребителя до сайта"
+      disapprove_confirm: "Наистина ли искате да забраните достъпа на потребителя до този уеб-сайт?"
+      edit: "Редакция на потребител"
+    menu:
+      general: "Главна"
+      spaces: "Общности"
+      title: "Управление на сайта"
+      users: "Потребители"
+      webconf: "Уебинар"
+    spaces:
+      filter_name: "Филтър на общности по име"
+      new_space: "Създаване на общност"
+    destroy_space:
+      destroy: Изтриване на общност
+      destroy_confirm: Наистина ли искате да изтриете тази общност и цялата информация за нея? За разлика от деактивация на общност , тази операция е необратима!
+    destroy_user:
+      destroy: Изтриване на потребител
+      destroy_confirm: Наистина ли искате да изтриете потребителя и цялата информация за него? За разлика от деактивация, тази операция е необратима!
+    spaces_list:
+      filter_count_with_text: "Намерени са %{count} общности по филтъра \"%{value}\""
+      filter_count_empty: "Намерени са %{count} общности"
+      no_space_found: "Общността не е намерена"
+    users:
+      filter_name_or_username: "Филтриране на потребители по име, логин или email-адрес"
+      new_user: "създаване на потребител"
+      admin_true: Администратори
+      admin_false: Потребители
+      approved_true: Подтвърдени
+      approved_false: Неподтвърдени
+      disabled_true: Деактивирани
+      disabled_false: Включен
+      can_record_true: Могат да записват
+      can_record_false: Не могат да записват
+    users_list:
+      filter_count_with_text: "Намерени %{count} потребители по филтър \"%{value}\""
+      filter_count_empty: "Намерени %{count} потребители"
+      no_user_found: "Не е открит потребител"
+  mandatory_field: "Задължително поле"
+  mconf: Mconf
+  moderatorPW: "Парола на модератора"
+  more: повече...
+  more_arrows: "повече >>"
+  my:
+    approval_pending:
+      title: Очаква подтвърждение
+      description: Вашият потребителски профил е регистриран успешно и очаква подтвърждение от администратор. Ще бъдете уведомени за потвърждението.
+      interesting_links: "В момента можете да разглеждате общодостъпните страници :"
+      events_list: списък на събитията
+      spaces_list: списък на общностите
+    page_header:
+      activity_list: "Лента"
+    home:
+      create_space: "Създаване на нова общност"
+      events:
+        other: "Друго"
+        today: "Днес"
+      not_confirmed: "вашият потребителски профил още не активиран, моля, проверете вашия email и го активирайте. Ако не сте получили съобщение за активация, <a href=\"%{url}\">кликнете тук</a> за повторно изпращане."
+      pending_join_requests:
+        one: "%{count} чакаща заявка за присъединяване"
+        other: "%{count} чакащи заявки за присъединяване"
+      pending_join_requests_tooltip: "Получени покани и изпратени заявки за присъединяване към общности."
+      view_all_activity: "Преглед на цялата активност"
+      view_all_spaces: "Преглед на всички общности"
+    edit_recording:
+      title: "Редакция на запис"
+    edit_room:
+      layout_empty_option: "<по подразбиране>"
+    recordings:
+      title: "Записи от моята конферентна стая"
+      update_recordings:
+        error: "Грешки при обновяване на списъка на записите, опитайте по-късно"
+        success: "Списъкът на записите е обновен!"
+        updating: "Обновяване на списъка на записаните уеб-конференции..."
+    webconference_room:
+      end: "Приключване среща"
+      end_tooltip: "Това действие ще приключи текущата уеб-конференция!"
+      invite: "Покани други участници"
+      join: "Присъединяване към срещата!"
+      join_mobile_full: "Присъединяване от мобилно устройство"
+      not_running: "Вашатата уеб-конференция не е започнала"
+      preferences: "Настройки"
+      recordings: "Преглед на записите"
+      running_with:
+        no_participants: "Вашатата уеб-конференция е активна, все още без участници."
+        participants:
+          one: "Твоята уебконференция е в ход с %{count}  участник!"
+          other: "Вашата уебконференция е в ход с %{count}  участника"
+      start: "Начало на нова среща"
+      your_url: "Линк на вашия уебинар"
+  my_friends: "Моите приятели"
+  name:
+    one: Име
+    other: Имена
+  next: Напред
+  now_exclamation: Сега!
+  ok: OK
+  older: По-стари
+  old_items: "По-стари записи"
+  open: Отваряне
+  optional: Optional
+  or: или
+  organization: Организация
+  organizer: Организатори
+  other: Друго
+  password:
+    confirm: "Потвърдете паролата"
+    one: парола
+    request: "Заявка за изтриване на парола в %{sitename}"
+    reset_email: "Вашатата парола в %{sitename} е възстановена успешно "
+    to_reset: "За възстановяване на парола кликнете на <a href=\"%{url}\"> %{url} </a>"
+  past: Минало
+  people: хора
+  per_page: "на страница"
+  participant_confirmation:
+    confirmed: "Регистрацията на %{email} беше потвърдена"
+    cancelled: "Вашатата регистрация за събитието е отменена"
+  permission:
+    notification:
+      default: "%{username} промени вашата роля в %{stage} на %{role}."
+      event: "%{username} промени вашата роля в събитието %{event} на %{role}. "
+      space: "%{username} промени вашата роля в общността %{space} на %{role}. "
+      subject:
+        default: "%{username} промени вашата роля в %{stage} "
+        event: "%{username} промени вашата роля в събитието %{event} "
+        space: "%{username} промени вашата роля в общността %{space} "
+    updated: "Производителността на потребителят е актуализиран успешно"
+    other: "Права за достъп"
+    update:
+      success: "Разрешението е обновено"
+      failure: "Грешка при обновяване на разрешенията"
+  personal_information: "Персонална информация"
+  phone:
+    mobile: Мобилен
+    one: Телефон
+    plural: Телефони
+  phone_optional: "Телефон (не е задължително)"
+  place: Място
+  please: Моля
+  popularity: Популярност
+  post:
+    deleted: "Коментарът %{postname} е изтрит"
+    reply: "в отговор на"
+    home:
+      one: "Съобщение в общността %{space}"
+    latest: "Последни съобщения"
+    more:
+      one: "Още"
+      other: "Още"
+    none_created: "Съобщението не е създадено"
+    none_recent: "Няма последни съобщения"
+    one: Съобщение
+    other: Съобщения
+    other_in_space: "Съобщения в общността %{space}"
+    posted: "публикувано"
+    show_expanded_pref: "Искате ли да видите съобщенията си?"
+    title: "Съобщения (%{count})"
+    wall: Стена
+  posts:
+    index:
+      new_post: "Изпращане на ново съобщения"
+      no_messages: "Няма съобщения на стената"
+    new:
+      title: "Публикувай ново съобщение"
+    post_with_children:
+      by: "от"
+  prav: PRAV
+  preferences: Допълнителни
+  previous: Предишно
+  privacy: Сигурност
+  profile:
+    deleted: "Потребителският профил е изтрит успешно"
+    description:
+      add: "Кратко за себе си"
+    error:
+      exist: "Този профил вече съществува"
+    header_title: "Потребителски профил"
+    must_create: "Необходимо е създаване на потребителски профил"
+    no_spaces: "%{user} не принадлежи към общност х."
+    one: Потребителски профил
+    private: "Затворен профил"
+    public: "Отворен профил"
+    public_description: "Тази информация е достъпна за всички потребители"
+    updated: "Потребителският профил е обновен успешно"
+  profiles:
+    edit:
+      change_pic: "Промяна на изображение"
+      explain_gravatar: "Това е изображението, асоциирано с твоята ел. поща в Gravatar.com"
+      using_gravatar: "Изображение от Gravatar"
+      title: "Редакция на профил"
+      view_your_profile: "Преглед на профил"
+      vcard:
+        export: "Експортиране на vCard"
+        tooltip: "vCard е стандартен файлов формат за електронни бизнес карти"
+        use: "Използване на vCard"
+      visibility_description: "Изберете потребители, които могат да преглеждат вашия профил"
+      visibility_edit: "Редакция на видимост на вашия профил"
+      visibility_everybody: "Всички потребители могат да преглеждат вашия профил."
+      visibility_members: "Само регистрираните потребители могат да преглеждат вашия профил."
+      visibility_nobody: "Никой не може да преглежда вашия профил."
+      visibility_private_fellows: "Само участници в затворена общност могат да преглеждат вашия профил."
+      visibility_public_fellows: "Само участници в отворени и затворени общности могат да преглеждат вашия профил."
+    show:
+      vcard:
+        export: "Експортиране на vCard"
+  province: Провинция/Област
+  public: Публично
+  read_more: "Повече"
+  recent:
+    activity: "Последни събития"
+  recent_activity:
+    empty: "Няма скорошни събития. Присъединете се към общности  и взаимодействайте с други потребители, за да виждате записи в тази зона."
+    tooltip: "Тук можете да намерите нови събития и съобщения от общности, към които принадлежите."
+  recording:
+    automatic: Автоматично
+    box_title: Запис
+    button_continue: "Продължаване на запис"
+    button_pause: "Пауза на запис"
+    button_publish: "Публикувайте запис"
+    button_start: "Начало на запис"
+    manual: Ръчно
+    none: Нищо
+  register:
+    and_participate: "Регистрирайте се, за да вземете участие"
+    and_participate_description: "За да вземете участие в събитието, трябва да се регистрирате"
+    and_participate_description_with_login: "За да вземете участие в събитието, трябва да се регистрирате или да <a href=%{url}>влезете</a>"
+    confirmation: "След регистрация ще получите имейл с линк за активиране на профила"
+    one: Регистрация
+    or_choose: "or you can go"
+    thank_you: "Добре дошли и благодарим, че се регистрирахте на %{sitename}"
+  register_as_admin: "Регистрация като администратор"
+  register_as_invited: "Регистрация като поканен участник"
+  register_as_user: "Регистрация като потребител"
+  register_now: "Регистрирай ме сега!"
+  registrations:
+    signup_form:
+      register: "Регистрация"
+  remove: Изтриване
+  reply: Отговор
+  reply_to: "Отговор:"
+  reply_to_words: "Отговор на %{words}"
+  repository:
+    download: Качване на
+    loading: "Обновяване на хранилището на документите..."
+    need_javascript: "Активирайте Javascript за използване на хранилищата за документи"
+    one: Документи
+    remove: Изтриване
+    search: "Търсене на документ:"
+  request:
+    info: "Вашата заявка за участие в общност е изпратена до администраторите на общността . Очаквайте подтвърждение."
+    sent: "Заявката е изпратена!"
+  recaptcha:
+    errors:
+      verification_failed: "Не сте изпълнили captcha предизвикателството, моля опитайте отново."
+  rnp: RNP
+  role:
+    added: "%{role} ролята е добавена успешно за %{agent}"
+    editing: "Редакция на ролята"
+    listing: "Списък на ролите"
+    new: "Нова роля"
+    one: Роля
+    stage_type: "Stage Type"
+    sucess_update: "Ролята е обновена успешно..."
+  room:
+    other: Стаи
+  rooms:
+    invite:
+      join_from_desktop: "От тази страница може да влезете във уеб-конференция от <b>ПК</b>. За вход от мобилно устройство <a href=\"%{url}\">кликнете тук</a>."
+      join_from_mobile: "От тази страница може да влезете във уеб-конференция от <b>мобилно устройство</b>. За вход с ПК <a href=\"%{url}\">кликнете тук</a>."
+      name: "Име:"
+      name_enter: "Въведете своето име."
+      password: "Парола:"
+      password_filled: "Това е отворена стая. Паролата ще бъде автоматично запълнена от паролата на наблюдателя."
+      password_role: "Въведете парола на участник или модератор."
+      status: "Статус на срещата: "
+    join:
+      msg1: "Срещата още не е започнала, моля изчакайте модератор."
+      msg2: "Вие ще бъдете автоматично прехвърлени, когато срещата започне."
+      title: "Стая: %{name}"
+    not_running: "не е започнала"
+    refresh: "force refresh"
+    running: започнала!
+  save: Запазване
+  select_image: "Изберете изображение"
+  send: Изпращане
+  session:
+    error:
+      exist: "Вие вече сте влезли"
+      fill: "Моля, попълнете данните"
+    one: Сесия
+  sessions:
+    login_form:
+      email_or_login: "Email или потребителско име"
+      ldap_authentication: "Влизане с помощта на LDAP"
+      login: "Влизане"
+      password: "Парола"
+    new:
+      title: "Влизане"
+  session_locales:
+    create:
+      success: "Езикът на приложението се промени на %{value}"
+      error: "Невозможно е да се смени езикът на приложението на %{value}"
+  shared:
+    copy_modal:
+      title: Кликнете Ctrl+C за копиране на текста
+      success: Текстът е копиране в буфера
+    recording_list:
+      created: "Създадено на"
+      created_by: "Създадено от"
+      destroy_confirm: "Сигурни ли сте, че искате да изтриете окончателно този запис?"
+      ended_at: "Завършено на"
+      manage: "Администрация"
+      no_description: "<без описание>"
+      no_recordings: "Няма записи от вашата конферентна стая"
+      no_title: "<без име>"
+      started_at: "Срещата започна в"
+      publish: Публикуване
+      unpublish: Отмяна на публикуването
+      unpublish_confirm: "Сигурни ли сте, че искате да изтриете този запис?"
+      unpublish_unavailable: "Това действие не е възможно, защото записът не достъпен в момента. Свържи се с администратора, ако искаш да бъде премахнат от списъка."
+    recording_playback:
+      duration: "продължителност"
+      playback: "Линкове на записи"
+      processing_dots: "В процес, моля изчакайте..."
+      processing_tip: "Този запис е намерен на един от сървърите, но е все още в процес на обработка. Когато обработката приключи, линковете за записа ще бъдат на разположение тук."
+      unavailable: "Записът не е недостъпен"
+      unavailable_tip: "Този запис вече не е наличен на сървъра, на който е бил запазен, така че не може да се зареди. Това може да е временен проблем, проверете по-късно дали записът е на разположение."
+    webconf_index_links:
+      new_room: "Нова стая"
+      new_server: "Нов сървър"
+      view_playback_type_list: "Списък на типове записи"
+      view_recording_list: "Списък на записите"
+      view_room_list: "Списък на стаи"
+      view_server_list: "Списък на сървъри"
+  shibboleth:
+    associate:
+      existent_account:
+        link_to_this_account: "Влезте и свържете профилите си"
+        title: "Ако вече имате профил на тази страница, може да свържете вашия federated профил с него. Когато искате да използвате federation за влизане, ще използвате свързания си профил. Тогава може да влезете  via federation или via стандартен логин."
+      new_account:
+        create_new_account: "Създаване на нов потребителски профил"
+        title: "Ако все още нямате профил на сайта, кликнете бутона отдолу, за да създадете профил автоматично, използвайки данните от профила ви от federation."
+      page_title: "Вход via federation"
+      title: "Вашият federated профил не е свързан към профила ви на този сайт. Изберете една от опциите:"
+      user:
+        login: "Email или потребителско име"
+        password: "Парола"
+    attribute_error:
+      informed:
+        no_attrs: "No attributes were informed"
+        title: "Attributes informed by the federation"
+      message: "There was an error trying to access your information from the federation. Please contact an administrator to solve the problem and provide the information below."
+      page_title: "Грешка при достъп до federation"
+      required:
+        no_attrs: "Липсват необходими атрибути"
+        title: "Атрибути необходими за този сайт"
+    create_association:
+      account_associated: "Вашият потребителски профил \"%{email}\" беше свързан с вашия профил federated ! Можете да използвате реквизити за профил на този сайт или да използвате реквизити federated."
+      account_created: "Нов профил с произволна парола беше създаден и свързан с вашия профил federated. И двата профила могат да бъдат използвани за вход на този сайт. Ако искате да смените паролата на профил от този сайт, използвайте формата <a href=\"%{url}\">възстановяване на парола</a>."
+      error_saving_user: "Възникна грешка при добавянето на нов потребител: %{errors}"
+      existent_account: "Потребител с такъв email (\"%{email}\") вече е регистриран, необходимо е да се свържете с профил federated. Ако този потребител не е създаден от вас, се свържете с администратор"
+      invalid_credentials: "Грешно потребителско име, email или парола. Моля, опитайте по-късно."
+      invalid_parameters: "Грешна заявка, опитайте отново."
+    info:
+      title: "вашите данни за federation"
+    login:
+      local_account_disabled: "вашият потребителски профил е изключен. Моля, свържете се с от администратор."
+  show: Показване
+  show_advanced_editor: "Показване на разширен редактор"
+  show_list_version_arrows: "show list version >>"
+  show_question: Показване?
+  site:
+    updated: "Конфигурацията е обновена"
+  size: Размер
+  skype: Skype
+  space:
+    about: За
+    access_forbidden: "Операцията е достъпна само за членове на общността "
+    add_user:
+      other: "Добавяне на потребители в общност"
+    all: "Общности"
+    allow_public_access: "Разрешаване на публичнен достъп?"
+    attendeePW: "редактиране на паролата на участник"
+    clic: "Редакция на..."
+    clic_logo: "Промяна на логотип"
+    configuration: "Настройки на общност"
+    confirm: "Наистина ли искате да напуснете общността?"
+    created: "Общността е създадена успешно"
+    created_waiting_moderation: "Общността е създадена успешно! Потребителите могат да получат достъп до общността след потвърждение от администратора"
+    delete: "Изтриване на общност"
+    deleted: "Общността е изтрита успешно"
+    description: "Описание на общността "
+    description_none: "Въведете описание за новосъздадената общност "
+    disable: "Деактивиране на общност"
+    edit:
+      webconference_passwords: "Пароли в конферентната стая"
+    edit_description: "редактиране на описание"
+    edit_name: "редактиране на име"
+    enable: "Активиране на общност"
+    event_count: "%{count} събития"
+    index:
+      filters:
+        all: "Всички общности "
+        my_spaces: "Моите общности "
+      order:
+        alphabetic: "Име"
+        order_by: "Сортиране по"
+        relevance: "Уместност"
+        relevance_tip: "Показване на общност  с най-голяма активност отгоре на списъка"
+      select_at_left: "Изберете общност от списъка за преглед на описание"
+      user_is_member: "Вие сте участник!"
+    is_private: "това е затворена общност. Изпратете заявка до администратора, за да получите достъп до общността"
+    is_private_html: "%{name} е затворена общност. За достъп е необходимо да влезете и да изпратите <a href=\"%{path}\">заявката на</a> администратора на общността ."
+    join: "Присъединяване към общността"
+    join_invitation:
+      clarify_registered: "Моля, въведете парола, за да се присъедините към общността."
+      clarify_unregistered: "Въведете вашето пълно име и парола, за да се регистрирате и присъедините към общността."
+    leave:
+      leave_this_space: "Изход от общността "
+      success: "Вие излязохте от общност  %{space_name}"
+    logo: "Логотип на общността "
+    logo_selected:
+      default_message: "Логотип на общността "
+      enter_text: "Въведете текст за създаване на логотипа:"
+      generate_logo: Генериране
+      open_gallery: "Отваряне на галерията"
+      text_logo: "Създаване на текстов логотип"
+      upload_logo: "Качване на логотип"
+      upload_logo_text: "Кликнете тук да заредите логотипа"
+      upload_text: Качване на
+      use_date: "Използвайте дата на събитие"
+    member_count: "%{count} участници"
+    member_of: "Участник в общности"
+    moderatorPW: "редактиране на паролата на модератор"
+    my_spaces: "Мои общности "
+    name_none: "Въведете име, за да създадете общността"
+    one: Общност
+    other: Общности
+    people_in_conference:
+      one: "%{count} участник в конференцията"
+      other: "%{count} участници в конференцията"
+    performances:
+      admin: Администратор
+      invited: Поканен участник
+      user: Участник
+    possesion: "Мои общности "
+    post_count: "%{count} записи"
+    private: "Затворени общности "
+    public:
+      one: "Публично"
+      other: "Публични"
+    remove_user:
+      confirm: "Наистина ли искате да изтриете потребителя от общността?"
+      remove: "Изтриване на потребител"
+    select: Общности
+    show: "Преглед на общност :"
+    show_all: "Преглед на всички общности "
+    statistics:
+      views: "прегледи"
+    subscribed_to_none: "Не участвате в нито една общност"
+    update_logo: "Обновяване на логотип"
+  space_events:
+    all_events:
+      all_upcoming: "Преглед на всички предстоящи събития"
+      all_past: "Преглед на всички минали събития"
+      none_upcoming: "Няма предстоящи събития"
+      none_past: "Няма минали събития"
+      past: "Минали събития"
+      upcoming: "Предстоящи събития"
+    index:
+      now: В момента
+      create_event: "Създаване на ново събитие"
+      events_now: "В момента!"
+      events_in: "Въбития в"
+    past_events:
+      last_month: "Няма събития за миналия месец"
+      last_week: "Няма събития за миналата седмица"
+      none: "Няма минали събития"
+      order_asc: "Показване на по-стари събития отгоре на списъка"
+      order_by: "Сортиране"
+      order_desc: "Показване на нови събития отгоре на списъка"
+      title: "Минали събития"
+      today: "Няма събития за вчера и днес "
+    sidebar_events_simple:
+      no_events: "Все още няма събития в тази общност "
+    unified_event:
+      ends_at: "Приключва в"
+      event_in_the_space: "Събитие в общността %{space}"
+      organizers: "Организатори"
+      starts_at: "Начало в"
+      where: "Къде"
+    upcoming_events:
+      next_month: "Няма събития, планирани за следващия месец "
+      next_week: "Няма събития, планирани за следващата седмица "
+      none: "Няма предстоящи събития"
+      title: "Предстоящи събития"
+      today: " Няма събития, планирани за днес "
+  spaces:
+    admin_tabs:
+      admissions: "Прием"
+      general_options: "Основни настройки"
+      invite: "Поканете участници"
+      users: "Потребители"
+      webconf_options: "Настройки на конференция"
+      add_member: "Добавяне на участници"
+    approve:
+      approved: "Общността %{name} е одобрена"
+    disapprove:
+      disapproved: "Общността %{name} не е одобрена"
+      not_enabled: "Редактирането на общности е изключено"
+    edit:
+      change_logo: "Промяна на изображение"
+      delete_confirmation: "Сигурни ли сте? Общността ще стане недостъпна за вас и всички потребители."
+      delete_space: "Деактивиране на общност?"
+      other_options: "Други опции"
+      public: "Направете общността отворена"
+      yes_delete: "Да, искам да деактивирам общността"
+    edit_recording:
+      title: "Редакция на вашите записи"
+    error:
+      already_invited: "Вие вече бяхте поканени в тази общност, моля, приемете или откажете поканата"
+      creation_forbidden: "Вие не можете да създавате общност"
+      need_join_to_access: "За достъп до общността е необходимо да се присъедините към нея. Изпратете заявката до администратор."
+      not_found: "Общност \"%{permalink}\" не е намерена. <br> Опитайте да потърсите тук <a href=\"%{path}\">всички общности </a>?"
+      unapproved: "Общността още не е одобрена от администратор."
+    index:
+      create_new_space: "Създаване на нова общност"
+      list_format:
+        list: "Списък"
+        thumbnails: "Миниатюри"
+      search:
+        by_name:
+          no_matches: "Общностите не са намерени за \"%{term}\""
+          placeholder: "Търсене на общности..."
+      subtitle: "Търсене на общности и потребители по сходни интереси"
+      title: "Общности"
+    list_view:
+      no_spaces: "Не са създадени общности!"
+    menu:
+      admin: "Админ"
+      events: "Събития"
+      home: "Главна страница"
+      posts: "Стена"
+      repository: "Документи"
+      users: "Потребители"
+      webconference: "Уеб-конференции"
+    new:
+      private: "Лични"
+      public: "Публични"
+      spaces_examples:
+        title: "Примерни общности:"
+      title: "Създаване на нова общност"
+    recordings:
+      title: "Записи в тази общност"
+      update_recordings:
+        error: "Грешка при обновяване на списък със записите, опитайте по-късно"
+        success: "Списъкът на записите е обновен!"
+        updating: "Обновяване на списъка с вашите записите..."
+    show:
+      events_now: "Текущи събития!"
+    sidebar:
+      upcoming_events: "Предстоящи събития"
+      webconference:
+        attendees:
+          nobody: "В момента няма активни срещи"
+        currently_running:
+          one: "В момента е започнала"
+          other: "В момента са започнали"
+        dial_number: "Набиране на номер"
+      webconference_join: "Присъединяване"
+      webconference_start: "Начало на"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "%{count} чакаща заявка за присъединяване "
+        other: "%{count} чакащи заявки за присъединяване"
+    sidebar_webconf_buttons:
+      end: "Приключване"
+      end_tooltip: "Това действие ще приключи текущата конференция!"
+      invite: "Покани други участници"
+      join: "Присъединяване сега!"
+      join_mobile: "Присъединяване (mobile)"
+      join_mobile_full: "Присъединяване от мобилно устройство"
+      preferences: "Настройки"
+      start: "Старт"
+    space_join_button:
+      accept_or_decline: "Приемам или отказвам"
+      already_requested: "Заявката е изпратена"
+      already_requested_alert: "Вие вече сте изпратил(а) заявка за присъединяване към тази общност, моля, очаквайте модератор да разгледа вашата заявка."
+      cancel_request: "Отказ на заявката"
+      invitation_alert: "Вие бяхте поканени в общност, кликнете на кнопку ниже, за да вземете или отклонить покана."
+      join: "Присъединяване към общността"
+    space_thumbnail:
+      private: "Частна"
+      public: "Публична"
+      reply_invitation: "Отговор на покана"
+      view_join_request: "Преглед на изпратени от вас заявки"
+    thumbnail_view:
+      no_spaces: "Не са създадени общности!"
+    unified_space:
+      private: "Затворена общност"
+      public: "Отворена общност"
+      reply_invitation: "Отговор на покана"
+      user_is_member: "Вие сте участник в тази общност "
+      view_join_request: "Преглед на изпратените заявки"
+      with_members: "с %{count} участници"
+    user_permissions:
+      confirm_leave_space: "Сигурни ли сте, че искате да излезете от тази общност?"
+      confirm_remove_user: "Сигурни ли сте, че искате да изтриете потребителя от общността ?"
+      leave_space: "Излизане от общността"
+      remove_user: "Изтриване на потребителя от общността "
+      tooltip_last_admin: "Потребителят е последен администратор на общността, съответно не може да излезе от тази общност"
+    users: "Потребители в общността"
+    webconference:
+      end: "Приключване на среща"
+      end_tooltip: "Това действие ще приключи текущата уеб-конференция!"
+      invite: "Покани други участници"
+      webconference:
+        attendees:
+          all_users: "Всички потребители"
+          nobody: "В стаята все още няма участници."
+          people_in_the_room: "Потребители в стаята"
+          registered_users: "Регистрирани потребители"
+        description:
+          header: "Достъп до конференцията"
+          text: "Уеб-конференция в тази общност в момента: <em>%{status}</em> <br/> Използвайте бутоните на панела отдясно, за да се присъедините към конференцията."
+        share:
+          description: "Можете да поканите участници в тази уеб-конференция, като споделите линк:"
+          header: Споделяне
+          url: "Линк на уеб-конференцията"
+    webconference_options:
+      layout_empty_option: "<по подразбиране>"
+      options: "Настройки на конферентна стая"
+    webconference_tabs:
+      access: "Достъп до конференция"
+      recordings: "Списък на записите"
+  sponsors:
+    prav: "Projetos em<br/>Аудио и Видео"
+    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+  stage_type: "Тип сцена"
+  statistics:
+    show:
+      description: "Страницата показва статистиката за сайта. Статистиката се извършва в реално време и изобразява състоянието на сайта за текущия момент."
+      table:
+        events: "Събития"
+        how_many: "Колко?"
+        posts: "Публикувани съобщения"
+        spaces: "Общности"
+        users: "Потребители"
+        webconf_rooms: "Конферентната стая е достъпна!"
+        what: "Какво?"
+      title: "Статистика"
+  street: Улица
+  subject: "Тема:"
+  summary: "Информация за видео"
+  superuser: "Администратор"
+  sites:
+    edit:
+      shib_warning_html: "Това поле се използва като уникален идентификатор на потребители Shibboleth. Ако го промените, потребителите няма да могат да получат достъп до профилите, преди промяна, моля проверете <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">тази страница</a>."
+  text: Текст
+  the_string: "стринг"
+  thread:
+    add: "Публикувай съобщение на стената"
+    comments: "%{children} коментари"
+    compact_view: "Компактен вид"
+    deleted: "Този запис (и коментарите към него) са изтрити"
+    edit: "Редакция на съобщение"
+    extended_view: "Разширен вид"
+    or_add_new: "или създайте ново съобщение"
+    see_less: "Свиване на всички съобщения?"
+    see_more: "Преглед на повече за тези съобщения?"
+    show_last_comment: "Последни %{size} коментари от %{children}"
+  time:
+    from: от
+    to: до
+  timezone:
+    one: Времева зона
+    set_up: "Не сте избрали времева зона. <a href=\"%{path}\">Настройки</a>"
+  title: Съдържание
+  title_formal:
+    mr: Г-н.
+    mrs: Г-жа.
+    ms: Г-ца.
+  to: до
+  today: Днес
+  tooltip:
+    admin: "Списък с администраторите на тази общност "
+    advanced_editor: "Редакторът позволява: преглед на изходен html-код; смяна на шрифт, размер, цвят и изравняване на текста; поставяне/редактиране на линкове; добавяне на файлове и тагове"
+    doc_search: "Използвайте тези полета, за филтриране и обновяване на таблицата с документите"
+    event_logo: "Вие можете да заредите собствен логотип, да създадете на текстов или да заредите изображение от галерията"
+    insert: "Използвайте този код за поставяне на видео във вашия блог или уеб-страница"
+    invite_people: "Поканете участници в тази Уеб-Конференция."
+    leave_space: "Отказване от общността окончателно"
+    num_views: "Това число показва уникалните гледания за тази страница"
+    private_profile: "Информация е видима само от потребителите, които сте избрали при редакция на вашия профил"
+    public_profile: "Информация достъпна за всички потребители"
+    public_space: "Общностите могат да бъдат отворени, и всички потребители могат да преглеждат активностите от тях, или затворени, когато достъп имат само участниците в тази общност"
+    share: "Споделете това видео"
+    upcoming: "Предстоящи събития в общността"
+    update_logo: "Вие можете да заредите собствен логотип, да създадете на текстов или да заредите изображение от галерията"
+    vclass: "Тип \"виртуален урок\" - е идеален за организация на занятия, конференции и семинари, когато преподавателят изпълнява ролята на лектор."
+    vcongress: "Тип \"виртуален конгрес\" - прилича на виртуална среща, но е приспособен за по-глобални събития, по сложност и количество участници. Обикновено, този тип изисква помощ от модератора."
+    vmeeting: "Тип \"виртуална среща\" - е удобен за онлайн срещи или реални срещи, но с информация в електронен вид. Това означава, че както локалната, така и дистанционната страна имат възможност да водят интерактивно общуване."
+  type: Тип
+  undated: Без дата
+  unknown_content: "Неизвестно съдържание %{content}"
+  upcoming: Предстоящо
+  update: Обновяване
+  updated: Обновено
+  updated_at: "Обновено в"
+  url: Уеб-сайт
+  url_add: "Добавете вашия уеб-сайт"
+  url_plain: URL
+  user:
+    add:
+      instruction: "За да добавите нови потребители, въведете email адресите им, разделени с разстояние, запетая или точка със запетая и ги регистрирайте"
+      note: "Например: 'Васил Попов'<'jsilver@example.com'> и кликнете 'Регистриране като Потребител' ще регистрира 3 email-адреса като участници в общност  и ще им изпрати имейл за потвърждаване на регистрацията."
+    admin: Admin
+    administrators: Администратори
+    assist: Асистент
+    category: Категория
+    confirm_password: "Потвърждаване на паролата"
+    delete_from_space: "Изтриване на потребителя от общност "
+    deleted: "Потребителят е изтрит"
+    disable: "Изключване на потребителя"
+    email_used_to_create_account: "Въведете email-а, който сте използвали при създаването на профил"
+    enable: "Активиране на потребителя"
+    filter: "Покани по име на потребителя"
+    group_invite_email: "Покани по email"
+    include_registered: "Включване към регистрирани потребители"
+    index:
+      user_list:
+        header: "Използващи общността: %{count}"
+    invite: "Покани участници"
+    invite_email: "Покани участници по email"
+    invited: "Поканени потребители"
+    list_by: "Списък по"
+    lost_password: "Забравена парола?"
+    new_password: "Нова парола"
+    new_password_confirmation: "Потвърждаване на паролата"
+    new_password_tip: "Попълнете полето само ако искате да смените текущата парола."
+    noactivity: "При %{user} няма последни събития "
+    normal_user: "Нормален потребител"
+    not_assist: "Без асистенция"
+    not_confirmed: "Не е потвърден"
+    one: Потребител
+    other: Потребители
+    recent_join: "Последни присъединили се потребители"
+    registered: "Благодарим ви, че се регистрахте! Току що ви изпратихме инструкции как да активирате потребителския си профил."
+    request_confirmation: "Заявка за потвърждаване по email"
+    request_password: "Заявка за парола"
+    resend_confirmation_email:
+      already_confirmed: "Този email \"%{email}\" вече е потвърден"
+      link: "Повторно изпращане на потвърждаване по email"
+      success: "Потвърждаване на регистрацията е изпратено на \"%{email}\""
+    reset_password: "Възстановяване на парола"
+    results_count:
+      one: "Хора, %{users_size} резултат"
+      other: "Хора, %{users_size} резултати"
+    results_found: "Потребители са намерени"
+    updated: "Потребителят е обновен успешно"
+    vcc_email: "Mconf user e-mail %{dir}"
+  users:
+    approve:
+      approved: "Потребителят %{name} е одобрен!"
+      not_enabled: "Потвърждаването на регистрация е изключено на този сайт"
+    create:
+      error: "Грешка при създаване на потребителя: %{errors}"
+      success: "Потребителят е създаден успешно"
+    confirm:
+      confirmed: "Потребителят %{username} е потвърден"
+    detailed_user:
+      from: "От:"
+    disapprove:
+      disapproved: "Потребителят %{name} е блокиран!"
+      not_enabled: "Потвърждаването на регистрация е изключено на този сайт"
+    edit:
+      account_info: "Информация за профила"
+      approve: "Потвърждавам: разрешаване на потребителите да влизат в сайта"
+      approve_confirm: "Сигурни ли сте, че искате да разрешите на този потребител да влиза в сайта?"
+      cancel_account: "Изтриване на потребителски профил?"
+      change_password: "Промяна на парола"
+      click_to_edit_profile: "Кликнете тук, за да редактирате вашия профил"
+      confirm_user: "Потвърждавам потребителския профил на този потребител"
+      confirm_user_confirm: "Искате ли да потвърдите потребителския профил на този потребител?"
+      did_not_find_info: "Не е намерена информацията, която искахте?"
+      disable: "Изключване на потребителски профил за този потребител"
+      disable_confirm: "Сигурни ли сте, че искате да изключите този потребителски профил?"
+      federated:
+        see_your_data: "Преглед на данните, които бяха предоставени на сайта от сървис federation"
+        title: "Вие сте влезли via federation!"
+        your_idp: "Вашият identity provider е: %{idp}"
+      ldap:
+        title: "Вие сте влезли с помощта на LDAP!"
+      management_options: "Управление на опции"
+      not_confirmed: "Вашият потребителски профил още не активиран, проверете своя email, за да го активирате. В случай, че не сте получили писмо <a href=\"%{url}\">кликнете тук</a> за да заявите ново."
+      other_user:
+        click_to_edit_profile: "Редакция на профил"
+        not_confirmed: "Този потребител все още не е потвърдил профила си."
+        title: "Редакция на потребителски профил"
+      preferences: "Настройки"
+      receive_digest:
+        daily: "Всеки ден"
+        never: "Никога"
+        weekly: "Всяка седмица"
+      title: "Редакция на потребителски профил"
+      yes_cancel_account: "Да, изтрийте потребителския ми профил"
+    errors:
+      access_forbidden: "Тази операция е достъпна само за администратори"
+    new:
+      create:
+        success: "Потребителят е създаден. Този потребител вече  е потвърден, и може да влезе на уеб-сайта по всяко време."
+        error: "Грешка(и) при създаване на нов потребител"
+      title: "Създаване на потребител"
+  username: Име на потребителя
+  uploader:
+    button: Качване на файл
+    fail: Грешка при зареждане
+    progress: "{percent}% от {total_size}"
+    drag_files: Привлачете файлове тук
+    processing: Обработва се...
+    error:
+      invalid_extension: "{file} има недопустимо разширение. Допустими разширения: {extensions}."
+      invalid_size: "{file} е по-голям от допустимия размер, максималния размер на файл за зареждане {sizeLimit}."
+      empty_file: "{file} е празен, опитайте да заредите отново."
+      no_files: "Не са избрани файлове."
+      on_leave: "Файловете се зареждат, ако напуснете страницата файловете ще се загубят."
+  vCard:
+    corrupt: "vCard е повредена или е с версия, която не се поддържа"
+    message: "Използвайте vCard, за да попълните автоматично вашия профил"
+    upload: "Зареждане на vCard"
+  vcc: Mconf
+  vcc_mail_label: "[Mconf]"
+  version:
+    new: "Нова версия"
+    one: Версия
+  view: "Преглед"
+  view_more: "Повече"
+  webconference:
+    invite_webconference: "Поканете в уеб конференцията"
+    join: Присъединяване
+    my_webconference: "Конферентна стая"
+    new_webconference: "Нова конферентна стая"
+    not_running: "не е започнала"
+    one: Уебинар
+    running: започнала
+    space:
+      join_now: "Присъединяване сега"
+      see_more: "повече"
+    start_now: "Започване сега!"
+  when: Кога
+  where: Къде
+  yesterday: Вчера
+  your_vcard: "Вашатата визитка vCard"
+  zipcode: "Пощенски код"

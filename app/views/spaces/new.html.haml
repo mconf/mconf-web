@@ -1,11 +1,11 @@
-= render_page_title t('.title')
+= page_title t('.title')
 
 = content_for :sidebar do
   - if @spaces_examples.size > 0
     .content-block-header
       %h3= t(".spaces_examples.title")
   - @spaces_examples.each do |space|
-    = render_sidebar_content_block do
+    = render_sidebar_content_block("parent-#{space.to_param}") do
       .content-block-header
         .space-logo
           = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
@@ -19,7 +19,7 @@
             .resource-visibility.small.private
               = icon_space_private
               = t(".private")
-      .content-block-middle
+      .content-block-middle.visible-on-hover{ :"data-hover-tracked" => "parent-#{space.to_param}" }
         %span.description= sanitize(auto_link(first_words(space.description, 150)))
 
 #space-new

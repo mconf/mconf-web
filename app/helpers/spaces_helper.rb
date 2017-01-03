@@ -15,7 +15,7 @@ module SpacesHelper
   def spaces_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_menu_tab == tab ?
-      options.update({ :class => "#{old_class} selected" }) :
+      options.update({ :class => "#{old_class} active" }) :
       options
   end
 
@@ -90,8 +90,32 @@ module SpacesHelper
   def spaces_webconference_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_webconference_menu_tab == tab ?
-    options.update({ :class => "#{old_class} active" }) :
+      options.update({ :class => "#{old_class} active" }) :
       options
+  end
+
+  def space_visibility(space)
+    if space.public
+      content_tag :div, class: 'label label-success' do
+        concat icon_space_public + t('_other.space.public')
+      end
+    else
+      content_tag :div, class: 'label label-danger' do
+        concat icon_space_private + t('_other.space.private')
+      end
+    end
+  end
+
+  def link_to_tag(tag)
+    if current_page?(manage_spaces_path) || current_page?(spaces_path)
+      # in these pages, the links are to add a tag to the current filters
+      link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
+    else
+      # in all other pages the link is to space/index filtering by the tag clicked
+      options = params.clone
+      options.delete(:id) if options.has_key?(:id)
+      link_to tag.name, spaces_path(options.merge(tag: tag.name))
+    end
   end
 
 end

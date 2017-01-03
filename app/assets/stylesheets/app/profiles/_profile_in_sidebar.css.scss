@@ -2,49 +2,26 @@
 @import "definitions";
 
 #profile-in-sidebar {
+  background: $m-light-gray;
+  padding: 20px 10px 10px 10px;
+  @include border-radius($m-border-radius-base);
   text-align: center;
-  background: $light-gray;
-  @include border-radius(4px);
-  padding: 20px 5px;
 
   #edit-profile-current-logo {
     @include broken-img-parent(none);
   }
 
   .profile-logo {
-    margin: 5px;
-    border: 1px solid darken($light-gray, 10);
+    border: 1px solid darken($m-light-gray, 10);
     padding: 3px;
-    background: $site-bg-color;
-    width: 114px;
-    height: 114px;
+    background: $m-site-bg-color;
+    width: 90%;
+    height: 90%;
+    max-width: 200px;
+    max-height: 200px;
   }
 
-  ul { margin: 5px 0; }
-
-  .profile-hcard {
-    text-align: left;
-    border-top: 1px solid darken($light-gray, 10);
-    @include box-shadow(inset 0 1px 0 $site-bg-color);
-    margin: 10px 5px;
-    padding: 15px 5px;
-
-    .hcard-content {
-      .sub-section {
-        font-weight: bold;
-        margin-top: 10px;
-      }
-      ul {
-        margin-left: 10px;
-      }
-      .key {
-        color: lighten($font-color, 20);
-      }
-    }
-  }
-
-  .icon-mconf-help {
-    float: none;
-    margin-left: 3px;
+  .profile-links-extra {
+    margin-top: 15px;
   }
 }

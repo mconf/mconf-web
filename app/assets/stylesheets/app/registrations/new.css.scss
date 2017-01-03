@@ -3,7 +3,7 @@
 body.registrations.new, body.registrations.create {
 
   $register-box-width: 550px;
-  $right-side-width: $contents-width - $register-box-width - 50px;
+  $right-side-width: $m-contents-width - $register-box-width - 50px;
 
   #register-wrapper {
     @include mconf-clearfix;
@@ -16,10 +16,10 @@ body.registrations.new, body.registrations.create {
       margin: 0;
       padding: 0 5px 5px 0;
 
-      input[type=text], input[type=password], input[type=email] {
-        width: 300px;
+      // it's an input with an addon, make it the size of the others
+      .user_username .input-group {
+        padding: 0 14px;
       }
-
     }
 
    .extra-links {
@@ -37,7 +37,11 @@ body.registrations.new, body.registrations.create {
        span { display: block; }
      }
    }
-
   }
 
+  .captcha {
+    float: right;
+    margin-bottom: 10px;
+  }
 }
+

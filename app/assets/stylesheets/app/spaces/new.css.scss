@@ -3,16 +3,7 @@
 
 body.spaces.new, body.spaces.create {
 
-  // slightly wider sidebar
-  @include set-sidebar-width($sidebar-width + 100px);
-
   #space-new {
-    width: 98%;
-
-    input[type=text], textarea {
-      width: 98%;
-    }
-
     textarea {
       resize: vertical;
       max-height: none;
@@ -20,39 +11,65 @@ body.spaces.new, body.spaces.create {
     }
   }
 
-  #sidebar .content-block-wrapper {
+  #sidebar {
 
     .content-block-header {
-      .space-logo {
-        text-align: center;
-        overflow: hidden; // for when the image is not found
-        width: 42px;
-        height: 32px;
-        float: left;
-        margin: 0 5px 5px 0;
-        border: 1px solid #ddd;
-        padding: 2px;
-        @include border-radius(4px);
+      h3 { margin-top: 0; }
+    }
 
-        img {
-          background: $light-gray;
+
+    .content-block-container {
+      @include mconf-clearfix;
+      padding: 10px 5px;
+
+      &:hover {
+        background: $m-light-gray;
+      }
+
+      .content-block-header {
+        h3 { margin: 0; }
+
+        .space-logo {
+          text-align: center;
+          overflow: hidden; // for when the image is not found
+          width: 42px + 4px;
+          height: 32px + 4px;
+          float: left;
+          margin: 0 8px 5px 0;
+          border: 1px solid #ddd;
+          padding: 1px;
+          @include broken-img-parent;
+          @include border-radius($m-border-radius-small);
+
+          &:hover {
+            border-color: $m-second-color;
+          }
+
+          img {
+            width: 42px;
+            height: 32px;
+          }
+        }
+
+        h4 {
+          float: none;
+          margin: 0;
         }
       }
 
-      h4 {
-        float: none;
-        margin: 0;
+      .content-block-middle {
+        clear: both;
       }
-    }
 
-    .resource-visibility {
-      margin-top: 2px;
-      color: $dark-gray;
+      .resource-visibility {
+        margin-top: 2px;
+        color: $m-dark-gray;
 
-      .icon-awesome {
-        float: none;
+        .icon-awesome {
+          float: none;
+        }
       }
-    }
 
+    }
   }
 }

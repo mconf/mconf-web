@@ -85,28 +85,62 @@ class User < ActiveRecord::Base
 
   default_scope { where(disabled: false) }
 
-  # constants for the receive_digest attribute
-  RECEIVE_DIGEST_NEVER = 0
-  RECEIVE_DIGEST_DAILY = 1
-  RECEIVE_DIGEST_WEEKLY = 2
-
+  # Search users based on a list of words
   scope :search_by_terms, -> (words, include_private=false) {
-    query = joins(:profile).includes(:profile).order("profiles.full_name")
+    query = joins(:profile).includes(:profile)
 
-    words ||= []
-    words = [words] unless words.is_a?(Array)
-    query_strs = []
-    query_params = []
+    if words.present?
+      words ||= []
+      words = [words] unless words.is_a?(Array)
+      query_strs = []
+      query_params = []
+      query_orders = []
 
-    words.each do |word|
-      str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
-      str += " OR users.email LIKE ?" if include_private
-      query_strs << str
-      query_params += ["%#{word}%", "%#{word}%"]
-      query_params += ["%#{word}%"] if include_private
+      words.each do |word|
+        str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+        str += " OR users.email LIKE ?" if include_private
+        query_strs << str
+        query_params += ["%#{word}%", "%#{word}%"]
+        query_params += ["%#{word}%"] if include_private
+        query_orders += [
+          "CASE WHEN profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"
+        ]
+      end
+      query = query.where(query_strs.join(' OR '), *query_params.flatten)
+                .order(query_orders.join(' + ') + " DESC")
     end
 
-    query.where(query_strs.join(' OR '), *query_params.flatten)
+    query
+  }
+
+  # The default ordering for search methods
+  scope :search_order, -> {
+    order("profiles.full_name")
+  }
+
+  # Returns only the users that have the authentication methods selected.
+  # `auth_methods` is an array with one or more of the following auth methods:
+  # * `:shibboleth`
+  # * `:ldap`
+  # * `:local`
+  scope :with_auth, -> (auth_methods, connector="AND") {
+    arr = []
+
+    arr.push("shib_tokens.id IS NOT NULL") if auth_methods.include?(:shibboleth)
+    arr.push("ldap_tokens.id IS NOT NULL") if auth_methods.include?(:ldap)
+    if auth_methods.include?(:local)
+      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
+    end
+
+    arr = arr.join(" #{connector} ")
+
+    unless arr.empty?
+      joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
+        .joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
+        .where(arr)
+    end
   }
 
   alias_attribute :name, :full_name
@@ -114,6 +148,9 @@ class User < ActiveRecord::Base
   alias_attribute :permalink, :username
 
   delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+
+  # set to true when the user signs in via an external authentication method (e.g. LDAP)
+  attr_accessor :signed_in_via_external
 
   # In case the profile is accessed before it is created, we build one on the fly.
   # Important specially because we have method delegated to the profile.
@@ -261,9 +298,9 @@ class User < ActiveRecord::Base
   after_create :new_activity_user_created
   def new_activity_user_created
     if created_by.present?
-      create_activity 'created_by_admin', owner: created_by, notified: false
+      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
     else
-      create_activity 'created', owner: self, notified: !require_approval?
+      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
     end
   end
 
@@ -275,8 +312,28 @@ class User < ActiveRecord::Base
     LdapToken.user_created_by_ldap?(self)
   end
 
-  def no_local_auth?
-    created_by_shib? || created_by_ldap?
+  def local_auth?
+    !created_by_shib? && !created_by_ldap?
+  end
+
+  def sign_in_methods
+    {
+      shibboleth: self.shib_token.present?,
+      ldap: self.ldap_token.present?,
+      local: self.local_auth?
+    }
+  end
+
+  def last_sign_in_date
+    current_local_sign_in_at
+  end
+
+  def sign_in_method_name
+    "local"
+  end
+
+  def last_sign_in_method
+    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
   end
 
   protected
@@ -307,4 +364,13 @@ class User < ActiveRecord::Base
   def init
     @created_by = nil
   end
+
+  # This overrides the method from Devise::Models::Trackable
+  def update_tracked_fields(request)
+    super (request)
+    unless signed_in_via_external
+      self.current_local_sign_in_at = self.current_sign_in_at
+    end
+  end
+
 end

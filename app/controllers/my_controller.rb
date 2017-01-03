@@ -12,7 +12,7 @@ class MyController < ApplicationController
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
-  before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
+  before_filter :prepare_user_room, only: :home
 
   after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
@@ -20,19 +20,11 @@ class MyController < ApplicationController
 
   def determine_layout
     case params[:action].to_sym
-    when :activity
-      "no_sidebar"
-    when :edit_room
-      if request.xhr?
-        false
-      else
-        "application"
-      end
     when :recordings
       if params[:partial]
         false
       else
-        "no_sidebar"
+        "application"
       end
     when :edit_recording
       if request.xhr?
@@ -48,24 +40,29 @@ class MyController < ApplicationController
   end
 
   def home
-    @user_spaces = current_user.spaces
+    # TODO: #1087 show notification of the pending spaces somewhere
     @user_pending_spaces = current_user.pending_spaces
-    @contents_per_page = 15
-    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('updated_at DESC')
+
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
+                                    .with_or_without_recording().last(5)
+
+    @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
 
   def approval_pending
     # don't show it unless user is coming from a login or register
-    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url]
-    if user_signed_in? || !referers.include?(request.referrer)
-      redirect_to root_path
-    end
+    referers = [new_user_session_url, login_url, register_url, root_url, shibboleth_url, user_registration_url]
+    # if the user is signing in via Shibboleth he will be coming from an external URL, so
+    # it's an exception
+    show_pending = !user_signed_in? && (referers.include?(request.referer) || Mconf::Shibboleth.new(session).signed_in?)
+    redirect_to root_path unless show_pending
   end
 
   def activity
     @contents_per_page = params[:per_page] || 20
 
-    @all_contents = RecentActivity.user_activity(current_user).order('updated_at DESC')
+    @all_contents = RecentActivity.user_activity(current_user).order('created_at DESC')
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 
@@ -94,26 +91,21 @@ class MyController < ApplicationController
     render :json => mapped_array
   end
 
-  # Called by users to edit a webconference room. It's different from the
-  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
-  # edit *everything* in a room. This one is a lot more restricted.
-  def edit_room
-    @room = current_user.bigbluebutton_room
-    @redir_url = my_home_path
-  end
-
   # List of recordings for the current user's web conference room.
+  # TODO: bad name for the action since it now shows meetings too
   def recordings
     @room = current_user.bigbluebutton_room
-    @recordings = @room.recordings.published().order("end_time DESC")
+
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
     if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
+      @meetings = @meetings.first(params[:limit].to_i)
     end
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = my_recordings_path # TODO: not working, no support on bbb_rails
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end
