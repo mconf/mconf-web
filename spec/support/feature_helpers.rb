@@ -53,8 +53,14 @@ module FeatureHelpers
     I18n.t(*args)
   end
 
+  # Overwrites Capybara's method to specify a default file
+  def save_page
+    Capybara.save_page Rails.root.join('public', 'capybara.html')
+  end
+
+  # Save the page and show it in the browser
   def show_page
-    save_page Rails.root.join('public', 'capybara.html')
+    save_page
     %x(launchy http://localhost:3000/capybara.html)
   end
 

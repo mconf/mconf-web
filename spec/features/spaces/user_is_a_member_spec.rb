@@ -18,8 +18,9 @@ feature 'User is' do
 
     scenario 'on home page' do
       visit space_path(space)
+      save_page
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
@@ -27,7 +28,7 @@ feature 'User is' do
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
@@ -35,7 +36,7 @@ feature 'User is' do
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
@@ -43,7 +44,7 @@ feature 'User is' do
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
@@ -51,7 +52,7 @@ feature 'User is' do
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
@@ -59,7 +60,7 @@ feature 'User is' do
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
@@ -75,7 +76,7 @@ feature 'User is' do
     scenario 'on home page' do
       visit space_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
@@ -83,7 +84,7 @@ feature 'User is' do
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
@@ -91,7 +92,7 @@ feature 'User is' do
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
@@ -99,7 +100,7 @@ feature 'User is' do
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
@@ -107,7 +108,7 @@ feature 'User is' do
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
@@ -115,7 +116,7 @@ feature 'User is' do
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
@@ -134,7 +135,7 @@ feature 'User is' do
     scenario 'on home page' do
       visit space_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
@@ -142,7 +143,7 @@ feature 'User is' do
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
@@ -150,7 +151,7 @@ feature 'User is' do
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
@@ -158,7 +159,7 @@ feature 'User is' do
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
@@ -166,7 +167,7 @@ feature 'User is' do
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
@@ -174,7 +175,7 @@ feature 'User is' do
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.active') do
+      within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end

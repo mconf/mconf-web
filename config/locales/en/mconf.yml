@@ -503,6 +503,7 @@ en:
     invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
+      room_name: "Welcome to the conference room: %{name}"
       room_type_private: "This is a <em>private</em> web conference room"
       room_type_public: "This is a <em>public</em> web conference room"
       running: "running!"

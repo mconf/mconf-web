@@ -12,6 +12,12 @@ body.custom_bigbluebutton_rooms.auth {
     @include font-size($m-font-medium);
     padding: 10px;
 
+    .room-name {
+      @include font-size($m-font-bigger);
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
     .room-type {
       text-align: center;
 

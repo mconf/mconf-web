@@ -37,7 +37,7 @@ feature "Creating a space" do
     it { current_path.should eq(space_path(Space.last)) }
     it { page.should have_content(attrs[:name]) }
     it { page.should have_content(attrs[:description]) }
-    it { page.should have_content(t("spaces.title.public")) }
+    it { page.should have_content(t("spaces.sidebar.public")) }
   end
 
   context "as private" do
@@ -51,7 +51,7 @@ feature "Creating a space" do
     it { current_path.should eq(space_path(Space.last)) }
     it { page.should have_content(attrs[:name]) }
     it { page.should have_content(attrs[:description]) }
-    it { page.should have_content(t("spaces.title.private")) }
+    it { page.should have_content(t("spaces.sidebar.private")) }
   end
 
   context "creation errors" do

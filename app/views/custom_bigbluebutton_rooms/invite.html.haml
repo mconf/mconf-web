@@ -5,7 +5,7 @@
 - else
   - username = bigbluebutton_user.name
 
-= render :partial => "invite_header", :locals => { :page => 2 }
+= render partial: "invite_header", locals: { room: @room, page: 2 }
 
 #webconf-room-invite
 

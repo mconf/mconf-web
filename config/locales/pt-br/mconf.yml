@@ -503,6 +503,7 @@ pt-br:
     invite_header:
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
+      room_name: "Seja bem-vindo à sala de reuniões: %{name}"
       room_type_private: "Esta é uma conferência <em>privada</em>"
       room_type_public: "Esta é uma conferência <em>pública</em>"
       running: "em andamento!"

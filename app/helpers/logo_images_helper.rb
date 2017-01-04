@@ -71,6 +71,7 @@ module LogoImagesHelper
   end
 
   def empty_logo_image(resource, options={})
+    options[:size] = validate_logo_size(options[:size])
     cls = "#{options[:class]} empty-logo".strip
     image_tag(empty_logo_url(resource, options), class: cls, title: options[:title])
   end
