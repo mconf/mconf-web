@@ -251,6 +251,14 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-remove icon-mconf-participant-not-confirmed", options
   end
 
+  def icon_can_rec(options={})
+    icon_constructor nil, "icon-awesome icon-circle icon-mconf-can-rec", options
+  end
+
+  def icon_cant_rec(options={})
+    icon_constructor nil, "icon-awesome icon-circle-blank icon-mconf-cant-rec", options
+  end
+
   private
 
   # Base method for most of the methods above

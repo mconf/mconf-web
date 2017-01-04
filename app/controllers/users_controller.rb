@@ -90,9 +90,10 @@ class UsersController < InheritedResources::Base
       sign_in @user, :bypass => true if current_user == @user
 
       flash = { :success => t("user.updated") }
-      redirect_to params[:return_to] || edit_user_path(@user), :flash => flash
+      redirect_to_p edit_user_path(@user), :flash => flash
     else
-      render "edit", :layout => 'no_sidebar'
+      flash = { :error => t("user.not_updated") }
+      render_p "edit", layout: 'no_sidebar', flash: flash
     end
   end
 
