@@ -19,6 +19,7 @@ describe 'Admin manages users' do
 
       login_as(admin, :scope => :user)
       @user1 = FactoryGirl.create(:user)
+      @user1.update_attributes(can_record: true)
       @unapproved_user = FactoryGirl.create(:user)
       @unapproved_user.update_attributes(:approved => false)
       @disabled_user1 = FactoryGirl.create(:user, disabled: true)
@@ -40,6 +41,8 @@ describe 'Admin manages users' do
       it { should have_css '.icon-mconf-confirm-user', :count => 2 }
       it { should have_css '.icon-mconf-approve', :count => 2 }
       it { should have_css '.icon-mconf-superuser', :count => 1 }
+      it { should have_css '.icon-mconf-cant-rec', :count => 4 }
+      it { should have_css '.icon-mconf-can-rec', :count => 1 }
 
       it { should have_content user_description(@user1) }
       it { should have_content user_description(@unapproved_user) }
