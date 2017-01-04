@@ -404,7 +404,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_using_params(options={}, response_status={})
+  # Redirects to the URL specified in the parameters.
+  # If the parameter is not set, behaves exactly like `redirect_to`.
+  def redirect_to_p(options={}, response_status={})
     unless params[:redir_url].blank?
       redirect_to params[:redir_url], response_status
     else
@@ -412,7 +414,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_params_or_render(action=nil, response_status={})
+  # Redirects to the URL specified in the parameters.
+  # If the parameter is not set, behaves exactly like `render`.
+  def render_p(action=nil, response_status={})
     unless params[:redir_url].blank?
       redirect_to params[:redir_url], response_status
     else

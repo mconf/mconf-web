@@ -930,7 +930,7 @@ en:
       disapprove_confirm: "Are you sure you want to block the access to this space?"
       edit: "Edit space"
     enabled_user:
-      allow_record: "Allow user to record"
+      allow_record: "Give the user permission to record conferences"
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
       auth_using: "using"
@@ -939,7 +939,7 @@ en:
       confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
       disable_confirm: "Are you sure you want to disable this user?"
-      disallow_record: "Disallow user to record"
+      disallow_record: "Remove the user's permission to record conferences"
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
@@ -1727,7 +1727,7 @@ en:
     normal_user: "Normal user"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"
-    not_updated: "User not updated! Update Failed!"
+    not_updated: "It wasn't possible to update the user, please try again"
     one: User
     other: Users
     recent_join: "Recent users joined"

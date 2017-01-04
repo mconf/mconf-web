@@ -256,7 +256,7 @@ module IconsHelper
   end
 
   def icon_cant_rec(options={})
-    icon_constructor nil, "icon-awesome icon-circle icon-mconf-cant-rec", options
+    icon_constructor nil, "icon-awesome icon-circle-blank icon-mconf-cant-rec", options
   end
 
   private

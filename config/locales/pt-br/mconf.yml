@@ -1737,7 +1737,7 @@ pt-br:
     normal_user: "Usuário comum"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
-    not_updated: "Usuário não atualizado! Atualização falhou!"
+    not_updated: "Não foi possível atualizar o usuário, por favor tente novamente"
     one: Usuário
     other: Usuários
     recent_join: "Usuários recentemente inscritos"
