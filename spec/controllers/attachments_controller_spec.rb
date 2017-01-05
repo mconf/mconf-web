@@ -73,7 +73,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('no_sidebar') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -88,7 +88,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('no_sidebar') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -104,7 +104,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('no_sidebar') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -114,7 +114,7 @@ describe AttachmentsController do
       context "as an anonymous user" do
         before { get :index, space_id: space.to_param }
         it { should render_template('index') }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
       end
     end
 
@@ -130,7 +130,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('no_sidebar') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -145,7 +145,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('no_sidebar') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }

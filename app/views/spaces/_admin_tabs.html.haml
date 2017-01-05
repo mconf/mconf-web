@@ -1,4 +1,4 @@
-= content_for :page_sub_menu do
+= content_for :page_menu do
   %ul
     %li{ spaces_admin_menu_select_if(:main) }
       = link_to t('.general_options'), edit_space_path(@space)

@@ -31,6 +31,7 @@ $m-font-bigger: 21px;
 $m-font-biggest: 25px;
 $m-font-gigantic: 28px;
 $m-font-section-title: 28px;
+
 $m-font-color: #333;
 $m-font-strong: #000;
 $m-font-color-gray: #888;
@@ -68,7 +69,7 @@ $m-second-color: $m-bright-blue;
 $m-focus-border-color: $m-second-color;
 
 // borders
-$m-border-color-normal: #ddd;
+$m-border-color-normal: #e8e8e8;/* #ddd; */
 $m-border-color-medium: #e6e6e6;
 $m-border-color-light: #eee;
 $m-border-radius-base: 3px;
@@ -95,23 +96,19 @@ $m-highlight-bg: #ffff81;
 // width of the central container and standard sidebar
 $m-contents-width: 980px;
 $m-contents-max-width: 1180px;
+
+// sidebar
 $m-sidebar-width: 240px;
 $m-sidebar-border: $m-border-color-normal;
-$m-sidebar-bg-color: #f6f6f6;
+$m-sidebar-bg-color: #fafafa;
+$m-sidebar-active-bg: darken($m-sidebar-bg-color, 3);
+$m-sidebar-active-color: darken($m-second-color, 20);
+$m-sidebar-active-color-hover: $m-sidebar-active-color;
 
-// headers
+// navbar
 $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
-$m-page-menu-font-color: #808080;
-$m-page-menu-font-color-hover: darken($m-second-color, 5);
-$m-page-menu-selected-font-color: darken($m-second-color, 20);
-$m-page-menu-selected-border-color: $m-second-color;
-$m-page-menu-selected-border-width: 1px;
-$m-page-header-link-color: $m-link-color;
-$m-page-header-link-color-hover: $m-link-color-hover;
-$m-page-title-bg: $m-light-gray;
-$m-page-title-border-color: $m-border-color-normal;
 $m-navbar-border-width: 0px;
 // the height is dynamic but we set it here because it's used by some components
 // for positioning
@@ -136,6 +133,21 @@ $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 /* $m-navbar-font-color-hover: $m-link-color-hover; */
 /* $m-navbar-font-highlight: #f6f6f6; */
 
+// page menu, the secondary menu
+$m-page-menu-bg-color: #fafafa;
+$m-page-menu-font-color: #666;
+$m-page-menu-font-color-hover: darken($m-second-color, 5);
+$m-page-menu-selected-font-color: darken($m-second-color, 20);
+$m-page-menu-selected-border-color: $m-second-color;
+$m-page-menu-selected-border-width: 1px;
+$m-page-menu-active-bg: darken($m-sidebar-bg-color, 3);
+$m-page-menu-active-color: $m-sidebar-active-color;
+$m-page-menu-active-color-hover: $m-sidebar-active-color-hover;
+$m-page-menu-active-border: $m-sidebar-border;
+
+// page header
+$m-page-header-link-color: $m-link-color;
+$m-page-header-link-color-hover: $m-link-color-hover;
 // transparent header
 /* $m-page-header-background: $m-site-bg-color; */
 /* $m-page-header-border-width: 0; */

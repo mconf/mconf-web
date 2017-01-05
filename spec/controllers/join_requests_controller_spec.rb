@@ -23,7 +23,7 @@ describe JoinRequestsController do
       context "template and layout" do
         before(:each) { get :index, :space_id => space.to_param }
         it { should render_template('index') }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
       end
 
       context "space admin indexing join requests" do
@@ -65,7 +65,7 @@ describe JoinRequestsController do
         context "template and layout" do
           before(:each) { get :new, :space_id => space.to_param }
           it { should render_template('new') }
-          it { should render_with_layout('no_sidebar') }
+          it { should render_with_layout('application') }
         end
       end
 
@@ -76,7 +76,7 @@ describe JoinRequestsController do
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
         it { should assign_to(:pending_request).with(@join_request) }
       end
 
@@ -87,7 +87,7 @@ describe JoinRequestsController do
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
         it { should assign_to(:pending_request).with(@join_request) }
       end
     end
@@ -146,7 +146,7 @@ describe JoinRequestsController do
         }
 
         it { should render_template('show') }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
       end
 
       context "is the admin of the space of the join request" do
@@ -157,7 +157,7 @@ describe JoinRequestsController do
         }
 
         it { should render_template('show') }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
       end
 
       context "is not related at all with the join request" do
@@ -481,7 +481,7 @@ describe JoinRequestsController do
 
       context "template and layout" do
         it { should render_template('invite') }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('application') }
       end
 
     end

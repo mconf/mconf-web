@@ -21,7 +21,7 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
-  layout 'no_sidebar'
+  layout 'application'
 
   def index
     authorize! :manage_join_requests, @space

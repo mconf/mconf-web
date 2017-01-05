@@ -9,7 +9,7 @@
 
   #edit-space-options
     = simple_form_for @space, html: { method: :put, class: 'single-column' } do |f|
-      = f.input :name, autofocus: true
+      = f.input :name
       = f.input :permalink , disabled: true
       = f.input :description, as: :text, input_html: { rows: 5 }
       = f.input :repository
@@ -31,4 +31,3 @@
     %h4= t(".webconference_room_options.title")
     %span= t(".webconference_room_options.description")
     = link_to t(".webconference_room_options.click_here"), user_edit_bigbluebutton_room_path(@space.bigbluebutton_room), class: "open-modal"
-

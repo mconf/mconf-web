@@ -734,7 +734,6 @@ form {
 }
 
 #sidebar-menu {
-  /* border-top: 1px solid $m-sidebar-border; */
   margin: 0 -26px;
   padding: 0;
 
@@ -751,9 +750,7 @@ form {
 
     &.active a {
       background: $m-site-bg-color;
-      $normal: darken($m-second-color, 20); //darken($m-page-menu-font-color, 20);
-      $hover: darken($m-second-color, 20); //lighten($m-page-menu-font-color, 10);
-      @include link-colors($normal, $hover, $hover, $normal);
+      @include link-colors($m-sidebar-active-color, $m-sidebar-active-color-hover, $m-sidebar-active-color-hover, $m-sidebar-active-color);
       border-bottom: 1px solid $m-sidebar-border;
       border-top: 1px solid $m-sidebar-border;
       border-left: 1px solid $m-sidebar-border;
@@ -766,29 +763,21 @@ form {
 
     a {
       display: block;
-      font-size: 16px;
-      line-height: 18px;
+      @include font-size($m-font-big);
       @include mconf-clearfix;
       transition: all .3s ease;
       margin: 2px 0;
-      padding: 15px;
-
-      /* border-bottom: 1px solid $m-transparent; */
-      /* border-top: 1px solid $m-transparent; */
-      /* border-left: 1px solid $m-transparent; */
+      padding: 12px;
+      text-decoration: none;
 
       $normal: $m-page-menu-font-color;
       $hover: darken($m-second-color, 20);
       color: $normal;
       @include link-colors($normal, $hover, $hover, $normal);
-      text-decoration: none;
 
       &:hover,
       &:active {
-        background: darken($m-sidebar-bg-color, 5); //$m-sidebar-border;
-        /* border-bottom: 1px solid $m-sidebar-border; */
-        /* border-top: 1px solid $m-sidebar-border; */
-        /* border-left: 1px solid $m-sidebar-border; */
+        background: $m-sidebar-active-bg;
       }
     }
   }
@@ -893,34 +882,47 @@ form {
   }
 }
 
-#page-menu-container {
-  background: $m-page-header-background;
-  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
+#page-menu {
+  background: $m-page-menu-bg-color;
+  padding: 10px;
+  margin-bottom: 20px;
+  @include border-radius($m-border-radius-base);
 
-  #page-menu {
-    @include horizontal-menu;
-  }
+  ul {
+    margin: 0;
+    padding: 0;
 
-  &.without-header {
-    #page-menu ul li > a {
-      padding-top: 17px;
-      padding-bottom: 10px;
+    li {
+      @include mconf-clearfix;
+      display: inline-block;
+      @include font-size($m-font-medium);
+
+      a {
+        padding: 5px 15px;
+        display: block;
+        transition: all .3s ease;
+        text-decoration: none;
+        @include border-radius($m-border-radius-base);
+        @include link-colors($m-page-menu-font-color, $m-page-menu-font-color-hover, $m-page-menu-font-color-hover, $m-page-menu-font-color);
+        border: 1px solid $m-page-menu-bg-color;
+
+        &:hover {
+          background: $m-page-menu-active-bg;
+        }
+      }
+
+      &.active {
+        a {
+          background: $m-site-bg-color;
+          border: 1px solid $m-page-menu-active-border;
+          color: $m-page-menu-active-color;
+
+          &:hover {
+            color: $m-page-menu-active-color;
+          }
+        }
+      }
     }
-  }
-}
-
-// A list of tabs inside of a page, to access subpages of it or to include
-// additional functionality (e.g. search box)
-#page-sub-menu-container {
-  background: #fafafa;
-  border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
-}
-#page-sub-menu.page-sub-menu {
-  @include horizontal-menu;
-  padding-top: 10px;
-
-  ul li {
-    @include font-size($m-font-normal);
   }
 }
 
