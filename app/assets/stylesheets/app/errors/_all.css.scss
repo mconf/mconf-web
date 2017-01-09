@@ -63,11 +63,11 @@ $m-z-index-footer: 0;
     margin: 30px auto;
     text-align: center;
     @include font-size($m-font-bigger);
-    line-height: $m-font-bigger + 6px;
+    line-height: calculate-px($m-font-bigger) + 6px;
     color: darken($m-gray, 25);
     p {
       @include font-size($m-font-bigger);
-      line-height: $m-font-bigger + 6px;
+      line-height: calculate-px($m-font-bigger) + 6px;
     }
   }
 

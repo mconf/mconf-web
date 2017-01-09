@@ -154,15 +154,24 @@
 // Methods below from: https://github.com/stubbornella/oocss
 //
 // Function for converting a px based font-size to rem.
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
 @function calculate-rem($size) {
   $remSize: $size / 16px;
   // Default font size on html element is 100%, equivalent to 16px;
   @return #{$remSize}rem;
 }
+@function calculate-px($size) {
+  $pxSize: parseInt($size) * 16px;
+  // Default font size on html element is 100%, equivalent to 16px;
+  @return #{$pxSize}px;
+}
 // Mixin that will include the fall back px declaration as well as the calculated rem value.
+// TODO: remove, not needed anymore
 @mixin font-size($size) {
+  font-size: calculate-px($size);
   font-size: $size;
-  font-size: calculate-rem($size);
 }
 
 // Highlighted content blocks
@@ -195,66 +204,4 @@
   color: #666;
   font-weight: normal;
   @include font-size($m-font-small);
-}
-
-// default horizontal menu
-@mixin horizontal-menu {
-  clear: both;
-  @include mconf-clearfix;
-  padding: 0 15px;
-
-  ul {
-    // margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
-    margin: 0;
-    padding: 0;
-
-    li {
-      @include mconf-clearfix;
-      margin: 0 15px -1*$m-page-menu-selected-border-width 0; // negative so selected items border gets over the default menu border
-      display: inline-block;
-      padding: 0;
-      //font-weight: bold;
-      @include font-size($m-font-medium);
-
-      &.active {
-        border-bottom: $m-page-menu-selected-border-width solid $m-page-menu-selected-border-color;
-        a {
-          font-weight: bold;
-          $normal: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 20);
-          $hover: $m-page-menu-selected-font-color; //lighten($m-page-menu-font-color, 10);
-          @include link-colors($normal, $hover, $hover, $normal);
-        }
-      }
-
-      &:hover {
-        a, a:hover, a:active {
-                      color: $m-page-menu-selected-font-color; //darken($m-page-menu-font-color, 25);
-                    }
-      }
-
-      > a {
-        @include link-colors($m-page-menu-font-color, $m-page-menu-font-color-hover, $m-page-menu-font-color-hover, $m-page-menu-font-color);
-        text-decoration: none;
-        display: block;
-        padding: 5px 15px 3px 15px;
-        &.danger-text {
-          @include danger-text;
-        }
-      }
-    }
-  }
-
-  /* .caret-container { */
-  /*   padding: 0 5px; */
-  /*   display: block; */
-  /* } */
-
-  /* .caret { */
-  /*   border-top-color: #888; */
-  /*   margin-top: 6px; */
-  /* } */
-
-  /* .dropdown-menu { */
-  /*   left: -8px; */
-  /* } */
 }

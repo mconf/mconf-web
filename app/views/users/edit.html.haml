@@ -54,8 +54,8 @@
     #user-account-preferences
       %h3= t('.preferences')
 
-      = f.input :timezone, :required => false do
-        = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
+      = f.input :timezone, required: false do
+        = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 

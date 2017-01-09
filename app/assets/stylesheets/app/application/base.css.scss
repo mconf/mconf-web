@@ -250,7 +250,7 @@ form {
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
-  font-family: $m-font-family-titles;
+  font-family: $m-font-family-h;
 }
 
 @mixin navbar-lists {
@@ -283,7 +283,7 @@ form {
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: 17px 15px 13px 15px;
+    padding: 16px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
@@ -301,9 +301,8 @@ form {
 }
 
 #navbar {
-  /* @include make-row(0); */
   color: $m-navbar-font-color;
-  @include font-size($m-font-medium);
+  @include font-size($m-navbar-font);
   text-align: center;
   @include mconf-clearfix;
   padding: 0 15px;
@@ -312,13 +311,11 @@ form {
 }
 
 #navbar-left {
-  /* @include make-sm-column(6); */
   @include navbar-lists;
   float: left;
 }
 
 #navbar-right {
-  /* @include make-sm-column(5); */
   @include navbar-lists;
   float: right;
 
@@ -334,7 +331,6 @@ form {
   }
 
   .dropdown-user.chip {
-    /* margin: 10px 0 3px 0; */
     margin: 0;
     font-size: $m-font-normal;
     font-weight: normal;
@@ -343,7 +339,7 @@ form {
     @include transition(background-color 0.2s ease-in);
     @include text-truncate;
     max-width: 350px;
-    padding: 11px 15px 8px 25px;
+    padding: 12px 16px 11px 26px;
     @include border-radius(0);
     height: auto;
     overflow: inherit;
@@ -380,7 +376,7 @@ form {
   /* @include make-sm-column(1); */
   /* float: left; */
   white-space: nowrap;
-  margin-top: 8px;
+  margin-top: 11px;
   @include mconf-clearfix;
   display: inline-block;
 
@@ -458,11 +454,6 @@ form {
 
   a { @include link-colors(#bbb, $m-link-color-hover, $m-link-color-active); }
 
-  .title {
-    font-weight: bold;
-    @include font-size($m-font-gigantic);
-  }
-
   span { display: block; }
 }
 
@@ -517,14 +508,14 @@ form {
   }
 
   .current-page-title {
-    color: $m-font-h1-color;
+    color: $m-font-h-color;
 
     @include make-xs-column(9);
 
     .main-title {
-      @include font-size($m-font-section-title);
+      font-size: $m-font-double;
       font-weight: bold;
-      color: $m-font-h1-color;
+      color: $m-font-h-color;
       margin-bottom: 5px;
       a:not(.btn) {
         text-decoration: none;
@@ -588,8 +579,7 @@ form {
   padding: 30px 25px;
 
   .sidebar-title {
-    font-size: 26px;
-    font-size: 1.625rem;
+    font-size: $m-font-double;
     line-height: 1.1;
     margin-bottom: 15px;
     padding: 0 10px;
@@ -654,7 +644,7 @@ form {
       }
 
       .data-other {
-        min-height: $m-font-big + 2px;
+        min-height: calculate-px($m-font-big) + 2px;
       }
     }
   }
@@ -738,19 +728,19 @@ form {
   padding: 0;
 
   ul {
-    margin: 0 0 0 15px;
+    margin: 0 0 0 24px;
     padding: 0;
   }
 
   li {
-    @include font-size($m-font-medium);
+    @include font-size($m-sidebar-menu-font);
     border-left: 1px solid $m-transparent;
     border-bottom: 1px solid $m-transparent;
     border-top: 1px solid $m-transparent;
 
     &.active a {
       background: $m-site-bg-color;
-      @include link-colors($m-sidebar-active-color, $m-sidebar-active-color-hover, $m-sidebar-active-color-hover, $m-sidebar-active-color);
+      @include link-colors($m-sidebar-menu-active-color, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color);
       border-bottom: 1px solid $m-sidebar-border;
       border-top: 1px solid $m-sidebar-border;
       border-left: 1px solid $m-sidebar-border;
@@ -763,21 +753,17 @@ form {
 
     a {
       display: block;
-      @include font-size($m-font-big);
       @include mconf-clearfix;
       transition: all .3s ease;
       margin: 2px 0;
-      padding: 12px;
+      padding: 16px;
       text-decoration: none;
-
-      $normal: $m-page-menu-font-color;
-      $hover: darken($m-second-color, 20);
-      color: $normal;
-      @include link-colors($normal, $hover, $hover, $normal);
+      color: $m-sidebar-menu-active-color;
+      @include link-colors($m-sidebar-menu-color, $m-sidebar-menu-color-hover, $m-sidebar-menu-color-hover, $m-sidebar-menu-color);
 
       &:hover,
       &:active {
-        background: $m-sidebar-active-bg;
+        background: $m-sidebar-menu-active-bg;
       }
     }
   }
@@ -788,10 +774,10 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 25px;
+  padding: 26px;
 
   h3 {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 
     // horitontal line in the title
     &.horizontal-line {

@@ -54,7 +54,7 @@
             = link_to tag, '#', class: "tooltipped", title: t("_other.remove_tag"), data: { qstring: "tag-=#{tag}", "qstring-sep": "," }
 
   .search
-    = text_field_tag :spaces_filter_text, params[:q], placeholder: t('space.index.filter_name'), 'data-load-url': spaces_path, 'data-target': '#space-list-render', 'data-filter': '#filter-total', class: 'resource-filter'
+    = text_field_tag :spaces_filter_text, params[:q], placeholder: t('space.index.filter_name'), 'data-load-url': spaces_path, 'data-target': '#space-list-render', 'data-filter': '#filter-total', class: 'form-control resource-filter'
 
   .filters
     .btn-group

@@ -99,15 +99,8 @@
       font-weight: bold;
     }
 
-    .webconference-icon {
-      @include font-size($m-font-gigantic);
-      color: $m-second-color;
-      width: 60px;
-      height: 60px;
-    }
-
     &.selected {
-      border-color: $m-second-color;
+      border-color: $m-color-secondary;
       .icon-selected {
         display: block;
       }

@@ -46,8 +46,7 @@ body.users.edit, body.users.update {
   }
 
   #user-management-options {
-    @include make-xs-column(12);
-    padding-bottom: 5px;
+    clear: both;
   }
 
   #user-cancel-account {

@@ -3,15 +3,12 @@
 @import "compass/typography";
 @import "definitions";
 
-$m-navbar-height: auto;
-
 body.frontpage.show {
 
   #navbar {
     background: none;
     margin: 0 auto;
     padding: 20px 0 30px 0;
-    height: $m-navbar-height;
     @include clearfix;
 
     #navbar-logo {

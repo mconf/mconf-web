@@ -42,7 +42,7 @@ body.spaces.new, body.spaces.create {
           @include border-radius($m-border-radius-small);
 
           &:hover {
-            border-color: $m-second-color;
+            border-color: $m-color-secondary;
           }
 
           img {

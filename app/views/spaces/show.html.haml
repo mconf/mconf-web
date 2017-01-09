@@ -10,14 +10,13 @@
 -#       - for event in @current_events do
 -#         = render :partial => "events/unified_event", :locals => { :event => event }
 
+= render "shared/webconference_join", room: @space.bigbluebutton_room
 
 .content-block
   .content-block-header
     %h3= "Description"
   .content-block-middle
     = sanitize(@space.description)
-
-= render "shared/webconference_join", room: @space.bigbluebutton_room
 
 -if can?(:read, @space.posts)
   = render :partial => 'latest_posts'

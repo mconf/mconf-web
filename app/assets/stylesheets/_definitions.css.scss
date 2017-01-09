@@ -18,33 +18,37 @@
 
 // link colors
 $m-link-color: #2274A5;
-$m-link-color-hover: lighten($m-link-color, 10);
-$m-link-color-active: darken($m-link-color-hover, 10);
+$m-link-color-hover: lighten($m-link-color, 15);
+$m-link-color-active: darken($m-link-color-hover, 20);
 
 // fonts
-$m-font-mini: 10px;
-$m-font-small: 11px;
-$m-font-normal: 13px;
-$m-font-medium: 14px;
-$m-font-big: 16px;
-$m-font-bigger: 21px;
-$m-font-biggest: 25px;
-$m-font-gigantic: 28px;
-$m-font-section-title: 28px;
-
+$m-font-normal: 0.8rem; /* base size for all fonts */
+$m-font-mini: $m-font-normal * 0.8;
+$m-font-small: $m-font-normal * 0.9;
+$m-font-medium: $m-font-normal * 1.2;
+$m-font-big: $m-font-normal * 1.4;
+$m-font-bigger: $m-font-normal * 1.6;
+$m-font-double: $m-font-normal * 2;
+/* multipliers over the standard font size */
+$m-font-h1-multiplier: 2.5;
+$m-font-h2-multiplier: 2;
+$m-font-h3-multiplier: 1.4;
+$m-font-h4-multiplier: 1.2;
+$m-font-h5-multiplier: 1;
+$m-font-h6-multiplier: 1;
 $m-font-color: #333;
 $m-font-strong: #000;
 $m-font-color-gray: #888;
 $m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
-$m-font-family2: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
-$m-font-h1-color: #111;
-$m-font-h1-color-hover: $m-link-color-hover;
-$m-font-h1-color-active: $m-link-color-active;
-
-//$m-font-family-titles: Verdana, Geneva, sans-serif;
-$m-font-family-titles: $m-font-family;
+$m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
 $m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
+$m-font-family-h: $m-font-family;
+$m-font-h-color: #111;
+$m-font-h-color-hover: $m-link-color-hover;
+$m-font-h-color-active: $m-link-color-active;
 $m-base-line-height: 1.5;
+$m-link-decoration: none;
+$m-link-decoration-hover: underline;
 
 // standard colors
 $m-green: $olive;
@@ -53,8 +57,7 @@ $m-red: #ff5b5b;
 $m-orange: #C47322;
 $m-yellow: #BB9403;
 $m-cyan: #00ffff;
-// $m-green-logo: #27535C;
-$m-green-logo: #004956;
+$m-green-logo: #004956; // #27535C
 $m-gray: #ccc;
 $m-dark-gray: #666;
 $m-light-gray: #f6f6f6;
@@ -64,17 +67,25 @@ $m-transparent: rgba(255,255,255,0);
 
 // site colors
 $m-site-bg-color: #fff;
-$m-main-color: $m-green-logo;
-$m-second-color: $m-bright-blue;
-$m-focus-border-color: $m-second-color;
+$m-color-primary: $m-green-logo;
+$m-color-primary-light: lighten($m-green-logo, 12);
+$m-color-secondary: $m-bright-blue;
+$m-focus-border-color: $m-color-secondary;
 
 // borders
 $m-border-color-normal: #e8e8e8;/* #ddd; */
 $m-border-color-medium: #e6e6e6;
 $m-border-color-light: #eee;
-$m-border-radius-base: 3px;
-$m-border-radius-small: 2px;
-$m-border-radius-large: 4px;
+$m-border-radius-base: 2px;
+$m-border-radius-small: 1px;
+$m-border-radius-large: 3px;
+
+// inputs
+$m-input-bg: #fff;
+$m-input-border-color: $m-border-color-medium;
+$m-input-focus-bg:  #fff; //#fafafa;
+$m-input-focus-border-color: $m-color-secondary; //lighten($m-color-primary-light, 5); // #999999;
+$m-input-disabled-bg: #e6e6e6;
 
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;
@@ -93,35 +104,35 @@ $m-alert-gray-font: #666;
 // color for elements highlighted using rails' highlight() view helper.
 $m-highlight-bg: #ffff81;
 
-// width of the central container and standard sidebar
-$m-contents-width: 980px;
+// width of the central container in case we're using a maximum size
+// see `set-max-width`
 $m-contents-max-width: 1180px;
+$m-contents-width: 980px; // TODO: deprecated now that the site is responsive
 
 // sidebar
 $m-sidebar-width: 240px;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fafafa;
-$m-sidebar-active-bg: darken($m-sidebar-bg-color, 3);
-$m-sidebar-active-color: darken($m-second-color, 20);
-$m-sidebar-active-color-hover: $m-sidebar-active-color;
+
+// sidebar menu
+$m-sidebar-menu-active-bg: darken($m-sidebar-bg-color, 4);
+$m-sidebar-menu-active-color: $m-link-color;
+$m-sidebar-menu-active-color-hover: $m-sidebar-menu-active-color;
+$m-sidebar-menu-color: #666;
+$m-sidebar-menu-color-hover: $m-sidebar-menu-active-color;
+$m-sidebar-menu-font: $m-font-medium;
 
 // navbar
 $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
-$m-navbar-border-width: 0px;
-// the height is dynamic but we set it here because it's used by some components
-// for positioning
-$m-navbar-height: 42px;
-
-// for a dark green navbar:
 $m-navbar-bg-color-light: $m-green-logo;
 $m-navbar-bg-color-dark: $m-navbar-bg-color-light; //darken($m-green-logo, 3);
-$m-subnav-bg-color: #eee;
+$m-navbar-border-width: 0px;
+$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+$m-navbar-font: $m-font-medium;
 $m-navbar-font-color: #ddd;//$m-font-color;
 $m-navbar-font-color-hover: white; //$m-link-color-hover;
-$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
-/* $m-navbar-font-highlight: #f6f6f6; */
 $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 
 // for a light/white navbar:
@@ -136,13 +147,10 @@ $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 // page menu, the secondary menu
 $m-page-menu-bg-color: #fafafa;
 $m-page-menu-font-color: #666;
-$m-page-menu-font-color-hover: darken($m-second-color, 5);
-$m-page-menu-selected-font-color: darken($m-second-color, 20);
-$m-page-menu-selected-border-color: $m-second-color;
-$m-page-menu-selected-border-width: 1px;
-$m-page-menu-active-bg: darken($m-sidebar-bg-color, 3);
-$m-page-menu-active-color: $m-sidebar-active-color;
-$m-page-menu-active-color-hover: $m-sidebar-active-color-hover;
+$m-page-menu-font-color-hover: $m-sidebar-menu-active-color;
+$m-page-menu-active-bg: $m-page-menu-bg-color; //darken($m-sidebar-bg-color, 3);
+$m-page-menu-active-color: $m-sidebar-menu-active-color;
+$m-page-menu-active-color-hover: $m-sidebar-menu-active-color-hover;
 $m-page-menu-active-border: $m-sidebar-border;
 
 // page header
@@ -158,7 +166,7 @@ $m-page-header-border-width: 1px;
 $m-page-header-border-color: #e6e6e6; //#d9d9de;
 
 // footer
-$m-footer-height: 75px;
+$m-footer-height: 72px;
 $m-footer-font-color: $m-font-color;
 $m-footer-link-color: $m-link-color;
 $m-footer-link-color-hover: $m-link-color-hover;
@@ -197,9 +205,9 @@ $m-mail-font-size: $m-font-normal;
 $m-notifications-top: 6px;
 
 // tags
-$tags-font-color: #39739d;
-$tags-bg-color: #E1ECF4;
-$tags-bg-color-hover: #cee0ed;
+$m-tags-font-color: #39739d;
+$m-tags-bg-color: #E1ECF4;
+$m-tags-bg-color-hover: #cee0ed;
 
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
@@ -213,8 +221,7 @@ $tags-bg-color-hover: #cee0ed;
 /*
  * Customized variables for bootstrap
  */
-// $brand-primary: $blue;
-$brand-primary: $m-link-color; //#4589C4;//#2186DE;
+$brand-primary: $m-color-primary-light; //$m-color-primary; //$m-link-color; //#4589C4;//#2186DE;
 $border-radius-base: $m-border-radius-base;
 $border-radius-small: $m-border-radius-small;
 $border-radius-large: $m-border-radius-large;
@@ -243,11 +250,21 @@ $label-info-bg: $brand-info;
 $label-danger-bg: $brand-danger;
 $label-warning-bg: $brand-warning;
 // $btnPrimaryBackgroundHighlight: #2f96b4;
-$navbar-default-bg: #0a3138;
+$navbar-default-bg: $m-navbar-bg-color-dark;
 // $navbarBackgroundHighlight: #27535C;
 //$link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
+$input-bg: $m-input-bg;
+$input-bg-disabled: $m-input-disabled-bg;
+$input-border-focus: $m-input-focus-border-color;
+$input-border: $m-input-border-color;
+$input-border-radius: $m-border-radius-base;
+$input-border-radius-large: $m-border-radius-base;
+$input-border-radius-small: $m-border-radius-base;
+$input-group-addon-border-color: $input-border;
+$cursor-disabled: default;
+
 
 // Important: have to be imported after customizing bootstrap's variables
 @import "bootstrap/mixins";

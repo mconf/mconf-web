@@ -10,12 +10,12 @@
     font-weight: 300;
     padding: 3px;
     margin: 3px 5px 3px 0;
-    background: $tags-bg-color;
+    background: $m-tags-bg-color;
 
     a {
       padding: 2px 4px;
       display: inline-block;
-      color: $tags-font-color;
+      color: $m-tags-font-color;
 
       &:hover {
         text-decoration: none;
@@ -23,7 +23,7 @@
     }
 
     &:hover {
-      background-color: $tags-bg-color-hover;
+      background-color: $m-tags-bg-color-hover;
     }
   }
 
@@ -31,7 +31,7 @@
     background: none;
 
     &:hover {
-      color: lighten($tags-font-color, 10);
+      color: lighten($m-tags-font-color, 10);
       background: none;
     }
   }

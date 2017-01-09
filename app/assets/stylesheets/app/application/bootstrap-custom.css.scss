@@ -27,6 +27,16 @@ input[type="radio"], input[type="checkbox"] {
   }
 }
 
+
+// override a few things in inputs that we can't do with variables only
+.form-control {
+  box-shadow: none;
+
+  &:focus {
+    background: $m-input-focus-bg;
+  }
+}
+
 label {
   font-weight: normal;
   color: $m-font-strong;

@@ -2,23 +2,9 @@
 @import "definitions";
 
 .simple_form {
-  /* overflow: display; */
   position: relative;
 
   .form-group {
-    /* margin-top: 5px; */
-    /* margin-bottom: 10px; */
-    /* position: relative; */
-
-    /* label { */
-    /*   cursor: pointer; */
-
-    /*   &.collection_radio_buttons { */
-    /*     display: inline; */
-    /*     margin-left: 5px; */
-    /*     margin-right: 10px; */
-    /*   } */
-    /* } */
 
     input[type="checkbox"].showable_password_show {
       margin: 0 3px;
@@ -61,8 +47,8 @@
 
   .form-actions {
     clear: both;
-    padding-top: 10px;
-    margin-top: 10px;
+    padding-top: 16px;
+    margin-top: 16px;
     border-top: 1px solid $m-border-color-normal;
     text-align: right;
 
