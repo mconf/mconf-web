@@ -1,5 +1,5 @@
-= content_for :sidebar do
-  = render 'shared/webconf_index_links'
+- bbb_server_admin_menu_at :new_room
+= render 'shared/admin_tabs'
 
 %h3= t('.creating_new_room')
 = render 'custom_bigbluebutton_rooms/form', :editing => true, :room => @room

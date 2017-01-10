@@ -1312,6 +1312,13 @@ en:
       success: "Application language changed to %{value}"
       error: "Unable to change application language to %{value}"
   shared:
+    admin_tabs:
+      new_room: "New room"
+      new_server: "New server"
+      view_playback_type_list: "View playback type list"
+      view_recording_list: "View recording list"
+      view_room_list: "View room list"
+      view_server_list: "View server list"
     recording_list:
       created_by: "Created by"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"

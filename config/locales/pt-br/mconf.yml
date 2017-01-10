@@ -1322,6 +1322,13 @@ pt-br:
       success: "Idioma da aplicação alterado para %{value}"
       error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
+    admin_tabs:
+      new_room: "Nova sala"
+      new_server: "Novo servidor"
+      view_playback_type_list: "Ver lista de tipos de reprodução"
+      view_recording_list: "Ver lista de gravações"
+      view_room_list: "Ver lista de salas"
+      view_server_list: "Ver lista de servidores"
     recording_list:
       created_by: "Criada por"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
