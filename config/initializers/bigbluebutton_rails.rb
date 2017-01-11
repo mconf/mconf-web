@@ -103,7 +103,7 @@ Rails.application.config.to_prepare do
         query_params = []
         query_orders = []
 
-        words.each do |word|
+        words.reject(&:blank?).each do |word|
           str  = "bigbluebutton_recordings.name LIKE ? OR bigbluebutton_recordings.description LIKE ?"
           str += " OR bigbluebutton_recordings.recordid LIKE ? OR bigbluebutton_rooms.name LIKE ?"
           query_strs << str

@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
       query_params = []
       query_orders = []
 
-      words.each do |word|
+      words.reject(&:blank?).each do |word|
         str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
         str += " OR users.email LIKE ?" if include_private
         query_strs << str
