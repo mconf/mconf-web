@@ -13,7 +13,7 @@
       = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
 
     .thread-content
-      .thread-title
+      .col-xs-12.col-sm-8.thread-title
         %span
           = link_to space_path(space) do
             = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
@@ -38,16 +38,18 @@
               = icon_waiting_moderation
               = t("_other.not_approved.text")
 
-      .thread-description
+      .col-xs-12.col-sm-4.thread-description
         - if extended
           = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
-        - if show_join_request
-          - jr = space.pending_join_request_or_invitation_for(current_user)
-          - if jr
-            = icon_join_request
-            - if jr.is_invite?
-              = link_to t(".reply_invitation"), space_join_request_path(space, jr)
-            - else
-              = link_to t(".view_join_request"), space_join_request_path(space, jr)
+
+        .show-join-request
+          - if show_join_request
+            - jr = space.pending_join_request_or_invitation_for(current_user)
+            - if jr
+              = icon_join_request
+              - if jr.is_invite?
+                = link_to t(".reply_invitation"), space_join_request_path(space, jr)
+              - else
+                = link_to t(".view_join_request"), space_join_request_path(space, jr)
 
       = render :partial => "spaces/space_tags", :locals => { :space => space }
