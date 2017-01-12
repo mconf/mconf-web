@@ -5,7 +5,12 @@
 - is_other = !is_introducer && !is_candidate
 
 = content_for :sidebar do
-  = render "my/sidebar", user_spaces: @user_spaces
+  - if @space.users.include?(current_user)
+    - spaces_menu_at :users
+    = render 'spaces/sidebar', space: @space, full: false
+  - else
+    - home_sidebar_menu_at(:spaces)
+    = render "my/sidebar", user_spaces: @user_spaces
 
 #join-requests-show
 
@@ -62,6 +67,17 @@
 
     - elsif @join_request.is_request?
 
+      - if can?(:decline, @join_request)
+        .option-decline
+          - if is_candidate
+            - text = t('.cancel_request')
+            - confirm_text = t('.cancel_request_confirmation')
+          - else
+            - text = t('.decline')
+            - confirm_text = t('.decline_request_confirmation')
+          = link_to text, decline_space_join_request_path(@space, @join_request), :data => { :confirm => confirm_text }, :method => :post, :class => 'btn btn-danger'
+
+
       - if can?(:accept, @join_request)
         .option-accept
           -# if true it's a regular user accepting a request
@@ -74,13 +90,3 @@
               %span= t('join_requests.index.accept_as').downcase
               - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
               = select :join_request, :role_id, roles, :selected => default_role.id
-
-      - if can?(:decline, @join_request)
-        .option-decline
-          - if is_candidate
-            - text = t('.cancel_request')
-            - confirm_text = t('.cancel_request_confirmation')
-          - else
-            - text = t('.decline')
-            - confirm_text = t('.decline_request_confirmation')
-          = link_to text, decline_space_join_request_path(@space, @join_request), :data => { :confirm => confirm_text }, :method => :post, :class => 'btn btn-danger'
