@@ -1,5 +1,39 @@
 # Change Log
 
+## [2.4.0] - 2017-01-21
+
+Includes improvements in the management pages, a new management page for recordings,
+several improvements in the searches throughout the site (search for users and spaces,
+for example), and bug fixes.
+
+* [#924] Fix searches when a space was used at the beginning of the search.
+* [#918] Add a button to change a user's permission to record in the management list of
+  users, so admins won't need to go to the edit page just to change this flag.
+* [#874] Add translations to Russian and Bulgarian from Transifex.
+* [#890] Prioritize the results of searches when more than one word is used. Results
+  that have the most matches will show at the top.
+* [#911] Improved the search in the index of spaces to automatically show the results
+  in the page instead of just showing them in a drop down.
+* [#887] Add tags for spaces. Tags help categorize and filter spaces that have a given
+  tag in the index of spaces and in the management pages.
+* [#879] Fix inconsistencies when modifying the flag `require_space_approval`.
+* [#904] Add the list of attendees to the ICS file sent with web conference invitations.
+* [#894] Add a new attribute in the site (`smtp_receiver`) to configure the email used
+  to receive messages from users (right now used only the feedback form).
+* [#889] Add information about the last sign in of a user in the management page of
+  users. Also added the authentication methods each user has available and the method
+  used for the last sign in.
+* [#856] New management page for recordings, helps admins to see, filter and manage
+  recordings.
+* [#901] Fix highlight of search matches when the same string was matched several
+  times (e.g. searching for "e e e").
+* [#896] Fix issue with strings being empty in languages other than English because of
+  the way locale files were being downloaded from Transifex.
+* Block access to `/login` if local authentication is disabled and add a new route
+  `/admin` for admins to sign in even if local authentication is disabled.
+* Add support for `/check`, even though it not linked anywhere in the application yet.
+  This route is from an optional module in BigBlueButton/Mconf-Live.
+
 
 ## [2.3.0] - 2016-10-05
 
@@ -327,6 +361,7 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
+[2.4.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.4.0
 [2.3.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.3.0
 [2.2.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.2.0
 [2.1.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.1.0
