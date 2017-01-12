@@ -857,13 +857,18 @@ pt-br:
       is_candidate:
         comment_invitation: "Este é o comentário escrito por %{name}:"
         comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+        title_header_invitation: "Você foi convidado a uma comunidade"
+        title_header_request: "Você requisitou ingresso em uma comunidade"
         title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
         title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
       is_introducer:
         comment_invitation: "Este é o comentário que você escreveu:"
+        title_header_invitation: "Você convidou um usário para uma comunidade"
         title_invitation: "Você convidou \"%{candidate}\" em %{date} para participar da comunidade \"%{space}\""
       is_other:
         comment_request: "Este é o comentário escrito por \"%{name}\":"
+        title_header_invitation: "Um usuário foi convidado a se juntar a uma comunidade"
+        title_header_request: "Um usuário requisitou ingresso em uma comunidade"
         title_invitation: "\"%{introducer}\" convidou \"%{candidate}\" em %{date} para participar da comundiade \"%{space}\""
         title_request: "\"%{candidate}\" requisitou em %{date} o ingresso na comunidade \"%{space}\""
   keywords: "Palavras-chave (*)"

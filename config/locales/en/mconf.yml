@@ -857,13 +857,18 @@ en:
       is_candidate:
         comment_invitation: "This is the comment written by %{name}:"
         comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
+        title_header_invitation: "You have been invited to join a space"
+        title_header_request: "You have requested to join a space"
         title_invitation: "You were invited by \"%{introducer}\" on %{date} to join the space \"%{space}\""
         title_request: "You requested to join the space \"%{space}\" on %{date}"
       is_introducer:
         comment_invitation: "This is the comment you wrote:"
+        title_header_invitation: "You invited an user to join a space"
         title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
       is_other:
         comment_request: "This is the comment written by \"%{name}\":"
+        title_header_invitation: "An user has been invited to join a space"
+        title_header_request: "An user has requested to join a space"
         title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
         title_request: "\"%{candidate}\" requested on %{date} to join the space \"%{space}\""
   keywords: "Keywords (*)"

@@ -29,7 +29,10 @@ body.custom_bigbluebutton_rooms.auth {
 
     .room-status {
       text-align: center;
-
+      .status{
+        display: inline-block;
+        font-weight: bold;
+      }
       .label {
         display: inline-block;
       }

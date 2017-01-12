@@ -13,7 +13,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
     #webconf-room-userid-member, #webconf-room-userid-non-member {
       margin: 0;
       padding: 0;
-      width: 49%;
+      width: 50%;
       float: left;
 
       .container {
@@ -54,7 +54,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
     }
 
     input[type=text], input[type=password] {
-      width: 95%;
+      width: 100%;
+      margin-bottom: 10px;
     }
 
     input[type=submit] {

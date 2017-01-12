@@ -4,8 +4,18 @@
 body.join_requests.show {
 
   #join-requests-show {
-    max-width: $m-contents-width/2;
     margin: 0 auto;
+    background-color: $m-alert-bg;
+    @include border-radius($m-border-radius-base);
+    padding: 10px;
+
+    .header-title {
+      text-align: center;
+      @include font-size($m-font-bigger);
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
 
     h3 {
       text-align: center;
@@ -23,29 +33,28 @@ body.join_requests.show {
         max-width: 300px;
       }
     }
+  }
 
-    .action-buttons {
-      text-align: center;
-      margin: 20px;
+  #action-buttons {
+    text-align: center;
+    margin: 5px;
 
-      form {
-        display: inline-block;
+    form {
+      display: inline-block;
 
-        select {
-          width: auto;
-        }
-      }
-
-      select, input, .label {
-        vertical-align: baseline;
-      }
-
-      .option-accept, .option-decline {
-        display: inline-block;
-        margin: 0 15px;
+      select {
+        width: auto;
       }
     }
 
+    select, input, .label {
+      vertical-align: baseline;
+    }
+
+    .option-accept, .option-decline {
+      display: inline-block;
+      margin: 0 15px;
+    }
   }
 
 }
