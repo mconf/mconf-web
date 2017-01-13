@@ -341,19 +341,17 @@ form {
   }
 }
 
-#footer-container {
-  clear: both;
-  color: $m-footer-font-color;
-  //margin-top: 30px;
-  background: $m-footer-bg-color;
-  border-top: 1px solid $m-footer-border-color;
-}
-
 #footer, #footer-mconf {
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
   padding: 10px 0 0 0;
+
+  clear: both;
+  color: $m-footer-font-color;
+  //margin-top: 30px;
+  background: $m-footer-bg-color;
+  border-top: 1px solid $m-footer-border-color;
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
@@ -592,19 +590,6 @@ form {
     border-bottom: 1px solid $m-transparent;
     border-top: 1px solid $m-transparent;
 
-    &.active a {
-      background: $m-site-bg-color;
-      @include link-colors($m-sidebar-menu-active-color, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color);
-      border-bottom: 1px solid $m-sidebar-border;
-      border-top: 1px solid $m-sidebar-border;
-      border-left: 1px solid $m-sidebar-border;
-
-      &:hover,
-      &:active {
-        background: $m-site-bg-color;
-      }
-    }
-
     a {
       display: block;
       @include mconf-clearfix;
@@ -617,7 +602,20 @@ form {
 
       &:hover,
       &:active {
-        background: $m-sidebar-menu-active-bg;
+        background: $m-sidebar-menu-hover-bg;
+      }
+    }
+
+    &.active a {
+      background: $m-sidebar-menu-active-bg;
+      @include link-colors($m-sidebar-menu-active-color, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color);
+      border-bottom: 1px solid $m-sidebar-menu-active-border;
+      border-top: 1px solid $m-sidebar-menu-active-border;
+      border-left: 1px solid $m-sidebar-menu-active-border;
+
+      &:hover,
+      &:active {
+        background: $m-sidebar-menu-active-hover-bg;
       }
     }
   }

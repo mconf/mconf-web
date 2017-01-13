@@ -7,8 +7,6 @@
 
 class FrontpageController < ApplicationController
 
-  layout 'clean'
-
   def show
    respond_to do |format|
       if user_signed_in?

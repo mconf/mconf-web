@@ -85,7 +85,7 @@ $m-input-bg: #fff;
 $m-input-border-color: $m-border-color-medium;
 $m-input-focus-bg:  #fff; //#fafafa;
 $m-input-focus-border-color: $m-color-secondary; //lighten($m-color-primary-light, 5); // #999999;
-$m-input-disabled-bg: #e6e6e6;
+$m-input-disabled-bg: #f6f6f6;
 
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;
@@ -112,15 +112,18 @@ $m-contents-width: 980px; // TODO: deprecated now that the site is responsive
 // sidebar
 $m-sidebar-width: 240px;
 $m-sidebar-border: $m-border-color-normal;
-$m-sidebar-bg-color: #fafafa;
+$m-sidebar-bg-color: #fafafa; //#f3f6f9;
 
 // sidebar menu
-$m-sidebar-menu-active-bg: darken($m-sidebar-bg-color, 4);
-$m-sidebar-menu-active-color: $m-link-color;
-$m-sidebar-menu-active-color-hover: $m-sidebar-menu-active-color;
+$m-sidebar-menu-hover-bg: darken($m-sidebar-bg-color, 5);
 $m-sidebar-menu-color: #666;
-$m-sidebar-menu-color-hover: $m-sidebar-menu-active-color;
+$m-sidebar-menu-color-hover: $m-link-color;
 $m-sidebar-menu-font: $m-font-medium;
+$m-sidebar-menu-active-bg: $m-site-bg-color; // #dae3ec;
+$m-sidebar-menu-active-hover-bg: $m-sidebar-menu-active-bg;
+$m-sidebar-menu-active-border: $m-sidebar-border; //#d9e2ec;
+$m-sidebar-menu-active-color: $m-sidebar-menu-color-hover;
+$m-sidebar-menu-active-color-hover: $m-sidebar-menu-active-color;
 
 // navbar
 $m-navbar-menu-open-bg: $m-site-bg-color;

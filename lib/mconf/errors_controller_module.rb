@@ -6,7 +6,7 @@ module Mconf::ErrorsControllerModule
     # If we're here because of an error in an after_fiter this will trigger a DoubleRender error.
     # To prevent it we'll just clear the response_body before continuing
     self.response_body = nil
-    render :template => "/errors/error_#{number}", :status => number, :layout => "error"
+    render template: "/errors/error_#{number}", status: number, layout: "no_sidebar"
   end
 
   # Add some stack trace info to production log

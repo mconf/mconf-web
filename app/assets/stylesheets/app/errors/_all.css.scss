@@ -30,7 +30,7 @@ $m-z-index-footer: 0;
 /*   } */
 /* } */
 
-#content-container {
+#content {
   z-index: $m-z-index-content;
   margin-top: 80px;
   h1 {
@@ -43,9 +43,7 @@ $m-z-index-footer: 0;
       color: $red;
     }
   }
-}
 
-#content {
   position: relative;
   background: $m-light-gray;
   max-width: 100%;
