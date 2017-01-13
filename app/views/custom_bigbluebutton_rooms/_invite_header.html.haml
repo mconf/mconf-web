@@ -1,25 +1,11 @@
 - page ||= 1
 
 #webconf-room-invite-header
-  .steps
-    .text
-      = t(".steps")
-    - if page == 2
-      = link_to join_webconf_path(@room), :class => "step" do
-        &#10004;
-      %span.step.active
-        2
-    - else
-      %span.step.active
-        1
-      %span.step
-        2
-
   .room-name= t(".room_name", name: room.name)
 
   .room-status{:"data-url" => running_bigbluebutton_room_url(@room, :format => "json")}
     = t(".status")
-    .label.status{options_for_tooltip(t(".refresh"))}
+    .status{options_for_tooltip(t(".refresh"))}
       = t(".status_unknown")
 
   - if @room.private

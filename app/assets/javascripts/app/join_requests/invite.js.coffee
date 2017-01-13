@@ -13,7 +13,7 @@ $ ->
     url = '/users/select?limit=10'
     $(id).select2
       minimumInputLength: 1
-      width: 'resolve'
+      width: '100%'
       multiple: true
       formatSearching: -> I18n.t('join_requests.invite.users.searching')
       formatInputTooShort: -> I18n.t('join_requests.invite.users.hint')

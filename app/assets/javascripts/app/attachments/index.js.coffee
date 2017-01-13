@@ -4,7 +4,7 @@ $ ->
     # Clicking on a row selects the attachment, unless we're clicking in
     # a link or anything inside a link
     $("#space-attachments td").on "click", (e) ->
-      unless $(e.target).closest('a').length
+      if $(e.target).closest('a').length is 0 && $(e.target).closest('input[type="checkbox"]').length is 0
         cb = $(this).parent().find(".attachment-checkbox")
         cb.prop("checked", !cb.prop("checked"));
         updateAll()

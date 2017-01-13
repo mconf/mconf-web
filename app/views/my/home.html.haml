@@ -22,7 +22,9 @@
 #user-spaces.content-block
   %h3= t(".spaces.title")
   .content-block-middle
-    = render "spaces/list_view", :spaces => @user_spaces, :user_spaces => @user_spaces
+    .pending-spaces
+      = render "spaces/list_view", spaces: @user_pending_spaces, user_spaces: @user_pending_spaces, hide_count: true, show_join_request: true
+    = render "spaces/list_view", spaces: @user_spaces, user_spaces: @user_spaces, hide_count: true
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
       = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)

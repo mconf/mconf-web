@@ -236,6 +236,19 @@ module ApplicationHelper
     end
   end
 
+  # Stores the current tab in the menu in the administration pages of a space
+  def bbb_server_admin_menu_at(tab)
+    @bbb_server_admin_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the administration menu of a tabs
+  def bbb_server_admin_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @bbb_server_admin_menu_tab == tab ?
+      options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/

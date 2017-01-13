@@ -1,5 +1,5 @@
-= content_for :sidebar do
-  = render 'shared/webconf_index_links'
+- bbb_server_admin_menu_at :room_list
+= render 'shared/admin_tabs'
 
 %h3= t('.list_of_rooms')
 = render 'custom_bigbluebutton_rooms/rooms', :rooms => @rooms
