@@ -20,37 +20,29 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
-    #site.container-fluid
-      #navbar-container
-        #navbar
-          = render :partial => 'layouts/application_navbar'
+    #site
 
-      - if content_for?(:page_header)
-        - if content_for?(:page_header)
-          #page-header-container
-            #page-header
-              = yield :page_header
+      #navbar
+        = render :partial => 'layouts/application_navbar'
 
-      #content.container-fluid
-        #content-row
-          - if content_for?(:sidebar) || content_for?(:sidebar_menu)
-            #sidebar
-              = yield :sidebar
-              - if content_for?(:sidebar_menu)
-                #sidebar-menu
-                  = yield :sidebar_menu
+      #content
+        - if content_for?(:sidebar) || content_for?(:sidebar_menu)
+          #sidebar
+            = yield :sidebar
+            - if content_for?(:sidebar_menu)
+              #sidebar-menu
+                = yield :sidebar_menu
 
-          #content-middle
-            - if content_for?(:page_menu)
-              #page-menu
-                = yield :page_menu
+        #content-middle
+          - if content_for?(:page_menu)
+            #page-menu
+              = yield :page_menu
 
-            = yield
+          = yield
 
       #footer-pusher
 
     = render :partial => "layouts/footer"
-
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
 

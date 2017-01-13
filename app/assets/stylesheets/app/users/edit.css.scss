@@ -6,10 +6,6 @@
 
 body.users.edit, body.users.update {
 
-  #page-header .current-page-extra {
-    a, span { display: block; }
-  }
-
   #user-account-panel-1 {
     @include make-xs-column(12);
     @include make-sm-column(6);

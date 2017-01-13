@@ -80,16 +80,6 @@ module ApplicationHelper
     params[:controller].parameterize
   end
 
-  # Renders the partial 'layout/page_title'
-  # useful to simplify the calls from the views
-  # Now also sets the html title tag for the page
-  # Ex:
-  #   <%= page_title('users', 'logos/user.png', { :transparent => true }) %>
-  def render_page_title(title, logo=nil, options={})
-    page_title title
-    block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
-  end
-
   # Renders the partial 'layout/sidebar_content_block'
   # If options[:active], will set a css style to emphasize the block
   # Ex:

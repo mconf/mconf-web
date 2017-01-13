@@ -26,11 +26,6 @@ body.frontpage.show {
 
   }
 
-  #page-header {
-    text-align: center;
-    @include font-size($m-font-big);
-  }
-
   .form-area {
     form {
       float: right;

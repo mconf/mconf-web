@@ -246,65 +246,17 @@ form {
 //
 
 #site {
+  @include container-fixed; // without params this is actually a .container-fluid
   padding: 0;
 }
 
-#navbar-container {
+#navbar {
   margin: 0;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
   font-family: $m-font-family-h;
-}
 
-@mixin navbar-lists {
-  > ul {
-    list-style-type: none;
-    float: left;
-    margin: 0;
-    padding: 0;
-
-    > li {
-      display: inline;
-      float: left;
-
-      &:first-child { border: 0 }
-
-      .label { margin-left: 3px; }
-
-      &.notification {
-        //background: lighten($m-navbar-bg-color-light, 5);
-        margin: 0 10px 0 0;
-
-        .badge {
-          background-color: $brand-success;
-          color: white;
-          margin-right: 5px;
-        }
-      }
-    }
-  }
-
-  // very specific selector se we don't mess with dropdowns and others
-  > ul > li > a, > a {
-    padding: 16px;
-    display: block;
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
-    @include transition(background-color 0.2s ease-in);
-
-    &:hover {
-      background: $m-navbar-font-highlight;
-    }
-  }
-
-  .icon-awesome {
-    margin: 3px 3px 0px 0px;
-    @include font-size($m-font-normal);
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
-  }
-}
-
-#navbar {
   color: $m-navbar-font-color;
   @include font-size($m-navbar-font);
   text-align: center;
@@ -377,8 +329,6 @@ form {
 }
 
 #navbar-logo {
-  /* @include make-sm-column(1); */
-  /* float: left; */
   white-space: nowrap;
   margin-top: 11px;
   @include mconf-clearfix;
@@ -390,7 +340,6 @@ form {
     float: left;
   }
 }
-
 
 #footer-container {
   clear: both;
@@ -461,104 +410,10 @@ form {
   span { display: block; }
 }
 
-#page-header-container {
-  padding: 0 20px;
-  background: $m-page-header-background;
-
-  &.without-menu {
-    border-bottom: $m-page-header-border-width solid $m-page-header-border-color;
-  }
-}
-
-#page-header {
-  @include make-row;
-  @include mconf-clearfix;
-  overflow: visible;
-  padding: 25px 10px 15px 10px;
-  clear: both;
-  word-break: break-all;
-
-  > a {
-    @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
-  }
-  /* .current-page-extra > a { */
-  /*   @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color); */
-  /* } */
-
-
-  h1 {
-    margin: 0;
-    border: 0;
-  }
-
-  .current-page-logo {
-    @include make-xs-column(3);
-    max-width: 250px;
-    min-width: 150px;
-
-    .current-page-logo-content {
-      border: 1px #ccc solid;
-      padding: 2px;
-      @include broken-img-parent;
-      margin-top: 5px;
-
-      &.clean { border: 0; }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .current-page-title {
-    color: $m-font-h-color;
-
-    @include make-xs-column(9);
-
-    .main-title {
-      font-size: $m-font-double;
-      font-weight: bold;
-      color: $m-font-h-color;
-      margin-bottom: 5px;
-      a:not(.btn) {
-        text-decoration: none;
-      }
-      @include text-truncate;
-     }
-
-    .sub-title {
-      display: block;
-      font-weight: normal;
-      margin-top: 10px;
-      color: $m-font-color-gray;
-    }
-
-    // some tweaks for the titles in pages of spaces
-    &.space-page {
-      margin-top: 0;
-
-      // the text that shows the visibility of spaces
-      .resource-visibility {
-        color: $m-dark-gray;
-      }
-
-      // the text that shows when a user is a member of the space
-      .user-is-member {
-        color: $m-dark-gray;
-      }
-    }
-  }
-
-  .current-page-extra {
-    float: right;
-    margin: 0 10px 0 0;
-    text-align: right;
-  }
-}
-
 #content {
-  @include make-sm-container-height;
+  @include make-row;
+  /* @include make-sm-container-height; */
+  @include make-sm-row-height;
   width: 100%;
   /* background-color: $m-site-bg-color; */
 
@@ -569,11 +424,6 @@ form {
   // centralized and with the correct margins/paddings
   @include mconf-clearfix;
   overflow: visible;
-}
-
-#content-row {
-  @include make-sm-row-height;
-  @include make-row;
 }
 
 #sidebar, .sidebar {
@@ -1014,20 +864,9 @@ strong.highlight {
     padding-left: 0;
     padding-right: 0;
 
-    #page-header {
-      width: 100%;
-    }
-
     #content-container {
       padding-left: 10px;
       padding-right: 10px;
-    }
-  }
-}
-@media (max-width: 979px) {
-  body.responsive {
-    #page-header {
-      width: 100%;
     }
   }
 }

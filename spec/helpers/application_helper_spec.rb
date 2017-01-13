@@ -39,10 +39,6 @@ describe ApplicationHelper do
     }
   end
 
-  describe "#render_page_title" do
-    it "renders the page title partial with the parameters passed"
-  end
-
   describe "#render_sidebar_content_block" do
     it "renders the sidebar content block partial with the parameters passed"
   end

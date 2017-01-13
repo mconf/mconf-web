@@ -24,13 +24,6 @@
     #site
       #navbar-container
         = yield :navbar
-      - if content_for?(:page_header)
-        #page-header-container
-          #page-header
-            = yield :page_header
-            - if content_for?(:page_menu)
-              #page-menu
-                = yield :page_menu
       #content-container
         = yield
       #footer-pusher

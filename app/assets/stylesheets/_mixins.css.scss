@@ -205,3 +205,50 @@
   font-weight: normal;
   @include font-size($m-font-small);
 }
+
+@mixin navbar-lists {
+  > ul {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline;
+      float: left;
+
+      &:first-child { border: 0 }
+
+      .label { margin-left: 3px; }
+
+      &.notification {
+        //background: lighten($m-navbar-bg-color-light, 5);
+        margin: 0 10px 0 0;
+
+        .badge {
+          background-color: $brand-success;
+          color: white;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  // very specific selector se we don't mess with dropdowns and others
+  > ul > li > a, > a {
+    padding: 16px;
+    display: block;
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+    @include transition(background-color 0.2s ease-in);
+
+    &:hover {
+      background: $m-navbar-font-highlight;
+    }
+  }
+
+  .icon-awesome {
+    margin: 3px 3px 0px 0px;
+    @include font-size($m-font-normal);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+  }
+}
