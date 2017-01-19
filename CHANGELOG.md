@@ -1,6 +1,6 @@
 # Change Log
 
-## [2.4.0] - 2017-01-21
+## [2.4.0] - 2017-01-12
 
 Includes improvements in the management pages, a new management page for recordings,
 several improvements in the searches throughout the site (search for users and spaces,
