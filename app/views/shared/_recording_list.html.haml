@@ -38,7 +38,7 @@
           %td.meeting-date-col
             - if recording
               .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: meeting.start_time, rec_start: recording.start_time, rec_end: recording.end_time) }
-                = format_date(meeting.start_time)
+                = format_date(recording.start_time)
             - else
               .meeting-date{ :title => t('.started_at_desc', meeting_start: meeting.start_time) }
                 = format_date(meeting.start_time)
