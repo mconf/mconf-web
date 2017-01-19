@@ -1,13 +1,12 @@
 = page_title @user.full_name
 
 = content_for :sidebar do
+  = render 'shared/user_card', user: @user
 
   - if can?(:update, @profile)
     .sidebar-top-action-button
       = link_to t('.edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
       = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
-
-  = render 'shared/user_card', user: @user
 
   #sidebar-menu.page-menu-js
     %ul

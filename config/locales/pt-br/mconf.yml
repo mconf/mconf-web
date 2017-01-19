@@ -1655,9 +1655,6 @@ pt-br:
         description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
         header: Compartilhar
         url: "Endereço da sala"
-    webconference_tabs:
-      access: "Acesso à conferência"
-      recordings: "Reuniões e gravações"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

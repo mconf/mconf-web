@@ -40,11 +40,10 @@
 #event-filter-wrapper
 
   - tabs = {'upcoming' => 'upcoming_events', '.now' => 'happening_now', 'all' => 'all', 'past' => 'past_events'}
-  .page-sub-menu
-    .btn-group{ :"data-toggle" => "buttons-radio" }
-      - tabs.each do |k, v|
-        - new_params = params.merge(:show => v).except(:page)
-        = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
+  .btn-group{ :"data-toggle" => "buttons-radio" }
+    - tabs.each do |k, v|
+      - new_params = params.merge(:show => v).except(:page)
+      = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = link_to events_path(:view => params[:view], :show => 'all'), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do

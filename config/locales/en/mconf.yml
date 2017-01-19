@@ -1643,9 +1643,6 @@ en:
         description: "You can invite people to this webconference by sharing the link below:"
         header: Share
         url: "Webconference URL"
-    webconference_tabs:
-      access: "Web conference access"
-      recordings: "Meetings and recordings"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

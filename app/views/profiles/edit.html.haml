@@ -5,6 +5,7 @@
 = page_title t('.title', name: @user.full_name)
 
 = content_for :sidebar do
+  = render 'shared/user_card', user: @user
 
   - if can?(:update, @profile)
     .sidebar-top-action-button
@@ -16,8 +17,6 @@
           = t('.vcard.use')
         = f.input :vcard, :as => :file, :id => 'profile_vcard'
         = f.submit :id => 'profile-vcard-submit'
-
-  = render 'shared/user_card', user: @user
 
   - if @profile.logo_image.blank? && current_site.use_gravatar?
     .using-gravatar.tooltipped{ title: t('.explain_gravatar') }= t('.using_gravatar')

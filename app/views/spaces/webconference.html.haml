@@ -2,9 +2,6 @@
 - spaces_menu_at :webconference
 = render 'spaces/sidebar', space: @space, full: false
 
--# - spaces_webconference_menu_at :access
--# = render 'spaces/webconference_tabs'
-
 = render "shared/webconference_join", room: @space.bigbluebutton_room
 
 .content-block

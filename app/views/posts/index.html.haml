@@ -4,7 +4,7 @@
 
 - nav = page_navigation_links @posts
 
-#space-posts-tabs.page-sub-menu
+#space-posts-tabs
   #space-posts-create
     - if can?(:create, @space.posts.build)
       = link_to t('.new_post'), new_space_post_path(@space), :class => "btn btn-sm btn-primary open-modal"
