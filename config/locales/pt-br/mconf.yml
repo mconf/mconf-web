@@ -1336,6 +1336,7 @@ pt-br:
       view_server_list: "Ver lista de servidores"
     recording_list:
       created_by: "Criada por"
+      delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
       manage: "Gerenciar"

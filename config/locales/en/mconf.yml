@@ -1326,6 +1326,7 @@ en:
       view_server_list: "View server list"
     recording_list:
       created_by: "Created by"
+      delete: "Remove recording"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
       manage: "Manage"

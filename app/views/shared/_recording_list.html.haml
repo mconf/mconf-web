@@ -38,10 +38,10 @@
           %td.meeting-date-col
             - if recording
               .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: meeting.start_time, rec_start: recording.start_time, rec_end: recording.end_time) }
-                = format_date(recording.start_time)
+                = format_date(meeting.created_at)
             - else
               .meeting-date{ :title => t('.started_at_desc', meeting_start: meeting.start_time) }
-                = format_date(meeting.start_time)
+                = format_date(meeting.created_at)
 
           - if show_authors
             %td.rec-author-col
@@ -77,17 +77,16 @@
                 - if can?(:space_edit, recording)
                   = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), class: "open-modal"
 
-              - if recording.published? && can?(:unpublish, recording)
-                - if recording.available?
-                  = link_to icon_delete, unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), method: :post, data: { confirm: t('.unpublish_confirm') }
+              - if recording.available?
+                - if recording.published?
+                  = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), :data => { :confirm => t('are_you_sure') }, :method => :post do
+                    = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
                 - else
-                  -# TODO: for now we don't allow users to unpublish unavailable recordings because it would only generate
-                  -# an error in the API call and would not actually unpublish it.
-                  = content_tag :span, options_for_tooltip(t('.unpublish_unavailable'), { class: "disabled" }) do
-                    = icon_unpublish
+                  = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), :data => { :confirm => t('are_you_sure') }, :method => :post do
+                    = icon_publish(:alt => t('.publish'), :title => t('.publish'))
 
-              -# - if can?(:manage, recording)
-              -#   = link_to t('.manage').downcase, edit_bigbluebutton_recording_path(recording)
+              = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), :data => { :confirm => t('.destroy_confirm') }, :method => :delete do
+                = icon_delete(:alt => t('.delete'), :title => t('.delete'))
 
           - else
             - if show_authors
