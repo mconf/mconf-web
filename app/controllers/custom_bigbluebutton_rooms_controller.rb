@@ -73,7 +73,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def check_unauth_access_not_logged
     if !current_site.unauth_access_to_conferences && !user_signed_in?
       redirect_to join_webconf_path(id: params[:id])
-      flash[:error] = "ERORR!@"
+      flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
     end
   end
 
