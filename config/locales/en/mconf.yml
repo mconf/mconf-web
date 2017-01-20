@@ -1567,12 +1567,22 @@ en:
       unapproved: "This space was not yet approved by an administrator."
     index:
       create_new_space: "Create a new space"
+      private: "Private"
+      public: "Public"
       search:
         by_name:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
       subtitle: "Search for communities of users that share the same interests"
       title: "Spaces"
+    list_item:
+      is_member: "You are a member of this space"
+      private: "Private space"
+      public: "Public space"
+      reply_invitation: "Reply to the invitation"
+      user_is_member: "You are a member of this space"
+      view_join_request: "View the request you sent"
+      with_members: "with %{count} members"
     list_view:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
@@ -1613,14 +1623,6 @@ en:
       public: "Public"
       reply_invitation: "Reply to the invitation"
       view_join_request: "View the request you sent"
-    unified_space:
-      is_member: "You are a member of this space"
-      private: "Private space"
-      public: "Public space"
-      reply_invitation: "Reply to the invitation"
-      user_is_member: "You are a member of this space"
-      view_join_request: "View the request you sent"
-      with_members: "with %{count} members"
     user_permissions:
       confirm_leave_space: "Are you sure you want to leave this space?"
       confirm_remove_user: "Are you sure you want to remove this user from the space?"

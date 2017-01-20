@@ -1,83 +1,6 @@
 @import "compass/css3";
 @import "definitions";
 
-ul.list-thumbnails {
-  margin: 0;
-  padding: 0;
-  clear: both;
-  @include mconf-clearfix;
-
-  .list-thumbnail-wrapper {
-    float: left;
-    padding: 5px;
-    margin: 0px 10px 5px 0px;
-    @include mconf-clearfix;
-    width: 47%;
-    @include block-wrapper-active;
-
-    &.selected {
-      background: $m-light-gray;
-
-      .list-logo {
-        border-color: $m-color-secondary;
-      }
-    }
-  }
-
-  .list-thumbnail {
-    @include mconf-clearfix;
-    @include border-radius($m-border-radius-base);
-
-    .list-logo {
-      float: left;
-      width: 90px;
-      height: 70px;
-      @include broken-img-parent;
-      border: 1px solid darken($m-light-gray, 12);
-      background: white;
-      padding: 2px;
-      @include border-radius($m-border-radius-base);
-
-      img {
-        width: 84px;
-        height: 64px;
-      }
-    }
-
-    .list-description {
-      margin: 3px 10px 1px 10px;
-      overflow: hidden;
-      float: left;
-
-      .list-title {
-        display: block;
-        white-space: nowrap;
-      }
-    }
-  }
-
-}
-
-.list-texts {
-  margin: 0;
-  padding: 0;
-
-  .thread {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-right: 5px;
-  }
-
-  &.selected .thread {
-    border-right: 5px solid #aaa;
-    padding-right: 0;
-  }
-
-  .thread-title {
-    @include font-size($m-font-medium);
-  }
-}
-
 .list-container {
   padding: 0;
 
@@ -93,14 +16,14 @@ ul.list-thumbnails {
     border-top: 1px solid $m-border-color-medium;
     clear: both;
     @include mconf-clearfix;
-    padding: 10px 4px 8px 4px;
+    padding: 12px 4px 12px 4px;
 
     &:first-child {
       border-top-width: 2px;
       margin-top: 0;
     }
 
-    &:hover {
+    &:hover, &.active {
       background-color: #f6f6f6;
     }
 
@@ -121,6 +44,16 @@ ul.list-thumbnails {
     .list-text-title {
       font-size: $m-font-medium;
       font-weight: bold;
+      margin-bottom: 4px;
+      @include mconf-clearfix;
+
+      > a {
+        float: left;
+      }
+    }
+
+    .list-text-subtitle {
+      margin-bottom: 4px;
     }
 
     .list-text-description {

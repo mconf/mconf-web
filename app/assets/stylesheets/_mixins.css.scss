@@ -4,24 +4,39 @@
 
 @mixin breakpoint($point) {
 
+  /* single breakpoints */
   @if ($point == lg) {
     @media (min-width: $screen-lg-min) { @content }
   }
-
   @else if ($point == md) {
     @media (min-width: $screen-md-min) and (max-width: ($screen-lg-min - 1)) { @content }
   }
-
   @else if ($point == sm) {
     @media (min-width: $screen-sm-min) and (max-width: ($screen-md-min - 1)) { @content }
   }
-
   @else if ($point == xs) {
     @media (max-width: ($screen-sm-min - 1)) { @content }
   }
-  /* @else if ($point == xs) { */
-  /*   @media (min-width: $screen-xs-min) and (max-width: ($screen-sm-min - 1)) { @content } */
-  /* } */
+
+  /* groups */
+  @else if ($point == lg-down) {
+    @media (max-width: ($screen-lg-min - 1)) { @content }
+  }
+  @else if ($point == md-down) {
+    @media (max-width: ($screen-md-min - 1)) { @content }
+  }
+  @else if ($point == sm-down) {
+    @media (max-width: ($screen-sm-min - 1)) { @content }
+  }
+  @else if ($point == md-up) {
+    @media (min-width: $screen-md-min) { @content }
+  }
+  @else if ($point == sm-up) {
+    @media (min-width: $screen-sm-min) { @content }
+  }
+  @else if ($point == xs-up) {
+    @media (min-width: $screen-xs-min) { @content }
+  }
 }
 
 // In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
@@ -84,12 +99,17 @@
     border: 1px solid $m-border-color-normal;
     @include border-radius($m-border-radius-small);
 
+    &.logo-space, &.logo-user {
+      width: 100%;
+      height: auto;
+    }
+
     // default dimensions for logos inside threads
-    &.logo-space, &.logo-space-activity {
+    &.logo-space.fixed-width, &.logo-space-activity {
       width: 52px;
       height: 39px;
     }
-    &.logo-user, &.logo-user-activity {
+    &.logo-user.fixed-width, &.logo-user-activity {
       width: 39px;
       height: 39px;
     }
@@ -251,4 +271,21 @@
     @include font-size($m-font-normal);
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
   }
+}
+
+@mixin two-column-list($logo-size, $margin) {
+  .col-1 {
+    width: $logo-size;
+    height: auto;
+    float: left;
+    margin-left: $margin;
+  }
+
+  .col-2 {
+    $col1-size: $logo-size + $margin * 3;
+    width: calc(100% - #{$col1-size});
+    margin-left: $margin*2;
+    float: left;
+  }
+
 }

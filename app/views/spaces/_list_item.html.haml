@@ -1,0 +1,53 @@
+-# Locals:
+-#   space (Space): the target model
+-#   is_member (boolean): Whether the current user is a member of the space or not
+-#   show_join_request (boolean): show link to a join request (if it exists)
+
+- show_join_request ||= false
+
+- cls = space.disabled? ? "list-item-disabled" : ""
+.list-item.container-fluid{ name: space.permalink, class: cls }
+
+  .col-1
+    .list-item-logo
+      = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
+
+  .col-2
+    .list-text-title
+      = link_to space_path(space) do
+        = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
+      = render :partial => "spaces/space_tags", :locals => { :space => space }
+
+    .list-text-subtitle
+      - if space.public
+        .resource-visibility.small.public
+          = icon_space_public
+          = t(".public")
+          = t('.with_members', :count => space.users.size)
+      - else
+        .resource-visibility.small.private
+          = icon_space_private
+          = t(".private")
+          = t('.with_members', :count => space.users.size)
+      - if is_member
+        .resource-visibility.small
+          = icon_is_member
+          = t(".is_member")
+
+      .resource-visibility.small
+        - jr = space.pending_join_request_or_invitation_for(current_user)
+        - if jr
+          = icon_join_request
+          - if jr.is_invite?
+            = link_to t(".reply_invitation"), space_join_request_path(space, jr)
+          - else
+            = link_to t(".view_join_request"), space_join_request_path(space, jr)
+
+    .list-text-description
+      = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
+
+      -# TODO
+      -# - if current_site.require_space_approval? && !space.approved?
+      -#   .space-waiting-moderation.resource-visibility.small
+      -#     = icon_waiting_moderation
+      -#     = t("_other.not_approved.text")

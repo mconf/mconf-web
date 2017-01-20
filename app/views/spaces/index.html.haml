@@ -12,37 +12,43 @@
       - else
         = link_to t('_other.login'), login_path, :class => "btn btn-primary btn-block"
 
-  = render_sidebar_content_block('space-description-wrapper') do
-    .content-block-middle
-      %p.empty-space-description= t('space.index.select_at_left')
+  #space-description-wrapper
+    .empty-space-description= t('space.index.select_at_left')
+
     - @spaces.each do |space|
       - has_access = user_signed_in? || space.public
-      .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
+      .space-description{ id: "#{space.permalink}-description" }
         .space-logo-wrapper
           - if has_access
             = link_logo_image(space, :size => '336x256', :title => space.name, :class => "logo logo-space")
           - else
             = logo_image(space, :size => '336x256', :title => space.name, :class => "logo logo-space")
-        - if has_access
-          = link_to space_path(space) do
-            %h3.name= space.name
+
+        .title
+          - if has_access
+            = link_to space_path(space) do
+              = space.name
+          - else
+            = space.name
+
+        - if space.public
+          .resource-visibility.public
+            = icon_space_public
+            = t(".public")
         - else
-          %h3.name= space.name
+          .resource-visibility.private
+            = icon_space_private
+            = t(".private")
+
         - space_ids = current_user.try(:space_ids) || []
         - if space_ids.include?(space.id)
           .is-member
             = icon_is_member
             = t('space.index.user_is_member')
+
         %p.description= first_words(space.description, 400)
-        %p.details
-          %span= t('space.member_count', :count => space.users.size)
-          %span= t('space.post_count', :count => space.posts.size)
-          - if mod_enabled?("events")
-            %span= t('space.event_count', :count => space.events.size)
+
         = render :partial => "spaces/space_tags", :locals => { :space => space }
-        - if has_access
-          %p.action-links
-            = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
   - if params[:tag].present?
@@ -73,4 +79,4 @@
 
 
 #space-list-render
-  = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
+  = render "spaces/list_view", spaces: @spaces, user_spaces: @user_spaces

@@ -110,7 +110,10 @@ $m-contents-max-width: 1180px;
 $m-contents-width: 980px; // TODO: deprecated now that the site is responsive
 
 // sidebar
-$m-sidebar-width: 240px;
+$m-sidebar-width-lg: 350px;
+$m-sidebar-width-md: 300px;
+$m-sidebar-width-sm: 300px;
+$m-sidebar-padding: 25px;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fafafa; //#f3f6f9;
 

@@ -1,30 +1,24 @@
 -# locals:
 -#   spaces (array of Space)
 -#   user_spaces (array of Space): the spaces to which the user belongs
--#   extended (boolean): show extended information
--#   show_join_request (boolean): show link to a join request (if it exists)
 -#   hide_count (boolean): will inhibit the counting of spaces if set to true
 
-- show_join_request ||= false
-- extended ||= false
 - hide_count ||= false
 
-.list-container
-  -if !hide_count
-    .resource-filter-container.list-item-header
-      .resource-filter-with-text
-        = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
-      .resource-filter-without-text
-        = t('.filter_count_empty', :count => spaces.count)
-
 - if spaces.count > 0
-  #spaces
-    .content-block-middle.clearfix
-      %ul.list-texts
-        - spaces.each do |space|
-          - is_member = user_spaces && user_spaces.include?(space)
-          %li.list-text{:name => space.permalink}
-            = render "spaces/unified_space", :space => space, :is_member => is_member, :extended => extended, :show_join_request => show_join_request
+
+  #spaces.list-container.list-tablefied
+    - if !hide_count
+      .resource-filter-container.list-item-header
+        .resource-filter-with-text
+          = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+        .resource-filter-without-text
+          = t('.filter_count_empty', :count => spaces.count)
+
+    - spaces.each do |space|
+      - unless space.nil?
+        - is_member = user_spaces && user_spaces.include?(space)
+        = render "spaces/list_item", space: space, is_member: is_member
 
     - if is_paginated?(spaces)
       - nav = page_navigation_links spaces

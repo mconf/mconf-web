@@ -1580,12 +1580,22 @@ pt-br:
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index:
       create_new_space: "Criar uma comunidade"
+      private: "Privado"
+      public: "Público"
       search:
         by_name:
           no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
+    list_item:
+      is_member: "Você é membro desta comunidade"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
+      reply_invitation: "Responder ao convite"
+      user_is_member: "Você é membro desta comunidade"
+      view_join_request: "Ver a requisição que você enviou"
+      with_members: "com %{count} membros"
     list_view:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
@@ -1623,14 +1633,6 @@ pt-br:
       public: "Pública"
       reply_invitation: "Responder ao convite"
       view_join_request: "Ver a requisição que você enviou"
-    unified_space:
-      is_member: "Você é membro desta comunidade"
-      private: "Comunidade privada"
-      public: "Comunidade pública"
-      reply_invitation: "Responder ao convite"
-      user_is_member: "Você é membro desta comunidade"
-      view_join_request: "Ver a requisição que você enviou"
-      with_members: "com %{count} membros"
     user_permissions:
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"

@@ -5,16 +5,19 @@ $ ->
   if isOnPage 'spaces', 'index'
 
     # hovering an space shows its description in the sidebar
-    $(".list-thumbnails > li, .list-texts > li").hover ->
+    $("#spaces .list-item").hover ->
+
+      $("#space-description-wrapper .empty-space-description").hide()
+
+      hovered = ".space-description#" + $(this).attr("name") + "-description"
+
+      # mark the list item as active
+      $("#spaces .list-item").removeClass('active')
+      $(this).addClass('active')
 
       # hide all descriptions and shows the selected
-      hovered = "div#" + $(this).attr("name") + "-description"
-      $("#space-description-wrapper div.content-block-middle").hide()
-      $(hovered).show()
-
-      # remove all 'selected' classes and adds only to the selected div
-      $(".list-thumbnails > li.selected, .list-texts > li.selected").removeClass("selected")
-      $(this).addClass("selected")
+      $("#space-description-wrapper .space-description").removeClass('active')
+      $(hovered).addClass('active')
 
       # updates the position of the description div
       $("#space-description-wrapper").sticky("update")
@@ -24,4 +27,3 @@ $ ->
     $("#space-description-wrapper").sticky
       topSpacing: 20
       bottomSpacing: 250
-

@@ -1,5 +1,5 @@
 - cls = space.disabled? ? "list-item-disabled" : ""
-.list-item{ id: "space-#{space.permalink}", class: cls }
+.list-item.container-fluid{ id: "space-#{space.permalink}", class: cls }
   .col-xs-12.col-sm-1
     .list-item-logo
       = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :class => "logo logo-space"))

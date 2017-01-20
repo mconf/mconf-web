@@ -428,7 +428,7 @@ form {
   @include make-sm-column-height;
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding: 30px 25px;
+  padding: $m-sidebar-padding;
 
   .sidebar-title {
     font-size: $m-font-double;
@@ -567,11 +567,6 @@ form {
     .btn-block {
       float: left;
     }
-  }
-
-  /* navbars in the sidebar */
-  .nav {
-    width: $m-sidebar-width - 12px; // all width minus spaces and borders
   }
 }
 
@@ -816,10 +811,10 @@ strong.highlight {
 // visibility of a resource: private space, public space, private event, etc.
 .resource-visibility {
   display: block;
+  font-weight: normal;
 
   .icon-awesome {
     float: none;
-    margin-right: 2px;
   }
 
   &.small {

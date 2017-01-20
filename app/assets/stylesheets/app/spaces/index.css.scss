@@ -2,6 +2,8 @@
 @import "compass/typography/links";
 @import "definitions";
 
+@import "app/spaces/_list_view";
+
 body.spaces.index {
 
   #space-filter-wrapper {
@@ -50,23 +52,24 @@ body.spaces.index {
   }
 
   #space-description-wrapper {
-
+    padding-top: 10px;
     border-top: 1px solid $m-sidebar-border;
 
-    // When the description is floating over the page, it has to be restricted
-    // to the exact size of the sidebar. So we set it to be the min size of the sidebar
-    // minus paddings+margings+borders.
     &.is-sticky {
-      min-width: 260px;
-      width: 260px;
+      padding-top: 0;
+      border-top: none;
     }
 
-    .content-block-middle {
-      //word-break: break-all;
+    .empty-space-description {
+      margin-top: 5px;
+      text-align: center;
+    }
 
-      .empty-space-description {
-        margin-top: 20px;
-        text-align: center;
+    .space-description {
+      display: none;
+
+      &.active {
+        display: block;
       }
 
       .space-logo-wrapper {
@@ -86,59 +89,35 @@ body.spaces.index {
           padding: 3px;
         }
       }
-    }
 
-    .is-member {
-      width: 100%;
-      color: $m-alert-success-font;
-      /* background: $m-site-bg-color; //lighten($m-alert-success-bg, 5); */
-      /* padding: 5px 10px; */
-      /* @include border-radius($m-border-radius-base); */
-      /* text-align: center; */
-      margin: 5px 0 15px 0;
-    }
+      .title {
+        color: $m-font-h-color;
+        font-style: normal;
+        font-family: $m-font-family-h;
+        font-size: $m-font-normal * $m-font-h3-multiplier;
+        margin-bottom: 8px;
 
-    .details {
-      font-style: italic;
-      color: #888;
-      span { display: block; }
-    }
-
-    .action-links {
-      text-align: right;
-    }
-  }
-
-  #spaces {
-
-    .list-text {
-      .thread {
-        margin: 0;
-        // tighter than the default
-        padding: 10px;
-      }
-
-      &.selected .thread {
-        background: $m-light-gray;
-        .logo-in-thread img {
-          border-color: $m-bright-blue;
+        a {
+          @include link-colors($m-font-h-color, $m-font-h-color-hover, $m-font-h-color-active, $m-font-h-color);
+          text-decoration: none;
         }
       }
-    }
 
-    .list-thumbnail {
-      .resource-visibility {
-        color: $m-dark-gray;
+      .description {
+        margin: 8px 0 16px 0;
       }
-    }
 
-    .list-text {
-      .resource-visibility {
-        color: $m-dark-gray;
+      .details {
+        font-style: italic;
+        color: #888;
+        span { display: block; }
+      }
+
+      .action-links {
+        text-align: right;
       }
     }
   }
-
 }
 
 

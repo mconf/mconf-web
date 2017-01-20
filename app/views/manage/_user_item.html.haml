@@ -1,5 +1,5 @@
 - cls = user.disabled? ? "list-item-disabled" : ""
-.list-item{ id: "user-#{user.permalink}", class: cls }
+.list-item.container-fluid{ id: "user-#{user.permalink}", class: cls }
   .col-xs-12.col-sm-1
     .list-item-logo
       = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')

@@ -7,9 +7,9 @@
  * We don't use bootstrap's responsive columns because we want a fixed-width sidebar.
  */
 
-$sidebar-lg: 350px;
-$sidebar-md: 300px;
-$sidebar-sm: 300px;
+$sidebar-lg: $m-sidebar-width-lg;
+$sidebar-md: $m-sidebar-width-md;
+$sidebar-sm: $m-sidebar-width-sm;
 
 @mixin sidebar-sizing($size) {
   body {
@@ -58,5 +58,27 @@ $sidebar-sm: 300px;
 
   #content-middle {
     width: 100%;
+  }
+}
+
+
+/*
+ * For sticky components inside the sidebar, have to keep their width the same
+ * as the sidebar when they are floating.
+ */
+
+.is-sticky {
+  width: $m-sidebar-width-lg - ($m-sidebar-padding * 2);
+}
+
+@include breakpoint(md) {
+  .is-sticky {
+    width: $m-sidebar-width-md - ($m-sidebar-padding * 2);
+  }
+}
+
+@include breakpoint(sm) {
+  .is-sticky {
+    width: $m-sidebar-width-sm - ($m-sidebar-padding * 2);
   }
 }

@@ -13,6 +13,8 @@
 
 @import "app/shared/webconference_join";
 
+@import "app/spaces/_list_view";
+
 body.my.home, body.my.activity, body.my.recordings {
 
   $second-content-bg-color: darken($m-light-gray, 2);
