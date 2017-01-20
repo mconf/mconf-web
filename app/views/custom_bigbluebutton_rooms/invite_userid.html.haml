@@ -21,7 +21,7 @@
           = link_to(image_tag("logos/shib_federation_small.jpg"), shibboleth_path)
           = link_to(t(".member.shibboleth.click_here"), shibboleth_path)
 
-  - if !current_site.unauth_access_to_conferences 
+  - if current_site.unauth_access_to_conferences?
     #webconf-room-userid-non-member
       .container
         %h3.title= t(".non_member.title")

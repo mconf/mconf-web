@@ -24,6 +24,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :check_redirect_to_invite, only: [:invite_userid]
   before_filter :check_redirect_to_invite_userid, only: [:invite]
 
+  # can't join or join mobile if not logged and unauthorized is false
+  before_filter :check_unauth_access_not_logged, only: [:join, :join_mobile]
+
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
 
@@ -64,6 +67,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     else
       redirect_to join_webconf_path(id: params[:id])
       flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
+    end
+  end
+
+  def check_unauth_access_not_logged
+    if !current_site.unauth_access_to_conferences && !user_signed_in?
+      redirect_to join_webconf_path(id: params[:id])
+      flash[:error] = "ERORR!@"
     end
   end
 
