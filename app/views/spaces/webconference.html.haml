@@ -6,7 +6,6 @@
 
 .content-block
   .content-block-header
-    = icon_users()
     %h3
       = t('.attendees.people_in_the_room')
       = "(#{@webconf_room.participant_count})"
@@ -30,9 +29,7 @@
 
 #space-recordings.content-block
   .content-block-header
-    %h3
-      = icon_recording
-      = t('.recordings.title')
+    %h3= t('.recordings.title')
   - if @meetings.count > 0
     #space-recordings-list-container.content-block-middle
       = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: webconference_space_path(@space) }

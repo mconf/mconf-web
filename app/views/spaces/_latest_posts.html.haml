@@ -1,8 +1,6 @@
 #latest-posts.content-block
   .content-block-header
-    = icon_comments()
-    %h3
-      = link_to t('post.latest'), space_posts_path(@space)
+    %h3= link_to t('post.latest'), space_posts_path(@space)
 
   .content-block-middle
     - if @latest_posts.empty?

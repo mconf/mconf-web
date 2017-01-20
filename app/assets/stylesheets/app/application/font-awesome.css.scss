@@ -10,17 +10,12 @@ $default-icon-color: #888; /* lighten($m-green-logo, 10); */
 $light-icon-color: #aaa;
 
 .icon-awesome {
-  /* margin: 2px 5px 0 0; */
-  /* @include font-size(14px); */
-  /* width: 14px; */
-  /* height: 14px; */
-  /* float: left; */
   color: $default-icon-color;
-  /* cursor: normal; */
 
-  /* &.icon-white { */
-  /*   color: white; */
-  /* } */
+  /* so all icons look similar even though they have different aspect ratios */
+  max-width: 13px;
+  width: 13px;
+  text-align: center;
 }
 
 h2 .icon-awesome {

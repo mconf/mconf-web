@@ -1611,6 +1611,7 @@ en:
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
     show:
+      description: "Descrição"
       events_now: "Events hapenning now!"
     sidebar:
       admin: "Admin"

@@ -1633,6 +1633,7 @@ pt-br:
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
     show:
+      description: "Description"
       events_now: "Eventos acontecendo agora!"
     space_join_button:
       accept_or_decline: "Responder ao convite"

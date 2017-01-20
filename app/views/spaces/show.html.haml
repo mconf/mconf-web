@@ -14,11 +14,12 @@
 
 .content-block
   .content-block-header
-    %h3= "Description"
+    %h3= t('.description')
   .content-block-middle
     = sanitize(@space.description)
 
--if can?(:read, @space.posts)
+- posts = @space.posts
+- if !posts.empty? && can?(:read, posts)
   = render :partial => 'latest_posts'
 
 = render :partial => 'latest_users'

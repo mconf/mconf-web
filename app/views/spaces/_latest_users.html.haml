@@ -1,8 +1,6 @@
 #latest-users.content-block
   .content-block-header
-    = icon_users()
-    %h3
-      = link_to t('user.recent_join'), space_users_path(@space)
+    %h3= link_to t('user.recent_join'), space_users_path(@space)
 
   .content-block-middle
     - for user in @latest_users
