@@ -510,6 +510,7 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: %{name}"
     join:
+      unauth_access_to_conferences: "This meeting requires users to log in to their accounts."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
     join_mobile:
       click_to_download_android: "Click here to download the Android client"

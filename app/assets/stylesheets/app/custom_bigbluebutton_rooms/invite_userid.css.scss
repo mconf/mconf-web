@@ -29,9 +29,12 @@ body.custom_bigbluebutton_rooms.invite_userid {
       }
     }
 
-    #webconf-room-userid-member {
-      border-right: 1px solid #ddd;
+    #webconf-room-userid-non-member {
+      padding-bottom: 50px;
+      border-left: 1px solid #ddd;
+    }
 
+    #webconf-room-userid-non-member {
       .container {
         float: right;
       }

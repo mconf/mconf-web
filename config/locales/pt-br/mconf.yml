@@ -517,6 +517,7 @@ pt-br:
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: %{name}"
     join:
+      unauth_access_to_conferences: "Esta conferência requer que os usuários estejam logados em suas contas."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"

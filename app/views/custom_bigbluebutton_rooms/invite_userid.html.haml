@@ -21,12 +21,13 @@
           = link_to(image_tag("logos/shib_federation_small.jpg"), shibboleth_path)
           = link_to(t(".member.shibboleth.click_here"), shibboleth_path)
 
-  #webconf-room-userid-non-member
-    .container
-      %h3.title= t(".non_member.title")
+  - if !current_site.unauth_access_to_conferences 
+    #webconf-room-userid-non-member
+      .container
+        %h3.title= t(".non_member.title")
 
-      = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
-        .input
-          %label= t(".non_member.name")
-          = text_field_tag "user[name]", "", :required => true
-        = f.button :submit, t(".non_member.next"), :class => "btn btn-primary"
+        = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
+          .input
+            %label= t(".non_member.name")
+            = text_field_tag "user[name]", "", :required => true
+          = f.button :submit, t(".non_member.next"), :class => "btn btn-primary"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109164815) do
+ActiveRecord::Schema.define(version: 20170119195523) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -383,6 +383,7 @@ ActiveRecord::Schema.define(version: 20161109164815) do
     t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
     t.string   "smtp_receiver"
+    t.boolean  "unauth_access_to_conferences",   default: true
   end
 
   create_table "spaces", force: true do |t|
