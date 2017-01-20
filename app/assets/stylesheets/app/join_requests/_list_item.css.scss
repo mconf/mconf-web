@@ -1,0 +1,26 @@
+@import "definitions";
+
+.list-container {
+  .list-item-jr {
+    @include two-column-list(56px, 8px);
+
+    .list-text-title {
+      float: left;
+    }
+
+    .list-text-description {
+      clear: left;
+    }
+
+    .list-actions {
+      float: right;
+      margin: 0 8px;
+
+      .comment {
+        display: inline-block;
+        margin-right: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+}

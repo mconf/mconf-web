@@ -535,6 +535,20 @@ pt-br:
       title: "Acesso móvel à sala \"%{room}\""
       use_default_client: "Se você não está em um cliente móvel, clique aqui para entrar na sessão usando o cliente desktop padrão."
       try_again: "Você possui a aplicação instalada mas ela não foi iniciada? Clique aqui para tentar novamente."
+    list_item:
+      accept: "Aceitar"
+      cancel: "Cancelar"
+      cancel_confirm: "Você tem certeza que desejar cancelar esta requisição?"
+      decline: "Rejeitar"
+      decline_confirm: "Você tem certeza que deseja rejeitar este convite?"
+      invite:
+        comment:
+          title: "Mensagem de convite"
+      invited_by: "Você foi convidado por %{name}."
+      request:
+        comment:
+          title: "Sua mensagem"
+      your_request: "Você solicitou ingresso nesta comunidade."
     new:
       creating_new_room: "Criando uma nova sala"
     recordings:
@@ -1054,10 +1068,6 @@ pt-br:
       past_meetings:
         title: "Reuniões e gravações passadas"
         view_more: "Ver todas reuniões e gravações"
-      pending_join_requests:
-        one: "%{count} requisição pendente"
-        other: "%{count} requisições pendentes"
-      pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
       title: "Editar sua gravação"
@@ -1077,6 +1087,9 @@ pt-br:
         webconf_room: "Minha sala de webconferência"
       spaces:
         create: "Criar uma comunidade"
+        no_spaces: "Você ainda não é membro de nenhuma comunidade."
+        or: "ou"
+        pending: "Requisições de ingresso pendentes"
         title: "Minhas comunidades"
         view_all: "Ver todas comunidades"
     webconference_room:

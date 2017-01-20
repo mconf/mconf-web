@@ -286,13 +286,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Return the list of pending join requests for this user
+  def pending_join_requests(type='Space')
+    JoinRequest.where(candidate_id: self, processed_at: nil, group_type: type)
+  end
+
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
-    requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
+    requests = self.pending_join_requests
     ids = requests.pluck(:group_id)
-    # note: not 'find' because some of the spaces might be disabled and 'find' would raise
-    #   an exception
-    Space.where(:id => ids)
+    # note: not 'find' because some of the spaces might be disabled and 'find'
+    # would raise an exception
+    Space.where(id: ids)
   end
 
   after_create :new_activity_user_created

@@ -838,6 +838,20 @@ en:
         hint: "Type to start searching"
         no_results: "No results found"
         searching: "Searching..."
+    list_item:
+      accept: "Accept"
+      cancel: "Cancel"
+      cancel_confirm: "Are you sure you want to cancel the join request?"
+      decline: "Decline"
+      decline_confirm: "Are you sure you want to decline this invitation?"
+      invite:
+        comment:
+          title: "Invitation message"
+      invited_by: "You were invited by %{name}."
+      request:
+        comment:
+          title: "Your message"
+      your_request: "You requested to join this space."
     new:
       already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
@@ -867,8 +881,8 @@ en:
         title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
       is_other:
         comment_request: "This is the comment written by \"%{name}\":"
-        title_header_invitation: "An user has been invited to join a space"
-        title_header_request: "An user has requested to join a space"
+        title_header_invitation: "A user has been invited to join a space"
+        title_header_request: "A user has requested to join a space"
         title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
         title_request: "\"%{candidate}\" requested on %{date} to join the space \"%{space}\""
   keywords: "Keywords (*)"
@@ -1056,13 +1070,11 @@ en:
       past_meetings:
         title: "Past meetings and recordings"
         view_more: "View all meetings and recordings"
-      pending_join_requests:
-        one: "%{count} pending join request"
-        other: "%{count} pending join requests"
-      pending_join_requests_tooltip: "These are the invitations you received to join spaces or the join requests you sent."
       spaces:
         create: "create a space"
+        no_spaces: "You're still not a member of any space."
         or: "or"
+        pending: "Pending join requests"
         title: "My spaces"
         view_all: "View all my spaces"
       view_all_spaces: "View all spaces"

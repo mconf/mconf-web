@@ -19,12 +19,28 @@
     .content-block-footer-middle
       = link_to t('.past_meetings.view_more'), my_recordings_path
 
+- if @pending_requests.count > 0
+  #user-spaces-pending.content-block
+    %h3= t(".spaces.pending")
+    .content-block-middle
+      .list-container.list-tablefied
+        - @pending_requests.each do |jr|
+          = render "join_requests/list_item", jr: jr
+
 #user-spaces.content-block
   %h3= t(".spaces.title")
+
   .content-block-middle
-    .pending-spaces
-      = render "spaces/list_view", spaces: @user_pending_spaces, user_spaces: @user_pending_spaces, hide_count: true, show_join_request: true
-    = render "spaces/list_view", spaces: @user_spaces, user_spaces: @user_spaces, hide_count: true
+
+    - if @user_spaces.count > 0
+      .list-container.list-tablefied
+        - @user_spaces.each do |space|
+          - unless space.nil?
+            - is_member = @user_spaces && @user_spaces.include?(space)
+            = render "spaces/list_item", space: space, is_member: is_member
+    - else
+      = t(".spaces.no_spaces")
+
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
       = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)

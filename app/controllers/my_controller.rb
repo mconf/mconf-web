@@ -40,8 +40,9 @@ class MyController < ApplicationController
   end
 
   def home
-    # TODO: #1087 show notification of the pending spaces somewhere
-    @user_pending_spaces = current_user.pending_spaces
+    @pending_requests = current_user.pending_join_requests
+    # TODO: this will not be necessary when jrs are removed after a space is disabled
+    @pending_requests.to_a.select! { |jr| jr.group.present? }
 
     # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)

@@ -28,6 +28,7 @@ class mconf.Resources
     mconf.DateTimeInput.bind()
     mconf.QueryString.bind()
     mconf.Tags.bind()
+    mconf.Popover.bind()
     for method in temporaryBinds
       method.call()
 

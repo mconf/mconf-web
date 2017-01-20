@@ -7,14 +7,6 @@
 
 body.spaces.show {
 
-  // date of comments, posts, etc.
-  // TODO: maybe move to _base
-  .updated-at {
-    font-style: italic;
-    margin-left: 10px;
-    color: #777;
-  }
-
   #latest-posts {
     .post-wrapper {
       clear: both;

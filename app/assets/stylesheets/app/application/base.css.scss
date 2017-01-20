@@ -943,6 +943,11 @@ strong.highlight {
 }
 
 
-/* #content, #content-row { */
-/*   height: 100%; */
-/* } */
+// date of comments, posts, etc.
+.updated-at {
+  font-size: $m-font-normal;
+  font-style: italic;
+  font-weight: normal;
+  margin-left: 8px;
+  color: #777;
+}
