@@ -64,7 +64,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
         redirect_to join_webconf_path(@room)
       end
-    else
+    elsif !user_signed_in?
       redirect_to join_webconf_path(id: params[:id])
       flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
     end
