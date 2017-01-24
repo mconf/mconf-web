@@ -24,11 +24,11 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :check_redirect_to_invite, only: [:invite_userid]
   before_filter :check_redirect_to_invite_userid, only: [:invite]
 
-  # can't join or join mobile if not logged and unauthorized is false
-  before_filter :check_unauth_access_not_logged, only: [:join, :join_mobile]
-
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
+
+  # can't join or join mobile if not logged and unauthorized is false
+  before_filter :check_unauth_access_not_logged, only: [:join, :join_mobile]
 
   # use the patter configured on the site to generate dial numbers
   before_filter :set_site_pattern, only: [:generate_dial_number]
