@@ -95,7 +95,7 @@ Rails.application.config.to_prepare do
     # have a recording.
     scope :with_or_without_recording, -> {
       joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
-        .order("start_time DESC")
+        .order("create_time DESC")
     }
   end
 
@@ -157,8 +157,10 @@ Rails.application.config.to_prepare do
       unless recording.nil? or recording.room.nil?
         unless recording.start_time.nil?
           start_time = recording.start_time
-          start_time = start_time.to_time.to_i
-          meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time DIV 1000 = ?", recording.room.id, start_time).last
+          meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time = ?", recording.room.id, start_time).last
+            if meeting.nil?
+              meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time DIV 1000 = ?", recording.room.id, start_time).last
+            end
           logger.info "Recording: meeting found for the recording #{recording.inspect}: #{meeting.inspect}"
         end
       end

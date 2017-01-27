@@ -652,14 +652,14 @@ describe SpacesController do
           it { should assign_to(:meetings).with([@meeting]) }
         end
 
-        context "order meetings start_time DESC" do
+        context "order meetings create_time DESC" do
           before :each do
             meeting1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :start_time => DateTime.now)
+                                          :create_time => DateTime.now)
             meeting2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :start_time => DateTime.now - 2.days)
+                                          :create_time => DateTime.now - 2.days)
             meeting3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :start_time => DateTime.now - 1.hour)
+                                          :create_time => DateTime.now - 1.hour)
             @expected_meetings = [meeting1, meeting3, meeting2]
           end
           it { should assign_to(:meetings).with(@expected_meetings) }
@@ -671,15 +671,15 @@ describe SpacesController do
       describe "limits the number of meetings assigned to @meetings" do
         before :each do
           @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                   :start_time => DateTime.now)
+                                   :create_time => DateTime.now)
           @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                   :start_time => DateTime.now - 1.hour)
+                                   :create_time => DateTime.now - 1.hour)
           @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                   :start_time => DateTime.now - 2.hours)
+                                   :create_time => DateTime.now - 2.hours)
           @m4 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                   :start_time => DateTime.now - 3.hours)
+                                   :create_time => DateTime.now - 3.hours)
           @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                   :start_time => DateTime.now - 4.hours)
+                                   :create_time => DateTime.now - 4.hours)
         end
         before(:each) { get :recordings, :id => space.to_param, :limit => 3 }
         it { assigns(:meetings).count.should be(3) }

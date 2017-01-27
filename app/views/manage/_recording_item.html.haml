@@ -24,7 +24,7 @@
   .col-xs-12.col-sm-2
     = t('.from') + " "
     %span.tooltipped{title: recording.start_time}
-      = I18n.l(recording.start_time, format: :numeric)
+      = I18n.l(Time.at(recording.start_time), format: :numeric)
 
   .col-xs-12.col-sm-2
     = recording_available(recording)

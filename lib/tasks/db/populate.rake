@@ -262,7 +262,7 @@ namespace :db do
         meeting.room_id = room.id
         meeting.server_id = room.server.id
         meeting.meetingid = room.meetingid
-        meeting.start_time = @created_at_start..Time.now
+        meeting.create_time = (Time.now-1.year).to_i..Time.now.to_i
         meeting.name = Populator.words(3..5).titleize
         meeting.recorded = true
         if room.owner.present? # not for disabled resources
@@ -285,8 +285,8 @@ namespace :db do
           recording.name = meeting.name
           recording.published = true
           recording.available = true
-          recording.start_time = meeting.start_time
-          recording.end_time = recording.start_time + rand(5).hours
+          recording.start_time = meeting.create_time
+          recording.end_time = Time.at(recording.start_time.to_i + rand(5).hours)
           recording.description = Populator.words(5..8)
           recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
 
@@ -319,7 +319,7 @@ namespace :db do
         meeting.room_id = room.id
         meeting.server_id = room.server.id
         meeting.meetingid = room.meetingid
-        meeting.start_time = @created_at_start..Time.now
+        meeting.create_time = (Time.now-1.year).to_i..Time.now.to_i
         meeting.name = Populator.words(3..5).titleize
         meeting.recorded = false
         if room.owner.present? # not for disabled resources
