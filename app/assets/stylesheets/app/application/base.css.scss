@@ -410,12 +410,7 @@ form {
 
 #content {
   @include make-row;
-  /* @include make-sm-container-height; */
-  @include make-sm-row-height;
   width: 100%;
-  /* background-color: $m-site-bg-color; */
-
-  /* margin: 20px auto 20px auto; */
   margin: 0 auto;
 
   // best way found to use mconf-clearfix and still get the element
@@ -425,7 +420,6 @@ form {
 }
 
 #sidebar, .sidebar {
-  @include make-sm-column-height;
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
   padding: $m-sidebar-padding;
@@ -617,7 +611,6 @@ form {
 }
 
 #content-middle {
-  @include make-sm-column-height;
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
