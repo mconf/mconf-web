@@ -1,7 +1,11 @@
 .resource-card.user
   .resource-logo
     = logo_image(user, size: '300', title: user.name)
-    = icon_superuser(:title => t('admin.one')) if user.superuser?
+
+    - if user.superuser?
+      .label.superuser-label.tooltipped{ title: t('_other.user.administrator') }
+        = t('_other.user.admin')
+
   .data
     %span.data-main{ title: user.name }= user.name
     %span.data-other{ title:user.email }= user.email

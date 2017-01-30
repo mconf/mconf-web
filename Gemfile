@@ -79,7 +79,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'sprockets', '~> 2.12.4'
 
 # font-awesome (recommended to be here, not in the assets group)
-gem 'font-awesome-rails', '~> 4.1'
+gem 'font-awesome-rails', '~> 4.0'
 
 # to format emails
 gem 'premailer-rails'

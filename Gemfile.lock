@@ -204,8 +204,8 @@ GEM
       ffi (~> 1.5)
       libyajl2 (~> 1.2)
     filesize (0.1.1)
-    font-awesome-rails (4.1.0.0)
-      railties (>= 3.2, < 5.0)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     fooldap (0.0.2)
       ruby-ldapserver
     friendly_id (5.0.4)
@@ -550,7 +550,7 @@ DEPENDENCIES
   factory_girl_rails
   filesize
   fineuploader-rails!
-  font-awesome-rails (~> 4.1)
+  font-awesome-rails (~> 4.0)
   fooldap
   forgery!
   friendly_id (~> 5.0.4)

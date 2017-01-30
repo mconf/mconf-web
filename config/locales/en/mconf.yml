@@ -119,6 +119,7 @@ en:
     updated_time_ago: "%{time} ago"
     upload: "Upload"
     user:
+      admin: "Admin"
       administrator: "Global administrator"
       disabled: "Disabled"
       normal_user: "Normal user"

@@ -463,15 +463,18 @@ form {
       }
     }
 
-    .icon-awesome.icon-mconf-superuser {
+    .superuser-label {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      @include font-size($m-font-medium);
-      padding: 6px 5px;
-      @include border-radius($m-border-radius-small);
-      color: white;
+      bottom: 5px;
+      padding: .3em .7em .4em;
+      white-space: nowrap;
+
       background: $m-red;
+      color: #fff;
+
+      /* center */
+      left: calc(50%);
+      transform: translate(-50%, -50%);
     }
 
     .data {

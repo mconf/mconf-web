@@ -106,7 +106,7 @@ Rails.application.config.to_prepare do
       query = joins(:room).includes(:room)
 
       if words.present?
-        words ||= []  
+        words ||= []
         words = [words] unless words.is_a?(Array)
         query_strs = []
         query_params = []
@@ -126,7 +126,6 @@ Rails.application.config.to_prepare do
           ]
         end
         query = query.where(query_strs.join(' OR '), *query_params.flatten).order(query_orders.join(' + ') + " DESC")
-     
       end
 
       query

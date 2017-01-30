@@ -118,6 +118,7 @@ pt-br:
     updated_time_ago: "%{time} atrás"
     upload: "Enviar"
     user:
+      admin: "Admin"
       administrator: "Administrador global"
       disabled: "Desabilitado"
       normal_user: "Usuário normal"
