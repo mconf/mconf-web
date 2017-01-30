@@ -1,14 +1,18 @@
 -# locals:
 -#   room (Room): the target bigbluebutton_room model
 
-%ul.nav.nav-tabs.nav-stacked.content-block-container
-  %li= link_to t('custom_bigbluebutton_rooms._other.new_room'), new_bigbluebutton_room_path
-  %li= link_to t('_other.details'), bigbluebutton_room_path(room)
-  %li= link_to t('custom_bigbluebutton_rooms._other.view_recordings'), recordings_bigbluebutton_room_path(room)
-  %li= link_to t('custom_bigbluebutton_rooms._other.fetch_recordings'), fetch_recordings_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :post
-  %li= link_to t('custom_bigbluebutton_rooms._other.generate_dial_number'), generate_dial_number_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :post
-  %li= link_to t('_other.edit'), edit_bigbluebutton_room_path(room)
-  %li= link_to t('_other.join'), join_bigbluebutton_room_path(room)
-  %li= link_to t('custom_bigbluebutton_rooms._other.invite'), invite_bigbluebutton_room_path(room)
-  %li= link_to t('_other.end'), end_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }
-  %li= link_to t('_other.destroy'), bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :delete
+.dropdown
+  .btn.btn-default.dropdown-toggle{ data: { toggle: 'dropdown' } }
+    = t('.choose_action')
+    %span.caret
+  %ul.dropdown-menu.dropdown-menu-right
+    %li= link_to t('custom_bigbluebutton_rooms._other.new_room'), new_bigbluebutton_room_path
+    %li= link_to t('_other.details'), bigbluebutton_room_path(room)
+    %li= link_to t('custom_bigbluebutton_rooms._other.view_recordings'), recordings_bigbluebutton_room_path(room)
+    %li= link_to t('custom_bigbluebutton_rooms._other.fetch_recordings'), fetch_recordings_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :post
+    %li= link_to t('custom_bigbluebutton_rooms._other.generate_dial_number'), generate_dial_number_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :post
+    %li= link_to t('_other.edit'), edit_bigbluebutton_room_path(room)
+    %li= link_to t('_other.join'), join_bigbluebutton_room_path(room)
+    %li= link_to t('custom_bigbluebutton_rooms._other.invite'), invite_bigbluebutton_room_path(room)
+    %li= link_to t('_other.end'), end_bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }
+    %li= link_to t('_other.destroy'), bigbluebutton_room_path(room), :data => { :confirm => t('are_you_sure') }, :method => :delete

@@ -755,6 +755,15 @@ form {
   }
 }
 
+#page-actions {
+  margin-bottom: 20px;
+  @include mconf-clearfix;
+
+  .dropdown {
+    float: right;
+  }
+}
+
 // the upcoming events are shown in spaces/show and my/home
 #sidebar-upcoming-events {
   .event-timezone {

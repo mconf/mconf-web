@@ -554,6 +554,8 @@ pt-br:
       creating_new_room: "Criando uma nova sala"
     recordings:
       list_of_recordings: "Lista de todas gravações para a sala '%{room}'"
+    room_links:
+      choose_action: "Escolha uma ação"
     rooms:
       table:
         links: "Links"
@@ -578,6 +580,7 @@ pt-br:
     index:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
+      choose_action: "Escolha uma ação"
       direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
       confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
@@ -614,6 +617,8 @@ pt-br:
       list_of_recordings: "Lista de todas gravações para o servidor '%{server}'"
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
+    server_links:
+      choose_action: "Escolha uma ação"
     show:
       available_layouts: "Layouts disponíveis"
       configurations: "Configurações do servidor"
@@ -1341,13 +1346,6 @@ pt-br:
       success: "Idioma da aplicação alterado para %{value}"
       error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
-    admin_tabs:
-      new_room: "Nova sala"
-      new_server: "Novo servidor"
-      view_playback_type_list: "Ver lista de tipos de reprodução"
-      view_recording_list: "Ver lista de gravações"
-      view_room_list: "Ver lista de salas"
-      view_server_list: "Ver lista de servidores"
     recording_list:
       created_by: "Criada por"
       delete: "Remover gravação"
@@ -1373,12 +1371,10 @@ pt-br:
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
-      new_room: "Nova sala"
-      new_server: "Novo servidor"
-      view_playback_type_list: "Ver lista de tipos de reprodução"
-      view_recording_list: "Ver lista de gravações"
-      view_room_list: "Ver lista de salas"
-      view_server_list: "Ver lista de servidores"
+      view_playback_type_list: "Tipos de Reprodução"
+      view_recording_list: "Gravações"
+      view_room_list: "Salas"
+      view_server_list: "Servidores"
     webconference_join:
       end: "Parar"
       end_tooltip: "Esta ação encerra a reunião atual e remove todos os usuários da sala"

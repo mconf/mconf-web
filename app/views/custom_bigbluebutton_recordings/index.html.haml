@@ -1,5 +1,5 @@
-- bbb_server_admin_menu_at :recording_list
-= render 'shared/admin_tabs'
+- bbb_server_admin_menu_at :recordings
+= render 'shared/webconf_index_links'
 
 %h3= t('.list_of_recordings')
 = render 'custom_bigbluebutton_recordings/recordings', :recordings => @recordings
