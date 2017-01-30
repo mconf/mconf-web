@@ -40,7 +40,11 @@
       -#       - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
       -#       = ("(" + link + ")").html_safe
 
-  = render :partial => 'spaces/sidebar_join_links'
+  -# action buttons: join, register, login, it depends on the context
+  - btn = space_join_button(@space)
+  - unless btn.nil?
+    .sidebar-top-action-button
+      = btn.html_safe
 
 = content_for :sidebar_menu do
   %ul

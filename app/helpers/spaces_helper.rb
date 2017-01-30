@@ -42,14 +42,14 @@ module SpacesHelper
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
       request = space.pending_join_request_for(current_user)
-      options[:class] = "#{options[:class]} btn-success disabled"
-      button = content_tag :span, t('spaces.space_join_button.already_requested'), options
-      alert = content_tag :div, :class => "alert alert-success" do
-        link = link_to t("spaces.space_join_button.cancel_request"), space_join_request_path(space, request)
-        text = content_tag :span, t("spaces.space_join_button.already_requested_alert")
-        text + link
-      end
-      button + alert
+
+      options[:class] = "#{options[:class]} btn-danger btn-sm tooltipped"
+      options[:data] = { confirm: t('spaces.space_join_button.cancel_confirm') }
+      options[:method] = :post
+      options[:title] = t("spaces.space_join_button.cancel_tooltip", message: request.comment)
+      button = link_to t("spaces.space_join_button.cancel"), decline_space_join_request_path(space, request), options
+
+      button
 
     # the user was already invited to join the space
     elsif space.pending_invitation_for?(current_user)
@@ -62,7 +62,7 @@ module SpacesHelper
 
     # a user is logged and he's not in the space
     elsif !space.users.include?(current_user)
-      options[:class] = "#{options[:class]} btn-success"
+      options[:class] = "#{options[:class]} btn-success open-modal"
       link_to t('spaces.space_join_button.join'), new_space_join_request_path(space), options
     end
 

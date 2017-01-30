@@ -21,7 +21,14 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
-  layout 'application'
+  def set_layout
+    if [:new].include?(action_name.to_sym)
+      request.xhr? ? false : 'no_sidebar'
+    else
+      "application"
+    end
+  end
+  layout :set_layout
 
   def index
     authorize! :manage_join_requests, @space

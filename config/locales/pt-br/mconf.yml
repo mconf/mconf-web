@@ -861,9 +861,9 @@ pt-br:
     new:
       already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
-      message_title: "Envie um pedido de adesão aos administradores da comunidade"
+      message_title: "Requisição para entrar em %{name}"
     request:
-      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de ingresso?"
+      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"
     show:
       accept: "Aceitar"
       already_accepted: "... mas você já é um membro dessa comunidade."
@@ -878,7 +878,7 @@ pt-br:
         comment_invitation: "Este é o comentário escrito por %{name}:"
         comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
         title_header_invitation: "Você foi convidado a uma comunidade"
-        title_header_request: "Você requisitou ingresso em uma comunidade"
+        title_header_request: "Você requisitou adesão em uma comunidade"
         title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
         title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
       is_introducer:
@@ -1634,9 +1634,9 @@ pt-br:
       events_now: "Eventos acontecendo agora!"
     space_join_button:
       accept_or_decline: "Responder ao convite"
-      already_requested: "Pedido enviado"
-      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite."
-      cancel_request: "Cancelar o pedido"
+      cancel: "Cancelar requisição de ingresso"
+      cancel_confirm: "Você tem certeza que deseja cancelar este pedido de ingresso?"
+      cancel_tooltip: "Você possui um pedido de ingresso pendente. A mensagem que você enviou foi: \"%{message}\"."
       invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
       join: "Entrar na comunidade"
     space_thumbnail:

@@ -861,7 +861,7 @@ en:
     new:
       already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
-      message_title: "Send a join request to the administrators of the space"
+      message_title: "Request to join %{name}"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
     show:
@@ -1608,7 +1608,7 @@ en:
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
     show:
-      description: "Descrição"
+      description: "Description"
       events_now: "Events hapenning now!"
     sidebar:
       admin: "Admin"
@@ -1623,9 +1623,9 @@ en:
       webconference: "Web Conference"
     space_join_button:
       accept_or_decline: "Accept or decline"
-      already_requested: "Join request sent"
-      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you."
-      cancel_request: "Cancel request"
+      cancel: "Cancel your join request"
+      cancel_confirm: "Are you sure you want to cancel this request?"
+      cancel_tooltip: "You have a pending request to join this space. The message you sent was: \"%{message}\"."
       invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
       join: "Join this space"
     space_thumbnail:
