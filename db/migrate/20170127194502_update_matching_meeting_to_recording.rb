@@ -7,7 +7,7 @@ class UpdateMatchingMeetingToRecording < ActiveRecord::Migration
     end
   end
 
-  #def down
-  #  raise ActiveRecord::IrreversibleMigration, "Can't undo matching of recordings to their meetings"
-  #end
+  def down
+    raise ActiveRecord::IrreversibleMigration, "Can't undo matching of recordings to their meetings"
+  end
 end

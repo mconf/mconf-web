@@ -153,7 +153,6 @@ Rails.application.config.to_prepare do
     # the recording's ID.
     def self.find_matching_meeting(recording)
       meeting = nil
-      puts recording.meetingid
       unless recording.nil? #or recording.room.nil?
         unless recording.start_time.nil?
           start_time = recording.start_time

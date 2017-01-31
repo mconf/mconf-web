@@ -286,7 +286,7 @@ namespace :db do
           recording.published = true
           recording.available = true
           recording.start_time = meeting.create_time
-          recording.end_time = Time.at(recording.start_time.to_i + rand(5).hours)
+          recording.end_time = recording.start_time.to_i + rand(5).hours
           recording.description = Populator.words(5..8)
           recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb
 
