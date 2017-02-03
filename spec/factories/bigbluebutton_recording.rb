@@ -14,7 +14,7 @@ FactoryGirl.define do
     r.sequence(:description) { |n| "My recording number #{n}" }
     r.published true
     r.start_time { (Time.now - rand(5).hours).to_i }
-    r.end_time { Time.now + rand(5).hours }
+    r.end_time { (Time.now + rand(5).hours).to_i }
     r.available true
   end
 end
