@@ -1,4 +1,4 @@
-class MartchRecordingsToMeetingsCloserCreateTime < ActiveRecord::Migration
+class MatchRecordingsToMeetingsCloserCreateTime < ActiveRecord::Migration
   def up
     BigbluebuttonRecording.all.each do |rec|
       rec.update_attributes(
