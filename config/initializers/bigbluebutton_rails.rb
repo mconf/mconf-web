@@ -95,7 +95,7 @@ Rails.application.config.to_prepare do
     # have a recording.
     scope :with_or_without_recording, -> {
       joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
-        .order("start_time DESC")
+        .order("create_time DESC")
     }
   end
 
@@ -146,23 +146,5 @@ Rails.application.config.to_prepare do
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
 
-
-    # Finds the BigbluebuttonMeeting that generated this recording. The meeting is searched using
-    # the room associated with this recording and the create time of the meeting, taken from
-    # the recording's ID.
-    def self.find_matching_meeting(recording)
-      meeting = nil
-
-      unless recording.nil? or recording.room.nil?
-        unless recording.start_time.nil?
-          start_time = recording.start_time
-          start_time = start_time.to_time.to_i
-          meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time DIV 1000 = ?", recording.room.id, start_time).last
-          logger.info "Recording: meeting found for the recording #{recording.inspect}: #{meeting.inspect}"
-        end
-      end
-
-      meeting
-    end
   end
 end

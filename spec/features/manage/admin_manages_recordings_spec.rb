@@ -15,7 +15,7 @@ describe 'Admin manages recordings' do
     it { should have_content(recording.name) }
     it { should have_content(recording.description) }
     it { should have_content(recording.recordid) }
-    it { should have_content(I18n.l(recording.start_time, format: :numeric)) }
+    it { should have_content(I18n.l(Time.at(recording.start_time), format: :numeric)) }
     it { should have_content(recording.room.name) }
   end
 

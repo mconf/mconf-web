@@ -23,7 +23,7 @@ module DatesHelper
   # Formats a date object to be shown in a view
   def format_date(date, format=:short)
     if date.present?
-      I18n.l(date, format: format)
+      I18n.l(Time.at(date), format: format)
     else
       nil
     end

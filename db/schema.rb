@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119164957) do
+ActiveRecord::Schema.define(version: 20170131162943) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170119164957) do
     t.integer  "room_id"
     t.string   "meetingid"
     t.string   "name"
-    t.datetime "start_time"
     t.boolean  "running",                                default: false
     t.boolean  "recorded",                               default: false
     t.datetime "created_at"
@@ -95,15 +94,15 @@ ActiveRecord::Schema.define(version: 20170119164957) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",             default: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "available",             default: true
+    t.boolean  "published",                                      default: false
+    t.boolean  "available",                                      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        limit: 8, default: 0
+    t.integer  "size",        limit: 8,                          default: 0
+    t.decimal  "start_time",            precision: 14, scale: 0
+    t.decimal  "end_time",              precision: 14, scale: 0
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
