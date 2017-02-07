@@ -147,28 +147,5 @@ Rails.application.config.to_prepare do
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
 
-
-    # Finds the BigbluebuttonMeeting that generated this recording. The meeting is searched using
-    # the room associated with this recording and the create time of the meeting, taken from
-    # the recording's ID.
-    def self.find_matching_meeting(recording)
-      meeting = nil
-      unless recording.nil? #or recording.room.nil?
-        unless recording.start_time.nil?
-          start_time = recording.start_time
-          meeting = BigbluebuttonMeeting.where("meetingid = ? AND create_time = ?", recording.meetingid, start_time).last
-            if meeting.nil?
-              meeting = BigbluebuttonMeeting.where("meetingid = ? AND create_time DIV 1000 = ?", recording.meetingid, start_time).last
-            end
-            if meeting.nil?
-              div_start_time = (start_time/10)
-              meeting = BigbluebuttonMeeting.where("meetingid = ? AND create_time DIV 10 = ?", recording.meetingid, div_start_time).last
-            end
-          logger.info "Recording: meeting found for the recording #{recording.inspect}: #{meeting.inspect}"
-        end
-      end
-
-      meeting
-    end
   end
 end
