@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 # This controller includes actions that are specific for the current user and shouldn't be
-# accessed by anybody else (e.g. home, recordings, activity, etc).
+# accessed by anybody else (e.g. home, meetings, activity, etc).
 class MyController < ApplicationController
   before_filter :authenticate_user!, :except => [:approval_pending]
   respond_to :json, :only => [:rooms]
@@ -20,7 +20,7 @@ class MyController < ApplicationController
 
   def determine_layout
     case params[:action].to_sym
-    when :recordings
+    when :meetings
       if params[:partial]
         false
       else
@@ -44,9 +44,8 @@ class MyController < ApplicationController
     # TODO: this will not be necessary when jrs are removed after a space is disabled
     @pending_requests.to_a.select! { |jr| jr.group.present? }
 
-    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
-                                    .with_or_without_recording().last(5)
+                                    .with_or_without_recording().first(5)
 
     @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
@@ -92,12 +91,10 @@ class MyController < ApplicationController
     render :json => mapped_array
   end
 
-  # List of recordings for the current user's web conference room.
-  # TODO: bad name for the action since it now shows meetings too
-  def recordings
+  # List of meetings for the current user's web conference room.
+  def meetings
     @room = current_user.bigbluebutton_room
 
-    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)

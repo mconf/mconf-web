@@ -145,7 +145,7 @@ Mconf::Application.routes.draw do
   get '/home', to: 'my#home', as: 'my_home'
   get '/activity', to: 'my#activity', as: 'my_activity'
   get '/rooms', to: 'my#rooms', as: 'my_rooms'
-  get '/recordings', to: 'my#recordings', as: 'my_recordings'
+  get '/meetings', to: 'my#meetings', as: 'my_meetings'
   get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
   get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'
 

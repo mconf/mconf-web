@@ -7,7 +7,7 @@
 @import "app/users/user_spaces";
 @import "app/users/recent_activity";
 
-// home and activity use some partials to show information of recordings, and they include
+// home and activity use some partials to show information of meetings, and they include
 // some styles defined in the partial below
 @import "app/shared/recording_list";
 
@@ -16,7 +16,7 @@
 @import "app/spaces/_list_item";
 @import "app/join_requests/_list_item";
 
-body.my.home, body.my.activity, body.my.recordings {
+body.my.home, body.my.activity, body.my.meetings {
 
   $second-content-bg-color: darken($m-light-gray, 2);
 

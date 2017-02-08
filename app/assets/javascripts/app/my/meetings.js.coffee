@@ -2,7 +2,7 @@
 # them together.
 
 $ ->
-  if isOnPage 'my', 'recordings'
+  if isOnPage 'my', 'meetings'
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db
@@ -42,7 +42,7 @@ showErrorNotification = (xhr) ->
     response = JSON.parse(xhr.responseText)
     if response?.message?
       # for now just print it in the console
-      msg = I18n.t("my.recordings.update_recordings.error") + ': ' + response.message
+      msg = I18n.t("my.meetings.update_recordings.error") + ': ' + response.message
       console.log msg
       # TODO: we could show a real notification to the user, but not sure this is the kind of
       #   error the user should see

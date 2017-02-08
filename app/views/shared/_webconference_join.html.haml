@@ -66,7 +66,7 @@
       - if room.owner.class == Space
         - recordings_link = recordings_space_path(room.owner)
       - else
-        - recordings_link = my_recordings_path
+        - recordings_link = my_meetings_path
       = link_to recordings_link, class: "btn btn-default tooltipped", title: "View the list of recordings for this room" do
         = icon_list
 

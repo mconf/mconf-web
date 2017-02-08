@@ -1088,7 +1088,7 @@ en:
       title: "Edit your recording"
     page_header:
       activity_list: "Activity list"
-    recordings:
+    meetings:
       title: "All past meetings and recordings"
       update_recordings:
         error: "Error updating recordings, plase try again later"

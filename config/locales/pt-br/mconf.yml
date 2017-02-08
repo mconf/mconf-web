@@ -1079,7 +1079,7 @@ pt-br:
       title: "Editar sua gravação"
     page_header:
       activity_list: "Atividades recentes"
-    recordings:
+    meetings:
       title: "Todas reuniões e gravações passadas"
       update_recordings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
