@@ -12,6 +12,12 @@
       %h3
         = icon_recording
         = t('.title')
+      .recordedonly_buttons
+        = link_to recordings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
+          = t(".recordedonly_true")
+
+        = link_to recordings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
+          = t(".recordedonly_false")
 
       -# only update the recording db if the user has permission to
       - if can?(:fetch_recordings, @webconf_room)

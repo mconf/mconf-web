@@ -1089,6 +1089,8 @@ en:
     page_header:
       activity_list: "Activity list"
     meetings:
+      recordedonly_false: "All"
+      recordedonly_true: "Recorded Only"
       title: "All past meetings and recordings"
       update_recordings:
         error: "Error updating recordings, plase try again later"
@@ -1602,6 +1604,8 @@ en:
         title: "Examples of spaces:"
       title: "Create a new space"
     recordings:
+      recordedonly_false: "All"
+      recordedonly_true: "Recorded Only"
       title: "All meetings and recordings in this space"
       update_recordings:
         error: "Error updating recordings, plase try again later"

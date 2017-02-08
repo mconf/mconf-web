@@ -97,6 +97,10 @@ Rails.application.config.to_prepare do
       joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
         .order("create_time DESC")
     }
+    scope :with_recording, -> {
+      joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
+        .order("create_time DESC")
+    }
   end
 
   BigbluebuttonRecording.class_eval do

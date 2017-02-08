@@ -45,7 +45,7 @@ class MyController < ApplicationController
     @pending_requests.to_a.select! { |jr| jr.group.present? }
 
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
-                                    .with_or_without_recording().first(5)
+                                    .with_recording().first(5)
 
     @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
@@ -95,7 +95,12 @@ class MyController < ApplicationController
   def meetings
     @room = current_user.bigbluebutton_room
 
-    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
+    if params[:recordedonly] == 'false'
+      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
+    else
+      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_recording()
+    end
+
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end

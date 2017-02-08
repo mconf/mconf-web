@@ -159,9 +159,8 @@ class SpacesController < InheritedResources::Base
       end
       @webconf_attendees.uniq!
     end
-    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
     @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
-      .with_or_without_recording().last(5)
+      .with_recording().last(5)
   end
 
   # Action used to show the recordings of a space
@@ -169,8 +168,13 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def recordings
-    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
-    @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_or_without_recording()
+
+    if params[:recordedonly] == 'false'
+      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
+    else
+      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_recording()
+    end
+
     @recording_count = @meetings.count
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)

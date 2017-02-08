@@ -5,6 +5,10 @@
 
 body.spaces.recordings {
 
+  .recordedonly_buttons{
+    text-align: right;
+  }
+
   #space-recordings-fetch {
     float: right;
     @include font-size($m-font-medium);

@@ -1080,6 +1080,8 @@ pt-br:
     page_header:
       activity_list: "Atividades recentes"
     meetings:
+      recordedonly_false: "Todas"
+      recordedonly_true: "Apenas Gravadas"
       title: "Todas reuniões e gravações passadas"
       update_recordings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
@@ -1624,6 +1626,8 @@ pt-br:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
     recordings:
+      recordedonly_false: "Todas"
+      recordedonly_true: "Apenas Gravadas"
       title: "Todas reuniões e gravações desta comunidade"
       update_recordings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
