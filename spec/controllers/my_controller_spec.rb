@@ -85,13 +85,13 @@ describe MyController do
   it "#activity"
   it "#rooms"
 
-  describe "#recordings" do
+  describe "#meetings" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :recordings }
-      it { should render_template(:recordings) }
+      before(:each) { get :meetings }
+      it { should render_template(:meetings) }
       it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
@@ -151,7 +151,7 @@ describe MyController do
           @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
                                    :create_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :recordings, :limit => 3 }
+        before(:each) { get :meetings, :limit => 3 }
         it { assigns(:meetings).count.should be(3) }
         it { assigns(:meetings).should include(@m1) }
         it { assigns(:meetings).should include(@m2) }
@@ -160,8 +160,8 @@ describe MyController do
     end
 
     context "if params[:partial] is set" do
-      before(:each) { get :recordings, :partial => true }
-      it { should render_template(:recordings) }
+      before(:each) { get :meetings, :partial => true }
+      it { should render_template(:meetings) }
       it { should_not render_with_layout }
     end
   end
