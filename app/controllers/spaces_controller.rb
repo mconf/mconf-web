@@ -27,7 +27,7 @@ class SpacesController < InheritedResources::Base
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the web conference room snippetB
-  before_filter :webconf_room!, :only => [:show, :webconference, :recordings]
+  before_filter :webconf_room!, :only => [:show, :webconference, :meetings]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -163,16 +163,16 @@ class SpacesController < InheritedResources::Base
       .with_recording().last(5)
   end
 
-  # Action used to show the recordings of a space
+  # Action used to show the meetings of a space
   # This action is here and not in CustomBigbluebuttonRoomsController because it seems out of place
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
-  def recordings
+  def meetings
 
     if params[:recordedonly] == 'false'
-      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
+      @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_or_without_recording()
     else
-      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_recording()
+      @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_recording()
     end
 
     @recording_count = @meetings.count

@@ -27,7 +27,7 @@ module Abilities
       can [:show, :current], User, disabled: false
 
       can [:index, :select], Space
-      can [:show, :webconference, :recordings], Space, public: true
+      can [:show, :webconference, :meetings], Space, public: true
 
       can :index, Post # restricted through Space
       can :show, Post, space: { public: true }

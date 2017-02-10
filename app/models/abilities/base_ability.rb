@@ -42,7 +42,7 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :recordings,
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :meetings,
                  :user_edit, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner.nil? || room.owner.disabled
@@ -80,7 +80,7 @@ module Abilities
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:webconference, :recordings, :manage_join_requests,
+      cannot [:webconference, :meetings, :manage_join_requests,
               :invite, :user_permissions, :webconference_options,
               :edit_recording, :index_event], Space, approved: false
 
@@ -95,7 +95,7 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :recordings,
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :meetings,
                  :user_edit, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner && !room.owner.approved

@@ -1651,7 +1651,7 @@ en:
         nobody: "There is nobody currently in the room."
         people_in_the_room: "People in the room"
         registered_users: "Registered users"
-      recordings:
+      meetings:
         no_recordings: "There are no meetings or recordings in space yet."
         title: "Last meetings and recordings in this space"
         view_all: "View all meetings and recordings"

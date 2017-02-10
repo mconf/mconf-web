@@ -90,7 +90,7 @@ Mconf::Application.routes.draw do
       post :disapprove
       get :user_permissions
       get :webconference
-      get :recordings
+      get :meetings
     end
 
     get '/recordings/:id/edit', to: 'spaces#edit_recording', as: 'edit_recording'

@@ -1625,7 +1625,7 @@ pt-br:
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
-    recordings:
+    meetings:
       recordedonly_false: "Todas"
       recordedonly_true: "Apenas Gravadas"
       title: "Todas reuniões e gravações desta comunidade"

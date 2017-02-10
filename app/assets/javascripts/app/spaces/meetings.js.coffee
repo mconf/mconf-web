@@ -2,7 +2,7 @@
 # them together.
 
 $ ->
-  if isOnPage 'spaces', 'recordings'
+  if isOnPage 'spaces', 'meetings'
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db

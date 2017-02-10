@@ -613,20 +613,18 @@ describe SpacesController do
     end
   end
 
-  describe "#recordings" do
+  describe "#meetings" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user, superuser: true) }
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :recordings, :id => space.to_param }
-      it { should render_template(:recordings) }
+      before(:each) { get :meetings, :id => space.to_param, :recordedonly => 'false' }
+      it { should render_template(:meetings) }
       it { should render_with_layout("application") }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
-      context "assigns @recordings" do
-      end
 
-      context "assigns @recordings" do
+      context "assigns @meetings" do
         context "doesn't include meetings from rooms of other owners" do
           before :each do
             FactoryGirl.create(:bigbluebutton_meeting, :room => FactoryGirl.create(:bigbluebutton_room))
@@ -655,11 +653,11 @@ describe SpacesController do
         context "order meetings create_time DESC" do
           before :each do
             meeting1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :create_time => DateTime.now)
+                                          :create_time => DateTime.now.to_i)
             meeting2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :create_time => DateTime.now - 2.days)
+                                          :create_time => DateTime.now.to_i - 2.days)
             meeting3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
-                                          :create_time => DateTime.now - 1.hour)
+                                          :create_time => DateTime.now.to_i - 1.hour)
             @expected_meetings = [meeting1, meeting3, meeting2]
           end
           it { should assign_to(:meetings).with(@expected_meetings) }
@@ -681,7 +679,7 @@ describe SpacesController do
           @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
                                    :create_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :recordings, :id => space.to_param, :limit => 3 }
+        before(:each) { get :meetings, :id => space.to_param, :limit => 3, :recordedonly => 'false' }
         it { assigns(:meetings).count.should be(3) }
         it { assigns(:meetings).should include(@m1) }
         it { assigns(:meetings).should include(@m2) }
@@ -689,9 +687,34 @@ describe SpacesController do
       end
     end
 
+    context "if recordedonly is not set or not false" do
+      describe "show only meetings that have recordings" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space_with_associations) }
+        before :each do
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+          FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false,
+                                          :meeting => @m1)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+          FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false,
+                                          :meeting => @m2)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+        end
+        before(:each) {
+          space.add_member! user, "Admin"
+          login_as(user)
+        }
+        before(:each) { get :meetings, :id => space.to_param }
+        it { assigns(:meetings).count.should be(2) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should_not include(@m3) }
+      end
+    end
+
     context "if params[:partial] is set" do
-      before(:each) { get :recordings, :id => space.to_param, :partial => true }
-      it { should render_template(:recordings) }
+      before(:each) { get :meetings, :id => space.to_param, :partial => true }
+      it { should render_template(:meetings) }
       it { should_not render_with_layout }
     end
 

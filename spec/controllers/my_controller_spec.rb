@@ -90,7 +90,7 @@ describe MyController do
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :meetings }
+      before(:each) { get :meetings, :recordedonly => 'false' }
       it { should render_template(:meetings) }
       it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
@@ -151,11 +151,34 @@ describe MyController do
           @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
                                    :create_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :meetings, :limit => 3 }
+        before(:each) { get :meetings, :limit => 3, :recordedonly => 'false' }
         it { assigns(:meetings).count.should be(3) }
         it { assigns(:meetings).should include(@m1) }
         it { assigns(:meetings).should include(@m2) }
         it { assigns(:meetings).should include(@m3) }
+      end
+    end
+
+    context "if recordedonly is not set or not false" do
+      describe "show only meetings that have recordings" do
+        let(:user) { FactoryGirl.create(:user) }
+        before :each do
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now, :recorded => true , :ended => true)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 1.hour, :recorded => true, :ended => true)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 2.hours)
+          @r1 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room,
+                                   :meeting => @m1)
+          @r2 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room,
+                                   :meeting => @m2)
+        end
+        before(:each) { get :meetings }
+        it { assigns(:meetings).count.should be(2) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should_not include(@m3) }
       end
     end
 

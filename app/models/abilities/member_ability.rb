@@ -50,8 +50,8 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings, :index_event], Space, public: true
-      can [:show, :webconference, :recordings, :index_event], Space do |space|
+      can [:show, :webconference, :meetings, :index_event], Space, public: true
+      can [:show, :webconference, :meetings, :index_event], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
@@ -245,15 +245,15 @@ module Abilities
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
       can [:play], BigbluebuttonRecording do |recording|
-        user_is_member_of_recordings_space(user, recording) ||
-          recordings_space_is_public(recording) ||
+        user_is_member_of_meetings_space(user, recording) ||
+          meetings_space_is_public(recording) ||
           user_is_owner_of_recording(user, recording)
       end
 
       # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
       can [:update, :unpublish], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
-          user_is_admin_of_recordings_space(user, recording)
+          user_is_admin_of_meetings_space(user, recording)
       end
 
       # a user can see and edit his recordings
@@ -263,13 +263,13 @@ module Abilities
 
       # admins can edit recordings in their spaces
       can [:space_edit], BigbluebuttonRecording do |recording|
-        user_is_admin_of_recordings_space(user, recording)
+        user_is_admin_of_meetings_space(user, recording)
       end
 
       # recordings can be viewed in spaces if the space is public or the user belongs to the space
       can [:space_show], BigbluebuttonRecording do |recording|
-        user_is_member_of_recordings_space(user, recording) ||
-          recordings_space_is_public(recording)
+        user_is_member_of_meetings_space(user, recording) ||
+          meetings_space_is_public(recording)
       end
     end
 
@@ -335,7 +335,7 @@ module Abilities
     end
 
     # Whether the user is an admin of the space that owns the room that owns `recording`.
-    def user_is_admin_of_recordings_space(user, recording)
+    def user_is_admin_of_meetings_space(user, recording)
       response = false
       unless recording.room.nil?
         if recording.room.owner_type == "Space"
@@ -347,7 +347,7 @@ module Abilities
     end
 
     # Whether the user is a member of the space that owns the room that owns `recording`.
-    def user_is_member_of_recordings_space(user, recording)
+    def user_is_member_of_meetings_space(user, recording)
       response = false
       unless recording.room.nil?
         if recording.room.owner_type == "Space"
@@ -359,7 +359,7 @@ module Abilities
     end
 
     # Whether the space that owns the room that owns `recording` is public.
-    def recordings_space_is_public(recording)
+    def meetings_space_is_public(recording)
       recording.room.try(:public?)
     end
 

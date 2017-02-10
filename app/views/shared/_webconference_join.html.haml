@@ -64,7 +64,7 @@
       = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: "Configure this room before creating a meeting" do
         = icon_options
       - if room.owner.class == Space
-        - recordings_link = recordings_space_path(room.owner)
+        - recordings_link = meetings_space_path(room.owner)
       - else
         - recordings_link = my_meetings_path
       = link_to recordings_link, class: "btn btn-default tooltipped", title: "View the list of recordings for this room" do

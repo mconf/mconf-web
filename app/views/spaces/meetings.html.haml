@@ -1,5 +1,5 @@
 - if params[:partial]
-  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: meetings_space_path(@space) }
 
 - else
 
@@ -13,10 +13,10 @@
         = icon_recording
         = t('.title')
       .recordedonly_buttons
-        = link_to recordings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
+        = link_to meetings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
           = t(".recordedonly_true")
 
-        = link_to recordings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
+        = link_to meetings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
           = t(".recordedonly_false")
 
       -# only update the recording db if the user has permission to
@@ -38,7 +38,7 @@
             %span= t(".update_recordings.updating")
             = icon_in_progress
         -# a form to get the html with the list of recordings after the list is updated
-        = form_tag recordings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
+        = form_tag meetings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
 
     #space-recordings-list-container.content-block-middle
-      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: recordings_space_path(@space) }
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: meetings_space_path(@space) }
