@@ -1092,7 +1092,7 @@ en:
       recordedonly_false: "All"
       recordedonly_true: "Recorded Only"
       title: "All past meetings and recordings"
-      update_recordings:
+      update_meetings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
@@ -1603,11 +1603,11 @@ en:
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
-    recordings:
+    meetings:
       recordedonly_false: "All"
       recordedonly_true: "Recorded Only"
       title: "All meetings and recordings in this space"
-      update_recordings:
+      update_meetings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."

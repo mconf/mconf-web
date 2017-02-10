@@ -5,11 +5,11 @@
 
 body.my.meetings {
 
-  #my-webconference-recordings-fetch {
+  #my-webconference-meetings-fetch {
     float: right;
     @include font-size($m-font-medium);
 
-    #my-webconference-recordings-error {
+    #my-webconference-meetings-error {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-red;
@@ -17,7 +17,7 @@ body.my.meetings {
       .icon-awesome { color: white; }
     }
 
-    #my-webconference-recordings-success {
+    #my-webconference-meetings-success {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-green;
@@ -25,7 +25,7 @@ body.my.meetings {
       .icon-awesome { color: white; }
     }
 
-    #my-webconference-recordings-loading {
+    #my-webconference-meetings-loading {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-light-gray;

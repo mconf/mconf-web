@@ -6,7 +6,7 @@ $ ->
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db
-    $form = $('#my-webconference-recordings-fetch')
+    $form = $('#my-webconference-meetings-fetch')
     $form.on "ajax:success", (evt, data, status, xhr) ->
       submitFormUpdate()
     $form.on "ajax:error", (evt, xhr, status) ->
@@ -18,9 +18,9 @@ $ ->
 # Submits a form to request an updated list of recordings, and uses the response
 # to replace the html in the page.
 submitFormUpdate = ->
-  $form = $('#my-webconference-recordings-update')
+  $form = $('#my-webconference-meetings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#my-webconference-recordings-list-container').html(data)
+    $('#my-webconference-meetings-list-container').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->
@@ -30,10 +30,10 @@ submitFormUpdate = ->
 
 # Shows the target status message and hides all the others.
 showStatus = (status) ->
-  $('#my-webconference-recordings-fetch').children().hide()
-  $("#my-webconference-recordings-#{status}").show()
+  $('#my-webconference-meetings-fetch').children().hide()
+  $("#my-webconference-meetings-#{status}").show()
   window.setTimeout ->
-    $("#my-webconference-recordings-#{status}").hide()
+    $("#my-webconference-meetings-#{status}").hide()
   , 15000
 
 # Show a notification with the error that occurred in the request `xhr`.

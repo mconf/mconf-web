@@ -29,12 +29,12 @@
 
 #space-recordings.content-block
   .content-block-header
-    %h3= t('.recordings.title')
+    %h3= t('.meetings.title')
   - if @meetings.count > 0
     #space-recordings-list-container.content-block-middle
       = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: webconference_space_path(@space) }
   - else
-    %span= t('.recordings.no_recordings')
+    %span= t('.meetings.no_recordings')
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
-      = link_to t('.recordings.view_all'), meetings_space_path(@space)
+      = link_to t('.meetings.view_all'), meetings_space_path(@space)

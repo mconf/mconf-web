@@ -1083,7 +1083,7 @@ pt-br:
       recordedonly_false: "Todas"
       recordedonly_true: "Apenas Gravadas"
       title: "Todas reuniões e gravações passadas"
-      update_recordings:
+      update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
@@ -1629,7 +1629,7 @@ pt-br:
       recordedonly_false: "Todas"
       recordedonly_true: "Apenas Gravadas"
       title: "Todas reuniões e gravações desta comunidade"
-      update_recordings:
+      update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
@@ -1664,7 +1664,7 @@ pt-br:
         nobody: "Não há ninguém na sala."
         people_in_the_room: "Pessoas na sala"
         registered_users: "Usuários registrados"
-      recordings:
+      meetings:
         no_recordings: "Ainda não existem reuniões ou gravações nesta comunidade."
         title: "Últimas reuniões e gravações desta comunidade"
         view_all: "Ver todas as reuniões e gravações"

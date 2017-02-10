@@ -9,11 +9,11 @@ body.spaces.meetings {
     text-align: right;
   }
 
-  #space-recordings-fetch {
+  #space-meetings-fetch {
     float: right;
     @include font-size($m-font-medium);
 
-    #space-recordings-error {
+    #space-meetings-error {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-red;
@@ -21,7 +21,7 @@ body.spaces.meetings {
       .icon-awesome { color: white; }
     }
 
-    #space-recordings-success {
+    #space-meetings-success {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-green;
@@ -29,7 +29,7 @@ body.spaces.meetings {
       .icon-awesome { color: white; }
     }
 
-    #space-recordings-loading {
+    #space-meetings-loading {
       padding: 3px 6px;
       @include border-radius($m-border-radius-base);
       background: $m-light-gray;

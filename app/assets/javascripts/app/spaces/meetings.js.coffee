@@ -6,7 +6,7 @@ $ ->
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db
-    $form = $('#space-recordings-fetch')
+    $form = $('#space-meetings-fetch')
     $form.on "ajax:success", (evt, data, status, xhr) ->
       submitFormUpdate()
     $form.on "ajax:success", (evt, xhr, status) ->
@@ -18,9 +18,9 @@ $ ->
 # Submits a form to request an updated list of recordings, and uses the response
 # to replace the html in the page.
 submitFormUpdate = ->
-  $form = $('#space-recordings-update')
+  $form = $('#space-meetings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#space-recordings-list-container').html(data)
+    $('#space-meetings-list-container').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->
@@ -30,10 +30,10 @@ submitFormUpdate = ->
 
 # Shows the target status message and hides all the others.
 showStatus = (status) ->
-  $('#space-recordings-fetch').children().hide()
-  $("#space-recordings-#{status}").show()
+  $('#space-meetings-fetch').children().hide()
+  $("#space-meetings-#{status}").show()
   window.setTimeout ->
-    $("#space-recordings-#{status}").hide()
+    $("#space-meetings-#{status}").hide()
   , 15000
 
 # Show a notification with the error that occurred in the request `xhr`.

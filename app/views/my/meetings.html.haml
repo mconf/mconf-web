@@ -8,7 +8,7 @@
   = content_for :sidebar do
     = render "my/sidebar", user_spaces: @user_spaces
 
-  #my-webconference-recordings.content-block
+  #my-webconference-meetings.content-block
     .content-block-header
       %h3= t('.title')
 
@@ -27,18 +27,18 @@
 
         -# a form to trigger the method that will fetch the recordings in the webconf server
         -# TODO: setting data-type to html because bigbluebutton_rails is not returning a proper json on success yet
-        = form_tag fetch_recordings_bigbluebutton_room_path(@room, :format => 'json'), :method => :post, :remote => true, :id => 'my-webconference-recordings-fetch', 'data-type' => 'html' do
-          #my-webconference-recordings-error
-            %span= t(".update_recordings.error")
+        = form_tag fetch_recordings_bigbluebutton_room_path(@room, :format => 'json'), :method => :post, :remote => true, :id => 'my-webconference-meetings-fetch', 'data-type' => 'html' do
+          #my-webconference-meetings-error
+            %span= t(".update_meetings.error")
             = icon_error
-          #my-webconference-recordings-success
-            %span= t(".update_recordings.success")
+          #my-webconference-meetings-success
+            %span= t(".update_meetings.success")
             = icon_success
-          #my-webconference-recordings-loading
-            %span= t(".update_recordings.updating")
+          #my-webconference-meetings-loading
+            %span= t(".update_meetings.updating")
             = icon_in_progress
         -# a form to get the html with the list of recordings after the list is updated
-        = form_tag my_meetings_path(:partial => true), :method => :get, :remote => true, :id => 'my-webconference-recordings-update'
+        = form_tag my_meetings_path(:partial => true), :method => :get, :remote => true, :id => 'my-webconference-meetings-update'
 
-    #my-webconference-recordings-list-container.content-block-middle
+    #my-webconference-meetings-list-container.content-block-middle
       = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path }
