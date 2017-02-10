@@ -10,9 +10,8 @@
   #space-meetings.content-block
     .content-block-header
       %h3
-        = icon_recording
         = t('.title')
-      .recordedonly_buttons
+      .btn-group.recordedonly-buttons
         = link_to meetings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
           = t(".recordedonly_true")
 

@@ -5,8 +5,9 @@
 
 body.spaces.meetings {
 
-  .recordedonly_buttons{
-    text-align: right;
+  .recordedonly-buttons{
+    float: right;
+    margin-bottom: 10px;
   }
 
   #space-meetings-fetch {

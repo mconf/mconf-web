@@ -12,7 +12,7 @@
     .content-block-header
       %h3= t('.title')
 
-      .recordedonly_buttons
+      .btn-group.recordedonly-buttons
         = link_to my_meetings_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
           = t(".recordedonly_true")
 
