@@ -15,7 +15,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#invite_userid" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
-      let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+      let(:hash) { { id: room.to_param } }
 
       context "template" do
         before(:each) { get :invite_userid, hash }
@@ -61,10 +61,10 @@ describe CustomBigbluebuttonRoomsController do
   describe "#invite" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
-      let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+      let(:hash) { { id: room.to_param } }
 
       context "template" do
-        let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+        let(:hash) { { id: room.to_param } }
         before { controller.should_receive(:bigbluebutton_role) { :key } }
         before(:each) {
           login_as(FactoryGirl.create(:superuser))
@@ -384,7 +384,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :name, :server_id, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
+          [ :name, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
             :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
             :auto_start_video, :auto_start_audio, :background,
@@ -547,7 +547,6 @@ describe CustomBigbluebuttonRoomsController do
         context "when submitting the moderator password" do
           let(:user) { FactoryGirl.create(:user) }
           let(:room) { user.bigbluebutton_room }
-          let(:server) { room.server }
 
           context "creates the room if the current user is the owner" do
             before :each do
@@ -574,9 +573,7 @@ describe CustomBigbluebuttonRoomsController do
               BigbluebuttonRoom.stub(:find_by!) { room }
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
               BigBlueButton::BigBlueButtonApi.any_instance.stub(:get_api_version).and_return("0.9")
-
-              # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
-              server.api.stub(:is_meeting_running?) { false }
+              BigBlueButton::BigBlueButtonApi.any_instance.stub(:is_meeting_running?) { false }
             end
             before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
             it { should respond_with(:redirect) }

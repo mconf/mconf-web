@@ -326,7 +326,6 @@ class Space < ActiveRecord::Base
   def create_webconf_room
     params = {
       :owner => self,
-      :server => BigbluebuttonServer.default,
       :param => self.permalink,
       :name => self.name,
       :private => false,

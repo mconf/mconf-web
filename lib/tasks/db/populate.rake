@@ -76,7 +76,6 @@ namespace :db do
     User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
-                                       :server => BigbluebuttonServer.default,
                                        :param => user.username,
                                        :name => user.full_name
       end
@@ -113,7 +112,6 @@ namespace :db do
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
         BigbluebuttonRoom.create do |room|
-          room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
@@ -255,7 +253,7 @@ namespace :db do
 
       BigbluebuttonRecording.populate 2..10 do |recording|
         recording.room_id = room.id
-        recording.server_id = room.server.id
+        recording.server_id = BigbluebuttonServer.default.id
         recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
         recording.meetingid = room.meetingid
         recording.name = Populator.words(3..5).titleize
