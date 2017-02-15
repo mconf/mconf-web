@@ -290,18 +290,18 @@ namespace :db do
       # Basic metadata needed in all recordings
       room.recordings.each do |recording|
         # this is created by BigbluebuttonRails normally
-        user_id = recording.metadata.where(:name => BigbluebuttonRails.metadata_user_id.to_s).first
+        user_id = recording.metadata.where(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s).first
         if user_id.nil?
           if recording.room.owner_type == 'User'
             user = recording.room.owner
             if user
-              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+              recording.metadata.create(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s,
                                         :content => user.id)
             end
           else
             space = recording.room.owner
             if space
-              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+              recording.metadata.create(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s,
                                         :content => space.users.sample)
             end
           end

@@ -100,10 +100,10 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_role(room)
-    # guest role that only exists in mconf-live, might be disabled in the gem
-    guest_role = :attendee
-    if defined?(BigbluebuttonRails.guest_support) and BigbluebuttonRails.guest_support
+    if BigbluebuttonRails.configuration.guest_support
       guest_role = :guest
+    else
+      guest_role = :attendee
     end
 
     # first make sure the room has a valid owner

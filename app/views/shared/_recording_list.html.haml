@@ -10,7 +10,7 @@
 
   - else
     - recordings.each do |recording|
-      - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
+      - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.configuration.metadata_user_id.to_s }.first
 
       - action = recording.room.owner_type == "User" ? :user_show : :space_show
       - if can?(action, recording)
