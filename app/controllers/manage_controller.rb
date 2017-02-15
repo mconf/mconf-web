@@ -7,6 +7,7 @@
 
 class ManageController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :require_spaces_mod, only: [:spaces]
   authorize_resource :class => false
 
   def users

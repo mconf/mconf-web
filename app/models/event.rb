@@ -48,7 +48,11 @@ class Event < ActiveRecord::Base
 
   # Ensure events will never be found if disabled
   default_scope -> {
-    Event.none unless Mconf::Modules.mod_enabled?('events')
+    if !Mconf::Modules.mod_enabled?('events')
+      Event.none
+    elsif !Mconf::Modules.mod_enabled?('spaces')
+      Event.where.not(owner_type: Space.name)
+    end
   }
 
   # Search events based on a list of words

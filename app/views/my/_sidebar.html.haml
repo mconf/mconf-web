@@ -14,6 +14,7 @@
     %li{ home_sidebar_menu_select_if(:meetings) }
       = link_to my_meetings_path do
         = t(".menu.meetings")
-    %li{ home_sidebar_menu_select_if(:spaces) }
-      = link_to "/my-spaces" do
-        = t(".menu.spaces")
+    -if mod_enabled?("spaces")
+      %li{ home_sidebar_menu_select_if(:spaces) }
+        = link_to "/my-spaces" do
+          = t(".menu.spaces")

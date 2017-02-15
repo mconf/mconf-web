@@ -22,8 +22,7 @@ module Mconf
       when 'events'
         defined?(Site) && Site.table_exists? && Site.current &&
           Site.current.respond_to?(:events_enabled) &&
-          Site.current.events_enabled? &&
-          mod_enabled?('spaces') # depends on spaces for now
+          Site.current.events_enabled?
       else
         false
       end
