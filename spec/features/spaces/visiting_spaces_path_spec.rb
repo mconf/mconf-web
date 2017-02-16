@@ -124,5 +124,23 @@ describe 'User accesses spaces index' do
     end
   end
 
+  context 'spaces module is disabled' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    before {
+      Site.current.update_attribute(:spaces_enabled, false)
+      space
+      login_as(user, :scope => :user)
+    }
+
+    context 'the page will not render (404)' do
+      before { visit spaces_path }
+      it { should_not have_content space.name }
+      it { should_not have_css '#show-spaces-mine' }
+      it { should_not have_css '.space-container', :count => 1 }
+      it { page.status_code.should == 404 }
+    end
+  end
+
 end
 
