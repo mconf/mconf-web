@@ -247,6 +247,13 @@ describe ManageController do
           it { assigns(:users).count.should be(3) }
           it { assigns(:users).should include(users[0], users[2], users[4]) }
         end
+
+        context "empty space before q: params" do
+          let(:params) { { q: ' reprovado'} }
+
+          it { assigns(:users).count.should be(1) }
+          it { assigns(:users).should include(users[3]) }
+        end
       end
 
       context "use params [:login_method_shib, :login_method_ldap, :login_method_local] to filter the results" do
@@ -474,6 +481,13 @@ describe ManageController do
 
           it { assigns(:spaces).count.should be(1) }
           it { assigns(:spaces).should include(spaces[2]) }
+        end
+
+        context "empty space before q: params" do
+            let(:params) { { q: ' ena'} }
+
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[2]) }
         end
       end
 
@@ -755,6 +769,13 @@ describe ManageController do
 
           it { assigns(:recordings).count.should be(3) }
           it { assigns(:recordings).should include(recordings[0], recordings[3], recordings[4]) }
+        end
+
+        context "empty space before q: params"do
+          let(:params) { { q: ' unpub'} }
+
+          it { assigns(:recordings).count.should be(1) }
+          it { assigns(:recordings).should include(recordings[1]) }
         end
       end
 

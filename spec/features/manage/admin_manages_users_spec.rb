@@ -17,6 +17,7 @@ describe 'Admin manages users' do
       before {
         login_as(admin, :scope => :user)
         @user1 = FactoryGirl.create(:user)
+        @user1.update_attributes(can_record: true)
         @user_admin = FactoryGirl.create(:user, superuser: true)
         @unapproved_user = FactoryGirl.create(:user)
         @unapproved_user.update_attributes(:approved => false)
@@ -38,6 +39,8 @@ describe 'Admin manages users' do
       it { should have_css '#users-list .icon-mconf-confirm-user', count: 2 }
       it { should have_css '#users-list .icon-mconf-approve', count: 2 }
       it { should have_css '#users-list .icon-mconf-superuser', count: 2 }
+      it { should have_css '#users-list .icon-mconf-cant-rec', :count => 4 }
+      it { should have_css '#users-list .icon-mconf-can-rec', :count => 1 }
 
       context 'elements for the signed in user' do
         let(:user) { admin }

@@ -77,7 +77,6 @@ namespace :db do
     User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
-                                       :server => BigbluebuttonServer.default,
                                        :param => user.username,
                                        :name => user.full_name
       end
@@ -114,7 +113,6 @@ namespace :db do
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
         BigbluebuttonRoom.create do |room|
-          room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
@@ -278,7 +276,7 @@ namespace :db do
 
         BigbluebuttonRecording.populate 1..1 do |recording|
           recording.room_id = room.id
-          recording.server_id = room.server.id
+          recording.server_id = BigbluebuttonServer.default.id
           recording.meeting_id = meeting.id
           recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
           recording.meetingid = room.meetingid
@@ -337,18 +335,18 @@ namespace :db do
       # Basic metadata needed in all recordings
       room.recordings.each do |recording|
         # this is created by BigbluebuttonRails normally
-        user_id = recording.metadata.where(:name => BigbluebuttonRails.metadata_user_id.to_s).first
+        user_id = recording.metadata.where(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s).first
         if user_id.nil?
           if recording.room.owner_type == 'User'
             user = recording.room.owner
             if user
-              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+              recording.metadata.create(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s,
                                         :content => user.id)
             end
           else
             space = recording.room.owner
             if space
-              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+              recording.metadata.create(:name => BigbluebuttonRails.configuration.metadata_user_id.to_s,
                                         :content => space.users.sample)
             end
           end

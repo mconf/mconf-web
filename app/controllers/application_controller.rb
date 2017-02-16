@@ -90,6 +90,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  # Redirects to the URL specified in the parameters.
+  # If the parameter is not set, behaves exactly like `redirect_to`.
+  def redirect_to_p(options={}, response_status={})
+    unless params[:redir_url].blank?
+      redirect_to params[:redir_url], response_status
+    else
+      redirect_to options, response_status
+    end
+  end
+
+  # Redirects to the URL specified in the parameters.
+  # If the parameter is not set, behaves exactly like `render`.
+  def render_p(action=nil, response_status={})
+    unless params[:redir_url].blank?
+      redirect_to params[:redir_url], response_status
+    else
+      render action, response_status
+    end
+  end
+
   private
 
   def set_time_zone

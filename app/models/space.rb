@@ -122,7 +122,7 @@ class Space < ActiveRecord::Base
       query_params = []
       query_orders = []
 
-      words.each do |word|
+      words.reject(&:blank?).each do |word|
         str  = "name LIKE ? OR description LIKE ?"
         query_strs << str
         query_params += ["%#{word}%", "%#{word}%"]
@@ -333,7 +333,6 @@ class Space < ActiveRecord::Base
   def create_webconf_room
     params = {
       :owner => self,
-      :server => BigbluebuttonServer.default,
       :param => self.permalink,
       :name => self.name,
       :private => false,

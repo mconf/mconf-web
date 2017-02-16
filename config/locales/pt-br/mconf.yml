@@ -1020,6 +1020,7 @@ pt-br:
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     user_item:
+      allow_record: "Conceder permissão de gravação"
       auth_using: "usando"
       available_auth: "métodos disponíveis"
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -1028,6 +1029,7 @@ pt-br:
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
+      disallow_record: "Remover permissão de gravação"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
@@ -1776,6 +1778,7 @@ pt-br:
     normal_user: "Usuário comum"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
+    not_updated: "Não foi possível atualizar o usuário, por favor tente novamente"
     one: Usuário
     other: Usuários
     recent_join: "Usuários recentemente inscritos"

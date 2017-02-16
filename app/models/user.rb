@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
       query_params = []
       query_orders = []
 
-      words.each do |word|
+      words.reject(&:blank?).each do |word|
         str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
         str += " OR users.email LIKE ?" if include_private
         query_strs << str
@@ -175,7 +175,6 @@ class User < ActiveRecord::Base
   def create_webconf_room
     params = {
       :owner => self,
-      :server => BigbluebuttonServer.default,
       :param => self.username,
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",

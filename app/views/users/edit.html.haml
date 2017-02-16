@@ -35,7 +35,7 @@
     #user-ldap-info.alert.alert-gray
       %span.title= t('.ldap.title')
 
-= simple_form_for @user, :url => user_path(@user, return_to: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
+= simple_form_for @user, :url => user_path(@user, redir_url: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
 
   #user-account-panel-1
 

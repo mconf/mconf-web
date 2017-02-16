@@ -15,7 +15,7 @@ Rails.application.config.to_prepare do
       query_strs = []
       query_params = []
 
-      words.each do |word|
+      words.reject(&:blank?).each do |word|
         str  = "name LIKE ?"
         query_strs << str
         query_params += ["%#{word}%"]
