@@ -168,6 +168,7 @@ en:
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         forbid_user_space_creation: "Forbid users from creating spaces"
+        gravatar: "Use gravatar"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -208,6 +209,7 @@ en:
         ssl: "SSL"
         timezone: "Timezone"
         visible_locales: "Visible languages"
+        unauth_access_to_conferences: "Allow unauthorized users in conferences"
         xmpp_server: "XMPP Server Address"
       space:
         attendee_key: "Key for attendees"
@@ -510,6 +512,7 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: %{name}"
     join:
+      unauth_access_to_conferences: "You need to sign in before you can join this conference."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
     join_mobile:
       click_to_download_android: "Click here to download the Android client"

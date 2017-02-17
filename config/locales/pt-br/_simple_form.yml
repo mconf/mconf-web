@@ -76,6 +76,7 @@ pt-br:
         smtp_sender: "O e-mail utilizado no campo \"De\" ao enviar e-mails automatizados aos usuários, normalmente um e-mail \"no-reply\"."
         ssl: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
         use_gravatar: "Buscar avatar de usuários do Gravatar se nenhum for carregado no portal."
+        unauth_access_to_conferences: "Permitir que usuários entrem em conferência sem realizar login."
         xmpp_server: "Endereço onde está localizado o servidor XMPP."
       space:
         bigbluebutton_room:

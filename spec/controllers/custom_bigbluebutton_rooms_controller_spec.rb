@@ -521,6 +521,43 @@ describe CustomBigbluebuttonRoomsController do
           end
         end
 
+        context "testing the unauth_access_to_conferences flag when a guest is trying to enter a meeting" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:hash) { { :name => "Elftor", :key => room.attendee_key } }
+          let(:room) { user.bigbluebutton_room }
+          before {
+            BigbluebuttonRoom.stub(:find_by!) { room }
+          }
+
+          context "when a meeting is running and the flag is true" do
+            before {
+              Site.current.update_attributes(unauth_access_to_conferences: true)
+              room.stub(:is_running?) { true }
+              room.should_receive(:fetch_is_running?).at_least(:once) { true }
+              room.should_receive(:fetch_meeting_info)
+            }
+            it "gets to the room" do
+              send(method, :join, :id => room.to_param, :user => hash)
+              should_not redirect_to join_webconf_path(room)
+              should_not set_flash.to(I18n.t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences'))
+            end
+          end
+
+          context "when a meeting is running and the flag is false" do
+            before {
+              Site.current.update_attributes(unauth_access_to_conferences: false) #this is breaking check user limit?!
+              room.stub(:is_running?) { true }
+              room.should_receive(:fetch_is_running?).at_least(:once) { true }
+              room.should_receive(:fetch_meeting_info)
+            }
+            it "fails to get to the room" do
+              send(method, :join, :id => room.to_param, :user => hash)
+              should redirect_to join_webconf_path(room)
+              should set_flash.to(I18n.t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences'))
+            end
+          end
+        end
+
         # important to check this because join runs methods such as ApplicationController.bigbluebutton_role
         # that need the information fetch in the before filters
         context "#join is called with the same @room that we fetched information from" do

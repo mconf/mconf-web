@@ -20,6 +20,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # Authorizing is the same for all actions
   authorize_resource class: "BigbluebuttonRoom", instance_name: "room"
 
+  # can't join or join mobile if not logged and the site does not allow
+  # unauthorized joins
+  before_filter :check_unauth_access, only: [:join, :join_mobile, :invite]
+
   # the logic of the 2-step joining process
   before_filter :check_redirect_to_invite, only: [:invite_userid]
   before_filter :check_redirect_to_invite_userid, only: [:invite]
@@ -28,7 +32,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :check_user_limit, only: [:join]
 
   # use the patter configured on the site to generate dial numbers
-  before_filter :set_site_pattern, only: [:generate_dial_number]
+  before_filter :set_site_pattern, only: :generate_dial_number
 
   layout :determine_layout
 
@@ -59,6 +63,15 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     # no user logged and no user set in the URL, go back to the identification step
     if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
+    end
+  end
+
+  # Redirects the user to the identification page if not signed in and the
+  # site does not allow unauthorized joins
+  def check_unauth_access
+    if !current_site.unauth_access_to_conferences && !user_signed_in?
+      redirect_to join_webconf_path(id: params[:id])
+      flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
     end
   end
 

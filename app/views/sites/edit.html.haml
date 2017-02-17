@@ -62,5 +62,6 @@
     = f.input :forbid_user_space_creation, :as => :boolean
     = f.input :events_enabled, :as => :boolean
     = f.input :use_gravatar, :as => :boolean
+    = f.input :unauth_access_to_conferences, as: :boolean
     = f.input :max_upload_size, as: :string, input_html: { value: @site.formatted_max_upload_size }
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")
