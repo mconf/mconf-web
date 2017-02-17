@@ -383,6 +383,7 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
     t.string   "smtp_receiver"
+    t.boolean  "unauth_access_to_conferences",   default: true
   end
 
   create_table "spaces", force: true do |t|
