@@ -54,7 +54,7 @@ describe SpacesController do
 
     it { should_authorize Space, :index }
 
-    context "orders by latest activities in the space" do
+    context "orders by latest activities in the spate" do
       let!(:now) { Time.now }
       let!(:spaces) {[
         FactoryGirl.create(:space_with_associations),
@@ -870,5 +870,58 @@ describe SpacesController do
       it { assigns(:spaces).should include(@s3) }
     end
   end
+  
+  describe "module enabled" do
 
+    context "with disabled" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      let(:space) { FactoryGirl.create(:space_with_associations) }
+      let(:space_id) { space.to_param }
+      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+      let(:space_attributes) { FactoryGirl.attributes_for(:space) }
+      before(:each) { 
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user) 
+
+      }
+      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :create, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :update_logo, space_params }.to raise_error(ActionController::RoutingError) }
+      it { request.env["HTTP_REFERER"] = "/any"
+           expect { put :update, id: space_id, space: space_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :user_permissions, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :leave, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :webconference, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :meetings, id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      let!(:user) { FactoryGirl.create(:superuser) }
+      let!(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let!(:space_id) { space.to_param }
+      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+      let(:space_attributes) { FactoryGirl.attributes_for(:space) }
+      before(:each) { 
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user) 
+        
+        space.add_member!(user, 'User')       
+      }
+      it { expect { get :index }.not_to raise_error }
+      it { expect { get :new }.not_to raise_error }
+      it { expect { get :show, id: space_id }.not_to raise_error }
+      it { expect { get :create, id: space_id }.not_to raise_error }
+      it { expect { post :update_logo, space_params }.not_to raise_error }
+      it { request.env["HTTP_REFERER"] = "/any"
+           expect { put :update, id: space_id, space: space_attributes }.not_to raise_error }
+      it { expect { delete :destroy, id: space_id }.not_to raise_error }
+      it { expect { get :user_permissions, id: space_id }.not_to raise_error }
+      it { expect { get :leave, id: space_id }.not_to raise_error }
+      it { expect { get :webconference, id: space_id }.not_to raise_error }
+      it { expect { get :meetings, id: space_id }.not_to raise_error }
+    end
+  end
 end
