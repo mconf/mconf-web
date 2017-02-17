@@ -27,6 +27,17 @@ body.custom_bigbluebutton_rooms.invite_userid {
           font-weight: bold;
         }
       }
+
+      /* when anonymous join is disabled, there will be only one form */
+      &:only-child {
+        width: auto;
+        float: none;
+
+        .container {
+          margin: 0 auto;
+          float: none;
+        }
+      }
     }
 
     #webconf-room-userid-non-member {

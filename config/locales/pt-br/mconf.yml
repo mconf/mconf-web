@@ -169,6 +169,7 @@ pt-br:
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
         forbid_user_space_creation: "Proibir que usuários criem comunidades"
+        gravatar: Usar gravatar
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -210,7 +211,7 @@ pt-br:
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
-        gravatar: Usar gravatar
+        unauth_access_to_conferences: "Permitir usuários não autenticados em conferências"
         xmpp_server: "Endereço do servidor XMPP"
       space:
         attendee_key: "Chave para participantes"
@@ -517,7 +518,7 @@ pt-br:
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: %{name}"
     join:
-      unauth_access_to_conferences: "Esta conferência requer que os usuários estejam logados em suas contas."
+      unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"

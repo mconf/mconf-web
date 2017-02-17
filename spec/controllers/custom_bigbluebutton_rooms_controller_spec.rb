@@ -527,7 +527,6 @@ describe CustomBigbluebuttonRoomsController do
           let(:room) { user.bigbluebutton_room }
           before {
             BigbluebuttonRoom.stub(:find_by!) { room }
-            controller.should_receive(:check_user_limit) { true }
           }
 
           context "when a meeting is running and the flag is true" do

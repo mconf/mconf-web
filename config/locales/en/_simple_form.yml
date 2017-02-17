@@ -67,7 +67,7 @@ en:
         smtp_sender: "The email used in the \"From\" header when sending automated emails to users, usually a \"no-reply\" email."
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
         use_gravatar: "Fetch user avatars from gravatar if none was uploaded."
-        unauth_access_to_conferences: "Allow users to enter conferences without login."
+        unauth_access_to_conferences: "Allow users to enter conferences without signing in."
         xmpp_server: "Address where's located the XMPP server."
       space:
         bigbluebutton_room:
