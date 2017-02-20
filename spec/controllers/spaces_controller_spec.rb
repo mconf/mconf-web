@@ -883,6 +883,7 @@ describe SpacesController do
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user) 
 
+        space.add_member!(user, 'User')
       }
       it { expect { get :index }.to raise_error(ActionController::RoutingError) }
       it { expect { get :new }.to raise_error(ActionController::RoutingError) }
@@ -907,8 +908,8 @@ describe SpacesController do
       before(:each) { 
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user) 
-        
-        space.add_member!(user, 'User')       
+
+        space.add_member!(user, 'User')
       }
       it { expect { get :index }.not_to raise_error }
       it { expect { get :new }.not_to raise_error }

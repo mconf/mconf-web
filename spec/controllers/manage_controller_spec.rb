@@ -771,4 +771,27 @@ describe ManageController do
       end
     end
   end
+
+  describe "spaces module enabled" do
+
+    context "with disabled" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      let(:space) { FactoryGirl.create(:space_with_associations) }
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :spaces }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      let!(:user) { FactoryGirl.create(:superuser) }
+      let!(:space) { FactoryGirl.create(:space_with_associations) }
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :spaces }.not_to raise_error }
+    end
+  end
 end

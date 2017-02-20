@@ -897,4 +897,49 @@ describe JoinRequestsController do
       end
     end
   end
+
+  describe "spaces module enabled" do
+
+    context "with disabled" do
+      let(:candidate) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:superuser) }
+      let(:space) { FactoryGirl.create(:space_with_associations) }
+      let(:space_id) { space.to_param }
+      let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
+      before(:each) {
+        request.env['HTTP_REFERER'] = "/back"
+        Site.current.update_attribute(:spaces_enabled, false)
+        space.add_member!(user, 'Admin')
+        login_as(user)
+      }
+      it { expect { get :invite, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :accept, id: jr, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :decline, id: jr, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :create, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: jr, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      let(:candidate) { FactoryGirl.create(:user) }
+      let!(:user) { FactoryGirl.create(:superuser) }
+      let!(:space) { FactoryGirl.create(:space_with_associations) }
+      let!(:space_id) { space.to_param }
+      let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
+      before(:each) {
+        request.env['HTTP_REFERER'] = "/back"
+        Site.current.update_attribute(:spaces_enabled, true)
+        space.add_member!(user, 'Admin')
+        login_as(user)
+      }
+      it { expect { get :invite, space_id: space_id }.not_to raise_error }
+      it { expect { post :accept, id: jr, space_id: space_id }.not_to raise_error }
+      it { expect { post :decline, id: jr, space_id: space_id }.not_to raise_error }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+      it { expect { post :create, space_id: space_id }.not_to raise_error }
+      it { expect { get :new, space_id: space_id }.not_to raise_error }
+      it { expect { get :show, id: jr, space_id: space_id }.not_to raise_error }
+    end
+  end
 end
