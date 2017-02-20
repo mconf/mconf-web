@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
+  validates :public_key, uniqueness: true, allow_nil: true
+  validates :unique_name, uniqueness: true, allow_nil: true
+
   validates :email, uniqueness: true, presence: true, email: true
 
   has_and_belongs_to_many :spaces, -> { where(permissions: {subject_type: 'Space'}).uniq },
@@ -333,6 +336,18 @@ class User < ActiveRecord::Base
 
   def last_sign_in_method
     [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
+  end
+
+  def superuser
+    Permission.where(subject: Site.current, user: self, role: Site.roles[:admin]).first.present?
+  end
+
+  def superuser?
+    superuser
+  end
+
+  def set_superuser!
+    Permission.find_or_create_by(subject: Site.current, user: self, role: Site.roles[:admin])
   end
 
   protected

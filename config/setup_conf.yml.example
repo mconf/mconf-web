@@ -17,6 +17,15 @@ default:
   #   db: 1
   #   password: '1234567890'
 
+  attribute_roles:
+    global_admin: '1.3.6.1.4.1.12129.4.1.53.2'
+    normal_user: '1.3.6.1.4.1.12129.4.1.53.1'
+
+  attribute_certificate_configuration:
+    oid_eea: '1.3.6.1.4.1.12129.4.1.53'
+    repository_url: 'pca.example.com/pca/webservice/client.asmx'
+    repository_port: '443'
+    enabled: true
 
   #
   # Configurations that are used only by db:seeds.

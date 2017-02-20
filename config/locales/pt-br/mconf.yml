@@ -628,6 +628,7 @@ pt-br:
     shared:
       links:
         login:
+          certificate: "Acesso via certificado"
           default: "Acessar a sua conta"
           federation: "Acesso via federação"
         lost_password: "Esqueceu sua senha?"
@@ -703,6 +704,7 @@ pt-br:
     show:
       headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
       login:
+        certificate: "Acesso via certificado"
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"

@@ -11,12 +11,19 @@ require 'abilities/anonymous_ability'
 require 'abilities/member_ability'
 require 'abilities/superuser_ability'
 
+require './lib/mconf/attribute_certificate'
+
 module Abilities
 
   def self.ability_for(user)
-    if user and user.superuser?
+    ac_conf = AttributeCertificateConfiguration.first
+    use_certificates = ac_conf.try(:enabled?)
+
+    # Try superuser via certificate and then via normal method
+    if user && (use_certificates && Mconf::AttributeCertificate::role_for?(user, 'Global Admin') || user.superuser?)
+    #if user and user.superuser?
       SuperUserAbility.new(user)
-    elsif user and !user.anonymous?
+    elsif user && !user.anonymous?
       MemberAbility.new(user)
     else
       AnonymousAbility.new

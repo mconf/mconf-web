@@ -85,8 +85,15 @@ class mconf.Modal
 
     # if its a link, load the content and then show it
     if isRemote
-      $modal.load options.target, "", ->
+      $modal.load options.target, "", (responseText, textStatus, xhr) ->
         $modal.modal(localOptions)
+
+        # Remote returns an http error code show
+        if !(xhr.status >= 200 && xhr.status < 400)
+          $modal.addClass('xhr-error')
+          $modal.html("<div class='status'> <i class='fa fa-frown-o'></i> #{xhr.statusText} </div>")
+
+          $(options.element).trigger("modal-error")
 
     # not a link, simply show the content
     else

@@ -378,15 +378,11 @@ namespace :db do
     puts "* Disabling a few users and spaces"
     ids = Space.ids
     ids = ids.sample(Space.count/5) # 1/5th disabled
-    Space.where(:id => ids).each do |space|
-      space.disable
-    end
-    users_without_admin = User.where(["(superuser IS NULL OR superuser = ?) AND username NOT IN (?)", false, reserved_usernames])
-    ids = users_without_admin.ids
-    ids = ids.sample(User.count/5) # 1/5th disabled
-    User.where(:id => ids).each do |user|
-      user.disable
-    end
+    Space.where(:id => ids).map(&:disable)
+
+    users_without_admin = User.where("username NOT IN (?)", reserved_usernames + ['admin'])
+    ids = users_without_admin.sample(users_without_admin.count/5) # 1/5th disabled
+    User.where(:id => ids).map(&:disable)
 
     puts "* Adding some insecure data to test for script injection"
     add_insecure_data

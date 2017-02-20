@@ -11,6 +11,10 @@ class Site < ActiveRecord::Base
 
   before_validation :validate_and_adjust_max_upload_size
 
+  def self.roles
+    { admin: Role.where(name: 'Global Admin').first }
+  end
+
   # Returns the current (default) site
   def self.current
     first || create

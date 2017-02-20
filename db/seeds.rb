@@ -43,13 +43,23 @@ Role.create! :name => 'User', :stage_type => 'Space'
 Role.create! :name => 'Admin', :stage_type => 'Space'
 Role.create! :name => 'Organizer', :stage_type => 'Event'
 
+puts "* Create attribute certificate configurations"
+# New roles and their certificate oids
+r1 = Role.create! name: 'Global Admin', stage_type: 'Site'
+r2 = Role.create! name: 'Normal User', stage_type: 'Site'
+
+attr_roles = configatron.attribute_roles.to_hash
+AttributeRole.create! role_id: r1.id, oid: attr_roles[:global_admin]
+AttributeRole.create! role_id: r2.id, oid: attr_roles[:normal_user]
+
+attr_configs = configatron.attribute_certificate_configuration.to_hash
+AttributeCertificateConfiguration.create(attr_configs)
 
 puts "* Create the administrator account"
 puts "  attributes read from the configuration file:"
 puts "    #{configatron.admin.to_hash.inspect}"
 
 params = configatron.admin.to_hash
-params[:superuser] = true
 params[:password_confirmation] ||= params[:password]
 params[:_full_name] ||= params[:username]
 profile = params.delete(:profile_attributes)
@@ -59,6 +69,7 @@ u.skip_confirmation!
 u.approved = true
 if u.save(:validate => false)
   u.profile.update_attributes(profile.to_hash) unless profile.nil?
+  u.set_superuser!
 else
   puts "ERROR!"
   puts u.errors.inspect

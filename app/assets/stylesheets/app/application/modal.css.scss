@@ -6,6 +6,22 @@
   left: 60%;
 }
 
+.xhr-error {
+
+  .status {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 20px;
+    font-size: 200%;
+    i {
+      padding-right: 20px;
+      font-size: 300%;
+    }
+  }
+
+}
+
 @media (max-width: 979px) {
   .modal-small {
     left: 1%; // as done in bootstrap
@@ -24,4 +40,30 @@
   margin: 0;
   border: 0;
   background: none;
+}
+
+/* For the certificate pending modal in app/views/certificate_authentication/pending */
+.certificate-pending {
+
+  margin: 0 auto;
+  float: none;
+  text-align: center;
+  max-width: $contents-width * 0.7;
+
+  .error-links {
+    margin: 30px 0;
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+     display: inline;
+
+      li {
+        display: inline-block;
+      }
+
+    }
+  }
+
 }

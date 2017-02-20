@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "attachment"
   end
 
+  create_table "attribute_certificate_configurations", force: true do |t|
+    t.boolean  "enabled",         default: false
+    t.string   "repository_url"
+    t.string   "repository_port"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "oid_eea"
+  end
+
+  create_table "attribute_roles", force: true do |t|
+    t.string   "oid"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "bigbluebutton_meetings", force: true do |t|
     t.integer  "server_id"
     t.integer  "room_id"
@@ -377,6 +393,9 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.boolean  "captcha_enabled",                default: false
     t.string   "recaptcha_public_key"
     t.string   "recaptcha_private_key"
+    t.boolean  "certificate_login_enabled"
+    t.string   "certificate_id_field"
+    t.string   "certificate_user_id_field"
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
     t.string   "max_upload_size",                default: "15000000"
@@ -439,7 +458,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "password_salt",            limit: 40
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "superuser",                           default: false
     t.boolean  "disabled",                            default: false
     t.datetime "confirmed_at"
     t.string   "timezone"
@@ -458,6 +476,8 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "unconfirmed_email"
     t.boolean  "can_record"
     t.boolean  "approved",                            default: false, null: false
+    t.text     "public_key"
+    t.string   "unique_name"
     t.datetime "current_local_sign_in_at"
   end
 

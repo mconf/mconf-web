@@ -20,6 +20,16 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone
   before_filter :store_location
 
+  # This will only happen if the user is logged in and his certificate has
+  # been revoked, it makes a call to the WS every request.
+  # TODO: Could be made better if the any_certificate? method had a cache
+  before_filter :check_attribute_certificate, if: -> { Rails.env.production? }
+  def check_attribute_certificate
+    if current_user.present? && !current_user.superuser? && !Mconf::AttributeCertificate.any_certificate?(current_user)
+      sign_out current_user
+    end
+  end
+
   helper_method :current_site
   helper_method :previous_path_or
   helper_method :locale_i18n

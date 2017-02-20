@@ -622,6 +622,7 @@ en:
     shared:
       links:
         login:
+          certificate: "Login via client certificate"
           default: "Sign in to your account"
           federation: "Login via federation"
         lost_password: "Lost your password?"
@@ -697,6 +698,7 @@ en:
     show:
       headline: "A global scalable opensource multiconference system for web and mobile devices"
       login:
+        certificate: "Login via client certificate"
         federation: "Login via federation"
         lost_password: "Lost your password?"
         title: "Sign in to your account"
