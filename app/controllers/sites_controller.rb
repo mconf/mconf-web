@@ -51,7 +51,7 @@ class SitesController < ApplicationController
      :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled, :room_dial_number_pattern,
      :shib_update_users, :require_space_approval, :forbid_user_space_creation, :max_upload_size, :use_gravatar,
      :captcha_enabled, :recaptcha_public_key, :recaptcha_private_key, :unauth_access_to_conferences,
-     :certificate_login_enabled, :certificate_id_field, :certificate_user_id_field,
+     :certificate_login_enabled, :certificate_id_field,
      visible_locales: []
     ]
   end

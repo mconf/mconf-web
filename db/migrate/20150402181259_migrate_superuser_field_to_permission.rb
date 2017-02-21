@@ -4,7 +4,7 @@ class MigrateSuperuserFieldToPermission < ActiveRecord::Migration
       Role.create! name: 'Global Admin', stage_type: 'Site'
     end
 
-    User.all.each do |u|
+    User.find_each do |u|
       if u.read_attribute(:superuser) == true
         Permission.create(subject: Site.current, role: Site.roles[:admin], user: u)
         puts "* Creating permission for global admin: #{u.username}"
@@ -13,10 +13,8 @@ class MigrateSuperuserFieldToPermission < ActiveRecord::Migration
   end
 
   def down
-
-    User.all.each do |u|
-      p = Permission.where(user: u, subject: Site.current).first
-
+    User.find_each do |u|
+      p = Permission.find_by(user: u, subject: Site.current)
       if p.present?
         p.destroy
         u.update_attribute(:superuser, true)

@@ -52,7 +52,7 @@ module Mconf
 
     # The unique field in the user model which should be linked to the certificate
     def user_field
-      Site.current.certificate_user_id_field || 'unique_name'
+      'unique_name'
     end
 
     def find_or_create_user

@@ -379,7 +379,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "recaptcha_private_key"
     t.boolean  "certificate_login_enabled"
     t.string   "certificate_id_field"
-    t.string   "certificate_user_id_field"
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
     t.string   "max_upload_size",                default: "15000000"
