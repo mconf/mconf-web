@@ -43,22 +43,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "attachment"
   end
 
-  create_table "attribute_certificate_configurations", force: true do |t|
-    t.boolean  "enabled",         default: false
-    t.string   "repository_url"
-    t.string   "repository_port"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "oid_eea"
-  end
-
-  create_table "attribute_roles", force: true do |t|
-    t.string   "oid"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "bigbluebutton_meetings", force: true do |t|
     t.integer  "server_id"
     t.integer  "room_id"
