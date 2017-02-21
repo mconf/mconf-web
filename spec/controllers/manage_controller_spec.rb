@@ -773,10 +773,10 @@ describe ManageController do
   end
 
   describe "spaces module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
 
     context "with disabled" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:space) { FactoryGirl.create(:space_with_associations) }
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user)
@@ -785,8 +785,6 @@ describe ManageController do
     end
 
     context "with enabled" do
-      let!(:user) { FactoryGirl.create(:superuser) }
-      let!(:space) { FactoryGirl.create(:space_with_associations) }
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user)

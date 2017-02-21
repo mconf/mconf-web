@@ -899,13 +899,13 @@ describe JoinRequestsController do
   end
 
   describe "spaces module enabled" do
+    let(:candidate) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:space_id) { space.to_param }
+    let(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
 
     context "with disabled" do
-      let(:candidate) { FactoryGirl.create(:user) }
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:space) { FactoryGirl.create(:space_with_associations) }
-      let(:space_id) { space.to_param }
-      let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         Site.current.update_attribute(:spaces_enabled, false)
@@ -922,11 +922,6 @@ describe JoinRequestsController do
     end
 
     context "with enabled" do
-      let(:candidate) { FactoryGirl.create(:user) }
-      let!(:user) { FactoryGirl.create(:superuser) }
-      let!(:space) { FactoryGirl.create(:space_with_associations) }
-      let!(:space_id) { space.to_param }
-      let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         Site.current.update_attribute(:spaces_enabled, true)

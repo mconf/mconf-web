@@ -872,13 +872,13 @@ describe SpacesController do
   end
   
   describe "module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    let(:space_id) { space.to_param }
+    let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+    let(:space_attributes) { FactoryGirl.attributes_for(:space) }
 
     context "with disabled" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:space) { FactoryGirl.create(:space_with_associations) }
-      let(:space_id) { space.to_param }
-      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
-      let(:space_attributes) { FactoryGirl.attributes_for(:space) }
       before(:each) { 
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user) 
@@ -900,11 +900,6 @@ describe SpacesController do
     end
 
     context "with enabled" do
-      let!(:user) { FactoryGirl.create(:superuser) }
-      let!(:space) { FactoryGirl.create(:space_with_associations, public: true) }
-      let!(:space_id) { space.to_param }
-      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
-      let(:space_attributes) { FactoryGirl.attributes_for(:space) }
       before(:each) { 
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user) 

@@ -412,13 +412,13 @@ describe AttachmentsController do
   end
 
   describe "spaces module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space) }
+    let(:attachment) { FactoryGirl.create(:attachment, space: space) }
+    let(:space_id) { space.to_param }
+    let(:attachment_id) { attachment.id }
 
     context "with disabled" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:space) { FactoryGirl.create(:space) }
-      let(:attachment) { FactoryGirl.create(:attachment, space: space) }
-      let(:space_id) { space.to_param }
-      let(:attachment_id) { attachment.id }
       before(:each) { 
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user) 
@@ -434,11 +434,6 @@ describe AttachmentsController do
     end
 
     context "with enabled" do
-      let!(:user) { FactoryGirl.create(:superuser) }
-      let!(:space) { FactoryGirl.create(:space, public: true) }
-      let!(:attachment) { FactoryGirl.create(:attachment, space: space) }
-      let!(:space_id) { space.to_param }
-      let!(:attachment_id) { attachment.id }
       before(:each) { 
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user) 

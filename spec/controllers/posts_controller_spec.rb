@@ -239,14 +239,14 @@ describe PostsController do
   end
 
   describe "spaces module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:post) { FactoryGirl.create(:post, space: space) }
+    let(:post_attributes) { FactoryGirl.attributes_for(:post) }
+    let(:space_id) { space.to_param }
+    let(:post_id) { post.to_param }
 
     context "with disabled" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:space) { FactoryGirl.create(:space_with_associations) }
-      let!(:post) { FactoryGirl.create(:post, space: space) }
-      let!(:post_attributes) { FactoryGirl.attributes_for(:post) }
-      let!(:space_id) { space.to_param }
-      let!(:post_id) { post.to_param }
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user)
@@ -263,12 +263,6 @@ describe PostsController do
     end
 
     context "with enabled" do
-      let!(:user) { FactoryGirl.create(:superuser) }
-      let!(:space) { FactoryGirl.create(:space_with_associations) }
-      let!(:post) { FactoryGirl.create(:post, space: space) }
-      let!(:post_attributes) { FactoryGirl.attributes_for(:post) }
-      let!(:space_id) { space.to_param }
-      let!(:post_id) { post.to_param }
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user)
