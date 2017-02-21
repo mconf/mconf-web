@@ -23,7 +23,6 @@ FactoryGirl.define do
       after(:create) { |user| user.confirm }
 
       factory :superuser, class: User, parent: :user do |u|
-        u.superuser true
         after(:create) { |user| user.set_superuser! }
       end
     end

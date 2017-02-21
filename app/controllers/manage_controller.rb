@@ -27,8 +27,8 @@ class ManageController < ApplicationController
     query = query.with_auth(auth_methods)
 
     if params[:admin].present?
-      val = (params[:admin] == 'true') ? true : [false, nil]
-      query = query.where(superuser: val)
+      val = (params[:admin] == 'true') ? true : false
+      query = query.superusers(val)
     end
 
     @users = query.paginate(page: params[:page], per_page: 20)

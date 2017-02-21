@@ -51,11 +51,11 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true, presence: true, email: true
 
-  has_and_belongs_to_many :spaces, -> { where(permissions: {subject_type: 'Space'}).uniq },
+  has_and_belongs_to_many :spaces, -> { where(permissions: { subject_type: 'Space' }).uniq },
                           join_table: :permissions, association_foreign_key: "subject_id"
 
-  has_many :join_requests, :foreign_key => :candidate_id, :dependent => :destroy
-  has_many :permissions, :dependent => :destroy
+  has_many :join_requests, foreign_key: :candidate_id
+  has_many :permissions
   has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
@@ -121,6 +121,15 @@ class User < ActiveRecord::Base
   # The default ordering for search methods
   scope :search_order, -> {
     order("profiles.full_name")
+  }
+
+  # Returns only users that are admins of the site
+  scope :superusers, -> (is_superuser=true) {
+    if is_superuser
+      where(id: Permission.where(subject: Site.current, role: Site.roles[:admin]).select(:user_id))
+    else
+      where.not(id: Permission.where(subject: Site.current, role: Site.roles[:admin]).select(:user_id))
+    end
   }
 
   # Returns only the users that have the authentication methods selected.
@@ -346,23 +355,30 @@ class User < ActiveRecord::Base
     superuser
   end
 
-  def set_superuser!
-    Permission.find_or_create_by(subject: Site.current, user: self, role: Site.roles[:admin])
+  def set_superuser!(value=true)
+    if value
+      Permission.find_or_create_by(subject: Site.current, user: self, role: Site.roles[:admin])
+    else
+      permission = Permission.find_by(subject: Site.current, user: self, role: Site.roles[:admin])
+      permission.destroy if permission.present?
+    end
   end
 
   protected
 
   def before_disable_and_destroy
-    # All the spaces the user is an admin of
+    # get all the spaces the user is an admin of
+    # do it first so permissions still exist
     admin_in = self.permissions
-      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
-      .map(&:subject)
+               .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+               .map(&:subject)
     admin_in.compact! # remove nil (disabled) spaces
 
-    # Some associations are removed even if the user is only
-    # being disabled and not completely removed.
-    permissions.each(&:destroy)
-    join_requests.each(&:destroy)
+    # removes all pending join requests sent or received by the user
+    join_requests.where(processed_at: nil).destroy_all
+
+    # remove all permissions
+    permissions.destroy_all
 
     # Disable spaces if this user was the last admin
     admin_in.each do |space|
