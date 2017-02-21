@@ -160,6 +160,8 @@ pt-br:
         name_admin: "Administrador"
       site:
         analytics_code: "Código do Google Analytics"
+        certificate_login_enabled: "Habilitar login via certificado"
+        certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
@@ -426,6 +428,14 @@ pt-br:
   cancel: Cancelar
   caption:
     add: "Adicionar legenda"
+  certificate_authentication:
+    error:
+      certificate: "Não existe nenhum certificado instalado ou ele é inválido"
+      disabled: "A autenticação via certificados não está habilitada"
+      generic: "Não existe nenhum certificado instalado ou ele é inválido"
+      not_found: "Seu certificado é válido mas não possui um usuário associado a ele"
+      title: "Erro no certificado"
+      unknown: "Não existe nenhum certificado instalado ou ele é inválido"
   city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"

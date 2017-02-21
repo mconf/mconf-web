@@ -159,6 +159,8 @@ en:
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
+        certificate_login_enabled: "Enable login via certificates"
+        certificate_id_field: "Certificate login: Field to obtain the user's ID"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
@@ -420,6 +422,14 @@ en:
   cancel: Cancel
   caption: 
     add: "Add a caption"
+  certificate_authentication:
+    error:
+      certificate: "A certificate is not installed or is invalid"
+      disabled: "Certificate login is not enabled"
+      generic: "A certificate is not installed or is invalid"
+      not_found: "Your certificate is valid but there's no user associated with it"
+      title: "Certificate error"
+      unknown: "A certificate is not installed or is invalid"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"

@@ -16,20 +16,18 @@ class CertificateAuthenticationController < ApplicationController
     @user = @cert.user
 
     if @user.present?
+      sign_in :user, @user
 
-      # If the user has permission, log him in
-      if Mconf::AttributeCertificate::any_certificate?(@user)
-        sign_in :user, @user
-        redirect_to my_home_path if !request.xhr?
-
-      # user present but has no permissions via his certificate
-      else
-        redirect_to certificate_pending_path(name: @user.name)
+      respond_to do |format|
+        format.json { render json: { result: true, redirect_to: my_home_path }, status: 200 }
       end
-
     else
       error = @cert.error || 'unknown'
-      flash[:error] = I18n.t("certificate_authentication.error.#{error}")
+      msg = I18n.t("certificate_authentication.error.#{error}")
+
+      respond_to do |format|
+        format.json { render json: { result: false, error: msg }, status: 200 }
+      end
     end
   end
 

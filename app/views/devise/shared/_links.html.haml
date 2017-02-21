@@ -10,7 +10,7 @@
       %li= link_to t('.login.federation'), shibboleth_path
 
     - if certificate_login_enabled
-      %li= link_to t('.login.certificate'), certificate_login_path, id: 'certificate-login', class: 'open-modal'
+      %li= certificate_auth_link t('.login.certificate')
 
     -# we show this even if local auth is disabled because admins can still sign in
     - if controller_name != 'sessions'

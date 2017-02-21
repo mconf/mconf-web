@@ -1,24 +1,26 @@
 class mconf.CertificateAuthentication
 
-  redirect_on_success = ->
-    if $('.certificate-login-error').length == 0
-      window.location = '/home'
-
-      setTimeout redirect_on_success, 2000
-
-  # Binds all certificate authentication login modal events
   @bind: ->
+    $('.certificate-auth-trigger').on 'click', (e) ->
+      e.preventDefault()
 
-    # Redirect after some time has passed
-    $('a#certificate-login').on 'modal-shown', ->
-      setTimeout redirect_on_success, 2000
+      $.ajax $(this).attr('href'),
+        contentType: 'application/json'
+        complete: (xhr) ->
 
-    $('a#certificate-login').on 'modal-hide', ->
-      redirect_on_success()
+          # the expected response, a json with info about success or error
+          if xhr.status == 200
+            response = xhr.responseJSON
 
-    # Show an error message if server returns 40x or 50x
-    $('a#certificate-login').on 'modal-error', ->
-      $(this).addClass('certificate-login-error')
-      $('.modal.xhr-error').load('/certificate_error')
-      .hide()
-      .fadeIn('slow');
+            if response.result == true
+              window.location = response.redirect_to
+            else
+              # TODO: show the error as a notification
+              console.log "Certificate authentication error:", response.error
+
+          # something went wrong, show a generic error
+          else
+            console.log "Certificate authentication generic error:", xhr.statusText
+
+$ ->
+  mconf.CertificateAuthentication.bind()

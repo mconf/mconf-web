@@ -29,6 +29,7 @@ en:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        certificate_id_field: "Field in the certificate from where the user's ID will be taken on login."
         domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
         captcha_enabled: "Require users to solve a captcha challenge when registering on any section of the website that doesn't require authentication (e.g. user registration and registration in events)"
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
