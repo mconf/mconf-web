@@ -14,18 +14,13 @@ module Mconf
     end
 
     def self.mod_enabled?(mod)
-      # Because of autoloading on development mode the "defined?(Site)" will not
-      # work properly and we must call Site to define the constant.
-      if Rails.env == "development"
-        Site
-      end
       case mod
       when 'spaces'
-        defined?(Site) && Site.table_exists? && Site.current &&
+        Site.table_exists? && Site.current &&
           Site.current.respond_to?(:spaces_enabled) &&
           Site.current.spaces_enabled?
       when 'events'
-        defined?(Site) && Site.table_exists? && Site.current &&
+        Site.table_exists? && Site.current &&
           Site.current.respond_to?(:events_enabled) &&
           Site.current.events_enabled?
       else
