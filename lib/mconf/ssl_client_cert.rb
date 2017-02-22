@@ -42,7 +42,7 @@ module Mconf
     private
 
     def certificate_login_enabled?
-      Site.current.certificate_login_enabled? && certificate_id_field.present?
+      Site.current.certificate_login_enabled?
     end
 
     # The unique field in the certificate
@@ -50,30 +50,36 @@ module Mconf
       Site.current.certificate_id_field || 'CN'
     end
 
-    # The unique field in the user model which should be linked to the certificate
-    def user_field
-      'unique_name'
+    # The name of the user from the certificate
+    def certificate_name_field
+      Site.current.certificate_name_field || 'CN'
     end
 
     def find_or_create_user
       attrs = {}
-      attrs[user_field] = get_user_field
+      attrs[:unique_name] = get_user_field
 
       @user = User.where(attrs).first
       if @user.blank?
-        attrs[:profile] = Profile.new({country: get_field('C'), organization: get_field('O'),
-          city: get_field('L'), province: get_field('ST') })
+        attrs[:profile] = Profile.new(
+          {
+            country: get_field('C'),
+            organization: get_field('O'),
+            city: get_field('L'),
+            province: get_field('ST')
+          }
+        )
         attrs[:email] = attrs[:email] || get_email_field
         attrs[:unique_name] = attrs[:unique_name] || get_field('CN')
-        attrs[:_full_name] = get_name_without_cpf.titleize
-        attrs[:username] = username_from_unique_name(get_name_without_cpf)
+        attrs[:_full_name] = get_name_field.titleize
+        attrs[:username] = username_from_unique_name(get_name_field)
         attrs[:public_key] = get_public_key()
         @user = User.new(attrs)
         @user.password = SecureRandom.hex(16)
         @user.skip_confirmation_notification!
         if @user.valid?
           @user.save!
-          @user.confirm!
+          @user.confirm
         end
       end
       @user
@@ -95,12 +101,16 @@ module Mconf
       end
     end
 
-    def get_field field_name
+    def get_field(field_name)
       # OpenSSL should really have an accessor here
       @certificate.subject.to_a.select {|name, _, _| name == field_name }.first.try(:[], 1)
     end
 
-    def username_from_unique_name un
+    def get_subject_alt_field(field)
+      @certificate.extensions.find {|e| e.oid == 'subjectAltName' }.value.match(/#{field}\:(.+?)\s*(,|$)/).try(:[], 1)
+    end
+
+    def username_from_unique_name(un)
       un.gsub(/[\s:]/, '-').gsub(/[^a-zA-Z0-9]/, '').downcase
     end
 
@@ -112,12 +122,8 @@ module Mconf
       get_field('emailAddress') || get_subject_alt_field('email')
     end
 
-    def get_subject_alt_field field
-      @certificate.extensions.find {|e| e.oid == 'subjectAltName' }.value.match(/#{field}\:(.+?)\s*(,|$)/).try(:[], 1)
-    end
-
-    def get_name_without_cpf
-      get_field('CN').split(':')[0]
+    def get_name_field
+      get_field(certificate_name_field) || get_field('CN')
     end
   end
 end

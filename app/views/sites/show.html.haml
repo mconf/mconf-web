@@ -32,6 +32,7 @@
     = f.input :ldap_filter, :disabled => true
     = f.input :certificate_login_enabled, as: :boolean, disabled: true
     = f.input :certificate_id_field, as: :string, disabled: true
+    = f.input :certificate_name_field, as: :string, disabled: true
   .right-column
     = f.input :smtp_login, :disabled => true
     = f.input :smtp_password, :as => :showable_password, :disabled => true

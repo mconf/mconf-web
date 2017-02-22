@@ -39,7 +39,8 @@ pt-br:
       site:
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
         captcha_enabled: "Requerer que os usuários resolvam um captcha para se registrarem em qualquer seção do site que não requer autenticação (e.g. registro de usuários e registro em eventos)"
-        certificate_id_field: "Campo do certificado de onde será retirado o ID do usuário assim que ele fizer o login."
+        certificate_id_field: "Campo do certificado de onde será retirado o identificador único do usuário assim que ele fizer o login. Utiliza por padrão 'CN'."
+        certificate_name_field: "Campo do certificado de onde será retirado o nome do usuário assim que ele fizer o login. Utiliza por padrão 'CN'."
         domain: "O domínio do seu site. Não inclua o protocolo (e.g. \"http\"), apenas o domínio completo. Exemplo: \"servidor.org/portal\""
         events_enabled: "Habilita ou desabilita o módulo de eventos no site. Para habilitá-lo, você deve possuir o módulo de eventos instalado. Reinicie a aplicação para aplicar as mudanças."
         exception_notifications: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"

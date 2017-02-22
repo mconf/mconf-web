@@ -161,6 +161,7 @@ en:
         analytics_code: "Analytics Code"
         certificate_login_enabled: "Enable login via certificates"
         certificate_id_field: "Certificate login: Field to obtain the user's ID"
+        certificate_name_field: "Certificate login: Field to obtain the user's name"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"

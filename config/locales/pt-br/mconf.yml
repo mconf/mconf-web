@@ -162,6 +162,7 @@ pt-br:
         analytics_code: "Código do Google Analytics"
         certificate_login_enabled: "Habilitar login via certificado"
         certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"
+        certificate_name_field: "Login via certificado: Campo para obter o nome do usuário"
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
