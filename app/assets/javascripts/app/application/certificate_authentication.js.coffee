@@ -15,11 +15,11 @@ class mconf.CertificateAuthentication
             if response.result == true
               window.location = response.redirect_to
             else
-              # TODO: show the error as a notification
-              console.log "Certificate authentication error:", response.error
+              mconf.Notification.addAndShow('error', response.error)
 
           # something went wrong, show a generic error
           else
+            mconf.Notification.addAndShow('error', I18n.t('certificate_authentication.error.generic'))
             console.log "Certificate authentication generic error:", xhr.statusText
 
 $ ->

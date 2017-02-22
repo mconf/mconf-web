@@ -34,6 +34,11 @@ class mconf.Notification
     notification.attr("name", type)
     notification.html(text)
     $('#notification-flashs').append(notification)
+    notification
+
+  @addAndShow: (type, text) ->
+    notification = @add(type, text)
+    showNotification(notification, type)
 
 showNotification = (target, type) ->
   $target = $(target)

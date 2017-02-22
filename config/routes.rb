@@ -150,8 +150,6 @@ Mconf::Application.routes.draw do
 
   # Login via certificate
   get '/certificate_login', to: 'certificate_authentication#login', as: 'certificate_login'
-  get '/certificate_error', to: 'certificate_authentication#error', as: 'certificate_error'
-  get '/certificate_pending', to: 'certificate_authentication#pending', as: 'certificate_pending'
 
   resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection

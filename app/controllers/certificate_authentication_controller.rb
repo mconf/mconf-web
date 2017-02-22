@@ -31,17 +31,4 @@ class CertificateAuthenticationController < ApplicationController
     end
   end
 
-  # Serves the error modal
-  def error
-  end
-
-  def pending
-    # don't show it unless user logged via certificate
-    # referers = [login_url, root_url, certificate_login_path]
-
-    if user_signed_in?
-      redirect_to root_path
-    end
-  end
-
 end
