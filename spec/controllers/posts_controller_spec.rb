@@ -237,4 +237,45 @@ describe PostsController do
   describe "abilities", :abilities => true do
     it "abilities"
   end
+
+  describe "spaces module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:post) { FactoryGirl.create(:post, space: space) }
+    let(:post_attributes) { FactoryGirl.attributes_for(:post) }
+    let(:space_id) { space.to_param }
+    let(:post_id) { post.to_param }
+
+    context "with disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :reply_post, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :create, space_id: space_id, post: post_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :edit, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { patch :update, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :update, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :reply_post, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+      it { expect { put :create, space_id: space_id, post: post_attributes }.not_to raise_error }
+      it { expect { get :new, space_id: space_id }.not_to raise_error }
+      it { expect { get :edit, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { get :show, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { patch :update, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { put :update, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :destroy, id: post_id, space_id: space_id }.not_to raise_error }
+    end
+  end
 end

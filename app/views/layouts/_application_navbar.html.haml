@@ -12,8 +12,8 @@
       %li
         = link_to main_app.my_home_path do
           = t('home.my')
-      %li
-        = link_to t('space.all'), main_app.spaces_path
+      - if mod_enabled?("spaces")
+        %li= link_to t('space.all'), main_app.spaces_path
       - if mod_enabled?("events")
         %li= link_to t('.events'), events_path
       - if current_user.superuser?

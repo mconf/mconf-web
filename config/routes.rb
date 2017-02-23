@@ -176,7 +176,7 @@ Mconf::Application.routes.draw do
     collection do
       get :select
     end
-    resources :participants
+    resources :participants, except: [:show, :edit]
     member do
       post :send_invitation
       get  :invite

@@ -183,4 +183,27 @@ describe SpaceEventsController, :events => true do
     end
 
   end
+
+  describe "events module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    let(:space_id) { space.to_param }
+    let(:target) { FactoryGirl.create(:event, owner: space) }
+
+    context "with disabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+    end
+  end
 end

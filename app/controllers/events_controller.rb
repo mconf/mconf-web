@@ -1,12 +1,13 @@
 class EventsController < InheritedResources::Base
   include Mconf::SelectControllerModule # for select method
 
+  before_filter :require_events_mod
+
   respond_to :html, :json
 
   # for ics renderer see config/initializers/renderers.rb
   respond_to :ics, only: :show
 
-  before_filter :block_if_events_disabled
   before_filter :concat_datetimes, :only => [:create, :update]
 
   defaults finder: :find_by_permalink!
@@ -95,13 +96,6 @@ class EventsController < InheritedResources::Base
     if current_user
       attrs = { email: current_user.email, owner: current_user, event: @event }
       @participant = Participant.where(attrs).try(:first) || Participant.new(attrs)
-    end
-  end
-
-  # return 404 for all Event routes if the events are disabled
-  def block_if_events_disabled
-    unless Mconf::Modules.mod_enabled?('events')
-      raise ActionController::RoutingError.new('Not Found')
     end
   end
 

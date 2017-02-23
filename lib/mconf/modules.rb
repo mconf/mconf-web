@@ -15,9 +15,12 @@ module Mconf
 
     def self.mod_enabled?(mod)
       case mod
+      when 'spaces'
+        Site.table_exists? && Site.current &&
+          Site.current.respond_to?(:spaces_enabled) &&
+          Site.current.spaces_enabled?
       when 'events'
-        # mod_loaded?(mod) &&
-        defined?(Site) && Site.table_exists? && Site.current &&
+        Site.table_exists? && Site.current &&
           Site.current.respond_to?(:events_enabled) &&
           Site.current.events_enabled?
       else

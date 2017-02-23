@@ -46,6 +46,15 @@ class Event < ActiveRecord::Base
   # Test if we need to clear the coordinates because address was cleared
   before_save :check_coordinates
 
+  # Ensure events will never be found if disabled
+  default_scope -> {
+    if !Mconf::Modules.mod_enabled?('events')
+      Event.none
+    elsif !Mconf::Modules.mod_enabled?('spaces')
+      Event.where.not(owner_type: Space.name)
+    end
+  }
+
   # Search events based on a list of words
   scope :search_by_terms, -> (words, include_private=false) {
     words = words.join(' ') if words.is_a?(Array)

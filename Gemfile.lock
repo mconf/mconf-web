@@ -82,6 +82,7 @@ GEM
     autoprefixer-rails (5.2.1.1)
       execjs
       json
+    awesome_print (1.7.0)
     bcrypt (3.1.10)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -522,6 +523,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 4.0)
   acts_as_tree (~> 2.0.0)
   autoprefixer-rails
+  awesome_print
   bcrypt (~> 3.1.5)
   better_errors
   bigbluebutton-api-ruby!
@@ -623,4 +625,4 @@ DEPENDENCIES
   zonebie
 
 BUNDLED WITH
-   1.13.1
+   1.13.7

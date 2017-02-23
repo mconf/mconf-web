@@ -12,7 +12,8 @@
     %ul
       %li.active= link_to t('.info'), "#tab-user-info"
       %li= link_to t('.activities'), "#tab-recent-activity"
-      %li= link_to t('.spaces'), "#tab-spaces"
+      -if mod_enabled?("spaces")
+        %li= link_to t('.spaces'), "#tab-spaces"
 
 #user-profile-tabs.page-menu-js-tabs
   #tab-user-info

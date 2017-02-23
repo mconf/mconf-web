@@ -410,4 +410,42 @@ describe AttachmentsController do
       it { should redirect_to 'http://test.host/users/login' }
     end
   end
+
+  describe "spaces module enabled" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space) }
+    let(:attachment) { FactoryGirl.create(:attachment, space: space) }
+    let(:space_id) { space.to_param }
+    let(:attachment_id) { attachment.id }
+
+    context "with disabled" do
+      before(:each) { 
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user) 
+
+        space.add_member!(user, 'User')
+      }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :create, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: attachment_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: attachment_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :delete_collection, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      before(:each) { 
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user) 
+
+        space.add_member!(user, 'User')
+      }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+      it { expect { post :create, space_id: space_id }.not_to raise_error }
+      it { expect { get :new, space_id: space_id }.not_to raise_error }
+      it { expect { get :show, id: attachment_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :destroy, id: attachment_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :delete_collection, space_id: space_id }.not_to raise_error }
+    end
+  end
 end

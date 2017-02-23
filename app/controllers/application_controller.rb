@@ -111,6 +111,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Returns 404 for all routes if the events are disabled
+  def require_events_mod
+    unless Mconf::Modules.mod_enabled?('events')
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
+  # Returns 404 for all routes if the spaces are disabled
+  def require_spaces_mod
+    unless Mconf::Modules.mod_enabled?('spaces')
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
   private
 
   def set_time_zone
