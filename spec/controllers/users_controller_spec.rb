@@ -308,7 +308,7 @@ describe UsersController do
 
       context "trying to update admin flag" do
         context "when normal user" do
-          let(:user) { FactoryGirl.create(:user, superuser: false) }
+          let(:user) { FactoryGirl.create(:user) }
 
           before(:each) do
             sign_in user
@@ -323,7 +323,7 @@ describe UsersController do
         end
 
         context "when admin and target is self" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
 
           before(:each) do
             sign_in user
@@ -338,7 +338,7 @@ describe UsersController do
         end
 
         context "when admin and target is another normal user" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
           let(:user2) { FactoryGirl.create(:user) }
 
           before(:each) do
@@ -354,8 +354,8 @@ describe UsersController do
         end
 
         context "when admin and target is another admin" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
-          let(:user2) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
+          let(:user2) { FactoryGirl.create(:superuser) }
 
           before(:each) do
             sign_in user
@@ -758,7 +758,7 @@ describe UsersController do
       before { User.destroy_all } # exclude seeded user(s)
 
       context "when the logged is user is an admin show full user data" do
-        let(:user) { FactoryGirl.create(:user, superuser: true) }
+        let(:user) { FactoryGirl.create(:superuser) }
         before(:each) { login_as(user) }
 
         let(:expected) {
@@ -843,7 +843,7 @@ describe UsersController do
         context "doesn't match users by email if the current user has no permission" do
           let(:unique_str) { "123123456456" }
           before do
-            user.update_attributes(superuser: false)
+            user.set_superuser!(false)
             FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
             FactoryGirl.create(:user, email: "Abc-de-Fgh@mconf.org")
             FactoryGirl.create(:user, email: "Marcos-#{unique_str}@mconf.org")

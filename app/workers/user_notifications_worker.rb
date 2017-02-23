@@ -26,7 +26,7 @@ class UserNotificationsWorker < BaseWorker
     activities = RecentActivity
       .where(trackable_type: 'User', notified: [nil, false], key: 'user.created')
 
-    recipients = User.where(superuser: true).pluck(:id)
+    recipients = User.superusers.pluck(:id)
     unless recipients.empty?
       activities.each do |activity|
         # If user has already been approved, we don't need to send the notification.

@@ -34,6 +34,9 @@
     = f.input :ldap_email_field
     = f.input :ldap_name_field
     = f.input :ldap_filter
+    = f.input :certificate_login_enabled, as: :boolean
+    = f.input :certificate_id_field, as: :string
+    = f.input :certificate_name_field, as: :string
   .right-column
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password

@@ -54,6 +54,7 @@ pt-br:
   _other:
     accept: "Aceitar"
     auth:
+      certificate: "certificado"
       ldap: "LDAP"
       local: "autenticação local"
       shibboleth: "shibboleth"
@@ -160,6 +161,9 @@ pt-br:
         name_admin: "Administrador"
       site:
         analytics_code: "Código do Google Analytics"
+        certificate_login_enabled: "Habilitar login via certificado"
+        certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"
+        certificate_name_field: "Login via certificado: Campo para obter o nome do usuário"
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
@@ -426,6 +430,14 @@ pt-br:
   cancel: Cancelar
   caption:
     add: "Adicionar legenda"
+  certificate_authentication:
+    error:
+      certificate: "Não existe nenhum certificado instalado ou ele é inválido"
+      disabled: "A autenticação via certificados não está habilitada"
+      generic: "Não existe nenhum certificado instalado ou ele é inválido"
+      not_found: "Seu certificado é válido mas não possui um usuário associado a ele"
+      title: "Erro no certificado"
+      unknown: "Não existe nenhum certificado instalado ou ele é inválido"
   city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
@@ -506,11 +518,11 @@ pt-br:
       steps: "etapas:"
     invite_userid:
       login: "Entrar"
+      login_certificate: "Login via certificado"
+      login_federation: "Login via federação"
       member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        shibboleth:
-          click_here: "Ou clique aqui para usar o acesso federado"
         title: "Eu sou um membro deste site"
       non_member:
         name: "Seu nome completo"
@@ -628,6 +640,7 @@ pt-br:
     shared:
       links:
         login:
+          certificate: "Acesso via certificado"
           default: "Acessar a sua conta"
           federation: "Acesso via federação"
         lost_password: "Esqueceu sua senha?"
@@ -703,6 +716,7 @@ pt-br:
     show:
       headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
       login:
+        certificate: "Acesso via certificado"
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"
@@ -989,9 +1003,10 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-      login_method_shib: Login Shibboleth
-      login_method_local: Login Local
+      login_method_certificate: Login Certificado
       login_method_ldap: Login LDAP
+      login_method_local: Login Local
+      login_method_shib: Login Shibboleth
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

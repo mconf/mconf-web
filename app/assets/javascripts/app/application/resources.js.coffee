@@ -28,6 +28,7 @@ class mconf.Resources
     mconf.DateTimeInput.bind()
     mconf.QueryString.bind()
     mconf.Tags.bind()
+    mconf.CertificateAuthentication.bind()
     for method in temporaryBinds
       method.call()
 

@@ -54,6 +54,7 @@ en:
   _other:
     accept: "Accept"
     auth:
+      certificate: "certificate"
       ldap: "LDAP"
       local: "local auth"
       shibboleth: "shibboleth"
@@ -159,6 +160,9 @@ en:
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
+        certificate_login_enabled: "Enable login via certificates"
+        certificate_id_field: "Certificate login: Field to obtain the user's ID"
+        certificate_name_field: "Certificate login: Field to obtain the user's name"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
@@ -420,6 +424,14 @@ en:
   cancel: Cancel
   caption: 
     add: "Add a caption"
+  certificate_authentication:
+    error:
+      certificate: "A certificate is not installed or is invalid"
+      disabled: "Certificate login is not enabled"
+      generic: "A certificate is not installed or is invalid"
+      not_found: "Your certificate is valid but there's no user associated with it"
+      title: "Certificate error"
+      unknown: "A certificate is not installed or is invalid"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -500,11 +512,11 @@ en:
       steps: "steps:"
     invite_userid:
       login: "Login"
+      login_certificate: "Login via client certificate"
+      login_federation: "Login via federation"
       member:
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth:
-          click_here: "Or click here to use the federated login"
         title: "I'm a member of this website"
       non_member:
         name: "Your full name"
@@ -622,6 +634,7 @@ en:
     shared:
       links:
         login:
+          certificate: "Login via client certificate"
           default: "Sign in to your account"
           federation: "Login via federation"
         lost_password: "Lost your password?"
@@ -697,6 +710,7 @@ en:
     show:
       headline: "A global scalable opensource multiconference system for web and mobile devices"
       login:
+        certificate: "Login via client certificate"
         federation: "Login via federation"
         lost_password: "Lost your password?"
         title: "Sign in to your account"
@@ -983,9 +997,10 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
-      login_method_shib: Login Shibboleth
-      login_method_local: Login Local
+      login_method_certificate: Login Certificate
       login_method_ldap: Login LDAP
+      login_method_local: Login Local
+      login_method_shib: Login Shibboleth
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"

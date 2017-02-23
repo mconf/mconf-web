@@ -36,9 +36,10 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         it { should be_able_to_do_everything_to(target) }
 
+        # disabling the user will make him not admin anymore
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to_do_everything_to(target) }
+          it { should_not be_able_to_do_anything_to(target) }
         end
       end
 

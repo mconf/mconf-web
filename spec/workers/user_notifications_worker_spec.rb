@@ -51,7 +51,7 @@ describe UserNotificationsWorker, type: :worker do
           let!(:admin2) { FactoryGirl.create(:superuser) }
           let!(:user1) { FactoryGirl.create(:user, approved: false) }
           let!(:user2) { FactoryGirl.create(:user, approved: false) }
-          let(:admin_ids) { User.where(superuser: true).pluck(:id) }
+          let(:admin_ids) { User.superusers.pluck(:id) }
 
           before(:each) { worker.perform }
 

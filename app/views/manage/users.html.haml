@@ -27,6 +27,10 @@
           .search-filter-option-sign-in
             = check_box_tag :"users_filter_#{field}_ldap", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
             %label{ for: "users_filter_#{field}_ldap" }= t(".#{field}")
+        - ['login_method_certificate'].each do |field|
+          .search-filter-option-sign-in
+            = check_box_tag :"users_filter_#{field}_certificate", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
+            %label{ for: "users_filter_#{field}_certificate" }= t(".#{field}")
 
   #users-list
     = render partial: 'users_list', locals: { :users => @users }

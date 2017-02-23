@@ -143,7 +143,7 @@ describe 'Admin manages users' do
       context 'elements for a second approved admin user' do
         let(:user) { @user1 }
         before {
-          user.update_attributes(:superuser => true)
+          user.set_superuser!
           visit manage_users_path
         }
         subject { page.find("#user-#{user.permalink}") }

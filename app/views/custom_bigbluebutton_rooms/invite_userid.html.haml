@@ -16,10 +16,12 @@
           = password_field_tag "user[password]", "", :required => true
         = f.button :submit, t(".login"), :class => "btn btn-primary"
 
-      - if current_site.shib_enabled?
-        .shibboleth-container
-          = link_to(image_tag("logos/shib_federation_small.jpg"), shibboleth_path)
-          = link_to(t(".member.shibboleth.click_here"), shibboleth_path)
+      .action-links
+        %ul
+          - if current_site.shib_enabled?
+            %li= link_to t('.login_federation'), shibboleth_path, :class => 'shibboleth_login'
+          - if current_site.certificate_login_enabled?
+            %li= certificate_auth_link t('.login_certificate')
 
   - if current_site.unauth_access_to_conferences?
     #webconf-room-userid-non-member

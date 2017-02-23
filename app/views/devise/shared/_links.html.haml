@@ -1,5 +1,6 @@
 - registration_enabled = current_site.registration_enabled?
 - shib_enabled = current_site.shib_enabled?
+- certificate_login_enabled = current_site.certificate_login_enabled
 
 - if registration_enabled || shib_enabled
   %h3= t('.other_options')
@@ -7,6 +8,9 @@
 
     - if shib_enabled
       %li= link_to t('.login.federation'), shibboleth_path
+
+    - if certificate_login_enabled
+      %li= certificate_auth_link t('.login.certificate')
 
     -# we show this even if local auth is disabled because admins can still sign in
     - if controller_name != 'sessions'

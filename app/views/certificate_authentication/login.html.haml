@@ -1,0 +1,15 @@
+.modal-body
+
+  - content_for :modal_title, t('.title')
+
+  - if @user.present?
+    = t('.success')
+    %span.loading= icon_loading()
+
+    %p.text-center= t('or')
+
+    %p.text-center
+      = link_to t('.not_redirected'), my_home_path
+
+  - else
+    = render 'error'
