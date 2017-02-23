@@ -176,6 +176,7 @@ describe User do
     it "filters by local authentication"
     it "filters by shibboleth authentication"
     it "filters by LDAP authentication"
+    it "filters by certificate authentication"
     it "uses AND as the default connector"
     it "uses the connector chosen"
     it "doesn't filter anything if no auth method was selected"
@@ -978,9 +979,41 @@ describe User do
     end
   end
 
+  describe "#created_by_certificate?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: false)
+      }
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when another user has a token created by certificate" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: false)
+        FactoryGirl.create(:certificate_token, user: another_user, new_account: true)
+      }
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when the user has an account created by certificate" do
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: true)
+      }
+      it { user.created_by_certificate?.should be(true) }
+    end
+  end
+
   describe "#local_auth?" do
     it "false if has LDAP auth"
     it "false if has shibboleth auth"
+    it "false if has certificate auth"
     it "true if has no LDAP nor shibboleth auth"
   end
 
@@ -989,6 +1022,7 @@ describe User do
   describe "#last_sign_in_date" do
     it "returns the last sign in date"
     it "returns the same as #current_sign_in_at"
+    it "prioritizes shib, ldap and certificate over local"
   end
 
   describe "#last_sign_method" do

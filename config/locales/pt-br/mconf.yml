@@ -54,6 +54,7 @@ pt-br:
   _other:
     accept: "Aceitar"
     auth:
+      certificate: "certificado"
       ldap: "LDAP"
       local: "autenticação local"
       shibboleth: "shibboleth"
@@ -1002,9 +1003,10 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-      login_method_shib: Login Shibboleth
-      login_method_local: Login Local
+      login_method_certificate: Login Certificado
       login_method_ldap: Login LDAP
+      login_method_local: Login Local
+      login_method_shib: Login Shibboleth
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

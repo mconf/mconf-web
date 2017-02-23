@@ -12,11 +12,12 @@ class CertificateAuthenticationController < ApplicationController
   def login
     certificate = request.headers['SSL_CLIENT_CERT']
 
-    @cert = Mconf::SSLClientCert.new(certificate)
+    @cert = Mconf::SSLClientCert.new(certificate, session)
     @user = @cert.user
 
     if @user.present?
       sign_in :user, @user
+      @cert.set_signed_in
 
       respond_to do |format|
         format.json { render json: { result: true, redirect_to: my_home_path }, status: 200 }

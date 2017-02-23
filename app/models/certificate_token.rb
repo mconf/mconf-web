@@ -16,4 +16,9 @@ class CertificateToken < ActiveRecord::Base
   def sign_in_method_name
     "certificate"
   end
+
+  def self.user_created_by_certificate?(u)
+    CertificateToken.where(user_id: u.id, new_account: true).present?
+  end
+
 end

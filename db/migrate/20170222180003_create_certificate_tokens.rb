@@ -4,11 +4,13 @@ class CreateCertificateTokens < ActiveRecord::Migration
       t.string     :identifier
       t.integer    :user_id
       t.text       :public_key
+      t.boolean    :new_account, default: false
+      t.datetime   :current_sign_in_at
       t.timestamps
     end
 
-    add_index :certificate_tokens, :user_id, :unique => true
-    add_index :certificate_tokens, :identifier, :unique => true
+    add_index :certificate_tokens, :user_id, unique: true
+    add_index :certificate_tokens, :identifier, unique: true
   end
 
   def down

@@ -23,6 +23,7 @@ class ManageController < ApplicationController
     auth_methods = []
     auth_methods << :shibboleth if params[:login_method_shib] == 'true'
     auth_methods << :ldap if params[:login_method_ldap] == 'true'
+    auth_methods << :certificate if params[:login_method_certificate] == 'true'
     auth_methods << :local if params[:login_method_local] == 'true'
     query = query.with_auth(auth_methods)
 

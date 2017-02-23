@@ -174,6 +174,8 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.string   "identifier"
     t.integer  "user_id"
     t.text     "public_key"
+    t.boolean  "new_account",        default: false
+    t.datetime "current_sign_in_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

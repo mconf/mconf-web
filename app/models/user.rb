@@ -140,8 +140,12 @@ class User < ActiveRecord::Base
 
     arr.push("shib_tokens.id IS NOT NULL") if auth_methods.include?(:shibboleth)
     arr.push("ldap_tokens.id IS NOT NULL") if auth_methods.include?(:ldap)
+    arr.push("certificate_tokens.id IS NOT NULL") if auth_methods.include?(:certificate)
     if auth_methods.include?(:local)
-      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
+      ldap_str = "ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false'"
+      shib_str = "shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'"
+      cert_str = "certificate_tokens.id IS NULL OR certificate_tokens.new_account = 'false'"
+      arr.push("((#{ldap_str}) AND (#{shib_str}) AND (#{cert_str}))")
     end
 
     arr = arr.join(" #{connector} ")
@@ -149,6 +153,7 @@ class User < ActiveRecord::Base
     unless arr.empty?
       joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
         .joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
+        .joins("LEFT JOIN certificate_tokens ON certificate_tokens.user_id = users.id")
         .where(arr)
     end
   }
@@ -321,14 +326,19 @@ class User < ActiveRecord::Base
     LdapToken.user_created_by_ldap?(self)
   end
 
+  def created_by_certificate?
+    CertificateToken.user_created_by_certificate?(self)
+  end
+
   def local_auth?
-    !created_by_shib? && !created_by_ldap?
+    !created_by_shib? && !created_by_ldap? && !created_by_certificate?
   end
 
   def sign_in_methods
     {
       shibboleth: self.shib_token.present?,
       ldap: self.ldap_token.present?,
+      certificate: self.certificate_token.present?,
       local: self.local_auth?
     }
   end
@@ -342,7 +352,11 @@ class User < ActiveRecord::Base
   end
 
   def last_sign_in_method
-    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
+    # note: methods at the end of the array have priority in case the sign in dates
+    # are equal (so keep 'self' as first!)
+    [self, shib_token, ldap_token, certificate_token].reject(&:blank?).sort_by{ |method|
+      method.last_sign_in_date || Time.at(0)
+    }.last.sign_in_method_name
   end
 
   def superuser

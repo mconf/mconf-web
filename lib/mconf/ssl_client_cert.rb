@@ -1,7 +1,12 @@
 module Mconf
   class SSLClientCert
 
-    def initialize(cert_str)
+    # the key used to indicate in the session if the user is signed in
+    # via certificate or not
+    SESSION_KEY = :certificate_login
+
+    def initialize(cert_str, session=nil)
+      @session = session
       @user, @error = nil, nil
 
       if !certificate_login_enabled?
@@ -37,6 +42,15 @@ module Mconf
 
     def certificate
       @certificate
+    end
+
+    # Mark in the session that the user signed in via Certificate and
+    # set the current time user signed in
+    def set_signed_in
+      @user.signed_in_via_external = true
+      @session[SESSION_KEY] = true unless @session.nil?
+      @token.current_sign_in_at = Time.now.utc
+      @token.save
     end
 
     private
@@ -95,6 +109,7 @@ module Mconf
           @user.confirm
         end
 
+        @token.new_account = true # account created automatically, not by the user
         @token.user = @user
         @token.save!
       end
