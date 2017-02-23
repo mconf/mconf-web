@@ -38,32 +38,22 @@ body.custom_bigbluebutton_rooms.invite_userid {
           float: none;
         }
       }
+
+      .action-links {
+        float: right;
+        margin-top: 15px;
+        clear: both;
+        text-align: right;
+      }
+
     }
 
     #webconf-room-userid-non-member {
       padding-bottom: 50px;
       border-left: 1px solid #ddd;
-    }
 
-    #webconf-room-userid-non-member {
       .container {
         float: right;
-      }
-
-      .shibboleth-container {
-        @include font-size($font-medium);
-        clear: both;
-        max-width: 300px;
-        float: right;
-        margin: 5px 40px 0 0;
-        text-align: center;
-
-        a { display: block; }
-        img {
-          width: 240px;
-          height: 41px;
-          margin: 10px 0;
-        }
       }
     }
 

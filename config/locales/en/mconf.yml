@@ -512,11 +512,11 @@ en:
       steps: "steps:"
     invite_userid:
       login: "Login"
+      login_certificate: "Login via client certificate"
+      login_federation: "Login via federation"
       member:
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth:
-          click_here: "Or click here to use the federated login"
         title: "I'm a member of this website"
       non_member:
         name: "Your full name"

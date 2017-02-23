@@ -518,11 +518,11 @@ pt-br:
       steps: "etapas:"
     invite_userid:
       login: "Entrar"
+      login_certificate: "Login via certificado"
+      login_federation: "Login via federação"
       member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        shibboleth:
-          click_here: "Ou clique aqui para usar o acesso federado"
         title: "Eu sou um membro deste site"
       non_member:
         name: "Seu nome completo"

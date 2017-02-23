@@ -19,8 +19,9 @@ class CertificateAuthenticationController < ApplicationController
       sign_in :user, @user
       @cert.set_signed_in
 
+      redir_url = after_sign_in_path_for(current_user)
       respond_to do |format|
-        format.json { render json: { result: true, redirect_to: my_home_path }, status: 200 }
+        format.json { render json: { result: true, redirect_to: redir_url }, status: 200 }
       end
     else
       error = @cert.error || 'unknown'

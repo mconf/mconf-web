@@ -22,6 +22,8 @@
         %ul
           - if current_site.shib_enabled?
             %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
+          - if current_site.certificate_login_enabled?
+            %li= certificate_auth_link t('.login.certificate')
           %li= link_to t('.login.lost_password'), new_user_password_path
 
   - if current_site.registration_enabled?

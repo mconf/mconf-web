@@ -1,7 +1,8 @@
 class mconf.CertificateAuthentication
 
   @bind: ->
-    $('.certificate-auth-trigger').on 'click', (e) ->
+    $('.certificate-auth-trigger').off 'click.mconfCertificateAuthentication'
+    $('.certificate-auth-trigger').on 'click.mconfCertificateAuthentication', (e) ->
       e.preventDefault()
 
       $.ajax $(this).attr('href'),
