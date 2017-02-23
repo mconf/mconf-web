@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210192526) do
+ActiveRecord::Schema.define(version: 20170222180003) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -169,6 +169,17 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.datetime "updated_at"
     t.string   "param"
   end
+
+  create_table "certificate_tokens", force: true do |t|
+    t.string   "identifier"
+    t.integer  "user_id"
+    t.text     "public_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "certificate_tokens", ["identifier"], name: "index_certificate_tokens_on_identifier", unique: true, using: :btree
+  add_index "certificate_tokens", ["user_id"], name: "index_certificate_tokens_on_user_id", unique: true, using: :btree
 
   create_table "db_files", force: true do |t|
     t.binary "data"
@@ -377,9 +388,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.boolean  "captcha_enabled",                default: false
     t.string   "recaptcha_public_key"
     t.string   "recaptcha_private_key"
-    t.boolean  "certificate_login_enabled"
-    t.string   "certificate_id_field"
-    t.string   "certificate_name_field"
     t.boolean  "require_space_approval",         default: false
     t.boolean  "forbid_user_space_creation",     default: false
     t.string   "max_upload_size",                default: "15000000"
@@ -387,6 +395,9 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.boolean  "use_gravatar",                   default: false
     t.string   "smtp_receiver"
     t.boolean  "unauth_access_to_conferences",   default: true
+    t.boolean  "certificate_login_enabled"
+    t.string   "certificate_id_field"
+    t.string   "certificate_name_field"
   end
 
   create_table "spaces", force: true do |t|
@@ -460,8 +471,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "unconfirmed_email"
     t.boolean  "can_record"
     t.boolean  "approved",                            default: false, null: false
-    t.text     "public_key"
-    t.string   "unique_name"
     t.datetime "current_local_sign_in_at"
   end
 

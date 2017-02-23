@@ -46,9 +46,6 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
-  validates :public_key, uniqueness: true, allow_nil: true
-  validates :unique_name, uniqueness: true, allow_nil: true
-
   validates :email, uniqueness: true, presence: true, email: true
 
   has_and_belongs_to_many :spaces, -> { where(permissions: { subject_type: 'Space' }).uniq },
@@ -61,6 +58,7 @@ class User < ActiveRecord::Base
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
+  has_one :certificate_token, :dependent => :destroy
 
   after_initialize :init
 

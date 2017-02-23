@@ -26,6 +26,10 @@ describe User do
 
   it { should have_many(:posts) }
 
+  it { should have_one(:ldap_token).dependent(:destroy) }
+  it { should have_one(:shib_token).dependent(:destroy) }
+  it { should have_one(:certificate_token).dependent(:destroy) }
+
   describe 'model validations' do
     subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
 

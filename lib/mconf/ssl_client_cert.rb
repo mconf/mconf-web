@@ -16,13 +16,13 @@ module Mconf
         return
       end
 
-      find_or_create_user
+      find_or_create_token_and_user
 
       if @user.errors.any?
         Rails.logger.error "SSLCLIENT: Error creating user #{@user.errors.inspect}"
         @user = nil
       else
-        Rails.logger.info "SSLCLIENT: Creating user '#{@user.name}' '#{@user.unique_name}' '#{@user.email}'"
+        Rails.logger.info "SSLCLIENT: Creating user '#{@user.name}' '#{@user.email}'"
         Rails.logger.info cert_str.inspect
       end
     end
@@ -41,6 +41,20 @@ module Mconf
 
     private
 
+    # Searches for a CertificateToken using data in the object and returns it. Creates
+    # a new CertificateToken if no token is found and returns it.
+    def find_or_create_token
+      token = find_token
+      token = create_token(get_identifier, get_public_key) if token.nil?
+      token
+    end
+
+    # Finds the CertificateToken associated with the user whose information is stored
+    # in the object.
+    def find_token
+      CertificateToken.find_by_identifier(get_identifier)
+    end
+
     def certificate_login_enabled?
       Site.current.certificate_login_enabled?
     end
@@ -55,12 +69,12 @@ module Mconf
       Site.current.certificate_name_field || 'CN'
     end
 
-    def find_or_create_user
-      attrs = {}
-      attrs[:unique_name] = get_user_field
+    def find_or_create_token_and_user
+      @token = find_or_create_token
+      @user = @token.user
 
-      @user = User.where(attrs).first
-      if @user.blank?
+      if @user.nil?
+        attrs = {}
         attrs[:profile] = Profile.new(
           {
             country: get_field('C'),
@@ -70,10 +84,9 @@ module Mconf
           }
         )
         attrs[:email] = attrs[:email] || get_email_field
-        attrs[:unique_name] = attrs[:unique_name] || get_field('CN')
+
         attrs[:_full_name] = get_name_field.titleize
-        attrs[:username] = username_from_unique_name(get_name_field)
-        attrs[:public_key] = get_public_key()
+        attrs[:username] = username_from_name(get_name_field)
         @user = User.new(attrs)
         @user.password = SecureRandom.hex(16)
         @user.skip_confirmation_notification!
@@ -81,8 +94,10 @@ module Mconf
           @user.save!
           @user.confirm
         end
+
+        @token.user = @user
+        @token.save!
       end
-      @user
     end
 
     # Public key structure in ASN1 is { header, key }
@@ -110,11 +125,11 @@ module Mconf
       @certificate.extensions.find {|e| e.oid == 'subjectAltName' }.value.match(/#{field}\:(.+?)\s*(,|$)/).try(:[], 1)
     end
 
-    def username_from_unique_name(un)
+    def username_from_name(un)
       un.gsub(/[\s:]/, '-').gsub(/[^a-zA-Z0-9]/, '').downcase
     end
 
-    def get_user_field
+    def get_identifier
       get_field(certificate_id_field) || get_field('CN')
     end
 
@@ -124,6 +139,14 @@ module Mconf
 
     def get_name_field
       get_field(certificate_name_field) || get_field('CN')
+    end
+
+    def create_token(id, key)
+      attrs = {
+        identifier: id,
+        public_key: key
+      }
+      CertificateToken.new(attrs)
     end
   end
 end
