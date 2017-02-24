@@ -1,10 +1,7 @@
 #navbar-logo
   - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
-  -# %a.title{:href => url}= current_site.name
   %a.title{:href => url}
-    -# = image_tag "logos/mconf-color-transp.png", size: "54x28"
     = image_tag "logos/mconf-white-transp.png", size: "54x28"
-    -#= image_tag "logos/mconf-ico-color-transp.png", size: "32x32"
 
 #navbar-left
   %ul

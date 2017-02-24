@@ -268,12 +268,20 @@ form {
 
 #navbar-left {
   @include navbar-lists;
-  float: left;
+  position: absolute;
+  left: 16px;
+  right: auto;
+  top: 0;
+  bottom: auto;
 }
 
 #navbar-right {
   @include navbar-lists;
-  float: right;
+  position: absolute;
+  left: auto;
+  right: 16px;
+  top: 0;
+  bottom: auto;
 
   > ul {
     float: right;
@@ -312,6 +320,8 @@ form {
     img {
       float: left;
       margin: 0 8px 0 -12px;
+      border: 1px solid lighten($m-navbar-bg-color-dark, 5);
+      background: lighten($m-navbar-bg-color-dark, 5);
     }
   }
 
@@ -330,7 +340,7 @@ form {
 
 #navbar-logo {
   white-space: nowrap;
-  margin-top: 11px;
+  margin: 11px 0 7px 0;
   @include mconf-clearfix;
   display: inline-block;
 
