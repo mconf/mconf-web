@@ -258,7 +258,6 @@ namespace :db do
       # Several meetings with recordings
       BigbluebuttonMeeting.populate 0..35 do |meeting|
         meeting.room_id = room.id
-        meeting.server_id = room.server.id
         meeting.meetingid = room.meetingid
         meeting.create_time = (Time.now-1.year).to_i..Time.now.to_i
         meeting.name = Populator.words(3..5).titleize
@@ -276,7 +275,6 @@ namespace :db do
 
         BigbluebuttonRecording.populate 1..1 do |recording|
           recording.room_id = room.id
-          recording.server_id = BigbluebuttonServer.default.id
           recording.meeting_id = meeting.id
           recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
           recording.meetingid = room.meetingid
@@ -315,7 +313,6 @@ namespace :db do
       # Create a few meetings that have no recording associated
       BigbluebuttonMeeting.populate 0..10 do |meeting|
         meeting.room_id = room.id
-        meeting.server_id = room.server.id
         meeting.meetingid = room.meetingid
         meeting.create_time = (Time.now-1.year).to_i..Time.now.to_i
         meeting.name = Populator.words(3..5).titleize
