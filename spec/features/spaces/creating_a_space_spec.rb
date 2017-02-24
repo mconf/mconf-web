@@ -158,7 +158,7 @@ feature "Creating a space" do
     let(:attrs) { FactoryGirl.attributes_for(:space) }
     before {
       Site.current.update_attributes(require_space_approval: true)
-      user.update_attributes(superuser: true)
+      user.set_superuser!(true)
       login_as(user, :scope => :user)
       create_space_from_attrs(attrs)
     }
@@ -188,7 +188,7 @@ feature "Creating a space" do
   context "when space creation is disabled but as an admin" do
     before {
       Site.current.update_attributes(forbid_user_space_creation: true)
-      user.update_attributes(superuser: true)
+      user.set_superuser!(true)
       login_as(user, :scope => :user)
       visit spaces_path
     }

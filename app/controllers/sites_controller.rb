@@ -50,7 +50,8 @@ class SitesController < ApplicationController
      :exception_notifications_email, :exception_notifications_prefix, :external_help,
      :registration_enabled, :require_registration_approval, :local_auth_enabled, :spaces_enabled, :events_enabled,
      :room_dial_number_pattern, :shib_update_users, :require_space_approval, :forbid_user_space_creation, :max_upload_size, :use_gravatar,
-     :captcha_enabled, :recaptcha_public_key, :recaptcha_private_key,
+     :captcha_enabled, :recaptcha_public_key, :recaptcha_private_key, :unauth_access_to_conferences,
+     :certificate_login_enabled, :certificate_id_field, :certificate_name_field,
      visible_locales: []
     ]
   end

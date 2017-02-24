@@ -13,7 +13,7 @@
           = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'false'}", type: "button", 'data-attr-filter': field, 'data-attr-value': false do
             = t(".#{field}_false")
       .btn-group.search-filter-option
-        - ['login_method_local', 'login_method_shib', 'login_method_ldap'].each do |field|
+        - ['login_method_local', 'login_method_shib', 'login_method_ldap', 'login_method_certificate'].each do |field|
           = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'true'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
             = t(".#{field}")
 

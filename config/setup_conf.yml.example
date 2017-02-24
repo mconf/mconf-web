@@ -17,7 +17,6 @@ default:
   #   db: 1
   #   password: '1234567890'
 
-
   #
   # Configurations that are used only by db:seeds.
   # These can be changed later on in the website's management interface.

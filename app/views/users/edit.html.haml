@@ -68,7 +68,7 @@
       -# access to their account
       - unless current_user == @user
         = f.input :approved, :required => false
-        = f.input :superuser, :required => false
+        = f.input :superuser, as: :boolean, required: false
         - if !@user.confirmed?
           .input
             = link_to confirm_user_path(@user), :data => { :confirm => t('.confirm_user_confirm') },  :method => :post do

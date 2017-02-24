@@ -13,7 +13,6 @@ FactoryGirl.define do
     updated_at { Time.now }
     disabled false
     approved true
-    superuser false
     password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     password_confirmation { |user| user.password }
     before(:create) { |user| user.skip_confirmation_notification! }
@@ -24,7 +23,7 @@ FactoryGirl.define do
       after(:create) { |user| user.confirm }
 
       factory :superuser, class: User, parent: :user do |u|
-        u.superuser true
+        after(:create) { |user| user.set_superuser! }
       end
     end
   end

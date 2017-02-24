@@ -18,7 +18,7 @@ describe 'Admin manages users' do
         login_as(admin, :scope => :user)
         @user1 = FactoryGirl.create(:user)
         @user1.update_attributes(can_record: true)
-        @user_admin = FactoryGirl.create(:user, superuser: true)
+        @user_admin = FactoryGirl.create(:superuser)
         @unapproved_user = FactoryGirl.create(:user)
         @unapproved_user.update_attributes(:approved => false)
         @disabled_user1 = FactoryGirl.create(:user, disabled: true)
@@ -127,7 +127,7 @@ describe 'Admin manages users' do
 
         login_as(admin, :scope => :user)
         @user1 = FactoryGirl.create(:user)
-        @user_admin = FactoryGirl.create(:user, superuser: true)
+        @user_admin = FactoryGirl.create(:superuser)
         @unapproved_user = FactoryGirl.create(:user)
         @unapproved_user.update_attributes(:approved => false)
         @disabled_user1 = FactoryGirl.create(:user, disabled: true)

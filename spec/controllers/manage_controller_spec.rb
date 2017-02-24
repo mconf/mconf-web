@@ -256,64 +256,136 @@ describe ManageController do
         end
       end
 
-      context "use params [:login_method_shib, :login_method_ldap, :login_method_local] to filter the results" do
-        let!(:users) {[
-          FactoryGirl.create(:user, username: 'el-magron'),
-          FactoryGirl.create(:ldap_token, identifier: 'el-ldap', new_account: true).user,
-          FactoryGirl.create(:shib_token, identifier: 'el-shib', new_account: true).user,
-          FactoryGirl.create(:ldap_token, identifier: 'el-ldap-e-local', new_account: false).user,
-          FactoryGirl.create(:shib_token, identifier: 'el-shib-e-local', new_account: false).user,
-          FactoryGirl.create(:shib_token, identifier: 'el-shib-e-ldap-e-local', new_account: false).user,
-          User.first # the original admin user
-        ]}
+      context "filters by authentication method" do
+        let!(:users) {
+          [
+            FactoryGirl.create(:user, username: 'local'),
+            FactoryGirl.create(:user, username: 'ldap-only'),
+            FactoryGirl.create(:user, username: 'shib-only'),
+            FactoryGirl.create(:user, username: 'cert-only'),
+            FactoryGirl.create(:user, username: 'ldap-local'),
+            FactoryGirl.create(:user, username: 'shib-local'),
+            FactoryGirl.create(:user, username: 'cert-local'),
+            FactoryGirl.create(:user, username: 'ldap-shib'),
+            FactoryGirl.create(:user, username: 'ldap-shib-cert'),
+            FactoryGirl.create(:user, username: 'ldap-shib-cert-local'),
+          ]
+        }
         before {
-          FactoryGirl.create(:ldap_token, user: users[5])
+          FactoryGirl.create(:ldap_token, user: users[1], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[4], new_account: false)
+          FactoryGirl.create(:ldap_token, user: users[7], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[8], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[9], new_account: false)
+
+          FactoryGirl.create(:shib_token, user: users[2], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[5], new_account: false)
+          FactoryGirl.create(:shib_token, user: users[7], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[8], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[9], new_account: false)
+
+          FactoryGirl.create(:certificate_token, user: users[3], new_account: true)
+          FactoryGirl.create(:certificate_token, user: users[6], new_account: false)
+          FactoryGirl.create(:certificate_token, user: users[8], new_account: true)
+          FactoryGirl.create(:certificate_token, user: users[9], new_account: false)
+
           get :users, params
         }
 
         context "no params" do
           let(:params) { {} }
 
-          it { assigns(:users).count.should be(7) }
+          it { assigns(:users).count.should be(11) } # +1 for the default admin
           it("includes all users") { assigns(:users).should include(*users) }
         end
 
-        context "params[:login_method_shib]" do
-          let(:params) { {login_method_shib: 'true'} }
-          it { assigns(:users).count.should be(3) }
-          it("includes all shibs") { assigns(:users).should include(users[2], users[4], users[5]) }
-        end
-
-        context "params[:login_method_ldap]" do
-          let(:params) { {login_method_ldap: 'true'} }
-          it { assigns(:users).count.should be(3) }
-          it("includes all ldaps") { assigns(:users).should include(users[1], users[3], users[5]) }
-        end
-
-        context "params[:login_method_local]" do
-          let(:params) { {login_method_local: 'true'} }
+        context "shib" do
+          let(:params) { { login_method_shib: 'true' } }
           it { assigns(:users).count.should be(5) }
-          it("includes all locals") { assigns(:users).should include(users[0], users[3], users[4], users[5], users[6]) }
+          it {
+            assigns(:users).should include(users[2], users[5], users[7], users[8], users[9])
+          }
         end
 
-        context "params[:login_method_local] and params[:login_method_shib]" do
-          let(:params) { {login_method_local: 'true', login_method_shib: 'true'} }
+        context "ldap" do
+          let(:params) { { login_method_ldap: 'true' } }
+          it { assigns(:users).count.should be(5) }
+          it {
+            assigns(:users).should include(users[1], users[4], users[7], users[8], users[9])
+          }
+        end
+
+        context "certificate" do
+          let(:params) { { login_method_certificate: 'true' } }
+          it { assigns(:users).count.should be(4) }
+          it {
+            assigns(:users).should include(users[3], users[6], users[8], users[9])
+          }
+        end
+
+        context "local" do
+          let(:params) { { login_method_local: 'true' } }
+          it { assigns(:users).count.should be(6) } # +1 for the default user
+          it {
+            assigns(:users).should include(users[0], users[4], users[5], users[6], users[9])
+          }
+        end
+
+        context "shib and local" do
+          let(:params) { { login_method_local: 'true', login_method_shib: 'true' } }
           it { assigns(:users).count.should be(2) }
-          it("includes all locals and shibs") { assigns(:users).should include(users[4], users[5]) }
+          it {
+            assigns(:users).should include(users[5], users[9])
+          }
         end
 
-        context "params[:login_method_ldap] and params[:login_method_shib]" do
-          let(:params) { {login_method_ldap: 'true', login_method_shib: 'true'} }
+        context "ldap and local" do
+          let(:params) { { login_method_ldap: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[4], users[9])
+          }
+        end
+
+        context "certificate and local" do
+          let(:params) { { login_method_certificate: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[6], users[9])
+          }
+        end
+
+        context "ldap and shib" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true' } }
+          it { assigns(:users).count.should be(3) }
+          it {
+            assigns(:users).should include(users[7], users[8], users[9])
+          }
+        end
+
+        context "ldap, shib and local" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_local: 'true' } }
           it { assigns(:users).count.should be(1) }
-          it("includes all ldaps and shibs") { assigns(:users).should include(users[5]) }
+          it {
+            assigns(:users).should include(users[9])
+          }
         end
 
-        context "params[:login_method_ldap] and params[:login_method_shib] and params[:login_method_local]" do
-          let(:params) { {login_method_ldap: 'true', login_method_shib: 'true', login_method_local: 'true'} }
+        context "ldap, shib and certificate" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_certificate: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[8], users[9])
+          }
+        end
+
+        context "all methods" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_certificate: 'true', login_method_local: 'true' } }
           it { assigns(:users).count.should be(1) }
-          it("includes all ldaps and shibs and locals") { assigns(:users).should include(users[5]) }
+          it {
+            assigns(:users).should include(users[9])
+          }
         end
-
       end
 
       context "if xhr request" do

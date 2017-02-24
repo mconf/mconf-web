@@ -59,6 +59,7 @@ pt-br:
     accept: "Aceitar"
     access_denied: "É preciso entrar ou se registrar para poder continuar."
     auth:
+      certificate: "certificado"
       ldap: "LDAP"
       local: "autenticação local"
       shibboleth: "shibboleth"
@@ -172,6 +173,9 @@ pt-br:
         name_admin: "Administrador"
       site:
         analytics_code: "Código do Google Analytics"
+        certificate_login_enabled: "Habilitar login via certificado"
+        certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"
+        certificate_name_field: "Login via certificado: Campo para obter o nome do usuário"
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
@@ -181,6 +185,7 @@ pt-br:
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
         forbid_user_space_creation: "Proibir que usuários criem comunidades"
+        gravatar: Usar gravatar
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -223,7 +228,7 @@ pt-br:
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
-        gravatar: Usar gravatar
+        unauth_access_to_conferences: "Permitir usuários não autenticados em conferências"
         xmpp_server: "Endereço do servidor XMPP"
       space:
         attendee_key: "Chave para participantes"
@@ -436,6 +441,14 @@ pt-br:
   cancel: Cancelar
   caption:
     add: "Adicionar legenda"
+  certificate_authentication:
+    error:
+      certificate: "Não existe nenhum certificado instalado ou ele é inválido"
+      disabled: "A autenticação via certificados não está habilitada"
+      generic: "Não existe nenhum certificado instalado ou ele é inválido"
+      not_found: "Seu certificado é válido mas não possui um usuário associado a ele"
+      title: "Erro no certificado"
+      unknown: "Não existe nenhum certificado instalado ou ele é inválido"
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
   click_to_see_all: "Ver todos"
@@ -514,11 +527,11 @@ pt-br:
       steps: "etapas:"
     invite_userid:
       login: "Entrar"
+      login_certificate: "Login via certificado"
+      login_federation: "Login via federação"
       member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        shibboleth:
-          click_here: "Ou clique aqui para usar o acesso federado"
         title: "Eu sou um membro deste site"
       non_member:
         name: "Seu nome completo"
@@ -526,6 +539,7 @@ pt-br:
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: %{name}"
     join:
+      unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
@@ -655,6 +669,7 @@ pt-br:
     shared:
       links:
         login:
+          certificate: "Acesso via certificado"
           default: "Acessar a sua conta"
           federation: "Acesso via federação"
         lost_password: "Esqueceu sua senha?"
@@ -729,6 +744,7 @@ pt-br:
     show:
       headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
       login:
+        certificate: "Acesso via certificado"
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"
@@ -1048,9 +1064,10 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-      login_method_shib: Shibboleth
+      login_method_certificate: Certificado
       login_method_local: Login Local
       login_method_ldap: LDAP
+      login_method_shib: Shibboleth
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

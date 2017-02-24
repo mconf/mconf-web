@@ -8,7 +8,7 @@ require "spec_helper"
 require "support/feature_helpers"
 
 feature "Editing a space" do
-  let!(:admin) { FactoryGirl.create(:user, superuser: true) }
+  let!(:admin) { FactoryGirl.create(:superuser) }
   let!(:space) { FactoryGirl.create(:space) }
 
   skip "using the name of another existing space" do

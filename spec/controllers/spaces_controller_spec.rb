@@ -615,7 +615,7 @@ describe SpacesController do
 
   describe "#meetings" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
-    let(:user) { FactoryGirl.create(:user, superuser: true) }
+    let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { login_as(user) }
 
     context "html full request" do

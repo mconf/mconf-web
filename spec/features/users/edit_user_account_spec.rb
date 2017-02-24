@@ -8,8 +8,8 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature 'Editing a user account', with_truncation: true do
-  let(:admin) { FactoryGirl.create(:superuser) }
-  let(:user) { FactoryGirl.create(:user) }
+  let!(:admin) { FactoryGirl.create(:superuser) }
+  let!(:user) { FactoryGirl.create(:user) }
 
   scenario "a user updating his account should redirect back to where he previously was" do
     sign_in_with user.username, user.password

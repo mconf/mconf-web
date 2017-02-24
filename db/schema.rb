@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210192526) do
+ActiveRecord::Schema.define(version: 20170222180003) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -168,6 +168,19 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.datetime "updated_at"
     t.string   "param"
   end
+
+  create_table "certificate_tokens", force: true do |t|
+    t.string   "identifier"
+    t.integer  "user_id"
+    t.text     "public_key"
+    t.boolean  "new_account",        default: false
+    t.datetime "current_sign_in_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "certificate_tokens", ["identifier"], name: "index_certificate_tokens_on_identifier", unique: true, using: :btree
+  add_index "certificate_tokens", ["user_id"], name: "index_certificate_tokens_on_user_id", unique: true, using: :btree
 
   create_table "db_files", force: true do |t|
     t.binary "data"
@@ -383,6 +396,10 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.boolean  "use_gravatar",                   default: false
     t.boolean  "spaces_enabled",                 default: true
     t.string   "smtp_receiver"
+    t.boolean  "unauth_access_to_conferences",   default: true
+    t.boolean  "certificate_login_enabled"
+    t.string   "certificate_id_field"
+    t.string   "certificate_name_field"
   end
 
   create_table "spaces", force: true do |t|
@@ -438,7 +455,6 @@ ActiveRecord::Schema.define(version: 20170210192526) do
     t.string   "password_salt",            limit: 40
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "superuser",                           default: false
     t.boolean  "disabled",                            default: false
     t.datetime "confirmed_at"
     t.string   "timezone"

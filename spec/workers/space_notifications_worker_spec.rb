@@ -29,7 +29,7 @@ describe SpaceNotificationsWorker, type: :worker do
           let!(:admin1) { FactoryGirl.create(:superuser) }
           let!(:admin2) { FactoryGirl.create(:superuser) }
           let(:activity) { RecentActivity.last }
-          let(:admin_ids) { User.where(superuser: true).ids }
+          let(:admin_ids) { User.superusers.ids }
 
           before(:each) {
             space.add_member!(space_admin, 'Admin')

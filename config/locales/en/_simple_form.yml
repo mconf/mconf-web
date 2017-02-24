@@ -29,6 +29,8 @@ en:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        certificate_id_field: "Field in the certificate from where the user's unique identifier will be taken on login. Defaults to 'CN'."
+        certificate_name_field: "Field in the certificate from where the user's name will be taken on login. Defaults to 'CN'."
         domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
         captcha_enabled: "Require users to solve a captcha challenge when registering on any section of the website that doesn't require authentication (e.g. user registration and registration in events)"
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
@@ -67,6 +69,7 @@ en:
         smtp_sender: "The email used in the \"From\" header when sending automated emails to users, usually a \"no-reply\" email."
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
         use_gravatar: "Fetch user avatars from gravatar if none was uploaded."
+        unauth_access_to_conferences: "Allow users to enter conferences without signing in."
         xmpp_server: "Address where's located the XMPP server."
       space:
         bigbluebutton_room:

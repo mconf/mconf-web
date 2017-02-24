@@ -112,6 +112,10 @@ gem 'gravatar_image_tag'
 # Captcha
 gem 'recaptcha', require: 'recaptcha/rails'
 
+# SOAP webservices
+gem 'rubyntlm'
+gem 'savon', '~> 2.0'
+
 #
 # TODO: Gems to review if we can remove/update
 #

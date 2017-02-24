@@ -62,18 +62,29 @@ class UsersController < InheritedResources::Base
     password_changed = false
     if current_site.local_auth_enabled?
       password_changed =
-        !params[:user].nil? && params[:user].has_key?(:password) &&
+        params[:user].present? &&
+        params[:user].has_key?(:password) &&
         !params[:user][:password].empty?
     end
-    updated = if password_changed and !current_user.superuser?
-                @user.update_with_password(user_params)
-              elsif password_changed and current_user.superuser?
-                params[:user].delete(:current_password) unless params[:user].nil?
-                @user.update_attributes(user_params)
-              else
-                params[:user].delete(:current_password) unless params[:user].nil?
-                @user.update_without_password(user_params)
-              end
+
+    if params[:user] && params[:user].has_key?(:superuser)
+      is_superuser = params[:user].delete(:superuser)
+      if current_user.superuser? && current_user != @user
+        @user.set_superuser!(is_superuser)
+      end
+    end
+
+    if password_changed
+      if current_user.superuser?
+        params[:user].delete(:current_password) unless params[:user].nil?
+        updated = @user.update_attributes(user_params)
+      else
+        updated = @user.update_with_password(user_params)
+      end
+    else
+      params[:user].delete(:current_password) unless params[:user].nil?
+      updated = @user.update_without_password(user_params)
+    end
 
     if updated
       # User editing himself
@@ -180,7 +191,6 @@ class UsersController < InheritedResources::Base
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:approved, :disabled, :can_record] if current_user.superuser?
-    allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end
 

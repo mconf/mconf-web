@@ -48,16 +48,17 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true, presence: true, email: true
 
-  has_and_belongs_to_many :spaces, -> { where(permissions: {subject_type: 'Space'}).uniq },
+  has_and_belongs_to_many :spaces, -> { where(permissions: { subject_type: 'Space' }).uniq },
                           join_table: :permissions, association_foreign_key: "subject_id"
 
-  has_many :join_requests, :foreign_key => :candidate_id, :dependent => :destroy
-  has_many :permissions, :dependent => :destroy
+  has_many :join_requests, foreign_key: :candidate_id
+  has_many :permissions
   has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
+  has_one :certificate_token, :dependent => :destroy
 
   after_initialize :init
 
@@ -120,6 +121,15 @@ class User < ActiveRecord::Base
     order("profiles.full_name")
   }
 
+  # Returns only users that are admins of the site
+  scope :superusers, -> (is_superuser=true) {
+    if is_superuser
+      where(id: Permission.where(subject: Site.current, role: Site.roles[:admin]).select(:user_id))
+    else
+      where.not(id: Permission.where(subject: Site.current, role: Site.roles[:admin]).select(:user_id))
+    end
+  }
+
   # Returns only the users that have the authentication methods selected.
   # `auth_methods` is an array with one or more of the following auth methods:
   # * `:shibboleth`
@@ -130,8 +140,12 @@ class User < ActiveRecord::Base
 
     arr.push("shib_tokens.id IS NOT NULL") if auth_methods.include?(:shibboleth)
     arr.push("ldap_tokens.id IS NOT NULL") if auth_methods.include?(:ldap)
+    arr.push("certificate_tokens.id IS NOT NULL") if auth_methods.include?(:certificate)
     if auth_methods.include?(:local)
-      arr.push("((ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false') AND (shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'))")
+      ldap_str = "ldap_tokens.id IS NULL OR ldap_tokens.new_account = 'false'"
+      shib_str = "shib_tokens.id IS NULL OR shib_tokens.new_account = 'false'"
+      cert_str = "certificate_tokens.id IS NULL OR certificate_tokens.new_account = 'false'"
+      arr.push("((#{ldap_str}) AND (#{shib_str}) AND (#{cert_str}))")
     end
 
     arr = arr.join(" #{connector} ")
@@ -139,6 +153,7 @@ class User < ActiveRecord::Base
     unless arr.empty?
       joins("LEFT JOIN shib_tokens ON shib_tokens.user_id = users.id")
         .joins("LEFT JOIN ldap_tokens ON ldap_tokens.user_id = users.id")
+        .joins("LEFT JOIN certificate_tokens ON certificate_tokens.user_id = users.id")
         .where(arr)
     end
   }
@@ -316,14 +331,19 @@ class User < ActiveRecord::Base
     LdapToken.user_created_by_ldap?(self)
   end
 
+  def created_by_certificate?
+    CertificateToken.user_created_by_certificate?(self)
+  end
+
   def local_auth?
-    !created_by_shib? && !created_by_ldap?
+    !created_by_shib? && !created_by_ldap? && !created_by_certificate?
   end
 
   def sign_in_methods
     {
       shibboleth: self.shib_token.present?,
       ldap: self.ldap_token.present?,
+      certificate: self.certificate_token.present?,
       local: self.local_auth?
     }
   end
@@ -337,22 +357,45 @@ class User < ActiveRecord::Base
   end
 
   def last_sign_in_method
-    [shib_token, ldap_token, self].reject(&:blank?).sort_by{ |method| method.last_sign_in_date || Time.at(0) }.last.sign_in_method_name
+    # note: methods at the end of the array have priority in case the sign in dates
+    # are equal (so keep 'self' as first!)
+    [self, shib_token, ldap_token, certificate_token].reject(&:blank?).sort_by{ |method|
+      method.last_sign_in_date || Time.at(0)
+    }.last.sign_in_method_name
+  end
+
+  def superuser
+    Permission.where(subject: Site.current, user: self, role: Site.roles[:admin]).first.present?
+  end
+
+  def superuser?
+    superuser
+  end
+
+  def set_superuser!(value=true)
+    if value
+      Permission.find_or_create_by(subject: Site.current, user: self, role: Site.roles[:admin])
+    else
+      permission = Permission.find_by(subject: Site.current, user: self, role: Site.roles[:admin])
+      permission.destroy if permission.present?
+    end
   end
 
   protected
 
   def before_disable_and_destroy
-    # All the spaces the user is an admin of
+    # get all the spaces the user is an admin of
+    # do it first so permissions still exist
     admin_in = self.permissions
-      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
-      .map(&:subject)
+               .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+               .map(&:subject)
     admin_in.compact! # remove nil (disabled) spaces
 
-    # Some associations are removed even if the user is only
-    # being disabled and not completely removed.
-    permissions.each(&:destroy)
-    join_requests.each(&:destroy)
+    # removes all pending join requests sent or received by the user
+    join_requests.where(processed_at: nil).destroy_all
+
+    # remove all permissions
+    permissions.destroy_all
 
     # Disable spaces if this user was the last admin
     admin_in.each do |space|

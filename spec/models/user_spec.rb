@@ -22,9 +22,13 @@ describe User do
 
   it { should have_and_belong_to_many(:spaces) }
 
-  it { should have_many(:permissions).dependent(:destroy) }
+  it { should have_many(:permissions) }
 
   it { should have_many(:posts) }
+
+  it { should have_one(:ldap_token).dependent(:destroy) }
+  it { should have_one(:shib_token).dependent(:destroy) }
+  it { should have_one(:certificate_token).dependent(:destroy) }
 
   describe 'model validations' do
     subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
@@ -107,12 +111,12 @@ describe User do
     end
 
     context "is chainable" do
-      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc", superuser: false) }
-      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def", superuser: false) }
-      let!(:user3) { FactoryGirl.create(:user, can_record: true, username: "abc-2", superuser: true) }
-      let!(:user4) { FactoryGirl.create(:user, can_record: true, username: "def-2", superuser: true) }
-      let!(:user5) { FactoryGirl.create(:user, can_record: false, username: "abc-3", superuser: true) }
-      subject { User.where(can_record: true).search_by_terms('abc').where(superuser: true) }
+      let!(:user1) { FactoryGirl.create(:user, can_record: true, username: "abc") }
+      let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def") }
+      let!(:user3) { FactoryGirl.create(:superuser, can_record: true, username: "abc-2") }
+      let!(:user4) { FactoryGirl.create(:superuser, can_record: true, username: "def-2") }
+      let!(:user5) { FactoryGirl.create(:superuser, can_record: false, username: "abc-3") }
+      subject { User.superusers.where(can_record: true).search_by_terms('abc') }
       it { subject.should include(user3) }
       it { subject.should_not include(user1) }
       it { subject.should_not include(user2) }
@@ -133,10 +137,46 @@ describe User do
     end
   end
 
+  describe ".search_order" do
+    it "orders by full name"
+  end
+
+  describe ".superusers" do
+    context "returns only the superusers" do
+      let!(:superuser1) { FactoryGirl.create(:superuser) }
+      let!(:superuser2) { FactoryGirl.create(:superuser) }
+      let!(:user1) { FactoryGirl.create(:user) }
+      let!(:user2) { FactoryGirl.create(:user) }
+      let(:subject) { User.superusers }
+
+      it { subject.count.should eql(3) } # plus the default admin
+      it { subject.should include(superuser1) }
+      it { subject.should include(superuser2) }
+    end
+
+    context "returns only normal users if the param is false" do
+      let!(:superuser1) { FactoryGirl.create(:superuser) }
+      let!(:superuser2) { FactoryGirl.create(:superuser) }
+      let!(:user1) { FactoryGirl.create(:user) }
+      let!(:user2) { FactoryGirl.create(:user) }
+      let(:subject) { User.superusers(false) }
+
+      it { subject.count.should eql(2) }
+      it { subject.should include(user1) }
+      it { subject.should include(user2) }
+    end
+
+    context "returns a Relation object" do
+      let(:subject) { User.superusers }
+      it { subject.should be_kind_of(ActiveRecord::Relation) }
+    end
+  end
+
   describe ".with_auth" do
     it "filters by local authentication"
     it "filters by shibboleth authentication"
     it "filters by LDAP authentication"
+    it "filters by certificate authentication"
     it "uses AND as the default connector"
     it "uses the connector chosen"
     it "doesn't filter anything if no auth method was selected"
@@ -403,21 +443,38 @@ describe User do
   describe "on destroy" do
     let(:user) { FactoryGirl.create(:user) }
 
-    context 'removes all permissions' do
+    context 'removes permissions related to spaces' do
       let(:space) { FactoryGirl.create(:space) }
       before { space.add_member!(user) }
-
       it {
-        expect { user.destroy }.to change{
-          Permission.where(user: user, subject: space).count
-        }.by(-1)
+        expect { user.destroy }.to change(Permission, :count).by(-1)
+        Permission.where(subject: space, user: user).should be_empty
       }
     end
 
-    context 'removes the join requests' do
+    context 'removes permissions related to events' do
+      let(:event) { FactoryGirl.create(:event) }
+      before { Permission.create(subject: event, user: user, role: Role.find_by_name('Organizer')) }
+      it {
+        expect { user.destroy }.to change(Permission, :count).by(-1)
+        Permission.where(subject: event, user: user).should be_empty
+      }
+    end
+
+    context "removes permissions related to the site" do
+      before { Permission.create(subject: Site.current, user: user, role: Role.find_by_name('Global Admin')) }
+      it {
+        expect { user.destroy }.to change(Permission, :count).by(-1)
+        Permission.where(subject: Site.current, user: user).should be_empty
+      }
+    end
+
+    context 'removes pending join requests' do
       let(:space) { FactoryGirl.create(:space) }
-      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
-      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      let(:space2) { FactoryGirl.create(:space) }
+      let!(:processed_join_request) { FactoryGirl.create(:join_request_invite, candidate: user, group: space, processed_at: Time.now - 2.days) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user, group: space, processed_at: nil) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space2, processed_at: nil) }
       it { expect { user.destroy }.to change(JoinRequest, :count).by(-2) }
     end
 
@@ -922,9 +979,41 @@ describe User do
     end
   end
 
+  describe "#created_by_certificate?" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the user has no token" do
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when the user has a token associated with an existing account" do
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: false)
+      }
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when another user has a token created by certificate" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: false)
+        FactoryGirl.create(:certificate_token, user: another_user, new_account: true)
+      }
+      it { user.created_by_certificate?.should be(false) }
+    end
+
+    context "when the user has an account created by certificate" do
+      before {
+        FactoryGirl.create(:certificate_token, user: user, new_account: true)
+      }
+      it { user.created_by_certificate?.should be(true) }
+    end
+  end
+
   describe "#local_auth?" do
     it "false if has LDAP auth"
     it "false if has shibboleth auth"
+    it "false if has certificate auth"
     it "true if has no LDAP nor shibboleth auth"
   end
 
@@ -933,6 +1022,7 @@ describe User do
   describe "#last_sign_in_date" do
     it "returns the last sign in date"
     it "returns the same as #current_sign_in_at"
+    it "prioritizes shib, ldap and certificate over local"
   end
 
   describe "#last_sign_method" do
@@ -940,6 +1030,36 @@ describe User do
     it "returns 'shibboleth' if the last method was Shibboleth"
     it "returns 'local' if the last method was local"
     it "returns nil if the user never signed in"
+  end
+
+  describe "#superuser" do
+    it("true if the user is an admin") { FactoryGirl.create(:superuser).superuser.should be(true) }
+    it("false if the user is not an admin") { FactoryGirl.create(:user).superuser.should be(false) }
+  end
+
+  describe "#superuser?" do
+    it("true if the user is an admin") { FactoryGirl.create(:superuser).superuser?.should be(true) }
+    it("false if the user is not an admin") { FactoryGirl.create(:user).superuser?.should be(false) }
+  end
+
+  describe "#set_superuser!" do
+    context "setting to true" do
+      let(:user) { FactoryGirl.create(:user) }
+      it {
+        user.superuser.should be(false)
+        user.set_superuser!
+        user.reload.superuser.should be(true)
+      }
+    end
+
+    context "setting to false" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      it {
+        user.superuser.should be(true)
+        user.set_superuser!(false)
+        user.reload.superuser.should be(false)
+      }
+    end
   end
 
   describe "#disable" do
@@ -1198,7 +1318,7 @@ describe User do
 
       context "over a superuser" do
         before {
-          target.update_attributes(superuser: true)
+          target.set_superuser!(true)
         }
 
         context "cannot edit the password if the account was created by shib" do

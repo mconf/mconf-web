@@ -55,9 +55,13 @@
     = f.input :ldap_email_field
     = f.input :ldap_name_field
     = f.input :ldap_filter
+    = f.input :certificate_login_enabled, as: :boolean
+    = f.input :certificate_id_field, as: :string
+    = f.input :certificate_name_field, as: :string
     = f.input :smtp_receiver
     = f.input :captcha_enabled
     = f.input :recaptcha_public_key
     = f.input :recaptcha_private_key
     = f.input :use_gravatar, :as => :boolean
+    = f.input :unauth_access_to_conferences, as: :boolean
   = f.button :wrapped, :cancel => edit_site_path, :value => t("_other.save")

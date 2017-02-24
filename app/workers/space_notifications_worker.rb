@@ -21,7 +21,7 @@ class SpaceNotificationsWorker < BaseWorker
     activities = RecentActivity
       .where(trackable_type: 'Space', notified: [nil, false], key: 'space.create')
 
-    recipients = User.where(superuser: true).ids
+    recipients = User.superusers.pluck(:id)
     unless recipients.empty?
       activities.each do |activity|
         # If space has already been approved, we don't need to send the notification.

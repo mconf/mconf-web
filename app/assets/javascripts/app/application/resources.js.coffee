@@ -29,6 +29,7 @@ class mconf.Resources
     mconf.QueryString.bind()
     mconf.Tags.bind()
     mconf.Popover.bind()
+    mconf.CertificateAuthentication.bind()
     for method in temporaryBinds
       method.call()
 

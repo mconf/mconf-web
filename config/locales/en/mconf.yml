@@ -59,6 +59,7 @@ en:
     accept: "Accept"
     access_denied: "You need to sign in or sign up before continuing."
     auth:
+      certificate: "certificate"
       ldap: "LDAP"
       local: "local auth"
       shibboleth: "shibboleth"
@@ -176,6 +177,9 @@ en:
         name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
+        certificate_login_enabled: "Enable login via certificates"
+        certificate_id_field: "Certificate login: Field to obtain the user's ID"
+        certificate_name_field: "Certificate login: Field to obtain the user's name"
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
@@ -185,6 +189,7 @@ en:
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         forbid_user_space_creation: "Forbid users from creating spaces"
+        gravatar: "Use gravatar"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -226,6 +231,7 @@ en:
         ssl: "SSL"
         timezone: "Timezone"
         visible_locales: "Visible languages"
+        unauth_access_to_conferences: "Allow unauthorized users in conferences"
         xmpp_server: "XMPP Server Address"
       space:
         attendee_key: "Key for attendees"
@@ -435,6 +441,14 @@ en:
   cancel: Cancel
   caption:
     add: "Add a caption"
+  certificate_authentication:
+    error:
+      certificate: "A certificate is not installed or is invalid"
+      disabled: "Certificate login is not enabled"
+      generic: "A certificate is not installed or is invalid"
+      not_found: "Your certificate is valid but there's no user associated with it"
+      title: "Certificate error"
+      unknown: "A certificate is not installed or is invalid"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -514,11 +528,11 @@ en:
       steps: "steps:"
     invite_userid:
       login: "Login"
+      login_certificate: "Login via client certificate"
+      login_federation: "Login via federation"
       member:
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth:
-          click_here: "Or click here to use the federated login"
         title: "I'm a member of this website"
       non_member:
         name: "Your full name"
@@ -526,6 +540,7 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: %{name}"
     join:
+      unauth_access_to_conferences: "You need to sign in before you can join this conference."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
@@ -715,6 +730,7 @@ en:
     show:
       headline: "A global scalable opensource multiconference system for web and mobile devices"
       login:
+        certificate: "Login via client certificate"
         federation: "Login via federation"
         lost_password: "Lost your password?"
         title: "Sign in"
@@ -1050,9 +1066,10 @@ en:
       disabled_false: Enabled
       can_record_true: Can record
       can_record_false: "Can't record"
-      login_method_shib: Shibboleth
-      login_method_local: Login Local
+      login_method_certificate: Certificate
       login_method_ldap: LDAP
+      login_method_local: Login Local
+      login_method_shib: Shibboleth
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
