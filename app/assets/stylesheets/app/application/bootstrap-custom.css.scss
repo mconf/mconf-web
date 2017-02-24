@@ -69,6 +69,15 @@ label.checkbox {
   background: none;
 }
 
+// for modals that don't open, show an error
+.modal .modal-error {
+  background: $m-alert-danger-font;
+  color: #fff;
+  @include font-size($m-font-double);
+  text-align: center;
+  padding: 40px;
+}
+
 // for some reason it stays on top of modals if not resetting the z-index
 .input-group .form-control {
   z-index: auto;

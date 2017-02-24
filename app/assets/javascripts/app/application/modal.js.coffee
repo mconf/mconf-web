@@ -96,9 +96,8 @@ class mconf.Modal
         # Remote returns an http error code show
         if !(xhr.status >= 200 && xhr.status < 400)
           $modal.addClass('xhr-error')
-          $modal.html("<div class='status'> <i class='fa fa-frown-o'></i> #{xhr.statusText} </div>")
-
-          $(options.element).trigger("modal-error")
+          $modal.html("<div class='modal-error'> <i class='fa fa-frown-o'></i> #{xhr.statusText} </div>")
+          # $(options.element).trigger("modal-error")
 
     # not a link, simply show the content
     else

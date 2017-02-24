@@ -13,48 +13,6 @@
     #webconference-room-url
       = copyable_field 'invite-url-text', join_webconf_url(room), readonly: true
 
-    -# .webconference-types.row
-    -#   .col-xs-4.col-md-4
-    -#     .webconference-type
-    -#       .row
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           -# %i.fa.fa-gears.icon-awesome.webconference-icon
-    -#           = image_tag "icons/meeting-one-to-one.png", class: "webconference-icon"
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           .title
-    -#             = "Small meetings"
-    -#           .subtitle
-    -#             = "(one-to-one)"
-    -#   .col-xs-4.col-md-4
-    -#     .webconference-type.selected
-    -#       %i.fa.fa-check.icon-awesome.icon-selected{ :title => "Conference type currently selected" }
-    -#       .configuration-options
-    -#         = link_to edit_my_room_path, :class => 'open-modal btn btn-primary btn-xs', :'data-modal-width' => 'small' do
-    -#           = icon_options
-    -#           = "Configure"
-    -#       .row
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           -# %i.fa.fa-envelope.icon-awesome.webconference-icon
-    -#           = image_tag "icons/meeting-many-to-many.png", class: "webconference-icon"
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           .title
-    -#             = "Meetings"
-    -#           .subtitle
-    -#             = "(many-to-many)"
-
-    -#   .col-xs-4.col-md-4
-    -#     .webconference-type
-    -#       .row
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           -# %i.fa.fa-user.icon-awesome.webconference-icon
-    -#           = image_tag "icons/meeting-one-to-many.png", class: "webconference-icon"
-    -#         .col-xs-5.col-sm-12.col-md-6
-    -#           .title
-    -#             = "Webinar"
-    -#           .subtitle
-    -#             = "(one-to-many)"
-
-
   - cls = running ? "in-progress" : ""
   #webconference-start{ :class => cls }
 
