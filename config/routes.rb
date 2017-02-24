@@ -167,9 +167,6 @@ Mconf::Application.routes.draw do
   # Locale controller, to change languages
   resource :language, only: [:create], controller: :session_locales, as: :session_locale
 
-  # General statistics for the website
-  get '/statistics', to: 'statistics#show', as: 'show_statistics'
-
   # Events
   # Note: we load the routes even if the events are disabled in the site
   resources :events do

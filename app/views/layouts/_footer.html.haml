@@ -6,7 +6,6 @@
         %li= link_to(t('.links.help'), current_site.external_help)
       - if user_signed_in?
         %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
-      %li= link_to t('.links.statistics'), main_app.show_statistics_path
     #footer-powered
       = image_tag "logos/mconf-ico-color-transp.png", size: "14x14"
       = t('.links.powered_by')

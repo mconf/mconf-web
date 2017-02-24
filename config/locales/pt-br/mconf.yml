@@ -219,6 +219,7 @@ pt-br:
         smtp_sender: "Remetente SMTP"
         smtp_server: "Servidor SMTP"
         smtp_use_tls: "Usar TLS no STMP"
+        spaces_enabled: "Habilitar módulo de comunidades"
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
@@ -914,7 +915,6 @@ pt-br:
         feedback: "Feedback"
         help: Ajuda
         powered_by: "Powered by Mconf, visite"
-        statistics: "Estatísticas"
         title: Links
       project_website: "Site do projeto"
       sponsors:
@@ -1517,8 +1517,6 @@ pt-br:
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
-    statistics:
-      views: "Visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
   space_events:
@@ -1680,18 +1678,6 @@ pt-br:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de Estágio"
-  statistics:
-    show:
-      description: "Esta página mostra algumas estatísticas atuais deste site. As estatísticas são em tempo real e refletem o estado do site neste exato momento."
-      table:
-        events: "Eventos"
-        how_many: "Quantos?"
-        posts: "Mensagens publicadas"
-        spaces: "Comunidades"
-        users: "Usuários"
-        webconf_rooms: "Salas de webconferência disponíveis"
-        what: "O quê?"
-      title: "Estatísticas do site"
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"

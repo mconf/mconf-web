@@ -222,6 +222,7 @@ en:
         smtp_sender: "SMTP sender"
         smtp_server: "SMTP server"
         smtp_use_tls: "Use TLS in SMTP"
+        spaces_enabled: "Enable space module"
         ssl: "SSL"
         timezone: "Timezone"
         visible_locales: "Visible languages"
@@ -914,7 +915,6 @@ en:
         feedback: "Feedback"
         help: Help
         powered_by: "Powered by Mconf, visit"
-        statistics: Statistics
         title: Links
       project_website: "Project website"
       sponsors:
@@ -1503,8 +1503,6 @@ en:
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
-    statistics:
-      views: "views"
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
   space_events:
@@ -1667,18 +1665,6 @@ en:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Stage type"
-  statistics:
-    show:
-      description: "This page shows a few statistics of this website. These statistics are in real-time and reflect the state of the website in this exact instant."
-      table:
-        events: "Events"
-        how_many: "How many?"
-        posts: "Messages posted"
-        spaces: "Spaces"
-        users: "Users"
-        webconf_rooms: "Available webconference rooms"
-        what: "What?"
-      title: "Site statistics"
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
