@@ -46,6 +46,11 @@
             = icon_is_member
             = t('space.index.user_is_member')
 
+        - if current_site.require_space_approval? && !space.approved?
+          .resource-waiting-moderation-tooltip
+            = icon_waiting_moderation
+            = t("_other.not_approved.text")
+
         %p.description= first_words(space.description, 400)
 
         = render :partial => "spaces/space_tags", :locals => { :space => space }

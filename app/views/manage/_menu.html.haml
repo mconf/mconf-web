@@ -11,7 +11,7 @@
       %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'users'}" }
         = link_to t('.users'), manage_users_path
 
-    - if can?(:spaces, :manage) and mod_enabled?("spaces")
+    - if can?(:spaces, :manage) && mod_enabled?("spaces")
       %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
         = link_to t('.spaces'), manage_spaces_path
 

@@ -6,9 +6,9 @@
 # 3 or later. See the LICENSE file.
 
 class SpaceEventsController < ApplicationController
-
   layout "application"
 
+  before_filter :require_spaces_mod
   before_filter :require_events_mod
 
   load_and_authorize_resource :space, :find_by => :permalink

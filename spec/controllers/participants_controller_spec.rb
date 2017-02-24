@@ -216,7 +216,7 @@ describe ParticipantsController do
   describe "abilities", :abilities => true do
   end
 
-  describe "module enabled" do
+  describe "events module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:participant_attributes) { FactoryGirl.attributes_for(:participant) }
     let(:participant) { FactoryGirl.create(:participant) }
@@ -224,7 +224,7 @@ describe ParticipantsController do
     let(:event) { participant.event }
     let(:event_id) { event.to_param }
 
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, false)
         login_as(user)
@@ -238,7 +238,7 @@ describe ParticipantsController do
                     delete :destroy, event_id: event_id, id: participant_id, participant: participant_attributes}.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, true)
         login_as(user)

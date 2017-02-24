@@ -23,18 +23,18 @@ describe ParticipantConfirmationsController do
     it { should set_flash.to(I18n.t('participant_confirmation.confirmed', email: pc.email)) }
   end
 
-  describe "events module enabled" do
+  describe "events module" do
     let(:pc) { FactoryGirl.create(:participant, email: 'divine@wings.of', owner: nil).participant_confirmation }
     let(:pc_id) { pc.to_param }
 
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, false)
       }
       it { expect { get :confirm, token: pc_id }.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, true)
       }

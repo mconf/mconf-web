@@ -1638,6 +1638,8 @@ pt-br:
     show:
       description: "Description"
       events_now: "Eventos acontecendo agora!"
+      manage_to_approve: "ir ao gerenciamento para aprovar"
+      not_approved: "Esta comunidade ainda não está aprovada. Apenas você pode vê-la e editá-la até que seja aprovada."
     space_join_button:
       accept_or_decline: "Responder ao convite"
       cancel: "Cancelar requisição de ingresso"

@@ -870,8 +870,8 @@ describe SpacesController do
       it { assigns(:spaces).should include(@s3) }
     end
   end
-  
-  describe "module enabled" do
+
+  describe "spaces module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
     let(:space_id) { space.to_param }
@@ -879,11 +879,11 @@ describe SpacesController do
     let(:space_attributes) { FactoryGirl.attributes_for(:space) }
 
     context "with disabled" do
-      before(:each) { 
+      before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
-        login_as(user) 
+        login_as(user)
 
-        space.add_member!(user, 'User')
+        space.add_member!(user)
       }
       it { expect { get :index }.to raise_error(ActionController::RoutingError) }
       it { expect { get :new }.to raise_error(ActionController::RoutingError) }
@@ -900,11 +900,11 @@ describe SpacesController do
     end
 
     context "with enabled" do
-      before(:each) { 
+      before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
-        login_as(user) 
+        login_as(user)
 
-        space.add_member!(user, 'User')
+        space.add_member!(user)
       }
       it { expect { get :index }.not_to raise_error }
       it { expect { get :new }.not_to raise_error }

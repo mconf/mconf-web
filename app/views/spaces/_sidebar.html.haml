@@ -31,15 +31,6 @@
             = icon_is_member
             = t(".is_member")
 
-      -# TODO
-      -# - if !@space.approved?
-      -#   .resource-waiting-tooltip
-      -#     = icon_waiting_moderation
-      -#     = t("_other.not_approved.text")
-      -#     - if can?(:approve, @space)
-      -#       - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
-      -#       = ("(" + link + ")").html_safe
-
   -# action buttons: join, register, login, it depends on the context
   - btn = space_join_button(@space)
   - unless btn.nil?

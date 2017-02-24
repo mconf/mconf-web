@@ -1616,6 +1616,8 @@ en:
     show:
       description: "Description"
       events_now: "Events hapenning now!"
+      manage_to_approve: "go to manage to approve it"
+      not_approved: "This space is not approved yet. On you can see it and edit it until it is approved."
     sidebar:
       admin: "Admin"
       events: "Events"

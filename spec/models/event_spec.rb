@@ -398,7 +398,7 @@ describe Event do
     end
   end
 
-  describe "spaces module enabled" do
+  describe "spaces module" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:superuser) }
     let!(:today) { Time.now }
@@ -411,7 +411,7 @@ describe Event do
         FactoryGirl.create(:event, owner: FactoryGirl.create(:user), start_on: today + 1.day, end_on: today + 2.day)
       ]
     end
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user)
@@ -419,7 +419,7 @@ describe Event do
       it { Event.upcoming.count.should eq(2) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user)

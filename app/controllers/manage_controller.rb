@@ -7,8 +7,9 @@
 
 class ManageController < ApplicationController
   before_filter :authenticate_user!
+  authorize_resource class: false
+
   before_filter :require_spaces_mod, only: [:spaces]
-  authorize_resource :class => false
 
   def users
     words = params[:q].try(:split, /\s+/)

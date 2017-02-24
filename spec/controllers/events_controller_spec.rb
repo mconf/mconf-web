@@ -778,7 +778,7 @@ describe EventsController do
     it { should_authorize an_instance_of(Event), :send_invitation, id: event.to_param }
   end
 
-  describe "module enabled" do
+  describe "events module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:event) { FactoryGirl.create(:event, owner: owner) }
     let(:attributes) { {name: "#{event.name} New name"} }
@@ -786,12 +786,16 @@ describe EventsController do
     let(:users) { [FactoryGirl.create(:user)] }
     let(:title) { 'Title' }
     let(:message) { 'Message' }
-    let(:hash) { { users: users.map(&:id).join(','),
-       title: title,
-       message: message} }
+    let(:hash) {
+      {
+        users: users.map(&:id).join(','),
+        title: title,
+        message: message
+      }
+    }
     let(:event_id) { event.to_param }
 
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, false)
         login_as(owner)
@@ -804,12 +808,12 @@ describe EventsController do
       it { expect { post :new }.to raise_error(ActionController::RoutingError) }
       it { expect { get :edit, id: event_id }.to raise_error(ActionController::RoutingError) }
       it { expect { get :show, id: event_id }.to raise_error(ActionController::RoutingError) }
-      it { expect { patch :update, id: event_id, event: attributes, event: attributes  }.to raise_error(ActionController::RoutingError) }
+      it { expect { patch :update, id: event_id, event: attributes  }.to raise_error(ActionController::RoutingError) }
       it { expect { put :update, id: event_id, event: attributes }.to raise_error(ActionController::RoutingError) }
       it { expect { delete :destroy, id: event_id }.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         Site.current.update_attribute(:events_enabled, true)
         login_as(owner)

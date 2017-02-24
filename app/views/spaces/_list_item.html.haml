@@ -43,11 +43,11 @@
           - else
             = link_to t(".view_join_request"), space_join_request_path(space, jr)
 
+      - if current_site.require_space_approval? && !space.approved?
+        .resource-visibility.small
+          .resource-waiting-moderation-tooltip
+            = icon_waiting_moderation
+            = t("_other.not_approved.text")
+
     .list-text-description
       = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
-
-      -# TODO
-      -# - if current_site.require_space_approval? && !space.approved?
-      -#   .space-waiting-moderation.resource-visibility.small
-      -#     = icon_waiting_moderation
-      -#     = t("_other.not_approved.text")

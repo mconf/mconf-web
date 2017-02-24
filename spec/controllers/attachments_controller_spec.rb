@@ -411,17 +411,17 @@ describe AttachmentsController do
     end
   end
 
-  describe "spaces module enabled" do
+  describe "spaces module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space) }
     let(:attachment) { FactoryGirl.create(:attachment, space: space) }
     let(:space_id) { space.to_param }
     let(:attachment_id) { attachment.id }
 
-    context "with disabled" do
-      before(:each) { 
+    context "disabled" do
+      before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
-        login_as(user) 
+        login_as(user)
 
         space.add_member!(user, 'User')
       }
@@ -433,10 +433,10 @@ describe AttachmentsController do
       it { expect { delete :delete_collection, space_id: space_id }.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
-      before(:each) { 
+    context "enabled" do
+      before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
-        login_as(user) 
+        login_as(user)
 
         space.add_member!(user, 'User')
       }

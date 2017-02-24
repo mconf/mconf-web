@@ -65,7 +65,7 @@ describe JoinRequestsController do
         context "template and layout" do
           before(:each) { get :new, :space_id => space.to_param }
           it { should render_template('new') }
-          it { should render_with_layout('application') }
+          it { should render_with_layout('no_sidebar') }
         end
       end
 
@@ -76,7 +76,7 @@ describe JoinRequestsController do
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('application') }
+        it { should render_with_layout('no_sidebar') }
         it { should assign_to(:pending_request).with(@join_request) }
       end
 
@@ -87,7 +87,7 @@ describe JoinRequestsController do
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('application') }
+        it { should render_with_layout('no_sidebar') }
         it { should assign_to(:pending_request).with(@join_request) }
       end
     end
@@ -898,14 +898,14 @@ describe JoinRequestsController do
     end
   end
 
-  describe "spaces module enabled" do
+  describe "spaces module" do
     let(:candidate) { FactoryGirl.create(:user) }
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:space_id) { space.to_param }
     let(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
 
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         Site.current.update_attribute(:spaces_enabled, false)
@@ -921,7 +921,7 @@ describe JoinRequestsController do
       it { expect { get :show, id: jr, space_id: space_id }.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         Site.current.update_attribute(:spaces_enabled, true)

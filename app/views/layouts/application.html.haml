@@ -25,6 +25,10 @@
       #navbar
         = render :partial => 'layouts/application_navbar'
 
+      - if content_for?(:content_notification)
+        #content-notification
+          = yield :content_notification
+
       #content
         - if content_for?(:sidebar) || content_for?(:sidebar_menu)
           #sidebar

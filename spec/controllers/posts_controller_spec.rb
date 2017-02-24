@@ -238,7 +238,7 @@ describe PostsController do
     it "abilities"
   end
 
-  describe "spaces module enabled" do
+  describe "spaces module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:post) { FactoryGirl.create(:post, space: space) }
@@ -246,7 +246,7 @@ describe PostsController do
     let(:space_id) { space.to_param }
     let(:post_id) { post.to_param }
 
-    context "with disabled" do
+    context "disabled" do
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, false)
         login_as(user)
@@ -262,7 +262,7 @@ describe PostsController do
       it { expect { delete :destroy, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
     end
 
-    context "with enabled" do
+    context "enabled" do
       before(:each) {
         Site.current.update_attribute(:spaces_enabled, true)
         login_as(user)

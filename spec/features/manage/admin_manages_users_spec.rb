@@ -39,7 +39,7 @@ describe 'Admin manages users' do
       it { should have_css '#users-list .icon-mconf-confirm-user', count: 2 }
       it { should have_css '#users-list .icon-mconf-approve', count: 2 }
       it { should have_css '#users-list .icon-mconf-superuser', count: 2 }
-      it { should have_css '#users-list .icon-mconf-cant-rec', :count => 4 }
+      it { should have_css '#users-list .icon-mconf-cant-rec', :count => 5 }
       it { should have_css '#users-list .icon-mconf-can-rec', :count => 1 }
 
       context 'elements for the signed in user' do

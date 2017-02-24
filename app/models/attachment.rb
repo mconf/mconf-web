@@ -50,7 +50,7 @@ class Attachment < ActiveRecord::Base
   }
 
   def space
-    Space.with_disabled.where(:id => space_id).first
+    Space.with_disabled.where(id: space_id).first
   end
 
   def title
