@@ -90,7 +90,7 @@ class mconf.Modal
 
     # if its a link, load the content and then show it
     if isRemote
-      $modal.load options.target, "", (responseText, textStatus, xhr) ->
+      $modal.find(".modal-content").load options.target, "", (responseText, textStatus, xhr) ->
         $modal.modal(localOptions)
 
         # Remote returns an http error code show
