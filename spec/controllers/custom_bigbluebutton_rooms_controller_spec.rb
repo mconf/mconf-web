@@ -331,7 +331,7 @@ describe CustomBigbluebuttonRoomsController do
     context "template and layout for html requests" do
       before(:each) { get :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
-      it { should render_with_layout("mobile") }
+      it { should render_with_layout("no_sidebar") }
     end
 
     it "loads and authorizes the room into @room"

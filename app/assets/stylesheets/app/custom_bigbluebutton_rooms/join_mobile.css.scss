@@ -3,36 +3,28 @@
 
 body.custom_bigbluebutton_rooms.join_mobile {
 
-  #content-container {
+  #content {
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 
     .download-images {
-      margin: 20px 0;
+      margin: 32px 0;
 
       .download-image {
-        margin: 0 20px;
+        margin: 8px;
         text-align: center;
         display: inline-block;
-
-        .tip {
-          border: 1px solid $m-gray;
-          padding: 3px 5px;
-          @include border-radius($m-border-radius-large);
-          background: $m-light-gray;
-          max-width: 150px;
-          margin: 10px auto;
-        }
       }
     }
 
     .additional-options {
-      margin: 50px 0 0 0;
+      border-top: 1px solid $m-border-color-normal;
 
       .additional-option {
-        margin: 10px 0;
+        padding: 8px 0;
         clear: both;
+        border-bottom: 1px solid $m-border-color-normal;
       }
     }
   }

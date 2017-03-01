@@ -5,6 +5,7 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
     %title= content_for?(:title) ? yield(:title) : current_site.name
     = favicon_link_tag
+    = csrf_meta_tag
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
@@ -12,11 +13,6 @@
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = yield :stylesheets
 
-    /[if IE]
-      // HTML5 shim, for IE6-8 support of HTML elements
-      /[if lt IE 9]
-        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
-    = csrf_meta_tag
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
@@ -30,6 +26,7 @@
           = yield :content_notification
 
       #content
+
         - if content_for?(:sidebar) || content_for?(:sidebar_menu)
           #sidebar
             = yield :sidebar
@@ -38,12 +35,18 @@
                 = yield :sidebar_menu
 
         #content-middle
+
+          -# an internal menu for the page to navigate through sub-pages
           - if content_for?(:page_menu)
             #page-menu
               = yield :page_menu
 
-          #page-actions
-            = yield :page_actions
+          -# a list of actions for this page (e.g. destroy resource)
+          - if content_for?(:page_actions)
+            #page-actions
+              = yield :page_actions
+
+          -# the actual page content
           = yield
 
       #footer-pusher

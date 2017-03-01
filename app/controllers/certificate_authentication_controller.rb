@@ -1,14 +1,5 @@
 class CertificateAuthenticationController < ApplicationController
 
-  layout :determine_layout
-  def determine_layout
-    if request.xhr?
-      'modal'
-    else
-      'application'
-    end
-  end
-
   def login
     certificate = request.headers['SSL_CLIENT_CERT']
 

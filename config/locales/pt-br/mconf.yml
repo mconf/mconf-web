@@ -544,9 +544,7 @@ pt-br:
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
-      not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
+      not_launched: "Se o programa não iniciar automaticamente, verifique se você possui o cliente móvel instalado. Você pode encontrá-lo em:"
       notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
       title: "Acesso móvel à sala \"%{room}\""
       use_default_client: "Se você não está em um cliente móvel, clique aqui para entrar na sessão usando o cliente desktop padrão."
@@ -941,10 +939,6 @@ pt-br:
         change: "Mudar a linguagem"
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
-    footer_simple:
-      copyright: "© 2010-%{year} %{site}."
-      translate:
-        change: "Mudar a linguagem"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"

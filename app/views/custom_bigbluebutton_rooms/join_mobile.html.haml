@@ -1,16 +1,12 @@
-= content_for :page_header_subtitle do
-  = t(".notice")
 = page_title t(".title", :room => @room.name).html_safe
 
 %p= t(".not_launched")
 
 .download-images
   .download-image
-    .tip= t('.download_android_tip')
     = link_to mobile_google_play_link do
       = image_tag mobile_google_play_image, :alt => t('.click_to_download_android'), :title => t('.click_to_download_android')
   .download-image
-    .tip= t('.download_ios_tip')
     = link_to mobile_apple_store_link do
       = image_tag mobile_apple_store_image, :alt => t('.click_to_download_ios'), :title => t('.click_to_download_ios')
 

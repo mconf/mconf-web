@@ -545,9 +545,7 @@ en:
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
-      download_android_tip: "For devices with Android"
-      download_ios_tip: "For devices with Apple iOS (iPad, iPhone)"
-      not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
+      not_launched: "If the application was not automatically launched, make sure you have the mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""
       use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
@@ -941,10 +939,6 @@ en:
         change: "Switch language"
         help_us: "Want this site in your language? Click to see how to help us translate it!"
       wiki: "Wiki"
-    footer_simple:
-      copyright: "© 2010-%{year} %{site}."
-      translate:
-        change: "Switch language"
     manage:
       title: "Management"
   less: "less..."
