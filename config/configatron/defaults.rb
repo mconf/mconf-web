@@ -48,3 +48,6 @@ configatron.locales.names =
     "pt-br": "Português",
     ru: "Pусский"
   }
+
+# Scope for all URLs related to conferences
+configatron.conf.scope = 'conf'

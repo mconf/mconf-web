@@ -10,6 +10,6 @@ describe CustomBigbluebuttonPlaybackTypesController do
   include Shoulda::Matchers::ActionController
 
   describe "routing" do
-    it { should route(:get, "/bigbluebutton/playback_types").to(:action => :index) }
+    it { should route(:get, "/#{configatron.conf.scope}/playback_types").to(:action => :index) }
   end
 end

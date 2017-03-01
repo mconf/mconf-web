@@ -38,28 +38,33 @@ Mconf::Application.routes.draw do
     get "admin", to: "sessions#new"
   end
 
-  # bigbluebutton_rails default routes
-  bigbluebutton_routes :default, controllers: {
+  # conference routes
+  # bigbluebutton_rails gem
+  conf_scope = configatron.conf.scope
+  conf_controllers = {
     servers: 'custom_bigbluebutton_servers',
     rooms: 'custom_bigbluebutton_rooms',
     recordings: 'custom_bigbluebutton_recordings',
     playback_types: 'custom_bigbluebutton_playback_types'
   }
+  bigbluebutton_routes :default, scope: conf_scope, as: 'bigbluebutton', controllers: conf_controllers
+
   # register a few custom routes that were added to bigbluebutton_rails
-  get '/bigbluebutton/rooms/:id/invitation',
+  get "/#{conf_scope}/rooms/:id/invitation",
     to: 'custom_bigbluebutton_rooms#invitation',
     as: "invitation_bigbluebutton_room"
-  post '/bigbluebutton/rooms/:id/send_invitation',
+  post "/#{conf_scope}/rooms/:id/send_invitation",
     to: 'custom_bigbluebutton_rooms#send_invitation',
     as: "send_invitation_bigbluebutton_room"
-  get '/bigbluebutton/rooms/:id/user_edit',
+  get "/#{conf_scope}/rooms/:id/user_edit",
     to: 'custom_bigbluebutton_rooms#user_edit',
     as: "user_edit_bigbluebutton_room"
-  get '/bigbluebutton/playback_types',
+  get "/#{conf_scope}/playback_types",
     to: 'custom_bigbluebutton_playback_types#index',
     as: "bigbluebutton_playback_types"
+
   # shortcut route to join webconference rooms
-  get '/webconf/:id',
+  get "/#{conf_scope}/:id",
     to: 'custom_bigbluebutton_rooms#invite_userid',
     as: "join_webconf"
 

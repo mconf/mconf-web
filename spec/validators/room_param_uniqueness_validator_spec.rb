@@ -55,6 +55,16 @@ describe RoomParamUniquenessValidator do
       }
     end
 
+    ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      context "when using the reserved word '#{word}'" do
+        it {
+          target.validate_each(user, "username", word)
+          user.errors.should have_key(:username)
+          user.errors.messages[:username].should include(message)
+        }
+      end
+    end
+
     it "ignores the user's own room" do
       target.validate_each(user, "username", user.bigbluebutton_room.param)
       user.errors.should be_empty
@@ -90,6 +100,16 @@ describe RoomParamUniquenessValidator do
         space.errors.should have_key(:permalink)
         space.errors.messages[:permalink].should include(message)
       }
+    end
+
+    ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      context "when using the reserved word '#{word}'" do
+        it {
+          target.validate_each(space, "permalink", word)
+          space.errors.should have_key(:permalink)
+          space.errors.messages[:permalink].should include(message)
+        }
+      end
     end
 
     it "ignores the space's own room" do

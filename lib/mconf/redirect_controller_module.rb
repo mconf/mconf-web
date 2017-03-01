@@ -42,7 +42,7 @@ module Mconf::RedirectControllerModule
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
                       "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
-                      "/pending", "/bigbluebutton/rooms/.*/join", "/bigbluebutton/rooms/.*/end"]
+                      "/pending", "/#{configatron.conf.scope}/rooms/.*/join", "/#{configatron.conf.scope}/rooms/.*/end"]
     ignored_paths.select{ |ignored| path.match("^"+ignored+"$") }.empty?
   end
 

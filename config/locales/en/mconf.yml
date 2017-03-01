@@ -973,7 +973,7 @@ en:
       spaces: "Spaces"
       title: "Site Management"
       users: "Users"
-      webconf: "Web Conference"
+      webconf: "Conference"
     recording_item:
       available_false: "Not available"
       available_true: "Available"

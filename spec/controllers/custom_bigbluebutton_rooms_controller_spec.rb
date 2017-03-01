@@ -456,7 +456,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#join" do
 
     # see bug1721
-    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/join " do
+    context "doesnt store location for redirect for /#{configatron.conf.scope}/rooms/:user/join" do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {
@@ -475,7 +475,7 @@ describe CustomBigbluebuttonRoomsController do
           room.should_receive(:fetch_meeting_info)
           get :join, id: room.to_param
         }
-        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:user_return_to].should eq("/home") }
         it { controller.session[:previous_user_return_to].should eq("/manage/users") }
       end
       context "when no meeting is running" do
@@ -813,7 +813,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#end" do
 
     # see bug1721
-    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/end " do
+    context "doesnt store location for redirect for /#{configatron.conf.scope}/rooms/:user/end " do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {

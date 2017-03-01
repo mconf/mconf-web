@@ -971,7 +971,7 @@ pt-br:
       spaces: "Comunidades"
       title: "Gerenciamento do Site"
       users: "Usuários"
-      webconf: "Webconferência"
+      webconf: "Conferência"
     recording_item:
       available_false: "Não disponíveis"
       available_true: "Disponíveis"
