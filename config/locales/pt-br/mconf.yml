@@ -763,7 +763,7 @@ pt-br:
   home:
     activity: "Atividade recente..."
     invite_url: "URL para convites"
-    my: "Página inicial"
+    my: "Início"
     my_spaces: "Minhas comunidades"
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
@@ -857,6 +857,7 @@ pt-br:
       or: "ou"
       pending_invitations_title: "Convites pendentes"
       pending_requests_title: "Pedidos de adesão pendentes"
+      title: "Admissões"
       user_message: "Mensagem"
     invitation:
       cancel: "Cancelar convite para %{user}?"
@@ -865,7 +866,8 @@ pt-br:
     invite:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
-      title: "Convide pessoas para ingressar nesta comunidade"
+      subtitle: "Convide pessoas para ingressar nesta comunidade"
+      title: "Convidar"
       type_add: "Adicionar diretamente"
       type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
       type_invite: "Convidar"
@@ -1072,12 +1074,16 @@ pt-br:
   more: mais...
   more_arrows: "mais >>"
   my:
+    activity:
+      title: "Atividades recentes"
     approval_pending:
       title: Aprovação pendente
       description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
       interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
       events_list: lista de eventos
       spaces_list: lista de comunidades
+    edit_recording:
+      title: "Editar sua gravação"
     home:
       create_space: "Criar uma comunidade"
       events:
@@ -1087,15 +1093,15 @@ pt-br:
       past_meetings:
         title: "Reuniões e gravações passadas"
         view_more: "Ver todas reuniões e gravações"
+      title: "Início"
       view_all_spaces: "Ver todas comunidades"
-    edit_recording:
-      title: "Editar sua gravação"
     page_header:
       activity_list: "Atividades recentes"
     meetings:
       recordedonly_false: "Todas"
       recordedonly_true: "Apenas Gravadas"
-      title: "Todas reuniões e gravações passadas"
+      subtitle: "Todas reuniões e gravações passadas"
+      title: "Reuniões e gravações"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
@@ -1588,6 +1594,7 @@ pt-br:
       public: "Tornar esta comunidade pública"
       tags:
         placeholder: "Adicionar uma tag..."
+      title: "Editar"
       yes_delete: "Sim, quero desabilitar esta comunidade"
       webconference_room_options:
         click_here: "clique aqui"
@@ -1666,6 +1673,7 @@ pt-br:
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
       leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      title: "Usuários"
       tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
     users: "Usuários nesta comunidade"
     webconference:

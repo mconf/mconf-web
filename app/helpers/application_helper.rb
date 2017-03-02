@@ -37,7 +37,7 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
-  def page_title title, opt ={}
+  def page_title(title, opt ={})
     inside_resource = " #{opt[:in]} &#149;" if opt[:in].present?
     content_for :title do
       "#{title} &#149;#{inside_resource} #{current_site.name}".html_safe

@@ -1,3 +1,4 @@
+- page_title t('.title')
 - home_sidebar_menu_at(:meetings)
 
 - if params[:partial]
@@ -10,7 +11,7 @@
 
   #my-webconference-meetings.content-block
     .content-block-header
-      %h3= t('.title')
+      %h3= t('.subtitle')
 
       .btn-group.recordedonly-buttons
         = link_to my_meetings_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
