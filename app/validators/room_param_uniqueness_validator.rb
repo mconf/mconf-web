@@ -22,9 +22,7 @@ class RoomParamUniquenessValidator < ActiveModel::EachValidator
       end
 
       # blacklisted names
-      restricted_names = [
-        'servers', 'rooms', 'recordings', 'playback_types'
-      ]
+      restricted_names = Mconf::Routes.reserved_names("/#{configatron.conf.scope}")
 
       if rooms.count > 0 || restricted_names.include?(value)
         record.errors[attribute] << (options[:message] || "has already been taken")
