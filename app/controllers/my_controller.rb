@@ -66,31 +66,6 @@ class MyController < ApplicationController
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 
-  # Renders a json with the webconference rooms accessible to the current user
-  # Response example:
-  #
-  # [
-  #   { "bigbluebutton_room":
-  #     { "name":"Admins Room", "join_path":"/bigbluebutton/servers/default-server/rooms/admins-room/join?mobile=1",
-  #       "owner":{ "type":"User", "id":"1" } }
-  #   }
-  # ]
-  #
-  # The attribute "owner" will follow one of the examples below:
-  # "owner":null
-  # "owner":{ "type":"User", "id":1 }
-  # "owner":{ "type":"Space", "id":1, "name":"Space's name", "public":true }
-  #
-  # Note: this route exists so the mobile client can get the rooms available for the user
-  def rooms
-    array = current_user.accessible_rooms || []
-    mapped_array = array.map{ |r|
-      link = join_bigbluebutton_room_path(r, :mobile => '1')
-      { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
-    }
-    render :json => mapped_array
-  end
-
   # List of meetings for the current user's web conference room.
   def meetings
     @room = current_user.bigbluebutton_room

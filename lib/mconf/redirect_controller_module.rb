@@ -36,13 +36,14 @@ module Mconf::RedirectControllerModule
   # the type of the request or anything else.
   def path_is_redirectable?(path)
     # Paths to which users should never be redirected back to.
-    ignored_paths = [ "/login", "/users/login", "/users",
+    ignored_paths = [ "/login", "/users/login", "/users", "/logout",
                       "/register", "/users/registration",
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate", "/feedback/webconf",
-                      "/pending", "/#{configatron.conf.scope}/rooms/.*/join", "/#{configatron.conf.scope}/rooms/.*/end"]
+                      "/users/shibboleth", "/users/shibboleth/info", "/users/shibboleth/associate", "/secure",
+                      "/users/pending", "/feedback/webconf",
+                      "/#{configatron.conf.scope}/rooms/.*/join", "/#{configatron.conf.scope}/rooms/.*/end"]
     ignored_paths.select{ |ignored| path.match("^"+ignored+"$") }.empty?
   end
 

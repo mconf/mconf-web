@@ -12,7 +12,7 @@ describe ParticipantConfirmationMailer do
     let(:participant) { FactoryGirl.create(:participant, email: 'son@icbo.om') }
     let(:pc) { FactoryGirl.create(:participant_confirmation, participant: participant) }
     let(:mail) { ParticipantConfirmationMailer.confirmation_email(pc.id) }
-    let(:url) { participant_confirmation_path(token: pc.token, host: Site.current.domain) }
+    let(:url) { participant_confirmation_events_path(token: pc.token, host: Site.current.domain) }
 
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([pc.email]) }

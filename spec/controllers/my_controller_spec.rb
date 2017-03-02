@@ -52,7 +52,7 @@ describe MyController do
       it { should render_template(:approval_pending) }
     end
 
-    context "renders the page if the referer is /secure" do
+    context "renders the page if the referer is the shibboleth path" do
       before(:each) {
         request.env["HTTP_REFERER"] = shibboleth_url
         get :approval_pending

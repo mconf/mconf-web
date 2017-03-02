@@ -374,7 +374,7 @@ describe 'User signs in via shibboleth' do
 
     context "from the association page" do
       skip
-      # the user was in the shibboleth association page "/secure/associate"
+      # the user was in the shibboleth association page "/users/shibboleth/associate"
       # he user clicks to go to the login page
       # when the user clicks to sign in via shibboleth redirects the user to the association page
       # user clicks to create a new account

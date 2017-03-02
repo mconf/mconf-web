@@ -45,9 +45,9 @@ describe SessionsController do
       end
     end
 
-    context "if the route is /admin" do
+    context "if the route is the admin login path" do
       before do
-        controller.request.stub(:path).and_return("/admin")
+        controller.request.stub(:path).and_return(admin_login_path)
       end
 
       context "renders the page even if there's no local auth enabled" do

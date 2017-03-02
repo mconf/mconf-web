@@ -133,7 +133,7 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     context "to a path that is not redirectable" do
       before {
         visit spaces_path
-        visit login_path(return_to: "/secure/info")
+        visit login_path(return_to: shibboleth_info_path)
       }
 
       it { current_path.should eq(spaces_path) }

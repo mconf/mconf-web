@@ -14,8 +14,9 @@ class SessionsController < Devise::SessionsController
   # If there's no auth enabled, go to the frontpage and not the login page
   before_filter only: [:new, :create] do
 
-    # when going to /admin we allow access
-    if !request.path.match(/^\/admin$/)
+    # when going through the admin login page we allow access
+    matcher = /^#{Regexp.escape(admin_login_path)}$/
+    if !request.path.match(matcher)
 
       site = Site.current
       if !site.local_auth_enabled? && !site.ldap_enabled?

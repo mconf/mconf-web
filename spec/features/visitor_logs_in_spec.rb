@@ -198,10 +198,10 @@ feature 'Visitor logs in' do
       has_success_message
     end
 
-    scenario 'from the page to sign in with shibboleth (/secure)' do
+    scenario "from the page to sign in with shibboleth" do
       enable_shib
       visit shibboleth_path
-      expect(current_path).to eq("/secure")
+      expect(current_path).to eq(shibboleth_path)
 
       find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
@@ -210,10 +210,10 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from the page with shibboleth info (/secure/info)' do
+    scenario "from the page with shibboleth info" do
       enable_shib
       visit shibboleth_info_path
-      expect(current_path).to eq("/secure/info")
+      expect(current_path).to eq(shibboleth_info_path)
 
       visit login_path
 
@@ -221,7 +221,7 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'after an error signing in with shibboleth (/secure/associate)' do
+    scenario "after an error signing in with shibboleth" do
       enable_shib
       setup_shib @user.name, @user.email, @user.email
 
@@ -235,11 +235,11 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'after the pending page (/pending)' do
+    scenario "after the pending page" do
       Site.current.update_attributes(require_registration_approval: true)
 
       attrs = FactoryGirl.attributes_for(:user)
-      register_with attrs
+      register_with(attrs)
       expect(current_path).to eq(my_approval_pending_path)
 
       User.last.approve!

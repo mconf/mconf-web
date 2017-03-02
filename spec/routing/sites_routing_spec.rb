@@ -10,12 +10,12 @@ describe SitesController do
   include Shoulda::Matchers::ActionController
 
   describe "routing" do
-    it { should route(:get, "/site").to(:action => :show) }
-    it { should route(:get, "/site/edit").to(:action => :edit) }
-    it { should route(:put, "/site").to(:action => :update) }
-    it { should_not route(:get, "/sites").to(:action => :index) }
-    it { should_not route(:delete, "/site/s1").to(:action => :destroy, :id => "s1") }
-    it { should_not route(:get, "/site/new").to(:action => :new) }
-    it { should_not route(:post, "/site").to(:action => :create) }
+    it { should route(:get, "/manage/site").to(:action => :show) }
+    it { should route(:get, "/manage/site/edit").to(:action => :edit) }
+    it { should route(:put, "/manage/site").to(:action => :update) }
+    it { should_not route(:get, "/manage/sites").to(:action => :index) }
+    it { should_not route(:delete, "/manage/site/s1").to(:action => :destroy, :id => "s1") }
+    it { should_not route(:get, "/manage/site/new").to(:action => :new) }
+    it { should_not route(:post, "/manage/site").to(:action => :create) }
   end
 end

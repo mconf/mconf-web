@@ -20,10 +20,6 @@
 Mconf::Application.routes.draw do
   root to: 'frontpage#show'
 
-  constraints CanAccessResque do
-    mount Resque::Server, at: 'manage/resque'
-  end
-
   # devise
   controllers = { sessions: "sessions", registrations: "registrations",
                   passwords: "passwords", confirmations: "confirmations" }
@@ -35,7 +31,7 @@ Mconf::Application.routes.draw do
     get "register", to: "registrations#new"
 
     # so admins can log in even if local auth is disabled
-    get "admin", to: "sessions#new"
+    get '/manage/login', to: 'sessions#new', as: 'admin_login'
   end
 
   # conference routes
@@ -68,20 +64,54 @@ Mconf::Application.routes.draw do
     to: 'custom_bigbluebutton_rooms#invite_userid',
     as: "join_webconf"
 
+  # note: this block *has* to be before `resources :users`, otherwise some
+  # routes here won't work well
+  scope 'users' do
+    get 'pending', to: 'my#approval_pending', as: 'my_approval_pending'
 
-  # shibboleth controller
-  get '/secure', to: 'shibboleth#login', as: "shibboleth"
-  get '/secure/info', to: 'shibboleth#info', as: "shibboleth_info"
-  post '/secure/associate', to: 'shibboleth#create_association', as: "shibboleth_create_association"
+    # login via Shibboleth
+    scope 'shibboleth' do
+      get '/', to: 'shibboleth#login', as: "shibboleth"
+      get 'info', to: 'shibboleth#info', as: "shibboleth_info"
+      post 'associate', to: 'shibboleth#create_association', as: "shibboleth_create_association"
+    end
 
-  # to crop images
-  get "logo_images/crop", to: 'logo_images#crop'
+    # login via certificate
+    get 'certificate', to: 'certificate_authentication#login', as: 'certificate_login'
+  end
+  # to keep it compatible with previous versions (i.e. if apache is configured for '/secure')
+  get 'secure', to: redirect('/users/shibboleth')
 
-  # tags
-  get "tags/select", to: 'tags#select'
+  resources :users, except: [:index] do
+    collection do
+      get :fellows
+      get :select
+      get :current
+    end
+
+    member do
+      delete :disable
+      post :enable
+      post :approve
+      post :disapprove
+      post :confirm
+    end
+
+    resource :profile, only: [:show, :edit, :update] do
+      post :update_logo
+    end
+  end
+
+
+  # routes specific for the current user
+  scope 'home' do
+    get '/', to: 'my#home', as: 'my_home'
+    get 'activity', to: 'my#activity', as: 'my_activity'
+    get 'meetings', to: 'my#meetings', as: 'my_meetings'
+    get 'recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
+  end
 
   resources :spaces do
-
     collection do
       get :select
     end
@@ -126,36 +156,36 @@ Mconf::Application.routes.draw do
     delete 'attachments', to: 'attachments#delete_collection'
   end
 
-  resources :users, except: [:index] do
+  scope 'manage' do
+    resource :site, only: [:show, :edit, :update]
+
+    ['users', 'spaces', 'recordings'].each do |resource|
+      get resource, to: "manage##{resource}", as: "manage_#{resource}"
+    end
+
+    get '/', to: redirect('/manage/site'), as: 'manage'
+  end
+
+  constraints CanAccessResque do
+    mount Resque::Server, at: 'manage/resque'
+  end
+
+  resources :events do
     collection do
-      get :fellows
       get :select
-      get :current
+      get 'participants/confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
+      get 'participants/confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
     end
 
     member do
-      delete :disable
-      post :enable
-      post :approve
-      post :disapprove
-      post :confirm
+      post :send_invitation
+      get  :invite
     end
 
-    resource :profile, only: [:show, :edit, :update] do
-      post :update_logo
-    end
+    resources :participants, except: [:show, :edit]
   end
 
-  # Routes specific for the current user
-  get '/home', to: 'my#home', as: 'my_home'
-  get '/activity', to: 'my#activity', as: 'my_activity'
-  get '/rooms', to: 'my#rooms', as: 'my_rooms'
-  get '/meetings', to: 'my#meetings', as: 'my_meetings'
-  get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
-  get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'
-
-  # Login via certificate
-  get '/certificate_login', to: 'certificate_authentication#login', as: 'certificate_login'
+  resource :language, only: [:create], controller: :session_locales, as: :session_locale
 
   resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection
@@ -163,32 +193,10 @@ Mconf::Application.routes.draw do
 
   resources :permissions, only: [:update, :destroy]
 
-  # The unique Site is created in db/seeds and can only be edited
-  resource :site, only: [:show, :edit, :update]
+  get "tags/select", to: 'tags#select'
 
-  # Management routes
-  get "/manage", to: redirect('/site'), as: "manage"
-  ['users', 'spaces', 'recordings'].each do |resource|
-    get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
-  end
-
-  # Locale controller, to change languages
-  resource :language, only: [:create], controller: :session_locales, as: :session_locale
-
-  # Events
-  # Note: we load the routes even if the events are disabled in the site
-  resources :events do
-    collection do
-      get :select
-    end
-    resources :participants, except: [:show, :edit]
-    member do
-      post :send_invitation
-      get  :invite
-    end
-  end
-  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
-  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
+  # to crop images
+  get "logos/crop", to: 'logo_images#crop', as: 'logo_images_crop'
 
   # To treat errors on pages that don't fall on any other controller
   match ':status', to: 'errors#on_error', constraints: { status: /\d{3}/ }, via: :all

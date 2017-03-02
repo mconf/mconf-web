@@ -1,4 +1,4 @@
-# TODO: What is done here is almost duplicated at my/recordings.js.coffee, find a way to merge
+# TODO: What is done here is almost duplicated at my/meetings.js.coffee, find a way to merge
 # them together.
 
 $ ->
