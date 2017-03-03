@@ -9,7 +9,7 @@ require 'spec_helper'
 feature 'Visitor logs in and is redirected back to a sane URL' do
 
   before(:each) {
-    @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    @user = FactoryGirl.create(:user, :username => 'user-1', :password => 'password')
   }
 
   context 'when referer is blank' do

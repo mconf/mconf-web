@@ -28,6 +28,7 @@ describe CustomBigbluebuttonRoomsController do
       }
       after {
         configatron.conf.scope_rooms = @previous
+        Rails.application.reload_routes!
       }
       it { should route(:get, "/webconf/my-room").to(action: :invite_userid, id: "my-room") }
     end
@@ -40,6 +41,7 @@ describe CustomBigbluebuttonRoomsController do
       }
       after {
         configatron.conf.scope_rooms = @previous
+        Rails.application.reload_routes!
       }
       it { should route(:get, "/my-room").to(action: :invite_userid, id: "my-room") }
     end

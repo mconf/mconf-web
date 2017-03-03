@@ -40,7 +40,7 @@ module Mconf
 
     def self.default_user
       {
-        username: 'mconf',
+        username: 'mconf-user',
         password: 'mconf',
         email: 'mconf@test.mconf.org'
       }
