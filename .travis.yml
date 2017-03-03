@@ -5,10 +5,11 @@ services:
   - redis-server
 bundler_args: "--without production development"
 env:
-- MCONF_DATABASE_TEST_ADAPTER='mysql2'
-- MCONF_DATABASE_TEST='mconf_test'
-- MCONF_DATABASE_TEST_USERNAME='travis'
-- MCONF_DATABASE_TEST_PASSWORD=''
+  global:
+  - MCONF_DATABASE_TEST_ADAPTER='mysql2'
+  - MCONF_DATABASE_TEST='mconf_test'
+  - MCONF_DATABASE_TEST_USERNAME='travis'
+  - MCONF_DATABASE_TEST_PASSWORD=''
 before_script:
   - "mysql -e 'create database mconf_test;'"
 script: bundle exec rake
