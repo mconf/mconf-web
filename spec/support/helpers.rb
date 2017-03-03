@@ -47,6 +47,10 @@ module Helpers
     end
   end
 
+  def self.reload_routes!
+    Mconf::Application.reload_routes!
+  end
+
   # Sets the custom actions that should also be checked by
   # the matcher BeAbleToDoAnythingToMatcher
   def self.set_custom_ability_actions(actions)

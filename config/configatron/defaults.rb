@@ -51,3 +51,5 @@ configatron.locales.names =
 
 # Scope for all URLs related to conferences
 configatron.conf.scope = 'conf'
+# Scope for the short URLs of web conference rooms
+configatron.conf.scope_rooms = 'conf'

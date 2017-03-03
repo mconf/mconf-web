@@ -30,6 +30,22 @@ describe Mconf::Routes do
       it { subject.should include('spaces') }
     end
 
+    context "with an empty scope" do
+      subject { Mconf::Routes.reserved_names('') }
+      it { subject.count.should eql(3) }
+      it { subject.should include('assets') }
+      it { subject.should include('admin') }
+      it { subject.should include('spaces') }
+    end
+
+    context "with the scope '/'" do
+      subject { Mconf::Routes.reserved_names('/') }
+      it { subject.count.should eql(3) }
+      it { subject.should include('assets') }
+      it { subject.should include('admin') }
+      it { subject.should include('spaces') }
+    end
+
     context "with a scope" do
       subject { Mconf::Routes.reserved_names('/spaces') }
       it { subject.count.should eql(2) }

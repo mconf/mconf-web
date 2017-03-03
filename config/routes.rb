@@ -59,11 +59,6 @@ Mconf::Application.routes.draw do
     to: 'custom_bigbluebutton_playback_types#index',
     as: "bigbluebutton_playback_types"
 
-  # shortcut route to join webconference rooms
-  get "/#{conf_scope}/:id",
-    to: 'custom_bigbluebutton_rooms#invite_userid',
-    as: "join_webconf"
-
   # note: this block *has* to be before `resources :users`, otherwise some
   # routes here won't work well
   scope 'users' do
@@ -200,4 +195,10 @@ Mconf::Application.routes.draw do
 
   # To treat errors on pages that don't fall on any other controller
   match ':status', to: 'errors#on_error', constraints: { status: /\d{3}/ }, via: :all
+
+  # shortcut route to join webconference rooms
+  # note: has to be left as the last route in case no scope is used!
+  get "/#{configatron.conf.scope_rooms}/:id",
+      to: 'custom_bigbluebutton_rooms#invite_userid',
+      as: "join_webconf"
 end
