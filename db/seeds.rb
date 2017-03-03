@@ -2,22 +2,25 @@
 # database with its default values. The data can then be loaded with
 # the rake db:seed (or created alongside the db with db:setup).
 
+config_file = File.join(::Rails.root, "config", "seeds.yml")
+config = YAML.load_file(config_file)
+
 puts "* Create the default site"
 puts "  attributes read from the configuration file:"
-puts "    #{configatron.site.to_hash.inspect}"
+puts "    #{config.inspect}"
 puts "  smtp configurations defaults to Gmail if not set"
 
 params = { # smtp configs for gmail
-  :smtp_auto_tls => true,
-  :smtp_server => "smtp.gmail.com",
-  :smtp_port => 587,
-  :smtp_use_tls => true,
-  :smtp_domain => "gmail.com",
-  :smtp_auth_type => :plain,
-  :domain => 'mconf-example.com'
+  "smtp_auto_tls" => true,
+  "smtp_server" => "smtp.gmail.com",
+  "smtp_port" => 587,
+  "smtp_use_tls" => true,
+  "smtp_domain" => "gmail.com",
+  "smtp_auth_type" => :plain,
+  "domain" => 'mconf-example.com'
 }
-params.merge!(configatron.site.to_hash)
-params[:smtp_sender] ||= params[:smtp_login]
+params.merge!(config["site"])
+params["smtp_sender"] ||= params["smtp_login"]
 
 if Site.count > 0
   Site.current.update_attributes params
@@ -26,11 +29,11 @@ else
 end
 
 
+params = config["webconf_server"]
 puts "* Create the default webconference server"
 puts "  attributes read from the configuration file:"
-puts "    #{configatron.webconf_server.to_hash.inspect}"
+puts "    #{params.inspect}"
 
-params = configatron.webconf_server.to_hash
 if BigbluebuttonServer.count > 0
   BigbluebuttonServer.first.update_attributes params
 else
@@ -39,26 +42,27 @@ end
 
 
 puts "* Create default roles"
-Role.create! name: 'User', stage_type: Space.name
-Role.create! name: 'Admin', stage_type: Space.name
-Role.create! name: 'Organizer', stage_type: Event.name
-Role.create! name: 'Global Admin', stage_type: Site.name
-Role.create! name: 'Normal User', stage_type: Site.name
+Role.where(name: 'User', stage_type: Space.name).first_or_create!
+Role.where(name: 'Admin', stage_type: Space.name).first_or_create!
+Role.where(name: 'Organizer', stage_type: Event.name).first_or_create!
+Role.where(name: 'Global Admin', stage_type: Site.name).first_or_create!
+Role.where(name: 'Normal User', stage_type: Site.name).first_or_create!
 
+params = config["admin"]
 puts "* Create the administrator account"
 puts "  attributes read from the configuration file:"
-puts "    #{configatron.admin.to_hash.inspect}"
+puts "    #{params.inspect}"
 
-params = configatron.admin.to_hash
-params[:password_confirmation] ||= params[:password]
-params[:_full_name] ||= params[:username]
-profile = params.delete(:profile_attributes)
+params["password_confirmation"] ||= params["password"]
+params["_full_name"] ||= params["username"]
+profile = params.delete("profile_attributes")
 
-u = User.new params
+u = User.where(username: params["username"]).first_or_initialize
+u.assign_attributes(params)
 u.skip_confirmation!
 u.approved = true
-if u.save(:validate => false)
-  u.profile.update_attributes(profile.to_hash) unless profile.nil?
+if u.save(validate: false)
+  u.profile.update_attributes(profile) unless profile.nil?
   u.set_superuser!
 else
   puts "ERROR!"

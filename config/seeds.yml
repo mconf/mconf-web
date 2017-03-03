@@ -1,0 +1,32 @@
+#
+# This file is used to seed the database after it is created
+# (by `rake db:reset` or `rake db:seed`).
+#
+
+# The first admin you will use to login and setup the application.
+admin:
+  username: "admin"
+  email: "fake-email@mconf.org"
+  password: "admin"
+
+# The first, only and default Site model with general configurations for the website.
+# You can add here any attribute available in the model Site.
+site:
+  name: "Mconf Dev"
+  description: "Mconf Development Website"
+  domain: "localhost:3000"
+  smtp_login: ""
+  smtp_password: ""
+  smtp_server: ""
+  smtp_domain: "localhost"
+  smtp_sender: "fake-email@mconf.org"
+  smtp_use_tls: false
+  smtp_auto_tls: false
+  smtp_auth_type: ""
+  smtp_port: 1025
+
+# The first and default webconference server.
+webconf_server:
+  name: "Default Server"
+  url: "http://test-install.blindsidenetworks.com/bigbluebutton/api"
+  secret: "8cd8ef52e8e101574e400365b55e11a6"

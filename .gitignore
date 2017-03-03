@@ -6,7 +6,6 @@ private/uploads/*
 app/assets/images/tmp/*
 public/images/tmp/*
 *~
-config/setup_conf.yml
 config/deploy/conf.yml
 db/*.sqlite3*
 tmp/*
@@ -22,3 +21,6 @@ public/uploads/*
 public/capybara.html
 .vagrant/
 cookbooks/
+.env.development.local
+.env.test.local
+.env.production.local

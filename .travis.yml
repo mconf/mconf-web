@@ -5,7 +5,7 @@ services:
   - redis-server
 bundler_args: "--without production development"
 before_script:
-  - "cp config/database.yml.travis config/database.yml"
+  - "cp config/.env.travis config/.env.test"
   - "mysql -e 'create database mconf_test;'"
   - "cp config/setup_conf.yml.example config/setup_conf.yml"
 script: bundle exec rake
