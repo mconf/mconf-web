@@ -21,7 +21,8 @@ pt-br:
         edit:
           password: "Nova senha"
       bigbluebutton_room:
-        url: "Url"
+        name: "Nome da sala de webconferência"
+        url: "Endereço da sala de webconferência"
     hints:
       bigbluebutton_room:
         dial_number: "O número de telefone da conferência para o qual os participantes podem discar usando uma linha telefônica."

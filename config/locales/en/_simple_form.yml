@@ -21,7 +21,8 @@ en:
         edit:
           password: "New password"
       bigbluebutton_room:
-        url: "Url"
+        name: "Webconference room name"
+        url: "Webconference room address"
     hints:
       bigbluebutton_room:
         dial_number: "A dial access number that participants can call in using regular phone."

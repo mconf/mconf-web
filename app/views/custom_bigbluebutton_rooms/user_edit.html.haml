@@ -10,7 +10,7 @@
     .modal-body
       = hidden_field_tag :redir_url, @redir_url
       = disable_autocomplete_for('bigbluebutton_room[name]')
-      = f.input :name, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.name')
+      = f.input :name, label: t('simple_form.labels.bigbluebutton_room.name'), :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.name')
       = disable_autocomplete_for('bigbluebutton_room[param]')
       = f.input :param, label: t('simple_form.labels.bigbluebutton_room.url'), :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :prepend do
         = content_tag :span, webconf_url_prefix, :class => "input-group-addon"

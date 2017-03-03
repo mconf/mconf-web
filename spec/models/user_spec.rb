@@ -372,7 +372,7 @@ describe User do
     context "updates the webconf room" do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
-      it { user.bigbluebutton_room.param.should be(user.username) }
+      it { user.bigbluebutton_room.param.should_not be(user.username) }
       it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end
