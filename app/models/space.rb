@@ -85,6 +85,7 @@ class Space < ActiveRecord::Base
     format: /\A[A-Za-z0-9\-_]*\z/,
     length: { minimum: 3 },
     identifier_uniqueness: true,
+    blacklist: true,
     room_param_uniqueness: true
 
   # the friendly name / slug for the space

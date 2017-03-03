@@ -79,6 +79,33 @@ describe Space do
       }
     end
 
+    describe "blocks reserved words" do
+      let(:message) { "has already been taken" }
+      file = File.join(::Rails.root, "config", "reserved_words.yml")
+      words = YAML.load_file(file)['words']
+
+      describe "on create" do
+        words.each do |word|
+          context "word: #{word}" do
+            subject { FactoryGirl.build(:space, permalink: word) }
+            include_examples "invalid space with permalink not unique"
+          end
+        end
+      end
+
+      describe "on update" do
+        words.each do |word|
+          context "word: #{word}" do
+            let(:subject) { FactoryGirl.create(:space) }
+            before(:each) {
+              subject.permalink = word
+            }
+            include_examples "invalid space with permalink not unique"
+          end
+        end
+      end
+    end
+
     describe "validates uniqueness against Space#permalink" do
       let(:message) { "has already been taken" }
 

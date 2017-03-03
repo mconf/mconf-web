@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
     format: /\A[A-Za-z0-9\-_]*\z/,
     length: { minimum: 1 },
     identifier_uniqueness: true,
+    blacklist: true,
     room_param_uniqueness: true
 
   extend FriendlyId

@@ -24,7 +24,7 @@ class IdentifierUniquenessValidator < ActiveModel::EachValidator
       end
 
       if spaces.count > 0 || users.count > 0
-        record.errors[attribute] << (options[:message] || "has already been taken")
+        record.errors[attribute] << (options[:message] || I18n.t('errors.messages.taken'))
       end
     end
   end
