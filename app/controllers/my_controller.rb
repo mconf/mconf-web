@@ -13,6 +13,7 @@ class MyController < ApplicationController
   respond_to :html, :except => [:rooms]
 
   before_filter :prepare_user_room, only: :home
+  before_filter :require_activities_mod, only: [:activity]
 
   after_filter :load_events, only: :home
 

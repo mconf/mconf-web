@@ -23,6 +23,10 @@ module Mconf
         Site.table_exists? && Site.current &&
           Site.current.respond_to?(:events_enabled) &&
           Site.current.events_enabled?
+      when 'activities'
+        Site.table_exists? && Site.current &&
+          Site.current.respond_to?(:activities_enabled) &&
+          Site.current.activities_enabled?
       else
         false
       end

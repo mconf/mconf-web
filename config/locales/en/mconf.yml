@@ -176,6 +176,7 @@ en:
         name_user: "User"
         name_admin: "Administrator"
       site:
+        activities_enabled: "Enable activity module"
         analytics_code: "Analytics Code"
         certificate_login_enabled: "Enable login via certificates"
         certificate_id_field: "Certificate login: Field to obtain the user's ID"

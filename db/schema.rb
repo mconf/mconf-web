@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222180003) do
+ActiveRecord::Schema.define(version: 20170303195924) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -400,6 +400,7 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.boolean  "certificate_login_enabled"
     t.string   "certificate_id_field"
     t.string   "certificate_name_field"
+    t.boolean  "activities_enabled",             default: true
   end
 
   create_table "spaces", force: true do |t|

@@ -172,6 +172,7 @@ pt-br:
         name_user: "Usuário"
         name_admin: "Administrador"
       site:
+        activities_enabled: "Habilitar o módulo de atividades"
         analytics_code: "Código do Google Analytics"
         certificate_login_enabled: "Habilitar login via certificado"
         certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"

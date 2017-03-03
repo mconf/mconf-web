@@ -11,7 +11,8 @@
   #sidebar-menu.page-menu-js
     %ul
       %li.active= link_to t('.info'), "#tab-user-info"
-      %li= link_to t('.activities'), "#tab-recent-activity"
+      - if mod_enabled?("activities")
+        %li= link_to t('.activities'), "#tab-recent-activity"
       - if mod_enabled?("spaces")
         %li= link_to t('.spaces'), "#tab-spaces"
 

@@ -125,6 +125,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Returns 404 for all routes if the activities are disabled
+  def require_activities_mod
+    unless Mconf::Modules.mod_enabled?('activities')
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
   private
 
   def set_time_zone
