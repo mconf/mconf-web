@@ -456,7 +456,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#join" do
 
     # see bug1721
-    context "doesnt store location for redirect for /#{configatron.conf.scope}/rooms/:user/join" do
+    context "doesnt store location for redirect for /#{Rails.application.config.conf_scope}/rooms/:user/join" do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {
@@ -813,7 +813,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#end" do
 
     # see bug1721
-    context "doesnt store location for redirect for /#{configatron.conf.scope}/rooms/:user/end " do
+    context "doesnt store location for redirect for /#{Rails.application.config.conf_scope}/rooms/:user/end " do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {

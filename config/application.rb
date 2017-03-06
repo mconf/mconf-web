@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -78,5 +79,25 @@ module Mconf
     config.paths['app/views'].unshift("#{Rails.root}/app/mailers/views")
 
     config.exceptions_app = self.routes
+
+    config.locale_names =
+      {
+        bg: "Български",
+        de: "Deutsch",
+        en: "English",
+        "es-419": "Español",
+        "pt-br": "Português",
+        ru: "Pусский"
+      }
+
+    # Scope for all URLs related to conferences
+    # and for the short URLs used to join a conference
+    config.conf_scope       = ENV['MCONF_CONFERENCE_SCOPE'] || 'conf'
+    config.conf_scope_rooms = ENV['MCONF_CONFERENCE_SCOPE_ROOMS'] || 'conf'
+
+    # Redis configurations. Defaults to a localhost instance.
+    config.redis_host = ENV['MCONF_REDIS_HOST'] || 'localhost'
+    config.redis_port = ENV['MCONF_REDIS_PORT'] || 6379
+    config.redis_db   = ENV['MCONF_REDIS_DB'] || 0
   end
 end

@@ -22,7 +22,7 @@ class RoomParamUniquenessValidator < ActiveModel::EachValidator
       end
 
       # blacklisted names
-      restricted_names = Mconf::Routes.reserved_names("/#{configatron.conf.scope_rooms}")
+      restricted_names = Mconf::Routes.reserved_names("/#{Rails.application.config.conf_scope_rooms}")
 
       if rooms.count > 0 || restricted_names.include?(value)
         record.errors[attribute] << (options[:message] || I18n.t('errors.messages.taken'))

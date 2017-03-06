@@ -11,8 +11,8 @@ describe CustomBigbluebuttonServersController do
 
   describe "routing" do
     # test a few routes from the gem just to make sure the scope is right
-    it { should route(:get, "/#{configatron.conf.scope}/servers").to(action: :index) }
-    it { should route(:get, "/#{configatron.conf.scope}/servers/my-server").to(action: :show, id: "my-server") }
-    it { should route(:get, "/#{configatron.conf.scope}/servers/my-server/edit").to(action: :edit, id: "my-server") }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/servers").to(action: :index) }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/servers/my-server").to(action: :show, id: "my-server") }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/servers/my-server/edit").to(action: :edit, id: "my-server") }
   end
 end
