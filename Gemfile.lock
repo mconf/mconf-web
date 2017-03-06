@@ -401,7 +401,7 @@ GEM
       rspec-core (>= 2.5.0)
       rspec-expectations (>= 2.5.0)
       rspec-mocks (>= 2.5.0)
-    rmagick (2.13.2)
+    rmagick (2.16.0)
     rspec-collection_matchers (1.0.0)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.1)
@@ -620,7 +620,7 @@ DEPENDENCIES
   resque-scheduler
   resque_mailer
   resque_spec
-  rmagick (~> 2.13.2)
+  rmagick (~> 2.16.0)
   rspec-mocks
   rspec-rails (~> 2.99.0)
   rubyntlm
