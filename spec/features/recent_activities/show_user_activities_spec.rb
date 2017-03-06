@@ -78,5 +78,16 @@ feature 'Show user activity' do
 
   end
 
+  context 'activities module enabled false' do
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) {
+      Site.current.update_attributes(activities_enabled: false)
+      login_as(user)
+      visit my_activity_path
+    }
+
+    it { page.status_code.should == 404 }
+  end
+
 
 end

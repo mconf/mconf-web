@@ -130,6 +130,14 @@
 #   Created by: `User`.
 #
 class RecentActivity < PublicActivity::Activity
+  # By default activities marked as disabled will not show in queries.
+  # Also ensure activities will never be found if disabled.
+  default_scope -> {
+    if !Mconf::Modules.mod_enabled?('activities')
+      RecentActivity.none
+    end
+  }
+
   # Used for home page and user page pagination
   self.per_page = 10
 
