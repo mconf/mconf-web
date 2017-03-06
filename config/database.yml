@@ -1,0 +1,25 @@
+# MySQL (default setup).  Versions 4.1 and 5.0 are recommended.
+
+development:
+  adapter: <%= ENV['MCONF_DATABASE_DEV_ADAPTER'] || 'mysql2' %>
+  database: <%= ENV['MCONF_DATABASE_DEV'] || 'mconf_web_dev' %>
+  username: <%= ENV['MCONF_DATABASE_DEV_USERNAME'] %>
+  password: <%= ENV['MCONF_DATABASE_DEV_PASSWORD'] %>
+  socket: <%= ENV['MCONF_DATABASE_DEV_SOCKET'] || '/var/run/mysqld/mysqld.sock' %>
+  encoding: utf8
+
+test:
+  adapter: <%= ENV['MCONF_DATABASE_TEST_ADAPTER'] || 'mysql2' %>
+  database: <%= ENV['MCONF_DATABASE_TEST'] || 'mconf_web_test' %>
+  username: <%= ENV['MCONF_DATABASE_TEST_USERNAME'] %>
+  password: <%= ENV['MCONF_DATABASE_TEST_PASSWORD'] %>
+  socket: <%= ENV['MCONF_DATABASE_TEST_SOCKET'] || '/var/run/mysqld/mysqld.sock' %>
+  encoding: utf8
+
+production:
+  adapter: <%= ENV['MCONF_DATABASE_PROD_ADAPTER'] || 'mysql2' %>
+  database: <%= ENV['MCONF_DATABASE_PROD'] || 'mconf_web_production' %>
+  username: <%= ENV['MCONF_DATABASE_PROD_USERNAME'] %>
+  password: <%= ENV['MCONF_DATABASE_PROD_PASSWORD'] %>
+  socket: <%= ENV['MCONF_DATABASE_PROD_SOCKET'] || '/var/run/mysqld/mysqld.sock' %>
+  encoding: utf8
