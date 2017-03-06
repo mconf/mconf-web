@@ -28,17 +28,5 @@ module Mconf
       end
     end
 
-    # TODO: "loaded" methods will only make sense when we have a way
-    # of loading classes only when they are necessary/enabled.
-    #
-    # # Indicates whether a module `mod` was loaded or not.
-    # # Used usually to check if routes should be added or not.
-    # def mod_loaded?(mod)
-    #   Mconf::Modules.mod_loaded?(mod)
-    # end
-    # def self.mod_loaded?(mod)
-    #   configatron.modules[mod].loaded
-    # end
-
   end
 end

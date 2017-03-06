@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   # Returns the translation for of a locale given its acronym (e.g. "en")
   def locale_i18n(acronym)
-    configatron.locales.names[acronym.to_sym]
+    Rails.application.config.locale_names[acronym.to_sym]
   end
 
   # Returns a boolean value denoting if the captcha in the form was filled in

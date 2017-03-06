@@ -11,8 +11,8 @@ describe CustomBigbluebuttonRecordingsController do
 
   describe "routing" do
     # test a few routes from the gem just to make sure the scope is right
-    it { should route(:get, "/#{configatron.conf.scope}/recordings").to(action: :index) }
-    it { should route(:get, "/#{configatron.conf.scope}/recordings/my-recording").to(action: :show, id: "my-recording") }
-    it { should route(:get, "/#{configatron.conf.scope}/recordings/my-recording/edit").to(action: :edit, id: "my-recording") }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/recordings").to(action: :index) }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/recordings/my-recording").to(action: :show, id: "my-recording") }
+    it { should route(:get, "/#{Rails.application.config.conf_scope}/recordings/my-recording/edit").to(action: :edit, id: "my-recording") }
   end
 end

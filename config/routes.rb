@@ -36,7 +36,7 @@ Mconf::Application.routes.draw do
 
   # conference routes
   # bigbluebutton_rails gem
-  conf_scope = configatron.conf.scope
+  conf_scope = Rails.application.config.conf_scope
   conf_controllers = {
     servers: 'custom_bigbluebutton_servers',
     rooms: 'custom_bigbluebutton_rooms',
@@ -198,7 +198,7 @@ Mconf::Application.routes.draw do
 
   # shortcut route to join webconference rooms
   # note: has to be left as the last route in case no scope is used!
-  get "/#{configatron.conf.scope_rooms}/:id",
+  get "/#{Rails.application.config.conf_scope_rooms}/:id",
       to: 'custom_bigbluebutton_rooms#invite_userid',
       as: "join_webconf"
 end
