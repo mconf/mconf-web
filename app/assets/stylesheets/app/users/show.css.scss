@@ -1,6 +1,10 @@
 @import "compass/css3";
 @import "definitions";
 
+// spaces uses partials, and they include
+// some styles defined in the partial below
+@import "app/spaces/_list_item";
+
 body.users.show {
 
 }
