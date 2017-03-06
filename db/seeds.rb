@@ -5,6 +5,12 @@
 config_file = File.join(::Rails.root, "config", "seeds.yml")
 config = YAML.load_file(config_file)
 
+config_local_file = File.join(::Rails.root, "config", "seeds.local.yml")
+if File.exists?(config_local_file)
+  config_local = YAML.load_file(config_local_file)
+  config.deep_merge!(config_local) if config_local
+end
+
 puts "* Create the default site"
 puts "  attributes read from the configuration file:"
 puts "    #{config.inspect}"
