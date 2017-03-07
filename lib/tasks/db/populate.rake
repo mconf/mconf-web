@@ -1,5 +1,4 @@
 require 'devise/encryptors/station_encryptor'
-
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
@@ -7,6 +6,9 @@ namespace :db do
     # can't require at the top because will raise errors when running rake in
     # production (cannot load such file -- populator)
     require 'populator'
+
+    @site_attrs = Site.current.attributes
+    Site.current.update_attributes(spaces_enabled: true, events_enabled: true, activities_enabled: true)
 
     reserved_usernames = ['lfzawacki', 'daronco', 'rafael']
 
@@ -424,6 +426,9 @@ namespace :db do
 
       puts "* Adding some insecure data to test for script injection"
       add_insecure_data
+
+      puts "*** Restoring site attributes"
+      Site.current.update_attributes(@site_attrs)
     end
 
     private
