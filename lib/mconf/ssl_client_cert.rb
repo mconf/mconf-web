@@ -97,10 +97,10 @@ module Mconf
             province: get_field('ST')
           }
         )
-        attrs[:email] = attrs[:email] || get_email_field
+        attrs[:email] = attrs[:email] || get_email
 
-        attrs[:_full_name] = get_name_field.titleize
-        attrs[:username] = username_from_name(get_name_field)
+        attrs[:_full_name] = get_name
+        attrs[:username] = username_from_name(get_name)
         @user = User.new(attrs)
         @user.password = SecureRandom.hex(16)
         @user.skip_confirmation_notification!
@@ -148,12 +148,15 @@ module Mconf
       get_field(certificate_id_field) || get_field('CN')
     end
 
-    def get_email_field
+    def get_email
       get_field('emailAddress') || get_subject_alt_field('email')
     end
 
-    def get_name_field
-      get_field(certificate_name_field) || get_field('CN')
+    def get_name
+      name = get_field(certificate_name_field) || get_field('CN')
+
+      # Remove the numbers from names in the format "My Company Name:23166928000223"
+      name.gsub(/:\d+$/, '')
     end
 
     def create_token(id, key)
