@@ -62,7 +62,7 @@ gem 'vpim', '~> 13.11.11'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
-gem 'rmagick', '~> 2.13.2'
+gem 'rmagick', '~> 2.16.0'
 gem 'mini_magick', '~> 3.8.1'
 
 # global configurations
