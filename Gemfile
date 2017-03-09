@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rack', '~> 1.5.4'
 gem 'rails', '~> 4.1.14.2'
-gem 'sass-rails', '~> 4.0.4'
+gem 'sass-rails', '~> 5.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'yui-compressor'
-gem 'compass-rails', '~> 2.0'
+gem 'compass-rails', '~> 3.0.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
@@ -17,9 +17,9 @@ gem 'active_record_union', '~> 1.1.0'
 # To DRY controllers
 gem 'inherited_resources', '~> 1.6.0'
 
-# TODO: remove when compass-rails is updated to support animations
-# This compass is here so we can have css3/animation
-gem 'compass', '~> 0.12'
+# # TODO: remove when compass-rails is updated to support animations
+# # This compass is here so we can have css3/animation
+# gem 'compass', '~> 0.12'
 
 gem 'mysql2', '~> 0.3.0'
 gem 'rake', '~> 10.5.0'
@@ -69,15 +69,15 @@ gem 'mini_magick', '~> 3.8.1'
 gem 'dotenv-rails'
 
 # for bootstrap
-gem 'bootstrap-sass', '~> 3.3'
-gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.3.0'
+gem 'autoprefixer-rails', '~> 6.6.0'
 # datetime picker for bootstrap
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'
 
-gem 'sprockets', '~> 2.12.4'
+# gem 'sprockets', '~> 2.12.4'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.0'
