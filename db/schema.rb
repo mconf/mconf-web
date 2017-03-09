@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20170303195924) do
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   default: 3
+    t.integer "visibility",   default: 4
     t.string  "full_name"
     t.string  "logo_image"
   end
