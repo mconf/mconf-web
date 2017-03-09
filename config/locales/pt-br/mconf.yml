@@ -247,7 +247,6 @@ pt-br:
         can_record: "Permitir ao usuário gravar reuniões"
         current_password: "Senha atual"
         email: "E-mail"
-        expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Permanecer conectado"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303195924) do
+ActiveRecord::Schema.define(version: 20170309190252) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20170303195924) do
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   default: 4
+    t.integer "visibility",   default: 3
     t.string  "full_name"
     t.string  "logo_image"
   end
@@ -459,7 +459,6 @@ ActiveRecord::Schema.define(version: 20170303195924) do
     t.boolean  "disabled",                            default: false
     t.datetime "confirmed_at"
     t.string   "timezone"
-    t.boolean  "expanded_post",                       default: false
     t.string   "locale"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

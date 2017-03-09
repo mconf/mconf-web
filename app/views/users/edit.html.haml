@@ -61,8 +61,6 @@
       = f.input :timezone, required: false do
         = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
 
-      = f.input :expanded_post, :required => false, :as => :radio_buttons
-
   - if user_signed_in? && current_user.superuser
     #user-management-options
       %h3= t('.management_options')
