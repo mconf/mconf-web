@@ -8,7 +8,7 @@
     %li{ home_sidebar_menu_select_if(:home) }
       = link_to main_app.my_home_path do
         = t(".menu.home")
-    -if mod_enabled?("activities")
+    - if mod_enabled?("activities")
       %li{ home_sidebar_menu_select_if(:activity) }
         = link_to my_activity_path do
           = t(".menu.activity")

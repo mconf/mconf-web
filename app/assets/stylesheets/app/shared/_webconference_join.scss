@@ -15,14 +15,15 @@
 
     .form-group {
       // a bit less space at the bottom
-      margin-bottom: 10px;
+      margin-bottom: 8x;
     }
 
   }
 
   #webconference-start {
-    @include make-row;
-    padding: 10px 0;
+    /* @include make-row; */
+    @include mconf-clearfix;
+    padding: 8px 0;
     margin: 0;
     background: $m-light-gray;
     @include border-radius($m-border-radius-base);
@@ -30,100 +31,42 @@
     position: relative;
 
     .webconference-label {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 1px;
       text-align: center;
-
-      span {
-        background: lighten($m-green, 50);
-        @include border-radius(0 0 4px 4px);
-        padding: 3px 10px;
-        border: 1px solid $m-green;
-      }
-
-      i {
-        //color: #fff;
-        margin-right: 5px;
-      }
+      display: inline-block;
+      vertical-align: middle;
     }
 
     .webconference-status {
-      @include make-xs-column(12);
-      @include make-sm-column(6);
+      float: right;
+      width: auto;
       text-align: right;
+      padding-right: 8px;
 
       span {
         @include font-size($m-font-medium);
-        margin: 5px;
+      }
+
+      .btn {
+        // bit more horizontal spacing
+        margin: 0 0 0 8px;
       }
     }
 
     .webconference-buttons {
-      @include make-xs-column(12);
-      @include make-sm-column(6);
+      float: left;
+      width: auto;
       text-align: left;
-      padding: 0 0 0 5px;
+      padding-left: 8px;
 
       .btn {
         // bit more horizontal spacing
-        margin: 0 0 0 5px;
+        margin: 0 8px 0 0;
       }
     }
 
     &.in-progress {
       border-color: $m-green;
-
-      .webconference-status {
-        .icon-mconf-in-progress { margin-right: 5px; }
-      }
+      /* background: lighten($m-green, 50); */
     }
-  }
-
-
-
-  .webconference-types {
-    margin-bottom: 10px;
-  }
-
-  .webconference-type {
-    padding: 20px;
-    @include border-radius($m-border-radius-base);
-    background: $m-light-gray;
-    text-align: center;
-    position: relative;
-    border: 2px solid $m-light-gray;
-
-    .title {
-      font-weight: bold;
-    }
-
-    &.selected {
-      border-color: $m-color-secondary;
-      .icon-selected {
-        display: block;
-      }
-    }
-
-    .icon-selected {
-      display: none;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      @include font-size($m-font-bigger);
-      color: $m-green;
-    }
-
-    .configuration-options {
-      position: absolute;
-      bottom: -10px;
-      right: 0;
-      left: 0;
-    }
-  }
-
-  h3 .observation {
-    @include font-size($m-font-normal);
   }
 }

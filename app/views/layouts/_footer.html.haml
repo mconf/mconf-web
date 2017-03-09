@@ -10,12 +10,12 @@
       = image_tag "logos/mconf-ico-color-transp.png", size: "14x14"
       = t('.links.powered_by')
       = link_to "mconf.org", "http://mconf.org"
-      %span.current-version
-        = t('.current_version') + ": "
-        = "&#149;".html_safe
-        = application_version
-        = link_to github_link_to_revision(application_revision) do
-          = application_revision
+      - if user_signed_in? && current_user.superuser?
+        %span.current-version
+          = ' - ' + t('.current_version') + ': '
+          = application_version
+          = link_to github_link_to_revision(application_revision) do
+            = application_revision
 
   #footer-right.col-xs-5
     - available_locales.each_slice(3) do |locales|

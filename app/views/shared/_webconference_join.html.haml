@@ -6,7 +6,7 @@
 
 #webconference-room.content-block
   .content-block-header
-    %h3= "Web conference room"
+    %h3= t('.title')
 
   .content-block-middle
 
@@ -17,24 +17,22 @@
   #webconference-start{ :class => cls }
 
     .webconference-buttons
-      = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: "Send invitations for meetings in this room" do
+      = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: t('.invite_tip') do
         = icon_invitation
-      = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: "Configure this room before creating a meeting" do
+      = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: t('.configure_tip') do
         = icon_options
       - if room.owner.class == Space
-        - recordings_link = meetings_space_path(room.owner)
+        - meetings_link = meetings_space_path(room.owner)
       - else
-        - recordings_link = my_meetings_path
-      = link_to recordings_link, class: "btn btn-default tooltipped", title: "View the list of recordings for this room" do
+        - meetings_link = my_meetings_path
+      = link_to meetings_link, class: "btn btn-default tooltipped", title: t('.meeting_list_tip') do
         = icon_list
 
-    .webconference-label
-      - if running
-        %span
-          = icon_in_progress
-          = "There's a meeting in progress!"
-
     .webconference-status
+      .webconference-label
+        - if running
+          %span
+            = t('.meeting_in_progress')
 
       -# = link_to edit_my_room_path, :class => 'open-modal btn btn-default' do
       -#   = icon_options

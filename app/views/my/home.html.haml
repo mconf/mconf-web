@@ -11,13 +11,13 @@
 
 #user-meetings-recordings.content-block
   %h3= t(".past_meetings.title")
-  -# = icon_info t('recent_activity.tooltip')
 
   #users-recent-activity-content.content-block-middle
     = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
       = link_to t('.past_meetings.view_more'), my_meetings_path
+
 - if mod_enabled?("spaces")
   - if @pending_requests.count > 0
     #user-spaces-pending.content-block

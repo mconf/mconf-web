@@ -10,12 +10,9 @@
 
   = render 'shared/user_card', user: @user
 
-  .alert.alert-info.alert-clean
-    %span= t('.did_not_find_info')
-    - if current_user == @user
-      = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
-    - else
-      = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
+  - if current_user == @user
+    #user-cancel-account
+      = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'btn btn-danger btn-sm'
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
@@ -34,6 +31,13 @@
   - if user_signed_in_via_ldap?
     #user-ldap-info.alert.alert-gray
       %span.title= t('.ldap.title')
+
+.alert.alert-info.alert-clean
+  %span= t('.did_not_find_info')
+  - if current_user == @user
+    = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
+  - else
+    = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
 
 = simple_form_for @user, :url => user_path(@user, redir_url: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
 
@@ -81,9 +85,3 @@
 
   - cancel_path = previous_path_or(edit_user_path(@user))
   = f.button :wrapped, :cancel => cancel_path, :value => t("_other.save")
-
-  - if current_user == @user
-    #user-cancel-account
-      %h3= t('.other_options')
-      %span= t('.cancel_account')
-      = link_to t('.yes_cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'btn btn-danger btn-sm'

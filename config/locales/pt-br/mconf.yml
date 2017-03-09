@@ -167,6 +167,7 @@ pt-br:
         province: "Estado"
         skype: "Skype"
         url: "Seu website"
+        visibility: "Visibilidade"
         zipcode: "CEP"
       roles:
         name_user: "Usuário"
@@ -728,10 +729,9 @@ pt-br:
       fill_fields: "Por favor preencha todos os campospara enviar o feedback."
       success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
     new:
-      note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-      title: "Feedback"
+      note: "Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
+      title: "Enviar feedback"
     send: "Enviar feedback"
-    send_us: "Envie-nos feedback!"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
@@ -929,7 +929,7 @@ pt-br:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Feedback"
+        feedback: "Enviar feedback"
         help: Ajuda
         powered_by: "Powered by Mconf, visite"
         title: Links
@@ -1092,15 +1092,15 @@ pt-br:
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
-        title: "Reuniões e gravações passadas"
+        title: "Reuniões gravadas"
         view_more: "Ver todas reuniões e gravações"
       title: "Início"
       view_all_spaces: "Ver todas comunidades"
     page_header:
       activity_list: "Atividades recentes"
     meetings:
-      recordedonly_false: "Todas"
-      recordedonly_true: "Apenas Gravadas"
+      recordedonly_false: "Todas reuniões"
+      recordedonly_true: "Apenas gravadas"
       subtitle: "Todas reuniões e gravações passadas"
       title: "Reuniões e gravações"
       update_meetings:
@@ -1111,6 +1111,8 @@ pt-br:
       menu:
         account: "Conta"
         activity: "Atividades recentes"
+        home: "Início"
+        meetings: "Reuniões e gravações"
         profile: "Perfil"
         webconf_room: "Minha sala de webconferência"
       spaces:
@@ -1398,14 +1400,19 @@ pt-br:
       view_room_list: "Salas"
       view_server_list: "Servidores"
     webconference_join:
+      configure_tip: "Opções de configuração desta sala"
       end: "Parar"
       end_tooltip: "Esta ação encerra a reunião atual e remove todos os usuários da sala"
       invite: "Convidar outras pessoas"
+      invite_tip: "Enviar convites para reuniões nesta sala"
+      meeting_in_progress: "Há uma reunião em andamento!"
+      meeting_list_tip: "Ver a lista de reuniões e gravações desta sala"
       join: "Entrar na reunião"
       join_mobile_full: "Entrar de um dispositivo móvel"
       preferences: "Preferências"
       recordings: "Ver gravações"
       start: "Iniciar uma reunião"
+      title: "Sala de conferência"
       your_url: "Seu endereço"
   shibboleth:
     associate:
@@ -1645,8 +1652,8 @@ pt-br:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
     meetings:
-      recordedonly_false: "Todas"
-      recordedonly_true: "Apenas Gravadas"
+      recordedonly_false: "Todas reuniões"
+      recordedonly_true: "Apenas gravadas"
       title: "Todas reuniões e gravações desta comunidade"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
@@ -1736,7 +1743,7 @@ pt-br:
     invite_people: "Invite people to this Webconference."
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
     num_views: "Este número representa as vistas únicas para essa página"
-    private_profile: "Estas informaçÕes são visíveis apenas para as pessoas que você escolher nas opções do seu perfil"
+    private_profile: "Estas informações são visíveis apenas para as pessoas que você escolher nas opções do seu perfil"
     public_profile: "Estas informações são visíveis para qualquer pessoa, incluindo pessoas que não são membros deste site"
     public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
@@ -1822,7 +1829,7 @@ pt-br:
       account_info: "Informações da conta"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
-      cancel_account: "Cancelar conta?"
+      cancel_account: "Cancelar minha conta"
       change_password: "Mudar senha"
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
       confirm_user: "Confirmar a conta deste usuário"
@@ -1838,14 +1845,12 @@ pt-br:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
-      other_options: "Outras opções"
       other_user:
         click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."
         title: "Editar conta de usuário"
       preferences: "Preferências"
       title: "Editar sua conta"
-      yes_cancel_account: "Sim, cancelar minha conta"
     errors:
       access_forbidden: "Esta operação está disponível apenas para administradores"
     new:

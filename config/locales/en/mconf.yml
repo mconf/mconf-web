@@ -655,6 +655,7 @@ en:
     shared:
       links:
         login:
+          certificate: "Login via client certificate"
           default: "Sign in to your account"
           federation: "Login via federation"
         lost_password: "Lost your password?"
@@ -714,10 +715,9 @@ en:
       fill_fields: "Please fill in all the fields in the form to send your feedback."
       success: "Your feedback e-mail was sent successfully. Thank you!"
     new:
-      note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
-      title: "Feedback"
+      note: "Please send us your comments, problems and suggestions. We will try to answer as soon as possible."
+      title: "Send feedback"
     send: "Send feedback"
-    send_us: "Send us feedback!"
     webconf:
       stop_countdown: "Click here to stop it from closing and use it to browse this site"
       title: "Thank you for participating in this conference!"
@@ -929,7 +929,7 @@ en:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Feedback"
+        feedback: "Send feedback"
         help: Help
         powered_by: "Powered by Mconf, visit"
         title: Links
@@ -1094,7 +1094,7 @@ en:
         today: "Today"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
-        title: "Past meetings and recordings"
+        title: "Recorded meetings"
         view_more: "View all meetings and recordings"
       spaces:
         create: "create a space"
@@ -1108,8 +1108,8 @@ en:
     page_header:
       activity_list: "Activity list"
     meetings:
-      recordedonly_false: "All"
-      recordedonly_true: "Recorded Only"
+      recordedonly_false: "All meetings"
+      recordedonly_true: "Recorded only"
       subtitle: "All past meetings and recordings"
       title: "Meetings and recordings"
       update_meetings:
@@ -1387,14 +1387,19 @@ en:
       view_room_list: "Rooms"
       view_server_list: "Servers"
     webconference_join:
+      configure_tip: "Configuration options for this room"
       end: "Stop"
       end_tooltip: "This action will end the current meeting and kick all users from it"
       invite: "Invite other people"
+      invite_tip: "Send invitations for meetings in this room"
       join: "Join the meeting"
       join_mobile_full: "Join from a mobile device"
+      meeting_in_progress: "There's a meeting in progress!"
+      meeting_list_tip: "View the list of meetings and recordings for this room"
       preferences: "Preferences"
       recordings: "View recordings"
       start: "Start a new meeting"
+      title: "Web conference room"
       your_url: "Your URL"
   shibboleth:
     associate:
@@ -1623,8 +1628,8 @@ en:
         title: "Examples of spaces:"
       title: "Create a new space"
     meetings:
-      recordedonly_false: "All"
-      recordedonly_true: "Recorded Only"
+      recordedonly_false: "All meetings"
+      recordedonly_true: "Recorded only"
       title: "All meetings and recordings in this space"
       update_meetings:
         error: "Error updating recordings, plase try again later"
@@ -1812,7 +1817,7 @@ en:
       account_info: "Account info"
       approve: "Approve: allow user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
-      cancel_account: "Cancel account?"
+      cancel_account: "Cancel my account"
       change_password: "Change password"
       click_to_edit_profile: "Click here to edit your profile"
       confirm_user: "Confirm this user's account"
@@ -1828,14 +1833,12 @@ en:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
-      other_options: "Other options"
       other_user:
         click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."
         title: "Edit user account"
       preferences: "Preferences"
       title: "Edit your account"
-      yes_cancel_account: "Yes, cancel my account"
     errors:
       access_forbidden: "This operation is only available to administrators"
     new:

@@ -43,13 +43,17 @@ body.users.edit, body.users.update {
 
   #user-management-options {
     clear: both;
+    @include make-xs-column(12);
+    border-top: 1px solid $m-border-color-normal;
+    margin-bottom: 16px;
+    padding-top: 16px;
   }
 
   #user-cancel-account {
-    @include make-xs-column(12);
-    clear: both;
-    margin-top: 25px;
-    .btn { margin-left: 5px; }
+    border-top: 1px solid $m-sidebar-border;
+    margin-top: 32px;
+    padding-top: 32px;
+    text-align: center;
   }
 
 }
