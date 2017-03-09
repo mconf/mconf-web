@@ -922,7 +922,7 @@ en:
       profile: "Profile"
       register: "Register"
     footer:
-      copyright: "© 2010-%{year} %{site}."
+      copyright: "© %{year} %{site}"
       current_version: "Current version"
       find_us: "Find more about Mconf"
       github: GitHub

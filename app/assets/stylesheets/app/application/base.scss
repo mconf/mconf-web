@@ -380,11 +380,25 @@ form {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
   }
 
-  ul {
+  #footer-left {
+    padding: 4px 16px;
+    text-align: left;
+    @include make-xs-column(7);
+  }
+
+  #footer-right {
+    text-align: right;
+    @include make-xs-column(5);
+    padding: 8px 16px;
+
+    ul { float: right; }
+  }
+
+  #footer-links {
     list-style-type: none;
-    margin: 0;
-    padding-left: 0;
     @include mconf-clearfix;
+    float: right;
+    padding: 2px 8px;
 
     li {
       float: left;
@@ -392,32 +406,20 @@ form {
     }
   }
 
+  #footer-languages {
+    float: right;
+  }
+
+  #footer-copyright {
+  }
+
   #footer-powered {
     clear: both;
-    margin-left: 8px;
-    margin-top: 5px;
+    margin-top: 8px;
     text-align: left;
     @include font-size($m-font-small);
   }
 
-  #footer-left {
-    text-align: left;
-    @include make-xs-column(7);
-  }
-
-  #footer-right {
-    //margin-top: 7px;
-    text-align: right;
-    @include make-xs-column(5);
-
-    ul { float: right; }
-  }
-
-  /* .current-version { */
-  /*   clear: both; */
-  /*   text-align: right; */
-  /*   @include font-size($m-font-small); */
-  /* } */
 }
 
 #footer-logo {
