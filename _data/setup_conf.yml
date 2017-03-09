@@ -1,0 +1,49 @@
+# Setup configurations
+# The values defined here will be used to create the seed data on the database (see db/seeds.rb).
+# The section 'default' contain the configurations for all environments (development, test,
+# production). If you need you can define specific sections for the environments you want,
+# and these configurations will override the ones in the default section.
+
+# Almost everyting you setup here can be configured later on from the application's
+# web interface!
+
+default:
+
+  # The first admin you will use to login and setup the application.
+  # You can set any attribute from the model User here.
+  # You can change everything, except the email, from within the application later on.
+  admin:
+    username: "admin"
+    email: "admin@mconf.org"
+    password: "admin"
+    # If you want to set attributes in the user's profile, do it below
+    # profile_attributes:
+    #   full_name: "Mconf Admin"
+
+  # The first, only and default Site model with general configurations for the website.
+  # You can set any attribute from the model Site here.
+  # If not specified, the SMTP configurations will default to a Gmail account.
+  site:
+    name: "Mconf Dev"
+    description: "Mconf Development Website"
+    # smtp_login: "admin@mconf.org"
+    # smtp_password: "j@spion_)0"
+    # locale: "pt-br"
+    domain: "localhost:3000"
+    # signature: "Mconf"
+    # ssl: false
+    smtp_sender: "admin@mconf.org"
+    smtp_domain: "localhost"
+    smtp_port: "1025"
+    smtp_server: ""
+    smtp_login: ""
+    smtp_auth_type: ""
+    smtp_use_tls: false
+    smtp_auto_tls: false
+
+  # The first and default webconference server.
+  # You can set any attribute from the model BigbluebuttonServer here.
+  webconf_server:
+    name: "Default Server"
+    url: "http://test-install.blindsidenetworks.com/bigbluebutton/api"
+    secret: "8cd8ef52e8e101574e400365b55e11a6"
