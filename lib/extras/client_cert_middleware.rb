@@ -6,7 +6,7 @@ class ClientCertMiddleware
   def call(env)
     ssl_failed = false
 
-    if /certificate_login(.json)$/.match env['REQUEST_URI']
+    if /certificate_login(.json)/.match env['REQUEST_URI']
       ENV['SSL_CLIENT_CERT'] ||= ''
       ENV['SSL_CLIENT_CERT_PRIVATE_KEY_FILE'] ||=''
 

@@ -14,13 +14,16 @@ module Mconf
         return
       end
 
+      @cert_str = cert_str
       @certificate = read_cert(cert_str)
 
       if @certificate.blank?
         @error = :certificate
         return
       end
+    end
 
+    def create_user
       find_or_create_token_and_user
 
       if @user.errors.any?
@@ -28,8 +31,14 @@ module Mconf
         @user = nil
       else
         Rails.logger.info "SSLCLIENT: Creating user '#{@user.name}' '#{@user.email}'"
-        Rails.logger.info cert_str.inspect
+        Rails.logger.info @cert_str.inspect
       end
+    end
+
+    # For joining webconferences without having to create a user,
+    # returns user name for creating a cookie
+    def join_only
+      get_name_field.titleize
     end
 
     def error

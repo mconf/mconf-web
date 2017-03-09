@@ -94,6 +94,11 @@ class ApplicationController < ActionController::Base
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
       current_user
+    elsif !cookies[:join_only_certificate].blank?
+      @user = User.new
+      @user.username = cookies[:join_only_certificate]
+      @user.profile.full_name = cookies[:join_only_certificate]
+      @user
     else
       nil
     end
