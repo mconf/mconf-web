@@ -8,20 +8,21 @@ class mconf.CertificateAuthentication
       $.ajax $(this).attr('href'),
         contentType: 'application/json'
         complete: (xhr) ->
+          response = xhr.responseJSON
 
           # the expected response, a json with info about success or error
           if xhr.status == 200
-            response = xhr.responseJSON
-
             if response.result == true
               window.location = response.redirect_to
             else
+              console.log "Certificate authentication error:", response
               mconf.Notification.addAndShow('error', response.error)
 
           # something went wrong, show a generic error
           else
-            mconf.Notification.addAndShow('error', I18n.t('certificate_authentication.error.generic'))
-            console.log "Certificate authentication generic error:", xhr.statusText
+            error = response.error ? I18n.t('certificate_authentication.error.generic')
+            mconf.Notification.addAndShow('error', error)
+            console.log "Certificate authentication error:", xhr.statusText
 
 $ ->
   mconf.CertificateAuthentication.bind()

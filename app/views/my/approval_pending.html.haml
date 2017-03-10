@@ -5,12 +5,13 @@
 %h3.description
   = t('.description')
 
-.interesting-links
-  %span= t('.interesting_links')
+- has_open_section = mod_enabled?('spaces') || mod_enabled?('events')
 
-  %ul
-    - if mod_enabled?('events')
-      %li= link_to t('.events_list'), events_path
-      %span &#149;
-
-    %li= link_to t('.spaces_list'), spaces_path
+- if has_open_section
+  .interesting-links
+    %span= t('.interesting_links')
+    %ul
+      - if mod_enabled?('events')
+        %li= link_to t('.events_list'), events_path
+      - if mod_enabled?('spaces')
+        %li= link_to t('.spaces_list'), spaces_path

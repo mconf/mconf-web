@@ -1080,10 +1080,10 @@ en:
       title: "Recent activities"
     approval_pending:
       title: Pending approval
-      description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      description: You have succesfully registered and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
       interesting_links: "Meanwhile you can browse these open sections of the website:"
-      events_list: list of events
-      spaces_list: list of spaces
+      events_list: Events
+      spaces_list: Spaces
     edit_recording:
       title: "Edit your recording"
     home:
