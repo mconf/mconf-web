@@ -99,15 +99,13 @@ module ApplicationHelper
   # Returns the url prefix used to identify a webconf room
   # e.g. 'https://server.org/webconf/'
   def webconf_url_prefix
-    # note: '/webconf' is defined in routes.rb
-    "#{Site.current.domain_with_protocol}/webconf/"
+    "#{Site.current.domain_with_protocol}/#{webconf_path_prefix}/"
   end
 
   # Returns the url prefix used to identify a webconf room
   # e.g. '/webconf/'
   def webconf_path_prefix
-    # note: '/webconf' is defined in routes.rb
-    "/webconf/"
+    "#{Rails.application.config.conf_scope_rooms}/"
   end
 
   def options_for_tooltip(title, options={})

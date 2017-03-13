@@ -70,16 +70,15 @@ describe ApplicationHelper do
   end
 
   describe "#webconf_url_prefix" do
-    context "returns the prefix for web conference urls" do
+    context "returns what is configured in the site" do
       before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
-      it { webconf_url_prefix.should eq('https://test.com/webconf/') }
+      it { webconf_url_prefix.should eq("https://test.com/#{Rails.application.config.conf_scope_rooms}/") }
     end
   end
 
   describe "#webconf_path_prefix" do
     context "returns the path prefix for web conference urls" do
-      before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
-      it { webconf_path_prefix.should eq('/webconf/') }
+      it { webconf_path_prefix.should eq(Rails.application.config.conf_scope_rooms + '/') }
     end
   end
 
