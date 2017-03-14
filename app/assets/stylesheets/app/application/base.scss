@@ -475,6 +475,11 @@ form {
         border: 1px solid darken($m-light-gray, 10);
         padding: 3px;
         background: $m-site-bg-color;
+
+        &.editing {
+          opacity: 0.5;
+          border-color: $m-dark-gray;
+        }
       }
     }
 
@@ -965,4 +970,34 @@ strong.highlight {
   font-weight: normal;
   margin-left: 8px;
   color: #777;
+}
+
+
+.file-uploader {
+  position: absolute;
+  top: 10%;
+  transform: translate(-50%, 0%);
+  margin: 0 auto;
+  left: calc(50%);
+  width: auto;
+  opacity: 0.9;
+  white-space: nowrap;
+  border-radius: $m-border-radius-base;
+  @include transition(all 0.2s ease-in);
+
+  padding: 8px 16px;
+  background: white;
+  background: darken($m-dark-gray, 5); //$m-color-secondary;
+  color: #fff;
+  font-size: $m-font-medium;
+
+  i {
+    color: #fff;
+    margin-right: 4px;
+  }
+
+  &:hover {
+    opacity: 1;
+    background: darken($m-dark-gray, 10);
+  }
 }

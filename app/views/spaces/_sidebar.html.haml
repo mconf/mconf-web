@@ -1,11 +1,16 @@
 // Locals:
 //   space (Space): the target space
+//   editing (boolean): show/hide controls to edit the logo
+
+- editing ||= false
 
 = content_for :sidebar do
   .resource-card
     .resource-logo
       = link_to space_path(space) do
-        = logo_image(space, :size => "336x256", :title => space.name)
+        - cls = editing ? 'editing' : ''
+        = logo_image(space, size: "336x256", title: space.name, class: cls)
+      = update_logo_control(space) if editing
 
     .data
       - if space.name.size > 60
@@ -32,10 +37,12 @@
             = t(".is_member")
 
   -# action buttons: join, register, login, it depends on the context
-  - btn = space_join_button(@space)
-  - unless btn.nil?
-    .sidebar-top-action-button
-      = btn.html_safe
+  -# ignore when editing, one less btn to confuse the user
+  - if !editing
+    - btn = space_join_button(@space)
+    - unless btn.nil?
+      .sidebar-top-action-button
+        = btn.html_safe
 
 = content_for :sidebar_menu do
   %ul

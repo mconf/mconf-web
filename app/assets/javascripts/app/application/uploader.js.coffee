@@ -1,6 +1,6 @@
-# Setups FineUploader on elements with the class .file-uploader
+# Sets up FineUploader on elements with the class .file-uploader
 
-uploaderTemplate = HandlebarsTemplates['uploader/template']
+uploaderTemplate = HandlebarsTemplates['uploader/template_logos']
 uploaderFileTemplate = HandlebarsTemplates['uploader/file_template']
 
 class mconf.Uploader
@@ -50,7 +50,7 @@ class mconf.Uploader
         onLeave: I18n.t("uploader.error.on_leave")
 
       text:
-        uploadButton: I18n.t("uploader.button")
+        uploadButton: I18n.t("uploader.logos.button")
         cancelButton: I18n.t('_other.cancel')
         failUpload: I18n.t("uploader.fail")
         formatProgress: I18n.t("uploader.progress")

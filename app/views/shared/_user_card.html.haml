@@ -1,6 +1,14 @@
+// Locals:
+//   editing (boolean): show/hide controls to edit the logo
+
+- editing ||= false
+
 .resource-card.user
   .resource-logo
-    = logo_image(user, size: '300', title: user.name)
+    - cls = editing ? 'editing' : ''
+    = logo_image(user, size: '300', title: user.name, class: cls)
+
+    = update_logo_control(@user) if editing
 
     - if user.superuser?
       .label.superuser-label.tooltipped{ title: t('_other.user.administrator') }

@@ -1860,7 +1860,6 @@ pt-br:
       title: "Cadastrar usuário"
   username: "Nome de usuário"
   uploader:
-    button: "Enviar um arquivo"
     fail: Falha ao enviar
     progress: "{percent}% de {total_size}"
     drag_files: Arraste aqui arquivos para enviar
@@ -1871,6 +1870,8 @@ pt-br:
       empty_file: "{file} é um arquivo vazio, por favor envie os arquivos novamente."
       no_files: "Não há arquivos para serem enviados."
       on_leave: "Um envio de arquivos está em progresso, se você sair agora ele será cancelado."
+    logos:
+      button: "Enviar nova imagem"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
     message: "Use seu vCard para preencher automaticamente seu perfil"

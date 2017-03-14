@@ -5,11 +5,13 @@
 = page_title t('.title', name: @user.full_name)
 
 = content_for :sidebar do
-  = render 'shared/user_card', user: @user
+  = render 'shared/user_card', user: @user, editing: true
+
+  .sidebar-top-action-button
+    = link_to t('.view_your_profile'), user_profile_path(@user), class: "btn btn-default"
 
   - if can?(:update, @profile)
     .sidebar-top-action-button
-      = link_to t('.view_your_profile'), user_profile_path(@user), class: "btn btn-default"
       = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
       = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
         = link_to '#profile_vcard', :"data-open-file" => true, :class => "btn btn-default" do
@@ -20,7 +22,6 @@
 
   - if @profile.logo_image.blank? && current_site.use_gravatar?
     .using-gravatar.tooltipped{ title: t('.explain_gravatar') }= t('.using_gravatar')
-  #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => supported_image_formats.join(','), :'data-max-size' => max_upload_size }
 
 = simple_form_for @profile, :url => user_profile_path(@user), :html => { :class => 'single-column' } do |f|
   = render :partial => 'form', :locals => { :f => f, :user => @user }

@@ -1,6 +1,6 @@
 - page_title t('.title', name: @space.name)
 - spaces_menu_at :admin
-= render 'spaces/sidebar', space: @space, full: false
+= render 'spaces/sidebar', space: @space, editing: true
 
 - spaces_admin_menu_at :main
 = render 'spaces/admin_tabs'
@@ -12,15 +12,10 @@
       = f.input :permalink , disabled: true
       = f.input :name
       = f.input :description, as: :text, input_html: { rows: 5 }
+      = f.input :tag_list, input_html: { value: @space.tag_list.join(ActsAsTaggableOn.delimiter), data: { sep: ActsAsTaggableOn.delimiter } }
       = f.input :repository
       = f.input :public, label: t('.public')
-      = f.input :tag_list, input_html: { value: @space.tag_list.join(ActsAsTaggableOn.delimiter), data: { sep: ActsAsTaggableOn.delimiter } }
       = f.button :wrapped, value: t("_other.save")
-
-  #edit-space-logo
-    .logo-wrapper
-      = logo_image(@space, size: "336x256", class: 'logo logo-uploadable', title: @space.name)
-      #space-logo-uploader.file-uploader{:'data-endpoint' => update_logo_space_path(@space, format: :json), :'data-accept' => supported_image_formats.join(','), :'data-max-size' => max_upload_size }
 
   #edit-space-other-options.alert.alert-danger.alert-clean
     %h4= t('.other_options')

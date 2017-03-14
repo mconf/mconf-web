@@ -101,4 +101,18 @@ module LogoImagesHelper
     end
   end
 
+  def update_logo_control(resource)
+    path = if resource.is_a?(User)
+             update_logo_user_profile_path(resource, format: :json)
+           elsif resource.is_a?(Space)
+             update_logo_space_path(resource, format: :json)
+           end
+    attrs = {
+      class: 'file-uploader',
+      'data-endpoint': path,
+      'data-accept': supported_image_formats.join(','),
+      'data-max-size': max_upload_size
+    }
+    content_tag :div, nil, attrs
+  end
 end
