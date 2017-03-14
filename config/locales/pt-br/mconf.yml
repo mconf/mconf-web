@@ -740,15 +740,14 @@ pt-br:
   find_in: "Pesquisar em:"
   frontpage:
     show:
-      headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
+      headline: "Um sistema de conferência web de código aberto para web e em dispositivos móveis"
       login:
         certificate: "Acesso via certificado"
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"
-        resend_confirmation_email: "Reenviar e-mail de confirmação"
       register:
-        title: "Criar uma nova conta"
+        title: "Criar uma conta"
   from: De
   getting_started: Começando!
   group:
@@ -1304,6 +1303,8 @@ pt-br:
   register_as_user: "Registe-se como usuário"
   register_now: "Registe-se agora!"
   registrations:
+    new:
+      title: "Register"
     signup_form:
       register: "Registre-se"
   remove: Remover

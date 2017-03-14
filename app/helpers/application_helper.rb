@@ -99,7 +99,7 @@ module ApplicationHelper
   # Returns the url prefix used to identify a webconf room
   # e.g. 'https://server.org/webconf/'
   def webconf_url_prefix
-    "#{Site.current.domain_with_protocol}/#{webconf_path_prefix}/"
+    "#{Site.current.domain_with_protocol}/#{webconf_path_prefix}"
   end
 
   # Returns the url prefix used to identify a webconf room
@@ -216,10 +216,11 @@ module ApplicationHelper
     end
   end
 
-  def captcha_tags
+  def captcha_tags(opts={})
     if current_site.captcha_enabled?
       content_tag :div, class: 'captcha' do
-        recaptcha_tags public_key: current_site.recaptcha_public_key, hl: I18n.locale
+        params = { public_key: current_site.recaptcha_public_key, hl: I18n.locale }.merge(opts)
+        recaptcha_tags params
       end
     end
   end

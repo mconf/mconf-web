@@ -40,10 +40,7 @@ class SpacesController < InheritedResources::Base
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
-  def set_layout
-    'application'
-  end
-  layout :set_layout
+  layout 'application'
 
   def index
     order_spaces

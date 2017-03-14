@@ -2,41 +2,53 @@
 
 body.registrations.new, body.registrations.create {
 
-  $register-box-width: 550px;
-  $right-side-width: $m-contents-width - $register-box-width - 50px;
-
   #register-wrapper {
+    margin: 40px auto;
+    width: 50%;
     @include mconf-clearfix;
-    margin: 20px 0;
 
     form {
-      @include mconf-clearfix;
-      float: left;
-      width: $register-box-width;
-      margin: 0;
-      padding: 0 5px 5px 0;
+      // every field is required, we don't need to show it
+      abbr[title=required] { display: none; }
 
-      // it's an input with an addon, make it the size of the others
+      .form-actions {
+        border: none;
+      }
+
       .user_username .input-group {
         padding: 0 14px;
       }
     }
 
-   .extra-links {
-     max-width: $right-side-width;
-     float: left;
-     margin: 5px 0 0 30px;
-     padding: 0;
-     ul {
-       list-style: disc;
-     }
+    .alert {
+      clear: both;
+      text-align: center;
+      margin-bottom: 32px;
+      background: $m-navbar-internal-border-color;
+      color: $m-navbar-font-color;
+    }
+  }
 
-     .comments {
-       font-style: italic;
-       margin-bottom: 20px;
-       span { display: block; }
-     }
-   }
+  #login-extra-links {
+    margin: 32px auto 0 auto;
+    padding: 0;
+    border-top: 1px solid $m-navbar-internal-border-color;
+    text-align: center;
+
+    li {
+      border-bottom: 1px solid $m-navbar-internal-border-color;
+      font-size: $m-font-medium;
+
+      a {
+        display: block;
+        padding: 16px;
+        @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .captcha {

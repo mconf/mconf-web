@@ -726,15 +726,14 @@ en:
   find_in: "Find in:"
   frontpage:
     show:
-      headline: "A global scalable opensource multiconference system for web and mobile devices"
+      headline: "An opensource web conference system for web and mobile devices"
       login:
         certificate: "Login via client certificate"
         federation: "Login via federation"
         lost_password: "Lost your password?"
         title: "Sign in"
-        resend_confirmation_email: "Resend confirmation email"
       register:
-        title: "Create a new account"
+        title: "Create an account"
   from: From
   getting_started: "Getting started!"
   group:
@@ -1291,6 +1290,8 @@ en:
   register_as_user: "Register as user"
   register_now: "Register now!"
   registrations:
+    new:
+      title: "Register"
     signup_form:
       register: "Register"
   remove: Remove

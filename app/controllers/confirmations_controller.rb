@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class ConfirmationsController < Devise::ConfirmationsController
-  layout 'no_sidebar'
+  layout 'navbar_bg'
 
   before_filter :check_registration_enabled, only: [:new, :create, :show]
   before_filter :check_already_confirmed, only: [:new, :create, :show]

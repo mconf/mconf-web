@@ -1,4 +1,4 @@
-= simple_form_for resource, as: resource_name, url: user_session_path, wrapper: :horizontal, html: { class: "form-horizontal" } do |f|
+= simple_form_for resource, as: resource_name, url: user_session_path do |f|
   = f.input :login, :label => t('.email_or_login'), :required => true, :autofocus => true
   = f.input :password, :label => t('.password'), :required => true
   - if devise_mapping.rememberable?

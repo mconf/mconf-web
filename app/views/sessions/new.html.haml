@@ -1,6 +1,5 @@
 = page_title t('.title')
 
 #login-wrapper
-  = render :partial => 'login_form'
-  .extra-links
-    = render "devise/shared/links"
+  = render partial: 'login_form'
+  = render "devise/shared/links"

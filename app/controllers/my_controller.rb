@@ -34,7 +34,7 @@ class MyController < ApplicationController
         "application"
       end
     when :approval_pending
-      "no_sidebar"
+      "navbar_bg"
     else
       "application"
     end

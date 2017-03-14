@@ -36,15 +36,6 @@ feature 'Visitor logs in' do
   end
 
   feature 'with valid credentials' do
-    scenario 'from the frontpage' do
-      visit root_path
-      fill_in 'user[login]', with: @user.username
-      find('#login-box').find('#user_password').set(@user.password)
-      click_button 'Login'
-
-      expect(current_path).to eq(my_home_path)
-    end
-
     scenario 'from /login' do
       visit login_path
 

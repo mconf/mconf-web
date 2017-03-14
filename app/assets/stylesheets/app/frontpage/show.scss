@@ -5,86 +5,78 @@
 
 body.frontpage.show {
 
+  /*
+   * Adapt the default layout
+   */
+
   #navbar {
-    background: none;
     margin: 0 auto;
     padding: 20px 0 30px 0;
+    border: none;
     @include clearfix;
 
     #navbar-logo {
-      width: 240px;
-      margin: 40px auto 30px auto;
+      width: 25%;
+      margin: 24px auto 0 auto;
       padding: 0;
       float: none;
       overflow: visible;
 
+      .title {
+        float: none;
+      }
+
       img {
-        width: 231px;
-        height: 120px;
+        width: 100%;
+        height: auto;
       }
     }
 
-  }
-
-  .form-area {
-    form {
-      float: right;
-    }
-
-    .form-group {
-      // hide the '*' for required fields
-      abbr { display: none; }
-    }
-
-    .form-actions {
-      border: 0;
-      margin: 0;
+    #navbar-left, #navbar-right {
+      display: none;
     }
   }
 
-  #login-box {
-    @include make-xs-column(12);
-    @include make-sm-column(5);
-
-    .action-links {
-      float: right;
-      margin-top: 15px;
-      clear: both;
-      text-align: right;
-    }
-
-    input[type=submit] {
-      float: right;
-    }
-
-    .remember-me {
-      float: right;
-      padding-right: 20px;
-
-      input[type=checkbox] {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  #registration-box {
-    @include make-xs-column(12);
-    //@include make-sm-column-push(1);
-    @include make-sm-column(7);
-
-    // it's an input with an addon, make it the size of the others
-    .user_username .input-group {
-      padding: 0 14px;
-    }
-  }
-
-  h2 {
-    //padding-left: 20px;
+  #headline {
     text-align: center;
-    margin: 10px 0 30px 0;
+    font-size: $m-font-bigger;
+    color: $m-navbar-font-color;
   }
 
-  .captcha {
-    float: right;
+  #action-links {
+    text-align: center;
+    color: $m-navbar-font-color;
+    padding: 56px 0;
+
+    .btn, span {
+      display: inline-block;
+    }
+
+    span {
+      margin: 0 8px;
+    }
+  }
+
+  #action-links-extra {
+    margin: 0 auto;
+    padding: 0;
+    width: 30%;
+    border-top: 1px solid $m-navbar-internal-border-color;
+    text-align: center;
+
+    li {
+      border-bottom: 1px solid $m-navbar-internal-border-color;
+      font-size: $m-font-medium;
+
+      a {
+        display: block;
+        padding: 16px;
+        @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 }

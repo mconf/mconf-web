@@ -26,9 +26,9 @@
     - if meetings.count <= 0
       %tr
         - if show_authors
-          %td{ :colspan => "4" }= t('.no_meetings')
+          %td{ :colspan => "5" }= t('.no_meetings')
         - else
-          %td{ :colspan => "3" }= t('.no_meetings')
+          %td{ :colspan => "4" }= t('.no_meetings')
     - else
       - meetings.each do |meeting|
         - recording = meeting.recording

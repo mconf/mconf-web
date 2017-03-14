@@ -6,9 +6,10 @@
 # 3 or later. See the LICENSE file.
 
 class FrontpageController < ApplicationController
+  layout 'navbar_bg'
 
   def show
-   respond_to do |format|
+    respond_to do |format|
       if user_signed_in?
         format.html { redirect_to my_home_path }
       else

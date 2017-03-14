@@ -8,12 +8,13 @@
 #toast-container {
 
   &.toast-top-full-width {
-    right: 0;
-    left: 0;
-    top: 0;
+    right: 10px;
+    left: 10px;
+    top: 10px;
+    width: auto;
 
     > div {
-      width: 100%;
+      width: auto;
       @include border-radius(0);
     }
 

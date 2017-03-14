@@ -70,7 +70,7 @@ $m-transparent: rgba(255,255,255,0);
 $m-site-bg-color: #fff;
 $m-color-primary: $m-green-logo;
 $m-color-primary-light: lighten($m-green-logo, 12);
-$m-color-secondary: $m-bright-blue;
+$m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
 $m-focus-border-color: $m-color-secondary;
 
 // borders
@@ -137,6 +137,7 @@ $m-navbar-bg-color-light: $m-green-logo;
 $m-navbar-bg-color-dark: $m-navbar-bg-color-light; //darken($m-green-logo, 3);
 $m-navbar-border-width: 0px;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+$m-navbar-internal-border-color: lighten($m-navbar-bg-color-dark, 3);
 $m-navbar-font: $m-font-medium;
 $m-navbar-font-color: #ddd;//$m-font-color;
 $m-navbar-font-color-hover: white; //$m-link-color-hover;
@@ -224,7 +225,7 @@ $brand-success: $olive;
 $brand-info: $blue;
 $brand-danger: $red; //#d9534f; //$red;
 $brand-warning: $orange;
-$btn-primary-bg: $brand-primary;
+$btn-primary-bg: $m-color-secondary;
 $btn-primary-border: $btn-primary-bg;
 $btn-success-bg: $brand-success;
 $btn-success-border: $btn-success-bg;
@@ -258,6 +259,9 @@ $input-border-radius: $m-border-radius-base;
 $input-border-radius-large: $m-border-radius-base;
 $input-border-radius-small: $m-border-radius-base;
 $input-group-addon-border-color: $input-border;
+$btn-border-radius: $m-border-radius-base;
+$btn-border-radius-large: $m-border-radius-base;
+$btn-border-radius-small: $m-border-radius-base;
 $cursor-disabled: default;
 
 

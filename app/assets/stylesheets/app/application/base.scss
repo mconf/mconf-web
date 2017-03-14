@@ -283,17 +283,6 @@ form {
   top: 0;
   bottom: auto;
 
-  > ul {
-    float: right;
-
-    > li {
-      margin-left: 10px;
-      margin-right: 0;
-      padding-left: 10px;
-      padding-right: 0;
-    }
-  }
-
   .dropdown-user.chip {
     margin: 0;
     font-size: $m-font-normal;
