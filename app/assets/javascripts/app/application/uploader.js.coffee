@@ -1,6 +1,6 @@
 # Sets up FineUploader on elements with the class .file-uploader
 
-uploaderTemplate = HandlebarsTemplates['uploader/template_logos']
+uploaderTemplate = HandlebarsTemplates['uploader/template']
 uploaderFileTemplate = HandlebarsTemplates['uploader/file_template']
 
 class mconf.Uploader

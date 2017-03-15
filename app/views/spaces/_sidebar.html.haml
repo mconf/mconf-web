@@ -69,18 +69,15 @@
       = link_to t('.users'), space_users_path(@space)
 
     - if user_signed_in?
-      - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
+      - if @space.admins.include?(current_user) || current_user.superuser?
         %li{ spaces_menu_select_if(:admin) }
+          - unless spaces_menu_is(:admin)
+            = render :partial => 'spaces/requests_notifications'
           = link_to t('.admin'), edit_space_path(@space), :class => "admin danger-text"
 
-  -# TODO
-  -# = render :partial => 'spaces/sidebar_notifications'
-  -# = render_sidebar_content_block("sidebar-space-admins") do
-  -#   .content-block-header
-  -#     %h4= t('user.administrators')
-  -#     = icon_help t("tooltip.admin"), :class => 'leftwards'
-  -#   .content-block-middle
-  -#     - @space.admins.each do |user|
-  -#       = render :partial => 'users/simple_user', :locals => { :user => user }
-  -# - if user_signed_in? && can?(:leave, @space)
-  -#   = render :partial => 'spaces/sidebar_leave_space'
+  #sidebar-leave-space
+    - link = leave_space_path(@space)
+    - params = { method: :post, class: 'btn btn-xs btn-default', data: { confirm: t('space.confirm') } }
+    = link_to link, params do
+      = icon_leave_space
+      = t('space.leave.leave_this_space')

@@ -1051,3 +1051,33 @@ strong.highlight {
   }
 
 }
+
+#sidebar-leave-space {
+  text-align: center;
+  margin-top: 24px;
+
+  .btn:hover {
+    background-color: #ff1103;
+    border-color: #b60a00;
+    color: #fff;
+
+    i {
+      color: #fff;
+    }
+  }
+}
+
+#sidebar-menu .requests-notification-label,
+.requests-notification-label {
+  display: inline-block;
+  margin: 19px 24px 0 0;
+  float: right;
+
+  i.icon-awesome {
+    color: #fff;
+    &:active, &:hover { color: #fff; }
+  }
+}
+#page-menu .requests-notification-label {
+  margin: 0px 0px 0 8px;
+}

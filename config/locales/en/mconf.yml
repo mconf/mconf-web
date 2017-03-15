@@ -1635,6 +1635,10 @@ en:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
+    requests_notifications:
+      pending_requests:
+        one: "There is %{count} pending requests"
+        other: "There are %{count} pending requests"
     show:
       description: "Description"
       events_now: "Events hapenning now!"

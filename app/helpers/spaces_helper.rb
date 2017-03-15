@@ -19,6 +19,11 @@ module SpacesHelper
       options
   end
 
+  # Returns whether the selected menu is `tab`
+  def spaces_menu_is(tab)
+    @spaces_menu_tab == tab
+  end
+
   # Returns a link to join the space depending on the status of the
   # current user. Possible cases:
   # * If there's no current user, returns a button to register.
@@ -79,6 +84,11 @@ module SpacesHelper
     @spaces_admin_menu_tab == tab ?
       options.update({ :class => "#{old_class} active" }) :
       options
+  end
+
+  # Returns whether the selected tab is `tab`
+  def spaces_admin_menu_is(tab)
+    @spaces_admin_menu_tab == tab
   end
 
   # Stores the current tab in the menu in the webconference pages of a space

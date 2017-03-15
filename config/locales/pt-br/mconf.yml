@@ -874,6 +874,20 @@ pt-br:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
+    list_item:
+      accept: "Aceitar"
+      cancel: "Cancelar"
+      cancel_confirm: "Você tem certeza que deseja cancelar o pedido?"
+      decline: "Rejeitar"
+      decline_confirm: "Você tem certeza que deseja rejeitar este convite?"
+      invite:
+        comment:
+          title: "Mensagem de convite"
+      invited_by: "Você foi convidado por %{name}."
+      request:
+        comment:
+          title: "Sua mensagem"
+      your_request: "Você requisitou ingresso nesta comunidade."
     new:
       already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
@@ -1092,6 +1106,13 @@ pt-br:
       past_meetings:
         title: "Reuniões gravadas"
         view_more: "Ver todas reuniões e gravações"
+      spaces:
+        create: "crie uma comunidade"
+        no_spaces: "Você ainda não é membro de nenhuma comunidade."
+        or: "ou"
+        pending: "Pedidos de ingresso pendentes"
+        title: "Minhas comunidades"
+        view_all: "Ver todas minhas comunidades"
       title: "Início"
       view_all_spaces: "Ver todas comunidades"
     page_header:
@@ -1470,7 +1491,7 @@ pt-br:
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
-    confirm: "Tem certeza que quer sair desta comunidade?"
+    confirm: "Tem certeza que deseja deixar de fazer parte desta comunidade?"
     created: "Comunidade criada com sucesso"
     created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para que outros usuários possam acessá-la."
     delete: "Excluir Comunidade"
@@ -1637,14 +1658,6 @@ pt-br:
     list_view:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
-    sidebar:
-      admin: "Admin"
-      events: "Eventos"
-      home: "Página Inicial"
-      posts: "Mural"
-      repository: "Documentos"
-      users: "Usuários"
-      webconference: "Webconferência"
     new:
       private: "Privada"
       public: "Pública"
@@ -1659,6 +1672,21 @@ pt-br:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
+    requests_notifications:
+      pending_requests:
+        one: "Existe %{count} pedido pendente"
+        other: "Existem %{count} pedidos pendentes"
+    sidebar:
+      admin: "Admin"
+      events: "Eventos"
+      home: "Página Inicial"
+      is_member: "Você é membro desta comunidade"
+      posts: "Mural"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
+      repository: "Documentos"
+      users: "Usuários"
+      webconference: "Webconferência"
     show:
       description: "Description"
       events_now: "Eventos acontecendo agora!"
@@ -1741,7 +1769,6 @@ pt-br:
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Estas informações são visíveis apenas para as pessoas que você escolher nas opções do seu perfil"
     public_profile: "Estas informações são visíveis para qualquer pessoa, incluindo pessoas que não são membros deste site"
