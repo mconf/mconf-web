@@ -1,19 +1,17 @@
 <div class="qq-uploader">
-  <div class="qq-upload-drop-area upload-drag-and-drop">
-    <i class="icon-upload-alt"></i>
-  </div>
   <div class="upload-button">
-    <i class="fa fa-upload icon-awesome"></i> {uploadButtonText}
+    <i class="fa fa-upload icon-awesome"></i><span>{uploadButtonText}</span>
+  </div>
+  {{#if dragAndDrop}}
+    <div class="drag-files">
+      <span>{dragZoneText}</span>
+    </div>
+  {{/if}}
+  <div class="qq-upload-drop-area upload-drag-and-drop">
   </div>
   <span class="qq-drop-processing">
     <span>{dropProcessingText}</span>
     <span class="qq-drop-processing-spinner"></span>
   </span>
   <ul class="upload-list qq-upload-list"></ul>
-  {{#if dragAndDrop}}
-    <div class="drag-files well">
-      <p>{{or}}</p>
-      <p>{dragZoneText}</p>
-    </div>
-  {{/if}}
 </div>

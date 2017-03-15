@@ -340,7 +340,7 @@ en:
       author: "Uploaded by"
       download_multiple: "Download"
       file: "File"
-      new_file: "Upload a file"
+      new_file: "Upload files"
       no_attachments: "No attachments found"
       remove_multiple: "Remove"
       remove_multiple_confirmation: "Are you sure you want to remove all the files selected? This operation is irreversible."
@@ -351,12 +351,12 @@ en:
       delete_tooltip: "Remove this file"
       download_tooltip: "Download this file"
     upload_form:
-      title: "Upload a new file"
+      title: "Upload files"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
   avatar:
     created: "Picture uploaded successfully"
-    crop: "Crop your picture"
+    crop: "Adjust your picture"
     select: "Select picture"
     select_new: "Select new picture"
     upload: "Upload picture"
@@ -949,16 +949,16 @@ en:
   login_request: "You need to be logged in to "
   logo:
     created: "Logo uploaded successfully"
-    crop: "Crop space logo"
+    crop: "Adjust the image"
     empty: "The logo is empty"
     error: "Error on uploading the logo"
     no_image: "No image selected"
     updated: "Logo updated successfully"
   logo_images:
     crop:
-      crop_it: "Crop it!"
-      preview: "Preview"
-      aspect_ratio: Fixed aspect ratio
+      aspect_ratio: "Fix aspect ratio"
+      crop_it: "Use the selected area"
+      full_image: "Use the entire image"
   logout: Logout
   manage:
     destroy_space:
@@ -1848,9 +1848,11 @@ en:
       title: "Create user"
   username: Username
   uploader:
+    attachments:
+      button: "Upload files"
     fail: Upload error
     progress: "{percent}% of {total_size}"
-    drag_files: Drag and drop files here to upload
+    drag_files: "or drag and drop files here"
     processing: Processing...
     error:
       invalid_extension: "{file} has an invalid extension. Valid extension(s): {extensions}."

@@ -16,4 +16,5 @@
     = simple_form_for @model, :url => @url do |f|
       - %w[x y w h img_w img_h].each do |attribute|
         = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute.gsub(/_/, '-')}"
+      = link_to t(".full_image"), '#', 'data-dismiss': 'modal', class: 'btn btn-default'
       = f.submit t(".crop_it"), class: "btn btn-primary", id: "crop-do-it"

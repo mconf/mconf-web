@@ -974,30 +974,80 @@ strong.highlight {
 
 
 .file-uploader {
-  position: absolute;
-  top: 10%;
-  transform: translate(-50%, 0%);
   margin: 0 auto;
-  left: calc(50%);
   width: auto;
-  opacity: 0.9;
   white-space: nowrap;
   border-radius: $m-border-radius-base;
   @include transition(all 0.2s ease-in);
+  @include mconf-clearfix;
 
-  padding: 8px 16px;
-  background: white;
-  background: darken($m-dark-gray, 5); //$m-color-secondary;
-  color: #fff;
-  font-size: $m-font-medium;
+  .qq-uploader {
+    @include mconf-clearfix;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .upload-button {
+    background: $m-color-secondary;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: $m-border-radius-base;
+    display: inline-block;
+
+    &:hover {
+      background: darken($m-color-secondary, 5);
+    }
+  }
 
   i {
     color: #fff;
-    margin-right: 4px;
+    margin-right: 8px;
   }
 
-  &:hover {
-    opacity: 1;
-    background: darken($m-dark-gray, 10);
+  .drag-files {
+    display: block;
+    background: $m-light-gray;
+    padding: 16px;
+    border: 1px dashed $m-border-color-medium;
+    margin-top: 8px;
   }
+
+  .qq-upload-drop-area {
+    background: none;
+    border: 3px dashed $m-bright-blue;
+    min-height: auto;
+  }
+
+  &.file-uploader-logo {
+    position: absolute;
+    top: 10%;
+    transform: translate(-50%, 0%);
+    left: calc(50%);
+
+    .qq-uploader {
+      padding: 0;
+    }
+
+    .upload-button {
+      background: darken($m-dark-gray, 5); //$m-color-secondary;
+      color: #fff;
+      font-size: $m-font-medium;
+      padding: 8px 16px;
+      border-radius: $m-border-radius-base;
+      opacity: 0.9;
+      float: left;
+      width: 100%;
+
+      &:hover {
+        opacity: 1;
+        background: darken($m-dark-gray, 10);
+      }
+    }
+
+    .qq-upload-list {
+      clear: both;
+      opacity: 0.85;
+    }
+  }
+
 }

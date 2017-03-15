@@ -10,7 +10,7 @@
       = link_to space_path(space) do
         - cls = editing ? 'editing' : ''
         = logo_image(space, size: "336x256", title: space.name, class: cls)
-      = update_logo_control(space) if editing
+      = upload_logo_controls(space) if editing
 
     .data
       - if space.name.size > 60
@@ -53,6 +53,10 @@
       %li{ spaces_menu_select_if(:webconference) }
         = link_to t('.webconference'), webconference_space_path(@space)
 
+    - if @space.repository? && can?(:index, Attachment.new(space: @space))
+      %li{ spaces_menu_select_if(:repository) }
+        = link_to t('.repository'), space_attachments_path(@space)
+
     - if can?(:index, Post.new(space: @space))
       %li{ spaces_menu_select_if(:posts) }
         = link_to t('.posts'), space_posts_path(@space)
@@ -63,10 +67,6 @@
 
     %li{ spaces_menu_select_if(:users) }
       = link_to t('.users'), space_users_path(@space)
-
-    - if @space.repository? && can?(:index, Attachment.new(space: @space))
-      %li{ spaces_menu_select_if(:repository) }
-        = link_to t('.repository'), space_attachments_path(@space)
 
     - if user_signed_in?
       - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?

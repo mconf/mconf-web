@@ -101,16 +101,30 @@ module LogoImagesHelper
     end
   end
 
-  def update_logo_control(resource)
+  # Renders the controls to upload a logo for a space or a user's avatar
+  def upload_logo_controls(resource)
     path = if resource.is_a?(User)
              update_logo_user_profile_path(resource, format: :json)
            elsif resource.is_a?(Space)
              update_logo_space_path(resource, format: :json)
            end
     attrs = {
-      class: 'file-uploader',
+      class: 'file-uploader file-uploader-logo',
       'data-endpoint': path,
       'data-accept': supported_image_formats.join(','),
+      'data-max-size': max_upload_size
+    }
+    content_tag :div, nil, attrs
+  end
+
+  # Renders the controls to upload an attachment in a space
+  def upload_attachment_controls(resource)
+    path = if resource.is_a?(Space)
+             space_attachments_path(resource, format: :json)
+           end
+    attrs = {
+      class: 'file-uploader file-uploader-attachment',
+      'data-endpoint': path,
       'data-max-size': max_upload_size
     }
     content_tag :div, nil, attrs

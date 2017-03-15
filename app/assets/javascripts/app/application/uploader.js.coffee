@@ -23,6 +23,11 @@ class mconf.Uploader
       $('.drag-files').hide()
       onSubmit?(id, name)
 
+    if element.hasClass('file-uploader-logo')
+      buttonText = I18n.t("uploader.logos.button")
+    else
+      buttonText = I18n.t("uploader.attachments.button")
+
     # Uploader options
     options =
       element: element[0]
@@ -50,7 +55,7 @@ class mconf.Uploader
         onLeave: I18n.t("uploader.error.on_leave")
 
       text:
-        uploadButton: I18n.t("uploader.logos.button")
+        uploadButton: buttonText
         cancelButton: I18n.t('_other.cancel')
         failUpload: I18n.t("uploader.fail")
         formatProgress: I18n.t("uploader.progress")

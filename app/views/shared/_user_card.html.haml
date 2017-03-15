@@ -8,7 +8,7 @@
     - cls = editing ? 'editing' : ''
     = logo_image(user, size: '300', title: user.name, class: cls)
 
-    = update_logo_control(@user) if editing
+    = upload_logo_controls(@user) if editing
 
     - if user.superuser?
       .label.superuser-label.tooltipped{ title: t('_other.user.administrator') }
