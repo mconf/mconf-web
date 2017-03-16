@@ -7,6 +7,9 @@ class mconf.Tooltip
     # elements with `overflow:hidden` set, for example.
     container: 'body'
     placement: 'auto top'
+    delay:
+      show: 500
+      hide: 100
 
   @bind: ->
     $("a[rel=popover]").popover()
