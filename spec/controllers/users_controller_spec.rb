@@ -400,7 +400,7 @@ describe UsersController do
 
           it { response.status.should == 302 }
           it { response.should redirect_to edit_user_path(user) }
-          it { user.can_record.should be(true) }
+          it { user.reload.can_record.should be(true) }
         end
       end
 

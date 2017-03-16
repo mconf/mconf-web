@@ -411,7 +411,7 @@ class User < ActiveRecord::Base
 
   def init
     @created_by = nil
-    self.can_record = Rails.application.config.can_record_default
+    self.can_record = Rails.application.config.can_record_default if self.can_record.nil?
   end
 
   # This overrides the method from Devise::Models::Trackable

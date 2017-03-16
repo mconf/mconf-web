@@ -20,7 +20,7 @@ describe CustomBigbluebuttonRoomsController do
       context "template" do
         before(:each) { get :invite_userid, hash }
         it { should render_template(:invite_userid) }
-        it { should render_with_layout("no_sidebar") }
+        it { should render_with_layout("navbar_bg") }
       end
 
       context "redirects to #invite" do
@@ -71,7 +71,7 @@ describe CustomBigbluebuttonRoomsController do
           get :invite, hash
         }
         it { should render_template(:invite) }
-        it { should render_with_layout("no_sidebar") }
+        it { should render_with_layout("navbar_bg") }
       end
 
       context "redirects to #invite_userid" do

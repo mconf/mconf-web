@@ -15,14 +15,12 @@ describe Space do
   end
 
   describe "initializes with default values" do
-    it("should be false by default") { Space.new.repository.should be_falsey }
-    it("should be true if set to") { Space.new(:repository => true).repository.should be true }
-    it("should be false by default") { Space.new.public.should be_falsey }
-    it("should be true if set to") { Space.new(:public => true).public.should be true }
-    it("should be false by default") { Space.new.disabled.should be_falsey }
-    it("should be true if set to") { Space.new(:disabled => true).disabled.should be true }
-    it("should be false by default") { Space.new.deleted.should be_falsey }
-    it("should be true if set to") { Space.new(:deleted => true).deleted.should be true }
+    it { Space.new.repository.should be(false) }
+    it { Space.new(repository: true).repository.should be(true) }
+    it { Space.new.public.should be(false) }
+    it { Space.new(public: true).public.should be(true) }
+    it { Space.new.disabled.should be(false) }
+    it { Space.new(disabled: true).disabled.should be(true) }
   end
 
   it { should have_many(:posts).dependent(:destroy) }

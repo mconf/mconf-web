@@ -17,6 +17,36 @@ describe User do
     FactoryGirl.build(:user).should be_valid
   end
 
+  describe "initializes with default values" do
+    it { User.new.created_by.should be(nil) }
+
+    context "#can_record" do
+      before {
+        @can_record_before = Rails.application.config.can_record_default
+      }
+      after {
+        Rails.application.config.can_record_default = @can_record_before
+      }
+
+      context "when the default is set to false in the application" do
+        before { Rails.application.config.can_record_default = false }
+        it { User.new.can_record.should be(false) }
+      end
+
+      context "when the default is set to true in the application" do
+        before { Rails.application.config.can_record_default = true }
+        it { User.new.can_record.should be(true) }
+      end
+
+      context "doesn't change if there's already a value set" do
+        let(:user1) { FactoryGirl.create(:user, can_record: false) }
+        let(:user2) { FactoryGirl.create(:user, can_record: true) }
+        it { User.find(user1.id).can_record.should be(false) }
+        it { User.find(user2.id).can_record.should be(true) }
+      end
+    end
+  end
+
   it { should have_one(:profile).dependent(:destroy) }
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
 
