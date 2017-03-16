@@ -6,35 +6,37 @@
 
   .form-group {
 
-    input[type="checkbox"].showable_password_show {
-      margin: 0 3px;
-      display: inline;
-    }
-
     // limit the height of a textarea by default
     textarea {
       max-height: 250px;
+      resize: vertical;
     }
 
     .help-block {
       display: none;
     }
 
-    // add a nice icon to fields that have a hint
     &.has-hint {
-
-      label.control-label {
-        //&:hover, &:focus { color: darken($m-alert-info-font, 20); }
+      .icon-mconf-help {
+        margin-left: 4px;
         cursor: pointer;
-        padding-left: 18px;
+      }
+    }
 
-        background: image-url("icons/question-sign-13x13.png") no-repeat left 1px;
-        background-width: 13px;
-        background-height: 13px;
+    &.showable_password {
+      > div {
+        position: relative;
+      }
 
-        &.checkbox {
-          padding-left: 38px;
-        }
+      .showable_password_show, .showable_password_hide {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
+      }
+
+      .showable_password_hide {
+        display: none;
       }
     }
   }
@@ -79,10 +81,6 @@
 
     input.string, input.password, input.numeric, input.fake, textarea, select {
       width: 100%
-    }
-    input.showable_password {
-      width: 78%;
-      display: inline-block;
     }
     select.datetime {
       width: 13%;

@@ -464,9 +464,9 @@ GEM
       shoulda-matchers (>= 2.1.0)
     shoulda-matchers (3.0.1)
       activesupport (>= 4.0.0)
-    simple_form (3.1.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
+    simple_form (3.4.0)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -637,7 +637,7 @@ DEPENDENCIES
   select2-rails
   shoulda-kept-assign-to
   shoulda-matchers (~> 3.0)
-  simple_form (~> 3.1.0)
+  simple_form (~> 3.4.0)
   simplecov
   spring
   sqlite3

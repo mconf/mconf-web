@@ -110,6 +110,9 @@ pt-br:
     remove_tag: "Remover tag da busca"
     save: "Salvar"
     send: "Enviar"
+    showable_password:
+      hide: "Esconder senha"
+      show: "Mostrar senha"
     space:
       disabled: "Desabilitado"
       private: "Privado"
@@ -1401,6 +1404,7 @@ pt-br:
       delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
+      edit: "Editar esta gravação"
       manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
       no_meetings: "Ainda não existem reuniões ou gravações nesta sala."

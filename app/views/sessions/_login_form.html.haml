@@ -2,5 +2,5 @@
   = f.input :login, :label => t('.email_or_login'), :required => true, :autofocus => true
   = f.input :password, :label => t('.password'), :required => true
   - if devise_mapping.rememberable?
-    .remember-me= f.input :remember_me, as: :boolean, wrapper: :bootstrap3
+    .remember-me= f.input :remember_me, as: :boolean
   = f.button :wrapped, :value => t(".login")

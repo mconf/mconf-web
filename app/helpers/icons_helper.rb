@@ -8,7 +8,7 @@ module IconsHelper
 
   # Default icon that shows a tooltip with help about something
   def icon_help(title, options={})
-    icon_constructor title, "fa fa-question-circle icon-awesome icon-mconf-help", options
+    icon_constructor title, "fa fa-question-circle-o icon-awesome icon-mconf-help", options
   end
 
   # Default icon that shows a tooltip with information about something

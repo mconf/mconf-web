@@ -72,10 +72,10 @@
               -# Edit description button
               - if recording.room.owner_type == "User"
                 - if can?(:user_edit, recording)
-                  = link_to icon_edit, edit_my_recording_path(recording), class: "open-modal"
+                  = link_to icon_edit, edit_my_recording_path(recording), class: "tooltipped open-modal", title: t('.edit')
               - else
                 - if can?(:space_edit, recording)
-                  = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), class: "open-modal"
+                  = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), class: "tooltipped open-modal", title: t('.edit')
 
               - if recording.available?
                 - if recording.published?

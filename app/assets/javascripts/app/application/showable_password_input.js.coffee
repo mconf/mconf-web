@@ -8,10 +8,17 @@ class mconf.ShowablePassword
     $(".showable_password_show").on "click.mconfShowablePassword", ->
       target = $(this).parent().parent().find("input.showable_password")
       id = "#" + target.attr("id")
-      if $(this).is(':checked')
-        changeInputType(id, "text")
-      else
-        changeInputType(id, "password")
+      changeInputType(id, "text")
+      $(this).hide()
+      $(this).siblings(".showable_password_hide").show()
+
+    $(".showable_password_hide").off "click.mconfShowablePassword"
+    $(".showable_password_hide").on "click.mconfShowablePassword", ->
+      target = $(this).parent().parent().find("input.showable_password")
+      id = "#" + target.attr("id")
+      changeInputType(id, "password")
+      $(this).hide()
+      $(this).siblings(".showable_password_show").show()
 
 $ ->
   mconf.ShowablePassword.bind()

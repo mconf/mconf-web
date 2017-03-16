@@ -108,8 +108,7 @@ a:not(.btn) .icon-awesome {
   }
 
   &.icon-mconf-help, &.icon-mconf-info {
-    color: lighten($default-icon-color, 10);
-    &:hover { color: lighten($m-blue, 20); }
+    color: $m-blue;
   }
 
   &.icon-mconf-waiting-moderation {
@@ -229,6 +228,14 @@ a:not(.btn) .icon-awesome {
 
   &.icon-mconf-cant-rec {
     color: #CCC;
+  }
+
+  &.icon-mconf-show {
+    color: $m-green;
+  }
+
+  &.icon-mconf-hide {
+    color: $m-yellow;
   }
 
   &.icon-mconf-event {}

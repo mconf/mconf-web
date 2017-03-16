@@ -111,6 +111,9 @@ en:
     remove_tag: "Remove tag from filter"
     save: "Save"
     send: "Send"
+    showable_password:
+      hide: "Hide password"
+      show: "Show password"
     space:
       disabled: "Disabled"
       private: "Private"
@@ -1367,6 +1370,7 @@ en:
       delete: "Remove recording"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
+      edit: "Edit this recording"
       manage: "Manage"
       no_description: "<no description specified>"
       no_meetings: "There are no meetings or recordings in this room yet."

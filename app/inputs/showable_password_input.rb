@@ -22,11 +22,8 @@ class ShowablePasswordInput < SimpleForm::Inputs::StringInput
     options[:class] << :"form-control"
     field = @builder.password_field(attribute_name, options)
 
-    # add a checkbox
-    cb_name = attribute_name.to_s + '_show'
-    cb = check_box_tag cb_name, 'show', false, :class => 'showable_password_show'
-    cb_label = label_tag cb_name, (cb + I18n.t('show_question')), :class => 'showable_password_show_label'
-
-    content_tag(:div, "#{field}#{cb_label}".html_safe)
+    ico1 = content_tag :i, nil, class: 'tooltipped fa fa-eye icon-awesome icon-mconf-show showable_password_show', title: I18n.t('_other.showable_password.show')
+    ico2 = content_tag :i, nil, class: 'tooltipped fa fa-eye-slash icon-awesome icon-mconf-hide showable_password_hide', title: I18n.t('_other.showable_password.hide')
+    content_tag(:div, "#{field}#{ico1}#{ico2}".html_safe)
   end
 end
