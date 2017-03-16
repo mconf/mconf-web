@@ -1,4 +1,6 @@
-= page_title t('user.lost_password')
+= page_title t('.title')
+
+%h1= t('.title')
 
 #form-wrapper
   = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-inline single-column' }) do |f|

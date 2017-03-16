@@ -519,13 +519,10 @@ pt-br:
     invite_header:
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
-      room_name: "Seja bem-vindo à sala de reuniões: %{name}"
-      room_type_private: "Esta é uma conferência <em>privada</em>"
-      room_type_public: "Esta é uma conferência <em>pública</em>"
       running: "em andamento!"
-      status: "O estado atual da reunião é"
+      status: "O estado atual é"
       status_unknown: "desconhecido"
-      steps: "etapas:"
+      welcome: "Sala virtual"
     invite_userid:
       login: "Entrar"
       login_certificate: "Login via certificado"
@@ -533,11 +530,11 @@ pt-br:
       member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        title: "Eu sou um membro deste site"
+        title: "Já tenho uma conta"
       non_member:
+        join: "Entrar"
         name: "Seu nome completo"
-        next: "Próximo"
-        title: "Eu não possuo uma conta, quero entrar como convidado"
+        title: "Não tenho uma conta"
       title: "Acessar sala: %{name}"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
@@ -659,9 +656,15 @@ pt-br:
   deny: Não
   destroy: Destruir
   devise:
+    confirmations:
+      new:
+        title: "Resend confirmation email"
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
+    passwords:
+      new:
+        title: "Redefina sua senha"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: ''
@@ -1325,7 +1328,8 @@ pt-br:
   register_now: "Registe-se agora!"
   registrations:
     new:
-      title: "Register"
+      form_title: "Registre-se"
+      title: "Registrar"
     signup_form:
       register: "Registre-se"
   remove: Remover
@@ -1382,10 +1386,11 @@ pt-br:
     login_form:
       email_or_login: "E-mail ou nome de usuário"
       ldap_authentication: "Autenticar via LDAP"
-      login: "Login"
+      login: "Entrar"
       password: "Senha"
     new:
-      title: "Login"
+      form_title: "Acesse sua conta"
+      title: "Entrar"
   session_locales:
     create:
       success: "Idioma da aplicação alterado para %{value}"

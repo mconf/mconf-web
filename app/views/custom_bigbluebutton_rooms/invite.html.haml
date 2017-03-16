@@ -9,22 +9,19 @@
 
 #webconf-room-invite
 
-  #webconf-room-join
+  = simple_form_for :bigbluebutton_room, url: join_bigbluebutton_room_path(@room), html: { class: 'single-column' } do |f|
 
-    = simple_form_for :bigbluebutton_room, :url => join_bigbluebutton_room_path(@room), :html => { :class => 'single-column' } do |f|
-      .input
-        %label= t(".field_name")
-        - unless username.blank?
-          -# add this so it is submitted even if the input below is disabled
-          = hidden_field_tag "user[name]", username
-          = text_field_tag "", username, :readonly => true, :disabled => true, :class => "string"
-        - else
-          = text_field_tag "user[name]", "", :autofocus => true, :class => "string"
-      - if @user_role == :key
-        .input
-          %label= t(".field_password")
-          - if username.blank?
-            = password_field_tag "user[key]", "", :class => "string"
-          - else
-            = password_field_tag "user[key]", "", :autofocus => true, :class => "string"
-      = f.button :submit, t("join"), :class => "btn btn-primary"
+    .form-group
+      %label= t(".field_name")
+      = hidden_field_tag "user[name]", username
+      %h3= username
+      - unless user_signed_in?
+        .change-name= link_to 'wrong name? change it', join_webconf_path(@room)
+
+    - if @user_role == :key
+      .form-group.form-password
+        %label= t(".field_password")
+        = password_field_tag "user[key]", "", autofocus: true, class: "string form-control"
+
+    .form-actions
+      = f.button :submit, t("join"), class: "btn btn-primary"

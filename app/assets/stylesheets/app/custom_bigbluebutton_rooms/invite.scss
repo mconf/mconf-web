@@ -8,34 +8,49 @@ body.custom_bigbluebutton_rooms.auth {
 
   #webconf-room-invite {
     @include mconf-clearfix;
-    padding: 30px 0;
-    min-height: 200px;
-  }
+    clear: both;
 
-  #webconf-room-status {
-    @include font-size($m-font-medium);
-    text-align: center;
+    @include make-row;
 
-    .label {
-      display: inline-block;
-    }
-    .refresh {
-      float: right;
-    }
-  }
-
-  #webconf-room-join {
     form {
-      clear: both;
-      margin: 0 auto;
-      width: 45%;
+      @include make-xs-column(12);
+      @include make-sm-column(4);
+      @include make-sm-column-push(4);
 
-      input[type=submit] {
-        padding-left: 20px;
-        padding-right: 20px;
-        float: right;
+      h3 {
+        color: #fff;
+        margin-top: 8px;
+        border-bottom: 1px solid #005665;
+        padding: 8px 4px;
+        border-radius: $m-border-radius-base;
+      }
+
+      .change-name {
+        font-size: $m-font-normal;
+        display: block;
+        text-align: right;
+
+        a {
+          $normal: $m-link-color-hover;
+          $hover: darken($normal, 5);
+          @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+
+      .form-password {
+        margin-top: 32px;
+      }
+    }
+
+    .form-actions {
+      border: none;
+      margin-top: 24px;
+      padding-top: 0;
+
+      input {
+        padding-left: 24px;
+        padding-right: 24px;
       }
     }
   }
-
 }

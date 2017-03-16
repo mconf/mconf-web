@@ -519,13 +519,10 @@ en:
     invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
-      room_name: "Welcome to the conference room: %{name}"
-      room_type_private: "This is a <em>private</em> web conference room"
-      room_type_public: "This is a <em>public</em> web conference room"
       running: "running!"
       status: "The meeting currently is"
       status_unknown: "unknown"
-      steps: "steps:"
+      welcome: "Virtual room"
     invite_userid:
       login: "Login"
       login_certificate: "Login via client certificate"
@@ -533,11 +530,11 @@ en:
       member:
         email_or_username: "Email or username"
         password: "Password"
-        title: "I'm a member of this website"
+        title: "I have an account"
       non_member:
+        join: "Join"
         name: "Your full name"
-        next: "Next"
-        title: "I don't have an account, I will join this room as a guest"
+        title: "I don't have an account"
       title: "Join the room: %{name}"
     join:
       unauth_access_to_conferences: "You need to sign in before you can join this conference."
@@ -645,9 +642,15 @@ en:
   deny: "No"
   destroy: Destroy
   devise:
+    confirmations:
+      new:
+        title: "Resend confirmation email"
     failure:
       user:
         not_approved: "Your account has not yet been approved by an administrator."
+    passwords:
+      new:
+        title: "Reset your password"
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
       signed_up_but_not_approved: ""
@@ -1291,6 +1294,7 @@ en:
   register_now: "Register now!"
   registrations:
     new:
+      form_title: "Registration"
       title: "Register"
     signup_form:
       register: "Register"
@@ -1351,6 +1355,7 @@ en:
       login: "Login"
       password: "Password"
     new:
+      form_title: "Sign in"
       title: "Sign in"
   session_locales:
     create:

@@ -12,7 +12,7 @@ module IconsHelper
   end
 
   # Default icon that shows a tooltip with information about something
-  def icon_info(title, options={})
+  def icon_info(title=nil, options={})
     icon_constructor title, "fa fa-info-circle icon-awesome icon-mconf-info", options
   end
 

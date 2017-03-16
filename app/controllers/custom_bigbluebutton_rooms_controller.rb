@@ -43,7 +43,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     when :running
       false
     when :invite_userid, :invite
-      "no_sidebar"
+      "navbar_bg"
     when :user_edit
       if request.xhr?
         false

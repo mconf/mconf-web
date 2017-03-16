@@ -9,7 +9,7 @@ body.registrations.new, body.registrations.create {
 
     form {
       // every field is required, we don't need to show it
-      abbr[title=required] { display: none; }
+      abbr { display: none; }
 
       .form-actions {
         border: none;
@@ -26,27 +26,10 @@ body.registrations.new, body.registrations.create {
       margin-bottom: 32px;
       background: $m-navbar-internal-border-color;
       color: $m-navbar-font-color;
-    }
-  }
 
-  #login-extra-links {
-    margin: 32px auto 0 auto;
-    padding: 0;
-    border-top: 1px solid $m-navbar-internal-border-color;
-    text-align: center;
-
-    li {
-      border-bottom: 1px solid $m-navbar-internal-border-color;
-      font-size: $m-font-medium;
-
-      a {
-        display: block;
-        padding: 16px;
-        @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
-
-        &:hover {
-          text-decoration: none;
-        }
+      .icon-mconf-info {
+        color: $m-yellow;
+        &:hover, &:focus { color: $m-yellow; }
       }
     }
   }

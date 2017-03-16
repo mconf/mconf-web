@@ -8,64 +8,43 @@ body.custom_bigbluebutton_rooms.auth {
   #webconf-room-invite-header {
     text-align: center;
     @include border-radius($m-border-radius-base);
-    background-color: $m-alert-bg;
+    background-color: $m-navbar-internal-border-color;
     @include font-size($m-font-medium);
-    padding: 10px;
+    padding: 16px;
+    margin-bottom: 40px;
 
-    .room-name {
+    @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-push(1);
+
+    .room-welcome {
       @include font-size($m-font-bigger);
-      margin-bottom: 5px;
-      font-weight: bold;
+      margin-bottom: 8px;
     }
 
-    .room-type {
-      text-align: center;
-
-      em {
-        font-style: normal;
-        font-weight: bold;
-      }
+    .room-name {
+      font-weight: bold;
+      display: inline-block;
     }
 
     .room-status {
       text-align: center;
-      .status{
+
+      .status {
         display: inline-block;
         font-weight: bold;
-      }
-      .label {
-        display: inline-block;
-      }
-      .refresh {
-        float: right;
-      }
-    }
+        background: $m-yellow;
+        border-radius: $m-border-radius-base;
+        padding: 4px 8px;
+        margin-left: 8px;
+        color: #fff;
 
-    .steps {
-      float: right;
-      margin-top: 5px;
+        &.running {
+          background-color: $m-green;
+        }
 
-      .text {
-        float: left;
-        margin-top: 5px;
-        margin-right: 5px;
-      }
-
-      .step {
-        float: left;
-        margin: 0 5px;
-        @include font-size($m-font-big);
-        color: #666;
-        font-weight: bold;
-        background: white;
-        width: 40px;
-        padding: 4px 0;
-        @include border-radius($m-border-radius-base);
-        display: block;
-
-        &.active {
-          background: $m-alert-info-font;
-          color: white;
+        &.not-running {
+          background-color: $m-red;
         }
       }
     }

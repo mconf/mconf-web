@@ -1,6 +1,10 @@
 = page_title t('.title')
 
+%h1= t('.form_title')
+
 #register-wrapper
-  .alert.alert-clean= t('register.confirmation')
+  .alert.alert-clean
+    = icon_info
+    = t('register.confirmation')
   = render partial: 'signup_form'
   = render "devise/shared/links"

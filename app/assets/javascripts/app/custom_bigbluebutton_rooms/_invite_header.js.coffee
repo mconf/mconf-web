@@ -20,10 +20,10 @@ errorStatus = (data) ->
 successStatus = (data) ->
   target = $(".status", container)
   if data.running is "false"
-    target.removeClass("label-success")
-    target.addClass("label-important")
+    target.removeClass("running")
+    target.addClass("not-running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.not_running'))
   else
-    target.removeClass("label-important")
-    target.addClass("label-success")
+    target.removeClass("not-running")
+    target.addClass("running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.running'))

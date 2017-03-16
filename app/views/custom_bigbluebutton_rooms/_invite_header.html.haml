@@ -1,14 +1,11 @@
 - page ||= 1
 
 #webconf-room-invite-header
-  .room-name= t(".room_name", name: room.name)
+  .room-welcome
+    = t(".welcome")
+    .room-name= room.name
 
-  .room-status{:"data-url" => running_bigbluebutton_room_url(@room, :format => "json")}
+  .room-status{ "data-url": running_bigbluebutton_room_url(@room, format: "json") }
     = t(".status")
-    .status{options_for_tooltip(t(".refresh"))}
+    .status{ options_for_tooltip(t(".refresh")) }
       = t(".status_unknown")
-
-  - if @room.private
-    .room-type= t(".room_type_private").html_safe
-  - else
-    .room-type= t(".room_type_public").html_safe

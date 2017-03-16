@@ -6,62 +6,37 @@
 body.custom_bigbluebutton_rooms.invite_userid {
 
   #webconf-room-userid {
-    @include mconf-clearfix;
-    padding: 30px 0;
-    min-height: 200px;
-
-    #webconf-room-userid-member, #webconf-room-userid-non-member {
-      margin: 0;
-      padding: 0;
-      width: 50%;
-      float: left;
-
-      .container {
-        float: left;
-        max-width: 350px;
-        margin: 0 40px;
-
-        .title {
-          margin-bottom: 20px;
-          display: block;
-          font-weight: bold;
-        }
-      }
-    }
+    @include make-row;
 
     #webconf-room-userid-member {
-      border-right: 1px solid #ddd;
-
-      .container {
-        float: right;
-      }
-
-      .shibboleth-container {
-        @include font-size($m-font-medium);
-        clear: both;
-        max-width: 300px;
-        float: right;
-        margin: 5px 40px 0 0;
-        text-align: center;
-
-        a { display: block; }
-        img {
-          width: 240px;
-          height: 41px;
-          margin: 10px 0;
-        }
-      }
+      @include make-xs-column(12);
+      @include make-sm-column(4);
+      @include make-sm-column-push(2);
+      padding-right: 48px;
+      border-right: 1px solid $m-navbar-internal-border-color;
     }
 
-    input[type=text], input[type=password] {
-      width: 100%;
-      margin-bottom: 10px;
+    #webconf-room-userid-non-member {
+      @include make-xs-column(12);
+      @include make-sm-column(4);
+      @include make-sm-column-push(2);
+      padding-left: 48px;
     }
 
-    input[type=submit] {
-      padding-left: 20px;
-      padding-right: 20px;
-      float: right;
+    h3.title {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .form-actions {
+      border: none;
+      margin-top: 0;
+      padding-top: 0;
+
+      input {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
     }
   }
 }

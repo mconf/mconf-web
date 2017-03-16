@@ -36,10 +36,24 @@
   }
 }
 
+#content-middle, #footer {
+  a:not(.btn) {
+    $normal: $m-link-color-hover;
+    $hover: lighten($normal, 8);
+    @include link-colors($normal, $hover, $hover, $normal);
+  }
+}
+
 #footer {
   color: $m-navbar-font-color;
 }
 
 #footer-powered img {
   display: none;
+}
+
+#content-middle {
+  > h1 {
+    text-align: center;
+  }
 }
