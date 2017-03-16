@@ -341,13 +341,13 @@ class Space < ActiveRecord::Base
   # Creates the webconf room after the space is created
   def create_webconf_room
     params = {
-      :owner => self,
-      :param => self.permalink,
-      :name => self.name,
-      :private => false,
-      :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/"
+      owner: self,
+      param: self.permalink,
+      name: self.name,
+      private: false,
+      moderator_key: SecureRandom.hex(4),
+      attendee_key: SecureRandom.hex(4),
+      logout_url: "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end

@@ -90,6 +90,9 @@ module Mconf
         ru: "Pусский"
       }
 
+    # Set to true so all users are created with permission to record
+    config.can_record_default = ENV['MCONF_CAN_RECORD_DEFAULT'] == 'true'
+
     # Scope for all URLs related to conferences
     # and for the short URLs used to join a conference
     config.conf_scope       = ENV['MCONF_CONFERENCE_SCOPE'] || 'conf'

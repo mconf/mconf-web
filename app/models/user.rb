@@ -190,12 +190,12 @@ class User < ActiveRecord::Base
 
   def create_webconf_room
     params = {
-      :owner => self,
-      :param => self.username,
-      :name => self._full_name,
-      :logout_url => "/feedback/webconf/",
-      :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4)
+      owner: self,
+      param: self.username,
+      name: self._full_name,
+      logout_url: "/feedback/webconf/",
+      moderator_key: SecureRandom.hex(4),
+      attendee_key: SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
   end
@@ -411,6 +411,7 @@ class User < ActiveRecord::Base
 
   def init
     @created_by = nil
+    self.can_record = Rails.application.config.can_record_default
   end
 
   # This overrides the method from Devise::Models::Trackable
