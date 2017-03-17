@@ -21,19 +21,19 @@ class mconf.Tooltip
     hintOptions =
       placement: 'auto top'
       title: ->
-        formGroup = $(this).parent().parent()
-        formGroup.children(".help-block").text()
+        formGroup = $(this).parents(".form-group")
+        formGroup.find(".help-block").text()
     hintOptions = _.extend(defaultOptions, hintOptions)
 
     $(".form-group.has-hint > label").each ->
       help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
       $(this).append(help)
-      $(this).children(".icon-mconf-help").tooltip(hintOptions)
+      $(this).find(".icon-mconf-help").tooltip(hintOptions)
 
     $(".form-group.has-hint > .checkbox").each ->
       help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
       $(this).append(help)
-      $(this).children(".icon-mconf-help").tooltip(hintOptions)
+      $(this).find(".icon-mconf-help").tooltip(hintOptions)
 
 $ ->
   mconf.Tooltip.bind()
