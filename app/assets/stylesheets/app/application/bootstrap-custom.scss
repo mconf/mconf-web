@@ -31,6 +31,9 @@
     background: $m-input-focus-bg;
   }
 }
+.has-error .form-control:focus {
+  box-shadow: none;
+}
 
 label {
   font-weight: normal;
