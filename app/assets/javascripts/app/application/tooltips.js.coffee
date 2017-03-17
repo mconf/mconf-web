@@ -35,5 +35,10 @@ class mconf.Tooltip
       $(this).append(help)
       $(this).find(".icon-mconf-help").tooltip(hintOptions)
 
+  @bindOne: (el) ->
+    $el = $(el)
+    $el.tooltip('destroy')
+    $el.tooltip(defaultOptions)
+
 $ ->
   mconf.Tooltip.bind()

@@ -4,10 +4,9 @@
 
 #webconf-room-userid
 
-  #webconf-room-userid-member
+  - cls = current_site.unauth_access_to_conferences? ? '' : 'only'
+  #webconf-room-userid-member{ class: cls }
     %h3.title= t(".member.title")
-
-    -# TODO: remove form local auth enabled || ldap
 
     = simple_form_for "user", url: user_session_path do |f|
       .form-group

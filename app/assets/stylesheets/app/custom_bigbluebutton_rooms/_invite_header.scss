@@ -28,7 +28,9 @@ body.custom_bigbluebutton_rooms.auth {
     }
 
     .room-status {
-      text-align: center;
+      display: block;
+      font-size: $m-font-medium;
+      margin: 16px 0;
 
       .status {
         display: inline-block;
@@ -41,10 +43,12 @@ body.custom_bigbluebutton_rooms.auth {
 
         &.running {
           background-color: $m-green;
+          cursor: pointer;
         }
 
         &.not-running {
           background-color: $m-red;
+          cursor: pointer;
         }
       }
     }

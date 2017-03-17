@@ -5,7 +5,7 @@
     = t(".welcome")
     .room-name= room.name
 
-  .room-status{ "data-url": running_bigbluebutton_room_url(@room, format: "json") }
-    = t(".status")
-    .status{ options_for_tooltip(t(".refresh")) }
-      = t(".status_unknown")
+    .room-status{ "data-url": running_bigbluebutton_room_url(@room, format: "json") }
+      .status= t(".status_unknown")
+
+  %div= t('.identify')

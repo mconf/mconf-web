@@ -520,10 +520,11 @@ en:
       field_password: "Enter the access key for this meeting"
       title: "Join room: %{name}"
     invite_header:
+      identify: "Please identify yourself to join"
       not_running: "not running"
-      refresh: "This information is updated automatically"
-      running: "running!"
-      status: "The meeting currently is"
+      not_running_tooltip: "The room is not open yet, there's no meeting in progress"
+      running: "in progress!"
+      running_tooltip: "The room is open, there's a meeting in progress!"
       status_unknown: "unknown"
       welcome: "Virtual room"
     invite_userid:

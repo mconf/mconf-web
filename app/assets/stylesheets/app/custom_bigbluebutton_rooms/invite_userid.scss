@@ -6,6 +6,7 @@
 body.custom_bigbluebutton_rooms.invite_userid {
 
   #webconf-room-userid {
+    clear: both;
     @include make-row;
 
     #webconf-room-userid-member {
@@ -14,6 +15,12 @@ body.custom_bigbluebutton_rooms.invite_userid {
       @include make-sm-column-push(2);
       padding-right: 48px;
       border-right: 1px solid $m-navbar-internal-border-color;
+
+      &.only {
+        @include make-sm-column(4);
+        @include make-sm-column-push(4);
+        border: none;
+      }
     }
 
     #webconf-room-userid-non-member {
@@ -21,6 +28,11 @@ body.custom_bigbluebutton_rooms.invite_userid {
       @include make-sm-column(4);
       @include make-sm-column-push(2);
       padding-left: 48px;
+    }
+
+    .identify {
+      text-align: center;
+      border-bottom: 1px solid $m-navbar-internal-border-color;
     }
 
     h3.title {
