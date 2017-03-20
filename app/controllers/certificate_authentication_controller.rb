@@ -37,7 +37,7 @@ class CertificateAuthenticationController < ApplicationController
 
     else
       cert_name = @cert.join_only
-      cookies[:join_only_certificate] = { :value => cert_name, :expires => Time.now + 300}
+      cookies[:join_only_certificate] = { :value => cert_name, :expires => Time.now + 300 }
       respond_to do |format|
         format.json { render json: { result: true, redirect_to: user_return_to }, status: 200 }
       end

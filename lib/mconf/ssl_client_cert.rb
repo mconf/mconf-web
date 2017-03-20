@@ -38,7 +38,7 @@ module Mconf
     # For joining webconferences without having to create a user,
     # returns user name for creating a cookie
     def join_only
-      get_name_field.titleize
+      get_name.titleize
     end
 
     def error
