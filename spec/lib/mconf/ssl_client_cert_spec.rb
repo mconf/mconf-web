@@ -28,6 +28,7 @@ describe Mconf::SSLClientCert do
     certificate_list.each do |name, cert_str|
       context "test if '#{name}' is valid" do
         let(:cert) { Mconf::SSLClientCert.new(cert_str) }
+        before { cert.create_user }
 
         it { cert.error.should be_nil }
         it { cert.certificate.class.should be(OpenSSL::X509::Certificate) }
