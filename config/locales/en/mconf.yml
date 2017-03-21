@@ -739,6 +739,7 @@ en:
         federation: "Login via federation"
         lost_password: "Lost your password?"
         title: "Sign in"
+      or: "or"
       register:
         title: "Create an account"
   from: From

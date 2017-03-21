@@ -753,6 +753,7 @@ pt-br:
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"
+      or: "ou"
       register:
         title: "Criar uma conta"
   from: De
