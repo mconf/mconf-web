@@ -1115,7 +1115,7 @@ en:
     meetings:
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
-      subtitle: "All past meetings and recordings"
+      subtitle: "Past meetings and recordings"
       title: "Meetings and recordings"
       update_meetings:
         error: "Error updating recordings, plase try again later"
@@ -1368,6 +1368,7 @@ en:
   shared:
     recording_list:
       created_by: "Created by"
+      delay_warning: "(recordings can take a few minutes to appear after the end of a meeting)"
       delete: "Remove recording"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
@@ -1640,14 +1641,14 @@ en:
     meetings:
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
-      title: "All meetings and recordings in this space"
+      title: "Meetings and recordings in this space"
       update_meetings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
     requests_notifications:
       pending_requests:
-        one: "There is %{count} pending requests"
+        one: "There is %{count} pending request"
         other: "There are %{count} pending requests"
     show:
       description: "Description"

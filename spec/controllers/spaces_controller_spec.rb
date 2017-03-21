@@ -711,13 +711,6 @@ describe SpacesController do
         it { assigns(:meetings).should_not include(@m3) }
       end
     end
-
-    context "if params[:partial] is set" do
-      before(:each) { get :meetings, :id => space.to_param, :partial => true }
-      it { should render_template(:meetings) }
-      it { should_not render_with_layout }
-    end
-
   end
 
   describe "#recording_edit" do

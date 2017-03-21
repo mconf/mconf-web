@@ -1,43 +1,16 @@
-- if params[:partial]
+- page_title t('spaces.sidebar.webconference'), in: @space.name
+- spaces_menu_at :webconference
+
+= render 'spaces/sidebar', space: @space, full: false
+
+#space-meetings
+  %h3= t('.title')
+
+  .btn-group.recordedonly-buttons
+    = link_to meetings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
+      = t(".recordedonly_true")
+    = link_to meetings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
+      = t(".recordedonly_false")
+
+#space-meetings-list-container
   = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: meetings_space_path(@space) }
-
-- else
-
-  - page_title t('spaces.sidebar.webconference'), in: @space.name
-  - spaces_menu_at :webconference
-  = render 'spaces/sidebar', space: @space, full: false
-
-  #space-meetings.content-block
-    .content-block-header
-      %h3
-        = t('.title')
-      .btn-group.recordedonly-buttons
-        = link_to meetings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
-          = t(".recordedonly_true")
-
-        = link_to meetings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
-          = t(".recordedonly_false")
-
-      -# only update the recording db if the user has permission to
-      - if can?(:fetch_recordings, @webconf_room)
-
-        -# TODO: This block below is almost duplicated at my/meetings.html.haml, find a way to merge
-        -# them together.
-
-        -# a form to trigger the method that will fetch the recordings in the webconf server
-        -# TODO: setting data-type to html because bigbluebutton_rails is not returning a proper json on success yet
-        = form_tag fetch_recordings_bigbluebutton_room_path(@webconf_room, :format => 'json'), :method => :post, :remote => true, :id => 'space-meetings-fetch', 'data-type' => 'html' do
-          #space-meetings-error
-            %span= t(".update_meetings.error")
-            = icon_error
-          #space-meetings-success
-            %span= t(".update_meetings.success")
-            = icon_success
-          #space-meetings-loading
-            %span= t(".update_meetings.updating")
-            = icon_in_progress
-        -# a form to get the html with the list of recordings after the list is updated
-        = form_tag meetings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-meetings-update'
-
-    #space-meetings-list-container.content-block-middle
-      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: meetings_space_path(@space) }

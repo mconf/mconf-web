@@ -8,25 +8,18 @@
 # This controller includes actions that are specific for the current user and shouldn't be
 # accessed by anybody else (e.g. home, meetings, activity, etc).
 class MyController < ApplicationController
-  before_filter :authenticate_user!, :except => [:approval_pending]
-  respond_to :json, :only => [:rooms]
-  respond_to :html, :except => [:rooms]
+  before_filter :authenticate_user!, except: :approval_pending
+  respond_to :html
 
   before_filter :prepare_user_room, only: :home
-  before_filter :require_activities_mod, only: [:activity]
-
   after_filter :load_events, only: :home
+
+  before_filter :require_activities_mod, only: :activity
 
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
-    when :meetings
-      if params[:partial]
-        false
-      else
-        "application"
-      end
     when :edit_recording
       if request.xhr?
         false
@@ -71,11 +64,13 @@ class MyController < ApplicationController
   def meetings
     @room = current_user.bigbluebutton_room
 
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
     if params[:recordedonly] == 'false'
-      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
+      @meetings = @meetings.with_or_without_recording()
     else
-      @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_recording()
+      @meetings = @meetings.with_recording()
     end
+    @meetings = @meetings.order("create_time DESC")
 
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)

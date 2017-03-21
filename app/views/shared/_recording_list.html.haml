@@ -17,19 +17,20 @@
         %th.col-sm-4.rec-description-col= t(".description")
         %th.col-sm-3.rec-playback-col= t(".playback_links")
         %th.col-sm-1.rec-playback-col
+        - total_columns = 5
       - else
         %th.col-sm-2.meeting-date-col= t(".started_at")
         %th.col-sm-5.rec-description-col= t(".description")
         %th.col-sm-4.rec-playback-col= t(".playback_links")
         %th.col-sm-1.rec-playback-col
+        - total_columns = 4
   %tbody
     - if meetings.count <= 0
       %tr
-        - if show_authors
-          %td{ :colspan => "5" }= t('.no_meetings')
-        - else
-          %td{ :colspan => "4" }= t('.no_meetings')
+        %td{ colspan: total_columns }= t('.no_meetings')
     - else
+      %tr.table-observation-row
+        %td{ colspan: total_columns }= t('.delay_warning')
       - meetings.each do |meeting|
         - recording = meeting.recording
 

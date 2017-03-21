@@ -1127,7 +1127,7 @@ pt-br:
     meetings:
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
-      subtitle: "Todas reuniões e gravações passadas"
+      subtitle: "Reuniões e gravações passadas"
       title: "Reuniões e gravações"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
@@ -1402,6 +1402,7 @@ pt-br:
   shared:
     recording_list:
       created_by: "Criada por"
+      delay_warning: "(gravações podem demorar alguns minutos para aparecer após uma reunião é encerrada)"
       delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
@@ -1677,7 +1678,7 @@ pt-br:
     meetings:
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
-      title: "Todas reuniões e gravações desta comunidade"
+      title: "Reuniões e gravações desta comunidade"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"

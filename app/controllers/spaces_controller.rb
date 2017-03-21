@@ -168,18 +168,18 @@ class SpacesController < InheritedResources::Base
   # to webconference rooms.
   def meetings
 
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
     if params[:recordedonly] == 'false'
-      @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_or_without_recording()
+      @meetings = @meetings.with_or_without_recording()
     else
-      @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_recording()
+      @meetings = @meetings.with_recording()
     end
+    @meetings = @meetings.order("create_time DESC")
 
     @recording_count = @meetings.count
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)
     end
-
-    render layout: false if params[:partial]
   end
 
   # Page to edit a recording.

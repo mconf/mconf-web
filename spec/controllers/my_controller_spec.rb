@@ -181,12 +181,6 @@ describe MyController do
         it { assigns(:meetings).should_not include(@m3) }
       end
     end
-
-    context "if params[:partial] is set" do
-      before(:each) { get :meetings, :partial => true }
-      it { should render_template(:meetings) }
-      it { should_not render_with_layout }
-    end
   end
 
   describe "#edit_recording" do

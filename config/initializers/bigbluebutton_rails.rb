@@ -80,11 +80,10 @@ Rails.application.config.to_prepare do
     # have a recording.
     scope :with_or_without_recording, -> {
       joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
-        .order("create_time DESC")
+
     }
     scope :with_recording, -> {
       joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
-        .order("create_time DESC")
     }
   end
 
