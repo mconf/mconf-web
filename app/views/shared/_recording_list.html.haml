@@ -37,12 +37,16 @@
         %tr
 
           %td.meeting-date-col
+            - m_create = format_date(meeting.create_time, :long)
+            - format = this_year?(meeting.create_time) ? :short : :average
             - if recording
-              .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: format_date(meeting.create_time, :long), rec_start: format_date(recording.start_time, :long), rec_end: format_date(recording.end_time, :long)) }
-                = format_date(meeting.create_time)
+              - rec_create = format_date(recording.start_time, :long)
+              - rec_end = format_date(recording.end_time, :long)
+              .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: m_create, rec_start: rec_create, rec_end: rec_end) }
+                = format_date(meeting.create_time, format)
             - else
-              .meeting-date{ :title => t('.started_at_desc', meeting_start: format_date(meeting.create_time, :long)) }
-                = format_date(meeting.create_time)
+              .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
+                = format_date(meeting.create_time, format)
 
           - if show_authors
             %td.rec-author-col

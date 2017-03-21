@@ -23,9 +23,26 @@ module DatesHelper
   # Formats a date object to be shown in a view
   def format_date(date, format=:short)
     if date.present?
-      I18n.l(Time.at(date), format: format)
+      if date.is_a?(Integer) && date.to_s.length == 13
+        I18n.l(Time.at(date/1000), format: format)
+      else
+        I18n.l(Time.at(date), format: format)
+      end
     else
       nil
+    end
+  end
+
+  # Returns true if `date` is in the current year.
+  def this_year?(date)
+    if date.present?
+      if date.is_a?(Integer) && date.to_s.length == 13
+        Time.at(date/1000).year == Time.current.year
+      else
+        Time.at(date).year == Time.current.year
+      end
+    else
+      false
     end
   end
 end

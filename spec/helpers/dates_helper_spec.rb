@@ -40,5 +40,44 @@ describe DatesHelper do
         format_date(d).should eql("05 Ago, 12:00")
       }
     end
+
+    context "accepts timestamps" do
+      it { format_date(1490108071).should eql("21 Mar 14:54") }
+      it("with microseconds") { format_date(1490108071000).should eql("21 Mar 14:54") }
+    end
+  end
+
+  describe "#this_year?" do
+    context "accepts date objects" do
+      it {
+        d = DateTime.strptime('05/08/2015 12:00', "%d/%m/%Y %H:%M")
+        this_year?(d).should be(false)
+      }
+      it {
+        year = Time.current.year
+        d = DateTime.strptime("05/08/#{year} 12:00", "%d/%m/%Y %H:%M")
+        this_year?(d).should be(true)
+      }
+    end
+
+    context "returns false if the date is nil" do
+      it { this_year?(nil).should be(false) }
+    end
+
+    context "accepts timestamps" do
+      it { this_year?(1438776000).should be(false) }
+      it("with microseconds") { this_year?(1438776000000).should be(false) }
+
+      it {
+        year = Time.current.year
+        d = DateTime.strptime("05/08/#{year} 12:00", "%d/%m/%Y %H:%M").to_i
+        this_year?(d).should be(true)
+      }
+      it("with microseconds") {
+        year = Time.current.year
+        d = DateTime.strptime("05/08/#{year} 12:00", "%d/%m/%Y %H:%M").to_i
+        this_year?(d*1000).should be(true)
+      }
+    end
   end
 end
