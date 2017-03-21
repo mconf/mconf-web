@@ -16,6 +16,7 @@ class mconf.Resources
   @bind: ->
     mconf.Base.bind()
     mconf.Tooltip.bind()
+    mconf.HelpIcon.bind()
     mconf.InPlaceEdit.bind()
     mconf.Crop.bind()
     mconf.Dropdown.bind()
