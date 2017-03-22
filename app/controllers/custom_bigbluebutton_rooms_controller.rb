@@ -95,7 +95,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.blank_users')
 
     else
-      invitations = WebConferenceInvitation.create_invitations params[:invite][:users],
+      user_list = "#{params[:invite][:users]},#{current_user.id}"
+      invitations = WebConferenceInvitation.create_invitations user_list,
         invitation_group: SecureRandom.uuid,
         sender: current_user,
         target: @room,
