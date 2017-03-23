@@ -6,22 +6,17 @@
   - if can?(:update, @profile)
     .sidebar-top-action-button
       = link_to t('.edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
-      = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
 
-  #sidebar-menu.page-menu-js
-    %ul
-      %li.active= link_to t('.info'), "#tab-user-info"
-      - if mod_enabled?("activities")
-        %li= link_to t('.activities'), "#tab-recent-activity"
-      - if mod_enabled?("spaces")
-        %li= link_to t('.spaces'), "#tab-spaces"
+.container-fluid
+  .profile-info
+    .content-block-middle
+      = render :partial => 'profiles/public_hcard'
+      - if can?(:show, @profile)
+        = render :partial => 'profiles/private_hcard'
+  .profile-spaces
 
-#user-profile-tabs.page-menu-js-tabs
-  #tab-user-info
-    = render :partial => 'profiles/public_hcard'
-    - if can?(:show, @profile)
-      = render :partial => 'profiles/private_hcard'
-  #tab-spaces
-    = render 'users/user_spaces', user: @user, spaces: @user_spaces
-  #tab-recent-activity
-    = render 'users/recent_activity', content: @recent_activities, title: false
+    .content-block-header
+      %h3= t('profile.spaces')
+
+    .content-block-middle
+      = render 'users/user_spaces', user: @user, spaces: @user_spaces
