@@ -258,7 +258,7 @@ pt-br:
         failure: "Comunidade %{name} já está habilitada"
 
       disable:
-        notice: "Comunidade desativada com sucesso"
+        notice: "Comunidade desabilitada com sucesso"
 
     posts:
       update:
@@ -978,8 +978,8 @@ pt-br:
     spaces:
       approved_false: "Não aprovados"
       approved_true: "Aprovados"
-      disabled_false: "Habilitados"
-      disabled_true: "Desabilitados"
+      disabled_false: "Habilitadas"
+      disabled_true: "Desabilitadas"
       filter_name: "Filtrar por nome ou descrição"
       new_space: "Nova comunidade"
     destroy_space:
