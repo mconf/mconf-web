@@ -68,9 +68,9 @@ class User < ActiveRecord::Base
   # Will be set to a user when the user was registered by an admin.
   attr_accessor :created_by
 
-  # Full name must go to the profile, but it is provided by the user when
+  # Full name and personal info must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
-  attr_accessor :_full_name
+  attr_accessor :_full_name, :_organization, :_cpf_cnpj, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country, :terms
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
@@ -214,7 +214,18 @@ class User < ActiveRecord::Base
 
   after_create :create_user_profile
   def create_user_profile
-    create_profile({full_name: self._full_name})
+    puts create_profile({
+      full_name: self._full_name,
+      address: self._address,
+      city: self._city,
+      country: self._country,
+      cpf_cnpj: self._cpf_cnpj,
+      organization: self._organization,
+      phone: self._phone,
+      province: self._province,
+      service_usage: self._service_usage,
+      zipcode: self._zipcode
+    })
   end
 
   # Builds a guest user based on the e-mail

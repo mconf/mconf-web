@@ -247,7 +247,16 @@ en:
         repository: "Document repository"
         tag_list: "Tags"
       user:
+        _address: "Address"
+        _city: "City"
+        _country: "Country"
+        _cpf_cnpj: "CPF or CNPJ"
         _full_name: "Full name"
+        _organization: "Organization"
+        _phone: "Telephone"
+        _province: "Province"
+        _service_usage: "Will use the service for:"
+        _zipcode: "Zipcode"
         approved: "Approved"
         can_record: "Allow this user to record meetings"
         current_password: "Current password"
@@ -1304,6 +1313,7 @@ en:
       title: "Register"
     signup_form:
       register: "Register"
+      terms: "I have read and agree to the <a href=\"https://www.mconf.com/terms/\">terms and conditions</a>"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"

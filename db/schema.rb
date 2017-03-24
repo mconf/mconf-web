@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309190252) do
+ActiveRecord::Schema.define(version: 20170323182127) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -308,14 +308,16 @@ ActiveRecord::Schema.define(version: 20170309190252) do
     t.string  "province"
     t.string  "country"
     t.integer "user_id"
-    t.string  "prefix_key",   default: ""
+    t.string  "prefix_key",    default: ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   default: 3
+    t.integer "visibility",    default: 3
     t.string  "full_name"
     t.string  "logo_image"
+    t.string  "cpf_cnpj"
+    t.string  "service_usage"
   end
 
   create_table "roles", force: true do |t|

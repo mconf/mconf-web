@@ -3,18 +3,31 @@
 - user = resource.nil? ? User.new : resource
 
 = simple_form_for user, as: resource_name, url: registration_path(resource_name), wrapper: :horizontal_form, html: { class: "form-horizontal" } do |f|
-  = disable_autocomplete_for('user[username]')
-  = disable_autocomplete_for('user[password]', 'password')
-  = f.input :email, :required => true, :autofocus => true
-  = f.input :_full_name, :required => true
   = f.input :username, required: true, wrapper: :horizontal_input_group do
     - if webconf_url_prefix.length <= 35
       - prepend_text = webconf_url_prefix
+      - puts webconf_url_prefix
     - else
       - prepend_text = "/#{webconf_path_prefix}"
     = content_tag :span, prepend_text, class: "input-group-addon"
-    = f.input_field :username, class: "form-control"
+    = f.input_field :username, class: "form-control", :autofocus => true
+  = disable_autocomplete_for('user[username]')
+  = disable_autocomplete_for('user[password]', 'password')
+
+  = f.input :_full_name, :required => true
+  = f.input :email, :required => true
+  = f.input :_organization, :required => false
+  = f.input :_cpf_cnpj, :required => false
+  = f.input :_service_usage, :required => false
+  = f.input :_phone, :required => false
+  = f.input :_zipcode, :required => false
+  = f.input :_address, :required => false
+  = f.input :_city, :required => false
+  = f.input :_province, :required => false
+  = f.input :_country, :as => :string, :required => false
   = f.input :password, :required => true
   = f.input :password_confirmation, :required => true
   = captcha_tags theme: 'dark'
-  = f.button :wrapped, :value => t(".register")
+  .form_accept_terms
+    = f.input :terms, label: t('.terms').html_safe , as: :boolean, :required => true
+  = f.button :wrapped, :value => t(".register"), disabled: true

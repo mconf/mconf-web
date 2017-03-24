@@ -5,3 +5,8 @@ class mconf.SignupForm
     $username.attr "value", mconf.Base.stringToSlug($fullname.val())
     $fullname.on "input keyup", () ->
       $username.attr "value", mconf.Base.stringToSlug($fullname.val())
+
+    $terms = $("#user_terms:not(.disabled)")
+    $button = $("input[name='commit']")
+    $terms.on 'click', (e) ->
+      $button.prop('disabled', !$terms.is(":checked"));

@@ -8,11 +8,15 @@ body.registrations.new, body.registrations.create {
     @include mconf-clearfix;
 
     form {
-      // every field is required, we don't need to show it
-      abbr { display: none; }
+      .form_accept_terms {
+        float: right;
+        margin-right: 15px;
+      }
 
       .form-actions {
         border: none;
+        margin-top: 0px;
+        padding-top: 0px;
       }
     }
 

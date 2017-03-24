@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def allowed_params
-    [:email, :_full_name, :username]
+    [:email, :_full_name, :username, :_organization, :_cpf_cnpj, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country]
   end
 
   private

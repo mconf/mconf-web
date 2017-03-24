@@ -245,7 +245,16 @@ pt-br:
         repository: "Repositório de documentos"
         tag_list: "Tags"
       user:
+        _address: "Endereço"
+        _city: "Cidade"
+        _country: "País"
+        _cpf_cnpj: "CPF ou CNPJ"
         _full_name: "Nome completo"
+        _organization: "Organização"
+        _phone: "Telefone"
+        _province: "Estado"
+        _service_usage: "Uso do serviço:"
+        _zipcode: "CEP"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
         current_password: "Senha atual"
@@ -1323,7 +1332,7 @@ pt-br:
   register:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
-    and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a"
+    and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
     confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
@@ -1338,6 +1347,7 @@ pt-br:
       title: "Registrar"
     signup_form:
       register: "Registre-se"
+      terms: "Li e concordo com os <a href=\"https://www.mconf.com/termos/\">termos de uso</a>"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
