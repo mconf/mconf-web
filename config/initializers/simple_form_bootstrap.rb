@@ -169,8 +169,8 @@ SimpleForm.setup do |config|
     end
   end
 
-    config.wrappers :horizontal_input_group, tag: 'div', class: 'form-group',
-                    error_class: 'has-error', hint_class: 'has-hint' do |b|
+  config.wrappers :horizontal_input_group, tag: 'div', class: 'form-group',
+                  error_class: 'has-error', hint_class: 'has-hint' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label, class: 'col-sm-3 control-label'
@@ -182,6 +182,16 @@ SimpleForm.setup do |config|
       ba.use :error, wrap_with: { tag: 'span', class: 'error-block' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     end
+  end
+
+  config.wrappers :label_only, tag: 'span',
+                  hint_class: 'has-hint', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :label, class: 'control-label'
+
+    # b.use :input, class: 'form-control'
+    b.use :error, wrap_with: { tag: 'span', class: 'error-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
   # Wrappers for forms and inputs using the Bootstrap toolkit.

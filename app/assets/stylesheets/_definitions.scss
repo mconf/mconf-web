@@ -74,7 +74,7 @@ $m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
 $m-focus-border-color: $m-color-secondary;
 
 // borders
-$m-border-color-normal: #e8e8e8;/* #ddd; */
+$m-border-color-normal: #ddd;// #e8e8e8;/* #ddd; */
 $m-border-color-medium: #e6e6e6;
 $m-border-color-light: #eee;
 $m-border-radius-base: 2px;
@@ -83,7 +83,7 @@ $m-border-radius-large: 3px;
 
 // inputs
 $m-input-bg: #fff;
-$m-input-border-color: $m-border-color-medium;
+$m-input-border-color: $m-border-color-normal; //$m-border-color-medium;
 $m-input-focus-bg:  #fff; //#fafafa;
 $m-input-focus-border-color: $m-color-secondary; //lighten($m-color-primary-light, 5); // #999999;
 $m-input-disabled-bg: #f6f6f6;
@@ -225,6 +225,8 @@ $brand-success: $olive;
 $brand-info: $blue;
 $brand-danger: $red; //#d9534f; //$red;
 $brand-warning: $orange;
+//$btn-default-bg:
+$btn-default-border: $m-border-color-normal;
 $btn-primary-bg: $m-color-secondary;
 $btn-primary-border: $btn-primary-bg;
 $btn-success-bg: $brand-success;
@@ -253,17 +255,16 @@ $link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
 $input-bg: $m-input-bg;
 $input-bg-disabled: $m-input-disabled-bg;
-$input-border-focus: $m-input-focus-border-color;
 $input-border: $m-input-border-color;
-$input-border-radius: $m-border-radius-base;
+$input-border-focus: $m-input-focus-border-color;
+$input-border-radius-base: $m-border-radius-base;
 $input-border-radius-large: $m-border-radius-base;
 $input-border-radius-small: $m-border-radius-base;
 $input-group-addon-border-color: $input-border;
-$btn-border-radius: $m-border-radius-base;
+$btn-border-radius-base: $m-border-radius-base;
 $btn-border-radius-large: $m-border-radius-base;
 $btn-border-radius-small: $m-border-radius-base;
 $cursor-disabled: default;
-
 
 // Important: have to be imported after customizing bootstrap's variables
 @import "bootstrap/mixins";

@@ -122,7 +122,9 @@ class mconf.Base
   # Converts a string into a slug. Should do it as closely as possible from the
   # way slugs are generated in the application using FriendlyId.
   # From: http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
-  @stringToSlug: (str) ->
+  # direct_input is a boolean to allow more freedom if the slug is applied to the
+  # same field the user is currently editing
+  @stringToSlug: (str, direct_input=false) ->
     return '' if !str?
 
     str = str.toLowerCase()
@@ -130,8 +132,12 @@ class mconf.Base
     str = str.replace(/[^A-Za-z0-9\-_ ]*/g, '')
        .replace(/\s+/g, '-')         # collapse whitespace and replace by '-'
        .replace(/-+/g, '-')          # collapse dashes
-       .replace(/-$/g, '')           # dash as the last char
        .replace(/^-/g, '')           # dash as the first char
+
+    if direct_input is false
+      str = str.replace(/-$/g, '')   # dash as the last char
+
+    str
 
   # Returns whether an email is valid or not.
   # From: http://www.w3resource.com/javascript/form/email-validation.php
