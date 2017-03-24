@@ -10,10 +10,12 @@
       = hidden_field_tag :redir_url, @redir_url
       = disable_autocomplete_for('bigbluebutton_room[name]')
       = f.input :name, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.name')
-      = disable_autocomplete_for('bigbluebutton_room[param]')
-      = f.input :param, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :vertical_input_group do
-        = content_tag :span, webconf_url_prefix, class: "input-group-addon"
-        = f.input_field :param, class: "form-control"
+
+      - if can?(:change_url, @room)
+        = disable_autocomplete_for('bigbluebutton_room[param]')
+        = f.input :param, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :vertical_input_group do
+          = content_tag :span, webconf_url_prefix, class: "input-group-addon"
+          = f.input_field :param, class: "form-control"
 
       .form-group.room-visibility
         = f.input :private, hint: t('simple_form.hints.user.bigbluebutton_room.private'), wrapper: :label_only, label: t('.visibility')
