@@ -143,6 +143,9 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
+      bigbluebutton_room:
+        name: "Nome"
+        param: "Endereço"
       invite:
         ends_on: "Acaba em"
         message: "Descrição"
@@ -586,6 +589,10 @@ pt-br:
       showing_room: "Mostrando a sala '%{room}'"
     user_edit:
       layout_empty_option: "<padrão>"
+      private: "Privada"
+      public: "Pública"
+      subtitle: "Configurações da sala de conferência web"
+      visibility: "Visibilidade"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"

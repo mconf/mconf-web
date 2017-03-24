@@ -148,6 +148,9 @@ en:
   actions: Actions
   activerecord:
     attributes:
+      bigbluebutton_room:
+        name: "Name"
+        param: "Address"
       invite:
         ends_on: "Ends on"
         message: "Description"
@@ -572,6 +575,10 @@ en:
       showing_room: "Showing room '%{room}'"
     user_edit:
       layout_empty_option: "<default>"
+      private: "Private"
+      public: "Public"
+      subtitle: "Web conference room configurations"
+      visibility: "Visibility"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editing recording"

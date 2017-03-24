@@ -5,4 +5,33 @@
   textarea {
     height: 80px;
   }
+
+  .room-visibility {
+    span {
+      display: block;
+    }
+
+    .room-visibility-options {
+
+      .btn-group {
+        white-space: nowrap;
+        display: table-cell;
+        width: 1%;
+
+        > .btn {
+          float: none;
+
+          &:last-child {
+            margin-left: -5px;
+          }
+        }
+      }
+
+      .form-group {
+        display: table-cell;
+        width: 100%;
+        padding-left: 8px;
+      }
+    }
+  }
 }
