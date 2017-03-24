@@ -1217,6 +1217,7 @@ en:
     private: "Private profile"
     public: "Public profile"
     public_description: "Anyone can access this information"
+    spaces: "Spaces joined by this user"
     updated: "Profile updated successfully"
   profiles:
     edit:

@@ -7,4 +7,14 @@
 
 body.users.show {
 
+  .profile-info {
+    @include make-xs-column(12);
+    @include make-md-column(6);
+    border-right: 1px solid $m-border-color-normal;
+  }
+
+  .profile-spaces {
+    @include make-xs-column(12);
+    @include make-md-column(6);
+  }
 }

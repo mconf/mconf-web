@@ -1251,6 +1251,7 @@ pt-br:
     private: "Perfil privado"
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
+    spaces: "Comunidades das quais este usuário é membro"
     updated: "Perfil atualizado com sucesso"
   profiles:
     edit:
