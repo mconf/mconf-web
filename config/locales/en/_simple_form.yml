@@ -20,6 +20,9 @@ en:
       user:
         edit:
           password: "New password"
+      bigbluebutton_room:
+        name: "Webconference room name"
+        url: "Webconference room address"
     hints:
       bigbluebutton_room:
         dial_number: "A dial access number that participants can call in using regular phone."
@@ -91,8 +94,11 @@ en:
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
           moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
+          name: "The name of the room for this webconference, as will be seen by all attendees during the meeting."
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
+          url: "The url that will be used to access this webconference room for this meeting."
+          url_label: "Url"
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
         dial_number: "A dial access number that participants can call in using regular phone."

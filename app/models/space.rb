@@ -355,10 +355,12 @@ class Space < ActiveRecord::Base
   # Updates the webconf room after updating the space
   def update_webconf_room
     if self.bigbluebutton_room
-      params = {
-        :name => self.name
-      }
-      bigbluebutton_room.update_attributes(params)
+      if self.name_was == self.bigbluebutton_room.name
+        params = {
+          :name => self.name
+        }
+        bigbluebutton_room.update_attributes(params)
+      end
     end
   end
 
