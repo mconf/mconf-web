@@ -253,7 +253,8 @@ pt-br:
         _organization: "Organização"
         _phone: "Telefone"
         _province: "Estado"
-        _service_usage: "Uso do serviço:"
+        _service_usage: "Por favor especifique:"
+        _service_usage_select: "Uso do serviço:"
         _zipcode: "CEP"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
@@ -1336,6 +1337,10 @@ pt-br:
     confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
+    pricing_text: "<li/>Tarifa mínima: <span class=\"attention\">15 usuários</span>  (R$ 90) por mês <li/>Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
+    pricing_title: "<br/>Tarifas"
+    rules_text: "Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço. <br/><br/>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo). <br/><br/>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento."
+    rules_title: "Como Funciona"
     thank_you: "Bem-vindo e obrigado por registrar-se no %{sitename}"
   register_as_admin: "Registe-se como administrador"
   register_as_invited: "Registe-se como convidado"
@@ -1347,7 +1352,11 @@ pt-br:
       title: "Registrar"
     signup_form:
       register: "Registre-se"
-      terms: "Li e concordo com os <a href=\"https://www.mconf.com/termos/\">termos de uso</a>"
+      terms: "Li e concordo com os <a href=\"https://www.mconf.com/termos/\" target=\"_blank\">termos de uso</a>"
+      usage:
+        education: "Educação"
+        meetings: "Reuniões"
+        other: "Outros"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"

@@ -255,7 +255,8 @@ en:
         _organization: "Organization"
         _phone: "Telephone"
         _province: "Province"
-        _service_usage: "Will use the service for:"
+        _service_usage: "Please specify:"
+        _service_usage_select: "Will use the service for:"
         _zipcode: "Zipcode"
         approved: "Approved"
         can_record: "Allow this user to record meetings"
@@ -1302,6 +1303,10 @@ en:
     confirmation: "After registering you will receive an email confirmation with the link to activate your account"
     one: Register
     or_choose: "or you can go"
+    pricing_text: "<li/>Minimum free: <span class=\"attention\">15 users</span> (US$ 60) per month <li/>Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
+    pricing_title: "<br/>Pricing"
+    rules_text: "Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.<br/><br/> You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).<br/><br/> After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time."
+    rules_title: "How it works"
     thank_you: "Welcome and thank you for registering in %{sitename}"
   register_as_admin: "Register as admin"
   register_as_invited: "Register as invited"
@@ -1313,7 +1318,11 @@ en:
       title: "Register"
     signup_form:
       register: "Register"
-      terms: "I have read and agree to the <a href=\"https://www.mconf.com/terms/\">terms and conditions</a>"
+      terms: "I have read and agree to the <a href=\"https://www.mconf.com/terms/\" target=\"_blank\">terms and conditions</a>"
+      usage:
+        education: "Education"
+        meetings: "Meetings"
+        other: "Other"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"

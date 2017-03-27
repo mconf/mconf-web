@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
 
   # Full name and personal info must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
-  attr_accessor :_full_name, :_organization, :_cpf_cnpj, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country, :terms
+  attr_accessor :_full_name, :_organization, :_cpf_cnpj, :_service_usage_select, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country, :terms
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
       organization: self._organization,
       phone: self._phone,
       province: self._province,
-      service_usage: self._service_usage,
+      service_usage: (self._service_usage.blank? ? (self._service_usage_select) : (self._service_usage)),
       zipcode: self._zipcode
     })
   end

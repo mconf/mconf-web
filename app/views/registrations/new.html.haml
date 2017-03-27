@@ -3,8 +3,21 @@
 %h1= t('.form_title')
 
 #register-wrapper
-  .alert.alert-clean
-    = icon_info
-    = t('register.confirmation')
-  = render partial: 'signup_form'
-  = render "devise/shared/links"
+  .row
+    .col-sm-7
+      .alert.alert-clean
+        = icon_info
+        = t('register.confirmation')
+      = render partial: 'signup_form'
+
+    .register-rules.col-sm-5
+      .rules-title
+        = t('register.rules_title').html_safe
+      .rules-text
+        = t('register.rules_text').html_safe
+      .pricing-title
+        = t('register.pricing_title').html_safe
+      .pricing-text
+        = t('register.pricing_text').html_safe
+  .row
+    = render "devise/shared/links"

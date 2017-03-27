@@ -4,11 +4,11 @@ body.registrations.new, body.registrations.create {
 
   #register-wrapper {
     margin: 40px auto;
-    width: 50%;
+    width: 60%;
     @include mconf-clearfix;
 
     form {
-      .form_accept_terms {
+      .form-accept-terms {
         float: right;
         margin-right: 15px;
       }
@@ -18,12 +18,49 @@ body.registrations.new, body.registrations.create {
         margin-top: 0px;
         padding-top: 0px;
       }
+
+      .user__service_usage {
+        display: none;
+      }
+    }
+
+    .register-rules {
+      .rules-title {
+        font-size: 32px;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+
+      .rules-text {
+        text-align: justify;
+        font-size: 16px;
+        font-weight: 300;
+
+        .attention {
+          color: $red;
+        }
+      }
+
+     .pricing-title {
+        font-size: 32px;
+        font-weight: 300;
+      }
+
+      .pricing-text {
+        text-align: justify;
+        font-size: 16px;
+        font-weight: 300;
+
+        .attention {
+          color: $red;
+        }
+      }
     }
 
     .alert {
       clear: both;
       text-align: center;
-      margin-bottom: 32px;
+      margin-top: 10px;
       background: $m-navbar-internal-border-color;
       color: $m-navbar-font-color;
 
