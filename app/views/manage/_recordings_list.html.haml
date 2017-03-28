@@ -2,6 +2,9 @@
 -#  recordings (array of BigbluebuttonRecording)
 
 #filter-total.resource-filter-total
+  .total-recording-size
+    = t('.total_size')
+    .badge= human_file_size(@totalSize)
   .resource-filter-with-text
     = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{recordings.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
   .resource-filter-without-text

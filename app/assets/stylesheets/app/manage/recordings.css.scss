@@ -34,24 +34,58 @@ body.manage.recordings {
     }
   }
 
+  .total-recording-size {
+    float: right;
+  }
+
   .management-links {
     float: right;
     padding-top: 8px;
   }
 
   .thread {
-    .recording-metadata {
-      margin-top: 7px;
+    background: #fcfcfc;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    padding: 0;
+    margin: 12px 0;
+
+    .thread-title {
+      padding: 8px;
     }
-  }
 
-  .playback-types {
-    display: none;
-    margin-left: 20px;
-
-    ul {
+    .recording-metadata {
+      border-radius: 3px;
+      padding: 8px;
       margin: 0;
-      border: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    .metadata-published {
+      float: right;
+      margin: 4px 0;
+    }
+
+    .metadata-size {
+      float: right;
+      margin: 4px 0;
+      clear: right;
+    }
+
+    .playback-types {
+      background: #fff;
+      display: none;
+      padding: 8px;
+
+      ul {
+        margin: 0;
+        border: 0;
+      }
+
+      h5 {
+        margin-top: 0;
+      }
     }
   }
 

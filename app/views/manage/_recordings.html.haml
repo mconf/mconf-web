@@ -11,12 +11,12 @@
     = link_to edit_bigbluebutton_recording_path(recording) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
-    -if recording.available
+    - if recording.available
       - if !recording.published
         = link_to publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
           = icon_publish(:alt => t('.publish'), :title => t('.publish'))
 
-    -if recording.available
+    - if recording.available
       - if recording.published
         = link_to unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post do
           = icon_unpublish(:alt => t('.unpublish'), :title => t('.unpublish'))
@@ -25,31 +25,35 @@
       = icon_delete(:alt => t('.delete'), :title => t('.delete'))
 
   .thread-title
-    -if recording.available
+    - if recording.available
       = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
         = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
 
-    -if !recording.available
+    - else
       %span.recording-not-available-name
         = link_to bigbluebutton_recording_path(recording), :class => 'recording-name' do
           = Mconf::Highlighter.highlight(recording.name, params[:q].try(:split))
 
-  .recording-description
-    = Mconf::Highlighter.highlight(sanitize(first_words(recording.description, 100)), params[:q].try(:split))
+    .recording-description
+      = Mconf::Highlighter.highlight(sanitize(first_words(recording.description, 100)), params[:q].try(:split))
 
   .recording-metadata
-    %div
+    %div.metadata-published
       - if recording.published?
-        = t('.published')
+        .badge.badge-success= t('.published')
       - else
-        = t('.unpublished')
+        .badge.badge-important= t('.unpublished')
+    %div.metadata-size
+      .badge
+        = human_file_size(recording.size)
+
     %div
       = t('.recordid') + ": "
-      = link_to bigbluebutton_recording_path(recording), :class => 'recording-metadata' do
+      = link_to bigbluebutton_recording_path(recording) do
         = Mconf::Highlighter.highlight(recording.recordid, params[:q].try(:split))
     %div
       = t('.room_name') + ": "
-      = link_to bigbluebutton_room_path(recording.room), :class => 'recording-metadata' do
+      = link_to bigbluebutton_room_path(recording.room) do
         = Mconf::Highlighter.highlight(recording.room.name, params[:q].try(:split))
     - if recording.room.owner.present?
       %div
@@ -62,9 +66,4 @@
 
   .playback-types
     %h5= t(".playback_links")
-    %ul
-      - recording.playback_formats.each do |playback|
-        %li
-          = link_to playback.format_type, play_bigbluebutton_recording_path(recording, type: playback.format_type), :class => "open-new-window"
-          = "&#149;".html_safe
-          = link_to t(".direct_link"), playback.url, :class => "open-new-window"
+    = render 'shared/recording_playback', recording: recording, show_invisible: true

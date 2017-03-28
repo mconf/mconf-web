@@ -1010,7 +1010,6 @@ en:
       available_true: "Available"
       confirm_delete: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
       delete: "Delete recording"
-      direct_link: "Direct link"
       edit: "Edit recording"
       filter_name: "Filter by name, description, or record ID"
       owner_type_space: "Space"
@@ -1026,6 +1025,7 @@ en:
       room_name: "Room"
       show_playback: "Show available playbacks"
       show_playback_none: "There are no playbacks available"
+      size: "Size"
       unpublish: "Unpublish recording"
       unpublished: "Unpublished"
       created_at: "Created at"
@@ -1033,6 +1033,7 @@ en:
       filter_count_with_text: "Found %{count} recordings for filter \"%{value}\""
       filter_count_empty: "Found %{count} recordings"
       no_recording_found: "No recordings found"
+      total_size: "Total size:"
   mandatory_field: "Mandatory field"
   mconf: Mconf
   moderatorPW: "Moderator Password"
