@@ -1107,3 +1107,10 @@ strong.highlight {
   font-size: $m-font-small;
   background: $m-very-light-gray;
 }
+
+/* Single-line text truncated with ellipsis */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
