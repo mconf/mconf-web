@@ -11,6 +11,7 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController # to automatically track recent activity
   include Mconf::LocaleControllerModule
+  include Mconf::GuestUserModule
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -94,6 +95,8 @@ class ApplicationController < ActionController::Base
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
       current_user
+    elsif current_guest_user
+      current_guest_user
     else
       nil
     end
@@ -316,7 +319,7 @@ class ApplicationController < ActionController::Base
   # the type of the request or anything else.
   def path_is_redirectable?(path)
     # Paths to which users should never be redirected back to.
-    ignored_paths = [ "/login", "/users/login", "/users",
+    ignored_paths = [ "/login", "/users/login", "/users", "/guest/logout",
                       "/register", "/users/registration",
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",

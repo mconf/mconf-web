@@ -9,7 +9,10 @@ require './lib/mconf/modules'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include Mconf::Modules # so the views can access it too
+
+  # so the views can access it too
+  include Mconf::Modules
+  include Mconf::GuestUserModule
 
   def copyable_field(id, content, opt={})
     opt[:label] ||= id

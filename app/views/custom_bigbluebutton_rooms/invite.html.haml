@@ -14,7 +14,7 @@
     = simple_form_for :bigbluebutton_room, :url => join_bigbluebutton_room_path(@room), :html => { :class => 'single-column' } do |f|
       .input
         %label= t(".field_name")
-        - unless username.blank?
+        - if !username.blank?
           -# add this so it is submitted even if the input below is disabled
           = hidden_field_tag "user[name]", username
           = text_field_tag "", username, :readonly => true, :disabled => true, :class => "string"
@@ -27,4 +27,11 @@
             = password_field_tag "user[key]", "", :class => "string"
           - else
             = password_field_tag "user[key]", "", :autofocus => true, :class => "string"
+
+      - unless user_signed_in?
+        - if guest_user_signed_in?
+          = link_to t('.logout_guest'), logout_guest_path
+        - else
+          = link_to t('.logout_guest'), join_webconf_path(@room)
+
       = f.button :submit, t("join"), :class => "btn btn-primary"
