@@ -11,12 +11,14 @@ describe CertificateAuthenticationController do
   end
 
   context "join webconference without creating a user" do
-    before { Site.current.update_attributes(certificate_login_enabled: true)
-             @cert_mock = double(Mconf::SSLClientCert)
-             Mconf::SSLClientCert.stub(:new) { @cert_mock }
-             @cert_mock.stub(:join_only) { "Test User Name" } }
+    before {
+      Site.current.update_attributes(certificate_login_enabled: true)
+      @cert_mock = double(Mconf::SSLClientCert)
+      Mconf::SSLClientCert.stub(:new) { @cert_mock }
+      @cert_mock.stub(:get_name) { "Test User Name" }
+    }
 
-     it { expect { get :login, format: 'json', join_only: true }.not_to change{ User.count } }
+    it { expect { get :login, format: 'json', join_only: true }.not_to change{ User.count } }
   end
 
 end

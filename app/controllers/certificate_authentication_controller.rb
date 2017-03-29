@@ -14,7 +14,7 @@ class CertificateAuthenticationController < ApplicationController
 
     @cert = Mconf::SSLClientCert.new(certificate, session)
 
-    if params[:join_only] == "false"
+    if params[:create] == "true"
       @cert.create_user
       @user = @cert.user
 
@@ -36,8 +36,8 @@ class CertificateAuthenticationController < ApplicationController
       end
 
     else
-      cert_name = @cert.join_only
-      cookies[:join_only_certificate] = { :value => cert_name, :expires => Time.now + 300 }
+      sign_in_guest(@cert.get_name)
+
       respond_to do |format|
         format.json { render json: { result: true, redirect_to: user_return_to }, status: 200 }
       end

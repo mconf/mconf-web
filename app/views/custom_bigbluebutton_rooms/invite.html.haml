@@ -18,9 +18,6 @@
           -# add this so it is submitted even if the input below is disabled
           = hidden_field_tag "user[name]", username
           = text_field_tag "", username, :readonly => true, :disabled => true, :class => "string"
-        - elsif !cookies[:join_only_certificate].blank? && username.blank?
-          = hidden_field_tag "user[name]", username
-          = text_field_tag "", cookies[:join_only_certificate], :readonly => true, :disabled => true, :class => "string"
         - else
           = text_field_tag "user[name]", "", :autofocus => true, :class => "string"
       - if @user_role == :key
@@ -30,4 +27,11 @@
             = password_field_tag "user[key]", "", :class => "string"
           - else
             = password_field_tag "user[key]", "", :autofocus => true, :class => "string"
+
+      - unless user_signed_in?
+        - if guest_user_signed_in?
+          = link_to t('.logout_guest'), logout_guest_path
+        - else
+          = link_to t('.logout_guest'), join_webconf_path(@room)
+
       = f.button :submit, t("join"), :class => "btn btn-primary"

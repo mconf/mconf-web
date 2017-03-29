@@ -500,6 +500,7 @@ en:
     invite:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
+      logout_guest: "Wrong person? Change it"
       title: "Join room: %{name}"
     invite_header:
       not_running: "not running"

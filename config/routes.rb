@@ -37,6 +37,7 @@ Mconf::Application.routes.draw do
     # so admins can log in even if local auth is disabled
     get "admin", to: "sessions#new"
   end
+  get '/guest/logout', to: 'application#logout_guest_action', as: 'logout_guest'
 
   # bigbluebutton_rails default routes
   bigbluebutton_routes :default, controllers: {

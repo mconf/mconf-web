@@ -6,8 +6,8 @@
 
 module CertificateAuthenticationHelper
 
-  def certificate_auth_link(text=nil, join_only=false)
-    link_to certificate_login_path(format: 'json', join_only: join_only), class: 'certificate-auth-trigger' do
+  def certificate_auth_link(text=nil, create=true)
+    link_to certificate_login_path(format: 'json', create: create), class: 'certificate-auth-trigger' do
       if block_given?
         yield
       else

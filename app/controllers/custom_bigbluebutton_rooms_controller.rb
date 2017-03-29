@@ -52,19 +52,18 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def check_redirect_to_invite
     # already has a user or a user set in the URL, jump directly to the next step
     has_user_param = !params[:user].nil? and !params[:user][:name].blank?
-    has_certificate_cookie = !cookies[:join_only_certificate].blank?
-    if user_signed_in?
+    if user_signed_in? || guest_user_signed_in?
       redirect_to invite_bigbluebutton_room_path(@room)
     elsif has_user_param
       redirect_to invite_bigbluebutton_room_path(@room, user: { name: params[:user][:name] })
-    elsif has_certificate_cookie
-      redirect_to invite_bigbluebutton_room_path(@room)
     end
   end
 
   def check_redirect_to_invite_userid
     # no user logged and no user set in the URL, go back to the identification step
-    if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?) and cookies[:join_only_certificate].blank?
+    if !user_signed_in? &&
+       !guest_user_signed_in? &&
+       (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
     end
   end
@@ -72,7 +71,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # Redirects the user to the identification page if not signed in and the
   # site does not allow unauthorized joins
   def check_unauth_access
-    if !current_site.unauth_access_to_conferences and !user_signed_in? and cookies[:join_only_certificate].blank?
+    if !current_site.unauth_access_to_conferences && !user_signed_in? && !guest_user_signed_in?
       redirect_to join_webconf_path(id: params[:id])
       flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
     end

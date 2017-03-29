@@ -35,12 +35,6 @@ module Mconf
       end
     end
 
-    # For joining webconferences without having to create a user,
-    # returns user name for creating a cookie
-    def join_only
-      get_name.titleize
-    end
-
     def error
       @error
     end
@@ -60,6 +54,21 @@ module Mconf
       @session[SESSION_KEY] = true unless @session.nil?
       @token.current_sign_in_at = Time.now.utc
       @token.save
+    end
+
+    def get_identifier
+      get_field(certificate_id_field) || get_field('CN')
+    end
+
+    def get_email
+      get_field('emailAddress') || get_subject_alt_field('email')
+    end
+
+    def get_name
+      name = get_field(certificate_name_field) || get_field('CN')
+
+      # Remove the numbers from names in the format "My Company Name:23166928000223"
+      name.gsub(/:\d+$/, '')
     end
 
     private
@@ -151,21 +160,6 @@ module Mconf
 
     def username_from_name(un)
       un.gsub(/[\s:]/, '-').gsub(/[^a-zA-Z0-9]/, '').downcase
-    end
-
-    def get_identifier
-      get_field(certificate_id_field) || get_field('CN')
-    end
-
-    def get_email
-      get_field('emailAddress') || get_subject_alt_field('email')
-    end
-
-    def get_name
-      name = get_field(certificate_name_field) || get_field('CN')
-
-      # Remove the numbers from names in the format "My Company Name:23166928000223"
-      name.gsub(/:\d+$/, '')
     end
 
     def create_token(id, key)
