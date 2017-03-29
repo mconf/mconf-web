@@ -4,6 +4,8 @@ module Mconf::BigbluebuttonRailsControllerModule
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
       current_user
+    elsif current_guest_user
+      current_guest_user
     else
       nil
     end

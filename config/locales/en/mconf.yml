@@ -521,6 +521,7 @@ en:
     invite:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
+      logout_guest: "Wrong person? Change it"
       title: "Join room: %{name}"
     invite_header:
       identify: "Please identify yourself to join"
@@ -589,7 +590,6 @@ en:
       list_of_recordings: "List of all recordings available"
     recording_links:
       choose_action: "Choose an action"
-      direct_link: "Direct link"
       playback_links: "Playbacks available"
       confirm_destroy: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
     recordings:

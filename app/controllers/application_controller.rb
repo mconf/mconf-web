@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
   # Controls the automatic redirects (e.g. after a sign in)
   include Mconf::RedirectControllerModule
 
+  # Guest users
+  include Mconf::GuestUserModule
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery with: :exception
