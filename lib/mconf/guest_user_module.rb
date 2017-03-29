@@ -25,18 +25,22 @@ module Mconf
       cookie = cookies.encrypted[Mconf::GuestUserModule::COOKIE_KEY]
       if cookie.present?
         @user ||= User.new
-        @user.username = cookie
-        @user.profile.full_name = cookie
+        @user.email = cookie[:email]
+        @user.username = cookie[:name].parameterize
+        @user.profile.full_name = cookie[:name]
         @user
       else
         nil
       end
     end
 
-    def sign_in_guest(name, expires=nil)
+    def sign_in_guest(name, email, expires=nil)
       expires ||= Time.now + COOKIE_DURATION
       cookies.encrypted[Mconf::GuestUserModule::COOKIE_KEY] = {
-        value: name,
+        value: {
+          name: name,
+          email: email
+        },
         expires: expires
       }
     end

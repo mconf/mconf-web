@@ -36,7 +36,7 @@ class CertificateAuthenticationController < ApplicationController
       end
 
     else
-      sign_in_guest(@cert.get_name)
+      sign_in_guest(@cert.get_name, @cert.get_email)
 
       respond_to do |format|
         format.json { render json: { result: true, redirect_to: user_return_to }, status: 200 }

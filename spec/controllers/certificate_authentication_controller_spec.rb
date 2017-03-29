@@ -16,6 +16,7 @@ describe CertificateAuthenticationController do
       @cert_mock = double(Mconf::SSLClientCert)
       Mconf::SSLClientCert.stub(:new) { @cert_mock }
       @cert_mock.stub(:get_name) { "Test User Name" }
+      @cert_mock.stub(:get_email) { "fake@mconf.org" }
     }
 
     it { expect { get :login, format: 'json', join_only: true }.not_to change{ User.count } }
