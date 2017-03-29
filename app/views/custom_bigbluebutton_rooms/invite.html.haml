@@ -15,7 +15,10 @@
       = hidden_field_tag "user[name]", username
       %h3= username
       - unless user_signed_in?
-        .change-name= link_to 'wrong name? change it', join_webconf_path(@room)
+        - if guest_user_signed_in?
+          .change-name= link_to t('.logout_guest'), logout_guest_path
+        - else
+          .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
 
     - if @user_role == :key
       .form-group.form-password
