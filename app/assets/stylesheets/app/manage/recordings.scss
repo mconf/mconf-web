@@ -29,6 +29,15 @@ body.manage.recordings {
       }
     }
   }
+
+  .resource-filter-container.list-item-header {
+    padding: 8px 0;
+
+    .total-recording-size {
+      float: right;
+      margin: 0 8px;
+    }
+  }
 }
 
 

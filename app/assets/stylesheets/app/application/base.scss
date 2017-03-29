@@ -961,6 +961,11 @@ strong.highlight {
 .label-recording-unavailable {
   background: $m-yellow;
 }
+.label-recording-size {
+  background: $m-light-gray;
+  color: $m-font-light;
+  border: 1px solid $m-border-color-normal;
+}
 
 
 // date of comments, posts, etc.

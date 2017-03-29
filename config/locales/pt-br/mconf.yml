@@ -1038,6 +1038,7 @@ pt-br:
       filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} gravações encontradas"
       no_recording_found: "Nenhuma gravação encontrada"
+      total_size: "Tamanho total"
     space_item:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"

@@ -22,15 +22,17 @@
         = link_to recording.room.owner.name, polymorphic_path(recording.room.owner)
 
   .col-xs-12.col-sm-2
-    = t('.from') + " "
     %span.tooltipped{title: recording.start_time}
       = I18n.l(Time.at(recording.start_time), format: :numeric)
+
+  .col-xs-12.col-sm-1
+    = recording_size(recording)
 
   .col-xs-12.col-sm-2
     = recording_available(recording)
     = recording_published(recording)
 
-  .col-xs-12.col-sm-2.management-links.list-actions
+  .col-xs-12.col-sm-1.management-links.list-actions
     = link_to edit_bigbluebutton_recording_path(recording) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
