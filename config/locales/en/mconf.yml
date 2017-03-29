@@ -255,7 +255,7 @@ en:
         _organization: "Organization"
         _phone: "Telephone"
         _province: "Province"
-        _service_usage: "Please specify:"
+        _service_usage: "Please specify"
         _service_usage_select: "Will use the service for:"
         _zipcode: "Zipcode"
         approved: "Approved"
@@ -1319,10 +1319,6 @@ en:
     signup_form:
       register: "Register"
       terms: "I have read and agree to the <a href=\"https://www.mconf.com/terms/\" target=\"_blank\">terms and conditions</a>"
-      usage:
-        education: "Education"
-        meetings: "Meetings"
-        other: "Other"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1834,6 +1830,10 @@ en:
       other: "People, %{users_size} results"
     results_found: "Users found"
     updated: "User updated successfully"
+    usage:
+      education: "Education"
+      meetings: "Meetings"
+      other: "Other"
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:

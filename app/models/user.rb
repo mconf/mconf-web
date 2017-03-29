@@ -212,6 +212,10 @@ class User < ActiveRecord::Base
     [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
+  def self.usage_collection
+    [[("-"), {disabled: "disabled"}],[I18n.t(".user.usage.education"), "Education"], [I18n.t(".user.usage.meetings"), "Meetings"], [I18n.t(".user.usage.other"), "Other"]]
+  end
+
   after_create :create_user_profile
   def create_user_profile
     puts create_profile({

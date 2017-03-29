@@ -253,7 +253,7 @@ pt-br:
         _organization: "Organização"
         _phone: "Telefone"
         _province: "Estado"
-        _service_usage: "Por favor especifique:"
+        _service_usage: "Por favor especifique"
         _service_usage_select: "Uso do serviço:"
         _zipcode: "CEP"
         approved: "Aprovado"
@@ -1353,10 +1353,6 @@ pt-br:
     signup_form:
       register: "Registre-se"
       terms: "Li e concordo com os <a href=\"https://www.mconf.com/termos/\" target=\"_blank\">termos de uso</a>"
-      usage:
-        education: "Educação"
-        meetings: "Reuniões"
-        other: "Outros"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
@@ -1869,6 +1865,10 @@ pt-br:
       other: "Pessoas, %{users_size} resultados"
     results_found: "Usuários encontrados"
     updated: "Usuário atualizado com sucesso"
+    usage:
+      education: "Educação"
+      meetings: "Reuniões"
+      other: "Outros"
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
