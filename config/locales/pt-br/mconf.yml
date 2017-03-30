@@ -143,6 +143,9 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
+      bigbluebutton_room:
+        name: "Nome"
+        param: "Endereço"
       invite:
         ends_on: "Acaba em"
         message: "Descrição"
@@ -285,7 +288,7 @@ pt-br:
         failure: "Comunidade %{name} já está habilitada"
 
       disable:
-        notice: "Comunidade desativada com sucesso"
+        notice: "Comunidade desabilitada com sucesso"
 
     posts:
       update:
@@ -528,6 +531,7 @@ pt-br:
     invite:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
+      logout_guest: "Pessoa errada? Modificar"
       title: "Acessar sala: %{name}"
     invite_header:
       identify: "Por favor se identifique para entrar"
@@ -596,6 +600,10 @@ pt-br:
       showing_room: "Mostrando a sala '%{room}'"
     user_edit:
       layout_empty_option: "<padrão>"
+      private: "Privada"
+      public: "Pública"
+      subtitle: "Configurações da sala de conferência web"
+      visibility: "Visibilidade"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
@@ -606,7 +614,6 @@ pt-br:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
       choose_action: "Escolha uma ação"
-      direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
       confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
     recordings:
@@ -1024,7 +1031,7 @@ pt-br:
       published: "Publicada"
       published_false: "Não publicadas"
       published_true: "Publicadas"
-      recordid: "ID da dravação"
+      recordid: "ID da gravação"
       room_name: "Sala"
       show_playback: "Mostrar reproduções disponíveis"
       show_playback_none: "Não existem reproduções disponíveis"
@@ -1042,6 +1049,7 @@ pt-br:
       filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} gravações encontradas"
       no_recording_found: "Nenhuma gravação encontrada"
+      total_size: "Tamanho total"
     space_item:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
@@ -1055,8 +1063,8 @@ pt-br:
     spaces:
       approved_false: "Não aprovados"
       approved_true: "Aprovados"
-      disabled_false: "Habilitados"
-      disabled_true: "Desabilitados"
+      disabled_false: "Habilitadas"
+      disabled_true: "Desabilitadas"
       filter_name: "Filtrar por nome ou descrição"
       new_space: "Nova comunidade"
     spaces_list:

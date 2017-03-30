@@ -16,7 +16,7 @@
       display: none;
     }
 
-    &.has-hint {
+    &.has-hint, span.has-hint {
       .icon-mconf-help {
         margin-left: 4px;
         cursor: pointer;

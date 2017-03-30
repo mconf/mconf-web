@@ -33,6 +33,8 @@
 //= require moment/pt-br
 //= require moment/de
 //= require moment/es
+//= require moment/bg
+//= require moment/ru
 
 // Datetime picker for bootstrap
 //= require bootstrap-datetimepicker

@@ -1,4 +1,5 @@
 #= require "../custom_bigbluebutton_rooms/_invitation_form"
+#= require "../custom_bigbluebutton_rooms/user_edit"
 
 mconf.Spaces or= {}
 
@@ -12,7 +13,7 @@ class mconf.Spaces.Sidebar
     # set to rebind thing when the resources are rebound
     mconf.Resources.addToBind ->
       mconf.CustomBigbluebuttonRooms.Invitation.bind()
-
+      mconf.UserEdit.setup()
     # this modal binds some things in the modal using "global" selectors such as ".modal"
     # so we make sure we unbind everything when the modal is closed
     $("#sidebar-webconference .webconf-join-group .open-modal").on "modal-hidden.mconfSpacesSidebar", ->

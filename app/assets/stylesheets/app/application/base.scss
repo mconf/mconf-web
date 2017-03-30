@@ -961,6 +961,11 @@ strong.highlight {
 .label-recording-unavailable {
   background: $m-yellow;
 }
+.label-recording-size {
+  background: $m-light-gray;
+  color: $m-font-light;
+  border: 1px solid $m-border-color-normal;
+}
 
 
 // date of comments, posts, etc.
@@ -1106,4 +1111,11 @@ strong.highlight {
   text-align: center;
   font-size: $m-font-small;
   background: $m-very-light-gray;
+}
+
+/* Single-line text truncated with ellipsis */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

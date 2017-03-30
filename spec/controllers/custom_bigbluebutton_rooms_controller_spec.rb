@@ -97,13 +97,20 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#send_invitation" do
     let!(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
+    let(:sender) { room.owner }
     let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
     let(:starts_on) { Time.now }
     let(:ends_on) { Time.now + 10.day }
     let(:title) { 'Title' }
     let(:message) { 'Message' }
-    let(:success) { I18n.t('custom_bigbluebutton_rooms.send_invitation.success') + ' ' + users.map(&:name).join(', ')}
-    let(:error) { I18n.t('custom_bigbluebutton_rooms.send_invitation.error') + ' ' + users.map(&:name).join(', ') }
+    let(:success) {
+      I18n.t('custom_bigbluebutton_rooms.send_invitation.success') + ' ' +
+        users.map(&:name).join(', ') + ", #{sender.full_name}"
+    }
+    let(:error) {
+      I18n.t('custom_bigbluebutton_rooms.send_invitation.error') + ' ' +
+        users.map(&:name).join(', ') + ", #{sender.full_name}"
+    }
 
     let!(:hash) { { :users => users.map(&:id).join(','),
        :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
@@ -116,18 +123,14 @@ describe CustomBigbluebuttonRoomsController do
        :message => message} }
     before {
       request.env["HTTP_REFERER"] = referer
-      login_as(room.owner)
+      login_as(sender)
     }
 
     context "with correct data" do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(2)
-
-        expect {
-          post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(2)
+        }.to change { Invitation.count }.by(3)
       }
       context "with the right type set" do
         it { Invitation.last.class.should be(WebConferenceInvitation) }
@@ -135,8 +138,15 @@ describe CustomBigbluebuttonRoomsController do
       it { should redirect_to(referer) }
       it { should set_flash.to success }
       it { Invitation.last.invitation_group.should_not be_nil }
-      it { Invitation.last.invitation_group.should eql(Invitation.last(2).first.invitation_group) }
-      it { Invitation.last.invitation_group.should_not eql(Invitation.last(3).first.invitation_group) }
+      it { Invitation.last.invitation_group.should eql(Invitation.last(3).first.invitation_group) }
+    end
+
+    context "changes the invitation group from one invitation to the other" do
+      before {
+        post :send_invitation, :invite => hash, :id => room.to_param
+        post :send_invitation, :invite => hash, :id => room.to_param
+      }
+      it { Invitation.last.invitation_group.should_not eql(Invitation.first.invitation_group) }
     end
 
     context "with daylight saving time timezones" do
@@ -145,7 +155,7 @@ describe CustomBigbluebuttonRoomsController do
 
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(2)
+        }.to change { Invitation.count }.by(3)
       }
 
       context "Eastern Time without daylight savings time" do
@@ -192,7 +202,7 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(users.length)
+        }.to change { Invitation.count }.by(users.length+1)
       }
 
       context "with the right type set" do
@@ -241,7 +251,7 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.to change { Invitation.count }.by(2)
+        }.to change { Invitation.count }.by(3)
       }
 
       context "with the right type set" do
@@ -411,7 +421,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
+          [ :attendee_key, :private, :record_meeting, :default_layout,
             :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {

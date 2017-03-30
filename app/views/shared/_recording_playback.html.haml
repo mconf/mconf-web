@@ -1,3 +1,9 @@
+-# Locals:
+-#   recording (BigbluebuttonRecording)
+-#   show_invisible (boolean): show all playback types, even if not configured as visible
+
+- show_invisible ||= false
+
 - unless recording.available
   %ul.recording-playback-links
     %li
@@ -8,7 +14,7 @@
     %ul.recording-playback-links
       - show_duration = true
       - recording.playback_formats.ordered.each do |playback|
-        - if playback.visible?
+        - if playback.visible? || show_invisible
           %li
             = link_to_playback(recording, playback)
             - if show_duration

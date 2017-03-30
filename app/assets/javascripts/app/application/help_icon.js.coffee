@@ -7,20 +7,20 @@ class mconf.HelpIcon
       formGroup = $(this).parents(".form-group")
       formGroup.find(".help-block").text()
 
-  @bind: ->
+  @bindIcon: (el) ->
     hintOptions = _.extend(mconf.Tooltip.defaultOptions, hintOptions)
+    unless $(el).children('.icon-mconf-help').length > 0
+      help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
+      $(el).append(help)
+      $(el).find(".icon-mconf-help").tooltip(hintOptions)
 
+  @bind: ->
     $(".form-group.has-hint > label").each ->
-      unless $(this).children('.icon-mconf-help').length > 0
-        help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
-        $(this).append(help)
-        $(this).find(".icon-mconf-help").tooltip(hintOptions)
-
+      mconf.HelpIcon.bindIcon(this)
+    $("span.has-hint > label").each ->
+      mconf.HelpIcon.bindIcon(this)
     $(".form-group.has-hint > .checkbox").each ->
-      unless $(this).children('.icon-mconf-help').length > 0
-        help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
-        $(this).append(help)
-        $(this).find(".icon-mconf-help").tooltip(hintOptions)
+      mconf.HelpIcon.bindIcon(this)
 
 $ ->
   mconf.HelpIcon.bind()

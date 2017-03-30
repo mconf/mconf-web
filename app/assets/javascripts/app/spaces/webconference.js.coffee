@@ -1,4 +1,5 @@
 #= require "../custom_bigbluebutton_rooms/_invitation_form"
+#= require "../custom_bigbluebutton_rooms/user_edit"
 
 mconf.Spaces or= {}
 
@@ -9,6 +10,7 @@ class mconf.Spaces.Webconference
 
     mconf.Resources.addToBind ->
       mconf.CustomBigbluebuttonRooms.Invitation.bind()
+      mconf.UserEdit.setup()
 
     $("#webconference-share .open-modal").on "modal-hidden.mconfSpacesWebconference", ->
       mconf.CustomBigbluebuttonRooms.Invitation.unbind()

@@ -136,7 +136,7 @@ module IconsHelper
   end
 
   def icon_space_public(options={})
-    icon_constructor nil, "fa fa-eye icon-awesome icon-mconf-space-public", options
+    icon_constructor nil, "fa fa-globe icon-awesome icon-mconf-space-public", options
   end
 
   def icon_publish(options={})

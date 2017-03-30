@@ -83,6 +83,7 @@ class ManageController < ApplicationController
       query = query.no_playback
     end
 
+    @totalSize = query.sum(:size)
     @recordings = query.paginate(page: params[:page], per_page: 20)
 
     if request.xhr?

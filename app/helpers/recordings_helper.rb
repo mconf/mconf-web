@@ -29,4 +29,10 @@ module RecordingsHelper
       end
     end
   end
+
+  def recording_size(recording)
+    content_tag :div, class: 'label label-recording-size' do
+      concat human_file_size(recording.size)
+    end
+  end
 end

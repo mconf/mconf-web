@@ -249,7 +249,7 @@ describe User do
       user.bigbluebutton_room.attendee_key.should_not be_blank
       user.bigbluebutton_room.attendee_key.length.should be(8)
       user.bigbluebutton_room.moderator_key.should_not be_blank
-      user.bigbluebutton_room.moderator_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.length.should be(16)
     end
 
     skip "has the server as the first server existent"
@@ -469,7 +469,7 @@ describe User do
     context "updates the webconf room" do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
-      it { user.bigbluebutton_room.param.should be(user.username) }
+      it { user.bigbluebutton_room.param.should_not be(user.username) }
       it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end

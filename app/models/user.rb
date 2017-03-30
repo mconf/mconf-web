@@ -81,7 +81,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
-  after_update :update_webconf_room
 
   before_destroy :before_disable_and_destroy, prepend: true
 
@@ -194,17 +193,10 @@ class User < ActiveRecord::Base
       param: self.username,
       name: self._full_name,
       logout_url: "/feedback/webconf/",
-      moderator_key: SecureRandom.hex(4),
+      moderator_key: SecureRandom.hex(8),
       attendee_key: SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
-  end
-
-  def update_webconf_room
-    if self.username_changed?
-      params = { param: self.username }
-      bigbluebutton_room.update_attributes(params)
-    end
   end
 
   # Full location: city + country

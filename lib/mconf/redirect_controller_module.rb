@@ -36,7 +36,7 @@ module Mconf::RedirectControllerModule
   # the type of the request or anything else.
   def path_is_redirectable?(path)
     # Paths to which users should never be redirected back to.
-    ignored_paths = [ "/login", "/users/login", "/users", "/logout",
+    ignored_paths = [ "/login", "/users/login", "/users", "/logout", "/guest/logout",
                       "/register", "/users/registration",
                       "/users/registration/signup", "/users/registration/cancel",
                       "/users/password", "/users/password/new",
