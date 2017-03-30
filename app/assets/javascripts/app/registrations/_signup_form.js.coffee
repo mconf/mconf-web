@@ -6,10 +6,15 @@ class mconf.SignupForm
     $fullname.on "input keyup", () ->
       $username.attr "value", mconf.Base.stringToSlug($fullname.val())
 
+    submit_toggle = ->
+      $button.prop('disabled', !$terms.is(":checked"));
+
     $terms = $("#user_terms:not(.disabled)")
     $button = $("input[name='commit']")
+    submit_toggle()
     $terms.on 'change', (e) ->
-      $button.prop('disabled', !$terms.is(":checked"));
+      submit_toggle()
+
 
     $usage_select = $("#user__service_usage_select:not(.disabled)")
     $usage = $(".user__service_usage:not(.disabled)")

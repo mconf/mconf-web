@@ -668,6 +668,7 @@ en:
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
       signed_up_but_not_approved: ""
+      terms_reject: "You must accept the terms and conditions to register an account."
     shared:
       links:
         login:
