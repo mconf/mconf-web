@@ -4,7 +4,6 @@
 
 body {
   padding: 5px;
-  @include font-size($mail-font-size);
   color: $mail-font-color;
 }
 
