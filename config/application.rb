@@ -99,9 +99,12 @@ module Mconf
     config.conf_scope_rooms = ENV['MCONF_CONFERENCE_SCOPE_ROOMS'] || 'conf'
 
     # Redis configurations. Defaults to a localhost instance.
-    config.redis_host     = ENV['MCONF_REDIS_HOST'] || 'localhost'
-    config.redis_port     = ENV['MCONF_REDIS_PORT'] || 6379
-    config.redis_db       = ENV['MCONF_REDIS_DB'] || 0
-    config.redis_password = ENV['MCONF_REDIS_PASSWORD'] || nil
+    config.redis_host      = ENV['MCONF_REDIS_HOST'] || 'localhost'
+    config.redis_port      = ENV['MCONF_REDIS_PORT'] || 6379
+    config.redis_db        = ENV['MCONF_REDIS_DB'] || 0
+    config.redis_password  = ENV['MCONF_REDIS_PASSWORD'] || nil
+
+    # Themes: set to the theme name if using any!
+    config.theme           = ENV['MCONF_THEME']
   end
 end

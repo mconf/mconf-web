@@ -34,4 +34,6 @@
  * Some partials are necessary everywhere
  *= require ./app/feedback/_new
  *
+ * Themes: if using a theme, import it here!
+ * require theme-name/stylesheets/base
  */
