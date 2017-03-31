@@ -329,15 +329,14 @@ form {
 
 #navbar-logo {
   white-space: nowrap;
-  margin: 11px 0 7px 0;
+  margin: 15px 0 5px 0;
   @include mconf-clearfix;
   display: inline-block;
 
-  .title {
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
-    @include font-size($m-font-bigger);
-    float: left;
-  }
+  background: image-url('logos/mconf-white-transp.png') no-repeat left top;
+  background-size: 54px 28px;
+  width: 54px;
+  height: 28px;
 }
 
 #content-notification {

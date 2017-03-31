@@ -42,8 +42,8 @@
 
 #content-middle, #footer {
   a:not(.btn) {
-    $normal: $m-link-color-hover;
-    $hover: lighten($normal, 8);
+    $normal: $m-navbar-link-color;
+    $hover: $m-navbar-link-color-hover;
     @include link-colors($normal, $hover, $hover, $normal);
   }
 }

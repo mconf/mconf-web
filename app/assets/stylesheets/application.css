@@ -4,7 +4,6 @@
  *= require font-awesome
  *= require jquery/jquery.Jcrop
  *= require toastr
-
  *= require bootstrap/bootstrap-modal
  *= require select2
  *= require bootstrap/select2-bootstrap
@@ -35,4 +34,6 @@
  * Some partials are necessary everywhere
  *= require ./app/feedback/_new
  *
+ * Themes: if using a theme, import it here!
+ *= require mconf-com/stylesheets/base
  */
