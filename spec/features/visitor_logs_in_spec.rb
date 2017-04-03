@@ -98,7 +98,7 @@ feature 'Visitor logs in' do
       room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
       visit invite_bigbluebutton_room_path(room)
 
-      sign_in_with @user.username, @user.password, false
+      sign_in_with @user.username, @user.password
       expect(current_path).to eq(invite_bigbluebutton_room_path(room))
     end
   end
