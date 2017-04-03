@@ -14,7 +14,7 @@
         - available_locales.each do |locale|
           %li
             - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
-            - text = t('locales.' + locale.to_s)
+            - text = locale_i18n(locale)
             - link = link_to(text, main_app.session_locale_path(:l => locale.to_s), :method => :post)
             = (flag + " " + link).html_safe
     .link-group.logo-mconf

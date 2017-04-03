@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -144,7 +145,7 @@ describe ShibbolethController do
       before(:each) { get :login }
       it { should render_template('attribute_error') }
       it { should render_with_layout('no_sidebar') }
-      it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
+      it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name', 'ufrgsVinculo']) }
       it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
     end
 
@@ -331,8 +332,8 @@ describe ShibbolethController do
         let(:attrs) { FactoryGirl.attributes_for(:user) }
 
         before {
-          Site.current.update_attributes(:shib_always_new_account => true)
           setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+          Site.current.update_attributes(:shib_always_new_account => true)
         }
 
         context "skips the association page" do
@@ -381,7 +382,7 @@ describe ShibbolethController do
           request.env["HTTP_REFERER"] = referer
         }
         before(:each) { get :login }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
+        it { should set_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
         it { should respond_with(:redirect) }
         it { should redirect_to(referer) }
       end
@@ -637,15 +638,17 @@ describe ShibbolethController do
     request.env["Shib-inetOrgPerson-mail"] = email
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = principal_name || email
     request.env["ufrgsVinculo"] = "ativo"
-    Site.current.update_attributes(:shib_enabled => true)
-    Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
-    Site.current.update_attributes(:shib_always_new_account => false)
+    Site.current.update_attributes(
+      :shib_enabled => true,
+      :shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*",
+      :shib_always_new_account => false
+    )
   end
 
   # Save it to the session, as #login would do
   def save_shib_to_session
     @shib = Mconf::Shibboleth.new(session)
-    @shib.load_data(request.env)
+    @shib.load_data(request.env, Site.current.shib_env_variables)
   end
 
 end

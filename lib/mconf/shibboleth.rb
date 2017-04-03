@@ -51,7 +51,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @data && get_identifier && get_email && get_name && get_principal_name
+      !!(@data && get_identifier && get_email && get_name && get_principal_name && get_enrollment)
     end
 
     def get_field(field)
