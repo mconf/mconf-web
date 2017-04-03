@@ -1,0 +1,23 @@
+- page_title @event.name
+
+= content_for :page_header do
+  .current-page-title
+    .main-title
+      = link_to @event do
+        = @event.name
+    .sub-title
+      - if @event.public
+        .resource-visibility.public
+          = icon_space_public
+          = t(".public")
+      - else
+        .resource-visibility.private
+          = icon_space_private
+          = t(".private")
+      - if @event.owner
+        - if @event.owner.instance_of?(Space)
+          = icon_space
+          = t('.belongs_space', :space => escape_once(@event.owner.name), :url => space_path(@event.owner)).html_safe
+        - else
+          = icon_user
+          = t('.belongs_user', :user => escape_once(@event.owner.name), :url => user_path(@event.owner)).html_safe

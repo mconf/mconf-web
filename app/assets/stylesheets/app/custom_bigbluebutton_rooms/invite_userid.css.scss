@@ -28,29 +28,44 @@ body.custom_bigbluebutton_rooms.invite_userid {
           text-align: center;
         }
       }
+
+      /* when anonymous join is disabled, there will be only one form */
+      &:only-child {
+        width: auto;
+        float: none;
+
+        .container {
+          margin: 0 auto;
+          float: none;
+        }
+      }
+
+      .action-links {
+        float: right;
+        margin-top: 15px;
+        clear: both;
+        text-align: right;
+      }
+
     }
 
-    #webconf-room-userid-member {
-      border-right: 1px solid #ddd;
+    #webconf-room-userid-non-member {
+      padding-bottom: 50px;
+      border-left: 1px solid #ddd;
 
       .container {
         float: right;
       }
+    }
 
-      #shib-login {
-        float: left;
-        width: 100%;
-        padding: 25px 0;
-        text-align: center;
+    #webconf-room-userid-member {
+      #login-button {
+        min-width: 300px;
+      }
 
-        #login-button {
-          min-width: 300px;
-        }
-
-        .observation {
-          color: #666;
-          padding-top: 30px;
-        }
+      .observation {
+        color: #666;
+        padding-top: 30px;
       }
     }
 

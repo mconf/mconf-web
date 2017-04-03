@@ -18,7 +18,8 @@
 # of how it looks like most of the time:
 #
 # * (trackable_id, trackable_type) trackable: The model to which the activity pertrains
-# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity.
+# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Used when models have a belongs_to or has_(one,many)
+#   relation and should be understood in context of their parent model. For example spaces and posts, spaces and attachments, etc...
 # * (recipient_id, recipient_type) recipient: Tipically used for user responsible for the activity and who should see it in his activity stream
 # * key: A string indicating the trackable model plus the action which happened (e.g. "space.join").
 # * notified: A boolean informing whether the activity has already been notified to the user (usually this is done by a worker in background).
@@ -40,95 +41,93 @@
 #
 # === List of recent activity types
 # There are several types of activities created by the application. This is a list with all of the
-# types used, indexed by `key`:
+# types used, indexed by `key`.
+# Note: to get the full list of keys, go to a well populated website and run
+# `RecentActivity.pluck(:key).uniq.sort`.
 #
-# * `user.created`:
-#   When a `User` was created (e.g. a user registered was registered by an admin).
-#   Created by: `User`.
+# * `attachment.create`:
+#   When an `Attachment` is created, uploaded to the website.
+#   Created by: `Attachment`.
 #
-# * `shibboleth.user.created`:
-#   When a `User` was created for someone that signed in via Shibboleth.
-#   Created by: `Mconf::Shibboleth`.
-#
-# * `ldap.user.created`:
-#   When a `User` was created for someone that signed in via LDAP.
-#   Created by: `Mconf::LDAP`.
-#
-# * `user.approved`:
-#   When a was approved.
-#   Created by: `User`, in a method that's called from `UsersController`.
+# * `attachment.destroy`:
+#   When an `Attachment` is destroyed, removed from the website.
+#   Created by: `Attachment`.
 #
 # * `bigbluebutton_meeting.create`:
 #   A meeting was created.
 #   Created by `BigbluebuttonMeeting`, code at `config/initializers/bigbluebutton_rails`.
 #
-# * `space.create`:
-#   A space was created.
-#   Created by `SpacesController`.
+# * `event.create`:
+#   An event was created.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `space.update`:
-#   A space was updated.
-#   Created by `SpacesController`.
+# * `event.update`:
+#   An event was updated.
+#   Created by `EventsController`, code at `lib/controllers/events_controller`.
 #
-# * `space.leave`:
-#   Somebody left a space.
-#   Created by `SpacesController`.
-#
-# * `space.accept`:
+# * `join_request.accept`:
 #   Somebody accepted an invitation to join a space.
-#   Created by `JoinRequestsController`.
+#   Created by `JoinRequests` controller.
 #
-# * `space.decline`:
+# * `join_request.decline`:
 #   Somebody declined an invitation to join a space.
-#   Created by `JoinRequestsController`.
-#
-# * `join_request.request`:
-#   Somebody sent a request to join a space.
-#   Created by `JoinRequest`.
+#   Created by `JoinRequests` controller.
 #
 # * `join_request.invite`:
 #   Somebody sent a invitation to someone join a space.
 #   Created by `JoinRequest`.
 #
-# * `mweb_events_event.create`:
-#   An event was created.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+# * `join_request.request`:
+#   Somebody sent a request to join a space.
+#   Created by `JoinRequest`.
 #
-# * `mweb_events_event.update`:
-#   An event was updated.
-#   Created by `MewebEvents::EventsController`, code at `lib/mweb_events/controllers/events_controller`.
+# * `ldap.user.created`:
+#   When a `User` was created for someone that signed in via LDAP.
+#   Created by: `Mconf::LDAP`.
 #
-# * `mweb_events_participant.create`:
+# * `participant.create`:
 #   Someone registered to participante in an event.
-#   Created by `MewebEvents::ParticipantsController`, code at `lib/mweb_events/controllers/participants_controller`.
-#
-# * `news.create`:
-#   A news item was created.
-#   Created by `NewsController`.
-#
-# * `news.update`:
-#   A news item was updated.
-#   Created by `NewsController`.
+#   Created by `ParticipantsController`, code at `lib/controllers/participants_controller`.
 #
 # * `post.create`:
 #   A post was created.
-#   Created by `PostsController`.
-#
-# * `post.update`:
-#   A post was updated.
 #   Created by `PostsController`.
 #
 # * `post.reply`:
 #   Somebody replied to a post.
 #   Created by `PostsController`.
 #
-# * `private_message.sent`:
-#   Somebody sent a private message.
-#   Created by `PrivateMessage`.
+# * `post.update`:
+#   A post was updated.
+#   Created by `PostsController`.
 #
-# * `private_message.received`:
-#   Somebody received a private message.
-#   Created by `PrivateMessage`.
+# * `shibboleth.user.created`:
+#   When a `User` was created for someone that signed in via Shibboleth.
+#   Created by: `Mconf::Shibboleth`.
+#
+# * `space.create`:
+#   A space was created.
+#   Created by `SpacesController`.
+#
+# * `space.leave`:
+#   Somebody left a space.
+#   Created by `SpacesController`.
+#
+# * `space.update`:
+#   A space was updated.
+#   Created by `SpacesController`.
+#
+# * `user.approved`:
+#   When a was approved.
+#   Created by: `User`, in a method that's called from `UsersController`.
+#
+# * `user.created`:
+#   When a `User` was created after registering himself/herself.
+#   Created by: `User`.
+#
+# * `user.created_by_admin`:
+#   When a `User` was created after being registered by an admin.
+#   Created by: `User`.
 #
 class RecentActivity < PublicActivity::Activity
   # Used for home page and user page pagination
@@ -139,31 +138,38 @@ class RecentActivity < PublicActivity::Activity
   # * +user+ - the user which activities will be returned
   # * +reject_keys+ - an array of keys to reject when querying. Keys are the strings that identify
   #   the recent activity, e.g. "space.leave".
-  def self.user_activity(user, reject_keys=[])
-    user_room = user.bigbluebutton_room
-    spaces = user.spaces
-    space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
+  # * +in_space_ids+ - limit the returned activity to spaces present in this array of spaces. If `nil`
+  #   will not limit. If empty, will limit everything.
+  def self.user_activity(user, reject_keys=[], in_space_ids=nil)
+    user_room_id = user.bigbluebutton_room.id
+    space_ids = user.space_ids
+
+    # if there's an array in 'in_space_ids', limit the activity to these spaces plus
+    # any other public space
+    # we filter public spaces here by default and not outside to improve performance
+    unless in_space_ids.nil?
+      space_ids = Space.where('id IN (?) OR public = ?', in_space_ids, true).ids
+    end
+
+    space_room_ids = BigbluebuttonRoom.where(owner_type: 'Space', owner_id: space_ids).ids
 
     # some types of activities we ignore by default
     reject_keys += ["user.created", "shibboleth.user.created", "ldap.user.created", "user.approved"]
 
     t = RecentActivity.arel_table
-    in_spaces = t[:owner_id].in(spaces.pluck(:id)).and(t[:owner_type].eq('Space'))
-    in_spaces_as_trackable = t[:trackable_id].in(spaces.pluck(:id)).and(t[:trackable_type].eq('Space'))
-    in_room = t[:owner_id].in(user_room.id).and(t[:owner_type].eq('BigbluebuttonRoom'))
-    in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
+    in_spaces = t[:owner_id].in(space_ids).and(t[:owner_type].eq('Space'))
+    in_spaces_as_trackable = t[:trackable_id].in(space_ids).and(t[:trackable_type].eq('Space'))
+    in_rooms = t[:owner_id].in(space_room_ids + [user_room_id]).and(t[:owner_type].eq('BigbluebuttonRoom'))
 
-    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_room).or(in_space_rooms))
-    for key in reject_keys
-      activities = activities.where("activities.key != ?", key)
-    end
-    activities
+    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_rooms))
+    activities.where.not(key: reject_keys)
   end
 
   # All activities that are public and should be visible for a user
   # * +user+ - the user which activities will be returned
-  def self.user_public_activity user
+  def self.user_public_activity user, opt={}
+
     # Filter activities done by user_id
-    user_activity(user, ["space.decline"]).where(recipient_id: user.id)
+    user_activity(user, ["space.decline"], opt[:in_spaces]).where(recipient_id: user.id)
   end
 end

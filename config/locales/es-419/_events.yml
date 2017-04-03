@@ -1,0 +1,174 @@
+es-419:
+  activerecord:
+    attributes:
+      event:
+        address: Dirección
+        description: Descripción
+        end_on: Fecha de finalización
+        end_on_date: Fecha de finalización
+        location: Lugar
+        name: Nombre
+        owner_name: Este evento pertenece a
+        social_networks: Transmisión en redes sociales
+        start_on: Fecha de inicio
+        start_on_date: Fecha de inicio
+        summary: Resumen
+        time_zone: Zona horaria
+      participant:
+        email: Email
+    errors:
+      event:
+        start_on: fecha de inicio incorrecta
+        end_on: fecha de finalización incorrecta
+    models:
+      event: Evento
+      participant: Partícipe
+  activities:
+    event:
+      create_html: creó el evento %{name} en el espacio
+      attend_html: asistirá al evento %{name} en el espacio
+      not_attend_html: no asistirá al evento %{name} en el espacio
+      update_html: actualizó la información del evento %{name} en el espacio
+      deleted: "%{name} (que ha sido eliminado)"
+    participant:
+      create_html: asistirá al evento %{name} en el espacio
+  flash:
+    events:
+      create:
+        notice: El evento fue creado correctamente
+        permission_error: "No tiene permisos para crear este evento"
+      destroy:
+        notice: El evento fue eliminado correctamente
+      update:
+        notice: Información del evento actualizada
+    participants:
+      create:
+        waiting_confirmation: Registro recibido. Pronto recibirá un correo con las instrucciones para completar su registro
+        notice: Registrado al evento correctamente
+        alert: Hubo un problema registrándose para este evento.
+        already_created: Este email ya ha sido registrado en este evento
+      destroy:
+        notice: Eliminado del evento correctamente
+  valid_email:
+    validations:
+      email:
+        invalid: No es un correo electrónico válido
+  events:
+    show:
+      date: ¿Cuándo?
+      address: ¿Dónde?
+      manage: Administrar
+    summary:
+      calendar: Agregar al calendario
+      change_dates_info: "Ver en la zona horaria del evento"
+      contact: Contactar al organizador
+      end_on: "Fin:"
+      more_options: "Más opciones:"
+      original_time: Fecha en la zona horaria del evento
+      original_time_info: Fecha original configurada en la zona horaria del organizador del evento
+      rss: RSS
+      start_on: "Inicio:"
+      time_zone: Zona Horaria
+      when: "¿Cuándo?"
+      where: "¿Dónde?"
+      where_not_specified: "(Lugar no especificado)"
+      your_time_info: "Fechas mostradas en su zona horaria (%{time_zone})"
+    social_media:
+      title: "Compartir este evento:"
+      twitter: Compartir en Twitter
+      twitter_link: Revisa este evento en %{url}
+      facebook: Compartir en Facebook
+      facebook_link: Revisa este evento en %{url}
+      google_plus: Compratir en Google+
+      linkedin: Compartir en Linkedin
+    edit:
+      page_title: "Editando: %{name}"
+    form:
+      at: "en"
+      clear_start_date: "Limpiar fecha de inicio"
+      clear_end_date: "Limpiar fecha de finalización"
+    index:
+      create_new_event: "Agregar un nuevo evento"
+      count:
+        zero: (ninguno encontrado)
+        one: (uno encontrando)
+        other: (%{count} encontrados)
+      filters:
+        all_events: "Todos"
+        description: Mostrando %{your} %{time} eventos
+        happening_now: actual
+        my_events: "Mis eventos"
+        past_events: anterior
+        upcoming_events: próximo
+        your_events: tu(s)
+      now: Transcurriendo ahora
+      participant_count:
+        one: "%{count} participante"
+        other: "%{count} participantes"
+      private: Privado
+      public: Público
+      search:
+        by_name:
+          no_matches: "No se encontraron eventos para \"%{term}\""
+          placeholder: "Buscar eventos..."
+      select_at_left: "Seleccione un evento de la lista para ver su descripción aquí"
+      subtitle: "Cree sus propios eventos y compártalos con otras personas"
+      title: "Eventos"
+    invite:
+      title: "Invitando al evento"
+      invite_title: "Invitación al evento [%{event}]"
+    list_view:
+      no_events: "No hay eventos que coincidan con esta búsqueda"
+    markdown_modal:
+      title: ¿Cómo dar formato al texto de descripción?
+      description_html: "El texto de descripción acepta texto con formato <a href=\"http://daringfireball.net/projects/markdown/syntax\">Markdown</a>. Aquí hay una hoja de referencia rápida (utilizar el texto a la izquierda para obtener el resultado a la derecha):"
+    no_description: Descripción no disponible
+    new:
+      page_title: "Crear un nuevo evento"
+    organizers:
+      organizers: Organizadores
+      organized_by: "Este evento es organizado por:"
+    registration:
+      title: Registro
+      button: Registrarse en este evento
+      already_registered: Está registrado en este evento!
+      closed: El registro para este evento está cerrado.
+      delete_confirmation: ¿Está seguro que desea cancelar su registro a este evento?
+      invite_button: Invitar personas a este evento
+      join_button: Únase a este espacio para registrarse
+      need_sign_in: Necesita iniciar sesión para registrarse a este evento
+      unregister: Cancelar mi registro
+    send_invitation:
+      blank_users: "Usuario no seleccionado, la invitación no fue enviada"
+      error: "La invitación no pudo ser enviada a:"
+      success: "Invitación enviada con éxito a:"
+      error_title: "Es obligatorio incluir el título de su invitación; por favor, intente de nuevo"
+    title:
+      belongs_space: "Este evento pertenece al espacio <a href='%{url}'>%{space}</a>"
+      belongs_user: "Evento creado por <a href='%{url}'>%{user}</a>"
+      private: "Evento privado"
+      public: "Evento público"
+    unified_event:
+      closed: registro cerrado
+      private: "Evento privado"
+      public: "Evento público"
+      starts_at: "Comienza a"
+  participants:
+    form:
+      submit: Registro
+    index:
+      back_to_event: "Volver a la página del evento"
+      disable: Eliminar del evento
+      disable_confirm: ¿Está seguro de quiere eliminar a este usuario del evento?
+      event: "Mensaje en el evento [%{event}]"
+      message: Enviar mensaje
+      no_participants: ¡Aún sin participantes!
+      title: "Listando todos los participantes del evento"
+    guest_participant:
+      confirmed: Correo confirmado
+      not_confirmed: Correo no confirmado
+    split_form:
+      member_title: Ingresar para registrarse a este evento
+      annonymous_title: Regístrese como usuario anónimo
+    new:
+      title: "Registrarse en el evento"

@@ -1,47 +1,44 @@
-def pretty_exit
-  puts "Received INT signal, now exiting"
-  exit 0
-end
+unless Rails.env.production?
+  require './spec/support/mconf_ldap_server.rb'
 
-namespace :ldap do
+  def pretty_exit
+    puts "Received INT signal, now exiting"
+    exit 0
+  end
 
-  # To connect to this default server, use these configurations on Mconf-Web:
-  #
-  # * Server: localhost
-  # * Port: 1389
-  # * DN or user to bind: cn=admin,cn=TOPLEVEL,dc=example,dc=com
-  # * Password to connect: admin
-  # * DN for user's tree: ou=USERS,dc=example,dc=com
-  # * Username field: uid
-  # * Mail field: mail
-  # * Full name field: cn
-  # * User filter: -- leave it blank --
-  desc "Run a test ldap server"
-  task :server, [:port] => :environment do |t, args|
-    require './spec/support/ldap_server'
+  namespace :ldap do
 
-    Kernel.trap( "INT" ) { pretty_exit }
+    # To connect to this default server, use these configurations on Mconf-Web
+    # (they are defined by Mconf::LdapServer::default_ldap_configs):
+    #
+    # * Server: localhost
+    # * Port: 1389
+    # * DN or user to bind: cn=admin,cn=TOPLEVEL,dc=example,dc=com
+    # * Password to connect: admin
+    # * DN for user's tree: ou=USERS,dc=example,dc=com
+    # * Username field: uid
+    # * Mail field: mail
+    # * Full name field: cn
+    # * User filter: -- leave it blank --
+    desc "Run a test ldap server"
+    task :server, [:port] => :environment do |t, args|
+      require './spec/support/ldap_server'
 
-    site = Site.current
-    port = args[:port] || site.ldap_port || 1389
-    server = SpecLdapServer.new(:port => port)
+      Kernel.trap( "INT" ) { pretty_exit }
 
-    # 'admin' toplevel user with password 'admin' or use info from the db
-    toplevel = site.ldap_user || "cn=admin,cn=TOPLEVEL,dc=example,dc=com"
-    toplevel_password = site.ldap_user_password || "admin"
-    server.add_user toplevel, toplevel_password
+      port = args[:port] || 1389
+      configs = Site.current.attributes.select{ |attr| attr.match(/^ldap_/) }.symbolize_keys
+      configs[:ldap_port] = port
+      server = Mconf::LdapServer.new(configs)
+      puts "LDAP test server started on port #{port} with configs: #{configs.inspect}"
 
-    # add a user 'mconf' with password 'mconf'
-    user_tree = site.ldap_user_treebase || "ou=USERS,dc=example,dc=com"
-    uid = site.ldap_username_field || 'uid'
-    name = site.ldap_name_field || 'cn'
-    mail = site.ldap_email_field || 'mail'
-    server.add_user "#{uid}=mconf,#{user_tree}", 'mconf', { uid => 'mconf', name => 'mconf', mail => 'mconf@test.mconf.org' }
+      server.add_default_user
+      server.run
+    end
 
-    server.run_tcpserver
-    puts "LDAP test server started on port #{port}"
-    loop do
-      sleep 30
+    task :setup_site => :environment do |t|
+      puts "Setting up the site with LDAP attributes: #{Mconf::LdapServer.default_ldap_configs.inspect}"
+      Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
     end
   end
 end

@@ -5,12 +5,18 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class PostsController < ApplicationController
-  include SpamControllerModule
+class PostsController < InheritedResources::Base
 
-  before_filter :authenticate_user!, except: [:index, :show]
+  belongs_to :space, finder: :find_by_permalink
 
-  layout "spaces_show"
+  load_and_authorize_resource :space, :find_by => :permalink
+  before_filter :get_posts, :only => [:index]
+  load_and_authorize_resource :through => :space
+
+  # need it to show info in the sidebar
+  before_filter :webconf_room!, if: -> { set_layout == 'spaces_show' }
+
+  before_filter :set_author, only: [:create]
 
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
@@ -20,20 +26,12 @@ class PostsController < ApplicationController
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
-  load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
-
-  # need it to show info in the sidebar
-  before_filter :webconf_room!
-
-  before_filter :get_posts, :only => [:index]
-  skip_load_resource :only => :index
-
-  def index
-    @post = Post.new
-
-    respond_to do |format|
-      format.html
+  layout :set_layout
+  def set_layout
+    if [:new, :edit].include?(action_name.to_sym) && request.xhr?
+      false
+    else
+      "spaces_show"
     end
   end
 
@@ -44,56 +42,15 @@ class PostsController < ApplicationController
       post_comments(@post)
     end
 
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def new
-    respond_to do |format|
-      format.html {
-        render :partial => "new_post"
-      }
-    end
+    show!
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.space = @space
-    @post.author = current_user
-
-    respond_to do |format|
-      if @post.save
-        flash[:success] = t('post.created')
-        format.html { redirect_to request.referer }
-      else
-        flash[:error] = t('post.error.create')
-        format.html { redirect_to request.referer }
-      end
-    end
-
+    create! { |success, failure| create_update_handler(success, failure) }
   end
 
   def update
-    if @post.update_attributes(post_params)
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('post.updated')
-          redirect_to space_posts_path(@space)
-        }
-      end
-    else
-      flash[:error] = t('post.error.update')
-      redirect_to space_posts_path(@space)
-    end
-  end
-
-  def edit
-    respond_to do |format|
-      format.html {
-        render :partial => "edit_post"
-      }
-    end
+    update! { |success, failure| create_update_handler(success, failure) }
   end
 
   # Destroys the content of the post. Then its container(post) is
@@ -127,11 +84,24 @@ class PostsController < ApplicationController
 
   private
 
+  def create_update_handler success, failure
+    success.html { redirect_to space_posts_path(@space) }
+    failure.html {
+      redirect_to space_posts_path(@space), flash: {
+        error: I18n.t("flash.posts.#{action_name}.failure", errors: @post.errors.full_messages.join(', '))
+      }
+    }
+  end
+
+  def set_author
+    @post.author = current_user
+  end
+
   def get_posts
     per_page = params[:extended] ? 6 : 15
     @posts = @space.posts
       .order("updated_at DESC")
-      .paginate(:page => params[:page], :per_page => per_page)
+      .paginate(page: params[:page], per_page: per_page)
   end
 
   def post_comments(parent_post, options = {})
@@ -142,9 +112,4 @@ class PostsController < ApplicationController
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
-
-  def resource_for_spam
-    @post
-  end
-
 end

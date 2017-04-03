@@ -10,5 +10,18 @@
   .user-text
     %span.user-name
       - words = params[:q].try(:split)
-      = highlight(escape_once(user.full_name), words)
-      = "(#{highlight(user.username, words)}, #{highlight(user.email, words)})".html_safe
+      = Mconf::Highlighter.highlight(user.full_name, words)
+      = "(#{Mconf::Highlighter.highlight(user.username, words)}, #{Mconf::Highlighter.highlight(user.email, words)})".html_safe
+
+    %span.user-category
+      = user_category(user)
+
+    .current-sign-in
+      = t('.last_sign_in')
+      - if user.current_sign_in_at
+        %span.tooltipped{ title: user.current_sign_in_at }= "#{format_date(user.current_sign_in_at, :long) }"
+        = " #{t('.auth_using')} #{user_last_sign_in_method(user).to_s}"
+      - else
+        %span.tooltipped{ title: t('.never_sign_in') }= "?"
+      - methods = user_sign_in_methods(user).join(", ")
+      = "(#{t('.available_auth')}: #{methods})"

@@ -23,6 +23,7 @@ class FeedbackController < ApplicationController
 
   def create
     @feedback = Feedback.new(params[:feedback])
+    @feedback.from = current_user.email
 
     if @feedback.valid?
       ApplicationMailer.feedback_email(@feedback.from, @feedback.subject, @feedback.message).deliver

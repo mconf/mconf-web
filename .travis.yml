@@ -1,4 +1,6 @@
+sudo: false
 language: ruby
+cache: bundler
 services:
   - redis-server
 bundler_args: "--without production development"
@@ -8,4 +10,4 @@ before_script:
   - "cp config/setup_conf.yml.example config/setup_conf.yml"
 script: bundle exec rake
 rvm:
-  - 2.2.0
+  - 2.2.5

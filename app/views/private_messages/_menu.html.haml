@@ -1,8 +1,0 @@
-= content_for :page_menu do
-  %ul
-    %li{ private_messages_menu_select_if(:inbox) }
-      = link_to t('.inbox').capitalize, messages_path
-    %li{ private_messages_menu_select_if(:sent) }
-      = link_to t('.sent').capitalize, messages_path(:sent => true)
-    %li{ private_messages_menu_select_if(:compose) }
-      = link_to t('.compose').capitalize, new_message_path

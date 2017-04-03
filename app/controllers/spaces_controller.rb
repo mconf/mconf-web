@@ -5,13 +5,25 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class SpacesController < ApplicationController
+class SpacesController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve, disapprove
+  include Mconf::DisableControllerModule # for enable, disable
+  include Mconf::SelectControllerModule # select
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable, :destroy, :disable]
-  load_resource :find_by => :permalink, :parent => true, :only => [:edit_recording]
+  # TODO: cleanup the other actions adding respond_to blocks here
+  respond_to :js, :only => [:index, :show]
+  respond_to :json, :only => [:update_logo]
+  respond_to :html, :only => [:new, :edit, :index, :show, :destroy, :update]
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
+
+  # Cancan and inherited resources load
+  defaults finder: :find_by_permalink!
+  before_filter :load_space_via_space_id, only: [:edit_recording]
+  before_filter :load_spaces_index, only: [:index, :select]
+  load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the sidebar
@@ -20,78 +32,41 @@ class SpacesController < ApplicationController
               :recordings, :edit_recording, :webconference_options]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
-
   before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
-
-  # TODO: cleanup the other actions adding respond_to blocks here
-  respond_to :js, :only => [:index, :show]
-  respond_to :json, :only => [:update_logo]
-  respond_to :html, :only => [:new, :edit, :index, :show]
-
-  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
   after_filter :only => [:create, :update, :update_logo, :leave] do
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
-  def index
-    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
-    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
-
-    spaces = Space.where(approved: true)
-    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
-
-    @spaces = params[:my_spaces] ? @user_spaces : spaces
-    if params[:order] == 'abc'
-      @spaces = @spaces.order('name ASC').paginate(:page => params[:page], :per_page => 18)
+  def set_layout
+    if [:show, :edit, :user_permissions, :webconference_options,
+        :webconference, :recordings, :edit_recording].include? action_name.to_sym
+      'spaces_show'
     else
-      @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
+      'application'
     end
+  end
+  layout :set_layout
 
-    session[:current_tab] = "Spaces" if @space
+  def index
+    order_spaces
+    paginate_spaces
 
-    if params[:manage]
-      session[:current_tab] = "Manage"
-      session[:current_sub_tab] = "Spaces"
-    end
-
-    respond_with @spaces do |format|
-      format.html { render :index }
-      format.json
+    if request.xhr?
+      render "spaces/_list_view", layout: false, locals: { spaces: @spaces, user_spaces: @user_spaces , extended: true }
+    else
+      set_menu_tab
+      render :index
     end
   end
 
   def show
-    # news
-    @news_position = params[:news_position] ? params[:news_position].to_i : 0
-    @news = @space.news.order("updated_at DESC").all
-    @news_position = @news.length-1 if @news_position >= @news.length
-    @news_to_show = @news[@news_position]
-
-    # posts
-    posts = @space.posts
-    @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
-
-    # users
-    @latest_users = @space.users.order("permissions.created_at DESC").first(3)
-
-    respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
-      format.json
-    end
-  end
-
-  def new
-    @space = Space.new
-    respond_with @space do |format|
-      format.html { render :layout => 'application' }
-    end
+    @latest_posts = @space.latest_posts
+    @latest_users = @space.latest_users
   end
 
   def create
-    @space = Space.new(space_params)
-
     if @space.save
       respond_with @space do |format|
 
@@ -101,22 +76,19 @@ class SpacesController < ApplicationController
         # pre-approve the space if it's an admin creating it
         @space.approve! if can?(:approve, @space)
 
-        if @space.approved?
-          flash[:success] = t('space.created')
+        flash[:notice] = if @space.approved?
+          t('space.created')
         else
-          flash[:success] = t('space.created_waiting_moderation')
+          t('space.created_waiting_moderation')
         end
+
         format.html { redirect_to action: "show", id: @space }
       end
     else
       respond_with @space do |format|
-        format.html { render :new, :layout => "application" }
+        format.html { render :new }
       end
     end
-  end
-
-  def edit
-    render :layout => 'spaces_show'
   end
 
   def update_logo
@@ -133,7 +105,9 @@ class SpacesController < ApplicationController
         }
       end
     else
-      format.json { render json: { success: false } }
+      respond_to do |format|
+        format.json { render json: { success: false } }
+      end
     end
   end
 
@@ -142,68 +116,21 @@ class SpacesController < ApplicationController
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(space_params)
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('space.updated')
-          redirect_to :back
-        }
-      end
-    else
-      respond_to do |format|
-        flash[:error] = t('error.change')
-        format.html { redirect_to :back }
-      end
-    end
-  end
-
-  def disable
-    @space.disable
-    respond_to do |format|
-      format.html {
-        flash[:notice] = t('space.disabled')
-        if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
-          redirect_to manage_spaces_path
-        else
-          redirect_to spaces_path
-        end
-      }
-    end
+    update! { :back }
   end
 
   def destroy
-    @space.destroy
-    respond_to do |format|
-      format.html {
-        flash[:notice] = t('space.deleted')
-        redirect_to manage_spaces_path
-      }
-    end
+    destroy!(notice: t('space.deleted')) { manage_spaces_path }
   end
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = @space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
+    @permissions = @space.permissions_ordered_by_name
+      .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
-    render :layout => 'spaces_show'
   end
 
   def webconference_options
-    render :layout => 'spaces_show'
-  end
-
-  def enable
-    unless @space.disabled?
-      flash[:notice] = t('space.error.enabled', :name => @space.name)
-    else
-      @space.enable
-      flash[:success] = t('space.enabled')
-    end
-    respond_to do |format|
-      format.html { redirect_to manage_spaces_path }
-    end
   end
 
   def leave
@@ -242,7 +169,6 @@ class SpacesController < ApplicationController
       end
       @webconf_attendees.uniq!
     end
-    render :layout => 'spaces_show'
   end
 
   # Action used to show the recordings of a space
@@ -254,43 +180,61 @@ class SpacesController < ApplicationController
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
-    if params[:partial]
-      render :layout => false
-    else
-      render :layout => 'spaces_show'
-    end
+    @redir_url = recordings_space_path(@space)
+
+    render layout: false if params[:partial]
   end
 
   # Page to edit a recording.
   def edit_recording
-    # @space = Space.find_by_permalink(params[:space_id])
     @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
-    if request.xhr?
-      render :layout => false
-    else
-      render :layout => "spaces_show"
-    end
-  end
 
-  # Finds spaces by name (params[:q]) and returns a list of selected attributes
-  def select
-    name = params[:q]
-    limit = params[:limit] || 5   # default to 5
-    limit = 50 if limit.to_i > 50 # no more than 50
-    if name.nil?
-      @spaces = Space.limit(limit).all
-    else
-      @spaces = Space.where("name like ?", "%#{name}%").limit(limit)
-    end
-
-    respond_with @spaces do |format|
-      format.json
-    end
+    render layout: false if request.xhr?
   end
 
   private
+
+  # Load the @spaces and @user_spaces variables
+  # The @spaces variable will only contain approved spaces
+  def load_spaces_index
+    spaces = Space.where(approved: true)
+    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    words = params[:q].try(:split, /\s+/)
+
+    @spaces = params[:my_spaces] ? @user_spaces : spaces
+    @spaces = params[:q] ? @spaces.search_by_terms(words, can?(:manage, Space)) : @spaces
+
+    params[:tag] = "" if params[:tag].blank? || !params[:tag].split(ActsAsTaggableOn.delimiter).any?
+    @spaces = params[:tag].blank? ? @spaces : @spaces.tagged_with(params[:tag])
+
+    @spaces = @spaces.includes(:tags)
+  end
+
+  def order_spaces
+    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
+
+    if params[:order] == 'abc'
+      @spaces = @spaces.order('name ASC')
+    else
+      @spaces = @spaces.order_by_relevance
+    end
+  end
+
+  def paginate_spaces
+    @spaces = @spaces.paginate(:page => params[:page], :per_page => 15)
+  end
+
+  # Should be on the view?
+  def set_menu_tab
+    session[:current_tab] = "Spaces" if @space
+
+    if params[:manage]
+      session[:current_tab] = "Manage"
+      session[:current_sub_tab] = "Spaces"
+    end
+  end
 
   def load_and_authorize_with_disabled
     @space = Space.with_disabled.find_by_permalink(params[:id])
@@ -305,6 +249,11 @@ class SpacesController < ApplicationController
   def load_events
     @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
     @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
+  end
+
+  # For edit_recording
+  def load_space_via_space_id
+    @space = Space.find_by_permalink(params[:space_id])
   end
 
   def handle_record_not_found exception
@@ -365,9 +314,22 @@ class SpacesController < ApplicationController
   allow_params_for :space
   def allowed_params
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
-      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_key, :moderator_key, :default_layout, :private,
-          :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+        [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
+    ]
+  end
+
+  # For disable controller module
+  def disable_back_path
+    if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
+      manage_spaces_path
+    else
+      spaces_path
+    end
+  end
+
+  def back_url
+    request.referer
   end
 end

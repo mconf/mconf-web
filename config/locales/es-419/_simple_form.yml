@@ -5,8 +5,6 @@ es-419:
     required:
       text: 'requerido'
       mark: '*'
-    error_notification:
-      default_message: "Se encontraron algunos errores. Por favor, verifique:"
     buttons:
       cancel: "Cancelar"
       or: "o"
@@ -17,17 +15,23 @@ es-419:
         edit:
           password: "Contraseña nueva"
     hints:
+      bigbluebutton_room:
+        dial_number: "Un número de discado al que los participantes pueden llamar usando un teléfono de linea."
+      bigbluebutton_server:
+        version: "La versión se obtiene automáticamente de su servidor siempre que cambie su URL o clave secreta."
       invite:
         users: "Buscar personas por nombre o correo electrónico. En caso de no encontrarlos, agregue la dirección de correo electrónico. Escriba y presione ENTER para agregar nuevo ítem."
       site:
         analytics_code: "Codigo de su cuenta Google Analytics. Dejar en blanco para deshabilitar. Ejemplo: \"UA-12345678-9\""
         domain: "El dominio de su sitio web. No incluya el protocolo (ej. \"http\"), sólo el dominio completo. Ejemplo: \"my-server.org/web-portal\""
+        captcha_enabled: "Exigir a los usuarios que resuelvan un desafío de captcha al registrarse en cualquier sección del sitio web que no requiera autenticación (por ejemplo, registro de usuario y registro en eventos)"
         events_enabled: "Habilitar o deshabilitar el modulo de eventos. Para habilitarlo, debe tener instalado el modulo de eventos. Reinicie la aplicación después de aplicar los cambios."
         exception_notifications: "Enviar correos electrónicos de notificación cuando la aplicación se cierre inesperadamente"
         exception_notifications_email: "Utilice espacio, comas o comillas para separar las distintas direcciones de correo electrónico."
         exception_notifications_prefix: "Será prefijado en el asunto del correo electrónico. El valor predeterminado es \"[ERROR]\"."
         external_help: "Ingrese la URL completa del sitio externo que contiene la página de ayuda/FAQ. Incluya la dirección URL completa, incluido el protocolo. Ejemplo: 'http://servidor.com'."
         feedback_url: "Los usuarios serán redirigidos a esta URL cuando salgan de la conferencia web. Si no se especifica se redirigirá a '%{default_url}'"
+        forbid_user_space_creation: "Solamente los administradores podrán crear espacios"
         ldap_filter: "Un filtro personalizado de LDAP para restringir los usuarios que pueden iniciar sesión utilizando LDAP. Ejemplo: \"(&(objectclass=user)(objectcategory=person))\"."
         ldap_host: "La IP o dominio del servidor LDAP. Ejemplo: \"192.111.22.33\" o \"ldapserver.any.com\"."
         ldap_port: "El puerto que será utilizado para conectarse al servidor LDAP (para conexión LDAPS usar 636)"
@@ -38,20 +42,24 @@ es-419:
         ldap_email_field: "Especificar que atributo devuelto por LDAP será utilizado para obtener el correo electrónico de un usuario. Ejemplo: \"mail\"."
         ldap_name_field: "Especificar que atributo devuelto por LDAP será utilizado para obtener el nombre completo de un usuario. Ejemplo: \"cn\"."
         local_auth_enabled: "Cuando está marcada, la autenticación local estará habilitada, de lo contrario se deshabilitará para todos los usuarios a excepción de los administradores. Deshabilitar la autenticación local es usualmente utilizado cuando otros métodos de autenticación están habilitados (ej: LDAP)"
+        max_upload_size: "Limitar el tamaño máximo de archivo para la subida de logos, avatares y archivos adjuntos. Dejar vacío para desactivar la limitación. Establezca en 0 para limitar todos los archivos. Ejemplos: '5 MB', '700 kB'."
         presence_domain: "Dominio utilizado para identificar servidor XMPP."
         registration_enabled: "Si está marcada, los usuarios podrán crear nuevas cuentas. De lo contrario, sólo podrán ingresar al sitio si ya tienen un usuario creado. De todas formas, si esta opción está deshabilitada, aún pueden crearse nuevas cuentas a través de métodos secundarios como Shibboleth y LDAP."
-        require_registration_approval: "Cuando está marcada, los usuarios podrán registrar nuevas cuentas, pero sólo se les permitirá acceder al sitio una vez que un administrador apruebe su cuenta. De lo contrario, los usuarios podrán acceder libremente a la página web después de registrarse. Tenga en cuenta que si hay aprobaciones pendientes y desmarca esta opción, estos usuarios no serán aprobadas automáticamente."
+        require_registration_approval: "Cuando se selecciona, los usuarios sólo podrán acceder al sitio una vez que el administrador apruebe su cuenta. De lo contrario, los usuarios pueden acceder libremente al sitio web después del registro. Tenga en cuenta que si hay aprobaciones pendientes y desmarca este indicador, estos usuarios no serán aprobados automáticamente."
+        require_space_approval: "Cuando se selecciona, los espacios deben ser aprobados por un administrador antes de que otros usuarios puedan verlos y usarlos"
+        room_dial_number_pattern: "Un patrón para generar números de marcación de conferencia automáticamente. Utilice una 'x' para números aleatorios. Por ejemplo, un patrón válido es '611x-xxxx', que puede generar el número '6118-2871'. Después de establecer un patrón, las nuevas salas recibirán automáticamente un número de marcación. También puede generar un número de marcación para todas las salas existentes utilizando la tarea rake 'mconf:generate_dial_numbers'."
         shib_always_new_account: "Cuando está activada, obligará a Shibboleth a crear siempre una nueva cuenta cuando un usuario inicia sesión por primera vez, saltando la página de asociación."
         shib_email_field: "Obligatorio. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener correo electrónico del usuario. Ejemplo: Shib-inetOrgPerson-mail"
         shib_env_variables: "Shibboleth devuelve un conjunto de variables de entorno cuando el usuario se autentica. Todas las variables especificadas en esta lista serán traídas del entorno y establecerán atributos del usuario. Especifique cada variable en una línea diferente. Las comparaciones no diferencian mayúsculas de minúsculas y las cadenas de texto se recortan (trim). También se puede utilizar expresiones regulares. Si este campo está vacío, todas las variables que comiencen con \"Shib-\" serán traídas."
         shib_login_field: "No requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado par obtener el login del usuario. Si no se obtiene, la aplicación generará un login desde el nombre del usuario. Ejemplo: \"Shib-inetOrgPerson-cn\"."
         shib_name_field: "Requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener el nombre del usuario. Ejemplo: \"Shib-inetOrgPerson-sn\"."
-        shib_principal_name_field: "Requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener el nombre principal del usuario, que contiene el identificador único del usuario. Ejemplo \"Shib-inetOrgPerson-sn\"."
+        shib_principal_name_field: "Necesario. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo se utilizará para obtener el \"nombre principal\" del usuario, que contiene el identificador único del usuario. Si cambia este valor después de ya tener usuarios en la base de datos, es posible que pierdan el acceso a su cuenta. Ejemplo \"Shib-inetOrgPerson-sn\"."
+        shib_update_users: "Si se establece, algunos de los atributos de usuario se actualizarán automáticamente utilizando la información recibida de la federación (por ejemplo, actualizar el correo electrónico del usuario si ha cambiado en la federación). En este caso, los usuarios tampoco podrán editar estos atributos en el sitio. Si no se establece, los atributos no se actualizarán automáticamente."
         smtp_login: "El correo electrónico de acceso a su servidor SMTP"
         smtp_password: "La contraseña de su cuenta de correo electrónico en su servidor SMTP"
         ssl: "Con SSL habilitado todos los links internos (incluyendo páginas, imagenes, adjuntos) utilizarán el protocolo HTTPS en lugar de HTTP"
+        use_gravatar: "Obtener avatares de usuario de gravatar si no se subió ninguno."
         xmpp_server: "Dirección donde está ubicado el servidor XMPP."
-        webconf_auto_record: "Si está marcada, la opción de grabación se ajusta automáticamente en función de si el usuario tiene permiso para grabar las reuniones en la sala de destino o no (útil si los servidores de conferencia web tienen el botón de grabación dentro de la sesión). De lo contrario, el usuario tendrá que establecer manualmente la opción de grabación al abrir una nueva conferencia web (sólo si tiene permisos para hacerlo)."
       space:
         bigbluebutton_room:
           attendee_key: "Clave para que los usuarios puedan unirse a la conferencia como asistentes. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
@@ -75,9 +83,21 @@ es-419:
           private: "Salas privadas requieren una contraseña para que los usuarios puedan unirse. Las salas públicas son accesibles por cualquier persona. Sólo puede iniciar una conferencia en su sala, sin importar si es privada o pública."
           welcome_msg: "Este mensaje se mostrará en el chat cuando un usuario se una a la conferencia. Déjelo vacío para usar el mensaje predeterminado. Puede incluir información específica de la reunión utilizando las variables %%CONFNAME%%, %%DIALNUM%% y %%CONFNUM%%"
         can_record: "Marque esta opción para permitir que este usuario pueda grabar reuniones en su sala personal o en salas de espacios a los que pertenece"
+        dial_number: "Un número de discado al que los participantes pueden llamar usando un teléfono de linea."
         superuser: "Marque esta opción para que este usuario sea un administrador global del sitio"
-        timezone: "Al seleccionar una zona horaria no habrá ningún malentendido al crear eventos con gente de otros lugares"
+        timezone: "La zona horaria seleccionada se utilizará para mostrar todas las fechas en el sitio. Los husos horarios con un asterisco (*) se encuentran actualmente en horario de verano."
         username: "Este ID será utilizado para identificar su usuario y su sala de conferencias web. Use solamente letras, números y guiones."
+      event:
+        time_zone: Escoja la zona horaria que el evento usara
+        location: Una descripcion general de donde se va realizar el evento. Por ejemplo "Universidad XY"
+        address: La dirección completa donde se llevará a cabo el evento. Al ingresar una dirección válida, se creará un mapa y se marcará esta dirección en él en la página del evento.
+        social_networks: ¿Qué botones de compartir en redes sociales deben estar visibles en la página del evento?
+        summary: Escriba un resumen del evento en 140 letras o menos
+        description: Escriba la descripción del evento. Puede utilizar Markdown para hacer el texto bonito.
+        start_on: Fecha y hora de inicio del evento
+        end_on: Fecha y hora para terminar el evento. No es obligatorio, pero si esta en blanco el evento terminara 24 horas despues de haber iniciado.
+    error_notification:
+      default_message: "Por favor revise el problema a continuación:"
     placeholders:
       invite:
         ends_on: "Finaliza en..."

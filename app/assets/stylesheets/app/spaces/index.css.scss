@@ -24,60 +24,29 @@ body.spaces.index {
       margin-right: 10px;
     }
 
-    .btn-group {
-      margin-left: 15px;
-      float: left;
+    #space-filter-tags {
+      margin-left: 12px;
+      margin-top: 10px;
+      text-align: left;
+    }
 
-      .select2-container {
-        margin: 0;
-      }
-      .select2-choice {
-        @include border-radius(0 4px 4px 0);
-      }
-
-      #space-filter-text {
-        border-left: 0;
-        margin: 0;
-        @include border-left-radius(0);
-      }
+    #spaces_filter_text {
+      width: 95%;
+      clear: both;
+      margin: 0;
     }
   }
 
-  #space-order-wrapper {
+  #space-order {
     float: right;
-    margin-right: 15px;
+    margin-right: 11px;
     margin-bottom: 10px;
   }
 
-  // adjust how the select2 search input looks in this page
-  // note: exactly the same we have in mweb_events-events/index.css.scss
-  .select2-container .select2-choice {
-    border-right-width: 1px;
-  }
-  // the results for the filter by name are added to <body>, this is why
-  // this selector is here and not nested
-  .select2-results, .select2-container {
-    .select2-result, .select2-chosen {
-      text-align: left;
-
-      i {
-        float: right;
-        @include font-size($font-small);
-        margin: 4px 0 0 0;
-      }
-
-      a {
-        @include font-size($font-normal);
-        text-align: left;
-        @include link-colors($font-color, $font-color, $font-color, $font-color);
-        @include transition(none);
-      }
-
-      &.select2-highlighted {
-        i { color: #eee }
-        a { @include link-colors(#eee, #eee, #eee, #eee); }
-      }
-    }
+  #space-type {
+    float: left;
+    margin-left: 11px;
+    margin-bottom: 10px;
   }
 
   #space-description-wrapper {

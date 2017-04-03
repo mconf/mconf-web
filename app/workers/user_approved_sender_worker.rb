@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class UserApprovedSenderWorker < BaseWorker
-  @queue = :user_notifications
 
   # Sends a notification to the user with id `user_id` that he was approved.
   def self.perform(activity_id)

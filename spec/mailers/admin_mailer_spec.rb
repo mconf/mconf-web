@@ -9,7 +9,7 @@ require "spec_helper"
 describe AdminMailer do
 
   describe '.new_user_waiting_for_approval' do
-    let(:admin) { FactoryGirl.create(:user, superuser: true) }
+    let(:admin) { FactoryGirl.create(:superuser) }
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { AdminMailer.new_user_waiting_for_approval(admin.id, user.id) }
 

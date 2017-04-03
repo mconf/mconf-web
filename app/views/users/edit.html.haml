@@ -30,7 +30,7 @@
     #user-ldap-info.alert.alert-gray
       %span.title= t('.ldap.title')
 
-= simple_form_for @user, :url => user_path(@user, return_to: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
+= simple_form_for @user, :url => user_path(@user, redir_url: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
 
   .left-column
 
@@ -43,24 +43,18 @@
         %h3= t('.change_password')
         - unless current_user.superuser?
           = f.input :current_password
-        = f.input :password, :autocomplete => "off", :required => false
-        = f.input :password_confirmation, :required => false
+        = disable_autocomplete_for('user[password]', 'password')
+        = f.input :password, autocomplete: "off", required: false
+        = f.input :password_confirmation, required: false
 
   .right-column
     #account-preferences
       %h3= t('.preferences')
 
       = f.input :timezone, :required => false do
-        = f.time_zone_select :timezone, nil, :include_blank => true
+        = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, :include_blank => true
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
-
-      = f.input :receive_digest, :required => false do
-        - collection = []
-        - collection.push([User::RECEIVE_DIGEST_NEVER, t('.receive_digest.never')])
-        - collection.push([User::RECEIVE_DIGEST_DAILY, t('.receive_digest.daily')])
-        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('.receive_digest.weekly')])
-        = f.collection_radio_buttons :receive_digest, collection, :first, :last
 
   - if user_signed_in? && current_user.superuser
     #management-options.alert.alert-gray
@@ -84,7 +78,7 @@
       -# access to their account
       - unless current_user == @user
         = f.input :approved, :required => false
-        = f.input :superuser, :required => false
+        = f.input :superuser, as: :boolean, required: false
         - if !@user.confirmed?
           .input
             = link_to confirm_user_path(@user), :data => { :confirm => t('.confirm_user_confirm') },  :method => :post do

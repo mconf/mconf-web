@@ -6,15 +6,17 @@
 
 module ApprovalHelper
 
-  def approval_links classname, object, translations=nil
+  def approval_links classname, object
+    link = lambda { |action|
+      link_to send("#{action}_#{classname}_path", object), :method => :post, :data => { :confirm => t(".#{action}_confirm") } do
+        send("icon_#{action}" ,:alt => t(".#{action}"), :title => t(".#{action}"))
+      end
+    }
+
     if object.approved? && can?(:disapprove, object)
-      link_to send("disapprove_#{classname}_path", object), :method => :post, :data => { :confirm => t('.disapprove_confirm') } do
-        icon_disapprove(:alt => t('.disapprove'), :title => t('.disapprove'))
-      end
+      link.call('disapprove')
     elsif !object.approved? && can?(:approve, object)
-      link_to send("approve_#{classname}_path", object), :method => :post, :data => { :confirm => t('.approve_confirm') } do
-        icon_approve(:alt => t('.approve'), :title => t('.approve'))
-      end
+      link.call('approve')
     end
   end
 

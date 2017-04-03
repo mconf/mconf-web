@@ -12,9 +12,9 @@ class Invitation < ActiveRecord::Base
   belongs_to :recipient, :class_name => "User"
 
   # Sends the invitation to the recipient.
-  # Respects the preferences of the user, sending the notification either via
-  # email or private message.
-  # Uses the mailer variable to build the correct emails
+  # Respects the preferences of the user, sending the notification
+  # (usually via email).
+  # Uses the mailer variable to build the correct emails.
   def send_invitation
     mailer = if self.is_a? WebConferenceInvitation
                WebConferenceMailer
@@ -30,13 +30,19 @@ class Invitation < ActiveRecord::Base
   end
 
   def self.create_invitations(user_list, params)
+    params = params.clone
+
     # creates an invitation for each user
     users = user_list.try(:split, ",") || []
+    users.map! { |u| u.strip }
+
     users.map do |user_str|
-      user = User.where(:id => user_str).first
+      user = User.find_by(id: user_str)
       if user
         params[:recipient] = user
+        params[:recipient_email] = nil
       else
+        params[:recipient] = nil
         params[:recipient_email] = user_str
       end
       self.create(params)
@@ -83,17 +89,22 @@ class Invitation < ActiveRecord::Base
 
   def to_ical
     if self.is_a? EventInvitation
-      cal = Icalendar::Calendar.new
-      cal.add_event(target.to_ics)
-      cal.to_ical
+      target.to_ical
     else
       event = Icalendar::Event.new
+
+      attendee_list = WebConferenceInvitation
+                        .where(invitation_group: self.invitation_group)
+                        .includes(:recipient)
+                        .pluck(:email, :recipient_email)
+                        .flatten.compact.uniq
 
       # We send the dates always in UTC to make it easier. The 'Z' in the ends denotes
       # that it's in UTC.
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
       event.organizer = sender.email
+      event.attendee = attendee_list.flatten.compact unless self.invitation_group.blank?
       event.ip_class = "PUBLIC"
       event.uid = self.url
       event.url = self.url
@@ -107,26 +118,14 @@ class Invitation < ActiveRecord::Base
     end
   end
 
-  private
-
-  # TODO: this could be used for other messages, not only webconf invitations, could be
-  #   moved somewhere else
-  # TODO: not sure if here is the best place for this, maybe it should be done asynchronously
-  #   together with emails, maybe in a class that abstracts "notifications" in general
-  def send_private_message(user)
-    I18n.with_locale(get_user_locale(user, false)) do
-      content = ActionView::Base.new(Rails.configuration.paths["app/views"])
-        .render(:partial => 'web_conference_mailer/invitation_email',
-                :format => :pm,
-                :locals => { :invitation => self })
-      opts = {
-        :sender_id => self.sender.id,
-        :receiver_id => user.id,
-        :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_email.subject')
-      }
-      private_message = PrivateMessage.new(opts)
-      private_message.save
+  # Get a https/http URL depending on the setting on the site
+  def url_with_protocol
+    begin
+      u = URI.parse(self.url)
+      u.scheme = Site.current.ssl? ? 'https' : 'http'
+      u.to_s
+    rescue URI::InvalidURIError
+      url
     end
   end
 

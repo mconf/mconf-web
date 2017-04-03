@@ -1,0 +1,161 @@
+bg:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Съдържание
+        name: Име
+        owner: Притежател
+      bigbluebutton_playback_format:
+        format_type: Тип
+        length: Дължина
+        url: URL
+      bigbluebutton_playback_type:
+        default: По подразбиране
+        name: Име
+        visible: Видимост
+      bigbluebutton_recording:
+        description: "Описание"
+        end_time: "Край"
+        meetingid: "Meeting ID"
+        metadata: Мета данни
+        name: Име
+        published: Публикувано
+        recordid: "Record ID"
+        room_id: "Стая ID"
+        server_id: "Сървър ID"
+        size: "Размер"
+        start_time: "Начало"
+      bigbluebutton_room:
+        allow_start_stop_recording: "Позволяване на потребителя да започва/спира записването"
+        attendee_api_password: "Вътрешен API key за участващи"
+        attendee_key: "Парола за присъстващи"
+        auto_start_video: "Автоматичен старт на видео"
+        auto_start_audio: "Автоматичен старт на аудио"
+        auto_start_recording: "Автоматичен старт на записването"
+        background: "Изображение за фон"
+        default_layout: "По подразбиране"
+        dial_number: "Номер за набиране"
+        duration: Продължителност
+        external: "Външно създадено "
+        logout_url: "URL за изход"
+        max_participants: "Максимален брой участници"
+        meetingid: "Meeting ID"
+        metadata: Мета данни
+        moderator_api_password: "Вътрешен API key за модератори"
+        moderator_key: "Парола за модератори"
+        moderator_only_message: "Съобщение само за модератори"
+        name: Име
+        param: "Стринг ID"
+        private: Лични
+        presenter_share_only: "Само презентиращият да споделя аудио и видео"
+        record: Записване
+        server_id: "Сървър ID"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Съобщение за добре дошли"
+      bigbluebutton_server:
+        name: Име
+        param: "Стринг ID"
+        secret: "Споделена парола"
+        url: URL
+        version: Версия
+      bigbluebutton_server_config:
+        available_layouts: "Достъпни слоеве"
+    models:
+      bigbluebutton_metadata: "Мета данни на записите на Уеб Конференцията"
+      bigbluebutton_playback_format: "Формат на възпроизвеждането на записите на Уеб Конференцията"
+      bigbluebutton_recording: "Запис на Уеб Конференцията"
+      bigbluebutton_room: "Конферентна стая"
+      bigbluebutton_server: "Конферентен сървър"
+      bigbluebutton_server_config: "Конфигурации на конферентен сървър"
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    metadata:
+      errors:
+        name_format: "може да използва само букви, цифри и символите \"-\" или \"_\", но само букви в началото"
+    playback_types:
+      notice:
+        update:
+          success: "Типът на възпроизвеждане е обновен успешно."
+      presentation:
+        name: "Пусни"
+        tip: "Пуска записите в HTML5 страница. Записът не се сваля на компютъра и изисква Интернет връзка за да бъде пуснат"
+      presentation_export:
+        name: "Свали HTML"
+        tip: "Сваля HTML страница, която може да се използва за пускане на запис офлайн, използвайки браузър. Има всички опции на HTML player online, както и предимството да работи офлайн. В момента може да се пуска само на Firefox браузър."
+      presentation_video:
+        name: "Сваляне"
+        tip: "Сваля видео файл (използва WebM format) със записа. Видео файлът може да бъде използван за гледане на записа офлайн и за споделяне на този запис в други сайтове."
+    recordings:
+      default:
+        description: "Срещата е в изчакване за %{time} (UTC)"
+      errors:
+        check_for_server:
+          no_server: "Няма сървър, асоциран с този запис"
+        play:
+          no_format: "Няма специфициран линк за възпроизвеждане на този запис"
+      notice:
+        destroy:
+          success: "Записът е унищожен успешно."
+          success_with_bbb_error: "Записът е унищожен успешно, но не е изтрит от конферентния сървър (\"%{error}\")"
+        publish:
+          success: "Записът е публикуван успешно"
+        unpublish:
+          success: "Записът е премахнат от публикация успешно."
+        update:
+          success: "Записът е обновен успешно."
+    rooms:
+      default_welcome_msg: "Добре дошли в <b>%%CONFNAME%%</b>!<br><br>За да се присъедините с аудио кликнете на иконката със слушалките (горен ляв ъгъл). Използвайте слушалки, за да избегнете микрофония и странични шумове.<br>"
+      default_welcome_msg_dial_number: "Добре дошли в <b>%%CONFNAME%%</b>!<br><br>За да се присъедините с аудио кликнете на иконката със слушалките (горен ляв ъгъл). Използвайте слушалки, за да избегнете микрофония и странични шумове.<br>Може да се обадите към тази конференция и от обикновен телефон, използвайки този номер  \"%%DIALNUM%%\".<br>"
+      errors:
+        fetch_recordings:
+          no_server: "Няма сървър, асоциран с тази стая."
+        join:
+          cannot_create: "Не ви е позволено да започнете тази среща"
+          failure: "Грешка при проверката."
+          not_running: "Срещата не е започнала. Трябва да изчакате модератор за да се присъедините."
+          wrong_params: "Грешни параметри на вашата заявка."
+        generate_dial_number:
+          not_unique: "Съжаляваме, но не беше възможно да генерираме уникален номер за набиране на тази стая. Може да опитате по-късно или ръчно да сложите номер за набиране."
+        param_format: "може да използва само букви, цифри и символите \"-\" или \"_\", но само букви в началото и края"
+        server:
+          nil: "Стаята трябва да бъде асоцирана със сървър, за да се извърши операцията."
+      notice:
+        create:
+          failure: "Не беше възможно създаването на стаята."
+          success: "Стаята е създадена успешно."
+        destroy:
+          success: "Стаята е унищожена успешно."
+          success_with_bbb_error: "Стаята е унищожена успешно, но срещата не е изтрита от конферентния сървър (\"%{error}\")"
+        end:
+          not_running: "Срещата не е приключена успешно, тъй като не е стартирана."
+          success: "Срещата е приключена успешно."
+        fetch_recordings:
+          success: "Списъкът със записи за тази стая е обновен успешно."
+        generate_dial_number:
+          success: "Уникалният номер за набиране е генериран и запазен."
+        update:
+          failure: "Обновяването на тази стая не беше възможно."
+          success: "Стаята е обновена успешно."
+    servers:
+      errors:
+        param_format: "може да използва само букви, цифри и символите \"-\" или \"_\", но само букви в началото и края"
+        url_format: "трябва да използва модела http://<server>/bigbluebutton/api"
+      notice:
+        create:
+          success: "Сървърът е създаден успешно."
+        fetch_recordings:
+          success: "Списъкът със записи е обновен успешно."
+        publish_recordings:
+          success: "Записите са публикувани успешно."
+        unpublish_recordings:
+          success: "Записите са премахнати от публикация успешно."
+        update:
+          success: "Сървърът е обновен успешно."
+    server_configs:
+      layouts:
+        defaultlayout: "По подразбиране"
+        lecture: "Лекция"
+        lectureassistant: "Асистент"
+        presentfocus: "Уебинар"
+        videochat: "Видео Чат"
+        webcamsfocus: "Среща"

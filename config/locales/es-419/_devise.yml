@@ -6,6 +6,7 @@ es-419:
       send_paranoid_instructions: "Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un correo electrónico con instrucciones sobre cómo confirmar su cuenta en unos minutos."
     failure:
       already_authenticated: "Usted ya está registrado."
+      disabled_by_shib_auth: 'Su usuario no tiene permiso para acceder a través de la autenticación local. Por favor, inicie sesión con la federación.'
       inactive: "Su cuenta aún no se ha activado."
       invalid: "Correo electrónico o contraseña incorrectos."
       invalid_token: "Token de autenticación incorrecto."
@@ -17,14 +18,18 @@ es-419:
       unconfirmed: "Debe confirmar su cuenta para continuar."
     mailer:
       confirmation_instructions:
+        confirmation_link: "Confirmar mi cuenta"
+        confirmation_ok: "Puede confirmar su cuenta de mail a través del enlace de abajo:"
+        confirmation_pending: "Su cuenta ha sido creada y espera la aprobación de un administrador"
         subject: "Registro exitoso"
+        welcome: "Bienvenido %{email}!"
       reset_password_instructions:
         subject: "Instrucciones para restablecer su contraseña."
-        greeting: ¡Hola, %{email}!
-        requested: 'Alguien ha solicitado un enlace para cambiar tu contraseña. Puede hacer esto a través del siguiente enlace:'
-        change_password: Cambiar contraseña
-        ignore: Si no ha solicitado esto, por favor ignore este mensaje.
-        wont_change: Su contraseña no cambiará hasta que acceda al enlace de arriba y cree una nueva
+        greeting: "Hola %{email},"
+        requested: "Alguien ha solicitado un enlace para cambiar su contraseña. Puede hacer esto a través del enlace de abajo:"
+        change_password: "Cambiar contraseña"
+        ignore: "Si no ha solicitado esto, por favor ignore este mensaje."
+        wont_change: "Su contraseña no cambiará hasta que acceda al enlace de abajo y cree una nueva."
       unlock_instructions:
         subject: "Instrucciones de desbloqueo"
     omniauth_callbacks:

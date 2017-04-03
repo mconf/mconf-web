@@ -4,7 +4,7 @@ class AddNewAccountToShibToken < ActiveRecord::Migration
 
     # Checks token.created_at - user.created_at < 10 seconds
     # Users created too long before the token means the user created it using another method
-    # (local registraion, ldap, etc).
+    # (local registration, ldap, etc).
     # Token created before the user means possibly an error when creating the user or old
     # base code. In this case we assume the user was created via shib.
     puts "Automatically setting tokens as :new_account if they match the default criteria"

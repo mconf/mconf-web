@@ -160,13 +160,8 @@ describe Mconf::Shibboleth do
         it { should be_falsey }
       end
 
-      context "returns false if the enrollment is not there" do
-        let(:session) { { :shib_data => { "email" => "anything", "name" => "anything", "principal_name" => "anything" } } }
-        it { should be_falsey }
-      end
-
-      context "returns true if all required fields are there" do
-        let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything", "principal_name" => "anything", "ufrgsVinculo" => "anything" } } }
+      context "returns true if name and email are there" do
+        let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything", "principal_name" => "anything" } } }
         it { should be_truthy }
       end
     end
@@ -478,9 +473,10 @@ describe Mconf::Shibboleth do
 
     context "if the session has #{Mconf::Shibboleth::SESSION_KEY} key and `set_signed_in` was called" do
       let(:shibboleth) { Mconf::Shibboleth.new({ "#{Mconf::Shibboleth::SESSION_KEY}" => {} }) }
+      let(:shib_token) { FactoryGirl.create(:shib_token) }
       before {
         shibboleth.set_data({})
-        shibboleth.set_signed_in
+        shibboleth.set_signed_in(shib_token.user, shib_token)
       }
 
       subject { shibboleth.signed_in? }
@@ -495,14 +491,14 @@ describe Mconf::Shibboleth do
       before {
         Site.current.update_attributes(:shib_email_field => 'email', :shib_name_field => 'name', :shib_principal_name_field => 'principal_name')
       }
-      it { shibboleth.basic_info_fields.should eq(['email', 'name', 'principal_name', 'ufrgsVinculo']) }
+      it { shibboleth.basic_info_fields.should eq(['email', 'name', 'principal_name']) }
     end
 
     context "returns nil if the attributes are not set in the site" do
       before {
         Site.current.update_attributes(:shib_email_field => nil, :shib_name_field => nil, :shib_principal_name_field => nil)
       }
-      it { shibboleth.basic_info_fields.should eq([nil, nil, nil, 'ufrgsVinculo']) }
+      it { shibboleth.basic_info_fields.should eq([nil, nil, nil]) }
     end
   end
 

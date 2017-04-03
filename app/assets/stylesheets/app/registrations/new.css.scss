@@ -17,9 +17,8 @@ body.registrations.new, body.registrations.create {
       padding: 0 5px 5px 0;
 
       input[type=text], input[type=password], input[type=email] {
-        width: 300px;
+        width: 290px;
       }
-
     }
 
    .extra-links {
@@ -38,6 +37,11 @@ body.registrations.new, body.registrations.create {
      }
    }
 
+  }
+
+  .captcha {
+    float: right;
+    margin-bottom: 10px;
   }
 
 }

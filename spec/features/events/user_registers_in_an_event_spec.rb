@@ -9,7 +9,11 @@ require 'support/feature_helpers'
 
 feature "User registers in an event" do
 
-  before(:all) { Site.current.update_attributes(events_enabled: true) }
+  before(:all) {
+    Site.current.update_attributes(events_enabled: true)
+    page.driver.header 'Referer', "http://#{Site.current.domain}"
+  }
+
   subject { page }
 
   context 'as a logged in user clicking in the link to register' do
@@ -17,26 +21,26 @@ feature "User registers in an event" do
     let(:user) { FactoryGirl.create(:user) }
     before {
       login_as(user, :scope => :user)
-      visit mweb_events.event_path(event)
-      click_button t("mweb_events.events.registration.button")
+      visit event_path(event)
+      click_button t("events.registration.button")
     }
 
-    it { has_success_message t('mweb_events.participant.created') }
-    it { current_path.should eq(mweb_events.event_path(event)) }
-    it { should have_content t("mweb_events.events.registration.already_registered") }
-    it { should have_content t("mweb_events.events.registration.unregister") }
-    it { should_not have_content t("mweb_events.events.registration.button") }
+    it { has_success_message t('flash.participants.create.notice') }
+    it { current_path.should eq(event_path(event)) }
+    it { should have_content t("events.registration.already_registered") }
+    it { should have_content t("events.registration.unregister") }
+    it { should_not have_content t("events.registration.button") }
     # updates the number of participants in the event
     # adds the user as a participant in the event
 
     context 'cancel registration after being registered' do
       before {
-        click_link t("mweb_events.events.registration.unregister")
+        click_link t("events.registration.unregister")
       }
 
-      it { current_path.should eq(mweb_events.event_path(event)) }
-      it { has_success_message t('mweb_events.participant.destroyed') }
-      it { should_not have_content t("mweb_events.events.registration.unregister") }
+      it { current_path.should eq(event_path(event)) }
+      it { has_success_message t('flash.participants.destroy.notice') }
+      it { should_not have_content t("events.registration.unregister") }
     end
   end
 
@@ -44,24 +48,53 @@ feature "User registers in an event" do
     let(:event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:user)) }
     let(:user) { FactoryGirl.create(:user) }
     before {
-      visit mweb_events.event_path(event)
-      click_link t("mweb_events.events.registration.button")
+      visit event_path(event)
+      click_link t("events.registration.button")
     }
 
-    it { current_path.should eq(mweb_events.new_event_participant_path(event)) }
-    it { should have_content t("mweb_events.participants.split_form.annonymous_title") }
-    it { should have_content t("mweb_events.participants.split_form.member_title") }
+    it { current_path.should eq(new_event_participant_path(event)) }
+    it { should have_content t("participants.split_form.annonymous_title") }
+    it { should have_content t("participants.split_form.member_title") }
 
-    context "register as annonymous" do
+    context "with captcha disabled" do
       let(:email) { 'cosmo@oot.ze' }
-      before {
-        fill_in "participant[email]", with: email
-        click_button t('mweb_events.participants.form.submit')
-      }
+      context "register as annonymous with valid captcha" do
+        before {
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
 
-      it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
-      it { current_path.should eq(mweb_events.event_path(event)) }
-      it { should have_content t("mweb_events.events.registration.button") }
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
+      end
+    end
+
+    context "with captcha enabled" do
+      let(:email) { 'cosmo@oot.ze' }
+      context "register as annonymous with valid captcha" do
+        before {
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(true)
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
+
+        it { has_success_message t('flash.participants.create.waiting_confirmation') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.button") }
+      end
+
+      context "try to register as annonymous with invalid captcha" do
+        before {
+          ParticipantsController.any_instance.should_receive(:verify_captcha).and_return(false)
+          fill_in "participant[email]", with: email
+          click_button t('participants.form.submit')
+        }
+
+        it { has_failure_message t('recaptcha.errors.verification_failed') }
+        it { current_path.should eq(event_participants_path(event)) }
+        it { page.should have_css("input[name='participant[email]'][value='#{email}']") }
+      end
     end
 
     context "register as annonymous and confirms registration via email" do
@@ -75,23 +108,21 @@ feature "User registers in an event" do
     context "login then register as member" do
       before {
         user.update_attributes password: '123456', password_confirmation: '123456'
-        fill_in "user[login]", with: user.permalink
-        fill_in "user[password]", with: '123456'
-        click_button t("sessions.login_form.login")
+        sign_in_with user.email, '123456', false
       }
 
-      it { current_path.should eq(mweb_events.new_event_participant_path(event)) }
-      it { should have_content(user.email) }
-      it { should have_content t("mweb_events.participants.form.submit") }
+      it { current_path.should eq(new_event_participant_path(event)) }
+      it { page.should have_css("input[name='participant[email]'][value='#{user.email}']") }
+      it { should have_content t("participants.form.submit") }
 
       context "finish registering" do
-        before { click_button t("mweb_events.participants.form.submit") }
+        before { click_button t("participants.form.submit") }
 
-        it { has_success_message t('mweb_events.participant.created') }
-        it { current_path.should eq(mweb_events.event_path(event)) }
-        it { should have_content t("mweb_events.events.registration.already_registered") }
-        it { should have_content t("mweb_events.events.registration.unregister") }
-        it { should_not have_content t("mweb_events.events.registration.button") }
+        it { has_success_message t('flash.participants.create.notice') }
+        it { current_path.should eq(event_path(event)) }
+        it { should have_content t("events.registration.already_registered") }
+        it { should have_content t("events.registration.unregister") }
+        it { should_not have_content t("events.registration.button") }
       end
     end
   end

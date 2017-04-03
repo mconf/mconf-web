@@ -137,7 +137,7 @@ describe ApplicationController do
         context "and the user is not the owner" do
           context "and the guest role is enabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(true)
               controller.stub(:current_user).and_return(FactoryGirl.create(:user))
             }
             before(:each) { get :index, :room_id => room.id }
@@ -146,7 +146,7 @@ describe ApplicationController do
 
           context "and the guest role is disabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(false)
               controller.stub(:current_user).and_return(FactoryGirl.create(:user))
             }
             before(:each) { get :index, :room_id => room.id }
@@ -157,7 +157,7 @@ describe ApplicationController do
         context "and there's no user logged" do
           context "and the guest role is enabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(true)
               controller.stub(:current_user).and_return(nil)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -166,7 +166,7 @@ describe ApplicationController do
 
           context "and the guest role is disabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(false)
               controller.stub(:current_user).and_return(nil)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -338,7 +338,7 @@ describe ApplicationController do
         context "and the user is not a member of the space" do
           context "and the guest role is enabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(true)
               controller.stub(:current_user).and_return(user)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -347,7 +347,7 @@ describe ApplicationController do
 
           context "and the guest role is disabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(false)
               controller.stub(:current_user).and_return(user)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -358,7 +358,7 @@ describe ApplicationController do
         context "and it's an anonymous user" do
           context "and the guest role is enabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(true)
               controller.stub(:current_user).and_return(nil)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -367,7 +367,7 @@ describe ApplicationController do
 
           context "and the guest role is disabled" do
             before {
-              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              BigbluebuttonRails.configuration.stub(:guest_support).and_return(false)
               controller.stub(:current_user).and_return(nil)
             }
             before(:each) { get :index, :room_id => room.id }
@@ -457,76 +457,34 @@ describe ApplicationController do
       context "when the user can record" do
         before { @ability.can :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => true) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: true }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            # uses the user's permission only, ignores that the room is not set to record
-            it { assigns(:result).should eql({ record: true }) }
-          end
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: true }) }
         end
 
-        context "and the site is not set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => false) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: true }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          # uses the user's permission only, ignores that the room is not set to record
+          it { assigns(:result).should eql({ record: true }) }
         end
-
       end
 
       context "when the user cannot record" do
         before { @ability.cannot :record_meeting, room }
 
-        context "and the site is set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => true) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is set to record" do
+          before { room.update_attributes(record_meeting: true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
         end
 
-        context "and the site is not set to auto set the record flag" do
-          before { Site.current.update_attributes(:webconf_auto_record => false) }
-
-          context "and the room is set to record" do
-            before { room.update_attributes(record_meeting: true) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
-
-          context "and the room is not set to record" do
-            before { room.update_attributes(record_meeting: false) }
-            before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ record: false }) }
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes(record_meeting: false) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ record: false }) }
         end
-
       end
     end
   end

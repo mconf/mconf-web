@@ -11,7 +11,7 @@ module Mconf
 
     # Starts the process of sending a notification to the model that was approved.
     def create_approval_notification(approved_by)
-      create_activity 'approved', owner: approved_by
+      create_activity 'approved', owner: approved_by, recipient: approved_by
     end
 
     def approve!

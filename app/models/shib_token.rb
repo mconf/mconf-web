@@ -28,4 +28,12 @@ class ShibToken < ActiveRecord::Base
       puts "* Failed to migrate token ##{token.id} '#{token.errors.full_messages.join(",")}'"
     end
   end
+
+  def last_sign_in_date
+    current_sign_in_at
+  end
+
+  def sign_in_method_name
+    "shibboleth"
+  end
 end

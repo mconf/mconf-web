@@ -19,11 +19,6 @@ module SpacesHelper
       options
   end
 
-  # Determines whether or not a space should have a visible link on the index page
-  def space_link_visible?(space)
-    user_signed_in? || (space.public? && space.approved?)
-  end
-
   # Returns a link to join the space depending on the status of the
   # current user. Possible cases:
   # * If there's no current user, returns a button to register.
@@ -99,18 +94,17 @@ module SpacesHelper
       options
   end
 
-  # TODO: check the methods below
+  def link_to_tag(tag)
+    if current_page?(manage_spaces_path) || current_page?(spaces_path)
+      # in these pages, the links are to add a tag to the current filters
+      link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
 
-  def max_word_length text
-    first_pos = 0
-    max_length = 0
-    while !((pos = (text+" ").index(' ', first_pos)).nil?)
-      if (pos - first_pos) > max_length
-        max_length = pos - first_pos
-      end
-      first_pos = pos + 1
+    else
+      # in all other pages the link is to space/index filtering by the tag clicked
+      options = params.clone
+      options.delete(:id) if options.has_key?(:id)
+      link_to tag.name, spaces_path(options.merge(tag: tag.name))
     end
-    return max_length
   end
 
 end

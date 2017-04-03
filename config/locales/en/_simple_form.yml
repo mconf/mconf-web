@@ -21,12 +21,19 @@ en:
         edit:
           password: "New password"
     hints:
+      bigbluebutton_room:
+        dial_number: "A dial access number that participants can call in using regular phone."
+      bigbluebutton_server:
+        version: "The version is automatically fetched from your server whenever you change it's URL or secret."
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         allowed_to_record: "List of enrollments allowed to record meetings. Users with these enrollments will automatically gain permission to record, even if their personal 'can record' flag is not checked. Leave it empty so only people with the 'can record' flag set will be able to record."
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        certificate_id_field: "Field in the certificate from where the user's unique identifier will be taken on login. Defaults to 'CN'."
+        certificate_name_field: "Field in the certificate from where the user's name will be taken on login. Defaults to 'CN'."
         domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
+        captcha_enabled: "Require users to solve a captcha challenge when registering on any section of the website that doesn't require authentication (e.g. user registration and registration in events)"
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
         exception_notifications: "Send notification emails whenever the application crashes"
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
@@ -44,6 +51,7 @@ en:
         ldap_email_field: "Specifies which attribute returned by LDAP will be used to obtain the email of a user. Example: \"mail\"."
         ldap_name_field: "Specifies which attribute returned by LDAP will be used to obtain the full name of a user. Example: \"cn\"."
         local_auth_enabled: "When checked the local authentication will be enabled, otherwise it will be disabled for all users except administrators. Disabling the local authentication is usually used only when other authentication methods are enabled (e.g. LDAP)."
+        max_upload_size: "Limit the maximum file size for uploads of logos, avatars and attachments. Leave it empty to disable limiting. Set to 0 to limit all files. Examples: '5 MB', '700 kB'."
         presence_domain: "Domain used to identify the XMPP server."
         registration_enabled: "If checked, users can create new accounts. Otherwise, users will only be able to access the website if they already have an account. Moreover, if this option is disabled, new accounts can still be created through secondary login methods such as Shibboleth and LDAP."
         require_registration_approval: "When checked, users will only be allowed to access the site once an administrator approves their account. Otherwise, users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
@@ -58,9 +66,12 @@ en:
         shib_update_users: "If set, some of the user attributes will be automatically updated using the information received from the federation (e.g. update the user's email if it changed in the federation). In this case users will also not be able to edit these attributes in the site. If not set, the attributes will not be automatically updated."
         smtp_login: "The login email to your SMTP server"
         smtp_password: "The password for your email account in your SMTP server"
+        smtp_receiver: "The email used to receive emails sent by users, such as the feedback messages. If left empty, will used the \"SMTP sender\"."
+        smtp_sender: "The email used in the \"From\" header when sending automated emails to users, usually a \"no-reply\" email."
         ssl: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol HTTPS instead of HTTP"
+        use_gravatar: "Fetch user avatars from gravatar if none was uploaded."
+        unauth_access_to_conferences: "Allow users to enter conferences without signing in."
         xmpp_server: "Address where's located the XMPP server."
-        webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
         bigbluebutton_room:
           attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
@@ -73,6 +84,7 @@ en:
         permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room. Use only lowercase letters, numbers or dashes."
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
+        tag_list: "Write a tag name and select it on the list or type a comma (',')  to create it"
       user:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked. This flag is used only if the site is configured to require registration approval."
         bigbluebutton_room:
@@ -87,8 +99,20 @@ en:
         dial_number: "A dial access number that participants can call in using regular phone."
         has_enrollment_allowed_to_record: "If checked, it means this user was automatically given permission to record meetings, regardless of whether he was given explicit permission to record through the 'allow user to record meetings' flag."
         superuser: "Check this option to make this user a global administrator of this website"
-        timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"
+        timezone: "The selected time zone will be used to display all dates in the website. Time zones with an asterisk (*) are currently in daylight saving time."
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
+      event:
+        time_zone: Choose the time zone this event will use.
+        location: A general description for where is the event going to happen. For example 'University XY'.
+        address: The complete address where the event will be held. Entering a valid address will create a map and mark this address on it in the event page.
+        social_networks: Which social network share buttons should be visible on the event page?
+        summary: Type a summary of the event in 140 characters or less.
+        description: Type in the event description. You can use Markdown to make the text pretty.
+        start_on: Date and time for the start of the event.
+        end_on: Date and time for the end of the event. Not required, but if left blank the event will end 24 hours after it has started.
+    error_notification:
+      default_message: "Please review the problems below:"
+
     placeholders:
       invite:
         ends_on: "Ends on..."

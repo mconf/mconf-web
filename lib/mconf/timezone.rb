@@ -54,6 +54,46 @@ module Mconf
 
       ActiveSupport::TimeZone[time_zone].parse(d.strftime('%c'))
     end
+  end
 
+  class DSTTimezone
+
+    def initialize(tz)
+      if tz.is_a?(String)
+        @tz = ActiveSupport::TimeZone.new(tz)
+      else
+        @tz = tz
+      end
+    end
+
+    def self.all
+      ActiveSupport::TimeZone.all.map do |tz|
+        DSTTimezone.new(tz)
+      end
+    end
+
+    def dst_string
+      if dst?
+        "(GMT#{dst_hours}*) #{name}"
+      else
+        "(GMT#{dst_hours}) #{name}"
+      end
+    end
+
+    def dst_hours
+      ActiveSupport::TimeZone.seconds_to_utc_offset(@tz.now.utc_offset)
+    end
+
+    def name
+      @tz.name
+    end
+
+    def tzinfo
+      @tz.tzinfo
+    end
+
+    def dst?
+      Time.now.in_time_zone(@tz).dst?
+    end
   end
 end

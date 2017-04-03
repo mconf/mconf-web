@@ -6,13 +6,16 @@
 
 require 'spec_helper'
 
-describe JoinRequestsWorker do
+describe JoinRequestsWorker, type: :worker do
   let(:worker) { JoinRequestsWorker }
+  let(:senderInv) { JoinRequestInviteSenderWorker }
+  let(:senderS) { JoinRequestSenderWorker }
+  let(:senderProc) { ProcessedJoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
+  let(:queue) { Queue::High }
+  let(:paramsInv) {{"method"=>:perform, "class"=>senderInv.to_s}}
+  let(:paramsS) {{"method"=>:perform, "class"=>senderS.to_s}}
+  let(:paramsProc) {{"method"=>:perform, "class"=>senderProc.to_s}}
 
   describe "#perform" do
 
@@ -32,10 +35,10 @@ describe JoinRequestsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestInviteSenderWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity[0].id) }
-      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity[1].id) }
-      it { expect(JoinRequestInviteSenderWorker).not_to have_queued(@activity[2].id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(paramsInv, @activity[0].id) }
+      it { expect(queue).to have_queued(paramsInv, @activity[1].id) }
+      it { expect(queue).not_to have_queued(paramsInv, @activity[2].id) }
     end
 
     context "enqueues all unnotified requests" do
@@ -54,10 +57,10 @@ describe JoinRequestsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestSenderWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestSenderWorker).to have_queued(@activity[0].id) }
-      it { expect(JoinRequestSenderWorker).to have_queued(@activity[1].id) }
-      it { expect(JoinRequestSenderWorker).not_to have_queued(@activity[2].id) }
+      it { expect(queue).to have_queue_size_of(2) }
+      it { expect(queue).to have_queued(paramsS, @activity[0].id) }
+      it { expect(queue).to have_queued(paramsS, @activity[1].id) }
+      it { expect(queue).not_to have_queued(paramsS, @activity[2].id) }
     end
 
     context "for unnotified processed requests" do
@@ -69,19 +72,19 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:accept, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:accept, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:accept, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:accept)
+          @activity2 = join_request2.new_activity(:accept)
+          @activity3 = join_request3.new_activity(:accept)
           @activity1.update_attribute(:notified, false)
           @activity2.update_attribute(:notified, nil)
           @activity3.update_attribute(:notified, true)
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(2) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).not_to have_queued(@activity3.id) }
+        it { expect(queue).to have_queue_size_of(2) }
+        it { expect(queue).to have_queued(paramsProc, @activity1.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
+        it { expect(queue).not_to have_queued(paramsProc, @activity3.id) }
       end
 
       context "ignores requests declined by admins" do
@@ -95,35 +98,38 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:decline)
+          @activity2 = join_request2.new_activity(:decline)
+          @activity3 = join_request3.new_activity(:decline)
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
+        it { expect(queue).to have_queue_size_of(1) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
       end
 
-      context "ignores requests that are not owned by join requests" do
-        let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
-        before {
-          # clear automatically created activities
-          RecentActivity.destroy_all
+      #
+      # Trackables on RecentActivities accept/decline are now join_requests and this is
+      # unecessary
+      # context "ignores requests that are not owned by join requests" do
+      #   let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   let!(:join_request2) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   let!(:join_request3) { FactoryGirl.create(:space_join_request, group: space, accepted: true) }
+      #   before {
+      #     # clear automatically created activities
+      #     RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity1.update_attributes(owner: space)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity2.update_attributes(owner: space)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
-        }
+      #     @activity1 = join_request1.new_activity(:decline)
+      #     @activity1.update_attributes(owner: space)
+      #     @activity2 = join_request2.new_activity(:decline)
+      #     @activity2.update_attributes(owner: space)
+      #     @activity3 = join_request3.new_activity(:decline)
+      #   }
 
-        before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
-      end
+      #   before(:each) { worker.perform }
+      #   it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
+      #   it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
+      # end
 
       context "warns introducer about declined invitations" do
         let!(:join_request1) { FactoryGirl.create(:space_join_request, group: space, :request_type => 'invite') }
@@ -136,16 +142,16 @@ describe JoinRequestsWorker do
           # clear automatically created activities
           RecentActivity.destroy_all
 
-          @activity1 = space.new_activity(:decline, join_request1.candidate, join_request1)
-          @activity2 = space.new_activity(:decline, join_request2.candidate, join_request2)
-          @activity3 = space.new_activity(:decline, join_request3.candidate, join_request3)
+          @activity1 = join_request1.new_activity(:decline)
+          @activity2 = join_request2.new_activity(:decline)
+          @activity3 = join_request3.new_activity(:decline)
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(3) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
-        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity3.id) }
+        it { expect(queue).to have_queue_size_of(3) }
+        it { expect(queue).to have_queued(paramsProc, @activity1.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity2.id) }
+        it { expect(queue).to have_queued(paramsProc, @activity3.id) }
       end
     end
   end

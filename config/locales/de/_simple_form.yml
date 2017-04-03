@@ -1,0 +1,114 @@
+de:
+  simple_form:
+    'yes': 'Ja'
+    'no': 'Nein'
+    required:
+      text: 'benötigt'
+      mark: '*'
+    buttons:
+      cancel: "Abbrechen"
+      or: "oder"
+    labels:
+      feedback:
+        from: "Ihre Email"
+      user:
+        edit:
+          password: "Neues Passwort"
+    hints:
+      bigbluebutton_room:
+        dial_number: "Eine Einwahlnummer, mit der Teilnehmer mit einem normalen Telefon teilnehmen können"
+      invite:
+        users: "Nach Name oder Email suchen. Wenn Sie jemanden nicht finden, tragen Sie einfach die Email-Adresse ein. Drücken Sie Eingabe, um ein neues Item anzulegen."
+      site:
+        analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        domain: "Domäne Ihrer Website. Geben Sie nicht das Protokoll (z.B. \"http) an, nur den vollen Domänennamen. Beispiel: \"mein-server.org/web-portal\""
+        events_enabled: "Eventmodul aktivieren oder deaktivieren. Um es zu aktivieren, muss das Eventmodul installiert sein. Starten Sie die Anwendung neu, um die Änderungen anzuwenden."
+        exception_notifications: "Benachrichtigungen senden, wann immer die Anwendung abstürzt."
+        exception_notifications_email: "Benutzen Sie entweder Leerzeichen, Kommas oder Strichpunkte, um Email-Adressen zu trennen"
+        exception_notifications_prefix: "Wird im Betreff einer Email vorangestellt. Standardmäßig '[ERROR]'."
+        external_help: "Fügen Sie die URL für eine externe Seite, die die Hilfe/FAQ Seite hostet, ein. Benutzen Sie die ganze URL inklusive Protkoll, beispielsweise: 'http://server.com'"
+        feedback_url: "Die Benutzer werden auf diese URL umgeleitet, wenn sie sich von einer Webkonferenz ausloggen. Wenn Sie hier nichts setzen, werden sie auf %{default_url}' umgeleitet."
+        forbid_user_space_creation: "Nur Administratoren werden Gruppen erstellen können"
+        ldap_filter: "Ein eigener LDAP-Filter, um die Benutzer, die sich einloggen können, einzuschränken. Beispiel: \"(&(objectclass=user)(objectcategory=person))\"."
+        ldap_host: "Die IP oder Domäne des LDAP-Servers. Beispiel: \"192.111.22.33\" oder \"ldapserver.any.com\"."
+        ldap_port: "Der Port, der für die Verbindung mit dem LDAP-Server genutzt wird. (Für LDAPS benutzen Sie 636)"
+        ldap_user: "Der volle DN (distinguished name) des Benutzers, der für die Verbindung mit dem LDAP Server benutzt wird."
+        ldap_user_password: "Das Passwort für den Benutzer, der sich mit dem LDAP-Server verbinden wird."
+        ldap_user_treebase: "Der LDAP-Zweig (DN), in dem die zu authentifizierenden Benutzer liegen."
+        ldap_username_field: "Legt fest, welche vom LDAP zurückgegeben Attribute verwendet werden, um den Benutzernamen eines Benutzers zu erhalten. Beispiel: \"uid\"."
+        ldap_email_field: "Legt fest, welche vom LDAP zurückgegeben Attribute verwendet werden, um die Email-Adresse eines Benutzers zu erhalten. Beispiel: \"mail\""
+        ldap_name_field: "Legt fest, welche vom LDAP zurückgegeben Attribute verwendet werden, um den vollen Namen des Benutzers zu erhalten. Beispiel: \"cn\""
+        local_auth_enabled: "Wenn markiert, wird die lokale Authentifizierung aktiviert, im anderen Fall wird sie für alle Benutzer ausgenommen Administratoren deaktiviert. Lokale Authentifizierung wird normalerweise nur deaktiviert, wenn andere Authentifizierungsmethoden (z.B. LDAP) aktiviert sind."
+        max_upload_size: "Begrenzen Sie die maximale Dateigröße für den Upload von Logos, Avataren und Anhängen. Lassen Sie es frei, um kein Limit zu setzen. Setzen Sie es auf 0, um alles zu verbieten. Beispiele: \"5 MB\", \"700KB\""
+        presence_domain: "Domäne für den XMPP Server"
+        registration_enabled: "Wenn markiert, können Benutzer neue Accounts anlegen. Anderfalls können Benutzer die Website nur besuchen, wenn Sie schon einen Account haben. Allerdings können auch bei deaktivierter Option neue Accounts über sekundäre Anmeldemethoden wie Shibboleth und LDAP angelegt werden."
+        require_registration_approval: "Wenn markiert, können Benutzer nur dann auf die Seite, wenn ein Administrator ihren Account genehmigt hat. Andernfalls können Benutzer die Website sofort nach der Registrierung nutzen. Beachten Sie, dass bei offenen Anfragen und dem Deaktivieren der Option, diese Benutzer nicht automatisch bestätigt werden!"
+        require_space_approval: "Wenn markiert, müssen Gruppen von einem Administrator genehmigt werden bevor andere sie sehen und nutzen können"
+        room_dial_number_pattern: "Schema für die automatische Generierung von Einwahlnummern für Konferenzen. Für Zufallsnummern verwenden Sie ein \"x\". Beispiel: '611x-xxxx' -> '6118-2871'. Wenn ein Schema gesetzt wurde, erhalten neue Räume automatisch eine Nummer. You can also generate a dial number for all existent rooms using the rake task 'mconf:generate_dial_numbers'."
+        shib_always_new_account: "Wenn aktiviert, wird Shibboleth gezwungen, immer einen neuen Account anzulegen, wenn ein Benutzer sich zum ersten Mal anmeldet und die Verknüpfungsseite überspringen."
+        shib_email_field: "Benötigt. Wenn sich ein Benutzer an einem Shibboleth Service Provider anmeldet, wird dieses Feld genutzt um die Email-Adresse des Benutzers zu erhalten. Beispiel: Shib-inetOrgPerson-mail"
+        shib_env_variables: "Shibboleth gibt eine Sammlung an Umgebungsvariablen zurück, wenn sich ein Benutzer anmeldet. Alle Variablen, die in dieser Liste angegeben sind, werden von der Umgebung gezogen und als Attribute dieses Benutzers gesetzt. Benutzen Sie für jede Variable eine neue Zeile. Die Vergleiche beachten die Groß- und Kleinschreibung nicht"
+        shib_login_field: "Nicht benötigt. Wenn sich ein Benutzer an einem Shibboleth Service Provider anmeldet, wird dieses Feld genutzt um den Login des Benutzers zu erhalten. Wenn nicht eingegeben, wird die Anwendung den Login aus dem Benutzernamen erstellen. Beispiel: \"Shib-inetOrgPerson-cn\""
+        shib_name_field: "Benötigt. Wenn sich ein Benutzer an einem Shibboleth Service Provider anmeldet, wird dieses Feld genutzt um den Namen des Benutzers zu erhalten. Beispiel: Shib-inetOrgPerson-sn"
+        shib_principal_name_field: "Benötigt. Wenn sich ein Benutzer an einem Shibboleth Service Provider anmeldet, wird dieses Feld genutzt um den Principal Name des Benutzers, der den eindeutigen Identifier erhält, zu erhalten.  If you change this value after having users already in the database, they might lose access to their account! Example \"Shib-inetOrgPerson-sn\"."
+        shib_update_users: "Wenn gesetzt, werden bestimmte Benutzerattribute automatisch mit den von der Organisation erhaltenen Informationen aktualisiert (z.B. erneuert sich die Email-Adresse des Benutzers wenn sie sich in der Organisation ändert). In diesem Fall sind die Benutzer nicht in der Lage, diese Eigenschaften auf der Seite zu ändern. Wenn nicht gesetzt, werden die Attribute nicht automatisch aktualisiert."
+        smtp_login: "Die Anmelde-Email-Adresse für Ihren SMTP-Server"
+        smtp_password: "Das Passwort für den Email-Account auf Ihrem SMTP-Server"
+        ssl: "Wenn SSL aktiviert ist, werden alle internen Links (inklusive Seiten Bilder, Anhänge) HTTPS statt HTTP nutzen"
+        xmpp_server: "Adresse des XMPP Servers"
+      space:
+        bigbluebutton_room:
+          attendee_key: "Ein Schlüssel für die Benutzer um der Session als Teilnehmer beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
+          auto_start_audio: "Markieren Sie diese Option, um automatisch das Mikrofon des Benutzers beim Betreten des Raums zu starten"
+          auto_start_video: "Markieren Sie diese Option, um automatisch die Kamera des Benutzers beim Betreten des Raums zu starten"
+          moderator_key: "Ein Schlüssel für die Benutzer um der Session als Moderatoren beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
+          presenter_share_only: "Wenn diese Option gesetzt ist, ist nur der Präsentator berechtigt, seine Kamera und sein Mikrofon zu teilen. Das ist geeignet für one-to-many Konferenzen."
+          private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Mitglieder können eine Konferenz in einem Raum einer Gruppe beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
+          welcome_msg: "Diese Nachricht wird im Chat gezeigt wenn ein Benutzer an der Konferenz teilnimmt. Wenn Sie nichts eingeben, wird die Standardmitteilung angezeigt. Sie können meetingspezifische Informationen mit den Variablen %%CONFNAME%%, %%DIALNUM%% und %%CONFNUM%% angeben."
+        permalink: "Dieses Attribut wird verwendet, um Ihre Gruppe in URLs, inklusive der URL des Konferenzraums, zu identifizieren. Erlaubt sind Kleinbuchstaben, Nummern und Bindestriche."
+        public: "Gruppen können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten der Gruppe sehen können"
+        repository: "Die Dokumentenablage ist ein Ort, an dem Benutzer einer Gruppe Dokumente jeder Art hochladen und teilen können"
+      user:
+        approved: "Wenn dieses Feld markiert ist, kann der Benutzer die Website nutzen, andernfalls ist sein Login blockiert. Dieses Feld wird nur genutzt, wenn die Seite eine Registrierungsbestätigung erfordert."
+        bigbluebutton_room:
+          attendee_key: "Ein Schlüssel für die Benutzer um der Session als Teilnehmer beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
+          auto_start_audio: "Markieren Sie diese Option, um automatisch das Mikrofon des Benutzers beim Betreten des Raums zu starten"
+          auto_start_video: "Markieren Sie diese Option, um automatisch die Kamera des Benutzers beim Betreten des Raums zu starten"
+          moderator_key: "Ein Schlüssel für die Benutzer um der Session als Moderatoren beizuwohnen. Verwenden Sie keine echten Passwörter von anderen Stellen hier. Dieser Schlüssel wird nur notwendig, wenn der Raum als privat gekennzeichnet ist."
+          presenter_share_only: "Wenn diese Option gesetzt ist, ist nur der Präsentator berechtigt, seine Kamera und sein Mikrofon zu teilen. Das ist geeignet für one-to-many Konferenzen."
+          private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Sie können eine Konferenz in Ihrem Raum beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
+          welcome_msg: "Diese Nachricht wird im Chat gezeigt wenn ein Benutzer an der Konferenz teilnimmt. Wenn Sie nichts eingeben, wird die Standardmitteilung angezeigt. Sie können meetingspezifische Informationen mit den Variablen %%CONFNAME%%, %%DIALNUM%% und %%CONFNUM%% angeben."
+        can_record: "Markieren Sie diese Option, um einem Benutzer zu erlauben, Meetings in seinem persönlichen Raum oder in Räumen seiner Gruppe aufzuzeichnen."
+        dial_number: "Eine Einwahlnummer, mit der Teilnehmer mit einem normalen Telefon teilnehmen können"
+        superuser: "Markieren Sie diese Option, um diesen Benutzer zu einem globalen Administrator der Website zu machen"
+        timezone: "Die gewählte Zeitzone wird für alle Zeitangaben auf der Website benutzt werden. Zeitzonen mit einem Asterisk (*) sind derzeit in der Sommerzeit."
+        username: "Diese ID wird verwendet, um Ihren Benutzer und Ihren Webkonferenzraum zu identifizieren. Erlaubt sind Buchtstaben, Zahlen und Bindestriche."
+      event:
+        time_zone: Wählen Sie eine Zeitzone für diesen Event
+        location: 'Allgemeine Beschreibung für den Ort des Events. Beispiel: "Universität XY".'
+        address: Die vollständige Adresse, an der das Event stattfinden wird. Wenn Sie eine gültige Adresse eingeben, wird auf der Veranstaltungsseite eine Karte erstellt und der Veranstaltungsort darauf markiert.
+        social_networks: Welche Teilen-Buttons für soziale Netzwerke sollten auf der Veranstaltungsseite sichtbar sein?
+        summary: Geben Sie eine Zusammenfassung der Veranstaltung in höchstens 140 Zeichen ein.
+        description: Geben Sie hier die Veranstaltungsbeschreibung ein. Sie können Markdown zur Gestaltung des Texts benutzen.
+        start_on: Datum und Zeit für den Veranstaltungsbeginn.
+        end_on: Datum und Zeit für das Ende der Veranstaltung. Die Eingabe ist nicht zwingend, aber wenn Sie nichts eingeben, wird die Veranstaltung 24 Stunden nach Beginn enden.
+    error_notification:
+      default_message: "Bitte überprüfen Sie die folgenden Probleme:"
+    placeholders:
+      invite:
+        ends_on: "Endet am..."
+        message: "Schreiben Sie eine persönliche Nachricht (optional)"
+        starts_on: "Beginnt am..."
+        title: "Vergeben Sie einen Namen für Ihr Meeting (Pflichtfeld)"
+        users: "Tippen Sie, um Benutzer per Name oder Email-Adresse zu suchen..."
+      join_request:
+        invite:
+          comment: "Schreiben Sie eine Nachricht, die an eingeladene(n) Benutzer versendet wird"
+        new:
+          comment: "Schreiben Sie eine Nachricht an die Administratoren der Gruppe"
+      post:
+        text: "Inhalt der Nachricht"
+        title: "Titel der Nachricht"
+      user:
+        edit:
+          current_password: "Lassen Sie das frei, wenn Sie nichts ändern wollen"

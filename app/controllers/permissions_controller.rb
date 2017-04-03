@@ -5,9 +5,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# TODO: permissions
-#       review
-
 class PermissionsController < ApplicationController
   load_and_authorize_resource
 

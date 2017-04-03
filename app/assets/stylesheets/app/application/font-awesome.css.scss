@@ -87,10 +87,6 @@ a .icon-awesome {
   &:hover { color: lighten($blue, 20); }
 }
 
-.icon-mconf-spam {
-  color: $red;
-}
-
 .icon-mconf-waiting-moderation {
   color: $yellow;
 }
@@ -105,6 +101,14 @@ a .icon-awesome {
 
 .icon-mconf-delete {
   color: $red;
+}
+
+.icon-mconf-publish {
+  color: $green;
+}
+
+.icon-mconf-unpublish {
+  color: $yellow
 }
 
 .icon-mconf-disable {
@@ -193,6 +197,23 @@ a .icon-awesome {
   color: $red;
 }
 
+.icon-mconf-list {
+  &.enabled{
+    color: #888;
+  }
+  &.disabled{
+    color: #CCC;
+  }
+}
+
+.icon-mconf-can-rec {
+  color: $red;
+}
+
+.icon-mconf-cant-rec {
+  color: #CCC;
+}
+
 .icon-mconf-event {}
 .icon-mconf-home {}
 .icon-mconf-logout {}
@@ -202,7 +223,6 @@ a .icon-awesome {
 .icon-mconf-comment {}
 .icon-mconf-comments {}
 .icon-mconf-attachment {}
-.icon-mconf-news {}
 .icon-mconf-users {}
 .icon-mconf-edit {}
 .icon-mconf-share {}

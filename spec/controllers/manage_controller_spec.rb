@@ -8,6 +8,9 @@ require 'spec_helper'
 
 describe ManageController do
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   describe "#users" do
     before { User.destroy_all } # exclude seeded user(s)
 
@@ -63,7 +66,7 @@ describe ManageController do
         end
       end
 
-      context "orders @users by the user's full name" do
+      context "orders users by the user's full name" do
         before {
           @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
           @u2 = user
@@ -77,6 +80,21 @@ describe ManageController do
         it { assigns(:users)[1].should eql(@u4) }
         it { assigns(:users)[2].should eql(@u2) }
         it { assigns(:users)[3].should eql(@u1) }
+      end
+
+      context "orders @users by the number of matches" do
+        before {
+          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u2 = user
+          @u2.profile.update_attributes(:full_name => 'Second user created')
+          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
+          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+        }
+        before(:each) { get :users, :q => 'second user' }
+        it { assigns(:users).count.should be(3) }
+        it { assigns(:users)[0].should eql(@u2) }
+        it { assigns(:users)[1].should eql(@u3) }
+        it { assigns(:users)[2].should eql(@u1) }
       end
 
       context "paginates the list of users" do
@@ -229,6 +247,145 @@ describe ManageController do
           it { assigns(:users).count.should be(3) }
           it { assigns(:users).should include(users[0], users[2], users[4]) }
         end
+
+        context "empty space before q: params" do
+          let(:params) { { q: ' reprovado'} }
+
+          it { assigns(:users).count.should be(1) }
+          it { assigns(:users).should include(users[3]) }
+        end
+      end
+
+      context "filters by authentication method" do
+        let!(:users) {
+          [
+            FactoryGirl.create(:user, username: 'local'),
+            FactoryGirl.create(:user, username: 'ldap-only'),
+            FactoryGirl.create(:user, username: 'shib-only'),
+            FactoryGirl.create(:user, username: 'cert-only'),
+            FactoryGirl.create(:user, username: 'ldap-local'),
+            FactoryGirl.create(:user, username: 'shib-local'),
+            FactoryGirl.create(:user, username: 'cert-local'),
+            FactoryGirl.create(:user, username: 'ldap-shib'),
+            FactoryGirl.create(:user, username: 'ldap-shib-cert'),
+            FactoryGirl.create(:user, username: 'ldap-shib-cert-local'),
+          ]
+        }
+        before {
+          FactoryGirl.create(:ldap_token, user: users[1], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[4], new_account: false)
+          FactoryGirl.create(:ldap_token, user: users[7], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[8], new_account: true)
+          FactoryGirl.create(:ldap_token, user: users[9], new_account: false)
+
+          FactoryGirl.create(:shib_token, user: users[2], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[5], new_account: false)
+          FactoryGirl.create(:shib_token, user: users[7], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[8], new_account: true)
+          FactoryGirl.create(:shib_token, user: users[9], new_account: false)
+
+          FactoryGirl.create(:certificate_token, user: users[3], new_account: true)
+          FactoryGirl.create(:certificate_token, user: users[6], new_account: false)
+          FactoryGirl.create(:certificate_token, user: users[8], new_account: true)
+          FactoryGirl.create(:certificate_token, user: users[9], new_account: false)
+
+          get :users, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:users).count.should be(11) } # +1 for the default admin
+          it("includes all users") { assigns(:users).should include(*users) }
+        end
+
+        context "shib" do
+          let(:params) { { login_method_shib: 'true' } }
+          it { assigns(:users).count.should be(5) }
+          it {
+            assigns(:users).should include(users[2], users[5], users[7], users[8], users[9])
+          }
+        end
+
+        context "ldap" do
+          let(:params) { { login_method_ldap: 'true' } }
+          it { assigns(:users).count.should be(5) }
+          it {
+            assigns(:users).should include(users[1], users[4], users[7], users[8], users[9])
+          }
+        end
+
+        context "certificate" do
+          let(:params) { { login_method_certificate: 'true' } }
+          it { assigns(:users).count.should be(4) }
+          it {
+            assigns(:users).should include(users[3], users[6], users[8], users[9])
+          }
+        end
+
+        context "local" do
+          let(:params) { { login_method_local: 'true' } }
+          it { assigns(:users).count.should be(6) } # +1 for the default user
+          it {
+            assigns(:users).should include(users[0], users[4], users[5], users[6], users[9])
+          }
+        end
+
+        context "shib and local" do
+          let(:params) { { login_method_local: 'true', login_method_shib: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[5], users[9])
+          }
+        end
+
+        context "ldap and local" do
+          let(:params) { { login_method_ldap: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[4], users[9])
+          }
+        end
+
+        context "certificate and local" do
+          let(:params) { { login_method_certificate: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[6], users[9])
+          }
+        end
+
+        context "ldap and shib" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true' } }
+          it { assigns(:users).count.should be(3) }
+          it {
+            assigns(:users).should include(users[7], users[8], users[9])
+          }
+        end
+
+        context "ldap, shib and local" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(1) }
+          it {
+            assigns(:users).should include(users[9])
+          }
+        end
+
+        context "ldap, shib and certificate" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_certificate: 'true' } }
+          it { assigns(:users).count.should be(2) }
+          it {
+            assigns(:users).should include(users[8], users[9])
+          }
+        end
+
+        context "all methods" do
+          let(:params) { { login_method_ldap: 'true', login_method_shib: 'true', login_method_certificate: 'true', login_method_local: 'true' } }
+          it { assigns(:users).count.should be(1) }
+          it {
+            assigns(:users).should include(users[9])
+          }
+        end
       end
 
       context "if xhr request" do
@@ -291,6 +448,21 @@ describe ManageController do
         it { assigns(:spaces)[3].should eql(@s1) }
       end
 
+      context "orders @spaces by the number of matches" do
+        before {
+          @s1 = FactoryGirl.create(:space, :name => 'First space created')
+          @s2 = FactoryGirl.create(:space, :name => 'Second space created')
+          @s3 = FactoryGirl.create(:space, :name => 'A space starting with letter A')
+          @s4 = FactoryGirl.create(:space, :name => 'Being one starting with B')
+        }
+        before(:each) { get :spaces, :q => 'second space' }
+        it { assigns(:spaces).count.should be(3) }
+        it { assigns(:spaces)[0].should eql(@s2) }
+        it { assigns(:spaces)[1].should eql(@s3) }
+        it { assigns(:spaces)[2].should eql(@s1) }
+      end
+
+
       context "paginates the list of spaces" do
         before {
           45.times { FactoryGirl.create(:space) }
@@ -329,6 +501,115 @@ describe ManageController do
         end
       end
 
+      context "use params [:approved, :disabled] to filter the results" do
+        let!(:spaces) {[
+            FactoryGirl.create(:space, :name => 'Approved', :approved => true),
+            FactoryGirl.create(:space, :name => 'Not Approved', :approved => false),
+            FactoryGirl.create(:space, :name => 'Enabled', :disabled => false),
+            FactoryGirl.create(:space, :name => 'Disabled', :disabled => true)
+        ]}
+        before {
+          spaces[1].disapprove!
+          get :spaces, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(*spaces) }
+        end
+
+        context "params[:approved]" do
+          context 'is true' do
+            let(:params) { {approved: 'true'} }
+            it { assigns(:spaces).count.should be(3) }
+            it { assigns(:spaces).should include(spaces[0], spaces[2], spaces[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {approved: 'false'} }
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[1]) }
+          end
+        end
+
+        context "params[:disabled]" do
+          context 'is true' do
+            let(:params) { {disabled: 'true'} }
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {disabled: 'false'} }
+            it { assigns(:spaces).count.should be(3) }
+            it { assigns(:spaces).should include(spaces[0], spaces[1], spaces[2]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {approved: 'true', disabled: 'false', q: 'Ena'} }
+
+          it { assigns(:spaces).count.should be(1) }
+          it { assigns(:spaces).should include(spaces[2]) }
+        end
+
+        context "empty space before q: params" do
+            let(:params) { { q: ' ena'} }
+
+            it { assigns(:spaces).count.should be(1) }
+            it { assigns(:spaces).should include(spaces[2]) }
+        end
+      end
+
+      context "use tags to filter the results" do
+        before {
+            @s1 = FactoryGirl.create(:space, :name => 'Approved', :approved => true)
+            @s2 = FactoryGirl.create(:space, :name => 'Not Approved', :approved => false)
+            @s3 = FactoryGirl.create(:space, :name => 'Enabled', :disabled => false)
+            @s4 = FactoryGirl.create(:space, :name => 'Disabled', :disabled => true)
+            @s1.update_attributes(:tag_list => ["one tag", "tag", "first space", "extra tag"])
+            @s2.update_attributes(:tag_list => ["one tag", "tag", "second space", "disabled"])
+            @s3.update_attributes(:tag_list => ["one tag", "tag", "third space", "last two", "extra tag"])
+            @s4.update_attributes(:tag_list => ["one tag", "tag", "fourth space", "last two"])
+            @s2.disapprove!
+        }
+        before(:each) { get :spaces, params }
+
+        context "no tags" do
+          let(:params) { {} }
+
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(@s1, @s2, @s3, @s4) }
+        end
+
+        context "tag is \"tag\"" do
+          let(:params) { {:tag => 'tag'} }
+          it { assigns(:spaces).count.should be(4) }
+          it { assigns(:spaces).should include(@s1, @s2, @s3, @s4) }
+        end
+
+        context "tag is \"disabled\"" do
+          let(:params) { {tag: "disabled"} }
+          it { assigns(:spaces).count.should be(1) }
+          it { assigns(:spaces).should include(@s2) }
+        end
+
+        context "tag is \"last two\"" do
+          let(:params) { {tag: "last two"} }
+          it { assigns(:spaces).count.should be(2) }
+          it { assigns(:spaces).should include(@s3, @s4) }
+        end
+
+        context "tags are \"one tag\" and \"extra tag\"" do
+          let(:params) { {tag: "extra tag, one tag"} }
+          it { assigns(:spaces).count.should be(2) }
+          it { assigns(:spaces).should include(@s1, @s3) }
+        end
+
+      end
+
       context "if xhr request" do
         before(:each) { xhr :get, :spaces }
         it { should render_template('manage/_spaces_list') }
@@ -343,20 +624,6 @@ describe ManageController do
     end
   end
 
-  describe "#spam" do
-    let(:user) { FactoryGirl.create(:superuser) }
-
-    before { sign_in(user) }
-
-    it "is successful"
-    it "sets @spam_events to all events marked as spam"
-    it "sets @spam_posts to all posts marked as spam"
-    it "renders manage/spam"
-    it "renders with the layout no_sidebar"
-
-    it { should_authorize :manage, :spam }
-  end
-
   describe "abilities", :abilities => true do
     render_views(false)
 
@@ -365,7 +632,6 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should allow_access_to(:users) }
       it { should allow_access_to(:spaces) }
-      it { should allow_access_to(:spam) }
     end
 
     context "for a normal user", :user => "normal" do
@@ -373,14 +639,229 @@ describe ManageController do
       before(:each) { login_as(user) }
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
 
     context "for an anonymous user", :user => "anonymous" do
       it { should_not allow_access_to(:users) }
       it { should_not allow_access_to(:spaces) }
-      it { should_not allow_access_to(:spam) }
     end
   end
 
+  describe "#recordings" do
+    it "should require authentication"
+
+    context "authorizes" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+      it { should_authorize :manage, :recordings }
+    end
+
+    describe "if the current user is a superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+
+      it {
+        get :recordings
+        should respond_with(:success)
+      }
+
+      context "sets @recordings to a list of all recordings, including not available recordings" do
+        before {
+          @s1 = FactoryGirl.create(:bigbluebutton_recording, :available => true)
+          @s2 = FactoryGirl.create(:bigbluebutton_recording, :available => true)
+          @s3 = FactoryGirl.create(:bigbluebutton_recording, :available => false)
+        }
+        before(:each) { get :recordings }
+        it { assigns(:recordings).count.should be(3) }
+        it { assigns(:recordings).should include(@s1) }
+        it { assigns(:recordings).should include(@s2) }
+        it { assigns(:recordings).should include(@s3) }
+      end
+
+      context "orders @recordings by start_time" do
+        before {
+          @s1 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 3.days)
+          @s2 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 2.days)
+          @s3 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now)
+          @s4 = FactoryGirl.create(:bigbluebutton_recording, start_time: DateTime.now - 1.days)
+        }
+        before(:each) { get :recordings }
+        it { assigns(:recordings).count.should be(4) }
+        it { assigns(:recordings)[0].should eql(@s3) }
+        it { assigns(:recordings)[1].should eql(@s4) }
+        it { assigns(:recordings)[2].should eql(@s2) }
+        it { assigns(:recordings)[3].should eql(@s1) }
+      end
+
+      context "orders @recordings by the number of matches" do
+        before {
+          @r1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'First records created' , start_time: DateTime.now - 1.days)
+          @r2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Second records created')
+          @r3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'A records starting with letter A', start_time: DateTime.now - 2.days)
+          @r4 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Being one starting with B', start_time: DateTime.now - 3.days)
+        }
+        before(:each) { get :recordings, :q => 'second records' } #using "records" because "recordings" is in the description which is also in the search by terms scope
+        it { assigns(:recordings).count.should be(3) }
+        it { assigns(:recordings)[0].should eql(@r2) }
+        it { assigns(:recordings)[1].should eql(@r1) }
+        it { assigns(:recordings)[2].should eql(@r3) }
+      end
+
+      context "paginates the list of recordings" do
+        before {
+          45.times { FactoryGirl.create(:bigbluebutton_recording) }
+        }
+
+        context "if no page is passed in params" do
+          before(:each) { get :recordings }
+          it { assigns(:recordings).size.should be(20) }
+          it { controller.params[:page].should be_nil }
+        end
+
+        context "if a page is passed in params" do
+          before(:each) { get :recordings, :page => 2 }
+          it { assigns(:recordings).size.should be(20) }
+          it("includes the correct recordings in @recordings") {
+            page = BigbluebuttonRecording.order('start_time DESC').paginate(page: 2, per_page: 20)
+            page.each do |recording|
+              assigns(:recordings).should include(recording)
+            end
+          }
+          it { controller.params[:page].should eql("2") }
+        end
+      end
+
+      context "use params[:q] to filter the results" do
+
+        context "by name" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :name => 'First')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Second')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :name => 'Secondary')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+        context "by description" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :description => 'First description')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :description => 'Second description')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :description => 'Secondary description')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+        context "by record id" do
+          before {
+            @r1 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'First recordid')
+            @r2 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'Second recordid')
+            @r3 = FactoryGirl.create(:bigbluebutton_recording, :recordid => 'Secondary recordid')
+          }
+          before(:each) { get :recordings, :q => 'second' }
+          it { assigns(:recordings).count.should be(2) }
+          it { assigns(:recordings).should include(@r2) }
+          it { assigns(:recordings).should include(@r3) }
+        end
+
+      end
+
+      context "use params [:published, :available, :playback] to filter the results" do
+        let!(:playback_formats) {[
+          FactoryGirl.create(:bigbluebutton_playback_format, recording: FactoryGirl.create(:bigbluebutton_recording, name: 'has_playback_rec'))
+        ]}
+        let!(:recordings) {[
+          FactoryGirl.create(:bigbluebutton_recording, name: 'published_rec'),
+          FactoryGirl.create(:bigbluebutton_recording, name: 'unpublished_rec', published: false),
+          FactoryGirl.create(:bigbluebutton_recording, name: 'unavailable_rec', available: false),
+          playback_formats[0].recording,
+          FactoryGirl.create(:bigbluebutton_recording, name: 'no_playback_rec'),
+        ]}
+
+        before {
+          get :recordings, params
+        }
+
+        context "no params" do
+          let(:params) { {} }
+
+          it { assigns(:recordings).count.should be(5) }
+          it { assigns(:recordings).should include(*recordings) }
+        end
+
+        context "params[:published]" do
+          context 'is true' do
+            let(:params) { {published: 'true'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[2], recordings[3], recordings[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {published: 'false'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[1]) }
+          end
+        end
+
+        context "params[:available]" do
+          context 'is true' do
+            let(:params) { {available: 'true'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[1], recordings[3], recordings[4]) }
+          end
+
+          context 'is false' do
+            let(:params) { {available: 'false'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[2]) }
+          end
+        end
+
+        context "params[:playback]" do
+          context 'is true' do
+            let(:params) { {playback: 'true'} }
+            it { assigns(:recordings).count.should be(1) }
+            it { assigns(:recordings).should include(recordings[3]) }
+          end
+
+          context 'is false' do
+            let(:params) { {playback: 'false'} }
+            it { assigns(:recordings).count.should be(4) }
+            it { assigns(:recordings).should include(recordings[0], recordings[1], recordings[2], recordings[4]) }
+          end
+        end
+
+        context "mixed params" do
+          let(:params) { {published: 'true', available: 'true', q: 'rec'} }
+
+          it { assigns(:recordings).count.should be(3) }
+          it { assigns(:recordings).should include(recordings[0], recordings[3], recordings[4]) }
+        end
+
+        context "empty space before q: params"do
+          let(:params) { { q: ' unpub'} }
+
+          it { assigns(:recordings).count.should be(1) }
+          it { assigns(:recordings).should include(recordings[1]) }
+        end
+      end
+
+      context "if xhr request" do
+        before(:each) { xhr :get, :recordings }
+        it { should render_template('manage/_recordings_list') }
+        it { should_not render_with_layout }
+      end
+
+      context "not xhr request" do
+        before(:each) { get :recordings }
+        it { should render_template(:recordings) }
+        it { should render_with_layout('no_sidebar') }
+      end
+    end
+  end
 end

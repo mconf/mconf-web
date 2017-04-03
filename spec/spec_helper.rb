@@ -6,18 +6,32 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'simplecov'
 SimpleCov.start if ENV["COVERAGE"]
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'shoulda-matchers'
+require 'shoulda/matchers'
 require 'cancan/matchers'
+
+# Load public activity to disabled it and reduce load
+# Disabled in all tests and enabled for all features
+require 'public_activity/testing'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -41,6 +55,14 @@ Geocoder::Lookup::Test.set_default_stub(
 )
 
 BCrypt::Engine.cost = 4
+
+# Disable all external HTTP requests by default
+# Allow requests to codeclimate for reporinting code coverage
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
+
+# Temporary workaround for https://github.com/thoughtbot/shoulda-matchers/issues/809#issuecomment-165383383
+Shoulda::Matchers::ActionController::RouteParams::PARAMS_TO_SYMBOLIZE = []
 
 RSpec.configure do |config|
   # == Mock Framework
@@ -92,13 +114,29 @@ RSpec.configure do |config|
     ResqueSpec.reset!
     ActionMailer::Base.deliveries.clear
     Helpers.setup_site
+    Helpers.set_custom_ability_actions([])
     Capybara.current_driver = :webkit if example.metadata[:with_js]
+
+    # To correctly test cases where referer and hostname are used
+    Capybara.app_host = "http://#{Site.current.domain}"
+
+    PublicActivity.enabled = false
+    # To enable in a block of tests, use:
+    #   PublicActivity.with_tracking do
+    #     # your test code goes here
+    #   end
+  end
+
+  config.before(:each, type: :worker) do |example|
+    # most of the workers rely on recent activities
+    PublicActivity.enabled = true
   end
 
   # We want features as close to the production environment as possible, so render error
   # pages instead of raising exceptions.
   config.before(:each, type: :feature) do |example|
     Rails.application.config.consider_all_requests_local = false
+    PublicActivity.enabled = true
   end
 
   config.around(:each) do |example|

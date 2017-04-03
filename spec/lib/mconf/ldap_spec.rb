@@ -180,6 +180,23 @@ describe Devise::Strategies::LdapAuthenticatable do
     it "converts the id passed to a string"
   end
 
+  describe "#find_account" do
+    let(:ldap) { Mconf::LDAP.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it ("returns the user found if it exists") {
+      ldap.send(:find_account, user.email).should eql(user)
+    }
+
+    it ("matches the user using a case-insensitive search") {
+      ldap.send(:find_account, user.email.upcase).should eql(user)
+    }
+
+    it ("returns nil if the user is not found") {
+      ldap.send(:find_account, user.email + "-invalid").should be_nil
+    }
+  end
+
   describe "#create_account" do
     let(:ldap) { Mconf::LDAP.new({}) }
     let(:user) { FactoryGirl.create(:user) }

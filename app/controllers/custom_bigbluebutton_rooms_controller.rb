@@ -20,6 +20,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # Authorizing is the same for all actions
   authorize_resource class: "BigbluebuttonRoom", instance_name: "room"
 
+  # can't join or join mobile if not logged and the site does not allow
+  # unauthorized joins
+  before_filter :check_unauth_access, only: [:join, :join_mobile, :invite]
+
   # the logic of the 2-step joining process
   before_filter :check_redirect_to_invite, only: [:invite_userid]
   before_filter :check_redirect_to_invite_userid, only: [:invite]
@@ -27,16 +31,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
 
+  # use the patter configured on the site to generate dial numbers
+  before_filter :set_site_pattern, only: :generate_dial_number
+
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
-    when :join_options
-      if request.xhr?
-        false
-      else
-        "application"
-      end
     when :join_mobile
       "mobile"
     when :running
@@ -51,7 +52,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def check_redirect_to_invite
     # already has a user or a user set in the URL, jump directly to the next step
     has_user_param = !params[:user].nil? and !params[:user][:name].blank?
-    if user_signed_in?
+    if user_signed_in? || guest_user_signed_in?
       redirect_to invite_bigbluebutton_room_path(@room)
     elsif has_user_param
       redirect_to invite_bigbluebutton_room_path(@room, user: { name: params[:user][:name] })
@@ -60,23 +61,19 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def check_redirect_to_invite_userid
     # no user logged and no user set in the URL, go back to the identification step
-    if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
+    if !user_signed_in? &&
+       !guest_user_signed_in? &&
+       (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
     end
   end
 
-  def join_options
-    # don't let the user access this dialog if he can't record meetings
-    # or if the feature to automatically set the record flag is disabled in the site
-    # an extra protection, since the views that point to this route filter this as well
-    ability = Abilities.ability_for(current_user)
-    if ability.can?(:record_meeting, @room) && !current_site.webconf_auto_record
-      begin
-        @room.fetch_is_running?
-      rescue BigBlueButton::BigBlueButtonException
-      end
-    else
-      redirect_to join_bigbluebutton_room_path(@room)
+  # Redirects the user to the identification page if not signed in and the
+  # site does not allow unauthorized joins
+  def check_unauth_access
+    if !current_site.unauth_access_to_conferences && !user_signed_in? && !guest_user_signed_in?
+      redirect_to join_webconf_path(id: params[:id])
+      flash[:error] = t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences')
     end
   end
 
@@ -100,7 +97,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.blank_users')
 
     else
-      invitations = WebConferenceInvitation.create_invitations params[:invite][:users],
+      user_list = "#{params[:invite][:users]},#{current_user.id}"
+      invitations = WebConferenceInvitation.create_invitations user_list,
+        invitation_group: SecureRandom.uuid,
         sender: current_user,
         target: @room,
         starts_on: params[:invite][:starts_on],
@@ -169,6 +168,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def set_site_pattern
+    params[:pattern] ||= Site.current.room_dial_number_pattern
+  end
+
   # For cancan create load_and_authorize
   def create_params
     room_params
@@ -181,8 +184,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       super
     else
       [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
-        :presenter_share_only, :auto_start_video, :auto_start_audio, :welcome_msg,
-        :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+        :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end
 end

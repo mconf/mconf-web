@@ -11,7 +11,7 @@
       .content-block-middle
         .list-texts
           - for event in @first_upcoming_events
-            = render :partial => 'mweb_events/events/unified_event', :locals => { :event => event }
+            = render :partial => 'events/unified_event', :locals => { :event => event }
       .content-block-footer.content-block-footer-fancy
         = link_to t('.all_upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
 
@@ -27,6 +27,6 @@
       .content-block-middle
         .list-texts
           - for event in @last_past_events
-            = render :partial => 'mweb_events/events/unified_event', :locals => { :event => event }
+            = render :partial => 'events/unified_event', :locals => { :event => event }
       .content-block-footer.content-block-footer-fancy
         = link_to t('.all_past'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'

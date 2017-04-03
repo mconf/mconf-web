@@ -38,10 +38,6 @@ module IconsHelper
     icon_constructor title, "icon-awesome icon-calendar icon-mconf-event", options
   end
 
-  def icon_news(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-bullhorn icon-mconf-news", options
-  end
-
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def icon_superuser(options={})
@@ -59,10 +55,6 @@ module IconsHelper
 
   def icon_loading(options={})
     icon_constructor nil, "icon-awesome icon-refresh icon-mconf-loading icon-spin", options
-  end
-
-  def icon_spam(options={})
-    icon_constructor t("_other.spam.tooltip"), "icon-awesome icon-warning-sign icon-mconf-spam", options
   end
 
   def icon_message(options={})
@@ -143,10 +135,6 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-plus-sign icon-mconf-attachment-new-version", options
   end
 
-  def icon_new_tag(options={})
-    icon_constructor nil, "icon-awesome icon-tags icon-mconf-new-tag", options
-  end
-
   def icon_space_private(options={})
     icon_constructor nil, "icon-awesome icon-lock icon-mconf-space-private", options
   end
@@ -155,8 +143,12 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-space-public", options
   end
 
-  def icon_webconf_start(options={})
-    icon_constructor nil, "icon-awesome icon-chevron-sign-right icon-mconf-webconf-start", options
+  def icon_publish(options={})
+    icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-publish", options
+  end
+
+  def icon_unpublish(options={})
+    icon_constructor nil, "icon-awesome icon-eye-close icon-mconf-unpublish", options
   end
 
   def icon_mobile(options={})
@@ -257,6 +249,14 @@ module IconsHelper
 
   def icon_participant_not_confirmed(options={})
     icon_constructor nil, "icon-awesome icon-remove icon-mconf-participant-not-confirmed", options
+  end
+
+  def icon_can_rec(options={})
+    icon_constructor nil, "icon-awesome icon-circle icon-mconf-can-rec", options
+  end
+
+  def icon_cant_rec(options={})
+    icon_constructor nil, "icon-awesome icon-circle-blank icon-mconf-cant-rec", options
   end
 
   private

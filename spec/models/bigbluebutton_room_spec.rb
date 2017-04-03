@@ -10,10 +10,6 @@ require "spec_helper"
 describe BigbluebuttonRoom do
 
   describe "from initializers/bigbluebutton_rails" do
-    it("should have a method .guest_support") {
-      BigbluebuttonRoom.should respond_to(:guest_support)
-    }
-
     it "overrides #join_url with guest support"
 
     describe "#user_created_meeting?" do
@@ -26,7 +22,7 @@ describe BigbluebuttonRoom do
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
+    set_custom_ability_actions([ :end, :create_meeting, :fetch_recordings,
                                  :invite, :invite_userid, :running, :join, :join_mobile,
                                  :record_meeting, :invitation, :send_invitation ])
 
@@ -41,9 +37,10 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         it { should be_able_to_do_everything_to(target) }
 
+        # disabling the user will make him not admin anymore
         context "when the owner is disabled" do
           before { target.owner.disable }
-          it { should be_able_to_do_everything_to(target) }
+          it { should_not be_able_to_do_anything_to(target) }
         end
       end
 
@@ -122,7 +119,7 @@ describe BigbluebuttonRoom do
 
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
-        let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+        let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :running, :join,
                          :join_mobile, :update, :invitation, :send_invitation] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -133,7 +130,10 @@ describe BigbluebuttonRoom do
         end
 
         context "when the owner is disabled" do
-          before { target.owner.disable }
+          before {
+            target.owner.disable
+            user.update_attributes(:can_record => true)
+          }
           it { should_not be_able_to_do_anything_to(target) }
         end
 
@@ -199,7 +199,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -223,7 +223,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
 
@@ -236,7 +239,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -262,7 +265,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
 
@@ -275,7 +281,7 @@ describe BigbluebuttonRoom do
 
         context "he belongs to" do
           before { space.add_member!(user) }
-          let(:allowed) { [:join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
@@ -299,7 +305,10 @@ describe BigbluebuttonRoom do
           end
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
 
@@ -312,13 +321,16 @@ describe BigbluebuttonRoom do
 
         context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
-          let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
+          let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
                            :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do
-            before { target.owner.disable }
+            before {
+              target.owner.disable
+              user.update_attributes(:can_record => true)
+            }
             it { should_not be_able_to_do_anything_to(target) }
           end
         end

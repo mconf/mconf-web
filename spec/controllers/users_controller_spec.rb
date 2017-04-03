@@ -9,18 +9,85 @@ require "spec_helper"
 describe UsersController do
   render_views
 
+  let!(:referer) { "http://#{Site.current.domain}" }
+  before { request.env["HTTP_REFERER"] = referer }
+
   it "includes Mconf::ApprovalControllerModule"
 
   describe "#index" do
-    it "loads the space"
-    it "loads the webconference room information"
-    it "sets @users to all users in the space ordered by name"
-    it "renders users/index"
-    it "renders with the layout spaces_show"
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
 
     # TODO: how to test nested authorization? might have to adapt should_authorize
-    # it { should_authorize Space, :index }
-    # it { should_authorize User, :index }
+    skip { should_authorize Space, :show }
+    skip { should_authorize User, :index, space_id: space.to_param }
+
+    it "should paginate users (10 per page)"
+
+    context "loads the space" do
+      before { get :index, space_id: space.to_param }
+      it { should assign_to(:space).with(space) }
+    end
+
+    context "loads the webconference room information" do
+      before { get :index, space_id: space.to_param }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    end
+
+    context "sets @users to all users in the space ordered by name" do
+      before do
+        @users = [
+          FactoryGirl.create(:user, _full_name: 'Dio'),
+          FactoryGirl.create(:user, _full_name: 'Opeth'),
+          FactoryGirl.create(:user, _full_name: 'A Perfect Circle')
+        ]
+
+        @users.each { |user| space.add_member!(user) }
+
+        get :index, space_id: space.to_param
+      end
+
+      it { should assign_to(:users).with([@users[2], @users[0], @users[1]]) }
+    end
+
+    context "renders users/index" do
+      before { get :index, space_id: space.to_param }
+
+      it { should render_template('index') }
+      it { should render_with_layout('spaces_show') }
+    end
+
+    context "with a private space" do
+      before { space.update_attributes(public: false) }
+
+      context 'redirect to login path for a logged out user' do
+        before { get :index, space_id: space.to_param }
+
+        it { should redirect_to(login_path) }
+      end
+
+      context 'deny access to logged in non-member' do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          sign_in(user)
+        }
+
+        it { expect{get :index, space_id: space.to_param}.to raise_error(CanCan::AccessDenied) }
+      end
+
+      context 'show users for logged in member' do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          sign_in(user)
+          space.add_member!(user)
+
+          get :index, space_id: space.to_param
+        }
+
+        it { should render_template('index') }
+      end
+
+    end
+
   end
 
   describe "#show" do
@@ -42,6 +109,92 @@ describe UsersController do
     end
 
     it { should_authorize an_instance_of(User), :show, id: FactoryGirl.create(:user).to_param }
+
+    # TODO: lot's of cases here (profile visibility settings * types of users )
+    # (anon, logged in, fellow, private fellow, admin, user itself)
+    context "assigns the correct @recent_activities" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:public_space) { FactoryGirl.create(:space_with_associations, public: true) }
+      let(:private_space) { FactoryGirl.create(:space_with_associations, public: false) }
+      before {
+        PublicActivity.with_tracking do
+          public_space.add_member!(user)
+          private_space.add_member!(user)
+          @activities = [
+            public_space.new_activity(:join, user),
+            private_space.new_activity(:join, user),
+            private_space.new_activity(:update, user),
+          ]
+        end
+      }
+
+      context 'the user himself' do
+        before {
+          sign_in(user)
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user belonging to both spaces' do
+        before {
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            public_space.add_member!(user2)
+            private_space.add_member!(user2)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user belonging to the private space only' do
+        before {
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            private_space.add_member!(user2)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
+        }
+
+        it { assigns(:recent_activities).count.should be(3) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[1])) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[2])) }
+      end
+
+      context 'a user not belonging to any space' do
+        before {
+          PublicActivity.with_tracking do
+            user2 = FactoryGirl.create(:user)
+            sign_in(user2)
+            get :show, id: user.to_param
+          end
+        }
+
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+      end
+
+      context 'a logged out user' do
+        before {
+          get :show, id: user.to_param
+        }
+
+        it { assigns(:recent_activities).count.should be(1) }
+        it { assigns(:recent_activities).should include(RecentActivity.find_by(id: @activities[0])) }
+      end
+    end
   end
 
   describe "#edit" do
@@ -105,8 +258,7 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :remember_me, :login, :approved, :disabled,
-          :timezone, :can_record, :receive_digest, :expanded_post,
+        [ :remember_me, :login, :timezone, :expanded_post,
           :password, :password_confirmation, :current_password ]
       }
       before {
@@ -156,7 +308,7 @@ describe UsersController do
 
       context "trying to update admin flag" do
         context "when normal user" do
-          let(:user) { FactoryGirl.create(:user, superuser: false) }
+          let(:user) { FactoryGirl.create(:user) }
 
           before(:each) do
             sign_in user
@@ -168,11 +320,10 @@ describe UsersController do
           it { response.status.should == 302 }
           it { response.should redirect_to edit_user_path(user) }
           it { user.superuser.should be(false) }
-
         end
 
         context "when admin and target is self" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
 
           before(:each) do
             sign_in user
@@ -187,7 +338,7 @@ describe UsersController do
         end
 
         context "when admin and target is another normal user" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
           let(:user2) { FactoryGirl.create(:user) }
 
           before(:each) do
@@ -203,8 +354,8 @@ describe UsersController do
         end
 
         context "when admin and target is another admin" do
-          let(:user) { FactoryGirl.create(:user, superuser: true) }
-          let(:user2) { FactoryGirl.create(:user, superuser: true) }
+          let(:user) { FactoryGirl.create(:superuser) }
+          let(:user2) { FactoryGirl.create(:superuser) }
 
           before(:each) do
             sign_in user
@@ -219,6 +370,57 @@ describe UsersController do
         end
       end
 
+      context "trying to update disabled flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, disabled: false) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { disabled: true }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.disabled.should be(false) }
+
+        end
+      end
+
+      context "trying to update can_record flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, can_record: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { can_record: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.can_record.should be(true) }
+        end
+      end
+
+      context "trying to update approved flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, approved: true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user.to_param, user: { approved: false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.approved.should be(true) }
+        end
+      end
     end
 
     context "attributes that the user can update" do
@@ -258,7 +460,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -293,7 +495,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -312,7 +514,7 @@ describe UsersController do
             end
 
             it { response.status.should == 302 }
-            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { should set_flash.to(I18n.t('user.updated')) }
             it { response.should redirect_to edit_user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
@@ -332,7 +534,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { should set_the_flash.to(I18n.t('user.updated')) }
+          it { should set_flash.to(I18n.t('user.updated')) }
           it { response.should redirect_to edit_user_path(@user) }
           it { @user.encrypted_password.should == @old_encrypted }
         end
@@ -340,18 +542,50 @@ describe UsersController do
     end
 
     context "as anonymous user" do
-      let!(:old_val) { User::RECEIVE_DIGEST_NEVER } # it could be any other attribute
-      let(:user) { FactoryGirl.create(:user, receive_digest: old_val) }
-      let!(:new_val) { User::RECEIVE_DIGEST_DAILY }
-      before {
-        expect {
-          put :update, id: user.to_param, user: { receive_digest: new_val }
-          user.reload
+      let!(:old_tz) { "Mountain Time (US & Canada)" }
+      let(:user) { FactoryGirl.create(:user, timezone: old_tz) }
+      let!(:new_tz) { "Dublin" }
+
+      before{
+        expect{
+        put :update, id: user.to_param, user: { timezone: new_tz }
+        user.reload
         }.not_to change { user }
       }
-      it { user.receive_digest.should eql(old_val) }
+
+      it { user.timezone.should eql(old_tz) }
       it { should redirect_to login_path }
+
     end
+
+    context "create recent activity after admin updated approved=true" do
+      let!(:admin) { FactoryGirl.create(:superuser) }
+      let!(:user) { FactoryGirl.create(:user, approved: false) }
+
+      before(:each) do
+        PublicActivity.with_tracking do
+          Site.current.update_attributes(require_registration_approval: true)
+
+          sign_in admin
+
+          expect {
+            put :update, id: user.to_param, user: { approved: true }
+          }.to change{ PublicActivity::Activity.count }.by(1)
+          user.reload
+        end
+      end
+
+      subject { RecentActivity.where(key: 'user.approved').last }
+      it { response.status.should == 302 }
+      it { response.should redirect_to edit_user_path(user) }
+      it { user.approved.should be(true) }
+
+      it { subject.should_not be_nil }
+      it { subject.owner.should eql admin }
+      it { subject.trackable.should eql user}
+      it { subject.notified.should be_falsey }
+    end
+
   end
 
   describe "#destroy" do
@@ -448,7 +682,7 @@ describe UsersController do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
       before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
+      it { should set_flash.to(I18n.t('flash.users.disable.notice', username: user.username)) }
       it { should redirect_to(manage_users_path) }
       it("disables the user") { user.reload.disabled.should be(true) }
     end
@@ -457,7 +691,7 @@ describe UsersController do
       before(:each) { sign_in(user) }
       before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
+      it { should set_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
       it("disables the user") { user.reload.disabled.should be(true) }
     end
@@ -484,7 +718,10 @@ describe UsersController do
   end
 
   describe "#enable" do
-    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+    let(:referer) { manage_users_path }
+    before(:each) {
+      login_as(FactoryGirl.create(:superuser))
+    }
 
     context "loads the user by username" do
       let(:user) { FactoryGirl.create(:user) }
@@ -502,14 +739,14 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user, disabled: false) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.error.enabled', name: user.username)) }
+      it { should set_flash.to(I18n.t('flash.users.enable.failure', name: user.name)) }
     end
 
     context "if the user is disabled" do
       let(:user) { FactoryGirl.create(:user, disabled: true) }
       before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.enabled')) }
+      it { should set_flash.to(I18n.t('flash.users.enable.notice')) }
       it { user.reload.disabled.should be_falsey }
     end
 
@@ -520,14 +757,35 @@ describe UsersController do
     context ".json" do
       before { User.destroy_all } # exclude seeded user(s)
 
-      context "when there's a user logged" do
-        let(:user) { FactoryGirl.create(:user) }
+      context "when the logged is user is an admin show full user data" do
+        let(:user) { FactoryGirl.create(:superuser) }
         before(:each) { login_as(user) }
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
+            { id: u.id, username: u.username, name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
+          end
+        }
+
+        before do
+          10.times { FactoryGirl.create(:user) }
+          @users = User.joins(:profile).order("profiles.full_name").first(5)
+        end
+        before(:each) { get :select, format: :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:users).with(@users) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "when there's a user logged" do
+        let(:user) { FactoryGirl.create(:superuser) }
+        before(:each) { login_as(user) }
+
+        let(:expected) {
+          @users.map do |u|
+            { id: u.id, username: u.username, name: u.name, email: u.email,
               text: "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
@@ -568,7 +826,7 @@ describe UsersController do
           it { response.body.should == expected.to_json }
         end
 
-        context "matches users by email" do
+        context "matches users by email if the current user has permission" do
           let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
@@ -580,6 +838,19 @@ describe UsersController do
           before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
+        end
+
+        context "doesn't match users by email if the current user has no permission" do
+          let(:unique_str) { "123123456456" }
+          before do
+            user.set_superuser!(false)
+            FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
+            FactoryGirl.create(:user, email: "Abc-de-Fgh@mconf.org")
+            FactoryGirl.create(:user, email: "Marcos-#{unique_str}@mconf.org")
+          end
+          before(:each) { get :select, q: unique_str, format: :json }
+          it { should assign_to(:users).with([]) }
+          it { response.body.should == [].to_json }
         end
 
         context "has a param to limit the users in the response" do
@@ -635,9 +906,8 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { id: u.id, username: u.username,
-              name: u.name, email: u.email,
-              text: "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username, name: u.name,
+              text: "#{u.name} (#{u.username})" }
           end
         }
 
@@ -755,7 +1025,6 @@ describe UsersController do
   describe "#confirm" do
     let(:user) { FactoryGirl.create(:unconfirmed_user) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
     }
 
@@ -764,7 +1033,7 @@ describe UsersController do
         post :confirm, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should redirect_to('/any') }
+      it { should redirect_to(referer) }
       it ("confirms the user") { user.reload.confirmed?.should be(true) }
     end
   end
@@ -773,18 +1042,19 @@ describe UsersController do
     let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
     let(:admin) { FactoryGirl.create(:superuser) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(admin)
     }
 
     context "if #require_registration_approval is set in the current site" do
       before(:each) {
-        Site.current.update_attributes(require_registration_approval: true)
-        post :approve, id: user.to_param
+        PublicActivity.with_tracking do
+          Site.current.update_attributes(require_registration_approval: true)
+          post :approve, id: user.to_param
+        end
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.approved', name: user.name)) }
-      it { should redirect_to('/any') }
+      it { should set_flash.to(I18n.t('users.approve.approved', name: user.name)) }
+      it { should redirect_to(referer) }
       it("approves the user") { user.reload.should be_approved }
       it("confirms the user") { user.reload.should be_confirmed }
 
@@ -817,8 +1087,8 @@ describe UsersController do
         post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
-      it { should redirect_to('/any') }
+      it { should set_flash.to(I18n.t('users.approve.not_enabled')) }
+      it { should redirect_to(referer) }
       it { user.should be_approved } # auto approved
       it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
     end
@@ -829,7 +1099,6 @@ describe UsersController do
   describe "#disapprove" do
     let(:user) { FactoryGirl.create(:user, approved: true) }
     before {
-      request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
     }
 
@@ -839,8 +1108,8 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
-      it { should redirect_to('/any') }
+      it { should set_flash.to(I18n.t('users.disapprove.disapproved', name: user.name)) }
+      it { should redirect_to(referer) }
       it("disapproves the user") { user.reload.should_not be_approved }
     end
 
@@ -850,8 +1119,8 @@ describe UsersController do
         post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
-      it { should redirect_to('/any') }
+      it { should set_flash.to(I18n.t('users.disapprove.not_enabled')) }
+      it { should redirect_to(referer) }
       it("user is still (auto) approved") { user.reload.should be_approved } # auto approved on registration
     end
 
@@ -920,14 +1189,16 @@ describe UsersController do
         let(:user) { FactoryGirl.build(:user) }
         before(:each) {
           expect {
-            post :create, user: {
-              email: user.email, _full_name: "Maria Test", username: "maria-test",
-              password: "test123", password_confirmation: "test123"
-            }
+            PublicActivity.with_tracking do
+              post :create, user: {
+                     email: user.email, _full_name: "Maria Test", username: "maria-test",
+                     password: "test123", password_confirmation: "test123"
+                   }
+            end
           }.to change(User, :count).by(1)
         }
 
-        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should set_flash.to(I18n.t('users.create.success')) }
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
@@ -949,7 +1220,7 @@ describe UsersController do
           }.to change(User, :count).by(1)
         }
 
-        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should set_flash.to(I18n.t('users.create.success')) }
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
@@ -968,7 +1239,7 @@ describe UsersController do
 
         it {
           msg = assigns(:user).errors.full_messages.join(", ")
-          should set_the_flash.to(I18n.t('users.create.error', errors: msg))
+          should set_flash.to(I18n.t('users.create.error', errors: msg))
         }
         it { should redirect_to manage_users_path }
       end
@@ -983,14 +1254,16 @@ describe UsersController do
           let(:user) { FactoryGirl.build(:user) }
           before {
             expect {
-              post :create, user: {
-                email: user.email, _full_name: "Maria Test", username: "maria-test",
-                password: "test123", password_confirmation: "test123"
-              }
+              PublicActivity.with_tracking do
+                post :create, user: {
+                       email: user.email, _full_name: "Maria Test", username: "maria-test",
+                       password: "test123", password_confirmation: "test123"
+                     }
+              end
             }.to change(User, :count).by(1)
           }
 
-          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should set_flash.to(I18n.t('users.create.success')) }
           it { should redirect_to manage_users_path }
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }
@@ -1013,7 +1286,7 @@ describe UsersController do
             }.to change(User, :count).by(1)
           }
 
-          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should set_flash.to(I18n.t('users.create.success')) }
           it { should redirect_to manage_users_path }
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }

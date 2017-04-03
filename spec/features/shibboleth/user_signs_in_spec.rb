@@ -308,7 +308,8 @@ describe 'User signs in via shibboleth' do
   end
 
   context "redirects the user properly" do
-    let!(:login_link) { t('devise.shared.links.login.federation') }
+    let(:login_link) { find(:xpath, "//a[@href='#{shibboleth_path}']", match: :first) }
+
     before {
       enable_shib
       Site.current.update_attributes :shib_always_new_account => true
@@ -319,7 +320,7 @@ describe 'User signs in via shibboleth' do
     skip "when he was in the frontpage" do
       before {
         visit root_url
-        click_link login_link
+        login_link.click
       }
 
       it { current_path.should eq(my_home_path) }
@@ -327,16 +328,51 @@ describe 'User signs in via shibboleth' do
 
     context "from a space's page" do
       before {
-        @space = FactoryGirl.create(:space, :public => true)
+        @space = FactoryGirl.create(:space, public: true)
         visit space_path(@space)
 
         # Access sign in path via link
         find("a[href='#{login_path}']").click
 
-        click_link login_link
+        login_link.click
       }
 
       it { current_path.should eq(space_path(@space)) }
+    end
+
+    # TODO: skipping because setting the referer is not working
+    skip "from an external page redirects to the last redirectable path" do
+      context "if the user already has an account" do
+        before {
+          # the user has to already have an account
+          user = FactoryGirl.create(:shib_token).user
+          setup_shib user.full_name, user.email, user.email
+
+          @space = FactoryGirl.create(:space, public: true)
+          @room = FactoryGirl.create(:bigbluebutton_room, owner: @space)
+          visit invite_bigbluebutton_room_path(@room)
+
+          page.driver.header('Referer', 'http://mconf.org/about')
+
+          login_link.click
+        }
+
+        it { current_path.should eq(invite_bigbluebutton_room_path(@room)) }
+      end
+
+      context "if the user doesn't have an account yet" do
+        before {
+          @space = FactoryGirl.create(:space, public: true)
+          @room = FactoryGirl.create(:bigbluebutton_room, owner: @space)
+          visit invite_bigbluebutton_room_path(@room)
+
+          page.driver.header('Referer', 'http://mconf.org/about')
+
+          login_link.click
+        }
+
+        it { current_path.should eq(invite_bigbluebutton_room_path(@room)) }
+      end
     end
 
     context "from the association page" do
@@ -347,6 +383,29 @@ describe 'User signs in via shibboleth' do
       # user clicks to create a new account
       # redirects the user to the space's page
     end
+
+    context "trying to login in with the account's password" do
+      let(:user) { token.user }
+      before {
+        enable_shib
+        sign_in_with(user.email, user.password)
+      }
+
+      context "should not work for shib created account" do
+        let(:token) { FactoryGirl.create(:shib_token, new_account: true) }
+
+        it { current_path.should eq(new_user_session_path) }
+        it { has_failure_message t('devise.failure.disabled_by_shib_auth') }
+      end
+
+      context "should work for associated account" do
+        let(:token) { FactoryGirl.create(:shib_token, new_account: false) }
+
+        it { current_path.should eq(my_home_path) }
+        it { have_success_message }
+      end
+    end
+
   end
 
   context "from UFRGS with encoding ASCII-8BIT" do

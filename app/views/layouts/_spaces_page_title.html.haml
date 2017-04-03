@@ -6,11 +6,14 @@
     - if @space.name.size > 60
       .main-title.small-title
         = link_to space_path(@space) do
-          = sanitize(first_words(@space.name, 60))
+          = first_words(@space.name, 60)
     - else
       .main-title
         = link_to space_path(@space) do
-          = sanitize(@space.name)
+          = @space.name
+
+    = render :partial => "spaces/space_tags", :locals => { :space => @space }
+
     - if @space.public
       .resource-visibility.public
         = icon_space_public
@@ -23,7 +26,7 @@
       %span.user-is-member
         = icon_is_member
         = t(".is_member")
-    - if current_site.require_space_approval? && !@space.approved?
+    - if !@space.approved?
       .resource-waiting-tooltip
         = icon_waiting_moderation
         = t("_other.not_approved.text")

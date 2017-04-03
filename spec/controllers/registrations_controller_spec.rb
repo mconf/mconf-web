@@ -22,7 +22,7 @@ describe RegistrationsController do
       before { Site.current.update_attribute(:registration_enabled, false) }
       before(:each) { get :new }
       it { should redirect_to(root_path) }
-      it { should set_the_flash.to(I18n.t("devise.registrations.not_enabled")) }
+      it { should set_flash.to(I18n.t("devise.registrations.not_enabled")) }
     end
   end
 
@@ -59,7 +59,9 @@ describe RegistrationsController do
 
         before {
           expect {
-            post :create, :user => attributes
+            PublicActivity.with_tracking do
+              post :create, :user => attributes
+            end
           }.to change{ User.count }.by(1)
         }
         it { should redirect_to(my_approval_pending_path) }
@@ -81,7 +83,9 @@ describe RegistrationsController do
 
         before {
           expect {
-            post :create, :user => attributes
+            PublicActivity.with_tracking do
+              post :create, :user => attributes
+            end
           }.to change{ User.count }.by(1)
         }
         it { should redirect_to(my_home_path) }
@@ -107,7 +111,7 @@ describe RegistrationsController do
         }.not_to change{ User.count }
       }
       it { should redirect_to(root_path) }
-      it { should set_the_flash.to(I18n.t("devise.registrations.not_enabled")) }
+      it { should set_flash.to(I18n.t("devise.registrations.not_enabled")) }
     end
   end
 

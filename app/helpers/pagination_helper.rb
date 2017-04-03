@@ -31,4 +31,7 @@ module PaginationHelper
     will_paginate(pages, :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe)
   end
 
+  def is_paginated?(query)
+    query.respond_to?(:total_pages)
+  end
 end

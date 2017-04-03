@@ -10,6 +10,12 @@ class Site < ActiveRecord::Base
   serialize :visible_locales, Array
   serialize :allowed_to_record, Array
 
+  before_validation :validate_and_adjust_max_upload_size
+
+  def self.roles
+    { admin: Role.where(name: 'Global Admin').first }
+  end
+
   # Returns the current (default) site
   def self.current
     first || create
@@ -39,6 +45,18 @@ class Site < ActiveRecord::Base
     "#{name} <#{email}>"
   end
 
+  def formatted_max_upload_size
+    Mconf::Filesize.human_file_size(self.max_upload_size)
+  end
+
+  def smtp_receiver
+    if read_attribute(:smtp_receiver).blank?
+      read_attribute(:smtp_sender)
+    else
+      read_attribute(:smtp_receiver)
+    end
+  end
+
   def allowed_to_record_string
     if allowed_to_record.blank?
       ""
@@ -55,4 +73,20 @@ class Site < ActiveRecord::Base
     end
   end
 
+  private
+
+  def validate_and_adjust_max_upload_size
+    if max_upload_size_changed?
+      if self.max_upload_size.blank?
+        write_attribute(:max_upload_size, nil)
+      else
+        value = Mconf::Filesize.convert(self.max_upload_size)
+        if value.nil?
+          self.errors.add(:max_upload_size, :invalid)
+        else
+          write_attribute(:max_upload_size, value.to_s)
+        end
+      end
+    end
+  end
 end

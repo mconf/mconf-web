@@ -34,4 +34,22 @@ module UsersHelper
     "GMT#{ActiveSupport::TimeZone.seconds_to_utc_offset(offset)}"
   end
 
+  # Returns a string which can quickly give some info about the user in the form of
+  #   "(username, email)"
+  # The email will not be included if the user seeing the string does not have
+  # permission to view private profile info for the user
+  def user_info_string user
+    "(#{user.username}#{", " + user.email if can?(:show, user.profile)})".html_safe
+  end
+
+  def user_sign_in_methods user
+    user.sign_in_methods
+      .select{ |m,v| v }
+      .map{ |m, v| t("_other.auth.#{m}") }
+  end
+
+  def user_last_sign_in_method user
+    last = user.last_sign_in_method
+    t("_other.auth.#{last}") if last.present?
+  end
 end

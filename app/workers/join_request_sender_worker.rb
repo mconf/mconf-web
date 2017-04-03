@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestSenderWorker < BaseWorker
-  @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
   # a notification to the admins of the space that a user wants to join the space.
@@ -19,6 +18,8 @@ class JoinRequestSenderWorker < BaseWorker
 
     if space.nil?
       Resque.logger.info "Invalid space in a recent activity item: #{activity.inspect}"
+    elsif !activity.trackable.present?
+      Resque.logger.info "Invalid trackable in a recent activity item: #{activity.inspect}"
     else
       # notify each admin of the space
       space.admins.each do |admin|

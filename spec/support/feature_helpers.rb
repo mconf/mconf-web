@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -19,6 +18,10 @@ module FeatureHelpers
       :shib_principal_name_field => "Shib-eduPerson-eduPersonPrincipalName",
       :shib_env_variables => "shib-.*\nufrgsVinculo"
     )
+  end
+
+  def enable_ldap
+    Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
   end
 
   def setup_shib(name, email, principal, ufrgsVinculo=nil)
@@ -53,40 +56,43 @@ module FeatureHelpers
   end
 
   def show_page
-    save_page Rails.root.join( 'public', 'capybara.html' )
+    save_page Rails.root.join('public', 'capybara.html')
     %x(launchy http://localhost:3000/capybara.html)
   end
 
   def sign_in_with(user_email, password, visit_page=true)
     visit(new_user_session_path) if visit_page
-    fill_in 'user[login]', with: user_email
-    fill_in 'user[password]', with: password
-    click_button I18n.t("sessions.login_form.login")
+    page.find(:css, "#user_login").set(user_email)
+    page.find(:css, "#user_password").set(password)
+    page.find(:css, "form[action='#{user_session_path}'] input[type=submit]").click
   end
 
-  def register_with(attrs)
+  def register_with(attrs, visit=true)
     name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
-    password_confirmation = attrs[:password_confirmation] || attrs[:password]
-    visit register_path
+    visit register_path if visit
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[_full_name]", with: attrs[:_full_name]
     fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
-    fill_in "user[password_confirmation]", with: password_confirmation
+    fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]
     click_button I18n.t("registrations.signup_form.register")
   end
 
+  def register_with_error(attrs, visit=true)
+    new_attrs = attrs.clone
+    new_attrs[:password_confirmation] = attrs[:password_confirmation] + "-wrong" # force error
+    register_with(new_attrs, visit)
+  end
+
   def has_success_message message=nil
-    # TODO
-    # we sometimes show success on 'notice' and sometimes on 'success'
+    # TODO we sometimes show success on 'notice' and sometimes on 'success'
     success_css = '#notification-flashs > div[name=notice],div[name=success]'
     page.should have_css(success_css)
     page.find(success_css).should have_content(message)
   end
 
   def has_failure_message message=nil
-    # TODO
-    # we sometimes show success on 'alert' and sometimes on 'error'
+    # TODO we sometimes show success on 'alert' and sometimes on 'error'
     error_css = '#notification-flashs > div[name=alert],div[name=error]'
     page.should have_css(error_css)
     page.find(error_css).should have_content(message)

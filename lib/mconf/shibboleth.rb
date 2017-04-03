@@ -51,7 +51,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @data && get_identifier && get_email && get_name && get_principal_name && get_enrollment
+      @data && get_identifier && get_email && get_name && get_principal_name
     end
 
     def get_field(field)
@@ -121,9 +121,13 @@ module Mconf
       !@session.nil? && @session.has_key?(SESSION_KEY)
     end
 
-    # Mark in the session that the user signed in via Shibboleth
-    def set_signed_in
+    # Mark in the session that the user signed in via Shibboleth and
+    # set the current time user signed in
+    def set_signed_in(user, token)
+      user.signed_in_via_external = true
       @session[SESSION_KEY] = true
+      token.current_sign_in_at = Time.now.utc
+      token.save
     end
 
     # Returns the name of the attributes used to get the basic user information from the

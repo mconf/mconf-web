@@ -14,6 +14,8 @@ ActiveSupport.on_load(:after_initialize) do
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.raise_delivery_errors = true
 
+    ActionMailer::Base.default_url_options = { protocol: "http#{site.ssl? ? 's' : ''}" }
+
     # default settings
     settings = {
       :address => nil,

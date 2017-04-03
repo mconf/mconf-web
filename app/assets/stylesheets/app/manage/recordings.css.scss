@@ -1,0 +1,106 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.recordings {
+
+  .page-tabs {
+    .search-words {
+      text-align: left;
+
+      label {
+        margin: 3px 7px;
+      }
+
+      input {
+        margin: 0 5px;
+        width: 75%;
+      }
+    }
+  }
+
+  .search-filters {
+    margin-top: 10px;
+
+    .search-filter-option {
+      float: left;
+      width: 20%;
+    }
+
+    .checkbox {
+      text-align: right;
+      margin: 0 5px;
+      float: left;
+      padding: 0;
+    }
+  }
+
+  .total-recording-size {
+    float: right;
+  }
+
+  .management-links {
+    float: right;
+    padding-top: 8px;
+  }
+
+  .thread {
+    background: #fcfcfc;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    padding: 0;
+    margin: 12px 0;
+
+    .thread-title {
+      padding: 8px;
+    }
+
+    .recording-metadata {
+      border-radius: 3px;
+      padding: 8px;
+      margin: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    .metadata-published {
+      float: right;
+      margin: 4px 0;
+    }
+
+    .metadata-size {
+      float: right;
+      margin: 4px 0;
+      clear: right;
+    }
+
+    .playback-types {
+      background: #fff;
+      display: none;
+      padding: 8px;
+
+      ul {
+        margin: 0;
+        border: 0;
+      }
+
+      h5 {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .icon-awesome {
+    display:inline-block;
+    line-height: 27px;
+    text-align: center;
+    vertical-align: bottom;
+  }
+
+  .recording-not-available-name {
+    background: #fcfcfc;
+    a {
+      color: #888;
+    }
+  }
+
+}

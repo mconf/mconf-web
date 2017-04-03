@@ -4,36 +4,6 @@
 $ ->
   if isOnPage 'spaces', 'index'
 
-    # how results are formatted in the search input
-    format = (state) ->
-      if state.public
-        r = "<i class='icon-awesome icon-eye-open icon-mconf-space-public'></i>"
-      else
-        r = "<i class='icon-awesome icon-lock icon-mconf-space-private'></i>"
-      "#{r}<a href='#{state.url}'>#{state.text}</a>"
-
-    # redirects to the space when an item is clicked in the search input
-    $("#space_filter_text").on "change", (e) ->
-      window.location = e.added.url if e.added?.url?
-
-    # select input to search for spaces
-    $("#space_filter_text").select2
-      minimumInputLength: 1
-      placeholder: I18n.t('spaces.index.search.by_name.placeholder')
-      formatNoMatches: (term) ->
-        I18n.t('spaces.index.search.by_name.no_matches', { term: mconf.Base.escapeHTML(term) })
-
-      width: '250'
-      formatResult: format
-      formatSelection: format
-      ajax:
-        url: '/spaces/select.json'
-        dataType: 'json'
-        data: (term, page) ->
-          q: term
-        results: (data, page) ->
-          results: data
-
     # hovering an space shows its description in the sidebar
     $(".list-thumbnails > li, .list-texts > li").hover ->
 

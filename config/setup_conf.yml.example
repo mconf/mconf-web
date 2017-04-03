@@ -1,31 +1,34 @@
-# Setup configurations
+# Application configurations.
 # The values defined here will be used to create the seed data on the database (see db/seeds.rb).
 # The section 'default' contain the configurations for all environments (development, test,
 # production). If you need you can define specific sections for the environments you want,
 # and these configurations will override the ones in the default section.
-#
-# Almost everyting you setup here can be configured later on from the application's
-# web interface!
-#
-# The parameters that are not commented in the default section are *mandatory*!
-# Without any of them your application might not behave appropriately.
 
 default:
 
+  #
+  # Configurations that are read at every startup.
+  #
+
+  # Redis server. Defaults to 'localhost:6379' if you leave the block commented.
+  # redis:
+  #   host: 'localhost'
+  #   port: '6379'
+  #   db: 1
+  #   password: '1234567890'
+
+  #
+  # Configurations that are used only by db:seeds.
+  # These can be changed later on in the website's management interface.
+  #
+
   # The first admin you will use to login and setup the application.
-  # You can set any attribute from the model User here.
-  # You can change everything, except the email, from within the application later on.
   admin:
     username: "admin"
     email: "admin@default.com"
     password: "admin"
-    # If you want to set attributes in the user's profile, do as done below
-    # profile_attributes:
-    #   full_name: "Mconf Admin"
 
   # The first, only and default Site model with general configurations for the website.
-  # You can set any attribute from the model Site here.
-  # If not specified, the SMTP configurations will default to a Gmail account.
   site:
     name: "Mconf"
     # description: "Mconf Website"
@@ -37,41 +40,24 @@ default:
     # ssl: false
 
   # The first and default webconference server.
-  # You can set any attribute from the model BigbluebuttonServer here.
   # Note: set these parameters even if you don't have a server yet, you can edit it later on.
   webconf_server:
     name: "Default Server"
     url: "http://my-development-server/bigbluebutton/api"
-    salt: "my-secret-salt"
-    version: "0.8"
+    secret: "my-secret-salt"
 
-  # If you're running redis on the same server and without a password, you
-  # can leave this block commented
-  # redis:
-  #   host: 'localhost'
-  #   port: '6379'
-  #   db: 0
-  #   password: '1234567890'
+#
+# Specific configurations for each environment. Optional.
+#
 
-# Configurations for each environment
-# You can find below the sections for each environment available.
-# Uncomment the lines from one of them to define specific configurations for that environment.
-# You can use any of the parameters from the default section and here as well.
-
-# Development configurations
 # development:
-#   webconf_server:
-#     name: "Any other server"
-#     url: "http://my-other-server/bigbluebutton/api"
-#     salt: "my-secret-salt"
-#     version: "0.8"
+#   redis:
+#     host: "dev-redis.my-domain"
 
-# Production configurations
 # production:
-#   admin:
+#   redis:
 #     ...
 
-# Test configurations
 # test:
-#   admin:
+#   redis:
 #     ...

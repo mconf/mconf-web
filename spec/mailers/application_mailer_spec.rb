@@ -14,7 +14,7 @@ describe ApplicationMailer do
     let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
 
     context "in the standard case" do
-      it("sets 'to'") { mail.to.should eql([Site.current.smtp_sender]) }
+      it("sets 'to'") { mail.to.should eql([Site.current.smtp_receiver]) }
       it("sets 'subject'") {
         text = "[#{Site.current.name}] #{I18n.t('application_mailer.feedback_email.subject')}: #{subject}"
         mail.subject.should eql(text)
@@ -46,56 +46,6 @@ describe ApplicationMailer do
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
         mail.body.encoded.should match(Regexp.escape(content))
-      }
-    end
-  end
-
-  describe ".digest_email" do
-    let(:user) { FactoryGirl.create(:user, :locale => "pt-br") }
-    let(:space) { FactoryGirl.create(:space) }
-    let(:now) { Time.now }
-    let(:date_start) { now - 1.day }
-    let(:date_end) { now }
-
-    before {
-      # create the data to be returned
-      user.update_attributes(:receive_digest => User::RECEIVE_DIGEST_DAILY)
-      @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-      @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
-      @attachments = [ FactoryGirl.create(:attachment, author: user, :space => space, :updated_at => date_start).id ]
-      @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id ]
-      @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
-      @locale = user.locale
-    }
-
-    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
-
-    describe "in the standard case" do
-      it("sets 'to'") { mail.to.should eql([user.email]) }
-      it("sets 'subject'") {
-        text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => @locale), :locale => @locale)
-        text = "[#{Site.current.name}] #{text}"
-        mail.subject.should eql(text)
-      }
-      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
-      it("sets 'headers'") { mail.headers.should eql({}) }
-      # it("sets 'reply_to'") { mail.reply_to.should eql([user.email]) }
-      it "includes the correct information in the email"
-    end
-
-    context "uses the site's locale if the user has no locale set" do
-      before {
-        Site.current.update_attributes(:locale => "pt-br")
-        user.update_attribute(:locale, nil)
-      }
-      it {
-        text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => "pt-br"), :locale => "pt-br")
-        text = "[#{Site.current.name}] #{text}"
-        mail.subject.should eql(text)
-      }
-      it {
-        content = I18n.t('email.digest.message', :locale => "pt-br")
-        mail.body.encoded.should match(content)
       }
     end
   end

@@ -6,6 +6,22 @@
   left: 60%;
 }
 
+.xhr-error {
+
+  .status {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 20px;
+    font-size: 200%;
+    i {
+      padding-right: 20px;
+      font-size: 300%;
+    }
+  }
+
+}
+
 @media (max-width: 979px) {
   .modal-small {
     left: 1%; // as done in bootstrap

@@ -14,9 +14,9 @@ require 'abilities/superuser_ability'
 module Abilities
 
   def self.ability_for(user)
-    if user and user.superuser?
+    if user && user.superuser?
       SuperUserAbility.new(user)
-    elsif user and !user.anonymous?
+    elsif user && !user.anonymous?
       MemberAbility.new(user)
     else
       AnonymousAbility.new

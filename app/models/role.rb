@@ -5,8 +5,6 @@
 # 3 or later. See the LICENSE file.
 
 class Role < ActiveRecord::Base
-  # TODO: permissions
-
   has_many :permissions
   validates :name, :presence => true, :uniqueness => true
 

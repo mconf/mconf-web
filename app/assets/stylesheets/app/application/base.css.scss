@@ -62,7 +62,7 @@ form {
   top: $navbar-height;
 }
 
-// Unified style for threads: posts, news, attachments
+// Unified style for threads: posts, attachments
 .thread {
   clear: both;
   padding: 20px 4px 8px 4px;
@@ -1004,6 +1004,16 @@ strong.highlight {
   color: $font-color-gray;
 }
 
+// The fake input we use to disable autocomplete in other inputs
+.input-disable-autocomplete {
+  display: none;
+}
+
+// Recent activities
+.removed-object-text {
+  text-decoration: line-through;
+  color: lighten($font-color, 30);
+}
 
 // tablets/mobiles
 @media (max-width: 767px) {

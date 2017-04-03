@@ -6,13 +6,9 @@
 
 require 'spec_helper'
 
-describe JoinRequestSenderWorker do
+describe JoinRequestSenderWorker, type: :worker do
   let(:worker) { JoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
-
-  it "uses the queue :join_requests" do
-    worker.instance_variable_get(:@queue).should eql(:join_requests)
-  end
 
   describe "#perform" do
     let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
@@ -96,5 +92,30 @@ describe JoinRequestSenderWorker do
       it { activity.reload.notified.should be(true) }
     end
 
+    context "when there's no join request set in the activity" do
+      let(:admin) { FactoryGirl.create(:user) }
+      before {
+        space.add_member!(admin, "Admin")
+        activity.update_attributes(trackable: nil)
+      }
+      before(:each) { worker.perform(activity.id) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:join_request_email, activity.trackable_id, admin.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the join request was removed" do
+      let(:admin) { FactoryGirl.create(:user) }
+      before {
+        space.add_member!(admin, "Admin")
+        activity.update_attributes(trackable_id: -1, trackable_type: 'JoinRequest')
+      }
+      before(:each) { worker.perform(activity.id) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:join_request_email, activity.trackable_id, admin.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
   end
 end

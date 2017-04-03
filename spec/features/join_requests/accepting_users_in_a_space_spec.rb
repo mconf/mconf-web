@@ -230,6 +230,6 @@ def check_invite(invite)
   expect(page).to have_content(invite.candidate.username)
   expect(page).to have_content(invite.candidate.email)
   expect(page).to have_content(invite.comment)
-  expect(page).to have_content(invite.role)
+  expect(page).to have_content(invite.role.name)
   expect(page).to have_link(I18n.t("_other.cancel"), href: decline_space_join_request_path(space, invite))
 end
