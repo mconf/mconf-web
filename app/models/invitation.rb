@@ -129,4 +129,8 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  def room_name
+    self.target.name
+  end
+
 end

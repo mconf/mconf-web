@@ -88,6 +88,16 @@ $m-input-focus-bg:  #fff; //#fafafa;
 $m-input-focus-border-color: $m-color-secondary; //lighten($m-color-primary-light, 5); // #999999;
 $m-input-disabled-bg: #f6f6f6;
 
+// mailer colors
+$m-mail-main-title: #696969;
+$m-mail-text: $m-mail-main-title;
+$m-mail-secondary-title: #BA3A46;
+$m-mail-background: #EBEBEB;
+$m-mail-message-background: #FFFFFF;
+$m-mail-inner-box-background: #EEEEEE;
+$m-mail-inner-box-border: #CCCCCC;
+
+
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;
 $m-alert-font: #C09853;

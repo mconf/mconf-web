@@ -1,7 +1,6 @@
-#registration-notification-email
-  %p= t('.hello', name: @user_name)
-  - if Site.current.require_registration_approval?
-    %p= t('.confirmation_pending', url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
-  - else
-    %p= t('.message', name: @user_name, url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
-    %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe
+%p= t('.hello', name: @user_name)
+- if Site.current.require_registration_approval?
+%p= t('.confirmation_pending', url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+- else
+%p= t('.message', name: @user_name, url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+%p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe

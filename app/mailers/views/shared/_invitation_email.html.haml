@@ -1,13 +1,12 @@
 #invitation-email
-  %p
-    - unless @invitation.title.blank?
-      .field
-        %label= t('.message.subject') + ':'
-        %span= @invitation.title
-    - unless @invitation.description.blank?
-      .field
-        %label= t('.message.description') + ':'
-        %span= @invitation.description
+  - unless @invitation.title.blank?
+    .field
+      %label= t('.message.subject') + ':'
+      %span= @invitation.title
+  - unless @invitation.description.blank?
+    .field
+      %label= t('.message.description') + ':'
+      %span= @invitation.description
 
   %p
     - Time.use_zone(@time_zone) do

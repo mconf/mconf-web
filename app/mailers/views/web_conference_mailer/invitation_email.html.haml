@@ -1,5 +1,9 @@
-#webconference-invitation-mail
-  %p= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
+%h1= t('.message.hello')
+%body= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
+%span= @invitation.room_name
+%h2= t('.message.how_to')
+.informative= t('.message.how_to_text').html_safe
+.inner
   = render "shared/invitation_email"
 
   - if @invitation.target.dial_number.present?
@@ -11,3 +15,9 @@
     .field
       %label= t('.message.password') + ':'
       %span= @invitation.target.attendee_key
+
+%p= t('.message.enjoy')
+
+%h2= t('.message.did_you_know')
+.informative= t('.message.did_you_know_text').html_safe
+%span= mail_to Site.current.smtp_receiver

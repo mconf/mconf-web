@@ -5,9 +5,11 @@
     = stylesheet_link_tag "mailers", :media => "screen, projection"
     = yield :headers
   %body
+    .logo
+      %a{:href => root_url}= image_tag "#{root_url}/assets/logos/mconf-color-transp.png", :size => '231x120'
     .message-body
-      = yield
+      .message
+        = yield
     .footer
       %p
-        = '--'
-        = Site.current.signature_in_html
+        = t('.signature').html_safe

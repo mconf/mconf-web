@@ -87,8 +87,14 @@ en:
       event_name: "Meeting with %{name}"
       message:
         description: "Description"
+        did_you_know: "Did you know that?"
+        did_you_know_text: "The technology used for this webconference was developed by Mconf Tecnologia, a Brazilian company located in Porto Alegre/RS and can be integrated with several LMS (Learning Management System), such as: Moodle; WordPress; Canvas. <i>Interested?</i> Contact:"
         end: "End"
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
+        enjoy: "Now just enjoy!"
+        header: "You were invited by <b>%{sender}</b> (%{email_sender}) to access the web conferencing room "
+        hello: "Hello!"
+        how_to: "How to access?"
+        how_to_text: "To access the room is very simple, in this email you will receive all the necessary information about the conference. Just click on the room link, enter your <b>full name</b> and provide the access key, if the conference is private."
         join: "Room"
         password: "Access key"
         start: "Start"
@@ -104,3 +110,6 @@ en:
         url:
           event: "Event site"
           other: "Room"
+  layouts:
+    mailers:
+        signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
