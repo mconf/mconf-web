@@ -761,8 +761,6 @@ pt-br:
   getting_started: Começando!
   group:
     other: "Listas de e-mails"
-  hcard:
-    not_found: "hCard não encontrado"
   header_global:
     welcome: "Olá, %{user}"
   hello: Olá
@@ -1884,10 +1882,6 @@ pt-br:
       on_leave: "Um envio de arquivos está em progresso, se você sair agora ele será cancelado."
     logos:
       button: "Enviar nova imagem"
-  vCard:
-    corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
-    message: "Use seu vCard para preencher automaticamente seu perfil"
-    upload: "Envie o seu vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   version:

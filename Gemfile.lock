@@ -343,8 +343,6 @@ GEM
     premailer-rails (1.7.0)
       actionmailer (>= 3, < 5)
       premailer (~> 1.7, >= 1.7.9)
-    prism (0.1.0)
-      nokogiri
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -520,7 +518,6 @@ GEM
       mail (~> 2.6.1)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    vpim (13.11.11)
     warden (1.2.6)
       rack (>= 1.0)
     wasabi (3.5.0)
@@ -611,7 +608,6 @@ DEPENDENCIES
   nokogiri
   populator
   premailer-rails
-  prism
   public_activity (~> 1.5.0)
   quiet_assets
   rabl
@@ -647,7 +643,6 @@ DEPENDENCIES
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
   valid_email (~> 0.0.10)
-  vpim (~> 13.11.11)
   webmock
   webrat
   will_paginate

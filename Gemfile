@@ -57,9 +57,6 @@ gem 'net-ldap'
 gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
 gem 'bigbluebutton_rails', git: 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'v3-gem'
 
-# Used on Profile to generate a vcard
-gem 'vpim', '~> 13.11.11'
-
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick', '~> 2.16.0'
@@ -122,7 +119,6 @@ gem 'savon', '~> 2.0'
 gem 'httparty'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
-gem 'prism'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
