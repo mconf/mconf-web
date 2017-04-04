@@ -4,7 +4,7 @@
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
     %title= content_for?(:title) ? yield(:title) : current_site.name
-    = favicon_link_tag
+    = theme_favico
     = csrf_meta_tag
 
     = stylesheet_link_tag "application_print", :media => "print"
@@ -15,7 +15,7 @@
 
     = yield :headers
 
-  %body{:class => "#{controller_name_for_view} #{params[:action]}"}
+  %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
     #site
 
       #navbar

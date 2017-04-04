@@ -1,7 +1,5 @@
-#navbar-logo
-  - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
-  %a.title{:href => url}
-    = image_tag "logos/mconf-white-transp.png", size: "54x28"
+- url = user_signed_in? ? main_app.my_home_path : main_app.root_path
+%a#navbar-logo{:href => url}
 
 #navbar-left
   %ul

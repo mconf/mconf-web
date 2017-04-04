@@ -83,6 +83,11 @@ module ApplicationHelper
     params[:controller].parameterize
   end
 
+  # Returns the name of the layout in use
+  def layout_name
+    controller.send(:_layout)
+  end
+
   # Renders the partial 'layout/sidebar_content_block'
   # If options[:active], will set a css style to emphasize the block
   # Ex:

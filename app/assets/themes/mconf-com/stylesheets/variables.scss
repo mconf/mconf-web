@@ -1,0 +1,20 @@
+$m-com-purple: rgb(51, 19, 42); //rgb(72, 34, 61);
+$m-com-purple-light: #7a506b;
+$m-com-red: #cd4b57;
+$m-com-orange: #eb8039;
+
+/* $m-link-color: $m-com-red; */
+$m-link-color-hover: $m-com-red;
+/* $m-link-color-active: $m-link-color; */
+
+$m-color-secondary: $m-com-red;
+$m-focus-border-color: $m-color-secondary;
+
+$m-navbar-bg-color-light: $m-com-purple;
+$m-navbar-bg-color-dark: $m-navbar-bg-color-light;
+$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+$m-navbar-internal-border-color: lighten($m-navbar-bg-color-dark, 5);
+$m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 10);
+
+$btn-primary-bg: $m-color-secondary;
+$btn-primary-border: $btn-primary-bg;

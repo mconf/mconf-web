@@ -16,20 +16,15 @@ body.frontpage.show {
     @include clearfix;
 
     #navbar-logo {
-      width: 25%;
       margin: 24px auto 0 auto;
       padding: 0;
       float: none;
       overflow: visible;
 
-      .title {
-        float: none;
-      }
-
-      img {
-        width: 100%;
-        height: auto;
-      }
+      background: image-url('logos/mconf-white-transp.png') no-repeat left top;
+      background-size: 308px 160px;
+      width: 308px;
+      height: 160px;
     }
 
     #navbar-left, #navbar-right {
