@@ -35,7 +35,6 @@ class Profile < ActiveRecord::Base
   end
 
   belongs_to :user
-  accepts_nested_attributes_for :user
 
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
@@ -53,18 +52,16 @@ class Profile < ActiveRecord::Base
 
   after_validation :sanitize_encodings
   def sanitize_encodings
-    fields = [:organization, :phone, :mobile , :fax, :address, :city,
-      :zipcode, :province, :country, :prefix_key, :description, :url, :skype , :im, :full_name]
+    fields = [
+      :organization, :phone, :address, :city, :zipcode, :province, :country,
+      :description, :url, :full_name
+    ]
 
     if vcard.present?
       fields.each do |field|
         self.send("#{field}=".to_sym, self.send(field).force_encoding('utf-8')) if self.send("#{field}_changed?")
       end
     end
-  end
-
-  def prefix
-    self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
   end
 
   # Returns the user's first name(s) making sure it is at least `min_length` characters
@@ -110,18 +107,10 @@ class Profile < ActiveRecord::Base
       end
     end
 
-    #FAX
-    if !@vcard.telephone('fax').nil?
-      self.fax = @vcard.telephone('fax')
-    end
-
     #NAME
     if !@vcard.name.nil?
       temporal = ''
 
-      if !@vcard.name.prefix.eql? ''
-        self.prefix_key = @vcard.name.prefix
-      end
       if !@vcard.name.given.eql? ''
         temporal =  @vcard.name.given + ' '
       end
@@ -204,10 +193,6 @@ class Profile < ActiveRecord::Base
     end
 
     if hcard.n
-      if hcard.n.honorific_prefix
-        self.prefix_key = hcard.n.honorific_prefix
-      end
-
       full_name = hcard.fn ||
                   "#{ hcard.n.try(:given_name) } #{ hcard.n.try(:additional_name) } #{ hcard.n.try(:family_name) }".strip
 
@@ -255,7 +240,6 @@ class Profile < ActiveRecord::Base
     Vpim::Vcard::Maker.make2 do |maker|
       maker.add_name do |vname|
         vname.given = user.name
-        vname.prefix = prefix
       end
 
       maker.add_addr do |vaddr|
@@ -272,28 +256,6 @@ class Profile < ActiveRecord::Base
         maker.add_tel(phone) do |vtel|
           vtel.location = 'work'
           vtel.preferred = true
-        end
-      end
-
-      if mobile.blank?
-        maker.add_tel('Not defined') do |vtel|
-          vtel.location = 'cell'
-        end
-      else
-        maker.add_tel(mobile) do |vtel|
-          vtel.location = 'cell'
-        end
-      end
-
-      if fax.blank?
-        maker.add_tel('Not defined') do |vtel|
-          vtel.location = 'work'
-          vtel.capability = 'fax'
-        end
-      else
-        maker.add_tel(fax) do |vtel|
-          vtel.location = 'work'
-          vtel.capability = 'fax'
         end
       end
 

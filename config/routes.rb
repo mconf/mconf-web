@@ -91,9 +91,6 @@ Mconf::Application.routes.draw do
       post :approve
       post :disapprove
       post :confirm
-    end
-
-    resource :profile, only: [:show, :edit, :update] do
       post :update_logo
     end
   end

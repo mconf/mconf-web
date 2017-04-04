@@ -168,15 +168,10 @@ en:
         country: "Country"
         description: "Write something about you"
         email: "Email"
-        fax: "Fax"
         full_name: "Full name"
-        im: "IM"
-        mobile: "Mobile"
         organization: "Organization"
         phone: "Telephone"
-        prefix_key: "Title"
         province: "Province"
-        skype: "Skype"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
@@ -1227,54 +1222,6 @@ en:
     public_description: "Anyone can access this information"
     spaces: "Spaces joined by this user"
     updated: "Profile updated successfully"
-  profiles:
-    edit:
-      change_pic: "Change picture"
-      explain_gravatar: "This is the image associated with your email on Gravatar.com"
-      using_gravatar: "Image from Gravatar"
-      title: "%{name}: edit profile"
-      view_your_profile: "View profile"
-      vcard:
-        export: "Export vCard"
-        tooltip: "vCard is a file format standard for electronic business cards"
-        use: "Import from vCard"
-      visibility_description: "Choose who will be able to see your private profile"
-      visibility_edit: "Edit your profile visibility"
-      visibility_everybody: "Everyone can see your private profile."
-      visibility_members: "Only registered members can see your private profile."
-      visibility_nobody: "Nobody can see your private profile."
-      visibility_private_fellows: "Only your partners in a private space can see your private profile."
-      visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
-    private_hcard:
-      email: "Email"
-      fax: "Fax"
-      im: "IM"
-      phone:
-        conventional: Phone
-        mobile: Mobile
-        plural: Telephones
-      skype: "Skype"
-      title: "Contact information"
-    public_hcard:
-      address: "Address"
-      city: "City"
-      country: "Country"
-      description: "Description"
-      name: "Name"
-      organization: "Organization"
-      province: "Province"
-      street: "Street"
-      title: "Personal information"
-      url: "Website"
-      zipcode: "Zip code"
-    show:
-      activities: "Recent activities"
-      edit_profile: "Edit profile"
-      info: "Contact information"
-      send_pm: "Send a private message"
-      spaces: "Spaces"
-      vcard:
-        export: "Export vCard"
   public: Public
   read_more: "Read more"
   recaptcha:
@@ -1840,14 +1787,13 @@ en:
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"
+      address: "Address"
       approve: "Approve: allow user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
       cancel_account: "Cancel my account"
       change_password: "Change password"
-      click_to_edit_profile: "Click here to edit your profile"
       confirm_user: "Confirm this user's account"
       confirm_user_confirm: "Are you sure you want to confirm this user's account?"
-      did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
       federated:
@@ -1859,10 +1805,10 @@ en:
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       other_user:
-        click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."
         title: "Edit user account"
-      preferences: "Preferences"
+      public_profile: "Public profile"
+      public_profile_tip: "Your public profile is visible to anyone in the Internet"
       title: "Edit your account"
     errors:
       access_forbidden: "This operation is only available to administrators"
@@ -1871,6 +1817,24 @@ en:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
       title: "Create user"
+    private_hcard:
+      email: "Email"
+      phone:
+        conventional: Phone
+        plural: Telephones
+      title: "Contact information"
+    public_hcard:
+      address: "Address"
+      city: "City"
+      country: "Country"
+      description: "Description"
+      name: "Name"
+      organization: "Organization"
+      province: "Province"
+      street: "Street"
+      title: "Personal information"
+      url: "Website"
+      zipcode: "Zip code"
   username: Username
   uploader:
     attachments:

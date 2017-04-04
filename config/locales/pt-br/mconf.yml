@@ -163,17 +163,11 @@ pt-br:
         country: "País"
         description: "Escreva algo sobre você"
         email: "E-mail"
-        fax: "Fax"
         full_name: "Nome completo"
-        im: "IM"
-        mobile: "Celular"
         organization: "Organização"
         phone: "Telefone"
-        prefix_key: "Título"
         province: "Estado"
-        skype: "Skype"
         url: "Seu website"
-        visibility: "Visibilidade"
         zipcode: "CEP"
       roles:
         name_user: "Usuário"
@@ -1261,54 +1255,6 @@ pt-br:
     public_description: "Qualquer pessoa pode acessar esta informação"
     spaces: "Comunidades das quais este usuário é membro"
     updated: "Perfil atualizado com sucesso"
-  profiles:
-    edit:
-      change_pic: "Mudar foto"
-      explain_gravatar: "Esta é a imagem que está associada ao seu e-mail no Gravatar.com"
-      using_gravatar: "Imagem do Gravatar"
-      title: "%{name}: editar perfil"
-      view_your_profile: "Visualizar perfil"
-      vcard:
-        export: "Exportar vCard"
-        tooltip: "vCard é um formato de arquivo padrão para cartões eletrônicos"
-        use: "Usar um vCard"
-      visibility_description: "Escolha quem poderá ver o seu perfil privado"
-      visibility_edit: "Edite a visibilidade do seu perfil"
-      visibility_everybody: "Todos podem ver o seu perfil privado."
-      visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
-      visibility_nobody: "Ninguém pode ver o seu perfil privado."
-      visibility_private_fellows: "Apenas os seus colegas em uma comunidade privada podem ver o seu perfil privado."
-      visibility_public_fellows: "Apenas os seus colegas em uma comunidade pública podem ver o seu perfil privado."
-    private_hcard:
-      email: "E-mail"
-      fax: "Fax"
-      im: "IM"
-      phone:
-        conventional: Fone
-        mobile: Celular
-        plural: Telefones
-      skype: "Skype"
-      title: "Informações de contato"
-    public_hcard:
-      address: "Endereço"
-      city: "Cidade"
-      country: "País"
-      description: "Descrição"
-      name: "Nome"
-      organization: "Organização"
-      province: "Estado"
-      street: "Rua"
-      title: "Informações pessoais"
-      url: "Website"
-      zipcode: "CEP"
-    show:
-      activities: "Atividades recentes"
-      edit_profile: "Editar perfil"
-      info: "Informações de contato"
-      send_pm: "Enviar mensagem privada"
-      spaces: "Comunidades"
-      vcard:
-        export: "Exportar vCard"
   public: Público
   read_more: "Ler mais"
   recaptcha:
@@ -1879,10 +1825,8 @@ pt-br:
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
       cancel_account: "Cancelar minha conta"
       change_password: "Mudar senha"
-      click_to_edit_profile: "Clique aqui para editar o seu perfil"
       confirm_user: "Confirmar a conta deste usuário"
       confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
-      did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
       federated:
@@ -1894,10 +1838,10 @@ pt-br:
       management_options: "Opções de administração"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       other_user:
-        click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."
         title: "Editar conta de usuário"
-      preferences: "Preferências"
+      public_profile: "Perfil público"
+      public_profile_tip: "Seu perfil público é visível para qualquer pessoa na Internet"
       title: "Editar sua conta"
     errors:
       access_forbidden: "Esta operação está disponível apenas para administradores"
@@ -1906,6 +1850,24 @@ pt-br:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
         error: "Erro(s) ao criar o novo usuário"
       title: "Cadastrar usuário"
+    private_hcard:
+      email: "E-mail"
+      phone:
+        conventional: Fone
+        plural: Telefones
+      title: "Informações de contato"
+    public_hcard:
+      address: "Endereço"
+      city: "Cidade"
+      country: "País"
+      description: "Descrição"
+      name: "Nome"
+      organization: "Organização"
+      province: "Estado"
+      street: "Rua"
+      title: "Informações pessoais"
+      url: "Website"
+      zipcode: "CEP"
   username: "Nome de usuário"
   uploader:
     attachments:

@@ -109,6 +109,7 @@ module Mconf
         attrs = {}
         attrs[:profile] = Profile.new(
           {
+            full_name: get_name,
             country: get_field('C'),
             organization: get_field('O'),
             city: get_field('L'),

@@ -3,16 +3,12 @@
 = content_for :sidebar do
   = render 'shared/user_card', user: @user
 
-  - if can?(:update, @profile)
-    .sidebar-top-action-button
-      = link_to t('.edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
-
 .container-fluid
   .profile-info
     .content-block-middle
-      = render :partial => 'profiles/public_hcard'
+      = render :partial => 'users/public_hcard'
       - if can?(:show, @profile)
-        = render :partial => 'profiles/private_hcard'
+        = render :partial => 'users/private_hcard'
   .profile-spaces
 
     .content-block-header

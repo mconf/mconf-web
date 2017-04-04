@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324200556) do
+ActiveRecord::Schema.define(version: 20170331204029) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -300,20 +300,14 @@ ActiveRecord::Schema.define(version: 20170324200556) do
   create_table "profiles", force: true do |t|
     t.string  "organization"
     t.string  "phone"
-    t.string  "mobile"
-    t.string  "fax"
     t.string  "address"
     t.string  "city"
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
     t.integer "user_id"
-    t.string  "prefix_key",   default: ""
     t.text    "description"
     t.string  "url"
-    t.string  "skype"
-    t.string  "im"
-    t.integer "visibility",   default: 3
     t.string  "full_name"
     t.string  "logo_image"
   end

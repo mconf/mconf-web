@@ -54,7 +54,7 @@
                 - user = User.find_by(id: meeting.creator_id)
                 .recording-author
                   - unless user.nil?
-                    = link_to user.full_name, user_profile_path(user)
+                    = link_to user.full_name, user_path(user)
                   - else
                     %span= t('_other.user.removed')
 

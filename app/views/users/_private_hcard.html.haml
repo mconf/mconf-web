@@ -1,0 +1,17 @@
+#profile-private-hcard.profile-hcard
+  .section-title
+    %h3= t('.title')
+
+  .hcard-content
+    - if @profile.phone.present?
+      %h4.sub-section= t('.phone.plural')
+      %ul
+        - if @profile.phone.present?
+          %li
+            %span.key= t(".phone.conventional") + ":"
+            %span.value= @profile.phone
+    %h4.sub-section= t('internet.ppal')
+    %ul
+      %li
+        %span.key= t('.email') + ":"
+        %span.value= link_to @user.email, "mailto:#{@user.email}"

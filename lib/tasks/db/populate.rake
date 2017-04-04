@@ -58,19 +58,13 @@ namespace :db do
         profile.full_name = Forgery::Name.full_name
         profile.organization = Populator.words(1..3).titleize
         profile.phone = Forgery::Address.phone
-        profile.mobile = Forgery::Address.phone
-        profile.fax = Forgery::Address.phone
         profile.address = Forgery::Address.street_address
         profile.city = Forgery::Address.city
         profile.zipcode = Forgery::Address.zip
         profile.province = Forgery::Address.state
         profile.country = Forgery::Address.country
-        profile.prefix_key = Forgery::Name.title
         profile.description = Populator.sentences(1..3)
         profile.url = "http://" + Forgery::Internet.domain_name + "/" + Populator.words(1)
-        profile.skype = Populator.words(1)
-        profile.im = Forgery::Internet.email_address
-        profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
       end
     end
 
@@ -434,9 +428,9 @@ namespace :db do
     private
 
     def add_insecure_data
-      profile_attrs = [:organization, :phone, :mobile, :fax, :address, :city,
-                       :zipcode, :province, :country, :prefix_key, :description,
-                       :url, :skype, :im, :full_name]
+      profile_attrs = [:organization, :phone, :fax, :address, :city,
+                       :zipcode, :province, :country, :description,
+                       :url, :full_name]
 
       # Create 2 insecure users
       u = FactoryGirl.create(:user, username: 'insecure1', password: '123456')

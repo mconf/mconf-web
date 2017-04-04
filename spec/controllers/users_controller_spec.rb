@@ -110,8 +110,6 @@ describe UsersController do
 
     it { should_authorize an_instance_of(User), :show, id: FactoryGirl.create(:user).to_param }
 
-    # TODO: lot's of cases here (profile visibility settings * types of users )
-    # (anon, logged in, fellow, private fellow, admin, user itself)
     context "assigns the correct @recent_activities" do
       let(:user) { FactoryGirl.create(:user) }
       let(:public_space) { FactoryGirl.create(:space_with_associations, public: true) }
@@ -258,7 +256,11 @@ describe UsersController do
       }
 
       let(:user_allowed_params) {
-        [ :remember_me, :login, :timezone, :password, :password_confirmation, :current_password ]
+        [ :remember_me, :login, :timezone,
+          profile_attributes: [ :address, :city, :province, :country,
+                                :zipcode, :phone, :full_name, :organization,
+                                :description, :url ],
+        ] + [:password, :password_confirmation, :current_password]
       }
       before {
         sign_in(user)

@@ -35,8 +35,8 @@
           %li
             .observation= current_user.name
           %li.divider{ role: 'separator' }
+          %li= link_to t(".profile"), main_app.user_path(current_user)
           %li= link_to t(".account"), main_app.edit_user_path(current_user)
-          %li= link_to t(".profile"), main_app.edit_user_profile_path(current_user)
           %li.divider{ role: "separator"}
           %li= link_to t('logout', :user => current_user.name), main_app.logout_path
 

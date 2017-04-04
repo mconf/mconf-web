@@ -58,7 +58,8 @@ module Mconf::RedirectControllerModule
   # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   def store_location
     if request_is_redirectable?(request) #&& !external_or_blank_url?(request.url)
-      # Used by Mconf-Web. Can't use user_return_to because it is overridden
+
+      # can't use user_return_to because it is overridden
       # before actions and views are executed.
       session[:previous_user_return_to] = session[:user_return_to]
 
@@ -76,6 +77,11 @@ module Mconf::RedirectControllerModule
   # Path to where the user would be redirect back to
   def user_return_to
     session[:user_return_to]
+  end
+
+  # Previous path to where the user would be redirect back to
+  def previous_user_return_to
+    session[:previous_user_return_to]
   end
 
   # Whether the user came from "nowhere" (no referer) or from an external URL.

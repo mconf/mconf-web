@@ -46,9 +46,7 @@ class UsersController < InheritedResources::Base
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 
     @profile = @user.profile
-    respond_to do |format|
-      format.html { render 'profiles/show' }
-    end
+    render :show
   end
 
   def edit
@@ -89,12 +87,12 @@ class UsersController < InheritedResources::Base
     if updated
       # User editing himself
       # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true if current_user == @user
+      sign_in @user, bypass: true if current_user == @user
 
-      flash = { :success => t("user.updated") }
+      flash = { success: t("user.updated") }
       redirect_to_p edit_user_path(@user), :flash => flash
     else
-      flash = { :error => t("user.not_updated") }
+      flash = { error: t("user.not_updated") }
       render_p :edit, flash: flash
     end
   end
@@ -157,6 +155,26 @@ class UsersController < InheritedResources::Base
     end
   end
 
+  def update_logo
+    @user.profile.logo_image = params[:uploaded_file]
+
+    if @user.profile.save
+      url = logo_images_crop_path(model_type: 'user', model_id: @user)
+      respond_to do |format|
+        format.json {
+          render json: {
+                   success: true, redirect_url: url, small_image: @user.profile.small_logo_image?,
+                   new_url: @user.profile.logo_image.url
+                 }
+        }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { success: false } }
+      end
+    end
+  end
+
   private
 
   def load_and_authorize_with_disabled
@@ -187,7 +205,10 @@ class UsersController < InheritedResources::Base
 
   allow_params_for :user
   def allowed_params
-    allowed = [ :remember_me, :login, :timezone ]
+    allowed =  [
+      :remember_me, :login, :timezone,
+      profile_attributes: [:address, :city, :province, :country, :zipcode, :phone, :full_name, :organization, :description, :url]
+    ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:approved, :disabled, :can_record] if current_user.superuser?

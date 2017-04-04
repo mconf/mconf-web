@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   has_one :shib_token, :dependent => :destroy
   has_one :certificate_token, :dependent => :destroy
 
+  accepts_nested_attributes_for :profile, update_only: true
+
   after_initialize :init
 
   accepts_nested_attributes_for :bigbluebutton_room
@@ -162,7 +164,7 @@ class User < ActiveRecord::Base
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username
 
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, to: :profile
 
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external

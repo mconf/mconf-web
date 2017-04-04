@@ -106,5 +106,9 @@ module Mconf
 
     # Themes: set to the theme name if using any!
     config.theme           = ENV['MCONF_THEME']
+
+    # Themes: configure assets paths here!
+    # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme","stylesheets")
+    # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme","images")
   end
 end

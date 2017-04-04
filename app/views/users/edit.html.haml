@@ -1,6 +1,8 @@
 -# Note: this view can be seen by the user himself or by an admin.
 -#   It will behave differently in each case.
 
+- form_url = user_path(@user, redir_url: previous_path_or(edit_user_path(@user)))
+
 = content_for :sidebar do
   .sidebar-title
     - if current_user == @user
@@ -8,7 +10,7 @@
     - else
       = t('.other_user.title')
 
-  = render 'shared/user_card', user: @user
+  = render 'shared/user_card', user: @user, editing: true
 
   - if current_user == @user
     #user-cancel-account
@@ -32,17 +34,9 @@
     #user-ldap-info.alert.alert-gray
       %span.title= t('.ldap.title')
 
-.alert.alert-info.alert-clean
-  %span= t('.did_not_find_info')
-  - if current_user == @user
-    = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
-  - else
-    = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
+#user-account-panel-1
 
-= simple_form_for @user, :url => user_path(@user, redir_url: previous_path_or(edit_user_path(@user))), :html => { :method => :put } do |f|
-
-  #user-account-panel-1
-
+  = simple_form_for @user, url: form_url do |f|
     #user-account-info
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
@@ -54,32 +48,54 @@
         = f.input :password, autocomplete: "off", required: false
         = f.input :password_confirmation, required: false
 
-  #user-account-panel-2
-    #user-account-preferences
-      %h3= t('.preferences')
-
+    #user-address
+      %h3= t('.address')
+      = f.simple_fields_for :profile do |p|
+        = p.input :address
+        = p.input :city
+        = p.input :province
+        = p.input :country, as: :string
+        = p.input :zipcode
+        = p.input :phone
       = f.input :timezone, required: false do
         = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
 
+    = f.button :wrapped, value: t("_other.save")
+
+
+#user-account-panel-2
+
+  #user-profile
+    %h3
+      = t('.public_profile')
+      = icon_info t('.public_profile_tip')
+    = simple_form_for @user, url: form_url do |f|
+      = f.simple_fields_for :profile do |p|
+        = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user.profile)
+        = p.input :organization
+        = p.input :description, as: :text
+        = p.input :url
+      = f.button :wrapped, value: t("_other.save")
+
   - if user_signed_in? && current_user.superuser
-    #user-management-options
-      %h3= t('.management_options')
-      = f.input :can_record, :required => false
+    #user-management-options.alert.alert-gray
+      = simple_form_for @user, url: form_url do |f|
+        %h3= t('.management_options')
+        = f.input :can_record, :required => false
 
-      -# prevent admins from mistakenly removing themselves from being admins or blocking
-      -# access to their account
-      - unless current_user == @user
-        = f.input :approved, :required => false
-        = f.input :superuser, as: :boolean, required: false
-        - if !@user.confirmed?
+        -# prevent admins from mistakenly removing themselves from being admins or blocking
+        -# access to their account
+        - unless current_user == @user
+          = f.input :approved, :required => false
+          = f.input :superuser, as: :boolean, required: false
+          - if !@user.confirmed?
+            .input
+              = link_to confirm_user_path(@user), :data => { :confirm => t('.confirm_user_confirm') },  :method => :post do
+                = icon_confirm_user(:alt => t('.confirm_user'))
+                = t('.confirm_user')
           .input
-            = link_to confirm_user_path(@user), :data => { :confirm => t('.confirm_user_confirm') },  :method => :post do
-              = icon_confirm_user(:alt => t('.confirm_user'))
-              = t('.confirm_user')
-        .input
-          = link_to disable_user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-            = icon_disable(:alt => t('.disable'))
-            = t('.disable')
+            = link_to disable_user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+              = icon_disable(:alt => t('.disable'))
+              = t('.disable')
 
-  - cancel_path = previous_path_or(edit_user_path(@user))
-  = f.button :wrapped, :cancel => cancel_path, :value => t("_other.save")
+        = f.button :wrapped, value: t("_other.save")

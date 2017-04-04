@@ -9,7 +9,7 @@ class LogoImagesController < ApplicationController
     if params[:model_type] == 'user'
       @user = User.find_by_username(params[:model_id])
       @model = @user.profile
-      @url = user_profile_path(@user)
+      @url = user_path(@user)
       @page = t('avatar.crop')
       @aspect_ratio = 1
       @width = 100
