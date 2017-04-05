@@ -9,7 +9,7 @@ class mconf.SignupForm
     submit_toggle = ->
       $button.prop('disabled', !$terms.is(":checked"));
 
-    $terms = $("#user_terms:not(.disabled)")
+    $terms = $("#terms")
     $button = $("input[name='commit']")
     submit_toggle()
     $terms.on 'change', (e) ->

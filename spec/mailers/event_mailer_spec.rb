@@ -42,7 +42,7 @@ describe EventMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([invitation.sender.email]) }
       it("assigns @invitation") {
         mail.body.encoded.should match(invitation.title)
-        mail.body.encoded.should match(invitation.description)
+        mail.parts.first.body.raw_source.should match(invitation.description)
         mail.body.encoded.should match(invitation.url)
       }
     end

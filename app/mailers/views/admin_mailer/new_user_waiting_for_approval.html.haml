@@ -1,3 +1,2 @@
-#new-user-waiting-approval-email
-  %p= t('.message', name: @user_name, email: @user_email)
-  %p= t('.click_here', url: manage_users_url(host: Site.current.domain, q: @user_email)).html_safe
+%p= t('.message', name: @user_name, email: @user_email)
+%p= t('.click_here', url: manage_users_url(host: Site.current.domain, q: @user_email)).html_safe

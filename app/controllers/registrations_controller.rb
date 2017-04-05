@@ -44,7 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def check_terms_acceptance
-    unless ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:user][:terms])
+    unless ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms])
       flash[:error] = I18n.t("devise.registrations.terms_reject")
       build_resource(sign_up_params)
       render :new
@@ -52,7 +52,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def allowed_params
-    [:email, :_full_name, :username, :_organization, :_cpf_cnpj, :_service_usage_select, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country, :terms]
+    [:email, :_full_name, :username, :_organization, :_cpf_cnpj, :_service_usage_select, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country]
   end
 
   private
