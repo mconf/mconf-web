@@ -32,4 +32,4 @@
   .form-accept-terms
     = check_box_tag :terms, 1, false, as: :boolean
     = label_tag :terms, t('.terms').html_safe
-  = f.button :wrapped, :value => t(".register"), disabled: true
+  = f.button :wrapped, :value => t(".register")
