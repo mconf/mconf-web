@@ -1,8 +1,11 @@
 -# locals:
 -#  user (User)
 -#  spaces (array of Space)
+-#   compact (boolean): show a compact version of the view
+
+- compact ||= false
 
 - if spaces.empty?
   %p= t('home.no_spaces', :link => spaces_path).html_safe
 - else
-  = render "spaces/list_view", spaces: spaces, user_spaces: spaces
+  = render "spaces/list_view", spaces: spaces, user_spaces: spaces, compact: compact

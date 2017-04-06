@@ -104,7 +104,7 @@ module LogoImagesHelper
   # Renders the controls to upload a logo for a space or a user's avatar
   def upload_logo_controls(resource)
     path = if resource.is_a?(User)
-             update_logo_user_profile_path(resource, format: :json)
+             update_logo_user_path(resource, format: :json)
            elsif resource.is_a?(Space)
              update_logo_space_path(resource, format: :json)
            end

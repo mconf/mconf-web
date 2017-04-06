@@ -88,13 +88,13 @@ class SpacesController < InheritedResources::Base
     @space.logo_image = params[:uploaded_file]
 
     if @space.save
-      url = logo_images_crop_path(:model_type => 'space', :model_id => @space)
+      url = logo_images_crop_path(model_type: 'space', model_id: @space)
       respond_to do |format|
         format.json {
-          render :json => {
-            success: true, redirect_url: url, small_image: @space.small_logo_image?,
-            new_url: @space.logo_image.url
-          }
+          render json: {
+                   success: true, redirect_url: url, small_image: @space.small_logo_image?,
+                   new_url: @space.logo_image.url
+                 }
         }
       end
     else

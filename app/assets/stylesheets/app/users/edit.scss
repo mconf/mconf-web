@@ -23,30 +23,8 @@ body.users.edit, body.users.update {
     clear: both;
   }
 
-  #user-account-preferences {
-    @include mconf-clearfix;
-
-    select {
-      display: block;
-      width: 100%;
-    }
-  }
-
-  #user-federated-info {
-    span.title {
-      @include font-size($m-font-medium);
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    span { display: block; }
-  }
-
   #user-management-options {
-    clear: both;
-    @include make-xs-column(12);
-    border-top: 1px solid $m-border-color-normal;
-    margin-bottom: 16px;
-    padding-top: 16px;
+    margin-top: 32px;
   }
 
   #user-cancel-account {
@@ -56,4 +34,7 @@ body.users.edit, body.users.update {
     text-align: center;
   }
 
+  #user_profile_attributes_description {
+    height: 110px;
+  }
 }

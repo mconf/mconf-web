@@ -30,7 +30,8 @@ module Abilities
       # won't use :manage so it doesn't block actions such as #index
       cannot [:show, :destroy, :edit, :update, :disable,
               :enable, :approve, :disapprove, :confirm, :show,
-              :fellows, :current, :select, :update_password], User, disabled: true
+              :fellows, :current, :select, :update_password,
+              :update_full_name, :update_logo], User, disabled: true
 
       # only actions over members, not actions over the collection
       actions = [:show, :accept, :decline]

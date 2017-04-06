@@ -5,7 +5,7 @@
 - editing ||= false
 
 = content_for :sidebar do
-  .resource-card
+  .resource-card.resource-space
     .resource-logo
       = link_to space_path(space) do
         - cls = editing ? 'editing' : ''

@@ -72,10 +72,6 @@ module Mconf
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    # Theme mconf-com
-    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","stylesheets")
-    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","images")
-
     # all view helpers loaded for all views
     config.action_controller.include_all_helpers = true
 
@@ -110,5 +106,9 @@ module Mconf
 
     # Themes: set to the theme name if using any!
     config.theme           = ENV['MCONF_THEME']
+
+    # Themes: configure assets paths here!
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","stylesheets")
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","images")
   end
 end

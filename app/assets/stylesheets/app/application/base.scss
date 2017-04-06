@@ -45,11 +45,11 @@ form {
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
 .logo-in-thread {
-  @include logo-in-thread; // in _definitions
+  @include logo-in-thread; // in _mixins
 }
 
 .clearfix {
-  @include mconf-clearfix; // in _definitions
+  @include mconf-clearfix; // in _mixins
 }
 
 .danger-text, a.danger-text {
@@ -332,7 +332,6 @@ form {
   margin: 15px 0 5px 0;
   @include mconf-clearfix;
   display: inline-block;
-
   background: image-url('logos/mconf-white-transp.png') no-repeat left top;
   background-size: 54px 28px;
   width: 54px;
@@ -443,6 +442,7 @@ form {
     line-height: 1.1;
     margin-bottom: 15px;
     padding: 0 10px;
+    text-align: center;
   }
 
   .sidebar-subtitle {
@@ -457,64 +457,6 @@ form {
     margin: 20px 0;
     padding: 0 10px;
     text-align: center;
-  }
-
-  .resource-card {
-    @include broken-img-parent;
-    margin: 0 auto 20px 0;
-    text-align: center;
-
-    .resource-logo {
-      position: relative;
-
-      img {
-        width: 100%;
-        height: auto;
-        max-width: 250px;
-        border: 1px solid darken($m-light-gray, 10);
-        padding: 3px;
-        background: $m-site-bg-color;
-
-        &.editing {
-          opacity: 0.5;
-          border-color: $m-dark-gray;
-        }
-      }
-    }
-
-    .superuser-label {
-      position: absolute;
-      bottom: 5px;
-      padding: .3em .7em .4em;
-      white-space: nowrap;
-
-      background: $m-red;
-      color: #fff;
-
-      /* center */
-      left: calc(50%);
-      transform: translate(-50%, -50%);
-    }
-
-    .data {
-      @include mconf-clearfix;
-      text-align: center;
-      margin-top: 10px;
-
-      a, span {
-        display: block;
-        margin-bottom: 3px;
-      }
-
-      .data-main {
-        @include font-size($m-font-big);
-        font-weight: bold;
-      }
-
-      .data-other {
-        min-height: calculate-px($m-font-big) + 2px;
-      }
-    }
   }
 
   .content-block-container {
@@ -991,18 +933,6 @@ strong.highlight {
     text-align: center;
   }
 
-  .upload-button {
-    background: $m-color-secondary;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: $m-border-radius-base;
-    display: inline-block;
-
-    &:hover {
-      background: darken($m-color-secondary, 5);
-    }
-  }
-
   i {
     color: #fff;
     margin-right: 8px;
@@ -1024,7 +954,7 @@ strong.highlight {
 
   &.file-uploader-logo {
     position: absolute;
-    top: 10%;
+    top: 25%;
     transform: translate(-50%, 0%);
     left: calc(50%);
 
@@ -1035,8 +965,8 @@ strong.highlight {
     .upload-button {
       background: darken($m-dark-gray, 5); //$m-color-secondary;
       color: #fff;
-      font-size: $m-font-medium;
-      padding: 8px 16px;
+      //font-size: $m-font-medium;
+      padding: 4px 8px;
       border-radius: $m-border-radius-base;
       opacity: 0.9;
       float: left;
@@ -1117,4 +1047,80 @@ strong.highlight {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* "Card" with a log and some information, mostly for users */
+.resource-card {
+  @include broken-img-parent;
+  margin: 0 auto 20px 0;
+  text-align: center;
+
+  .resource-logo {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid $m-border-color-normal;
+      padding: 3px;
+      background: $m-site-bg-color;
+
+      &.editing {
+        opacity: 0.5;
+        border-color: $m-dark-gray;
+      }
+    }
+  }
+
+  .data {
+    @include mconf-clearfix;
+    text-align: center;
+    margin-top: 10px;
+
+    a, span {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .data-main {
+      @include font-size($m-font-big);
+      font-weight: bold;
+    }
+
+    .data-other {
+      min-height: calculate-px($m-font-big) + 2px;
+    }
+  }
+
+  &.resource-user {
+    img {
+      border-radius: 50%;
+      max-width: 220px;
+    }
+
+    .label-superuser, .label-gravatar {
+      position: absolute;
+      bottom: 5px;
+      padding: .3em .7em .4em;
+      white-space: nowrap;
+      font-weight: normal;
+      background: $m-red;
+      color: #fff;
+
+      /* center */
+      left: calc(50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .label-gravatar {
+      bottom: 30px;
+      background: $m-blue;
+    }
+  }
+
+  &.resource-space {
+    img {
+      max-width: 300px;
+    }
+  }
 }

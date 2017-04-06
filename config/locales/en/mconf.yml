@@ -124,6 +124,7 @@ en:
     upload: "Upload"
     user:
       admin: "Admin"
+      admin_tooltip: "This user is a an administrator"
       administrator: "Global administrator"
       disabled: "Disabled"
       normal_user: "Normal user"
@@ -163,20 +164,16 @@ en:
         text: "Message"
         title: "Title"
       profile:
-        address: "Address"
+        address: "Street address"
         city: "City"
         country: "Country"
         description: "Write something about you"
         email: "Email"
-        fax: "Fax"
         full_name: "Full name"
-        im: "IM"
-        mobile: "Mobile"
         organization: "Organization"
         phone: "Telephone"
-        prefix_key: "Title"
         province: "Province"
-        skype: "Skype"
+        url: "Website"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
@@ -764,8 +761,6 @@ en:
   getting_started: "Getting started!"
   group:
     other: "Mailing lists"
-  hcard:
-    not_found: "hCard not found"
   header_global:
     welcome: "Welcome, %{user}"
   hello: Hello
@@ -1107,7 +1102,7 @@ en:
     approval_pending:
       title: Pending approval
       description: You have succesfully registered and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
-      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      interesting_links: "Meanwhile you can browse the open sections of the website, check the navigation bar at the top of the page!"
       events_list: Events
       spaces_list: Spaces
     edit_recording:
@@ -1238,54 +1233,6 @@ en:
     public_description: "Anyone can access this information"
     spaces: "Spaces joined by this user"
     updated: "Profile updated successfully"
-  profiles:
-    edit:
-      change_pic: "Change picture"
-      explain_gravatar: "This is the image associated with your email on Gravatar.com"
-      using_gravatar: "Image from Gravatar"
-      title: "%{name}: edit profile"
-      view_your_profile: "View profile"
-      vcard:
-        export: "Export vCard"
-        tooltip: "vCard is a file format standard for electronic business cards"
-        use: "Import from vCard"
-      visibility_description: "Choose who will be able to see your private profile"
-      visibility_edit: "Edit your profile visibility"
-      visibility_everybody: "Everyone can see your private profile."
-      visibility_members: "Only registered members can see your private profile."
-      visibility_nobody: "Nobody can see your private profile."
-      visibility_private_fellows: "Only your partners in a private space can see your private profile."
-      visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
-    private_hcard:
-      email: "Email"
-      fax: "Fax"
-      im: "IM"
-      phone:
-        conventional: Phone
-        mobile: Mobile
-        plural: Telephones
-      skype: "Skype"
-      title: "Contact information"
-    public_hcard:
-      address: "Address"
-      city: "City"
-      country: "Country"
-      description: "Description"
-      name: "Name"
-      organization: "Organization"
-      province: "Province"
-      street: "Street"
-      title: "Personal information"
-      url: "Website"
-      zipcode: "Zip code"
-    show:
-      activities: "Recent activities"
-      edit_profile: "Edit profile"
-      info: "Contact information"
-      send_pm: "Send a private message"
-      spaces: "Spaces"
-      vcard:
-        export: "Export vCard"
   public: Public
   read_more: "Read more"
   recaptcha:
@@ -1418,6 +1365,9 @@ en:
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
+    user_card:
+      gravatar_label: "Image from Gravatar"
+      gravatar_label_tooltip: "This is your avatar on Gravatar.com"
     webconf_index_links:
       view_playback_type_list: "Playback Types"
       view_recording_list: "Recordings"
@@ -1860,14 +1810,13 @@ en:
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"
+      address: "Address"
       approve: "Approve: allow user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
       cancel_account: "Cancel my account"
       change_password: "Change password"
-      click_to_edit_profile: "Click here to edit your profile"
       confirm_user: "Confirm this user's account"
       confirm_user_confirm: "Are you sure you want to confirm this user's account?"
-      did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
       federated:
@@ -1879,10 +1828,10 @@ en:
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       other_user:
-        click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."
         title: "Edit user account"
-      preferences: "Preferences"
+      public_profile: "Public profile"
+      public_profile_tip: "Your public profile is visible to anyone in the Internet"
       title: "Edit your account"
     errors:
       access_forbidden: "This operation is only available to administrators"
@@ -1891,6 +1840,13 @@ en:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
       title: "Create user"
+    show:
+      description: "About"
+      email: "Email"
+      name: "Name"
+      organization: "Organization"
+      url: "Website"
+      user_spaces: "Membro of the spaces"
   username: Username
   uploader:
     attachments:
@@ -1907,10 +1863,6 @@ en:
       on_leave: "The files are being uploaded, if you leave now the upload will be cancelled."
     logos:
       button: "Upload a new image"
-  vCard:
-    corrupt: "The vCard you sent is corrupted or is a non-supported version"
-    message: "Use your vCard to automatically fill in your profile"
-    upload: "Upload your vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   version:

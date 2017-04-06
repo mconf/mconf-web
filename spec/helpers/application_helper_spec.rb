@@ -39,10 +39,6 @@ describe ApplicationHelper do
     }
   end
 
-  describe "#render_sidebar_content_block" do
-    it "renders the sidebar content block partial with the parameters passed"
-  end
-
   describe "#at_home?" do
     context "true if at MyController#home" do
       before {

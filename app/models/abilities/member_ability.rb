@@ -12,37 +12,14 @@ module Abilities
 
       # Users
       can [:index, :show, :fellows, :current, :select], User
-      can [:edit, :update, :disable], User, id: user.id
-      can [:update_password], User do |target_user|
+      can [:edit, :update, :disable, :update_logo], User, id: user.id
+      can :update_password, User do |target_user|
         user == target_user &&
           (Site.current.local_auth_enabled? && target_user.local_auth?)
       end
-
-      # User profiles
-      # Visible according to options selected by the user, editable by their owners
-      # Note: For the private profile only, the public profile is always visible.
-      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
-      can :index, Profile
-      can :show, Profile do |profile|
-        case profile.visibility
-        when Profile::VISIBILITY.index(:everybody)
-          true
-        when Profile::VISIBILITY.index(:members)
-          true
-        when Profile::VISIBILITY.index(:public_fellows)
-          profile.user.public_fellows.include?(user)
-        when Profile::VISIBILITY.index(:private_fellows)
-          profile.user.private_fellows.include?(user)
-        when Profile::VISIBILITY.index(:nobody)
-          false
-        end
-      end
-      can [:show, :edit, :update, :update_logo], Profile, user_id: user.id
-      # Some info is blocked if the user created by shib and auto update is enabled
-      # in the site
-      can [:update_full_name], Profile do |profile|
-        profile.user == user &&
-          (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
+      can :update_full_name, User do |target_user|
+        user == target_user &&
+          (!Site.current.shib_update_users? || !target_user.created_by_shib?)
       end
 
       # Spaces

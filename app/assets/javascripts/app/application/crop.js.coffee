@@ -3,12 +3,39 @@
 # class .crop-preview to act as a preview
 class mconf.Crop
 
+  # Custom selection class.
+  # Taken from Jcrop's demos.
+  CircleSel = ->
+  CircleSel.prototype = new ($.Jcrop.component.Selection)
+  $.extend CircleSel.prototype,
+    zoomscale: 1
+    # attach: ->
+    #   @frame.css background: 'url(' + $('img.cropable')[0].src.replace('750', '750') + ')'
+    #   return
+    positionBg: (b) ->
+      midx = (b.x + b.x2) / 2
+      midy = (b.y + b.y2) / 2
+      ox = -midx * @zoomscale + b.w / 2
+      oy = -midy * @zoomscale + b.h / 2
+      #this.frame.css({ backgroundPosition: ox+'px '+oy+'px' });
+      @frame.css backgroundPosition: -(b.x + 1) + 'px ' + -b.y - 1 + 'px'
+      return
+    redraw: (b) ->
+      # Call original update() method first, with arguments
+      $.Jcrop.component.Selection::redraw.call this, b
+      @positionBg @last
+      this
+    prototype: $.Jcrop.component.Selection.prototype
+
+
   # Enables the crop in all 'cropable' elements in the document
   @bind: ->
     $("img.cropable").each ->
       image = this
-      $('img.cropable').Jcrop
-        aspectRatio: $(image).attr('data-crop-aspect-ratio')
+
+      options =
+        bgColor: 'black'
+        aspectRatio: $(image).data('crop-aspect-ratio')
         setSelect: [0, 0, 350, 350]
         minSize: [100, 100]
         allowSelect: false
@@ -30,7 +57,19 @@ class mconf.Crop
             h: $(image).height()
           update(image, coords)
 
-      $('#aspect-ratio').on "change", ->
+      if $(image).data('crop-circular') is true
+        circularOptions =
+          selectionComponent: CircleSel
+          handles: [ 'n','s','e','w' ]
+          applyFilters: [ 'constrain', 'extent', 'backoff', 'ratio', 'round' ]
+          dragbars: [ ]
+          borders: [ ]
+          aspectRatio: 1
+        _.extend(options, circularOptions)
+
+      $(image).Jcrop(options)
+
+      $('[data-crop="aspect-ratio-input"]').on "change", ->
         mconf.Crop.enableAspectRatio $(this).is(':checked')
 
   @enableAspectRatio: (enabled) ->

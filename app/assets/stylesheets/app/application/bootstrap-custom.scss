@@ -192,7 +192,7 @@ label {
   border-top-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
-  border-left-width: 5px;
+  border-left-width: 1px; //5px;
   color: $m-font-color;
 
   &.alert-clean {

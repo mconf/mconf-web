@@ -2,7 +2,9 @@
 -#   space (Space): the target model
 -#   is_member (boolean): Whether the current user is a member of the space or not
 -#   show_join_request (boolean): show link to a join request (if it exists)
+-#   compact (boolean): show a compact version of the view
 
+- compact ||= false
 - show_join_request ||= false
 
 - cls = space.disabled? ? "list-item-disabled" : ""
@@ -16,7 +18,8 @@
     .list-text-title
       = link_to space_path(space) do
         = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
-      = render :partial => "spaces/space_tags", :locals => { :space => space }
+      - unless compact
+        = render :partial => "spaces/space_tags", :locals => { :space => space }
 
     .list-text-subtitle
       - if space.public
@@ -29,7 +32,8 @@
           = icon_space_private
           = t(".private")
           = t('.with_members', :count => space.users.size)
-      - if is_member
+
+      - if is_member && !compact
         .resource-visibility.small
           = icon_is_member
           = t(".is_member")
@@ -49,5 +53,6 @@
             = icon_waiting_moderation
             = t("_other.not_approved.text")
 
-    .list-text-description
-      = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))
+    - unless compact
+      .list-text-description
+        = Mconf::Highlighter.highlight(sanitize(space.description), params[:q].try(:split))

@@ -11,46 +11,25 @@ feature 'Editing a user account', with_truncation: true do
   let!(:admin) { FactoryGirl.create(:superuser) }
   let!(:user) { FactoryGirl.create(:user) }
 
-  scenario "a user updating his account should redirect back to where he previously was" do
+  scenario "a user updating his account should stay in the edit page" do
     sign_in_with user.username, user.password
 
     visit my_home_path
     find("a[href='#{ edit_user_path(user) }']").click
-    find("[name='commit']").click
+    find("[name='commit']", match: :first).click
 
-    expect(current_path).to eq(my_home_path)
+    expect(current_path).to eq(edit_user_path(user))
   end
 
-  scenario "a user cancelling the editing of his account should redirect back to where he previously was" do
-    sign_in_with user.username, user.password
-
-    visit my_home_path
-    find("a[href='#{ edit_user_path(user) }']").click
-    find("//a[text()='#{ I18n.t('simple_form.buttons.cancel') }']").click
-
-    expect(current_path).to eq(my_home_path)
-  end
-
-  scenario "an admin updating a user account should redirect back to where he previously was" do
+  scenario "an admin updating a user account should stay in the edit page" do
     sign_in_with admin.username, admin.password
-    path = manage_users_path(q: user.username.first(3), admin: false)
 
-    visit path
+    visit manage_users_path(q: user.username.first(3), admin: false)
     find("a[href='#{ edit_user_path(user) }']").click
-    find("[name='commit']").click
+    save_page
+    find("[name='commit']", match: :first).click
 
-    expect(current_path_with_query).to eq(path)
-  end
-
-  scenario "an admin cancelling the editing of an account should redirect back to where he previously was" do
-    sign_in_with admin.username, admin.password
-    path = manage_users_path(q: user.username.first(2), admin: false)
-
-    visit path
-    find("a[href='#{ edit_user_path(user) }']").click
-    find("//a[text()='#{ I18n.t('simple_form.buttons.cancel') }']").click
-
-    expect(current_path_with_query).to eq(path)
+    expect(current_path_with_query).to eq(edit_user_path(user))
   end
 
   # # bug1719 - Waiting for javascript tests

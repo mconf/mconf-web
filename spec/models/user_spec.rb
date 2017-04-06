@@ -60,6 +60,8 @@ describe User do
   it { should have_one(:shib_token).dependent(:destroy) }
   it { should have_one(:certificate_token).dependent(:destroy) }
 
+  it { should accept_nested_attributes_for(:profile) }
+
   describe 'model validations' do
     subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
 
@@ -1234,8 +1236,10 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
+
     set_custom_ability_actions([
-      :fellows, :current, :select, :approve, :enable, :disable, :confirm, :update_password
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm,
+      :update_password, :update_logo, :update_full_name
     ])
 
     subject { ability }
@@ -1246,7 +1250,7 @@ describe User do
       let(:user) { target }
       it {
         allowed = [:show, :index, :edit, :update, :disable, :fellows, :current, :select,
-                   :update_password]
+                   :update_password, :update_logo, :update_full_name]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
@@ -1294,6 +1298,30 @@ describe User do
         }
         it { should_not be_able_to(:update_password, target) }
       end
+
+      context "cannot edit the full name if the account was created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the site is not updating user information automatically" do
+        before {
+          Site.current.update_attributes(shib_update_users: false)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
     end
 
     context "when is another normal user" do
@@ -1319,7 +1347,7 @@ describe User do
       it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should be_able_to_do_everything_to(target) }
       end
 
@@ -1425,7 +1453,7 @@ describe User do
       it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current]) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
     end

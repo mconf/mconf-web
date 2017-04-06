@@ -14,7 +14,7 @@
           = f.submit t('_other.accept'), :class => "btn btn-success"
           %span= t('join_requests.index.accept_as').downcase
           - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
-          = select :join_request, :role_id, roles, :selected => default_role.id
+          = select :join_request, :role_id, roles, selected: Role.default_role.id
 
     .thread-title
       = link_to sanitize(jr.candidate.name), user_path(jr.candidate)

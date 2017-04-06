@@ -61,9 +61,10 @@ class User < ActiveRecord::Base
   has_one :shib_token, :dependent => :destroy
   has_one :certificate_token, :dependent => :destroy
 
-  after_initialize :init
-
+  accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
+
+  after_initialize :init
 
   # Will be set to a user when the user was registered by an admin.
   attr_accessor :created_by
@@ -162,7 +163,10 @@ class User < ActiveRecord::Base
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username
 
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+  delegate :full_name, :organization, :city, :country,
+           :logo, :logo_image, :logo_image_url,
+           :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+           to: :profile
 
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external

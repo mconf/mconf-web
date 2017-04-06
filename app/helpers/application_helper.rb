@@ -88,17 +88,6 @@ module ApplicationHelper
     controller.send(:_layout)
   end
 
-  # Renders the partial 'layout/sidebar_content_block'
-  # If options[:active], will set a css style to emphasize the block
-  # Ex:
-  #   <%= render_sidebar_content_block('users') do %>
-  #     any content
-  #   <% end %>
-  def render_sidebar_content_block(id=nil, options={}, &block)
-    options[:active] ||= false
-    block_to_partial('layouts/sidebar_content_block', options.merge(:id => id), &block)
-  end
-
   # Checks if the current page is the user's home page
   def at_home?
     params[:controller] == 'my' && params[:action] == 'home'
@@ -178,52 +167,6 @@ module ApplicationHelper
     session[:previous_user_return_to] || fallback
   end
 
-  #
-  # TODO: All the code below should be reviewed
-  #
-
-  # Initialize an object for a form with suitable params
-  # TODO: not really needed, can be replaced by @space.post.build, for example
-  def prepare_for_form(obj, options = {})
-    case obj
-    when Post
-      obj.space = @space if obj.space.blank?
-    when Attachment
-      obj.space = @space if obj.space.blank?
-    else
-      raise "Unknown object #{ obj.class }"
-    end
-
-    options.each_pair do |method, value|  # Set additional attributes like:
-      obj.__send__ "#{ method }=", value         # post.event = @event
-    end
-
-    obj
-  end
-
-  # Every time a form needs to point a role as default (User, admin, guest, ...)
-  def default_role
-    Role.default_role
-  end
-
-  # First 'size' characters of a text
-  def first_words(text, size)
-    truncate(text, :length => size)
-  end
-
-  # Sets the default value for a local variable in a view in case this variable is not set yet.
-  # Preserves false and nil values set in the variable.
-  # Example:
-  #   show_authors = set_default(local_assigns, "show_authors", true)
-  # TODO: find a way to access `local_assigns` here without passing in as a param.
-  def set_default(local_assigns, var_name, value)
-    if local_assigns.has_key?(var_name.to_sym)
-      local_assigns[var_name.to_sym]
-    else
-      value
-    end
-  end
-
   def captcha_tags(opts={})
     if current_site.captcha_enabled?
       content_tag :div, class: 'captcha' do
@@ -246,13 +189,21 @@ module ApplicationHelper
       options
   end
 
-  private
+  # Sets the default value for a local variable in a view in case this variable is not set yet.
+  # Preserves false and nil values set in the variable.
+  # Example:
+  #   show_authors = set_default(local_assigns, "show_authors", true)
+  # TODO: find a way to access `local_assigns` here without passing in as a param.
+  def set_default(local_assigns, var_name, value)
+    if local_assigns.has_key?(var_name.to_sym)
+      local_assigns[var_name.to_sym]
+    else
+      value
+    end
+  end
 
-  # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
-  # There's a better solution at http://pathfindersoftware.com/2008/07/pretty-blocks-in-rails-views/
-  # But render(:layout => 'something') with a block is not working (rails 3.1.3, jan/12)
-  def block_to_partial(partial_name, options={}, &block)
-    options.merge!(:body => capture(&block)) if block_given?
-    render(:partial => partial_name, :locals => options)
+  # First 'size' characters of a text
+  def first_words(text, size)
+    truncate(text, length: size)
   end
 end
