@@ -12,6 +12,7 @@ def register_user params
   fill_in 'user[username]', with: params[:username]
   fill_in 'user[password]', with: params[:password]
   fill_in 'user[password_confirmation]', with: params[:password]
+  check 'terms'
 
   click_button I18n.t("registrations.signup_form.register")
 end

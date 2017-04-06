@@ -21,7 +21,7 @@ feature "Confirmation email" do
 
     # check the confirmation email and click on the link to confirm the account
     last_email.should_not be_nil
-    confirmation_link = last_email.body.encoded.match(/http.*users\/confirmation[^" (]*/)[0]
+    confirmation_link = last_email.parts.first.body.raw_source.match(/http.*users\/confirmation[^" (]*/)[0]
     last_email.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
     visit confirmation_link
 
