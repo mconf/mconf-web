@@ -123,6 +123,7 @@ pt-br:
     upload: "Enviar"
     user:
       admin: "Admin"
+      admin_tooltip: "Este usuário é um administrador"
       administrator: "Administrador global"
       disabled: "Desabilitado"
       normal_user: "Usuário normal"
@@ -1385,6 +1386,9 @@ pt-br:
       view_recording_list: "Gravações"
       view_room_list: "Salas"
       view_server_list: "Servidores"
+    user_card:
+      gravatar_label: "Imagem do Gravatar"
+      gravatar_label_tooltip: "Esta é a sua imagem configurada no Gravatar.com"
     webconference_join:
       configure_tip: "Opções de configuração desta sala"
       end: "Parar"

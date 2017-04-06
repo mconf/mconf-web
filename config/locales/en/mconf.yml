@@ -124,6 +124,7 @@ en:
     upload: "Upload"
     user:
       admin: "Admin"
+      admin_tooltip: "This user is a an administrator"
       administrator: "Global administrator"
       disabled: "Disabled"
       normal_user: "Normal user"
@@ -1348,6 +1349,9 @@ en:
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
+    user_card:
+      gravatar_label: "Image from Gravatar"
+      gravatar_label_tooltip: "This is your avatar on Gravatar.com"
     webconf_index_links:
       view_playback_type_list: "Playback Types"
       view_recording_list: "Recordings"

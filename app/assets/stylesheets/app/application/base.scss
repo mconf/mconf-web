@@ -1098,18 +1098,23 @@ strong.highlight {
       max-width: 220px;
     }
 
-    .superuser-label {
+    .label-superuser, .label-gravatar {
       position: absolute;
       bottom: 5px;
       padding: .3em .7em .4em;
       white-space: nowrap;
-
+      font-weight: normal;
       background: $m-red;
       color: #fff;
 
       /* center */
       left: calc(50%);
       transform: translate(-50%, -50%);
+    }
+
+    .label-gravatar {
+      bottom: 30px;
+      background: $m-blue;
     }
   }
 

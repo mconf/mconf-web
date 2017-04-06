@@ -11,8 +11,11 @@
     = upload_logo_controls(@user) if editing
 
     - if user.superuser?
-      .label.superuser-label.tooltipped{ title: t('_other.user.administrator') }
+      .label.label-superuser.tooltipped{ title: t('_other.user.admin_tooltip') }
         = t('_other.user.admin')
+    - if editing && user.profile.logo_image.blank? && current_site.use_gravatar?
+      .label.label-gravatar.tooltipped{ title: t('.gravatar_label_tooltip') }
+        = t('.gravatar_label')
 
   .data
     %span.data-main{ title: user.name }= user.name
