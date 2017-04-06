@@ -13,29 +13,30 @@
       - else
         = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
 
-  = render_sidebar_content_block('event-description-wrapper') do
-    .content-block-middle
-      %p= t('.select_at_left')
-    - @events.each do |event|
-      -# TODO: everybody has access?
-      - has_access = true
-      .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
-        .event-logo-wrapper
-          = event_logo_link(event, :class => "logo logo-event")
-        - if has_access
-          = link_to event_path(event) do
+  .content-block-container
+    .content-block
+      .content-block-middle
+        %p= t('.select_at_left')
+      - @events.each do |event|
+        -# TODO: everybody has access?
+        - has_access = true
+        .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
+          .event-logo-wrapper
+            = event_logo_link(event, :class => "logo logo-event")
+          - if has_access
+            = link_to event_path(event) do
+              %h3.break-word= sanitize(event.name)
+          - else
             %h3.break-word= sanitize(event.name)
-        - else
-          %h3.break-word= sanitize(event.name)
-        - unless event.summary.blank?
-          %p.description= sanitize(event.summary) + '...'
-        %p.details
-          - if event.participants.include?(current_user)
-            %span.is-participant= t('.user_is_participant')
-          %span= t('.participant_count', :count => event.participants.count)
-        - if has_access
-          %p.action-links
-            = link_to t('more'), event_path(event)
+          - unless event.summary.blank?
+            %p.description= sanitize(event.summary) + '...'
+          %p.details
+            - if event.participants.include?(current_user)
+              %span.is-participant= t('.user_is_participant')
+            %span= t('.participant_count', :count => event.participants.count)
+          - if has_access
+            %p.action-links
+              = link_to t('more'), event_path(event)
 
 #event-filter-wrapper
 

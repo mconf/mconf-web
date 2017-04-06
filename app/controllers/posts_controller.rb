@@ -16,11 +16,11 @@ class PostsController < InheritedResources::Base
 
   before_filter :set_author, only: [:create]
 
-  after_filter :only => [:update] do
+  after_filter only: :update do
     @post.new_activity :update, current_user unless @post.errors.any?
   end
 
-  after_filter :only => [:create] do
+  after_filter only: :create do
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
@@ -68,9 +68,10 @@ class PostsController < InheritedResources::Base
   end
 
   def reply_post
+    @new_post = @space.posts.build(parent_id: @post.id)
     respond_to do |format|
       format.html {
-        render :partial => "reply_post"
+        render partial: "reply_post"
       }
     end
   end

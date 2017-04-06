@@ -15,7 +15,7 @@
     .input
       %label= t('.role_label')
       - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
-      = select "join_request", "role_id", roles, selected: default_role.id
+      = select "join_request", "role_id", roles, selected: Role.default_role.id
     = f.input :comment, as: :text, input_html: { rows: 2, maxlength: 255 }
 
     - if can?(:add, @space)
