@@ -7,8 +7,6 @@
   - title = t('.other_user.title')
 = page_title title
 
-- form_url = user_path(@user, redir_url: previous_path_or(edit_user_path(@user)))
-
 = content_for :sidebar do
   .sidebar-title= title
 
@@ -38,7 +36,7 @@
 
 #user-account-panel-1
 
-  = simple_form_for @user, url: form_url do |f|
+  = simple_form_for @user, url: user_path(@user) do |f|
     #user-account-info
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
@@ -71,7 +69,7 @@
     %h3
       = t('.public_profile')
       = icon_info t('.public_profile_tip')
-    = simple_form_for @user, url: form_url do |f|
+    = simple_form_for @user, url: user_path(@user) do |f|
       = f.simple_fields_for :profile do |p|
         = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user.profile)
         = p.input :organization
@@ -81,7 +79,7 @@
 
   - if user_signed_in? && current_user.superuser
     #user-management-options.alert.alert-gray
-      = simple_form_for @user, url: form_url do |f|
+      = simple_form_for @user, url: user_path(@user) do |f|
         %h3= t('.management_options')
         = f.input :can_record, :required => false
 
