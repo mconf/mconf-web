@@ -428,7 +428,7 @@ namespace :db do
     private
 
     def add_insecure_data
-      profile_attrs = [:organization, :phone, :fax, :address, :city,
+      profile_attrs = [:organization, :phone, :address, :city,
                        :zipcode, :province, :country, :description,
                        :url, :full_name]
 
