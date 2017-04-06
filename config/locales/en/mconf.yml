@@ -163,7 +163,7 @@ en:
         text: "Message"
         title: "Title"
       profile:
-        address: "Address"
+        address: "Street address"
         city: "City"
         country: "Country"
         description: "Write something about you"
@@ -172,6 +172,7 @@ en:
         organization: "Organization"
         phone: "Telephone"
         province: "Province"
+        url: "Website"
         zipcode: "Zipcode"
       roles:
         name_user: "User"
@@ -1815,24 +1816,13 @@ en:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
       title: "Create user"
-    private_hcard:
+    show:
+      description: "About"
       email: "Email"
-      phone:
-        conventional: Phone
-        plural: Telephones
-      title: "Contact information"
-    public_hcard:
-      address: "Address"
-      city: "City"
-      country: "Country"
-      description: "Description"
       name: "Name"
       organization: "Organization"
-      province: "Province"
-      street: "Street"
-      title: "Personal information"
       url: "Website"
-      zipcode: "Zip code"
+      user_spaces: "Membro of the spaces"
   username: Username
   uploader:
     attachments:

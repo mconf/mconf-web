@@ -1,14 +1,14 @@
 -# locals:
 -#   spaces (array of Space)
 -#   user_spaces (array of Space): the spaces to which the user belongs
--#   hide_count (boolean): will inhibit the counting of spaces if set to true
+-#   compact (boolean): show a compact version of the view
 
-- hide_count ||= false
+- compact ||= false
 
 - if spaces.count > 0
 
   #spaces.list-container.list-tablefied
-    - if !hide_count
+    - if !compact
       .resource-filter-container.list-item-header
         .resource-filter-with-text
           = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
@@ -18,7 +18,7 @@
     - spaces.each do |space|
       - unless space.nil?
         - is_member = user_spaces && user_spaces.include?(space)
-        = render "spaces/list_item", space: space, is_member: is_member
+        = render "spaces/list_item", space: space, is_member: is_member, compact: compact
 
     - if is_paginated?(spaces)
       - nav = page_navigation_links spaces

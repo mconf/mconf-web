@@ -1,18 +1,40 @@
 = page_title @user.full_name
 
-= content_for :sidebar do
-  = render 'shared/user_card', user: @user
-
 .container-fluid
-  .profile-info
-    .content-block-middle
-      = render :partial => 'users/public_hcard'
-      - if can?(:show, @profile)
-        = render :partial => 'users/private_hcard'
-  .profile-spaces
 
-    .content-block-header
-      %h3= t('profile.spaces')
+  .resource-card.resource-user
+    .resource-logo
+      = logo_image(@user, size: '300', title: @user.name)
 
-    .content-block-middle
-      = render 'users/user_spaces', user: @user, spaces: @user_spaces
+    .resource-data
+
+      .field
+        %span.field-title= t('.name')
+        %span.field-value= @user.name
+
+      - if user_signed_in? && current_user.superuser?
+        .field
+          %span.field-title= t('.email')
+          %span.field-value
+            = link_to @user.email, "mailto:#{@user.email}"
+
+      - unless @user.profile.organization.blank?
+        .field
+          %span.field-title= t('.organization')
+          %span.field-value= @user.profile.organization
+
+      - unless @user.profile.url.blank?
+        .field
+          %span.field-title= t('.url')
+          %span.field-value
+            = link_to @user.profile.url, @user.profile.linkable_url
+
+      - unless @user.profile.description.blank?
+        .field
+          %span.field-title= t('.description')
+          %span.field-value= @user.profile.description
+
+  - unless @user_spaces.empty?
+    #user-spaces
+      %h3= t('.user_spaces')
+      = render 'users/user_spaces', user: @user, spaces: @user_spaces, compact: true

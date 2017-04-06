@@ -158,7 +158,7 @@ pt-br:
         text: "Mensagem"
         title: "Título"
       profile:
-        address: "Endereço"
+        address: "Rua e número"
         city: "Cidade"
         country: "País"
         description: "Escreva algo sobre você"
@@ -167,7 +167,7 @@ pt-br:
         organization: "Organização"
         phone: "Telefone"
         province: "Estado"
-        url: "Seu website"
+        url: "Website"
         zipcode: "CEP"
       roles:
         name_user: "Usuário"
@@ -1848,24 +1848,13 @@ pt-br:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
         error: "Erro(s) ao criar o novo usuário"
       title: "Cadastrar usuário"
-    private_hcard:
+    show:
+      description: "Sobre"
       email: "E-mail"
-      phone:
-        conventional: Fone
-        plural: Telefones
-      title: "Informações de contato"
-    public_hcard:
-      address: "Endereço"
-      city: "Cidade"
-      country: "País"
-      description: "Descrição"
       name: "Nome"
       organization: "Organização"
-      province: "Estado"
-      street: "Rua"
-      title: "Informações pessoais"
       url: "Website"
-      zipcode: "CEP"
+      user_spaces: "Membro das comunidades"
   username: "Nome de usuário"
   uploader:
     attachments:

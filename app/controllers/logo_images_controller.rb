@@ -7,20 +7,23 @@
 class LogoImagesController < ApplicationController
   def crop
     if params[:model_type] == 'user'
-      @user = User.find_by_username(params[:model_id])
-      @model = @user.profile
+      @user = User.find_by(username: params[:model_id])
+      @model = @user
       @url = user_path(@user)
       @page = t('avatar.crop')
       @aspect_ratio = 1
+      @circular = true
       @width = 100
     elsif params[:model_type] == 'space'
-      @space = Space.find_by_permalink(params[:model_id])
+      @space = Space.find_by(permalink: params[:model_id])
       @model = @space
       @url = space_path(@space)
       @page = t('logo.crop')
       @aspect_ratio = 4/3.0
+      @circular = false
       @width = 131
     end
-    render :layout => false
+
+    render layout: false
   end
 end

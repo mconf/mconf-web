@@ -10,7 +10,6 @@ class Profile < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h
   mount_uploader :logo_image, LogoImageUploader
 
-  after_create :crop_avatar
   after_update :crop_avatar
 
   def crop_avatar
@@ -37,11 +36,12 @@ class Profile < ActiveRecord::Base
 
   validates :full_name, presence: true
 
-  before_validation :correct_url
-  def correct_url
-    if url.present?
-      if (url.index('http://') != 0)
-        self.url = "http://" << url
+  def linkable_url
+    unless url.blank?
+      if url.match(/http[s]?:\/\//)
+        url
+      else
+        "http://#{url}"
       end
     end
   end

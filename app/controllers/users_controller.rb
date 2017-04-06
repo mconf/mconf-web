@@ -23,7 +23,16 @@ class UsersController < InheritedResources::Base
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  layout 'application'
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :show
+      'no_sidebar'
+    else
+      'application'
+    end
+  end
 
   def index
     @space = Space.find_by_permalink!(params[:space_id])
@@ -57,6 +66,15 @@ class UsersController < InheritedResources::Base
   end
 
   def update
+    # map cropping attributes to be attributes of the profile
+    [:crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h].each do |attr|
+      if params['user'] && params['user'][attr.to_s]
+        @user.profile.send("#{attr}=", params['user'][attr.to_s])
+        params['user'].delete(attr.to_s)
+      end
+    end
+    @user.profile.crop_avatar
+
     password_changed = false
     if current_site.local_auth_enabled?
       password_changed =
@@ -207,7 +225,9 @@ class UsersController < InheritedResources::Base
   def allowed_params
     allowed =  [
       :remember_me, :login, :timezone,
-      profile_attributes: [:address, :city, :province, :country, :zipcode, :phone, :full_name, :organization, :description, :url]
+      profile_attributes: [ :address, :city, :province, :country, :zipcode, :phone,
+                            :full_name, :organization, :description, :url,
+                            :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
     ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')

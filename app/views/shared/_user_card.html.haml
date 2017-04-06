@@ -3,7 +3,7 @@
 
 - editing ||= false
 
-.resource-card.user
+.resource-card.resource-user
   .resource-logo
     - cls = editing ? 'editing' : ''
     = logo_image(user, size: '300', title: user.name, class: cls)

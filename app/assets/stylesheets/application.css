@@ -30,6 +30,7 @@
  *= require ./app/application/select2
  *= require ./app/application/copy-modal
  *= require ./app/application/page-menu-js
+ *= require ./app/application/jcrop
  *
  * Some partials are necessary everywhere
  *= require ./app/feedback/_new

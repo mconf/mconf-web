@@ -1,14 +1,16 @@
 -# Note: this view can be seen by the user himself or by an admin.
 -#   It will behave differently in each case.
 
+- if current_user == @user
+  - title = t('.title')
+- else
+  - title = t('.other_user.title')
+= page_title title
+
 - form_url = user_path(@user, redir_url: previous_path_or(edit_user_path(@user)))
 
 = content_for :sidebar do
-  .sidebar-title
-    - if current_user == @user
-      = t('.title')
-    - else
-      = t('.other_user.title')
+  .sidebar-title= title
 
   = render 'shared/user_card', user: @user, editing: true
 
