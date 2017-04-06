@@ -209,6 +209,7 @@ describe UsersController do
 
     context "if the user is editing himself" do
       before {
+        FactoryGirl.create(:shib_token, user: user)
         Mconf::Shibboleth.any_instance.should_receive(:get_identity_provider).and_return('idp')
       }
       before(:each) {

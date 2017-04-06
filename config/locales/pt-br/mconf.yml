@@ -1101,7 +1101,7 @@ pt-br:
     approval_pending:
       title: Aprovação pendente
       description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
-      interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
+      interesting_links: "Enquanto isto você pode explorar as seções abertas do site, veja a barra de navegação no topo!"
       events_list: Eventos
       spaces_list: Comunidades
     edit_recording:

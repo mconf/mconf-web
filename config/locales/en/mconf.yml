@@ -1091,7 +1091,7 @@ en:
     approval_pending:
       title: Pending approval
       description: You have succesfully registered and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
-      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      interesting_links: "Meanwhile you can browse the open sections of the website, check the navigation bar at the top of the page!"
       events_list: Events
       spaces_list: Spaces
     edit_recording:
