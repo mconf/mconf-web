@@ -27,14 +27,14 @@
 
 - if current_user == @user
   - if user_signed_in_via_federation?
-    #user-federated-info.alert.alert-gray
-      %span.title= t('.federated.title')
+    .alert.alert-gray
+      %p= t('.federated.title')
       - unless @shib_provider.blank?
-        %span= t('.federated.your_idp', :idp => @shib_provider)
-      = link_to t('.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
+        %span= t('.federated.your_idp', idp: @shib_provider)
+      %p= link_to t('.federated.see_your_data'), shibboleth_info_path, class: 'open-modal'
   - if user_signed_in_via_ldap?
-    #user-ldap-info.alert.alert-gray
-      %span.title= t('.ldap.title')
+    .alert.alert-gray
+      %p= t('.ldap.title')
 
 #user-account-panel-1
 

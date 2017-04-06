@@ -60,8 +60,11 @@ class UsersController < InheritedResources::Base
 
   def edit
     if current_user == @user # user editing himself
-      shib = Mconf::Shibboleth.new(session)
-      @shib_provider = shib.get_identity_provider
+      if @user.shib_token.present?
+        shib = Mconf::Shibboleth.new(session)
+        shib.set_data(@user.shib_token.data)
+        @shib_provider = shib.get_identity_provider
+      end
     end
   end
 

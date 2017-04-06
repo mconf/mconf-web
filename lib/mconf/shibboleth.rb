@@ -106,8 +106,8 @@ module Mconf
 
     # Sets the shibboleth data, without processing the input hash
     # Used when reading saved user data from the session or database
-    def set_data session
-      @data = session
+    def set_data(data)
+      @data = data
     end
 
     # Returns whether the user is signed in via federation or not.

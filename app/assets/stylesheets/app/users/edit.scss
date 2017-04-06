@@ -23,15 +23,6 @@ body.users.edit, body.users.update {
     clear: both;
   }
 
-  #user-federated-info {
-    span.title {
-      @include font-size($m-font-medium);
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    span { display: block; }
-  }
-
   #user-management-options {
     margin-top: 32px;
   }
