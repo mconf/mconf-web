@@ -1,25 +1,29 @@
 class mconf.SignupForm
   @setup: ->
-    $fullname = $("#user__full_name:not(.disabled)")
-    $username = $("#user_username:not(.disabled)")
+    $fullname = $("[name='user[profile_attributes][full_name]']")
+    $username = $("[name='user[username]']")
     $username.attr "value", mconf.Base.stringToSlug($fullname.val())
-    $fullname.on "input keyup", () ->
+    $fullname.on "input keyup", ->
       $username.attr "value", mconf.Base.stringToSlug($fullname.val())
 
-    submit_toggle = ->
+    submitToggle = ->
       $button.prop('disabled', !$terms.is(":checked"));
 
     $terms = $("#terms")
     $button = $("input[name='commit']")
-    submit_toggle()
+    submitToggle()
     $terms.on 'change', (e) ->
-      submit_toggle()
+      submitToggle()
 
-
-    $usage_select = $("#user__service_usage_select:not(.disabled)")
-    $usage = $(".user__service_usage:not(.disabled)")
-    $usage_select.on 'change', (e) ->
-      if ($usage_select.find('option:selected').val() == "Other")
+    $usageSelect = $("#service_usage_select")
+    $usage = $("#user_profile_attributes_service_usage")
+    $usageSelect.on 'change', (e) ->
+      last = $('option:last-child', $usageSelect).val()
+      selected = $usageSelect.find(':selected').val()
+      if selected is last
+        $usage.val(null)
         $usage.show(500)
+        $usage.focus()
       else
         $usage.hide(200)
+        $usage.val(selected)

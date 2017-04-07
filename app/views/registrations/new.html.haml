@@ -4,20 +4,15 @@
 
 #register-wrapper
   .row
-    .col-sm-6
-      .alert.alert-clean
-        = icon_info
-        = t('register.confirmation')
+    #register-form
       = render partial: 'signup_form'
 
-    .register-rules.col-sm-6
-      .rules-title
-        = t('register.rules_title').html_safe
-      .rules-text
-        = t('register.rules_text').html_safe
-      .pricing-title
-        = t('register.pricing_title').html_safe
-      .pricing-text
-        = t('register.pricing_text').html_safe
-  .row
-    = render "devise/shared/links"
+    #register-rules
+      .rule-block
+        %h3= t('.rules_title').html_safe
+        %p= t('.rules_text').html_safe
+      .rule-block
+        %h3= t('.pricing_title').html_safe
+        %ul
+          %li= t('.pricing_text1').html_safe
+          %li= t('.pricing_text2').html_safe

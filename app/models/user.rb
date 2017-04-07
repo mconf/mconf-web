@@ -54,12 +54,12 @@ class User < ActiveRecord::Base
 
   has_many :join_requests, foreign_key: :candidate_id
   has_many :permissions
-  has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
   has_one :certificate_token, :dependent => :destroy
+  has_one :profile, dependent: :destroy
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
@@ -68,14 +68,6 @@ class User < ActiveRecord::Base
 
   # Will be set to a user when the user was registered by an admin.
   attr_accessor :created_by
-
-  # Full name and personal info must go to the profile, but it is provided by the user when
-  # signing up so we have to cache it until the profile is created
-  attr_accessor :_full_name, :_organization, :_cpf_cnpj, :_service_usage_select, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country
-
-  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :_full_name and :username to have length >= 3
-  validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
   # attr_accessible :bigbluebutton_room_attributes
@@ -171,12 +163,18 @@ class User < ActiveRecord::Base
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
 
-  # In case the profile is accessed before it is created, we build one on the fly.
-  # Important specially because we have method delegated to the profile.
+  attr_accessor :_full_name
+  validates :_full_name, presence: true, length: { minimum: 3 }, on: :create
+
   def profile_with_initialize
     profile_without_initialize || build_profile
   end
   alias_method_chain :profile, :initialize
+
+  after_create :create_user_profile
+  def create_user_profile
+    create_profile(full_name: self._full_name)
+  end
 
   def ability
     @ability ||= Abilities.ability_for(self)
@@ -210,22 +208,6 @@ class User < ActiveRecord::Base
 
   def self.usage_collection
     [[("-"), {disabled: "disabled"}],[I18n.t(".user.usage.education"), "Education"], [I18n.t(".user.usage.meetings"), "Meetings"], [I18n.t(".user.usage.other"), "Other"]]
-  end
-
-  after_create :create_user_profile
-  def create_user_profile
-    puts create_profile({
-      full_name: self._full_name,
-      address: self._address,
-      city: self._city,
-      country: self._country,
-      cpf_cnpj: self._cpf_cnpj,
-      organization: self._organization,
-      phone: self._phone,
-      province: self._province,
-      service_usage: (self._service_usage.blank? ? (self._service_usage_select) : (self._service_usage)),
-      zipcode: self._zipcode
-    })
   end
 
   # Builds a guest user based on the e-mail

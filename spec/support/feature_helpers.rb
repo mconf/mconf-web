@@ -75,7 +75,7 @@ module FeatureHelpers
     name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
     visit register_path if visit
     fill_in "user[email]", with: attrs[:email]
-    fill_in "user[_full_name]", with: attrs[:_full_name]
+    fill_in "user[profile_attributes][full_name]", with: attrs[:_full_name]
     fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]

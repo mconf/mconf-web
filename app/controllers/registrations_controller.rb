@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class RegistrationsController < Devise::RegistrationsController
-  layout 'navbar_bg'
+  layout 'no_sidebar'
 
   before_filter :check_registration_enabled, :only => [:new, :create]
   before_filter :configure_permitted_parameters, :only => [:create]
@@ -52,7 +52,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def allowed_params
-    [:email, :_full_name, :username, :_organization, :_cpf_cnpj, :_service_usage_select, :_service_usage, :_phone, :_zipcode, :_address, :_city, :_province, :_country]
+    [ :email, :_full_name, :username,
+      profile_attributes: [ :address, :city, :province, :country, :zipcode, :phone,
+                            :full_name, :organization, :description, :url,
+                            :cpf_cnpj, :service_usage_select, :service_usage ]
+    ]
   end
 
   private

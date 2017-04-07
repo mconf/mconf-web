@@ -45,7 +45,7 @@ feature 'Visitor signs up' do
     register_with attrs
 
     current_path.should eq(user_registration_path)
-    has_field_with_error "user__full_name"
+    has_field_with_error "user_profile_full_name"
     expect(page).to have_content('Sign in')
   end
 
