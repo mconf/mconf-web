@@ -11,8 +11,8 @@
     = f.simple_fields_for :bigbluebutton_room do |bbb_room|
       = bbb_room.input :name, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.name')
       = bbb_room.input :private, as: :boolean
-      = bbb_room.input :attendee_key, :as => :showable_password
-      = bbb_room.input :moderator_key, :as => :showable_password
+      #attendee-key
+        = bbb_room.input :attendee_key, :as => :showable_password
       - unless @space.bigbluebutton_room.dial_number.blank?
         = bbb_room.input :dial_number, as: :string, disabled: true
         - welcome_msg = t("bigbluebutton_rails.rooms.default_welcome_msg_dial_number", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")
