@@ -146,6 +146,7 @@ $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
 $m-navbar-link-color: lighten($m-link-color, 15);
 $m-navbar-link-color-hover: lighten($m-navbar-link-color, 8);
 $m-navbar-link-color-active: $m-navbar-link-color;
+$m-navbar-height: 56px;
 
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */

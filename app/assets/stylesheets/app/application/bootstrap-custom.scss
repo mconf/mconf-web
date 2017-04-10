@@ -204,22 +204,18 @@ label {
   }
 
   &.alert-danger {
-    border-left-color: $state-danger-text;
     h3, h4 { color: $state-danger-text; }
   }
 
   &.alert-success {
-    border-left-color: $state-success-text;
     h3, h4 { color: $state-success-text; }
   }
 
   &.alert-info {
-    border-left-color: $state-info-text;
     h3, h4 { color: $state-info-text; }
   }
 
   &.alert-warning {
-    border-left-color: $state-warning-text;
     h3, h4 { color: $state-warning-text; }
   }
 
