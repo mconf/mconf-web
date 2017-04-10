@@ -256,6 +256,7 @@ form {
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
   font-family: $m-font-family-h;
+  position: relative;
 
   color: $m-navbar-font-color;
   @include font-size($m-navbar-font);
