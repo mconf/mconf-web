@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
       :param => self.username,
       :name => self._full_name,
       :logout_url => "/feedback/webconf/",
-      :moderator_key => SecureRandom.hex(4),
+      :moderator_key => SecureRandom.hex(8),
       :attendee_key => SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)

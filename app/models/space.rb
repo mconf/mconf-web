@@ -329,7 +329,7 @@ class Space < ActiveRecord::Base
       :param => self.permalink,
       :name => self.name,
       :private => false,
-      :moderator_key => SecureRandom.hex(4),
+      :moderator_key => SecureRandom.hex(8),
       :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
     }
