@@ -4,7 +4,7 @@ class SetRandomModeratorKeysOnRooms < ActiveRecord::Migration
       room.update_attributes(moderator_key: SecureRandom.hex(8))
     end
   end
-  
+
   def down
     raise ActiveRecord::IrreversibleMigration
   end
