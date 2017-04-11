@@ -60,7 +60,7 @@ describe RegistrationsController do
         before {
           expect {
             PublicActivity.with_tracking do
-              post :create, :user => attributes, terms: "1"
+              post :create, user: attributes, terms: "1"
             end
           }.to change{ User.count }.by(1)
         }

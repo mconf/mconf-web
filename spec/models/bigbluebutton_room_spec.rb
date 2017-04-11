@@ -192,7 +192,7 @@ describe BigbluebuttonRoom do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user.name)
               BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }
@@ -262,7 +262,7 @@ describe BigbluebuttonRoom do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user.name)
               BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }

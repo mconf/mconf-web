@@ -36,9 +36,9 @@ describe UsersController do
     context "sets @users to all users in the space ordered by name" do
       before do
         @users = [
-          FactoryGirl.create(:user, _full_name: 'Dio'),
-          FactoryGirl.create(:user, _full_name: 'Opeth'),
-          FactoryGirl.create(:user, _full_name: 'A Perfect Circle')
+          FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Dio')),
+          FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Opeth')),
+          FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A Perfect Circle'))
         ]
 
         @users.each { |user| space.add_member!(user) }
@@ -808,9 +808,11 @@ describe UsersController do
         context "matches users by name" do
           let!(:unique_str) { "123123456456" }
           before do
-            FactoryGirl.create(:user, _full_name: "Yet Another User")
-            FactoryGirl.create(:user, _full_name: "Abc de Fgh")
-            @users = [FactoryGirl.create(:user, _full_name: "Marcos #{unique_str} Silva")]
+            FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Yet Another User'))
+            FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Abc de Fgh'))
+            @users = [
+              FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "Marcos #{unique_str} Silva"))
+            ]
           end
           before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
@@ -882,11 +884,11 @@ describe UsersController do
 
         context "orders @users by the user's full name" do
           before {
-            @u1 = FactoryGirl.create(:user, _full_name: 'Last one')
+            @u1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Last one'))
             @u2 = user
             @u2.profile.update_attributes(full_name: 'Ce user')
-            @u3 = FactoryGirl.create(:user, _full_name: 'A user')
-            @u4 = FactoryGirl.create(:user, _full_name: 'Be user')
+            @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A user'))
+            @u4 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Be user'))
           }
           before(:each) { get :select, format: :json }
           it { assigns(:users).count.should be(4) }
@@ -1194,8 +1196,9 @@ describe UsersController do
           expect {
             PublicActivity.with_tracking do
               post :create, user: {
-                     email: user.email, _full_name: "Maria Test", username: "maria-test",
-                     password: "test123", password_confirmation: "test123"
+                     email: user.email, username: "maria-test",
+                     password: "test123", password_confirmation: "test123",
+                     profile_attributes: { full_name: "Maria Test" }
                    }
             end
           }.to change(User, :count).by(1)
@@ -1217,8 +1220,9 @@ describe UsersController do
         before(:each) {
           expect {
             post :create, user: {
-              email: user.email, _full_name: "Maria Test", username: "maria-test",
-              password: "test123", password_confirmation: "test123", can_record: true
+              email: user.email, username: "maria-test",
+              password: "test123", password_confirmation: "test123", can_record: true,
+              profile_attributes: { full_name: "Maria Test" }
             }
           }.to change(User, :count).by(1)
         }
@@ -1234,8 +1238,9 @@ describe UsersController do
         before(:each) {
           expect {
             post :create, user: {
-              email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
-              password: "test123", password_confirmation: "test1234"
+              email: "test@test.com", username: "maria-test",
+              password: "test123", password_confirmation: "test1234",
+              profile_attributes: { full_name: "Maria Test" }
             }
           }.not_to change(User, :count)
         }
@@ -1259,8 +1264,9 @@ describe UsersController do
             expect {
               PublicActivity.with_tracking do
                 post :create, user: {
-                       email: user.email, _full_name: "Maria Test", username: "maria-test",
-                       password: "test123", password_confirmation: "test123"
+                       email: user.email, username: "maria-test",
+                       password: "test123", password_confirmation: "test123",
+                       profile_attributes: { full_name: "Maria Test" }
                      }
               end
             }.to change(User, :count).by(1)
@@ -1283,8 +1289,9 @@ describe UsersController do
           before {
             expect {
               post :create, user: {
-                email: user.email, _full_name: "Maria Test", username: "maria-test",
-                password: "test123", password_confirmation: "test123", can_record: true
+                email: user.email, username: "maria-test",
+                password: "test123", password_confirmation: "test123", can_record: true,
+                profile_attributes: { full_name: "Maria Test" }
               }
             }.to change(User, :count).by(1)
           }

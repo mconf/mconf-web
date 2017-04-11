@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
   has_one :certificate_token, :dependent => :destroy
-  has_one :profile, dependent: :destroy
+  has_one :profile, dependent: :destroy, autosave: true
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
@@ -163,18 +163,11 @@ class User < ActiveRecord::Base
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
 
-  attr_accessor :_full_name
-  validates :_full_name, presence: true, length: { minimum: 3 }, on: :create
-
+  # make sure there will always be a profile
   def profile_with_initialize
     profile_without_initialize || build_profile
   end
   alias_method_chain :profile, :initialize
-
-  after_create :create_user_profile
-  def create_user_profile
-    create_profile(full_name: self._full_name)
-  end
 
   def ability
     @ability ||= Abilities.ability_for(self)
@@ -193,7 +186,7 @@ class User < ActiveRecord::Base
     params = {
       owner: self,
       param: self.username,
-      name: self._full_name,
+      name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
       attendee_key: SecureRandom.hex(4)

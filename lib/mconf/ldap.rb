@@ -115,10 +115,10 @@ module Mconf
         username: get_unique_login(username),
         email: id,
         password: password,
-        password_confirmation: password,
-        _full_name: full_name
+        password_confirmation: password
       }
       user = User.new(params)
+      user.profile.full_name = full_name
       user.skip_confirmation!
       if user.save
         create_notification(user, ldap_token)

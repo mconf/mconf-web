@@ -59,16 +59,15 @@ puts "* Create the administrator account"
 puts "  attributes read from the configuration file:"
 puts "    #{params.inspect}"
 
-params["password_confirmation"] ||= params["password"]
-params["_full_name"] ||= params["username"]
-profile = params.delete("profile_attributes")
+params["password_confirmation"]           ||= params["password"]
+params["profile_attributes"]              ||= {}
+params["profile_attributes"]["full_name"] ||= params["username"]
 
 u = User.where(username: params["username"]).first_or_initialize
 u.assign_attributes(params)
 u.skip_confirmation!
 u.approved = true
 if u.save(validate: false)
-  u.profile.update_attributes(profile) unless profile.nil?
   u.set_superuser!
 else
   puts "ERROR!"

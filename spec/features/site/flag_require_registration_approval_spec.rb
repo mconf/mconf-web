@@ -10,7 +10,11 @@ require 'support/feature_helpers'
 include ActionView::Helpers::SanitizeHelper
 
 feature 'Behaviour of the flag Site#require_registration_approval' do
-  let(:attrs) { FactoryGirl.attributes_for(:user) }
+  let(:attrs) {
+    attrs = FactoryGirl.attributes_for(:user)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    attrs
+  }
 
   context "if admin approval is required" do
     before {
@@ -108,7 +112,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email]
 
         with_resque do
           expect {
@@ -194,7 +198,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email]
 
         with_resque do
           expect {

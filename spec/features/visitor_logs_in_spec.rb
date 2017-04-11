@@ -189,6 +189,16 @@ feature 'Visitor logs in' do
       has_success_message
     end
 
+    scenario 'after changing the language' do
+      visit login_path
+      find("#footer-languages a", match: :first).click
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+      has_success_message
+    end
+
     scenario "from the page to sign in with shibboleth" do
       enable_shib
       visit shibboleth_path
@@ -230,6 +240,7 @@ feature 'Visitor logs in' do
       Site.current.update_attributes(require_registration_approval: true)
 
       attrs = FactoryGirl.attributes_for(:user)
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
       register_with(attrs)
       expect(current_path).to eq(my_approval_pending_path)
 

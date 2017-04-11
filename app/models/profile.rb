@@ -11,7 +11,7 @@ class Profile < ActiveRecord::Base
   mount_uploader :logo_image, LogoImageUploader
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :_full_name and :username to have length >= 3
+  # So we'll require :full_name to have length >= 3
   validates :full_name, presence: true, length: { minimum: 3 }, on: :create
 
   after_update :crop_avatar

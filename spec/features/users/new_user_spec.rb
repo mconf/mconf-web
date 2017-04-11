@@ -6,9 +6,9 @@
 
 require 'spec_helper'
 
-def register_user params
+def register_user(params)
   fill_in 'user[email]', with: params[:email]
-  fill_in 'user[profile_attributes][full_name]', with: params[:_full_name]
+  fill_in 'user[profile_attributes][full_name]', with: params[:profile_attributes][:full_name]
   fill_in 'user[username]', with: params[:username]
   fill_in 'user[password]', with: params[:password]
   fill_in 'user[password_confirmation]', with: params[:password]
@@ -26,7 +26,7 @@ feature 'Creating a user account' do
     visit new_user_path
 
     expect(page).to have_field("user_email")
-    expect(page).to have_field("user__full_name")
+    expect(page).to have_field("user_profile_attributes_full_name")
     expect(page).to have_field("user_can_record")
     expect(page).to have_field("user_username")
     expect(page).to have_field("user_password")
@@ -34,7 +34,11 @@ feature 'Creating a user account' do
   end
 
   context 'a normal user register a new account' do
-    let(:params) { FactoryGirl.attributes_for(:user) }
+    let(:params) {
+      attrs = FactoryGirl.attributes_for(:user)
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+      attrs
+    }
 
     context 'with captcha disabled' do
       before {
@@ -69,7 +73,7 @@ feature 'Creating a user account' do
         it { current_path.should eq(user_registration_path) }
         it { has_failure_message t('recaptcha.errors.verification_failed') }
         it { page.should have_css("input[name='user[email]'][value='#{params[:email]}']") }
-        it { page.should have_css("input[name='user[profile_attributes][full_name]'][value='#{params[:_full_name]}']") }
+        it { page.should have_css("input[name='user[profile_attributes][full_name]'][value='#{params[:profile_attributes][:full_name]}']") }
         it { page.should have_css("input[name='user[username]'][value='#{params[:username]}']") }
         it { find_field('user[password]').value.should be_nil }
         it { find_field('user[password_confirmation]').value.should be_nil }
