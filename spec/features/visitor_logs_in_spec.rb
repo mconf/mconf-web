@@ -240,6 +240,7 @@ feature 'Visitor logs in' do
       Site.current.update_attributes(require_registration_approval: true)
 
       attrs = FactoryGirl.attributes_for(:user)
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
       register_with(attrs)
       expect(current_path).to eq(my_approval_pending_path)
 

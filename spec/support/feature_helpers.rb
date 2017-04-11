@@ -23,7 +23,7 @@ module FeatureHelpers
     Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
   end
 
-  def setup_shib name, email, principal
+  def setup_shib(name, email, principal)
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
@@ -72,11 +72,10 @@ module FeatureHelpers
   end
 
   def register_with(attrs, visit=true)
-    name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
     visit register_path if visit
     fill_in "user[email]", with: attrs[:email]
-    fill_in "user[_full_name]", with: attrs[:_full_name]
-    fill_in "user[username]", with: name
+    fill_in "user[profile_attributes][full_name]", with: attrs[:profile_attributes][:full_name] if attrs[:profile_attributes]
+    fill_in "user[username]", with: attrs[:username]
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]
     click_button I18n.t("registrations.signup_form.register")

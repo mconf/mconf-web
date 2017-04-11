@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def allowed_params
-    [:email, :_full_name, :username]
+    [ :email, :username, profile_attributes: [ :full_name ] ]
   end
 
   private

@@ -1,7 +1,7 @@
 class mconf.SignupForm
   @setup: ->
-    $fullname = $("#user__full_name:not(.disabled)")
-    $username = $("#user_username:not(.disabled)")
+    $fullname = $("[name='user[profile_attributes][full_name]']")
+    $username = $("[name='user[username]']")
     $username.attr "value", mconf.Base.stringToSlug($fullname.val())
-    $fullname.on "input keyup", () ->
+    $fullname.on "input keyup", ->
       $username.attr "value", mconf.Base.stringToSlug($fullname.val())

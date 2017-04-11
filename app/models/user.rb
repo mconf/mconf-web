@@ -54,12 +54,12 @@ class User < ActiveRecord::Base
 
   has_many :join_requests, foreign_key: :candidate_id
   has_many :permissions
-  has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
   has_one :certificate_token, :dependent => :destroy
+  has_one :profile, dependent: :destroy, autosave: true
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
@@ -68,14 +68,6 @@ class User < ActiveRecord::Base
 
   # Will be set to a user when the user was registered by an admin.
   attr_accessor :created_by
-
-  # Full name must go to the profile, but it is provided by the user when
-  # signing up so we have to cache it until the profile is created
-  attr_accessor :_full_name
-
-  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :_full_name and :username to have length >= 3
-  validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
   # attr_accessible :bigbluebutton_room_attributes
@@ -171,8 +163,7 @@ class User < ActiveRecord::Base
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
 
-  # In case the profile is accessed before it is created, we build one on the fly.
-  # Important specially because we have method delegated to the profile.
+  # make sure there will always be a profile
   def profile_with_initialize
     profile_without_initialize || build_profile
   end
@@ -195,7 +186,7 @@ class User < ActiveRecord::Base
     params = {
       owner: self,
       param: self.username,
-      name: self._full_name,
+      name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
       attendee_key: SecureRandom.hex(4)
@@ -206,11 +197,6 @@ class User < ActiveRecord::Base
   # Full location: city + country
   def location
     [ self.city.presence, self.country.presence ].compact.join(', ')
-  end
-
-  after_create :create_user_profile
-  def create_user_profile
-    create_profile({full_name: self._full_name})
   end
 
   # Builds a guest user based on the e-mail

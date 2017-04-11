@@ -8,7 +8,11 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Confirmation email" do
-  let(:attrs) { FactoryGirl.attributes_for(:user) }
+  let(:attrs) {
+    attrs = FactoryGirl.attributes_for(:user)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    attrs
+  }
 
   # devise triggers callbacks to send emails that will not be triggered if using
   # transactions, so use truncation instead

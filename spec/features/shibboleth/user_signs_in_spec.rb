@@ -12,7 +12,8 @@ include ActionView::Helpers::SanitizeHelper
 describe 'User signs in via shibboleth' do
   subject { page }
   before(:all) {
-    @attrs = FactoryGirl.attributes_for(:user, :email => "user@mconf.org")
+    @attrs = FactoryGirl.attributes_for(:user, email: "user@mconf.org")
+    @attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
   }
 
   context "for the first time when the flag `shib_always_new_account` is set" do
@@ -20,13 +21,13 @@ describe 'User signs in via shibboleth' do
       enable_shib
       Site.current.update_attributes :shib_always_new_account => true
 
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
 
       visit shibboleth_path
     }
 
     it { current_path.should eq(my_home_path) }
-    it { should have_content @attrs[:_full_name] }
+    it { should have_content @attrs[:profile_attributes][:full_name] }
     it { should have_content @attrs[:email] }
     it { has_success_message strip_links(t('shibboleth.create_association.account_created', :url => new_user_password_path))}
     it { should_not have_content t('my.home.not_confirmed') }
@@ -44,7 +45,7 @@ describe 'User signs in via shibboleth' do
   context "for the first time when the flag `shib_always_new_account` is not set" do
     before {
       enable_shib
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
       visit shibboleth_path
     }
 
@@ -60,7 +61,7 @@ describe 'User signs in via shibboleth' do
   context 'for the first time' do
     before {
       enable_shib
-      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
       visit shibboleth_path
     }
 
@@ -68,7 +69,7 @@ describe 'User signs in via shibboleth' do
       before { click_button t('shibboleth.associate.new_account.create_new_account') }
 
       it { current_path.should eq(my_home_path) }
-      it { should have_content @attrs[:_full_name] }
+      it { should have_content @attrs[:profile_attributes][:full_name] }
       it { should have_content @attrs[:email] }
     end
 
@@ -141,7 +142,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with another user" do
         before {
-          FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:user, username: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
@@ -154,7 +155,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:space, permalink: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
@@ -167,7 +168,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:_full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)

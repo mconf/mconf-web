@@ -68,11 +68,11 @@ describe ManageController do
 
       context "orders users by the user's full name" do
         before {
-          @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
+          @u1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Last one'))
           @u2 = user
-          @u2.profile.update_attributes(:full_name => 'Ce user')
-          @u3 = FactoryGirl.create(:user, :_full_name => 'A user')
-          @u4 = FactoryGirl.create(:user, :_full_name => 'Be user')
+          @u2.profile.update_attributes(full_name: 'Ce user')
+          @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A user'))
+          @u4 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Be user'))
         }
         before(:each) { get :users }
         it { assigns(:users).count.should be(4) }
@@ -84,11 +84,11 @@ describe ManageController do
 
       context "orders @users by the number of matches" do
         before {
-          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'First user created'))
           @u2 = user
-          @u2.profile.update_attributes(:full_name => 'Second user created')
-          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
-          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+          @u2.profile.update_attributes(full_name: 'Second user created')
+          @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A user starting with letter A'))
+          @u4 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Being someone starting with B'))
         }
         before(:each) { get :users, :q => 'second user' }
         it { assigns(:users).count.should be(3) }
@@ -126,10 +126,10 @@ describe ManageController do
         context "by full name" do
           before {
             @u1 = User.first
-            @u1.profile.update_attributes(:full_name => 'First')
+            @u1.profile.update_attributes(full_name: 'First')
             @u2 = user
-            @u2.profile.update_attributes(:full_name => 'Second')
-            @u3 = FactoryGirl.create(:user, :_full_name => 'Secondary')
+            @u2.profile.update_attributes(full_name: 'Second')
+            @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Secondary'))
           }
           before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }

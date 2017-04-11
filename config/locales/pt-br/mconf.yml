@@ -243,7 +243,6 @@ pt-br:
         repository: "Repositório de documentos"
         tag_list: "Tags"
       user:
-        _full_name: "Nome completo"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
         current_password: "Senha atual"

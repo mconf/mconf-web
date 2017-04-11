@@ -85,7 +85,15 @@ module ApplicationHelper
 
   # Returns the name of the layout in use
   def layout_name
-    controller.send(:_layout)
+    layout = controller.send(:_layout)
+
+    # depending on how the layout is specified in the controller, it can
+    # be a string or an object
+    if layout.is_a?(String)
+      layout
+    else
+      File.basename(layout.identifier).gsub(/\..*/, '')
+    end
   end
 
   # Checks if the current page is the user's home page

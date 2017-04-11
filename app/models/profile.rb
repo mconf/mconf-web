@@ -10,6 +10,10 @@ class Profile < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h
   mount_uploader :logo_image, LogoImageUploader
 
+  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
+  # So we'll require :full_name to have length >= 3
+  validates :full_name, presence: true, length: { minimum: 3 }, on: :create
+
   after_update :crop_avatar
 
   def crop_avatar

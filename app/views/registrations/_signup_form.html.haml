@@ -6,7 +6,8 @@
   = disable_autocomplete_for('user[username]')
   = disable_autocomplete_for('user[password]', 'password')
   = f.input :email, :required => true, :autofocus => true
-  = f.input :_full_name, :required => true
+  = f.fields_for :profile, wrapper: :horizontal_form do |p|
+    = p.input :full_name, required: true
   = f.input :username, required: true, wrapper: :horizontal_input_group do
     - if webconf_url_prefix.length <= 35
       - prepend_text = webconf_url_prefix

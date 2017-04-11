@@ -198,7 +198,7 @@ describe 'Admin manages users' do
 
     context 'checking the Login Methods and Last Login Date' do
       before {
-        login_as(admin, :scope => :user)
+        login_as(admin, scope: :user)
 
         @user_local = FactoryGirl.create(:user, username: 'el-magron')
         @user_ldap = FactoryGirl.create(:ldap_token, identifier: 'el-ldap', new_account: true).user
@@ -212,9 +212,9 @@ describe 'Admin manages users' do
       context 'listing users in management screen' do
         before { visit manage_users_path }
 
-        it { should have_css '.list-item', :count => 7 }
-        it { should have_css '.icon-mconf-delete', :count => 6 }
-        it { should have_css '.icon-mconf-superuser', :count => 1 }
+        it { should have_css '.list-item', count: 7 }
+        it { should have_css '.icon-mconf-delete', count: 6 }
+        it { should have_css '.icon-mconf-superuser', count: 1 }
 
         it { should have_content @user_local.full_name }
         it { should have_content @user_ldap.full_name }

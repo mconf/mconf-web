@@ -169,7 +169,9 @@ module Mconf
       params = {
         username: get_unique_login, email: get_email,
         password: password, password_confirmation: password,
-        _full_name: get_name
+        profile_attributes: {
+          full_name: get_name
+        }
       }
 
       user = User.new params
