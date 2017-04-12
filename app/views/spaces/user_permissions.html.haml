@@ -13,34 +13,49 @@
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
         .thread-description
-          = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
+          .permission-buttons
+            - perm = Permission.find_by(user: user, subject: @space)
+
+            = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
+              = f.hidden_field :role_id, id: perm.id
+
             -# Case the user is an Administrator from Space, it can't change his own role
             -# refs #1770
-            - perm = Permission.find_by(user: user, subject: @space)
-            - if can?(:update, perm)
-              .input.select
-                - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
-                = select :permission, :role_id, roles, selected: permission.role_id
-              = f.submit t('update'), class: "btn btn-mini"
-            - else
-              - icon_help t(".tooltip_last_admin")
+            .btn-group{ 'data-toggle': "buttons" , 'data-form-id': perm.id , class: can?(:update, perm) ? '' : "hidden"}
 
-          - perm = Permission.where(user: user, subject: @space).first
-          - if can?(:destroy, perm)
-            - if user == current_user
-              -# Use link to leave space if the user show is the current user
-              -# This already handles cases where the user loses the ability to 'show'
-              -# the space to which he belonged and must be redirected to the root.
-              - if can?(:leave, @space)
-                - link = leave_space_path(@space)
-                - params = { method: :post, class: 'btn btn-small btn-danger user-remove', data: { confirm: t('.confirm_leave_space') } }
-                = link_to link, options_for_tooltip(t(".leave_space"), params) do
+              - cls = (perm.role_id == 2) ? 'active' : nil
+              %label.btn.btn-default.admin{ class: cls, 'data-attr-value': '2' }
+                - checked = (perm.role_id == 2) ? 'checked' : nil
+                %input{ type: 'radio', checked: checked }
+                = icon_superuser
+                = t('.admin')
+
+              - cls = (perm.role_id == 1) ? 'active' : nil
+              %label.btn.btn-default.user{ class: cls, 'data-attr-value': '1' }
+                - checked = (perm.role_id == 1) ? 'checked' : nil
+                %input{ type: 'radio', checked: checked }
+                = icon_profile
+                = t('.user')
+
+
+            .help{ class: can?(:update, perm) ? "hidden" : '' }
+              = icon_help t(".tooltip_last_admin")
+
+            .quit-space{ class: can?(:destroy, perm) ? '' : "hidden" }
+              - if user == current_user
+                -# Use link to leave space if the user show is the current user
+                -# This already handles cases where the user loses the ability to 'show'
+                -# the space to which he belonged and must be redirected to the root.
+                - if can?(:leave, @space)
+                  - link = leave_space_path(@space)
+                  - params = { method: :post, class: 'btn btn-default user-remove', data: { confirm: t('.confirm_leave_space') } }
+                  = link_to link, options_for_tooltip(t(".leave_space"), params) do
+                    = icon_leave_space
+              - else
+                -# Otherwise, use a 'delete' with the Permission
+                - params = { method: :delete, class: 'btn btn-default user-remove', data: { confirm: t('.confirm_remove_user') } }
+                = link_to permission_path(perm), options_for_tooltip(t('.remove_user'), params), params do
                   = icon_leave_space
-            - else
-              -# Otherwise, use a 'delete' with the Permission
-              - params = { method: :delete, class: 'btn btn-small btn-danger user-remove', data: { confirm: t('.confirm_remove_user') } }
-              = link_to permission_path(perm), options_for_tooltip(t('.remove_user'), params), params do
-                = icon_leave_space
 
         .thread-title
           = link_to user.name, user_path(user)

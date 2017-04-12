@@ -1674,12 +1674,14 @@ pt-br:
       reply_invitation: "Responder ao convite"
       view_join_request: "Ver a requisição que você enviou"
     user_permissions:
+      admin: "Administrador"
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
       leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
       title: "Usuários"
       tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
+      user: "Usuário"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
