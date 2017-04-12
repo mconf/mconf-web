@@ -712,9 +712,9 @@ describe Mconf::Shibboleth do
       it("should return the user") { subject.should_not be_nil }
       it("user should not be saved") { subject.new_record?.should be(true) }
       it("user should not be valid") { subject.valid?.should be(false) }
-      it("expects errors on :email") { subject.errors.should have_key(:email) }
-      it("expects errors on :username") { subject.errors.should have_key(:username) }
-      it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
+      it("expects errors on email") { subject.errors.should have_key(:email) }
+      it("expects errors on username") { subject.errors.should have_key(:username) }
+      it("expects errors on profile.full_name") { subject.errors.should have_key(:'profile.full_name') }
     end
   end
 

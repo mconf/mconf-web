@@ -240,7 +240,7 @@ describe User do
 
     it "has param and name equal the user's username" do
       user.bigbluebutton_room.param.should eql(user.username)
-      user.bigbluebutton_room.name.should eql(user._full_name)
+      user.bigbluebutton_room.name.should eql(user.name)
     end
 
     it "has the default logout url" do
@@ -1204,7 +1204,7 @@ describe User do
 
   describe "#location" do
     context "returns the city + country" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = "City X"
         user.profile.country = "Country Y"
@@ -1214,7 +1214,7 @@ describe User do
     end
 
     context "returns the city if country if not defined" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = "City X"
         user.profile.country = nil
@@ -1224,7 +1224,7 @@ describe User do
     end
 
     context "returns the country if city if not defined" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = nil
         user.profile.country = "Country Y"

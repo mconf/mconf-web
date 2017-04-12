@@ -47,7 +47,7 @@ describe 'User signs in via ldap', ldap: true do
         }
 
         it { current_path.should eq(my_home_path) }
-        it { should have_content user._full_name }
+        it { should have_content user.name }
         it { should have_content user.email }
         it("updates local sign in date") {
           user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i

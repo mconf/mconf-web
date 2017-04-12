@@ -818,9 +818,9 @@ describe Space do
     let!(:user_role) { Role.find_by(:name => 'User') }
 
     before {
-      user1 = FactoryGirl.create(:user, _full_name: "b123")
-      user2 = FactoryGirl.create(:user, _full_name: "c123")
-      user3 = FactoryGirl.create(:user, _full_name: "a123")
+      user1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "b123"))
+      user2 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "c123"))
+      user3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "a123"))
       @permission1 = Permission.create(user: user1, role: admin_role, subject: target)
       @permission2 = Permission.create(user: user2, role: user_role, subject: target)
       @permission3 = Permission.create(user: user3, role: user_role, subject: target)

@@ -47,7 +47,9 @@ describe RegistrationsController do
   describe "#create" do
     before { @request.env["devise.mapping"] = Devise.mappings[:user] }
     let(:attributes) {
-      FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password)
+      attrs = FactoryGirl.attributes_for(:user).slice(:username, :email, :password)
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile).slice(:full_name)
+      attrs
     }
 
     describe "if registrations are enabled in the site" do
@@ -60,7 +62,7 @@ describe RegistrationsController do
         before {
           expect {
             PublicActivity.with_tracking do
-              post :create, :user => attributes
+              post :create, user: attributes
             end
           }.to change{ User.count }.by(1)
         }

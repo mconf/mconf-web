@@ -11,6 +11,6 @@ FactoryGirl.define do
     p.organization Forgery::Name.company_name
     p.description Forgery::LoremIpsum.sentence
     p.url "http://#{Forgery::Internet.domain_name}"
-    p.full_name Forgery::Name.full_name
+    sequence(:full_name) { |n| Forgery::Name.unique_full_name(n) }
   end
 end

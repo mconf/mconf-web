@@ -49,8 +49,8 @@ feature 'Viewing activities' do
       it { should have_selector('.removed-object', count: 2) }
 
       # Valid usernames
-      it { should have_content(user._full_name, count: 4) }
-      it { should have_content(user2._full_name, count: 1) }
+      it { should have_content(user.name, count: 4) }
+      it { should have_content(user2.name, count: 1) }
       it { should have_content(I18n.t("activities.other.someone_html"), count: 1) }
 
       it { should have_content(space.name, count: 6) }

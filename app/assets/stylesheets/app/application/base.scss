@@ -256,6 +256,8 @@ form {
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
   font-family: $m-font-family-h;
+  position: relative;
+  height: $m-navbar-height;
 
   color: $m-navbar-font-color;
   @include font-size($m-navbar-font);
@@ -292,7 +294,7 @@ form {
     @include transition(background-color 0.2s ease-in);
     @include text-truncate;
     max-width: 350px;
-    padding: 12px 16px 11px 26px;
+    padding: 13px 16px 11px 26px;
     @include border-radius(0);
     height: auto;
     overflow: inherit;

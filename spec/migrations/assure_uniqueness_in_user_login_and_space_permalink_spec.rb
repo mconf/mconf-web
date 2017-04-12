@@ -18,9 +18,12 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
 
       context "using with test data" do
         let(:users) {
-          [ FactoryGirl.create(:user, :_full_name => "User one"),
-            FactoryGirl.create(:user, :_full_name => "User two"),
-            FactoryGirl.create(:user, :_full_name => "User three") ]
+          p = [ FactoryGirl.create(:profile, full_name: "User one"),
+                FactoryGirl.create(:profile, full_name: "User two"),
+                FactoryGirl.create(:profile, full_name: "User three") ]
+          [ FactoryGirl.create(:user, profile: p[0]),
+            FactoryGirl.create(:user, profile: p[1]),
+            FactoryGirl.create(:user, profile: p[2]) ]
         }
         let(:spaces) {
           [ FactoryGirl.create(:space, :name => "Space one"),

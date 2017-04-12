@@ -247,7 +247,6 @@ en:
         repository: "Document repository"
         tag_list: "Tags"
       user:
-        _full_name: "Full name"
         approved: "Approved"
         can_record: "Allow this user to record meetings"
         current_password: "Current password"

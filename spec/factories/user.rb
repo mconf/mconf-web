@@ -8,7 +8,6 @@ FactoryGirl.define do
   factory :unconfirmed_user, class: User do
     username
     email
-    sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
     created_at { Time.now }
     updated_at { Time.now }
     disabled false
@@ -17,6 +16,7 @@ FactoryGirl.define do
     password_confirmation { |user| user.password }
     before(:create) { |user| user.skip_confirmation_notification! }
     after(:create) { |user| user.reload }
+    association :profile, factory: :profile
 
     factory :user, parent: :unconfirmed_user do
       confirmed_at { Time.now }

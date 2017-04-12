@@ -233,7 +233,7 @@ class UsersController < InheritedResources::Base
                             :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
     ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
-    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
+    allowed += [:email, :username] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:approved, :disabled, :can_record] if current_user.superuser?
     allowed
   end
