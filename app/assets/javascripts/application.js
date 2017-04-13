@@ -37,7 +37,7 @@
 //= require moment/ru
 
 // Datetime picker for bootstrap
-//= require bootstrap-datetimepicker
+//= require bootstrap/bootstrap-datetimepicker
 
 //= require fineuploader
 

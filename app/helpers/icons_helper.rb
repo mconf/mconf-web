@@ -259,6 +259,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-circle-o icon-awesome icon-mconf-cant-rec", options
   end
 
+  def icon_later(options={})
+    icon_constructor nil, "fa fa-clock-o icon-awesome icon-mconf-later", options
+  end
+
   private
 
   # Base method for most of the methods above

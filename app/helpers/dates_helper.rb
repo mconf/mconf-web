@@ -45,4 +45,8 @@ module DatesHelper
       false
     end
   end
+
+  def user_timezone_abbreviation(user)
+    Mconf::Timezone.user_time_zone(user).tzinfo.current_period.abbreviation.to_s
+  end
 end

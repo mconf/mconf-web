@@ -14,6 +14,7 @@ FactoryGirl.define do
     invitation.url { 'http://' + Forgery::Internet.domain_name + '/' + Forgery::Internet.user_name }
     invitation.starts_on { Time.now }
     invitation.ends_on { Time.now + 2.hours }
+    invitation.duration { rand(0..Invitation::DURATION.count) }
     invitation.ready true
     invitation.sent true
     invitation.result true

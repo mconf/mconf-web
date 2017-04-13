@@ -68,8 +68,6 @@ gem 'dotenv-rails'
 # for bootstrap
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'autoprefixer-rails', '~> 6.6.0'
-# datetime picker for bootstrap
-gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'

@@ -45,6 +45,8 @@
     border: 0;
     margin: 0;
     color: red;
+    border-bottom: none;
+    text-decoration: none;
   }
 
   .form-actions {
@@ -105,4 +107,60 @@
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+/* our custom datetime picker input */
+.datetime-picker-input {
+  position: relative;
+
+  input[readonly] {
+    // do not gray it out
+    background: $m-input-bg;
+  }
+
+  i {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+/* the class used by the library bootstrap-datetimepicker */
+.datetimepicker {
+
+  td, th {
+    border-radius: $m-border-radius-base;
+    padding: 7px;
+  }
+
+  table tr td {
+    &.active.active,
+    span.active.active {
+      background: $m-color-secondary !important;
+    }
+
+    &.today {
+      background: $m-gray;
+
+      &:hover {
+        background: $m-gray;
+      }
+    }
+
+    .day:hover, span:hover, &.today:hover:hover {
+      background: #eee;
+    }
+
+    span {
+      border-radius: $m-border-radius-base;
+    }
+  }
+
+  .datetimepicker table tr td {
+  }
+
+  .table-condensed > tbody > tr > td {
+    // more confortable padding
+    padding: 8px;
+  }
 }

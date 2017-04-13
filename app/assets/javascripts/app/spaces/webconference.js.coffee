@@ -1,4 +1,4 @@
-#= require "../custom_bigbluebutton_rooms/_invitation_form"
+#= require "../custom_bigbluebutton_rooms/invitation"
 #= require "../custom_bigbluebutton_rooms/user_edit"
 
 mconf.Spaces or= {}

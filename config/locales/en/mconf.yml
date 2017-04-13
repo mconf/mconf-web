@@ -67,8 +67,7 @@ en:
     create: "Create"
     confirm: Ok
     datetimepicker:
-      format_display: "%m/%d/%Y"
-      format: "MM-dd-yyyy"
+      format: "mm/dd/yyyy hh:ii Z"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
@@ -152,12 +151,29 @@ en:
       bigbluebutton_room:
         name: "Name"
         param: "Address"
+      invitation:
+        duration_values:
+          5m: "5 minutes"
+          10m: "10 minutes"
+          15m: "15 minutes"
+          20m: "20 minutes"
+          30m: "30 minutes"
+          45m: "45 minutes"
+          1h: "1 hour"
+          1h30m: "1 hour and 30 minutes"
+          2h: "2 hours"
+          3h: "3 hours"
+          4h: "4 hours"
+          5h: "5 hours"
+          6h: "6 hours"
+          12h: "12 hours"
       invite:
+        duration: "Duration"
         ends_on: "Ends on"
         message: "Description"
         starts_on: "Starts on"
         title: "Title"
-        users: "Users"
+        users: "Invitees"
       join_request:
         comment: "Message"
       post:
@@ -502,10 +518,12 @@ en:
     index:
       list_of_rooms: "List of all registered rooms"
     important: Important
-    invitation_form:
+    invitation:
       at: "at"
       duration: "Duration"
+      later: "Later"
       meeting_in: "Inviting people to a meeting in: %{room}"
+      now: "Now"
       offset: "Your current time offset is \"%{offset}\""
       offset_daylight_savings: "Your current time offset is \"%{offset}\" (daylight saving time is in effect)"
       timezone: "These dates are using the time zone \"%{timezone}\""

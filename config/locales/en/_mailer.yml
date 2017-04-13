@@ -98,6 +98,7 @@ en:
     invitation_email:
       message:
         description: "Description"
+        duration: "Duration"
         end: "End"
         start: "Start"
         subject: "Subject"

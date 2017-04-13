@@ -66,8 +66,7 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
-      format_display: "%d/%m/%Y"
-      format: "dd-MM-yyyy"
+      format: "dd/mm/yyyy hh:ii Z"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
@@ -147,12 +146,29 @@ pt-br:
       bigbluebutton_room:
         name: "Nome"
         param: "Endereço"
+      invitation:
+        duration_values:
+          5m: "5 minutos"
+          10m: "10 minutos"
+          15m: "15 minutos"
+          20m: "20 minutos"
+          30m: "30 minutos"
+          45m: "45 minutos"
+          1h: "1 hora"
+          1h30m: "1 hora and 30 minutos"
+          2h: "2 horas"
+          3h: "3 horas"
+          4h: "4 horas"
+          5h: "5 horas"
+          6h: "6 horas"
+          12h: "12 horas"
       invite:
+        duration: "Duração"
         ends_on: "Acaba em"
         message: "Descrição"
         starts_on: "Inicia em"
         title: "Título"
-        users: "Usuários"
+        users: "Convidados"
       join_request:
         comment: "Mensagem"
       post:
@@ -500,10 +516,12 @@ pt-br:
     index:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
-    invitation_form:
+    invitation:
       at: "às"
       duration: "Duração"
+      later: "Mais tarde"
       meeting_in: "Enviando convite para conferência em: %{room}"
+      now: "Agora"
       offset: "Sua diferença de horário atual é \"%{offset}\""
       offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
       timezone: "As datas estão no fuso horário \"%{timezone}\""
