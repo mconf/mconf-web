@@ -88,18 +88,18 @@ pt-br:
       message:
         description: "Descrição"
         did_you_know: "Você sabia que?"
-        did_you_know_text: "A tecnologia utilizada para esta webconferência foi desenvolvida pela Mconf Tecnologia, uma empresa brasileira situada em Porto Alegre/RS e pode ser integrada com diversos LMS (Sistema de Gestão de Aprendizagem), como: Moodle; WordPress; Canvas. Ficou <i>interessado?</i> Entre em contato e saiba mais:"
+        did_you_know_text: "A tecnologia utilizada para esta webconferência foi desenvolvida pela Mconf Tecnologia, uma empresa brasileira situada em Porto Alegre/RS, e pode ser integrada com diversos LMS (Sistema de Gestão de Aprendizagem), como Moodle, WordPress e Canvas. Ficou <i>interessado?</i> Entre em contato e saiba mais:"
         end: "Fim"
-        enjoy: "Agora é só aproveitar!"
-        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para acessar a sala de conferência web "
+        header: "Você foi convidado por %{sender} (%{email_sender}) para acessar a sala de conferência web %{room}."
         hello: "Olá!"
         how_to: "Como acessar?"
-        how_to_text: "Para acessar a sala é muito simples, neste e-mail você receberá todas as informações necessárias sobre a conferência. É só clicar no link da sala, digitar seu <b>nome completo</b> e fornecer a chave de acesso, caso a conferência seja privada."
+        how_to_text: "Para acessar basta clicar no link da sala abaixo, digitar seu <strong>nome completo</strong> e fornecer a chave de acesso (só é necessária caso a conferência seja privada)."
         join: "Sala"
         password: "Chave de acesso"
         dial_number: "Número para discagem"
         start: "Início"
         subject: "Assunto"
+        subtitle: "Você foi convidado para uma conferência web"
       subject: "Convite para webconferência"
   shared:
     invitation_email:

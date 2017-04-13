@@ -20,7 +20,6 @@
     = f.input :username, required: true, wrapper: :vertical_input_group do
       - if webconf_url_prefix.length <= 35
         - prepend_text = webconf_url_prefix
-        - puts webconf_url_prefix
       - else
         - prepend_text = "/#{webconf_path_prefix}"
       = content_tag :span, prepend_text, class: "input-group-addon"

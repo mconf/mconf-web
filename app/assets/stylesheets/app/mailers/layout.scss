@@ -8,17 +8,20 @@ body {
   font-family: $m-font-family;
   color: $m-mail-text;
 
-  .logo {
+  #logo {
     text-align: center;
+    margin-top: 8px;
+    margin-bottom: 16px;
   }
 
-  .message {
+  #message-box {
     background: $m-mail-message-background;
     width: 70%;
-    max-width:700px;
+    max-width: 700px;
     min-width: 400px;
     padding: 40px;
     margin: 0 auto;
+    text-align: justify;
 
     h1 {
       color: $m-mail-main-title;
@@ -31,13 +34,18 @@ body {
       font-weight: bold;
     }
 
-    .logo {
-      text-align: center;
+    .title {
+      color: $m-font-strong;
+      font-size: $m-font-normal * $m-font-h2-multiplier;
+      line-height: $m-font-normal * ($m-font-h2-multiplier + 0.5);
+      margin-bottom: 8px;
     }
 
-    .informative {
-      text-align: justify;
-      display: inline;
+    .subtitle {
+      color: darken($m-mail-text, 5);
+      font-size: $m-font-normal * $m-font-h3-multiplier;
+      line-height: $m-font-normal * ($m-font-h3-multiplier + 0.5);
+      margin-bottom: 40px;
     }
 
     .invite-message {
@@ -46,32 +54,40 @@ body {
       border-left: 4px solid $m-mail-message-border;
     }
 
-    .inner {
-      background: $m-mail-inner-box-background;
-      border: 1px solid $m-mail-inner-box-border;
-      padding: 8px;
-      margin-top: 10px;
+    .centralized {
+      text-align: center;
+    }
+  }
 
-      .field {
-        display: block;
-        margin: 3px 0;
+  .info-block {
+    background: $m-mail-inner-box-background;
+    border: 1px solid $m-mail-inner-box-border;
+    padding: 16px;
+    margin-top: 10px;
 
-        label {
-          display: inline;
-          font-weight: bold;
-          margin-right: 3px;
-        }
+    .field {
+      display: block;
+      margin: 3px 0;
 
-        span {
-          display: inline;
-        }
+      label {
+        display: inline;
+        font-weight: bold;
+        margin-right: 3px;
+      }
+
+      span {
+        display: inline;
       }
     }
   }
 
-  .footer{
+  #footer {
     text-align: center;
     font-size: $m-font-small;
+    margin-top: 24px;
   }
 
+  .observation {
+    color: $m-font-color-gray;
+  }
 }

@@ -73,7 +73,9 @@ describe WebConferenceMailer do
       it {
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
-                         email_sender: invitation.sender.email, locale: "pt-br")
+                         email_sender: invitation.sender.email,
+                         room: invitation.room_name,
+                         locale: "pt-br")
         mail.html_part.body.encoded.should match(Regexp.escape(content))
       }
     end
@@ -87,7 +89,9 @@ describe WebConferenceMailer do
       it {
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
-                         email_sender: invitation.sender.email, locale: "pt-br")
+                         email_sender: invitation.sender.email,
+                         room: invitation.room_name,
+                         locale: "pt-br")
         mail.html_part.body.encoded.should match(Regexp.escape(content))
       }
     end
@@ -101,7 +105,9 @@ describe WebConferenceMailer do
       it {
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
-                         email_sender: invitation.sender.email, locale: "pt-br")
+                         email_sender: invitation.sender.email,
+                         room: invitation.room_name,
+                         locale: "pt-br")
         mail.html_part.body.encoded.should match(Regexp.escape(content))
       }
     end

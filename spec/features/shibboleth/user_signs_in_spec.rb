@@ -33,7 +33,6 @@ describe 'User signs in via shibboleth' do
     it { should_not have_content t('my.home.not_confirmed') }
     context "should generate a RecentActivity" do
       subject { RecentActivity.where(key: 'shibboleth.user.created').last }
-      it { puts subject.inspect }
       it { subject.should_not be_nil }
       it { subject.trackable.should eq User.last }
 

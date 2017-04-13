@@ -1,9 +1,13 @@
-%h1= t('.message.hello')
-%body= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
-%span= @invitation.room_name
+.centralized
+  %h1.title= t('.message.hello')
+  .subtitle= t('.message.subtitle')
+
+%p= t('.message.header', sender: @invitation.sender.name, email_sender: @invitation.sender.email, room: @invitation.room_name).html_safe
+
 %h2= t('.message.how_to')
-.informative= t('.message.how_to_text').html_safe
-.inner
+%p= t('.message.how_to_text').html_safe
+
+.info-block
   = render "shared/invitation_email"
 
   - if @invitation.target.dial_number.present?
@@ -16,8 +20,7 @@
       %label= t('.message.password') + ':'
       %span= @invitation.target.attendee_key
 
-%p= t('.message.enjoy')
-
 %h2= t('.message.did_you_know')
-.informative= t('.message.did_you_know_text').html_safe
-%span= mail_to Site.current.smtp_receiver
+%p
+  = t('.message.did_you_know_text').html_safe
+  %span= mail_to Site.current.smtp_receiver

@@ -71,9 +71,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       context "shows the user registration page" do
         it { current_path.should eq (user_registration_path) }
         it { page.should have_link('', :href => login_path) }
-        it { page.should have_link('', :href => new_user_password_path) }
         it { page.should have_content('Register') }
-        it { page.should have_content(I18n.t("register.confirmation")) }
 
         context "registering with correct data to succed the second try" do
           before {

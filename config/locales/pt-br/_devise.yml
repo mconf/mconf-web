@@ -23,9 +23,10 @@ pt-br:
       confirmation_instructions:
         confirmation_link: "Confirme minha conta"
         confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
-        confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
-        subject: 'Registro realizado com sucesso'
-        welcome: "Bem-vindo %{email}!"
+        confirmation_pending: "Sua conta está sendo aprovada"
+        confirmation_pending2: "Obrigado por se registrar no Mconf. Seu cadastro está sendo verificado pela nossa equipe e entraremos em contato assim que ele for aprovado."
+        subject: 'Bem vindo(a) ao Mconf!'
+        welcome: "Oi, %{email}!"
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
         greeting: "Olá %{email},"
