@@ -23,7 +23,7 @@ class UserNotificationsWorker < BaseWorker
   def self.notify_admins_of_users_pending_approval
     # The Activities with keys user.created are used to inform the admins that a
     # new user has registered.
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: 'user.created')
 
     recipients = User.superusers.pluck(:id)
@@ -51,7 +51,7 @@ class UserNotificationsWorker < BaseWorker
   # the emails.
   def self.notify_users_account_created
     keys = ['shibboleth.user.created', 'ldap.user.created']
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: keys)
     activities.each do |activity|
       Queue::High.enqueue(UserRegisteredSenderWorker, :perform, activity.id)
@@ -61,7 +61,7 @@ class UserNotificationsWorker < BaseWorker
   # Finds all users that were created by a admin but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_account_created_by_admin
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: 'user.created_by_admin')
     activities.each do |activity|
       Queue::High.enqueue(UserRegisteredByAdminSenderWorker, :perform, activity.id)
@@ -71,7 +71,7 @@ class UserNotificationsWorker < BaseWorker
   # Finds all users that were approved but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_after_approved
-    activities = RecentActivity
+    activities = get_recent_activity
       .where trackable_type: 'User', key: 'user.approved', notified: [nil, false]
     activities.each do |activity|
       Queue::High.enqueue(UserApprovedSenderWorker, :perform, activity.id)

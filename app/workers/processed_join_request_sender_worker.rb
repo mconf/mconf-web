@@ -11,7 +11,7 @@ class ProcessedJoinRequestSenderWorker < BaseWorker
   # a notification to the users that the join request was accepted/declined.
   # Marks the activity as notified.
   def self.perform(activity_id)
-    activity = RecentActivity.find(activity_id)
+    activity = get_recent_activity.find(activity_id)
     join_request = activity.trackable
 
     return if activity.notified

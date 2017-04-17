@@ -10,7 +10,7 @@ class UserNeedsApprovalSenderWorker < BaseWorker
   # Sends a notification to all recipients in the array of ids `recipient_ids`
   # informing that the user with id `user_id` needs to be approved.
   def self.perform(activity_id, recipient_ids)
-    activity = RecentActivity.find(activity_id)
+    activity = get_recent_activity.find(activity_id)
 
     if !activity.notified?
       user_id = activity.trackable_id

@@ -11,7 +11,7 @@ class JoinRequestSenderWorker < BaseWorker
   # a notification to the admins of the space that a user wants to join the space.
   # Marks the activity as notified.
   def self.perform(activity_id)
-    activity = RecentActivity.find(activity_id)
+    activity = get_recent_activity.find(activity_id)
     space = activity.owner
 
     return if activity.notified

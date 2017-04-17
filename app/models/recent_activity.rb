@@ -138,6 +138,10 @@ class RecentActivity < PublicActivity::Activity
     end
   }
 
+  scope :worker_mail_activities, -> {
+    RecentActivity.unscoped
+  }
+
   # Used for home page and user page pagination
   self.per_page = 10
 
