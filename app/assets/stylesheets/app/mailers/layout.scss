@@ -64,6 +64,7 @@ body {
     border: 1px solid $m-mail-inner-box-border;
     padding: 16px;
     margin-top: 10px;
+    border-radius: $m-border-radius-base;
 
     .field {
       display: block;
@@ -79,6 +80,14 @@ body {
         display: inline;
       }
     }
+
+    .info-block-section {
+      margin-top: 16px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   #footer {
@@ -89,5 +98,23 @@ body {
 
   .observation {
     color: $m-font-color-gray;
+  }
+
+  .timezone {
+    color: $m-font-color-gray;
+    font-size: $m-font-small;
+  }
+
+  .action-button {
+    display: block;
+    background: $m-mail-action-btn-bg;
+    padding: 8px 16px;
+    font-size: $m-font-medium;
+    border-radius: $m-border-radius-base;
+    color: $m-mail-action-btn-font-color;
+    max-width: 200px;
+    margin: 24px auto 8px auto;
+    text-align: center;
+    text-decoration: none;
   }
 }

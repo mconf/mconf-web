@@ -7,20 +7,9 @@
 %h2= t('.message.how_to')
 %p= t('.message.how_to_text').html_safe
 
-.info-block
-  = render "shared/invitation_email"
+= render "shared/invitation_email"
 
-  - if @invitation.target.dial_number.present?
-    .field
-      %label= t('.message.dial_number') + ':'
-      %span= @invitation.target.dial_number
-
-  - if @invitation.target.private
-    .field
-      %label= t('.message.password') + ':'
-      %span= @invitation.target.attendee_key
-
-%h2= t('.message.did_you_know')
-%p
-  = t('.message.did_you_know_text').html_safe
-  %span= mail_to Site.current.smtp_receiver
+-# %h2= t('.message.did_you_know')
+-# %p
+-#   = t('.message.did_you_know_text').html_safe
+-#   %span= mail_to Site.current.smtp_receiver

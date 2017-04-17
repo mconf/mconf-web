@@ -95,9 +95,6 @@ pt-br:
         how_to: "Como acessar?"
         how_to_text: "Para acessar basta clicar no link da sala abaixo, digitar seu <strong>nome completo</strong> e fornecer a chave de acesso (só é necessária caso a conferência seja privada)."
         join: "Sala"
-        password: "Chave de acesso"
-        dial_number: "Número para discagem"
-        start: "Início"
         subject: "Assunto"
         subtitle: "Você foi convidado para uma conferência web"
       subject: "Convite para webconferência"
@@ -105,9 +102,12 @@ pt-br:
     invitation_email:
       message:
         description: "Descrição"
+        dial_number: "Número para discagem"
         duration: "Duração"
         end: "Fim"
-        start: "Início"
+        password: "Chave de acesso"
+        start_date: "Dia"
+        start_time: "Hora"
         subject: "Assunto"
         url:
           event: "Site do evento"

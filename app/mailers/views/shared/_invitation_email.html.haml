@@ -1,29 +1,51 @@
-- unless @invitation.title.blank?
-  .field
-    %label= t('.message.subject') + ':'
-    %span= @invitation.title
-- unless @invitation.description.blank?
-  .field
-    %label= t('.message.description') + ':'
-    %span= @invitation.description
+.info-block
+  .info-block-section
+    - unless @invitation.title.blank?
+      .field
+        %label= t('.message.subject') + ':'
+        %span= @invitation.title
+    - unless @invitation.description.blank?
+      .field
+        %label= t('.message.description') + ':'
+        %span= @invitation.description
 
-%p
-  - Time.use_zone(@time_zone) do
-    - unless @invitation.starts_on.nil?
-      .field
-        %label= t('.message.start') + ':'
-        %span= l @invitation.starts_on.in_time_zone
-    - if @invitation.has_duration?
-      .field
-        %label= t('.message.duration') + ':'
-        %span= distance_of_time_in_words(@invitation.duration)
-    - elsif @invitation.ends_on.nil?
-      .field
-        %label= t('.message.end') + ':'
-        %span= l @invitation.ends_on.in_time_zone
-  .field
-    - if Mconf::Modules.mod_enabled?('events') && @invitation.target.is_a?(Event)
-      %label= t('.message.url.event') + ':'
-    - else
-      %label= t('.message.url.other') + ':'
-    %span= link_to @invitation.url_with_protocol, @invitation.url_with_protocol
+  .info-block-section
+    - Time.use_zone(@time_zone) do
+      - unless @invitation.starts_on.nil?
+        .field
+          %label= t('.message.start_date') + ':'
+          %span= format_date(@invitation.starts_on.in_time_zone, :long, false)
+        .field
+          %label= t('.message.start_time') + ':'
+          %span
+            = format_time(@invitation.starts_on.in_time_zone)
+            %span.timezone= @time_zone
+
+      - if @invitation.has_duration?
+        .field
+          %label= t('.message.duration') + ':'
+          %span= distance_of_time_in_words(@invitation.duration)
+      - elsif !@invitation.ends_on.nil?
+        .field
+          %label= t('.message.end') + ':'
+          %span= l @invitation.ends_on.in_time_zone
+    .field
+      - if Mconf::Modules.mod_enabled?('events') && @invitation.target.is_a?(Event)
+        %label= t('.message.url.event') + ':'
+      - else
+        %label= t('.message.url.other') + ':'
+      %span= link_to @invitation.url_with_protocol, @invitation.url_with_protocol
+
+    - if @invitation.target.is_a?(BigbluebuttonRoom)
+
+      - if @invitation.target.dial_number.present?
+        .field
+          %label= t('.message.dial_number') + ':'
+          %span= @invitation.target.dial_number
+
+      - if @invitation.target.private
+        .field
+          %label= t('.message.password') + ':'
+          %span= @invitation.target.attendee_key
+
+= link_to "Acessar a sala", @invitation.url_with_protocol, class: 'action-button'
