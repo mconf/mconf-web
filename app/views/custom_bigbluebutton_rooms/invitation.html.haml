@@ -29,7 +29,8 @@
                 = t('.later')
 
             - tz = user_timezone_abbreviation(current_user)
-            = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz }
+            - lang = locale_for_datetime_picker
+            = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
 
       = f.input :title, as: :string, label: t('activerecord.attributes.invite.title')
       = f.input :message, as: :text, label: t('activerecord.attributes.invite.message'), required: false

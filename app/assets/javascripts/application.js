@@ -38,6 +38,11 @@
 
 // Datetime picker for bootstrap
 //= require bootstrap/bootstrap-datetimepicker
+//= require bootstrap/locales/bootstrap-datetimepicker.bg
+//= require bootstrap/locales/bootstrap-datetimepicker.de
+//= require bootstrap/locales/bootstrap-datetimepicker.es
+//= require bootstrap/locales/bootstrap-datetimepicker.pt-BR
+//= require bootstrap/locales/bootstrap-datetimepicker.ru
 
 //= require fineuploader
 
