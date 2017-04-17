@@ -113,12 +113,8 @@ describe CustomBigbluebuttonRoomsController do
     }
 
     let!(:hash) { { :users => users.map(&:id).join(','),
-       :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
-         :"starts_on_time(4i)" => starts_on.try(:hour),
-         :"starts_on_time(5i)" => starts_on.try(:min),
-       :ends_on => ends_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
-         :"ends_on_time(4i)" => ends_on.try(:hour),
-         :"ends_on_time(5i)" => ends_on.try(:min),
+       :starts_on_time => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
+       :duration => 120*60,
        :title => title,
        :message => message} }
     before {
@@ -278,10 +274,15 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.not_to change { Invitation.count }
+        }.to change { Invitation.count }.by(3)
       }
+
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
+
       it { should redirect_to(referer) }
-      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+      it { should set_flash.to success }
     end
 
     it { should_authorize an_instance_of(BigbluebuttonRoom), :send_invitation, :id => room.to_param }

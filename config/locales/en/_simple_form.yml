@@ -115,11 +115,11 @@ en:
 
     placeholders:
       invite:
-        ends_on: "Ends on..."
-        message: "Write a personal message (optional)"
-        starts_on: "Starts on..."
-        title: "Give a name to your meeting (mandatory)"
-        users: "Type to search users by name or email..."
+        ends_on: "Ends on"
+        message: "Write a message"
+        starts_on: "Starts on"
+        title: "Give a name to your meeting"
+        users: "Type to search users by name or email"
       join_request:
         invite:
           comment: "Write a message to be sent to the invited user(s)"

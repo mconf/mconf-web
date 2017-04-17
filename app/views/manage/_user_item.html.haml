@@ -2,7 +2,7 @@
 .list-item.container-fluid{ id: "user-#{user.permalink}", class: cls }
   .col-xs-12.col-sm-1
     .list-item-logo
-      = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')
+      = raw logo_image(user, :size => '128', :title => user.name, :class => 'logo logo-user')
 
   .col-xs-12.col-sm-5
     - words = params[:q].try(:split)

@@ -1,6 +1,6 @@
 # There are things in the header that are used in several pages in this controller
 
-#= require "../custom_bigbluebutton_rooms/_invitation_form"
+#= require "../custom_bigbluebutton_rooms/invitation"
 #= require "../custom_bigbluebutton_rooms/user_edit"
 
 $ ->

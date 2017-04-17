@@ -7,11 +7,10 @@ body.spaces.user_permissions {
     clear: both;
   }
 
-  select {
-    width: auto;
-  }
-
   form {
+
+    display: inline;
+
     .input {
       margin: 0;
       padding: 0;
@@ -23,13 +22,43 @@ body.spaces.user_permissions {
     }
   }
 
+  .permission-buttons {
+    float: left;
+    display: inline;
+  }
+
+  .quit-space {
+    display: inline;
+  }
+
+  .btn-group {
+    white-space: nowrap;
+    display: inline;
+    width: 100%;
+
+    > .btn {
+      float: none;
+
+      &:last-child {
+        margin-left: -5px;
+      }
+    }
+  }
+
+  .help {
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
   .thread .thread-description {
     float: right;
   }
 
   .user-remove {
     float: right;
-    margin: 2px 0 0 15px;
+    margin: 0px 0 0 5px;
 
     .icon-awesome {
       margin: 0;

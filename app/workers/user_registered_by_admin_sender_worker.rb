@@ -9,7 +9,7 @@ class UserRegisteredByAdminSenderWorker < BaseWorker
 
   # Sends a notification to the user with id `user_id` that he was registered successfully.
   def self.perform(activity_id)
-    activity = RecentActivity.find(activity_id)
+    activity = get_recent_activity.find(activity_id)
 
     if !activity.notified?
       user_id = activity.trackable_id

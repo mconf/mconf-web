@@ -7,7 +7,7 @@
  *= require bootstrap/bootstrap-modal
  *= require select2
  *= require bootstrap/select2-bootstrap
- *= require bootstrap-datetimepicker
+ *= require bootstrap/bootstrap-datetimepicker
  *= require fineuploader
  *
  * Note: the order matters!

@@ -10,4 +10,7 @@ class BaseWorker
   # In the future if we change libs or need to add more stuff, change only here
   extend Resque::Plugins::LockTimeout
 
+  def self.get_recent_activity
+    RecentActivity.worker_mail_activities
+  end
 end

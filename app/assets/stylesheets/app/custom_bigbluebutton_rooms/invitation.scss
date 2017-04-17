@@ -1,7 +1,47 @@
 @import "definitions";
 @import "compass/css3";
 
-@import "app/custom_bigbluebutton_rooms/_invitation_form";
+#webconference-invitation {
 
-//body.custom_bigbluebutton_rooms.invitation,
-//}
+  #invite_timezone {
+    color: $m-dark-gray;
+    text-align: center;
+    margin: 0 0 16px 0;
+    text-align: center;
+    background: $m-light-gray;
+    padding: 4px;
+
+    .icon-mconf-info {
+      float: none;
+      margin: 0 1px 0 0;
+    }
+  }
+
+  .starts-at-wrapper {
+    margin-bottom: 16px;
+
+    .btn-group {
+      white-space: nowrap;
+      display: table-cell;
+      width: 1%;
+
+      > .btn {
+        float: none;
+
+        &:last-child {
+          margin-left: -5px;
+        }
+      }
+    }
+
+    .form-group {
+      display: table-cell;
+      width: 100%;
+      padding-left: 8px;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}

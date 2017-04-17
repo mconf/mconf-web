@@ -13,7 +13,11 @@
       .field
         %label= t('.message.start') + ':'
         %span= l @invitation.starts_on.in_time_zone
-    - unless @invitation.ends_on.nil?
+    - if @invitation.has_duration?
+      .field
+        %label= t('.message.duration') + ':'
+        %span= distance_of_time_in_words(@invitation.duration)
+    - elsif @invitation.ends_on.nil?
       .field
         %label= t('.message.end') + ':'
         %span= l @invitation.ends_on.in_time_zone

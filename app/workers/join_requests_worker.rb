@@ -18,7 +18,7 @@ class JoinRequestsWorker < BaseWorker
   # Goes through all activities for join requests created by admins inviting users to join a space
   # and enqueues a notification for each.
   def self.invite_notifications
-    invites = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.invite', notified: [nil,false]
+    invites = get_recent_activity.where trackable_type: 'JoinRequest', key: 'join_request.invite', notified: [nil,false]
     invites.each do |activity|
       Queue::High.enqueue(JoinRequestInviteSenderWorker, :perform, activity.id)
     end
@@ -27,7 +27,7 @@ class JoinRequestsWorker < BaseWorker
   # Goes through all activities for join requests created by users to join a space and enqueues
   # a notification for each.
   def self.request_notifications
-    requests = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.request', notified: [nil,false]
+    requests = get_recent_activity.where trackable_type: 'JoinRequest', key: 'join_request.request', notified: [nil,false]
     requests.each do |activity|
       Queue::High.enqueue(JoinRequestSenderWorker, :perform, activity.id)
     end
@@ -36,7 +36,7 @@ class JoinRequestsWorker < BaseWorker
   # Goes through all activities for processed join requests for which the users have not been
   # notified yet, and enqueues a notification for each.
   def self.processed_request_notifications
-    requests = RecentActivity.where trackable_type: 'JoinRequest', key: ['join_request.accept', 'join_request.decline'], notified: [nil,false]
+    requests = get_recent_activity.where trackable_type: 'JoinRequest', key: ['join_request.accept', 'join_request.decline'], notified: [nil,false]
     requests = requests.all.reject do |req|
       jr = req.trackable
 
@@ -50,7 +50,7 @@ class JoinRequestsWorker < BaseWorker
   end
 
   def self.user_added_notifications
-    joins = RecentActivity.where trackable_type: 'JoinRequest', key: ['join_request.no_accept'], notified: [nil, false]
+    joins = get_recent_activity.where trackable_type: 'JoinRequest', key: ['join_request.no_accept'], notified: [nil, false]
 
     joins.each do |activity|
       Queue::High.enqueue(JoinRequestUserAddedSenderWorker, :perform, activity.id)

@@ -105,6 +105,7 @@ pt-br:
     invitation_email:
       message:
         description: "Descrição"
+        duration: "Duração"
         end: "Fim"
         start: "Início"
         subject: "Assunto"

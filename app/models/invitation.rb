@@ -11,22 +11,30 @@ class Invitation < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :recipient, :class_name => "User"
 
-  # Sends the invitation to the recipient.
-  # Respects the preferences of the user, sending the notification
-  # (usually via email).
-  # Uses the mailer variable to build the correct emails.
-  def send_invitation
-    mailer = if self.is_a? WebConferenceInvitation
-               WebConferenceMailer
-             elsif self.is_a? EventInvitation
-               EventMailer
-             else
-               nil
-             end
-    return false if mailer.nil?
+  before_validation :set_end_from_duration
 
-    mailer.invitation_email(self.id).deliver
-    true
+  DURATION =
+    {
+      '5m':   5*60,
+     '10m':   10*60,
+     '15m':   15*60,
+     '20m':   20*60,
+     '30m':   30*60,
+     '45m':   45*60,
+     '1h':    60*60,
+     '1h30m': 90*60,
+     '2h':    2*60*60,
+     '3h':    3*60*60,
+     '4h':    4*60*60,
+     '5h':    5*60*60,
+     '6h':    6*60*60,
+     '12h':   12*60*60
+    }.freeze
+
+  def self.duration_i18n(locale)
+    DURATION.map{ |k, v|
+      [I18n.t("activerecord.attributes.invitation.duration_values.#{k}", locale: locale), v]
+    }.to_h
   end
 
   def self.create_invitations(user_list, params)
@@ -118,6 +126,24 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  # Sends the invitation to the recipient.
+  # Respects the preferences of the user, sending the notification
+  # (usually via email).
+  # Uses the mailer variable to build the correct emails.
+  def send_invitation
+    mailer = if self.is_a? WebConferenceInvitation
+               WebConferenceMailer
+             elsif self.is_a? EventInvitation
+               EventMailer
+             else
+               nil
+             end
+    return false if mailer.nil?
+
+    mailer.invitation_email(self.id).deliver
+    true
+  end
+
   # Get a https/http URL depending on the setting on the site
   def url_with_protocol
     begin
@@ -129,8 +155,17 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  def set_end_from_duration
+    if self.ends_on.blank? && self.has_duration? && !self.starts_on.blank?
+      self.ends_on = self.starts_on + self.duration.seconds
+    end
+  end
+
+  def has_duration?
+    !self.duration.blank? && self.duration > 0
+  end
+
   def room_name
     self.target.name
   end
-
 end

@@ -40,18 +40,14 @@ module Mconf
 
     # Used to parse a date obtained from a form together with a timezone
     # and return it in UTC respecting daylight savings time
-    def self.parse_in_timezone date, time, time_zone, date_format=nil
-      # strptime doesnt do time zones correctly because of daylight savings time
+    def self.parse_in_timezone(datetime, time_zone, date_format=nil)
+      # strptime doesn't do time zones correctly because of daylight savings time
       # so we parse it without and use ActiveSupport::TimeZone to do the time zone
       if date_format.present?
-        d = DateTime.strptime(date, date_format)
+        d = DateTime.strptime(datetime, date_format)
       else
-        d = DateTime.parse(date)
+        d = DateTime.parse(datetime)
       end
-      t = DateTime.parse(time)
-
-      d = d.change hour: t.hour, min: t.min
-
       ActiveSupport::TimeZone[time_zone].parse(d.strftime('%c'))
     end
   end

@@ -84,6 +84,7 @@ class mconf.Modal
     $modal.on "hide", ->
       $(options.element).trigger("modal-hide")
     $modal.on "hidden", ->
+      mconf.Resources.unbind($modal)
       $(options.element).trigger("modal-hidden")
 
     jQuery.extend localOptions, options
@@ -107,9 +108,9 @@ class mconf.Modal
   @closeWindows: ->
     $(".modal").modal("hide")
 
-  @unbind: ->
-    $("a.open-modal:not(.disabled)").off "click.mconfModal"
-    $("a.webconf-join-mobile-link:not(.disabled)").off "click.mconfModal"
+  @unbind: (parent) ->
+    $("a.open-modal:not(.disabled)", parent).off "click.mconfModal"
+    $("a.webconf-join-mobile-link:not(.disabled)", parent).off "click.mconfModal"
 
   @bind: ->
     @unbind()

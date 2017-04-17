@@ -108,8 +108,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         invitation_group: SecureRandom.uuid,
         sender: current_user,
         target: @room,
-        starts_on: params[:invite][:starts_on],
-        ends_on: params[:invite][:ends_on],
+        starts_on: params[:invite][:starts_on_time],
+        duration: params[:invite][:duration].to_i,
         title: params[:invite][:title],
         url: join_webconf_url(@room),
         description: params[:invite][:message],
@@ -147,19 +147,15 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # These dates were configured by the user in the view assuming his time zone, so we need to set
   # this time zone in the object before parsing it.
   def adjust_dates_for_invitation(params)
-    date_format = t('_other.datetimepicker.format_display')
+    date_format = t('_other.datetimepicker.format_rails')
     user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
 
-    [:starts_on, :ends_on].each do |field|
-      if params[:invite][field].present?
-        time = "#{params[:invite][field.to_s + '_time(4i)']}:#{params[:invite][field.to_s + '_time(5i)']}"
-        params[:invite][field] = Mconf::Timezone.parse_in_timezone(params[:invite][field], time, user_time_zone, date_format)
-      else
-        return false
-      end
-      (1..5).each { |n| params[:invite].delete("#{field}_time(#{n}i)") }
+    if params[:invite][:starts_on_time].present?
+      params[:invite][:starts_on_time] = Mconf::Timezone.parse_in_timezone(params[:invite][:starts_on_time], user_time_zone, date_format)
+      true
+    else
+      return false
     end
-    true
   rescue
     false
   end

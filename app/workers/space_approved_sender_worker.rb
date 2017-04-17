@@ -9,7 +9,7 @@ class SpaceApprovedSenderWorker < BaseWorker
 
   # Sends a notification to the space creator and all admins that the space with id `space_id` was approved.
   def self.perform(activity_id)
-    activity = RecentActivity.find(activity_id)
+    activity = get_recent_activity.find(activity_id)
 
     if !activity.notified? && activity.trackable.present?
 

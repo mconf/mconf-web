@@ -18,7 +18,7 @@ class SpaceNotificationsWorker < BaseWorker
   # Gets all spaces that were created and need approval, then schedules a worker to notify the global admins
   def self.notify_admins_of_spaces_pending_approval
     # The Activities with keys space.created are used to inform the admins that a new space was created.
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'Space', notified: [nil, false], key: 'space.create')
 
     recipients = User.superusers.pluck(:id)
@@ -37,7 +37,7 @@ class SpaceNotificationsWorker < BaseWorker
 
   # Finds all spaces that were approved but not notified yet and schedules a worker.
   def self.notify_space_admins_after_approved
-    activities = RecentActivity
+    activities = get_recent_activity
       .where trackable_type: 'Space', key: 'space.approved', notified: [nil, false]
     activities.each do |activity|
       Queue::High.enqueue(SpaceApprovedSenderWorker, :perform, activity.id)

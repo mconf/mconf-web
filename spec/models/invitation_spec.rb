@@ -80,4 +80,50 @@ describe Invitation do
       it { Invitation.last.recipient_email.should eql("other@mconf.org") }
     end
   end
+
+  describe "#set_end_from_duration" do
+    let(:target) { FactoryGirl.create(:invitation, ends_on: nil, starts_on: nil, duration: nil) }
+
+    context "if everything is nil" do
+      before { target.set_end_from_duration }
+      it { target.ends_on.should be_nil }
+    end
+
+    context "if starts_on is nil" do
+      before {
+        target.update_attributes(duration: 60)
+      }
+      it { target.ends_on.should be_nil }
+    end
+
+    context "if duration is nil" do
+      before {
+        target.update_attributes(starts_on: DateTime.now)
+      }
+      it { target.ends_on.should be_nil }
+    end
+
+    context "if there's already an ends_on set" do
+      let(:ends_on) { DateTime.now + 5.hours }
+      before {
+        target.update_attributes(starts_on: DateTime.now, duration: 60, ends_on: ends_on)
+      }
+      it { target.ends_on.should eql(ends_on) }
+    end
+
+    context "no ends_on and has starts_on and duration" do
+      let(:now) { DateTime.now }
+      before {
+        target.update_attributes(starts_on: now, duration: 60*60)
+      }
+      it { target.ends_on.should eql(now + 1.hour) }
+    end
+  end
+
+  describe "#has_duration?" do
+    it { FactoryGirl.create(:invitation, duration: nil).has_duration?.should be(false) }
+    it { FactoryGirl.create(:invitation, duration: 0).has_duration?.should be(false) }
+    it { FactoryGirl.create(:invitation, duration: 1).has_duration?.should be(true) }
+    it { FactoryGirl.create(:invitation, duration: 9999).has_duration?.should be(true) }
+  end
 end
