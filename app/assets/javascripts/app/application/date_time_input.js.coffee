@@ -6,7 +6,7 @@
 class mconf.DateTimeInput
 
   @bind: ->
-    # @unbind()
+    @unbind()
 
     $(".datetime-picker-input").each ->
       $picker = $('input', this)
@@ -21,8 +21,14 @@ class mconf.DateTimeInput
         timezone: $picker.data('timezone')
         pickerPosition: 'bottom-left'
 
-      $('i', this).on 'click', ->
+      $('i', this).on 'click.dateTimeInput', ->
         $picker.datetimepicker('show')
+
+  @unbind: (parent) ->
+    $(".datetime-picker-input", parent).each ->
+      $picker = $('input', this)
+      $picker.datetimepicker('remove')
+      $('i', this).off 'click.dateTimeInput'
 
   @setDate: (element, date) ->
     getDatetimePickerTarget(element).datetimepicker('update', date)

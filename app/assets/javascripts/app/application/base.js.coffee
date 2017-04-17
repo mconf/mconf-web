@@ -106,18 +106,18 @@ class mconf.Base
       e.preventDefault()
       $($(this).attr("href")).submit()
 
-  @unbind: ->
-    $("a.webconf-join-link:not(.disabled)").off "click.mconfBase"
-    $("a.open-new-window:not(.disabled)").off "click.mconfBase"
-    $(".disabled").off "click.mconfBase"
-    $('a.link-to-expand').off "click.mconfBase"
-    $('a.link-to-collapse').off "click.mconfBase"
-    $('.visible-on-hover').each ->
+  @unbind: (parent) ->
+    $("a.webconf-join-link:not(.disabled)", parent).off "click.mconfBase"
+    $("a.open-new-window:not(.disabled)", parent).off "click.mconfBase"
+    $(".disabled", parent).off "click.mconfBase"
+    $('a.link-to-expand', parent).off "click.mconfBase"
+    $('a.link-to-collapse', parent).off "click.mconfBase"
+    $('.visible-on-hover', parent).each ->
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
       $tracked.off "mouseenter.mconfBase"
       $tracked.off "mouseleave.mconfBase"
-    $("a[data-open-file]").off "click.mconfBase"
-    $("a.submit-form, button.submit-form").off "click.mconfBase"
+    $("a[data-open-file]", parent).off "click.mconfBase"
+    $("a.submit-form, button.submit-form", parent).off "click.mconfBase"
 
   # Converts a string into a slug. Should do it as closely as possible from the
   # way slugs are generated in the application using FriendlyId.
