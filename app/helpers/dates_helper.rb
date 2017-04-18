@@ -21,13 +21,31 @@ module DatesHelper
   end
 
   # Formats a date object to be shown in a view
-  def format_date(date, format=:short)
+  def format_date(date, format=:short, include_time=true)
     if date.present?
       if date.is_a?(Integer) && date.to_s.length == 13
-        I18n.l(Time.at(date/1000), format: format)
+        value = Time.at(date/1000)
       else
-        I18n.l(Time.at(date), format: format)
+        value = Time.at(date)
       end
+      if include_time
+        I18n.l(value, format: format)
+      else
+        I18n.l(value.to_date, format: format)
+      end
+    else
+      nil
+    end
+  end
+
+  def format_time(date)
+    if date.present?
+      if date.is_a?(Integer) && date.to_s.length == 13
+        value = Time.at(date/1000)
+      else
+        value = Time.at(date)
+      end
+      value.to_s(:time)
     else
       nil
     end
@@ -46,7 +64,11 @@ module DatesHelper
     end
   end
 
+  def timezone_abbreviation(tz)
+    tz.tzinfo.current_period.abbreviation.to_s
+  end
+
   def user_timezone_abbreviation(user)
-    Mconf::Timezone.user_time_zone(user).tzinfo.current_period.abbreviation.to_s
+    timezone_abbreviation(Mconf::Timezone.user_time_zone(user))
   end
 end

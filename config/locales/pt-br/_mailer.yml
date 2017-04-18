@@ -90,18 +90,18 @@ pt-br:
         end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Sala"
-        password: "Chave de acesso"
-        dial_number: "Número para discagem"
-        start: "Início"
         subject: "Assunto"
       subject: "Convite para webconferência"
   shared:
     invitation_email:
       message:
         description: "Descrição"
+        dial_number: "Número para discagem"
         duration: "Duração"
         end: "Fim"
-        start: "Início"
+        password: "Chave de acesso"
+        start_date: "Dia"
+        start_time: "Hora"
         subject: "Assunto"
         url:
           event: "Site do evento"
