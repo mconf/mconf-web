@@ -96,6 +96,20 @@ body {
     font-size: $m-font-small;
     margin-top: 24px;
     line-height: 1.2em;
+
+    .social-links {
+      margin: 8px 0;
+
+      span {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      a {
+        text-decoration: none;
+        margin: 0 2px;
+      }
+    }
   }
 
   .observation {

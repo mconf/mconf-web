@@ -126,4 +126,5 @@ en:
           other: "Room"
   layouts:
     mailers:
-        signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
+      signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
+      social: "Follow us on:"
