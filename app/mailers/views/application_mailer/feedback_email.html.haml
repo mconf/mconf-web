@@ -1,6 +1,9 @@
-= t('.content', email: @email).html_safe
-%br
-%br
+.centralized
+  %h1.title= t('.hello')
+  .subtitle= t('.subtitle')
 
-= @text
-%br
+%p= t('.content', name: @user.name, email: @user.email).html_safe
+
+.info-block
+  .info-block-section= @subject
+  .info-block-section= @text

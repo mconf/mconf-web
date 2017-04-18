@@ -2,8 +2,10 @@
 en:
   application_mailer:
     feedback_email:
-      content: "<b>%{email}</b> sent the following feedback:"
-      subject: "Feedback"
+      content: "<b>%{name}</b> (%{email}) sent the following feedback:"
+      hello: "Hello"
+      subject: "Feedback message"
+      subtitle: "A user sent a feedback message"
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Accept or reject this user in the user management page in: <br/><a href=\"%{url}\">%{url}</a>"

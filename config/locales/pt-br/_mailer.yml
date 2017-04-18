@@ -2,8 +2,10 @@
 pt-br:
   application_mailer:
     feedback_email:
-      content: "<b>%{email}</b> enviou o seguinte feedback:"
-      subject: "Feedback"
+      content: "<b>%{name}</b> (%{email}) enviou o seguinte feedback:"
+      hello: "Olá"
+      subject: "Mensagem de feedback"
+      subtitle: "Um usuário enviou uma mensagem de feedback"
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
