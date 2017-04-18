@@ -1,2 +1,26 @@
-%p= t('.message', name: @user_name).html_safe
-%p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe
+- @room = @user.bigbluebutton_room
+
+.centralized
+  %h1.title= t('_other.hi_name', name: @user.first_name)
+  .subtitle= t('.subject')
+
+%h2= t('.lets_start.title')
+%p= t('.lets_start.got_access').html_safe
+%p= t('.lets_start.from_home_page').html_safe
+
+= link_to t('.lets_start.go_to_home'), my_home_url(host: Site.current.domain), class: 'action-button'
+
+%p= t('.lets_start.features').html_safe
+
+%p= t('.lets_start.short_url').html_safe
+
+.info-block.centralized
+  = join_webconf_url(@room)
+
+%h2= t('.go_beyond.title')
+%ul
+  %li= t('.go_beyond.item1').html_safe
+  %li= t('.go_beyond.item2').html_safe
+  %li= t('.go_beyond.item3').html_safe
+
+%p= t('.contact', mail: Site.current.smtp_receiver).html_safe

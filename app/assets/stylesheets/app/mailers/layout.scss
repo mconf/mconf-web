@@ -7,6 +7,7 @@ body {
   background: $m-mail-background;
   font-family: $m-font-family;
   color: $m-mail-text;
+  line-height: 1.5em;
 
   #logo {
     text-align: center;
@@ -94,6 +95,7 @@ body {
     text-align: center;
     font-size: $m-font-small;
     margin-top: 24px;
+    line-height: 1.2em;
   }
 
   .observation {
@@ -108,12 +110,12 @@ body {
   .action-button {
     display: block;
     background: $m-mail-action-btn-bg;
-    padding: 8px 16px;
-    font-size: $m-font-medium;
+    padding: 16px 16px;
+    font-size: $m-font-big;
     border-radius: $m-border-radius-base;
     color: $m-mail-action-btn-font-color;
-    max-width: 200px;
-    margin: 24px auto 8px auto;
+    max-width: 300px;
+    margin: 24px auto 24px auto;
     text-align: center;
     text-decoration: none;
   }

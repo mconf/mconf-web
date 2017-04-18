@@ -26,7 +26,7 @@ pt-br:
         confirmation_pending: "Sua conta está sendo aprovada"
         confirmation_pending2: "Obrigado por se registrar no Mconf. Seu cadastro está sendo verificado pela nossa equipe e entraremos em contato assim que ele for aprovado."
         subject: 'Bem vindo(a) ao Mconf!'
-        welcome: "Oi, %{email}!"
+        welcome: "Olá, %{email}"
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
         greeting: "Olá %{email},"

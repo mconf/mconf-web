@@ -78,6 +78,7 @@ en:
     filtered_tags: "Filtering tags: "
     form:
       required: "required"
+    hi_name: "Hi, %{name}"
     index: Listing
     in_place_edit:
       error: "error"

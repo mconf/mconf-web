@@ -48,4 +48,4 @@
           %label= t('.message.password') + ':'
           %span= @invitation.target.attendee_key
 
-= link_to "Acessar a sala", @invitation.url_with_protocol, class: 'action-button'
+= link_to t('.message.access_room'), @invitation.url_with_protocol, class: 'action-button'

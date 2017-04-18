@@ -77,6 +77,7 @@ pt-br:
     filtered_tags: "Filtrando por tags: "
     form:
       required: "obrigatório"
+    hi_name: "Olá, %{name}"
     index: Listando
     in_place_edit:
       error: "erro"
