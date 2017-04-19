@@ -1,12 +1,8 @@
-- page_title t('.title'), in: @space.name
-- spaces_menu_at :admin
-= render 'spaces/sidebar', space: @space, full: false
+#space-invitation.col-sm-12
 
-- spaces_admin_menu_at :invite
-= render 'spaces/admin_tabs'
-
-#space-invitation
-  %h3= t('.subtitle')
+  .modal-header
+    = modal_close_button
+    %h3= t('.subtitle')
 
   = simple_form_for @join_request, url: space_join_requests_path, html: { class: 'single-column' } do |f|
     .input
@@ -29,4 +25,5 @@
     - else
       = hidden_field_tag 'type', 'invite'
 
-    = f.button :wrapped, value: t("button.send")
+    .modal-footer
+      = f.button :wrapped, value: t("button.send"), class: "btn btn-primary", cancel_modal: true

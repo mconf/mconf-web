@@ -615,6 +615,7 @@ pt-br:
     index:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
+      direct_link: "Link Direto"
       choose_action: "Escolha uma ação"
       playback_links: "Playbacks disponíveis"
       confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
@@ -891,7 +892,6 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       subtitle: "Convide pessoas para ingressar nesta comunidade"
-      title: "Convidar"
       type_add: "Adicionar diretamente"
       type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
       type_invite: "Convidar"
@@ -899,6 +899,12 @@ pt-br:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
+    admissions:
+      title: "Convidar"
+      pending_invitations_title: "Convites pendentes"
+      pending_requests_title: "Pedidos de adesão pendentes"
+      no_pending_invitations: "Não existem convites pendentes"
+      no_pending_requests: "Não existem pedidos de adesão pendentes"
     list_item:
       accept: "Aceitar"
       cancel: "Cancelar"

@@ -1,5 +1,6 @@
 /*
  *= require ./app/join_requests/index
  *= require ./app/join_requests/show
+ *= require ./app/join_requests/admissions
  *= require ./app/join_requests/invite
  */

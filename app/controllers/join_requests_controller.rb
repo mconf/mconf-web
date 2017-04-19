@@ -23,7 +23,7 @@ class JoinRequestsController < ApplicationController
   respond_to :html
 
   def set_layout
-    if [:new].include?(action_name.to_sym)
+    if [:new].include?(action_name.to_sym) or [:invite].include?(action_name.to_sym)
       request.xhr? ? false : 'no_sidebar'
     else
       "application"
