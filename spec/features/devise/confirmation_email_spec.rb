@@ -26,7 +26,7 @@ feature "Confirmation email" do
     # check the confirmation email and click on the link to confirm the account
     last_email.should_not be_nil
     confirmation_link = last_email.parts.first.body.raw_source.match(/http.*users\/confirmation[^" (]*/)[0]
-    last_email.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
+    last_email.body.encoded.should match(t('shared.welcome.lets_start.confirm_email'))
     visit confirmation_link
 
     User.last.confirmed?.should be true
@@ -40,7 +40,7 @@ feature "Confirmation email" do
       expect { register_with(attrs) }.to change{ User.count }.by(1)
     end
     last_email.should_not be_nil
-    last_email.html_part.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
+    last_email.html_part.body.encoded.should match(t('shared.welcome.lets_start.confirm_email', locale: "pt-br"))
   end
 
   it "uses the default locale if the site has no locale set", with_truncation: true do
@@ -50,7 +50,7 @@ feature "Confirmation email" do
       expect { register_with(attrs) }.to change{ User.count }.by(1)
     end
     last_email.should_not be_nil
-    last_email.html_part.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
+    last_email.html_part.body.encoded.should match(t('shared.welcome.lets_start.confirm_email', locale: "pt-br"))
   end
 
 end

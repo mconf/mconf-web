@@ -73,7 +73,7 @@ describe AdminMailer do
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
-        text = I18n.t('admin_mailer.new_user_approved.subject')
+        text = I18n.t('shared.welcome.subject')
         text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
@@ -91,7 +91,7 @@ describe AdminMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_approved.lets_start.title', locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end
@@ -102,7 +102,7 @@ describe AdminMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('admin_mailer.new_user_approved.lets_start.title', locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end
@@ -114,7 +114,7 @@ describe AdminMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('admin_mailer.new_user_approved.lets_start.title', locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end

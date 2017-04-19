@@ -26,11 +26,11 @@ describe UserMailer do
 
       context "if the site doesn't require registration approval" do
         before { Site.current.update_attributes(require_registration_approval: false) }
-        it("assigns @user_name") {
-          mail.body.encoded.should match(user.name)
+        it("assigns @user") {
+          mail.body.encoded.should match(user.first_name)
         }
         it("sends a link to the users home_path") {
-          content = I18n.t('user_mailer.registration_notification_email.click_here', url: url)
+          content = I18n.t('shared.welcome.lets_start.go_to_home')
           mail.body.encoded.should match(content)
         }
       end
@@ -38,7 +38,7 @@ describe UserMailer do
       context "if the site requires registration approval" do
         before { Site.current.update_attributes(require_registration_approval: true) }
         it("informs that the user needs to be approved") {
-          content = I18n.t('user_mailer.registration_notification_email.confirmation_pending', url: root_url(host: Site.current.domain), site: Site.current.name)
+          content = I18n.t('devise.mailer.confirmation_instructions.confirmation_pending', url: root_url(host: Site.current.domain), site: Site.current.name)
           mail.body.encoded.should match(content)
         }
       end
@@ -50,7 +50,7 @@ describe UserMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        content = I18n.t('user_mailer.registration_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end
@@ -61,7 +61,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('user_mailer.registration_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end
@@ -73,7 +73,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('user_mailer.registration_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
+        content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end
