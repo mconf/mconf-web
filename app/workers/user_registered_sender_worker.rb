@@ -5,6 +5,9 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+# Used to send a notification to users when registered.
+# This is notused for normal registrations! In these cases it's devise that sends
+# the emails.
 class UserRegisteredSenderWorker < BaseWorker
 
   # Sends a notification to the user with id `user_id` that he was registered successfully.

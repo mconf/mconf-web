@@ -11,21 +11,6 @@ pt-br:
       click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
       message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
       subject: "Um novo usuário está a espera de aprovação"
-    new_user_approved:
-      contact: "Entre em contato conosco para maiores informações: <a href='mailto:%{mail}'>%{mail}</a>"
-      go_beyond:
-        item1: "Customize sua sala com o logo e as cores da sua empresa. <strong>Sem custos adicionais</strong>;"
-        item2: "Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"
-        item3: "Disponibilize um link de acesso personalizado diretamente do seu site."
-        title: "Vá além!"
-      lets_start:
-        features: "Com o Mconf você poderá: compartilhar conhecimento oferecendo <em>aulas ao vivo</em>; promover discussões sobre os assuntos abordados através do <em>chat</em>; realizar apresentações para até <em>350 usuários conectados simultaneamente</em>; fazer anotações utilizando a <em>lousa</em>; <em>gravar</em> suas aulas ou apresentações para assistir mais tarde ou compartilhar com os participantes; e muito mais!"
-        from_home_page: "Através da sua página inicial no Mconf você tem acesso à sua sala pessoal de conferência web. Você pode mudar as configurações da sua sala, iniciar novas reuniões e convidar outras pessoas para participarem das suas reuniões."
-        go_to_home: "Acessar sua página inicial"
-        got_access: "A partir de agora você já pode acessar a sua conta no Mconf."
-        short_url: "Você também pode acessar a sua sala de forma rápida através do endereço abaixo. Compartilhe esse endereço com outras pessoas para elas entrarem em uma conferência que você criou."
-        title: "Vamos começar?"
-      subject: "Sua conta foi aprovada, seja bem vindo(a)!"
   user_mailer:
     registration_notification_email:
       click_here: "Você pode acessar a sua página inicial através do endereço: <a href=\"%{url}\">%{url}</a>"
@@ -126,6 +111,23 @@ pt-br:
         url:
           event: "Site do evento"
           other: "Sala"
+    welcome:
+      contact: "Entre em contato conosco para maiores informações: <a href='mailto:%{mail}'>%{mail}</a>"
+      go_beyond:
+        item1: "Customize sua sala com o logo e as cores da sua empresa. <strong>Sem custos adicionais</strong>;"
+        item2: "Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"
+        item3: "Disponibilize um link de acesso personalizado diretamente do seu site."
+        title: "Vá além!"
+      lets_start:
+        confirm_email: "Por favor confirme o seu e-mail para começar a usar o serviço:"
+        confirm_email_btn: "Confirmar meu e-mail"
+        features: "Com o Mconf você poderá: compartilhar conhecimento oferecendo <em>aulas ao vivo</em>; promover discussões sobre os assuntos abordados através do <em>chat</em>; realizar apresentações para até <em>350 usuários conectados simultaneamente</em>; fazer anotações utilizando a <em>lousa</em>; <em>gravar</em> suas aulas ou apresentações para assistir mais tarde ou compartilhar com os participantes; e muito mais!"
+        from_home_page: "Através da sua página inicial no Mconf você tem acesso à sua sala pessoal de conferência web. Você pode mudar as configurações da sua sala, iniciar novas reuniões e convidar outras pessoas para participarem das suas reuniões."
+        go_to_home: "Acessar sua página inicial"
+        got_access: "A partir de agora você já pode acessar a sua conta no Mconf."
+        short_url: "Você também pode acessar a sua sala de forma rápida através do endereço abaixo. Compartilhe esse endereço com outras pessoas para elas entrarem em uma conferência que você criou."
+        title: "Vamos começar?"
+      subject: "Seja bem vindo(a)!"
   layouts:
     mailers:
       signature: "Este e-mail foi encaminhado por Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil. <br/> +55 51 3308.6812"
