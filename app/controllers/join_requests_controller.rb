@@ -67,7 +67,7 @@ class JoinRequestsController < ApplicationController
       unless already_invited.empty?
         flash[:notice] = t('join_requests.create.already_invited', :users => already_invited.join(', '))
       end
-      redirect_to invite_space_join_requests_path(@space)
+      redirect_to admissions_space_join_requests_path(@space)
 
     # if it's a global admin adding people to the space
     elsif params[:type] == 'add' && can?(:add, @space)
@@ -78,7 +78,7 @@ class JoinRequestsController < ApplicationController
       unless success.empty?
         flash[:success] = t('join_requests.create.users_added', users: success.join(', '))
       end
-      redirect_to invite_space_join_requests_path(@space)
+      redirect_to admissions_space_join_requests_path(@space)
 
     # it's a common user asking for membership in a space
     else
@@ -134,7 +134,7 @@ class JoinRequestsController < ApplicationController
         format.html {
           if admin_canceling_invitation
             flash[:success] = t("join_requests.decline.invitation_destroyed")
-            redirect_to space_join_requests_path(@space)
+            redirect_to admissions_space_join_requests_path(@space)
           else
             flash[:success] = t("join_requests.decline.request_destroyed")
             redirect_to my_home_path
@@ -173,7 +173,7 @@ class JoinRequestsController < ApplicationController
             else
               # an admin accepting/declining a request from the requests page, goes back to
               # the index of join requests in the space
-              redirect_to space_join_requests_path(@space)
+              redirect_to admissions_space_join_requests_path(@space)
             end
           end
         }

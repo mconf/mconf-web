@@ -888,7 +888,7 @@ en:
         no_results: "No results found"
         searching: "Searching..."
     admissions:
-      title: "Invite"
+      title: "Admissions"
       no_pending_invitations: "There are no pending invitations"
       no_pending_requests: "There are no pending join requests"
       pending_invitations_title: "Pending invitations"

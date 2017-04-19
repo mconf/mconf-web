@@ -900,7 +900,7 @@ pt-br:
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
     admissions:
-      title: "Convidar"
+      title: "Admissões"
       pending_invitations_title: "Convites pendentes"
       pending_requests_title: "Pedidos de adesão pendentes"
       no_pending_invitations: "Não existem convites pendentes"
