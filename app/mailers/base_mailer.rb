@@ -12,6 +12,9 @@ class BaseMailer < ActionMailer::Base
 
   self.prepend_view_path(File.join(Rails.root, 'app', 'mailers', 'views'))
 
+  add_template_helper(ApplicationHelper)
+  add_template_helper(DatesHelper)
+
   protected
 
   # Default method to create an email object

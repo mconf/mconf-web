@@ -90,17 +90,18 @@ en:
         end: "End"
         header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
         join: "Room"
-        password: "Access key"
-        start: "Start"
         subject: "Subject"
       subject: "Web conference invitation"
   shared:
     invitation_email:
       message:
         description: "Description"
+        dial_number: "Dial number"
         duration: "Duration"
         end: "End"
-        start: "Start"
+        password: "Access key"
+        start_date: "Date"
+        start_time: "Time"
         subject: "Subject"
         url:
           event: "Event site"
