@@ -1,2 +1,7 @@
-%p= t('.message', name: @user_name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
-%p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe
+.centralized
+  .info-block
+    .info-block-section
+      = t('.notification').html_safe
+%br
+
+= render 'shared/welcome', user: @user

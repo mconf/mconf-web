@@ -19,9 +19,8 @@ en:
       message: "We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
       subject: "Your registration has been completed"
     registration_by_admin_notification_email:
-      click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
-      message: "Hello %{name},<br/><br/>We're sending this email to inform you that an account was created for you on <a href=\"%{url}\">%{site}</a>.<br><br>This account was created by an administrator. If you think this was an error please contact us responding to this email."
-      subject: "An account was created for you by an administrator"
+      notification: "You are receiving this message because an account was created for you by an administrator. If you think this was an error please contact us responding to this email."
+      subject: "Welcome to Mconf!"
   event_mailer:
     invitation_email:
       message:
