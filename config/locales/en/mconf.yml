@@ -671,6 +671,7 @@ en:
   devise:
     confirmations:
       new:
+        description: "The welcome message you received by email when you registered contains a link you can click to confirm your account. If you lost access to this email, you can request a new one using the form below."
         title: "Resend confirmation email"
     failure:
       user:

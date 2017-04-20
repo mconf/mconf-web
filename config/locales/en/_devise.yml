@@ -32,6 +32,8 @@ en:
         greeting: "Hello %{email},"
         requested: "Someone has requested a link to change your password. You can do this through the link below:"
         change_password: "Change Password"
+        copy_link: "(If the button above doesn't work, copy and paste this link in your browser: %{url})"
+        redefine_password: "Redefine my password"
         ignore: "If you didn't request this, please ignore this email."
         wont_change: "Your password won't change until you access the link above and create a new one."
       unlock_instructions:

@@ -683,7 +683,8 @@ pt-br:
   devise:
     confirmations:
       new:
-        title: "Resend confirmation email"
+        description: "A mensagem de boas vindas que você recebeu por e-mail ao se registrar tem um link para confirmar sua conta. Se você perdeu acesso a este e-mail você pode solicitar um novo usuando o formulário abaixo."
+        title: "Reenviar e-mail de confirmação"
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
