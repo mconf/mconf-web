@@ -186,7 +186,7 @@ describe SpacesController do
     before(:each) { get :new }
 
     context "template and view" do
-      it { should render_with_layout("application") }
+      it { should render_with_layout("navbar_bg") }
       it { should render_template("spaces/new") }
     end
 
