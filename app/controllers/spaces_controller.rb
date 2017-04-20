@@ -40,7 +40,16 @@ class SpacesController < InheritedResources::Base
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
-  layout 'application'
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :new
+      "navbar_bg"
+    else
+      "application"
+    end
+  end
 
   def index
     order_spaces

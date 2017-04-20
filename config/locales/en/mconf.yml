@@ -605,6 +605,7 @@ en:
     index:
       list_of_recordings: "List of all recordings available"
     recording_links:
+      direct_link: "Direct Link"
       choose_action: "Choose an action"
       playback_links: "Playbacks available"
       confirm_destroy: "Are you sure you want to delete this recording? This will also remove the files from the server and is irreversible. Be sure you have downloaded or backed up this recording before proceeding."
@@ -883,7 +884,6 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       subtitle: "Invite people to join this space"
-      title: "Invite"
       type_add: "Add users directly"
       type_add_tooltip: "The users will be added to the space without being asked for confirmation. A notification is sent to the users to inform them they were added."
       type_invite: "Invite"
@@ -891,6 +891,12 @@ en:
         hint: "Type to start searching"
         no_results: "No results found"
         searching: "Searching..."
+    admissions:
+      title: "Admissions"
+      no_pending_invitations: "There are no pending invitations"
+      no_pending_requests: "There are no pending join requests"
+      pending_invitations_title: "Pending invitations"
+      pending_requests_title: "Pending join requests"
     list_item:
       accept: "Accept"
       cancel: "Cancel"

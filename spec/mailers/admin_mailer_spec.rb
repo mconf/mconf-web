@@ -17,7 +17,6 @@ describe AdminMailer do
       it("sets 'to'") { mail.to.should eql([admin.email]) }
       it("sets 'subject'") {
         text = I18n.t('admin_mailer.new_user_waiting_for_approval.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -74,7 +73,6 @@ describe AdminMailer do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('shared.welcome.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }

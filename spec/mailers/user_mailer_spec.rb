@@ -17,7 +17,6 @@ describe UserMailer do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_notification_email.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -88,7 +87,6 @@ describe UserMailer do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_by_admin_notification_email.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }

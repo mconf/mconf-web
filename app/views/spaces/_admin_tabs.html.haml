@@ -3,10 +3,8 @@
     %li{ spaces_admin_menu_select_if(:main) }
       = link_to t('.general_options'), edit_space_path(@space)
     - if can?(:manage_join_requests, @space)
-      %li{ spaces_admin_menu_select_if(:invite) }
-        = link_to t('.invite'), invite_space_join_requests_path(@space)
       %li{ spaces_admin_menu_select_if(:admissions) }
-        = link_to space_join_requests_path(@space) do
+        = link_to admissions_space_join_requests_path(@space) do
           - unless spaces_admin_menu_is(:admissions)
             = render :partial => 'spaces/requests_notifications'
           = t('.admissions')

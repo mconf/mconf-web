@@ -34,7 +34,6 @@ describe WebConferenceMailer do
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
         text = I18n.t('web_conference_mailer.invitation_email.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }

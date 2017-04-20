@@ -3,73 +3,23 @@
 
 body.spaces.new, body.spaces.create {
 
+
   #space-new {
-    textarea {
-      resize: vertical;
-      max-height: none;
-      height: 150px;
-    }
-  }
+    margin: 40px auto;
+    width: 50%;
 
-  #sidebar {
+    form {
+      // every field is required, we don't need to show it
+      abbr { display: none; }
 
-    .content-block-header {
-      h3 { margin-top: 0; }
-    }
-
-
-    .content-block-container {
-      @include mconf-clearfix;
-      padding: 10px 5px;
-
-      &:hover {
-        background: $m-light-gray;
+      .form-actions {
+        border: none;
       }
 
-      .content-block-header {
-        h3 { margin: 0; }
-
-        .space-logo {
-          text-align: center;
-          overflow: hidden; // for when the image is not found
-          width: 42px + 4px;
-          height: 32px + 4px;
-          float: left;
-          margin: 0 8px 5px 0;
-          border: 1px solid #ddd;
-          padding: 1px;
-          @include broken-img-parent;
-          @include border-radius($m-border-radius-small);
-
-          &:hover {
-            border-color: $m-color-secondary;
-          }
-
-          img {
-            width: 42px;
-            height: 32px;
-          }
-        }
-
-        h4 {
-          float: none;
-          margin: 0;
-        }
+      .form-group.boolean {
+        float: right;
+        margin-right: 5px;
       }
-
-      .content-block-middle {
-        clear: both;
-      }
-
-      .resource-visibility {
-        margin-top: 2px;
-        color: $m-dark-gray;
-
-        .icon-awesome {
-          float: none;
-        }
-      }
-
     }
   }
 }

@@ -1,28 +1,24 @@
 @import "definitions";
 @import "compass/css3";
 
-body.join_requests.invite {
+#space-invitation {
+  background: #fff;
 
-  #space-invitation {
+  .type-options {
+    float: right;
+    margin-bottom: 5px;
 
-    .type-options {
+    .input {
       float: right;
-      margin-bottom: 5px;
+      margin-right: 25px;
 
-      .input {
-        float: right;
-        margin-right: 25px;
+      input[type=radio] {
+        margin-right: 0;
+      }
 
-        input[type=radio] {
-          margin-right: 0;
-        }
-
-        label {
-          display: inline;
-        }
+      label {
+        display: inline;
       }
     }
-
   }
-
 }

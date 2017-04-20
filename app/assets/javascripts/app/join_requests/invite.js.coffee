@@ -1,6 +1,9 @@
-$ ->
-  if isOnPage 'join_requests', 'invite'
+mconf.JoinRequests or= {}
 
+class mconf.JoinRequests.Invite
+
+  @bind: ->
+    new mconf.JoinRequests.Invite()
     # invite is selected by default
     enableDisableMessage()
 
@@ -35,6 +38,9 @@ $ ->
           q: term # search term
         results: (data, page) -> # parse the results into the format expected by Select2.
           results: data
+
+  @unbind: ->
+    # TODO: can it be done?
 
 # Enable the message unless there is an option to add people and it is selected.
 # Covers the case when there's no option to add people, when the 'invite people' is the default.
