@@ -224,17 +224,28 @@ describe Profile do
     end
   end
 
-  context "after_update" do
+ context "after_update" do
     let(:user) { FactoryGirl.create(:user) }
     let(:profile) { user.profile }
 
-    context "updates the name of the user's web conference room" do
+    context "updates the name of the user's web conference room if both were equal" do
       before(:each) {
+        profile.update_attributes(full_name: "name before")
         profile.user.bigbluebutton_room.update_attribute(:name, "name before")
-        profile.update_attributes(:full_name => "name after")
+        profile.update_attributes(full_name: "name after")
       }
 
       it { profile.user.bigbluebutton_room.name.should eq("name after") }
+    end
+
+    context "does not update the name of the user's web conference room if both were different" do
+      before(:each) {
+        profile.update_attributes(full_name: "name before")
+        profile.user.bigbluebutton_room.update_attribute(:name, "other name")
+        profile.update_attributes(full_name: "name after")
+      }
+
+      it { profile.user.bigbluebutton_room.name.should eq("other name") }
     end
   end
 

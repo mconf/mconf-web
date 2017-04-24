@@ -316,7 +316,7 @@ class SpacesController < InheritedResources::Base
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
+        [ :id, :attendee_key, :moderator_key, :name, :default_layout, :private, :welcome_msg ]
     ]
   end
 
