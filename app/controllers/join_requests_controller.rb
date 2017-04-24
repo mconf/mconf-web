@@ -112,9 +112,8 @@ class JoinRequestsController < ApplicationController
     @join_request.introducer = current_user if @join_request.is_request?
 
     # allow admins to set the role when accepting a join request
-    if params[:join_request].present? && params[:join_request][:role_id].present? &&
-      can?(:manage_join_requests, @space)
-      @join_request.role_id = params[:join_request][:role_id]
+    if params[:admin].present? && can?(:manage_join_requests, @space)
+      @join_request.role_id = Role.find_by_name("Admin").id
     end
 
     save_for_accept_and_decline t('join_requests.accept.accepted')

@@ -47,4 +47,4 @@ class mconf.JoinRequests.Invite
 enableDisableMessage = ->
   typeAdd = $('#type_add')
   selected = !(typeAdd.is(":visible") && typeAdd.is(":checked"))
-  $('#join_request_comment').enable(selected)
+  $('#join_request_comment').toggle(selected)

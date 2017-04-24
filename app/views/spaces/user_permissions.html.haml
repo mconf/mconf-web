@@ -5,10 +5,10 @@
 - spaces_admin_menu_at :users
 = render 'spaces/admin_tabs'
 
-#user-permission
+#user-permission.list-container
   - for permission in @permissions
     - user = permission.user
-    %div{:class => "thread #{cycle('thread-even','thread-odd')}"}
+    %div{:class => "thread #{cycle('thread-even','thread-odd')} list-item"}
       .logo-in-thread
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
