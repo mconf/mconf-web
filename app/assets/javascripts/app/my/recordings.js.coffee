@@ -1,9 +1,12 @@
 # What is done here is almost duplicated at spaces/recordings.js.coffee
 # The ids are slightly different, so we didn't make this a partial. But whatever is
 # done here might have to be done at spaces/recordings.js.coffee as well.
+#= require "../my/_edit_room"
 
 $ ->
   if isOnPage 'my', 'recordings'
+    mconf.Resources.addToBind ->
+      mconf.EditRoom.setup()
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db

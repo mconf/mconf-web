@@ -224,7 +224,7 @@ describe User do
       user.bigbluebutton_room.attendee_key.should_not be_blank
       user.bigbluebutton_room.attendee_key.length.should be(8)
       user.bigbluebutton_room.moderator_key.should_not be_blank
-      user.bigbluebutton_room.moderator_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.length.should be(16)
     end
 
     skip "has the server as the first server existent"
