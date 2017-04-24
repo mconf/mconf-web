@@ -21,7 +21,7 @@ class BaseMailer < ActionMailer::Base
   def create_email(to, from, subject, headers=nil)
     I18n.with_locale(locale) do
       mail(:to => to,
-           :subject => "[#{Site.current.name}] #{subject}",
+           :subject => subject,
            :from => "#{Site.current.name} <#{Site.current.smtp_sender}>",
            :headers => headers,
            :reply_to => from) do |format|

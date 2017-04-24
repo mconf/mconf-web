@@ -18,7 +18,7 @@ describe SpaceMailer do
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([join_request.email]) }
       it("sets 'subject'") {
-        text = "[#{Site.current.name}] #{I18n.t('space_mailer.invitation_email.subject', :space => space.name, :username => introducer.full_name)}"
+        text = I18n.t('space_mailer.invitation_email.subject', :space => space.name, :username => introducer.full_name)
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -75,7 +75,6 @@ describe SpaceMailer do
         text = I18n.t("space_mailer.processed_invitation_email.subject",
                       :name => candidate.name,
                       :action => I18n.t("space_mailer.processed_invitation_email.accepted"))
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -105,7 +104,6 @@ describe SpaceMailer do
         text = I18n.t("space_mailer.processed_invitation_email.subject",
                       :name => candidate.name,
                       :action => I18n.t("space_mailer.processed_invitation_email.rejected"))
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("assigns @candidate, @introducer and @action") {
@@ -172,7 +170,6 @@ describe SpaceMailer do
       it("sets 'subject'") {
         text = I18n.t('space_mailer.join_request_email.subject',
                       :candidate => candidate.name, :space => space.name)
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -226,7 +223,6 @@ describe SpaceMailer do
         text = I18n.t("space_mailer.processed_join_request_email.subject",
                       :space => space.name,
                       :action => I18n.t("space_mailer.processed_join_request_email.accepted"))
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -248,7 +244,6 @@ describe SpaceMailer do
         text = I18n.t("space_mailer.processed_join_request_email.subject",
                       :space => space.name,
                       :action => I18n.t("space_mailer.processed_join_request_email.rejected"))
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("assigns @join_request, @space and @action") {

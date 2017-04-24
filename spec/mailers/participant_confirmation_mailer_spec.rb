@@ -18,7 +18,6 @@ describe ParticipantConfirmationMailer do
       it("sets 'to'") { mail.to.should eql([pc.email]) }
       it("sets 'subject'") {
         text = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name)
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
