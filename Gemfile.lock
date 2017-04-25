@@ -77,6 +77,11 @@ GEM
     acts_as_tree (2.0.0)
       activerecord (>= 3.0.0)
     addressable (2.3.6)
+    ahoy_email (0.4.0)
+      addressable
+      nokogiri
+      rails
+      safely_block (>= 0.1.1)
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -202,6 +207,7 @@ GEM
       i18n
     epic-editor-rails (0.2.4)
       railties (>= 3.2, < 5.0)
+    errbase (0.0.3)
     erubis (2.7.0)
     eventmachine (1.0.5)
     exception_notification (4.0.1)
@@ -438,6 +444,8 @@ GEM
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
     safe_yaml (1.0.4)
+    safely_block (0.2.0)
+      errbase
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -550,6 +558,7 @@ DEPENDENCIES
   active_sanity
   acts-as-taggable-on (~> 4.0)
   acts_as_tree (~> 2.0.0)
+  ahoy_email
   autoprefixer-rails (~> 6.6.0)
   awesome_print
   bcrypt (~> 3.1.5)

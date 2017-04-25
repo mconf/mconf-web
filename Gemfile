@@ -111,6 +111,9 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'rubyntlm'
 gem 'savon', '~> 2.0'
 
+# Mail tracker
+gem 'ahoy_email'
+
 #
 # TODO: Gems to review if we can remove/update
 #
