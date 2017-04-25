@@ -238,6 +238,26 @@ a:not(.btn) .icon-awesome {
     color: $m-yellow;
   }
 
+  &.icon-mconf-stack-superuser {
+    font-size: 18px;
+    position: relative;
+    left: 2px;
+    color: $m-red;
+  }
+
+  &.icon-mconf-stack-user {
+    font-size: 18px;
+    position: relative;
+    left: 4px;
+  }
+
+  &.icon-mconf-stack-plus {
+    position: absolute;
+    right: 7px;
+    bottom: 5px;
+    font-size: 11px;
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}

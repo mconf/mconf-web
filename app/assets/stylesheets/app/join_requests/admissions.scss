@@ -14,6 +14,7 @@ body.join_requests.admissions {
       }
       #button {
         float: right;
+        margin-bottom: 8px;
       }
     }
 
@@ -38,13 +39,6 @@ body.join_requests.admissions {
       background: $m-very-light-gray;
       padding: 5px;
       margin: 5px 0;
-    }
-
-    #join-requests {
-      form .btn-small {
-        padding-top: 2px;
-        padding-bottom: 2px;
-      }
     }
   }
 

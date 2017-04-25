@@ -57,6 +57,8 @@ en:
       title: Press Ctrl+C to copy the text
   _other:
     accept: "Accept"
+    accept_admin: "Add Admin"
+    accept_user: "Add User"
     access_denied: "You need to sign in or sign up before continuing."
     auth:
       certificate: "certificate"
@@ -893,6 +895,7 @@ en:
         searching: "Searching..."
     admissions:
       title: "Admissions"
+      invite_user: "Invite Users"
       no_pending_invitations: "There are no pending invitations"
       no_pending_requests: "There are no pending join requests"
       pending_invitations_title: "Pending invitations"

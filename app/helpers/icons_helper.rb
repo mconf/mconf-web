@@ -263,6 +263,20 @@ module IconsHelper
     icon_constructor nil, "fa fa-clock-o icon-awesome icon-mconf-later", options
   end
 
+  def icon_add_admin(options={})
+    content_tag :div, :class => 'input-group' do
+      concat icon_constructor nil, "fa fa-wrench icon-awesome icon-mconf-stack-superuser", options.clone
+      concat icon_constructor nil, "fa fa-plus icon-awesome icon-mconf-stack-plus", options.clone
+    end
+  end
+
+  def icon_add_user(options={})
+    content_tag :div, :class => 'input-group' do
+      concat icon_constructor nil, "fa fa-user icon-awesome icon-mconf-stack-user", options.clone
+      concat icon_constructor nil, "fa fa-plus icon-awesome icon-mconf-stack-plus", options.clone
+    end
+  end
+
   private
 
   # Base method for most of the methods above

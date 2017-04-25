@@ -57,6 +57,8 @@ pt-br:
       title: Aperte Ctrl+C para copiar o texto
   _other:
     accept: "Aceitar"
+    accept_admin: "Administrador"
+    accept_user: "Usuário"
     access_denied: "É preciso entrar ou se registrar para poder continuar."
     auth:
       certificate: "certificado"
@@ -905,6 +907,7 @@ pt-br:
         searching: "Procurando..."
     admissions:
       title: "Admissões"
+      invite_user: "Convidar usuários"
       pending_invitations_title: "Convites pendentes"
       pending_requests_title: "Pedidos de adesão pendentes"
       no_pending_invitations: "Não existem convites pendentes"
