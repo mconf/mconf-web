@@ -49,13 +49,10 @@ describe User do
 
   it { should have_one(:profile).dependent(:destroy) }
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
-
   it { should have_and_belong_to_many(:spaces) }
-
   it { should have_many(:permissions) }
-
   it { should have_many(:posts) }
-
+  it { should have_many(:emails) }
   it { should have_one(:ldap_token).dependent(:destroy) }
   it { should have_one(:shib_token).dependent(:destroy) }
   it { should have_one(:certificate_token).dependent(:destroy) }

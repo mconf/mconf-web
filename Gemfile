@@ -111,6 +111,9 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'rubyntlm'
 gem 'savon', '~> 2.0'
 
+# Mail tracker
+gem 'ahoy_email'
+
 #
 # TODO: Gems to review if we can remove/update
 #
@@ -125,7 +128,6 @@ group :development do
   gem 'brakeman', :require => false
   gem 'librarian-chef'
   gem 'mailcatcher'
-  gem 'xray-rails'
 
   # to show better error pages, with more information
   gem 'better_errors'
