@@ -65,8 +65,8 @@ feature "Viewing join requests" do
       should_be_403_page
     end
 
-    scenario "trying to view join request index" do
-      visit space_join_requests_path(space)
+    scenario "trying to view join request admissions list" do
+      visit admissions_space_join_requests_path(space)
       should_be_403_page
     end
 
@@ -263,8 +263,8 @@ feature "Viewing join requests" do
       current_path.should eq(login_path)
     end
 
-    scenario "trying to index join requests" do
-      visit space_join_requests_path(space)
+    scenario "trying to view list of admissions" do
+      visit admissions_space_join_requests_path(space)
 
       current_path.should eq(login_path)
       end

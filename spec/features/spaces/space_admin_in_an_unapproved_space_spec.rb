@@ -69,8 +69,7 @@ describe 'Space admin in an unapproved space' do
       before { visit edit_space_path(space) }
 
       it { should have_link('', href: edit_space_path(space)) }
-      it { should have_link('', href: invite_space_join_requests_path(space)) }
-      it { should have_link('', href: space_join_requests_path(space)) }
+      it { should have_link('', href: admissions_space_join_requests_path(space)) }
       it { should have_link('', href: user_permissions_space_path(space)) }
     end
 

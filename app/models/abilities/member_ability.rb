@@ -66,7 +66,7 @@ module Abilities
         end
       end
 
-      alias_action :index_join_requests, :invite, to: :manage_join_requests
+      alias_action :admissions_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
       can [:manage_join_requests], Space do |s|
         s.admins.include?(user)
