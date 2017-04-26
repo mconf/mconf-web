@@ -17,7 +17,7 @@ module Shoulda
       def should_authorize(target, method, options={})
         options[:via] ||= :get
 
-        # For abilities with custom names like authorize!(@space,:index_join_requests)
+        # For abilities with custom names like authorize!(@space,:admissions_join_requests)
         # which is called in join_requests#index
         if options[:ability_name]
           ability_name = options[:ability_name]
