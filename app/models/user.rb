@@ -369,6 +369,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def trial_ending_soon_email
+    self.emails.find_by(mailer: "TrialNotificationsMailer#ending_soon")
+  end
+
+  def trial_ended_email
+    self.emails.find_by(mailer: "TrialNotificationsMailer#ended")
+  end
+
+  def trial_ended?
+    self.trial_expires_at <= DateTime.now
+  end
+
   protected
 
   def before_disable_and_destroy
@@ -399,6 +411,7 @@ class User < ActiveRecord::Base
   def init
     @created_by = nil
     self.can_record = Rails.application.config.can_record_default if self.can_record.nil?
+    self.trial_expires_at ||= Time.now + Rails.application.config.trial_days.days
   end
 
   # This overrides the method from Devise::Models::Trackable

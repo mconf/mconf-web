@@ -111,7 +111,6 @@ pt-br:
           event: "Site do evento"
           other: "Sala"
     welcome:
-      contact: "Entre em contato conosco para maiores informações: <a href='mailto:%{mail}'>%{mail}</a>"
       go_beyond:
         item1: "Customize sua sala com o logo e as cores da sua empresa. <strong>Sem custos adicionais</strong>;"
         item2: "Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"

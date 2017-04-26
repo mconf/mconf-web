@@ -29,4 +29,4 @@
   %li= t('.go_beyond.item2').html_safe
   %li= t('.go_beyond.item3').html_safe
 
-%p= t('.contact', mail: Site.current.smtp_receiver).html_safe
+%p= t('_other.mailers.contact', mail: Site.current.smtp_receiver).html_safe

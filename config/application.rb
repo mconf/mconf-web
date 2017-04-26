@@ -110,5 +110,8 @@ module Mconf
     # Themes: configure assets paths here!
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","stylesheets")
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","images")
+
+    # how long the trial lasts
+    config.trial_days = 60
   end
 end

@@ -1,0 +1,8 @@
+.centralized
+  %h1.title= t('_other.hi_name', name: @user.first_name)
+  .subtitle= t('.subject')
+
+%p= t('.line1', date: format_date(@user.trial_expires_at, :long, false)).html_safe
+%p= t('_other.mailers.contact', mail: Site.current.smtp_receiver).html_safe
+
+%p.unsubscribe-info= t('_other.mailers.unsubscribe', link: edit_user_url(@user)).html_safe

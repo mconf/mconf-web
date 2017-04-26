@@ -1,0 +1,13 @@
+---
+pt-br:
+  _other:
+    mailers:
+      contact: "Para mais informações entre em contato conosco em <a href='mailto:%{mail}'>%{mail}</a>."
+      unsubscribe: "Caso queira cancelar sua assinatura, acesse a página <a href='%{link}'>conta</a> e clique na opção para cancelar sua conta."
+  trial_notifications_mailer:
+    ended:
+      line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"
+      subject: "Seu período de testes chegou ao fim"
+    ending_soon:
+      line1: "Seu período de testes gratuito se encerra no dia <em>%{date}</em>, mas não se preocupe! Você já é nosso assinante e não precisa tomar nenhuma ação para continuar usando o Mconf. Esperamos que esteja gostando do serviço e queira continuar conosco! "
+      subject: "Seu período de testes está chegando ao fim"

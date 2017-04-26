@@ -486,6 +486,7 @@ ActiveRecord::Schema.define(version: 20170425163351) do
     t.boolean  "can_record"
     t.boolean  "approved",                            default: false, null: false
     t.datetime "current_local_sign_in_at"
+    t.datetime "trial_expires_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

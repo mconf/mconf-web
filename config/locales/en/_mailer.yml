@@ -111,7 +111,6 @@ en:
           event: "Event site"
           other: "Room"
     welcome:
-      contact: "Contact us for more information: <a href='mailto:%{mail}'>%{mail}</a>"
       go_beyond:
         item1: "Customize your room with the logo and the colors of your organization. <strong>No additional cost</strong>;"
         item2: "Integrate with your LMS (Learning Management System). Available for: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"

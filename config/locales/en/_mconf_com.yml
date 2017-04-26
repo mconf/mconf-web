@@ -1,0 +1,13 @@
+---
+en:
+  _other:
+    mailers:
+      contact: "Contact us for more information at <a href='mailto:%{mail}'>%{mail}</a>."
+      unsubscribe: "If you wish to cancel your subscription, access the <a href='%{link}'>account</a> page and click the option to cancel your account."
+  trial_notifications_mailer:
+    ended:
+      line1: "We would like to remind you that your trial period is ending today. You can find the <em>service fees</em> that will be applicable to your account at: <a href='https://mconf.com/pricing'>https://mconf.com/pricing</a>"
+      subject: "Your trial period has ended"
+    ending_soon:
+      line1: "Your trial period will end on <em>%{date}</em>, but don't worry! You are already signed up to the service and won't need to do anything to keep using it. We hope you're enjoying the experience and wish to stay with us!"
+      subject: "Your trial period is ending soon"

@@ -59,3 +59,10 @@ update_space_relevance_indexes:
    class: UpdateSpaceRelevanceIndexesWorker
    queue: low
    description: "Recalculate and update indexes used for ordering spaces in the spaces#index page."
+
+trial_notifications:
+  every:
+    - "1h"
+  class: TrialNotificationsWorker
+  queue: low
+  description: "Send notifications about the trial period."
