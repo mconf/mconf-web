@@ -269,7 +269,8 @@ class User < ActiveRecord::Base
   # Sets the user as approved and skips confirmation
   def approve!
     skip_confirmation! unless confirmed?
-    update_attributes(approved: true)
+    expires = self.trial_expires_at || Time.now + Rails.application.config.trial_days.days
+    update_attributes(approved: true, trial_expires_at: expires)
   end
 
   # Overrides a method from devise, see:
@@ -411,7 +412,11 @@ class User < ActiveRecord::Base
   def init
     @created_by = nil
     self.can_record = Rails.application.config.can_record_default if self.can_record.nil?
-    self.trial_expires_at ||= Time.now + Rails.application.config.trial_days.days
+
+    # otherwise the attribute is set when the user is approved
+    unless require_approval?
+      self.trial_expires_at ||= Time.now + Rails.application.config.trial_days.days
+    end
   end
 
   # This overrides the method from Devise::Models::Trackable
