@@ -16,7 +16,7 @@ describe ApplicationMailer do
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([Site.current.smtp_receiver]) }
       it("sets 'subject'") {
-        text = "#{I18n.t('application_mailer.feedback_email.subject')}: #{subject}"
+        text = I18n.t('application_mailer.feedback_email.subject')
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }

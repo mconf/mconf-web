@@ -94,15 +94,14 @@ describe UserMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
 
       context "in body message" do
-        it("assigns @user_name") {
-          mail.body.encoded.should match(user.name)
+        it("assigns @user") {
+          mail.body.encoded.should match(user.first_name)
         }
         it("sends a link to site root_path") {
           mail.body.encoded.should match(root_url(host: Site.current.domain))
         }
         it("sends a link to the users home_path") {
-          content = I18n.t('user_mailer.registration_by_admin_notification_email.click_here', url: url)
-          mail.body.encoded.should match(content)
+          mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home'), href: url)
         }
       end
     end
@@ -113,8 +112,7 @@ describe UserMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        content = I18n.t('user_mailer.registration_by_admin_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
 
@@ -124,8 +122,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('user_mailer.registration_by_admin_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
 
@@ -136,8 +133,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('user_mailer.registration_by_admin_notification_email.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
   end
