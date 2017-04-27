@@ -19,6 +19,11 @@ class BaseMailer < ActionMailer::Base
 
   # Default method to create an email object
   def create_email(to, from, subject, headers=nil)
+    # set variables for views
+    caller = BaseMailer.get_caller_name(caller_locations(1,1)[0])
+    @mailer_name = caller[0]
+    @mail_name = caller[1]
+
     I18n.with_locale(locale) do
       mail(:to => to,
            :subject => subject,
@@ -61,4 +66,14 @@ class BaseMailer < ActionMailer::Base
     end
   end
 
+  # Returns an array with the class and method that called the method that is calling
+  # this method (o.o'). Call with:
+  #   get_caller_name(caller_locations(1,1)[0])
+  def self.get_caller_name(caller_obj)
+    file = caller_obj.absolute_path # e.g. /vagrant/app/mailers/web_conference_mailer.rb
+    file = File.basename(file).gsub(/\..*/, '')
+    method = caller_obj.base_label # e.g. invitation_email
+    # "#{file}##{method}"
+    [file, method]
+  end
 end
