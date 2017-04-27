@@ -43,8 +43,7 @@ class SpacesController < InheritedResources::Base
   layout :determine_layout
 
   def determine_layout
-    case params[:action].to_sym
-    when :new
+    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
       "navbar_bg"
     else
       "application"
