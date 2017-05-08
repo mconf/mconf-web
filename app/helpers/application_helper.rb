@@ -105,7 +105,9 @@ module ApplicationHelper
   # Returns the url prefix used to identify a webconf room
   # e.g. 'https://server.org/webconf/'
   def webconf_url_prefix
-    "#{Site.current.domain_with_protocol}/#{webconf_path_prefix}"
+    path = webconf_path_prefix
+    path = '/' + path unless path.match(/^\//)
+    "#{Site.current.domain_with_protocol}#{path}"
   end
 
   # Returns the url prefix used to identify a webconf room
