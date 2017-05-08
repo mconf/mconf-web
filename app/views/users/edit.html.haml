@@ -41,6 +41,8 @@
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
+      = f.fields_for :profile do |p|
+        = p.input :cpf_cnpj, required: false
       - if can?(:update_password, @user)
         - unless current_user.superuser?
           = f.input :current_password

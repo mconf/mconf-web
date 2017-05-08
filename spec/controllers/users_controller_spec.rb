@@ -260,7 +260,7 @@ describe UsersController do
         [ :remember_me, :login, :timezone,
           profile_attributes: [ :address, :city, :province, :country,
                                 :zipcode, :phone, :full_name, :organization,
-                                :description, :url,
+                                :description, :url, :cpf_cnpj,
                                 :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ],
         ] + [:password, :password_confirmation, :current_password]
       }
