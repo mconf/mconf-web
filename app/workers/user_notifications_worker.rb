@@ -12,6 +12,7 @@ class UserNotificationsWorker < BaseWorker
   def self.perform
     notify_users_account_created
     notify_users_account_created_by_admin
+    notify_users_account_cancelled
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
@@ -68,6 +69,16 @@ class UserNotificationsWorker < BaseWorker
     end
   end
 
+  # Finds all users that were created by a admin but not notified of it yet and schedules
+  # a worker to notify them.
+  def self.notify_users_account_cancelled
+    activities = get_recent_activity
+      .where(trackable_type: 'User', notified: [nil, false], key: 'user.cancelled')
+    activities.each do |activity|
+      Queue::High.enqueue(UserNotificationsWorker, :cancelled_sender, activity.id)
+    end
+  end
+
   # Finds all users that were approved but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_after_approved
@@ -119,6 +130,20 @@ class UserNotificationsWorker < BaseWorker
 
       Resque.logger.info "Sending user registered email to #{user_id}"
       UserMailer.registration_by_admin_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was cancelled successfully.
+  def self.cancelled_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user cancelled email to #{user_id}"
+      UserMailer.cancellation_notification_email(activity.trackable_id).deliver
 
       activity.update_attribute(:notified, true)
     end
