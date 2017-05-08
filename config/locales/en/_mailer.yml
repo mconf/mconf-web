@@ -21,6 +21,10 @@ en:
     registration_by_admin_notification_email:
       notification: "You are receiving this message because an account was created for you by an administrator. If you think this was an error please contact us responding to this email."
       subject: "Welcome to Mconf!"
+    cancellation_notification_email:
+      hello: "Hello %{name},"
+      message: "We're sending this email to inform you that your account cancellation on <a href=\"%{url}\">%{site}</a> has completed successfully!"
+      subject: "Your cancellation has been completed"
   event_mailer:
     invitation_email:
       message:

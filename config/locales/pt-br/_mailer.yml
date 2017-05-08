@@ -21,6 +21,10 @@ pt-br:
     registration_by_admin_notification_email:
       notification: "Você está recebendo esta mensagem pois uma conta foi criada para você por um administrador do site. Se você acha que foi um mal entendido por favor entre em contato conosco respondendo a este e-mail."
       subject: 'Bem vindo(a) ao Mconf!'
+    cancellation_notification_email:
+      hello: "Olá %{name},"
+      message: "Estamos enviado este email para lhe informar que o seu cancelamento de conta em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
+      subject: "cancelamento realizado com sucesso"
   event_mailer:
     invitation_email:
       message:
