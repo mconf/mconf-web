@@ -29,7 +29,7 @@ class SpaceNotificationsWorker < BaseWorker
         if space.blank? || space.approved?
           activity.update_attribute(:notified, true)
         else
-          Queue::High.enqueue(SpaceNeedsApprovalSenderWorker, :perform, activity.id, recipients)
+          Queue::High.enqueue(SpaceNotificationsWorker, :needs_approval_sender, activity.id, recipients)
         end
       end
     end
@@ -40,8 +40,40 @@ class SpaceNotificationsWorker < BaseWorker
     activities = get_recent_activity
       .where trackable_type: 'Space', key: 'space.approved', notified: [nil, false]
     activities.each do |activity|
-      Queue::High.enqueue(SpaceApprovedSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(SpaceNotificationsWorker, :approved_sender, activity.id)
     end
   end
 
+  # Sends a notification to all recipients in the array of ids `recipient_ids`
+  # informing that the space with id `space_id` needs to be approved.
+  def self.needs_approval_sender(activity_id, recipient_ids)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified? && activity.trackable.present?
+      space_id = activity.trackable_id
+      recipients = User.find(recipient_ids)
+
+      recipients.each do |recipient|
+        Resque.logger.info "Sending space needs approval email to #{recipient.inspect}, for space #{space_id}"
+        SpaceMailer.new_space_waiting_for_approval_email(recipient.id, space_id).deliver
+      end
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the space creator and all admins that the space with id `space_id` was approved.
+  def self.approved_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified? && activity.trackable.present?
+
+      activity.trackable.admin_ids.each do |user_id|
+        Resque.logger.info "Sending space approved email to #{user_id}"
+        SpaceMailer.new_space_approved_email(user_id, activity.trackable_id).deliver
+      end
+
+      activity.update_attribute(:notified, true)
+    end
+  end
 end

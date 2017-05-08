@@ -270,7 +270,7 @@ describe SpacesController do
 
       describe "renders the view spaces/new with the correct layout" do
         before(:each) { post :create, :space => invalid_attributes }
-        it { should render_with_layout("application") }
+        it { should render_with_layout("navbar_bg") }
         it { should render_template("spaces/new") }
       end
 

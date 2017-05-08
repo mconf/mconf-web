@@ -11,7 +11,19 @@ class ParticipantConfirmationsWorker < BaseWorker
   def self.perform
     confirmations = ParticipantConfirmation.where(email_sent_at: [nil])
     confirmations.each do |confirmation|
-      Queue::High.enqueue(ParticipantConfirmationsSenderWorker, :perform, confirmation.id)
+      Queue::High.enqueue(ParticipantConfirmationsWorker, :confirmation_sender, confirmation.id)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was approved.
+  def self.confirmation_sender(pc_id)
+    pc = ParticipantConfirmation.find(pc_id)
+
+    if pc.email_sent_at.blank?
+      Resque.logger.info "Sending event confirmation email to email to #{pc.email}"
+      ParticipantConfirmationMailer.confirmation_email(pc_id).deliver
+      pc.email_sent_at = Time.new
+      pc.save!
     end
   end
 end

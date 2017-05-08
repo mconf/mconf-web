@@ -18,6 +18,8 @@
     .list-text-title
       = link_to space_path(space) do
         = Mconf::Highlighter.highlight(space.name, params[:q].try(:split))
+      - if current_page?(my_home_path)
+        = render :partial => 'spaces/requests_notifications', :locals => { :@space => space }
       - unless compact
         = render :partial => "spaces/space_tags", :locals => { :space => space }
 

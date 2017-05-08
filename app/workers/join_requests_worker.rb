@@ -20,7 +20,7 @@ class JoinRequestsWorker < BaseWorker
   def self.invite_notifications
     invites = get_recent_activity.where trackable_type: 'JoinRequest', key: 'join_request.invite', notified: [nil,false]
     invites.each do |activity|
-      Queue::High.enqueue(JoinRequestInviteSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(JoinRequestsWorker, :invite_sender, activity.id)
     end
   end
 
@@ -29,7 +29,7 @@ class JoinRequestsWorker < BaseWorker
   def self.request_notifications
     requests = get_recent_activity.where trackable_type: 'JoinRequest', key: 'join_request.request', notified: [nil,false]
     requests.each do |activity|
-      Queue::High.enqueue(JoinRequestSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(JoinRequestsWorker, :request_sender, activity.id)
     end
   end
 
@@ -45,7 +45,7 @@ class JoinRequestsWorker < BaseWorker
     end
 
     requests.each do |activity|
-      Queue::High.enqueue(ProcessedJoinRequestSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(JoinRequestsWorker, :processed_request_sender, activity.id)
     end
   end
 
@@ -53,7 +53,90 @@ class JoinRequestsWorker < BaseWorker
     joins = get_recent_activity.where trackable_type: 'JoinRequest', key: ['join_request.no_accept'], notified: [nil, false]
 
     joins.each do |activity|
-      Queue::High.enqueue(JoinRequestUserAddedSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(JoinRequestsWorker, :user_added_sender, activity.id)
     end
+  end
+
+  # Finds the join request associated with the activity in `activity_id` and sends
+  # a notification to the user that he/she was invited to join the space.
+  # Marks the activity as notified.
+  def self.invite_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+    join_request = activity.trackable
+
+    return if activity.notified
+
+    if join_request.nil?
+      Resque.logger.info "Invalid join request in a recent activity item: #{activity.inspect}"
+    else
+      Resque.logger.info "Sending join request invite notification: #{join_request.inspect}"
+      SpaceMailer.invitation_email(join_request.id).deliver
+    end
+
+    activity.notified = true
+    activity.save!
+  end
+
+  # Finds the join request associated with the activity in `activity_id` and sends
+  # a notification to the admins of the space that a user wants to join the space.
+  # Marks the activity as notified.
+  def self.request_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+    space = activity.owner
+
+    return if activity.notified
+
+    if space.nil?
+      Resque.logger.info "Invalid space in a recent activity item: #{activity.inspect}"
+    elsif !activity.trackable.present?
+      Resque.logger.info "Invalid trackable in a recent activity item: #{activity.inspect}"
+    else
+      # notify each admin of the space
+      space.admins.each do |admin|
+        Resque.logger.info "Sending join request notification to: #{admin.inspect}"
+        SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
+      end
+    end
+
+    activity.notified = true
+    activity.save!
+  end
+
+  # Finds the join request associated with the activity in `activity_id` and sends
+  # a notification to the users that the join request was accepted/declined.
+  # Marks the activity as notified.
+  def self.processed_request_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+    join_request = activity.trackable
+
+    return if activity.notified
+
+    if join_request.is_request?
+      Resque.logger.info "Sending processed join request notification: #{join_request.inspect}"
+      SpaceMailer.processed_join_request_email(join_request.id).deliver
+    else
+      Resque.logger.info "Sending processed join request invitation notification: #{join_request.inspect}"
+      SpaceMailer.processed_invitation_email(join_request.id).deliver
+    end
+
+    activity.notified = true
+    activity.save!
+  end
+
+  def self.user_added_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+    join_request = activity.trackable
+
+    return if activity.notified
+
+    if join_request.nil?
+      Resque.logger.info "Invalid join request in a recent activity item: #{activity.inspect}"
+    else
+      Resque.logger.info "Sending join request no accept notification: #{join_request.inspect}"
+      SpaceMailer.user_added_email(join_request.id).deliver
+    end
+
+    activity.notified = true
+    activity.save!
   end
 end

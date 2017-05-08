@@ -8,11 +8,9 @@ require 'spec_helper'
 
 describe SpaceNotificationsWorker, type: :worker do
   let(:worker) { SpaceNotificationsWorker }
-  let(:senderNA) { SpaceNeedsApprovalSenderWorker }
-  let(:senderA) { SpaceApprovedSenderWorker}
   let(:queue) { Queue::High }
-  let(:paramsNA) {{"method"=>:perform, "class"=>senderNA.to_s}}
-  let(:paramsA) {{"method"=>:perform, "class"=>senderA.to_s}}
+  let(:paramsNA) {{"method"=>:needs_approval_sender, "class"=>worker.to_s}}
+  let(:paramsA) {{"method"=>:approved_sender, "class"=>worker.to_s}}
 
   describe "#perform" do
 
@@ -159,4 +157,110 @@ describe SpaceNotificationsWorker, type: :worker do
 
   end
 
+  describe "#needs_approval_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
+    let(:activity) { RecentActivity.where(trackable_type: 'Space', key: 'space.create',
+                                          trackable_id: space.id, notified: [false, nil]).first }
+
+    before {
+      Site.current.update_attributes(require_space_approval: true)
+    }
+
+    before {
+      space.new_activity('create', user)
+      space.add_member!(user, 'Admin')
+    }
+
+    context "for an already notified activity" do
+      let(:recipient1) { user }
+      let(:recipient_ids) {
+        [ recipient1.id ]
+      }
+
+      before(:each) {
+        activity.update_attributes(notified: true)
+        worker.needs_approval_sender(activity.id, recipient_ids)
+      }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
+      it { SpaceMailer.should_not have_queued(:new_space_waiting_for_approval_email, recipient1.id, space.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "for a single recipient" do
+      let(:recipient1) { space.admins.first }
+      let(:recipient_ids) {
+        [ recipient1.id ]
+      }
+
+      before(:each) { worker.needs_approval_sender(activity.id, recipient_ids) }
+
+      it { SpaceMailer.should have_queue_size_of_at_least(1) }
+      it { SpaceMailer.should have_queued(:new_space_waiting_for_approval_email, recipient1.id, space.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "for multiple recipients" do
+      before {
+        space.add_member!(FactoryGirl.create(:user), 'Admin')
+        space.add_member!(FactoryGirl.create(:user), 'Admin')
+      }
+      let(:recipient1) { space.admins[0] }
+      let(:recipient2) { space.admins[1] }
+      let(:recipient3) { space.admins[2] }
+      let(:recipient_ids) {
+        [ recipient1.id, recipient2.id, recipient3.id ]
+      }
+
+      before {
+        worker.needs_approval_sender(activity.id, recipient_ids)
+      }
+      it { SpaceMailer.should have_queue_size_of_at_least(3) }
+      it {
+        SpaceMailer.should have_queued(:new_space_waiting_for_approval_email, recipient1.id, space.id).in(:mailer)
+        SpaceMailer.should have_queued(:new_space_waiting_for_approval_email, recipient2.id, space.id).in(:mailer)
+        SpaceMailer.should have_queued(:new_space_waiting_for_approval_email, recipient3.id, space.id).in(:mailer)
+      }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#approved_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space, approved: false) }
+    let(:activity) { RecentActivity.last }
+    let(:approver) { FactoryGirl.create(:user) }
+
+    before {
+      Site.current.update_attributes(require_space_approval: true)
+    }
+
+    context "when the activity has not been notified" do
+      before {
+        space.add_member!(user, 'Admin')
+        space.approve!
+        space.create_approval_notification(approver)
+        worker.approved_sender(activity.id)
+      }
+
+      it { SpaceMailer.should have_queue_size_of_at_least(1) }
+      it { SpaceMailer.should have_queued(:new_space_approved_email, user.id, space.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the activity has already been notified" do
+      before {
+        space.add_member!(user, 'Admin')
+        space.approve!
+        space.create_approval_notification(approver)
+        activity.update_attributes(notified: true)
+        worker.approved_sender(activity.id)
+      }
+
+      it { SpaceMailer.should have_queue_size_of_at_least(0) }
+      it { SpaceMailer.should_not have_queued(:new_space_approved_email, user.id, space.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
 end

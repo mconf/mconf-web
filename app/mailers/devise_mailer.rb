@@ -13,12 +13,18 @@ class DeviseMailer < Devise::Mailer
   def confirmation_instructions(record, token, opts={})
     return if !record.local_auth?
 
+    @mailer_name = 'devise'
+    @mail_name = 'confirmation_instructions'
+
     opts[:subject] = t('devise.mailer.confirmation_instructions.subject')
     super
   end
 
   def reset_password_instructions(record, token, opts={})
     return if !record.local_auth?
+
+    @mailer_name = 'devise'
+    @mail_name = 'reset_password_instructions'
 
     opts[:subject] = t('devise.mailer.reset_password_instructions.subject')
     super

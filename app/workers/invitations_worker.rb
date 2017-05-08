@@ -16,8 +16,16 @@ class InvitationsWorker < BaseWorker
   def self.all_invitations
     invitations = Invitation.where sent: false, ready: true
     invitations.each do |invitation|
-      Queue::High.enqueue(InvitationSenderWorker, :perform, invitation.id)
+      Queue::High.enqueue(InvitationsWorker, :invitation_sender, invitation.id)
     end
   end
 
+  # Finds the target notification and sends it. Marks it as notified.
+  def self.invitation_sender(invitation_id)
+    invitation = Invitation.find(invitation_id)
+    if !invitation.sent?
+      result = invitation.send_invitation
+      invitation.update_attributes(sent: true, result: result)
+    end
+  end
 end
