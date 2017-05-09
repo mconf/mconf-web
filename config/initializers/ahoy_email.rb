@@ -1,2 +1,6 @@
-# Disable click tracking and UTM params by default
-AhoyEmail.track utm_params: false, click: false
+# Start and configure email tracking
+AhoyEmail.track(
+  utm_params: false,
+  open: Rails.application.config.email_track_opened,
+  click: Rails.application.config.email_track_clicked
+)
