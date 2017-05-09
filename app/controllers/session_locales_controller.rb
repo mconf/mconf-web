@@ -8,31 +8,27 @@
 class SessionLocalesController < ApplicationController
 
   def create
-    new_locale = params[:l]
+    new_locale = params[:lang]
 
     if Site.current.visible_locales.include?(new_locale)
-      name = locale_i18n(new_locale)
-
       # add locale to the session
       session[:locale] = new_locale
 
       # set the locale as the default for this user
       current_user.update_attribute(:locale, new_locale) if user_signed_in?
-
-      flash[:success] = t('session_locales.create.success', value: name, locale: new_locale)
     else
       flash[:error] = t('session_locales.create.error', value: new_locale)
     end
 
-    redirect_to after_create_path
+    base = request.referer || root_path
+    redirect_to_p after_create_path(base)
   end
 
   private
 
   # Returns the URL to which we should redirect after changing the language.
-  def after_create_path
-    ref = URI(request.referer).path
-
+  def after_create_path(base)
+    ref = URI(base).path
     # Some paths we don't want to redirect back to (usually routes that won't respond to
     # a GET request).
     if [user_registration_path].include?(ref)

@@ -179,7 +179,8 @@ Mconf::Application.routes.draw do
     resources :participants, except: [:show, :edit]
   end
 
-  resource :language, only: [:create], controller: :session_locales, as: :session_locale
+  post 'language/:lang', to: 'session_locales#create', language: /#{I18n.available_locales.join("|")}/, as: :session_locale
+  get 'language/:lang', to: 'session_locales#create', language: /#{I18n.available_locales.join("|")}/
 
   resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection

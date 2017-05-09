@@ -28,7 +28,7 @@
               %li
                 - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
                 - name = locale_i18n(locale)
-                = link_to main_app.session_locale_path(l: locale.to_s), method: :post do
+                = link_to main_app.session_locale_path(lang: locale.to_s), method: :post do
                   = flag + ' ' + name
 
     %ul#footer-links

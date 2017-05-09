@@ -501,7 +501,7 @@ describe CustomBigbluebuttonRoomsController do
       end
     end
 
-    for method in [:get, :post]
+    [:get, :post].each do |method|
       context "via #{method}" do
 
         context "fetches information about the room when calling #join" do
