@@ -104,12 +104,16 @@ module Mconf
     config.redis_db        = ENV['MCONF_REDIS_DB'] || 0
     config.redis_password  = ENV['MCONF_REDIS_PASSWORD'] || nil
 
+    # Email tracking
+    config.email_track_opened  = ENV['MCONF_EMAIL_TRACK_OPENED'] || true
+    config.email_track_clicked = ENV['MCONF_EMAIL_TRACK_CLICKED'] || false
+
     # Themes: set to the theme name if using any!
     config.theme           = ENV['MCONF_THEME']
 
     # Themes: configure assets paths here!
-    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","stylesheets")
-    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com","images")
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "stylesheets")
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")
 
     # how long the trial lasts
     config.trial_days = 60
