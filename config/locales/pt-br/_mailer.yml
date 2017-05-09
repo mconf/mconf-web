@@ -24,7 +24,7 @@ pt-br:
     cancellation_notification_email:
       hello: "Olá %{name},"
       message: "Estamos enviado este email para lhe informar que o seu cancelamento de conta em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
-      subject: "cancelamento realizado com sucesso"
+      subject: "Cancelamento realizado com sucesso"
   event_mailer:
     invitation_email:
       message:

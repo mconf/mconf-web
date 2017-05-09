@@ -407,6 +407,7 @@ class User < ActiveRecord::Base
   # For the disable module
   def before_disable
     before_disable_and_destroy
+    #send an e-mail notification about account cancelling
     create_activity 'cancelled', owner: self, notified: false, recipient: self
   end
 
