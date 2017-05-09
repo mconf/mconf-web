@@ -14,6 +14,7 @@ class BaseMailer < ActionMailer::Base
 
   add_template_helper(ApplicationHelper)
   add_template_helper(DatesHelper)
+  add_template_helper(EmailHelper)
 
   protected
 

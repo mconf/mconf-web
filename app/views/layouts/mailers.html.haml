@@ -1,3 +1,5 @@
+- image_path = "app/assets/themes/mconf-com/images"
+
 !!! Strict
 %html{:lang => I18n.locale.to_s}
   %head
@@ -7,7 +9,8 @@
   %body{:class => "#{@mailer_name} #{@mail_name}"}
     #logo
       = link_to root_url do
-        = image_tag URI.join(root_url, image_path('MconfTec.png')), size: '364x120'
+        = email_image_tag "#{image_path}/MconfTec.png", size: '364x120'
+
     #message-box
       = yield
     #footer
@@ -15,7 +18,7 @@
         %p
           %span= t('.social')
           = link_to "https://www.facebook.com/mconftecnologia/" do
-            = image_tag URI.join(root_url, image_path('ico-facebook.png')), size: '30x30'
+            = email_image_tag "#{image_path}/ico-facebook.png", size: '30x30'
           = link_to "https://www.linkedin.com/company/15257740" do
-            = image_tag URI.join(root_url, image_path('ico-linkedin.png')), size: '30x30'
+            = email_image_tag "#{image_path}/ico-linkedin.png", size: '30x30'
       %p= t('.signature').html_safe
