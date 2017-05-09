@@ -61,6 +61,9 @@ Mconf::Application.configure do
   # files, do they do not need their own route.
   config.assets.precompile +=
     Dir.glob("#{Rails.root}/vendor/assets/**/*.{png,jpg,gif}")
+  # Themes: set to the theme name if using any!
+  # config.assets.precompile +=
+  #   Dir.glob("#{Rails.root}/app/assets/themes/theme-name/images/*.{png,jpg,gif}")
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
