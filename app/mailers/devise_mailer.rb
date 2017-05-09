@@ -10,6 +10,8 @@ class DeviseMailer < Devise::Mailer
   default template_path: 'devise/mailer'
   layout 'mailers'
 
+  add_template_helper(EmailHelper)
+
   def confirmation_instructions(record, token, opts={})
     return if !record.local_auth?
 
