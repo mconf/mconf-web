@@ -87,7 +87,7 @@ class UsersController < InheritedResources::Base
     end
 
     if params[:user] && params[:user].has_key?(:superuser)
-      is_superuser = params[:user].delete(:superuser)
+      is_superuser = parse_boolean(params[:user].delete(:superuser))
       if current_user.superuser? && current_user != @user
         @user.set_superuser!(is_superuser)
       end
