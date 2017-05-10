@@ -105,8 +105,8 @@ module Mconf
     config.redis_password  = ENV['MCONF_REDIS_PASSWORD'] || nil
 
     # Email tracking
-    config.email_track_opened  = ENV['MCONF_EMAIL_TRACK_OPENED'] || true
-    config.email_track_clicked = ENV['MCONF_EMAIL_TRACK_CLICKED'] || false
+    config.email_track_opened  = ENV['MCONF_EMAIL_TRACK_OPENED'] == 'true'
+    config.email_track_clicked = ENV['MCONF_EMAIL_TRACK_CLICKED'] == 'true'
 
     # Themes: set to the theme name if using any!
     config.theme           = ENV['MCONF_THEME']
