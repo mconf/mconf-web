@@ -14,7 +14,7 @@
 
   - if current_user == @user
     #user-cancel-account
-      = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'btn btn-danger btn-sm'
+      = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t('.disable_confirm').html_safe }, method: :delete, class: 'btn btn-danger btn-sm'
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
@@ -94,7 +94,7 @@
                 = icon_confirm_user(:alt => t('.confirm_user'))
                 = t('.confirm_user')
           .input
-            = link_to disable_user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+            = link_to disable_user_path(@user), :data => { :confirm => t('.disable_confirm').html_safe }, :method => :delete do
               = icon_disable(:alt => t('.disable'))
               = t('.disable')
 
