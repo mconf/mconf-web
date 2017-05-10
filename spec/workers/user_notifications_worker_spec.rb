@@ -116,9 +116,7 @@ describe UserNotificationsWorker, type: :worker do
             trackable_id: user2.id, notified: [nil, false]).first }
           before {
             user1.approve!
-            user1.create_approval_notification(approver)
             user2.approve!
-            user2.create_approval_notification(approver)
             worker.perform
           }
 

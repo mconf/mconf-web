@@ -87,7 +87,7 @@ class UsersController < InheritedResources::Base
     end
 
     if params[:user] && params[:user].has_key?(:superuser)
-      is_superuser = params[:user].delete(:superuser)
+      is_superuser = parse_boolean(params[:user].delete(:superuser))
       if current_user.superuser? && current_user != @user
         @user.set_superuser!(is_superuser)
       end
@@ -158,7 +158,7 @@ class UsersController < InheritedResources::Base
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge('approved' => true))
     @user.created_by = current_user
     @user.skip_confirmation_notification!
 
@@ -166,7 +166,6 @@ class UsersController < InheritedResources::Base
 
       if @user.save
         @user.confirm
-        @user.approve!
         flash[:success] = t("users.create.success")
       else
         flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))

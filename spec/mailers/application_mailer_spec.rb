@@ -22,8 +22,8 @@ describe ApplicationMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([user.email]) }
-      it("assigns @text") { mail.body.encoded.should match(message) }
-      it("assigns @email") { mail.body.encoded.should match(user.email) }
+      it("assigns @text") { mail_content(mail).should match(message) }
+      it("assigns @email") { mail_content(mail).should match(user.email) }
     end
 
     context "uses the current site's locale, not the sender's" do
@@ -33,7 +33,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :name => user.name, :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -45,7 +45,7 @@ describe ApplicationMailer do
       }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :name => user.name, :email => user.email, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end

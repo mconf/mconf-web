@@ -26,11 +26,11 @@ describe UserMailer do
       context "if the site doesn't require registration approval" do
         before { Site.current.update_attributes(require_registration_approval: false) }
         it("assigns @user") {
-          mail.body.encoded.should match(user.first_name)
+          mail_content(mail).should match(user.first_name)
         }
         it("sends a link to the users home_path") {
           content = I18n.t('shared.welcome.lets_start.go_to_home')
-          mail.body.encoded.should match(content)
+          mail_content(mail).should match(content)
         }
       end
 
@@ -38,7 +38,7 @@ describe UserMailer do
         before { Site.current.update_attributes(require_registration_approval: true) }
         it("informs that the user needs to be approved") {
           content = I18n.t('devise.mailer.confirmation_instructions.confirmation_pending', url: root_url(host: Site.current.domain), site: Site.current.name)
-          mail.body.encoded.should match(content)
+          mail_content(mail).should match(content)
         }
       end
     end
@@ -50,7 +50,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -61,7 +61,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -73,7 +73,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
   end
@@ -95,13 +95,13 @@ describe UserMailer do
 
       context "in body message" do
         it("assigns @user") {
-          mail.body.encoded.should match(user.first_name)
+          mail_content(mail).should match(user.first_name)
         }
         it("sends a link to site root_path") {
-          mail.body.encoded.should match(root_url(host: Site.current.domain))
+          mail_content(mail).should match(root_url(host: Site.current.domain))
         }
         it("sends a link to the users home_path") {
-          mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home'), href: url)
+          mail_content(mail).should have_link(I18n.t('shared.welcome.lets_start.go_to_home'), href: url)
         }
       end
     end
@@ -112,7 +112,7 @@ describe UserMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
+        mail_content(mail).should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
 
@@ -122,7 +122,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
+        mail_content(mail).should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
 
@@ -133,7 +133,7 @@ describe UserMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        mail.body.encoded.should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
+        mail_content(mail).should have_link(I18n.t('shared.welcome.lets_start.go_to_home', locale: "pt-br"), href: my_home_url(host: Site.current.domain))
       }
     end
   end
@@ -156,13 +156,13 @@ describe UserMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       context "in body message" do
         it("assigns @user") {
-          mail.body.encoded.should match(user.first_name)
+          mail_content(mail).should match(user.first_name)
         }
         it("sends a link to site root_path") {
-          mail.body.encoded.should match(url)
+          mail_content(mail).should match(url)
         }
         it("sends a contact email information") {
-          mail.body.encoded.should match(contact)
+          mail_content(mail).should match(contact)
         }
       end
     end
@@ -174,7 +174,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('user_mailer.cancellation_notification_email.subject', url: url, site: name, locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -185,7 +185,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -197,7 +197,7 @@ describe UserMailer do
       }
       it {
         content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
   end

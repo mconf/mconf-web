@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_site
   helper_method :locale_i18n
+  helper_method :parse_boolean
 
   # Methods to render error pages and deal with exceptions
   include Mconf::ErrorsControllerModule
@@ -133,6 +134,10 @@ class ApplicationController < ActionController::Base
     unless Mconf::Modules.mod_enabled?('activities')
       raise ActionController::RoutingError.new('Not Found')
     end
+  end
+
+  def parse_boolean(value)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
   end
 
   private

@@ -61,11 +61,22 @@ module Helpers
   end
 
   module ClassMethods
-
     def set_custom_ability_actions(actions)
       before { Helpers.set_custom_ability_actions(actions) }
     end
 
+    def mail_body(mail)
+      if mail.parts.length > 0
+        mail.parts.first.body
+      else
+        mail.body
+      end
+    end
+
+    def mail_content(mail)
+      # remove line breaks so it's easier to match content
+      mail_body(mail).raw_source.gsub(/\n/, ' ')
+    end
   end
 
 end

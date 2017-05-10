@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
+  after_create :new_activity_user_created
 
   before_destroy :before_disable_and_destroy, prepend: true
 
@@ -172,6 +173,14 @@ class User < ActiveRecord::Base
 
   def ability
     @ability ||= Abilities.ability_for(self)
+  end
+
+  def new_activity_user_created
+    if created_by.present?
+      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
+    else
+      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
+    end
   end
 
   # Returns true if the user is anonymous (not registered)
@@ -301,15 +310,6 @@ class User < ActiveRecord::Base
     # note: not 'find' because some of the spaces might be disabled and 'find'
     # would raise an exception
     Space.where(id: ids)
-  end
-
-  after_create :new_activity_user_created
-  def new_activity_user_created
-    if created_by.present?
-      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
-    else
-      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
-    end
   end
 
   def created_by_shib?

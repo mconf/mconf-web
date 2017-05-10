@@ -24,13 +24,13 @@ describe SpaceMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([introducer.email]) }
-      it("assigns @user") { mail.body.encoded.should match(introducer.full_name) }
-      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("assigns @user") { mail_content(mail).should match(introducer.full_name) }
+      it("assigns @space") { mail_content(mail).should match(space.name) }
       it("renders the link to accept the invitation") {
         url = space_join_request_url(space, join_request, :host => Site.current.domain)
         url2 = space_url(space, :host => Site.current.domain)
         content = I18n.t('space_mailer.invitation_email.message.link', :url => url, :space_url => url2).html_safe
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -43,7 +43,7 @@ describe SpaceMailer do
       it {
         content = I18n.t('space_mailer.invitation_email.message.header', :sender => introducer.full_name,
                          :email_sender => introducer.email, :space => space.name, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -56,7 +56,7 @@ describe SpaceMailer do
       it {
         content = I18n.t('space_mailer.invitation_email.message.header', :sender => introducer.full_name,
                          :email_sender => introducer.email, :space => space.name, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end
@@ -80,7 +80,7 @@ describe SpaceMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([]) }
-      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("assigns @space") { mail_content(mail).should match(space.name) }
       it("assigns @candidate, @introducer and @action") {
         action = I18n.t("space_mailer.processed_invitation_email.accepted")
         content = I18n.t("space_mailer.processed_invitation_email.message.header",
@@ -88,12 +88,12 @@ describe SpaceMailer do
                          :name => candidate.name,
                          :action => action,
                          :space => space.name)
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
       it("renders a link to the list of users in the space") {
         url = space_users_url(space, :host => Site.current.domain)
         content = I18n.t('space_mailer.processed_invitation_email.message.link', :users_url => url).html_safe
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -113,12 +113,12 @@ describe SpaceMailer do
                          :name => candidate.name,
                          :action => action,
                          :space => space.name)
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
       it("renders a link to the list of users in the space") {
         url = space_users_url(space, :host => Site.current.domain)
         content = I18n.t('space_mailer.processed_invitation_email.message.link', :users_url => url).html_safe
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -137,7 +137,7 @@ describe SpaceMailer do
                          :action => action,
                          :space => space.name,
                          :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -156,7 +156,7 @@ describe SpaceMailer do
                          :action => action,
                          :space => space.name,
                          :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end
@@ -175,11 +175,11 @@ describe SpaceMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([candidate.email]) }
-      it("assigns @join_request") { mail.body.encoded.should match(join_request.comment) }
+      it("assigns @join_request") { mail_content(mail).should match(join_request.comment) }
       it("renders the link to accept the join request") {
         url = space_join_requests_url(space, host: Site.current.domain)
         content = I18n.t('space_mailer.join_request_email.message.link', :url => url).html_safe
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -193,7 +193,7 @@ describe SpaceMailer do
       it {
         content = I18n.t('space_mailer.join_request_email.message.header', :candidate => candidate.full_name,
                          :space => space.name, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -207,7 +207,7 @@ describe SpaceMailer do
       it {
         content = I18n.t('space_mailer.join_request_email.message.header', :candidate => candidate.full_name,
                          :space => space.name, :locale => "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end
@@ -228,13 +228,13 @@ describe SpaceMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([]) }
-      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("assigns @space") { mail_content(mail).should match(space.name) }
       it("assigns @join_request, @space and @action") {
         url = space_url(space, :host => Site.current.domain)
         content = I18n.t("space_mailer.processed_join_request_email.message.link.accepted",
                          :space => space.name,
                          :space_url => url)
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -250,7 +250,7 @@ describe SpaceMailer do
         url = space_url(space, :host => Site.current.domain)
         content = I18n.t("space_mailer.processed_join_request_email.message.link.rejected",
                          :space_url => url)
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
       it("sends email to the join requests's introducer") {
         mail.to.should include(join_request.introducer.email)
@@ -267,7 +267,7 @@ describe SpaceMailer do
         action = I18n.t("space_mailer.processed_join_request_email.accepted", locale: "pt-br")
         content = I18n.t('space_mailer.processed_join_request_email.message.header', action: action,
                          space: space.name, locale: "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -281,7 +281,7 @@ describe SpaceMailer do
         action = I18n.t("space_mailer.processed_join_request_email.accepted", locale: "pt-br")
         content = I18n.t('space_mailer.processed_join_request_email.message.header', action: action,
                          space: space.name, locale: "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end

@@ -40,9 +40,9 @@ describe EventMailer do
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([invitation.sender.email]) }
       it("assigns @invitation") {
-        mail.body.encoded.should match(invitation.title)
-        mail.parts.first.body.raw_source.should match(invitation.description)
-        mail.body.encoded.should match(invitation.url)
+        mail_content(mail).should match(invitation.title)
+        mail_content(mail).should match(invitation.description)
+        mail_content(mail).should match(invitation.url)
       }
     end
 
@@ -61,7 +61,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -76,7 +76,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -91,7 +91,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end
