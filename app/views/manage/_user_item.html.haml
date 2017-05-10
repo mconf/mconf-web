@@ -59,6 +59,6 @@
       - unless current_user == user && user.superuser
         - if user.require_approval? || !user.approved?
           = approval_links :user, user
-        = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
+        = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm').html_safe }, :method => :delete do
           = icon_disable(:alt => t('.disable'), :title => t('.disable'))
         = render 'manage/destroy_user', user: user

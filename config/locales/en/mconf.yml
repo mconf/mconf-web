@@ -1082,7 +1082,7 @@ en:
       confirm: "Confirm this user"
       confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
-      disable_confirm: "Are you sure you want to disable this user?"
+      disable_confirm: "Are you sure you want to disable this user? <br><br> (The user will be notified by e-mail)"
       disallow_record: "Remove the user's permission to record conferences"
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
@@ -1846,7 +1846,7 @@ en:
       confirm_user: "Confirm this user's account"
       confirm_user_confirm: "Are you sure you want to confirm this user's account?"
       disable: "Disable this user's account"
-      disable_confirm: "Are you sure you want to disable this user's account?"
+      disable_confirm: "Are you sure you want to disable this user's account? <br><br> (The user will be notified by e-mail)"
       federated:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"

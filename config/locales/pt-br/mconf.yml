@@ -1092,7 +1092,7 @@ pt-br:
       confirm: "Confirmar este usuário"
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
-      disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
+      disable_confirm: "Tem certeza que deseja desabilitar este usuário? <br><br>(Usuário será notificado por e-mail)"
       disallow_record: "Remover permissão de gravação"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
@@ -1878,7 +1878,7 @@ pt-br:
       confirm_user: "Confirmar a conta deste usuário"
       confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       disable: "Desabilitar a conta deste usuário"
-      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário? <br><br>(Usuário será notificado por e-mail)"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"

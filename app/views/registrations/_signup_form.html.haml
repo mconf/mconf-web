@@ -6,6 +6,7 @@
 
   .field-group
     %h3= t('.user_info_section')
+    = f.hidden_field :locale, value: I18n.locale
     = f.input :email, required: true
     = f.fields_for :profile do |p|
       = p.input :full_name, required: true
