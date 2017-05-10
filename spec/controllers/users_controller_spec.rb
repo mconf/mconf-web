@@ -568,6 +568,7 @@ describe UsersController do
       before(:each) do
         PublicActivity.with_tracking do
           Site.current.update_attributes(require_registration_approval: true)
+          user.disapprove!
 
           sign_in admin
 
@@ -1281,7 +1282,7 @@ describe UsersController do
             RecentActivity.where(key: 'user.created', trackable: User.last).should be_empty
             RecentActivity.where(key: 'user.created_by_admin', trackable: User.last).count.should be(1)
           }
-          it('should create a user approved activity') { RecentActivity.where(key: 'user.approved').should be_empty }
+          it('should not create a user approved activity') { RecentActivity.where(key: 'user.approved').should be_empty }
         end
 
         describe "creates a new user with valid attributes and with the ability to record meetings" do
