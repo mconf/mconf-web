@@ -36,8 +36,8 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it "sends the correct confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
         mail.should_not be_nil
-        mail.body.encoded.should_not match(/http.*users\/confirmation*/)
-        mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+        mail_content(mail).should_not match(/http.*users\/confirmation*/)
+        mail_content(mail).should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
       context "shows the pending approval page" do
@@ -87,7 +87,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
 
           it "sends the correct confirmation email to the user", with_truncation: true do
             mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
-            mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+            mail_content(mail).should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
           end
 
           context "shows the pending approval page" do
@@ -181,8 +181,8 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it "send the correct confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
         mail.should_not be_nil
-        mail.body.encoded.should match(/http.*users\/confirmation*/)
-        mail.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+        mail_content(mail).should match(/http.*users\/confirmation*/)
+        mail_content(mail).should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
       context "signs the user in" do
