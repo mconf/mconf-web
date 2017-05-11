@@ -25,8 +25,9 @@ feature "Confirmation email" do
 
     # check the confirmation email and click on the link to confirm the account
     last_email.should_not be_nil
-    confirmation_link = mail_content(last_email).match(/http[^ ]*users\/confirmation[^ ]*/)[0]
     mail_content(last_email).should match(t('shared.welcome.lets_start.confirm_email'))
+    confirmation_link = mail_content(last_email).match(/http[^ ]*users\/confirmation[^)]*/)[0]
+    confirmation_link.gsub!(/\s*/, '')
     visit confirmation_link
 
     User.last.confirmed?.should be true
