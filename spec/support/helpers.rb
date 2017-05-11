@@ -65,17 +65,29 @@ module Helpers
       before { Helpers.set_custom_ability_actions(actions) }
     end
 
+    # Returns the body of the email. For multi-part emails, always returns the first part.
     def mail_body(mail)
       if mail.parts.length > 0
-        mail.parts.first.body
+        body = mail.parts.first.body
       else
-        mail.body
+        body = mail.body
+      end
+      if body.parts.length > 0
+        body.parts.first.body
+      else
+        body
       end
     end
 
+    # Returns the best match for the content of an email, formatted in a way to make
+    # it easier to match on tests.
     def mail_content(mail)
-      # remove line breaks so it's easier to match content
-      mail_body(mail).raw_source.gsub(/\n/, ' ')
+      content = mail_body(mail).raw_source.gsub(/\r\n/, ' ').gsub(/\n/, ' ')
+      if content.blank?
+        mail_body(mail).encoded.gsub(/(=)?\r\n/, ' ').gsub(/(=)?\n/, ' ')
+      else
+        content
+      end
     end
   end
 
