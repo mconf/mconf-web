@@ -24,16 +24,16 @@ describe ParticipantConfirmationMailer do
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       it("assigns @token") {
-        mail.body.encoded.should match(pc.token)
+        mail_content(mail).should match(pc.token)
       }
       it("assigns @event") {
-        mail.body.encoded.should match(participant.event.name)
+        mail_content(mail).should match(participant.event.name)
       }
       it("assigns @mail") {
-        mail.body.encoded.should match(pc.email)
+        mail_content(mail).should match(pc.email)
       }
       it("sends a link to the confirmation page") {
-        mail.body.encoded.should match(url)
+        mail_content(mail).should match(url)
       }
     end
 

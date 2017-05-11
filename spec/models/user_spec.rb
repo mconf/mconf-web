@@ -874,25 +874,6 @@ describe User do
     end
   end
 
-  describe "#create_approval_notification" do
-    let!(:user) { FactoryGirl.create(:user, approved: false) }
-    let!(:approver) { FactoryGirl.create(:superuser) }
-
-    context "creates a recent activity" do
-      before {
-        expect {
-          PublicActivity.with_tracking do
-            user.create_approval_notification(approver)
-          end
-        }.to change{ PublicActivity::Activity.count }.by(1)
-      }
-      subject { PublicActivity::Activity.last }
-      it("sets #trackable") { subject.trackable.should eq(user) }
-      it("sets #owner") { subject.owner.should eq(approver) }
-      it("sets #key") { subject.key.should eq('user.approved') }
-    end
-  end
-
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
     let(:superuser) { FactoryGirl.create(:superuser) }
