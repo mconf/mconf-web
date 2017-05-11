@@ -15,9 +15,9 @@ pt-br:
       subject: "Seu acesso ao site foi aprovado"
   user_mailer:
     cancellation_notification_email:
-      hello: "Olá %{name},"
-      message: "Estamos enviado este email para lhe informar que o seu cancelamento de conta em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
-      subject: "Cancelamento realizado com sucesso"
+      message: "Estamos enviando este e-mail para lhe informar que sua conta em <a href=\"%{url}\">%{site}</a> foi cancelada."
+      more: "Caso tenha sido um engano ou precise mais informações, entre em contato pelo e-mail <a href=\"mailto:%{mail}\">%{mail}</a>."
+      subject: "Sua conta foi cancelada"
     registration_notification_email:
       click_here: "Você pode acessar a sua página inicial através do endereço: <a href=\"%{url}\">%{url}</a>"
       confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso.<br/>Assim que seu cadastro for aprovado você será comunicado."

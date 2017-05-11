@@ -145,7 +145,7 @@ describe UserMailer do
   describe '.cancellation_notification_email' do
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.cancellation_notification_email(user.id) }
-    let(:url) { Site.current.domain }
+    let(:url) { root_url(host: Site.current.domain) }
     let(:name) { Site.current.name }
     let(:contact) { Site.current.smtp_receiver }
 
@@ -159,9 +159,6 @@ describe UserMailer do
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       context "in body message" do
-        it("assigns @user") {
-          mail.body.encoded.should match(user.first_name)
-        }
         it("sends a link to site root_path") {
           mail.body.encoded.should match(url)
         }
@@ -177,7 +174,7 @@ describe UserMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        content = I18n.t('user_mailer.cancellation_notification_email.subject', url: url, site: name, locale: "pt-br")
+        content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end

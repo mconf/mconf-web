@@ -15,9 +15,9 @@ en:
       subject: "Your registration has been approved"
   user_mailer:
     cancellation_notification_email:
-      hello: "Hello %{name},"
-      message: "We're sending this email to inform you that your account cancellation on <a href=\"%{url}\">%{site}</a> has completed successfully!"
-      subject: "Your cancellation has been completed"
+      message: "We're sending this email to inform you that your account on <a href=\"%{url}\">%{site}</a> was cancelled."
+      more: "In case this was a mistake or if you need more information, contact us at <a href=\"mailto:%{mail}\">%{mail}</a>."
+      subject: "Your account has been cancelled"
     registration_notification_email:
       click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
       confirmation_pending: "You have registered succesfully on <a href=\"%{url}\">%{site}</a> and your account was submitted to the approval of an administrator.<br/>You will be contacted when you account is approved."
