@@ -11,3 +11,6 @@ en:
     ending_soon:
       line1: "Your trial period will end on <em>%{date}</em>, but don't worry! You are already signed up to the service and won't need to do anything to keep using it. We hope you're enjoying the experience and wish to stay with us!"
       subject: "Your trial period is ending soon"
+  user_mailer:
+    cancellation_notification_email:
+      message: "We're sending this email to inform you that your account has been cancelled, either by your request or by the request of an administrator."

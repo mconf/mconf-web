@@ -47,7 +47,8 @@ module Mconf
     # loaded after all the others, so that it can override strings.
     config.i18n.load_path +=
       Dir[Rails.root.join('config', 'locales', '**', '_*.yml').to_s] +
-      Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
+      Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s] +
+      Dir[Rails.root.join('config', 'locales', '**', 'mconf_com.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
     config.i18n.available_locales = [:bg, :de, :en, :"es-419", :"pt-br", :ru]
