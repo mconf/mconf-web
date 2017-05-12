@@ -2,5 +2,6 @@
   %h1.title= t('.hello', name: @user.first_name)
   .subtitle= t('.subject')
 
-%p= t('.message', url: Site.current.domain, site: Site.current.name).html_safe
+%p= t('.message', name: @user.full_name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
+%p= t('.more', mail: Site.current.smtp_receiver).html_safe
 %p= t('_other.mailers.contact', mail: Site.current.smtp_receiver).html_safe

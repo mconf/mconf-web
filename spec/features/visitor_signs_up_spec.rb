@@ -22,6 +22,17 @@ feature 'Visitor signs up' do
     page.should have_content('Logout')
   end
 
+  scenario 'setting a locale different from Site default' do
+    attrs = FactoryGirl.attributes_for(:user)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    attrs[:different_locale] = session_locale_path(lang: 'pt-br')
+    register_with(attrs)
+
+    current_path.should eq(my_home_path)
+    has_success_message(I18n.t('devise.registrations.signed_up'))
+    page.should have_content('Sair')
+  end
+
   scenario 'with invalid email' do
     attrs = FactoryGirl.attributes_for(:user, email: "invalid_email")
     attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)

@@ -141,7 +141,7 @@ describe UserMailer do
   describe '.cancellation_notification_email' do
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.cancellation_notification_email(user.id) }
-    let(:url) { Site.current.domain }
+    let(:url) { root_url(host: Site.current.domain) }
     let(:name) { Site.current.name }
     let(:contact) { Site.current.smtp_receiver }
 
@@ -174,6 +174,67 @@ describe UserMailer do
       }
       it {
         content = I18n.t('user_mailer.cancellation_notification_email.subject', url: url, site: name, locale: "pt-br")
+        mail_content(mail).should match(content)
+      }
+    end
+
+    context "uses the current site's locale if the receiver has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => "pt-br")
+        user.update_attribute(:locale, nil)
+      }
+      it {
+        content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
+        mail_content(mail).should match(content)
+      }
+    end
+
+    context "uses the default locale if the site has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => nil)
+        I18n.default_locale = "pt-br"
+        user.update_attribute(:locale, nil)
+      }
+      it {
+        content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
+        mail_content(mail).should match(content)
+      }
+    end
+  end
+
+  describe '.cancellation_notification_email' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:mail) { UserMailer.cancellation_notification_email(user.id) }
+    let(:url) { root_url(host: Site.current.domain) }
+    let(:name) { Site.current.name }
+    let(:contact) { Site.current.smtp_receiver }
+
+    context "in the standard case" do
+      it("sets 'to'") { mail.to.should eql([user.email]) }
+      it("sets 'subject'") {
+        text = I18n.t('user_mailer.cancellation_notification_email.subject')
+        mail.subject.should eql(text)
+      }
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
+      context "in body message" do
+        it("sends a link to site root_path") {
+          mail_content(mail).should match(url)
+        }
+        it("sends a contact email information") {
+          mail_content(mail).should match(contact)
+        }
+      end
+    end
+
+    context "uses the receiver's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        user.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
         mail_content(mail).should match(content)
       }
     end

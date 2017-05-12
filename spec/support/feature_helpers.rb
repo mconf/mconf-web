@@ -73,6 +73,7 @@ module FeatureHelpers
 
   def register_with(attrs, visit=true)
     visit register_path if visit
+    find("#footer-languages [href='#{attrs[:different_locale]}']", match: :first).click if attrs[:different_locale]
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[profile_attributes][full_name]", with: attrs[:profile_attributes][:full_name] if attrs[:profile_attributes]
     fill_in "user[username]", with: attrs[:username]

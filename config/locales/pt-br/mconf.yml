@@ -281,36 +281,28 @@ pt-br:
       event: "Evento"
       join_request: "Pedido de Adesão"
       space: "Comunidade"
-
   flash:
     spaces:
       update:
         notice: "Comunidade atualizada com sucesso"
-
       enable:
         notice: "Comunidade habilitada com sucesso"
         failure: "Comunidade %{name} já está habilitada"
-
       disable:
         notice: "Comunidade desabilitada com sucesso"
-
     posts:
       update:
         notice: "Mensagem atualizada!"
         failure: "Atualização de mensagem falhou: %{errors}"
-
       create:
         notice: "Mensagem enviada!"
         failure: "Mensagem não pode ser enviada: %{errors}"
-
     users:
       enable:
-        notice: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
+        notice: "Usuário habilitado com sucesso"
         failure: "Usuário %{name} já está habilitado"
-
       disable:
         notice: "Usuário %{username} desabilitado"
-
   admin:
     one: Administrador
     space: "Administração do %{spacename}"
@@ -1016,7 +1008,7 @@ pt-br:
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
     destroy_user:
       destroy: Remover usuário
-      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
+      destroy_confirm: "Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!</br>(O usuário não será notificado)"
     menu:
       general: "Geral"
       recordings: "Gravações"
@@ -1092,7 +1084,7 @@ pt-br:
       confirm: "Confirmar este usuário"
       confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
-      disable_confirm: "Tem certeza que deseja desabilitar este usuário? <br><br>(Usuário será notificado por e-mail)"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?</br>(O usuário receberá uma notificação por e-mail)"
       disallow_record: "Remover permissão de gravação"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
@@ -1307,6 +1299,7 @@ pt-br:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
+    confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
     thank_you: "Bem-vindo e obrigado por registrar-se no %{sitename}"
@@ -1874,11 +1867,12 @@ pt-br:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
       cancel_account: "Cancelar minha conta"
+      cancel_confirm: "Você tem certeza que deseja cancelar a sua conta?"
       change_password: "Mudar senha"
       confirm_user: "Confirmar a conta deste usuário"
       confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       disable: "Desabilitar a conta deste usuário"
-      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário? <br><br>(Usuário será notificado por e-mail)"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?</br>(O usuário receberá uma notificação por e-mail)"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
