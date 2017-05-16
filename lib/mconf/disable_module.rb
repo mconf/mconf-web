@@ -12,6 +12,7 @@ module Mconf
 
     # Re-enables a previously disabled resource
     def enable
+      before_enable
       self.update_attribute(:disabled, false)
     end
 
