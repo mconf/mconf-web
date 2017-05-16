@@ -65,8 +65,7 @@ describe 'User signs in via ldap', ldap: true do
           sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
         }
 
-        it { has_failure_message }
-        it { current_path.should eq(new_user_session_path) }
+        it { current_path.should eq(my_home_path) }
       end
 
       context "the site requires approval" do
