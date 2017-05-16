@@ -23,5 +23,9 @@ module Mconf
     def before_disable
       # can be implemented by a class which includes this module
     end
+
+    def before_enable
+      # can be implemented by a class which includes this module
+    end
   end
 end
