@@ -373,11 +373,7 @@ class User < ActiveRecord::Base
 
   # Rename methods to make the disabled users "dirty" and clean it on enable
   def disabled_rename(value)
-    if value !~ (/\A(disabled-\d*--)/)
-      ('disabled-') + (Time.now.strftime("%Y%m%d%H%M%S").to_s) + ('--') + value
-    else
-      value
-    end
+    ('disabled-') + (Time.now.strftime("%Y%m%d%H%M%S").to_s) + ('--') + enabled_rename(value)
   end
 
   def enabled_rename(value)
@@ -417,6 +413,8 @@ class User < ActiveRecord::Base
     # will be able to create a new account from scratch but will also keep previous data
     self.username = disabled_rename(self.username)
     self.email = disabled_rename(self.email)
+    self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+    self.skip_confirmation_notification!
     self.save
     self.confirm
   end
@@ -425,6 +423,8 @@ class User < ActiveRecord::Base
   def before_enable
     self.username = enabled_rename(self.username)
     self.email = enabled_rename(self.email)
+    self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+    self.skip_confirmation_notification!
     self.save
     self.confirm
   end

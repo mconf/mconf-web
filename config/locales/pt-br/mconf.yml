@@ -299,6 +299,7 @@ pt-br:
       enable:
         notice: "Usuário habilitado com sucesso"
         failure: "Usuário %{name} já está habilitado"
+        unable: "Usuário %{name} não pode ser habilitado (e-mail, id ou nome da sala já está em uso)"
       disable:
         notice: "Usuário %{username} desabilitado"
   admin:

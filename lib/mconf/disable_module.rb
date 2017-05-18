@@ -7,13 +7,13 @@ module Mconf
     # enabled back with the method 'enable'
     def disable
       before_disable
-      update_attribute(:disabled, true)
+      update_attributes(disabled: true)
     end
 
     # Re-enables a previously disabled resource
     def enable
       before_enable
-      self.update_attribute(:disabled, false)
+      self.update_attributes(disabled: false)
     end
 
     def enabled?

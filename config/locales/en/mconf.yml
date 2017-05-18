@@ -305,6 +305,7 @@ en:
       enable:
         notice: "User successfully enabled"
         failure: "User %{name} is already enabled"
+        unable: "User %{name} could not be enabled (e-mail, username or room name already in use)"
   address: Address
   admin:
     one: Admin
