@@ -108,8 +108,12 @@ module Mconf
     config.email_track_opened  = ENV['MCONF_EMAIL_TRACK_OPENED'] == 'true'
     config.email_track_clicked = ENV['MCONF_EMAIL_TRACK_CLICKED'] == 'true'
 
+    # To set the URL of an external frontpage
+    # If empty (default), will use the standard frontpage
+    config.external_frontpage = ENV['MCONF_EXTERNAL_FRONTPAGE']
+
     # Themes: set to the theme name if using any!
-    config.theme           = ENV['MCONF_THEME']
+    config.theme = ENV['MCONF_THEME']
 
     # Themes: configure assets paths here!
     # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme", "stylesheets")
