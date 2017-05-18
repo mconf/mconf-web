@@ -51,26 +51,28 @@ describe Profile do
     end
   end
 
-  describe "#first_names" do
+  describe "#first_name" do
     context 'returns the first name if is longer than min length' do
       let(:profile) { FactoryGirl.create(:profile, full_name: 'Richard Bawlins') }
-      it { profile.first_names(5).should eq('Richard') }
+      it { profile.first_name(5).should eq('Richard') }
     end
 
     context 'returns more than one name if the first are shorter than min length' do
       let(:profile) { FactoryGirl.create(:profile, full_name: 'A Mr. Dawn of the Night') }
-      it { profile.first_names(6).should eq('A Mr. Dawn') }
+      it { profile.first_name(6).should eq('A Mr. Dawn') }
     end
 
     context "returns the entire first name even if it's a lot longer than min length" do
       let(:profile) { FactoryGirl.create(:profile, full_name: 'Mesopopoulousnacious Ternaris') }
-      it { profile.first_names(2).should eq('Mesopopoulousnacious') }
+      it { profile.first_name(2).should eq('Mesopopoulousnacious') }
     end
 
-    context "uses 5 as the default min length" do
-      it { FactoryGirl.create(:profile, full_name: 'Marko C').first_names.should eq('Marko') }
-      it { FactoryGirl.create(:profile, full_name: 'M C Donna').first_names.should eq('M C Donna') }
-      it { FactoryGirl.create(:profile, full_name: 'M C D O').first_names.should eq('M C D') }
+    context "uses 4 as the default min length" do
+      it { FactoryGirl.create(:profile, full_name: 'Mark C').first_name.should eq('Mark') }
+      it { FactoryGirl.create(:profile, full_name: 'M C Donna').first_name.should eq('M C Donna') }
+      it { FactoryGirl.create(:profile, full_name: 'M C D O').first_name.should eq('M C D') }
+      it { FactoryGirl.create(:profile, full_name: 'Alan Dean').first_name.should eq('Alan') }
+      it { FactoryGirl.create(:profile, full_name: 'Ana Paula').first_name.should eq('Ana Paula') }
     end
   end
 

@@ -158,9 +158,9 @@ describe UserMailer do
         it("assigns @user") {
           mail_content(mail).should match(user.first_name)
         }
-        it("sends a link to site root_path") {
-          mail_content(mail).should match(url)
-        }
+        # it("sends a link to site root_path") { # not on mconf.com
+        #   mail_content(mail).should match(url)
+        # }
         it("sends a contact email information") {
           mail_content(mail).should match(contact)
         }
@@ -219,9 +219,9 @@ describe UserMailer do
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       context "in body message" do
-        it("sends a link to site root_path") {
-          mail_content(mail).should match(url)
-        }
+        # it("sends a link to site root_path") { # not on mconf.com
+        #   mail_content(mail).should match(url)
+        # }
         it("sends a contact email information") {
           mail_content(mail).should match(contact)
         }

@@ -29,7 +29,7 @@
       %li.last.dropdown
         .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '32', class: "logo-user")
-          %span.username= current_user.profile.first_names
+          %span.username= current_user.profile.first_name
           %span.caret
         %ul.dropdown-menu.dropdown-menu-right
           %li

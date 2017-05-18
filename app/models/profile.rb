@@ -52,7 +52,7 @@ class Profile < ActiveRecord::Base
 
   # Returns the user's first name(s) making sure it is at least `min_length` characters
   # long. Might return a string with more than a word.
-  def first_names(min_length = 5)
+  def first_name(min_length = 4)
     unless self.full_name.blank?
       # parse_name(self.full_name)[:first_name]
       names = self.full_name.split(' ')
@@ -70,9 +70,5 @@ class Profile < ActiveRecord::Base
 
   def small_logo_image?
     logo_image.height < 100 || logo_image.width < 100
-  end
-
-  def first_name
-    self.full_name.blank? ? "" : self.full_name.split(" ")[0]
   end
 end

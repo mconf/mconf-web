@@ -30,7 +30,8 @@ class UserMailer < BaseMailer
     I18n.with_locale(default_email_locale(user, nil)) do
       @user = user
       @subject = t("user_mailer.cancellation_notification_email.subject")
-      create_email(user.email, Site.current.smtp_sender, @subject)
+      email = user.enabled_parse(user.email)
+      create_email(email, Site.current.smtp_sender, @subject)
     end
   end
 
