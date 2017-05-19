@@ -2,15 +2,17 @@
 en:
   application_mailer:
     feedback_email:
-      content: "<b>%{name}</b> (%{email}) sent the following feedback:"
-      hello: "Hello"
-      subject: "Feedback message"
-      subtitle: "A user sent a feedback message"
+      content: "<b>%{email}</b> sent the following feedback:"
+      subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Accept or reject this user in the user management page in: <br/><a href=\"%{url}\">%{url}</a>"
       message: "A user named \"%{name}\" (%{email}) has registered and is waiting for approval."
       subject: "A new user is waiting approval"
+    new_user_approved:
+      click_here: "You can access your home page at: <a href=\"%{url}\">%{url}</a>"
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your access to the site has been approved."
+      subject: "Your registration has been approved"
   user_mailer:
     cancellation_notification_email:
       message: "We're sending this email to inform you that your account on <a href=\"%{url}\">%{site}</a> was cancelled."
@@ -23,8 +25,9 @@ en:
       message: "We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
       subject: "Your registration has been completed"
     registration_by_admin_notification_email:
-      notification: "You are receiving this message because an account was created for you by an administrator. If you think this was an error please contact us responding to this email."
-      subject: "Welcome to Mconf!"
+      click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that an account was created for you on <a href=\"%{url}\">%{site}</a>.<br><br>This account was created by an administrator. If you think this was an error please contact us responding to this email."
+      subject: "An account was created for you by an administrator"
   event_mailer:
     invitation_email:
       message:
@@ -84,25 +87,18 @@ en:
         link: "You can view the space you've been added to by clicking the link: <br/> <a href=\"%{space_url}\">%{space_url}</a>"
       subject: "%{username} added you to the space %{space}"
   web_conference_mailer:
-     invitation_email:
+    invitation_email:
       event_name: "Meeting with %{name}"
       message:
         description: "Description"
-        did_you_know: "Did you know that?"
-        did_you_know_text: "The technology used for this webconference was developed by Mconf Tecnologia, a Brazilian company located in Porto Alegre/RS, that can be integrated with several LMS (Learning Management System), such as Moodle, WordPress, and Canvas. <i>Interested?</i> Contact:"
         end: "End"
-        header: "You were invited by %{sender} (%{email_sender}) to access the web conferencing room %{room}."
-        hello: "Hello!"
-        how_to: "How to access?"
-        how_to_text: "To access the conference, just click on the room link below, enter your <b>full name</b> and the access key (only necessary if the conference is private)."
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
         join: "Room"
         subject: "Subject"
-        subtitle: "You've been invited to a web conference"
       subject: "Web conference invitation"
   shared:
     invitation_email:
       message:
-        access_room: "Go to the meeting"
         description: "Description"
         dial_number: "Dial number"
         duration: "Duration"
@@ -114,23 +110,3 @@ en:
         url:
           event: "Event site"
           other: "Room"
-    welcome:
-      go_beyond:
-        item1: "Customize your room with the logo and the colors of your organization. <strong>No additional cost</strong>;"
-        item2: "Integrate with your LMS (Learning Management System). Available for: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"
-        item3: "Provide a personalized access link directly from your website."
-        title: "Go beyond!"
-      lets_start:
-        confirm_email: "Please confirm your email to start using the service:"
-        confirm_email_btn: "Confirm my email"
-        features: "With Mconf you can: share your knowledge on <em>live classes</em>; promote discussions over topics mentioned in the <em>chat</em>; make live presentations toup to <em>350 simultaneously connected users</em>; annotate your presentations using the <em>whiteboard</em>; <em>record</em> your classes or presentations to review them later or share them with the attendees; and much more!"
-        from_home_page: "In your home page on Mconf you have access to your personal web conference room. You can set your preferences in the room, start new meetings and invite other people to join your meetings."
-        go_to_home: "Access your home page"
-        got_access: "From now on you can already access your account on Mconf."
-        short_url: "You can also have quick access to your room using the address below. Share this address with other people when inviting them to join a conference you created."
-        title: "Starting with Mconf"
-      subject: "Welcome!"
-  layouts:
-    mailers:
-      signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
-      social: "Follow us on:"

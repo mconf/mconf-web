@@ -23,17 +23,14 @@ en:
       confirmation_instructions:
         confirmation_link: "Confirm my account"
         confirmation_ok: "You can confirm your account email through the link below:"
-        confirmation_pending: "Your account is being approved"
-        confirmation_pending2: "Thank your for registering on Mconf. Your registration is being verified by our team and we will contact you as soon as it is approved."
-        subject: "Welcome to Mconf!"
-        welcome: "Hi, %{email}!"
+        confirmation_pending: "Your account was created and is waiting the approval of an administrator."
+        subject: "Registration successful"
+        welcome: "Welcome %{email}!"
       reset_password_instructions:
         subject: "Reset password instructions"
         greeting: "Hello %{email},"
         requested: "Someone has requested a link to change your password. You can do this through the link below:"
         change_password: "Change Password"
-        copy_link: "(If the button above doesn't work, copy and paste this link in your browser: %{url})"
-        redefine_password: "Redefine my password"
         ignore: "If you didn't request this, please ignore this email."
         wont_change: "Your password won't change until you access the link above and create a new one."
       unlock_instructions:

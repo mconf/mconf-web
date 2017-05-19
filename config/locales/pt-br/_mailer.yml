@@ -2,15 +2,17 @@
 pt-br:
   application_mailer:
     feedback_email:
-      content: "<b>%{name}</b> (%{email}) enviou o seguinte feedback:"
-      hello: "Olá"
-      subject: "Mensagem de feedback"
-      subtitle: "Um usuário enviou uma mensagem de feedback"
+      content: "<b>%{email}</b> enviou o seguinte feedback:"
+      subject: "Feedback"
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
       message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
       subject: "Um novo usuário está a espera de aprovação"
+    new_user_approved:
+      click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
+      subject: "Seu acesso ao site foi aprovado"
   user_mailer:
     cancellation_notification_email:
       message: "Estamos enviando este e-mail para lhe informar que sua conta em <a href=\"%{url}\">%{site}</a> foi cancelada."
@@ -23,8 +25,9 @@ pt-br:
       message: "Estamos enviado este email para lhe informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
       subject: "Registro realizado com sucesso"
     registration_by_admin_notification_email:
-      notification: "Você está recebendo esta mensagem pois uma conta foi criada para você por um administrador do site. Se você acha que foi um mal entendido por favor entre em contato conosco respondendo a este e-mail."
-      subject: 'Bem vindo(a) ao Mconf!'
+      click_here: "Você pode acessar a sua página inicial através do endereço: <a href=\"%{url}\">%{url}</a>"
+      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco respondendo a este e-mail."
+      subject: "Uma conta foi criada para você por um administrador"
   event_mailer:
     invitation_email:
       message:
@@ -88,21 +91,14 @@ pt-br:
       event_name: "Conferência com %{name}"
       message:
         description: "Descrição"
-        did_you_know: "Você sabia que?"
-        did_you_know_text: "A tecnologia utilizada para esta webconferência foi desenvolvida pela Mconf Tecnologia, uma empresa brasileira situada em Porto Alegre/RS, e pode ser integrada com diversos LMS (Sistema de Gestão de Aprendizagem), como Moodle, WordPress e Canvas. Ficou <i>interessado?</i> Entre em contato e saiba mais:"
         end: "Fim"
-        header: "Você foi convidado por %{sender} (%{email_sender}) para acessar a sala de conferência web %{room}."
-        hello: "Olá!"
-        how_to: "Como acessar?"
-        how_to_text: "Para acessar basta clicar no link da sala abaixo, digitar seu <strong>nome completo</strong> e fornecer a chave de acesso (só é necessária caso a conferência seja privada)."
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Sala"
         subject: "Assunto"
-        subtitle: "Você foi convidado para uma conferência web"
       subject: "Convite para webconferência"
   shared:
     invitation_email:
       message:
-        access_room: "Acessar a sala"
         description: "Descrição"
         dial_number: "Número para discagem"
         duration: "Duração"
@@ -114,23 +110,3 @@ pt-br:
         url:
           event: "Site do evento"
           other: "Sala"
-    welcome:
-      go_beyond:
-        item1: "Customize sua sala com o logo e as cores da sua empresa. <strong>Sem custos adicionais</strong>;"
-        item2: "Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"
-        item3: "Disponibilize um link de acesso personalizado diretamente do seu site."
-        title: "Vá além!"
-      lets_start:
-        confirm_email: "Por favor confirme o seu e-mail para começar a usar o serviço:"
-        confirm_email_btn: "Confirmar meu e-mail"
-        features: "Com o Mconf você poderá: compartilhar conhecimento oferecendo <em>aulas ao vivo</em>; promover discussões sobre os assuntos abordados através do <em>chat</em>; realizar apresentações para até <em>350 usuários conectados simultaneamente</em>; fazer anotações utilizando a <em>lousa</em>; <em>gravar</em> suas aulas ou apresentações para assistir mais tarde ou compartilhar com os participantes; e muito mais!"
-        from_home_page: "Através da sua página inicial no Mconf você tem acesso à sua sala pessoal de conferência web. Você pode mudar as configurações da sua sala, iniciar novas reuniões e convidar outras pessoas para participarem das suas reuniões."
-        go_to_home: "Acessar sua página inicial"
-        got_access: "A partir de agora você já pode acessar a sua conta no Mconf."
-        short_url: "Você também pode acessar a sua sala de forma rápida através do endereço abaixo. Compartilhe esse endereço com outras pessoas para elas entrarem em uma conferência que você criou."
-        title: "Vamos começar?"
-      subject: "Seja bem vindo(a)!"
-  layouts:
-    mailers:
-      signature: "Este e-mail foi encaminhado por Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil. <br/> +55 51 3308.6812"
-      social: "Siga nos em:"

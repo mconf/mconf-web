@@ -80,7 +80,6 @@ en:
     filtered_tags: "Filtering tags: "
     form:
       required: "required"
-    hi_name: "Hi, %{name}"
     index: Listing
     in_place_edit:
       error: "error"
@@ -186,7 +185,6 @@ en:
         address: "Street address"
         city: "City"
         country: "Country"
-        cpf_cnpj: "CPF/CNPJ"
         description: "Write something about you"
         email: "Email"
         full_name: "Full name"
@@ -671,7 +669,6 @@ en:
   devise:
     confirmations:
       new:
-        description: "The welcome message you received by email when you registered contains a link you can click to confirm your account. If you lost access to this email, you can request a new one using the form below."
         title: "Resend confirmation email"
     failure:
       user:
@@ -682,7 +679,6 @@ en:
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
       signed_up_but_not_approved: ""
-      terms_reject: "You must accept the terms and conditions to register an account."
     shared:
       links:
         login:
@@ -1283,22 +1279,9 @@ en:
   registrations:
     new:
       form_title: "Registration"
-      pricing_text1: "Minimum free: <span class=\"attention\">15 users</span> (US$ 60) per month"
-      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
-      pricing_title: "Pricing"
-      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
-      rules_title: "How it works"
       title: "Register"
     signup_form:
-      address_section: "Address"
-      confirmation: "After registering you will receive an email confirmation with the link to activate your account"
-      password_section: "Define a password"
       register: "Register"
-      service_usage_select: "I will use the service for..."
-      terms: "I have read and agree to the <a href=\"https://mconf.com/terms/\" target=\"_blank\">terms and conditions</a>"
-      user_info_section: "User information"
-      webconf_section: "Your web conference room"
-      webconf_id_tip: "This will be the identifier of your conference room in URLs. Use only letters, numbers or dashes (“-“)."
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1815,10 +1798,6 @@ en:
       other: "People, %{users_size} results"
     results_found: "Users found"
     updated: "User updated successfully"
-    usage:
-      education: "Education"
-      meetings: "Meetings"
-      other: "Other"
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:

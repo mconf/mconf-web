@@ -79,7 +79,6 @@ pt-br:
     filtered_tags: "Filtrando por tags: "
     form:
       required: "obrigatório"
-    hi_name: "Olá, %{name}"
     index: Listando
     in_place_edit:
       error: "erro"
@@ -181,7 +180,6 @@ pt-br:
         address: "Rua e número"
         city: "Cidade"
         country: "País"
-        cpf_cnpj: "CPF/CNPJ"
         description: "Escreva algo sobre você"
         email: "E-mail"
         full_name: "Nome completo"
@@ -272,7 +270,7 @@ pt-br:
         remember_me: "Permanecer conectado"
         superuser: "Administrador global"
         timezone: "Fuso horário"
-        username: "Identificador"
+        username: "ID"
     errors:
       messages:
         invalid_identifier: "gerou um identificador inválido: \"%{id}\""
@@ -679,8 +677,7 @@ pt-br:
   devise:
     confirmations:
       new:
-        description: "A mensagem de boas vindas que você recebeu por e-mail ao se registrar tem um link para confirmar sua conta. Se você perdeu acesso a este e-mail você pode solicitar um novo usuando o formulário abaixo."
-        title: "Reenviar e-mail de confirmação"
+        title: "Resend confirmation email"
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
@@ -690,7 +687,6 @@ pt-br:
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: ''
-      terms_reject: "É preciso aceitar os termos de uso para criar uma conta."
     shared:
       links:
         login:
@@ -1311,22 +1307,9 @@ pt-br:
   registrations:
     new:
       form_title: "Registre-se"
-      pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
-      pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
-      pricing_title: "Tarifas"
-      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
-      rules_title: "Como Funciona"
       title: "Registrar"
     signup_form:
-      address_section: "Endereço"
-      confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
-      password_section: "Defina uma senha"
       register: "Registre-se"
-      service_usage_select: "Usarei o serviço para..."
-      terms: "Li e concordo com os <a href=\"https://mconf.com/termos/\" target=\"_blank\">termos de uso</a>"
-      user_info_section: "Seus dados"
-      webconf_section: "Sua sala de conferência"
-      webconf_id_tip: "Este será o identificador da URL da sua sala de conferência. Utilize apenas letras, números ou traços (“-“)."
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
@@ -1844,10 +1827,6 @@ pt-br:
       other: "Pessoas, %{users_size} resultados"
     results_found: "Usuários encontrados"
     updated: "Usuário atualizado com sucesso"
-    usage:
-      education: "Educação"
-      meetings: "Reuniões"
-      other: "Outros"
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
