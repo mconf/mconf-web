@@ -18,15 +18,14 @@ body {
 
   #logo {
     text-align: center;
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin: 8px auto 16px auto;
+    width: 90%;
   }
 
   #message-box {
     background: $m-mail-message-background;
     width: 70%;
     max-width: 700px;
-    min-width: 400px;
     padding: 40px;
     margin: 0 auto;
     text-align: justify;
