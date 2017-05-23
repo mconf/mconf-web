@@ -18,8 +18,7 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
-  frontpage = Rails.application.config.external_frontpage
-  root to: frontpage.blank? ? 'frontpage#show' : redirect(frontpage)
+  root to: 'frontpage#show'
 
   # devise
   controllers = { sessions: "sessions", registrations: "registrations",
