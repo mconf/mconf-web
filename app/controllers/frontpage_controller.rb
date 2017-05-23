@@ -22,7 +22,7 @@ class FrontpageController < ApplicationController
     else
       locale = case I18n.locale.to_s
                when 'pt-br' then 'pt'
-               else I18n.locale.to_s
+               else 'en'
                end
       redirect_to "#{frontpage}/#{locale}"
     end
