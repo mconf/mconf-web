@@ -26,7 +26,9 @@
   = f.input :record_meeting, :disabled => !editing
   = f.input :duration, :disabled => !editing
   = f.input :max_participants, :disabled => !editing
-  = f.input :param, :disabled => !editing
+  = f.input :param, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :vertical_input_group do
+    = content_tag :span, webconf_url_prefix, class: "input-group-addon"
+    = f.input_field :param, class: "form-control", :disabled => !editing
   = f.input :moderator_only_message, :disabled => !editing
   = f.input :auto_start_recording, :disabled => !editing
   = f.input :allow_start_stop_recording, :disabled => !editing
