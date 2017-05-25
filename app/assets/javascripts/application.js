@@ -4,6 +4,7 @@
 //= require lodash
 //= require handlebars.runtime
 //= require diacritics
+//= require clipboard
 
 // To use placeholders in inputs in browsers that do not support it
 // natively yet.

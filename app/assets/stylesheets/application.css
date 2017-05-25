@@ -28,7 +28,7 @@
  *= require ./app/application/footer-pusher
  *= require ./app/application/lists
  *= require ./app/application/select2
- *= require ./app/application/copy-modal
+ *= require ./app/application/copy-clipboard
  *= require ./app/application/page-menu-js
  *= require ./app/application/jcrop
  *
