@@ -178,6 +178,10 @@ $ ->
 
   mconf.Base.bind()
 
+# Used to copy from field to clipboard without ctrl+c
+
+new Clipboard('.btn');
+
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller
 # Ex:

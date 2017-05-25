@@ -11,7 +11,7 @@
   .content-block-middle
 
     #webconference-room-url
-      = copyable_field 'invite-url-text', join_webconf_url(room), readonly: true
+      = clipboard_copy_field 'invite-url-text', join_webconf_url(room), readonly: true
 
   - cls = running ? "in-progress" : ""
   #webconference-start{ :class => cls }

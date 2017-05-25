@@ -15,13 +15,13 @@ module ApplicationHelper
   include Mconf::Modules
   include Mconf::GuestUserModule
 
-  def copyable_field(id, content, opt={})
+  def clipboard_copy_field(id, content, opt={})
     content_tag :div, :class => 'form-group copyable-field' do
       content_tag :div, :class => 'input-group' do
         input_class = "#{opt[:class]} form-control"
         concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
         concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
-        btn = content_tag :a, '', :class => 'input-group-addon btn', :href => '#' do
+        btn = content_tag :a, '', :class => 'input-group-addon btn', 'data-clipboard-target': '#invite-url-text' do
           concat content_tag(:i, '', :class => "icon-awesome fa fa-paste")
         end
         concat btn
