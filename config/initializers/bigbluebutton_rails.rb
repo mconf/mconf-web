@@ -65,6 +65,15 @@ Rails.application.config.to_prepare do
         user.try(:username)
       }
     }
+
+    scope :newest, -> (count=0) {
+      ordered = order("create_time DESC")
+      if count > 0
+        ordered.first(count)
+      else
+        ordered
+      end
+    }
   end
 
   BigbluebuttonServer.instance_eval do

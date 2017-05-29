@@ -166,8 +166,7 @@ class SpacesController < InheritedResources::Base
       end
       @webconf_attendees.uniq!
     end
-    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
-      .with_recording().last(5)
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_recording().newest(5)
   end
 
   # Action used to show the meetings of a space
@@ -182,7 +181,7 @@ class SpacesController < InheritedResources::Base
     else
       @meetings = @meetings.with_recording()
     end
-    @meetings = @meetings.order("create_time DESC")
+    @meetings = @meetings.newest
 
     @recording_count = @meetings.count
     if params[:limit]
