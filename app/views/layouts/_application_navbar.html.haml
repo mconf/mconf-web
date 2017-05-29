@@ -1,63 +1,44 @@
-#main-logo
-  - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
-  %a.title{:href => url}= current_site.name
+- url = user_signed_in? ? main_app.my_home_path : main_app.root_path
+%a#navbar-logo{:href => url}
 
-%ul#navbar-left-links
-  - if user_signed_in?
-    %li
-      = link_to main_app.my_home_path do
-        = t('home.my')
-    %li
-      = link_to t('space.all'), main_app.spaces_path
-    - if mod_enabled?("events")
-      %li= link_to t('.events'), events_path
-    - if can?(:manage, @site)
+#navbar-left
+  %ul
+    - if user_signed_in?
       %li
-        = link_to main_app.site_path do
-          = t('.manage')
-  - else
-    -# for anonymous users
-    %li= link_to t('space.all'), main_app.spaces_path
-    - if mod_enabled?("events")
-      %li= link_to t('.events'), events_path
+        = link_to main_app.my_home_path do
+          = t('home.my')
+      - if mod_enabled?("spaces")
+        %li= link_to t('space.all'), main_app.spaces_path
+      - if mod_enabled?("events")
+        %li= link_to t('.events'), events_path
+      - if can?(:manage, @site)
+        %li
+          = link_to main_app.manage_path do
+            = t('.manage')
 
--# the right menu is not shown in the home page
-- if at_home?
-  %ul#navbar-right-links
-    %li.last
-      = link_to main_app.logout_path do
-        = t('logout', :user => current_user.name)
-- else
+    - else
+      -# for anonymous users
+      - if mod_enabled?("spaces")
+        %li= link_to t('space.all'), main_app.spaces_path
+      - if mod_enabled?("events")
+        %li= link_to t('.events'), events_path
+
+#navbar-right
   %ul#navbar-right-links
     - if user_signed_in?
-      %li.dropdown.user-info-dropdown.last
-
-        -# small user information in the navbar
-        .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
-          .user-avatar
-            = link_logo_image(current_user, :size => '32', :url => main_app.user_path(current_user), :title => current_user.name, :class => "logo-user")
-          %a.user-name{ :href => '#' }= current_user.name
-          %b.caret
-
-        -# dropdown menu opened when clicking in the dropdown
-        .dropdown-menu.arrow-right
-          .user-info-big
-            .user-avatar
-              = link_logo_image(current_user, :size => '128', :url => main_app.user_path(current_user), :title => current_user.name, :class => "logo-user")
-            .user-data
-              = link_to(current_user.name, main_app.user_path(current_user))
-              = link_to(current_user.email, "mailto: #{current_user.email}")
-              %span= current_user.profile.organization unless current_user.profile.organization.nil?
-          .user-links
-            %ul
-              %li= link_to t('logout', :user => current_user.name), main_app.logout_path
-              %li= link_to t('account'), main_app.edit_user_path(current_user)
-              %li
-                = t('profile.one') + ":"
-                %span
-                  = link_to t('view'), main_app.user_path(current_user)
-                  = "/ "
-                  = link_to t('edit'), main_app.edit_user_profile_path(current_user)
+      %li.last.dropdown
+        .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
+          = logo_image(current_user, size: '32', class: "logo-user")
+          %span.username= current_user.profile.first_name
+          %span.caret
+        %ul.dropdown-menu.dropdown-menu-right
+          %li
+            .observation= current_user.name
+          %li.divider{ role: 'separator' }
+          %li= link_to t(".profile"), main_app.user_path(current_user)
+          %li= link_to t(".account"), main_app.edit_user_path(current_user)
+          %li.divider{ role: "separator"}
+          %li= link_to t('logout', :user => current_user.name), main_app.logout_path
 
     - else
       - if current_site.local_auth_enabled? || current_site.ldap_enabled?

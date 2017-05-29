@@ -10,7 +10,8 @@
         = disable_autocomplete_for('user[username]')
         = disable_autocomplete_for('user[password]', 'password')
         = f.input :email, required: true, autofocus: true
-        = f.input :_full_name, required: true
+        = f.fields_for :profile do |p|
+          = p.input :full_name, required: true
         = f.input :username, required: true
         = f.input :password, required: true
         = f.input :password_confirmation, required: true

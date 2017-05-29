@@ -1,0 +1,292 @@
+@import "compass/css3";
+@import "compass/typography/links";
+
+
+@mixin breakpoint($point) {
+
+  /* single breakpoints */
+  @if ($point == lg) {
+    @media (min-width: $screen-lg-min) { @content }
+  }
+  @else if ($point == md) {
+    @media (min-width: $screen-md-min) and (max-width: ($screen-lg-min - 1)) { @content }
+  }
+  @else if ($point == sm) {
+    @media (min-width: $screen-sm-min) and (max-width: ($screen-md-min - 1)) { @content }
+  }
+  @else if ($point == xs) {
+    @media (max-width: ($screen-sm-min - 1)) { @content }
+  }
+
+  /* groups */
+  @else if ($point == lg-down) {
+    @media (max-width: ($screen-lg-min - 1)) { @content }
+  }
+  @else if ($point == md-down) {
+    @media (max-width: ($screen-md-min - 1)) { @content }
+  }
+  @else if ($point == sm-down) {
+    @media (max-width: ($screen-sm-min - 1)) { @content }
+  }
+  @else if ($point == md-up) {
+    @media (min-width: $screen-md-min) { @content }
+  }
+  @else if ($point == sm-up) {
+    @media (min-width: $screen-sm-min) { @content }
+  }
+  @else if ($point == xs-up) {
+    @media (min-width: $screen-xs-min) { @content }
+  }
+}
+
+// In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
+// text set to it, and the dimensions of the image won't respect the width/height set by the css.
+// This might break the layout in some cases.
+// So, if an element might have a broken image inside it, it can include this mixin to deal with it.
+// The image will still be replaced by the text, but it shouldn't break the layout anymore.
+// In some cases the element that includes this might also have to specify its own width and height.
+@mixin broken-img-parent($float:left) {
+  overflow: hidden;
+
+  img:-moz-broken {
+    float: $float;
+    font-size: 8px;
+    word-wrap: break-word;
+    background: white;
+  }
+}
+
+// user logos in a thread with several snippets
+// e.g. list of posts, list of recent users, etc.
+@mixin logo-in-thread {
+  float: left;
+  margin-right: 10px;
+
+  img {
+    margin: 2px 0;
+    padding: 2px;
+    border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-small);
+    &:hover { border: 1px solid $m-focus-border-color; }
+
+    // default dimensions for logos inside threads
+    &.logo-space, &.logo-space-activity {
+      width: 52px;
+      height: 39px;
+    }
+    &.logo-user, &.logo-user-activity {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
+    &.logo-removed {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  @include broken-img-parent;
+}
+
+// general logo style (user avatars, space logos)
+@mixin logo-container {
+  img {
+    margin: 2px 0;
+    padding: 1px;
+    border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-small);
+
+    &.logo-space, &.logo-user {
+      width: 100%;
+      height: auto;
+    }
+
+    // default dimensions for logos inside threads
+    &.logo-space.fixed-width, &.logo-space-activity {
+      width: 52px;
+      height: 39px;
+    }
+    &.logo-user.fixed-width, &.logo-user-activity {
+      width: 39px;
+      height: 39px;
+    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
+    &.logo-removed {
+      width: 39px;
+      height: 39px;
+    }
+  }
+
+  a img {
+    &:hover { border: 1px solid $m-focus-border-color; }
+  }
+
+  @include broken-img-parent;
+}
+
+@mixin mconf-clearfix {
+  @include clearfix;
+  @include pie-clearfix;
+}
+
+// to 'hide' it and move it off the screen
+// we can't just hide it because it won't be clickable
+@mixin hide-input-file {
+  opacity: 0;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+  width: 0;
+  height: 0;
+
+  label { display: none; }
+  input[type=file] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}
+
+@mixin danger-text {
+  color: $m-red;
+  @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5), lighten($m-red, 5));
+  &:not(.btn) { @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5), lighten($m-red, 5)); }
+}
+
+@function lighten-or-darken($bg, $color, $amountToLighten, $amountToDarken) {
+  @if (lightness( $bg ) > 40) {
+    $color: darken($color, $amountToDarken);
+  }
+  @else {
+    $color: lighten($color, $amountToDarken);
+  }
+  @return $color;
+}
+
+//
+// Methods below from: https://github.com/stubbornella/oocss
+//
+// Function for converting a px based font-size to rem.
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
+@function calculate-rem($size) {
+  $remSize: $size / 16px;
+  // Default font size on html element is 100%, equivalent to 16px;
+  @return #{$remSize}rem;
+}
+@function calculate-px($size) {
+  $pxSize: parseInt($size) * 16px;
+  // Default font size on html element is 100%, equivalent to 16px;
+  @return #{$pxSize}px;
+}
+// Mixin that will include the fall back px declaration as well as the calculated rem value.
+// TODO: remove, not needed anymore
+@mixin font-size($size) {
+  font-size: calculate-px($size);
+  font-size: $size;
+}
+
+// Highlighted content blocks
+@mixin block-wrapper-active {
+  &.active {
+    background: $m-alert-success-bg;
+    .content-block, .list-thumbnail {
+      border-color: darken($m-alert-success-bg, 15);
+      border-width: 1px;
+    }
+  }
+}
+
+@mixin set-max-site-width {
+  @media (min-width: $screen-lg-min) {
+    max-width: $m-contents-max-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@mixin text-truncate {
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin small-date {
+  color: #666;
+  font-weight: normal;
+  @include font-size($m-font-small);
+}
+
+@mixin navbar-lists {
+  > ul {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline;
+      float: left;
+
+      &:first-child { border: 0 }
+
+      .label { margin-left: 3px; }
+
+      &.notification {
+        //background: lighten($m-navbar-bg-color-light, 5);
+        margin: 0 10px 0 0;
+
+        .badge {
+          background-color: $brand-success;
+          color: white;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  // very specific selector se we don't mess with dropdowns and others
+  > ul > li > a, > a {
+    padding: 17px 16px 16px 16px;
+    display: block;
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+    @include transition(background-color 0.2s ease-in);
+
+    &:hover {
+      background: $m-navbar-font-highlight;
+    }
+  }
+
+  .icon-awesome {
+    margin: 3px 3px 0px 0px;
+    @include font-size($m-font-normal);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+  }
+}
+
+@mixin two-column-list($logo-size, $margin) {
+  .col-1 {
+    width: $logo-size;
+    height: auto;
+    float: left;
+    margin-left: $margin;
+  }
+
+  .col-2 {
+    $col1-size: $logo-size + $margin * 3;
+    width: calc(100% - #{$col1-size});
+    margin-left: $margin*2;
+    float: left;
+  }
+
+}

@@ -1,32 +1,31 @@
+- show_register = current_site.registration_enabled?
+- show_login = current_site.local_auth_enabled? || current_site.ldap_enabled?
+
 - content_for :navbar do
   #navbar
-    #main-logo
-      %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
+    %a#navbar-logo{:href => root_path}
 
-- content_for :page_header do
-  - if current_site.name.blank?
-    = t(".headline")
-  - else
-    - headline = current_site.name
-    - unless current_site.description.blank?
-      - headline += ": " + current_site.description
-    = headline
+#content.container-fluid
 
-#content
+  #headline
+    - if current_site.description.blank?
+      = t(".headline")
+    - else
+      = current_site.description
 
-  - if current_site.local_auth_enabled? || current_site.ldap_enabled?
-    #login-box.form-area
-      %h2= t('.login.title')
-      = render :partial => 'sessions/login_form'
-      .action-links
-        %ul
-          - if current_site.shib_enabled?
-            %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
-          - if current_site.certificate_login_enabled?
-            %li= certificate_auth_link t('.login.certificate')
-          %li= link_to t('.login.lost_password'), new_user_password_path
+  #center-container
+    #action-links
+      - if show_register
+        = link_to t('.register.title'), register_path, class: 'btn btn-primary btn-lg'
+      - if show_register && show_login
+        %span= t('.or')
+      - if show_login
+        = link_to t('.login.title'), login_path, class: 'btn btn-primary btn-lg'
 
-  - if current_site.registration_enabled?
-    #registration-box.form-area
-      %h2= t('.register.title')
-      = render :partial => 'registrations/signup_form'
+    %ul#action-links-extra
+      - if current_site.local_auth_enabled?
+        %li= link_to t('.login.lost_password'), new_password_path(resource_name)
+      - if current_site.certificate_login_enabled?
+        %li= certificate_auth_link t('.login.certificate')
+      - if current_site.shib_enabled?
+        %li= link_to t('.login.federation'), shibboleth_path

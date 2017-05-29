@@ -20,7 +20,7 @@ describe SpaceEventsController, :events => true do
     context "layout and view" do
       before(:each) { get :index, :space_id => space.to_param }
       it { should render_template(/index/) }
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
     end
 
     it "assigns @space"
@@ -182,5 +182,49 @@ describe SpaceEventsController, :events => true do
       end
     end
 
+  end
+
+  describe "spacess module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    let(:space_id) { space.to_param }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+    end
+  end
+
+  describe "events module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    let(:space_id) { space.to_param }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+    end
   end
 end

@@ -75,11 +75,24 @@ class mconf.Base
     # Items with this class will only be visible when the item defined
     # by the id in the 'data-hover-tracked' attribute is hovered. Ex:
     # <div class="visible-on-hover" data-hover-tracked="event_123"></div>
+    # It will wait a little while before showing the element to make it less intrusive
+    # and annoying. So it only appears when the user hovers the parent element for
+    # time enough.
     $('.visible-on-hover').each ->
+      showAnimationDelay = 150
+      hideAnimationDelay = 150
+      showDelay          = 350
+
       $target = $(this)
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
-      $tracked.on "mouseenter.mconfBase", (e) -> $target.show()
-      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide()
+      $tracked.on "mouseenter.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", true)
+        setTimeout( ->
+          $target.show(showAnimationDelay) if $target.data("visible-on-hover-show")
+        , showDelay)
+      $tracked.on "mouseleave.mconfBase", (e) ->
+        $target.data("visible-on-hover-show", false)
+        $target.hide(hideAnimationDelay)
 
     # Links with 'data-open-file' will trigger a click
     # in the input[type=file] element pointed by 'href'
@@ -93,23 +106,25 @@ class mconf.Base
       e.preventDefault()
       $($(this).attr("href")).submit()
 
-  @unbind: ->
-    $("a.webconf-join-link:not(.disabled)").off "click.mconfBase"
-    $("a.open-new-window:not(.disabled)").off "click.mconfBase"
-    $(".disabled").off "click.mconfBase"
-    $('a.link-to-expand').off "click.mconfBase"
-    $('a.link-to-collapse').off "click.mconfBase"
-    $('.visible-on-hover').each ->
+  @unbind: (parent) ->
+    $("a.webconf-join-link:not(.disabled)", parent).off "click.mconfBase"
+    $("a.open-new-window:not(.disabled)", parent).off "click.mconfBase"
+    $(".disabled", parent).off "click.mconfBase"
+    $('a.link-to-expand', parent).off "click.mconfBase"
+    $('a.link-to-collapse', parent).off "click.mconfBase"
+    $('.visible-on-hover', parent).each ->
       $tracked = $("#" + $(this).attr("data-hover-tracked"))
       $tracked.off "mouseenter.mconfBase"
       $tracked.off "mouseleave.mconfBase"
-    $("a[data-open-file]").off "click.mconfBase"
-    $("a.submit-form, button.submit-form").off "click.mconfBase"
+    $("a[data-open-file]", parent).off "click.mconfBase"
+    $("a.submit-form, button.submit-form", parent).off "click.mconfBase"
 
   # Converts a string into a slug. Should do it as closely as possible from the
   # way slugs are generated in the application using FriendlyId.
   # From: http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
-  @stringToSlug: (str) ->
+  # direct_input is a boolean to allow more freedom if the slug is applied to the
+  # same field the user is currently editing
+  @stringToSlug: (str, direct_input=false) ->
     return '' if !str?
 
     str = str.toLowerCase()
@@ -117,8 +132,12 @@ class mconf.Base
     str = str.replace(/[^A-Za-z0-9\-_ ]*/g, '')
        .replace(/\s+/g, '-')         # collapse whitespace and replace by '-'
        .replace(/-+/g, '-')          # collapse dashes
-       .replace(/-$/g, '')           # dash as the last char
        .replace(/^-/g, '')           # dash as the first char
+
+    if direct_input is false
+      str = str.replace(/-$/g, '')   # dash as the last char
+
+    str
 
   # Returns whether an email is valid or not.
   # From: http://www.w3resource.com/javascript/form/email-validation.php

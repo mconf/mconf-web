@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -15,11 +16,16 @@ module ApplicationHelper
   include Mconf::GuestUserModule
 
   def copyable_field(id, content, opt={})
-    opt[:label] ||= id
-    content_tag :div, :class => 'input-append copyable-field' do
-      concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
-      concat text_field_tag(id, content, opt.except(:label))
-      concat content_tag(:a, '', :class => "icon-awesome icon-paste add-on", :href => "#")
+    content_tag :div, :class => 'form-group copyable-field' do
+      content_tag :div, :class => 'input-group' do
+        input_class = "#{opt[:class]} form-control"
+        concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
+        concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
+        btn = content_tag :a, '', :class => 'input-group-addon btn', :href => '#' do
+          concat content_tag(:i, '', :class => "icon-awesome fa fa-paste")
+        end
+        concat btn
+      end
     end
   end
 
@@ -35,11 +41,17 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
-  def page_title title, opt ={}
+  def page_title(title, opt ={})
     inside_resource = " #{opt[:in]} &#149;" if opt[:in].present?
     content_for :title do
       "#{title} &#149;#{inside_resource} #{current_site.name}".html_safe
     end
+  end
+
+  def default_separator(no_space=false)
+    s  = "&#149;"
+    s += " " unless no_space
+    s.html_safe
   end
 
   # Ex: asset_exists?('posts/edit', 'css')
@@ -72,25 +84,17 @@ module ApplicationHelper
     params[:controller].parameterize
   end
 
-  # Renders the partial 'layout/page_title'
-  # useful to simplify the calls from the views
-  # Now also sets the html title tag for the page
-  # Ex:
-  #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
-  def render_page_title(title, logo=nil, options={})
-    page_title title
-    block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
-  end
+  # Returns the name of the layout in use
+  def layout_name
+    layout = controller.send(:_layout)
 
-  # Renders the partial 'layout/sidebar_content_block'
-  # If options[:active], will set a css style to emphasize the block
-  # Ex:
-  #   <%= render_sidebar_content_block('users') do %>
-  #     any content
-  #   <% end %>
-  def render_sidebar_content_block(id=nil, options={}, &block)
-    options[:active] ||= false
-    block_to_partial('layouts/sidebar_content_block', options.merge(:id => id), &block)
+    # depending on how the layout is specified in the controller, it can
+    # be a string or an object
+    if layout.is_a?(String)
+      layout
+    else
+      File.basename(layout.identifier).gsub(/\..*/, '')
+    end
   end
 
   # Checks if the current page is the user's home page
@@ -101,15 +105,15 @@ module ApplicationHelper
   # Returns the url prefix used to identify a webconf room
   # e.g. 'https://server.org/webconf/'
   def webconf_url_prefix
-    # note: '/webconf' is defined in routes.rb
-    "#{Site.current.domain_with_protocol}/webconf/"
+    path = webconf_path_prefix
+    path = '/' + path unless path.match(/^\//)
+    "#{Site.current.domain_with_protocol}#{path}"
   end
 
   # Returns the url prefix used to identify a webconf room
   # e.g. '/webconf/'
   def webconf_path_prefix
-    # note: '/webconf' is defined in routes.rb
-    "/webconf/"
+    "#{Rails.application.config.conf_scope_rooms}/"
   end
 
   def options_for_tooltip(title, options={})
@@ -168,54 +172,60 @@ module ApplicationHelper
     content_tag :input, nil, attrs
   end
 
-  #
-  # TODO: All the code below should be reviewed
-  #
-
-  # Initialize an object for a form with suitable params
-  # TODO: not really needed, can be replaced by @space.post.build, for example
-  def prepare_for_form(obj, options = {})
-    case obj
-    when Post
-      obj.space = @space if obj.space.blank?
-    when Attachment
-      obj.space = @space if obj.space.blank?
-    else
-      raise "Unknown object #{ obj.class }"
-    end
-
-    options.each_pair do |method, value|  # Set additional attributes like:
-      obj.__send__ "#{ method }=", value         # post.event = @event
-    end
-
-    obj
+  # Returns the previous path (the referer), if it exists and is a 'redirectable to'
+  # path. Otherwise returns the fallback.
+  def previous_path_or(fallback)
+    session[:previous_user_return_to] || fallback
   end
 
-  # Every time a form needs to point a role as default (User, admin, guest, ...)
-  def default_role
-    Role.default_role
-  end
-
-  # First 'size' characters of a text
-  def first_words(text, size)
-    truncate(text, :length => size)
-  end
-
-  def captcha_tags
+  def captcha_tags(opts={})
     if current_site.captcha_enabled?
       content_tag :div, class: 'captcha' do
-        recaptcha_tags public_key: current_site.recaptcha_public_key, hl: I18n.locale
+        params = { public_key: current_site.recaptcha_public_key, hl: I18n.locale }.merge(opts)
+        recaptcha_tags params
       end
     end
   end
 
-  private
+  # Stores the current tab in the menu in the administration pages of a space
+  def bbb_server_admin_menu_at(tab)
+    @bbb_server_admin_menu_tab = tab
+  end
 
-  # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
-  # There's a better solution at http://pathfindersoftware.com/2008/07/pretty-blocks-in-rails-views/
-  # But render(:layout => 'something') with a block is not working (rails 3.1.3, jan/12)
-  def block_to_partial(partial_name, options={}, &block)
-    options.merge!(:body => capture(&block)) if block_given?
-    render(:partial => partial_name, :locals => options)
+  # Selects the tab if it is the current tab in the administration menu of a tabs
+  def bbb_server_admin_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @bbb_server_admin_menu_tab == tab ?
+      options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
+  # Sets the default value for a local variable in a view in case this variable is not set yet.
+  # Preserves false and nil values set in the variable.
+  # Example:
+  #   show_authors = set_default(local_assigns, "show_authors", true)
+  # TODO: find a way to access `local_assigns` here without passing in as a param.
+  def set_default(local_assigns, var_name, value)
+    if local_assigns.has_key?(var_name.to_sym)
+      local_assigns[var_name.to_sym]
+    else
+      value
+    end
+  end
+
+  # First 'size' characters of a text
+  def first_words(text, size)
+    truncate(text, length: size)
+  end
+
+  def locale_for_datetime_picker
+    case I18n.locale.to_s
+    when /^pt/
+      'pt-BR'
+    when /^es/
+      'es'
+    else
+      I18n.locale.to_s
+    end
   end
 end

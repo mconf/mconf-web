@@ -2,17 +2,25 @@
 # calling bootstrap's `tooltip()`.
 class mconf.Tooltip
 
-  defaultOptions =
+  @defaultOptions =
     # append tooltips to the <body> element to prevent problems with tooltips inside
     # elements with `overflow:hidden` set, for example.
     container: 'body'
-    placement: 'top'
+    placement: 'auto top'
+    delay:
+      show: 500
+      hide: 100
 
   @bind: ->
     $("a[rel=popover]").popover()
-    $(".tooltip").tooltip(defaultOptions)
-    $(".tooltipped").tooltip(defaultOptions)
-    $("a[rel=tooltip]").tooltip(defaultOptions)
+    $(".tooltip").tooltip(@defaultOptions)
+    $(".tooltipped").tooltip(@defaultOptions)
+    $("a[rel=tooltip]").tooltip(@defaultOptions)
+
+  @bindOne: (el) ->
+    $el = $(el)
+    $el.tooltip('destroy')
+    $el.tooltip(@defaultOptions)
 
 $ ->
   mconf.Tooltip.bind()

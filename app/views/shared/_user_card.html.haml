@@ -1,0 +1,24 @@
+// Locals:
+//   editing (boolean): show/hide controls to edit the logo
+
+- editing ||= false
+
+.resource-card.resource-user
+  .resource-logo
+    - cls = editing ? 'editing' : ''
+    = logo_image(user, size: '300', title: user.name, class: cls)
+
+    = upload_logo_controls(@user) if editing
+
+    - if user.superuser?
+      .label.label-superuser.tooltipped{ title: t('_other.user.admin_tooltip') }
+        = t('_other.user.admin')
+    - if editing && user.profile.logo_image.blank? && current_site.use_gravatar?
+      .label.label-gravatar.tooltipped{ title: t('.gravatar_label_tooltip') }
+        = t('.gravatar_label')
+
+  .data
+    %span.data-main{ title: user.name }= user.name
+    %span.data-other{ title:user.email }= user.email
+    - unless user.profile.organization.blank?
+      %span.data-other{ title: user.profile.organization }= user.profile.organization

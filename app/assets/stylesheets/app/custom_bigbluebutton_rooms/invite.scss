@@ -1,0 +1,56 @@
+@import "definitions";
+@import "compass/css3";
+
+@import "app/custom_bigbluebutton_rooms/_invite_header";
+
+body.custom_bigbluebutton_rooms.invite,
+body.custom_bigbluebutton_rooms.auth {
+
+  #webconf-room-invite {
+    @include mconf-clearfix;
+    clear: both;
+
+    @include make-row;
+
+    form {
+      @include make-xs-column(12);
+      @include make-sm-column(4);
+      @include make-sm-column-push(4);
+
+      h3 {
+        color: #fff;
+        margin-top: 8px;
+        border-bottom: 1px solid $m-navbar-internal-border-color;
+        padding: 8px 4px;
+        border-radius: $m-border-radius-base;
+      }
+
+      .change-name {
+        font-size: $m-font-normal;
+        display: block;
+        text-align: right;
+
+        a {
+          $normal: $m-link-color-hover;
+          $hover: darken($normal, 5);
+          @include link-colors($normal, $hover, $hover, $normal);
+        }
+      }
+
+      .form-password {
+        margin-top: 32px;
+      }
+    }
+
+    .form-actions {
+      border: none;
+      margin-top: 24px;
+      padding-top: 0;
+
+      input {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+  }
+}

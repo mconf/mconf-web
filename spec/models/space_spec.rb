@@ -15,14 +15,12 @@ describe Space do
   end
 
   describe "initializes with default values" do
-    it("should be false by default") { Space.new.repository.should be_falsey }
-    it("should be true if set to") { Space.new(:repository => true).repository.should be true }
-    it("should be false by default") { Space.new.public.should be_falsey }
-    it("should be true if set to") { Space.new(:public => true).public.should be true }
-    it("should be false by default") { Space.new.disabled.should be_falsey }
-    it("should be true if set to") { Space.new(:disabled => true).disabled.should be true }
-    it("should be false by default") { Space.new.deleted.should be_falsey }
-    it("should be true if set to") { Space.new(:deleted => true).deleted.should be true }
+    it { Space.new.repository.should be(false) }
+    it { Space.new(repository: true).repository.should be(true) }
+    it { Space.new.public.should be(false) }
+    it { Space.new(public: true).public.should be(true) }
+    it { Space.new.disabled.should be(false) }
+    it { Space.new(disabled: true).disabled.should be(true) }
   end
 
   it { should have_many(:posts).dependent(:destroy) }
@@ -77,6 +75,33 @@ describe Space do
         subject.errors.should have_key(:permalink)
         subject.errors.messages[:permalink].should include(message)
       }
+    end
+
+    describe "blocks reserved words" do
+      let(:message) { "has already been taken" }
+      file = File.join(::Rails.root, "config", "reserved_words.yml")
+      words = YAML.load_file(file)['words']
+
+      describe "on create" do
+        words.each do |word|
+          context "word: #{word}" do
+            subject { FactoryGirl.build(:space, permalink: word) }
+            include_examples "invalid space with permalink not unique"
+          end
+        end
+      end
+
+      describe "on update" do
+        words.each do |word|
+          context "word: #{word}" do
+            let(:subject) { FactoryGirl.create(:space) }
+            before(:each) {
+              subject.permalink = word
+            }
+            include_examples "invalid space with permalink not unique"
+          end
+        end
+      end
     end
 
     describe "validates uniqueness against Space#permalink" do
@@ -377,6 +402,23 @@ describe Space do
       it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_activity.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
     end
+
+    context 'returns spaces even if they have no activities' do
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.length.should be(4) }
+    end
+
+    context 'returns spaces even if they have no room' do
+      before {
+        spaces.each do |space|
+          space.bigbluebutton_room.destroy
+        end
+      }
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.length.should be(4) }
+    end
+
+    skip 'calling `order_by_activity.count` works'
   end
 
   describe ".order_by_relevance" do
@@ -562,6 +604,23 @@ describe Space do
       it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
       it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
     end
+
+    context 'returns spaces even if they have no activities' do
+      it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_relevance.all.length.should be(4) }
+    end
+
+    context 'returns spaces even if they have no room' do
+      before {
+        spaces.each do |space|
+          space.bigbluebutton_room.destroy
+        end
+      }
+      it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_relevance.all.length.should be(4) }
+    end
+
+    skip 'calling `order_by_relevance.count` works'
   end
 
   describe ".calculate_last_activity_indexes!" do
@@ -759,9 +818,9 @@ describe Space do
     let!(:user_role) { Role.find_by(:name => 'User') }
 
     before {
-      user1 = FactoryGirl.create(:user, _full_name: "b123")
-      user2 = FactoryGirl.create(:user, _full_name: "c123")
-      user3 = FactoryGirl.create(:user, _full_name: "a123")
+      user1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "b123"))
+      user2 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "c123"))
+      user3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: "a123"))
       @permission1 = Permission.create(user: user1, role: admin_role, subject: target)
       @permission2 = Permission.create(user: user2, role: user_role, subject: target)
       @permission3 = Permission.create(user: user3, role: user_role, subject: target)
@@ -1110,7 +1169,7 @@ describe Space do
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
-      :user_permissions, :edit_recording, :webconference_options, :recordings,
+      :user_permissions, :edit_recording, :webconference_options, :meetings,
       :manage_join_requests, :add, :index_event])
 
     subject { ability }
@@ -1199,7 +1258,7 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :create, :new, :select, :index_event]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :meetings, :create, :new, :select, :index_event]) }
         end
 
         context "he is a member of" do
@@ -1208,7 +1267,7 @@ describe Space do
             context "being the last admin" do
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
+                  :show, :index, :webconference, :meetings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
                   :webconference_options, :manage_join_requests, :index_event
                 ]
@@ -1220,7 +1279,7 @@ describe Space do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
+                  :show, :index, :webconference, :meetings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
                   :webconference_options, :manage_join_requests, :index_event
                 ]
@@ -1244,7 +1303,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :index_event])
+                .except([:show, :index, :webconference, :meetings, :create, :new, :select, :leave, :index_event])
             }
 
             context "when the space is not approved" do
@@ -1273,7 +1332,7 @@ describe Space do
             context "being the last admin" do
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :edit,
+                  :show, :index, :webconference, :meetings, :create, :new, :select, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
                   :webconference_options, :manage_join_requests, :index_event
                 ]
@@ -1285,7 +1344,7 @@ describe Space do
               before { target.add_member!(FactoryGirl.create(:user), "Admin") }
               it {
                 list = [
-                  :show, :index, :webconference, :recordings, :create, :new, :select, :leave, :edit,
+                  :show, :index, :webconference, :meetings, :create, :new, :select, :leave, :edit,
                   :update, :update_logo, :disable, :user_permissions, :edit_recording,
                   :webconference_options, :manage_join_requests, :index_event
                 ]
@@ -1309,7 +1368,7 @@ describe Space do
             before { target.add_member!(user, "User") }
             it {
               should_not be_able_to_do_anything_to(target)
-                .except([:show, :index, :webconference, :recordings, :create, :new, :select, :leave, :index_event])
+                .except([:show, :index, :webconference, :meetings, :create, :new, :select, :leave, :index_event])
             }
 
             context "when the space is not approved" do
@@ -1345,7 +1404,7 @@ describe Space do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :recordings, :select, :index_event]) }
+        it { should_not be_able_to_do_anything_to(target).except([:show, :index, :webconference, :meetings, :select, :index_event]) }
 
         context "that is disabled" do
           before { target.disable }

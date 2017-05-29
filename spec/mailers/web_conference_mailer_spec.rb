@@ -34,28 +34,27 @@ describe WebConferenceMailer do
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
         text = I18n.t('web_conference_mailer.invitation_email.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([invitation.sender.email]) }
       it("assigns @invitation") {
-        mail.body.encoded.should match(invitation.title)
-        mail.body.encoded.should match(invitation.description)
-        mail.body.encoded.should match(invitation.url)
+        mail_content(mail).should match(invitation.title)
+        mail_content(mail).should match(invitation.description)
+        mail_content(mail).should match(invitation.url)
       }
       it("renders the attendee password if the room is private") {
         invitation.target.update_attributes(private: true)
-        mail.body.encoded.should match(invitation.target.attendee_key)
+        mail_content(mail).should match(invitation.target.attendee_key)
       }
       it("renders the dial number") {
         invitation.target.update_attributes(dial_number: '12345')
-        mail.body.encoded.should match('12345')
+        mail_content(mail).should match('12345')
       }
       it("doesn't render the attendee password if the room is public") {
         invitation.target.update_attributes(private: false)
-        mail.body.encoded.should_not match(invitation.target.attendee_key)
+        mail_content(mail).should_not match(invitation.target.attendee_key)
       }
     end
 
@@ -74,7 +73,7 @@ describe WebConferenceMailer do
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -88,7 +87,7 @@ describe WebConferenceMailer do
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -102,7 +101,7 @@ describe WebConferenceMailer do
         content = I18n.t('web_conference_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end

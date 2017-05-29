@@ -3,6 +3,5 @@
 //
 //= require epiceditor
 //= require leaflet
-//= require bootstrap-datetimepicker
 //
 //= require_tree ./app/events/

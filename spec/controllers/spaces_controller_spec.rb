@@ -47,8 +47,6 @@ describe SpacesController do
   end
 
   describe "#index" do
-    it "sets param[:view] to 'thumbnails' if not set"
-    it "sets param[:view] to 'thumbnails' if different than 'list'"
     it "uses param[:view] as 'list' if set to this value"
     it "sets param[:order] to 'relevance' if not set"
     it "sets param[:order] to 'relevance' if different than 'abc'"
@@ -56,7 +54,7 @@ describe SpacesController do
 
     it { should_authorize Space, :index }
 
-    context "orders by latest activities in the space" do
+    context "orders by latest activities in the spate" do
       let!(:now) { Time.now }
       let!(:spaces) {[
         FactoryGirl.create(:space_with_associations),
@@ -132,7 +130,7 @@ describe SpacesController do
     context "layout and view" do
       before(:each) { get :show, :id => target.to_param }
       it { should render_template("spaces/show") }
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
     end
 
     it "assigns @space"
@@ -188,7 +186,7 @@ describe SpacesController do
     before(:each) { get :new }
 
     context "template and view" do
-      it { should render_with_layout("application") }
+      it { should render_with_layout("navbar_bg") }
       it { should render_template("spaces/new") }
     end
 
@@ -272,7 +270,7 @@ describe SpacesController do
 
       describe "renders the view spaces/new with the correct layout" do
         before(:each) { post :create, :space => invalid_attributes }
-        it { should render_with_layout("application") }
+        it { should render_with_layout("navbar_bg") }
         it { should render_template("spaces/new") }
       end
 
@@ -303,7 +301,7 @@ describe SpacesController do
     before(:each) { get :edit, :id => space.to_param }
 
     context "template and view" do
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
       it { should render_template("spaces/edit") }
     end
 
@@ -531,7 +529,7 @@ describe SpacesController do
       }
 
       it { should render_template(:webconference) }
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
     end
@@ -615,85 +613,104 @@ describe SpacesController do
     end
   end
 
-  describe "#recordings" do
+  describe "#meetings" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :recordings, :id => space.to_param }
-      it { should render_template(:recordings) }
-      it { should render_with_layout("spaces_show") }
+      before(:each) { get :meetings, :id => space.to_param, :recordedonly => 'false' }
+      it { should render_template(:meetings) }
+      it { should render_with_layout("application") }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
-      context "assigns @recordings" do
-      end
 
-      context "assigns @recordings" do
-        context "doesn't include recordings from rooms of other owners" do
+      context "assigns @meetings" do
+        context "doesn't include meetings from rooms of other owners" do
           before :each do
-            FactoryGirl.create(:bigbluebutton_recording, :room => FactoryGirl.create(:bigbluebutton_room), :published => true)
+            FactoryGirl.create(:bigbluebutton_meeting, :room => FactoryGirl.create(:bigbluebutton_room))
           end
-          it { should assign_to(:recordings).with([]) }
+          it { should assign_to(:meetings).with([]) }
         end
 
-        context "doesn't include recordings that are not published" do
+        context "includes meetings with recordings that are not published" do
           before :each do
-            FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false)
+            @meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+            FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false,
+                                            :meeting => @meeting)
           end
-          it { should assign_to(:recordings).with([]) }
+          it { should assign_to(:meetings).with([@meeting]) }
         end
 
-        context "includes recordings that are not available" do
+        context "includes meetings with recordings that are not available" do
           before :each do
-            @recording = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                            :available => false)
+            @meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+            FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                            :meeting => @meeting, :available => false)
           end
-          it { should assign_to(:recordings).with([@recording]) }
+          it { should assign_to(:meetings).with([@meeting]) }
         end
 
-        context "order recordings by end_time DESC" do
+        context "order meetings create_time DESC" do
           before :each do
-            r1 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now)
-            r2 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now - 2.days)
-            r3 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now - 1.hour)
-            @expected_recordings = [r1, r3, r2]
+            meeting1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                          :create_time => DateTime.now.to_i)
+            meeting2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                          :create_time => DateTime.now.to_i - 2.days)
+            meeting3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                          :create_time => DateTime.now.to_i - 1.hour)
+            @expected_meetings = [meeting1, meeting3, meeting2]
           end
-          it { should assign_to(:recordings).with(@expected_recordings) }
+          it { should assign_to(:meetings).with(@expected_meetings) }
         end
       end
     end
 
     context "if params[:limit] is set" do
-      describe "limits the number of recordings assigned to @recordings" do
+      describe "limits the number of meetings assigned to @meetings" do
         before :each do
-          @r1 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now)
-          @r2 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 1.hour)
-          @r3 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 2.hours)
-          @r4 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 3.hours)
-          @r5 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 4.hours)
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                   :create_time => DateTime.now)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                   :create_time => DateTime.now - 1.hour)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                   :create_time => DateTime.now - 2.hours)
+          @m4 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                   :create_time => DateTime.now - 3.hours)
+          @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room,
+                                   :create_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :recordings, :id => space.to_param, :limit => 3 }
-        it { assigns(:recordings).count.should be(3) }
-        it { assigns(:recordings).should include(@r1) }
-        it { assigns(:recordings).should include(@r2) }
-        it { assigns(:recordings).should include(@r3) }
+        before(:each) { get :meetings, :id => space.to_param, :limit => 3, :recordedonly => 'false' }
+        it { assigns(:meetings).count.should be(3) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should include(@m3) }
       end
     end
 
-    context "if params[:partial] is set" do
-      before(:each) { get :recordings, :id => space.to_param, :partial => true }
-      it { should render_template(:recordings) }
-      it { should_not render_with_layout }
+    context "if recordedonly is not set or not false" do
+      describe "show only meetings that have recordings" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space_with_associations) }
+        before :each do
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+          FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false,
+                                          :meeting => @m1)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+          FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false,
+                                          :meeting => @m2)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room)
+        end
+        before(:each) {
+          space.add_member! user, "Admin"
+          login_as(user)
+        }
+        before(:each) { get :meetings, :id => space.to_param }
+        it { assigns(:meetings).count.should be(2) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should_not include(@m3) }
+      end
     end
-
   end
 
   describe "#recording_edit" do
@@ -709,13 +726,13 @@ describe SpacesController do
     }
 
     context "html request" do
+      before { request.env["HTTP_REFERER"] = "/test" }
       before(:each) { get :edit_recording, :space_id => space.to_param, :id => recording.to_param }
       it { should render_template(:edit_recording) }
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
-      it { should assign_to(:redir_url).with(recordings_space_path(space.to_param)) }
+      it { should assign_to(:redir_url).with("/test") }
     end
 
     context "xhr request" do
@@ -802,7 +819,7 @@ describe SpacesController do
       it { should respond_with(:success) }
       it { assigns(:space).should eq(target) }
       it { should render_template(/user_permissions/) }
-      it { should render_with_layout("spaces_show") }
+      it { should render_with_layout("application") }
     end
 
     context "user is not a member of the space" do
@@ -847,4 +864,53 @@ describe SpacesController do
     end
   end
 
+  describe "spaces module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    let(:space_id) { space.to_param }
+    let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+    let(:space_attributes) { FactoryGirl.attributes_for(:space) }
+
+    context "with disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+
+        space.add_member!(user)
+      }
+      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :create, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :update_logo, space_params }.to raise_error(ActionController::RoutingError) }
+      it { request.env["HTTP_REFERER"] = "/any"
+           expect { put :update, id: space_id, space: space_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :user_permissions, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :leave, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :webconference, id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :meetings, id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "with enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+
+        space.add_member!(user)
+      }
+      it { expect { get :index }.not_to raise_error }
+      it { expect { get :new }.not_to raise_error }
+      it { expect { get :show, id: space_id }.not_to raise_error }
+      it { expect { get :create, id: space_id }.not_to raise_error }
+      it { expect { post :update_logo, space_params }.not_to raise_error }
+      it { request.env["HTTP_REFERER"] = "/any"
+           expect { put :update, id: space_id, space: space_attributes }.not_to raise_error }
+      it { expect { delete :destroy, id: space_id }.not_to raise_error }
+      it { expect { get :user_permissions, id: space_id }.not_to raise_error }
+      it { expect { get :leave, id: space_id }.not_to raise_error }
+      it { expect { get :webconference, id: space_id }.not_to raise_error }
+      it { expect { get :meetings, id: space_id }.not_to raise_error }
+    end
+  end
 end

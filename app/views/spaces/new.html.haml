@@ -1,30 +1,8 @@
-= render_page_title t('.title')
-
-= content_for :sidebar do
-  - if @spaces_examples.size > 0
-    .content-block-header
-      %h3= t(".spaces_examples.title")
-  - @spaces_examples.each do |space|
-    = render_sidebar_content_block do
-      .content-block-header
-        .space-logo
-          = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
-        .space-description
-          %h4= link_to sanitize(space.name), space_path(space)
-          - if space.public
-            .resource-visibility.small.public
-              = icon_space_public
-              = t(".public")
-          - else
-            .resource-visibility.small.private
-              = icon_space_private
-              = t(".private")
-      .content-block-middle
-        %span.description= sanitize(auto_link(first_words(space.description, 150)))
+= page_title t('.title')
 
 #space-new
 
-  = simple_form_for @space, :html => { :method => :post }, :url => spaces_path do |f|
+  = simple_form_for @space, :html => { :method => :post }, :url => spaces_path,  wrapper: :horizontal_form, html: { class: "form-horizontal" } do |f|
     #new-space-basic-info
       = f.input :name, :autofocus => true
       = f.input :permalink

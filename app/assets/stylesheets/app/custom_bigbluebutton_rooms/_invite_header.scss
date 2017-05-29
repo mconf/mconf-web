@@ -1,0 +1,58 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_rooms.invite,
+body.custom_bigbluebutton_rooms.invite_userid,
+body.custom_bigbluebutton_rooms.auth {
+
+  #webconf-room-invite-header {
+    text-align: center;
+    @include border-radius($m-border-radius-base);
+    background-color: $m-navbar-internal-border-color;
+    @include font-size($m-font-medium);
+    padding: 16px;
+    margin-bottom: 40px;
+
+    @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-push(1);
+
+    .room-welcome {
+      @include font-size($m-font-bigger);
+      margin-bottom: 8px;
+    }
+
+    .room-name {
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .room-status {
+      display: block;
+      font-size: $m-font-medium;
+      margin: 16px 0;
+
+      .status {
+        display: inline-block;
+        font-weight: bold;
+        background: $m-yellow;
+        border-radius: $m-border-radius-base;
+        padding: 4px 8px;
+        margin-left: 8px;
+        color: #fff;
+
+        &.running {
+          background-color: $m-green;
+          cursor: pointer;
+        }
+
+        &.not-running {
+          background-color: $m-red;
+          cursor: pointer;
+        }
+      }
+    }
+
+  }
+
+}

@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < InheritedResources::Base
+  before_filter :require_spaces_mod
 
   belongs_to :space, finder: :find_by_permalink
 
@@ -13,16 +14,13 @@ class PostsController < InheritedResources::Base
   before_filter :get_posts, :only => [:index]
   load_and_authorize_resource :through => :space
 
-  # need it to show info in the sidebar
-  before_filter :webconf_room!, if: -> { set_layout == 'spaces_show' }
-
   before_filter :set_author, only: [:create]
 
-  after_filter :only => [:update] do
+  after_filter only: :update do
     @post.new_activity :update, current_user unless @post.errors.any?
   end
 
-  after_filter :only => [:create] do
+  after_filter only: :create do
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
@@ -31,7 +29,7 @@ class PostsController < InheritedResources::Base
     if [:new, :edit].include?(action_name.to_sym) && request.xhr?
       false
     else
-      "spaces_show"
+      "application"
     end
   end
 
@@ -70,9 +68,10 @@ class PostsController < InheritedResources::Base
   end
 
   def reply_post
+    @new_post = @space.posts.build(parent_id: @post.id)
     respond_to do |format|
       format.html {
-        render :partial => "reply_post"
+        render partial: "reply_post"
       }
     end
   end

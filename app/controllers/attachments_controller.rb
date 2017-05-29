@@ -7,6 +7,8 @@
 
 
 class AttachmentsController < ApplicationController
+  before_filter :require_spaces_mod
+
   # anonymous users can view and download attachments
   before_filter :authenticate_user!, except: [:index, :show]
 
@@ -18,7 +20,7 @@ class AttachmentsController < ApplicationController
   before_filter :load_attachments, :only => [:index, :delete_collection]
   before_filter :webconf_room!, :only => [:index]
 
-  layout 'spaces_show'
+  layout 'application'
 
   def show
     path = @attachment.full_filename

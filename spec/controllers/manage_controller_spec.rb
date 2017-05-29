@@ -68,11 +68,11 @@ describe ManageController do
 
       context "orders users by the user's full name" do
         before {
-          @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
+          @u1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Last one'))
           @u2 = user
-          @u2.profile.update_attributes(:full_name => 'Ce user')
-          @u3 = FactoryGirl.create(:user, :_full_name => 'A user')
-          @u4 = FactoryGirl.create(:user, :_full_name => 'Be user')
+          @u2.profile.update_attributes(full_name: 'Ce user')
+          @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A user'))
+          @u4 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Be user'))
         }
         before(:each) { get :users }
         it { assigns(:users).count.should be(4) }
@@ -84,11 +84,11 @@ describe ManageController do
 
       context "orders @users by the number of matches" do
         before {
-          @u1 = FactoryGirl.create(:user, :_full_name => 'First user created')
+          @u1 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'First user created'))
           @u2 = user
-          @u2.profile.update_attributes(:full_name => 'Second user created')
-          @u3 = FactoryGirl.create(:user, :_full_name => 'A user starting with letter A')
-          @u4 = FactoryGirl.create(:user, :_full_name => 'Being someone starting with B')
+          @u2.profile.update_attributes(full_name: 'Second user created')
+          @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'A user starting with letter A'))
+          @u4 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Being someone starting with B'))
         }
         before(:each) { get :users, :q => 'second user' }
         it { assigns(:users).count.should be(3) }
@@ -104,15 +104,15 @@ describe ManageController do
 
         context "if no page is passed in params" do
           before(:each) { get :users }
-          it { assigns(:users).size.should be(20) }
+          it { assigns(:users).size.should be(40) }
           it { controller.params[:page].should be_nil }
         end
 
         context "if a page is passed in params" do
           before(:each) { get :users, :page => 2 }
-          it { assigns(:users).size.should be(20) }
+          it { assigns(:users).size.should be(40) }
           it("includes the correct users in @users") {
-            page = User.joins(:profile).order("profiles.full_name").paginate(:page => 2, :per_page => 20)
+            page = User.joins(:profile).order("profiles.full_name").paginate(:page => 2, :per_page => 40)
             page.each do |user|
               assigns(:users).should include(user)
             end
@@ -126,10 +126,10 @@ describe ManageController do
         context "by full name" do
           before {
             @u1 = User.first
-            @u1.profile.update_attributes(:full_name => 'First')
+            @u1.profile.update_attributes(full_name: 'First')
             @u2 = user
-            @u2.profile.update_attributes(:full_name => 'Second')
-            @u3 = FactoryGirl.create(:user, :_full_name => 'Secondary')
+            @u2.profile.update_attributes(full_name: 'Second')
+            @u3 = FactoryGirl.create(:user, profile: FactoryGirl.create(:profile, full_name: 'Secondary'))
           }
           before(:each) { get :users, :q => 'second' }
           it { assigns(:users).count.should be(2) }
@@ -397,7 +397,7 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :users }
         it { should render_template(:users) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
     end
   end
@@ -619,7 +619,7 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :spaces }
         it { should render_template(:spaces) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
     end
   end
@@ -860,8 +860,29 @@ describe ManageController do
       context "not xhr request" do
         before(:each) { get :recordings }
         it { should render_template(:recordings) }
-        it { should render_with_layout('no_sidebar') }
+        it { should render_with_layout('manage') }
       end
+    end
+  end
+
+  describe "spaces module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :spaces }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :spaces }.not_to raise_error }
     end
   end
 end

@@ -1,0 +1,166 @@
+@import "compass/css3";
+@import "definitions";
+
+.simple_form {
+  position: relative;
+
+  .form-group {
+
+    // limit the height of a textarea by default
+    textarea {
+      max-height: 250px;
+      resize: vertical;
+    }
+
+    .help-block {
+      display: none;
+    }
+
+    &.has-hint, span.has-hint {
+      .icon-mconf-help {
+        margin-left: 4px;
+        cursor: pointer;
+      }
+    }
+
+    &.showable_password {
+      > div {
+        position: relative;
+      }
+
+      .showable_password_show, .showable_password_hide {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        cursor: pointer;
+      }
+
+      .showable_password_hide {
+        display: none;
+      }
+    }
+  }
+
+  abbr {
+    border: 0;
+    margin: 0;
+    color: red;
+    border-bottom: none;
+    text-decoration: none;
+  }
+
+  .form-actions {
+    clear: both;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid $m-border-color-normal;
+    text-align: right;
+
+    // wider space between form buttons and links
+    .btn, a {
+      margin: 0 3px;
+    }
+  }
+
+  .has-error {
+    .error-block {
+      display: block;
+      text-align: right;
+      color: $m-red;
+      margin-top: 4px;
+    }
+
+    .form-control {
+      border-color: $m-red;
+    }
+
+    .input-group-addon {
+      color: #fff;
+    }
+  }
+
+  // forms with a single column, where no information can be
+  // shown at the side of an input
+  &.single-column {
+    .field_with_errors .error {
+      display: block;
+      text-align: right;
+    }
+
+    input.string, input.password, input.numeric, input.fake, textarea, select {
+      width: 100%
+    }
+    select.datetime {
+      width: 13%;
+    }
+  }
+
+  &.form-horizontal {
+    label:not(.checkbox) {
+      text-align: right;
+      padding-top: 6px;
+    }
+  }
+}
+
+.modal .modal-footer .form-actions {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* our custom datetime picker input */
+.datetime-picker-input {
+  position: relative;
+
+  input[readonly] {
+    // do not gray it out
+    background: $m-input-bg;
+  }
+
+  i {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+/* the class used by the library bootstrap-datetimepicker */
+.datetimepicker {
+
+  td, th {
+    border-radius: $m-border-radius-base;
+    padding: 7px;
+  }
+
+  table tr td {
+    &.active.active,
+    span.active.active {
+      background: $m-color-secondary !important;
+    }
+
+    &.today {
+      background: $m-gray;
+
+      &:hover {
+        background: $m-gray;
+      }
+    }
+
+    .day:hover, span:hover, &.today:hover:hover {
+      background: #eee;
+    }
+
+    span {
+      border-radius: $m-border-radius-base;
+    }
+  }
+
+  .datetimepicker table tr td {
+  }
+
+  .table-condensed > tbody > tr > td {
+    // more confortable padding
+    padding: 8px;
+  }
+}

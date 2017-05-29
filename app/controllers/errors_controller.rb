@@ -9,7 +9,7 @@
 # directly by ApplicationController
 
 class ErrorsController < ApplicationController
-  layout 'error'
+  layout 'no_sidebar'
 
   def on_error
     @exception = env["action_dispatch.exception"]

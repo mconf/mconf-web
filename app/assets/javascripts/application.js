@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap-sprockets
 //= require lodash
 //= require handlebars.runtime
 //= require diacritics
@@ -10,7 +10,7 @@
 //= require jquery/jquery.placeholder
 
 // Notifications (flash messages).
-//= require jquery/jquery.noty
+//= require toastr
 
 // To crop logos.
 //= require jquery/jquery.Jcrop
@@ -37,7 +37,12 @@
 //= require moment/ru
 
 // Datetime picker for bootstrap
-//= require bootstrap-datetimepicker
+//= require bootstrap/bootstrap-datetimepicker
+//= require bootstrap/locales/bootstrap-datetimepicker.bg
+//= require bootstrap/locales/bootstrap-datetimepicker.de
+//= require bootstrap/locales/bootstrap-datetimepicker.es
+//= require bootstrap/locales/bootstrap-datetimepicker.pt-BR
+//= require bootstrap/locales/bootstrap-datetimepicker.ru
 
 //= require fineuploader
 

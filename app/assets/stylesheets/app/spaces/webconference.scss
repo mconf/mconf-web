@@ -1,0 +1,63 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/custom_bigbluebutton_rooms/invitation";
+
+body.spaces.webconference {
+
+  #webconference-description {
+    .running {
+      em {
+        color: $m-green;
+        font-weight: bold;
+      }
+    }
+
+    .not-running {
+      em {
+        color: $m-red;
+        font-weight: bold;
+      }
+    }
+
+    .end-meeting {
+      float: right;
+    }
+  }
+
+  #webconference-share {
+
+    .share-url {
+      margin-top: 10px;
+      @include mconf-clearfix;
+
+      label {
+        float: left;
+        margin: 8px 10px 0 0;
+      }
+
+      input[type=text] {
+        cursor: text;
+        float: left;
+        width: 360px;
+        margin: 0;
+        margin-right: 10px;
+        background: $m-site-bg-color;
+        &:focus {
+          border-color: $m-color-secondary;
+        }
+      }
+    }
+
+  }
+
+  #webconference-all-users {
+    .icon-awesome {
+      float: none;
+      margin-top: 1px;
+      margin-right: -3px;
+      margin-left: 2px;
+    }
+  }
+
+}

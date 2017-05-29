@@ -5,15 +5,18 @@
 
   .modal-body
 
-    .jcrop-wrapper
-      = image_tag @model.logo_image_url(:large), class: 'cropable', data: { :'crop-width' => @width, :'crop-aspect-ratio' => @aspect_ratio, :'crop-button' => 'crop-do-it' }
+    - cls = @circular ? 'jcrop-circular' : nil
+    .jcrop-wrapper{ class: cls }
+      = image_tag @model.logo_image_url(:large), class: 'cropable', data: { 'crop-width': @width, 'crop-aspect-ratio': @aspect_ratio, 'crop-button': 'crop-do-it', 'crop-circular': @circular }
 
-    .aspect-ratio
-      %input#aspect-ratio{ :type => 'checkbox', :checked => 'checked' }
-      %label{ :for => "aspect-ratio" }= t('.aspect_ratio')
+    - unless @circular
+      .aspect-ratio
+        %input#crop-aspect-ratio{ type: 'checkbox', checked: 'checked', 'data-crop': 'aspect-ratio-input' }
+        %label{ for: "crop-aspect-ratio" }= t('.aspect_ratio')
 
-  .modal-footer.form-actions
-    = simple_form_for @model, :url => @url do |f|
+  .modal-footer
+    = simple_form_for @model, url: @url do |f|
       - %w[x y w h img_w img_h].each do |attribute|
-        = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute.gsub(/_/, '-')}"
+        = f.hidden_field "crop_#{attribute}", class: "crop-#{attribute.gsub(/_/, '-')}"
+      = link_to t(".full_image"), '#', 'data-dismiss': 'modal', class: 'btn btn-default'
       = f.submit t(".crop_it"), class: "btn btn-primary", id: "crop-do-it"

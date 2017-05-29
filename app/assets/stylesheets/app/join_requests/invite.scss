@@ -1,0 +1,24 @@
+@import "definitions";
+@import "compass/css3";
+
+#space-invitation {
+  background: #fff;
+
+  .type-options {
+    float: right;
+    margin-bottom: 5px;
+
+    .input {
+      float: right;
+      margin-right: 25px;
+
+      input[type=radio] {
+        margin-right: 0;
+      }
+
+      label {
+        display: inline;
+      }
+    }
+  }
+}

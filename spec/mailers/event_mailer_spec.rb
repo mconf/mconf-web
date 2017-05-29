@@ -34,16 +34,15 @@ describe EventMailer do
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
         text = I18n.t('event_mailer.invitation_email.subject', event: invitation.target.name)
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([invitation.sender.email]) }
       it("assigns @invitation") {
-        mail.body.encoded.should match(invitation.title)
-        mail.body.encoded.should match(invitation.description)
-        mail.body.encoded.should match(invitation.url)
+        mail_content(mail).should match(invitation.title)
+        mail_content(mail).should match(invitation.description)
+        mail_content(mail).should match(invitation.url)
       }
     end
 
@@ -62,7 +61,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -77,7 +76,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -92,7 +91,7 @@ describe EventMailer do
                          sender: invitation.sender.name,
                          email_sender: invitation.sender.email,
                          event: invitation.target.name, locale: "pt-br")
-        mail.html_part.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end

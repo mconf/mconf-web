@@ -6,16 +6,21 @@
 # 3 or later. See the LICENSE file.
 
 class FrontpageController < ApplicationController
-
-  layout 'clean'
+  layout 'navbar_bg'
 
   def show
-   respond_to do |format|
-      if user_signed_in?
-        format.html { redirect_to my_home_path }
-      else
-        format.html
+    frontpage = Rails.application.config.external_frontpage
+
+    if frontpage.blank?
+      respond_to do |format|
+        if user_signed_in?
+          format.html { redirect_to my_home_path }
+        else
+          format.html
+        end
       end
+    else
+      redirect_to frontpage
     end
   end
 

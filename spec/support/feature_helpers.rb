@@ -23,7 +23,7 @@ module FeatureHelpers
     Site.current.update_attributes(Mconf::LdapServer.default_ldap_configs)
   end
 
-  def setup_shib name, email, principal
+  def setup_shib(name, email, principal)
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
@@ -53,8 +53,14 @@ module FeatureHelpers
     I18n.t(*args)
   end
 
+  # Overwrites Capybara's method to specify a default file
+  def save_page
+    Capybara.save_page Rails.root.join('public', 'capybara.html')
+  end
+
+  # Save the page and show it in the browser
   def show_page
-    save_page Rails.root.join('public', 'capybara.html')
+    save_page
     %x(launchy http://localhost:3000/capybara.html)
   end
 
@@ -66,11 +72,11 @@ module FeatureHelpers
   end
 
   def register_with(attrs, visit=true)
-    name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
     visit register_path if visit
+    find("#footer-languages [href='#{attrs[:different_locale]}']", match: :first).click if attrs[:different_locale]
     fill_in "user[email]", with: attrs[:email]
-    fill_in "user[_full_name]", with: attrs[:_full_name]
-    fill_in "user[username]", with: name
+    fill_in "user[profile_attributes][full_name]", with: attrs[:profile_attributes][:full_name] if attrs[:profile_attributes]
+    fill_in "user[username]", with: attrs[:username]
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]
     click_button I18n.t("registrations.signup_form.register")
@@ -100,7 +106,7 @@ module FeatureHelpers
   # `field_class` is the class added to the field, such as "user_name" or
   # "space_description".
   def has_field_with_error field_class
-    finder = ".#{field_class}.field_with_errors .error"
+    finder = ".#{field_class}.has-error .error-block"
     page.should have_css(finder)
     page.find(finder).should be_visible
   end

@@ -10,7 +10,11 @@ require 'support/feature_helpers'
 include ActionView::Helpers::SanitizeHelper
 
 feature 'Behaviour of the flag Site#require_registration_approval' do
-  let(:attrs) { FactoryGirl.attributes_for(:user) }
+  let(:attrs) {
+    attrs = FactoryGirl.attributes_for(:user)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    attrs
+  }
 
   context "if admin approval is required" do
     before {
@@ -32,8 +36,8 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it "sends the correct confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
         mail.should_not be_nil
-        mail.body.encoded.should_not match(/http.*users\/confirmation*/)
-        mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+        mail_content(mail).should_not match(/http.*users\/confirmation*/)
+        mail_content(mail).should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
       context "shows the pending approval page" do
@@ -41,7 +45,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         it { page.should have_link('', :href => spaces_path) }
         it { page.should_not have_link('', :href => events_path) }
         it { page.should have_content('Sign in') }
-        it { page.should have_content('Pending approval') }
+        it { page.should have_content(I18n.t("my.approval_pending.title")) }
         it { page.should have_content(I18n.t("my.approval_pending.description")) }
       end
 
@@ -83,12 +87,12 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
 
           it "sends the correct confirmation email to the user", with_truncation: true do
             mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
-            mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+            mail_content(mail).should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
           end
 
           context "shows the pending approval page" do
             it { current_path.should eq(my_approval_pending_path) }
-            it { page.should have_content('Pending approval') }
+            it { page.should have_content(I18n.t("my.approval_pending.title")) }
             it { page.should have_content(I18n.t("my.approval_pending.description")) }
           end
 
@@ -108,7 +112,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email]
 
         with_resque do
           expect {
@@ -130,7 +134,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       context "shows the pending approval page" do
         it { current_path.should eq(my_approval_pending_path) }
         it { page.should have_content('Sign in') }
-        it { page.should have_content('Pending approval') }
+        it { page.should have_content(I18n.t("my.approval_pending.title")) }
         it { page.should have_content(I18n.t("my.approval_pending.description")) }
       end
 
@@ -154,7 +158,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
 
     context "shows the pending approval page" do
       it { current_path.should eq(my_approval_pending_path) }
-      it { page.should have_content('Pending approval') }
+      it { page.should have_content(I18n.t("my.approval_pending.title")) }
       it { page.should have_content(I18n.t("my.approval_pending.description")) }
       it { page.should have_link('', :href => events_path) }
     end
@@ -177,8 +181,8 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it "send the correct confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
         mail.should_not be_nil
-        mail.body.encoded.should match(/http.*users\/confirmation*/)
-        mail.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+        mail_content(mail).should match(/http.*users\/confirmation*/)
+        mail_content(mail).should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
       context "signs the user in" do
@@ -194,7 +198,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
     context "signing in via shibboleth for the first time, generating a new account" do
       before {
         enable_shib
-        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+        setup_shib attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email]
 
         with_resque do
           expect {

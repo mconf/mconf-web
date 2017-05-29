@@ -39,14 +39,6 @@ describe ApplicationHelper do
     }
   end
 
-  describe "#render_page_title" do
-    it "renders the page title partial with the parameters passed"
-  end
-
-  describe "#render_sidebar_content_block" do
-    it "renders the sidebar content block partial with the parameters passed"
-  end
-
   describe "#at_home?" do
     context "true if at MyController#home" do
       before {
@@ -74,16 +66,29 @@ describe ApplicationHelper do
   end
 
   describe "#webconf_url_prefix" do
-    context "returns the prefix for web conference urls" do
-      before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
-      it { webconf_url_prefix.should eq('https://test.com/webconf/') }
+    before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
+
+    context "returns what is configured in the site" do
+      it { webconf_url_prefix.should eq("https://test.com/#{Rails.application.config.conf_scope_rooms}/") }
+    end
+
+    context "doesn't return duplicated / when conf_scope_rooms=nil" do
+      before {
+        @previous = Rails.application.config.conf_scope_rooms
+        Rails.application.config.conf_scope_rooms = nil
+        Helpers.reload_routes!
+      }
+      after {
+        Rails.application.config.conf_scope_rooms = @previous
+        Rails.application.reload_routes!
+      }
+      it { webconf_url_prefix.should eq("https://test.com/") }
     end
   end
 
   describe "#webconf_path_prefix" do
     context "returns the path prefix for web conference urls" do
-      before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
-      it { webconf_path_prefix.should eq('/webconf/') }
+      it { webconf_path_prefix.should eq(Rails.application.config.conf_scope_rooms + '/') }
     end
   end
 

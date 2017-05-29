@@ -10,7 +10,7 @@
 .thread-content
   = formatted_time_ago activity.created_at
 
-  .thread-title
+  .thread-description
     - if activity.key.match(/leave$/)
       = icon_leave_space
 

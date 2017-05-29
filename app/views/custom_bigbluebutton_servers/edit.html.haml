@@ -1,6 +1,4 @@
-= render :partial => 'manage/menu'
-
-= content_for :sidebar do
+= content_for :page_actions do
   = render 'custom_bigbluebutton_servers/server_links', :server => @server
 
 %h3= t('.editing_server', :server => @server.name)

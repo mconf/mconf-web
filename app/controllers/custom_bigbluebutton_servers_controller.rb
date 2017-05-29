@@ -8,6 +8,7 @@ class CustomBigbluebuttonServersController < Bigbluebutton::ServersController
   before_filter :authenticate_user!, except: :check
   after_filter :sort_meetings, :only => [:activity]
   authorize_resource class: "BigbluebuttonServer", except: :check
+  layout "manage"
 
   def sort_meetings
     @server.meetings.sort{|m1,m2| m1.name <=> m2.name }

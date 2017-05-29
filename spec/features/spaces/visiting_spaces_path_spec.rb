@@ -12,11 +12,10 @@ describe 'User accesses spaces index' do
 
   context 'showing as' do
     let!(:default_logo84x64) { '/assets/default_logos/84x64/space.png' }
-    let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
-    before { space
-             space.update_attributes(:tag_list => ["a tag"]) }
+    let!(:space) { FactoryGirl.create(:space_with_associations, public: true) }
+    before { space.update_attributes(:tag_list => ["a tag"]) }
 
-    context 'spaces' do
+    context 'list view' do
       context 'with default logo' do
         before { visit spaces_path }
 
@@ -37,14 +36,14 @@ describe 'User accesses spaces index' do
       end
     end
 
-    context "it is filetring tags by \"a tag\"" do
-      before { visit spaces_path(:tag => space.tag_list.first) }
+    context "filtering tags by \"a tag\"" do
+      before { visit spaces_path(tag: space.tag_list.first) }
       it { should have_content space.name }
       it { should have_content space.tag_list.first }
     end
 
-    context "it is filetring tags by \"missing tag\"" do
-      before { visit spaces_path(:tag => 'missing tag') }
+    context "filtering tags by \"missing tag\"" do
+      before { visit spaces_path(tag: 'missing tag') }
       it { should_not have_content space.name }
       it { should_not have_content space.tag_list.first }
     end
@@ -125,4 +124,23 @@ describe 'User accesses spaces index' do
     end
   end
 
+  context 'spaces module is disabled' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    before {
+      Site.current.update_attribute(:spaces_enabled, false)
+      space
+      login_as(user, :scope => :user)
+    }
+
+    context 'the page will not render (404)' do
+      before { visit spaces_path }
+      it { should_not have_content space.name }
+      it { should_not have_css '#show-spaces-mine' }
+      it { should_not have_css '.space-container', :count => 1 }
+      it { page.status_code.should == 404 }
+    end
+  end
+
 end
+

@@ -13,14 +13,19 @@
 class RoomParamUniquenessValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value.blank?
+
+      # all rooms with the same param
       rooms = BigbluebuttonRoom.where("lower(param) = ?", value.downcase)
       if record.is_a?(User) || record.is_a?(Space)
         my_room = record.bigbluebutton_room
-        rooms = rooms.where("id != ?", my_room.id) if my_room.present?
+        rooms = rooms.where.not(id: my_room.id) if my_room.present?
       end
 
-      if rooms.count > 0
-        record.errors[attribute] << (options[:message] || "has already been taken")
+      # blacklisted names
+      restricted_names = Mconf::Routes.reserved_names("/#{Rails.application.config.conf_scope_rooms}")
+
+      if rooms.count > 0 || restricted_names.include?(value)
+        record.errors[attribute] << (options[:message] || I18n.t('errors.messages.taken'))
       end
     end
   end

@@ -854,11 +854,6 @@ de:
       copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Sprache ändern"
-    spaces_page_title:
-      is_member: "Sie sind Mitglied in dieser Gruppe"
-      manage_to_approve: "verwalten"
-      private: "Private Gruppe"
-      public: "Öffentliche Gruppe"
   less: "weniger..."
   locales:
     error: "Sprachumgebung"

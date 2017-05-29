@@ -1,0 +1,30 @@
+- page_title t('.title'), in: @space.name
+- spaces_menu_at :admin
+= render 'spaces/sidebar', space: @space, full: false
+
+- spaces_admin_menu_at :admissions
+= render 'spaces/admin_tabs'
+
+#join-requests.list-container
+  #invite.col-md-12.col-sm-12
+    #title-button
+      %h3= t('.pending_invitations_title')
+      #button
+        = link_to invite_space_join_requests_path(@space), class: "btn btn-primary open-modal tooltipped" do
+          = t('.invite_user')
+    - if @space.pending_invitations.any?
+      - @space.pending_invitations.each do |invitation|
+        .list-item
+          = render 'invitation', :jr => invitation
+    - else
+      %p.main_text= t('.no_pending_invitations')
+
+  #request.col-md-12.col-sm-12
+    %h3= t('.pending_requests_title')
+    - if @space.pending_join_requests.any?
+      - @space.pending_join_requests.each do |jr|
+        - unless jr.candidate.nil? || jr.candidate.disabled
+          .list-item
+            = render 'request', :jr => jr
+    - else
+      %p.main_text= t('.no_pending_requests')

@@ -1,7 +1,7 @@
 = simple_form_for [@event, @participant], :html => { :class => "single-column" } do |f|
   .form-inputs
     - if current_user.present?
-      = f.input :email, :readonly => true, :autofocus => true, :input_html => { :value => current_user.email }
+      = f.input :email, readonly: current_user.present?, autofocus: true, input_html: { value: current_user.try(:email) }
     - else
       = f.input :email, :autofocus => true
     - unless current_user.present?

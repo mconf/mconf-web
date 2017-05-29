@@ -8,9 +8,8 @@ require 'spec_helper'
 
 describe InvitationsWorker, type: :worker do
   let(:worker) { InvitationsWorker }
-  let(:sender) { InvitationSenderWorker }
   let(:queue) { Queue::High }
-  let(:params) {{"method"=>:perform, "class"=>sender.to_s}}
+  let(:params) { { "method" => :invitation_sender, "class" => worker.to_s } }
 
   describe "#perform" do
 
@@ -61,4 +60,41 @@ describe InvitationsWorker, type: :worker do
     # end
 
   end
+
+  describe "#invitation_sender" do
+
+    context "sends the invitation and marks as sent" do
+      let!(:invitation) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true, :result => false) }
+      before { Invitation.any_instance.should_receive(:send_invitation) { true } }
+      before(:each) { worker.invitation_sender(invitation.id) }
+      it { invitation.reload.sent.should be(true) }
+    end
+
+    context "doesnt send the invitation if it's already marked as sent" do
+      let!(:invitation) { FactoryGirl.create(:web_conference_invitation, :sent => true, :ready => true, :result => false) }
+      before { Invitation.any_instance.should_not_receive(:send_invitation) }
+      before(:each) { worker.invitation_sender(invitation.id) }
+
+      it { invitation.reload.sent.should be(true) }
+    end
+
+    context "saves in the invitation the return if Invitation#send_invitation" do
+      let!(:invitation) { FactoryGirl.create(:web_conference_invitation, :sent => false, :ready => true, :result => false) }
+
+      context "when it returns false" do
+        before { Invitation.any_instance.should_receive(:send_invitation) { false } }
+        before(:each) { worker.invitation_sender(invitation.id) }
+        it { invitation.reload.result.should be(false) }
+      end
+
+      context "when it returns true" do
+        before { Invitation.any_instance.should_receive(:send_invitation) { true } }
+        before(:each) { worker.invitation_sender(invitation.id) }
+        it { invitation.reload.result.should be(true) }
+      end
+    end
+
+  end
+
+
 end

@@ -26,7 +26,7 @@ describe PostsController do
     skip { should_authorize Post, :index, space_id: space.to_param }
 
     it { should render_template('index') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('application') }
     it { should assign_to(:space).with(space) }
     it {
       expected = [
@@ -45,7 +45,7 @@ describe PostsController do
     skip { should_authorize an_instance_of(Post), :show, id: post.to_param, space_id: space.to_param }
 
     it { should render_template('show') }
-    it { should render_with_layout('spaces_show') }
+    it { should render_with_layout('application') }
     it { should assign_to(:space).with(space) }
     it { should assign_to(:post).with(post) }
   end
@@ -62,7 +62,7 @@ describe PostsController do
       before { get :new, space_id: space.to_param }
 
       it { should render_template('new') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('application') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(an_instance_of(Post)) }
     end
@@ -127,7 +127,7 @@ describe PostsController do
       before { get :edit, id: post.to_param, space_id: space.to_param }
 
       it { should render_template('edit') }
-      it { should render_with_layout('spaces_show') }
+      it { should render_with_layout('application') }
       it { should assign_to(:space).with(space) }
       it { should assign_to(:post).with(post) }
     end
@@ -236,5 +236,46 @@ describe PostsController do
 
   describe "abilities", :abilities => true do
     it "abilities"
+  end
+
+  describe "spaces module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space_with_associations) }
+    let(:post) { FactoryGirl.create(:post, space: space) }
+    let(:post_attributes) { FactoryGirl.attributes_for(:post) }
+    let(:space_id) { space.to_param }
+    let(:post_id) { post.to_param }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :reply_post, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :create, space_id: space_id, post: post_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :edit, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { patch :update, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :update, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: post_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :reply_post, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+      it { expect { put :create, space_id: space_id, post: post_attributes }.not_to raise_error }
+      it { expect { get :new, space_id: space_id }.not_to raise_error }
+      it { expect { get :edit, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { get :show, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { patch :update, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { put :update, id: post_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :destroy, id: post_id, space_id: space_id }.not_to raise_error }
+    end
   end
 end

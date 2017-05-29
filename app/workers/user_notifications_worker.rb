@@ -12,6 +12,7 @@ class UserNotificationsWorker < BaseWorker
   def self.perform
     notify_users_account_created
     notify_users_account_created_by_admin
+    notify_users_account_cancelled
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
@@ -23,7 +24,7 @@ class UserNotificationsWorker < BaseWorker
   def self.notify_admins_of_users_pending_approval
     # The Activities with keys user.created are used to inform the admins that a
     # new user has registered.
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: 'user.created')
 
     recipients = User.superusers.pluck(:id)
@@ -37,7 +38,7 @@ class UserNotificationsWorker < BaseWorker
           if user.approved?
             activity.update_attribute(:notified, true)
           else
-            Queue::High.enqueue(UserNeedsApprovalSenderWorker, :perform, activity.id, recipients)
+            Queue::High.enqueue(UserNotificationsWorker, :needs_approval_sender, activity.id, recipients)
           end
         end
       end
@@ -51,32 +52,114 @@ class UserNotificationsWorker < BaseWorker
   # the emails.
   def self.notify_users_account_created
     keys = ['shibboleth.user.created', 'ldap.user.created']
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: keys)
     activities.each do |activity|
-      Queue::High.enqueue(UserRegisteredSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(UserNotificationsWorker, :registered_sender, activity.id)
     end
   end
 
   # Finds all users that were created by a admin but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_account_created_by_admin
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: 'user.created_by_admin')
     activities.each do |activity|
-      Queue::High.enqueue(UserRegisteredByAdminSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(UserNotificationsWorker, :registered_by_admin_sender, activity.id)
+    end
+  end
+
+  # Finds all users that were created by a admin but not notified of it yet and schedules
+  # a worker to notify them.
+  def self.notify_users_account_cancelled
+    activities = get_recent_activity
+      .where(trackable_type: 'User', notified: [nil, false], key: 'user.cancelled')
+    activities.each do |activity|
+      Queue::High.enqueue(UserNotificationsWorker, :cancelled_sender, activity.id)
     end
   end
 
   # Finds all users that were approved but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_after_approved
-    activities = RecentActivity
+    activities = get_recent_activity
       .where trackable_type: 'User', key: 'user.approved', notified: [nil, false]
     activities.each do |activity|
-      Queue::High.enqueue(UserApprovedSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(UserNotificationsWorker, :approved_sender, activity.id)
     end
   end
 
+  # Sends a notification to all recipients in the array of ids `recipient_ids`
+  # informing that the user with id `user_id` needs to be approved.
+  def self.needs_approval_sender(activity_id, recipient_ids)
+    activity = get_recent_activity.find(activity_id)
 
+    if !activity.notified?
+      user_id = activity.trackable_id
+      recipients = User.find(recipient_ids)
+
+      recipients.each do |recipient|
+        Resque.logger.info "Sending user needs approval email to #{recipient.inspect}, for user #{user_id}"
+        AdminMailer.new_user_waiting_for_approval(recipient.id, user_id).deliver
+      end
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was registered successfully.
+  def self.registered_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user registered email to #{user_id}"
+      UserMailer.registration_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was registered successfully.
+  def self.registered_by_admin_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user registered email to #{user_id}"
+      UserMailer.registration_by_admin_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was cancelled successfully.
+  def self.cancelled_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user cancelled email to #{user_id}"
+      UserMailer.cancellation_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  # Sends a notification to the user with id `user_id` that he was approved.
+  def self.approved_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user approved email to #{user_id}"
+      AdminMailer.new_user_approved(user_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
 end

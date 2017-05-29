@@ -1,7 +1,9 @@
-= render_page_title t("user.resend_confirmation_email.link")
+= page_title t(".title")
+
+%h1= t('.title')
 
 #form-wrapper
-  = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-inline' }) do |f|
+  = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
     - if user_signed_in?
       = f.input :email, :label => t('user.email_used_to_create_account'), :required => true, :input_html => { :value => current_user.email, :readonly => true }
     - else

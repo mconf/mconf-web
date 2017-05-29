@@ -19,7 +19,7 @@ feature 'Sending a feedback' do
 
   describe 'as a signed in user' do
     before {
-      @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+      @user = FactoryGirl.create(:user, :username => 'user-1', :password => 'password')
       login_as(@user, :as => :user)
       visit new_feedback_path
     }

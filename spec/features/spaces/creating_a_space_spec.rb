@@ -37,7 +37,7 @@ feature "Creating a space" do
     it { current_path.should eq(space_path(Space.last)) }
     it { page.should have_content(attrs[:name]) }
     it { page.should have_content(attrs[:description]) }
-    it { page.should have_content(t("layouts.spaces_page_title.public")) }
+    it { page.should have_content(t("spaces.sidebar.public")) }
   end
 
   context "as private" do
@@ -51,7 +51,7 @@ feature "Creating a space" do
     it { current_path.should eq(space_path(Space.last)) }
     it { page.should have_content(attrs[:name]) }
     it { page.should have_content(attrs[:description]) }
-    it { page.should have_content(t("layouts.spaces_page_title.private")) }
+    it { page.should have_content(t("spaces.sidebar.private")) }
   end
 
   context "creation errors" do
@@ -150,8 +150,7 @@ feature "Creating a space" do
       before { visit spaces_path(my_spaces: 'true', order: 'abc') }
 
       it { page.should have_content(attrs[:name]) }
-      it { page.should have_selector('.space-waiting-moderation', count: 1) }
-      it { page.should have_selector('.icon-mconf-waiting-moderation', count: 1)}
+      it { page.should have_selector('.icon-mconf-waiting-moderation', count: 2)}
     end
   end
 

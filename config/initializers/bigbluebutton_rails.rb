@@ -75,7 +75,19 @@ Rails.application.config.to_prepare do
 
   end
 
-  BigbluebuttonRecording.instance_eval do
+  BigbluebuttonMeeting.class_eval do
+    # Fetches also the recordings associated with the meetings. Returns meetings even if they do not
+    # have a recording.
+    scope :with_or_without_recording, -> {
+      joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
+
+    }
+    scope :with_recording, -> {
+      joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
+    }
+  end
+
+  BigbluebuttonRecording.class_eval do
 
     # Search recordings based on a list of words
     scope :search_by_terms, -> (words) {

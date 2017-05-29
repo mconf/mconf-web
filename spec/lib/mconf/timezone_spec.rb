@@ -13,7 +13,7 @@ describe Mconf::Timezone do
     before { Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M' }
 
     context 'normal timezone (UTC)' do
-      subject { Mconf::Timezone.parse_in_timezone('31/07/2015', '16:00', 'UTC') }
+      subject { Mconf::Timezone.parse_in_timezone('31/07/2015 16:00', 'UTC') }
 
       it { subject.hour.should eq(16) }
       it { subject.day.should eq(31) }
@@ -21,7 +21,7 @@ describe Mconf::Timezone do
     end
 
     context 'normal timezone (Brasilia)' do
-      subject { Mconf::Timezone.parse_in_timezone('31/07/2015', '16:00', 'Brasilia') }
+      subject { Mconf::Timezone.parse_in_timezone('31/07/2015 16:00', 'Brasilia') }
 
       it { subject.hour.should eq(16) }
       it { subject.day.should eq(31) }
@@ -30,7 +30,7 @@ describe Mconf::Timezone do
     end
 
     context 'normal timezone (Newfoundland)' do
-      subject { Mconf::Timezone.parse_in_timezone('31/07/2015', '10:00', 'Newfoundland') }
+      subject { Mconf::Timezone.parse_in_timezone('31/07/2015 10:00', 'Newfoundland') }
 
       it { subject.hour.should eq(10) }
       it { subject.day.should eq(31) }
@@ -43,7 +43,7 @@ describe Mconf::Timezone do
     end
 
     context 'normal timezone changing the day (Brasilia)' do
-      subject { Mconf::Timezone.parse_in_timezone('31/07/2015', '21:00', 'Brasilia') }
+      subject { Mconf::Timezone.parse_in_timezone('31/07/2015 21:00', 'Brasilia') }
 
       it { subject.hour.should eq(21) }
       it { subject.day.should eq(31) }
@@ -56,18 +56,18 @@ describe Mconf::Timezone do
     end
 
     context 'normal timezone compared with other timezone (US/Canada to Brasil)' do
-      subject { Mconf::Timezone.parse_in_timezone('31/07/2015', '14:23', 'Eastern Time (US & Canada)') }
+      subject { Mconf::Timezone.parse_in_timezone('31/07/2015 14:23', 'Eastern Time (US & Canada)') }
 
       it { subject.hour.should eq(14) }
       it { subject.min.should eq(23) }
       it { subject.time_zone.name.should eq('Eastern Time (US & Canada)') }
 
-      it { subject.in_time_zone('Brasilia').utc.should eq(Mconf::Timezone.parse_in_timezone('31/07/2015', '15:23', 'Brasilia').utc) }
+      it { subject.in_time_zone('Brasilia').utc.should eq(Mconf::Timezone.parse_in_timezone('31/07/2015 15:23', 'Brasilia').utc) }
     end
 
     context 'daylight saving time cases (Brasilia)' do
-      let(:date_no_dst) { Mconf::Timezone.parse_in_timezone('17/10/2015', '23:00', 'Brasilia') }
-      let(:date_dst) { Mconf::Timezone.parse_in_timezone('18/10/2015', '23:00', 'Brasilia') }
+      let(:date_no_dst) { Mconf::Timezone.parse_in_timezone('17/10/2015 23:00', 'Brasilia') }
+      let(:date_dst) { Mconf::Timezone.parse_in_timezone('18/10/2015 23:00', 'Brasilia') }
 
       # test if date in it's own timezone is what we wanted
       it { date_no_dst.hour.should eq(23) }
@@ -89,8 +89,8 @@ describe Mconf::Timezone do
     end
 
     context 'daylight saving time cases (Eastern Time (US & Canada))' do
-      let(:date_dst) { Mconf::Timezone.parse_in_timezone('31/10/2015', '23:00', 'Eastern Time (US & Canada)') }
-      let(:date_no_dst) { Mconf::Timezone.parse_in_timezone('01/11/2015', '23:00', 'Eastern Time (US & Canada)') }
+      let(:date_dst) { Mconf::Timezone.parse_in_timezone('31/10/2015 23:00', 'Eastern Time (US & Canada)') }
+      let(:date_no_dst) { Mconf::Timezone.parse_in_timezone('01/11/2015 23:00', 'Eastern Time (US & Canada)') }
 
       it { date_dst.hour.should eq(23) }
       it { date_dst.day.should eq(31) }
@@ -110,8 +110,8 @@ describe Mconf::Timezone do
     end
 
     context 'compare Pacific Time with Eastern Time with DST in effect' do
-      let(:pacific) { Mconf::Timezone.parse_in_timezone('01/07/2015', '23:50', 'Pacific Time (US & Canada)') } # during DST it's -7h
-      let(:eastern) { Mconf::Timezone.parse_in_timezone('02/07/2015', '2:50', 'Eastern Time (US & Canada)') } # during DST it's -4h
+      let(:pacific) { Mconf::Timezone.parse_in_timezone('01/07/2015 23:50', 'Pacific Time (US & Canada)') } # during DST it's -7h
+      let(:eastern) { Mconf::Timezone.parse_in_timezone('02/07/2015 2:50', 'Eastern Time (US & Canada)') } # during DST it's -4h
 
       it { pacific.utc.hour.should eq(6) }
       it { pacific.utc.min.should eq(50) }
@@ -121,8 +121,8 @@ describe Mconf::Timezone do
     end
 
     context 'compare Pacific Time with Eastern Time with DST not in effect' do
-      let(:pacific) { Mconf::Timezone.parse_in_timezone('02/11/2015', '23:50', 'Pacific Time (US & Canada)') } # -8h
-      let(:eastern) { Mconf::Timezone.parse_in_timezone('03/11/2015', '2:50', 'Eastern Time (US & Canada)') } # -5h
+      let(:pacific) { Mconf::Timezone.parse_in_timezone('02/11/2015 23:50', 'Pacific Time (US & Canada)') } # -8h
+      let(:eastern) { Mconf::Timezone.parse_in_timezone('03/11/2015 2:50', 'Eastern Time (US & Canada)') } # -5h
 
       it { pacific.utc.hour.should eq(7) }
       it { pacific.utc.min.should eq(50) }
@@ -132,8 +132,8 @@ describe Mconf::Timezone do
     end
 
     context 'compare Pacific Time with Brasilia (different DST in effect)' do
-      let(:brasilia) { Mconf::Timezone.parse_in_timezone('18/10/2015', '23:00', 'Brasilia') } # Brasil's timezone is in DST (-2h)
-      let(:eastern) { Mconf::Timezone.parse_in_timezone('18/10/2015', '21:00', 'Eastern Time (US & Canada)') } # US/Canada is in DST too (-4h)
+      let(:brasilia) { Mconf::Timezone.parse_in_timezone('18/10/2015 23:00', 'Brasilia') } # Brasil's timezone is in DST (-2h)
+      let(:eastern) { Mconf::Timezone.parse_in_timezone('18/10/2015 21:00', 'Eastern Time (US & Canada)') } # US/Canada is in DST too (-4h)
 
       it { brasilia.utc.hour.should eq(1) }
       it { brasilia.utc.min.should eq(0) }
@@ -143,8 +143,8 @@ describe Mconf::Timezone do
     end
 
     context 'compare Pacific Time with Brasilia (different DST in effect)' do
-      let(:brasilia) { Mconf::Timezone.parse_in_timezone('17/10/2015', '23:00', 'Brasilia') } # Brasil's timezone is not in DST (-3h)
-      let(:eastern) { Mconf::Timezone.parse_in_timezone('17/10/2015', '21:00', 'Eastern Time (US & Canada)') } # US/Canada is in DST (-4h)
+      let(:brasilia) { Mconf::Timezone.parse_in_timezone('17/10/2015 23:00', 'Brasilia') } # Brasil's timezone is not in DST (-3h)
+      let(:eastern) { Mconf::Timezone.parse_in_timezone('17/10/2015 21:00', 'Eastern Time (US & Canada)') } # US/Canada is in DST (-4h)
 
       it { brasilia.utc.hour.should eq(2) }
       it { brasilia.utc.min.should eq(0) }

@@ -1,12 +1,13 @@
 class EventsController < InheritedResources::Base
   include Mconf::SelectControllerModule # for select method
 
+  before_filter :require_events_mod
+
   respond_to :html, :json
 
   # for ics renderer see config/initializers/renderers.rb
   respond_to :ics, only: :show
 
-  before_filter :block_if_events_disabled
   before_filter :concat_datetimes, :only => [:create, :update]
 
   defaults finder: :find_by_permalink!
@@ -89,18 +90,12 @@ class EventsController < InheritedResources::Base
   end
 
   private
+
   # Load the participant from db if user is already registered or build a new one for the form
   def find_or_create_participant
     if current_user
       attrs = { email: current_user.email, owner: current_user, event: @event }
       @participant = Participant.where(attrs).try(:first) || Participant.new(attrs)
-    end
-  end
-
-  # return 404 for all Event routes if the events are disabled
-  def block_if_events_disabled
-    unless Mconf::Modules.mod_enabled?('events')
-      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
@@ -123,7 +118,7 @@ class EventsController < InheritedResources::Base
     @time_zone = Time.zone
     @date_locale = get_user_locale(current_user)
     @date_format = I18n.t('_other.datetimepicker.format')
-    @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
+    @event.date_display_format = I18n.t('_other.datetimepicker.format_rails')
   end
 
   # Filter events for the current user
@@ -180,19 +175,16 @@ class EventsController < InheritedResources::Base
   end
 
   def concat_datetimes
-    date_format = I18n.t('_other.datetimepicker.format_display')
+    date_format = I18n.t('_other.datetimepicker.format_rails')
     if params[:event][:time_zone].blank?
       params[:event][:time_zone] = Time.zone.name
     end
 
-    [:start_on, :end_on].each do |field|
-      if params[:event][field.to_s + '_date'].present?
-        time = "#{params[:event][field.to_s + '_time(4i)']}:#{params[:event][field.to_s + '_time(5i)']}"
+    [:start_on_time, :end_on_time].each do |field|
+      if params[:event][field].present?
         params[:event][field] =
-          Mconf::Timezone::parse_in_timezone(params[:event]["#{field}_date"], time, params[:event][:time_zone], date_format)
+          Mconf::Timezone::parse_in_timezone(params[:event][field], params[:event][:time_zone], date_format)
       end
-      (1..5).each { |n| params[:event].delete("#{field}_time(#{n}i)") }
-      params[:event].delete("#{field}_date")
     end
     true
   end

@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rack', '~> 1.5.4'
 gem 'rails', '~> 4.1.14.2'
-gem 'sass-rails', '~> 4.0.4'
+gem 'sass-rails', '~> 5.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'yui-compressor'
-gem 'compass-rails', '~> 2.0'
+gem 'compass-rails', '~> 3.0.0'
 gem 'handlebars_assets'
 gem 'select2-rails'
 
@@ -17,9 +17,9 @@ gem 'active_record_union', '~> 1.1.0'
 # To DRY controllers
 gem 'inherited_resources', '~> 1.6.0'
 
-# TODO: remove when compass-rails is updated to support animations
-# This compass is here so we can have css3/animation
-gem 'compass', '~> 0.13.alpha'
+# # TODO: remove when compass-rails is updated to support animations
+# # This compass is here so we can have css3/animation
+# gem 'compass', '~> 0.12'
 
 gem 'mysql2', '~> 0.3.0'
 gem 'rake', '~> 10.5.0'
@@ -28,7 +28,7 @@ gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
 gem 'rails_autolink', '~> 1.1.0'
-gem 'simple_form', '~> 3.1.0'
+gem 'simple_form', '~> 3.4.0'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id', '~> 5.0.4'
 gem 'i18n-js', '~> 3.0.0.rc12'
@@ -37,6 +37,7 @@ gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity', '~> 1.5.0'
 gem 'acts-as-taggable-on', '~> 4.0' # tags for spaces
+gem "awesome_print", require:"ap" # better visualization for query results
 
 # For queues
 gem 'resque', '~> 1.25.2', :require => 'resque/server'
@@ -53,11 +54,8 @@ gem 'devise-async'
 gem 'net-ldap'
 
 # BigBlueButton integration
-gem 'bigbluebutton-api-ruby', :git => 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :git => 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
-
-# Used on Profile to generate a vcard
-gem 'vpim', '~> 13.11.11'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
+gem 'bigbluebutton_rails', git: 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'v3-gem'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
@@ -65,21 +63,19 @@ gem 'rmagick', '~> 2.16.0'
 gem 'mini_magick', '~> 3.8.1'
 
 # global configurations
-gem 'configatron', '~> 2.13.0'
+gem 'dotenv-rails'
 
 # for bootstrap
-gem 'less-rails'
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
-# datetime picker for bootstrap
-gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
+gem 'bootstrap-sass', '~> 3.3.0'
+gem 'autoprefixer-rails', '~> 6.6.0'
 
 # moment.js for dates
 gem 'momentjs-rails', '>= 2.8.1'
 
-gem 'sprockets', '~> 2.12.4'
+# gem 'sprockets', '~> 2.12.4'
 
 # font-awesome (recommended to be here, not in the assets group)
-gem 'font-awesome-rails', '~> 4.1.0.0'
+gem 'font-awesome-rails', '~> 4.0'
 
 # to format emails
 gem 'premailer-rails'
@@ -115,13 +111,15 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'rubyntlm'
 gem 'savon', '~> 2.0'
 
+# Mail tracker
+gem 'ahoy_email'
+
 #
 # TODO: Gems to review if we can remove/update
 #
 gem 'httparty'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
-gem 'prism'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
@@ -130,7 +128,6 @@ group :development do
   gem 'brakeman', :require => false
   gem 'librarian-chef'
   gem 'mailcatcher'
-  gem 'xray-rails'
 
   # to show better error pages, with more information
   gem 'better_errors'

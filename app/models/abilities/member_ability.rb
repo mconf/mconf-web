@@ -12,37 +12,14 @@ module Abilities
 
       # Users
       can [:index, :show, :fellows, :current, :select], User
-      can [:edit, :update, :disable], User, id: user.id
-      can [:update_password], User do |target_user|
+      can [:edit, :update, :disable, :update_logo], User, id: user.id
+      can :update_password, User do |target_user|
         user == target_user &&
           (Site.current.local_auth_enabled? && target_user.local_auth?)
       end
-
-      # User profiles
-      # Visible according to options selected by the user, editable by their owners
-      # Note: For the private profile only, the public profile is always visible.
-      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
-      can :index, Profile
-      can :show, Profile do |profile|
-        case profile.visibility
-        when Profile::VISIBILITY.index(:everybody)
-          true
-        when Profile::VISIBILITY.index(:members)
-          true
-        when Profile::VISIBILITY.index(:public_fellows)
-          profile.user.public_fellows.include?(user)
-        when Profile::VISIBILITY.index(:private_fellows)
-          profile.user.private_fellows.include?(user)
-        when Profile::VISIBILITY.index(:nobody)
-          false
-        end
-      end
-      can [:show, :edit, :update, :update_logo], Profile, user_id: user.id
-      # Some info is blocked if the user created by shib and auto update is enabled
-      # in the site
-      can [:update_full_name], Profile do |profile|
-        profile.user == user &&
-          (!profile.user.created_by_shib? || !Site.current.shib_update_users?)
+      can :update_full_name, User do |target_user|
+        user == target_user &&
+          (!Site.current.shib_update_users? || !target_user.created_by_shib?)
       end
 
       # Spaces
@@ -50,8 +27,8 @@ module Abilities
       can [:create, :new], Space unless Site.current.forbid_user_space_creation?
 
       can [:index], Space
-      can [:show, :webconference, :recordings, :index_event], Space, public: true
-      can [:show, :webconference, :recordings, :index_event], Space do |space|
+      can [:show, :webconference, :meetings, :index_event], Space, public: true
+      can [:show, :webconference, :meetings, :index_event], Space do |space|
         space.users.include?(user)
       end
       can [:leave], Space do |space|
@@ -89,6 +66,7 @@ module Abilities
         end
       end
 
+      alias_action :admissions_join_requests, :invite, to: :manage_join_requests
       # space admins can list requests and invite new members
       can [:manage_join_requests], Space do |s|
         s.admins.include?(user)
@@ -231,11 +209,9 @@ module Abilities
         user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
-      # Currently only user rooms can be updated
-      # TODO: rooms in spaces should also be updatable, but for now they
-      # are edited through the space
-      can [:update], BigbluebuttonRoom do |room|
-        room.owner_type == "User" && room.owner.id == user.id
+      # Owners of personal rooms or admins of a space can edit rooms
+      can [:user_edit, :update], BigbluebuttonRoom do |room|
+        user_is_owner_or_admin_of_rooms_space(user, room)
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -246,15 +222,15 @@ module Abilities
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
       can [:play], BigbluebuttonRecording do |recording|
-        user_is_member_of_recordings_space(user, recording) ||
-          recordings_space_is_public(recording) ||
+        user_is_member_of_meetings_space(user, recording) ||
+          meetings_space_is_public(recording) ||
           user_is_owner_of_recording(user, recording)
       end
 
       # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
       can [:update, :unpublish], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
-          user_is_admin_of_recordings_space(user, recording)
+          user_is_admin_of_meetings_space(user, recording)
       end
 
       # a user can see and edit his recordings
@@ -264,23 +240,43 @@ module Abilities
 
       # admins can edit recordings in their spaces
       can [:space_edit], BigbluebuttonRecording do |recording|
-        user_is_admin_of_recordings_space(user, recording)
+        user_is_admin_of_meetings_space(user, recording)
       end
 
       # recordings can be viewed in spaces if the space is public or the user belongs to the space
       can [:space_show], BigbluebuttonRecording do |recording|
-        user_is_member_of_recordings_space(user, recording) ||
-          recordings_space_is_public(recording)
+        user_is_member_of_meetings_space(user, recording) ||
+          meetings_space_is_public(recording)
       end
     end
 
-    # Whether `user` is the owner of `room` of belongs to the space that owns `room`.
+    # Whether `user` is the owner of `room` or belongs to the space that owns `room`.
     def user_is_owner_or_belongs_to_rooms_space(user, room)
       if (room.owner_type == "User" && room.owner.id == user.id)
         true
       elsif (room.owner_type == "Space")
-        space = Space.find(room.owner.id)
-        space.users.include?(user)
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.users.include?(user)
+        else
+          false
+        end
+      else
+        false
+      end
+    end
+
+    # Whether `user` is the owner of `room` or admin of the space that owns `room`.
+    def user_is_owner_or_admin_of_rooms_space(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.admins.include?(user)
+        else
+          false
+        end
       else
         false
       end
@@ -316,7 +312,7 @@ module Abilities
     end
 
     # Whether the user is an admin of the space that owns the room that owns `recording`.
-    def user_is_admin_of_recordings_space(user, recording)
+    def user_is_admin_of_meetings_space(user, recording)
       response = false
       unless recording.room.nil?
         if recording.room.owner_type == "Space"
@@ -328,7 +324,7 @@ module Abilities
     end
 
     # Whether the user is a member of the space that owns the room that owns `recording`.
-    def user_is_member_of_recordings_space(user, recording)
+    def user_is_member_of_meetings_space(user, recording)
       response = false
       unless recording.room.nil?
         if recording.room.owner_type == "Space"
@@ -340,7 +336,7 @@ module Abilities
     end
 
     # Whether the space that owns the room that owns `recording` is public.
-    def recordings_space_is_public(recording)
+    def meetings_space_is_public(recording)
       recording.room.try(:public?)
     end
 

@@ -1,0 +1,78 @@
+@import "compass/css3";
+@import "compass/utilities/general";
+@import "compass/typography";
+@import "definitions";
+
+body.frontpage.show {
+
+  /*
+   * Adapt the default layout
+   */
+
+  #navbar {
+    margin: 0 auto;
+    padding: 20px 0 30px 0;
+    border: none;
+    @include clearfix;
+    height: auto;
+
+    #navbar-logo {
+      margin: 24px auto 0 auto;
+      padding: 0;
+      float: none;
+      overflow: visible;
+
+      background: image-url('logos/mconf-white-transp.png') no-repeat left top;
+      background-size: 308px 160px;
+      width: 308px;
+      height: 160px;
+    }
+
+    #navbar-left, #navbar-right {
+      display: none;
+    }
+  }
+
+  #headline {
+    text-align: center;
+    font-size: $m-font-bigger;
+    color: $m-navbar-font-color;
+  }
+
+  #action-links {
+    text-align: center;
+    color: $m-navbar-font-color;
+    padding: 56px 0;
+
+    .btn, span {
+      display: inline-block;
+    }
+
+    span {
+      margin: 0 8px;
+    }
+  }
+
+  #action-links-extra {
+    margin: 0 auto;
+    padding: 0;
+    width: 30%;
+    border-top: 1px solid $m-navbar-internal-border-color;
+    text-align: center;
+
+    li {
+      border-bottom: 1px solid $m-navbar-internal-border-color;
+      font-size: $m-font-medium;
+
+      a {
+        display: block;
+        padding: 16px;
+        @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

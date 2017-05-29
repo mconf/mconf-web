@@ -1,7 +1,7 @@
 # Add this to your application's configuration file, right before the closing
 # </VirtualHost> tag
 
-<LocationMatch "^/secure(/associate)?$">
+<LocationMatch "^/users/shibboleth(/associate)?$">
   AllowOverride all
   AuthType shibboleth
   ShibRequireSession On

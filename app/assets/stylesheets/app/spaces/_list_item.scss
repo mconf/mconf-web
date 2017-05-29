@@ -1,0 +1,7 @@
+@import "definitions";
+
+.list-container {
+  .list-item-space {
+    @include two-column-list(56px, 8px);
+  }
+}

@@ -1,20 +1,18 @@
-= render :partial => 'menu'
-
 #manage
 
-  .page-tabs.page-tabs-full
-    .search-words
-      - if can?(:create, Space)
+  .page-tools-menu.container-fluid
+    - if can?(:create, Space)
+      .search-buttons
         = link_to t('.new_space'), new_space_path, class: 'btn btn-primary btn-new-space'
-      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'resource-filter'
-
+    .search-words
+      = text_field_tag :spaces_filter_text, params[:q], :placeholder => t('.filter_name'), :'data-load-url' => manage_spaces_path, :'data-target' => '#space-list', :'data-filter' => '#filter-total', :class => 'form-control resource-filter'
     .search-filters.clearfix
       - ['approved', 'disabled'].each do |field|
-        .search-filter-option
-          = check_box_tag :"users_filter_#{field}_true", true, params[field] == 'true', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_true" }= t(".#{field}_true")
-          = check_box_tag :"users_filter_#{field}_false", false, params[field] == 'false', 'data-attr-filter': field, class: 'resource-filter-field checkbox'
-          %label{ for: "users_filter_#{field}_false" }= t(".#{field}_false")
+        .btn-group.search-filter-option
+          = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'true'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
+            = t(".#{field}_true")
+          = link_to "#", class: "btn btn-default btn-sm #{'active' if params[field] == 'false'}", type: "button", 'data-attr-filter': field, 'data-attr-value': false do
+            = t(".#{field}_false")
 
     - if !params[:tag].nil?
       .search-tags

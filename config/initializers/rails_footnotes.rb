@@ -13,5 +13,5 @@ if defined?(Footnotes) && Rails.env.development?
     end
   end
 
-  Footnotes.run!
+  Footnotes.run! if ENV['FOOTNOTES']
 end

@@ -10,6 +10,8 @@ class SpacesController < InheritedResources::Base
   include Mconf::DisableControllerModule # for enable, disable
   include Mconf::SelectControllerModule # select
 
+  before_filter :require_spaces_mod
+
   before_filter :authenticate_user!, :only => [:new, :create]
 
   # TODO: cleanup the other actions adding respond_to blocks here
@@ -26,28 +28,27 @@ class SpacesController < InheritedResources::Base
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
-  # all actions that render the sidebar
-  before_filter :webconf_room!,
-    :only => [:show, :edit, :user_permissions, :webconference,
-              :recordings, :edit_recording, :webconference_options]
+  # all actions that render the web conference room snippetB
+  before_filter :webconf_room!, :only => [:show, :webconference, :meetings]
 
-  before_filter :load_spaces_examples, :only => [:new, :create]
-  before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
+  before_filter :load_spaces_examples, only: [:new, :create]
+
+  before_filter :load_events, only: :show
 
   # Create recent activity
   after_filter :only => [:create, :update, :update_logo, :leave] do
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
-  def set_layout
-    if [:show, :edit, :user_permissions, :webconference_options,
-        :webconference, :recordings, :edit_recording].include? action_name.to_sym
-      'spaces_show'
+  layout :determine_layout
+
+  def determine_layout
+    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+      "navbar_bg"
     else
-      'application'
+      "application"
     end
   end
-  layout :set_layout
 
   def index
     order_spaces
@@ -95,13 +96,13 @@ class SpacesController < InheritedResources::Base
     @space.logo_image = params[:uploaded_file]
 
     if @space.save
-      url = logo_images_crop_path(:model_type => 'space', :model_id => @space)
+      url = logo_images_crop_path(model_type: 'space', model_id: @space)
       respond_to do |format|
         format.json {
-          render :json => {
-            success: true, redirect_url: url, small_image: @space.small_logo_image?,
-            new_url: @space.logo_image.url
-          }
+          render json: {
+                   success: true, redirect_url: url, small_image: @space.small_logo_image?,
+                   new_url: @space.logo_image.url
+                 }
         }
       end
     else
@@ -128,9 +129,6 @@ class SpacesController < InheritedResources::Base
     @permissions = @space.permissions_ordered_by_name
       .paginate(:page => params[:page], :per_page => 10)
     @roles = Space.roles
-  end
-
-  def webconference_options
   end
 
   def leave
@@ -160,7 +158,6 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    # FIXME: Temporarily matching users by name, should use the userID
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
@@ -169,25 +166,33 @@ class SpacesController < InheritedResources::Base
       end
       @webconf_attendees.uniq!
     end
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
+      .with_recording().last(5)
   end
 
-  # Action used to show the recordings of a space
+  # Action used to show the meetings of a space
   # This action is here and not in CustomBigbluebuttonRoomsController because it seems out of place
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
-  def recordings
-    @recordings = @webconf_room.recordings.published().order("end_time DESC")
-    if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
-    end
-    @redir_url = recordings_space_path(@space)
+  def meetings
 
-    render layout: false if params[:partial]
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
+    if params[:recordedonly] == 'false'
+      @meetings = @meetings.with_or_without_recording()
+    else
+      @meetings = @meetings.with_recording()
+    end
+    @meetings = @meetings.order("create_time DESC")
+
+    @recording_count = @meetings.count
+    if params[:limit]
+      @meetings = @meetings.first(params[:limit].to_i)
+    end
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
 
@@ -243,7 +248,7 @@ class SpacesController < InheritedResources::Base
 
   def load_spaces_examples
     # TODO: RAND() is specific for mysql
-    @spaces_examples = Space.where(approved: true).order('RAND()').limit(3)
+    @spaces_examples = Space.where(approved: true).order_by_activity.limit(20).sample(5)
   end
 
   def load_events

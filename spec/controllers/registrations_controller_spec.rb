@@ -15,7 +15,7 @@ describe RegistrationsController do
     describe "if registrations are enabled in the site" do
       before(:each) { get :new }
       it { should render_template(:new) }
-      it { should render_with_layout("no_sidebar") }
+      it { should render_with_layout("navbar_bg") }
     end
 
     describe "if registrations are disabled in the site" do
@@ -47,7 +47,10 @@ describe RegistrationsController do
   describe "#create" do
     before { @request.env["devise.mapping"] = Devise.mappings[:user] }
     let(:attributes) {
-      FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password)
+      attrs = FactoryGirl.attributes_for(:user).slice(:username, :email, :password)
+      attrs[:locale] = "pt-br"
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile).slice(:full_name)
+      attrs
     }
 
     describe "if registrations are enabled in the site" do
@@ -60,7 +63,7 @@ describe RegistrationsController do
         before {
           expect {
             PublicActivity.with_tracking do
-              post :create, :user => attributes
+              post :create, user: attributes
             end
           }.to change{ User.count }.by(1)
         }
@@ -73,6 +76,7 @@ describe RegistrationsController do
           it { subject.should_not be_nil }
           it { subject.owner.should eql User.last }
           it { subject.notified.should be(false) }
+          it { User.last.locale.should eql "pt-br" }
         end
       end
 
@@ -97,6 +101,7 @@ describe RegistrationsController do
           it { subject.should_not be_nil }
           it { subject.owner.should eql User.last }
           it { subject.notified.should be(true) }
+          it { User.last.locale.should eql "pt-br" }
         end
       end
     end

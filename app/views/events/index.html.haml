@@ -1,6 +1,6 @@
 = content_for :page_header_subtitle do
   = t('.subtitle')
-= render_page_title t('.title')
+= page_title t('.title')
 
 = content_for :sidebar do
 
@@ -13,38 +13,38 @@
       - else
         = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
 
-  = render_sidebar_content_block('event-description-wrapper') do
-    .content-block-middle
-      %p= t('.select_at_left')
-    - @events.each do |event|
-      -# TODO: everybody has access?
-      - has_access = true
-      .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
-        .event-logo-wrapper
-          = event_logo_link(event, :class => "logo logo-event")
-        - if has_access
-          = link_to event_path(event) do
+  .content-block-container
+    .content-block
+      .content-block-middle
+        %p= t('.select_at_left')
+      - @events.each do |event|
+        -# TODO: everybody has access?
+        - has_access = true
+        .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
+          .event-logo-wrapper
+            = event_logo_link(event, :class => "logo logo-event")
+          - if has_access
+            = link_to event_path(event) do
+              %h3.break-word= sanitize(event.name)
+          - else
             %h3.break-word= sanitize(event.name)
-        - else
-          %h3.break-word= sanitize(event.name)
-        - unless event.summary.blank?
-          %p.description= sanitize(event.summary) + '...'
-        %p.details
-          - if event.participants.include?(current_user)
-            %span.is-participant= t('.user_is_participant')
-          %span= t('.participant_count', :count => event.participants.count)
-        - if has_access
-          %p.action-links
-            = link_to t('more'), event_path(event)
+          - unless event.summary.blank?
+            %p.description= sanitize(event.summary) + '...'
+          %p.details
+            - if event.participants.include?(current_user)
+              %span.is-participant= t('.user_is_participant')
+            %span= t('.participant_count', :count => event.participants.count)
+          - if has_access
+            %p.action-links
+              = link_to t('more'), event_path(event)
 
 #event-filter-wrapper
 
   - tabs = {'upcoming' => 'upcoming_events', '.now' => 'happening_now', 'all' => 'all', 'past' => 'past_events'}
-  .page-tabs
-    .btn-group{ :"data-toggle" => "buttons-radio" }
-      - tabs.each do |k, v|
-        - new_params = params.merge(:show => v).except(:page)
-        = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
+  .btn-group{ :"data-toggle" => "buttons-radio" }
+    - tabs.each do |k, v|
+      - new_params = params.merge(:show => v).except(:page)
+      = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = link_to events_path(:view => params[:view], :show => 'all'), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do

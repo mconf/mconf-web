@@ -23,7 +23,7 @@ describe BigbluebuttonRoom do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([ :end, :create_meeting, :fetch_recordings,
                                  :invite, :invite_userid, :running, :join, :join_mobile,
-                                 :record_meeting, :invitation, :send_invitation ])
+                                 :record_meeting, :invitation, :send_invitation, :user_edit ])
 
     subject { ability }
     let(:user) { nil }
@@ -120,7 +120,7 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :running, :join,
-                         :join_mobile, :update, :invitation, :send_invitation] }
+                         :join_mobile, :update, :invitation, :send_invitation, :user_edit] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
         context "with permission to record" do
@@ -192,7 +192,7 @@ describe BigbluebuttonRoom do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user.name)
               BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }
@@ -216,7 +216,7 @@ describe BigbluebuttonRoom do
           before { space.add_member!(user, "Admin") }
           let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
-                           :invitation, :send_invitation] }
+                           :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do
@@ -262,7 +262,7 @@ describe BigbluebuttonRoom do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user.name)
               BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }
@@ -286,7 +286,7 @@ describe BigbluebuttonRoom do
           before { space.add_member!(user, "Admin") }
           let(:allowed) { [:end, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
-                           :invitation, :send_invitation] }
+                           :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "when the owner is disabled" do

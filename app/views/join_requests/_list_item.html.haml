@@ -1,0 +1,42 @@
+-# Locals:
+-#   jr (JoinRequest): the target model
+
+- candidate = jr.candidate
+- introducer = jr.introducer
+- space = jr.group
+
+.list-item.list-item-jr.container-fluid
+  .col-1
+    .list-item-logo
+      = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
+
+  .col-2
+    .list-actions
+
+      -# comment
+      - if jr.comment.present?
+        - if jr.is_invite?
+          - title = t('.invite.comment.title')
+        - else
+          - title = t('.request.comment.title')
+        .comment{ title: title, data: { toggle: 'popover', trigger: 'focus', content: jr.comment, placement: 'left' }, tabindex: 0, role: 'button' }
+          = icon_comments
+
+      -# buttons (accept, decline)
+      - if jr.is_invite?
+        - if can?(:accept, jr)
+          = link_to t('.accept'), accept_space_join_request_path(space, jr), method: :post, class: 'btn btn-success btn-sm'
+        - if can?(:decline, jr)
+          = link_to t('.decline'), decline_space_join_request_path(space, jr), data: { confirm: t('.decline_confirm') }, method: :post, class: 'btn btn-danger btn-sm'
+      - else
+        - if can?(:decline, jr)
+          = link_to t('.cancel'), decline_space_join_request_path(space, jr), data: { confirm: t('.cancel_confirm') }, method: :post, class: 'btn btn-danger btn-sm'
+
+    .list-text-title
+      = link_to space.name, space_path(space)
+      = formatted_time_ago jr.created_at
+    .list-text-description
+      - if jr.is_invite?
+        = t('.invited_by', name: introducer.name)
+      - else
+        = t('.your_request')

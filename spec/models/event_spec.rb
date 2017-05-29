@@ -104,7 +104,7 @@ describe Event do
         FactoryGirl.create(:event, start_on: today - 1.day, end_on: today - 1.minute),
         FactoryGirl.create(:event, start_on: today - 5.minute, end_on: today + 2.day),
         FactoryGirl.create(:event, start_on: today + 5.minutes, end_on: today + 10.minutes),
-        FactoryGirl.create(:event, start_on: today + 1.day, end_on: today + 3.day),
+        FactoryGirl.create(:event, start_on: today + 1.day, end_on: today + 3.day)
       ]
     end
 
@@ -177,10 +177,10 @@ describe Event do
     end
 
     context "one invalid social network name" do
-      let(:target) { FactoryGirl.create(:event, :social_networks => ['Facistbook', 'Twitter']) }
+      let(:target) { FactoryGirl.create(:event, :social_networks => ['Facebok', 'Twitter']) }
 
       it { target.social_networks.should_not be_empty }
-      skip { target.social_networks.should_not include('Facistbook') }
+      skip { target.social_networks.should_not include('Facebok') }
       it { target.social_networks.should include('Twitter') }
     end
 
@@ -395,6 +395,36 @@ describe Event do
           it { should_not be_able_to_do_anything_to(target).except(:index) }
         end
       end
+    end
+  end
+
+  describe "spaces module" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    let!(:today) { Time.now }
+    before(:each) do
+      @events = [
+        FactoryGirl.create(:event, owner: FactoryGirl.create(:space, public: true), start_on: today + 1.day, end_on: today + 2.day),
+        FactoryGirl.create(:event, owner: FactoryGirl.create(:space, public: true), start_on: today + 1.day, end_on: today + 2.day),
+        FactoryGirl.create(:event, owner: FactoryGirl.create(:space, public: true), start_on: today + 1.day, end_on: today + 2.day),
+        FactoryGirl.create(:event, owner: FactoryGirl.create(:user), start_on: today + 1.day, end_on: today + 2.day),
+        FactoryGirl.create(:event, owner: FactoryGirl.create(:user), start_on: today + 1.day, end_on: today + 2.day)
+      ]
+    end
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+      }
+      it { Event.upcoming.count.should eq(2) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+      }
+      it { Event.upcoming.count.should eq(5) }
     end
   end
 

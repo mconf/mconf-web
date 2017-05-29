@@ -1,0 +1,32 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.users {
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    .search-words {
+      input { width: 100%; }
+    }
+
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-user {
+        margin-bottom: 10px;
+        float: right;
+      }
+    }
+  }
+}

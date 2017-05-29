@@ -15,15 +15,21 @@ updateStatus = ->
     contentType: "application/json"
 
 errorStatus = (data) ->
-  $(".status", container).text("?")
+  target = $(".status", container)
+  target.text("?")
+  target.attr("title", null)
+  mconf.Tooltip.bindOne(target)
 
 successStatus = (data) ->
   target = $(".status", container)
   if data.running is "false"
-    target.removeClass("label-success")
-    target.addClass("label-important")
+    target.removeClass("running")
+    target.addClass("not-running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.not_running'))
+    target.attr('title', I18n.t('custom_bigbluebutton_rooms.invite_header.not_running_tooltip'))
   else
-    target.removeClass("label-important")
-    target.addClass("label-success")
+    target.removeClass("not-running")
+    target.addClass("running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.running'))
+    target.attr('title', I18n.t('custom_bigbluebutton_rooms.invite_header.running_tooltip'))
+  mconf.Tooltip.bindOne(target)

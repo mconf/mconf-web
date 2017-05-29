@@ -6,15 +6,10 @@
 # 3 or later. See the LICENSE file.
 
 class SpaceEventsController < ApplicationController
+  layout "application"
 
-  layout "spaces_show"
-
-  # return 404 for all routes if the events are disable
-  before_filter do
-    unless Mconf::Modules.mod_enabled?('events')
-      raise ActionController::RoutingError.new('Not Found')
-    end
-  end
+  before_filter :require_spaces_mod
+  before_filter :require_events_mod
 
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :find_by => :permalink, :class => Event

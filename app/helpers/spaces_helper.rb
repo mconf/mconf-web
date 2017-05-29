@@ -15,8 +15,13 @@ module SpacesHelper
   def spaces_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_menu_tab == tab ?
-      options.update({ :class => "#{old_class} selected" }) :
+      options.update({ :class => "#{old_class} active" }) :
       options
+  end
+
+  # Returns whether the selected menu is `tab`
+  def spaces_menu_is(tab)
+    @spaces_menu_tab == tab
   end
 
   # Returns a link to join the space depending on the status of the
@@ -42,14 +47,14 @@ module SpacesHelper
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
       request = space.pending_join_request_for(current_user)
-      options[:class] = "#{options[:class]} btn-success disabled"
-      button = content_tag :span, t('spaces.space_join_button.already_requested'), options
-      alert = content_tag :div, :class => "alert alert-success" do
-        link = link_to t("spaces.space_join_button.cancel_request"), space_join_request_path(space, request)
-        text = content_tag :span, t("spaces.space_join_button.already_requested_alert")
-        text + link
-      end
-      button + alert
+
+      options[:class] = "#{options[:class]} btn-danger btn-sm tooltipped"
+      options[:data] = { confirm: t('spaces.space_join_button.cancel_confirm') }
+      options[:method] = :post
+      options[:title] = t("spaces.space_join_button.cancel_tooltip", message: request.comment)
+      button = link_to t("spaces.space_join_button.cancel"), decline_space_join_request_path(space, request), options
+
+      button
 
     # the user was already invited to join the space
     elsif space.pending_invitation_for?(current_user)
@@ -62,7 +67,7 @@ module SpacesHelper
 
     # a user is logged and he's not in the space
     elsif !space.users.include?(current_user)
-      options[:class] = "#{options[:class]} btn-success"
+      options[:class] = "#{options[:class]} btn-success open-modal"
       link_to t('spaces.space_join_button.join'), new_space_join_request_path(space), options
     end
 
@@ -81,6 +86,11 @@ module SpacesHelper
       options
   end
 
+  # Returns whether the selected tab is `tab`
+  def spaces_admin_menu_is(tab)
+    @spaces_admin_menu_tab == tab
+  end
+
   # Stores the current tab in the menu in the webconference pages of a space
   def spaces_webconference_menu_at(tab)
     @spaces_webconference_menu_tab = tab
@@ -90,15 +100,26 @@ module SpacesHelper
   def spaces_webconference_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_webconference_menu_tab == tab ?
-    options.update({ :class => "#{old_class} active" }) :
+      options.update({ :class => "#{old_class} active" }) :
       options
+  end
+
+  def space_visibility(space)
+    if space.public
+      content_tag :div, class: 'label label-success' do
+        concat icon_space_public + t('_other.space.public')
+      end
+    else
+      content_tag :div, class: 'label label-danger' do
+        concat icon_space_private + t('_other.space.private')
+      end
+    end
   end
 
   def link_to_tag(tag)
     if current_page?(manage_spaces_path) || current_page?(spaces_path)
       # in these pages, the links are to add a tag to the current filters
       link_to tag, '#', data: { qstring: "tag+=#{tag}", "qstring-sep": "," }
-
     else
       # in all other pages the link is to space/index filtering by the tag clicked
       options = params.clone

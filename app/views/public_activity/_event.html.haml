@@ -10,7 +10,7 @@
 .thread-content
   = formatted_time_ago activity.created_at
 
-  .thread-title
+  .thread-description
     = icon_event
     - if activity.recipient.present?
       = link_to activity.parameters[:username], user_path(activity.recipient)

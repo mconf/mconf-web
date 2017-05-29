@@ -14,6 +14,10 @@ pt-br:
       message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
       subject: "Seu acesso ao site foi aprovado"
   user_mailer:
+    cancellation_notification_email:
+      message: "Estamos enviando este e-mail para lhe informar que sua conta em <a href=\"%{url}\">%{site}</a> foi cancelada."
+      more: "Caso tenha sido um engano ou precise mais informações, entre em contato pelo e-mail <a href=\"mailto:%{mail}\">%{mail}</a>."
+      subject: "Sua conta foi cancelada"
     registration_notification_email:
       click_here: "Você pode acessar a sua página inicial através do endereço: <a href=\"%{url}\">%{url}</a>"
       confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso.<br/>Assim que seu cadastro for aprovado você será comunicado."
@@ -90,17 +94,18 @@ pt-br:
         end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Sala"
-        password: "Chave de acesso"
-        dial_number: "Número para discagem"
-        start: "Início"
         subject: "Assunto"
       subject: "Convite para webconferência"
   shared:
     invitation_email:
       message:
         description: "Descrição"
+        dial_number: "Número para discagem"
+        duration: "Duração"
         end: "Fim"
-        start: "Início"
+        password: "Chave de acesso"
+        start_date: "Dia"
+        start_time: "Hora"
         subject: "Assunto"
         url:
           event: "Site do evento"

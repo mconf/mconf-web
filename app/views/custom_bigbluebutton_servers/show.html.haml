@@ -1,6 +1,4 @@
-= render :partial => 'manage/menu'
-
-= content_for :sidebar do
+= content_for :page_actions do
   = render 'custom_bigbluebutton_servers/server_links', :server => @server
 
 %h3= t('.showing_server', :server => @server.name)
@@ -10,26 +8,26 @@
   = icon_help t(".configurations_tip")
   = t(".configurations")
 
-.field
+.form-group
   %label= t(".available_layouts")
-  = text_field_tag 'available_layouts', @server.available_layouts.join(', '), disabled: true
+  = text_field_tag 'available_layouts', @server.available_layouts.join(', '), disabled: true, class: 'form-control'
 
 %h3= t(".recordings")
 
-.field
+.form-group
   %label{ :for => "server-recordings-fetch" }= t(".fetch_recordings_title")
   - base_url = fetch_recordings_bigbluebutton_server_path(@server)
-  = text_field_tag "fetch_recordings", "", :id => "server-recordings-fetch", :placeholder => 'e.g. "meetings=meeting1,meeting2&meta_name=value"', :"data-base-url" => base_url
-  = link_to t(".fetch_recordings_btn"), fetch_recordings_bigbluebutton_server_path(@server), :data => { :confirm => t('are_you_sure') }, :method => :post, :"data-link-for" => "server-recordings-fetch", :class => "btn"
+  = text_field_tag "fetch_recordings", "", :id => "server-recordings-fetch", :placeholder => 'e.g. "meetings=meeting1,meeting2&meta_name=value"', :"data-base-url" => base_url, :class => 'form-control'
+  = link_to t(".fetch_recordings_btn"), fetch_recordings_bigbluebutton_server_path(@server), :data => { :confirm => t('are_you_sure') }, :method => :post, :"data-link-for" => "server-recordings-fetch", :class => "btn btn-default"
 
-.field
+.form-group
   %label{ :for => "server-recordings-publish" }= t(".publish_recordings_title")
   - base_url = publish_recordings_bigbluebutton_server_path(@server)
-  = text_field_tag "publish_recordings", "", :id => "server-recordings-publish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url
-  = link_to link_to t(".publish_recordings_btn"), publish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-publish", :class => "btn"
+  = text_field_tag "publish_recordings", "", :id => "server-recordings-publish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url, :class => 'form-control'
+  = link_to link_to t(".publish_recordings_btn"), publish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-publish", :class => "btn btn-default"
 
-.field
+.form-group
   %label{ :for => "server-recordings-unpublish" }= t(".unpublish_recordings_title")
   - base_url = unpublish_recordings_bigbluebutton_server_path(@server)
-  = text_field_tag "unpublish_recordings", "", :id => "server-recordings-unpublish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url
-  = link_to link_to t(".publish_recordings_btn"), unpublish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-unpublish", :class => "btn"
+  = text_field_tag "unpublish_recordings", "", :id => "server-recordings-unpublish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url, :class => 'form-control'
+  = link_to link_to t(".publish_recordings_btn"), unpublish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-unpublish", :class => "btn btn-default"

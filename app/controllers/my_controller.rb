@@ -6,34 +6,20 @@
 # 3 or later. See the LICENSE file.
 
 # This controller includes actions that are specific for the current user and shouldn't be
-# accessed by anybody else (e.g. home, recordings, activity, etc).
+# accessed by anybody else (e.g. home, meetings, activity, etc).
 class MyController < ApplicationController
-  before_filter :authenticate_user!, :except => [:approval_pending]
-  respond_to :json, :only => [:rooms]
-  respond_to :html, :except => [:rooms]
+  before_filter :authenticate_user!, except: :approval_pending
+  respond_to :html
 
-  before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
+  before_filter :prepare_user_room, only: :home
+  after_filter :load_events, only: :home
 
-  after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
+  before_filter :require_activities_mod, only: :activity
 
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
-    when :activity
-      "no_sidebar"
-    when :edit_room
-      if request.xhr?
-        false
-      else
-        "application"
-      end
-    when :recordings
-      if params[:partial]
-        false
-      else
-        "no_sidebar"
-      end
     when :edit_recording
       if request.xhr?
         false
@@ -41,17 +27,21 @@ class MyController < ApplicationController
         "application"
       end
     when :approval_pending
-      "no_sidebar"
+      "navbar_bg"
     else
       "application"
     end
   end
 
   def home
-    @user_spaces = current_user.spaces.limit(15)
-    @user_pending_spaces = current_user.pending_spaces
-    @contents_per_page = 15
-    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('created_at DESC')
+    @pending_requests = current_user.pending_join_requests
+    # TODO: this will not be necessary when jrs are removed after a space is disabled
+    @pending_requests.to_a.select! { |jr| jr.group.present? }
+
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
+                                    .with_recording().first(5)
+
+    @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
 
   def approval_pending
@@ -70,52 +60,26 @@ class MyController < ApplicationController
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 
-  # Renders a json with the webconference rooms accessible to the current user
-  # Response example:
-  #
-  # [
-  #   { "bigbluebutton_room":
-  #     { "name":"Admins Room", "join_path":"/bigbluebutton/servers/default-server/rooms/admins-room/join?mobile=1",
-  #       "owner":{ "type":"User", "id":"1" } }
-  #   }
-  # ]
-  #
-  # The attribute "owner" will follow one of the examples below:
-  # "owner":null
-  # "owner":{ "type":"User", "id":1 }
-  # "owner":{ "type":"Space", "id":1, "name":"Space's name", "public":true }
-  #
-  # Note: this route exists so the mobile client can get the rooms available for the user
-  def rooms
-    array = current_user.accessible_rooms || []
-    mapped_array = array.map{ |r|
-      link = join_bigbluebutton_room_path(r, :mobile => '1')
-      { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
-    }
-    render :json => mapped_array
-  end
-
-  # Called by users to edit a webconference room. It's different from the
-  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
-  # edit *everything* in a room. This one is a lot more restricted.
-  def edit_room
+  # List of meetings for the current user's web conference room.
+  def meetings
     @room = current_user.bigbluebutton_room
-    @redir_url = my_home_path
-  end
 
-  # List of recordings for the current user's web conference room.
-  def recordings
-    @room = current_user.bigbluebutton_room
-    @recordings = @room.recordings.published().order("end_time DESC")
-    if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
+    if params[:recordedonly] == 'false'
+      @meetings = @meetings.with_or_without_recording()
+    else
+      @meetings = @meetings.with_recording()
     end
-    @redir_url = my_recordings_path
+    @meetings = @meetings.order("create_time DESC")
+
+    if params[:limit]
+      @meetings = @meetings.first(params[:limit].to_i)
+    end
   end
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = my_recordings_path
+    @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end

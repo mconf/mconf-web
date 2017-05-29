@@ -20,10 +20,6 @@
 Mconf::Application.routes.draw do
   root to: 'frontpage#show'
 
-  constraints CanAccessResque do
-    mount Resque::Server, at: 'manage/resque'
-  end
-
   # devise
   controllers = { sessions: "sessions", registrations: "registrations",
                   passwords: "passwords", confirmations: "confirmations" }
@@ -35,46 +31,80 @@ Mconf::Application.routes.draw do
     get "register", to: "registrations#new"
 
     # so admins can log in even if local auth is disabled
-    get "admin", to: "sessions#new"
+    get '/manage/login', to: 'sessions#new', as: 'admin_login'
   end
   get '/guest/logout', to: 'application#logout_guest_action', as: 'logout_guest'
 
-  # bigbluebutton_rails default routes
-  bigbluebutton_routes :default, controllers: {
+  # conference routes
+  # bigbluebutton_rails gem
+  conf_scope = Rails.application.config.conf_scope
+  conf_controllers = {
     servers: 'custom_bigbluebutton_servers',
     rooms: 'custom_bigbluebutton_rooms',
     recordings: 'custom_bigbluebutton_recordings',
     playback_types: 'custom_bigbluebutton_playback_types'
   }
+  bigbluebutton_routes :default, scope: conf_scope, as: 'bigbluebutton', controllers: conf_controllers
+
   # register a few custom routes that were added to bigbluebutton_rails
-  get '/bigbluebutton/rooms/:id/invitation',
+  get "/#{conf_scope}/rooms/:id/invitation",
     to: 'custom_bigbluebutton_rooms#invitation',
     as: "invitation_bigbluebutton_room"
-  post '/bigbluebutton/rooms/:id/send_invitation',
+  post "/#{conf_scope}/rooms/:id/send_invitation",
     to: 'custom_bigbluebutton_rooms#send_invitation',
     as: "send_invitation_bigbluebutton_room"
-  get '/bigbluebutton/playback_types',
+  get "/#{conf_scope}/rooms/:id/user_edit",
+    to: 'custom_bigbluebutton_rooms#user_edit',
+    as: "user_edit_bigbluebutton_room"
+  get "/#{conf_scope}/playback_types",
     to: 'custom_bigbluebutton_playback_types#index',
     as: "bigbluebutton_playback_types"
-  # shortcut route to join webconference rooms
-  get '/webconf/:id',
-    to: 'custom_bigbluebutton_rooms#invite_userid',
-    as: "join_webconf"
+
+  # note: this block *has* to be before `resources :users`, otherwise some
+  # routes here won't work well
+  scope 'users' do
+    get 'pending', to: 'my#approval_pending', as: 'my_approval_pending'
+
+    # login via Shibboleth
+    scope 'shibboleth' do
+      get '/', to: 'shibboleth#login', as: "shibboleth"
+      get 'info', to: 'shibboleth#info', as: "shibboleth_info"
+      post 'associate', to: 'shibboleth#create_association', as: "shibboleth_create_association"
+    end
+
+    # login via certificate
+    get 'certificate', to: 'certificate_authentication#login', as: 'certificate_login'
+  end
+  # to keep it compatible with previous versions (i.e. if apache is configured for '/secure')
+  get 'secure', to: redirect('/users/shibboleth')
+
+  resources :users, except: [:index] do
+    collection do
+      get :fellows
+      get :select
+      get :current
+    end
+
+    member do
+      delete :disable
+      post :enable
+      post :approve
+      post :disapprove
+      post :confirm
+      post :update_logo
+    end
+  end
 
 
-  # shibboleth controller
-  get '/secure', to: 'shibboleth#login', as: "shibboleth"
-  get '/secure/info', to: 'shibboleth#info', as: "shibboleth_info"
-  post '/secure/associate', to: 'shibboleth#create_association', as: "shibboleth_create_association"
-
-  # to crop images
-  get "logo_images/crop", to: 'logo_images#crop'
-
-  # tags
-  get "tags/select", to: 'tags#select'
+  # routes specific for the current user
+  scope 'home' do
+    get '/', to: 'my#home', as: 'my_home'
+    get 'activity', to: 'my#activity', as: 'my_activity'
+    get 'meetings', to: 'my#meetings', as: 'my_meetings'
+    get 'recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
+  end
 
   resources :spaces do
-
     collection do
       get :select
     end
@@ -87,9 +117,8 @@ Mconf::Application.routes.draw do
       post :approve
       post :disapprove
       get :user_permissions
-      get :webconference_options
       get :webconference
-      get :recordings
+      get :meetings
     end
 
     get '/recordings/:id/edit', to: 'spaces#edit_recording', as: 'edit_recording'
@@ -99,8 +128,9 @@ Mconf::Application.routes.draw do
 
     resources :users, only: :index
 
-    resources :join_requests, only: [:index, :show, :new, :create] do
+    resources :join_requests, only: [:show, :new, :create] do
       collection do
+        get :admissions
         get :invite
       end
 
@@ -120,37 +150,37 @@ Mconf::Application.routes.draw do
     delete 'attachments', to: 'attachments#delete_collection'
   end
 
-  resources :users, except: [:index] do
+  scope 'manage' do
+    resource :site, only: [:show, :edit, :update]
+
+    ['users', 'spaces', 'recordings'].each do |resource|
+      get resource, to: "manage##{resource}", as: "manage_#{resource}"
+    end
+
+    get '/', to: redirect('/manage/site'), as: 'manage'
+  end
+
+  constraints CanAccessResque do
+    mount Resque::Server, at: 'manage/resque'
+  end
+
+  resources :events do
     collection do
-      get :fellows
       get :select
-      get :current
+      get 'participants/confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
+      get 'participants/confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
     end
 
     member do
-      delete :disable
-      post :enable
-      post :approve
-      post :disapprove
-      post :confirm
+      post :send_invitation
+      get  :invite
     end
 
-    resource :profile, only: [:show, :edit, :update] do
-      post :update_logo
-    end
+    resources :participants, except: [:show, :edit]
   end
 
-  # Routes specific for the current user
-  get '/home', to: 'my#home', as: 'my_home'
-  get '/activity', to: 'my#activity', as: 'my_activity'
-  get '/rooms', to: 'my#rooms', as: 'my_rooms'
-  get '/room/edit', to: 'my#edit_room', as: 'edit_my_room'
-  get '/recordings', to: 'my#recordings', as: 'my_recordings'
-  get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
-  get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'
-
-  # Login via certificate
-  get '/certificate_login', to: 'certificate_authentication#login', as: 'certificate_login'
+  post 'language/:lang', to: 'session_locales#create', language: /#{I18n.available_locales.join("|")}/, as: :session_locale
+  get 'language/:lang', to: 'session_locales#create', language: /#{I18n.available_locales.join("|")}/
 
   resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection
@@ -158,35 +188,17 @@ Mconf::Application.routes.draw do
 
   resources :permissions, only: [:update, :destroy]
 
-  # The unique Site is created in db/seeds and can only be edited
-  resource :site, only: [:show, :edit, :update]
+  get "tags/select", to: 'tags#select'
 
-  # Management routes
-  ['users', 'spaces', 'recordings'].each do |resource|
-    get "/manage/#{resource}", to: "manage##{resource}", as: "manage_#{resource}"
-  end
-
-  # Locale controller, to change languages
-  resource :language, only: [:create], controller: :session_locales, as: :session_locale
-
-  # General statistics for the website
-  get '/statistics', to: 'statistics#show', as: 'show_statistics'
-
-  # Events
-  # Note: we load the routes even if the events are disabled in the site
-  resources :events do
-    collection do
-      get :select
-    end
-    resources :participants
-    member do
-      post :send_invitation
-      get  :invite
-    end
-  end
-  get 'participant_confirmations/:token', to: 'participant_confirmations#confirm', as: 'participant_confirmation'
-  get 'participant_confirmations/:token/cancel', to: 'participant_confirmations#destroy', as: 'cancel_participant_confirmation'
+  # to crop images
+  get "logos/crop", to: 'logo_images#crop', as: 'logo_images_crop'
 
   # To treat errors on pages that don't fall on any other controller
   match ':status', to: 'errors#on_error', constraints: { status: /\d{3}/ }, via: :all
+
+  # shortcut route to join webconference rooms
+  # note: has to be left as the last route in case no scope is used!
+  get "/#{Rails.application.config.conf_scope_rooms}/:id",
+      to: 'custom_bigbluebutton_rooms#invite_userid',
+      as: "join_webconf"
 end

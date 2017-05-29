@@ -73,7 +73,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('spaces_show') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -88,7 +88,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('spaces_show') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -104,7 +104,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('spaces_show') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -114,7 +114,7 @@ describe AttachmentsController do
       context "as an anonymous user" do
         before { get :index, space_id: space.to_param }
         it { should render_template('index') }
-        it { should render_with_layout('spaces_show') }
+        it { should render_with_layout('application') }
       end
     end
 
@@ -130,7 +130,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('spaces_show') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -145,7 +145,7 @@ describe AttachmentsController do
 
           context "template and layout" do
             it { should render_template('index') }
-            it { should render_with_layout('spaces_show') }
+            it { should render_with_layout('application') }
           end
 
           it { assigns(:space).should eq(space) }
@@ -408,6 +408,44 @@ describe AttachmentsController do
     context "as an anonymous user" do
       before { delete :delete_collection, params }
       it { should redirect_to 'http://test.host/users/login' }
+    end
+  end
+
+  describe "spaces module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:space) { FactoryGirl.create(:space) }
+    let(:attachment) { FactoryGirl.create(:attachment, space: space) }
+    let(:space_id) { space.to_param }
+    let(:attachment_id) { attachment.id }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, false)
+        login_as(user)
+
+        space.add_member!(user, 'User')
+      }
+      it { expect { get :index, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :create, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: attachment_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: attachment_id, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :delete_collection, space_id: space_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:spaces_enabled, true)
+        login_as(user)
+
+        space.add_member!(user, 'User')
+      }
+      it { expect { get :index, space_id: space_id }.not_to raise_error }
+      it { expect { post :create, space_id: space_id }.not_to raise_error }
+      it { expect { get :new, space_id: space_id }.not_to raise_error }
+      it { expect { get :show, id: attachment_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :destroy, id: attachment_id, space_id: space_id }.not_to raise_error }
+      it { expect { delete :delete_collection, space_id: space_id }.not_to raise_error }
     end
   end
 end

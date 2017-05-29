@@ -1,0 +1,115 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.recordings {
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    .search-words {
+      input { width: 100%; }
+    }
+
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-user {
+        margin-bottom: 10px;
+        float: right;
+      }
+    }
+  }
+
+  .resource-filter-container.list-item-header {
+    padding: 8px 0;
+
+    .total-recording-size {
+      float: right;
+      margin: 0 8px;
+    }
+  }
+}
+
+
+/* @import "definitions"; */
+/* @import "compass/css3"; */
+
+/* body.manage.recordings { */
+
+/*   .page-tabs { */
+/*     .search-words { */
+/*       text-align: left; */
+
+/*       label { */
+/*         margin: 3px 7px; */
+/*       } */
+
+/*       input { */
+/*         margin: 0 5px; */
+/*         width: 75%; */
+/*       } */
+/*     } */
+/*   } */
+
+/*   .search-filters { */
+/*     margin-top: 10px; */
+
+/*     .search-filter-option { */
+/*       float: left; */
+/*       width: 20%; */
+/*     } */
+
+/*     .checkbox { */
+/*       text-align: right; */
+/*       margin: 0 5px; */
+/*       float: left; */
+/*       padding: 0; */
+/*     } */
+/*   } */
+
+/*   .management-links { */
+/*     float: right; */
+/*     padding-top: 8px; */
+/*   } */
+
+/*   .thread { */
+/*     .recording-metadata { */
+/*       margin-top: 7px; */
+/*     } */
+/*   } */
+
+/*   .playback-types { */
+/*     display: none; */
+/*     margin-left: 20px; */
+
+/*     ul { */
+/*       margin: 0; */
+/*       border: 0; */
+/*     } */
+/*   } */
+
+/*   .icon-awesome { */
+/*     display:inline-block; */
+/*     line-height: 27px; */
+/*     text-align: center; */
+/*     vertical-align: bottom; */
+/*   } */
+
+/*   .recording-not-available-name { */
+/*     background: #fcfcfc; */
+/*     a { */
+/*       color: #888; */
+/*     } */
+/*   } */
+
+/* } */

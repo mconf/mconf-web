@@ -15,27 +15,22 @@ module Mconf
 
     def self.mod_enabled?(mod)
       case mod
+      when 'spaces'
+        Site.table_exists? && Site.current &&
+          Site.current.respond_to?(:spaces_enabled) &&
+          Site.current.spaces_enabled?
       when 'events'
-        # mod_loaded?(mod) &&
-        defined?(Site) && Site.table_exists? && Site.current &&
+        Site.table_exists? && Site.current &&
           Site.current.respond_to?(:events_enabled) &&
           Site.current.events_enabled?
+      when 'activities'
+        Site.table_exists? && Site.current &&
+          Site.current.respond_to?(:activities_enabled) &&
+          Site.current.activities_enabled?
       else
         false
       end
     end
-
-    # TODO: "loaded" methods will only make sense when we have a way
-    # of loading classes only when they are necessary/enabled.
-    #
-    # # Indicates whether a module `mod` was loaded or not.
-    # # Used usually to check if routes should be added or not.
-    # def mod_loaded?(mod)
-    #   Mconf::Modules.mod_loaded?(mod)
-    # end
-    # def self.mod_loaded?(mod)
-    #   configatron.modules[mod].loaded
-    # end
 
   end
 end

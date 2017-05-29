@@ -1,0 +1,84 @@
+@import "compass/css3";
+@import "definitions";
+
+/*
+ * Specifies the side of the sidebar and the rest of the components that have to
+ * be adjusted to it.
+ * We don't use bootstrap's responsive columns because we want a fixed-width sidebar.
+ */
+
+$sidebar-lg: $m-sidebar-width-lg;
+$sidebar-md: $m-sidebar-width-md;
+$sidebar-sm: $m-sidebar-width-sm;
+
+@mixin sidebar-sizing($size) {
+  body {
+    background: linear-gradient(
+                    to right,
+                    $m-sidebar-bg-color 0%,
+                    $m-sidebar-bg-color $size - 1,
+                    $m-sidebar-border $size - 1,
+                    $m-sidebar-border $size,
+                    $m-site-bg-color $size,
+                    $m-site-bg-color 100%
+                  );
+  }
+
+  #sidebar, .sidebar {
+    float: left;
+    width: $size;
+  }
+
+  #content-middle {
+    float: left;
+    width: calc(100% - #{$size});
+  }
+}
+
+@include breakpoint(lg) {
+  @include sidebar-sizing($sidebar-lg);
+}
+
+@include breakpoint(md) {
+  @include sidebar-sizing($sidebar-md);
+}
+
+@include breakpoint(sm) {
+  @include sidebar-sizing($sidebar-sm);
+}
+
+@include breakpoint(xs) {
+  body {
+    background-color: $m-site-bg-color;
+  }
+
+  #sidebar, .sidebar {
+    width: 100%;
+  }
+
+  #content-middle {
+    width: 100%;
+  }
+}
+
+
+/*
+ * For sticky components inside the sidebar, have to keep their width the same
+ * as the sidebar when they are floating.
+ */
+
+.is-sticky {
+  width: $m-sidebar-width-lg - ($m-sidebar-padding * 2);
+}
+
+@include breakpoint(md) {
+  .is-sticky {
+    width: $m-sidebar-width-md - ($m-sidebar-padding * 2);
+  }
+}
+
+@include breakpoint(sm) {
+  .is-sticky {
+    width: $m-sidebar-width-sm - ($m-sidebar-padding * 2);
+  }
+}

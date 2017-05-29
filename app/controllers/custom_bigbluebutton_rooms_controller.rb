@@ -39,13 +39,19 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def determine_layout
     case params[:action].to_sym
     when :join_mobile
-      "mobile"
+      "no_sidebar"
     when :running
       false
     when :invite_userid, :invite
-      "no_sidebar"
+      "navbar_bg"
+    when :user_edit
+      if request.xhr?
+        false
+      else
+        "no_sidebar"
+      end
     else
-      "application"
+      "manage"
     end
   end
 
@@ -102,8 +108,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         invitation_group: SecureRandom.uuid,
         sender: current_user,
         target: @room,
-        starts_on: params[:invite][:starts_on],
-        ends_on: params[:invite][:ends_on],
+        starts_on: params[:invite][:starts_on_time],
+        duration: params[:invite][:duration].to_i,
         title: params[:invite][:title],
         url: join_webconf_url(@room),
         description: params[:invite][:message],
@@ -121,6 +127,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     redirect_to request.referer
   end
 
+  # Called by users to edit a webconference room. It's different from the
+  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
+  # edit *everything* in a room. This one is a lot more restricted.
+  def user_edit
+    @redir_url = request.referer
+  end
+
   protected
 
   # Loads the room and fetches information from the web conference server.
@@ -134,19 +147,15 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # These dates were configured by the user in the view assuming his time zone, so we need to set
   # this time zone in the object before parsing it.
   def adjust_dates_for_invitation(params)
-    date_format = t('_other.datetimepicker.format_display')
+    date_format = t('_other.datetimepicker.format_rails')
     user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
 
-    [:starts_on, :ends_on].each do |field|
-      if params[:invite][field].present?
-        time = "#{params[:invite][field.to_s + '_time(4i)']}:#{params[:invite][field.to_s + '_time(5i)']}"
-        params[:invite][field] = Mconf::Timezone.parse_in_timezone(params[:invite][field], time, user_time_zone, date_format)
-      else
-        return false
-      end
-      (1..5).each { |n| params[:invite].delete("#{field}_time(#{n}i)") }
+    if params[:invite][:starts_on_time].present?
+      params[:invite][:starts_on_time] = Mconf::Timezone.parse_in_timezone(params[:invite][:starts_on_time], user_time_zone, date_format)
+      true
+    else
+      return false
     end
-    true
   rescue
     false
   end
@@ -183,7 +192,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     if current_user.superuser
       super
     else
-      [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
+      [ :attendee_key, :private, :record_meeting, :default_layout, :name,
         :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end

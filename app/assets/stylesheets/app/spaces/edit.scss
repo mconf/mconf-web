@@ -1,0 +1,39 @@
+@import "definitions";
+@import "compass/css3";
+
+body.spaces.edit {
+
+  #space-logo-uploader {
+    clear: both;
+    margin-top: 10px;
+
+    .upload-button {
+      display: block;
+    }
+
+    .progress {
+      width: 150px;
+    }
+
+    .upload-spinner {
+      display: none !important;
+    }
+
+    .upload-list {
+      padding-top: 5px;
+      font-size: 14px;
+    }
+  }
+
+  #edit-space-other-options {
+    @include make-xs-column(12);
+    clear: both;
+    margin-top: 25px;
+    .btn { margin-left: 5px; }
+  }
+
+  #space_tag_list {
+    display: none;
+  }
+
+}

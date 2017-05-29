@@ -18,49 +18,50 @@ feature 'User is' do
 
     scenario 'on home page' do
       visit space_path(space)
+      save_page
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
 
@@ -75,48 +76,48 @@ feature 'User is' do
     scenario 'on home page' do
       visit space_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
 
@@ -134,55 +135,55 @@ feature 'User is' do
     scenario 'on home page' do
       visit space_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.home'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
     end
 
     scenario 'on posts page' do
       visit space_posts_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.posts'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.posts'))
       end
     end
 
     scenario 'on attachments page' do
       visit space_attachments_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.repository'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.repository'))
       end
     end
 
     scenario 'on events page' do
       visit space_events_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.events'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.events'))
       end
     end
 
     scenario 'on users page' do
       visit space_users_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.users'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.users'))
       end
     end
 
     scenario 'on web conference page' do
       visit webconference_space_path(space)
 
-      within('#page-menu ul li.selected') do
-        expect(page).to have_link(I18n.t('spaces.menu.webconference'))
+      within('#sidebar-menu ul li.active') do
+        expect(page).to have_link(I18n.t('spaces.sidebar.webconference'))
       end
     end
   end
 
   context 'an admin of the space' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:space) { FactoryGirl.create(:space, :repository => true) }
+    let(:space) { FactoryGirl.create(:space_with_associations, repository: true) }
 
     before(:each) {
       space.add_member!(user)

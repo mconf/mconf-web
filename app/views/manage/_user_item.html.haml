@@ -1,0 +1,64 @@
+- cls = user.disabled? ? "list-item-disabled" : ""
+.list-item.container-fluid{ id: "user-#{user.permalink}", class: cls }
+  .col-xs-12.col-sm-1
+    .list-item-logo
+      = raw logo_image(user, :size => '128', :title => user.name, :class => 'logo logo-user')
+
+  .col-xs-12.col-sm-5
+    - words = params[:q].try(:split)
+    .list-text-title
+      - if user.disabled?
+        = Mconf::Highlighter.highlight(user.username, words)
+      - else
+        = link_to user_path(user) do
+          = Mconf::Highlighter.highlight(user.username, words)
+    .list-text-description
+      = Mconf::Highlighter.highlight(user.full_name, words)
+    .list-text-description
+      = Mconf::Highlighter.highlight(user.email, words)
+    .list-text-description
+      = t('.last_sign_in')
+      - if user.current_sign_in_at
+        %span.tooltipped{ title: user.current_sign_in_at }
+          = "#{format_date(user.current_sign_in_at, :numeric) }"
+          = t('.auth_using')
+        - method = user.last_sign_in_method
+        .label{ class: "label-auth-#{method}" }= method
+      - else
+        %span.tooltipped{ title: t('.never_sign_in') }= "?"
+
+  .col-xs-12.col-sm-2.user-category
+    = user_category(user)
+
+  .col-xs-12.col-sm-2.user-login
+    - user_sign_in_methods(user).each do |method|
+      .label{ class: "label-auth-#{method}" }= method
+
+  .col-xs-12.col-sm-2.management-links.list-actions
+    - if user.disabled?
+      = link_to enable_user_path(user), :data => { :confirm => t('.enable_confirm') }, :method => :post do
+        = icon_enable(:alt => t('.enable'), :title => t('.enable'))
+      = render 'manage/destroy_user', user: user
+
+    - else
+      = link_to (edit_user_path(user)) do
+        = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+
+      - if !user.confirmed?
+        = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') }, :method => :post do
+          = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
+
+      - if !user.can_record?
+        = link_to user_path(user, user: {can_record: true}, redir_url: manage_users_path(params)), method: :patch do
+          = icon_cant_rec(alt: t('.allow_record'), title: t('.allow_record'))
+      - else
+        = link_to user_path(user, user: {can_record: false}, redir_url: manage_users_path(params)), method: :patch do
+          = icon_can_rec(alt: t('.disallow_record'), title: t('.disallow_record'))
+
+      -# prevent admins from disabling and disapproving themselves
+      - unless current_user == user && user.superuser
+        - if user.require_approval? || !user.approved?
+          = approval_links :user, user
+        = link_to disable_user_path(user), :data => { :confirm => t('.disable_confirm').html_safe }, :method => :delete do
+          = icon_disable(:alt => t('.disable'), :title => t('.disable'))
+        = render 'manage/destroy_user', user: user

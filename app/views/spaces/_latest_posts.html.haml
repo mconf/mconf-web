@@ -1,8 +1,6 @@
 #latest-posts.content-block
   .content-block-header
-    = icon_comments()
-    %h3
-      = link_to t('post.latest'), space_posts_path(@space)
+    %h3= link_to t('post.latest'), space_posts_path(@space)
 
   .content-block-middle
     - if @latest_posts.empty?
@@ -27,4 +25,5 @@
             = first_words(strip_tags(post.text), 100)
 
   .content-block-footer.content-block-footer-fancy
-    = link_to t('read_more'), space_posts_path(@space)
+    .content-block-footer-middle
+      = link_to t('read_more'), space_posts_path(@space)

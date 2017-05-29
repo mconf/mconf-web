@@ -1,0 +1,94 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+// style the select2 input to be exactly like in our customization of bootstrap
+.select2-container {
+  .select2-choice, .select2-choices {
+    @include border-radius($input-border-radius);
+    border-color: $input-border;
+    box-shadow: none;
+
+    .select2-arrow {
+      @include border-radius(0 $input-border-radius $input-border-radius 0);
+    }
+  }
+
+  &.select2-dropdown-open {
+    .select2-choice, .select2-choices {
+      border-color: $input-border-focus;
+      box-shadow: none;
+    }
+  }
+}
+.select2-container-multi.select2-container-active {
+  .select2-choices {
+    border-color: $input-border-focus;
+    box-shadow: none;
+  }
+}
+.select2-drop-active {
+  border-color: $input-border-focus;
+  @include border-radius(0 0 $input-border-radius $input-border-radius);
+  box-shadow: none;
+}
+.select2-search {
+  padding: 0 8px;
+
+  input, .select2-input, .select2-default, .select2-focused {
+    border-color: lighten($input-border-focus, 5);
+    @include border-radius($input-border-radius);
+    box-shadow: none;
+    background: none;
+
+    &:focus {
+      background: $m-input-focus-bg;
+    }
+  }
+}
+
+// no underline on links inside a select2
+.select2-container {
+  a.select2-choice, .select2-choice a {
+    text-decoration: none;
+  }
+}
+
+// a select2 inside a form and an .input, should behave just like any other input
+// does when inside a form
+.simple_form .input .select2-container {
+  margin-bottom: 10px;
+}
+.simple_form.form-inline .input .select2-container {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+// the button to remove the current selection was not properly positioned
+.select2-container .select2-choice abbr {
+  top: 8px;
+}
+
+// selected itens should have the appropriate placing inside the input
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin-top: 6px;
+  margin-bottom: 3px;
+  margin-left: 6px;
+  background: $m-tags-bg-color;
+  color: $m-tags-font-color;
+  border: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+// adjust the borders of the input when inside a .btn-group
+.btn-group .select2-container .select2-choice {
+  border-left-width: 0;
+  border-right-width: 0;
+}
+.btn-group .select2-container:last-child .select2-choice {
+  border-right-width: 1px;
+}
+.btn-group .select2-container:first-child .select2-choice {
+  border-left-width: 1px;
+}

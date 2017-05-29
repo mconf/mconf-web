@@ -1,0 +1,18 @@
+@import "definitions";
+
+body.posts.index {
+
+  #space-posts-create {
+    margin: 7px 0;
+    float: right;
+  }
+
+  #posts-navigation-top {
+    float: right;
+
+    .pagination {
+      margin: 0;
+    }
+  }
+
+}

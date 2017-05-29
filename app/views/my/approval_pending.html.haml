@@ -1,14 +1,10 @@
-= render_page_title t('.title')
+= page_title t('.title')
+
+%h1= t('.title')
 
 %h3.description
   = t('.description')
 
-.interesting-links
+- has_open_section = mod_enabled?('spaces') || mod_enabled?('events')
+- if has_open_section
   %span= t('.interesting_links')
-
-  %ul
-    - if Mconf::Modules.mod_enabled?('events')
-      %li= link_to t('.events_list'), events_path
-      %span &#149;
-
-    %li= link_to t('.spaces_list'), spaces_path

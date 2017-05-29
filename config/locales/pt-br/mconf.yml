@@ -50,9 +50,16 @@ pt-br:
     confirmation_dialog:
       cancel: "Cancelar"
       confirm: "OK"
+      or: "ou"
       title: "Confirmação"
+    copy_modal:
+      message: Texto copiado para a área de transferência
+      title: Aperte Ctrl+C para copiar o texto
   _other:
     accept: "Aceitar"
+    accept_admin: "Aceitar esta pessoa como administrador da comunidade"
+    accept_user: "Aceita esta pessoa como usuário da comunidade"
+    access_denied: "É preciso entrar ou se registrar para poder continuar."
     auth:
       certificate: "certificado"
       ldap: "LDAP"
@@ -60,10 +67,8 @@ pt-br:
       shibboleth: "shibboleth"
     cancel: "Cancelar"
     create: "Criar"
-    confirm: Ok
     datetimepicker:
-      format_display: "%d/%m/%Y"
-      format: "dd-MM-yyyy"
+      format: "dd/mm/yyyy hh:ii Z"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
@@ -85,6 +90,7 @@ pt-br:
     members:
       one: "%{count} membro"
       other: "%{count} membros"
+    moderator: "Moderador"
     more_tags:
       one: "+1 tag"
       other: "+%{count} tags"
@@ -96,16 +102,31 @@ pt-br:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
+    recording:
+      available: "Disponível"
+      published: "Publicada"
+      unavailable: "Indisponível"
+      unpublished: "Não publicada"
     register: "Registrar"
     remove_tag: "Remover tag da busca"
     save: "Salvar"
     send: "Enviar"
+    showable_password:
+      hide: "Esconder senha"
+      show: "Mostrar senha"
+    space:
+      disabled: "Desabilitado"
+      private: "Privado"
+      public: "Público"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
     upload: "Enviar"
     user:
+      admin: "Admin"
+      admin_tooltip: "Este usuário é um administrador"
       administrator: "Administrador global"
+      disabled: "Desabilitado"
       normal_user: "Usuário normal"
       unapproved_user: "Aguardando aprovação"
       guest: Convidado
@@ -117,10 +138,6 @@ pt-br:
       not_running: "não iniciada"
       running: "em andamento"
   GMT: GMT
-  RSS: RSS
-  abc: ABC
-  about_me: "Sobre mim"
-  about_sxsw: "Sobre o SXSW"
   account: Conta
   account_activated: "Sua conta foi ativada!"
   action:
@@ -128,38 +145,54 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
+      bigbluebutton_room:
+        name: "Nome"
+        param: "Endereço"
+      invitation:
+        duration_values:
+          5m: "5 minutos"
+          10m: "10 minutos"
+          15m: "15 minutos"
+          20m: "20 minutos"
+          30m: "30 minutos"
+          45m: "45 minutos"
+          1h: "1 hora"
+          1h30m: "1 hora and 30 minutos"
+          2h: "2 horas"
+          3h: "3 horas"
+          4h: "4 horas"
+          5h: "5 horas"
+          6h: "6 horas"
+          12h: "12 horas"
       invite:
+        duration: "Duração"
         ends_on: "Acaba em"
         message: "Descrição"
         starts_on: "Inicia em"
         title: "Título"
-        users: "Usuários"
+        users: "Convidados"
       join_request:
         comment: "Mensagem"
       post:
         text: "Mensagem"
         title: "Título"
       profile:
-        address: "Endereço"
+        address: "Rua e número"
         city: "Cidade"
         country: "País"
         description: "Escreva algo sobre você"
         email: "E-mail"
-        fax: "Fax"
         full_name: "Nome completo"
-        im: "IM"
-        mobile: "Celular"
         organization: "Organização"
         phone: "Telefone"
-        prefix_key: "Título"
         province: "Estado"
-        skype: "Skype"
-        url: "Seu website"
+        url: "Website"
         zipcode: "CEP"
       roles:
         name_user: "Usuário"
         name_admin: "Administrador"
       site:
+        activities_enabled: "Habilitar o módulo de atividades"
         analytics_code: "Código do Google Analytics"
         certificate_login_enabled: "Habilitar login via certificado"
         certificate_id_field: "Login via certificado: Campo para obter o ID do usuário"
@@ -212,6 +245,7 @@ pt-br:
         smtp_sender: "Remetente SMTP"
         smtp_server: "Servidor SMTP"
         smtp_use_tls: "Usar TLS no STMP"
+        spaces_enabled: "Habilitar módulo de comunidades"
         ssl: "SSL"
         timezone: "Fuso horário"
         visible_locales: "Linguagens visíveis"
@@ -227,12 +261,10 @@ pt-br:
         repository: "Repositório de documentos"
         tag_list: "Tags"
       user:
-        _full_name: "Nome completo"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
         current_password: "Senha atual"
         email: "E-mail"
-        expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Permanecer conectado"
@@ -247,38 +279,29 @@ pt-br:
       event: "Evento"
       join_request: "Pedido de Adesão"
       space: "Comunidade"
-
   flash:
     spaces:
       update:
         notice: "Comunidade atualizada com sucesso"
-
       enable:
         notice: "Comunidade habilitada com sucesso"
         failure: "Comunidade %{name} já está habilitada"
-
       disable:
         notice: "Comunidade desabilitada com sucesso"
-
     posts:
       update:
         notice: "Mensagem atualizada!"
         failure: "Atualização de mensagem falhou: %{errors}"
-
       create:
         notice: "Mensagem enviada!"
         failure: "Mensagem não pode ser enviada: %{errors}"
-
     users:
       enable:
-        notice: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
+        notice: "Usuário habilitado com sucesso"
         failure: "Usuário %{name} já está habilitado"
-
+        unable: "Usuário %{name} não pode ser habilitado (e-mail, id ou nome da sala já está em uso)"
       disable:
         notice: "Usuário %{username} desabilitado"
-
-
-  address: Endereço
   admin:
     one: Administrador
     space: "Administração do %{spacename}"
@@ -329,7 +352,7 @@ pt-br:
       author: "Enviado por"
       download_multiple: "Baixar"
       file: "Arquivo"
-      new_file: "Enviar um arquivo"
+      new_file: "Enviar arquivos"
       no_attachments: "Nenhum arquivo encontrado"
       remove_multiple: "Remover"
       remove_multiple_confirmation: "Você tem certeza que deseja remover todos os arquivos selecionados? Esta operação é irreversível."
@@ -340,7 +363,7 @@ pt-br:
       delete_tooltip: "Remover este arquivo"
       download_tooltip: "Baixar este arquivo"
     upload_form:
-      title: "Enviar um novo arquivo"
+      title: "Enviar arquivos"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
   avatar:
@@ -438,7 +461,6 @@ pt-br:
       not_found: "Seu certificado é válido mas não possui um usuário associado a ele"
       title: "Erro no certificado"
       unknown: "Não existe nenhum certificado instalado ou ele é inválido"
-  city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
   click_to_see_all: "Ver todos"
@@ -458,8 +480,6 @@ pt-br:
   confirmations:
     check_already_confirmed:
       already_confirmed: "Você já confirmou a sua conta"
-  contact_information: "Informações de contato"
-  country: País
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
@@ -491,13 +511,15 @@ pt-br:
     index:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
-    invitation_form:
+    invitation:
       at: "às"
       duration: "Duração"
-      meeting_in: "Enviando convite para conferência em:"
+      later: "Mais tarde"
+      meeting_in: "Enviando convite para conferência em: %{room}"
+      now: "Agora"
       offset: "Sua diferença de horário atual é \"%{offset}\""
       offset_daylight_savings: "Sua diferença de horário atual é \"%{offset}\" (o horário de verão está em efeito)"
-      timezone: "As datas abaixo estão no fuso horário \"%{timezone}\""
+      timezone: "As datas estão no fuso horário \"%{timezone}\""
       title: "Convite para conferência"
       users:
         hint: "Digite para começar a buscar"
@@ -509,14 +531,13 @@ pt-br:
       logout_guest: "Pessoa errada? Modificar"
       title: "Acessar sala: %{name}"
     invite_header:
+      identify: "Por favor se identifique para entrar"
       not_running: "não iniciada"
-      refresh: "Esta informação é atualizada automaticamente"
-      room_type_private: "Esta é uma conferência <em>privada</em>"
-      room_type_public: "Esta é uma conferência <em>pública</em>"
+      not_running_tooltip: "A sala ainda não está aberta, não há uma reunião em andamento"
       running: "em andamento!"
-      status: "O estado atual da reunião é"
+      running_tooltip: "A sala está aberta, há uma reunião em andamento!"
       status_unknown: "desconhecido"
-      steps: "etapas:"
+      welcome: "Sala virtual"
     invite_userid:
       login: "Entrar"
       login_certificate: "Login via certificado"
@@ -524,11 +545,11 @@ pt-br:
       member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        title: "Eu sou um membro deste site"
+        title: "Já tenho uma conta"
       non_member:
+        join: "Entrar"
         name: "Seu nome completo"
-        next: "Próximo"
-        title: "Eu não possuo uma conta, quero entrar como convidado"
+        title: "Não tenho uma conta"
       title: "Acessar sala: %{name}"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
@@ -536,17 +557,31 @@ pt-br:
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
-      download_android_tip: "Para dispositivos com Android"
-      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
-      not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
+      not_launched: "Se o programa não iniciar automaticamente, verifique se você possui o cliente móvel instalado. Você pode encontrá-lo em:"
       notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
       title: "Acesso móvel à sala \"%{room}\""
       use_default_client: "Se você não está em um cliente móvel, clique aqui para entrar na sessão usando o cliente desktop padrão."
       try_again: "Você possui a aplicação instalada mas ela não foi iniciada? Clique aqui para tentar novamente."
+    list_item:
+      accept: "Aceitar"
+      cancel: "Cancelar"
+      cancel_confirm: "Você tem certeza que desejar cancelar esta requisição?"
+      decline: "Rejeitar"
+      decline_confirm: "Você tem certeza que deseja rejeitar este convite?"
+      invite:
+        comment:
+          title: "Mensagem de convite"
+      invited_by: "Você foi convidado por %{name}."
+      request:
+        comment:
+          title: "Sua mensagem"
+      your_request: "Você solicitou ingresso nesta comunidade."
     new:
       creating_new_room: "Criando uma nova sala"
     recordings:
       list_of_recordings: "Lista de todas gravações para a sala '%{room}'"
+    room_links:
+      choose_action: "Escolha uma ação"
     rooms:
       table:
         links: "Links"
@@ -560,6 +595,12 @@ pt-br:
       success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"
+    user_edit:
+      layout_empty_option: "<padrão>"
+      private: "Privada"
+      public: "Pública"
+      subtitle: "Configurações da sala de conferência web"
+      visibility: "Visibilidade"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
@@ -569,7 +610,8 @@ pt-br:
     index:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
-      direct_link: "Link direto"
+      direct_link: "Link Direto"
+      choose_action: "Escolha uma ação"
       playback_links: "Playbacks disponíveis"
       confirm_destroy: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
     recordings:
@@ -605,6 +647,8 @@ pt-br:
       list_of_recordings: "Lista de todas gravações para o servidor '%{server}'"
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
+    server_links:
+      choose_action: "Escolha uma ação"
     show:
       available_layouts: "Layouts disponíveis"
       configurations: "Configurações do servidor"
@@ -629,12 +673,17 @@ pt-br:
     one: Excluir
     select: "Selecione para excluir"
   deny: Não
-  description: Descrição
   destroy: Destruir
   devise:
+    confirmations:
+      new:
+        title: "Resend confirmation email"
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
+    passwords:
+      new:
+        title: "Redefina sua senha"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: ''
@@ -661,7 +710,6 @@ pt-br:
   download_file: "Baixar arquivo"
   edit: Editar
   edit_hours: "Editar horas"
-  edit_profile: "Editar perfil"
   email:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
@@ -702,10 +750,9 @@ pt-br:
       fill_fields: "Por favor preencha todos os campospara enviar o feedback."
       success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
     new:
-      note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-      title: "Feedback"
+      note: "Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
+      title: "Enviar feedback"
     send: "Enviar feedback"
-    send_us: "Envie-nos feedback!"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
@@ -715,21 +762,19 @@ pt-br:
   find_in: "Pesquisar em:"
   frontpage:
     show:
-      headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
+      headline: "Um sistema de conferência web de código aberto para web e em dispositivos móveis"
       login:
         certificate: "Acesso via certificado"
         federation: "Acesso via federação"
         lost_password: "Esqueceu a sua senha?"
         title: "Acessar a sua conta"
-        resend_confirmation_email: "Reenviar e-mail de confirmação"
+      or: "ou"
       register:
-        title: "Criar uma nova conta"
+        title: "Criar uma conta"
   from: De
   getting_started: Começando!
   group:
     other: "Listas de e-mails"
-  hcard:
-    not_found: "hCard não encontrado"
   header_global:
     welcome: "Olá, %{user}"
   hello: Olá
@@ -738,7 +783,7 @@ pt-br:
   home:
     activity: "Atividade recente..."
     invite_url: "URL para convites"
-    my: "Página inicial"
+    my: "Início"
     my_spaces: "Minhas comunidades"
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
@@ -832,6 +877,7 @@ pt-br:
       or: "ou"
       pending_invitations_title: "Convites pendentes"
       pending_requests_title: "Pedidos de adesão pendentes"
+      title: "Admissões"
       user_message: "Mensagem"
     invitation:
       cancel: "Cancelar convite para %{user}?"
@@ -840,7 +886,7 @@ pt-br:
     invite:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
-      title: "Convide pessoas para ingressar nesta comunidade"
+      subtitle: "Convide pessoas para ingressar nesta comunidade"
       type_add: "Adicionar diretamente"
       type_add_tooltip: "Os usuários serão adicionados diretamente na comunidade sem possibilidade de rejeitar o convite. Uma notificação é enviada aos usuários para informá-los que foram adicionados"
       type_invite: "Convidar"
@@ -848,12 +894,33 @@ pt-br:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
+    admissions:
+      title: "Admissões"
+      invite_user: "Convidar usuários"
+      pending_invitations_title: "Convites pendentes"
+      pending_requests_title: "Pedidos de adesão pendentes"
+      no_pending_invitations: "Não existem convites pendentes"
+      no_pending_requests: "Não existem pedidos de adesão pendentes"
+    list_item:
+      accept: "Aceitar"
+      cancel: "Cancelar"
+      cancel_confirm: "Você tem certeza que deseja cancelar o pedido?"
+      decline: "Rejeitar"
+      decline_confirm: "Você tem certeza que deseja rejeitar este convite?"
+      invite:
+        comment:
+          title: "Mensagem de convite"
+      invited_by: "Você foi convidado por %{name}."
+      request:
+        comment:
+          title: "Sua mensagem"
+      your_request: "Você requisitou ingresso nesta comunidade."
     new:
       already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
-      message_title: "Envie um pedido de adesão aos administradores da comunidade"
+      message_title: "Requisição para entrar em %{name}"
     request:
-      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de ingresso?"
+      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"
     show:
       accept: "Aceitar"
       already_accepted: "... mas você já é um membro dessa comunidade."
@@ -867,13 +934,18 @@ pt-br:
       is_candidate:
         comment_invitation: "Este é o comentário escrito por %{name}:"
         comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+        title_header_invitation: "Você foi convidado a uma comunidade"
+        title_header_request: "Você requisitou adesão em uma comunidade"
         title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
         title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
       is_introducer:
         comment_invitation: "Este é o comentário que você escreveu:"
+        title_header_invitation: "Você convidou um usário para uma comunidade"
         title_invitation: "Você convidou \"%{candidate}\" em %{date} para participar da comunidade \"%{space}\""
       is_other:
         comment_request: "Este é o comentário escrito por \"%{name}\":"
+        title_header_invitation: "Um usuário foi convidado a se juntar a uma comunidade"
+        title_header_request: "Um usuário requisitou ingresso em uma comunidade"
         title_invitation: "\"%{introducer}\" convidou \"%{candidate}\" em %{date} para participar da comundiade \"%{space}\""
         title_request: "\"%{candidate}\" requisitou em %{date} o ingresso na comunidade \"%{space}\""
   keywords: "Palavras-chave (*)"
@@ -882,13 +954,15 @@ pt-br:
   latest_events: "Últimos eventos"
   layouts:
     application_navbar:
+      account: "Conta"
       events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
+      profile: "Perfil"
       register: "Registre-se"
     footer:
-      copyright: "© 2010-%{year} %{site}."
+      copyright: "© %{year} %{site}"
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -896,7 +970,7 @@ pt-br:
       links:
         feedback: "Enviar feedback"
         help: Ajuda
-        statistics: "Estatísticas"
+        powered_by: "Powered by Mconf, visite"
         title: Links
       project_website: "Site do projeto"
       sponsors:
@@ -907,15 +981,6 @@ pt-br:
         change: "Mudar a linguagem"
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
-    footer_simple:
-      copyright: "© 2010-%{year} %{site}."
-      translate:
-        change: "Mudar a linguagem"
-    spaces_page_title:
-      is_member: "Você é membro desta comunidade"
-      manage_to_approve: "gerenciar"
-      private: "Comunidade privada"
-      public: "Comunidade pública"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"
@@ -923,29 +988,70 @@ pt-br:
   login_request: "Você precisa estar logado para"
   logo:
     created: "Logotipo enviado com sucesso"
-    crop: "Cortar logotipo da comunidade"
+    crop: "Ajustar a imagem"
     empty: "O logotipo está vazio"
     error: "Erro ao enviar o logotipo"
     no_image: "Nenhuma imagem foi selecionada"
     updated: "Logotipo atualizado com sucesso"
   logo_images:
     crop:
-      crop_it: "Cortar!"
-      preview: "Pré-visualização"
-      aspect_ratio: Relação de aspecto fixa
+      aspect_ratio: "Relação de aspecto fixa"
+      crop_it: "Usar a área selecionada"
+      full_image: "Usar a imagem inteira"
   logout: Sair
   manage:
-    disabled_space:
-      enable: "Habilitar comunidade"
-      enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
-    disabled_user:
-      auth_using: "usando"
-      available_auth: "métodos disponíveis"
-      enable: "Habilitar usuário"
-      enable_confirm: "Tem certeza que deseja habilitar este usuário?"
-      last_sign_in: "Último login em"
-      never_sign_in: "Este usuário nunca fez login"
-    enabled_space:
+    destroy_space:
+      destroy: Remover comunidade
+      destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
+    destroy_user:
+      destroy: Remover usuário
+      destroy_confirm: "Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!</br>(O usuário não será notificado)"
+    menu:
+      general: "Geral"
+      recordings: "Gravações"
+      resque: "Resque"
+      spaces: "Comunidades"
+      title: "Gerenciamento do Site"
+      users: "Usuários"
+      webconf: "Conferência"
+    recording_item:
+      available_false: "Não disponíveis"
+      available_true: "Disponíveis"
+      confirm_delete: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
+      delete: "Remover gravação"
+      direct_link: "Link direto"
+      edit: "Editar gravação"
+      filter_name: "Filtrar por nome, descrição ou ID da gravação"
+      from: "De"
+      owner_type_space: "Comunidade"
+      owner_type_user: "Usuário"
+      playback_links: "Reproduções disponíveis"
+      playback_false: "Sem reproduções"
+      playback_true: "Com reproduções"
+      publish: "Publicar gravação"
+      published: "Publicada"
+      published_false: "Não publicadas"
+      published_true: "Publicadas"
+      recordid: "ID da gravação"
+      room_name: "Sala"
+      show_playback: "Mostrar reproduções disponíveis"
+      show_playback_none: "Não existem reproduções disponíveis"
+      unpublish: "Despublicar gravação"
+      unpublished: "Não publicada"
+    recordings:
+      available_false: "Não disponível"
+      available_true: "Disponível"
+      filter_name: "Filtrar por nome, descrição ou ID da gravação"
+      playback_true: "Com reproduções"
+      playback_false: "Sem reproduções"
+      published_false: "Despublicadas"
+      published_true: "Publicadas"
+    recordings_list:
+      filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} gravações encontradas"
+      no_recording_found: "Nenhuma gravação encontrada"
+      total_size: "Tamanho total"
+    space_item:
       approve: "Aprovar: permitir o acesso a esta comunidade"
       approve_confirm: "Tem certeza que deseja permitir o acesso a esta comunidade?"
       disable: "Desabilitar comundiade"
@@ -953,29 +1059,8 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso a esta comunidade"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso a esta comunidade?"
       edit: "Editar comunidade"
-    enabled_user:
-      allow_record: "Conceder permissão de gravação"
-      approve: "Aprovar: permitir que este usuário acesse o site"
-      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
-      auth_using: "usando"
-      available_auth: "métodos disponíveis"
-      confirm: "Confirmar este usuário"
-      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
-      disable: "Desabilitar usuário"
-      disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
-      disallow_record: "Remover permissão de gravação"
-      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
-      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
-      edit: "Editar usuário"
-      last_sign_in: "Último login em"
-      never_sign_in: "Este usuário nunca fez login"
-    menu:
-      general: "Geral"
-      spaces: "Comunidades"
-      title: "Gerenciamento do Site"
-      users: "Usuários"
-      recordings: "Gravações"
-      webconf: "Webconferência"
+      enable: "Habilitar comunidade"
+      enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     spaces:
       approved_false: "Não aprovados"
       approved_true: "Aprovados"
@@ -983,16 +1068,28 @@ pt-br:
       disabled_true: "Desabilitadas"
       filter_name: "Filtrar por nome ou descrição"
       new_space: "Nova comunidade"
-    destroy_space:
-      destroy: Remover comunidade
-      destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
-    destroy_user:
-      destroy: Remover usuário
-      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
+    user_item:
+      allow_record: "Conceder permissão de gravação"
+      auth_using: "usando"
+      available_auth: "métodos disponíveis"
+      approve: "Aprovar: permitir que este usuário acesse o site"
+      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
+      disable: "Desabilitar usuário"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?</br>(O usuário receberá uma notificação por e-mail)"
+      disallow_record: "Remover permissão de gravação"
+      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
+      edit: "Editar usuário"
+      enable: "Habilitar usuário"
+      enable_confirm: "Tem certeza que deseja habilitar este usuário?"
+      last_sign_in: "Último login em"
+      never_sign_in: "Este usuário nunca fez login"
     users:
       filter_name_or_username: "Filtrar usuários por nome, identificador ou e-mail"
       new_user: "Cadastrar usuário"
@@ -1004,80 +1101,76 @@ pt-br:
       disabled_false: Habilitados
       can_record_true: Pode gravar
       can_record_false: Não pode gravar
-      login_method_certificate: Login Certificado
-      login_method_ldap: Login LDAP
+      login_method_certificate: Certificado
       login_method_local: Login Local
-      login_method_shib: Login Shibboleth
+      login_method_ldap: LDAP
+      login_method_shib: Shibboleth
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
-    recordings:
-      available_false: "Não disponíveis"
-      available_true: "Disponíveis"
-      confirm_delete: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
-      created_at: "Criado em"
-      delete: "Remover gravação"
-      edit: "Editar gravação"
-      filter_name: "Filtrar por nome, descrição ou ID da gravação"
-      owner_type_space: "Comunidade"
-      owner_type_user: "Usuário"
-      playback_links: "Reproduções disponíveis"
-      playback_false: "Sem reproduções"
-      playback_true: "Com reproduções"
-      publish: "Publicar gravação"
-      published: "Publicada"
-      published_false: "Despublicadas"
-      published_true: "Publicadas"
-      recordid: "ID da gravação"
-      room_name: "Sala"
-      show_playback: "Mostrar reproduções disponíveis"
-      show_playback_none: "Não existem reproduções disponíveis"
-      unpublish: "Despublicar gravação"
-      unpublished: "Não publicada"
-    recordings_list:
-      filter_count_with_text: "%{count} gravações encontradas para o filtro \"%{value}\""
-      filter_count_empty: "%{count} gravações encontradas"
-      no_recording_found: "Nenhuma gravação encontrada"
-      total_size: "Tamanho total:"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
   my:
+    activity:
+      title: "Atividades recentes"
     approval_pending:
       title: Aprovação pendente
       description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
-      interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
-      events_list: lista de eventos
-      spaces_list: lista de comunidades
-    page_header:
-      activity_list: "Atividades recentes"
+      interesting_links: "Enquanto isto você pode explorar as seções abertas do site, veja a barra de navegação no topo!"
+      events_list: Eventos
+      spaces_list: Comunidades
+    edit_recording:
+      title: "Editar sua gravação"
     home:
       create_space: "Criar uma comunidade"
       events:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
-      pending_join_requests:
-        one: "%{count} requisição pendente"
-        other: "%{count} requisições pendentes"
-      pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
-      view_all_activity: "Ver todas suas atividades"
+      past_meetings:
+        title: "Reuniões gravadas"
+        view_more: "Ver todas reuniões e gravações"
+      spaces:
+        create: "crie uma comunidade"
+        no_spaces: "Você ainda não é membro de nenhuma comunidade."
+        or: "ou"
+        pending: "Pedidos de ingresso pendentes"
+        title: "Minhas comunidades"
+        view_all: "Ver todas minhas comunidades"
+      title: "Início"
       view_all_spaces: "Ver todas comunidades"
-    edit_recording:
-      title: "Editar sua gravação"
-    edit_room:
-      layout_empty_option: "<padrão>"
-    recordings:
-      title: "Gravações da minha sala de webconferência"
-      update_recordings:
-        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+    page_header:
+      activity_list: "Atividades recentes"
+    meetings:
+      recordedonly_false: "Todas reuniões"
+      recordedonly_true: "Apenas gravadas"
+      subtitle: "Reuniões e gravações passadas"
+      title: "Reuniões e gravações"
+      update_meetings:
+        error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
-        updating: "Atualizando sua lista de gravações..."
+        updating: "Atualizando lista de gravações..."
+    sidebar:
+      menu:
+        account: "Conta"
+        activity: "Atividades recentes"
+        home: "Início"
+        meetings: "Reuniões e gravações"
+        profile: "Perfil"
+        webconf_room: "Minha sala de webconferência"
+      spaces:
+        create: "Criar uma comunidade"
+        no_spaces: "Você ainda não é membro de nenhuma comunidade."
+        or: "ou"
+        pending: "Requisições de ingresso pendentes"
+        title: "Minhas comunidades"
+        view_all: "Ver todas comunidades"
     webconference_room:
-      end: "Parar a reunião"
+      end: "Parar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       invite: "Convidar outras pessoas"
       join: "Entrar na reunião!"
@@ -1093,9 +1186,6 @@ pt-br:
       start: "Começar uma reunião"
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
-  name:
-    one: Nome
-    other: Nomes
   next: Próximo
   now_exclamation: Agora!
   ok: OK
@@ -1104,7 +1194,6 @@ pt-br:
   open: "Abrir"
   optional: Opcional
   or: ou
-  organization: Organização
   organizer: Organizadores
   other: Outro
   password:
@@ -1133,11 +1222,6 @@ pt-br:
     update:
       success: "Direitos de acesso atualizados"
       failure: "Problema ao atualizar os direitos de acesso"
-  personal_information: "Informações pessoais"
-  phone:
-    mobile: Celular
-    one: Telefone
-    plural: Telefones
   phone_optional: "Telefone (opcional)"
   place: Local
   please: "Por favor"
@@ -1168,6 +1252,8 @@ pt-br:
       title: "Adicionando uma mensagem"
     post_with_children:
       by: "de"
+    unified_post:
+      read_comments: "ler mais"
   prav: PRAV
   preferences: Preferências
   previous: Anterior
@@ -1185,36 +1271,18 @@ pt-br:
     private: "Perfil privado"
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
+    spaces: "Comunidades das quais este usuário é membro"
     updated: "Perfil atualizado com sucesso"
-  profiles:
-    edit:
-      change_pic: "Mudar foto"
-      explain_gravatar: "Esta é a imagem que está associada ao seu e-mail no Gravatar.com"
-      using_gravatar: "Imagem do Gravatar"
-      title: "Editar perfil"
-      view_your_profile: "Visualizar perfil"
-      vcard:
-        export: "Exportar vCard"
-        tooltip: "vCard é um formato de arquivo padrão para cartões eletrônicos"
-        use: "Usar um vCard"
-      visibility_description: "Escolha quem poderá ver o seu perfil privado"
-      visibility_edit: "Edite a visibilidade do seu perfil"
-      visibility_everybody: "Todos podem ver o seu perfil privado."
-      visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
-      visibility_nobody: "Ninguém pode ver o seu perfil privado."
-      visibility_private_fellows: "Apenas os seus colegas em uma comunidade privada podem ver o seu perfil privado."
-      visibility_public_fellows: "Apenas os seus colegas em uma comunidade pública podem ver o seu perfil privado."
-    show:
-      vcard:
-        export: "Exportar vCard"
-  province: Estado
   public: Público
   read_more: "Ler mais"
+  recaptcha:
+    errors:
+      verification_failed: "Você não preencheu o captcha corretamente, por favor tente novamente."
   recent:
     activity: "Atividades recentes"
   recent_activity:
     empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
-    tooltip: "Aqui você encontra os eventso e mensagens mais atuais das comunidades às quais vocẽ pertence"
+    tooltip: "Aqui você encontra os eventos e mensagens mais atuais das comunidades às quais vocẽ pertence"
   recording:
     automatic: Automático
     box_title: Gravação
@@ -1227,7 +1295,7 @@ pt-br:
   register:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
-    and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a"
+    and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
     confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
@@ -1237,6 +1305,9 @@ pt-br:
   register_as_user: "Registe-se como usuário"
   register_now: "Registe-se agora!"
   registrations:
+    new:
+      form_title: "Registre-se"
+      title: "Registrar"
     signup_form:
       register: "Registre-se"
   remove: Remover
@@ -1253,9 +1324,6 @@ pt-br:
   request:
     info: "Seu pedido para entrar na comunidade foi enviado com sucesso para os administradores da comunidade. Um administrador cuidará dele o mais rapidamente possível"
     sent: "Solicitação enviada!"
-  recaptcha:
-    errors:
-      verification_failed: "Você não preencheu o captcha corretamente, por favor tente novamente."
   rnp: RNP
   role:
     added: "Função %{role} adicionado com sucesso a %{agent}"
@@ -1296,28 +1364,31 @@ pt-br:
     login_form:
       email_or_login: "E-mail ou nome de usuário"
       ldap_authentication: "Autenticar via LDAP"
-      login: "Login"
+      login: "Entrar"
       password: "Senha"
     new:
-      title: "Login"
+      form_title: "Acesse sua conta"
+      title: "Entrar"
   session_locales:
     create:
       success: "Idioma da aplicação alterado para %{value}"
       error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
-    copy_modal:
-      title: Aperte Ctrl+C para copiar o texto
-      success: Texto copiado para a área de transferência
     recording_list:
-      created: "Criada"
       created_by: "Criada por"
+      delay_warning: "(gravações podem demorar alguns minutos para aparecer após uma reunião é encerrada)"
+      delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
-      ended_at: "Finalizada em"
+      description: "Descrição"
+      edit: "Editar esta gravação"
       manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
-      no_recordings: "Sua sala de webconferência ainda não possui gravações"
-      no_title: "<nenhum título especificado>"
-      started_at: "A reunião aconteceu em"
+      no_meetings: "Ainda não existem reuniões ou gravações nesta sala."
+      not_recorded: "(Esta reunião não foi gravada.)"
+      playback_links: "Links para reprodução"
+      started_at: "Data"
+      started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
+      started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
       publish: Publicar
       unpublish: Ocultar
       unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
@@ -1330,12 +1401,28 @@ pt-br:
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
-      new_room: "Nova sala"
-      new_server: "Novo servidor"
-      view_playback_type_list: "Ver lista de tipos de reprodução"
-      view_recording_list: "Ver lista de gravações"
-      view_room_list: "Ver lista de salas"
-      view_server_list: "Ver lista de servidores"
+      view_playback_type_list: "Tipos de Reprodução"
+      view_recording_list: "Gravações"
+      view_room_list: "Salas"
+      view_server_list: "Servidores"
+    user_card:
+      gravatar_label: "Imagem do Gravatar"
+      gravatar_label_tooltip: "Esta é a sua imagem configurada no Gravatar.com"
+    webconference_join:
+      configure_tip: "Opções de configuração desta sala"
+      end: "Parar"
+      end_tooltip: "Esta ação encerra a reunião atual e remove todos os usuários da sala"
+      invite: "Convidar outras pessoas"
+      invite_tip: "Enviar convites para reuniões nesta sala"
+      meeting_in_progress: "Há uma reunião em andamento!"
+      meeting_list_tip: "Ver a lista de reuniões e gravações desta sala"
+      join: "Entrar na reunião"
+      join_mobile_full: "Entrar de um dispositivo móvel"
+      preferences: "Preferências"
+      recordings: "Ver gravações"
+      start: "Iniciar uma reunião"
+      title: "Sala de conferência"
+      your_url: "Seu endereço"
   shibboleth:
     associate:
       existent_account:
@@ -1375,6 +1462,9 @@ pt-br:
   show_question: Exibir?
   site:
     updated: "Configurações do site atualizadas"
+  sites:
+    edit:
+      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   size: Tamanho
   skype: Skype
   space:
@@ -1389,7 +1479,7 @@ pt-br:
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
-    confirm: "Tem certeza que quer sair desta comunidade?"
+    confirm: "Tem certeza que deseja deixar de fazer parte desta comunidade?"
     created: "Comunidade criada com sucesso"
     created_waiting_moderation: "Comunidade criada com sucesso. Aguarde pela aprovação de um administrador para que outros usuários possam acessá-la."
     delete: "Excluir Comunidade"
@@ -1404,6 +1494,7 @@ pt-br:
     enable: "Habilitar comunidade"
     event_count: "%{count} eventos"
     index:
+      filter_name: "Filtrar comunidades por nome"
       filters:
         all: "Todas"
         my_spaces: "Minhas comunidades"
@@ -1414,7 +1505,6 @@ pt-br:
         relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
-      filter_name: "Filtrar comunidades por nome"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
     is_private_html: "A comunidade %{name} é privada. Para acessá-la, faça o login e mande uma <a href=\"%{path}\">requisição</a> para os administradores da comunidade."
     join: "Entrar na comunidade"
@@ -1461,8 +1551,6 @@ pt-br:
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
-    statistics:
-      views: "Visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
   space_events:
@@ -1502,13 +1590,10 @@ pt-br:
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
   spaces:
-    approve:
-      approved: "A comunidade %{name} foi aprovada!"
-      not_enabled: "A aprovação de comunidades não está habilitada"
     admin_tabs:
       add_member: "Adicionar membros"
       admissions: "Admissões"
-      general_options: "Opções gerais"
+      general_options: "Configurar comunidade"
       invite: "Convidar pessoas"
       users: "Usuários"
       webconf_options: "Opções de webconferência"
@@ -1524,9 +1609,14 @@ pt-br:
       delete_space: "Desabilitar esta comunidade?"
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
-      yes_delete: "Sim, quero desabilitar esta comunidade"
       tags:
         placeholder: "Adicionar uma tag..."
+      title: "Editar"
+      yes_delete: "Sim, quero desabilitar esta comunidade"
+      webconference_room_options:
+        click_here: "clique aqui"
+        description: "Para configurar a sala de webconferência, "
+        title: "Configurações de webconferência"
     edit_recording:
       title: "Editar sua gravação"
     error:
@@ -1537,69 +1627,64 @@ pt-br:
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index:
       create_new_space: "Criar uma comunidade"
-      list_format:
-        list: "Lista"
-        thumbnails: "Miniaturas"
+      private: "Privado"
+      public: "Público"
       search:
         by_name:
           no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
+    list_item:
+      is_member: "Você é membro desta comunidade"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
+      reply_invitation: "Responder ao convite"
+      user_is_member: "Você é membro desta comunidade"
+      view_join_request: "Ver a requisição que você enviou"
+      with_members: "com %{count} membros"
     list_view:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
-    menu:
-      admin: "Admin"
-      events: "Eventos"
-      home: "Página Inicial"
-      posts: "Mural"
-      repository: "Documentos"
-      users: "Usuários"
-      webconference: "Webconferência"
     new:
       private: "Privada"
       public: "Pública"
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
-    recordings:
-      title: "Gravações desta comunidade"
-      update_recordings:
-        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+    meetings:
+      recordedonly_false: "Todas reuniões"
+      recordedonly_true: "Apenas gravadas"
+      title: "Reuniões e gravações desta comunidade"
+      update_meetings:
+        error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
-        updating: "Atualizando sua lista de gravações..."
-    show:
-      events_now: "Eventos acontecendo agora!"
+        updating: "Atualizando lista de gravações..."
+    requests_notifications:
+      pending_requests:
+        one: "Existe %{count} pedido pendente"
+        other: "Existem %{count} pedidos pendentes"
     sidebar:
-      upcoming_events: "Próximos eventos"
-      webconference:
-        attendees:
-          nobody: "Não há reunião em andamento."
-        currently_running:
-          one: "A conferência está ativa com %{count} participante"
-          other: "A conferência está ativa com %{count} participantes"
-        dial_number: "Número para discagem"
-      webconference_join: "Entrar"
-      webconference_start: "Iniciar"
-    sidebar_notifications:
-      pending_join_requests:
-        one: "Esta comunidade tem %{count} pedido de adesão pendente!"
-        other: "Esta comunidade tem %{count} pedidos de adesão pendentes!"
-    sidebar_webconf_buttons:
-      end: "Finalizar"
-      end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
-      invite: "Convidar outras pessoas"
-      join: "Entrar!"
-      join_mobile: "Entrar/móvel"
-      join_mobile_full: "Entrar a partir de um dispositivo móvel"
-      preferences: "Preferências"
-      start: "Iniciar"
+      admin: "Admin"
+      events: "Eventos"
+      home: "Página Inicial"
+      is_member: "Você é membro desta comunidade"
+      posts: "Mural"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
+      repository: "Documentos"
+      users: "Usuários"
+      webconference: "Webconferência"
+    show:
+      description: "Description"
+      events_now: "Eventos acontecendo agora!"
+      manage_to_approve: "ir ao gerenciamento para aprovar"
+      not_approved: "Esta comunidade ainda não está aprovada. Apenas você pode vê-la e editá-la até que seja aprovada."
     space_join_button:
       accept_or_decline: "Responder ao convite"
-      already_requested: "Pedido enviado"
-      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite."
-      cancel_request: "Cancelar o pedido"
+      cancel: "Cancelar requisição de ingresso"
+      cancel_confirm: "Você tem certeza que deseja cancelar este pedido de ingresso?"
+      cancel_tooltip: "Você possui um pedido de ingresso pendente. A mensagem que você enviou foi: \"%{message}\"."
       invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
       join: "Entrar na comunidade"
     space_thumbnail:
@@ -1607,68 +1692,40 @@ pt-br:
       public: "Pública"
       reply_invitation: "Responder ao convite"
       view_join_request: "Ver a requisição que você enviou"
-    thumbnail_view:
-      no_spaces: "Nenhuma comunidade foi criada até o momento!"
-    unified_space:
-      private: "Comunidade privada"
-      public: "Comunidade pública"
-      reply_invitation: "Responder ao convite"
-      user_is_member: "Você é membro desta comunidade"
-      view_join_request: "Ver a requisição que você enviou"
-      with_members: "com %{count} membros"
     user_permissions:
+      admin: "Administrador"
       confirm_leave_space: "Você tem certeza que deseja sair desta comunidade?"
       confirm_remove_user: "Você tem certeza que deseja remover este usuário da comunidade?"
       leave_space: "Sair da comunidade"
       remove_user: "Remover usuário da comunidade"
+      title: "Usuários"
       tooltip_last_admin: "Este usuário é o último administrador desta comunidade e portanto não pode sair dela nem ter seu papel modificado"
+      user: "Usuário"
     users: "Usuários nesta comunidade"
     webconference:
       end: "Parar a reunião"
       end_tooltip: "This action will end the current conference!"
       invite: "Convidar outras pessoas"
-      webconference:
-        attendees:
-          all_users: "Todos usuários"
-          nobody: "Não há ninguém na sala."
-          people_in_the_room: "Pessoas na sala"
-          registered_users: "Usuários registrados"
-        description:
-          header: "Acesso à webconferência"
-          text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
-        share:
-          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
-          header: Compartilhar
-          url: "Endereço da sala"
-    webconference_options:
-      layout_empty_option: "<padrão>"
-      options: "Opções da sala de webconferência"
-    webconference_tabs:
-      access: "Acesso à webconferência"
-      recordings: "Lista de gravações"
+      attendees:
+        all_users: "Todos usuários"
+        nobody: "Não há ninguém na sala."
+        people_in_the_room: "Pessoas na sala"
+        registered_users: "Usuários registrados"
+      meetings:
+        no_recordings: "Ainda não existem reuniões ou gravações nesta comunidade."
+        title: "Últimas reuniões e gravações desta comunidade"
+        view_all: "Ver todas as reuniões e gravações"
+      share:
+        description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
+        header: Compartilhar
+        url: "Endereço da sala"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de Estágio"
-  statistics:
-    show:
-      description: "Esta página mostra algumas estatísticas atuais deste site. As estatísticas são em tempo real e refletem o estado do site neste exato momento."
-      table:
-        events: "Eventos"
-        how_many: "Quantos?"
-        posts: "Mensagens publicadas"
-        spaces: "Comunidades"
-        users: "Usuários"
-        webconf_rooms: "Salas de webconferência disponíveis"
-        what: "O quê?"
-      title: "Estatísticas do site"
-  street: Rua
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
-  sites:
-    edit:
-      shib_warning_html: "Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href=\"https://github.com/mconf/mconf-web/wiki/Shibboleth:-migrate-users-to-use-EPPN\">esta página</a>."
   text: Texto
   the_string: "a string"
   thread:
@@ -1702,10 +1759,9 @@ pt-br:
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
     num_views: "Este número representa as vistas únicas para essa página"
-    private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
-    public_profile: "Qualquer pessoa pode acessar esta informação"
+    private_profile: "Estas informações são visíveis apenas para as pessoas que você escolher nas opções do seu perfil"
+    public_profile: "Estas informações são visíveis para qualquer pessoa, incluindo pessoas que não são membros deste site"
     public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
@@ -1720,7 +1776,6 @@ pt-br:
   update: Atualizar
   updated: Atualizados
   updated_at: "Atualizado em"
-  url: Website
   url_add: "Adicione seu site"
   url_plain: URL
   user:
@@ -1791,14 +1846,13 @@ pt-br:
       account_info: "Informações da conta"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
-      cancel_account: "Cancelar conta?"
+      cancel_account: "Cancelar minha conta"
+      cancel_confirm: "Você tem certeza que deseja cancelar a sua conta?"
       change_password: "Mudar senha"
-      click_to_edit_profile: "Clique aqui para editar o seu perfil"
       confirm_user: "Confirmar a conta deste usuário"
       confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
-      did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
-      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?</br>(O usuário receberá uma notificação por e-mail)"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
@@ -1808,12 +1862,11 @@ pt-br:
       management_options: "Opções de administração"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       other_user:
-        click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."
         title: "Editar conta de usuário"
-      preferences: "Preferências"
+      public_profile: "Perfil público"
+      public_profile_tip: "Seu perfil público é visível para qualquer pessoa na Internet"
       title: "Editar sua conta"
-      yes_cancel_account: "Sim, cancelar minha conta"
     errors:
       access_forbidden: "Esta operação está disponível apenas para administradores"
     new:
@@ -1821,12 +1874,20 @@ pt-br:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
         error: "Erro(s) ao criar o novo usuário"
       title: "Cadastrar usuário"
+    show:
+      description: "Sobre"
+      email: "E-mail"
+      name: "Nome"
+      organization: "Organização"
+      url: "Website"
+      user_spaces: "Membro das comunidades"
   username: "Nome de usuário"
   uploader:
-    button: Enviar novo arquivo
+    attachments:
+      button: "Enviar arquivos"
     fail: Falha ao enviar
     progress: "{percent}% de {total_size}"
-    drag_files: Arraste aqui arquivos para enviar
+    drag_files: "ou arraste arquivos aqui para enviar"
     processing: Processando...
     error:
       invalid_extension: "{file} é de um tipo inválido. Tipos válidos: {extensions}."
@@ -1834,10 +1895,8 @@ pt-br:
       empty_file: "{file} é um arquivo vazio, por favor envie os arquivos novamente."
       no_files: "Não há arquivos para serem enviados."
       on_leave: "Um envio de arquivos está em progresso, se você sair agora ele será cancelado."
-  vCard:
-    corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
-    message: "Use seu vCard para preencher automaticamente seu perfil"
-    upload: "Envie o seu vCard"
+    logos:
+      button: "Enviar nova imagem"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   version:
@@ -1860,5 +1919,3 @@ pt-br:
   when: Quando
   where: Onde
   yesterday: Ontem
-  your_vcard: "seu vCard"
-  zipcode: CEP

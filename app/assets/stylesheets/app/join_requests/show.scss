@@ -1,0 +1,60 @@
+@import "definitions";
+@import "compass/css3";
+
+body.join_requests.show {
+
+  #join-requests-show {
+    margin: 0 auto;
+    background-color: $m-alert-bg;
+    @include border-radius($m-border-radius-base);
+    padding: 10px;
+
+    .header-title {
+      text-align: center;
+      @include font-size($m-font-bigger);
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+
+    h3 {
+      text-align: center;
+    }
+
+    .invitation-comment {
+      text-align: center;
+      margin: 20px;
+
+      .content {
+        padding: 10px;
+        margin: 10px auto;
+        background: $m-light-gray;
+        @include border-radius($m-border-radius-base);
+        max-width: 300px;
+      }
+    }
+  }
+
+  #action-buttons {
+    text-align: center;
+    margin: 5px;
+
+    form {
+      display: inline-block;
+
+      select {
+        width: auto;
+      }
+    }
+
+    select, input, .label {
+      vertical-align: middle;
+    }
+
+    .option-accept, .option-decline {
+      display: inline-block;
+      margin: 0 15px;
+    }
+  }
+
+}

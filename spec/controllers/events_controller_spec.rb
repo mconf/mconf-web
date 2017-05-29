@@ -778,4 +778,57 @@ describe EventsController do
     it { should_authorize an_instance_of(Event), :send_invitation, id: event.to_param }
   end
 
+  describe "events module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:event) { FactoryGirl.create(:event, owner: owner) }
+    let(:attributes) { {name: "#{event.name} New name"} }
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:users) { [FactoryGirl.create(:user)] }
+    let(:title) { 'Title' }
+    let(:message) { 'Message' }
+    let(:hash) {
+      {
+        users: users.map(&:id).join(','),
+        title: title,
+        message: message
+      }
+    }
+    let(:event_id) { event.to_param }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, false)
+        login_as(owner)
+      }
+      it { expect { get :select }.to raise_error(ActionController::RoutingError) }
+      it { expect { request.env["HTTP_REFERER"] = "/any"
+                    post :send_invitation, invite: hash, event_id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :invite, id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :index }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :new }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :edit, id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :show, id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { patch :update, id: event_id, event: attributes  }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :update, id: event_id, event: attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { delete :destroy, id: event_id }.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, true)
+        login_as(owner)
+      }
+      it { expect { get :select }.not_to raise_error }
+      it { expect { request.env["HTTP_REFERER"] = "/any"
+                    post :send_invitation, invite: hash, id: event_id }.not_to raise_error }
+      it { expect { get :invite, id: event_id }.not_to raise_error }
+      it { expect { get :index }.not_to raise_error }
+      it { expect { post :new }.not_to raise_error }
+      it { expect { get :edit, id: event_id }.not_to raise_error }
+      it { expect { get :show, id: event_id }.not_to raise_error }
+      it { expect { patch :update, id: event_id, event: attributes }.not_to raise_error }
+      it { expect { put :update, id: event_id, event: attributes }.not_to raise_error }
+      it { expect { delete :destroy, id: event_id }.not_to raise_error }
+    end
+  end
 end

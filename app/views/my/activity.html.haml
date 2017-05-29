@@ -1,4 +1,7 @@
-= content_for :page_header do
-  = render :partial => "page_header"
+- page_title t('.title')
+- home_sidebar_menu_at(:activity)
+
+= content_for :sidebar do
+  = render "my/sidebar", user_spaces: @user_spaces
 
 = render "users/recent_activity", :content => @all_contents, :paginate => true

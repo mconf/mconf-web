@@ -1,0 +1,9 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body {
+  padding: 5px;
+  color: $m-mail-font-color;
+  line-height: 1.5em;
+}

@@ -30,7 +30,8 @@ module Abilities
       # won't use :manage so it doesn't block actions such as #index
       cannot [:show, :destroy, :edit, :update, :disable,
               :enable, :approve, :disapprove, :confirm, :show,
-              :fellows, :current, :select, :update_password], User, disabled: true
+              :fellows, :current, :select, :update_password,
+              :update_full_name, :update_logo], User, disabled: true
 
       # only actions over members, not actions over the collection
       actions = [:show, :accept, :decline]
@@ -42,8 +43,8 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
-                 :recordings, :invitation, :send_invitation, :create_meeting]
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :meetings,
+                 :user_edit, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner.nil? || room.owner.disabled
       end
@@ -80,7 +81,7 @@ module Abilities
         !space.approved? && (user.nil? || !space.admins.include?(user))
       end
 
-      cannot [:webconference, :recordings, :manage_join_requests,
+      cannot [:webconference, :meetings, :manage_join_requests,
               :invite, :user_permissions, :webconference_options,
               :edit_recording, :index_event], Space, approved: false
 
@@ -95,8 +96,8 @@ module Abilities
 
       # only actions over members, not actions over the collection
       actions = [:show, :edit, :update, :destroy, :running, :end, :record_meeting,
-                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings,
-                 :recordings, :invitation, :send_invitation, :create_meeting]
+                 :invite, :invite_userid, :join_mobile, :join, :fetch_recordings, :meetings,
+                 :user_edit, :invitation, :send_invitation, :create_meeting]
       cannot actions, BigbluebuttonRoom do |room|
         room.owner && !room.owner.approved
       end

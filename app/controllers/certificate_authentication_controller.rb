@@ -1,14 +1,5 @@
 class CertificateAuthenticationController < ApplicationController
 
-  layout :determine_layout
-  def determine_layout
-    if request.xhr?
-      'modal'
-    else
-      'application'
-    end
-  end
-
   def login
     certificate = request.headers['SSL_CLIENT_CERT']
 
@@ -19,10 +10,15 @@ class CertificateAuthenticationController < ApplicationController
       @user = @cert.user
 
       if @user.present?
-        sign_in :user, @user
-        @cert.set_signed_in
 
-        redir_url = after_sign_in_path_for(current_user)
+        if @user.active_for_authentication?
+          sign_in :user, @user
+          @cert.set_signed_in
+          redir_url = after_sign_in_path_for(current_user)
+        else
+          redir_url = my_approval_pending_path
+        end
+
         respond_to do |format|
           format.json { render json: { result: true, redirect_to: redir_url }, status: 200 }
         end

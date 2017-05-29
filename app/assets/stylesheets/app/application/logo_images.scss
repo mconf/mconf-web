@@ -1,0 +1,35 @@
+@import "compass/css3";
+@import "definitions";
+
+#crop-modal {
+
+  .jcrop-wrapper {
+    text-align: center;
+    clear: both;
+    margin: 5px 0;
+
+    .jcrop-holder {
+      border: 1px solid darken($m-light-gray, 10);
+      padding: 0;
+      float: none;
+      margin: 0 auto;
+    }
+
+    img {
+      max-width: none;
+    }
+  }
+
+  .aspect-ratio {
+    text-align: center;
+    label {
+      display: inline-block;
+    }
+  }
+
+  .preview {
+    clear: both;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+  }
+}

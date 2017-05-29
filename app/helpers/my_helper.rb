@@ -19,4 +19,17 @@ module MyHelper
     check_box_tag name, name , @contents.map(&:to_s).include?(name), :class => 'home_menu_checkbox'
   end
 
+  # Stores the current tab in the user's home menu
+  def home_sidebar_menu_at(tab)
+    @home_sidebar_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the user's home menu
+  def home_sidebar_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @home_sidebar_menu_tab == tab ?
+    options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
 end

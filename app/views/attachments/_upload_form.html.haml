@@ -4,4 +4,4 @@
 
 .modal_body
   #attachments-uploader
-    .file-uploader{:'data-endpoint' => space_attachments_path(@space, :format => :json), :'data-max-size' => max_upload_size }
+    = upload_attachment_controls(@space)

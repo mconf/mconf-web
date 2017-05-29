@@ -7,7 +7,9 @@
 
 class ManageController < ApplicationController
   before_filter :authenticate_user!
-  authorize_resource :class => false
+  authorize_resource class: false
+
+  before_filter :require_spaces_mod, only: [:spaces]
 
   def users
     words = params[:q].try(:split, /\s+/)
@@ -32,12 +34,12 @@ class ManageController < ApplicationController
       query = query.superusers(val)
     end
 
-    @users = query.paginate(page: params[:page], per_page: 20)
+    @users = query.paginate(page: params[:page], per_page: 40)
 
     if request.xhr?
-      render partial: 'users_list', layout: false
+      render partial: 'users_list', layout: false, locals: { users: @users }
     else
-      render layout: 'no_sidebar'
+      render layout: 'manage'
     end
   end
 
@@ -60,7 +62,7 @@ class ManageController < ApplicationController
     if request.xhr?
       render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
     else
-      render :layout => 'no_sidebar'
+      render :layout => 'manage'
     end
   end
 
@@ -87,8 +89,7 @@ class ManageController < ApplicationController
     if request.xhr?
       render partial: 'recordings_list', layout: false, locals: { recordings: @recordings }
     else
-      render layout: 'no_sidebar'
+      render layout: 'manage'
     end
   end
-
 end

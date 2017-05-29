@@ -1,6 +1,9 @@
-$ ->
-  if isOnPage 'join_requests', 'invite'
+mconf.JoinRequests or= {}
 
+class mconf.JoinRequests.Invite
+
+  @bind: ->
+    new mconf.JoinRequests.Invite()
     # invite is selected by default
     enableDisableMessage()
 
@@ -13,7 +16,7 @@ $ ->
     url = '/users/select?limit=10'
     $(id).select2
       minimumInputLength: 1
-      width: 'resolve'
+      width: '100%'
       multiple: true
       formatSearching: -> I18n.t('join_requests.invite.users.searching')
       formatInputTooShort: -> I18n.t('join_requests.invite.users.hint')
@@ -36,9 +39,12 @@ $ ->
         results: (data, page) -> # parse the results into the format expected by Select2.
           results: data
 
+  @unbind: ->
+    # TODO: can it be done?
+
 # Enable the message unless there is an option to add people and it is selected.
 # Covers the case when there's no option to add people, when the 'invite people' is the default.
 enableDisableMessage = ->
   typeAdd = $('#type_add')
   selected = !(typeAdd.is(":visible") && typeAdd.is(":checked"))
-  $('#join_request_comment').enable(selected)
+  $('#join_request_comment').toggle(selected)

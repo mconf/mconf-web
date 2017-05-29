@@ -20,7 +20,7 @@ describe CustomBigbluebuttonRoomsController do
       context "template" do
         before(:each) { get :invite_userid, hash }
         it { should render_template(:invite_userid) }
-        it { should render_with_layout("no_sidebar") }
+        it { should render_with_layout("navbar_bg") }
       end
 
       context "redirects to #invite" do
@@ -71,7 +71,7 @@ describe CustomBigbluebuttonRoomsController do
           get :invite, hash
         }
         it { should render_template(:invite) }
-        it { should render_with_layout("no_sidebar") }
+        it { should render_with_layout("navbar_bg") }
       end
 
       context "redirects to #invite_userid" do
@@ -113,12 +113,8 @@ describe CustomBigbluebuttonRoomsController do
     }
 
     let!(:hash) { { :users => users.map(&:id).join(','),
-       :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
-         :"starts_on_time(4i)" => starts_on.try(:hour),
-         :"starts_on_time(5i)" => starts_on.try(:min),
-       :ends_on => ends_on.try(:strftime, I18n.t('_other.datetimepicker.format_display')),
-         :"ends_on_time(4i)" => ends_on.try(:hour),
-         :"ends_on_time(5i)" => ends_on.try(:min),
+       :starts_on_time => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
+       :duration => 120*60,
        :title => title,
        :message => message} }
     before {
@@ -278,10 +274,15 @@ describe CustomBigbluebuttonRoomsController do
       before {
         expect {
           post :send_invitation, :invite => hash, :id => room.to_param
-        }.not_to change { Invitation.count }
+        }.to change { Invitation.count }.by(3)
       }
+
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
+
       it { should redirect_to(referer) }
-      it { should set_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+      it { should set_flash.to success }
     end
 
     it { should_authorize an_instance_of(BigbluebuttonRoom), :send_invitation, :id => room.to_param }
@@ -293,7 +294,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :index }
       it { should render_template(:index) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads the rooms into @rooms"
@@ -305,7 +306,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :show, :id => room.to_param }
       it { should render_template(:show) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -316,7 +317,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :new }
       it { should render_template(:new) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -328,7 +329,7 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :edit, :id => room.to_param }
       it { should render_template(:edit) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -341,7 +342,7 @@ describe CustomBigbluebuttonRoomsController do
     context "template and layout for html requests" do
       before(:each) { get :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
-      it { should render_with_layout("mobile") }
+      it { should render_with_layout("no_sidebar") }
     end
 
     it "loads and authorizes the room into @room"
@@ -357,7 +358,7 @@ describe CustomBigbluebuttonRoomsController do
         post :create, :bigbluebutton_room => attrs
       end
       it { should render_template(:new) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     it "loads and authorizes the room into @room"
@@ -375,7 +376,7 @@ describe CustomBigbluebuttonRoomsController do
         put :update, :id => room.to_param, :bigbluebutton_room => attrs
       }
       it { should render_template(:edit) }
-      it { should render_with_layout("application") }
+      it { should render_with_layout("manage") }
     end
 
     # This is an adapted copy of the same test done for this controller action in BigbluebuttonRails
@@ -421,7 +422,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_key, :moderator_key, :private, :record_meeting, :default_layout,
+          [ :attendee_key, :private, :record_meeting, :default_layout, :name,
             :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
@@ -459,14 +460,14 @@ describe CustomBigbluebuttonRoomsController do
   #     before(:each) { login_as(FactoryGirl.create(:superuser)) }
   #     before(:each) { get :recordings, :id => room.to_param }
   #     it { should render_template(:recordings) }
-  #     it { should render_with_layout("application") }
+  #     it { should render_with_layout("manage") }
   #   end
   # end
 
   describe "#join" do
 
     # see bug1721
-    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/join " do
+    context "doesnt store location for redirect for /#{Rails.application.config.conf_scope}/rooms/:user/join" do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {
@@ -485,7 +486,7 @@ describe CustomBigbluebuttonRoomsController do
           room.should_receive(:fetch_meeting_info)
           get :join, id: room.to_param
         }
-        it { controller.session[:user_return_to].should eq( "/home") }
+        it { controller.session[:user_return_to].should eq("/home") }
         it { controller.session[:previous_user_return_to].should eq("/manage/users") }
       end
       context "when no meeting is running" do
@@ -500,7 +501,7 @@ describe CustomBigbluebuttonRoomsController do
       end
     end
 
-    for method in [:get, :post]
+    [:get, :post].each do |method|
       context "via #{method}" do
 
         context "fetches information about the room when calling #join" do
@@ -823,7 +824,7 @@ describe CustomBigbluebuttonRoomsController do
   describe "#end" do
 
     # see bug1721
-    context "doesnt store location for redirect for /bigbluebutton/rooms/:user/end " do
+    context "doesnt store location for redirect for /#{Rails.application.config.conf_scope}/rooms/:user/end " do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { user.bigbluebutton_room }
       before {
@@ -906,6 +907,33 @@ describe CustomBigbluebuttonRoomsController do
     end
   end
 
+  describe "#user_edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:room) { user.bigbluebutton_room }
+    let(:referer) { "/back" }
+    before { login_as(user) }
+
+    context "html request" do
+      before {
+        request.env["HTTP_REFERER"] = referer
+        get :user_edit, id: room.to_param
+      }
+      it { should render_template(:user_edit) }
+      it { should render_with_layout("no_sidebar") }
+      it { should assign_to(:room).with(room) }
+      it { should assign_to(:redir_url).with(referer) }
+    end
+
+    context "xhr request" do
+      before {
+        request.env["HTTP_REFERER"] = referer
+        xhr :get, :user_edit, id: room.to_param
+      }
+      it { should render_template(:user_edit) }
+      it { should_not render_with_layout }
+    end
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
 
@@ -936,6 +964,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:show, hash) }
         it { should allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
+        it { should allow_access_to(:user_edit, hash) }
         it { should allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1008,6 +1037,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
+        it { should allow_access_to(:user_edit, hash) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1026,6 +1056,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
         it { should_not allow_access_to(:update, hash).via(:put) }
+        it { should_not allow_access_to(:user_edit, hash) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1048,6 +1079,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1074,7 +1106,8 @@ describe CustomBigbluebuttonRoomsController do
           before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1092,6 +1125,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1115,6 +1149,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1141,7 +1176,8 @@ describe CustomBigbluebuttonRoomsController do
           before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:update, hash).via(:put) }
+          it { should allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1159,6 +1195,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:user_edit, hash) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1189,6 +1226,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should require_authentication_for(:show, hash) }
         it { should require_authentication_for(:edit, hash) }
         it { should require_authentication_for(:update, hash).via(:put) }
+        it { should require_authentication_for(:user_edit, hash) }
         it { should require_authentication_for(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }

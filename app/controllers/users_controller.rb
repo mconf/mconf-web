@@ -23,11 +23,11 @@ class UsersController < InheritedResources::Base
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  layout :set_layout
-  def set_layout
-    if [:index].include?(action_name.to_sym)
-      'spaces_show'
-    elsif [:edit].include?(action_name.to_sym)
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :show
       'no_sidebar'
     else
       'application'
@@ -55,19 +55,29 @@ class UsersController < InheritedResources::Base
     @recent_activities = @recent_activities.order('updated_at DESC').page(params[:page])
 
     @profile = @user.profile
-    respond_to do |format|
-      format.html { render 'profiles/show' }
-    end
+    render :show
   end
 
   def edit
     if current_user == @user # user editing himself
-      shib = Mconf::Shibboleth.new(session)
-      @shib_provider = shib.get_identity_provider
+      if @user.shib_token.present?
+        shib = Mconf::Shibboleth.new(session)
+        shib.set_data(@user.shib_token.data)
+        @shib_provider = shib.get_identity_provider
+      end
     end
   end
 
   def update
+    # map cropping attributes to be attributes of the profile
+    [:crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h].each do |attr|
+      if params['user'] && params['user'][attr.to_s]
+        @user.profile.send("#{attr}=", params['user'][attr.to_s])
+        params['user'].delete(attr.to_s)
+      end
+    end
+    @user.profile.crop_avatar
+
     password_changed = false
     if current_site.local_auth_enabled?
       password_changed =
@@ -77,7 +87,7 @@ class UsersController < InheritedResources::Base
     end
 
     if params[:user] && params[:user].has_key?(:superuser)
-      is_superuser = params[:user].delete(:superuser)
+      is_superuser = parse_boolean(params[:user].delete(:superuser))
       if current_user.superuser? && current_user != @user
         @user.set_superuser!(is_superuser)
       end
@@ -98,13 +108,13 @@ class UsersController < InheritedResources::Base
     if updated
       # User editing himself
       # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true if current_user == @user
+      sign_in @user, bypass: true if current_user == @user
 
-      flash = { :success => t("user.updated") }
+      flash = { success: t("user.updated") }
       redirect_to_p edit_user_path(@user), :flash => flash
     else
-      flash = { :error => t("user.not_updated") }
-      render_p "edit", layout: 'no_sidebar', flash: flash
+      flash = { error: t("user.not_updated") }
+      render_p :edit, flash: flash
     end
   end
 
@@ -118,6 +128,10 @@ class UsersController < InheritedResources::Base
   #   for fellows too
   def fellows
     @users = current_user.fellows(params[:q], params[:limit])
+
+    respond_with @users do |format|
+      format.json
+    end
   end
 
   # Returns info of the current user
@@ -137,12 +151,14 @@ class UsersController < InheritedResources::Base
 
   # Methods to let admins create new users
   def new
+    @user = User.new
     respond_to do |format|
       format.html { render layout: !request.xhr? }
     end
   end
 
   def create
+    @user = User.new(user_params.merge('approved' => true))
     @user.created_by = current_user
     @user.skip_confirmation_notification!
 
@@ -150,13 +166,32 @@ class UsersController < InheritedResources::Base
 
       if @user.save
         @user.confirm
-        @user.approve!
         flash[:success] = t("users.create.success")
       else
         flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))
       end
 
       format.html { redirect_to manage_users_path }
+    end
+  end
+
+  def update_logo
+    @user.profile.logo_image = params[:uploaded_file]
+
+    if @user.profile.save
+      url = logo_images_crop_path(model_type: 'user', model_id: @user)
+      respond_to do |format|
+        format.json {
+          render json: {
+                   success: true, redirect_url: url, small_image: @user.profile.small_logo_image?,
+                   new_url: @user.profile.logo_image.url
+                 }
+        }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { success: false } }
+      end
     end
   end
 
@@ -190,9 +225,14 @@ class UsersController < InheritedResources::Base
 
   allow_params_for :user
   def allowed_params
-    allowed = [ :remember_me, :login, :timezone, :expanded_post ]
+    allowed =  [
+      :remember_me, :login, :timezone,
+      profile_attributes: [ :address, :city, :province, :country, :zipcode, :phone,
+                            :full_name, :organization, :description, :url,
+                            :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
+    ]
     allowed += [:password, :password_confirmation, :current_password] if can?(:update_password, @user)
-    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
+    allowed += [:email, :username] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:approved, :disabled, :can_record] if current_user.superuser?
     allowed
   end

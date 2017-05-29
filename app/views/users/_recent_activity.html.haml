@@ -1,15 +1,18 @@
-- paginate = true if paginate.nil?
-
 -# locals:
 -#   content (array of models)
 -#   items_per_page (integer)
 -#   paginate (boolean)
+-#   title (boolean)
+
+- paginate = set_default(local_assigns, :paginate, true)
+- title = set_default(local_assigns, :title, true)
 
 #users-recent-activity.content-block
 
-  .content-block-header
-    %h3= t('recent.activity')
-    = icon_info t('recent_activity.tooltip')
+  - if title
+    .content-block-header
+      %h3= t('recent.activity')
+      = icon_info t('recent_activity.tooltip')
 
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => content, :paginate => false

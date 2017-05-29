@@ -1,0 +1,21 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body.my.approval_pending {
+
+  #content-middle {
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+    max-width: $m-contents-width * 0.7;
+
+    .description {
+      margin: 40px 0;
+      padding: 24px 0;
+      border-bottom: 1px solid $m-navbar-internal-border-color;
+      border-top: 1px solid $m-navbar-internal-border-color;
+    }
+  }
+
+}

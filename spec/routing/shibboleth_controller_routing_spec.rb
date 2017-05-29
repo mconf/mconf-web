@@ -10,7 +10,8 @@ describe ShibbolethController do
   include Shoulda::Matchers::ActionController
 
   describe "routing" do
-    it { should route(:get, "/secure").to(:action => :login) }
-    it { should route(:get, "/secure/info").to(:action => :info) }
+    it { should route(:get, "/users/shibboleth").to(:action => :login) }
+    it { should route(:get, "/users/shibboleth/info").to(:action => :info) }
+    it { should route(:post, "/users/shibboleth/associate").to(:action => :create_association) }
   end
 end

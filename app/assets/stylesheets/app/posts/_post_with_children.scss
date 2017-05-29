@@ -1,0 +1,27 @@
+body.posts.show {
+
+  .thread {
+    .thread-title {
+      h3 {
+        display: inline;
+      }
+
+      .post-author {
+        color: #666;
+        display: inline;
+      }
+    }
+
+    .thread-content {
+      .post-content {
+        padding: 10px 5px 0 5px;
+
+        ul {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+}

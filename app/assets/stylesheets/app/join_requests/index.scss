@@ -1,0 +1,40 @@
+@import "definitions";
+@import "compass/css3";
+
+body.join_requests.index {
+
+  select, input, .label {
+    vertical-align: middle;
+  }
+
+  select {
+    width: auto;
+  }
+
+  .thread .thread-actions {
+    float: right;
+
+    form {
+      display: inline-block;
+      margin: 0;
+    }
+
+    .separator {
+      margin: 0 5px;
+    }
+  }
+
+  .user-comment {
+    background: $m-very-light-gray;
+    padding: 5px;
+    margin: 5px 0;
+  }
+
+  #join-requests {
+    form .btn-small {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+  }
+
+}

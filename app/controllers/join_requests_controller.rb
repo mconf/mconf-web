@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequestsController < ApplicationController
+  before_filter :require_spaces_mod
 
   # Recent activity for join requests
   after_filter :only => [:accept, :decline] do
@@ -13,26 +14,24 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite]
-  load_resource :join_request, :through => :space, :only => [:index, :invite] # these are authenticated via space parent
+  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:admissions, :invite]
+  load_resource :join_request, :through => :space, :only => [:admissions, :invite] # these are authenticated via space parent
 
-  before_filter :webconf_room!, only: [:index, :invite]
+  before_filter :webconf_room!, only: [:admissions, :invite]
   before_filter :check_processed_request, only: [:show, :accept, :decline]
 
   respond_to :html
 
-  layout :determine_layout
-
-  def determine_layout
-    case params[:action].to_sym
-    when :new, :show
-      "no_sidebar"
+  def set_layout
+    if [:new].include?(action_name.to_sym) or [:invite].include?(action_name.to_sym)
+      request.xhr? ? false : 'no_sidebar'
     else
-      "spaces_show"
+      "application"
     end
   end
+  layout :set_layout
 
-  def index
+  def admissions
     authorize! :manage_join_requests, @space
   end
 
@@ -68,7 +67,7 @@ class JoinRequestsController < ApplicationController
       unless already_invited.empty?
         flash[:notice] = t('join_requests.create.already_invited', :users => already_invited.join(', '))
       end
-      redirect_to invite_space_join_requests_path(@space)
+      redirect_to admissions_space_join_requests_path(@space)
 
     # if it's a global admin adding people to the space
     elsif params[:type] == 'add' && can?(:add, @space)
@@ -79,7 +78,7 @@ class JoinRequestsController < ApplicationController
       unless success.empty?
         flash[:success] = t('join_requests.create.users_added', users: success.join(', '))
       end
-      redirect_to invite_space_join_requests_path(@space)
+      redirect_to admissions_space_join_requests_path(@space)
 
     # it's a common user asking for membership in a space
     else
@@ -113,9 +112,8 @@ class JoinRequestsController < ApplicationController
     @join_request.introducer = current_user if @join_request.is_request?
 
     # allow admins to set the role when accepting a join request
-    if params[:join_request].present? && params[:join_request][:role_id].present? &&
-      can?(:manage_join_requests, @space)
-      @join_request.role_id = params[:join_request][:role_id]
+    if params[:admin].present? && can?(:manage_join_requests, @space)
+      @join_request.role_id = Role.find_by_name("Admin").id
     end
 
     save_for_accept_and_decline t('join_requests.accept.accepted')
@@ -135,7 +133,7 @@ class JoinRequestsController < ApplicationController
         format.html {
           if admin_canceling_invitation
             flash[:success] = t("join_requests.decline.invitation_destroyed")
-            redirect_to space_join_requests_path(@space)
+            redirect_to admissions_space_join_requests_path(@space)
           else
             flash[:success] = t("join_requests.decline.request_destroyed")
             redirect_to my_home_path
@@ -174,7 +172,7 @@ class JoinRequestsController < ApplicationController
             else
               # an admin accepting/declining a request from the requests page, goes back to
               # the index of join requests in the space
-              redirect_to space_join_requests_path(@space)
+              redirect_to admissions_space_join_requests_path(@space)
             end
           end
         }

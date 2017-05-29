@@ -1,0 +1,17 @@
+- page_title t('.title')
+- home_sidebar_menu_at(:meetings)
+
+= content_for :sidebar do
+  = render "my/sidebar", user_spaces: @user_spaces
+
+#my-meetings
+  %h3= t('.subtitle')
+
+  .btn-group.recordedonly-buttons
+    = link_to my_meetings_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
+      = t(".recordedonly_true")
+    = link_to my_meetings_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
+      = t(".recordedonly_false")
+
+#my-meetings-list-container
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path }

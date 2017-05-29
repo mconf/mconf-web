@@ -85,6 +85,7 @@ class Space < ActiveRecord::Base
     format: /\A[A-Za-z0-9\-_]*\z/,
     length: { minimum: 3 },
     identifier_uniqueness: true,
+    blacklist: true,
     room_param_uniqueness: true
 
   # the friendly name / slug for the space
@@ -106,8 +107,15 @@ class Space < ActiveRecord::Base
   after_create :crop_logo
   after_update :crop_logo
 
-  # By default spaces marked as disabled will not show in queries
-  default_scope -> { where(:disabled => false) }
+  # By default spaces marked as disabled will not show in queries.
+  # Also ensure spaces will never be found if disabled.
+  default_scope -> {
+    if Mconf::Modules.mod_enabled?('spaces')
+      where(disabled: false)
+    else
+      Space.none
+    end
+  }
 
   # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
@@ -163,16 +171,23 @@ class Space < ActiveRecord::Base
   # Returns a relation with a pre-configured join that can be used in queries to find recent
   # activities related to a space.
   def self.default_join_for_activities(*args)
+    # manually join `:bigbluebutton_room` because we want a "LEFT JOIN" and rails uses
+    # "INNER LEFT JOIN" by default when using `joins()`.
+    join_room_on = BigbluebuttonRoom.arel_table[:owner_type].eq(Space.name)
+              .and(BigbluebuttonRoom.arel_table[:owner_id].eq(Space.arel_table[:id])).to_sql
+    join_room_sql = "LEFT JOIN #{BigbluebuttonRoom.table_name} ON (#{join_room_on})"
+
+    # manually join activities because we also want a "LEFT JOIN"
     join_on = RecentActivity.arel_table[:owner_type].eq(Space.name)
-      .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
-      .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
-            .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
+              .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
+              .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
+                   .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
     join_sql = "LEFT JOIN #{RecentActivity.table_name} ON (#{join_on})"
 
     if args.count > 0
-      select(args).joins(:bigbluebutton_room).joins(join_sql)
+      select(args).joins(join_room_sql).joins(join_sql)
     else
-      joins(:bigbluebutton_room).joins(join_sql)
+      joins(join_room_sql).joins(join_sql)
     end
   end
 
@@ -260,6 +275,7 @@ class Space < ActiveRecord::Base
 
   def self.with_disabled
     unscope(where: :disabled) # removes the target scope only
+    # TODO: test what happens when the spaces mod is disabled
   end
 
   # TODO: review all public methods below
@@ -325,13 +341,13 @@ class Space < ActiveRecord::Base
   # Creates the webconf room after the space is created
   def create_webconf_room
     params = {
-      :owner => self,
-      :param => self.permalink,
-      :name => self.name,
-      :private => false,
-      :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/"
+      owner: self,
+      param: self.permalink,
+      name: self.name,
+      private: false,
+      moderator_key: SecureRandom.hex(8),
+      attendee_key: SecureRandom.hex(4),
+      logout_url: "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end
@@ -339,10 +355,12 @@ class Space < ActiveRecord::Base
   # Updates the webconf room after updating the space
   def update_webconf_room
     if self.bigbluebutton_room
-      params = {
-        :name => self.name
-      }
-      bigbluebutton_room.update_attributes(params)
+      if self.name_was == self.bigbluebutton_room.name
+        params = {
+          :name => self.name
+        }
+        bigbluebutton_room.update_attributes(params)
+      end
     end
   end
 

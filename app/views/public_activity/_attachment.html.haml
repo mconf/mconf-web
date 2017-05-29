@@ -14,7 +14,7 @@
 .thread-content
   = formatted_time_ago activity.created_at
 
-  .thread-title
+  .thread-description
     = icon_attachment
     - if user.present?
       = link_to user.name, user_path(user)

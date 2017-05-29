@@ -9,7 +9,7 @@ require 'spec_helper'
 feature 'Visitor logs in and is redirected back to a sane URL' do
 
   before(:each) {
-    @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
+    @user = FactoryGirl.create(:user, :username => 'user-1', :password => 'password')
   }
 
   context 'when referer is blank' do
@@ -124,16 +124,16 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     context "to a valid path" do
       before {
         visit spaces_path
-        visit login_path(return_to: "/statistics")
+        visit login_path(return_to: "/spaces")
       }
 
-      it { current_path.should eq(show_statistics_path) }
+      it { current_path.should eq(spaces_path) }
     end
 
     context "to a path that is not redirectable" do
       before {
         visit spaces_path
-        visit login_path(return_to: "/secure/info")
+        visit login_path(return_to: shibboleth_info_path)
       }
 
       it { current_path.should eq(spaces_path) }
@@ -151,10 +151,10 @@ feature 'Visitor logs in and is redirected back to a sane URL' do
     context "to a full url" do
       before {
         visit spaces_path
-        visit login_path(return_to: "http://localhost:3000/statistics")
+        visit login_path(return_to: "http://localhost:3000/spaces")
       }
 
-      it { current_path.should eq(show_statistics_path) }
+      it { current_path.should eq(spaces_path) }
     end
 
     context "to a blank url" do

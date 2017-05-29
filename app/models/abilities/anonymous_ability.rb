@@ -11,23 +11,11 @@ module Abilities
     def register_abilities(user=nil)
       abilities_for_bigbluebutton_rails(user)
 
-      # Note: For the private profile only, the public profile is always visible.
-      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
-      can :index, Profile
-      can :show, Profile do |profile|
-        case profile.visibility
-        when Profile::VISIBILITY.index(:everybody)
-          true
-        else
-          false
-        end
-      end
-
       can [:index], User # restricted through Space and/or manage
       can [:show, :current], User, disabled: false
 
       can [:index, :select], Space
-      can [:show, :webconference, :recordings], Space, public: true
+      can [:show, :webconference, :meetings], Space, public: true
 
       can :index, Post # restricted through Space
       can :show, Post, space: { public: true }

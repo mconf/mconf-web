@@ -1,0 +1,16 @@
+@import "definitions";
+@import "compass/css3";
+
+body.participants.index {
+
+  .management-links {
+    float: right;
+    padding-top: 8px;
+  }
+
+  .event-invite a {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+}

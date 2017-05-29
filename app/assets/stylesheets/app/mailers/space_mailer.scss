@@ -1,0 +1,13 @@
+@import "compass/css3";
+@import "definitions";
+
+.space_mailer.invitation_email,
+.space_mailer.processed_join_request_email,
+.space_mailer.join_request_email
+{
+  .invite-message {
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-left: 4px solid #ddd;
+  }
+}

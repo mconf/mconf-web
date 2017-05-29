@@ -36,7 +36,11 @@ describe ShibbolethController do
   end
 
   shared_examples_for "a caller of #associate_with_new_account" do
-    let(:attrs) { FactoryGirl.attributes_for(:user) }
+    let(:attrs) {
+      attrs = FactoryGirl.attributes_for(:user)
+      attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+      attrs
+    }
     let(:referer) { "/any" }
     before {
       request.env["HTTP_REFERER"] = referer
@@ -70,7 +74,7 @@ describe ShibbolethController do
         it { subject.user.should eq(User.find_by_email(attrs[:email])) }
         it {
           expected = {}
-          expected["Shib-inetOrgPerson-cn"] = attrs[:_full_name]
+          expected["Shib-inetOrgPerson-cn"] = attrs[:profile_attributes][:full_name]
           expected["Shib-inetOrgPerson-mail"] = attrs[:email]
           expected["Shib-eduPerson-eduPersonPrincipalName"] = attrs[:email]
           subject.data.should eq(expected)
@@ -195,9 +199,13 @@ describe ShibbolethController do
         context "updates the user data if the account was created by shib" do
           let(:new_name) { 'New Name' }
           let(:new_email) { 'new-personal@email.com' }
-          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          let(:attrs) {
+            attrs = FactoryGirl.attributes_for(:user)
+            attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+            attrs
+          }
           before(:each) {
-            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
             save_shib_to_session
 
             # new shib user with federation data
@@ -231,9 +239,13 @@ describe ShibbolethController do
         context "doesn't update the user data if the account was not created by shib" do
           let(:new_name) { 'New Name' }
           let(:new_email) { 'new-personal@email.com' }
-          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          let(:attrs) {
+            attrs = FactoryGirl.attributes_for(:user)
+            attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+            attrs
+          }
           before(:each) {
-            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
             save_shib_to_session
 
             # new shib user with federation data
@@ -272,9 +284,13 @@ describe ShibbolethController do
         context "doesn't update the user data even if the account was created by shib" do
           let(:new_name) { 'New Name' }
           let(:new_email) { 'new-personal@email.com' }
-          let(:attrs) { FactoryGirl.attributes_for(:user) }
+          let(:attrs) {
+            attrs = FactoryGirl.attributes_for(:user)
+            attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+            attrs
+          }
           before(:each) {
-            setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+            setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
             save_shib_to_session
 
             # new shib user with federation data
@@ -312,11 +328,15 @@ describe ShibbolethController do
       end
 
       context "if the flag shib_always_new_account is set" do
-        let(:attrs) { FactoryGirl.attributes_for(:user) }
+        let(:attrs) {
+          attrs = FactoryGirl.attributes_for(:user)
+          attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+          attrs
+        }
 
         before {
           Site.current.update_attributes(:shib_always_new_account => true)
-          setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+          setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
         }
 
         context "skips the association page" do
@@ -395,7 +415,7 @@ describe ShibbolethController do
       end
     end
 
-    context "if params has no known option, redirects to /secure with a warning" do
+    context "if params has no known option, redirects to the shibboleth path with a warning" do
       let(:user) { FactoryGirl.create(:user) }
       before {
         setup_shib(user.full_name, user.email, user.email)
@@ -410,7 +430,7 @@ describe ShibbolethController do
       context "calls #associate_with_new_account" do
         let(:run_route) { post :create_association, :new_account => true }
         before {
-          setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+          setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
           save_shib_to_session
         }
         it_should_behave_like "a caller of #associate_with_new_account"
@@ -418,32 +438,36 @@ describe ShibbolethController do
     end
 
     context "if params[:existent_account] is set" do
-      let(:attrs) { FactoryGirl.attributes_for(:user) }
+      let(:attrs) {
+        attrs = FactoryGirl.attributes_for(:user)
+        attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+        attrs
+      }
       before {
-        setup_shib(attrs[:_full_name], attrs[:email], attrs[:email])
+        setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
         save_shib_to_session
       }
 
-      context "if there's no user info in the params, goes back to /secure with an error" do
+      context "if there's no user info in the params, goes back to the shibboleth path with an error" do
         before(:each) { post :create_association, :existent_account => true }
         it { should redirect_to(shibboleth_path) }
         it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if the user info in the params is wrong, goes back to /secure with an error" do
+      context "if the user info in the params is wrong, goes back to the shibboleth path with an error" do
         before(:each) { post :create_association, :existent_account => true, :user => { :so_wrong => 2  } }
         it { should redirect_to(shibboleth_path) }
         it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if the target user is not found goes back to /secure with an error" do
+      context "if the target user is not found goes back to the shibboleth path with an error" do
         before(:each) { post :create_association, :existent_account => true, :user => { :login => 'any' } }
         it { User.find_first_by_auth_conditions({ :login => 'any' }).should be_nil}
         it { should redirect_to(shibboleth_path) }
         it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if found the user but the password is wrong goes back to /secure with an error" do
+      context "if found the user but the password is wrong goes back to the shibboleth path with an error" do
         let(:user) { FactoryGirl.create(:user) }
         before(:each) { post :create_association, :existent_account => true, :user => { :login => user.username } }
         it("finds the user") {
@@ -453,7 +477,7 @@ describe ShibbolethController do
         it { should set_flash.to(I18n.t('shibboleth.create_association.invalid_credentials')) }
       end
 
-      context "if the user is disabled goes back to /secure with an error" do
+      context "if the user is disabled goes back to the shibboleth path with an error" do
         let(:user) { FactoryGirl.create(:user, :disabled => true, :password => '12345') }
         before(:each) { post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' } }
         it("does not find the disabled user") {
@@ -472,7 +496,7 @@ describe ShibbolethController do
           save_shib_to_session
         }
 
-        context "goes back to /secure with a success message" do
+        context "goes back to the shibboleth path with a success message" do
           before(:each) { post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' } }
           it("finds the user") {
             User.find_first_by_auth_conditions({ :login => user.username }).should_not be_nil

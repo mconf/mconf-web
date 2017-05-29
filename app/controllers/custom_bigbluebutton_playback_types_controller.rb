@@ -10,6 +10,8 @@ class CustomBigbluebuttonPlaybackTypesController < Bigbluebutton::PlaybackTypesC
   before_filter :authenticate_user!
   load_and_authorize_resource :find_by => :id, :class => "BigbluebuttonPlaybackType"
 
+  layout "manage"
+
   def index
     @playback_types = BigbluebuttonPlaybackType.all
   end

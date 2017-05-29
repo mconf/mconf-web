@@ -23,7 +23,7 @@ feature 'LDAP is misconfigured', ldap: true do
     port = Mconf::LdapServer.default_ldap_configs[:ldap_port]
     Site.current.update_attributes ldap_port: port + 1
 
-    user = FactoryGirl.create(:user, username: 'user', password: 'password')
+    user = FactoryGirl.create(:user, username: 'user-1', password: 'password')
     sign_in_with user.email, user.password
 
     expect(page).to have_title(I18n.t('home.my'))
@@ -34,7 +34,7 @@ feature 'LDAP is misconfigured', ldap: true do
   scenario "doesn't break the local sign in with unreacheable server" do
     Site.current.update_attributes ldap_host: "nonexistanturl.doesntexist"
 
-    user = FactoryGirl.create(:user, username: 'user', password: 'password')
+    user = FactoryGirl.create(:user, username: 'user-1', password: 'password')
     sign_in_with user.email, user.password
 
     expect(page).to have_title(I18n.t('home.my'))

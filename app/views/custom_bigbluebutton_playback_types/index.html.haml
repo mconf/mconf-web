@@ -1,7 +1,6 @@
-= render :partial => 'manage/menu'
+- bbb_server_admin_menu_at :playback
+= render 'shared/webconf_index_links'
 
-= content_for :sidebar do
-  = render 'shared/webconf_index_links'
 
 %h3= t('.list_of_playback_types')
 

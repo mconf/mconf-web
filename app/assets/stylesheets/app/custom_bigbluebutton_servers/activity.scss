@@ -1,0 +1,40 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/custom_bigbluebutton_servers/_activity";
+
+body.custom_bigbluebutton_servers.activity {
+
+  .server-information {
+    list-style-type: disc;
+  }
+
+  #server-activity-wrapper {
+    h3 .comments {
+      @include font-size($m-font-small);
+      font-weight: normal;
+      display: inline;
+    }
+
+    #server-activity-content {
+      border: 1px solid white;
+      @include border-radius($m-border-radius-base);
+    }
+
+    .label-updated {
+      margin: 0 10px;
+      display: none;
+    }
+
+    &.updated {
+      #server-activity-content {
+        border: 1px solid red;
+      }
+
+      .label-updated {
+        display: inline-block;
+      }
+    }
+  }
+
+}

@@ -1,4 +1,4 @@
-# Setups FineUploader on elements with the class .file-uploader
+# Sets up FineUploader on elements with the class .file-uploader
 
 uploaderTemplate = HandlebarsTemplates['uploader/template']
 uploaderFileTemplate = HandlebarsTemplates['uploader/file_template']
@@ -22,6 +22,11 @@ class mconf.Uploader
     callbacks.onSubmit = (id, name) ->
       $('.drag-files').hide()
       onSubmit?(id, name)
+
+    if element.hasClass('file-uploader-logo')
+      buttonText = I18n.t("uploader.logos.button")
+    else
+      buttonText = I18n.t("uploader.attachments.button")
 
     # Uploader options
     options =
@@ -50,7 +55,7 @@ class mconf.Uploader
         onLeave: I18n.t("uploader.error.on_leave")
 
       text:
-        uploadButton: I18n.t("uploader.button")
+        uploadButton: buttonText
         cancelButton: I18n.t('_other.cancel')
         failUpload: I18n.t("uploader.fail")
         formatProgress: I18n.t("uploader.progress")

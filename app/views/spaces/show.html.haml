@@ -1,24 +1,34 @@
 - page_title @space.name
-
 - spaces_menu_at :home
+= render 'spaces/sidebar', space: @space, full: false
 
-= render :partial => 'spaces/menu'
+- if !@space.approved?
+  - content_for :content_notification do
+    .resource-waiting-tooltip
+      = icon_waiting_moderation
+      = t(".not_approved")
+      - if can?(:approve, @space)
+        - link = link_to(t('.manage_to_approve'), manage_spaces_path(q: @space.name))
+        = ("(" + link + ")").html_safe
 
-- if mod_enabled?("events") && !@current_events.empty?
-  #events-current.content-block.event-block.events-hapenning-now
-    .content-block-header
-      %h3= t('.events_now')
-    .content-block-middle
-      - for event in @current_events do
-        = render :partial => "events/unified_event", :locals => { :event => event }
+-# - if mod_enabled?("events") && !@current_events.empty?
+-#   #events-current.content-block.event-block.events-hapenning-now
+-#     .content-block-header
+-#       %h3= t('.events_now')
+-#     .content-block-middle
+-#       - for event in @current_events do
+-#         = render :partial => "events/unified_event", :locals => { :event => event }
+
+= render "shared/webconference_join", room: @space.bigbluebutton_room
 
 .content-block
   .content-block-header
-    %h3= t('space.description')
+    %h3= t('.description')
   .content-block-middle
-    = @space.description
+    = sanitize(@space.description)
 
--if can?(:read, @space.posts)
+- posts = @space.posts
+- if !posts.empty? && can?(:read, posts)
   = render :partial => 'latest_posts'
 
 = render :partial => 'latest_users'

@@ -130,6 +130,18 @@
 #   Created by: `User`.
 #
 class RecentActivity < PublicActivity::Activity
+  # By default activities marked as disabled will not show in queries.
+  # Also ensure activities will never be found if disabled.
+  default_scope -> {
+    if !Mconf::Modules.mod_enabled?('activities')
+      RecentActivity.none
+    end
+  }
+
+  scope :worker_mail_activities, -> {
+    RecentActivity.unscoped
+  }
+
   # Used for home page and user page pagination
   self.per_page = 10
 
@@ -154,7 +166,7 @@ class RecentActivity < PublicActivity::Activity
     space_room_ids = BigbluebuttonRoom.where(owner_type: 'Space', owner_id: space_ids).ids
 
     # some types of activities we ignore by default
-    reject_keys += ["user.created", "shibboleth.user.created", "ldap.user.created", "user.approved"]
+    reject_keys += ["user.created", "shibboleth.user.created", "ldap.user.created", "user.approved", "user.cancelled"]
 
     t = RecentActivity.arel_table
     in_spaces = t[:owner_id].in(space_ids).and(t[:owner_type].eq('Space'))

@@ -1,0 +1,15 @@
+@import "compass/css3";
+@import "definitions";
+
+.recording-list {
+  margin-top: 10px;
+
+  .recording-playback-links {
+    margin: 0;
+    padding: 0;
+  }
+
+  .rec-not-recorded-col {
+    color: $m-font-color-gray;
+  }
+}

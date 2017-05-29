@@ -1,0 +1,16 @@
+- page_title t('spaces.sidebar.webconference'), in: @space.name
+- spaces_menu_at :webconference
+
+= render 'spaces/sidebar', space: @space, full: false
+
+#space-meetings
+  %h3= t('.title')
+
+  .btn-group.recordedonly-buttons
+    = link_to meetings_space_path(@space), class: "btn btn-default btn-sm #{'active' if params[:recordedonly].nil? }", type: "button" do
+      = t(".recordedonly_true")
+    = link_to meetings_space_path(@space, recordedonly: 'false'), class: "btn btn-default btn-sm #{'active' if params[:recordedonly] == 'false' }", type: "button" do
+      = t(".recordedonly_false")
+
+#space-meetings-list-container
+  = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: meetings_space_path(@space) }

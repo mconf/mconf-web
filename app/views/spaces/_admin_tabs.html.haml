@@ -1,13 +1,13 @@
-#space-admin-tabs.page-tabs.page-tabs-full
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to t('.general_options'), edit_space_path(@space), spaces_admin_menu_select_if(:main, :class => "btn btn-small")
-
+= content_for :page_menu do
+  %ul
+    %li{ spaces_admin_menu_select_if(:main) }
+      = link_to t('.general_options'), edit_space_path(@space)
     - if can?(:manage_join_requests, @space)
-      = link_to t('.invite'), invite_space_join_requests_path(@space), spaces_admin_menu_select_if(:invite, :class => "btn btn-small")
-      = link_to t('.admissions'), space_join_requests_path(@space), spaces_admin_menu_select_if(:admissions, :class => "btn btn-small")
-
+      %li{ spaces_admin_menu_select_if(:admissions) }
+        = link_to admissions_space_join_requests_path(@space) do
+          - unless spaces_admin_menu_is(:admissions)
+            = render :partial => 'spaces/requests_notifications'
+          = t('.admissions')
     - if can?(:user_permissions, @space)
-      = link_to t('.users'), user_permissions_space_path(@space), spaces_admin_menu_select_if(:users, :class => "btn btn-small")
-
-    - if can?(:webconference_options, @space)
-      = link_to t('.webconf_options'), webconference_options_space_path(@space), spaces_admin_menu_select_if(:webconference_options, :class => "btn btn-small")
+      %li{ spaces_admin_menu_select_if(:users) }
+        = link_to t('.users'), user_permissions_space_path(@space)

@@ -1,0 +1,123 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+@import "app/spaces/_list_item";
+
+body.spaces.index {
+
+  #space-filter-wrapper {
+    @include mconf-clearfix;
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    background: $m-light-gray;
+    @include border-radius($m-border-radius-large);
+    text-align: left;
+
+    .filters {
+      margin-top: 10px;
+      text-align: right;
+
+      span {
+        margin-left: 10px;
+      }
+    }
+
+    .search {
+      clear: both;
+      width: 100%;
+
+      .select2-container {
+        max-width: 100% !important;
+        min-width: 100%;
+      }
+    }
+
+    #space-filter-tags {
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    #spaces_filter_text {
+      width: 100%;
+      clear: both;
+      margin: 0;
+    }
+  }
+
+  #space-order-wrapper {
+    float: right;
+    margin-right: 15px;
+    margin-bottom: 10px;
+  }
+
+  #space-description-wrapper {
+    padding-top: 10px;
+    border-top: 1px solid $m-sidebar-border;
+
+    &.is-sticky {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .empty-space-description {
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .space-description {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+
+      .space-logo-wrapper {
+        margin: 10px 0;
+        padding: 0 0 10px 0;
+        text-align: center;
+        @include broken-img-parent;
+
+        img {
+          width: 100%;
+          height: 100%;
+          max-width: 300px;
+          max-height: 300px;
+          border: 1px solid darken($m-light-gray, 10);
+          padding: 0;
+          background: $m-site-bg-color;
+          padding: 3px;
+        }
+      }
+
+      .title {
+        color: $m-font-h-color;
+        font-style: normal;
+        font-family: $m-font-family-h;
+        font-size: $m-font-normal * $m-font-h3-multiplier;
+        margin-bottom: 8px;
+
+        a {
+          @include link-colors($m-font-h-color, $m-font-h-color-hover, $m-font-h-color-active, $m-font-h-color);
+          text-decoration: none;
+        }
+      }
+
+      .description {
+        margin: 8px 0 16px 0;
+      }
+
+      .details {
+        font-style: italic;
+        color: #888;
+        span { display: block; }
+      }
+
+      .action-links {
+        text-align: right;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,40 @@
+@import "definitions";
+@import "compass/css3";
+@import "compass/typography/links";
+
+@import "app/shibboleth/info";
+
+body.users.edit, body.users.update {
+
+  #user-account-panel-1 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
+  }
+
+  #user-account-panel-2 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
+  }
+
+  #user-account-info, #user-change-password {
+    margin-bottom: 35px;
+    clear: both;
+  }
+
+  #user-management-options {
+    margin-top: 32px;
+  }
+
+  #user-cancel-account {
+    border-top: 1px solid $m-sidebar-border;
+    margin-top: 32px;
+    padding-top: 32px;
+    text-align: center;
+  }
+
+  #user_profile_attributes_description {
+    height: 110px;
+  }
+}

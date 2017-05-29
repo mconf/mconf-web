@@ -23,6 +23,7 @@ module Helpers
   # not on git.
   def self.setup_site
     attributes = {
+      domain: Forgery::Internet.domain_name,
       events_enabled: true,
       exception_notifications: false,
       ldap_enabled: false,
@@ -47,6 +48,10 @@ module Helpers
     end
   end
 
+  def self.reload_routes!
+    Mconf::Application.reload_routes!
+  end
+
   # Sets the custom actions that should also be checked by
   # the matcher BeAbleToDoAnythingToMatcher
   def self.set_custom_ability_actions(actions)
@@ -57,11 +62,34 @@ module Helpers
   end
 
   module ClassMethods
-
     def set_custom_ability_actions(actions)
       before { Helpers.set_custom_ability_actions(actions) }
     end
 
+    # Returns the body of the email. For multi-part emails, always returns the first part.
+    def mail_body(mail)
+      if mail.parts.length > 0
+        body = mail.parts.first.body
+      else
+        body = mail.body
+      end
+      if body.parts.length > 0
+        body.parts.first.body
+      else
+        body
+      end
+    end
+
+    # Returns the best match for the content of an email, formatted in a way to make
+    # it easier to match on tests.
+    def mail_content(mail)
+      content = mail_body(mail).raw_source.gsub(/\r\n/, ' ').gsub(/\n/, ' ')
+      if content.blank?
+        mail_body(mail).encoded.gsub(/(=)?\r\n/, ' ').gsub(/(=)?\n/, ' ')
+      else
+        content
+      end
+    end
   end
 
 end

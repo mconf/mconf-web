@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222180003) do
+ActiveRecord::Schema.define(version: 20170425163351) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -31,6 +31,21 @@ ActiveRecord::Schema.define(version: 20170222180003) do
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
+  create_table "ahoy_messages", force: true do |t|
+    t.string   "token"
+    t.text     "to"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "mailer"
+    t.text     "subject"
+    t.datetime "sent_at"
+    t.datetime "opened_at"
+    t.datetime "clicked_at"
+  end
+
+  add_index "ahoy_messages", ["token"], name: "index_ahoy_messages_on_token", using: :btree
+  add_index "ahoy_messages", ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type", using: :btree
+
   create_table "attachments", force: true do |t|
     t.string   "type"
     t.integer  "size"
@@ -48,7 +63,6 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.integer  "room_id"
     t.string   "meetingid"
     t.string   "name"
-    t.datetime "start_time"
     t.boolean  "running",                                default: false
     t.boolean  "recorded",                               default: false
     t.datetime "created_at"
@@ -95,15 +109,15 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",             default: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "available",             default: true
+    t.boolean  "published",                                      default: false
+    t.boolean  "available",                                      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        limit: 8, default: 0
+    t.integer  "size",        limit: 8,                          default: 0
+    t.decimal  "start_time",            precision: 14, scale: 0
+    t.decimal  "end_time",              precision: 14, scale: 0
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -226,6 +240,7 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "invitation_group"
+    t.integer  "duration"
   end
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree
@@ -301,20 +316,14 @@ ActiveRecord::Schema.define(version: 20170222180003) do
   create_table "profiles", force: true do |t|
     t.string  "organization"
     t.string  "phone"
-    t.string  "mobile"
-    t.string  "fax"
     t.string  "address"
     t.string  "city"
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
     t.integer "user_id"
-    t.string  "prefix_key",   default: ""
     t.text    "description"
     t.string  "url"
-    t.string  "skype"
-    t.string  "im"
-    t.integer "visibility",   default: 3
     t.string  "full_name"
     t.string  "logo_image"
   end
@@ -395,11 +404,13 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.string   "max_upload_size",                default: "15000000"
     t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
+    t.boolean  "spaces_enabled",                 default: true
     t.string   "smtp_receiver"
     t.boolean  "unauth_access_to_conferences",   default: true
     t.boolean  "certificate_login_enabled"
     t.string   "certificate_id_field"
     t.string   "certificate_name_field"
+    t.boolean  "activities_enabled",             default: true
   end
 
   create_table "spaces", force: true do |t|
@@ -458,7 +469,6 @@ ActiveRecord::Schema.define(version: 20170222180003) do
     t.boolean  "disabled",                            default: false
     t.datetime "confirmed_at"
     t.string   "timezone"
-    t.boolean  "expanded_post",                       default: false
     t.string   "locale"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

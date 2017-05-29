@@ -1,0 +1,178 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body.events, body.space_events {
+
+  #map {
+    height: 180px;
+    padding-top: 10px;
+    @include border-radius($m-border-radius-base);
+    border: 1px solid #ddd;
+  }
+
+  .event-header {
+    font-size: 200%;
+  }
+
+  .event-summary {
+
+    .summary {
+      padding-bottom: 10px;
+      margin: 0 0 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .event-map {
+      margin: 5px 0;
+    }
+
+    .summary-block {
+      padding: 5px 0 10px 0;
+    }
+
+    .summary-dates-indented {
+      margin-left: 15px;
+    }
+
+    .observation {
+      color: #666;
+      font-size: 90%;
+    }
+
+    .summary-button {
+      font-weight: bold;
+      font-size: 110%;
+    }
+
+    ul.summary-options {
+      margin: 10px 10px 0 10px;
+
+      li { margin: 5px 0; }
+    }
+
+  }
+
+  .event-organizers {
+    h3 {
+      margin-top: 0;
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+  }
+
+  .original-dates {
+    display: none;
+  }
+
+  .original-time-info {
+    display: none;
+  }
+
+  hr {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .event-social-buttons {
+    margin-left: 0;
+
+    li {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+  }
+
+  .event-description {
+    ul {
+      list-style: circle;
+    }
+  }
+
+  .event-footer {
+    a { margin-right: 10px; }
+  }
+
+  // the time zone select2 input in events/new and edit
+  #s2id_event_time_zone {
+    min-width: 250px;
+  }
+
+  /* For event logos */
+
+  $m-font-big: 26px;
+  $m-font-color: #333;
+
+  .event-logo {
+    display: inline-block;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    width: 95%;
+    color: $m-font-color;
+
+    .event-logo-hour {
+      font-size: $m-font-big * 0.7;
+      line-height: $m-font-big * 0.7;
+      white-space: nowrap;
+      font-weight: bold;
+      margin: 8px 0;
+      color: #444;
+      text-shadow: #ddd 1px 1px 3px;
+    }
+
+    .event-logo-day {
+      font-size: $m-font-big * 0.75;
+      line-height: $m-font-big * 0.75;
+      margin: 6px 0;
+      white-space: nowrap;
+      font-weight: bold;
+      text-shadow: #ccc 1px 1px 3px;
+    }
+
+    .event-logo-year {
+      font-size: $m-font-big * 0.6;
+      line-height: $m-font-big * 0.6;
+      margin: 8px 0;
+      white-space: nowrap;
+      color: #777;
+    }
+  }
+
+  .collection_check_boxes {
+    margin-left: -10px;
+    margin-right: 20px;
+  }
+
+  a.btn.ok {
+    text-align: center;
+    width: 86%;
+    margin: 2%;
+    height: 20px;
+  }
+
+  .datepicker-field {
+    margin-right: 3px;
+    margin-left: 3px;
+  }
+
+  // apply our colors when the logos are hovered/active
+  a .event-logo:hover {
+    * {
+      color: $m-link-color-hover;
+    }
+  }
+  a .event-logo:active {
+    * {
+      color: $m-link-color-active;
+    }
+  }
+
+  // otherwise we can get line breaks in titles or descriptions
+  .current-page-title {
+    width: 100%;
+  }
+}

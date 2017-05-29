@@ -19,6 +19,12 @@ class JoinRequest < ActiveRecord::Base
     }
   end
 
+  # Ensure join requests will never be found if spaces are disabled.
+  # They are currently used for spaces only.
+  default_scope -> {
+    JoinRequest.none unless Mconf::Modules.mod_enabled?('spaces')
+  }
+
   # the user that is being invited
   belongs_to :candidate, :class_name => "User"
   # the person that is inviting

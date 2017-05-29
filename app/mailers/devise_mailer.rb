@@ -10,17 +10,25 @@ class DeviseMailer < Devise::Mailer
   default template_path: 'devise/mailer'
   layout 'mailers'
 
+  add_template_helper(EmailHelper)
+
   def confirmation_instructions(record, token, opts={})
     return if !record.local_auth?
 
-    opts[:subject] = "[#{Site.current.name}] #{t('devise.mailer.confirmation_instructions.subject')}"
+    @mailer_name = 'devise'
+    @mail_name = 'confirmation_instructions'
+
+    opts[:subject] = t('devise.mailer.confirmation_instructions.subject')
     super
   end
 
   def reset_password_instructions(record, token, opts={})
     return if !record.local_auth?
 
-    opts[:subject] = "[#{Site.current.name}] #{t('devise.mailer.reset_password_instructions.subject')}"
+    @mailer_name = 'devise'
+    @mail_name = 'reset_password_instructions'
+
+    opts[:subject] = t('devise.mailer.reset_password_instructions.subject')
     super
   end
 end

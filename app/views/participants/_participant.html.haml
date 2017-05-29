@@ -1,4 +1,4 @@
-.thread.thread-user.thread-no-hover.user-wrapper.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-no-hover.user-information.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
   - user = participant.owner
   .logo-in-thread
     = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')

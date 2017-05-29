@@ -1,56 +1,40 @@
-- page_title t('spaces.menu.webconference'), :in => @space.name
-
+- page_title t('spaces.sidebar.webconference'), in: @space.name
 - spaces_menu_at :webconference
-= render :partial => 'spaces/menu'
+= render 'spaces/sidebar', space: @space, full: false
 
-- spaces_webconference_menu_at :access
-= render :partial => 'webconference_tabs'
-
-#webconference-description.content-block
-  .content-block-header
-    %h3= t('.webconference.description.header')
-  .content-block-middle
-    - if @webconf_room.is_running? && can?(:end, @webconf_room)
-      .end-meeting
-        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :data => { :confirm => t('are_you_sure') }, :class => 'btn btn-small btn-danger')
-
-    - cls = @webconf_room.is_running? ? "running" : "not-running"
-    .description-text{ :class => cls }
-      - status = @webconf_room.is_running? ? t('_other.webconference.running') : t('_other.webconference.not_running')
-      = t('.webconference.description.text', :status => status).html_safe
-
-#webconference-share.content-block
-  .content-block-header
-    = icon_share()
-    %h3= t('.webconference.share.header')
-  .content-block-middle
-    %span= t('.webconference.share.description')
-    .share-url.alert.alert-gray
-      = label_tag 'invite-url-text', t('.webconference.share.url')
-      = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
-      - if can?(:create_meeting, @webconf_room)
-        = link_to t('.invite'), invitation_bigbluebutton_room_path(@space.bigbluebutton_room), :class => 'btn open-modal'
+= render "shared/webconference_join", room: @space.bigbluebutton_room
 
 .content-block
   .content-block-header
-    = icon_users()
     %h3
-      = t('.webconference.attendees.people_in_the_room')
+      = t('.attendees.people_in_the_room')
       = "(#{@webconf_room.participant_count})"
   .content-block-middle
     - if @webconf_room.participant_count == 0
-      = t('.webconference.attendees.nobody')
+      = t('.attendees.nobody')
     - else
       #webconference-all-users
-        %h4= t('.webconference.attendees.all_users') + ":"
+        %h4= t('.attendees.all_users') + ":"
         - @webconf_room.attendees.each_with_index do |attendee, i|
           - if attendee.role == :moderator
-            = icon_user title: "Moderator"
+            = icon_user title: t("_other.moderator")
           %span
             - unless i == @webconf_room.attendees.size-1
               = "#{attendee.full_name}, "
             - else
               = attendee.full_name
-      %h4= t('.webconference.attendees.registered_users') + ":"
+      %h4= t('.attendees.registered_users') + ":"
       - @webconf_attendees.each do |user|
         = render :partial => 'users/simple_user', :locals => { :user => user }
+
+#space-recordings.content-block
+  .content-block-header
+    %h3= t('.meetings.title')
+  - if @meetings.count > 0
+    #space-recordings-list-container.content-block-middle
+      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: true, redir_to: webconference_space_path(@space) }
+  - else
+    %span= t('.meetings.no_recordings')
+  .content-block-footer.content-block-footer-fancy
+    .content-block-footer-middle
+      = link_to t('.meetings.view_all'), meetings_space_path(@space)

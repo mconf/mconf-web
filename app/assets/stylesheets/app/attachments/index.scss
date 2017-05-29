@@ -1,0 +1,22 @@
+@import "definitions";
+
+body.attachments.index {
+
+  #space-attachments-tabs {
+    @include mconf-clearfix;
+    margin-bottom: 15px;
+  }
+
+  #space-attachments {
+    clear: both;
+  }
+
+  #space-attachments-create {
+    float: right;
+  }
+
+  #space-attachments-selected {
+    margin-left: 5px;
+  }
+
+}

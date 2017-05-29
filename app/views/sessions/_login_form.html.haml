@@ -1,6 +1,6 @@
-= simple_form_for(resource, :as => resource_name, :url => user_session_path, :html => { :class => 'form-inline single-column' }) do |f|
+= simple_form_for resource, as: resource_name, url: user_session_path do |f|
   = f.input :login, :label => t('.email_or_login'), :required => true, :autofocus => true
   = f.input :password, :label => t('.password'), :required => true
-  .remember-me
-    = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+  - if devise_mapping.rememberable?
+    .remember-me= f.input :remember_me, as: :boolean
   = f.button :wrapped, :value => t(".login")

@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PasswordsController < Devise::PasswordsController
-  layout 'no_sidebar'
+  layout 'navbar_bg'
 
   before_filter :check_only_local_authentication, :only => [:new]
   before_filter :sanitize_parameters, only: [:create]

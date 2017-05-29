@@ -12,29 +12,28 @@ describe ParticipantConfirmationMailer do
     let(:participant) { FactoryGirl.create(:participant, email: 'son@icbo.om') }
     let(:pc) { FactoryGirl.create(:participant_confirmation, participant: participant) }
     let(:mail) { ParticipantConfirmationMailer.confirmation_email(pc.id) }
-    let(:url) { participant_confirmation_path(token: pc.token, host: Site.current.domain) }
+    let(:url) { participant_confirmation_events_path(token: pc.token, host: Site.current.domain) }
 
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([pc.email]) }
       it("sets 'subject'") {
         text = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name)
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       it("assigns @token") {
-        mail.body.encoded.should match(pc.token)
+        mail_content(mail).should match(pc.token)
       }
       it("assigns @event") {
-        mail.body.encoded.should match(participant.event.name)
+        mail_content(mail).should match(participant.event.name)
       }
       it("assigns @mail") {
-        mail.body.encoded.should match(pc.email)
+        mail_content(mail).should match(pc.email)
       }
       it("sends a link to the confirmation page") {
-        mail.body.encoded.should match(url)
+        mail_content(mail).should match(url)
       }
     end
 

@@ -12,6 +12,10 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
+  layout "manage"
+
+  # TODO: #1087 redirect back after updating the desc of a recording
+
   protected
 
   def handle_access_denied exception

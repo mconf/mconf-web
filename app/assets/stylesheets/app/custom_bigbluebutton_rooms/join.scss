@@ -1,0 +1,22 @@
+@import "compass/css3";
+@import "definitions";
+
+body.custom_bigbluebutton_rooms.join {
+  .loading {
+    margin: 10px 15px 0 5px;
+    float: left;
+  }
+  .message {
+    padding: 5px;
+    background-color: $m-light-gray;
+    @include border-radius($m-border-radius-base);
+    @include mconf-clearfix;
+  }
+  .info {
+    margin-top: 15px;
+    .label {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+}

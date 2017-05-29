@@ -17,14 +17,13 @@ describe AdminMailer do
       it("sets 'to'") { mail.to.should eql([admin.email]) }
       it("sets 'subject'") {
         text = I18n.t('admin_mailer.new_user_waiting_for_approval.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       it("assigns @user_name") {
-        mail.body.encoded.should match(user.name)
+        mail_content(mail).should match(user.name)
       }
     end
 
@@ -36,7 +35,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -48,7 +47,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
 
@@ -61,7 +60,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
-        mail.body.encoded.should match(Regexp.escape(content))
+        mail_content(mail).should match(Regexp.escape(content))
       }
     end
   end
@@ -74,14 +73,13 @@ describe AdminMailer do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('admin_mailer.new_user_approved.subject')
-        text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
       it("assigns @user_name") {
-        mail.body.encoded.should match(user.name)
+        mail_content(mail).should match(user.name)
       }
     end
 
@@ -92,7 +90,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -103,7 +101,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
 
@@ -115,7 +113,7 @@ describe AdminMailer do
       }
       it {
         content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
-        mail.body.encoded.should match(content)
+        mail_content(mail).should match(content)
       }
     end
   end

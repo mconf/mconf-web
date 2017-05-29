@@ -9,7 +9,8 @@
 #
 # Modals have a default width set by bootstrap. To set a different width, set `data-modal-width`
 # in your element. The values accepted are:
-# * `small`: Adds a css class to force the modal to be smaller/narrower
+# * `small`: Adds a css class to force the modal to be narrower
+# * `large`: Adds a css class to force the modal to be wider
 #
 # Triggers the events:
 # * `modal-before-configure`: First event triggered when the modal starts being configured.
@@ -37,9 +38,6 @@ class mconf.Modal
       # maxHeight: 0.7 * $(window).height()
       # modalOverflow: true
 
-    # show the loading bar
-    $("body").modalmanager("loading")
-
     # if target is a url, the content will be loaded from it
     href = options.target
     if href? and href[0] is "#" and $(href)?
@@ -51,9 +49,15 @@ class mconf.Modal
     else
       $modal = $("<div/>")
       $modal.addClass('modal')
+      $modalDialog = $("<div/>")
+      $modalDialog.addClass("modal-dialog")
+      $modalContent = $("<div/>")
+      $modalContent.addClass("modal-content")
+      $modalDialog.append($modalContent)
+      $modal.append($modalDialog)
       if options.data?
         isRemote = false
-        $modal.append(options.data)
+        $modalContent.append(options.data)
       else
         isRemote = true
 
@@ -65,35 +69,36 @@ class mconf.Modal
     modalWidth = $(options.element).attr("data-modal-width") || options.modalWidth
     switch modalWidth
       when "small"
-        $modal.addClass("modal-small")
+        $modal.children(".modal-dialog").addClass("modal-sm")
+      when "large"
+        $modal.children(".modal-dialog").addClass("modal-lg")
 
     # set up the events
     $modal.on "show", ->
       $(options.element).trigger("modal-show")
     $modal.on "shown", ->
       $modal.modal("layout")
-      $("body").modalmanager("removeLoading")
       mconf.Resources.bind() # bind resources to the new modal
       $("[autofocus]", $modal).focus()
       $(options.element).trigger("modal-shown")
     $modal.on "hide", ->
       $(options.element).trigger("modal-hide")
     $modal.on "hidden", ->
+      mconf.Resources.unbind($modal)
       $(options.element).trigger("modal-hidden")
 
     jQuery.extend localOptions, options
 
     # if its a link, load the content and then show it
     if isRemote
-      $modal.load options.target, "", (responseText, textStatus, xhr) ->
+      $modal.find(".modal-content").load options.target, "", (responseText, textStatus, xhr) ->
         $modal.modal(localOptions)
 
         # Remote returns an http error code show
         if !(xhr.status >= 200 && xhr.status < 400)
           $modal.addClass('xhr-error')
-          $modal.html("<div class='status'> <i class='fa fa-frown-o'></i> #{xhr.statusText} </div>")
-
-          $(options.element).trigger("modal-error")
+          $modal.html("<div class='modal-error'> <i class='fa fa-frown-o'></i> #{xhr.statusText} </div>")
+          # $(options.element).trigger("modal-error")
 
     # not a link, simply show the content
     else
@@ -103,9 +108,9 @@ class mconf.Modal
   @closeWindows: ->
     $(".modal").modal("hide")
 
-  @unbind: ->
-    $("a.open-modal:not(.disabled)").off "click.mconfModal"
-    $("a.webconf-join-mobile-link:not(.disabled)").off "click.mconfModal"
+  @unbind: (parent) ->
+    $("a.open-modal:not(.disabled)", parent).off "click.mconfModal"
+    $("a.webconf-join-mobile-link:not(.disabled)", parent).off "click.mconfModal"
 
   @bind: ->
     @unbind()

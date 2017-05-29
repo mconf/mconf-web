@@ -1,0 +1,51 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/shared/recording_list";
+
+body.my.meetings {
+
+  #my-webconference-meetings-fetch {
+    float: right;
+    @include font-size($m-font-medium);
+
+    #my-webconference-meetings-error {
+      padding: 3px 6px;
+      @include border-radius($m-border-radius-base);
+      background: $m-red;
+      color: white;
+      .icon-awesome { color: white; }
+    }
+
+    #my-webconference-meetings-success {
+      padding: 3px 6px;
+      @include border-radius($m-border-radius-base);
+      background: $m-green;
+      color: white;
+      .icon-awesome { color: white; }
+    }
+
+    #my-webconference-meetings-loading {
+      padding: 3px 6px;
+      @include border-radius($m-border-radius-base);
+      background: $m-light-gray;
+      color: $m-font-color;
+    }
+
+    // all divs for the status start hidden
+    > * {
+      display: none;
+    }
+
+    .icon-awesome {
+      margin-top: 2px;
+      float: none;
+    }
+  }
+
+  .recordedonly-buttons{
+    float: right;
+    margin-bottom: 10px;
+  }
+
+}

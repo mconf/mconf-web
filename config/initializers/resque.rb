@@ -17,11 +17,11 @@ unless Rails.env == 'test'
   #Resque.logger.level = Logger::DEBUG
 
   attrs = {
-    host: configatron.redis.host,
-    port: configatron.redis.port,
-    db: configatron.redis.db
+    host: Rails.application.config.redis_host,
+    port: Rails.application.config.redis_port,
+    db: Rails.application.config.redis_db
   }
-  attrs[:password] = configatron.redis.password unless configatron.redis.password.blank?
+  attrs[:password] = Rails.application.config.redis_password unless Rails.application.config.redis_password.blank?
   Resque.redis = Redis.new(attrs)
 
   # If you want to be able to dynamically change the schedule,

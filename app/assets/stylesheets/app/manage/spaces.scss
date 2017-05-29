@@ -1,0 +1,37 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.spaces {
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+
+    .search-words {
+      input { width: 100%; }
+    }
+
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .search-tags {
+      margin: 5px 7px 0 7px;
+    }
+
+    .search-buttons {
+      @include mconf-clearfix;
+
+      .btn-new-space {
+        margin-bottom: 10px;
+        float: right;
+      }
+    }
+  }
+}
+

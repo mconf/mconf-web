@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
     format: /\A[A-Za-z0-9\-_]*\z/,
     length: { minimum: 1 },
     identifier_uniqueness: true,
+    blacklist: true,
     room_param_uniqueness: true
 
   extend FriendlyId
@@ -53,34 +54,28 @@ class User < ActiveRecord::Base
 
   has_many :join_requests, foreign_key: :candidate_id
   has_many :permissions
-  has_one :profile, :dependent => :destroy
-  has_many :posts, :as => :author
-  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
-  has_one :ldap_token, :dependent => :destroy
-  has_one :shib_token, :dependent => :destroy
-  has_one :certificate_token, :dependent => :destroy
+  has_many :posts, as: :author
+  has_many :emails, class_name: "Ahoy::Message"
+  has_one :bigbluebutton_room, as: :owner, dependent: :destroy
+  has_one :ldap_token, dependent: :destroy
+  has_one :shib_token, dependent: :destroy
+  has_one :certificate_token, dependent: :destroy
+  has_one :profile, dependent: :destroy, autosave: true
+
+  accepts_nested_attributes_for :profile, update_only: true
+  accepts_nested_attributes_for :bigbluebutton_room
 
   after_initialize :init
 
-  accepts_nested_attributes_for :bigbluebutton_room
-
   # Will be set to a user when the user was registered by an admin.
   attr_accessor :created_by
-
-  # Full name must go to the profile, but it is provided by the user when
-  # signing up so we have to cache it until the profile is created
-  attr_accessor :_full_name
-
-  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :_full_name and :username to have length >= 3
-  validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
   # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
-  after_update :update_webconf_room
+  after_create :new_activity_user_created
 
   before_destroy :before_disable_and_destroy, prepend: true
 
@@ -162,13 +157,15 @@ class User < ActiveRecord::Base
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username
 
-  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile
+  delegate :full_name, :first_name, :organization, :city, :country,
+           :logo, :logo_image, :logo_image_url,
+           :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+           to: :profile
 
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
 
-  # In case the profile is accessed before it is created, we build one on the fly.
-  # Important specially because we have method delegated to the profile.
+  # make sure there will always be a profile
   def profile_with_initialize
     profile_without_initialize || build_profile
   end
@@ -176,6 +173,14 @@ class User < ActiveRecord::Base
 
   def ability
     @ability ||= Abilities.ability_for(self)
+  end
+
+  def new_activity_user_created
+    if created_by.present?
+      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
+    else
+      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
+    end
   end
 
   # Returns true if the user is anonymous (not registered)
@@ -189,31 +194,19 @@ class User < ActiveRecord::Base
 
   def create_webconf_room
     params = {
-      :owner => self,
-      :param => self.username,
-      :name => self._full_name,
-      :logout_url => "/feedback/webconf/",
-      :moderator_key => SecureRandom.hex(4),
-      :attendee_key => SecureRandom.hex(4)
+      owner: self,
+      param: self.username,
+      name: self.name,
+      logout_url: "/feedback/webconf/",
+      moderator_key: SecureRandom.hex(8),
+      attendee_key: SecureRandom.hex(4)
     }
     create_bigbluebutton_room(params)
-  end
-
-  def update_webconf_room
-    if self.username_changed?
-      params = { param: self.username }
-      bigbluebutton_room.update_attributes(params)
-    end
   end
 
   # Full location: city + country
   def location
     [ self.city.presence, self.country.presence ].compact.join(', ')
-  end
-
-  after_create :create_user_profile
-  def create_user_profile
-    create_profile({full_name: self._full_name})
   end
 
   # Builds a guest user based on the e-mail
@@ -300,22 +293,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Return the list of spaces in which the user has a pending join request or invitation.
-  def pending_spaces
-    requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
-    ids = requests.pluck(:group_id)
-    # note: not 'find' because some of the spaces might be disabled and 'find' would raise
-    #   an exception
-    Space.where(:id => ids)
+  # Return the list of pending join requests for this user
+  def pending_join_requests(type='Space')
+    JoinRequest.where(candidate_id: self, processed_at: nil, group_type: type)
   end
 
-  after_create :new_activity_user_created
-  def new_activity_user_created
-    if created_by.present?
-      create_activity 'created_by_admin', owner: created_by, notified: false, recipient: self
-    else
-      create_activity 'created', owner: self, notified: !require_approval?, recipient: self
-    end
+  # Return the list of spaces in which the user has a pending join request or invitation.
+  def pending_spaces
+    requests = self.pending_join_requests
+    ids = requests.pluck(:group_id)
+    # note: not 'find' because some of the spaces might be disabled and 'find'
+    # would raise an exception
+    Space.where(id: ids)
   end
 
   def created_by_shib?
@@ -376,7 +365,20 @@ class User < ActiveRecord::Base
     end
   end
 
+  def enabled_parse(value)
+    enabled_rename(value)
+  end
+
   protected
+
+  # Rename methods to make the disabled users "dirty" and clean it on enable
+  def disabled_rename(value)
+    ('disabled-') + (Time.now.strftime("%Y%m%d%H%M%S").to_s) + ('--') + enabled_rename(value)
+  end
+
+  def enabled_rename(value)
+    value.sub(/\A(disabled-\d*--)/,'')
+  end
 
   def before_disable_and_destroy
     # get all the spaces the user is an admin of
@@ -401,10 +403,35 @@ class User < ActiveRecord::Base
   # For the disable module
   def before_disable
     before_disable_and_destroy
+    create_activity 'cancelled', owner: proc { |controller|
+      controller.try(:current_user)
+    }, recipient: proc { |controller|
+      controller.try(:current_user)
+    }, notified: false
+
+    # This will make username and e-mail "dirty" and the user
+    # will be able to create a new account from scratch but will also keep previous data
+    self.username = disabled_rename(self.username)
+    self.email = disabled_rename(self.email)
+    self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+    self.skip_confirmation_notification!
+    self.save
+    self.confirm
+  end
+
+  # In order to clean the username and e-mail if re-enabled by admin
+  def before_enable
+    self.username = enabled_rename(self.username)
+    self.email = enabled_rename(self.email)
+    self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+    self.skip_confirmation_notification!
+    self.save
+    self.confirm
   end
 
   def init
     @created_by = nil
+    self.can_record = Rails.application.config.can_record_default if self.can_record.nil?
   end
 
   # This overrides the method from Devise::Models::Trackable

@@ -97,10 +97,11 @@ RSpec.configure do |config|
   # To use old default of rspec 2
   config.infer_spec_type_from_file_location!
 
-  config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerMacros, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
+  config.include ControllerMacros, type: :controller
+  config.include FeatureHelpers, type: :feature
   config.extend Helpers::ClassMethods
-  config.include FeatureHelpers, :type => :feature
+  config.include Helpers::ClassMethods
 
   config.before(:suite) do
     # setup the current site for the first time and update some things that need configurations

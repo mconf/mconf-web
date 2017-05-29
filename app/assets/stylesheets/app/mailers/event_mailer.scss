@@ -1,14 +1,14 @@
 @import "compass/css3";
 @import "definitions";
 
-#event-invitation-mail {
+.event_mailer.invitation_email {
 
   .field {
     display: block;
     margin: 3px 0;
 
     label {
-      color: $dark-gray;
+      color: $m-dark-gray;
       display: inline-block;
       font-weight: bold;
       margin-right: 3px;

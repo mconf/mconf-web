@@ -1,0 +1,77 @@
+@import "compass/css3";
+@import "definitions";
+
+#notification-flashs {
+  display: none;
+}
+
+#toast-container {
+
+  &.toast-top-full-width {
+    right: 10px;
+    left: 10px;
+    top: 10px;
+    width: auto;
+
+    > div {
+      width: auto;
+      @include border-radius(0);
+    }
+
+    .toast-message {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  }
+
+  &.toast-top-center {
+    > div { width: 60%; }
+  }
+
+  &.toast-top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  > .toast-error, > .toast-warning, > .toast-success {
+    background-image: none !important;
+  }
+
+  div {
+    opacity: 1;
+    @include box-shadow(none);
+    @include border-radius(0);
+    padding: 10px;
+    text-align: center;
+  }
+
+  .toast {
+    cursor: pointer;
+    @include border-radius(5px);
+  }
+
+  > :hover {
+    @include box-shadow(none);
+  }
+
+  .toast-close-button {
+    top: 0;
+    right: 0;
+    padding: 1px 10px 3px 10px;
+    @include border-radius(3px);
+  }
+
+  .toast-message {
+    padding: 10px 35px 10px 10px;
+    @include font-size($m-font-big);
+    cursor: pointer;
+  }
+
+  .toast-warning {
+    background-color: $orange;
+  }
+
+  .toast-success {
+    background-color: $olive;
+  }
+}

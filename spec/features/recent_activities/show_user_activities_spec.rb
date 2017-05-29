@@ -45,7 +45,7 @@ feature 'Show user activity' do
       subject { page.find('#users-recent-activity') }
       it { should have_selector('.single-activity', :count => 2) }
       it { should have_selector('.space', :count => 2) }
-      it { should have_content(user._full_name, :count => 2) }
+      it { should have_content(user.name, :count => 2) }
       it { should have_content(space.name, :count => 2) }
       it { should have_content(I18n.t('activities.space.create_html'), :count => 1) }
       it { should have_content(I18n.t('activities.space.update_html'), :count => 1) }
@@ -76,6 +76,17 @@ feature 'Show user activity' do
 
     # No spaces?
 
+  end
+
+  context 'activities module enabled false' do
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) {
+      Site.current.update_attributes(activities_enabled: false)
+      login_as(user)
+      visit my_activity_path
+    }
+
+    it { page.status_code.should == 404 }
   end
 
 

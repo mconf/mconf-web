@@ -109,6 +109,7 @@ module Mconf
         attrs = {}
         attrs[:profile] = Profile.new(
           {
+            full_name: get_name,
             country: get_field('C'),
             organization: get_field('O'),
             city: get_field('L'),
@@ -116,9 +117,9 @@ module Mconf
           }
         )
         attrs[:email] = attrs[:email] || get_email
-
-        attrs[:_full_name] = get_name
         attrs[:username] = username_from_name(get_name)
+        attrs[:profile_attributes] = { full_name: get_name }
+
         @user = User.new(attrs)
         @user.password = SecureRandom.hex(16)
         @user.skip_confirmation_notification!

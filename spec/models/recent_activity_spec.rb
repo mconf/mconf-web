@@ -267,5 +267,18 @@ describe RecentActivity do
       }
       it { RecentActivity.user_public_activity(user).should be_blank }
     end
+
+    context "there are no activities if activity_module is disabled" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before do
+        @activity1 = RecentActivity.create(key: default_key, owner: user.bigbluebutton_room)
+        @activity2 = RecentActivity.create(key: default_key, owner: another_user.bigbluebutton_room)
+        Site.current.update_attributes(activities_enabled: false)
+      end
+      subject { RecentActivity.user_activity(user) }
+      it { subject.length.should be(0) }
+      it { subject[0].should eq(nil) }
+    end
+
   end
 end

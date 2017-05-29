@@ -25,4 +25,14 @@ class UserMailer < BaseMailer
     end
   end
 
+  def cancellation_notification_email(user_id)
+    user = User.with_disabled.find(user_id)
+    I18n.with_locale(default_email_locale(user, nil)) do
+      @user = user
+      @subject = t("user_mailer.cancellation_notification_email.subject")
+      email = user.enabled_parse(user.email)
+      create_email(email, Site.current.smtp_sender, @subject)
+    end
+  end
+
 end

@@ -216,4 +216,41 @@ describe ParticipantsController do
   describe "abilities", :abilities => true do
   end
 
+  describe "events module" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    let(:participant_attributes) { FactoryGirl.attributes_for(:participant) }
+    let(:participant) { FactoryGirl.create(:participant) }
+    let(:participant_id) { participant.to_param }
+    let(:event) { participant.event }
+    let(:event_id) { event.to_param }
+
+    context "disabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, false)
+        login_as(user)
+      }
+      it { expect { get :index, event_id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { post :create, event_id: event_id, participant: participant_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { get :new, event_id: event_id }.to raise_error(ActionController::RoutingError) }
+      it { expect { patch :update, event_id: event_id, id: participant_id, participant: participant_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { put :update, event_id: event_id, id: participant_id, participant: participant_attributes }.to raise_error(ActionController::RoutingError) }
+      it { expect { request.env["HTTP_REFERER"] = "/any"
+                    delete :destroy, event_id: event_id, id: participant_id, participant: participant_attributes}.to raise_error(ActionController::RoutingError) }
+    end
+
+    context "enabled" do
+      before(:each) {
+        Site.current.update_attribute(:events_enabled, true)
+        login_as(user)
+      }
+      it { expect { get :index, event_id: event_id }.not_to raise_error }
+      it { expect { post :create, event_id: event_id, participant: participant_attributes }.not_to raise_error }
+      it { expect { get :new, event_id: event_id }.not_to raise_error }
+      it { expect { patch :update, event_id: event_id, id: participant_id, participant: participant_attributes }.not_to raise_error }
+      it { expect { put :update, event_id: event_id, id: participant_id, participant: participant_attributes }.not_to raise_error }
+      it { expect { request.env["HTTP_REFERER"] = "/any"
+                    delete :destroy, event_id: event_id, id: participant_id, participant: participant_attributes }.not_to raise_error }
+    end
+  end
+
 end

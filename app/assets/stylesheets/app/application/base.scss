@@ -1,0 +1,1134 @@
+@import "compass/css3";
+@import "compass/utilities/general";
+@import "compass/typography/links";
+@import "definitions";
+
+//
+// General tags
+//
+
+body {
+  background-color: $m-site-bg-color;
+}
+
+p {
+  margin-bottom: 0.4em;
+}
+
+ul {
+  list-style: none;
+}
+
+form {
+  margin: 0;
+}
+
+//
+// Components used site-wide, in any layout
+//
+
+.webconf-join-group {
+  // adjust make the 'fast start' icon
+  .btn i.icon-awesome {
+    float: none;
+    margin: 0;
+    padding: 0;
+    @include font-size($m-font-small);
+    color: white;
+    &:hover { color: white; }
+  }
+  .btn-small i.icon-awesome {
+    @include font-size($m-font-small);
+  }
+}
+
+// user logos in a thread with several snippets
+// e.g. list of posts, list of recent users, etc.
+.logo-in-thread {
+  @include logo-in-thread; // in _mixins
+}
+
+.clearfix {
+  @include mconf-clearfix; // in _mixins
+}
+
+.danger-text, a.danger-text {
+  @include danger-text;
+}
+
+#notification-flashs {
+  top: $m-notifications-top;
+}
+
+// Unified style for threads: posts, attachments
+.thread {
+  clear: both;
+  padding: 10px 4px 8px 4px;
+  margin: 1px 0;
+  @include mconf-clearfix;
+  //border-bottom: 1px solid #eee;
+
+  // so .thread-action-links is correctly positioned
+  position: relative;
+
+      &.thread-no-logo {
+      .thread-content {
+        margin-left: 0;
+      }
+    }
+
+  .thread-content {
+    margin-top: 3px;
+    margin-left: 65px;
+
+    &.thread-content-full {
+      margin-left: 0;
+    }
+
+    .thread-title {
+      font-size: $m-font-medium; //font-weight: bold;
+      margin-bottom: 3px;
+      overflow: hidden;
+
+      // usually seen inside .resource-visibility
+      .small > .icon-awesome {
+        margin-right: 1px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+
+        .icon-awesome {
+          margin: 7px 6px 0 0;
+        }
+      }
+    }
+
+    .thread-description {
+      margin-bottom: 3px;
+    }
+
+    .show-join-request{
+      float: right;
+    }
+
+    .thread-subtitle {
+      margin: 2px 0;
+      //line-height: $m-font-normal + 6px; // less that in .thread-title
+
+      i {
+        margin: 0px 3px 0px 0px;
+        float: none;
+      }
+
+      &.thread-subtitle-nested {
+        margin-left: 6px;
+      }
+    }
+
+    .thread-updated-at {
+      @include small-date;
+    }
+  }
+
+  .thread-action-links {
+    margin: 5px 0 5px 0;
+    padding: 3px 0 3px 10px;
+    @include mconf-clearfix;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
+    li {
+      margin: 0;
+      padding: 0;
+      float: left;
+      display: inline-block;
+      margin-right: 15px;
+    }
+  }
+
+  .thread-observation {
+    color: #666;
+    font-style: italic;
+    float: right;
+  }
+
+  // playback links for recordings inside threads
+  .thread-recording-playback {
+    list-style-type: none;
+    margin: 0 0 0 13px;
+    padding: 0;
+
+    .thread-playback-link {
+      white-space: nowrap;
+    }
+
+    .thread-playback-unavailable {
+      color: mix($m-link-color, #888, 70%); // a grayer link
+    }
+
+    .thread-playback-processing {
+      color: darken($m-yellow, 10);
+    }
+  }
+
+}
+
+// Blocks that can be automatically expanded/collapsed
+.block-expanded { display: none; }
+.block-collapsed { }
+
+// Blocks that will only be visible on hover
+.visible-on-hover { display: none; }
+
+// Wrapper around information about a user
+// See users/_simple_user and users/_detailed_user
+.user-information {
+  clear: both;
+  @include mconf-clearfix;
+
+  &.user-simple {
+    margin: 5px 0;
+    .user-text { margin-left: 45px; }
+    .user-name {
+      display: inline-block;
+      /* @include text-truncate; */
+    }
+    .user-organization {
+      display: block;
+      /* @include text-truncate; */
+    }
+  }
+
+  &.user-detailed {
+    @include make-row;
+    padding: 10px 0;
+
+    .user-information-logo {
+      @include make-xs-column(2);
+      padding: 0;
+      text-align: center;
+      max-width: 64px;
+    }
+    .user-information-data {
+      padding: 0;
+      @include make-xs-column(9);
+    }
+
+    img.logo-user {
+      width: 100%;
+      height: 100%;
+      max-width: 64px;
+      max-height: 64px;
+    }
+    .user-name {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-mail {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-organization {
+      display: block;
+      @include text-truncate;
+    }
+    .user-location {
+      display: block;
+      @include text-truncate;
+    }
+  }
+}
+
+//
+// Page containers, redefined in the layouts
+// Here we define the basic styles used in all layouts
+//
+
+#site {
+  @include container-fixed; // without params this is actually a .container-fluid
+  padding: 0;
+}
+
+#navbar {
+  margin: 0;
+  background: $m-navbar-bg-color-dark;
+  @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
+  border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
+  font-family: $m-font-family-h;
+  position: relative;
+  height: $m-navbar-height;
+
+  color: $m-navbar-font-color;
+  @include font-size($m-navbar-font);
+  text-align: center;
+  @include mconf-clearfix;
+  padding: 0 15px;
+
+  a:hover { text-decoration: none; }
+}
+
+#navbar-left {
+  @include navbar-lists;
+  position: absolute;
+  left: 16px;
+  right: auto;
+  top: 0;
+  bottom: auto;
+}
+
+#navbar-right {
+  @include navbar-lists;
+  position: absolute;
+  left: auto;
+  right: 16px;
+  top: 0;
+  bottom: auto;
+
+  .dropdown-user.chip {
+    margin: 0;
+    font-size: $m-font-normal;
+    font-weight: normal;
+    border: none;
+    color: $m-navbar-font-color;
+    @include transition(background-color 0.2s ease-in);
+    @include text-truncate;
+    max-width: 350px;
+    padding: 13px 16px 11px 26px;
+    @include border-radius(0);
+    height: auto;
+    overflow: inherit;
+
+    &:hover, &[aria-expanded=true] {
+      background: $m-navbar-font-highlight;
+    }
+
+    .caret {
+      margin-top: -2px;
+      margin-left: 2px;
+    }
+
+    img {
+      float: left;
+      margin: 0 8px 0 -12px;
+      border: 1px solid lighten($m-navbar-bg-color-dark, 5);
+      background: lighten($m-navbar-bg-color-dark, 5);
+    }
+  }
+
+  .dropdown-menu {
+    margin: 0;
+    @include border-radius(0);
+    @include box-shadow(none);
+
+    .observation {
+      padding: 3px 14px;
+      font-size: $m-font-small;
+      color: $m-font-color-gray;
+    }
+  }
+}
+
+#navbar-logo {
+  white-space: nowrap;
+  margin: 15px 0 5px 0;
+  @include mconf-clearfix;
+  display: inline-block;
+  background: image-url('logos/mconf-white-transp.png') no-repeat left top;
+  background-size: 54px 28px;
+  width: 54px;
+  height: 28px;
+}
+
+#content-notification {
+  margin: 0;
+  background: $m-alert-warn-bg;
+
+  color: $m-alert-warn-font;
+  @include font-size($m-font-medium);
+  text-align: center;
+  @include mconf-clearfix;
+  padding: 15px;
+
+  a:hover { text-decoration: none; }
+}
+
+#footer, #footer-mconf {
+  @include mconf-clearfix;
+  @include make-row;
+  margin: 0 auto;
+  padding: 10px 0 0 0;
+
+  clear: both;
+  color: $m-footer-font-color;
+  //margin-top: 30px;
+  background: $m-footer-bg-color;
+  border-top: 1px solid $m-footer-border-color;
+
+  a {
+    @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
+  }
+
+  #footer-left {
+    padding: 4px 16px;
+    text-align: left;
+    @include make-xs-column(7);
+  }
+
+  #footer-right {
+    text-align: right;
+    @include make-xs-column(5);
+    padding: 8px 16px;
+
+    ul { float: right; }
+  }
+
+  #footer-links {
+    list-style-type: none;
+    @include mconf-clearfix;
+    float: right;
+    padding: 2px 8px;
+
+    li {
+      float: left;
+      margin: 5px 10px;
+    }
+  }
+
+  #footer-languages {
+    float: right;
+    font-size: $m-font-small;
+  }
+
+  #footer-copyright {
+  }
+
+  #footer-powered {
+    clear: both;
+    margin-top: 8px;
+    text-align: left;
+    @include font-size($m-font-small);
+  }
+
+}
+
+#footer-logo {
+  float: left;
+  color: #888;
+  float: left;
+  margin-right: 35px;
+
+  a { @include link-colors(#bbb, $m-link-color-hover, $m-link-color-active); }
+
+  span { display: block; }
+}
+
+#content {
+  @include make-row;
+  width: 100%;
+  margin: 0 auto;
+
+  // best way found to use mconf-clearfix and still get the element
+  // centralized and with the correct margins/paddings
+  @include mconf-clearfix;
+  overflow: visible;
+}
+
+#sidebar, .sidebar {
+  background: $m-sidebar-bg-color;
+  border-right: 1px solid $m-sidebar-border;
+  padding: $m-sidebar-padding;
+
+  .sidebar-title {
+    font-size: $m-font-double;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .sidebar-subtitle {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    color: $m-font-color-gray;
+  }
+
+  .sidebar-actions {
+    margin: 20px 0;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .content-block-container {
+    margin-bottom: 10px;
+    clear: both;
+  }
+
+  .content-block {
+    clear: both;
+    padding: 10px;
+  }
+
+  .content-block-middle {
+    clear: both;
+  }
+
+  .content-block-footer {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 5px;
+    clear: both;
+  }
+
+  .content-block-header {
+    @include mconf-clearfix;
+    h3, h4 {
+      float: left;
+      margin-top: 0;
+      img { margin-bottom: -3px; }
+    }
+  }
+
+  .sidebar-top-action-button {
+    @include mconf-clearfix;
+    text-align: center;
+    margin: 0 10px 20px 10px;
+
+    /* reduce the buttons a bit */
+    .btn-large {
+      padding-top: 7px;
+      padding-bottom: 7px;
+    }
+
+    .btn {
+      margin-bottom: 5px;
+    }
+  }
+
+  .toolbar {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    background: $m-light-gray;
+    @include border-radius($m-border-radius-base);
+    clear: both;
+    text-align: center;
+  }
+
+  /* To make buttons that ocuppy all width in the sidebar, usualy at the top,
+     look a bit better */
+  .btn-block-wrapper {
+    padding: 0 5px;
+    margin-bottom: 10px;
+    @include mconf-clearfix;
+
+    .btn-block {
+      float: left;
+    }
+  }
+}
+
+#sidebar-menu {
+  margin: 0 -26px;
+  padding: 0;
+
+  ul {
+    margin: 0 0 0 24px;
+    padding: 0;
+  }
+
+  li {
+    @include font-size($m-sidebar-menu-font);
+    border-left: 1px solid $m-transparent;
+    border-bottom: 1px solid $m-transparent;
+    border-top: 1px solid $m-transparent;
+
+    a {
+      display: block;
+      @include mconf-clearfix;
+      transition: all .3s ease;
+      margin: 2px 0;
+      padding: 16px;
+      text-decoration: none;
+      color: $m-sidebar-menu-active-color;
+      @include link-colors($m-sidebar-menu-color, $m-sidebar-menu-color-hover, $m-sidebar-menu-color-hover, $m-sidebar-menu-color);
+
+      &:hover,
+      &:active {
+        background: $m-sidebar-menu-hover-bg;
+      }
+    }
+
+    &.active a {
+      background: $m-sidebar-menu-active-bg;
+      @include link-colors($m-sidebar-menu-active-color, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color-hover, $m-sidebar-menu-active-color);
+      border-bottom: 1px solid $m-sidebar-menu-active-border;
+      border-top: 1px solid $m-sidebar-menu-active-border;
+      border-left: 1px solid $m-sidebar-menu-active-border;
+
+      &:hover,
+      &:active {
+        background: $m-sidebar-menu-active-hover-bg;
+      }
+    }
+  }
+}
+
+#content-middle {
+  background-color: $m-site-bg-color;
+  @include mconf-clearfix;
+  overflow: visible;
+  padding: 26px;
+
+  h3 {
+    margin-bottom: 8px;
+
+    // horitontal line in the title
+    &.horizontal-line {
+      height: 13px;
+      border-bottom: 3px solid #eee;
+      margin-bottom: 15px;
+      span {
+        background: white;
+        padding-right: 15px;
+      }
+    }
+  }
+
+  @mixin content-block-pagination {
+    // adapt bootstrap's .pagination
+    @include mconf-clearfix;
+    .pagination {
+      height: auto;
+      margin: 2px 0;
+      float: right;
+      ul {
+        margin: 0;
+        background-color: white;
+      }
+      a {
+        padding: 0 12px;
+        line-height: 30px;
+      }
+      span {
+        padding: 0;
+        border: 0;
+        line-height: 30px;
+      }
+    }
+  }
+
+  .content-block-container {
+    @include block-wrapper-active;
+  }
+
+  .content-block {
+    clear: both;
+    margin: 10px 0 30px 0;
+  }
+
+  .content-block-footer {
+    text-align: right;
+    clear: both;
+    margin: 5px 0;
+
+    &.content-block-footer-fancy {
+      //background: $m-light-gray;
+      border-top: 1px solid darken($m-light-gray, 5);
+    }
+
+    .content-block-footer-middle {
+      margin-top: -12px;
+      background: white;
+      float: right;
+      padding: 0 10px;
+    }
+
+    @include content-block-pagination;
+  }
+
+  .content-block-middle {
+    padding: 5px 0;
+    clear: both;
+  }
+
+  .content-block-header {
+    @include mconf-clearfix;
+    margin: 5px 0;
+
+    img { float: left; }
+    h3, h4 {
+      float: left;
+      margin: 0;
+    }
+
+    .toolbar {
+      float: right;
+
+      a { margin-right: 10px; }
+    }
+
+    @include content-block-pagination;
+  }
+}
+
+#page-menu {
+  background: $m-page-menu-bg-color;
+  padding: 10px;
+  margin-bottom: 20px;
+  @include border-radius($m-border-radius-base);
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      @include mconf-clearfix;
+      display: inline-block;
+      @include font-size($m-font-medium);
+
+      a {
+        padding: 5px 15px;
+        display: block;
+        transition: all .3s ease;
+        text-decoration: none;
+        @include border-radius($m-border-radius-base);
+        @include link-colors($m-page-menu-font-color, $m-page-menu-font-color-hover, $m-page-menu-font-color-hover, $m-page-menu-font-color);
+        border: 1px solid $m-page-menu-bg-color;
+
+        &:hover {
+          background: $m-page-menu-active-bg;
+        }
+      }
+
+      &.active {
+        a {
+          background: $m-site-bg-color;
+          border: 1px solid $m-page-menu-active-border;
+          color: $m-page-menu-active-color;
+
+          &:hover {
+            color: $m-page-menu-active-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+#page-actions {
+  margin-bottom: 20px;
+  @include mconf-clearfix;
+
+  .dropdown {
+    float: right;
+  }
+}
+
+// the upcoming events are shown in spaces/show and my/home
+#sidebar-upcoming-events {
+  .event-timezone {
+    color: #777;
+    @include font-size($m-font-small);
+  }
+
+  .event-wrapper {
+    clear: both;
+    margin: 5px 0 10px 0;
+
+    .event-title {
+      display: block;
+    }
+
+    .event-date {
+      display: block;
+      @include font-size($m-font-small);
+      color: #777;
+    }
+  }
+
+  .event-category {
+    clear: both;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+}
+
+// To emphasize events that are hapenning now. Used in the pages that show events
+// and in spaces.
+.events-hapenning-now {
+  .thread {
+    background: $m-light-gray;
+    border-left: 5px solid $m-bright-blue;
+  }
+}
+
+// for elements highlighted using rails' highlight() view helper.
+strong.highlight {
+  background: $m-highlight-bg;
+}
+
+// for elements that might contain long words that can break the layout
+.break-word {
+  word-break: break-all;
+}
+
+// visibility of a resource: private space, public space, private event, etc.
+.resource-visibility {
+  display: block;
+  font-weight: normal;
+
+  .icon-awesome {
+    float: none;
+  }
+
+  &.small {
+    @include font-size($m-font-small);
+
+    .icon-awesome {
+      @include font-size($m-font-small);
+      width: $m-font-small;
+      height: $m-font-small;
+      line-height: $m-font-small;
+      margin: 0;
+    }
+  }
+}
+
+// for small date/time texts
+.small-date {
+  @include small-date;
+}
+
+// resources waiting moderation
+.user-waiting-moderation, .space-waiting-moderation {
+  color: $m-font-color-gray;
+}
+
+// The fake input we use to disable autocomplete in other inputs
+.input-disable-autocomplete {
+  display: none;
+}
+
+// Recent activities
+.removed-object-text {
+  text-decoration: line-through;
+  color: lighten($m-font-color, 30);
+}
+
+// tablets/mobiles
+@media (max-width: 767px) {
+  body.responsive {
+    padding-left: 0;
+    padding-right: 0;
+
+    #content-container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+
+// We override this because the lib bootstrap-modal also does it and it doesn't really
+// work well with boostrap 3's new markup, that includes .modal-dialog and .modal-content
+.modal {
+  background: inherit;
+  border: 0;
+  box-shadow: none;
+}
+
+#confirmation-dialog {
+  .modal-body {
+    text-align: center;
+  }
+
+  .modal-body {
+    @include font-size($m-font-medium);
+    padding: 30px;
+  }
+
+  .modal-footer {
+    // wider space between footer buttons and links
+    .btn, a {
+      margin: 0 3px;
+    }
+  }
+}
+
+// Chips are small containers with a name and an image, usually used for
+// user identification
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  border: 1px solid #e4e4e4;
+
+  img {
+    float: right;
+    margin: 0 -12px 0 8px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+}
+
+/* Labels for authentication methods */
+.label-auth-local {
+  background: $m-green;
+}
+.label-auth-ldap {
+  background: lighten($m-green, 15);
+}
+.label-auth-shibboleth {
+  background: darken($m-green, 15);
+}
+
+/* Labels for recording status */
+.label-recording-published {
+  background: $m-green;
+}
+.label-recording-unpublished {
+  background: $m-yellow;
+}
+.label-recording-available {
+  background: $m-green;
+}
+.label-recording-unavailable {
+  background: $m-yellow;
+}
+.label-recording-size {
+  background: $m-light-gray;
+  color: $m-font-light;
+  border: 1px solid $m-border-color-normal;
+}
+
+
+// date of comments, posts, etc.
+.updated-at {
+  font-size: $m-font-normal;
+  font-style: italic;
+  font-weight: normal;
+  margin-left: 8px;
+  color: #777;
+}
+
+
+.file-uploader {
+  margin: 0 auto;
+  width: auto;
+  white-space: nowrap;
+  border-radius: $m-border-radius-base;
+  @include transition(all 0.2s ease-in);
+  @include mconf-clearfix;
+
+  .qq-uploader {
+    @include mconf-clearfix;
+    padding: 24px;
+    text-align: center;
+  }
+
+  i {
+    color: #fff;
+    margin-right: 8px;
+  }
+
+  .drag-files {
+    display: block;
+    background: $m-light-gray;
+    padding: 16px;
+    border: 1px dashed $m-border-color-medium;
+    margin-top: 8px;
+  }
+
+  .qq-upload-drop-area {
+    background: none;
+    border: 3px dashed $m-bright-blue;
+    min-height: auto;
+  }
+
+  &.file-uploader-logo {
+    position: absolute;
+    top: 25%;
+    transform: translate(-50%, 0%);
+    left: calc(50%);
+
+    .qq-uploader {
+      padding: 0;
+    }
+
+    .upload-button {
+      background: darken($m-dark-gray, 5); //$m-color-secondary;
+      color: #fff;
+      //font-size: $m-font-medium;
+      padding: 4px 8px;
+      border-radius: $m-border-radius-base;
+      opacity: 0.9;
+      float: left;
+      width: 100%;
+
+      &:hover {
+        opacity: 1;
+        background: darken($m-dark-gray, 10);
+      }
+    }
+
+    .qq-upload-list {
+      clear: both;
+      opacity: 0.85;
+    }
+  }
+
+}
+
+#sidebar-leave-space {
+  text-align: center;
+  margin-top: 24px;
+
+  .btn:hover {
+    background-color: #ff1103;
+    border-color: #b60a00;
+    color: #fff;
+
+    i {
+      color: #fff;
+    }
+  }
+}
+
+#sidebar-menu .requests-notification-label,
+.requests-notification-label {
+  display: inline-block;
+  margin: 19px 24px 0 0;
+  float: right;
+
+  i.icon-awesome {
+    color: #fff;
+    &:active, &:hover { color: #fff; }
+  }
+}
+#page-menu .requests-notification-label {
+  margin: 0px 0px 0 8px;
+}
+
+#user-spaces .requests-notification-label {
+  margin: 0px 0px 0px 8px;
+  float: left;
+  padding: 5px 7px;
+}
+
+
+#login-extra-links {
+  margin: 32px auto 0 auto;
+  padding: 0;
+  border-top: 1px solid $m-navbar-internal-border-color;
+  text-align: center;
+
+  li {
+    border-bottom: 1px solid $m-navbar-internal-border-color;
+    font-size: $m-font-medium;
+
+    a {
+      display: block;
+      padding: 16px;
+      @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
+    }
+  }
+}
+
+.table-observation-row {
+  color: $m-font-light;
+  text-align: center;
+  font-size: $m-font-small;
+  background: $m-very-light-gray;
+}
+
+/* Single-line text truncated with ellipsis */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* "Card" with a log and some information, mostly for users */
+.resource-card {
+  @include broken-img-parent;
+  margin: 0 auto 20px 0;
+  text-align: center;
+
+  .resource-logo {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid $m-border-color-normal;
+      padding: 3px;
+      background: $m-site-bg-color;
+
+      &.editing {
+        opacity: 0.5;
+        border-color: $m-dark-gray;
+      }
+    }
+  }
+
+  .data {
+    @include mconf-clearfix;
+    text-align: center;
+    margin-top: 10px;
+
+    a, span {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .data-main {
+      @include font-size($m-font-big);
+      font-weight: bold;
+    }
+
+    .data-other {
+      min-height: calculate-px($m-font-big) + 2px;
+    }
+  }
+
+  &.resource-user {
+    img {
+      border-radius: 50%;
+      max-width: 220px;
+    }
+
+    .label-superuser, .label-gravatar {
+      position: absolute;
+      bottom: 5px;
+      padding: .3em .7em .4em;
+      white-space: nowrap;
+      font-weight: normal;
+      background: $m-red;
+      color: #fff;
+
+      /* center */
+      left: calc(50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .label-gravatar {
+      bottom: 30px;
+      background: $m-blue;
+    }
+  }
+
+  &.resource-space {
+    img {
+      max-width: 300px;
+    }
+  }
+}

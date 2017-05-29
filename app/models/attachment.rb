@@ -22,10 +22,6 @@ class Attachment < ActiveRecord::Base
 
   before_save :update_attachment_attributes
 
-  def space
-    Space.with_disabled.where(:id => space_id).first
-  end
-
   after_validation do |att|
     # Replace 4 missing file errors with a unique, more descriptive error
     missing_file_errors = {
@@ -46,6 +42,15 @@ class Attachment < ActiveRecord::Base
         end
       end
     end
+  end
+
+  # Ensure attachments will never be found if spaces are disabled
+  default_scope -> {
+    Attachment.none unless Mconf::Modules.mod_enabled?('spaces')
+  }
+
+  def space
+    Space.with_disabled.where(id: space_id).first
   end
 
   def title

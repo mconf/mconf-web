@@ -8,7 +8,11 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Confirmation email" do
-  let(:attrs) { FactoryGirl.attributes_for(:user) }
+  let(:attrs) {
+    attrs = FactoryGirl.attributes_for(:user)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    attrs
+  }
 
   # devise triggers callbacks to send emails that will not be triggered if using
   # transactions, so use truncation instead
@@ -21,8 +25,9 @@ feature "Confirmation email" do
 
     # check the confirmation email and click on the link to confirm the account
     last_email.should_not be_nil
-    confirmation_link = last_email.body.encoded.match(/http.*users\/confirmation[^" (]*/)[0]
-    last_email.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
+    mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
+    confirmation_link = mail_content(last_email).match(/http[^ ]*users\/confirmation[^ ]*/)[0]
+    confirmation_link.gsub!(/\s*/, '')
     visit confirmation_link
 
     User.last.confirmed?.should be true
@@ -36,7 +41,7 @@ feature "Confirmation email" do
       expect { register_with(attrs) }.to change{ User.count }.by(1)
     end
     last_email.should_not be_nil
-    last_email.html_part.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
+    mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
   end
 
   it "uses the default locale if the site has no locale set", with_truncation: true do
@@ -46,7 +51,7 @@ feature "Confirmation email" do
       expect { register_with(attrs) }.to change{ User.count }.by(1)
     end
     last_email.should_not be_nil
-    last_email.html_part.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
+    mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.confirmation_ok', locale: "pt-br"))
   end
 
 end

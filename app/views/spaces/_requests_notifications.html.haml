@@ -1,0 +1,6 @@
+- if @space.admins.include?(current_user)
+  - pending_join_requests = @space.pending_join_requests
+  - if pending_join_requests.count > 0
+    .label.label-danger.requests-notification-label.tooltipped{ title: t('.pending_requests', count: pending_join_requests.count) }
+      = icon_join_request
+      = pending_join_requests.count

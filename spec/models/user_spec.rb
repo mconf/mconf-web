@@ -17,18 +17,47 @@ describe User do
     FactoryGirl.build(:user).should be_valid
   end
 
+  describe "initializes with default values" do
+    it { User.new.created_by.should be(nil) }
+
+    context "#can_record" do
+      before {
+        @can_record_before = Rails.application.config.can_record_default
+      }
+      after {
+        Rails.application.config.can_record_default = @can_record_before
+      }
+
+      context "when the default is set to false in the application" do
+        before { Rails.application.config.can_record_default = false }
+        it { User.new.can_record.should be(false) }
+      end
+
+      context "when the default is set to true in the application" do
+        before { Rails.application.config.can_record_default = true }
+        it { User.new.can_record.should be(true) }
+      end
+
+      context "doesn't change if there's already a value set" do
+        let(:user1) { FactoryGirl.create(:user, can_record: false) }
+        let(:user2) { FactoryGirl.create(:user, can_record: true) }
+        it { User.find(user1.id).can_record.should be(false) }
+        it { User.find(user2.id).can_record.should be(true) }
+      end
+    end
+  end
+
   it { should have_one(:profile).dependent(:destroy) }
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
-
   it { should have_and_belong_to_many(:spaces) }
-
   it { should have_many(:permissions) }
-
   it { should have_many(:posts) }
-
+  it { should have_many(:emails) }
   it { should have_one(:ldap_token).dependent(:destroy) }
   it { should have_one(:shib_token).dependent(:destroy) }
   it { should have_one(:certificate_token).dependent(:destroy) }
+
+  it { should accept_nested_attributes_for(:profile) }
 
   describe 'model validations' do
     subject { FactoryGirl.create(:user) } # Trying to solve the bug 2 lines below
@@ -208,7 +237,7 @@ describe User do
 
     it "has param and name equal the user's username" do
       user.bigbluebutton_room.param.should eql(user.username)
-      user.bigbluebutton_room.name.should eql(user._full_name)
+      user.bigbluebutton_room.name.should eql(user.name)
     end
 
     it "has the default logout url" do
@@ -219,7 +248,7 @@ describe User do
       user.bigbluebutton_room.attendee_key.should_not be_blank
       user.bigbluebutton_room.attendee_key.length.should be(8)
       user.bigbluebutton_room.moderator_key.should_not be_blank
-      user.bigbluebutton_room.moderator_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.length.should be(16)
     end
 
     skip "has the server as the first server existent"
@@ -255,6 +284,33 @@ describe User do
         subject.errors.should have_key(:username)
         subject.errors.messages[:username].should include(message)
       }
+    end
+
+    describe "blocks reserved words" do
+      let(:message) { "has already been taken" }
+      file = File.join(::Rails.root, "config", "reserved_words.yml")
+      words = YAML.load_file(file)['words']
+
+      describe "on create" do
+        words.each do |word|
+          context "word: #{word}" do
+            subject { FactoryGirl.build(:user, username: word) }
+            include_examples "invalid user with username not unique"
+          end
+        end
+      end
+
+      describe "on update" do
+        words.each do |word|
+          context "word: #{word}" do
+            let(:subject) { FactoryGirl.create(:user) }
+            before(:each) {
+              subject.username = word
+            }
+            include_examples "invalid user with username not unique"
+          end
+        end
+      end
     end
 
     describe "validates uniqueness against Space#permalink" do
@@ -412,7 +468,7 @@ describe User do
     context "updates the webconf room" do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
-      it { user.bigbluebutton_room.param.should be(user.username) }
+      it { user.bigbluebutton_room.param.should_not be(user.username) }
       it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end
@@ -818,25 +874,6 @@ describe User do
     end
   end
 
-  describe "#create_approval_notification" do
-    let!(:user) { FactoryGirl.create(:user, approved: false) }
-    let!(:approver) { FactoryGirl.create(:superuser) }
-
-    context "creates a recent activity" do
-      before {
-        expect {
-          PublicActivity.with_tracking do
-            user.create_approval_notification(approver)
-          end
-        }.to change{ PublicActivity::Activity.count }.by(1)
-      }
-      subject { PublicActivity::Activity.last }
-      it("sets #trackable") { subject.trackable.should eq(user) }
-      it("sets #owner") { subject.owner.should eq(approver) }
-      it("sets #key") { subject.key.should eq('user.approved') }
-    end
-  end
-
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
     let(:superuser) { FactoryGirl.create(:superuser) }
@@ -1145,7 +1182,7 @@ describe User do
 
   describe "#location" do
     context "returns the city + country" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = "City X"
         user.profile.country = "Country Y"
@@ -1155,7 +1192,7 @@ describe User do
     end
 
     context "returns the city if country if not defined" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = "City X"
         user.profile.country = nil
@@ -1165,7 +1202,7 @@ describe User do
     end
 
     context "returns the country if city if not defined" do
-      let(:user) {FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:user) }
       before {
         user.profile.city = nil
         user.profile.country = "Country Y"
@@ -1177,8 +1214,10 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
+
     set_custom_ability_actions([
-      :fellows, :current, :select, :approve, :enable, :disable, :confirm, :update_password
+      :fellows, :current, :select, :approve, :enable, :disable, :confirm,
+      :update_password, :update_logo, :update_full_name
     ])
 
     subject { ability }
@@ -1189,7 +1228,7 @@ describe User do
       let(:user) { target }
       it {
         allowed = [:show, :index, :edit, :update, :disable, :fellows, :current, :select,
-                   :update_password]
+                   :update_password, :update_logo, :update_full_name]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
@@ -1237,6 +1276,30 @@ describe User do
         }
         it { should_not be_able_to(:update_password, target) }
       end
+
+      context "cannot edit the full name if the account was created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should_not be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the account was not created by shib" do
+        before {
+          Site.current.update_attributes(shib_update_users: true)
+          FactoryGirl.create(:shib_token, user: target, new_account: false)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
+
+      context "can edit the full name if the site is not updating user information automatically" do
+        before {
+          Site.current.update_attributes(shib_update_users: false)
+          FactoryGirl.create(:shib_token, user: target, new_account: true)
+        }
+        it { should be_able_to(:update_full_name, target) }
+      end
     end
 
     context "when is another normal user" do
@@ -1262,7 +1325,7 @@ describe User do
       it { should be_able_to_do_everything_to(target) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should be_able_to_do_everything_to(target) }
       end
 
@@ -1368,7 +1431,7 @@ describe User do
       it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current]) }
 
       context "and the target user is disabled" do
-        before { target.disable() }
+        before { target.disable }
         it { should_not be_able_to_do_anything_to(target).except(:index) }
       end
     end

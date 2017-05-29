@@ -1,0 +1,30 @@
+@import "definitions";
+@import "compass/css3";
+
+body.sites {
+
+  form textarea {
+    resize: none;
+  }
+
+  label.required abbr {
+    display: none;
+  }
+
+  #site-edit-panel-1 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
+  }
+
+  #site-edit-panel-2 {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include mconf-clearfix;
+  }
+
+  #shib-principal-name-warning {
+    display: none;
+    margin-bottom: 15px;
+  }
+}

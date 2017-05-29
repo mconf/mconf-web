@@ -12,27 +12,6 @@ describe MyController do
   it "#show"
   it "#activity"
   it "#rooms"
-
-  describe "#edit_room" do
-    let(:user) { FactoryGirl.create(:user) }
-    before(:each) { login_as(user) }
-
-    context "html request" do
-      before(:each) { get :edit_room }
-      it { should render_template(:edit_room) }
-      it { should render_with_layout("application") }
-      it { should assign_to(:room).with(user.bigbluebutton_room) }
-      it "calls @room.get_meeting_info"
-      it { should assign_to(:redir_url).with(my_home_path) }
-    end
-
-    context "xhr request" do
-      before(:each) { xhr :get, :edit_room }
-      it { should render_template(:edit_room) }
-      it { should_not render_with_layout }
-    end
-  end
-
   it "#home"
 
   describe "#approval_pending" do
@@ -43,7 +22,7 @@ describe MyController do
       }
       it { should respond_with(:success) }
       it { should render_template(:approval_pending) }
-      it { should render_with_layout("no_sidebar") }
+      it { should render_with_layout("navbar_bg") }
     end
 
     context "renders the page if the referer is /" do
@@ -73,7 +52,7 @@ describe MyController do
       it { should render_template(:approval_pending) }
     end
 
-    context "renders the page if the referer is /secure" do
+    context "renders the page if the referer is the shibboleth path" do
       before(:each) {
         request.env["HTTP_REFERER"] = shibboleth_url
         get :approval_pending
@@ -105,97 +84,117 @@ describe MyController do
 
   it "#activity"
   it "#rooms"
-  it "#edit_room"
 
-  describe "#recordings" do
+  describe "#meetings" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :recordings }
-      it { should render_template(:recordings) }
-      it { should render_with_layout("no_sidebar") }
+      before(:each) { get :meetings, :recordedonly => 'false' }
+      it { should render_template(:meetings) }
+      it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
 
-      context "assigns @recordings" do
-        context "doesn't include recordings from rooms of other owners" do
+      context "assigns @meetings" do
+        context "doesn't include meetings from rooms of other owners" do
           before :each do
-            FactoryGirl.create(:bigbluebutton_recording, :room => FactoryGirl.create(:bigbluebutton_room), :published => true)
+            FactoryGirl.create(:bigbluebutton_meeting, :room => FactoryGirl.create(:bigbluebutton_room))
           end
-          it { should assign_to(:recordings).with([]) }
+          it { should assign_to(:meetings).with([]) }
         end
 
-        context "doesn't include recordings that are not published" do
+        context "includes meetings with recordings that are not published" do
           before :each do
-            FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => false)
+            @meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room)
+            FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => false,
+                                            :meeting => @meeting)
           end
-          it { should assign_to(:recordings).with([]) }
+          it { should assign_to(:meetings).with([@meeting]) }
         end
 
-        context "includes recordings that are not available" do
+        context "includes meetings with recordings that are not available" do
           before :each do
-            @recording = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                            :available => false)
+            @meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room)
+            FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
+                                            :meeting => @meeting, :available => false)
           end
-          it { should assign_to(:recordings).with([@recording]) }
+          it { should assign_to(:meetings).with([@meeting]) }
         end
 
-        context "order recordings by end_time DESC" do
+        context "order meetings create_time DESC" do
           before :each do
-            r1 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now)
-            r2 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now - 2.days)
-            r3 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                    :end_time => DateTime.now - 1.hour)
-            @expected_recordings = [r1, r3, r2]
+            meeting1 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                          :create_time => DateTime.now)
+            meeting2 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                          :create_time => DateTime.now - 2.days)
+            meeting3 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                          :create_time => DateTime.now - 1.hour)
+            @expected_meetings = [meeting1, meeting3, meeting2]
           end
-          it { should assign_to(:recordings).with(@expected_recordings) }
+          it { should assign_to(:meetings).with(@expected_meetings) }
         end
       end
     end
 
     context "if params[:limit] is set" do
-      describe "limits the number of recordings assigned to @recordings" do
+      describe "limits the number of meetings assigned to @meetings" do
         before :each do
-          @r1 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now)
-          @r2 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 1.hour)
-          @r3 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 2.hours)
-          @r4 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 3.hours)
-          @r5 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
-                                   :end_time => DateTime.now - 4.hours)
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 1.hour)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 2.hours)
+          @m4 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 3.hours)
+          @m5 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :recordings, :limit => 3 }
-        it { assigns(:recordings).count.should be(3) }
-        it { assigns(:recordings).should include(@r1) }
-        it { assigns(:recordings).should include(@r2) }
-        it { assigns(:recordings).should include(@r3) }
+        before(:each) { get :meetings, :limit => 3, :recordedonly => 'false' }
+        it { assigns(:meetings).count.should be(3) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should include(@m3) }
       end
     end
 
-    context "if params[:partial] is set" do
-      before(:each) { get :recordings, :partial => true }
-      it { should render_template(:recordings) }
-      it { should_not render_with_layout }
+    context "if recordedonly is not set or not false" do
+      describe "show only meetings that have recordings" do
+        let(:user) { FactoryGirl.create(:user) }
+        before :each do
+          @m1 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now, :recorded => true , :ended => true)
+          @m2 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 1.hour, :recorded => true, :ended => true)
+          @m3 = FactoryGirl.create(:bigbluebutton_meeting, :room => user.bigbluebutton_room,
+                                   :create_time => DateTime.now - 2.hours)
+          @r1 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room,
+                                   :meeting => @m1)
+          @r2 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room,
+                                   :meeting => @m2)
+        end
+        before(:each) { get :meetings }
+        it { assigns(:meetings).count.should be(2) }
+        it { assigns(:meetings).should include(@m1) }
+        it { assigns(:meetings).should include(@m2) }
+        it { assigns(:meetings).should_not include(@m3) }
+      end
     end
   end
 
-  describe "#recording_edit" do
+  describe "#edit_recording" do
     let(:user) { FactoryGirl.create(:user) }
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
     before(:each) { login_as(user) }
 
     context "html request" do
+      before { request.env["HTTP_REFERER"] = "/test" }
       before(:each) { get :edit_recording, :id => recording.to_param }
       it { should render_template(:edit_recording) }
       it { should render_with_layout("application") }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redir_url).with(my_recordings_path) }
+      it { should assign_to(:redir_url).with("/test") }
     end
 
     context "xhr request" do

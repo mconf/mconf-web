@@ -8,15 +8,12 @@ require 'spec_helper'
 
 describe UserNotificationsWorker, type: :worker do
   let(:worker) { UserNotificationsWorker }
-  let(:senderRBA) { UserRegisteredByAdminSenderWorker }
-  let(:senderNA) { UserNeedsApprovalSenderWorker }
-  let(:senderA) { UserApprovedSenderWorker }
-  let(:senderR) { UserRegisteredSenderWorker }
   let(:queue) { Queue::High }
-  let(:paramsRBA) {{"method"=>:perform, "class"=>senderRBA.to_s}}
-  let(:paramsNA) {{"method"=>:perform, "class"=>senderNA.to_s}}
-  let(:paramsA) {{"method"=>:perform, "class"=>senderA.to_s}}
-  let(:paramsR) {{"method"=>:perform, "class"=>senderR.to_s}}
+  let(:paramsRegisteredByAdmin) {{"method"=>:registered_by_admin_sender, "class"=>worker.to_s}}
+  let(:paramsNeedsApproval) {{"method"=>:needs_approval_sender, "class"=>worker.to_s}}
+  let(:paramsApproved) {{"method"=>:approved_sender, "class"=>worker.to_s}}
+  let(:paramsRegistered) {{"method"=>:registered_sender, "class"=>worker.to_s}}
+  let(:paramsCancelled) {{"method"=>:cancelled_sender, "class"=>worker.to_s}}
 
   describe "#perform" do
 
@@ -32,7 +29,7 @@ describe UserNotificationsWorker, type: :worker do
         before(:each) { worker.perform }
 
           it { expect(queue).to have_queue_size_of(1) }
-          it { expect(queue).to have_queued(paramsRBA, activity.id) }
+          it { expect(queue).to have_queued(paramsRegisteredByAdmin, activity.id) }
       end
     end
 
@@ -56,8 +53,8 @@ describe UserNotificationsWorker, type: :worker do
           before(:each) { worker.perform }
 
           it { expect(queue).to have_queue_size_of(2) }
-          it { expect(queue).to have_queued(paramsNA, user1.id, admin_ids) }
-          it { expect(queue).to have_queued(paramsNA, user2.id, admin_ids) }
+          it { expect(queue).to have_queued(paramsNeedsApproval, user1.id, admin_ids) }
+          it { expect(queue).to have_queued(paramsNeedsApproval, user2.id, admin_ids) }
         end
 
         context "ignores users not approved but that already had their notification sent" do
@@ -119,15 +116,13 @@ describe UserNotificationsWorker, type: :worker do
             trackable_id: user2.id, notified: [nil, false]).first }
           before {
             user1.approve!
-            user1.create_approval_notification(approver)
             user2.approve!
-            user2.create_approval_notification(approver)
             worker.perform
           }
 
           it { expect(queue).to have_queue_size_of_at_least(2) }
-          it { expect(queue).to have_queued(paramsA, activity1.id) }
-          it { expect(queue).to have_queued(paramsA, activity2.id) }
+          it { expect(queue).to have_queued(paramsApproved, activity1.id) }
+          it { expect(queue).to have_queued(paramsApproved, activity2.id) }
         end
 
         context "ignores users that were not approved yet" do
@@ -148,6 +143,19 @@ describe UserNotificationsWorker, type: :worker do
           it { expect(queue).to have_queue_size_of(0) }
         end
 
+      end
+    end
+
+    context "if an user account is cancelled" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context "the user should be notified" do
+        let!(:activity) { RecentActivity.create(key: 'user.cancelled', trackable: user, notified: false) }
+
+        before(:each) { worker.perform }
+
+          it { expect(queue).to have_queue_size_of(1) }
+          it { expect(queue).to have_queued(paramsCancelled, activity.id) }
       end
     end
 
@@ -194,7 +202,7 @@ describe UserNotificationsWorker, type: :worker do
         before(:each) { worker.perform }
 
         it { expect(queue).to have_queue_size_of(1) }
-        it { expect(queue).to have_queued(paramsR, activity.id) }
+        it { expect(queue).to have_queued(paramsRegistered, activity.id) }
       end
     end
 
@@ -240,4 +248,210 @@ describe UserNotificationsWorker, type: :worker do
 
   end
 
+  describe "#needs_approval_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:activity) { RecentActivity.where(trackable_type: 'User', key: 'user.created',
+      trackable_id: user.id, notified: [false, nil]).first }
+
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
+    }
+
+    context "for an already notified activity" do
+      let(:recipient1) { FactoryGirl.create(:user) }
+      let(:recipient_ids) {
+        [ recipient1.id ]
+      }
+
+      before(:each) {
+        activity.update_attributes(notified: true)
+        worker.needs_approval_sender(activity.id, recipient_ids)
+      }
+
+      it { AdminMailer.should have_queue_size_of(0) }
+      it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, recipient1.id, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+
+    context "for a single recipient" do
+      let(:recipient1) { FactoryGirl.create(:user) }
+      let(:recipient_ids) {
+        [ recipient1.id ]
+      }
+
+      before(:each) { worker.needs_approval_sender(activity.id, recipient_ids) }
+
+      it { AdminMailer.should have_queue_size_of_at_least(1) }
+      it { AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient1.id, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "for multiple recipients" do
+      let(:recipient1) { FactoryGirl.create(:user) }
+      let(:recipient2) { FactoryGirl.create(:user) }
+      let(:recipient3) { FactoryGirl.create(:user) }
+      let(:recipient_ids) {
+        [ recipient1.id, recipient2.id, recipient3.id ]
+      }
+
+      before {
+        worker.needs_approval_sender(activity.id, recipient_ids)
+      }
+      it { AdminMailer.should have_queue_size_of_at_least(3) }
+      it {
+        AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient1.id, user.id).in(:mailer)
+        AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient2.id, user.id).in(:mailer)
+        AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient3.id, user.id).in(:mailer)
+      }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#registered_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "when the activity is already notified" do
+      let(:token) { FactoryGirl.create(:ldap_token, user: user) }
+      let(:activity) {
+        RecentActivity.create(
+          key: 'ldap.user.created', owner: token, trackable: user, notified: false
+        )
+      }
+
+      before {
+        activity.update_attributes(notified: true)
+        worker.registered_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of(0) }
+      it { UserMailer.should_not have_queued(:registration_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+
+    context "for a user created via LDAP" do
+      let(:token) { FactoryGirl.create(:ldap_token, user: user) }
+      let(:activity) {
+        RecentActivity.create(
+          key: 'ldap.user.created', owner: token, trackable: user, notified: false
+        )
+      }
+
+      before {
+        worker.registered_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of_at_least(1) }
+      it { UserMailer.should have_queued(:registration_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "for a user created via Shibboleth" do
+      let(:token) { FactoryGirl.create(:shib_token, user: user) }
+      let(:activity) {
+        RecentActivity.create(
+          key: 'shib.user.created', owner: token, trackable: user, notified: false
+        )
+      }
+
+      before {
+        worker.registered_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of_at_least(1) }
+      it { UserMailer.should have_queued(:registration_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#registered_by_admin_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "for a user created by an admin" do
+      let(:activity) { RecentActivity.create(key: 'user.created_by_admin', trackable: user, notified: false) }
+
+      before {
+        worker.registered_by_admin_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of_at_least(1) }
+      it { UserMailer.should have_queued(:registration_by_admin_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the activity has already been notified" do
+      let(:activity) { RecentActivity.create(key: 'user.created_by_admin', trackable: user, notified: false) }
+
+      before {
+        activity.update_attributes(notified: true)
+        worker.registered_by_admin_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of(0) }
+      it { UserMailer.should_not have_queued(:registration_by_admin_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#cancelled_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "for an account cancelled" do
+      let(:activity) { RecentActivity.create(key: 'user.cancelled', trackable: user, notified: false) }
+
+      before {
+        worker.cancelled_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of_at_least(1) }
+      it { UserMailer.should have_queued(:cancellation_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the activity has already been notified" do
+      let(:activity) { RecentActivity.create(key: 'user.cancelled', trackable: user, notified: false) }
+
+      before {
+        activity.update_attributes(notified: true)
+        worker.cancelled_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of(0) }
+      it { UserMailer.should_not have_queued(:cancellation_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#approved_sender" do
+    let(:user) { FactoryGirl.create(:user, approved: false) }
+    let(:activity) { RecentActivity.last }
+
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
+    }
+
+    context "when the activity has not been notified" do
+      before {
+        user.approve!
+        worker.approved_sender(activity.id)
+      }
+
+      it { AdminMailer.should have_queue_size_of_at_least(1) }
+      it { AdminMailer.should have_queued(:new_user_approved, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the activity has already been notified" do
+      before {
+        user.approve!
+        activity.update_attributes(notified: true)
+        worker.approved_sender(activity.id)
+      }
+
+      it { AdminMailer.should have_queue_size_of_at_least(0) }
+      it { AdminMailer.should_not have_queued(:new_user_approved, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
 end
