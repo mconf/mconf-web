@@ -9,15 +9,16 @@
 #user-permission
   - for permission in @permissions
     - user = permission.user
+    - perm = Permission.find_by(user: user, subject: @space)
+
     %div{:class => "thread #{cycle('thread-even','thread-odd')}"}
       .logo-in-thread
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
         .thread-text
-          = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
-            -# Case the user is an Administrator from Space, it can't change his own role
-            -# refs #1770
-            - perm = Permission.find_by(user: user, subject: @space)
+          - redir_url = current_user == user ? space_path(@space) : nil
+          = simple_form_for :permission, :url => permission_path(permission, :redir_url => redir_url), :html => { :method => :put, :class => 'form-inline' } do |f|
+            -# the last admin can't change his own role
             - if can?(:update, perm)
               .input.select
                 - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
@@ -26,7 +27,6 @@
             - else
               - icon_help t(".tooltip_last_admin")
 
-          - perm = Permission.where(user: user, subject: @space).first
           - if can?(:destroy, perm)
             - if user == current_user
               -# Use link to leave space if the user show is the current user
