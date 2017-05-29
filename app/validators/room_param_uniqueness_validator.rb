@@ -16,8 +16,8 @@ class RoomParamUniquenessValidator < ActiveModel::EachValidator
 
       # all rooms with the same param
       rooms = BigbluebuttonRoom.where("lower(param) = ?", value.downcase)
-      if record.is_a?(User) || record.is_a?(Space)
-        my_room = record.bigbluebutton_room
+      if record.is_a?(User) || record.is_a?(Space) || record.is_a?(BigbluebuttonRoom)
+        my_room = record.try(:bigbluebutton_room) ? record.bigbluebutton_room : record
         rooms = rooms.where.not(id: my_room.id) if my_room.present?
       end
 

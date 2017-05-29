@@ -28,6 +28,9 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonRoom.class_eval do
 
+    # prevent duplicates and rooms with blacklisted names
+    validates :param, blacklist: true, room_param_uniqueness: true
+
     # Returns whether the `user` created the current meeting on this room
     # or not. Has to be called after a `fetch_meeting_info`, otherwise will always
     # return false.
