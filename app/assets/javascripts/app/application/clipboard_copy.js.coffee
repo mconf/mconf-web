@@ -1,5 +1,4 @@
-# We use tooltips from bootstrap, so all we have to do is associate the proper elements
-# calling bootstrap's `tooltip()`.
+#Using https://clipboardjs.com to add copy buttons to text fields
 class mconf.ClipboardCopy
 
   @bind: ->
