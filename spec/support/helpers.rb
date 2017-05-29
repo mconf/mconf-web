@@ -34,7 +34,8 @@ module Helpers
       require_registration_approval: false,
       shib_enabled: false,
       shib_always_new_account: false,
-      smtp_sender: Forgery::Internet.email_address
+      smtp_sender: Forgery::Internet.email_address,
+      ssl: false
     }
     Site.current.update_attributes(attributes)
     I18n.locale = "en"

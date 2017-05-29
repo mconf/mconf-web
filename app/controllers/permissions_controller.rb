@@ -11,10 +11,11 @@ class PermissionsController < ApplicationController
   def update
     if @permission.update_attributes(permission_params)
       flash[:success] = t('permission.update.success')
+      redirect_to_p request.referer
     else
       flash[:error] = t('permission.update.failure')
+      redirect_to request.referer # on error always go back to where it was
     end
-    redirect_to request.referer
   end
 
   def destroy

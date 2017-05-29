@@ -147,22 +147,22 @@ describe Mconf::Shibboleth do
 
       context "returns false if the email is not there" do
         let(:session) { { :shib_data => { "name" => "anything", "principal_name" => "anything" } } }
-        it { should be_falsey }
+        it { should be(false) }
       end
 
       context "returns false if the name is not there" do
         let(:session) { { :shib_data => { "email" => "anything", "principal_name" => "anything" } } }
-        it { should be_falsey }
+        it { should be(false) }
       end
 
       context "returns false if the principal name is not there" do
         let(:session) { { :shib_data => { "email" => "anything", "name" => "anything" } } }
-        it { should be_falsey }
+        it { should be(false) }
       end
 
       context "returns true if name and email are there" do
         let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything", "principal_name" => "anything" } } }
-        it { should be_truthy }
+        it { should be(true) }
       end
     end
 
