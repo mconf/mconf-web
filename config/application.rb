@@ -95,8 +95,8 @@ module Mconf
 
     # Scope for all URLs related to conferences
     # and for the short URLs used to join a conference
-    config.conf_scope       = ENV['MCONF_CONFERENCE_SCOPE'] || 'conf'
-    config.conf_scope_rooms = ENV['MCONF_CONFERENCE_SCOPE_ROOMS'] || 'conf'
+    config.conf_scope       = ENV['MCONF_CONFERENCE_SCOPE'] || 'conference'
+    config.conf_scope_rooms = ENV['MCONF_CONFERENCE_SCOPE_ROOMS'] || 'conference'
 
     # Redis configurations. Defaults to a localhost instance.
     config.redis_host      = ENV['MCONF_REDIS_HOST'] || 'localhost'
