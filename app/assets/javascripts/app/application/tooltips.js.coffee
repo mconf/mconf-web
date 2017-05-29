@@ -22,5 +22,13 @@ class mconf.Tooltip
     $el.tooltip('destroy')
     $el.tooltip(@defaultOptions)
 
+  @unbindOne: (el) ->
+    $el = $(el)
+    $el.tooltip('destroy')
+
+  @show: (el) ->
+    $el = $(el)
+    $el.tooltip('show')
+
 $ ->
   mconf.Tooltip.bind()
