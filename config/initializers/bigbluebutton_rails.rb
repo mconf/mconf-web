@@ -48,6 +48,9 @@ Rails.application.config.to_prepare do
       owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
     end
 
+    def short_path
+      Rails.application.routes.url_helpers.join_webconf_path(self)
+    end
   end
 
   BigbluebuttonMeeting.instance_eval do
