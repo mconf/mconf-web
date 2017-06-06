@@ -11,7 +11,20 @@ module Mconf
     end
 
     def new_activity_approved
-      if !self.approved_was && self.approved? && !self.new_record?
+      if self.new_record?
+        # no notifications for new records
+        saved_and_not_approved = false
+      else
+        on_db = self.class.find_by(id: self.id)
+        if on_db.present?
+          saved_and_not_approved = !on_db.approved?
+        else
+          # skip notification if the record wasnt found
+          saved_and_not_approved = false
+        end
+      end
+
+      if saved_and_not_approved && self.approved?
         create_approval_notification
       end
     end

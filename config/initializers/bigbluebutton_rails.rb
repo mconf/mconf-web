@@ -28,9 +28,8 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonRoom.class_eval do
 
-    validates :param,
-      blacklist: true,
-      room_param_uniqueness: true
+    # prevent duplicates and rooms with blacklisted names
+    validates :param, blacklist: true, room_param_uniqueness: true
 
     # Returns whether the `user` created the current meeting on this room
     # or not. Has to be called after a `fetch_meeting_info`, otherwise will always
@@ -49,6 +48,9 @@ Rails.application.config.to_prepare do
       owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
     end
 
+    def short_path
+      Rails.application.routes.url_helpers.join_webconf_path(self)
+    end
   end
 
   BigbluebuttonMeeting.instance_eval do
@@ -65,6 +67,15 @@ Rails.application.config.to_prepare do
         user = User.find_by(id: id)
         user.try(:username)
       }
+    }
+
+    scope :newest, -> (count=0) {
+      ordered = order("create_time DESC")
+      if count > 0
+        ordered.first(count)
+      else
+        ordered
+      end
     }
   end
 

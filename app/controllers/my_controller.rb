@@ -39,7 +39,7 @@ class MyController < ApplicationController
     @pending_requests.to_a.select! { |jr| jr.group.present? }
 
     @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
-                                    .with_recording().first(5)
+      .with_recording().newest(5)
 
     @user_spaces = current_user.spaces.order_by_activity.limit(5)
   end
@@ -70,7 +70,7 @@ class MyController < ApplicationController
     else
       @meetings = @meetings.with_recording()
     end
-    @meetings = @meetings.order("create_time DESC")
+    @meetings = @meetings.newest
 
     if params[:limit]
       @meetings = @meetings.first(params[:limit].to_i)

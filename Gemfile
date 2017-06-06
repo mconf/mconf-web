@@ -54,8 +54,8 @@ gem 'devise-async'
 gem 'net-ldap'
 
 # BigBlueButton integration
-gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', git: 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'v3-gem'
+gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'
+gem 'bigbluebutton_rails', git: 'https://github.com/mconf/bigbluebutton_rails.git', branch: 'master'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'

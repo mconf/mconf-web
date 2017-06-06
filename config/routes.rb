@@ -45,6 +45,7 @@ Mconf::Application.routes.draw do
     playback_types: 'custom_bigbluebutton_playback_types'
   }
   bigbluebutton_routes :default, scope: conf_scope, as: 'bigbluebutton', controllers: conf_controllers
+  bigbluebutton_api_routes
 
   # register a few custom routes that were added to bigbluebutton_rails
   get "/#{conf_scope}/rooms/:id/invitation",

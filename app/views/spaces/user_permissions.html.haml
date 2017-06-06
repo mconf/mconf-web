@@ -8,19 +8,20 @@
 #user-permission.list-container
   - for permission in @permissions
     - user = permission.user
+    - perm = Permission.find_by(user: user, subject: @space)
+
     %div{:class => "thread #{cycle('thread-even','thread-odd')} list-item"}
       .logo-in-thread
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
         .thread-description
           .permission-buttons
-            - perm = Permission.find_by(user: user, subject: @space)
 
-            = simple_form_for :permission, :url => permission_path(permission), :html => { :method => :put, :class => 'form-inline' } do |f|
+            - redir_url = current_user == user ? space_path(@space) : nil
+            = simple_form_for :permission, :url => permission_path(permission, :redir_url => redir_url), :html => { :method => :put, :class => 'form-inline' } do |f|
               = f.hidden_field :role_id, id: perm.id
 
-            -# Case the user is an Administrator from Space, it can't change his own role
-            -# refs #1770
+            -# the last admin can't change his own role
             .btn-group{ 'data-toggle': "buttons" , 'data-form-id': perm.id , class: can?(:update, perm) ? '' : "hidden"}
 
               - cls = (perm.role_id == 2) ? 'active' : nil

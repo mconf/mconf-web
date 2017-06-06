@@ -1,10 +1,10 @@
 class BigbluebuttonRailsTo220 < ActiveRecord::Migration
   def up
-    BigbluebuttonMeeting.where(create_time: nil).each do |meeting|
-      meeting.update_attributes( create_time: meeting.start_time.to_i )
+    BigbluebuttonMeeting.where(create_time: nil).find_each do |meeting|
+      meeting.update_attribute(create_time, meeting.start_time.to_i)
     end
 
-    remove_column :bigbluebutton_meetings, :start_time, :datetime
+    remove_column :bigbluebutton_meetings, :start_time
 
     add_column :bigbluebutton_recordings, :temp_start_time, :decimal, precision: 14, scale: 0
     add_column :bigbluebutton_recordings, :temp_end_time, :decimal, precision: 14, scale: 0

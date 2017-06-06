@@ -1,5 +1,36 @@
 # Change Log
 
+## [2.5.0] - 2017-05-29
+
+Adds authentication via digital certificate, a new option to force users to sign in to
+be able to join conferences, and bug fixes.
+
+* [#927] Add a new option to the site to force users to sign in to be able to access a
+  conference. When enabled, unauthenticated users cannot access conferences. Disabled by
+  default.
+* [#936] Allow users to sign in using a digital certificate. It's an optional authentication
+  method model similarly to LDAP and Shibboleth.
+* Added a "guest users" module, so that users can sign in using an external authentication
+  method just to join a conference, without receiving a new account. Works only for the
+  digital certificate authentication for now.
+* [#940] Fix web conference invitations when using Russian or Bulgarian.
+* [#814] Fix small font sizes in some email readers. Having a `font-size` of "0.8125rem"
+  would cause some readers to show very small text. Removing the `font-size` lets the email
+  client decide the appropriate size.
+* [#932] Fix the redirect when an admin of a space changes his role from admin to normal user.
+* Add missing migration from BigbluebuttonRails 2.0.0 to fix the type of the column
+  `size` in the table `bigbluebutton_recordings`. Will only affect servers that updated
+  Mconf-Web very frequently and used non stable versions (very few servers).
+* Update BigbluebuttonRails and adjust to its changes. Changes the way the gem is customized
+  and it now doesn't have direct database associations between rooms and servers, the
+  association is done dynamically.
+* A few gem updates for compatibility with Ubuntu 16.04.
+* Send web conference invitations also to the organizer. The user that is sending the
+  invitations will now also be in the list of attendees and receive an email with the invitation.
+* Improve the design of the list of recordings (in `manage/recordings`), now it also shows the
+  size of the recordings.
+
+
 ## [2.4.0] - 2017-01-12
 
 Includes improvements in the management pages, a new management page for recordings,
@@ -361,6 +392,7 @@ This is a minor update over 0.8 that was developed in parallel with 2.0.
 * First version in production and documentation on [[how to setup a production server|Deployment]]
 * Several other bugs and features implemented.
 
+[2.5.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.5.0
 [2.4.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.4.0
 [2.3.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.3.0
 [2.2.0]: https://github.com/mconf/mconf-web/issues?q=milestone%3Av2.2.0
