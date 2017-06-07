@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425163351) do
+ActiveRecord::Schema.define(version: 20170531162723) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 20170425163351) do
     t.string   "attachment"
   end
 
+  create_table "bigbluebutton_attendees", force: true do |t|
+    t.string  "user_id"
+    t.string  "extern_user_id"
+    t.string  "user_name"
+    t.decimal "join_time",                precision: 14, scale: 0
+    t.decimal "left_time",                precision: 14, scale: 0
+    t.integer "bigbluebutton_meeting_id"
+  end
+
   create_table "bigbluebutton_meetings", force: true do |t|
     t.integer  "server_id"
     t.integer  "room_id"
@@ -73,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170425163351) do
     t.string   "server_secret"
     t.decimal  "create_time",   precision: 14, scale: 0
     t.boolean  "ended",                                  default: false
+    t.decimal  "finish_time",   precision: 14, scale: 0
+    t.string   "got_stats"
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "create_time"], name: "index_bigbluebutton_meetings_on_meetingid_and_create_time", unique: true, using: :btree
