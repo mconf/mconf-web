@@ -36,6 +36,9 @@
             = icon_is_member
             = t(".is_member")
 
+      #sidebar-tags
+        = render :partial => "spaces/space_tags", :locals => { :space => space }
+
   -# action buttons: join, register, login, it depends on the context
   -# ignore when editing, one less btn to confuse the user
   - if !editing
