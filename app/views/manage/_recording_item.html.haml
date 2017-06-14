@@ -1,7 +1,7 @@
 - cls = !recording.available? ? "list-item-disabled" : ""
 .list-item{ id: "recording-#{recording.recordid}", class: cls }
 
-  .col-xs-12.col-sm-6
+  .col-xs-12.col-sm-4
     - words = params[:q].try(:split)
     .list-text-title
       - cls = recording.available ? "" : "recording-not-available-name"
@@ -20,6 +20,12 @@
       .list-text-description
         = t(".owner_type_#{recording.room.owner.class.name.downcase}") + ": "
         = link_to recording.room.owner.name, polymorphic_path(recording.room.owner)
+
+  .col-xs-12.col-sm-2
+    - recording.playback_formats.each do |playback|
+      = link_to playback.format_type, play_bigbluebutton_recording_path(recording, type: playback.format_type), :class => "open-new-window"
+      = "&#149;".html_safe
+      = link_to t(".direct_link"), playback.url, :class => "open-new-window"
 
   .col-xs-12.col-sm-2
     %span.tooltipped{title: recording.start_time}
