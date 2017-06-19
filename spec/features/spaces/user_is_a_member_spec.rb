@@ -21,7 +21,7 @@ feature 'User is' do
       save_page
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(3)
+        page.all('.disabled_wrapper').count.should eql(2)
       end
 
       within('#sidebar-menu ul li.active') do

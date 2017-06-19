@@ -3,6 +3,7 @@
 - can_create = user_signed_in? && can?(:create_meeting, room)
 - running = room.is_running?
 - active_cls = running ? "active" : ""
+- is_admin = can?(:user_edit, room)
 
 #webconference-room.content-block
   .content-block-header
@@ -20,15 +21,13 @@
       - if can_create
         = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: t('.invite_tip') do
           = icon_invitation
-        = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: t('.configure_tip') do
-          = icon_options
+        - if is_admin
+          = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: t('.configure_tip') do
+            = icon_options
       - else
         = disabled_wrapper(t('.must_member')) do
           = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal disabled", title: t('.must_member') do
             = icon_invitation
-        = disabled_wrapper(t('.must_member')) do
-          = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default disabled", title: t('.must_member') do
-            = icon_options
       - if room.owner.class == Space
         - meetings_link = meetings_space_path(room.owner)
       - else
