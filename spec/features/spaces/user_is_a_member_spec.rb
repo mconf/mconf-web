@@ -22,6 +22,7 @@ feature 'User is' do
 
       within('#webconference-start') do
         page.all('.disabled_wrapper').count.should eql(2)
+        page.all('a').count.should eql(3)
       end
 
       within('#sidebar-menu ul li.active') do
@@ -81,7 +82,8 @@ feature 'User is' do
       visit space_path(space)
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(3)
+        page.all('.disabled_wrapper').count.should eql(2)
+        page.all('a').count.should eql(3)
       end
 
       within('#sidebar-menu ul li.active') do
@@ -143,6 +145,11 @@ feature 'User is' do
     scenario 'on home page' do
       visit space_path(space)
 
+      within('#webconference-start') do
+        page.all('.disabled_wrapper').count.should eql(0)
+        page.all('a').count.should eql(3)
+      end
+
       within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
@@ -194,9 +201,18 @@ feature 'User is' do
     let(:space) { FactoryGirl.create(:space_with_associations, repository: true) }
 
     before(:each) {
-      space.add_member!(user)
+      space.add_member!(user, "Admin")
       login_as(user, :scope => :user)
     }
+
+    scenario 'on home page' do
+      visit space_path(space)
+
+      within('#webconference-start') do
+        page.all('.disabled_wrapper').count.should eql(0)
+        page.all('a').count.should eql(4)
+      end
+    end
 
     scenario 'on edit page' do
       visit edit_space_path(space)
