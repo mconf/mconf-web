@@ -20,6 +20,10 @@ feature 'User is' do
       visit space_path(space)
       save_page
 
+      within('#webconference-start') do
+        page.all('.disabled_wrapper').count.should eql(3)
+      end
+
       within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
       end
@@ -75,6 +79,10 @@ feature 'User is' do
 
     scenario 'on home page' do
       visit space_path(space)
+
+      within('#webconference-start') do
+        page.all('.disabled_wrapper').count.should eql(3)
+      end
 
       within('#sidebar-menu ul li.active') do
         expect(page).to have_link(I18n.t('spaces.sidebar.home'))
