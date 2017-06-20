@@ -3,7 +3,7 @@
 #shibboleth-associate
   %h3= t('.title')
 
-  #shibboleth-existent-account
+  #shibboleth-existent-account.col-xs-12.col-sm-6.col-md-5.col-md-offset-1.col-lg-3.col-lg-offset-3
     .alert.alert-gray= t('.existent_account.title')
     .shibboleth-block
       = simple_form_for :user, :url => shibboleth_create_association_path, :html => { :class => 'single-column' } do |f|
@@ -12,7 +12,7 @@
         = f.input :password, :label => t('.user.password')
         = f.button :wrapped, :value => t('.existent_account.link_to_this_account')
 
-  #shibboleth-new-account
+  #shibboleth-new-account.col-xs-12.col-sm-6.col-md-5.col-lg-3
     .alert.alert-gray= t('.new_account.title')
     .shibboleth-block
       = simple_form_for :user, :url => shibboleth_create_association_path do |f|
