@@ -1,0 +1,16 @@
+@import "definitions";
+@import "compass/css3";
+
+// the view is called 'associate' but the action is 'login'
+body.shibboleth.login {
+
+  #shibboleth-error {
+    margin-top: 20px;
+    text-align: center;
+    
+    .error-box {
+      text-align: left;
+      background: $m-light-gray;
+    }
+  }
+}
