@@ -204,7 +204,7 @@ pt-br:
         exception_notifications_email: "Destinatários das notificações de exceção"
         exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
-        feedback_url: "URL de feedback"
+        feedback_url: "URL de feedback de conferência"
         forbid_user_space_creation: "Proibir que usuários criem comunidades"
         gravatar: Usar gravatar
         ldap_enabled: "LDAP: Habilitar autenticação"
@@ -746,13 +746,11 @@ pt-br:
   fax: Fax
   feedback:
     create:
-      check_mail: "Por favor verifique o e-mail informado no forumlário de feedback, ele parece estar errado."
-      fill_fields: "Por favor preencha todos os campospara enviar o feedback."
-      success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
+      success: "Sua mensagem foi enviada com sucesso, obrigado!"
     new:
-      note: "Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-      title: "Enviar feedback"
-    send: "Enviar feedback"
+      note: "Envie suas sugestões, dúvidas ou qualquer outro comentário que tiver! Tentaremos responder o mais rapidamente possível."
+      title: "Contato"
+    send: "Enviar"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
@@ -968,7 +966,7 @@ pt-br:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Enviar feedback"
+        feedback: "Contato"
         help: Ajuda
         powered_by: "Powered by Mconf, visite"
         title: Links

@@ -16,7 +16,8 @@ en:
       or: "or"
     labels:
       feedback:
-        from: "Your email"
+        message: "Message"
+        subject: "Subject"
       user:
         edit:
           password: "New password"

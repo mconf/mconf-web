@@ -16,7 +16,8 @@ pt-br:
       or: "ou"
     labels:
       feedback:
-        from: "Seu e-mail"
+        message: "Mensagem"
+        subject: "Assunto"
       user:
         edit:
           password: "Nova senha"
