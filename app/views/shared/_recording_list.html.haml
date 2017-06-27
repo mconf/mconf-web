@@ -71,7 +71,7 @@
                 %span= recording.description
 
             %td.rec-playback-col
-              = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
+              = render partial: 'shared/recording_playback', locals: { recording: recording }
 
             %td.rec-actions-col
               -# Edit description button
