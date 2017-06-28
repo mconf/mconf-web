@@ -1,8 +1,9 @@
 // Locals:
 //   room (BigbluebuttonRoom): the target conference room
-
+- can_create = user_signed_in? && can?(:create_meeting, room)
 - running = room.is_running?
 - active_cls = running ? "active" : ""
+- is_admin = can?(:user_edit, room)
 
 #webconference-room.content-block
   .content-block-header
@@ -17,10 +18,16 @@
   #webconference-start{ :class => cls }
 
     .webconference-buttons
-      = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: t('.invite_tip') do
-        = icon_invitation
-      = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: t('.configure_tip') do
-        = icon_options
+      - if can_create
+        = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: t('.invite_tip') do
+          = icon_invitation
+        - if is_admin
+          = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn btn-default tooltipped", title: t('.configure_tip') do
+            = icon_options
+      - else
+        = disabled_wrapper(t('.must_member')) do
+          = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal disabled", title: t('.must_member') do
+            = icon_invitation
       - if room.owner.class == Space
         - meetings_link = meetings_space_path(room.owner)
       - else
@@ -48,6 +55,10 @@
         -#   = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-join-link") do
         -#     = icon_webconf_start
         -# - else
-        = link_to t('.start'), join_bigbluebutton_room_path(room), :class => "btn webconf-join-link btn-success"
+        - if can_create
+          = link_to t('.start'), join_bigbluebutton_room_path(room), :class => "btn webconf-join-link btn-success"
+        - else
+          = disabled_wrapper(t('.must_member')) do
+            = link_to t('.start'), join_bigbluebutton_room_path(room), :class => "btn webconf-join-link btn-success disabled", title: t('.must_member')
       -# = link_to invitation_bigbluebutton_room_path(room), :class => "btn btn-default open-modal" do
       -#   = icon_list

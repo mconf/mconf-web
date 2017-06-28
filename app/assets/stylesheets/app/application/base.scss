@@ -60,6 +60,11 @@ form {
   top: $m-notifications-top;
 }
 
+.disabled_wrapper{
+  margin: 0;
+  display: inline-block;
+}
+
 // Unified style for threads: posts, attachments
 .thread {
   clear: both;

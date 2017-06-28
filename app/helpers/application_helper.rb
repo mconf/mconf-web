@@ -228,4 +228,10 @@ module ApplicationHelper
       I18n.locale.to_s
     end
   end
+
+  #This is a helper that wraps a disabled element to show a given tooltip on mouseover
+  def disabled_wrapper(title, &block)
+    content = capture(&block)
+    content_tag(:div, content, :class => 'disabled_wrapper tooltipped', :title => title)
+  end
 end
