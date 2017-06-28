@@ -229,9 +229,10 @@ module ApplicationHelper
     end
   end
 
-  #This is a helper that wraps a disabled element to show a given tooltip on mouseover
-  def disabled_wrapper(title, &block)
+  # This is a helper to add an element with a tooltip. Useful mostly for disabled elements, that
+  # cannot have tooltips on their own so need a wrapper with it.
+  def with_tooltip(title, &block)
     content = capture(&block)
-    content_tag(:div, content, :class => 'disabled_wrapper tooltipped', :title => title)
+    content_tag(:div, content, class: 'with-tooltip tooltipped', title: title)
   end
 end

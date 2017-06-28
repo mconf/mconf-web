@@ -21,8 +21,8 @@ feature 'User is' do
       save_page
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(2)
-        page.all('a').count.should eql(3)
+        page.all('.with-tooltip').count.should eql(1)
+        page.all('a').count.should eql(2)
       end
 
       within('#sidebar-menu ul li.active') do
@@ -82,8 +82,8 @@ feature 'User is' do
       visit space_path(space)
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(2)
-        page.all('a').count.should eql(3)
+        page.all('.with-tooltip').count.should eql(1)
+        page.all('a').count.should eql(2)
       end
 
       within('#sidebar-menu ul li.active') do
@@ -146,7 +146,7 @@ feature 'User is' do
       visit space_path(space)
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(0)
+        page.all('.with_tooltip').count.should eql(0)
         page.all('a').count.should eql(3)
       end
 
@@ -209,8 +209,8 @@ feature 'User is' do
       visit space_path(space)
 
       within('#webconference-start') do
-        page.all('.disabled_wrapper').count.should eql(0)
-        page.all('a').count.should eql(4)
+        page.all('.with_tooltip').count.should eql(0)
+        page.all('a').count.should eql(3)
       end
     end
 

@@ -1388,7 +1388,6 @@ en:
       join_mobile_full: "Join from a mobile device"
       meeting_in_progress: "There's a meeting in progress!"
       meeting_list_tip: "View the list of meetings and recordings for this room"
-      must_member: "Only members can use this resource"
       preferences: "Preferences"
       recordings: "View recordings"
       start: "Start a new meeting"
