@@ -7,10 +7,18 @@ body.shibboleth.login {
   #shibboleth-error {
     margin-top: 20px;
     text-align: center;
-    
+    padding: 20px;
+    @include make-row;
+
     .error-box {
       text-align: left;
       background: $m-light-gray;
+
+      @include make-xs-column(12);
+      @include make-sm-column(8);
+      @include make-sm-column-offset(2);
+      @include make-md-column(6);
+      @include make-md-column-offset(3);
     }
   }
 }
