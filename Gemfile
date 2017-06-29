@@ -114,6 +114,9 @@ gem 'savon', '~> 2.0'
 # Mail tracker
 gem 'ahoy_email'
 
+# Online payment services
+gem 'iugu'
+
 #
 # TODO: Gems to review if we can remove/update
 #

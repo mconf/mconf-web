@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   has_one :shib_token, dependent: :destroy
   has_one :certificate_token, dependent: :destroy
   has_one :profile, dependent: :destroy, autosave: true
+  has_one :subscription, dependent: :destroy
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
