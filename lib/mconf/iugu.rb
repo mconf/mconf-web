@@ -11,9 +11,13 @@ uri = URI.parse("https://api.iugu.com/v1/plans")
 def Mconf
   class Iugu
 
+###SUBSCRIPTION##########################################################################################
     # We will have to create a customer here to link to a subscription
-    def create_subscription()
-
+    def create_subscription(plan_id, customer_id)
+      subscription = Iugu::Subscription.create({
+        plan_identifier: plan_id,
+        customer_id: customer_id
+      })
     end
 
     # Upon changing/destroying subscription we will also destroy the customer
@@ -21,7 +25,13 @@ def Mconf
       subscription = Iugu::Subscription.fetch(subscription_id)
       subscription.delete
     end
-  
+
+    def get_subscription(subscription_id)
+      subscription = Iugu::Subscription.fetch(subscription_id)
+      subscription
+    end
+
+###CUSTOMER#############################################################################################
     # We must create a customer account on Iugu when an user signs a subscription plan  
     def create_customer(email, full_name, cpf_cnpj, zipcode, address, city, province, country)
 
@@ -45,28 +55,33 @@ def Mconf
       customer.delete
     end
 
-    # We must use CURL to create and destroy the plans
-    def create_plan(ops_id, currency, interval, interval_type, item_price, base_price, max_users)
-      # -u seuApiToken: \
-      # -d "name=Plano Básico" \
-      # -d "identifier=basic_plan" \
-      # -d "interval=1" \
-      # -d "interval_type=months" \
-      # -d "currency=BRL" \
-      # -d "value_cents=1000" \
-      # -d "features[][name]=Número de Usuários" \
-      # -d "features[][identifier]=users" \
-      # -d "features[][value]=10"
+###PLAN#################################################################################################
+    def create_plan(name, identifier, currency, interval, interval_type, item_price, base_price, max_users)
+      plan = Iugu::Plan.create({
+        name: name,
+        identifier: identifier,
+        interval: interval,
+        interval_type: interval_type,
+        currency: currency,
+        value_cents: base_price,
+        payable_with: "all",
+        features: [ max_users: '1000', item_price: '600' ]
+      })
+
+      plan[:id]
     end
 
     def destroy_plan(plan_id)
-      #CURLSTUFF  
+      plan = Iugu::Plan.fetch(plan_id)
+      plan.delete
     end
 
     # Get the plans from Iugu to the db on a new server
-    def fetch_plans()
-      #CURLSTUFF
+    def fetch_all_plans
+      plans = Iugu::Plan.fetch()
+      plans
     end
+########################################################################################################
 
   end
 end

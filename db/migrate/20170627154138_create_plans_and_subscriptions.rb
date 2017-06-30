@@ -2,11 +2,12 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration
   def up
     create_table :plans do |t|
       t.string :name
+      t.string :identifier
       t.string :ops_id
       t.string :ops_type
       t.string :currency
-      t.string :interval
       t.string :interval_type
+      t.integer :interval
       t.integer :item_price
       t.integer :base_price
       t.integer :max_users

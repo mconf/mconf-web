@@ -23,25 +23,35 @@ class Subscription < ActiveRecord::Base
 
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
-      self.customer_token = Mconf::Iugu.create_customer(self.user.email,
-                                                        self.user.full_name,
-                                                        self.user.profile.cpf_cnpj,
-                                                        self.user.profile.zipcode,
-                                                        self.user.profile.address,
-                                                        self.user.profile.city,
-                                                        self.user.profile.province,
-                                                        self.user.profile.country)
+      self.customer_token = Mconf::Iugu.create_customer(
+                                          self.user.email,
+                                          self.user.full_name,
+                                          self.user.profile.cpf_cnpj,
+                                          self.user.profile.zipcode,
+                                          self.user.profile.address,
+                                          self.user.profile.city,
+                                          self.user.profile.province,
+                                          self.user.profile.country)
       self.create_sub
-      
     else
       logger.error "Bad ops_type, can't create customer"
     end
   end
 
-  def get_tokens
-    # get the Customer token, subscription token and ops token 
+  def create_sub
+    if self.plan.ops_type == "IUGU"
+      self.subscription_token = Mconf::Iugu.create_subscription(
+                                              self.plan.identifier,
+                                              self.customer_token)
+    else
+      logger.error "Bad ops_type, can't create subscription"
+    end
   end
   
+  def get_sub_data
+    subscription = Mconf::Iugu.get_subscription(:subscription_token)
+  end
+
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
     if ops_type == "IUGU"
@@ -51,24 +61,5 @@ class Subscription < ActiveRecord::Base
       logger.error "Bad ops_type, can't destroy subscription"
     end
   end
-
-### UNDER DEVELOPMENT ######################################################################
-  def create_sub
-    if valid? 
-      if self.destroy_customer
-        params = {
-          :description => email,
-          :plan => plan.stripe_id,
-          :card => stripe_card_token
-        }
-        customer = Stripe::Customer.create(params)
-        self.stripe_customer_token = customer.id
-        save!
-      end
-    end
-
-  end
-
-### UNDER DEVELOPMENT ######################################################################
 
 end
