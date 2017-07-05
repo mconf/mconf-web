@@ -36,28 +36,27 @@ send_participant_confirmations_notifications:
 finish_meetings:
   every:
     - "30s"
-  class: BigbluebuttonFinishMeetings
+  class: BigbluebuttonFinishMeetingsWorker
   queue: low
   description: "Checks for meetings that finished and mark as finished. Same as 'rake bigbluebutton_rails:meetings:finish'."
 
 get_stats:
   every:
-    - "2m"
-  class: BigbluebuttonGetStats
-  queue: low
-  description: "Checks for meeting's stats. Currently works on Mconf-Live servers and will get a list of participants and meeting duration. Same as 'rake bigbluebutton_rails:meetings:get_stats'"
+    - "12h"
+  class: BigbluebuttonGetStatsForRecentWorker
+  description: "Gets stats for recent meetings that have no stats yet. Same as 'rake bigbluebutton_rails:meetings:get_stats' but for only a subset of meetings."
 
 update_recordings:
   every:
     - "30m"
-  class: BigbluebuttonUpdateRecordings
+  class: BigbluebuttonUpdateRecordingsWorker
   queue: low
   description: "Gets the recordings in the server to populate the db. Same as 'rake bigbluebutton_rails:recordings:update'."
 
 update_server_configs:
   every:
     - "1h"
-  class: BigbluebuttonUpdateServerConfigs
+  class: BigbluebuttonUpdateServerConfigsWorker
   queue: low
   description: "Updates the server configs that are stored locally. Same as 'rake bigbluebutton_rails:server_configs:update'."
 

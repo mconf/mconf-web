@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
 
   create_table "bigbluebutton_attendees", force: true do |t|
     t.string  "user_id"
-    t.string  "extern_user_id"
+    t.string  "external_user_id"
     t.string  "user_name"
     t.decimal "join_time",                precision: 14, scale: 0
     t.decimal "left_time",                precision: 14, scale: 0

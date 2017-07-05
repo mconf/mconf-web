@@ -2,7 +2,7 @@ class BigbluebuttonRailsTo220b < ActiveRecord::Migration
   def up
     create_table :bigbluebutton_attendees do |t|
       t.string :user_id
-      t.string :extern_user_id
+      t.string :external_user_id
       t.string :user_name
       t.decimal :join_time, precision: 14, scale: 0
       t.decimal :left_time, precision: 14, scale: 0
