@@ -1691,6 +1691,14 @@ en:
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Stage type"
   subject: "Subject:"
+  subscriptions:
+    new:
+      form_title: "Subscription"
+      title: "Subscribe"
+    subscription_form:
+      confirmation: "After subscribing you will receive an email confirmation"
+      select_subscription: "Select your subscription"
+      subscribe: "Subscribe"
   summary: "Video Info"
   superuser: "Administrator"
   sites:

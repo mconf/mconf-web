@@ -6,13 +6,3 @@
   .row
     #register-form
       = render partial: 'signup_form'
-
-    #register-rules
-      .rule-block
-        %h3= t('.rules_title').html_safe
-        %p= t('.rules_text').html_safe
-      .rule-block
-        %h3= t('.pricing_title').html_safe
-        %ul
-          %li= t('.pricing_text1').html_safe
-          %li= t('.pricing_text2').html_safe

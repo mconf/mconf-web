@@ -122,5 +122,8 @@ module Mconf
 
     # how long the trial lasts
     config.trial_days = 60
+
+    # iugu api token for test and for prod
+    config.iugu_token = ENV['MCONF_IUGU_TOKEN'] || ''
   end
 end

@@ -94,6 +94,8 @@ Mconf::Application.routes.draw do
       post :confirm
       post :update_logo
     end
+
+    resources :subscriptions, only: [:new, :create, :index]
   end
 
 

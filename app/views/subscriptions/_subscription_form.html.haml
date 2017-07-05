@@ -1,0 +1,24 @@
+- plans = []
+- Plan.all.each do |e| plans.push([e.name, e.id]) end
+
+= simple_form_for @subscription, :html => { :method => :post }, :url => user_subscriptions_path(params[:user_id]), wrapper: :vertical_form do |f|
+
+  .field-group
+    %h3= t('.select_subscription')
+    = f.hidden_field :user_id, value: params[:user_id]
+    = f.hidden_field :trial, value: true
+    .form-group
+      = select_tag :plan_id, options_for_select(plans), prompt: ("SELECT A PLAN"), class: 'form-control'
+    = f.input :pay_day, required: true
+    = f.input :start_day, required: true
+    = f.input :pay_method, required: true
+
+    .alert.alert-gray
+      = icon_info
+      = t('.confirmation')
+
+  -#.form-accept-terms.field-group
+  -#  = check_box_tag :terms, 1, false, as: :boolean
+  -#  = label_tag :terms, t('.terms').html_safe
+
+  = f.button :wrapped, value: t(".subscribe")

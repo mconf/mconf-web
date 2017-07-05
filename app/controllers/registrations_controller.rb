@@ -53,9 +53,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def allowed_params
     [ :locale, :email, :username,
-      profile_attributes: [ :address, :city, :province, :country, :zipcode, :phone,
-                            :full_name, :organization, :description, :url,
-                            :cpf_cnpj, :service_usage_select, :service_usage ]
+      profile_attributes: [ :full_name, :service_usage_select, :service_usage ]
+                           # , :city, :province, :country, :zipcode, :phone,
+                           # :address, :organization, :description, :url,
+                           # :cpf_cnpj ]
     ]
   end
 

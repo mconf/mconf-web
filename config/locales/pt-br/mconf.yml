@@ -1725,6 +1725,14 @@ pt-br:
   stage_type: "Tipo de Estágio"
   subject: "Assunto:"
   summary: "Informações do vídeo"
+  subscriptions:
+    new:
+      form_title: "Assinatura"
+      title: "Assinar"
+    subscription_form:
+      confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
+      select_subscription: "Selecione sua assinatura"
+      subscribe: "Assinar"
   superuser: "Administrador"
   text: Texto
   the_string: "a string"

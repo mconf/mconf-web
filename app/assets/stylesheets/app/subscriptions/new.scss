@@ -1,19 +1,18 @@
 @import "definitions";
 
-body.registrations.new, body.registrations.create {
+body.subscriptions.new, body.subscriptions.create {
   h1 {
     text-align: center;
   }
 
-  #register-wrapper {
+  #subscription-wrapper {
     margin: 40px auto;
     width: 80%;
     @include mconf-clearfix;
 
-    #register-form {
+    #subscription-form {
       @include make-xs-column(12);
       @include make-sm-column(6);
-      @include make-sm-column-offset(3);
 
       form {
         .form-accept-terms {
@@ -44,6 +43,31 @@ body.registrations.new, body.registrations.create {
       .webconf-observation {
         text-align: center;
         color: $m-font-light;
+      }
+    }
+
+    #subscription-rules {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+      font-size: $m-font-medium;
+      text-align: justify;
+      padding-left: 32px;
+
+      .attention {
+        color: $m-color-secondary;
+        font-weight: bold;
+      }
+
+      p {
+        margin-bottom: 8px;
+      }
+
+      ul {
+        list-style-type: disc;
+      }
+
+      .rule-block {
+        margin-bottom: 32px;
       }
     }
 

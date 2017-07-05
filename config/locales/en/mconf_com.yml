@@ -35,12 +35,6 @@ en:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
       social: "Follow us on:"
   registrations:
-    new:
-      pricing_text1: "Minimum free: <span class=\"attention\">15 users</span> (US$ 60) per month"
-      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
-      pricing_title: "Pricing"
-      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
-      rules_title: "How it works"
     signup_form:
       address_section: "Address"
       confirmation: "After registering you will receive an email confirmation with the link to activate your account"
@@ -77,6 +71,13 @@ en:
     ending_soon:
       line1: "Your trial period will end on <em>%{date}</em>, but don't worry! You are already signed up to the service and won't need to do anything to keep using it. We hope you're enjoying the experience and wish to stay with us!"
       subject: "Your trial period is ending soon"
+  subscriptions:
+    new:
+      pricing_text1: "Minimum free: <span class=\"attention\">15 users</span> (US$ 60) per month"
+      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
+      pricing_title: "Pricing"
+      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
+      rules_title: "How it works"
   user:
     usage:
       education: "Education"

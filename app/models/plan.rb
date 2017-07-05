@@ -42,25 +42,34 @@ class Plan < ActiveRecord::Base
 
   def create_ops_plan
     if ops_type == "IUGU"
-      #self.ops_id = Mconf::Iugu.create_plan(:name, :identifier, :currency, :interval, :interval_type, :item_price, :base_price, :max_users)
-      #ERRO 1 if we do not get an ops_id, cancel creation
+      self.ops_id = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type, self.item_price, self.base_price)
+
+      if self.ops_id == nil
+        logger.error "No Token returned from IUGU, aborting"
+        errors.add(:attr, "No Token returned from IUGU, aborting")
+        raise ActiveRecord::Rollback
+      end
+
     else
       logger.error "Bad ops_type, can't create plan"
-      #ERRO 2
+      errors.add(:attr, "Bad ops_type, can't create plan")
+      raise ActiveRecord::Rollback
     end
   end
 
   def delete_ops_plan
     if ops_type == "IUGU"
-      #plan = Mconf::Iugu.destroy_plan(:ops_id)
+      plan = Mconf::Iugu.destroy_plan(self.ops_id)
     else
-      logger.error "Bad ops_type, can't create plan"
-      #ERRO 2
+      logger.error "Bad ops_type, can't delete plan"
+      errors.add(:attr, "Bad ops_type, can't delete plan")
+      raise ActiveRecord::Rollback
     end
   end
 
-  def get_plans_from_ops
-    #plans = Mconf::Iugu.fetch_all_plans
+  def self.get_plans_from_ops
+    plans = Mconf::Iugu.fetch_all_plans
+    puts plans
     #Then after that we will get an array of plan objects, got to check which ones are already on the DB and create the missing ones
   end
 

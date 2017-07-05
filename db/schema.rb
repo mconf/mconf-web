@@ -455,7 +455,7 @@ ActiveRecord::Schema.define(version: 20170627154138) do
     t.string  "ops_token"
     t.string  "customer_token"
     t.string  "subscription_token"
-    t.integer "pay_day"
+    t.string  "pay_day"
     t.integer "start_day"
     t.boolean "trial"
   end

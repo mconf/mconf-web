@@ -18,7 +18,7 @@ class Subscription < ActiveRecord::Base
 
   attr_accessor :payment_token
 
-  after_create :create_customer_and_sub
+  before_create :create_customer_and_sub
   before_destroy :destroy_sub
 
   def create_customer_and_sub
@@ -32,9 +32,18 @@ class Subscription < ActiveRecord::Base
                                           self.user.profile.city,
                                           self.user.profile.province,
                                           self.user.profile.country)
+
+      if self.customer_token == nil
+        logger.error "No Token returned from IUGU, aborting"
+        errors.add(:attr, "No Token returned from IUGU, aborting")
+        raise ActiveRecord::Rollback
+      end
+
       self.create_sub
     else
       logger.error "Bad ops_type, can't create customer"
+      errors.add(:attr, "Bad ops_type, can't create customer")
+      raise ActiveRecord::Rollback
     end
   end
 
@@ -42,21 +51,31 @@ class Subscription < ActiveRecord::Base
     if self.plan.ops_type == "IUGU"
       self.subscription_token = Mconf::Iugu.create_subscription(
                                               self.plan.identifier,
-                                              self.customer_token)
+                                              self.customer_token,
+                                              self.pay_day)
+
+      if self.subscription_token == nil
+        logger.error "No Token returned from IUGU, aborting"
+        errors.add(:attr, "No Token returned from IUGU, aborting")
+        raise ActiveRecord::Rollback
+      end
+
     else
       logger.error "Bad ops_type, can't create subscription"
+      errors.add(:attr, "Bad ops_type, can't create subscription")
+      raise ActiveRecord::Rollback
     end
   end
-  
+
   def get_sub_data
-    subscription = Mconf::Iugu.get_subscription(:subscription_token)
+    subscription = Mconf::Iugu.get_subscription(self.subscription_token)
   end
 
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
-    if ops_type == "IUGU"
-      Mconf::Iugu.destroy_subscription(:subscription_token)
-      Mconf::Iugu.destroy_customer(:customer_token)
+    if self.plan.ops_type == "IUGU"
+      Mconf::Iugu.destroy_subscription(self.subscription_token)
+      Mconf::Iugu.destroy_customer(self.customer_token)
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end

@@ -38,12 +38,6 @@ pt-br:
       signature: "Este e-mail foi encaminhado por Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil. <br/> +55 51 3308.6812"
       social: "Siga nos em:"
   registrations:
-    new:
-      pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
-      pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
-      pricing_title: "Tarifas"
-      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
-      rules_title: "Como Funciona"
     signup_form:
       address_section: "Endereço"
       confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
@@ -73,6 +67,13 @@ pt-br:
         short_url: "Você também pode acessar a sua sala de forma rápida através do endereço abaixo. Compartilhe esse endereço com outras pessoas para elas entrarem em uma conferência que você criou."
         title: "Vamos começar?"
       subject: "Seja bem vindo(a)!"
+  subscriptions:
+    new:
+      pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
+      pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
+      pricing_title: "Tarifas"
+      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
+      rules_title: "Como Funciona"
   trial_notifications_mailer:
     ended:
       line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"
