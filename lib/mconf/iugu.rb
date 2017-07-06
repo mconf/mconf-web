@@ -56,16 +56,15 @@ module Mconf
     end
 
 ###PLAN#################################################################################################
-    def self.create_plan(name, identifier, currency, interval, interval_type, item_price, base_price)
+    def self.create_plan(name, identifier, currency, interval, interval_type)
       plan = ::Iugu::Plan.create({
         name: name,
         identifier: identifier,
         interval: interval,
         interval_type: interval_type,
         currency: currency,
-        value_cents: base_price,
-        payable_with: "all",
-        features: [ { name: "Price per user", identifier: "user_price", value: item_price } ]
+        value_cents: 0,
+        payable_with: "all"
       })
 
       plan.attributes["id"]
@@ -78,8 +77,8 @@ module Mconf
 
     # Get the plans from Iugu to the db on a new server
     def self.fetch_all_plans
-      plans = ::Iugu::Plan.fetch()
-      plans
+      plans = ::Iugu::Plan.fetch
+      plans.inspect
     end
 ########################################################################################################
 

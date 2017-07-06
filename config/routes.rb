@@ -95,9 +95,10 @@ Mconf::Application.routes.draw do
       post :update_logo
     end
 
-    resources :subscriptions, only: [:new, :create, :index]
+    resources :subscriptions, only: [:index]
   end
 
+ resources :subscriptions, only: [:new, :create]
 
   # routes specific for the current user
   scope 'home' do

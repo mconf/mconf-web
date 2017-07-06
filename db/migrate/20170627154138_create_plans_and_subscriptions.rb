@@ -16,14 +16,10 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration
     create_table :subscriptions do |t|
       t.string :plan_id
       t.string :user_id
-      t.string :pay_id
-      t.string :pay_method
-      t.string :ops_token
       t.string :customer_token
       t.string :subscription_token
       t.string :pay_day
       t.integer :start_day
-      t.boolean :trial
     end
   end
 

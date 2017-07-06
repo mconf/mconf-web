@@ -11,10 +11,8 @@ class Subscription < ActiveRecord::Base
   validates :user_id, :presence => true, :uniqueness => true
   validates :plan_id, :presence => true
 
-  validates :pay_method, :presence => true
   validates :pay_day, :presence => true
   validates :start_day, :presence => true
-  validates :trial, :presence => true
 
   attr_accessor :payment_token
 
@@ -74,8 +72,22 @@ class Subscription < ActiveRecord::Base
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
     if self.plan.ops_type == "IUGU"
-      Mconf::Iugu.destroy_subscription(self.subscription_token)
-      Mconf::Iugu.destroy_customer(self.customer_token)
+      subscription = Mconf::Iugu.destroy_subscription(self.subscription_token)
+
+      if subscription == false
+        logger.error "Could not delete subscription from OPS, aborting"
+        errors.add(:attr, "Could not delete subscription from OPS, aborting")
+        raise ActiveRecord::Rollback
+      end
+
+      customer = Mconf::Iugu.destroy_customer(self.customer_token)
+
+      if customer == false
+        logger.error "Could not delete customer from OPS, aborting"
+        errors.add(:attr, "Could not delete customer from OPS, aborting")
+        raise ActiveRecord::Rollback
+      end
+
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end

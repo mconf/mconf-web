@@ -42,7 +42,7 @@ class Plan < ActiveRecord::Base
 
   def create_ops_plan
     if ops_type == "IUGU"
-      self.ops_id = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type, self.item_price, self.base_price)
+      self.ops_id = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
 
       if self.ops_id == nil
         logger.error "No Token returned from IUGU, aborting"
@@ -60,6 +60,13 @@ class Plan < ActiveRecord::Base
   def delete_ops_plan
     if ops_type == "IUGU"
       plan = Mconf::Iugu.destroy_plan(self.ops_id)
+
+      if plan == false
+        logger.error "Could not delete plan from OPS, aborting"
+        errors.add(:attr, "Could not delete plan from OPS, aborting")
+        raise ActiveRecord::Rollback
+      end
+
     else
       logger.error "Bad ops_type, can't delete plan"
       errors.add(:attr, "Bad ops_type, can't delete plan")

@@ -10,8 +10,6 @@
     = f.input :email, required: true
     = f.fields_for :profile do |p|
       = p.input :full_name, required: true
-      = p.input :organization, required: false
-      = p.input :cpf_cnpj, required: false
       .form-group
         = select_tag :service_usage_select, options_for_select(User.usage_collection), prompt: t(".service_usage_select"), class: 'form-control'
       = p.input :service_usage, as: :string, required: false
@@ -27,16 +25,6 @@
       = f.input_field :username, class: "form-control", placeholder: t("activerecord.attributes.user.username")
     = disable_autocomplete_for('user[username]')
     .webconf-observation= t('.webconf_id_tip')
-
-  .field-group
-    %h3= t('.address_section')
-    = f.fields_for :profile do |p|
-      = p.input :address, required: false
-      = p.input :city, required: false
-      = p.input :province, required: false
-      = p.input :country, as: :string, required: false
-      = p.input :zipcode, required: false
-      = p.input :phone, required: false
 
   .field-group
     %h3= t('.password_section')
