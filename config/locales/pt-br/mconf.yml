@@ -1705,10 +1705,8 @@ pt-br:
       end_tooltip: "This action will end the current conference!"
       invite: "Convidar outras pessoas"
       attendees:
-        all_users: "Todos usuários"
         nobody: "Não há ninguém na sala."
         people_in_the_room: "Pessoas na sala"
-        registered_users: "Usuários registrados"
       meetings:
         no_recordings: "Ainda não existem reuniões ou gravações nesta comunidade."
         title: "Últimas reuniões e gravações desta comunidade"

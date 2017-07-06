@@ -514,8 +514,6 @@ describe SpacesController do
     end
   end
 
-
-
   it "#leave"
 
   describe "#webconference" do
@@ -537,78 +535,33 @@ describe SpacesController do
     context "assigns @webconf_attendees" do
 
       context "when there are attendees" do
-        let!(:user2) { FactoryGirl.create(:user) }
         let(:attendee1) {
           attendee = BigbluebuttonAttendee.new
           attendee.user_id = user.id
-          attendee.full_name = user.username
+          attendee.user_name = user.username
           attendee.role = :attendee
           attendee
         }
         let(:attendee2) {
           attendee = BigbluebuttonAttendee.new
-          attendee.user_id = user2.id
-          attendee.full_name = user2.username
+          attendee.user_id = 'another-id'
+          attendee.user_name = 'another-username'
           attendee.role = :moderator
           attendee
         }
         before(:each) {
-          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          BigbluebuttonRoom.any_instance.stub(:current_attendees).and_return([attendee1, attendee2])
           get :webconference, :id => space.to_param
         }
-        it { should assign_to(:webconf_attendees).with([user, user2]) }
+        it { should assign_to(:webconf_attendees).with([attendee1, attendee2]) }
       end
 
       context "when there are no attendees" do
         before(:each) {
-          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([])
+          BigbluebuttonRoom.any_instance.stub(:current_attendees).and_return([])
           get :webconference, :id => space.to_param
         }
         it { should assign_to(:webconf_attendees).with([]) }
-      end
-
-      context "doesn't replicate users" do
-        let(:attendee1) {
-          attendee = BigbluebuttonAttendee.new
-          attendee.user_id = user.id
-          attendee.full_name = user.username
-          attendee.role = :attendee
-          attendee
-        }
-        let(:attendee2) {
-          attendee = BigbluebuttonAttendee.new
-          attendee.user_id = user.id
-          attendee.full_name = user.username
-          attendee.role = :moderator
-          attendee
-        }
-        before(:each) {
-          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
-          get :webconference, :id => space.to_param
-        }
-        it { should assign_to(:webconf_attendees).with([user]) }
-      end
-
-      context "ignores users that are not registered" do
-        let(:attendee1) {
-          attendee = BigbluebuttonAttendee.new
-          attendee.user_id = user.id
-          attendee.full_name = user.username
-          attendee.role = :attendee
-          attendee
-        }
-        let(:attendee2) {
-          attendee = BigbluebuttonAttendee.new
-          attendee.user_id = "anything-invalid"
-          attendee.full_name = "Invited User"
-          attendee.role = :moderator
-          attendee
-        }
-        before(:each) {
-          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
-          get :webconference, :id => space.to_param
-        }
-        it { should assign_to(:webconf_attendees).with([user]) }
       end
     end
   end

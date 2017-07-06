@@ -1672,10 +1672,8 @@ en:
     webconference:
       invite: "Invite other people"
       attendees:
-        all_users: "All users"
         nobody: "There is nobody currently in the room."
         people_in_the_room: "People in the room"
-        registered_users: "Registered users"
       meetings:
         no_recordings: "There are no meetings or recordings in space yet."
         title: "Last meetings and recordings in this space"

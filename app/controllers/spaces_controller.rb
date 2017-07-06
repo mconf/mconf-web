@@ -28,7 +28,7 @@ class SpacesController < InheritedResources::Base
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
-  # all actions that render the web conference room snippetB
+  # all actions that render the web conference room snippet
   before_filter :webconf_room!, :only => [:show, :webconference, :meetings]
 
   before_filter :load_spaces_examples, only: [:new, :create]
@@ -158,14 +158,7 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    @webconf_attendees = []
-    unless @webconf_room.attendees.nil?
-      @webconf_room.attendees.each do |attendee|
-        user = User.where(id: attendee.user_id).first
-        @webconf_attendees << user unless user.nil?
-      end
-      @webconf_attendees.uniq!
-    end
+    @webconf_attendees = @webconf_room.current_attendees
     @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_recording().newest(5)
   end
 
