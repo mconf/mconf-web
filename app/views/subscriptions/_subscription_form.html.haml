@@ -1,25 +1,19 @@
-- plans = []
-- Plan.all.each do |e| plans.push([e.name, e.id]) end
-
 = minimal_form_for @subscription, :html => { :method => :post }, :url => subscriptions_path, wrapper: :vertical_form do |f|
 
   .field-group
     %h3= t('.customer_section')
-    = f.fields_for :user do |u|
-      = u.fields_for :profile do |p|
-        = p.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
-        = p.input :organization, required: false, placeholder: t('.organization')
+    = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
 
   .field-group
     %h3= t('.address_section')
-    = f.fields_for :user do |u|
-      = u.fields_for :profile do |p|
-        = p.input :address, required: false, placeholder: t('.address')
-        = p.input :city, required: false, placeholder: t('.city')
-        = p.input :province, required: false, placeholder: t('.province')
-        = p.input :country, as: :string, required: false, placeholder: t('.country')
-        = p.input :zipcode, required: false, placeholder: t('.zipcode')
-        = p.input :phone, required: false, placeholder: t('.phone')
+    = f.input :address, required: true, placeholder: t('.address')
+    = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info')
+    = f.input :number, required:true, placeholder: t('.number')
+    = f.input :zipcode, required: true, placeholder: t('.zipcode')
+    = f.input :city, required: true, placeholder: t('.city')
+    = f.input :province, required: true, placeholder: t('.province')
+    = f.input :district, required: true, placeholder: t('.district')
+    = f.input :country, as: :string, required: true, placeholder: t('.country')
 
     .alert.alert-gray
       = icon_info

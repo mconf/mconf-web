@@ -9,10 +9,6 @@ class SubscriptionsController < InheritedResources::Base
   layout 'no_sidebar'
   load_and_authorize_resource
 
-  free_days = Rails.application.config.trial_days
-
-  #before_filter :check_subscription_enabled, :only => [:new, :create]
-  #before_filter :check_terms_acceptance, :only => [:create]
   def new
     if current_user.subscription.present?
       redirect_to user_subscriptions_path(current_user)
@@ -20,44 +16,38 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def create
-    puts params["subscription"]["user"]["profile"]
-    #current_user.profile.update_attributes(params["subscription"]["user"]["profile"])
+    free_days = Rails.application.config.trial_days
 
     @subscription.user_id = current_user.id
     # Will create it on IUGU for now
     @subscription.plan_id = Plan.find_by_ops_type("IUGU").id
     # Will create invoice for the 5th of the month when the trial expires
     @subscription.pay_day = (Date.today+free_days.days).strftime('%Y/%m/05')
+
+    if @subscription.save
+      flash = { success: t("subscriptions.created") }
+      redirect_to my_home_path, :flash => flash
+    else
+      flash = { error: t("subscriptions.failed") }
+      redirect_to my_home_path, :flash => flash
+    end
   end
 
-  def index
+  def show
     redirect_to user_subscriptions_path(current_user)
     # TODO: pagination stuff
   end
 
+  def index
+
+  end
+
   private
-
-#  def check_subscription_enabled
-#    unless current_site.subscription_enabled?
-#      flash[:error] = I18n.t("devise.subscription.not_enabled")
-#      redirect_to root_path
-#      false
-#    end
-#  end
-
-#  def check_terms_acceptance
-#    unless ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms])
-#      flash[:error] = I18n.t("devise.subscription.terms_reject")
-#      build_resource(sign_up_params)
-#      render :new
-#    end
-#  end
 
   allow_params_for :subscription
   def allowed_params
-    [ user: [ profile: [ :address, :city, :province, :country, :zipcode, :phone,
-                            :organization, :cpf_cnpj ] ]
-    ]
+    [ :cpf_cnpj, :address, :additional_address_info,
+      :number, :zipcode, :city, :province, :district, :country ]
   end
 
 end

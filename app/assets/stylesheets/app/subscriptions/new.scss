@@ -1,6 +1,7 @@
 @import "definitions";
 
-body.subscriptions.new, body.subscriptions.create {
+body.subscriptions.new, body.subscriptions.create,
+body.subscriptions.index, body.subscriptions.show {
   h1 {
     text-align: center;
   }

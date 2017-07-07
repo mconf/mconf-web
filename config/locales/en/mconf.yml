@@ -1692,6 +1692,8 @@ en:
   stage_type: "Stage type"
   subject: "Subject:"
   subscriptions:
+    created: "Subscription successfully created"
+    failed: "Unable to create subscription"
     new:
       form_title: "Subscription"
       title: "Subscribe"
@@ -1703,12 +1705,13 @@ en:
       select_subscription: "Select your subscription"
       subscribe: "Subscribe"
       address: "Street address"
-      city: "City"
-      country: "Country"
-      organization: "Organization"
-      phone: "Telephone"
-      province: "Province"
+      additional_address_info: "Complement"
+      number: "Number"
       zipcode: "Zipcode"
+      city: "City"
+      province: "Province"
+      district: "District"
+      country: "Country"
   summary: "Video Info"
   superuser: "Administrator"
   sites:

@@ -32,17 +32,19 @@ module Mconf
 
 ###CUSTOMER#############################################################################################
     # We must create a customer account on Iugu when an user signs a subscription plan  
-    def self.create_customer(email, full_name, cpf_cnpj, zipcode, address, city, province, country)
+    def self.create_customer(email, full_name, cpf_cnpj, address, additional_address_info, number, zipcode, city, province, district, country)
 
       customer = ::Iugu::Customer.create({
         email: email,
         name: full_name,
         cpf_cnpj: cpf_cnpj,
         zip_code: zipcode,
-        number: address,
+        number: number,
         street: address,
         city: city,
         state: province,
+        district: district,
+        complement: additional_address_info,
         custom_variables: [ name: "Country", identifier: "country", value: country ]
       })
 

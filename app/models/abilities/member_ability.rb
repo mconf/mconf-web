@@ -43,7 +43,7 @@ module Abilities
       end
 
       # Subscriptions
-      can [:index, :new, :create], Subscription
+      can [:show, :new, :create], Subscription
 
       # Join Requests
       # TODO: make everything for events also

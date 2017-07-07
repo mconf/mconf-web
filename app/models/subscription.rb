@@ -12,7 +12,14 @@ class Subscription < ActiveRecord::Base
   validates :plan_id, :presence => true
 
   validates :pay_day, :presence => true
-  validates :start_day, :presence => true
+  validates :cpf_cnpj, :presence => true
+  validates :address, :presence => true
+  validates :number, :presence => true
+  validates :zipcode, :presence => true
+  validates :city, :presence => true
+  validates :province, :presence => true
+  validates :district, :presence => true
+  validates :country, :presence => true
 
   attr_accessor :payment_token
 
@@ -24,12 +31,15 @@ class Subscription < ActiveRecord::Base
       self.customer_token = Mconf::Iugu.create_customer(
                                           self.user.email,
                                           self.user.full_name,
-                                          self.user.profile.cpf_cnpj,
-                                          self.user.profile.zipcode,
-                                          self.user.profile.address,
-                                          self.user.profile.city,
-                                          self.user.profile.province,
-                                          self.user.profile.country)
+                                          self.cpf_cnpj,
+                                          self.address,
+                                          self.additional_address_info,
+                                          self.number,
+                                          self.zipcode,
+                                          self.city,
+                                          self.province,
+                                          self.district,
+                                          self.country)
 
       if self.customer_token == nil
         logger.error "No Token returned from IUGU, aborting"

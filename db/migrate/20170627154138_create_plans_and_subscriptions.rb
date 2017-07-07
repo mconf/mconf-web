@@ -19,7 +19,15 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration
       t.string :customer_token
       t.string :subscription_token
       t.string :pay_day
-      t.integer :start_day
+      t.string :cpf_cnpj
+      t.string :address
+      t.string :additional_address_info
+      t.string :number
+      t.string :zipcode
+      t.string :city
+      t.string :province
+      t.string :district
+      t.string :country
     end
   end
 
