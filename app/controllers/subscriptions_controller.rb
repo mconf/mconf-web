@@ -6,12 +6,22 @@
 # 3 or later. See the LICENSE file.
 
 class SubscriptionsController < InheritedResources::Base
-  layout 'no_sidebar'
+
   load_and_authorize_resource
+  layout :determine_layout
+
+  def determine_layout
+    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+      "no_sidebar"
+    else
+      "application"
+    end
+  end
+
 
   def new
     if current_user.subscription.present?
-      redirect_to user_subscriptions_path(current_user)
+      redirect_to user_subscription_path(current_user)
     end
   end
 
@@ -26,23 +36,55 @@ class SubscriptionsController < InheritedResources::Base
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }
-      redirect_to my_home_path, :flash => flash
+      redirect_to user_subscription_path(current_user), :flash => flash
     else
       flash = { error: t("subscriptions.failed") }
-      redirect_to my_home_path, :flash => flash
+      redirect_to user_subscription_path(current_user), :flash => flash
     end
   end
 
   def show
-    redirect_to user_subscriptions_path(current_user)
+    @subscription = User.find_by_username(params[:user_id]).subscription
+    authorize! :show, (@subscription)
     # TODO: pagination stuff
   end
 
-  def index
+  def edit
+    @subscription = User.find_by_username(params[:user_id]).subscription
+    authorize! :edit, (@subscription)
+  end
 
+  def update
+    @subscription = User.find_by_username(params[:user_id]).subscription
+    authorize! :update, (@subscription)
+
+    if @subscription.save
+      flash = { success: t("subscriptions.created") }
+      redirect_to user_subscription_path(current_user), :flash => flash
+    else
+      flash = { error: t("subscriptions.failed") }
+      redirect_to user_subscription_path(current_user), :flash => flash
+    end
+  end
+
+  def index
+    paginate_subscriptions
+    # TODO: pagination stuff
   end
 
   private
+
+  def handle_access_denied exception
+    if [:show, :index].include?(exception.action)
+      flash = { error: t("subscriptions.denied") }
+      redirect_to new_subscription_path, :flash => flash
+    end
+  end
+
+  def paginate_subscriptions
+    @subscriptions = @subscriptions.paginate(:page => params[:page], :per_page => 15)
+  end
+
 
   allow_params_for :subscription
   def allowed_params

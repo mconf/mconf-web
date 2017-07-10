@@ -1156,6 +1156,7 @@ en:
         meetings: "Meetings and recordings"
         profile: "Profile"
         spaces: "My spaces"
+        subscription: "My subscription"
         webconf_room: "My web conference room"
   my_friends: "My friends"
   next: Next
@@ -1693,16 +1694,34 @@ en:
   subject: "Subject:"
   subscriptions:
     created: "Subscription successfully created"
+    denied: "Access denied"
     failed: "Unable to create subscription"
     new:
       form_title: "Subscription"
       title: "Subscribe"
+    edit:
+      title: " Subscription"
+      address_section: "Address information"
+      confirmation: "After subscribing you will receive an email confirmation"
+      cpf_cnpj: "CPF/CNPJ"
+      customer_section: "Customer information"
+      save: "Save"
+      address: "Street address"
+      additional_address_info: "Complement"
+      number: "Number"
+      zipcode: "Zipcode"
+      city: "City"
+      province: "Province"
+      district: "District"
+      country: "Country"
+    show:
+      title: " Subscription"
+      edit: "Edit"
     subscription_form:
       address_section: "Address information"
       confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"
       customer_section: "Customer information"
-      select_subscription: "Select your subscription"
       subscribe: "Subscribe"
       address: "Street address"
       additional_address_info: "Complement"

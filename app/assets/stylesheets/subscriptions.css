@@ -1,3 +1,5 @@
 /*
  *= require ./app/subscriptions/new
+ *= require ./app/subscriptions/show
+ *= require ./app/subscriptions/edit
  */

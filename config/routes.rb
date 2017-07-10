@@ -95,7 +95,7 @@ Mconf::Application.routes.draw do
       post :update_logo
     end
 
-    resources :subscriptions, only: [:show]
+    resource :subscription, only: [:edit, :update, :show]
   end
 
  resources :subscriptions, only: [:new, :create, :index]

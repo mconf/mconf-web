@@ -1,0 +1,38 @@
+@import "definitions";
+
+body.subscriptions.edit {
+  h1 {
+    text-align: center;
+  }
+
+  #subscription-wrapper {
+    margin: 40px auto;
+    @include mconf-clearfix;
+
+    #edit-form {
+      @include make-xs-column(12);
+      @include make-sm-column(8);
+      @include make-sm-column-offset(2);
+
+      .form-actions {
+        min-width: 650px;
+        border: none;
+        margin: 40px auto;
+        padding-top: 10px;
+        padding-right: 10px;
+      }
+      
+      .field-group {
+        min-width: 650px;
+        padding-bottom: 16px;
+        clear: both;
+        margin-bottom: 2px;
+
+        h3 {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+}
+

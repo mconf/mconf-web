@@ -1,0 +1,9 @@
+- page_title User.find_by_username(params[:user_id]).full_name + t('.title')
+
+- home_sidebar_menu_at(:subscription)
+
+= content_for :sidebar do
+  = render "my/sidebar"
+
+
+= link_to t('.edit'), edit_user_subscription_path(User.find_by_username(params[:user_id])), :class => "btn btn-danger"

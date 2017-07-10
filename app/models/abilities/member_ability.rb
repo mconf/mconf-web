@@ -43,7 +43,10 @@ module Abilities
       end
 
       # Subscriptions
-      can [:show, :new, :create], Subscription
+      can [:new, :create], Subscription
+      can [:show, :edit, :update], Subscription do |subs|
+        subs.user_id == user.id
+      end
 
       # Join Requests
       # TODO: make everything for events also

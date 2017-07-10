@@ -15,3 +15,6 @@
     %li{ home_sidebar_menu_select_if(:meetings) }
       = link_to my_meetings_path do
         = t(".menu.meetings")
+    %li{ home_sidebar_menu_select_if(:subscription) }
+      = link_to new_subscription_path do
+        = t(".menu.subscription")

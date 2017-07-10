@@ -448,20 +448,20 @@ ActiveRecord::Schema.define(version: 20170627154138) do
   add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
 
   create_table "subscriptions", force: true do |t|
-    t.string "plan_id"
-    t.string "user_id"
-    t.string "customer_token"
-    t.string "subscription_token"
-    t.string "pay_day"
-    t.string "cpf_cnpj"
-    t.string "address"
-    t.string "additional_address_info"
-    t.string "number"
-    t.string "zipcode"
-    t.string "city"
-    t.string "province"
-    t.string "district"
-    t.string "country"
+    t.integer "plan_id"
+    t.integer "user_id"
+    t.string  "customer_token"
+    t.string  "subscription_token"
+    t.string  "pay_day"
+    t.string  "cpf_cnpj"
+    t.string  "address"
+    t.string  "additional_address_info"
+    t.string  "number"
+    t.string  "zipcode"
+    t.string  "city"
+    t.string  "province"
+    t.string  "district"
+    t.string  "country"
   end
 
   create_table "taggings", force: true do |t|
