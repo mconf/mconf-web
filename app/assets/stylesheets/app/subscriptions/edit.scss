@@ -1,6 +1,6 @@
 @import "definitions";
 
-body.subscriptions.edit {
+body.subscriptions.edit, body.subscriptions.update {
   h1 {
     text-align: center;
   }
@@ -35,4 +35,3 @@ body.subscriptions.edit {
     }
   }
 }
-

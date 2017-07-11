@@ -24,6 +24,7 @@ class Subscription < ActiveRecord::Base
   attr_accessor :payment_token
 
   before_create :create_customer_and_sub
+  before_update :update_sub
   before_destroy :destroy_sub
 
   def create_customer_and_sub
@@ -71,6 +72,34 @@ class Subscription < ActiveRecord::Base
     else
       logger.error "Bad ops_type, can't create subscription"
       errors.add(:attr, "Bad ops_type, can't create subscription")
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  # This update function does not cover changes in user full_name or email for now
+  def update_sub
+    if self.plan.ops_type == "IUGU"
+      updated = Mconf::Iugu.update_customer(
+                              self.customer_token,
+                              self.cpf_cnpj,
+                              self.address,
+                              self.additional_address_info,
+                              self.number,
+                              self.zipcode,
+                              self.city,
+                              self.province,
+                              self.district)
+
+      if updated == false
+        logger.error "Could not update IUGU, aborting"
+        errors.add(:attr, "Could not update IUGU, aborting")
+        raise ActiveRecord::Rollback
+      end
+
+      self.create_sub
+    else
+      logger.error "Bad ops_type, can't update customer"
+      errors.add(:attr, "Bad ops_type, can't update customer")
       raise ActiveRecord::Rollback
     end
   end

@@ -51,6 +51,20 @@ module Mconf
       customer.attributes["id"]
     end
 
+    # Currently not going to upate full_name or email, subscription must be created over to change those fields
+    def self.update_customer(customer_id, cpf_cnpj, address, additional_address_info, number, zipcode, city, province, district)
+      customer = ::Iugu::Customer.fetch(customer_id)
+      customer.cpf_cnpj = cpf_cnpj
+      customer.zip_code = zipcode
+      customer.number = number
+      customer.street = address
+      customer.city = city
+      customer.state = province
+      customer.district = district
+      customer.complement = additional_address_info
+      customer.save
+    end
+
     # We should delete a customer when his account is destroyed
     def self.destroy_customer(customer_id)
       customer = ::Iugu::Customer.fetch(customer_id)

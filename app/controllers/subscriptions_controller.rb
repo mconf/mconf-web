@@ -58,13 +58,7 @@ class SubscriptionsController < InheritedResources::Base
     @subscription = User.find_by_username(params[:user_id]).subscription
     authorize! :update, (@subscription)
 
-    if @subscription.save
-      flash = { success: t("subscriptions.created") }
-      redirect_to user_subscription_path(current_user), :flash => flash
-    else
-      flash = { error: t("subscriptions.failed") }
-      redirect_to user_subscription_path(current_user), :flash => flash
-    end
+    update!
   end
 
   def index
@@ -92,4 +86,7 @@ class SubscriptionsController < InheritedResources::Base
       :number, :zipcode, :city, :province, :district, :country ]
   end
 
+  def back_url
+    request.referer
+  end
 end
