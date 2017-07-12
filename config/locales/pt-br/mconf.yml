@@ -1729,6 +1729,7 @@ pt-br:
   subscriptions:
     created: "Assinatura criada com sucesso"
     denied: "Acesso negado"
+    destroy: "Assinatura removida com sucesso"
     failed: "Falha na criação da assintaura"
     new:
       form_title: "Assinatura"
@@ -1751,6 +1752,20 @@ pt-br:
     show:
       title: " Assinatura"
       edit: "Editar"
+      delete: "Remover Assinatura"
+      address_section: "Informações de endereço"
+      confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
+      cpf_cnpj: "CPF/CNPJ"
+      customer_section: "Informações do cliente"
+      save: "Salvar"
+      address: "Rua"
+      additional_address_info: "Complemento"
+      number: "Número"
+      zipcode: "CEP"
+      city: "Cidade"
+      province: "Estado"
+      district: "Bairro"
+      country: "País"
     subscription_form:
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"

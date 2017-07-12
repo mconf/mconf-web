@@ -48,7 +48,20 @@ module Mconf
         custom_variables: [ name: "Country", identifier: "country", value: country ]
       })
 
-      customer.attributes["id"]
+      if customer.errors.present?
+        if customer.errors["cpf_cnpj"].present? && customer.errors["zip_code"].present?
+          puts customer.errors
+          "cpf_cnpj_zipcode"
+        elsif customer.errors["cpf_cnpj"].present?
+          puts customer.errors
+          "cpf_cnpj"
+        elsif customer.errors["zip_code"].present?
+          puts customer.errors
+          "zipcode"
+        end
+      else
+        customer.attributes["id"]
+      end
     end
 
     # Currently not going to upate full_name or email, subscription must be created over to change those fields
@@ -62,7 +75,23 @@ module Mconf
       customer.state = province
       customer.district = district
       customer.complement = additional_address_info
+
       customer.save
+
+      if customer.errors.present?
+        if customer.errors["cpf_cnpj"].present? && customer.errors["zip_code"].present?
+          puts customer.errors
+          "cpf_cnpj_zipcode"
+        elsif customer.errors["cpf_cnpj"].present?
+          puts customer.errors
+          "cpf_cnpj"
+        elsif customer.errors["zip_code"].present?
+          puts customer.errors
+          "zipcode"
+        end
+      else
+        customer.save
+      end
     end
 
     # We should delete a customer when his account is destroyed

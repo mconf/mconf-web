@@ -1,9 +1,31 @@
-- page_title User.find_by_username(params[:user_id]).full_name + t('.title')
+- user = User.find_by_username(params[:user_id])
+- page_title user.full_name + t('.title')
 
 - home_sidebar_menu_at(:subscription)
 
 = content_for :sidebar do
   = render "my/sidebar"
 
+#subscription-wrapper
+  #show-form
+    = simple_form_for @subscription, :html => { :method => :patch }, :url => user_subscription_path(user), wrapper: :horizontal_form do |f|
 
-= link_to t('.edit'), edit_user_subscription_path(User.find_by_username(params[:user_id])), :class => "btn btn-danger"
+      .field-group
+        %h3= t('.customer_section')
+        = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj'), :disabled => true
+
+      .field-group
+        %h3= t('.address_section')
+        = f.input :address, required: true, placeholder: t('.address'), :disabled => true
+        = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info'), :disabled => true
+        = f.input :number, required:true, placeholder: t('.number'), :disabled => true
+        = f.input :zipcode, required: true, placeholder: t('.zipcode'), :disabled => true
+        = f.input :city, required: true, placeholder: t('.city'), :disabled => true
+        = f.input :province, required: true, placeholder: t('.province'), :disabled => true
+        = f.input :district, required: true, placeholder: t('.district'), :disabled => true
+        = f.input :country, as: :string, required: true, placeholder: t('.country'), :disabled => true
+
+        .edit-link
+          = link_to t('.edit'), edit_user_subscription_path(user), :class => "btn btn-danger"
+        .delete-link
+          = link_to t('.delete'), user_subscription_path(user), data: { confirm: t(".delete") }, method: :delete, :class => "btn btn-danger"

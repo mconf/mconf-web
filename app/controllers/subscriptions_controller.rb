@@ -38,8 +38,7 @@ class SubscriptionsController < InheritedResources::Base
       flash = { success: t("subscriptions.created") }
       redirect_to user_subscription_path(current_user), :flash => flash
     else
-      flash = { error: t("subscriptions.failed") }
-      redirect_to user_subscription_path(current_user), :flash => flash
+      render new_subscription_path
     end
   end
 
@@ -54,11 +53,20 @@ class SubscriptionsController < InheritedResources::Base
     authorize! :edit, (@subscription)
   end
 
+  def destroy
+    @subscription = User.find_by_username(params[:user_id]).subscription
+    authorize! :destroy, (@subscription)
+
+    @subscription.destroy
+    flash = { success: t("subscriptions.destroy") }
+    redirect_to my_home_path, :flash => flash
+  end
+
   def update
     @subscription = User.find_by_username(params[:user_id]).subscription
     authorize! :update, (@subscription)
 
-    update!
+    update! { :back }
   end
 
   def index
@@ -67,13 +75,6 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   private
-
-  def handle_access_denied exception
-    if [:show, :index].include?(exception.action)
-      flash = { error: t("subscriptions.denied") }
-      redirect_to new_subscription_path, :flash => flash
-    end
-  end
 
   def paginate_subscriptions
     @subscriptions = @subscriptions.paginate(:page => params[:page], :per_page => 15)

@@ -44,7 +44,7 @@ module Abilities
 
       # Subscriptions
       can [:new, :create], Subscription
-      can [:show, :edit, :update], Subscription do |subs|
+      can [:show, :edit, :update, :destroy], Subscription do |subs|
         subs.user_id == user.id
       end
 

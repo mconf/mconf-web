@@ -42,13 +42,26 @@ class Subscription < ActiveRecord::Base
                                           self.district,
                                           self.country)
 
+      puts self.customer_token
       if self.customer_token == nil
         logger.error "No Token returned from IUGU, aborting"
         errors.add(:attr, "No Token returned from IUGU, aborting")
         raise ActiveRecord::Rollback
+      elsif self.customer_token == "cpf_cnpj"
+        errors.add(:cpf_cnpj, :invalid)
+        raise ActiveRecord::Rollback
+      elsif self.customer_token == "zipcode"
+        errors.add(:zipcode, :invalid)
+        raise ActiveRecord::Rollback
+      elsif self.customer_token == "cpf_cnpj_zipcode"
+        errors.add(:cpf_cnpj, :invalid)
+        errors.add(:zipcode, :invalid)
+        raise ActiveRecord::Rollback
       end
 
+      # Here we are calling the creation of the subscription:
       self.create_sub
+
     else
       logger.error "Bad ops_type, can't create customer"
       errors.add(:attr, "Bad ops_type, can't create customer")
@@ -90,13 +103,19 @@ class Subscription < ActiveRecord::Base
                               self.province,
                               self.district)
 
-      if updated == false
+      unless updated == true
         logger.error "Could not update IUGU, aborting"
-        errors.add(:attr, "Could not update IUGU, aborting")
+        if updated == "cpf_cnpj"
+          errors.add(:cpf_cnpj, :invalid)
+        elsif updated == "zipcode"
+          errors.add(:zipcode, :invalid)
+        elsif updated == "cpf_cnpj_zipcode"
+          errors.add(:cpf_cnpj, :invalid)
+          errors.add(:zipcode, :invalid)
+        end
         raise ActiveRecord::Rollback
       end
 
-      self.create_sub
     else
       logger.error "Bad ops_type, can't update customer"
       errors.add(:attr, "Bad ops_type, can't update customer")
