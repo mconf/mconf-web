@@ -19,6 +19,13 @@ module Mconf
       subscription.attributes["id"]
     end
 
+    # Adds the actual invoice value to the current month subscription
+    def self.add_invoice_item(subscription_id, description, price_cents_unit, quantity)
+      subscription = ::Iugu::Subscription.fetch(subscription_id)
+      subscription.subitems = [ description: description, price_cents: price_cents_unit, quantity: quantity ]
+      subscription.save
+    end
+
     # Upon changing/destroying subscription we will also destroy the customer
     def self.destroy_subscription(subscription_id)
       subscription = ::Iugu::Subscription.fetch(subscription_id)
@@ -49,16 +56,7 @@ module Mconf
       })
 
       if customer.errors.present?
-        if customer.errors["cpf_cnpj"].present? && customer.errors["zip_code"].present?
-          puts customer.errors
-          "cpf_cnpj_zipcode"
-        elsif customer.errors["cpf_cnpj"].present?
-          puts customer.errors
-          "cpf_cnpj"
-        elsif customer.errors["zip_code"].present?
-          puts customer.errors
-          "zipcode"
-        end
+        customer.errors
       else
         customer.attributes["id"]
       end
@@ -79,16 +77,7 @@ module Mconf
       customer.save
 
       if customer.errors.present?
-        if customer.errors["cpf_cnpj"].present? && customer.errors["zip_code"].present?
-          puts customer.errors
-          "cpf_cnpj_zipcode"
-        elsif customer.errors["cpf_cnpj"].present?
-          puts customer.errors
-          "cpf_cnpj"
-        elsif customer.errors["zip_code"].present?
-          puts customer.errors
-          "zipcode"
-        end
+        customer.errors
       else
         customer.save
       end

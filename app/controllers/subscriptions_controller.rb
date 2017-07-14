@@ -32,7 +32,7 @@ class SubscriptionsController < InheritedResources::Base
     # Will create it on IUGU for now
     @subscription.plan_id = Plan.find_by_ops_type("IUGU").id
     # Will create invoice for the 5th of the month when the trial expires
-    @subscription.pay_day = (Date.today+free_days.days).strftime('%Y/%m/05')
+    @subscription.pay_day = (Date.today+free_days.days).strftime('%Y/%m/10')
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }
