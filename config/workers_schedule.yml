@@ -1,3 +1,9 @@
+create_subscription_invoice:
+  cron: "0 0 1 * *"
+  class: InvoiceCreationWorker
+  queue: high
+  description: "Creates the invoices for the previous month on selected OPS"
+
 send_join_requests_notifications:
   every:
     - "30s"

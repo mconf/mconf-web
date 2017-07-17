@@ -462,6 +462,7 @@ ActiveRecord::Schema.define(version: 20170627154138) do
     t.string  "province"
     t.string  "district"
     t.string  "country"
+    t.boolean "integrator",              default: false
   end
 
   create_table "taggings", force: true do |t|

@@ -28,6 +28,7 @@ class CreatePlansAndSubscriptions < ActiveRecord::Migration
       t.string :province
       t.string :district
       t.string :country
+      t.boolean :integrator, default: false
     end
   end
 
