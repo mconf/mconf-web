@@ -71,17 +71,6 @@ pt-br:
     created: "Assinatura criada com sucesso"
     denied: "Acesso negado"
     destroy: "Assinatura removida com sucesso"
-    failed: "Falha na criação da assintaura"
-    minimum_fee: "Taxa mínima de serviço"
-    user_fee: "Taxa por usuário único"
-    new:
-      form_title: "Assinatura"
-      title: "Assinar"
-      pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
-      pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
-      pricing_title: "Tarifas"
-      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
-      rules_title: "Como Funciona"
     edit:
       title: " Assinatura"
       address_section: "Informações de endereço"
@@ -97,6 +86,26 @@ pt-br:
       province: "Estado"
       district: "Bairro"
       country: "País"
+    failed: "Falha na criação da assintaura"
+    invoices_list:
+      due_date: "Data"
+      id: "Identificador da fatura"
+      status: "Status"
+      value: "Valor"
+    invoice_item:
+      canceled: "Cancelado"
+      expired: "Expirado"
+      paid: "Pago"
+      pending: "Pendente"
+    minimum_fee: "Taxa mínima de serviço"
+    new:
+      form_title: "Assinatura"
+      title: "Assinar"
+      pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
+      pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
+      pricing_title: "Tarifas"
+      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
+      rules_title: "Como Funciona"
     show:
       title: " Assinatura"
       edit: "Editar"
@@ -128,6 +137,7 @@ pt-br:
       province: "Estado"
       district: "Bairro"
       country: "País"
+    user_fee: "Taxa por usuário único"
   trial_notifications_mailer:
     ended:
       line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"

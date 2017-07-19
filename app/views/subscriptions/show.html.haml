@@ -29,3 +29,5 @@
           = link_to t('.edit'), edit_user_subscription_path(user), :class => "btn btn-danger"
         .delete-link
           = link_to t('.delete'), user_subscription_path(user), data: { confirm: t(".delete") }, method: :delete, :class => "btn btn-danger"
+
+= render "subscriptions/invoices_list", customer_id: @subscription.customer_token

@@ -32,14 +32,41 @@ module Mconf
       subscription.delete
     end
 
+    # We might want to just suspend the subscription without deleting to keep db relations
+    def self.disable_subscription(subscription_id)
+      subscription = ::Iugu::Subscription.fetch(subscription_id)
+      if subscription.suspended == false
+        subscription.suspend
+      end
+    end
+
+    # We might want to just reactivate the subscription with the same data as before
+    def self.enable_subscription(subscription_id)
+      subscription = ::Iugu::Subscription.fetch(subscription_id)
+      if subscription.suspended == true
+        subscription.activate
+      end
+    end
+
+    # This will just return the data of a given subscription
     def self.get_subscription(subscription_id)
       subscription = ::Iugu::Subscription.fetch(subscription_id)
       subscription
     end
 
+###INVOICES#############################################################################################
+
+    # This returns an array of invoices for a given user token
+    # The array contains an @attributes hash with all info we need to create the list
+    def self.fetch_user_invoices(customer_id)
+      invoices = ::Iugu::Invoice.search(customer_id: customer_id).results
+      invoices
+    end
+
 ###CUSTOMER#############################################################################################
     # We must create a customer account on Iugu when an user signs a subscription plan  
-    def self.create_customer(email, full_name, cpf_cnpj, address, additional_address_info, number, zipcode, city, province, district, country)
+    def self.create_customer(email, full_name, cpf_cnpj, address, additional_address_info, number,
+                             zipcode, city, province, district, country)
 
       customer = ::Iugu::Customer.create({
         email: email,

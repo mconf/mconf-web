@@ -75,17 +75,6 @@ en:
     created: "Subscription successfully created"
     denied: "Access denied"
     destroy: "Subscription successfully removed"
-    failed: "Unable to create subscription"
-    minimum_fee: "Minimum service fee"
-    user_fee: "Unique users fee"
-    new:
-      form_title: "Subscription"
-      title: "Subscribe"
-      pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
-      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
-      pricing_title: "Pricing"
-      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
-      rules_title: "How it works"
     edit:
       title: " Subscription"
       address_section: "Address information"
@@ -101,6 +90,26 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
+    failed: "Unable to create subscription"
+    invoices_list:
+      due_date: "Date"
+      id: "Invoice identifier"
+      status: "Status"
+      value: "Price"
+    invoice_item:
+      canceled: "Canceled"
+      expired: "Expired"
+      paid: "Paid"
+      pending: "Pending"
+    minimum_fee: "Minimum service fee"
+    new:
+      form_title: "Subscription"
+      title: "Subscribe"
+      pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
+      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
+      pricing_title: "Pricing"
+      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
+      rules_title: "How it works"
     show:
       title: " Subscription"
       edit: "Edit"
@@ -132,6 +141,7 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
+    user_fee: "Unique users fee"
   user:
     usage:
       education: "Education"
