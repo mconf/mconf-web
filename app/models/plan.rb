@@ -17,6 +17,7 @@ class Plan < ActiveRecord::Base
   validates :item_price, :presence => true
   validates :base_price, :presence => true
   validates :max_users, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
+  has_many :subscription, dependent: :destroy
 
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
@@ -77,7 +78,7 @@ class Plan < ActiveRecord::Base
   def self.get_plans_from_ops
     plans = Mconf::Iugu.fetch_all_plans
     puts plans
-    #Then after that we will get an array of plan objects, got to check which ones are already on the DB and create the missing ones
+    # An array of plan objects - check which ones are already on the DB and create the missing ones
   end
 
 end
