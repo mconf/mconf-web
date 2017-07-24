@@ -44,7 +44,7 @@ class Subscription < ActiveRecord::Base
 
       if self.customer_token == nil
         logger.error "No Token returned from IUGU, aborting"
-        errors.add(:attr, "No Token returned from IUGU, aborting")
+        errors.add(:ops_error, "No Token returned from IUGU, aborting")
         raise ActiveRecord::Rollback
       elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
         errors.add(:cpf_cnpj, :invalid)
@@ -63,7 +63,7 @@ class Subscription < ActiveRecord::Base
 
     else
       logger.error "Bad ops_type, can't create customer"
-      errors.add(:attr, "Bad ops_type, can't create customer")
+      errors.add(:ops_error, "Bad ops_type, can't create customer")
       raise ActiveRecord::Rollback
     end
   end
@@ -77,13 +77,13 @@ class Subscription < ActiveRecord::Base
 
       if self.subscription_token == nil
         logger.error "No Token returned from IUGU, aborting"
-        errors.add(:attr, "No Token returned from IUGU, aborting")
+        errors.add(:ops_error, "No Token returned from IUGU, aborting")
         raise ActiveRecord::Rollback
       end
 
     else
       logger.error "Bad ops_type, can't create subscription"
-      errors.add(:attr, "Bad ops_type, can't create subscription")
+      errors.add(:ops_error, "Bad ops_type, can't create subscription")
       raise ActiveRecord::Rollback
     end
   end
@@ -117,7 +117,7 @@ class Subscription < ActiveRecord::Base
 
     else
       logger.error "Bad ops_type, can't update customer"
-      errors.add(:attr, "Bad ops_type, can't update customer")
+      errors.add(:ops_error, "Bad ops_type, can't update customer")
       raise ActiveRecord::Rollback
     end
   end
@@ -133,7 +133,7 @@ class Subscription < ActiveRecord::Base
 
       if subscription == false
         logger.error "Could not delete subscription from OPS, aborting"
-        errors.add(:attr, "Could not delete subscription from OPS, aborting")
+        errors.add(:ops_error, "Could not delete subscription from OPS, aborting")
         raise ActiveRecord::Rollback
       end
 
@@ -141,7 +141,7 @@ class Subscription < ActiveRecord::Base
 
       if customer == false
         logger.error "Could not delete customer from OPS, aborting"
-        errors.add(:attr, "Could not delete customer from OPS, aborting")
+        errors.add(:ops_error, "Could not delete customer from OPS, aborting")
         raise ActiveRecord::Rollback
       end
 

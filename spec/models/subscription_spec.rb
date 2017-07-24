@@ -20,29 +20,46 @@ describe Subscription do
   it { should validate_presence_of(:district) }
   it { should validate_presence_of(:country)  }
 
+  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number) }
+  before { Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number) }
+
   describe "#create_customer_and_sub" do
 
     context "no token returned from OPS" do
-      #criar um stub do create customer pra fazer esse erro e os demais
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, customer_token: nil, subscription_token: nil, user_id: 1, plan_id: FactoryGirl.create(:plan).id) }
+      before { Mconf::Iugu.stub(:create_customer).and_return(nil) }
+      subject { Subscription.create(attrs) }
+      it { subject.new_record?.should be(true) }
+      it { subject.errors.should have_key(:ops_error) }
     end
 
     context "invalid cpf/cnpj" do
-      let(:subscription) { FactoryGirl.build(:subscription, cpf_cnpj: "1234") }
-      it { subscription.errors.should have_key(:cpf_cnpj) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", user_id: 1, plan_id: FactoryGirl.create(:plan).id) }
+      before { Mconf::Iugu.stub(:create_customer).and_return({"cpf_cnpj"=>["não é válido"]}) }
+      subject { Subscription.create(attrs) }
+      it { subject.new_record?.should be(true) }
+      it { subject.errors.should have_key(:cpf_cnpj) }
     end
 
     context "invalid zipcode" do
-      let(:subscription) { FactoryGirl.build(:subscription, zipcode: "1234") }
-      it { subscription.errors.should have_key(:zipcode) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, zipcode: "1234", user_id: 1, plan_id: FactoryGirl.create(:plan).id) }
+      before { Mconf::Iugu.stub(:create_customer).and_return({"zip_code"=>["não é válido"]}) }
+      subject { Subscription.create(attrs) }
+      it { subject.new_record?.should be(true) }
+      it { subject.errors.should have_key(:zipcode) }
     end
 
     context "invalid cpf/cnpj and zipcode" do
-      let(:subscription) { FactoryGirl.build(:subscription, cpf_cnpj: "1234", zipcode: "1234") }
-      it { subscription.errors.should have_key(:cpf_cnpj) }
-      it { subscription.errors.should have_key(:zipcode) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", zipcode: "1234", user_id: 1, plan_id: FactoryGirl.create(:plan).id) }
+      before { Mconf::Iugu.stub(:create_customer).and_return({"zip_code"=>["não é válido"], "cpf_cnpj"=>["não é válido"]}) }
+      subject { Subscription.create(attrs) }
+      it { subject.new_record?.should be(true) }
+      it { subject.errors.should have_key(:cpf_cnpj) }
+      it { subject.errors.should have_key(:zipcode) }
     end
 
     context "all data valid" do
+      before { Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number) }
       it { expect { FactoryGirl.create(:subscription) }.to change{ Subscription.count }.by(1) }
     end
   end
