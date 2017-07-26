@@ -951,7 +951,7 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   layouts:
-    application_navbar:
+    navbar:
       account: "Conta"
       events: "Eventos"
       inbox: "Caixa de entrada"
@@ -1152,7 +1152,7 @@ pt-br:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
-    sidebar:
+    navbar_menu:
       menu:
         account: "Conta"
         activity: "Atividades recentes"

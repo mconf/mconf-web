@@ -369,6 +369,10 @@ class User < ActiveRecord::Base
     enabled_rename(value)
   end
 
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
+  end
+
   protected
 
   def before_disable_and_destroy

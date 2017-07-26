@@ -250,9 +250,102 @@ form {
 // Here we define the basic styles used in all layouts
 //
 
+#sidenav {
+  background: $m-sidenav-bg-color;
+  border-right: 1px solid $m-sidenav-border;
+  padding: $m-sidenav-padding;
+  box-shadow: $m-sidenav-box-shadow;
+
+  width: $m-sidenav-width-md;
+  position: fixed;
+  left: 0;
+  right: auto;
+  top: 0;
+  bottom: 0;
+  z-index: $m-z-index-sidenav;
+
+  > .logo {
+    margin: 0 auto;
+    display: block;
+    background: image-url('logos/mconf-color-transp.png') no-repeat left top;
+    background-size: 87px 45px;
+    width: 87px;
+    height: 45px;
+
+    // - logo height - sidenav top padding
+    margin-top: ($m-navbar-height - 45px)/2 - 20px;
+    margin-bottom: ($m-navbar-height - 45px)/2;
+    @include mconf-clearfix;
+  }
+
+  .search {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    input {
+      width: 100%;
+      text-align: center;
+
+      // TODO: move to common input definitions
+      border-radius: 4px;
+      border: none;
+      background-color: #f4f0f3; //#c9b8c3;
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.15;
+      //color: desaturate($m-color-primary, 10%); //#784d68;
+    }
+  }
+
+  .subtitle {
+    font-size: $m-font-small; //13px; //$m-font-normal;
+    line-height: 1;
+    padding: 8px 0 16px 0;
+    color: #784d68;
+    opacity: 0.7;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .space-item {
+    @include mconf-clearfix;
+    margin: 16px 0;
+    @include text-truncate;
+    white-space: nowrap;
+
+    > .logo {
+      /* border-radius: $input-border-radius-large; */
+      @include logo-container;
+      display: inline-block;
+      margin-right: 10px;
+
+      /* TODO: move to a default place */
+      img, .logo-initials {
+        width: 53px;
+        height: 40px;
+      }
+    }
+
+    > .name {
+      display: inline-block;
+      color: #2c0b23;
+      font-size: $m-font-medium;
+      opacity: 0.4;
+      margin: 8px 0;
+
+      &:hover {
+        text-decoration: none;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
 #site {
   @include container-fixed; // without params this is actually a .container-fluid
   padding: 0;
+  padding-left: $m-sidenav-width-md;
 }
 
 #navbar {
@@ -273,7 +366,7 @@ form {
   a:hover { text-decoration: none; }
 }
 
-#navbar-left {
+#navbar-menu {
   @include navbar-lists;
   position: absolute;
   left: 16px;

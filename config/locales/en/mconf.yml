@@ -943,7 +943,7 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   layouts:
-    application_navbar:
+    navbar:
       account: "Account"
       events: "Events"
       inbox: "Inbox"
@@ -1146,7 +1146,7 @@ en:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
-    sidebar:
+    navbar_menu:
       menu:
         account: "Account"
         activity: "Activity dashboard"

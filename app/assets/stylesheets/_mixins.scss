@@ -46,7 +46,7 @@
 // The image will still be replaced by the text, but it shouldn't break the layout anymore.
 // In some cases the element that includes this might also have to specify its own width and height.
 @mixin broken-img-parent($float:left) {
-  overflow: hidden;
+  //overflow: hidden;
 
   img:-moz-broken {
     float: $float;
@@ -94,41 +94,41 @@
 
 // general logo style (user avatars, space logos)
 @mixin logo-container {
+  text-decoration: none;
+  @include broken-img-parent;
+
   img {
     margin: 2px 0;
-    padding: 1px;
-    border: 1px solid $m-border-color-normal;
-    @include border-radius($m-border-radius-small);
+    //padding: 1px;
+    //border: 1px solid $m-border-color-normal;
+    @include border-radius($m-border-radius-base);
+    width: 100%;
+    height: auto;
+  }
 
-    &.logo-space, &.logo-user {
-      width: 100%;
-      height: auto;
-    }
+  .logo-initials {
+    color: #fff;
+    font-weight: 600;
+    font-size: $m-font-medium;
+    text-align: center;
+    vertical-align: middle;
+    padding: (40px - $m-font-medium)/2 0;
+    line-height: 1;
+  }
 
-    // default dimensions for logos inside threads
-    &.logo-space.fixed-width, &.logo-space-activity {
-      width: 52px;
-      height: 39px;
-    }
-    &.logo-user.fixed-width, &.logo-user-activity {
-      width: 39px;
-      height: 39px;
-    }
-    /* &.logo-user-big { */
-    /*   width: 64px; */
-    /*   height: 64px; */
-    /* } */
-    &.logo-removed {
-      width: 39px;
-      height: 39px;
+  @for $i from 1 through 9 {
+    .logo-initials-#{$i} {
+      background-color: nth($m-logo-initials-bg, $i);
     }
   }
 
-  a img {
-    &:hover { border: 1px solid $m-focus-border-color; }
+  a, a:hover {
+    text-decoration: none;
   }
 
-  @include broken-img-parent;
+  /* a img { */
+  /*   &:hover { border: 1px solid $m-focus-border-color; } */
+  /* } */
 }
 
 @mixin mconf-clearfix {
@@ -252,18 +252,24 @@
           margin-right: 5px;
         }
       }
+
+      &.active a {
+        border-bottom: 4px solid $m-border-color-highlight;
+        font-weight: bold;
+      }
     }
   }
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: 17px 16px 16px 16px;
+    padding: 30px 20px 25px 20px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
 
     &:hover {
-      background: $m-navbar-font-highlight;
+      border-bottom: 4px solid $m-border-color-highlight;
+      //font-weight: bold;
     }
   }
 

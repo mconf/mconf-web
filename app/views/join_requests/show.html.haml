@@ -9,7 +9,7 @@
     - spaces_menu_at :users
     = render 'spaces/sidebar', space: @space, full: false
   - else
-    - home_sidebar_menu_at(:spaces)
+    - home_navbar_menu_at(:spaces)
     = render "my/sidebar", user_spaces: @user_spaces
 
 #join-requests-show

@@ -16,10 +16,12 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
-    #site
+    #sidenav
+      = render :partial => "layouts/sidenav"
 
+    #site
       #navbar
-        = render :partial => 'layouts/application_navbar'
+        = render :partial => 'layouts/navbar'
 
       - if content_for?(:content_notification)
         #content-notification

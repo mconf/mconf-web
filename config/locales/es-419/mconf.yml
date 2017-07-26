@@ -847,7 +847,7 @@ es-419:
   last_week: "Última semana"
   latest_events: "Últimos eventos"
   layouts:
-    application_navbar:
+    navbar:
       events: "Eventos"
       inbox: "Bandeja de entrada"
       login: "Acceder"
@@ -1481,7 +1481,7 @@ es-419:
         updating: "Actualizando su lista de grabaciones..."
     show:
       events_now: "¡Eventos ocurriendo ahora!"
-    sidebar:
+    navbar_menu:
       upcoming_events: "Futuros eventos"
       webconference:
         attendees:

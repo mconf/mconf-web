@@ -1,8 +1,8 @@
 - page_title t('.title')
-- home_sidebar_menu_at(:meetings)
+- home_navbar_menu_at(:meetings)
 
-= content_for :sidebar do
-  = render "my/sidebar", user_spaces: @user_spaces
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
 
 #my-meetings
   %h3= t('.subtitle')

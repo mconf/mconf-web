@@ -225,6 +225,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
+  end
+
   private
 
   def to_ics_internal

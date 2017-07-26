@@ -1,0 +1,16 @@
+-# TODO: set on controller
+- spaces = user_signed_in? ? current_user.spaces : []
+
+- url = user_signed_in? ? main_app.my_home_path : main_app.root_path
+.logo= link_to "", url
+
+.search
+  = text_field_tag "search", nil, placeholder: "Search...", class: "form-control"
+
+.subtitle= "My room"
+
+.subtitle= "My spaces"
+- spaces.each do |space|
+  .space-item
+    = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
+    = link_to space.name, space_path(space), class: 'name'
