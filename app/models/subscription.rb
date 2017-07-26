@@ -102,17 +102,21 @@ class Subscription < ActiveRecord::Base
                               self.province,
                               self.district)
 
-      unless updated == true
+      if updated == false
         logger.error "Could not update IUGU, aborting"
+        raise ActiveRecord::Rollback
+      elsif updated.is_a?(Hash)
         if updated["cpf_cnpj"].present? && updated["zip_code"].present?
           errors.add(:cpf_cnpj, :invalid)
           errors.add(:zipcode, :invalid)
+          raise ActiveRecord::Rollback
         elsif updated["cpf_cnpj"].present?
           errors.add(:cpf_cnpj, :invalid)
+          raise ActiveRecord::Rollback
         elsif updated["zip_code"].present?
           errors.add(:zipcode, :invalid)
+          raise ActiveRecord::Rollback
         end
-        raise ActiveRecord::Rollback
       end
 
     else
@@ -122,9 +126,9 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def get_sub_data
-    subscription = Mconf::Iugu.get_subscription(self.subscription_token)
-  end
+  #def get_sub_data
+  #  subscription = Mconf::Iugu.get_subscription(self.subscription_token)
+  #end
 
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
