@@ -20,10 +20,10 @@ describe Subscription do
   it { should validate_presence_of(:district) }
   it { should validate_presence_of(:country)  }
 
-  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number) }
-  before { Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number) }
-  before { Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number) }
-  before { Mconf::Iugu.stub(:update_customer).and_return(true) }
+  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+           Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+           Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+           Mconf::Iugu.stub(:update_customer).and_return(true) }
   let(:iugu_plan) { FactoryGirl.create(:plan) }
 
   describe "#create_customer_and_sub" do
@@ -134,9 +134,41 @@ describe Subscription do
 
   describe "#destroy_sub" do
 
+    let!(:subscription) { FactoryGirl.create(:subscription) }
+
+    context "failed destroy on Iugu" do
+      before { Mconf::Iugu.stub(:destroy_subscription).and_return(false)
+               Mconf::Iugu.stub(:destroy_customer).and_return(false) }
+      it { expect { subscription.destroy }.to change{ Subscription.count }.by(0) }
+    end
+
+    context "successful destroy" do
+      before { Mconf::Iugu.stub(:destroy_subscription).and_return(true)
+               Mconf::Iugu.stub(:destroy_customer).and_return(true) }
+      it { expect { subscription.destroy }.to change{ Subscription.count }.by(-1) }
+    end
+
   end
 
   describe "#create_invoice" do
+    let!(:subscription) { FactoryGirl.create(:subscription) }
+
+    context "failed to retrieve stats" do
+      before { subscription.stub(:get_stats_for_subscription).and_return(nil)
+               Mconf::Iugu.stub(:add_invoice_item).and_return(false) }
+      it { expect { subscription.create_invoice }.to raise_error("get_stats error") }
+    end
+
+    context "successful create_invoice" do
+      before { subscription.stub(:get_stats_for_subscription).and_return({:returncode=>true, :stats=>{:meeting=>{:meetingID=>"meetid", :meetingName=>"meet-name", :recordID=>"rec-id",
+                                                                          :epochStartTime=>"1501267120992", :startTime=>"10879193200", :endTime=>"10879245167", :participants=>{:participant=>
+                                                                          [{:userID=>"veq7rb6lc7rq_2", :externUserID=>"4", :userName=>"Henry Fuller", :joinTime=>"10879193200", :leftTime=>"10879245167"},
+                                                                          {:userID=>"ppseriskdzip_2", :externUserID=>"ppseriskdzip", :userName=>"adfsdfa", :joinTime=>"10879237199", :leftTime=>"10879245167"}]}}},
+                                                                          :messageKey=>"", :message=>""})
+               Mconf::Iugu.stub(:add_invoice_item).and_return(false) }
+      it { expect { subscription.create_invoice }.not_to raise_error }
+    end
+
   end
 
 end
