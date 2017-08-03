@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627154138) do
+ActiveRecord::Schema.define(version: 20170802160001) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -244,6 +244,14 @@ ActiveRecord::Schema.define(version: 20170627154138) do
   end
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree
+
+  create_table "invoices", force: true do |t|
+    t.integer "subscription_id"
+    t.string  "invoice_token"
+    t.string  "invoice_url"
+    t.string  "flag_invoice_status"
+    t.integer "user_qty"
+  end
 
   create_table "join_requests", force: true do |t|
     t.string   "request_type"

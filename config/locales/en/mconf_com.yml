@@ -30,6 +30,19 @@ en:
         redefine_password: "Redefine my password"
     registrations:
       terms_reject: "You must accept the terms and conditions to register an account."
+  invoices:
+    invoices_list:
+      due_date: "Date"
+      id: "Invoice identifier"
+      invoices: "Customer Invoices"
+      no_invoices: "There are no invoices for this customer"
+      status: "Status"
+      value: "Price"
+    invoice_item:
+      canceled: "Canceled"
+      expired: "Expired"
+      paid: "Paid"
+      pending: "Pending"
   layouts:
     mailers:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
@@ -91,16 +104,6 @@ en:
       district: "District"
       country: "Country"
     failed: "Unable to create subscription"
-    invoices_list:
-      due_date: "Date"
-      id: "Invoice identifier"
-      status: "Status"
-      value: "Price"
-    invoice_item:
-      canceled: "Canceled"
-      expired: "Expired"
-      paid: "Paid"
-      pending: "Pending"
     minimum_fee: "Minimum service fee"
     new:
       form_title: "Subscription"

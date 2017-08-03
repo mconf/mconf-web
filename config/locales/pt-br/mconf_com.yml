@@ -33,6 +33,19 @@ pt-br:
         redefine_password: "Redefinir minha senha"
     registrations:
       terms_reject: "É preciso aceitar os termos de uso para criar uma conta."
+  invoices:
+    invoices_list:
+      due_date: "Data"
+      id: "Identificador da fatura"
+      invoices: "Faturas do cliente"
+      no_invoices: "Não existem faturas para este cliente"
+      status: "Status"
+      value: "Valor"
+    invoice_item:
+      canceled: "Cancelado"
+      expired: "Expirado"
+      paid: "Pago"
+      pending: "Pendente"
   layouts:
     mailers:
       signature: "Este e-mail foi encaminhado por Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil. <br/> +55 51 3308.6812"
@@ -87,16 +100,6 @@ pt-br:
       district: "Bairro"
       country: "País"
     failed: "Falha na criação da assintaura"
-    invoices_list:
-      due_date: "Data"
-      id: "Identificador da fatura"
-      status: "Status"
-      value: "Valor"
-    invoice_item:
-      canceled: "Cancelado"
-      expired: "Expirado"
-      paid: "Pago"
-      pending: "Pendente"
     minimum_fee: "Taxa mínima de serviço"
     new:
       form_title: "Assinatura"
