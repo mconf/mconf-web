@@ -8,6 +8,8 @@ class Subscription < ActiveRecord::Base
   belongs_to :plan
   belongs_to :user
 
+  has_many :invoices
+
   validates :user_id, :presence => true, :uniqueness => true
   validates :plan_id, :presence => true
 
