@@ -141,6 +141,25 @@ module Mconf
       plans = ::Iugu::Plan.fetch
       plans.inspect
     end
+
+###TEST#SCRIPTS#########################################################################################
+
+    # Since Iugu doesn't support dropping the test DB these scripts will do the trick
+    # Should not be used on production DB to avoid loss of data and inconsistency on IUGU reports
+    def self.drop_subscriptions
+      subscriptions = ::Iugu::Subscription.fetch()
+      subscriptions.results.each do |sub|
+        puts ::Iugu::Subscription.fetch(sub.attributes['id']).delete
+      end
+    end
+
+    def self.drop_customers
+      customer = ::Iugu::Customer.fetch()
+      customer.results.each do |cus|
+        puts ::Iugu::Customer.fetch(cus.attributes['id']).delete
+      end
+    end
+
 ########################################################################################################
 
   end

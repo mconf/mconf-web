@@ -14,14 +14,19 @@ class InvoiceCreationWorker < BaseWorker
   end
 
   def self.invoices_create
-    subscriptions = Subscriptions.where("pay_day < ?", (Time.now).strftime('%Y/%m/%d')) # only the ones past trial date
-    subscriptions.each do |subscription|
-      subscription.create_invoice
+    Subscriptions.find_each do |sub|
+      if sub.user.trial_ended?
+        if subscription.invoices.last.present?
+          #add amount to invoice
+        else
+          subscription.invoices.new(due_date: )
+          :invoice_token
+          :invoice_url
+          :flag_invoice_status
+          :user_qty
+          :due_date
+        end
+      end
     end
   end
-
-  # def self.invoice_send_usage_report
-  #   mailer tasks
-  # end
-
 end
