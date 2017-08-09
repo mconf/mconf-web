@@ -5,26 +5,21 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# Sends emails related to the trial period.
+# Updates local invoices
 class InvoiceCreationWorker < BaseWorker
 
   def self.perform
     invoices_create
-    # invoice_send_usage_report (TODO: Send the names of the unique users for the month for review)
   end
 
   def self.invoices_create
     Subscriptions.find_each do |sub|
       if sub.user.trial_ended?
-        if subscription.invoices.last.present?
-          #add amount to invoice
+        if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
+          subscription.invoices.last.update_unique_user_qty
         else
-          subscription.invoices.new(due_date: )
-          :invoice_token
-          :invoice_url
-          :flag_invoice_status
-          :user_qty
-          :due_date
+          subscription.invoices.new(due_date: (DateTime.now)), flag_invoice_status: "local")
+          subscription.invoices.last.update_unique_user_qty
         end
       end
     end

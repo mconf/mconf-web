@@ -9,58 +9,67 @@ class Invoice < ActiveRecord::Base
 
   validates :subscription_id, :presence => true
 
-    :invoice_token
-    :invoice_url
-    :flag_invoice_status
-    :user_qty
-    :due_date
+  # This model has these attributes:
+  #  :subscription_id
+  #  :invoice_token
+  #  :invoice_url
+  #  :flag_invoice_status
+  #  :due_date
+  #  :user_qty
+  #  :invoice_value
 
-#  def create_invoice
-#    get_stats = get_stats_for_subscription
-#    begin
-#      # All of this should only happen if not during trial months
-#      if get_stats.present?
-#        all_meetings = get_stats[:stats][:meeting]
-#        all_meetings = [all_meetings] unless all_meetings.is_a?(Array)
-#        # this is scheduled for the first day of the month at 00:00, so it will be covering since the first day of last month
-#        this_month = all_meetings.reject { |meet| (meet[:epochStartTime].to_i/1000) < (Time.now.to_i-1.month) }
-#        list_users = this_month.map { |meeting| meeting[:participants][:participant] }.flatten.map { |participant| participant[:userName] }
-#        # We must replace uniq with the name deduplicator algorithm
-#        unique_user = list_users.uniq
-#        unique_total = unique_user.count
-#
-#        if self.plan.ops_type == "IUGU"
-#          if unique_total < 15
-#            # Tax R$ 90,00 minimum fee
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.minimum_fee'), "9000", "1")
-#          elsif unique_total < 250
-#            # Tax R$ 6,00 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "600", unique_total)
-#          elsif unique_total < 500
-#            # Tax R$ 5,40 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "540", unique_total)
-#          elsif unique_total < 1000
-#            # Tax R$ 4,80 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "480", unique_total)
-#          elsif unique_total < 2500
-#            # Tax R$ 4,20 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "420", unique_total)
-#          elsif unique_total < 5000
-#            # Tax R$ 3,60 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "360", unique_total)
-#          elsif unique_total > 5000
-#            # Tax R$ 3,00 per user
-#            Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "300", unique_total)
-#          end
-#        end
-#      else
-#        logger.error "get_stats API call has failed"
-#        raise "get_stats error"
-#      end
-#    rescue BigBlueButton::BigBlueButtonException
-#      logger.error "get_stats API call has failed"
-#      raise "get_stats error"
-#    end
-#  end
-#
+  def get_stats_for_subscription
+    server = BigbluebuttonServer.default
+    server.api.send_api_request(:getStats, { meetingID: self.subscription.user.bigbluebutton_room.meetingid })
+  end
+
+  def update_unique_user_qty
+    get_stats = get_stats_for_subscription
+    begin
+      if get_stats.present?
+        all_meetings = get_stats[:stats][:meeting]
+        # Make it an array if it is not
+        all_meetings = [all_meetings] unless all_meetings.is_a?(Array)
+        # Reject all recordings older than the beginning of last month
+        this_month = all_meetings.reject { |meet| Time.at(meet[:epochStartTime].to_i/1000) < (due_date.at_beginning_of_month.last_month.to_i) }
+        # Reject all recordings that happened in the new month
+        this_month = this_month.reject { |meet| Time.at(meet[:epochStartTime].to_i/1000) > (due_date.at_end_of_month.last_month.to_i) }
+        # Get all users in the defined interval
+        list_users = this_month.map { |meeting| meeting[:participants][:participant] }.flatten.map { |participant| participant[:userName] }
+        # We must replace uniq with the name deduplicator algorithm
+        unique_user = list_users.uniq
+        unique_total = unique_user.count
+
+        update_attributes(user_qty: unique_total)
+      else
+        logger.error "get_stats API call has failed"
+        raise "get_stats error"
+      end
+    rescue BigBlueButton::BigBlueButtonException
+      logger.error "get_stats API call has failed"
+      raise "get_stats error"
+    end
+  end
+
+  def post_invoice_to_ops(unit_value, quantity )
+    if self.subscription.plan.ops_type == "IUGU"
+      #do teh math
+    else
+      logger.error "Bad ops_type, can't update customer"
+      errors.add(:ops_error, "Bad ops_type, can't update customer")
+      raise ActiveRecord::Rollback
+    end
+  end
+
+
+  def generate_invoice_value
+    # Make sure we are updated and also that we are working with the correct month
+    update_unique_user_qty
+    if unique_total < 15
+      Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.minimum_fee'), "9000", "1")
+    elsif unique_total < 250
+      Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.subscriptions.user_fee'), "600", unique_total)
+    end
+  end
+
 end

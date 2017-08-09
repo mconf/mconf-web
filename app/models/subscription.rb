@@ -155,9 +155,4 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def get_stats_for_subscription
-    server = BigbluebuttonServer.default
-    server.api.send_api_request(:getStats, { meetingID: self.user.bigbluebutton_room.meetingid })
-  end
-
 end
