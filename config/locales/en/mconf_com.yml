@@ -43,6 +43,8 @@ en:
       expired: "Expired"
       paid: "Paid"
       pending: "Pending"
+    minimum_fee: "Minimum service fee"
+    user_fee: "Unique users fee"
   layouts:
     mailers:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
@@ -104,7 +106,6 @@ en:
       district: "District"
       country: "Country"
     failed: "Unable to create subscription"
-    minimum_fee: "Minimum service fee"
     new:
       form_title: "Subscription"
       title: "Subscribe"
@@ -144,7 +145,6 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
-    user_fee: "Unique users fee"
   user:
     usage:
       education: "Education"

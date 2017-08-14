@@ -123,6 +123,21 @@ module Mconf
     # how long the trial lasts
     config.trial_days = 60
 
+    # invoice pricing area
+    config.minimum_users = 15
+    config.base_month_days = 30.0
+
+    config.discounts = [
+      { users:  250, value: 0.1 },
+      { users:  500, value: 0.2 },
+      { users: 1000, value: 0.3 },
+      { users: 2500, value: 0.4 },
+      { users: 5000, value: 0.5 }
+    ]
+
+    config.base_price = 600
+    config.base_price_integrator = 400
+
     # iugu api token for test and for prod
     config.iugu_token = ENV['MCONF_IUGU_TOKEN'] || ''
   end

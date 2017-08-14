@@ -46,6 +46,8 @@ pt-br:
       expired: "Expirado"
       paid: "Pago"
       pending: "Pendente"
+    minimum_fee: "Taxa mínima de serviço"
+    user_fee: "Taxa por usuário único"
   layouts:
     mailers:
       signature: "Este e-mail foi encaminhado por Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil. <br/> +55 51 3308.6812"
@@ -100,7 +102,6 @@ pt-br:
       district: "Bairro"
       country: "País"
     failed: "Falha na criação da assintaura"
-    minimum_fee: "Taxa mínima de serviço"
     new:
       form_title: "Assinatura"
       title: "Assinar"
@@ -140,7 +141,6 @@ pt-br:
       province: "Estado"
       district: "Bairro"
       country: "País"
-    user_fee: "Taxa por usuário único"
   trial_notifications_mailer:
     ended:
       line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"

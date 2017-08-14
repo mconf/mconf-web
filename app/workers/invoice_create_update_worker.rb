@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 # Updates local invoices
-class InvoiceCreationWorker < BaseWorker
+class InvoiceCreateUpdateWorker < BaseWorker
 
   def self.perform
     invoices_create

@@ -1,6 +1,6 @@
-create_subscription_invoice:
-  cron: "0 0 1 * *" # monthly at the first day of the month (not including this day, 0:00AM)
-  class: InvoiceCreationWorker
+create_or_update_subscription_invoice:
+  cron: "0 0 * * *" # daily at the beginning of the day
+  class: InvoiceCreateUpdateWorker
   queue: high
   description: "Creates the invoices for the previous month on selected OPS"
 
