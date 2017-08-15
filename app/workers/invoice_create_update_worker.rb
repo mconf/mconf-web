@@ -18,7 +18,7 @@ class InvoiceCreateUpdateWorker < BaseWorker
         if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
           subscription.invoices.last.update_unique_user_qty
         else
-          subscription.invoices.new(due_date: (DateTime.now)), flag_invoice_status: "local")
+          subscription.invoices.create(due_date: (DateTime.now), flag_invoice_status: "local")
           subscription.invoices.last.update_unique_user_qty
         end
       end
