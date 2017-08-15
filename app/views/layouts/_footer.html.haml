@@ -1,11 +1,8 @@
 #footer
   #footer-left
     #footer-copyright
-      = t('.copyright', site: current_site.name, year: Time.now.year)
     #footer-powered
-      = image_tag "logos/mconf-ico-color-transp.png", size: "14x14"
-      = t('.links.powered_by')
-      = link_to "mconf.org", "http://mconf.org"
+      = t('.copyright', site: current_site.name, year: Time.now.year, link: "https://mconf.org", link_name: 'mconf.org').html_safe
       - if user_signed_in? && current_user.superuser?
         %span.current-version
           = ' - ' + t('.current_version') + ': '

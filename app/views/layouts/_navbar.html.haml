@@ -30,7 +30,11 @@
 #navbar-right
   %ul#navbar-right-links
     - if user_signed_in?
-      %li.last.dropdown
+      -# TODO: link, context based link and localization
+      %li.navbar-conf-btn
+        .btn.btn-primary= "Conference room"
+
+      %li.navbar-chip.dropdown.last
         .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '32', class: "logo-user")
           %span.username= current_user.profile.first_name

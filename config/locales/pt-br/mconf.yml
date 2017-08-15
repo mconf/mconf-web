@@ -960,7 +960,7 @@ pt-br:
       profile: "Perfil"
       register: "Registre-se"
     footer:
-      copyright: "© %{year} %{site}"
+      copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -968,7 +968,6 @@ pt-br:
       links:
         feedback: "Contato"
         help: Ajuda
-        powered_by: "Powered by Mconf, visite"
         title: Links
       project_website: "Site do projeto"
       sponsors:

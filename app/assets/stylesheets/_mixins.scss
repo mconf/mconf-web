@@ -237,6 +237,7 @@
     > li {
       display: inline;
       float: left;
+      margin: 0 10px;
 
       &:first-child { border: 0 }
 
@@ -262,7 +263,7 @@
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: 30px 20px 25px 20px;
+    padding: 30px 15px 25px 15px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
