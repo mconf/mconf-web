@@ -252,6 +252,7 @@ ActiveRecord::Schema.define(version: 20170802160001) do
     t.string   "flag_invoice_status"
     t.datetime "due_date"
     t.integer  "user_qty"
+    t.integer  "days_consumed"
     t.float    "invoice_value",       limit: 24
   end
 

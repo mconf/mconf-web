@@ -15,8 +15,15 @@ class InvoiceCreateUpdateWorker < BaseWorker
   def self.invoices_create
     Subscriptions.find_each do |sub|
       if sub.user.trial_ended?
+        # There is one and it is for this month
         if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
           subscription.invoices.last.update_unique_user_qty
+        # There is none and is gonna be the first
+        elsif !subscription.invoices.last.present?
+          consumed = DateTime.now.day > 30 ? 1 : (30 - DateTime.now.day)
+          subscription.invoices.create(due_date: (DateTime.now), flag_invoice_status: "local", days_consumed: consumed)
+          subscription.invoices.last.update_unique_user_qty
+        # There are invoices but not for this month
         else
           subscription.invoices.create(due_date: (DateTime.now), flag_invoice_status: "local")
           subscription.invoices.last.update_unique_user_qty

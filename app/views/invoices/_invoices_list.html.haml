@@ -1,4 +1,4 @@
-- invoices = Mconf::Iugu.fetch_user_invoices(customer_id)
+- invoices = subscription.invoices.flatten
 .content-block
   %h3= t(".invoices")
   %table.recording-list.table.table-hover
@@ -14,6 +14,6 @@
         %tr
           %td{ colspan: 4 }= t('.no_invoices')
 
-      - invoices.sort_by! { |invoice_date| invoice_date.attributes["due_date"] }.reverse!
+      - invoices.sort_by! { |invoice_date| invoice_date.due_date }.reverse!
       - invoices.each do |invoice|
         = render partial: 'invoices/invoice_item', locals: { invoice: invoice }

@@ -1,22 +1,30 @@
 .list-item.container-fluid{ id: "invoice-#{invoice.attributes["id"]}" }
   %tr
     %td.invoice-date-col
-      = invoice.attributes["due_date"]
+      = format_date(invoice.due_date)
     %td.invoice-id-col
-      = link_to invoice.attributes["id"], invoice.attributes["secure_url"]
+      - if invoice.invoice_token.present? && invoice.invoice_url.present?
+        = link_to invoice.invoice_token, invoice.invoice_url
+      - elsif invoice.invoice_token.present?
+        = invoice.invoice_token
+      - else
+        = t('.not_ready')
     %td.invoice-value-col
-      = invoice.attributes["total"]
+      = "R$ " + sprintf('%.2f', invoice.invoice_value/100)
     %td.invoice-status-col
-      - status = invoice.attributes["status"]
+      - status = invoice.flag_invoice_status
+      - if status == 'local'
+        .label.label-default
+          = t('.local')
       - if status == 'pending'
         .label.label-warning
           = t('.pending')
-      -if status == 'canceled'
+      - if status == 'canceled'
         .label.label-default
           = t('.canceled')
-      -if status == 'paid'
+      - if status == 'paid'
         .label.label-success
           = t('.paid')
-      -if status == 'expired'
+      - if status == 'expired'
         .label.label-danger
           = t('.expired')

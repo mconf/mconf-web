@@ -7,6 +7,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.string :flag_invoice_status
       t.datetime :due_date
       t.integer :user_qty
+      t.integer :days_consumed
       t.float :invoice_value
     end
   end

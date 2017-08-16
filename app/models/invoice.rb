@@ -94,9 +94,9 @@ class Invoice < ActiveRecord::Base
     result[:cost_per_user] = self.subscription.integrator ? b_price_i : b_price
 
     # discounts for days consumed
-    #if self.days_consumed <  Rails.application.config.base_month_days
-    #  result[:discounts][:days] = self.days_consumed /  Rails.application.config.base_month_days
-    #end
+    if self.days_consumed.present? && self.days_consumed <  Rails.application.config.base_month_days
+      result[:discounts][:days] = self.days_consumed /  Rails.application.config.base_month_days
+    end
 
     #test for 15 days usage:
     #result[:discounts][:days] = 0.5
@@ -104,7 +104,7 @@ class Invoice < ActiveRecord::Base
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users
       total = result[:cost_per_user] *  Rails.application.config.minimum_users
-      #total *= result[:days] if result[:discounts].has_key?(:days)
+      total *= result[:discounts][:days] if result[:discounts].has_key?(:days)
 
       result[:total] = total
       result[:minimum] = true

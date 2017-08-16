@@ -153,6 +153,8 @@ class Subscription < ActiveRecord::Base
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end
+    consumed = DateTime.now.day > 30 ? 30 : DateTime.now.day
+    self.invoices.last.update_attributes(days_consumed: consumed)
   end
 
 end
