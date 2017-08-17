@@ -689,7 +689,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 26px;
+  padding: 60px;
 
   h3 {
     margin-bottom: 8px;
@@ -739,22 +739,12 @@ form {
   }
 
   .content-block-footer {
-    text-align: right;
+    text-align: center;
     clear: both;
     margin: 5px 0;
-
-    &.content-block-footer-fancy {
-      //background: $m-light-gray;
-      border-top: 1px solid darken($m-light-gray, 5);
-    }
-
-    .content-block-footer-middle {
-      margin-top: -12px;
-      background: white;
-      float: right;
-      padding: 0 10px;
-    }
-
+    color: $m-color-primary;
+    font-weight: bold;
+    font-size: $m-font-small;
     @include content-block-pagination;
   }
 

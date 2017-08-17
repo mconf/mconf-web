@@ -1121,6 +1121,7 @@ en:
       events:
         other: "Other"
         today: "Today"
+      hi: "Hi %{name}!"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
@@ -1355,7 +1356,7 @@ en:
       no_meetings: "There are no meetings or recordings in this room yet."
       not_recorded: "(This meeting was not recorded.)"
       playback_links: "Playback links"
-      started_at: "Date"
+      started_at: "Date - Time"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
       publish: Publish

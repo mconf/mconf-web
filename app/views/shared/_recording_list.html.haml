@@ -34,7 +34,8 @@
       - meetings.each do |meeting|
         - recording = meeting.recording
 
-        %tr
+        - cls = recording.present? ? '' : 'fadeout'
+        %tr{ class: cls }
 
           %td.meeting-date-col
             - m_create = format_date(meeting.create_time, :long)

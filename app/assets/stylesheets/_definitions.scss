@@ -67,7 +67,7 @@ $m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, H
 $m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
 $m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
 $m-font-family-h: $m-font-family;
-$m-font-h-color: #111;
+$m-font-h-color: $m-color-primary; //#111;
 $m-font-h-color-hover: $m-link-color-hover;
 $m-font-h-color-active: $m-link-color-active;
 $m-base-line-height: 1.5;

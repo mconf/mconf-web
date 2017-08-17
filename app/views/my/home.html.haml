@@ -4,7 +4,9 @@
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
 
-= render "shared/webconference_join", room: @room
+%h1= t('.hi', name: current_user.first_name)
+
+-# = render "shared/webconference_join", room: @room
 
 -# TODO: #1087 make it look good for a new user (no recs, no meetings yet)
 
@@ -13,7 +15,7 @@
 
   #users-recent-activity-content.content-block-middle
     = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
-  .content-block-footer.content-block-footer-fancy
+  .content-block-footer
     .content-block-footer-middle
       = link_to t('.past_meetings.view_more'), my_meetings_path
 
@@ -40,7 +42,7 @@
       - else
         = t(".spaces.no_spaces")
 
-    .content-block-footer.content-block-footer-fancy
+    .content-block-footer
       .content-block-footer-middle
         = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)
         %span= t(".spaces.or")

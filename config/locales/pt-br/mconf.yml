@@ -1127,6 +1127,7 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
+      hi: "Olá %{name}!"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"
@@ -1383,7 +1384,7 @@ pt-br:
       no_meetings: "Ainda não existem reuniões ou gravações nesta sala."
       not_recorded: "(Esta reunião não foi gravada.)"
       playback_links: "Links para reprodução"
-      started_at: "Data"
+      started_at: "Data - Hora"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
       publish: Publicar
