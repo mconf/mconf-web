@@ -31,6 +31,8 @@ en:
     registrations:
       terms_reject: "You must accept the terms and conditions to register an account."
   invoices:
+    discount_days: "Dicount for unused days"
+    discount_users: "Discount for user ammount"
     invoices_list:
       due_date: "Date"
       id: "Invoice identifier"

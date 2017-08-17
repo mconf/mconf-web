@@ -34,6 +34,8 @@ pt-br:
     registrations:
       terms_reject: "É preciso aceitar os termos de uso para criar uma conta."
   invoices:
+    discount_days: "Desconto por dias consumidos"
+    discount_users: "Desconto por quantidade de usuários"
     invoices_list:
       due_date: "Data"
       id: "Identificador da fatura"

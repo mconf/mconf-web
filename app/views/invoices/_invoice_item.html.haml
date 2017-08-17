@@ -10,7 +10,8 @@
       - else
         = t('.not_ready')
     %td.invoice-value-col
-      = "R$ " + sprintf('%.2f', invoice.invoice_value/100)
+      -# Move this formatting to a helper, prices are save in cents and must be parsed
+      = sprintf('R$ %.2f', invoice.invoice_value/100)
     %td.invoice-status-col
       - status = invoice.flag_invoice_status
       - if status == 'local'

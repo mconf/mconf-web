@@ -22,7 +22,10 @@ module Mconf
     # Adds the actual invoice value to the current month subscription
     def self.add_invoice_item(subscription_id, description, price_cents_unit, quantity)
       subscription = ::Iugu::Subscription.fetch(subscription_id)
+      puts subscription
+      puts price_cents_unit
       subscription.subitems = [ description: description, price_cents: price_cents_unit, quantity: quantity ]
+      puts subscription.subitems
       subscription.save
     end
 

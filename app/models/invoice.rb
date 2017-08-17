@@ -56,16 +56,28 @@ class Invoice < ActiveRecord::Base
   def post_invoice_to_ops
 
     data = generate_invoice_value
-    cost = data[:cost]
-    disc = -(data[:discount] * cost)
-    quan = data[:quantity]
-    if quantity < 15
-      #Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.invoices.minimum_fee'), cost, quantity)
-    else
-      Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.invoices.user_fee'), cost, quantity)
+    cost = data[:cost_per_user]
+    quantity = data[:quantity]
+    total = cost * quantity
 
-      #if there is discounts:
-      #Mconf::Iugu.add_invoice_item(self.subscription_token, I18n.t('.invoices.user_fee'), disc, quantity)
+    if data[:minimum]
+      Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee'), cost, Rails.application.config.minimum_users)
+
+    else
+      #Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), cost, quantity)
+
+      if data[:discounts].has_key?(:users)
+        user_discount = data[:discounts][:users] * cost * -1
+        puts total
+        puts user_discount
+        total = total + (user_discount * quantity)
+        puts total
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users'), user_discount.to_i, quantity)
+      end
+      if data[:discounts].has_key?(:days)
+        days_discount = data[:discounts][:days] * total * -1
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days'), days_discount, 1)
+      end
     end
   end
 
@@ -83,6 +95,7 @@ class Invoice < ActiveRecord::Base
       quantity: self.user_qty
     }
 
+    self.update_attributes(user_qty: 700)
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
       if self.user_qty >= discount[:users] && !result[:discounts].has_key?(:users)
@@ -99,7 +112,7 @@ class Invoice < ActiveRecord::Base
     end
 
     #test for 15 days usage:
-    #result[:discounts][:days] = 0.5
+    result[:discounts][:days] = 0.5
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users
@@ -110,8 +123,7 @@ class Invoice < ActiveRecord::Base
       result[:minimum] = true
     else
       cost = result[:cost_per_user] * self.user_qty
-      puts cost
-      total = result.has_key?(:discount_users) ? cost * (1.0 - result[:discount]) : cost
+      total = result[:discounts].has_key?(:users) ? cost * (1.0 - result[:discounts][:users]) : cost
       total *= result[:discounts][:days] if result[:discounts].has_key?(:days)
 
       result[:total] = total
