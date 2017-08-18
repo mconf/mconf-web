@@ -58,26 +58,22 @@ class Invoice < ActiveRecord::Base
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
-    total = cost * quantity
+    final_cost = (data[:total] / quantity)
 
     if data[:minimum]
       Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee'), cost, Rails.application.config.minimum_users)
 
     else
-      #Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), cost, quantity)
+      Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), final_cost, quantity)
 
-      if data[:discounts].has_key?(:users)
-        user_discount = data[:discounts][:users] * cost * -1
-        puts total
-        puts user_discount
-        total = total + (user_discount * quantity)
-        puts total
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users'), user_discount.to_i, quantity)
+      if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days'), final_cost, quantity)
+      elsif data[:discounts].has_key?(:users)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users'), final_cost, quantity)
+      elsif data[:discounts].has_key?(:days)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days'), final_cost, quantity)
       end
-      if data[:discounts].has_key?(:days)
-        days_discount = data[:discounts][:days] * total * -1
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days'), days_discount, 1)
-      end
+
     end
   end
 
@@ -95,6 +91,7 @@ class Invoice < ActiveRecord::Base
       quantity: self.user_qty
     }
 
+    # test for 700 users
     self.update_attributes(user_qty: 700)
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
