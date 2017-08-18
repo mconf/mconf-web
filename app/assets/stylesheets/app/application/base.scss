@@ -315,16 +315,9 @@ form {
     white-space: nowrap;
 
     > .logo {
-      /* border-radius: $input-border-radius-large; */
-      @include logo-container;
+      @include logo-container(53px);
       display: inline-block;
       margin-right: 10px;
-
-      /* TODO: move to a default place */
-      img, .logo-initials {
-        width: 53px;
-        height: 40px;
-      }
     }
 
     > .name {
@@ -342,10 +335,13 @@ form {
   }
 }
 
+#site.with-sidenav, #footer.with-sidenav {
+  padding-left: $m-sidenav-width-md;
+}
+
 #site {
   @include container-fixed; // without params this is actually a .container-fluid
   padding: 0;
-  padding-left: $m-sidenav-width-md;
 }
 
 #navbar {
@@ -406,13 +402,13 @@ form {
       margin-left: 2px;
     }
 
-    img {
+    img, .logo-user {
       height: 36px;
       width: 36px;
       float: left;
       margin: 0 8px 0 -12px;
-      border: 1px solid lighten($m-navbar-bg-color-dark, 5);
-      background: lighten($m-navbar-bg-color-dark, 5);
+      border: 1px solid $m-logo-bg;
+      background: $m-logo-bg;
     }
   }
 
@@ -466,7 +462,7 @@ form {
   @include make-row;
   margin: 0 auto;
   padding: 10px 0 0 0;
-  padding-left: $m-sidenav-width-md;
+  /* padding-left: $m-sidenav-width-md; */
 
   clear: both;
   color: $m-footer-font-color;
@@ -970,11 +966,11 @@ strong.highlight {
   border-radius: 16px;
   border: 1px solid #e4e4e4;
 
-  img {
-    float: right;
-    margin: 0 -12px 0 8px;
+  .logo-user, img {
     height: 32px;
     width: 32px;
+    float: right;
+    margin: 0 -12px 0 8px;
     border-radius: 50%;
   }
 }
@@ -1228,6 +1224,36 @@ strong.highlight {
   &.resource-space {
     img {
       max-width: 300px;
+    }
+  }
+}
+
+.card-container {
+  @include make-row;
+
+  .card-item {
+    float: left;
+    @include size(30%, 300px);
+    margin: 1.6666%;
+    background: $m-site-content-bg-color;
+    padding: 20px;
+    @include border-radius($m-border-radius-large);
+    text-align: center;
+
+    > .logo {
+      @include logo-container(84px);
+      @include mconf-clearfix;
+      margin: 10px auto;
+    }
+
+    .card-item-title {
+      font-size: $m-font-medium;
+      color: $m-color-primary;
+      margin: 8px 0;
+    }
+
+    .card-tags {
+      margin: 10px 0;
     }
   }
 }

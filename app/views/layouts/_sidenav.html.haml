@@ -5,11 +5,11 @@
 .logo= link_to "", url
 
 .search
-  = text_field_tag "search", nil, placeholder: "Search...", class: "form-control"
+  = text_field_tag "search", nil, placeholder: t(".search"), class: "form-control"
 
-.subtitle= "My room"
+.subtitle= t(".my_room")
 
-.subtitle= "My spaces"
+.subtitle= t(".my_spaces")
 - spaces.each do |space|
   .space-item
     = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")

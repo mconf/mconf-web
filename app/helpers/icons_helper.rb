@@ -132,11 +132,11 @@ module IconsHelper
   end
 
   def icon_space_private(options={})
-    icon_constructor nil, "fa fa-lock icon-awesome icon-mconf-space-private", options
+    icon_constructor t('_other.space.private_space'), "fa fa-lock icon-awesome icon-mconf-space-private", options
   end
 
   def icon_space_public(options={})
-    icon_constructor nil, "fa fa-globe icon-awesome icon-mconf-space-public", options
+    icon_constructor t('_other.space.public_space'), "fa fa-globe icon-awesome icon-mconf-space-public", options
   end
 
   def icon_publish(options={})

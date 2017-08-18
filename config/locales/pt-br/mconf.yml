@@ -117,7 +117,9 @@ pt-br:
     space:
       disabled: "Desabilitado"
       private: "Privado"
+      private_space: "Comunidade privada"
       public: "Público"
+      public_space: "Comunidade pública"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
@@ -951,14 +953,6 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   layouts:
-    navbar:
-      account: "Conta"
-      events: "Eventos"
-      inbox: "Caixa de entrada"
-      login: "Login"
-      manage: "Gerenciar"
-      profile: "Perfil"
-      register: "Registre-se"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"
@@ -978,6 +972,19 @@ pt-br:
         change: "Mudar a linguagem"
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
+    sidenav:
+      my_room: "Minha sala"
+      my_spaces: "Minhas comunidades"
+      search: "Pesquisar..."
+    navbar:
+      account: "Conta"
+      conference_room: "Sala de conferência"
+      events: "Eventos"
+      inbox: "Caixa de entrada"
+      login: "Login"
+      manage: "Gerenciar"
+      profile: "Perfil"
+      register: "Registre-se"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"
@@ -1137,7 +1144,7 @@ pt-br:
         no_spaces: "Você ainda não é membro de nenhuma comunidade."
         or: "ou"
         pending: "Pedidos de ingresso pendentes"
-        title: "Minhas comunidades"
+        title: "Comunidades"
         view_all: "Ver todas minhas comunidades"
       title: "Início"
       view_all_spaces: "Ver todas comunidades"
@@ -1598,6 +1605,8 @@ pt-br:
     approve:
       approved: "A comunidade %{name} foi aprovada"
       not_enabled: "A aprovação de comunidades não está habilitada ou a comunidade já está aprovada"
+    card_item:
+      members: "%{count} membros"
     disapprove:
       disapproved: "Acesso bloqueado à comunidade %{name}"
       not_enabled: "A aprovação de comunidades não está habilitada"

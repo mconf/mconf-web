@@ -93,14 +93,13 @@
 }
 
 // general logo style (user avatars, space logos)
-@mixin logo-container {
+@mixin logo-container($imgw: "84px") {
   text-decoration: none;
+  display: inline-block;
   @include broken-img-parent;
 
   img {
     margin: 2px 0;
-    //padding: 1px;
-    //border: 1px solid $m-border-color-normal;
     @include border-radius($m-border-radius-base);
     width: 100%;
     height: auto;
@@ -126,9 +125,17 @@
     text-decoration: none;
   }
 
-  /* a img { */
-  /*   &:hover { border: 1px solid $m-focus-border-color; } */
-  /* } */
+  .logo-space {
+    width: $imgw;
+    height: $imgw / 1.3125;
+    @include border-radius($m-border-radius-large);
+  }
+
+  .logo-user {
+    width: $imgw;
+    height: $imgw;
+    @include border-radius($m-border-radius-large);
+  }
 }
 
 @mixin mconf-clearfix {

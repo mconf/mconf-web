@@ -235,4 +235,8 @@ module ApplicationHelper
     content = capture(&block)
     content_tag(:div, content, class: 'with-tooltip tooltipped', title: title)
   end
+
+  def sidenav_visible?
+    user_signed_in?
+  end
 end

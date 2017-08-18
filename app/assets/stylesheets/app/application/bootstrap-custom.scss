@@ -254,7 +254,8 @@ label {
   border-top-color: $m-border-color-medium;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
+  background: $m-site-content-bg-color;
 }
 table, .table {
   thead th {
@@ -278,7 +279,7 @@ table, .table {
     }
 
     tr {
-      background: #fff;
+      background: $m-site-content-bg-color;
       border: solid 8px $m-site-bg-color;
 
       &.fadeout {
@@ -316,6 +317,6 @@ mark {
   background: rgba(255,255,140,0.5);
   padding: 2px;
   margin: 0 -2px;
-  border-radius: 3px;
+  border-radius: $m-border-radius-large;
   display: inline-block;
 }

@@ -16,10 +16,11 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
-    #sidenav
-      = render :partial => "layouts/sidenav"
+    - if sidenav_visible?
+      #sidenav= render :partial => "layouts/sidenav"
 
-    #site
+    - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
+    #site{ class: cls_sidenav }
       #navbar
         = render :partial => 'layouts/navbar'
 

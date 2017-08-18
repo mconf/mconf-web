@@ -118,7 +118,9 @@ en:
     space:
       disabled: "Disabled"
       private: "Private"
+      private_space: "Private space"
       public: "Public"
+      public_space: "Public space"
     unpublish: "Unpublish"
     update: "Update"
     updated_time_ago: "%{time} ago"
@@ -943,14 +945,6 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   layouts:
-    navbar:
-      account: "Account"
-      events: "Events"
-      inbox: "Inbox"
-      login: "Sign in"
-      manage: "Manage"
-      profile: "Profile"
-      register: "Register"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visit: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Current version"
@@ -972,6 +966,19 @@ en:
       wiki: "Wiki"
     manage:
       title: "Management"
+    navbar:
+      account: "Account"
+      conference_room: "Conference room"
+      events: "Events"
+      inbox: "Inbox"
+      login: "Sign in"
+      manage: "Manage"
+      profile: "Profile"
+      register: "Register"
+    sidenav:
+      my_room: "My room"
+      my_spaces: "My spaces"
+      search: "Search..."
   less: "less..."
   locales:
     error: "Locale not registered"
@@ -1131,7 +1138,7 @@ en:
         no_spaces: "You're still not a member of any space."
         or: "or"
         pending: "Pending join requests"
-        title: "My spaces"
+        title: "Spaces"
         view_all: "View all my spaces"
       title: "Home"
       view_all_spaces: "View all spaces"
@@ -1567,6 +1574,8 @@ en:
     approve:
       approved: "The space %{name} was approved"
       not_enabled: "Moderation of spaces is not enabled or the space is already approved"
+    card_item:
+      members: "%{count} members"
     disapprove:
       disapproved: "The space %{name} was disapproved"
       not_enabled: "Moderation of spaces is not enabled"

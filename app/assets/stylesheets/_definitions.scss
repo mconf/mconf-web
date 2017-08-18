@@ -38,11 +38,13 @@ $m-transparent: rgba(255,255,255,0);
 
 // site colors
 $m-site-bg-color: #f2f2f2;
+$m-site-content-bg-color: #fff;
 $m-color-primary: $m-green-mconf;
 $m-color-primary-light: lighten($m-green-mconf, 12);
 $m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
 $m-focus-border-color: $m-color-secondary;
 $m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primary $m-color-secondary;
+$m-logo-bg: lighten($m-color-primary, 15);
 
 // fonts
 $m-font-normal: 14px; //0.85rem; /* 14px, base size for all fonts */
@@ -216,9 +218,9 @@ $m-mail-font-size: $m-font-normal;
 $m-notifications-top: 6px;
 
 // tags
-$m-tags-font-color: #39739d;
-$m-tags-bg-color: #E1ECF4;
-$m-tags-bg-color-hover: #cee0ed;
+$m-tags-font-color: #fff; //#39739d;
+$m-tags-bg-color: #4b9ace; //#E1ECF4;
+$m-tags-bg-color-hover: darken($m-tags-bg-color, 10);
 
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
