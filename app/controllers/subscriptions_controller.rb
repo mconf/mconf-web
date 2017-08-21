@@ -46,8 +46,12 @@ class SubscriptionsController < InheritedResources::Base
 
   def show
     @subscription = User.find_by_username(params[:user_id]).subscription
-    authorize! :show, (@subscription)
-    # TODO: pagination stuff
+    begin
+     authorize! :show, (@subscription)
+
+     rescue Exception => e
+       redirect_to new_subscription_path
+    end
   end
 
   def edit

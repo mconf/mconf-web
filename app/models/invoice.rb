@@ -59,21 +59,24 @@ class Invoice < ActiveRecord::Base
     cost = data[:cost_per_user]
     quantity = data[:quantity]
     final_cost = (data[:total] / quantity)
+    final_cost_minimum = (data[:total] / Rails.application.config.minimum_users)
 
     if data[:minimum]
-      Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee'), cost, Rails.application.config.minimum_users)
-
-    else
-      Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), final_cost, quantity)
-
-      if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days'), final_cost, quantity)
-      elsif data[:discounts].has_key?(:users)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users'), final_cost, quantity)
-      elsif data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days'), final_cost, quantity)
+      if data[:discounts].has_key?(:days)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: (data[:discounts][:days]*100)), final_cost_minimum, Rails.application.config.minimum_users)
+      else
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee'), final_cost_minimum, Rails.application.config.minimum_users)
       end
-
+    else
+      if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: (data[:discounts][:days]*100), percent_u: (data[:discounts][:users]*100)), final_cost, quantity)
+      elsif data[:discounts].has_key?(:users)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users', percent_u: (data[:discounts][:users]*100)), final_cost, quantity)
+      elsif data[:discounts].has_key?(:days)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days', percent_d: (data[:discounts][:days]*100)), final_cost, quantity)
+      else
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), final_cost, quantity)
+      end
     end
   end
 

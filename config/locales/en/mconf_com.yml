@@ -31,8 +31,9 @@ en:
     registrations:
       terms_reject: "You must accept the terms and conditions to register an account."
   invoices:
-    discount_days: "Dicount for unused days"
-    discount_users: "Discount for user ammount"
+    discount_days: "Unique users fee with discount for unused days %{percent_d} %"
+    discount_users: "Unique users fee with discount for user ammount %{percent_u} %"
+    discount_users_and_days: "Unique users fee with discount for unused days %{percent_d} % and user ammount %{percent_u} %"
     invoices_list:
       due_date: "Date"
       id: "Invoice identifier"
@@ -48,6 +49,7 @@ en:
       paid: "Paid"
       pending: "Pending"
     minimum_fee: "Minimum service fee"
+    minimum_fee_discount_days: "Minimum service fee with discount for unused days %{percent_d} %"
     user_fee: "Unique users fee"
   layouts:
     mailers:
