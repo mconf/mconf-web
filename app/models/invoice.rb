@@ -17,6 +17,7 @@ class Invoice < ActiveRecord::Base
   #  :due_date
   #  :user_qty
   #  :invoice_value
+  #  :days_consumed
 
   def get_stats_for_subscription
     server = BigbluebuttonServer.default
@@ -58,28 +59,38 @@ class Invoice < ActiveRecord::Base
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
-    final_cost = (data[:total] / quantity)
-    final_cost_minimum = (data[:total] / Rails.application.config.minimum_users)
+    final_cost = (data[:total] / quantity).to_i
+    final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
 
     if data[:minimum]
       if data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: (data[:discounts][:days]*100)), final_cost_minimum, Rails.application.config.minimum_users)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
       else
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee'), final_cost_minimum, Rails.application.config.minimum_users)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee', locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
       end
     else
       if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: (data[:discounts][:days]*100), percent_u: (data[:discounts][:users]*100)), final_cost, quantity)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
       elsif data[:discounts].has_key?(:users)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users', percent_u: (data[:discounts][:users]*100)), final_cost, quantity)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users', percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
       elsif data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days', percent_d: (data[:discounts][:days]*100)), final_cost, quantity)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost, quantity)
       else
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee'), final_cost, quantity)
+        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee', locale: self.subscription.user.locale), final_cost, quantity)
       end
     end
   end
 
+  def generate_consumed_days(action)
+    if action == "create"
+      consumed = DateTime.now.day >= Rails.application.config.base_month_days ? nil : (Rails.application.config.base_month_days - DateTime.now.day)
+    elsif action == "destroy"
+      consumed = DateTime.now.day >= Rails.application.config.base_month_days ? Rails.application.config.base_month_days : DateTime.now.day
+    else
+      consumed = nil
+    end
+    self.update_attributes(days_consumed: consumed)
+  end
 
   def generate_invoice_value
     #move to initializer to make @s after initilaize
@@ -95,7 +106,7 @@ class Invoice < ActiveRecord::Base
     }
 
     # test for 700 users
-    self.update_attributes(user_qty: 700)
+    self.update_attributes(user_qty: 7802)
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
       if self.user_qty >= discount[:users] && !result[:discounts].has_key?(:users)
@@ -112,7 +123,8 @@ class Invoice < ActiveRecord::Base
     end
 
     #test for 15 days usage:
-    result[:discounts][:days] = 0.5
+    self.days_consumed = 2
+    result[:discounts][:days] = 2.0/30.0
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users

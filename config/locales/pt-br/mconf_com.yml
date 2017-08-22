@@ -34,9 +34,9 @@ pt-br:
     registrations:
       terms_reject: "É preciso aceitar os termos de uso para criar uma conta."
   invoices:
-    discount_days: "Taxa por usuário único com desconto por dias não consumidos %{percent_d} %"
-    discount_users: "Taxa por usuário único com desconto por quantidade de usuários %{percent_u} %"
-    discount_users_and_days: "Taxa por usuário único com desconto por dias não consumidos %{percent_d} % e por quantidade de usuários %{percent_u} %"
+    discount_days: "Taxa por usuário único com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
+    discount_users: "Taxa por usuário único com desconto por quantidade de usuários %{percent_u}%"
+    discount_users_and_days: "Taxa por usuário único com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%) e por quantidade de usuários %{percent_u}%"
     invoices_list:
       due_date: "Data"
       id: "Identificador da fatura"
@@ -52,7 +52,7 @@ pt-br:
       paid: "Pago"
       pending: "Pendente"
     minimum_fee: "Taxa mínima de serviço"
-    minimum_fee_discount_days: "Taxa mínima de serviço com desconto de dias não consumidos %{percent_d} %"
+    minimum_fee_discount_days: "Taxa mínima de serviço com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
     user_fee: "Taxa por usuário único"
   layouts:
     mailers:

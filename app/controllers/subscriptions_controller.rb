@@ -47,10 +47,10 @@ class SubscriptionsController < InheritedResources::Base
   def show
     @subscription = User.find_by_username(params[:user_id]).subscription
     begin
-     authorize! :show, (@subscription)
+      authorize! :show, (@subscription)
 
-     rescue Exception => e
-       redirect_to new_subscription_path
+      rescue Exception => e
+        redirect_to new_subscription_path
     end
   end
 
