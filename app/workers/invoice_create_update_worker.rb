@@ -21,8 +21,7 @@ class InvoiceCreateUpdateWorker < BaseWorker
           subscription.invoices.last.update_unique_user_qty
         # There is none and is gonna be the first
         elsif !subscription.invoices.last.present?
-          consumed = DateTime.now.day > 30 ? 1 : (30 - DateTime.now.day)
-          invoice = subscription.invoices.create(due_date: (DateTime.now.change({day: 10})), flag_invoice_status: "local", days_consumed: consumed)
+          invoice = subscription.invoices.create(due_date: (DateTime.now.change({day: 10})), flag_invoice_status: "local")
           invoice.update_unique_user_qty
           invoice.generate_consumed_days("create")
         # There are invoices but not for this month

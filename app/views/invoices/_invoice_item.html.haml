@@ -3,12 +3,10 @@
     %td.invoice-date-col
       = format_date(invoice.due_date)
     %td.invoice-id-col
-      - if invoice.invoice_token.present? && invoice.invoice_url.present?
-        = link_to invoice.invoice_token, invoice.invoice_url
-      - elsif invoice.invoice_token.present?
-        = invoice.invoice_token
+      - if invoice.invoice_token.present?
+        = link_to invoice.invoice_token, user_invoice_path(invoice.id)
       - else
-        = t('.not_ready')
+        = link_to t('.not_ready'), user_invoice_path(invoice.subscription.user.username, invoice.id)
     %td.invoice-value-col
       -# Move this formatting to a helper, prices are save in cents and must be parsed
       = sprintf('R$ %.2f', invoice.invoice_value/100)
@@ -29,3 +27,9 @@
       - if status == 'expired'
         .label.label-danger
           = t('.expired')
+    %td.invoice-pay-col
+      - if invoice.invoice_url.present?
+        = link_to invoice.invoice_url do
+          = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
+      - else
+        = icon_payment_invoice(class: "disabled")
