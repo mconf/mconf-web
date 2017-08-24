@@ -47,6 +47,7 @@ pt-br:
       value: "Valor"
     invoice_item:
       canceled: "Cancelado"
+      disabled_pay: "Fatura ainda não disponível"
       expired: "Expirado"
       local: "Em aberto"
       not_ready: "Fatura não consolidada do mês atual"
@@ -55,6 +56,30 @@ pt-br:
       pay: "Pagar fatura"
     minimum_fee: "Taxa mínima de serviço"
     minimum_fee_discount_days: "Taxa mínima de serviço com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
+    show:
+      cost_base: "Valor total sem desconto"
+      days_consumed: "Quantidade de dias consumidos"
+      days_percent: "- %{percent}% por ter utilizado o serviço por apenas %{days} dias neste mês"
+      detailed_price: "Valor detalhado da fatura"
+      disabled_pay: "Fatura ainda não disponível"
+      discount_users: "Desconto por quantidade de usuários"
+      discount_days: "Desconto por consumo de dias"
+      invoice_data: "Dados da fatura"
+      invoice_status: "Status da fatura"
+      pay: "Pagar fatura"
+      status:
+        canceled: "Cancelado"
+        expired: "Expirado"
+        local: "Em aberto"
+        paid: "Pago"
+        pending: "Pendente"
+        pay: "Pagar fatura"
+      total: "Total"
+      total_price: "Valor total da fatura"
+      unique_users: "Dados de usuários únicos"
+      unique_users_list: "Lista de usuários únicos"
+      users_ammount: "Quantidade de usuários"
+      users_percent: "- %{percent}% por ter atingido %{qty} usuários neste mês"
     user_fee: "Taxa por usuário único"
   layouts:
     mailers:

@@ -19,6 +19,41 @@ class Invoice < ActiveRecord::Base
   #  :invoice_value
   #  :days_consumed
 
+  # Processed prices for the invoice
+  def invoice_full_price
+    data = generate_invoice_value
+    cost = data[:cost_per_user]
+    quantity = data[:quantity]
+    sprintf('+ R$ %.2f', (cost * quantity)/100)
+  end
+
+  def invoice_users_discount
+    data = generate_invoice_value
+    cost = data[:cost_per_user]
+    quantity = data[:quantity]
+    discount_users = data[:discounts][:users]
+    sprintf('- R$ %.2f', (cost * quantity * discount_users)/100)
+  end
+
+  def invoice_days_discount
+    data = generate_invoice_value
+    cost = data[:cost_per_user]
+    quantity = data[:quantity]
+    discount_days = data[:discounts][:days]
+    if data[:discounts][:users].present?
+      discount_users = data[:discounts][:users]
+      sprintf('- R$ %.2f', ((cost * quantity * (1 - discount_users))*(1 - discount_days))/100)
+    else
+      sprintf('- R$ %.2f', (cost * quantity * (1 - discount_days))/100)
+    end
+  end
+
+  def invoice_total
+    generate_invoice_value
+    sprintf('R$ %.2f', self.invoice_value/100)
+  end
+
+
   def get_stats_for_subscription
     server = BigbluebuttonServer.default
     server.api.send_api_request(:getStats, { meetingID: self.subscription.user.bigbluebutton_room.meetingid })
@@ -106,7 +141,7 @@ class Invoice < ActiveRecord::Base
     }
 
     # test for 700 users
-    self.update_attributes(user_qty: 7802)
+    self.update_attributes(user_qty: 500)
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
       if self.user_qty >= discount[:users] && !result[:discounts].has_key?(:users)
@@ -123,8 +158,8 @@ class Invoice < ActiveRecord::Base
     end
 
     #test for 15 days usage:
-    self.days_consumed = 2
-    result[:discounts][:days] = 2.0/30.0
+    self.days_consumed = 20
+    result[:discounts][:days] = 20.0/30.0
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users

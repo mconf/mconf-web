@@ -281,6 +281,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-credit-card-alt icon-awesome icon-mconf-pay", options
   end
 
+  def icon_payment_invoice_disabled(options={})
+    icon_constructor nil, "fa fa-credit-card-alt icon-awesome icon-mconf-pay-disabled", options
+  end
+
   private
 
   # Base method for most of the methods above

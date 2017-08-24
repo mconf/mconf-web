@@ -6,24 +6,13 @@ body.invoices.show {
     text-align: center;
   }
 
-  #invoices-wrapper {
+  #invoice-wrapper {
     margin: 40px auto;
     @include mconf-clearfix;
 
     @include make-xs-column(12);
     @include make-sm-column(8);
     @include make-sm-column-offset(2);
-
-    h3 {
-      margin-bottom: 16px;
-    }
-
-    .edit-link {
-      float: right;
-    }
-    .delete-link {
-      float: left;
-    }
 
     .resource-card {
       width: 100%;
@@ -41,6 +30,19 @@ body.invoices.show {
         margin-bottom: 8px;
         padding-bottom: 8px;
         border-bottom: 1px solid #eee;
+
+        .price {
+          color: $red;
+          font-weight: bold;
+        }
+        .discount {
+          color: $green;
+          font-weight: bold;
+        }
+        .pay-btn {
+          float: right;
+          margin-top: 20px;
+        }
 
         span {
           display: block;

@@ -32,4 +32,4 @@
         = link_to invoice.invoice_url do
           = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
       - else
-        = icon_payment_invoice(class: "disabled")
+        = icon_payment_invoice_disabled(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))

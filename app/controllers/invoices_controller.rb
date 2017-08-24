@@ -6,7 +6,17 @@
 # 3 or later. See the LICENSE file.
 
 class InvoicesController < ApplicationController
-  layout 'no_sidebar'
+
+  layout :determine_layout
+
+  def determine_layout
+    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+      "no_sidebar"
+    else
+      "application"
+    end
+  end
+
 
   def show
   end

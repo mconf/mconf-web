@@ -262,6 +262,10 @@ a:not(.btn) .icon-awesome {
     color: $black;
   }
 
+  &.icon-mconf-pay-disabled {
+    color: #CCC;
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}

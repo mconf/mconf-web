@@ -1,0 +1,63 @@
+- user = User.find_by_username(params[:user_id])
+- invoice = user.subscription.invoices.find_by_id(params[:id])
+
+- home_sidebar_menu_at(:subscription)
+
+= content_for :sidebar do
+  = render "my/sidebar"
+
+#invoice-wrapper
+  .resource-card
+    .resource-data
+      %h3= t('.total_price')
+      .field
+        %span.field-title= t('.total')
+        %span.field-value= invoice.invoice_total
+
+      %h3= t('.detailed_price')
+      .field
+        %span.field-title= t('.cost_base')
+        %span.field-value.price= invoice.invoice_full_price
+
+      - value_data = invoice.generate_invoice_value
+
+      - if value_data[:discounts][:users].present?
+        .field
+          %span.field-title= t('.discount_users')
+          %span.field-value.discount= invoice.invoice_users_discount
+          %span.field-value= t('.users_percent', percent: (value_data[:discounts][:users]*100).to_i , qty: invoice.user_qty)
+
+      - if value_data[:discounts][:days].present?
+        .field
+          %span.field-title= t('.discount_days')
+          %span.field-value.discount= invoice.invoice_days_discount
+          %span.field-value= t('.days_percent', percent: (value_data[:discounts][:days]*100).to_i, days: invoice.days_consumed)
+
+      %h3= t('.invoice_data')
+      .field
+        %span.field-title= t('.users_ammount')
+        %span.field-value= invoice.user_qty
+
+      - if value_data[:discounts][:days].present?
+        .field
+          %span.field-title= t('.days_consumed')
+          %span.field-value= invoice.days_consumed
+
+      .field
+        %span.field-title= t('.invoice_status')
+        %span.field-value= t(".status.#{invoice.flag_invoice_status}")
+
+      %h3= t('.unique_users')
+      .field
+        %span.field-title= t('.unique_users_list')
+        %span.field-value= invoice.flag_invoice_status
+
+        - if invoice.invoice_url.present?
+          .pay-btn
+            = link_to invoice.invoice_url, class: 'btn btn-default' do
+              = t('.pay')
+              = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
+        - else
+          .pay-btn.btn.btn-warning.disabled
+            = t('.disabled_pay')
+            = icon_payment_invoice_disabled(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))
