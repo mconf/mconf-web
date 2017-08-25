@@ -26,13 +26,13 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def create
-    free_days = Rails.application.config.trial_days
+    free_months = Rails.application.config.trial_months
 
     @subscription.user_id = current_user.id
     # Will create it on IUGU for now
     @subscription.plan_id = Plan.find_by_ops_type("IUGU").id
     # Will create invoice for the 5th of the month when the trial expires
-    @subscription.pay_day = (Date.today+free_days.days).strftime('%Y/%m/10')
+    @subscription.pay_day = (Date.today+free_months.months).strftime('%Y/%m/10')
     # This will define when to start charging the user
     @subscription.user.set_expire_date!
 

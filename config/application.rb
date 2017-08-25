@@ -121,7 +121,7 @@ module Mconf
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")
 
     # how long the trial lasts
-    config.trial_days = 60
+    config.trial_months = 2
 
     # invoice pricing area
     config.minimum_users = 15

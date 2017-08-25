@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
 
   # This was removed from approve! method, it will now be defined by subscription
   def set_expire_date!
-    expires = self.trial_expires_at || Time.now + Rails.application.config.trial_days.days
+    expires = self.trial_expires_at || Time.now + Rails.application.config.trial_months.months
     update_attributes(trial_expires_at: expires)
   end
 
