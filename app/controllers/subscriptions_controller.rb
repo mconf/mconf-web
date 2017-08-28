@@ -7,8 +7,17 @@
 
 class SubscriptionsController < InheritedResources::Base
 
-  load_and_authorize_resource
+  before_filter :authenticate_user!
+
+  before_filter :find_subscription
+  authorize_resource :subscription, :through => :user, :singleton => true
+
   layout :determine_layout
+
+  def find_subscription
+    @subscription ||= User.find_by(username: params[:user_id]).try(:subscription)
+    @subscription ||= Subscription.new(subscription_params)
+  end
 
   def determine_layout
     if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
@@ -31,8 +40,8 @@ class SubscriptionsController < InheritedResources::Base
     @subscription.user_id = current_user.id
     # Will create it on IUGU for now
     @subscription.plan_id = Plan.find_by_ops_type("IUGU").id
-    # Will create invoice for the 5th of the month when the trial expires
-    @subscription.pay_day = (Date.today+free_months.months).strftime('%Y/%m/10')
+    # Will create invoice for the 10th of the month after the trial expires (Mconf is post payed)
+    @subscription.pay_day = (Date.today + free_months.months + 1.month).strftime('%Y/%m/10')
     # This will define when to start charging the user
     @subscription.user.set_expire_date!
 
@@ -45,33 +54,18 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def show
-    @subscription = User.find_by_username(params[:user_id]).subscription
-    begin
-      authorize! :show, (@subscription)
-
-      rescue Exception => e
-        redirect_to new_subscription_path
-    end
   end
 
   def edit
-    @subscription = User.find_by_username(params[:user_id]).subscription
-    authorize! :edit, (@subscription)
   end
 
   def destroy
-    @subscription = User.find_by_username(params[:user_id]).subscription
-    authorize! :destroy, (@subscription)
-
     @subscription.destroy
     flash = { success: t("subscriptions.destroy") }
     redirect_to my_home_path, :flash => flash
   end
 
   def update
-    @subscription = User.find_by_username(params[:user_id]).subscription
-    authorize! :update, (@subscription)
-
     update! { :back }
   end
 

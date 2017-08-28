@@ -5,8 +5,8 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class InvoicesController < ApplicationController
-
+class InvoicesController < InheritedResources::Base
+  before_filter :authenticate_user!
   layout :determine_layout
 
   def determine_layout

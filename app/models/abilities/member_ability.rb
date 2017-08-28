@@ -48,6 +48,11 @@ module Abilities
         subs.user_id == user.id
       end
 
+      # Invoices
+#      can [:show], Invoice do |invo|
+ #       invo.subscription.user_id == user.id
+  #    end
+
       # Join Requests
       # TODO: make everything for events also
 

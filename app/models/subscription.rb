@@ -133,6 +133,9 @@ class Subscription < ActiveRecord::Base
 
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
+    if self.invoices.last.present?
+      self.invoices.last.generate_consumed_days("destroy")
+    end
     if self.plan.ops_type == "IUGU"
       subscription = Mconf::Iugu.destroy_subscription(self.subscription_token)
 
@@ -153,7 +156,6 @@ class Subscription < ActiveRecord::Base
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end
-    self.invoices.last.generate_consumed_days("destroy")
   end
 
 end
