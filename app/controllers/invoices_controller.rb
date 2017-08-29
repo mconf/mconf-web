@@ -7,6 +7,10 @@
 
 class InvoicesController < InheritedResources::Base
   before_filter :authenticate_user!
+
+  before_filter :find_invoice
+  authorize_resource :invoice, :through => :user, :singleton => true
+
   layout :determine_layout
 
   def determine_layout
@@ -17,6 +21,9 @@ class InvoicesController < InheritedResources::Base
     end
   end
 
+  def find_invoice
+    @invoice ||= Invoice.find_by(id: params[:id])
+  end
 
   def show
   end

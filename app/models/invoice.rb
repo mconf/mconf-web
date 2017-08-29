@@ -9,16 +9,6 @@ class Invoice < ActiveRecord::Base
 
   validates :subscription_id, :presence => true
 
-  # This model has these attributes:
-  #  :subscription_id
-  #  :invoice_token
-  #  :invoice_url
-  #  :flag_invoice_status
-  #  :due_date
-  #  :user_qty
-  #  :invoice_value
-  #  :days_consumed
-
   # Processed prices for the invoice
   def invoice_full_price
     data = generate_invoice_value

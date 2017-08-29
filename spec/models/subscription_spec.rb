@@ -27,9 +27,10 @@ describe Subscription do
   let(:iugu_plan) { FactoryGirl.create(:plan) }
 
   describe "#create_customer_and_sub" do
+    let(:user) { FactoryGirl.create(:user) }
 
     context "no token returned from OPS" do
-      let(:attrs) { FactoryGirl.attributes_for(:subscription, customer_token: nil, subscription_token: nil, user_id: 1, plan_id: iugu_plan.id) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, customer_token: nil, subscription_token: nil, user_id: user.id, plan_id: iugu_plan.id) }
       before { Mconf::Iugu.stub(:create_customer).and_return(nil) }
       subject { Subscription.create(attrs) }
       it { subject.new_record?.should be(true) }
@@ -37,7 +38,7 @@ describe Subscription do
     end
 
     context "invalid cpf/cnpj" do
-      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", user_id: 1, plan_id: iugu_plan.id) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", user_id: user.id, plan_id: iugu_plan.id) }
       before { Mconf::Iugu.stub(:create_customer).and_return({"cpf_cnpj"=>["não é válido"]}) }
       subject { Subscription.create(attrs) }
       it { subject.new_record?.should be(true) }
@@ -45,7 +46,7 @@ describe Subscription do
     end
 
     context "invalid zipcode" do
-      let(:attrs) { FactoryGirl.attributes_for(:subscription, zipcode: "1234", user_id: 1, plan_id: iugu_plan.id) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, zipcode: "1234", user_id: user.id, plan_id: iugu_plan.id) }
       before { Mconf::Iugu.stub(:create_customer).and_return({"zip_code"=>["não é válido"]}) }
       subject { Subscription.create(attrs) }
       it { subject.new_record?.should be(true) }
@@ -53,7 +54,7 @@ describe Subscription do
     end
 
     context "invalid cpf/cnpj and zipcode" do
-      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", zipcode: "1234", user_id: 1, plan_id: iugu_plan.id) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, cpf_cnpj: "1234", zipcode: "1234", user_id: user.id, plan_id: iugu_plan.id) }
       before { Mconf::Iugu.stub(:create_customer).and_return({"zip_code"=>["não é válido"], "cpf_cnpj"=>["não é válido"]}) }
       subject { Subscription.create(attrs) }
       it { subject.new_record?.should be(true) }
@@ -67,9 +68,10 @@ describe Subscription do
   end
 
   describe "#create_sub" do
+    let(:user) { FactoryGirl.create(:user) }
 
     context "no token returned from OPS" do
-      let(:attrs) { FactoryGirl.attributes_for(:subscription, customer_token: nil, subscription_token: nil, user_id: 1, plan_id: iugu_plan.id) }
+      let(:attrs) { FactoryGirl.attributes_for(:subscription, customer_token: nil, subscription_token: nil, user_id: user.id, plan_id: iugu_plan.id) }
       before { Mconf::Iugu.stub(:create_subscription).and_return(nil) }
       subject { Subscription.create(attrs) }
       it { subject.new_record?.should be(true) }
@@ -129,9 +131,6 @@ describe Subscription do
 
   end
 
-  #describe "#get_sub_data" do
-  #end
-
   describe "#destroy_sub" do
 
     let!(:subscription) { FactoryGirl.create(:subscription) }
@@ -147,26 +146,24 @@ describe Subscription do
                Mconf::Iugu.stub(:destroy_customer).and_return(true) }
       it { expect { subscription.destroy }.to change{ Subscription.count }.by(-1) }
     end
-
   end
 
-  describe "#create_invoice" do
-    let!(:subscription) { FactoryGirl.create(:subscription) }
+  describe "abilities", :abilities => true do
 
-    context "failed to retrieve stats" do
-      before { subscription.stub(:get_stats_for_subscription).and_return(nil)
-               Mconf::Iugu.stub(:add_invoice_item).and_return(false) }
-      it { expect { subscription.create_invoice }.to raise_error("get_stats error") }
+    subject { ability }
+    let(:ability) { Abilities.ability_for(user) }
+
+    context "an user on his own subscription" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:target) { FactoryGirl.create(:subscription, user_id: user.id) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :create, :new, :edit, :update, :destroy]) }
     end
 
-    context "successful create_invoice" do
-      before { subscription.stub(:get_stats_for_subscription).and_return({:returncode=>true, :stats=>{:meeting=>{:meetingID=>"meetid", :meetingName=>"meet-name", :recordID=>"rec-id",
-                                                                          :epochStartTime=>"1501267120992", :startTime=>"10879193200", :endTime=>"10879245167", :participants=>{:participant=>
-                                                                          [{:userID=>"veq7rb6lc7rq_2", :externUserID=>"4", :userName=>"Henry Fuller", :joinTime=>"10879193200", :leftTime=>"10879245167"},
-                                                                          {:userID=>"ppseriskdzip_2", :externUserID=>"ppseriskdzip", :userName=>"adfsdfa", :joinTime=>"10879237199", :leftTime=>"10879245167"}]}}},
-                                                                          :messageKey=>"", :message=>""})
-               Mconf::Iugu.stub(:add_invoice_item).and_return(false) }
-      it { expect { subscription.create_invoice }.not_to raise_error }
+    context "an user another user's subscription" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:target) { FactoryGirl.create(:subscription) }
+      # new and create are accessible to anyone but always use the logged user to create
+      it { should_not be_able_to_do_anything_to(target).except([:new, :create]) }
     end
 
   end
