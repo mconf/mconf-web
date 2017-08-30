@@ -206,7 +206,6 @@ pt-br:
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback de conferência"
         forbid_user_space_creation: "Proibir que usuários criem comunidades"
-        gravatar: Usar gravatar
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -248,6 +247,7 @@ pt-br:
         spaces_enabled: "Habilitar módulo de comunidades"
         ssl: "SSL"
         timezone: "Fuso horário"
+        use_gravatar: "Usar gravatar"
         visible_locales: "Linguagens visíveis"
         unauth_access_to_conferences: "Permitir usuários não autenticados em conferências"
         xmpp_server: "Endereço do servidor XMPP"
@@ -1060,8 +1060,8 @@ pt-br:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     spaces:
-      approved_false: "Não aprovados"
-      approved_true: "Aprovados"
+      approved_false: "Não aprovadas"
+      approved_true: "Aprovadas"
       disabled_false: "Habilitadas"
       disabled_true: "Desabilitadas"
       filter_name: "Filtrar por nome ou descrição"

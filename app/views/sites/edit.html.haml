@@ -29,6 +29,7 @@
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password
     = f.input :smtp_sender
+    = f.input :smtp_receiver
     = f.input :smtp_domain
     = f.input :smtp_server
     = f.input :smtp_port
@@ -59,7 +60,6 @@
     = f.input :certificate_login_enabled, as: :boolean
     = f.input :certificate_id_field, as: :string
     = f.input :certificate_name_field, as: :string
-    = f.input :smtp_receiver
     = f.input :captcha_enabled
     = f.input :recaptcha_public_key
     = f.input :recaptcha_private_key

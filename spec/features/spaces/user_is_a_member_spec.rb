@@ -210,7 +210,7 @@ feature 'User is' do
 
       within('#webconference-start') do
         page.all('.with_tooltip').count.should eql(0)
-        page.all('a').count.should eql(3)
+        page.all('a').count.should eql(4)
       end
     end
 
