@@ -19,7 +19,7 @@ module Abilities
       end
       can :update_full_name, User do |target_user|
         user == target_user &&
-          (!Site.current.shib_update_users? || !target_user.created_by_shib?)
+          !(target_user.created_by_shib? && Site.current.shib_update_users?)
       end
 
       # Spaces
