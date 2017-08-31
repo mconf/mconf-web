@@ -388,15 +388,6 @@ class User < ActiveRecord::Base
 
   protected
 
-  # Rename methods to make the disabled users "dirty" and clean it on enable
-  def disabled_rename(value)
-    ('disabled-') + (Time.now.strftime("%Y%m%d%H%M%S").to_s) + ('--') + enabled_rename(value)
-  end
-
-  def enabled_rename(value)
-    value.sub(/\A(disabled-\d*--)/,'')
-  end
-
   def before_disable_and_destroy
     # get all the spaces the user is an admin of
     # do it first so permissions still exist
@@ -420,30 +411,46 @@ class User < ActiveRecord::Base
   # For the disable module
   def before_disable
     before_disable_and_destroy
+
     create_activity 'cancelled', owner: proc { |controller|
       controller.try(:current_user)
     }, recipient: proc { |controller|
       controller.try(:current_user)
     }, notified: false
 
-    # This will make username and e-mail "dirty" and the user
-    # will be able to create a new account from scratch but will also keep previous data
-    self.username = disabled_rename(self.username)
-    self.email = disabled_rename(self.email)
-    self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+    modify_user_after_disabled
+  end
+
+  # In order to clean the username and e-mail if re-enabled by admin
+  def before_enable
+    modify_user_after_disabled(false)
+  end
+
+  # This will make the user "dirty" so that the same person can register again using
+  # the same email and name.
+  # If `disabled=false`, will make the user "undirty" again.
+  def modify_user_after_disabled(disabled=true)
+    if disabled
+      self.username = disabled_rename(self.username)
+      self.email = disabled_rename(self.email)
+      self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+    else
+      self.username = enabled_rename(self.username)
+      self.email = enabled_rename(self.email)
+      self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+    end
     self.skip_confirmation_notification!
     self.save
     self.confirm
   end
 
-  # In order to clean the username and e-mail if re-enabled by admin
-  def before_enable
-    self.username = enabled_rename(self.username)
-    self.email = enabled_rename(self.email)
-    self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
-    self.skip_confirmation_notification!
-    self.save
-    self.confirm
+  # Rename methods to make the disabled users "dirty" and clean it on enable
+  def disabled_rename(value)
+    ('disabled-') + (Time.now.strftime("%Y%m%d%H%M%S").to_s) + ('--') + enabled_rename(value)
+  end
+
+  def enabled_rename(value)
+    value.sub(/\A(disabled-\d*--)/,'')
   end
 
   def init

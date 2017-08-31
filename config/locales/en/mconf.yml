@@ -209,9 +209,8 @@ en:
         exception_notifications_email: "Exception notifications recipients"
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
-        feedback_url: "Feedback URL"
+        feedback_url: "Conference feedback URL"
         forbid_user_space_creation: "Forbid users from creating spaces"
-        gravatar: "Use gravatar"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -252,6 +251,7 @@ en:
         spaces_enabled: "Enable space module"
         ssl: "SSL"
         timezone: "Timezone"
+        use_gravatar: "Use gravatar"
         visible_locales: "Visible languages"
         unauth_access_to_conferences: "Allow unauthorized users in conferences"
         xmpp_server: "XMPP Server Address"
@@ -738,13 +738,11 @@ en:
   fax: Fax
   feedback:
     create:
-      check_mail: "Please check the email you informed in the feedback form, it seems wrong."
-      fill_fields: "Please fill in all the fields in the form to send your feedback."
-      success: "Your feedback e-mail was sent successfully. Thank you!"
+      success: "Your message was sent successfully, thank you!"
     new:
-      note: "Please send us your comments, problems and suggestions. We will try to answer as soon as possible."
-      title: "Send feedback"
-    send: "Send feedback"
+      note: "Send your suggestions, questions or anything you might have to tell us! We will try to answer as soon as possible."
+      title: "Contact"
+    send: "Send"
     webconf:
       stop_countdown: "Click here to stop it from closing and use it to browse this site"
       title: "Thank you for participating in this conference!"
@@ -960,7 +958,7 @@ en:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Send feedback"
+        feedback: "Contact"
         help: Help
         powered_by: "Powered by Mconf, visit"
         title: Links
@@ -1674,10 +1672,8 @@ en:
     webconference:
       invite: "Invite other people"
       attendees:
-        all_users: "All users"
         nobody: "There is nobody currently in the room."
         people_in_the_room: "People in the room"
-        registered_users: "Registered users"
       meetings:
         no_recordings: "There are no meetings or recordings in space yet."
         title: "Last meetings and recordings in this space"

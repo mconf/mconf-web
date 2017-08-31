@@ -204,9 +204,8 @@ pt-br:
         exception_notifications_email: "Destinatários das notificações de exceção"
         exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
-        feedback_url: "URL de feedback"
+        feedback_url: "URL de feedback de conferência"
         forbid_user_space_creation: "Proibir que usuários criem comunidades"
-        gravatar: Usar gravatar
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
@@ -248,6 +247,7 @@ pt-br:
         spaces_enabled: "Habilitar módulo de comunidades"
         ssl: "SSL"
         timezone: "Fuso horário"
+        use_gravatar: "Usar gravatar"
         visible_locales: "Linguagens visíveis"
         unauth_access_to_conferences: "Permitir usuários não autenticados em conferências"
         xmpp_server: "Endereço do servidor XMPP"
@@ -746,13 +746,11 @@ pt-br:
   fax: Fax
   feedback:
     create:
-      check_mail: "Por favor verifique o e-mail informado no forumlário de feedback, ele parece estar errado."
-      fill_fields: "Por favor preencha todos os campospara enviar o feedback."
-      success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
+      success: "Sua mensagem foi enviada com sucesso, obrigado!"
     new:
-      note: "Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-      title: "Enviar feedback"
-    send: "Enviar feedback"
+      note: "Envie suas sugestões, dúvidas ou qualquer outro comentário que tiver! Tentaremos responder o mais rapidamente possível."
+      title: "Contato"
+    send: "Enviar"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
@@ -968,7 +966,7 @@ pt-br:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Enviar feedback"
+        feedback: "Contato"
         help: Ajuda
         powered_by: "Powered by Mconf, visite"
         title: Links
@@ -1062,8 +1060,8 @@ pt-br:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
     spaces:
-      approved_false: "Não aprovados"
-      approved_true: "Aprovados"
+      approved_false: "Não aprovadas"
+      approved_true: "Aprovadas"
       disabled_false: "Habilitadas"
       disabled_true: "Desabilitadas"
       filter_name: "Filtrar por nome ou descrição"
@@ -1707,10 +1705,8 @@ pt-br:
       end_tooltip: "This action will end the current conference!"
       invite: "Convidar outras pessoas"
       attendees:
-        all_users: "Todos usuários"
         nobody: "Não há ninguém na sala."
         people_in_the_room: "Pessoas na sala"
-        registered_users: "Usuários registrados"
       meetings:
         no_recordings: "Ainda não existem reuniões ou gravações nesta comunidade."
         title: "Últimas reuniões e gravações desta comunidade"

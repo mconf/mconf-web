@@ -76,6 +76,16 @@ describe Profile do
     end
   end
 
+  describe "#valid_url?" do
+    it { FactoryGirl.build(:profile, url: nil).valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "").valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "   ").valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "http://").valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "https://").valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "lala@gmail.com").valid_url?.should be(false) }
+    it { FactoryGirl.build(:profile, url: "https://mconf.org").valid_url?.should be(true) }
+  end
+
   context "after_update" do
     let(:user) { FactoryGirl.create(:user) }
     let(:profile) { user.profile }

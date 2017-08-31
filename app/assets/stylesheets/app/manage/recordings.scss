@@ -38,6 +38,14 @@ body.manage.recordings {
       margin: 0 8px;
     }
   }
+
+  #recordings-list {
+
+    // so they look better if stacked in lower resolutions
+    .label {
+      display: inline-block;
+    }
+  }
 }
 
 
