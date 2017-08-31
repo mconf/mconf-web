@@ -78,9 +78,14 @@
             = render :partial => 'spaces/requests_notifications'
           = link_to t('.admin'), edit_space_path(@space), :class => "admin danger-text"
 
-  #sidebar-leave-space
-    - link = leave_space_path(@space)
-    - params = { method: :post, class: 'btn btn-xs btn-default', data: { confirm: t('space.confirm') } }
-    = link_to link, params do
-      = icon_leave_space
-      = t('space.leave.leave_this_space')
+  - if space.users.include?(current_user)
+    #sidebar-leave-space
+      - link = leave_space_path(@space)
+      - params = { method: :post, class: 'btn btn-xs btn-default', data: { confirm: t('space.confirm') } }
+      - if space.is_last_admin?(current_user)
+        - params[:class] += ' tooltipped disabled'
+        - title = t("spaces.error.last_admin_cant_leave")
+      = with_tooltip title do
+        = link_to link, params do
+          = icon_leave_space
+          = t('space.leave.leave_this_space')
