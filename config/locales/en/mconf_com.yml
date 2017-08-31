@@ -178,6 +178,7 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
+    update: "Subscription successfully updated"
   user:
     usage:
       education: "Education"

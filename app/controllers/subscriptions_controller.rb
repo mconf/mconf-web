@@ -66,7 +66,11 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def update
-    update! { :back }
+    update! do |success, failure|
+      success.html { flash[:notice] = t("subscriptions.update");
+                     redirect_to user_subscription_path(current_user) }
+      failure.html { render }
+    end
   end
 
   def index
