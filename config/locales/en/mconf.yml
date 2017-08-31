@@ -1589,6 +1589,7 @@ en:
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
       creation_forbidden: "You are not allowed to create spaces"
+      last_admin_cant_leave: "You can't leave this space because you're the last administrator"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
       unapproved: "This space was not yet approved by an administrator."

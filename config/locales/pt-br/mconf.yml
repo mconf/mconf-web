@@ -1620,6 +1620,7 @@ pt-br:
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       creation_forbidden: "Você não possui permissão para criar comunidades"
+      last_admin_cant_leave: "Você não pode sair desta comunidade pois você é o último administrador"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."

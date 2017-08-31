@@ -94,7 +94,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   # Redirects to the URL specified in the parameters.
   # If the parameter is not set, behaves exactly like `redirect_to`.
   def redirect_to_p(options={}, response_status={})

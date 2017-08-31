@@ -147,4 +147,23 @@ feature 'User hits access denied errors' do
       it { should have_content(t('spaces.error.need_join_to_access')) }
     end
   end
+
+  context 'last admin trying to leave a space' do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:space) { FactoryGirl.create(:space_with_associations) }
+    subject { page }
+
+    before {
+      space.add_member!(user, 'Admin')
+      login_as(user, :scope => :user)
+      visit space_path(space)
+      page.find("a[href='#{ leave_space_path(space) }']").click
+    }
+
+    it { current_path.should eq(space_path(space)) }
+    it { should have_css('body.spaces.show') }
+    it { should have_content(t('spaces.error.last_admin_cant_leave')) }
+    it { space.admins.should include(user) }
+  end
+
 end

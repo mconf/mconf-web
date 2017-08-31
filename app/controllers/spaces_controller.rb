@@ -253,13 +253,14 @@ class SpacesController < InheritedResources::Base
     @space = Space.find_by_permalink(params[:space_id])
   end
 
-  def handle_record_not_found exception
+  def handle_record_not_found(exception)
     @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
     render_404 exception
   end
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
-  def handle_access_denied exception
+  # Used to show messages better than a simple 403 for the users in some cases.
+  def handle_access_denied(exception)
 
     # anonymous users are required to sign in
     if !user_signed_in?
@@ -290,9 +291,14 @@ class SpacesController < InheritedResources::Base
       end
 
     # when space creation is forbidden for users
-    elsif [:create, :new].include? exception.action
+    elsif [:create, :new].include?(exception.action)
       flash[:error] = t("spaces.error.creation_forbidden")
       redirect_to spaces_path
+
+    # when the user can't leave the space because it's the last admin
+    elsif [:leave].include?(exception.action) && @space.is_last_admin?(current_user)
+      flash[:error] = t("spaces.error.last_admin_cant_leave")
+      redirect_to space_path(@space)
 
     # destructive actions are redirected to the 403 error
     else
