@@ -786,21 +786,10 @@ describe JoinRequestsController do
         it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
-      context "declines a user request from the join request's show view" do
-        before(:each) {
-          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
-          expect {
-            post :decline, space_id: space.to_param, id: jr
-          }.to change{ space.pending_join_requests.count }.by(-1)
-          jr.reload
-        }
-
-        it { should redirect_to(admissions_space_join_requests_path(space)) }
-      end
-
       context "declines an invitation he (or another admin) sent" do
         let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space) }
         before(:each) {
+          request.env['HTTP_REFERER'] = admissions_space_join_requests_path(space)
           expect {
             post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
@@ -886,14 +875,30 @@ describe JoinRequestsController do
 
       context "declines a request he made" do
         let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
-        before(:each) {
-          expect {
-            post :decline, space_id: space.to_param, id: jr
-          }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
-        }
-        it { should redirect_to(my_home_path) }
-        it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+
+        context "from his home path" do
+          before(:each) {
+            request.env['HTTP_REFERER'] = my_home_path
+            expect {
+              post :decline, space_id: space.to_param, id: jr
+            }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
+          }
+          it { should redirect_to(my_home_path) }
+          it { JoinRequest.exists?(jr.id).should be(false) }
+          it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        end
+
+        context "from the space's page" do
+          before(:each) {
+            request.env['HTTP_REFERER'] = space_path(space)
+            expect {
+              post :decline, space_id: space.to_param, id: jr
+            }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
+          }
+          it { should redirect_to(space_path(space)) }
+          it { JoinRequest.exists?(jr.id).should be(false) }
+          it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        end
       end
     end
   end

@@ -133,11 +133,10 @@ class JoinRequestsController < ApplicationController
         format.html {
           if admin_canceling_invitation
             flash[:success] = t("join_requests.decline.invitation_destroyed")
-            redirect_to admissions_space_join_requests_path(@space)
           else
             flash[:success] = t("join_requests.decline.request_destroyed")
-            redirect_to my_home_path
           end
+          redirect_to :back
         }
       end
     else
