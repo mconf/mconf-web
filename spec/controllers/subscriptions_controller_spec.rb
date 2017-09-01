@@ -20,10 +20,9 @@ describe SubscriptionsController do
   let(:user) { FactoryGirl.create(:user) }
   before(:each) { login_as(user) }
 
-  let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
-  it { should_authorize subscription, :show, :user_id => user.username }
-
   context "#show" do
+    let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+    it { should_authorize subscription, :show, :user_id => user.username }
     before { get :show, user_id: user.username }
 
     it { should render_template('show') }
@@ -31,6 +30,7 @@ describe SubscriptionsController do
   end
 
   context "#edit" do
+    let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     before { get :edit, user_id: user.username }
 
     it { should render_template('edit') }
@@ -38,6 +38,7 @@ describe SubscriptionsController do
   end
 
   context "#update" do
+    let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     before { request.env["HTTP_REFERER"] = referer
              put :update, user_id: user.username }
 
@@ -46,14 +47,23 @@ describe SubscriptionsController do
   end
 
   context "#destroy" do
+    let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     before { delete :destroy, user_id: user.username }
 
     it { should redirect_to(my_home_path) }
     it { should set_flash.to(I18n.t("subscriptions.destroy")) }
   end
 
+  context "new" do
+    before { get :new }
+
+    it { should render_template('new') }
+    it { should render_with_layout('no_sidebar') }
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
+    let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     let(:hash) { { user_id: user.username } }
 
     context "for a superuser", :user => "superuser" do
@@ -101,8 +111,3 @@ describe SubscriptionsController do
   end
 
 end
-
-
-
-
-

@@ -6,10 +6,7 @@
 
 require "spec_helper"
 
-describe Invoice do
-  skip "test the creation of invoices"
-  skip "get the invoices and associate to a created subscription"
-  skip "calculate the invoice value"
-  skip "test posting the invoice value"
-  skip "test abilities"
+describe InvoicesController do
+  skip "test the actions"
+  skip "test the abiliies from the controller perspective"
 end

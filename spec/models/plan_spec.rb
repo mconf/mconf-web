@@ -6,10 +6,8 @@
 
 require "spec_helper"
 
-describe Invoice do
-  skip "test the creation of invoices"
-  skip "get the invoices and associate to a created subscription"
-  skip "calculate the invoice value"
-  skip "test posting the invoice value"
-  skip "test abilities"
+describe Plan do
+  skip "test the creation of plans from command line"
+  skip "get the plans and associate to a created subscription"
+  skip "remove the plans in command line"
 end
