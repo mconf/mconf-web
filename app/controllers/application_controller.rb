@@ -139,6 +139,22 @@ class ApplicationController < ActionController::Base
     ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
   end
 
+  # To be used in `before_filter`s in actions that render modal windows.
+  # Will redirect the user if not using xhr (not showing as a proper modal).
+  def force_modal
+    if !request.xhr?
+      if request.referer.blank?
+        if user_signed_in?
+          redirect_to my_home_path
+        else
+          redirect_to root_path
+        end
+      else
+        redirect_to :back
+      end
+    end
+  end
+
   private
 
   def set_time_zone

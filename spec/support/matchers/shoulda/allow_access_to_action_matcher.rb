@@ -43,10 +43,16 @@ module Shoulda # :nodoc
           @params = params
           @method = :get
           @redirecting_to = nil
+          @xhr = false
         end
 
         def via(method)
           @method = method
+          self
+        end
+
+        def xhr
+          @xhr = true
           self
         end
 
@@ -60,7 +66,11 @@ module Shoulda # :nodoc
           @controller.stub(@action)
 
           begin
-            @example_group.send(@method, @action, @params)
+            if @xhr
+              @example_group.send(:xhr, @method, @action, @params)
+            else
+              @example_group.send(@method, @action, @params)
+            end
 
           # cancan error means we certainly had our access blocked
           rescue CanCan::AccessDenied

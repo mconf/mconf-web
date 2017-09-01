@@ -248,7 +248,6 @@ describe AttachmentsController do
         it { should redirect_to login_path }
       end
     end
-
   end
 
   describe "#new" do
@@ -259,15 +258,16 @@ describe AttachmentsController do
     }
 
     context "as a logged in user" do
-      before {
-        sign_in(user)
-        xhr :get, :new, :space_id => space.to_param
-      }
+      before { sign_in(user) }
 
       context "template and layout" do
+        before { xhr :get, :new, :space_id => space.to_param }
         it { should render_template('new') }
         it { should_not render_with_layout }
       end
+
+      let(:do_action) { get :new, :space_id => space.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
 
     context "as an anonymous user" do

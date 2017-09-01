@@ -63,9 +63,9 @@ describe JoinRequestsController do
 
       context "and has no pending join request" do
         context "template and layout" do
-          before(:each) { get :new, :space_id => space.to_param }
+          before(:each) { xhr :get, :new, :space_id => space.to_param }
           it { should render_template('new') }
-          it { should render_with_layout('no_sidebar') }
+          it { should_not render_with_layout }
         end
       end
 
@@ -74,9 +74,9 @@ describe JoinRequestsController do
           @join_request =
           FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
-        before(:each) { get :new, :space_id => space.to_param }
+        before(:each) { xhr :get, :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
         it { should assign_to(:pending_request).with(@join_request) }
       end
 
@@ -85,9 +85,9 @@ describe JoinRequestsController do
           @join_request =
             FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
-        before(:each) { get :new, :space_id => space.to_param }
+        before(:each) { xhr :get, :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
         it { should assign_to(:pending_request).with(@join_request) }
       end
     end
@@ -96,7 +96,7 @@ describe JoinRequestsController do
       before(:each) {
         space.add_member!(user)
         sign_in(user)
-        get :new, :space_id => space.to_param
+        xhr :get, :new, :space_id => space.to_param
       }
       it { should redirect_to(space_path(space)) }
       it { should assign_to(:pending_request).with(nil) }
@@ -104,14 +104,14 @@ describe JoinRequestsController do
 
     context "an anonymous user with no permission to create a new join request" do
       before(:each) {
-        get :new, space_id: space.to_param
+        xhr :get, :new, space_id: space.to_param
       }
       it { should redirect_to(login_path) }
     end
 
     # There's no link shown in the interface to permit this, but we'll block it on a controller level
     context "a logged in user trying to join an unapproved space" do
-      subject { get :new, space_id: space.to_param }
+      subject { xhr :get, :new, space_id: space.to_param }
       before(:each) {
         space.update_attributes(approved: false)
         sign_in(user)
@@ -447,7 +447,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize space, :invite, :space_id => space.to_param, :ability_name => :manage_join_requests }
+    it { should_authorize space, :invite, space_id: space.to_param, ability_name: :manage_join_requests, xhr: true }
 
     context "if the user is not a member of the space" do
       before(:each) {
@@ -455,7 +455,7 @@ describe JoinRequestsController do
       }
       it {
         expect {
-          get :invite, :space_id => space.to_param
+          xhr :get, :invite, :space_id => space.to_param
         }.to raise_error(CanCan::AccessDenied)
       }
     end
@@ -467,7 +467,7 @@ describe JoinRequestsController do
       }
       it {
         expect {
-          get :invite, :space_id => space.to_param
+          xhr :get, :invite, :space_id => space.to_param
         }.to raise_error(CanCan::AccessDenied)
       }
     end
@@ -476,12 +476,12 @@ describe JoinRequestsController do
       before(:each) {
         space.add_member!(user, 'Admin')
         sign_in(user)
-        get :invite, :space_id => space.to_param
+        xhr :get, :invite, :space_id => space.to_param
       }
 
       context "template and layout" do
         it { should render_template('invite') }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
       end
 
     end

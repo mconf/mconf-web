@@ -24,9 +24,13 @@ class PostsController < InheritedResources::Base
     @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
   end
 
-  layout :set_layout
-  def set_layout
-    if [:new, :edit].include?(action_name.to_sym) && request.xhr?
+  # modals
+  before_filter :force_modal, only: [:new, :edit, :reply_post]
+
+  layout :determine_layout
+
+  def determine_layout
+    if [:new, :edit, :reply_post].include?(action_name.to_sym)
       false
     else
       "application"

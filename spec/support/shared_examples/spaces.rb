@@ -61,7 +61,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
 
     context "and the user has no pending join request" do
       before(:each) { do_action }
-      it { should redirect_to(new_space_join_request_path(space)) }
+      it { should redirect_to(spaces_path) }
       it { should set_flash.to(I18n.t("spaces.error.need_join_to_access")) }
     end
 
@@ -70,7 +70,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
         @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
       }
       before(:each) { do_action }
-      it { space.pending_invitation_for?(user).should be_truthy }
+      it { space.pending_invitation_for?(user).should be(true) }
       it { should redirect_to(space_join_request_path(space, @invitation)) }
       it { should set_flash.to(I18n.t("spaces.error.already_invited")) }
     end
@@ -80,7 +80,7 @@ shared_examples "an action that rescues from CanCan::AccessDenied" do
         @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
       }
       before(:each) { do_action }
-      it { space.pending_join_request_for?(user).should be_truthy }
+      it { space.pending_join_request_for?(user).should be(true) }
       it { should redirect_to(new_space_join_request_path(space)) }
       it { should_not set_flash }
     end

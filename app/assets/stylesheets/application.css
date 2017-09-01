@@ -33,7 +33,7 @@
  *= require ./app/application/jcrop
  *
  * Some partials are necessary everywhere
- *= require ./app/feedback/_new
+ *= require ./app/feedback/new
  *
  * Themes: if using a theme, import it here!
  * require theme-name/stylesheets/base

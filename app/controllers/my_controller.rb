@@ -16,16 +16,15 @@ class MyController < ApplicationController
 
   before_filter :require_activities_mod, only: :activity
 
+  # modals
+  before_filter :force_modal, only: :edit_recording
+
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
     when :edit_recording
-      if request.xhr?
-        false
-      else
-        "application"
-      end
+      false
     when :approval_pending
       "navbar_bg"
     else

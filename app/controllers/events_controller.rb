@@ -23,6 +23,9 @@ class EventsController < InheritedResources::Base
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
+  # modals
+  before_filter :force_modal, only: :invite
+
   before_filter only: :index do
     filter_user_events
     filter_disabled_models
@@ -59,7 +62,7 @@ class EventsController < InheritedResources::Base
   end
 
   def invite
-    render layout: false if request.xhr?
+    render layout: false
   end
 
   def send_invitation

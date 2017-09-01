@@ -96,7 +96,8 @@ feature 'User hits access denied errors' do
         visit space_path(space)
       }
 
-      it { current_path.should eq(new_space_join_request_path(space)) }
+      it { current_path.should eq(spaces_path) }
+      it { should have_content(t('spaces.error.need_join_to_access')) }
     end
 
     context 'and is a logged in member' do
@@ -130,7 +131,8 @@ feature 'User hits access denied errors' do
         visit edit_space_path(space)
       }
 
-      it { current_path.should eq(new_space_join_request_path(space)) }
+      it { current_path.should eq(spaces_path) }
+      it { should have_content(t('spaces.error.need_join_to_access')) }
     end
 
     context 'and is a logged in member' do
@@ -140,10 +142,7 @@ feature 'User hits access denied errors' do
         visit edit_space_path(space)
       }
 
-      it { current_path.should eq(space_path(space)) }
-      it { should have_title(space.name) }
-      it { should have_title(Site.current.name) }
-      it { should have_css('body.spaces.show') }
+      it { current_path.should eq(spaces_path) }
       it { should have_content(t('spaces.error.need_join_to_access')) }
     end
   end

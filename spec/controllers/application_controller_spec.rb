@@ -396,7 +396,7 @@ describe ApplicationController do
     context "if there's no user logged returns false" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before(:each) { get :index, :room_id => room.id, :role => :moderator }
-      it { assigns(:result).should be_falsey }
+      it { assigns(:result).should be(false) }
     end
 
     context "if there's a user logged" do
@@ -625,7 +625,59 @@ describe ApplicationController do
 
       end
     end
+  end
 
+  describe "#force_modal" do
+
+    context "when it's a xhr request" do
+      controller do
+        def index
+          @result = force_modal.freeze
+          render :nothing => true
+        end
+      end
+
+      before(:each) {
+        expect(controller).not_to receive(:redirect_to)
+        xhr :get, :index
+      }
+      it { should_not respond_with(302) }
+    end
+
+    context "when it's not a xhr request" do
+      controller do
+        def index
+          @result = force_modal.freeze
+        end
+      end
+
+      context "with a referer" do
+        let(:referer) { '/anything' }
+        before {
+          request.env["HTTP_REFERER"] = referer
+          get :index
+        }
+        it { should respond_with(302) }
+        it { should redirect_to(referer) }
+      end
+
+      context "without a referer" do
+        context "without a user signed in" do
+          before { get :index }
+          it { should respond_with(302) }
+          it { should redirect_to(root_path) }
+        end
+
+        context "with a user signed in" do
+          before {
+            login_as(FactoryGirl.create(:user))
+            get :index
+          }
+          it { should respond_with(302) }
+          it { should redirect_to(my_home_path) }
+        end
+      end
+    end
   end
 
 end

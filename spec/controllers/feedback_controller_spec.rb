@@ -31,16 +31,16 @@ describe FeedbackController do
     context "with user logged in" do
       let(:user) { FactoryGirl.create(:user) }
       before { sign_in(user) }
-      context 'get' do
-        before { get :new }
-        it { should render_template 'new' }
-        it { should render_with_layout 'application' }
-      end
 
       context 'xhr' do
         before { xhr :get, :new }
         it { should render_template 'new' }
         it { should_not render_with_layout }
+      end
+
+      context "html request" do
+        let(:do_action) { get :new }
+        it_should_behave_like "an action that renders a modal - signed in"
       end
     end
 

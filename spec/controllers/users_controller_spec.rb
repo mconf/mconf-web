@@ -1134,6 +1134,7 @@ describe UsersController do
   end
 
   describe "#new" do
+
     # see bug #1719
     context "doesnt store location for redirect from xhr" do
       let(:superuser) { FactoryGirl.create(:superuser) }
@@ -1153,19 +1154,13 @@ describe UsersController do
       before(:each) { sign_in(superuser) }
 
       context "template and view" do
-        before(:each) { get :new }
-        it { should render_with_layout("application") }
-        it { should render_template("users/new") }
-      end
-
-      context "template and view via xhr" do
         before(:each) { xhr :get, :new }
-        it { should_not render_with_layout() }
+        it { should_not render_with_layout }
         it { should render_template("users/new") }
       end
 
       it "assigns @user" do
-        get :new
+        xhr :get, :new
         should assign_to(:user).with(instance_of(User))
       end
     end
@@ -1174,15 +1169,20 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user) }
       before(:each) {
         sign_in(user)
+        xhr :get, :new
       }
-      it {
-        expect { get :new }.to raise_error(CanCan::AccessDenied)
-      }
+      it { should respond_with(:unauthorized) }
     end
 
     context "as anonymous user" do
-      before { get :new }
-      it { should redirect_to login_path }
+      before { xhr :get, :new }
+      it { should respond_with(:unauthorized) }
+    end
+
+    context "html request" do
+      let(:do_action) { get :new }
+      let(:user) { FactoryGirl.create(:superuser) }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 

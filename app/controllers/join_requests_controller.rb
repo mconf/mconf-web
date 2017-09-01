@@ -20,16 +20,20 @@ class JoinRequestsController < ApplicationController
   before_filter :webconf_room!, only: [:admissions, :invite]
   before_filter :check_processed_request, only: [:show, :accept, :decline]
 
+  # modals
+  before_filter :force_modal, only: [:new, :invite]
+
   respond_to :html
 
-  def set_layout
-    if [:new].include?(action_name.to_sym) or [:invite].include?(action_name.to_sym)
-      request.xhr? ? false : 'no_sidebar'
+  layout :determine_layout
+
+  def determine_layout
+    if [:new, :invite].include?(action_name.to_sym)
+      false
     else
       "application"
     end
   end
-  layout :set_layout
 
   def admissions
     authorize! :manage_join_requests, @space

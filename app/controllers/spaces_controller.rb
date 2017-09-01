@@ -40,11 +40,17 @@ class SpacesController < InheritedResources::Base
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
+  # modals
+  before_filter :force_modal, only: :edit_recording
+
   layout :determine_layout
 
   def determine_layout
-    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+    case params[:action].to_sym
+    when :new, :create
       "navbar_bg"
+    when :edit_recording
+      false
     else
       "application"
     end
@@ -187,8 +193,6 @@ class SpacesController < InheritedResources::Base
     @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
-
-    render layout: false if request.xhr?
   end
 
   private
@@ -287,7 +291,7 @@ class SpacesController < InheritedResources::Base
       else
         # redirect him to ask permission to join
         flash[:error] = t("spaces.error.need_join_to_access")
-        redirect_to new_space_join_request_path :space_id => params[:id]
+        redirect_to spaces_path
       end
 
     # when space creation is forbidden for users
