@@ -3,6 +3,7 @@ language: ruby
 cache: bundler
 services:
   - redis-server
+  - mysql
 bundler_args: "--without production development"
 env:
   global:
