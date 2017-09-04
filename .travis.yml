@@ -8,6 +8,7 @@ bundler_args: "--without production development"
 env:
   global:
   - MCONF_DATABASE_TEST_ADAPTER='mysql2'
+  - MCONF_DATABASE_TEST_HOST='127.0.0.1'
   - MCONF_DATABASE_TEST_NAME='mconf_test'
   - MCONF_DATABASE_TEST_USERNAME='travis'
   - MCONF_DATABASE_TEST_PASSWORD=''
