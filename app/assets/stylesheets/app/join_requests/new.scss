@@ -1,0 +1,10 @@
+@import "definitions";
+@import "compass/css3";
+
+#new-join-request {
+  .alert {
+    text-align: center;
+    font-size: $m-font-medium;
+    margin-bottom: 0;
+  }
+}

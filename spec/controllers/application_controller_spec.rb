@@ -650,22 +650,49 @@ describe ApplicationController do
           @result = force_modal.freeze
         end
       end
+      let(:request_path) { '/requested_path' }
+      before { request.stub(:path) { request_path } }
 
       context "with a referer" do
-        let(:referer) { '/anything' }
         before {
           request.env["HTTP_REFERER"] = referer
           get :index
         }
-        it { should respond_with(302) }
-        it { should redirect_to(referer) }
+
+        context "in a standard case" do
+          let(:referer) { "#{root_url}anything" }
+          let(:expected) { "#{referer}?#{URI.encode_www_form({automodal: request_path})}" }
+          it { should respond_with(302) }
+          it { should redirect_to(expected) }
+        end
+
+        context "doesn't include port 443 in the URL" do
+          let(:referer) { "#{root_url(port: 443)}anything" }
+          let(:expected) { "#{root_url}anything?#{URI.encode_www_form({automodal: request_path})}" }
+          it { should respond_with(302) }
+          it { should redirect_to(expected) }
+        end
+
+        context "includes ports other than 80 and 443" do
+          let(:referer) { "#{root_url(port: 3000)}anything" }
+          let(:expected) { "#{referer}?#{URI.encode_www_form({automodal: request_path})}" }
+          it { should respond_with(302) }
+          it { should redirect_to(expected) }
+        end
+
+        context "maintains other parameters in the url" do
+          let(:referer) { "#{root_url(port: 3000)}anything?param=1" }
+          let(:expected) { "#{referer}&#{URI.encode_www_form({automodal: request_path})}" }
+          it { should respond_with(302) }
+          it { should redirect_to(expected) }
+        end
       end
 
       context "without a referer" do
         context "without a user signed in" do
           before { get :index }
           it { should respond_with(302) }
-          it { should redirect_to(root_path) }
+          it { should redirect_to(root_path(automodal: request_path)) }
         end
 
         context "with a user signed in" do
@@ -674,7 +701,7 @@ describe ApplicationController do
             get :index
           }
           it { should respond_with(302) }
-          it { should redirect_to(my_home_path) }
+          it { should redirect_to(my_home_path(automodal: request_path)) }
         end
       end
     end

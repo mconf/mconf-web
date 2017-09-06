@@ -91,13 +91,14 @@ feature 'User hits access denied errors' do
     end
 
     context 'and is a logged in non-member' do
+      let(:referer) { spaces_url }
       before {
+        page.driver.header 'Referer', referer
         login_as(user, :scope => :user)
         visit space_path(space)
       }
 
-      it { current_path.should eq(spaces_path) }
-      it { should have_content(t('spaces.error.need_join_to_access')) }
+      it { current_path.should eq('/spaces') }
     end
 
     context 'and is a logged in member' do
@@ -126,24 +127,26 @@ feature 'User hits access denied errors' do
     end
 
     context 'and is a logged in non-member' do
+      let(:referer) { spaces_url }
       before {
+        page.driver.header 'Referer', referer
         login_as(user, :scope => :user)
         visit edit_space_path(space)
       }
 
-      it { current_path.should eq(spaces_path) }
-      it { should have_content(t('spaces.error.need_join_to_access')) }
+      it { current_path.should eq('/spaces') }
     end
 
     context 'and is a logged in member' do
+      let(:referer) { spaces_url }
       before {
+        page.driver.header 'Referer', referer
         space.add_member!(user)
         login_as(user, :scope => :user)
         visit edit_space_path(space)
       }
 
-      it { current_path.should eq(spaces_path) }
-      it { should have_content(t('spaces.error.need_join_to_access')) }
+      it { current_path.should eq('/spaces') }
     end
   end
 

@@ -1,6 +1,3 @@
--# - spaces_menu_at :home
--# = render 'spaces/sidebar', space: @space, full: false
-
 #new-join-request
 
   .modal-header
@@ -10,13 +7,26 @@
   = simple_form_for(:join_request, url: space_join_requests_path(@space), html: { class: 'single-column' }) do |f|
 
     .modal-body
+
       - if @pending_request.nil?
-        = f.input :comment, as: :text, label: false, disabled: !@pending_request.nil?, input_html: { maxlength: 255, rows: 4, autofocus: true }
+
+        -# if it's public we don't need an alert, the user can see the space even not being a member
+        .alert= t(".need_to_join") if !@space.public
+
+        = f.input :comment, as: :text, label: false, input_html: { maxlength: 255, rows: 4, autofocus: true }
+
       - else
+        - jr_link = space_join_request_path(@space, @pending_request)
         - if @pending_request.is_invite?
-          .alert.alert-danger= t(".already_invited")
+          .alert= t(".already_invited")
         - else
-          .alert.alert-danger= t(".already_requested")
+          .alert= t(".already_requested")
 
     .modal-footer
-      = f.button :wrapped, value: t("_other.send"), disabled: !@pending_request.nil?, cancel_modal: true
+      - if @pending_request.nil?
+        = f.button :wrapped, value: t("_other.send"), disabled: !@pending_request.nil?, cancel_modal: true
+      - else
+        - if @pending_request.is_invite?
+          = link_to t(".reply_invitation"), jr_link, class: 'btn btn-primary'
+        - else
+          = link_to t(".view_join_request"), jr_link, class: 'btn btn-primary'

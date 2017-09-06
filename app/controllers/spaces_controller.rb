@@ -276,22 +276,11 @@ class SpacesController < InheritedResources::Base
       if !@space.approved?
         flash[:error] = t("spaces.error.unapproved")
         redirect_to spaces_path
-
-      elsif @space.pending_join_request_for?(current_user)
-        # redirect him to the page to ask permission to join, but with a warning that
-        # a join request was already sent
-        redirect_to new_space_join_request_path :space_id => params[:id]
-
-      elsif @space.pending_invitation_for?(current_user)
-        # redirect him to the invitation he received
-        invitation = @space.pending_invitation_for(current_user)
-        flash[:error] = t("spaces.error.already_invited")
-        redirect_to space_join_request_path @space, invitation
-
       else
-        # redirect him to ask permission to join
-        flash[:error] = t("spaces.error.need_join_to_access")
-        redirect_to spaces_path
+        # redirect him to the page to ask permission to join
+        # if the user already has a pending request, it will have a notice and links to
+        # access the invitation/request
+        redirect_to new_space_join_request_path(space_id: params[:id])
       end
 
     # when space creation is forbidden for users

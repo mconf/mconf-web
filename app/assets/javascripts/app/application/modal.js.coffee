@@ -125,8 +125,24 @@ class mconf.Modal
     # them close the modal automatically
     $(".modal .close-dialog").attr("data-dismiss", "modal")
 
+  # similar to bind, but should be called only once when the page loads
+  @onPageLoad: ->
+
+    # checks for the 'automodal' param in the URL
+    # if it exists, open a modal window automatically and remove the param from the URL
+    # should never open external URLs!
+    url = new URL(window.location)
+    params = mconf.Base.parseQueryString(url.search)
+    if params.automodal
+      url = params.automodal
+      url = "/#{url}" unless params.automodal[0] is '/' # force a local request
+      options = { target: url }
+      mconf.Base.removeParamFromUrl('automodal')
+      mconf.Modal.showWindow(options)
+
 $ ->
   mconf.Modal.bind()
+  mconf.Modal.onPageLoad()
 
 # Method called when an <a> is clicked to be opened in a modal window.
 # Used internally (in this file) only.

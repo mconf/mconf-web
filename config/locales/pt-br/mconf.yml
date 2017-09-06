@@ -914,9 +914,12 @@ pt-br:
           title: "Sua mensagem"
       your_request: "Você requisitou ingresso nesta comunidade."
     new:
-      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
-      already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
-      message_title: "Requisição para entrar em %{name}"
+      already_invited: "Você já foi convidado para entrar nesta comunidade!"
+      already_requested: "Você já requisitou ingresso a esta comunidade! Por favor espere que um administrador aceite o pedido."
+      message_title: "Acesso a %{name}"
+      need_to_join: "Você ainda não é um membro desta comunidade. Para acessá-la, você precisa se tornar um membro antes."
+      reply_invitation: "Ver o convite"
+      view_join_request: "Ver a requisição que você enviou"
     request:
       decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"
     show:

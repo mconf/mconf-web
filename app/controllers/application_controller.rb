@@ -145,12 +145,25 @@ class ApplicationController < ActionController::Base
     if !request.xhr?
       if request.referer.blank?
         if user_signed_in?
-          redirect_to my_home_path
+          redirect_to my_home_path(automodal: request.path)
         else
-          redirect_to root_path
+          redirect_to root_path(automodal: request.path)
         end
       else
-        redirect_to :back
+        # redirects back to the referer but including a new parameter in the URL
+        # to automatically open it as a modal window
+        referer = request.referer
+        uri = URI.parse(referer)
+
+        params = uri.query.blank? ? {} : CGI::parse(uri.query)
+        params['automodal'] = request.path
+        params = URI.encode_www_form(params)
+
+        site = "#{uri.scheme}://#{uri.host}"
+        site = "#{site}:#{uri.port}" if ![80, 443].include?(uri.port)
+        site = "#{site}#{uri.try(:path)}?#{params}"
+
+        redirect_to site
       end
     end
   end

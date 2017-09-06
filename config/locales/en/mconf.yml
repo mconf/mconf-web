@@ -906,9 +906,12 @@ en:
           title: "Your message"
       your_request: "You requested to join this space."
     new:
-      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
+      already_invited: "You were already invited to join this space!"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
-      message_title: "Request to join %{name}"
+      message_title: "Access to %{name}"
+      need_to_join: "You are still not a member of this space. To view it you need to join it first."
+      reply_invitation: "View the invitation"
+      view_join_request: "View the join request you sent"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
     show:
