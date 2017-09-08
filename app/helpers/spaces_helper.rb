@@ -38,11 +38,7 @@ module SpacesHelper
     # no user logged, renders a register button
     if !user_signed_in?
       options[:class] = "#{options[:class]} btn-success"
-      if Site.current.registration_enabled?
-        link_to t('_other.register'), register_path, options
-      else
-        link_to t('_other.login'), login_path, options
-      end
+      link_to t('_other.login'), login_path, options
 
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
