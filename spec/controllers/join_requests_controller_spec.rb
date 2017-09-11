@@ -122,64 +122,6 @@ describe JoinRequestsController do
 
   end
 
-  describe "#show" do
-    let(:jr) { FactoryGirl.create(:space_join_request) }
-    let(:space) { jr.group }
-    let(:user) { FactoryGirl.create(:user) }
-
-    it { should_authorize an_instance_of(JoinRequest), :show, :space_id => space.to_param, :id => jr }
-
-    context "a normal user" do
-      context "is not the subject of the join request" do
-        before(:each) {
-          sign_in(user)
-          expect {
-            get :show, :space_id => space.to_param, :id => jr
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-
-      context "is the subject of the join request" do
-        before(:each) {
-          sign_in(jr.candidate)
-          get :show, :space_id => space.to_param, :id => jr
-        }
-
-        it { should render_template('show') }
-        it { should render_with_layout('application') }
-      end
-
-      context "is the admin of the space of the join request" do
-        before(:each) {
-          space.add_member!(user, 'Admin')
-          sign_in(user)
-          get :show, :space_id => space.to_param, :id => jr
-        }
-
-        it { should render_template('show') }
-        it { should render_with_layout('application') }
-      end
-
-      context "is not related at all with the join request" do
-        it {
-          sign_in(FactoryGirl.create(:user))
-          expect {
-            get :show, space_id: space.to_param, id: jr
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-    end
-
-    context "an anonymous user with no permission to access the join request" do
-      before {
-        expect {
-          get :show, space_id: space.to_param, id: jr
-        }.not_to raise_error
-      }
-      it { redirect_to login_path }
-    end
-  end
-
   describe "#create" do
     let(:user) { FactoryGirl.create(:user) }
     let(:space) { FactoryGirl.create(:space) }
@@ -580,18 +522,6 @@ describe JoinRequestsController do
         it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
-      context "accepts a user request from the join request's show view" do
-        before(:each) {
-          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
-          expect {
-            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
-          }.to change{ space.pending_join_requests.count }.by(-1)
-          jr.reload
-        }
-
-        it { should redirect_to(admissions_space_join_requests_path(space)) }
-      end
-
       # to be extra sure admins can't accept invitations they sent
       context "accepting an invitation he sent" do
         let!(:jr) { FactoryGirl.create(:join_request_invite, group: space) }
@@ -939,7 +869,6 @@ describe JoinRequestsController do
       it { expect { get :admissions, space_id: space_id }.not_to raise_error }
       it { expect { post :create, space_id: space_id }.not_to raise_error }
       it { expect { get :new, space_id: space_id }.not_to raise_error }
-      it { expect { get :show, id: jr, space_id: space_id }.not_to raise_error }
     end
   end
 end

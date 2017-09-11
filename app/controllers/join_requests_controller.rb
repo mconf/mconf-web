@@ -31,15 +31,12 @@ class JoinRequestsController < ApplicationController
     if [:new, :invite].include?(action_name.to_sym)
       false
     else
-      "application"
+      'application'
     end
   end
 
   def admissions
     authorize! :manage_join_requests, @space
-  end
-
-  def show
   end
 
   def new
@@ -170,13 +167,7 @@ class JoinRequestsController < ApplicationController
             # a user accepting/declining an invitation he received
             redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
-            unless request.referer.match(space_join_request_path(@space, @join_request))
-              redirect_to request.referer
-            else
-              # an admin accepting/declining a request from the requests page, goes back to
-              # the index of join requests in the space
-              redirect_to admissions_space_join_requests_path(@space)
-            end
+            redirect_to request.referer
           end
         }
       else

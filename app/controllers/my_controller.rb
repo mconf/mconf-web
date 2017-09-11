@@ -33,7 +33,7 @@ class MyController < ApplicationController
   end
 
   def home
-    @pending_requests = current_user.pending_join_requests
+    @pending_requests = current_user.pending_join_requests.order('created_at DESC')
     # TODO: this will not be necessary when jrs are removed after a space is disabled
     @pending_requests.to_a.select! { |jr| jr.group.present? }
 

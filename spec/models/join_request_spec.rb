@@ -255,7 +255,7 @@ describe JoinRequest, type: :model do
               target.request_type = JoinRequest::TYPES[:invite]
             end
 
-            it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :new, :decline]) }
+            it { should_not be_able_to_do_anything_to(target).except([:accept, :create, :new, :decline]) }
           end
 
           context "he is a member of" do
@@ -264,13 +264,13 @@ describe JoinRequest, type: :model do
 
               context "over a request" do
                 it { should be_able_to(:manage_join_requests, target.group) }
-                it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :new, :decline]) }
+                it { should_not be_able_to_do_anything_to(target).except([:accept, :create, :new, :decline]) }
               end
 
               context "over an invitation" do
                 before { target.request_type = JoinRequest::TYPES[:invite] }
                 it { should be_able_to(:manage_join_requests, target.group) }
-                it { should_not be_able_to_do_anything_to(target).except([:show, :create, :new, :decline]) }
+                it { should_not be_able_to_do_anything_to(target).except([:create, :new, :decline]) }
               end
             end
 

@@ -47,7 +47,7 @@ pt-br:
     invitation_email:
       message:
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para participar da comunidade <b>%{space}</b>."
-        link: "Você pode aceitar ou recusar o convite clicando no link: <br/><a href=\"%{url}\">%{url}</a>"
+        link: "Você pode aceitar ou recusar o convite na sua página inicial em <br/><a href=\"%{url}\">%{url}</a>."
         space_info: "Você pode encontrar mais informações sobre esta comunidade na página: <br/><a href=\"%{space_url}\">%{space_url}</a>"
         user_message: "Esta é a mensagem escrita por %{sender}:"
       subject: "%{username} convidou você para participar da comunidade %{space}"

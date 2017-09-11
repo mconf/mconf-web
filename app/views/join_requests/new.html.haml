@@ -16,7 +16,6 @@
         = f.input :comment, as: :text, label: false, input_html: { maxlength: 255, rows: 4, autofocus: true }
 
       - else
-        - jr_link = space_join_request_path(@space, @pending_request)
         - if @pending_request.is_invite?
           .alert= t(".already_invited")
         - else
@@ -26,7 +25,4 @@
       - if @pending_request.nil?
         = f.button :wrapped, value: t("_other.send"), disabled: !@pending_request.nil?, cancel_modal: true
       - else
-        - if @pending_request.is_invite?
-          = link_to t(".reply_invitation"), jr_link, class: 'btn btn-primary'
-        - else
-          = link_to t(".view_join_request"), jr_link, class: 'btn btn-primary'
+        = link_to t(".view_join_request"), my_home_path, class: 'btn btn-primary'

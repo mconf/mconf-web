@@ -27,7 +27,7 @@ describe SpaceMailer do
       it("assigns @user") { mail_content(mail).should match(introducer.full_name) }
       it("assigns @space") { mail_content(mail).should match(space.name) }
       it("renders the link to accept the invitation") {
-        url = space_join_request_url(space, join_request, :host => Site.current.domain)
+        url = my_home_url(:host => Site.current.domain)
         url2 = space_url(space, :host => Site.current.domain)
         content = I18n.t('space_mailer.invitation_email.message.link', :url => url, :space_url => url2).html_safe
         mail_content(mail).should match(Regexp.escape(content))
