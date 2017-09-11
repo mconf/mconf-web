@@ -369,6 +369,10 @@ class User < ActiveRecord::Base
     enabled_rename(value)
   end
 
+  def member_of?(space)
+    Permission.find_by(subject: space, user: self).present?
+  end
+
   protected
 
   def before_disable_and_destroy

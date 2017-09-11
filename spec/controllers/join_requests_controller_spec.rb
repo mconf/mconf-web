@@ -99,7 +99,7 @@ describe JoinRequestsController do
         xhr :get, :new, :space_id => space.to_param
       }
       it { should redirect_to(space_path(space)) }
-      it { should assign_to(:pending_request).with(nil) }
+      it { should_not assign_to(:pending_request) }
     end
 
     context "an anonymous user with no permission to create a new join request" do
@@ -190,7 +190,7 @@ describe JoinRequestsController do
         }.to change{space.join_requests.count}.by(0)
       }
 
-      it { should redirect_to(spaces_path) }
+      it { should redirect_to(space_path(space)) }
       it { should set_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
     end
 
@@ -278,8 +278,8 @@ describe JoinRequestsController do
 
       before(:each) {
         expect {
-          post :create, { space_id: space.to_param}.merge(attributes)
-        }.to change{space.pending_invitations.count}.by(1)
+          post :create, { space_id: space.to_param }.merge(attributes)
+        }.to change{ space.pending_invitations.count }.by(1)
       }
 
       it { should redirect_to(admissions_space_join_requests_path(space)) }
@@ -303,8 +303,8 @@ describe JoinRequestsController do
 
       before(:each) {
         expect {
-          post :create, { space_id: space.to_param}.merge(attributes)
-        }.to change{space.pending_invitations.count}.by(2)
+          post :create, { space_id: space.to_param }.merge(attributes)
+        }.to change{ space.pending_invitations.count }.by(2)
       }
 
       it { should redirect_to(admissions_space_join_requests_path(space)) }

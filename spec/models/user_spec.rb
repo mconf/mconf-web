@@ -1180,6 +1180,25 @@ describe User do
     end
   end
 
+  describe "#member_of?" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
+
+    context "when the user is not a member of the space" do
+      it { user.member_of?(space).should be(false) }
+    end
+
+    context "when the user is a user of the space" do
+      before { space.add_member!(user, 'User') }
+      it { user.member_of?(space).should be(true) }
+    end
+
+    context "when the user is an admin of the space" do
+      before { space.add_member!(user, 'Admin') }
+      it { user.member_of?(space).should be(true) }
+    end
+  end
+
   describe "#location" do
     context "returns the city + country" do
       let(:user) { FactoryGirl.create(:user) }

@@ -917,7 +917,7 @@ pt-br:
       already_invited: "Você já foi convidado para entrar nesta comunidade! Veja o convite na sua página inicial."
       already_requested: "Você já requisitou ingresso a esta comunidade, por favor espere que um administrador aceite o pedido. Você pode cancelar a sua requisição na sua página inicial."
       message_title: "Acesso a %{name}"
-      need_to_join: "Você ainda não é um membro desta comunidade. Para acessá-la, você precisa se tornar um membro antes."
+      need_to_join: "Você ainda não é um membro desta comunidade. Solicite acesso para visualizar e interagir na comunidade."
       view_join_request: "Ir para página inicial"
     request:
       decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"

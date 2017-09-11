@@ -909,7 +909,7 @@ en:
       already_invited: "You were already invited to join this space! You can see the invitation in your home page."
       already_requested: "You already requested to join this space, please wait for an administrator to accept it. You can cancel your request in your home page."
       message_title: "Access to %{name}"
-      need_to_join: "You are still not a member of this space. To view it you need to join it first."
+      need_to_join: "You are still not a member of this space. Request access to view and interact in this space."
       view_join_request: "Go to your home page"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"

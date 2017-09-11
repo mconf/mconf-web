@@ -18,7 +18,10 @@ class JoinRequestsController < ApplicationController
   load_resource :join_request, :through => :space, :only => [:admissions, :invite] # these are authenticated via space parent
 
   before_filter :webconf_room!, only: [:admissions, :invite]
-  before_filter :check_processed_request, only: [:show, :accept, :decline]
+  before_filter :check_processed_request, only: [:accept, :decline]
+
+  # only for :new because it has to redirect before :force_modal
+  before_filter :check_already_member, only: [:new]
 
   # modals
   before_filter :force_modal, only: [:new, :invite]
@@ -40,10 +43,7 @@ class JoinRequestsController < ApplicationController
   end
 
   def new
-    @pending_request = nil
-    if @space.users.include?(current_user)
-      redirect_to space_path(@space)
-    elsif @space.pending_join_request_or_invitation_for?(current_user)
+    if @space.pending_join_request_or_invitation_for?(current_user)
       @pending_request = @space.pending_join_request_or_invitation_for(current_user)
     end
   end
@@ -83,7 +83,7 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.users.include?(current_user)
+      if current_user.member_of?(@space)
         flash[:notice] = t('join_requests.create.you_are_already_a_member')
         redirect_after_created
       elsif @space.pending_join_request_or_invitation_for?(current_user)
@@ -151,7 +151,7 @@ class JoinRequestsController < ApplicationController
   private
 
   def redirect_after_created
-    if @space.public
+    if @space.public || current_user.member_of?(@space)
       redirect_to space_path(@space)
     else
       redirect_to spaces_path
@@ -189,6 +189,11 @@ class JoinRequestsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     end
+  end
+
+  # If the user is already a member of the space, redirect to the space
+  def check_already_member
+    redirect_to space_path(@space) if current_user.member_of?(@space)
   end
 
   def process_additions

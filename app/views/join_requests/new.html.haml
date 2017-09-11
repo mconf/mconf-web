@@ -9,10 +9,7 @@
     .modal-body
 
       - if @pending_request.nil?
-
-        -# if it's public we don't need an alert, the user can see the space even not being a member
-        .alert= t(".need_to_join") if !@space.public
-
+        .alert= t(".need_to_join")
         = f.input :comment, as: :text, label: false, input_html: { maxlength: 255, rows: 4, autofocus: true }
 
       - else

@@ -146,7 +146,7 @@ feature 'User hits access denied errors' do
         visit edit_space_path(space)
       }
 
-      it { current_path.should eq('/spaces') }
+      it { current_path.should eq(space_path(space)) }
     end
   end
 
