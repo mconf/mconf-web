@@ -258,12 +258,22 @@ a:not(.btn) .icon-awesome {
     font-size: 11px;
   }
 
-  &.icon-mconf-google{
-    color: $m-red;
+  &.icon-mconf-google {
+    color: #DD4B39;
     font-size: 22px;
-    padding: 3px 30px 3px 10px;
-    border: 1px solid black;
+    padding: 3px 28px 3px 10px;
     border-radius: 6px;
+    background: #ddd;
+    margin: 3px;
+  }
+
+  &.icon-mconf-facebook {
+    color: #3b5998;
+    font-size: 22px;
+    padding: 3px 24px 3px 10px;
+    border-radius: 6px;
+    background: #ddd;
+    margin: 3px;
   }
 
   &.icon-mconf-event {}

@@ -1255,6 +1255,10 @@ en:
       title: "Register"
     signup_form:
       register: "Register"
+      register_local: "Create account on Mconf"
+      social_facebook: "Login with Facebook Account"
+      social_google: "Login with Google Account"
+      social_login: "Social Login"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"

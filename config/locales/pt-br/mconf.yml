@@ -1283,6 +1283,10 @@ pt-br:
       title: "Registrar"
     signup_form:
       register: "Registre-se"
+      register_local: "Criar uma conta no Mconf"
+      social_facebook: "Acessar com a conta Facebook"
+      social_google: "Acessar com a conta Google"
+      social_login: "Login Social"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"

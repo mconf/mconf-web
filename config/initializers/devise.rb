@@ -220,6 +220,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   #
   config.omniauth :google_oauth2, '332842366874-jguvhmib1kd7ab71uf7m99ouk9rfs8nm.apps.googleusercontent.com', 'Qh4QAbtM3fVTgfogfSaQE8LW', {}
+  config.omniauth :facebook, "KEY", "SECRET"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

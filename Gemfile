@@ -53,6 +53,7 @@ gem 'cancancan', '~> 1.9'
 gem 'devise-async'
 gem 'net-ldap'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', git: 'https://github.com/mconf/bigbluebutton-api-ruby.git', branch: 'master'

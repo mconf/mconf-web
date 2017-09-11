@@ -351,6 +351,8 @@ GEM
     omniauth (1.4.2)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
+    omniauth-facebook (4.0.0)
+      omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.5.2)
       jwt (~> 1.5)
       multi_json (~> 1.3)
@@ -631,6 +633,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.0)
   net-ldap
   nokogiri
+  omniauth-facebook
   omniauth-google-oauth2
   populator
   premailer-rails
