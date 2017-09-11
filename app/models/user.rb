@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :async, :registerable,
          :confirmable, :recoverable, :rememberable, :trackable,
-         :validatable, :encryptable
+         :validatable, :encryptable, :omniauthable, omniauth_providers: [:google_oauth2]
   # Virtual attribute for authenticating by either username or email
   attr_accessor :login
   # To login with username or email, see: http://goo.gl/zdIZ5
@@ -164,6 +164,23 @@ class User < ActiveRecord::Base
 
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
+
+  #define the creation for social omniauth
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+
+    # Uncomment the section below if you want users to be created if they don't exist
+    unless user
+        user = User.create(username: data['name'].parameterize,
+          email: data['email'],
+          profile_attributes: { full_name: data['name'] },
+          password: Devise.friendly_token[0,20]
+        )
+    end
+
+    user
+  end
 
   # make sure there will always be a profile
   def profile_with_initialize

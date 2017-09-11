@@ -258,6 +258,14 @@ a:not(.btn) .icon-awesome {
     font-size: 11px;
   }
 
+  &.icon-mconf-google{
+    color: $m-red;
+    font-size: 22px;
+    padding: 3px 30px 3px 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}

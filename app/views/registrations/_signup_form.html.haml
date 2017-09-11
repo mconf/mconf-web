@@ -2,6 +2,10 @@
 -# For some reason `resource` is nil and then the labels won't be correct
 - user = resource.nil? ? User.new : resource
 
+%h3= t('.social_login')
+= link_to user_omniauth_authorize_path(:google_oauth2) do
+  = icon_google :class => "tooltipped", :title => t(".social_google")
+
 = simple_form_for user, as: resource_name, url: registration_path(resource_name), wrapper: :horizontal_form, html: { class: "form-horizontal" } do |f|
   = disable_autocomplete_for('user[username]')
   = disable_autocomplete_for('user[password]', 'password')

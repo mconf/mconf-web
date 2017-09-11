@@ -277,6 +277,10 @@ module IconsHelper
     end
   end
 
+  def icon_google(options={})
+    icon_constructor nil, "fa fa-google icon-awesome icon-mconf-google", options
+  end
+
   private
 
   # Base method for most of the methods above
