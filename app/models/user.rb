@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :async, :registerable,
          :confirmable, :recoverable, :rememberable, :trackable,
-         :validatable, :encryptable, :omniauthable, omniauth_providers: [:google_oauth2]
+         :validatable, :encryptable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
   # Virtual attribute for authenticating by either username or email
   attr_accessor :login
   # To login with username or email, see: http://goo.gl/zdIZ5
