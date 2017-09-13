@@ -219,8 +219,13 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   #
-  config.omniauth :google_oauth2, Rails.application.config.omniauth_google_key, Rails.application.config.omniauth_google_secret, {}
-  config.omniauth :facebook, Rails.application.config.omniauth_facebook_key, Rails.application.config.omniauth_facebook_secret, {}
+  if Rails.application.config.omniauth_google_key.present? && Rails.application.config.omniauth_google_secret.present?
+    config.omniauth :google_oauth2, Rails.application.config.omniauth_google_key, Rails.application.config.omniauth_google_secret, {}
+  end
+
+  if Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?
+    config.omniauth :facebook, Rails.application.config.omniauth_facebook_key, Rails.application.config.omniauth_facebook_secret, {}
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

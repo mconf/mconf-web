@@ -7,7 +7,7 @@ body.registrations.new, body.registrations.create {
     width: 50%;
     @include mconf-clearfix;
 
-    #social-login, #register-mconf {
+    #register-mconf {
       text-align: center;
     }
 

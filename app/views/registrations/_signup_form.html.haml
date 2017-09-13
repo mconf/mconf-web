@@ -1,12 +1,6 @@
 -# Small hack to have a resource set when the user loads the form for the first time
 -# For some reason `resource` is nil and then the labels won't be correct
 - user = resource.nil? ? User.new : resource
-#social-login
-  %h3= t('.social_login')
-  = link_to user_omniauth_authorize_path(:google_oauth2) do
-    = icon_google :class => "tooltipped", :title => t(".social_google")
-  = link_to user_omniauth_authorize_path(:facebook) do
-    = icon_facebook :class => "tooltipped", :title => t(".social_facebook")
 
 #register-mconf
   %h3= t('.register_local')
