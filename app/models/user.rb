@@ -165,18 +165,17 @@ class User < ActiveRecord::Base
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
 
-  #define the creation for social omniauth
+  # define the creation for social omniauth
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
 
-    # Uncomment the section below if you want users to be created if they don't exist
     unless user
-        user = User.create(username: data['name'].parameterize,
-          email: data['email'],
-          profile_attributes: { full_name: data['name'] },
-          password: Devise.friendly_token[0,20]
-        )
+      user = User.create(username: data['name'].parameterize,
+        email: data['email'],
+        profile_attributes: { full_name: data['name'] },
+        password: Devise.friendly_token[0,20]
+      )
     end
 
     user
