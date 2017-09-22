@@ -52,6 +52,7 @@ gem 'devise-encryptable' # TODO: #1271 only while we have old station users
 gem 'cancancan', '~> 1.9'
 gem 'devise-async'
 gem 'net-ldap'
+gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 

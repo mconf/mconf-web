@@ -19,6 +19,22 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
       expect(current_path).to eq(my_home_path)
     end
 
+    context 'allows facebook authentication for normal users' do
+      before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+               visit login_path }
+
+      it { page.find(:css, "#facebook-login a").click
+           expect(current_path).to eq(my_home_path) }
+    end
+
+    context 'allows google authentication for normal users' do
+      before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+               visit login_path }
+
+      it { page.find(:css, "#google-login a").click
+           expect(current_path).to eq(my_home_path) }
+    end
+
     context "shows the 'recover password' link in the login page" do
       before { visit new_user_session_path }
 

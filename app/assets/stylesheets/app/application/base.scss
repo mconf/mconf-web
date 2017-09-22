@@ -1067,6 +1067,12 @@ strong.highlight {
 
 #social-login-section {
   text-align: center;
+  #google-login {
+    display: inline-block;
+  }
+  #facebook-login {
+    display: inline-block;
+  }
 }
 
 .table-observation-row {

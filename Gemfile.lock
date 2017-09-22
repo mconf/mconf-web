@@ -633,6 +633,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.0)
   net-ldap
   nokogiri
+  omniauth
   omniauth-facebook
   omniauth-google-oauth2
   populator
