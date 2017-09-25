@@ -94,7 +94,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   # Redirects to the URL specified in the parameters.
   # If the parameter is not set, behaves exactly like `redirect_to`.
   def redirect_to_p(options={}, response_status={})
@@ -138,6 +137,35 @@ class ApplicationController < ActionController::Base
 
   def parse_boolean(value)
     ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
+
+  # To be used in `before_filter`s in actions that render modal windows.
+  # Will redirect the user if not using xhr (not showing as a proper modal).
+  def force_modal
+    if !request.xhr?
+      if request.referer.blank?
+        if user_signed_in?
+          redirect_to my_home_path(automodal: request.path)
+        else
+          redirect_to root_path(automodal: request.path)
+        end
+      else
+        # redirects back to the referer but including a new parameter in the URL
+        # to automatically open it as a modal window
+        referer = request.referer
+        uri = URI.parse(referer)
+
+        params = uri.query.blank? ? {} : CGI::parse(uri.query)
+        params['automodal'] = request.path
+        params = URI.encode_www_form(params)
+
+        site = "#{uri.scheme}://#{uri.host}"
+        site = "#{site}:#{uri.port}" if ![80, 443].include?(uri.port)
+        site = "#{site}#{uri.try(:path)}?#{params}"
+
+        redirect_to site
+      end
+    end
   end
 
   private

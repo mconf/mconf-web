@@ -4,28 +4,38 @@
 // the view is called 'associate' but the action is 'login'
 body.shibboleth.login {
 
-  $column-width: $m-contents-width / 2 - 40px;
-  $block-width: $m-contents-width / 3;
+  #shibboleth-associate {
+    @include make-row;
+    text-align: center;
+    padding: 10px;
 
-  #shibboleth-existent-account {
-    float: left;
-    margin-top: 20px;
-    width: $column-width;
+    h3 {
+      margin-bottom: 20px;
+    }
 
-    .shibboleth-block {
-      width: 100%;
+    #shibboleth-existent-account {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+      @include make-md-column(5);
+      @include make-md-column-offset(1);
+      @include make-lg-column(4);
+      @include make-lg-column-offset(2);
+      margin-bottom: 20px;
+
+      .shibboleth-block {
+        text-align: left;
+      }
+    }
+
+    #shibboleth-new-account {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+      @include make-md-column(5);
+      @include make-lg-column(4);
+
+      .shibboleth-block {
+        text-align: left;
+      }
     }
   }
-
-  #shibboleth-new-account {
-    width: $column-width;
-    float: right;
-    margin-top: 20px;
-
-    .shibboleth-block {
-      width: $block-width;
-      margin-left: ($column-width - $block-width) / 2;
-    }
-  }
-
 }

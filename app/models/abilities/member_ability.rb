@@ -19,7 +19,7 @@ module Abilities
       end
       can :update_full_name, User do |target_user|
         user == target_user &&
-          (!Site.current.shib_update_users? || !target_user.created_by_shib?)
+          !(target_user.created_by_shib? && Site.current.shib_update_users?)
       end
 
       # Spaces
@@ -61,7 +61,7 @@ module Abilities
       can [:create, :new], JoinRequest
 
       # users that created a join request can do a few things over it
-      can [:show, :decline], JoinRequest do |jr|
+      can [:decline], JoinRequest do |jr|
         jr.group.try(:is_a?, Space) && jr.try(:candidate) == user
       end
 
@@ -84,7 +84,7 @@ module Abilities
       end
 
       # space admins can work with all join requests in the space
-      can [:show, :create, :new, :decline], JoinRequest do |jr|
+      can [:create, :new, :decline], JoinRequest do |jr|
         group = jr.group
         group.try(:is_a?, Space) && group.admins.include?(user)
       end

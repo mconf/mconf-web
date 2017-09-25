@@ -27,7 +27,7 @@ describe SpaceMailer do
       it("assigns @user") { mail_content(mail).should match(introducer.full_name) }
       it("assigns @space") { mail_content(mail).should match(space.name) }
       it("renders the link to accept the invitation") {
-        url = space_join_request_url(space, join_request, :host => Site.current.domain)
+        url = my_home_url(:host => Site.current.domain)
         url2 = space_url(space, :host => Site.current.domain)
         content = I18n.t('space_mailer.invitation_email.message.link', :url => url, :space_url => url2).html_safe
         mail_content(mail).should match(Regexp.escape(content))
@@ -177,7 +177,7 @@ describe SpaceMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([candidate.email]) }
       it("assigns @join_request") { mail_content(mail).should match(join_request.comment) }
       it("renders the link to accept the join request") {
-        url = space_join_requests_url(space, host: Site.current.domain)
+        url = admissions_space_join_requests_url(space, host: Site.current.domain)
         content = I18n.t('space_mailer.join_request_email.message.link', :url => url).html_safe
         mail_content(mail).should match(Regexp.escape(content))
       }

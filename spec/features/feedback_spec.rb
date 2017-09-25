@@ -7,21 +7,22 @@
 
 require 'spec_helper'
 
-def send_feedback subj, message, email=nil
+def send_feedback(subj, message, email=nil)
   fill_in 'feedback[from]', :with => email if email.present?
   fill_in 'feedback[message]', :with => message
   fill_in 'feedback[subject]', :with => subj
   click_button 'Send'
 end
 
-feature 'Sending a feedback' do
+describe 'Sending a feedback', with_js: true do
   let(:subject) { page }
 
-  describe 'as a signed in user' do
+  skip 'as a signed in user' do
     before {
       @user = FactoryGirl.create(:user, :username => 'user-1', :password => 'password')
       login_as(@user, :as => :user)
-      visit new_feedback_path
+      visit my_home_path #new_feedback_path
+      find("a[href='#{new_feedback_path}']", match: :first).click
     }
 
     context 'sending the form' do
@@ -53,7 +54,7 @@ feature 'Sending a feedback' do
 
   end
 
-  context 'as an anonymous user' do
+  skip 'as an anonymous user' do
     before { visit new_feedback_path }
     it_behaves_like 'it redirects to login page'
     it { should_not have_selector('#feedback_from') }

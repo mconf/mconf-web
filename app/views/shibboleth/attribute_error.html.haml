@@ -4,16 +4,17 @@
   .content-block
     %h3= t(".message")
 
-  .content-block
-    %h4= t('.required.title') + ':'
-    - if @attrs_required.length > 0
-      = @attrs_required
-    - else
-      = t('.required.no_attrs')
+  .error-box
+    .content-block
+      %h4= t('.required.title') + ':'
+      - if @attrs_required.length > 0
+        = @attrs_required
+      - else
+        = t('.required.no_attrs')
 
-  .content-block
-    %h4= t('.informed.title') + ':'
-    - if @attrs_informed.keys.length > 0
-      = @attrs_informed
-    - else
-      = t('.informed.no_attrs')
+    .content-block
+      %h4= t('.informed.title') + ':'
+      - if @attrs_informed.keys.length > 0
+        = @attrs_informed
+      - else
+        = t('.informed.no_attrs')

@@ -209,9 +209,8 @@ en:
         exception_notifications_email: "Exception notifications recipients"
         exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
-        feedback_url: "Feedback URL"
+        feedback_url: "Conference feedback URL"
         forbid_user_space_creation: "Forbid users from creating spaces"
-        gravatar: "Use gravatar"
         ldap_enabled: "LDAP: Enable authentication"
         ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
@@ -252,6 +251,7 @@ en:
         spaces_enabled: "Enable space module"
         ssl: "SSL"
         timezone: "Timezone"
+        use_gravatar: "Use gravatar"
         visible_locales: "Visible languages"
         unauth_access_to_conferences: "Allow unauthorized users in conferences"
         xmpp_server: "XMPP Server Address"
@@ -738,13 +738,11 @@ en:
   fax: Fax
   feedback:
     create:
-      check_mail: "Please check the email you informed in the feedback form, it seems wrong."
-      fill_fields: "Please fill in all the fields in the form to send your feedback."
-      success: "Your feedback e-mail was sent successfully. Thank you!"
+      success: "Your message was sent successfully, thank you!"
     new:
-      note: "Please send us your comments, problems and suggestions. We will try to answer as soon as possible."
-      title: "Send feedback"
-    send: "Send feedback"
+      note: "Send your suggestions, questions or anything you might have to tell us! We will try to answer as soon as possible."
+      title: "Contact"
+    send: "Send"
     webconf:
       stop_countdown: "Click here to stop it from closing and use it to browse this site"
       title: "Thank you for participating in this conference!"
@@ -908,38 +906,13 @@ en:
           title: "Your message"
       your_request: "You requested to join this space."
     new:
-      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
-      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
-      message_title: "Request to join %{name}"
+      already_invited: "You were already invited to join this space! You can see the invitation in your home page."
+      already_requested: "You already requested to join this space, please wait for an administrator to accept it. You can cancel your request in your home page."
+      message_title: "Access to %{name}"
+      need_to_join: "You are still not a member of this space. Request access to view and interact in this space."
+      view_join_request: "Go to your home page"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
-    show:
-      accept: "Accept"
-      already_accepted: "... but you're already a member of this space."
-      cancel_invite: "Cancel this invitation"
-      cancel_invite_confirmation: "Are you sure you want to cancel this invitation?"
-      cancel_request: "Cancel this request"
-      cancel_request_confirmation: "Are you sure you want to cancel the request to join this space?"
-      decline: "Decline"
-      decline_invite_confirmation: "Are you sure you want to decline the invitation to join this space?"
-      decline_request_confirmation: "Are you sure you want to decline the request to join this space?"
-      is_candidate:
-        comment_invitation: "This is the comment written by %{name}:"
-        comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
-        title_header_invitation: "You have been invited to join a space"
-        title_header_request: "You have requested to join a space"
-        title_invitation: "You were invited by \"%{introducer}\" on %{date} to join the space \"%{space}\""
-        title_request: "You requested to join the space \"%{space}\" on %{date}"
-      is_introducer:
-        comment_invitation: "This is the comment you wrote:"
-        title_header_invitation: "You invited an user to join a space"
-        title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
-      is_other:
-        comment_request: "This is the comment written by \"%{name}\":"
-        title_header_invitation: "A user has been invited to join a space"
-        title_header_request: "A user has requested to join a space"
-        title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
-        title_request: "\"%{candidate}\" requested on %{date} to join the space \"%{space}\""
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"
@@ -960,7 +933,7 @@ en:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Send feedback"
+        feedback: "Contact"
         help: Help
         powered_by: "Powered by Mconf, visit"
         title: Links
@@ -1592,6 +1565,7 @@ en:
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
       creation_forbidden: "You are not allowed to create spaces"
+      last_admin_cant_leave: "You can't leave this space because you're the last administrator"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
       not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
       unapproved: "This space was not yet approved by an administrator."
@@ -1606,12 +1580,12 @@ en:
       subtitle: "Search for communities of users that share the same interests"
       title: "Spaces"
     list_item:
+      already_invited: "You have a pending invitation (view it in your <a href=\"%{home_url}\">home page</a>)"
+      already_requested: "You have a pending request (view it in your <a href=\"%{home_url}\">home page</a>)"
       is_member: "You are a member of this space"
       private: "Private space"
       public: "Public space"
-      reply_invitation: "Reply to the invitation"
       user_is_member: "You are a member of this space"
-      view_join_request: "View the request you sent"
       with_members: "with %{count} members"
     list_view:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
@@ -1651,11 +1625,15 @@ en:
       users: "Users"
       webconference: "Web Conference"
     space_join_button:
+      accept: "Accept"
       accept_or_decline: "Accept or decline"
       cancel: "Cancel your join request"
       cancel_confirm: "Are you sure you want to cancel this request?"
       cancel_tooltip: "You have a pending request to join this space. The message you sent was: \"%{message}\"."
-      invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
+      decline: "Decline"
+      decline_confirm: "Are you sure you want to decline this invitation?"
+      invitation_alert: "You have been invited to join this space!"
+      invitation_text: "Invitation message"
       join: "Join this space"
     space_thumbnail:
       private: "Private"
@@ -1675,10 +1653,8 @@ en:
     webconference:
       invite: "Invite other people"
       attendees:
-        all_users: "All users"
         nobody: "There is nobody currently in the room."
         people_in_the_room: "People in the room"
-        registered_users: "Registered users"
       meetings:
         no_recordings: "There are no meetings or recordings in space yet."
         title: "Last meetings and recordings in this space"

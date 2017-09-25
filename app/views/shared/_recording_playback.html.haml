@@ -2,7 +2,7 @@
 -#   recording (BigbluebuttonRecording)
 -#   show_invisible (boolean): show all playback types, even if not configured as visible
 
-- show_invisible ||= false
+- show_invisible = set_default(local_assigns, "show_invisible", false)
 
 - unless recording.available
   %ul.recording-playback-links

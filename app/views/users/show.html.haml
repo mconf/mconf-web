@@ -23,7 +23,7 @@
           %span.field-title= t('.organization')
           %span.field-value= @user.profile.organization
 
-      - unless @user.profile.url.blank?
+      - if @user.profile.valid_url?
         .field
           %span.field-title= t('.url')
           %span.field-value

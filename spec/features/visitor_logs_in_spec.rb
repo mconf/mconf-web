@@ -211,8 +211,9 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario "from the page with shibboleth info" do
+    skip "from the page with shibboleth info", with_js: true do
       enable_shib
+      # TODO: open via xhr, it's a modal
       visit shibboleth_info_path
       expect(current_path).to eq(shibboleth_info_path)
 

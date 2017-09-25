@@ -33,22 +33,17 @@ module SpacesHelper
   #   goes to the page to accept/decline the invitation.
   # * If the user is already a member of the space, returns nil.
   def space_join_button(space, options={})
-    options[:class] = "#{options[:class]} btn btn-large btn-block"
 
     # no user logged, renders a register button
     if !user_signed_in?
-      options[:class] = "#{options[:class]} btn-success"
-      if Site.current.registration_enabled?
-        link_to t('_other.register'), register_path, options
-      else
-        link_to t('_other.login'), login_path, options
-      end
+      options[:class] = "#{options[:class]} btn btn-large btn-block btn-success"
+      link_to t('_other.login'), login_path, options
 
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
       request = space.pending_join_request_for(current_user)
 
-      options[:class] = "#{options[:class]} btn-danger btn-sm tooltipped"
+      options[:class] = "#{options[:class]} btn btn-large btn-block btn-danger tooltipped"
       options[:data] = { confirm: t('spaces.space_join_button.cancel_confirm') }
       options[:method] = :post
       options[:title] = t("spaces.space_join_button.cancel_tooltip", message: request.comment)
@@ -59,15 +54,25 @@ module SpacesHelper
     # the user was already invited to join the space
     elsif space.pending_invitation_for?(current_user)
       invitation = space.pending_invitation_for(current_user)
-      options[:class] = "#{options[:class]} btn-success"
-      icon = content_tag :i, "", :class => "icon-exclamation-sign"
-      link = link_to icon + " " + t('spaces.space_join_button.accept_or_decline'), space_join_request_path(space, invitation), options
-      alert = content_tag :div, t("spaces.space_join_button.invitation_alert"), :class => "alert alert-success"
-      link + alert
+      content_tag :div, class: "pending-join-request" do
+        concat content_tag :span, t("spaces.space_join_button.invitation_alert")
+        concat content_tag :div, icon_comments, class: 'comment', title: t("spaces.space_join_button.invitation_text"), data: { toggle: 'popover', trigger: 'focus', content: invitation.comment, placement: 'top' }, tabindex: 0, role: 'button'
+        if can?(:accept, invitation)
+          options[:class] = "#{options[:class]} btn btn-success"
+          options[:method] = :post
+          concat link_to t('spaces.space_join_button.accept'), accept_space_join_request_path(space, invitation), options
+        end
+        if can?(:decline, invitation)
+          options[:class] = "#{options[:class]} btn btn-danger"
+          options[:method] = :post
+          options[:data] = { confirm: t('spaces.space_join_button.decline_confirm') }
+          concat link_to t('spaces.space_join_button.decline'), decline_space_join_request_path(space, invitation), options
+        end
+      end
 
     # a user is logged and he's not in the space
     elsif !space.users.include?(current_user)
-      options[:class] = "#{options[:class]} btn-success open-modal"
+      options[:class] = "#{options[:class]} btn btn-large btn-block btn-success open-modal"
       link_to t('spaces.space_join_button.join'), new_space_join_request_path(space), options
     end
 

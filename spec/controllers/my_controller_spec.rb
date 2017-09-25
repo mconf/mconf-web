@@ -188,19 +188,15 @@ describe MyController do
     let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
     before(:each) { login_as(user) }
 
-    context "html request" do
-      before { request.env["HTTP_REFERER"] = "/test" }
-      before(:each) { get :edit_recording, :id => recording.to_param }
-      it { should render_template(:edit_recording) }
-      it { should render_with_layout("application") }
-      it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redir_url).with("/test") }
-    end
-
     context "xhr request" do
       before(:each) { xhr :get, :edit_recording, :id => recording.to_param }
       it { should render_template(:edit_recording) }
       it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :edit_recording, :id => recording.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 

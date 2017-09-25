@@ -228,4 +228,11 @@ module ApplicationHelper
       I18n.locale.to_s
     end
   end
+
+  # This is a helper to add an element with a tooltip. Useful mostly for disabled elements, that
+  # cannot have tooltips on their own so need a wrapper with it.
+  def with_tooltip(title, &block)
+    content = capture(&block)
+    content_tag(:div, content, class: 'with-tooltip tooltipped', title: title)
+  end
 end

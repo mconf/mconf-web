@@ -8,17 +8,30 @@
 class FeedbackController < ApplicationController
   before_filter :authenticate_user!, except: [:webconf]
 
+  # modals
+  before_filter :force_modal, only: :new
+
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :new
+      false
+    else
+      "no_sidebar"
+    end
+  end
+
   def webconf
     feedback_url = current_site.feedback_url
     unless feedback_url.blank?
       redirect_to feedback_url
     else
-      render :webconf, :layout => "no_sidebar"
+      render :webconf
     end
   end
 
   def new
-    render :layout => false if request.xhr?
   end
 
   def create

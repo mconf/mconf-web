@@ -71,4 +71,11 @@ class Profile < ActiveRecord::Base
   def small_logo_image?
     logo_image.height < 100 || logo_image.width < 100
   end
+
+  def valid_url?
+    uri = URI.parse(self.url)
+    !uri.host.nil?
+  rescue URI::InvalidURIError
+    false
+  end
 end

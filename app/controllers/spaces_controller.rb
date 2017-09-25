@@ -28,7 +28,7 @@ class SpacesController < InheritedResources::Base
   load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
-  # all actions that render the web conference room snippetB
+  # all actions that render the web conference room snippet
   before_filter :webconf_room!, :only => [:show, :webconference, :meetings]
 
   before_filter :load_spaces_examples, only: [:new, :create]
@@ -40,11 +40,17 @@ class SpacesController < InheritedResources::Base
     @space.new_activity(params[:action], current_user) unless @space.errors.any?
   end
 
+  # modals
+  before_filter :force_modal, only: :edit_recording
+
   layout :determine_layout
 
   def determine_layout
-    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+    case params[:action].to_sym
+    when :new, :create
       "navbar_bg"
+    when :edit_recording
+      false
     else
       "application"
     end
@@ -158,14 +164,7 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    @webconf_attendees = []
-    unless @webconf_room.attendees.nil?
-      @webconf_room.attendees.each do |attendee|
-        user = User.where(id: attendee.user_id).first
-        @webconf_attendees << user unless user.nil?
-      end
-      @webconf_attendees.uniq!
-    end
+    @webconf_attendees = @webconf_room.current_attendees
     @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_recording().newest(5)
   end
 
@@ -194,8 +193,6 @@ class SpacesController < InheritedResources::Base
     @redir_url = request.referer
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
-
-    render layout: false if request.xhr?
   end
 
   private
@@ -260,13 +257,14 @@ class SpacesController < InheritedResources::Base
     @space = Space.find_by_permalink(params[:space_id])
   end
 
-  def handle_record_not_found exception
+  def handle_record_not_found(exception)
     @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
     render_404 exception
   end
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
-  def handle_access_denied exception
+  # Used to show messages better than a simple 403 for the users in some cases.
+  def handle_access_denied(exception)
 
     # anonymous users are required to sign in
     if !user_signed_in?
@@ -278,28 +276,22 @@ class SpacesController < InheritedResources::Base
       if !@space.approved?
         flash[:error] = t("spaces.error.unapproved")
         redirect_to spaces_path
-
-      elsif @space.pending_join_request_for?(current_user)
-        # redirect him to the page to ask permission to join, but with a warning that
-        # a join request was already sent
-        redirect_to new_space_join_request_path :space_id => params[:id]
-
-      elsif @space.pending_invitation_for?(current_user)
-        # redirect him to the invitation he received
-        invitation = @space.pending_invitation_for(current_user)
-        flash[:error] = t("spaces.error.already_invited")
-        redirect_to space_join_request_path @space, invitation
-
       else
-        # redirect him to ask permission to join
-        flash[:error] = t("spaces.error.need_join_to_access")
-        redirect_to new_space_join_request_path :space_id => params[:id]
+        # redirect him to the page to ask permission to join
+        # if the user already has a pending request, it will have a notice and links to
+        # access the invitation/request
+        redirect_to new_space_join_request_path(space_id: params[:id])
       end
 
     # when space creation is forbidden for users
-    elsif [:create, :new].include? exception.action
+    elsif [:create, :new].include?(exception.action)
       flash[:error] = t("spaces.error.creation_forbidden")
       redirect_to spaces_path
+
+    # when the user can't leave the space because it's the last admin
+    elsif [:leave].include?(exception.action) && @space.is_last_admin?(current_user)
+      flash[:error] = t("spaces.error.last_admin_cant_leave")
+      redirect_to space_path(@space)
 
     # destructive actions are redirected to the 403 error
     else

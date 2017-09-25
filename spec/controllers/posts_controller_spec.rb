@@ -58,20 +58,16 @@ describe PostsController do
 
     skip { should_authorize an_instance_of(Post), :new, space_id: space.to_param }
 
-    context "normal browser request" do
-      before { get :new, space_id: space.to_param }
-
-      it { should render_template('new') }
-      it { should render_with_layout('application') }
-      it { should assign_to(:space).with(space) }
-      it { should assign_to(:post).with(an_instance_of(Post)) }
-    end
-
     context "xhr request" do
       before { xhr :get, :new, space_id: space.to_param }
 
       it { should render_template('new') }
       it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :new, space_id: space.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 
@@ -123,20 +119,16 @@ describe PostsController do
 
     skip { should_authorize an_instance_of(Post), :edit, space_id: space.to_param, id: post.to_param }
 
-    context "normal browser request" do
-      before { get :edit, id: post.to_param, space_id: space.to_param }
-
-      it { should render_template('edit') }
-      it { should render_with_layout('application') }
-      it { should assign_to(:space).with(space) }
-      it { should assign_to(:post).with(post) }
-    end
-
     context "xhr request" do
       before { xhr :get, :edit, id: post.to_param, space_id: space.to_param }
 
       it { should render_template('edit') }
       it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :edit, id: post.to_param, space_id: space.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 

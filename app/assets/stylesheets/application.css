@@ -33,7 +33,8 @@
  *= require ./app/application/jcrop
  *
  * Some partials are necessary everywhere
- *= require ./app/feedback/_new
+ *= require ./app/feedback/new
+ *= require ./app/join_requests/new
  *
  * Themes: if using a theme, import it here!
  *= require mconf-com/stylesheets/base
