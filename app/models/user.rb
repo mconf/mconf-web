@@ -386,6 +386,10 @@ class User < ActiveRecord::Base
     self.trial_expires_at <= DateTime.now
   end
 
+  def member_of?(space)
+    Permission.find_by(subject: space, user: self).present?
+  end
+
   protected
 
   def before_disable_and_destroy

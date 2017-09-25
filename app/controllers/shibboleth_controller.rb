@@ -12,12 +12,25 @@ require 'mconf/shibboleth'
 class ShibbolethController < ApplicationController
 
   respond_to :html
-  layout 'no_sidebar'
 
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
   before_filter :check_shib_always_new_account, :only => [:create_association]
+
+  # modals
+  before_filter :force_modal, only: :info
+
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :info
+      false
+    else
+      'no_sidebar'
+    end
+  end
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -104,7 +117,6 @@ class ShibbolethController < ApplicationController
     if user_signed_in? && current_user.shib_token
       @data = current_user.shib_token.data
     end
-    render :layout => false
   end
 
   private

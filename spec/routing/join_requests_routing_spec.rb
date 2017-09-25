@@ -11,7 +11,6 @@ describe JoinRequestsController do
 
   describe "routing" do
     it { should route(:get, "/spaces/s1/join_requests/admissions").to(action: :admissions, space_id: "s1") }
-    it { should route(:get, "/spaces/s1/join_requests/2").to(action: :show, space_id: "s1", id: 2) }
     it { should route(:get, "/spaces/s1/join_requests/new").to(action: :new, space_id: "s1") }
     it { should route(:post, "/spaces/s1/join_requests").to(action: :create, space_id: "s1") }
     it { should route(:get, "/spaces/s1/join_requests/invite").to(action: :invite, space_id: "s1") }

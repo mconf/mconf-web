@@ -631,11 +631,10 @@ describe EventsController do
           it { should assign_to(:event).with(event) }
         end
 
-        context "normal request" do
-          before { get :invite, id: event.to_param }
-
-          it { should render_template(:invite) }
-          it { should assign_to(:event).with(event) }
+        context "html request" do
+          let(:do_action) { get :invite, id: event.to_param }
+          let(:user) { owner }
+          it_should_behave_like "an action that renders a modal - signed in"
         end
       end
     end

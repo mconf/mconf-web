@@ -130,7 +130,7 @@ Mconf::Application.routes.draw do
 
     resources :users, only: :index
 
-    resources :join_requests, only: [:show, :new, :create] do
+    resources :join_requests, only: [:new, :create] do
       collection do
         get :admissions
         get :invite

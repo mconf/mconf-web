@@ -914,38 +914,13 @@ pt-br:
           title: "Sua mensagem"
       your_request: "Você requisitou ingresso nesta comunidade."
     new:
-      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
-      already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
-      message_title: "Requisição para entrar em %{name}"
+      already_invited: "Você já foi convidado para entrar nesta comunidade! Veja o convite na sua página inicial."
+      already_requested: "Você já requisitou ingresso a esta comunidade, por favor espere que um administrador aceite o pedido. Você pode cancelar a sua requisição na sua página inicial."
+      message_title: "Acesso a %{name}"
+      need_to_join: "Você ainda não é um membro desta comunidade. Solicite acesso para visualizar e interagir na comunidade."
+      view_join_request: "Ir para página inicial"
     request:
       decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"
-    show:
-      accept: "Aceitar"
-      already_accepted: "... mas você já é um membro dessa comunidade."
-      cancel_invite: "Cancelar este convite"
-      cancel_invite_confirmation: "Você tem certeza que deseja cancelar este convite?"
-      cancel_request: "Cancelar esta requisição"
-      cancel_request_confirmation: "Você tem certeza que deseja cancelar esta requisiçãoAre you sure you want to cancel the request to join this space?"
-      decline: "Rejeitar"
-      decline_invite_confirmation: "Você tem certeza que deseja rejeitar o convite de ingresso nesta comunidade?"
-      decline_request_confirmation: "Você tem certeza que deseja rejeitar o pedido de ingresso nesta comunidade?"
-      is_candidate:
-        comment_invitation: "Este é o comentário escrito por %{name}:"
-        comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
-        title_header_invitation: "Você foi convidado a uma comunidade"
-        title_header_request: "Você requisitou adesão em uma comunidade"
-        title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
-        title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
-      is_introducer:
-        comment_invitation: "Este é o comentário que você escreveu:"
-        title_header_invitation: "Você convidou um usário para uma comunidade"
-        title_invitation: "Você convidou \"%{candidate}\" em %{date} para participar da comunidade \"%{space}\""
-      is_other:
-        comment_request: "Este é o comentário escrito por \"%{name}\":"
-        title_header_invitation: "Um usuário foi convidado a se juntar a uma comunidade"
-        title_header_request: "Um usuário requisitou ingresso em uma comunidade"
-        title_invitation: "\"%{introducer}\" convidou \"%{candidate}\" em %{date} para participar da comundiade \"%{space}\""
-        title_request: "\"%{candidate}\" requisitou em %{date} o ingresso na comunidade \"%{space}\""
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
@@ -1620,6 +1595,7 @@ pt-br:
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       creation_forbidden: "Você não possui permissão para criar comunidades"
+      last_admin_cant_leave: "Você não pode sair desta comunidade pois você é o último administrador"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
@@ -1634,12 +1610,12 @@ pt-br:
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
     list_item:
+      already_invited: "Você possui um convite pendente (ver na sua <a href=\"%{home_url}\">página inicial</a>)"
+      already_requested: "Você possui uma requisição pendente (ver na sua <a href=\"%{home_url}\">página inicial</a>)"
       is_member: "Você é membro desta comunidade"
       private: "Comunidade privada"
       public: "Comunidade pública"
-      reply_invitation: "Responder ao convite"
       user_is_member: "Você é membro desta comunidade"
-      view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
     list_view:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
@@ -1679,11 +1655,15 @@ pt-br:
       manage_to_approve: "ir ao gerenciamento para aprovar"
       not_approved: "Esta comunidade ainda não está aprovada. Apenas você pode vê-la e editá-la até que seja aprovada."
     space_join_button:
+      accept: "Aceitar"
       accept_or_decline: "Responder ao convite"
       cancel: "Cancelar requisição de ingresso"
       cancel_confirm: "Você tem certeza que deseja cancelar este pedido de ingresso?"
       cancel_tooltip: "Você possui um pedido de ingresso pendente. A mensagem que você enviou foi: \"%{message}\"."
-      invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
+      decline: "Rejeitar"
+      decline_confirm: "Você tem certeza que deseja rejeitar este convite?"
+      invitation_alert: "Você foi convidado para entrar nesta comunidade!"
+      invitation_text: "Mensagem de convite"
       join: "Entrar na comunidade"
     space_thumbnail:
       private: "Privada"

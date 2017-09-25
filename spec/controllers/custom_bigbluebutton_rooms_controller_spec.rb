@@ -913,17 +913,6 @@ describe CustomBigbluebuttonRoomsController do
     let(:referer) { "/back" }
     before { login_as(user) }
 
-    context "html request" do
-      before {
-        request.env["HTTP_REFERER"] = referer
-        get :user_edit, id: room.to_param
-      }
-      it { should render_template(:user_edit) }
-      it { should render_with_layout("no_sidebar") }
-      it { should assign_to(:room).with(room) }
-      it { should assign_to(:redir_url).with(referer) }
-    end
-
     context "xhr request" do
       before {
         request.env["HTTP_REFERER"] = referer
@@ -931,6 +920,11 @@ describe CustomBigbluebuttonRoomsController do
       }
       it { should render_template(:user_edit) }
       it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :user_edit, id: room.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 
@@ -964,7 +958,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:show, hash) }
         it { should allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
-        it { should allow_access_to(:user_edit, hash) }
+        it { should allow_access_to(:user_edit, hash).xhr }
         it { should allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -974,7 +968,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
-        it { should allow_access_to(:invitation, hash) }
+        it { should allow_access_to(:invitation, hash).xhr }
         it { should allow_access_to(:send_invitation, hash).via(:post) }
       end
 
@@ -1037,7 +1031,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
-        it { should allow_access_to(:user_edit, hash) }
+        it { should allow_access_to(:user_edit, hash).xhr }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1047,7 +1041,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
-        it { should allow_access_to(:invitation, hash) }
+        it { should allow_access_to(:invitation, hash).xhr }
         it { should allow_access_to(:send_invitation, hash).via(:post) }
       end
 
@@ -1056,7 +1050,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
         it { should_not allow_access_to(:update, hash).via(:put) }
-        it { should_not allow_access_to(:user_edit, hash) }
+        it { should_not allow_access_to(:user_edit, hash).xhr }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash_with_user) }
         it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1066,7 +1060,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }
-        it { should_not allow_access_to(:invitation, hash) }
+        it { should_not allow_access_to(:invitation, hash).xhr }
         it { should_not allow_access_to(:send_invitation, hash).via(:post) }
       end
 
@@ -1079,7 +1073,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:user_edit, hash) }
+          it { should_not allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1089,7 +1083,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
-          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:invitation, hash).xhr }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
 
           context "and he opened the room" do
@@ -1107,7 +1101,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should allow_access_to(:update, hash).via(:put) }
-          it { should allow_access_to(:user_edit, hash) }
+          it { should allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1117,7 +1111,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
-          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:invitation, hash).xhr }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
         end
 
@@ -1125,7 +1119,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:user_edit, hash) }
+          it { should_not allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1135,7 +1129,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
-          it { should_not allow_access_to(:invitation, hash) }
+          it { should_not allow_access_to(:invitation, hash).xhr }
           it { should_not allow_access_to(:send_invitation, hash).via(:post) }
         end
       end
@@ -1149,7 +1143,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:user_edit, hash) }
+          it { should_not allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1159,7 +1153,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
-          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:invitation, hash).xhr }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
 
           context "and has opened the room" do
@@ -1177,7 +1171,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should allow_access_to(:update, hash).via(:put) }
-          it { should allow_access_to(:user_edit, hash) }
+          it { should allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1187,7 +1181,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
-          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:invitation, hash).xhr }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
         end
 
@@ -1195,7 +1189,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:user_edit, hash) }
+          it { should_not allow_access_to(:user_edit, hash).xhr }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
           it { should allow_access_to(:join, hash_with_user) }
           it { should allow_access_to(:join, hash_with_user).via(:post) }
@@ -1205,7 +1199,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
-          it { should_not allow_access_to(:invitation, hash) }
+          it { should_not allow_access_to(:invitation, hash).xhr }
           it { should_not allow_access_to(:send_invitation, hash).via(:post) }
         end
       end

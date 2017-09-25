@@ -18,31 +18,32 @@ class JoinRequestsController < ApplicationController
   load_resource :join_request, :through => :space, :only => [:admissions, :invite] # these are authenticated via space parent
 
   before_filter :webconf_room!, only: [:admissions, :invite]
-  before_filter :check_processed_request, only: [:show, :accept, :decline]
+  before_filter :check_processed_request, only: [:accept, :decline]
+
+  # only for :new because it has to redirect before :force_modal
+  before_filter :check_already_member, only: [:new]
+
+  # modals
+  before_filter :force_modal, only: [:new, :invite]
 
   respond_to :html
 
-  def set_layout
-    if [:new].include?(action_name.to_sym) or [:invite].include?(action_name.to_sym)
-      request.xhr? ? false : 'no_sidebar'
+  layout :determine_layout
+
+  def determine_layout
+    if [:new, :invite].include?(action_name.to_sym)
+      false
     else
-      "application"
+      'application'
     end
   end
-  layout :set_layout
 
   def admissions
     authorize! :manage_join_requests, @space
   end
 
-  def show
-  end
-
   def new
-    @pending_request = nil
-    if @space.users.include?(current_user)
-      redirect_to space_path(@space)
-    elsif @space.pending_join_request_or_invitation_for?(current_user)
+    if @space.pending_join_request_or_invitation_for?(current_user)
       @pending_request = @space.pending_join_request_or_invitation_for(current_user)
     end
   end
@@ -82,7 +83,7 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.users.include?(current_user)
+      if current_user.member_of?(@space)
         flash[:notice] = t('join_requests.create.you_are_already_a_member')
         redirect_after_created
       elsif @space.pending_join_request_or_invitation_for?(current_user)
@@ -133,11 +134,10 @@ class JoinRequestsController < ApplicationController
         format.html {
           if admin_canceling_invitation
             flash[:success] = t("join_requests.decline.invitation_destroyed")
-            redirect_to admissions_space_join_requests_path(@space)
           else
             flash[:success] = t("join_requests.decline.request_destroyed")
-            redirect_to my_home_path
           end
+          redirect_to :back
         }
       end
     else
@@ -151,7 +151,7 @@ class JoinRequestsController < ApplicationController
   private
 
   def redirect_after_created
-    if @space.public
+    if @space.public || current_user.member_of?(@space)
       redirect_to space_path(@space)
     else
       redirect_to spaces_path
@@ -167,13 +167,7 @@ class JoinRequestsController < ApplicationController
             # a user accepting/declining an invitation he received
             redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
-            unless request.referer.match(space_join_request_path(@space, @join_request))
-              redirect_to request.referer
-            else
-              # an admin accepting/declining a request from the requests page, goes back to
-              # the index of join requests in the space
-              redirect_to admissions_space_join_requests_path(@space)
-            end
+            redirect_to request.referer
           end
         }
       else
@@ -195,6 +189,11 @@ class JoinRequestsController < ApplicationController
         raise ActiveRecord::RecordNotFound
       end
     end
+  end
+
+  # If the user is already a member of the space, redirect to the space
+  def check_already_member
+    redirect_to space_path(@space) if current_user.member_of?(@space)
   end
 
   def process_additions

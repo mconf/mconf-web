@@ -45,9 +45,9 @@
         - if jr
           = icon_join_request
           - if jr.is_invite?
-            = link_to t(".reply_invitation"), space_join_request_path(space, jr)
+            = t(".already_invited", home_url: my_home_path).html_safe
           - else
-            = link_to t(".view_join_request"), space_join_request_path(space, jr)
+            = t(".already_requested", home_url: my_home_path).html_safe
 
       - if current_site.require_space_approval? && !space.approved?
         .resource-visibility.small

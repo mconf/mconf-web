@@ -20,7 +20,18 @@ class AttachmentsController < ApplicationController
   before_filter :load_attachments, :only => [:index, :delete_collection]
   before_filter :webconf_room!, :only => [:index]
 
-  layout 'application'
+  # modals
+  before_filter :force_modal, only: [:new]
+
+  layout :determine_layout
+
+  def determine_layout
+    if [:new].include?(action_name.to_sym)
+      false
+    else
+      'application'
+    end
+  end
 
   def show
     path = @attachment.full_filename
@@ -37,7 +48,6 @@ class AttachmentsController < ApplicationController
   end
 
   def new
-    render layout: false
   end
 
   # TODO: do not remove anything if attachment_ids is not informed (it's removing all attachments)

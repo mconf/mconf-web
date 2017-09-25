@@ -33,7 +33,11 @@ module Shoulda
 
         controller.should_receive(:authorize!).with(ability_name, target).and_raise(CanCan::AuthorizationNotPerformed)
         begin
-          send(http_method, method, options)
+          if options[:xhr]
+            send(:xhr, http_method, method, options)
+          else
+            send(http_method, method, options)
+          end
         rescue CanCan::AuthorizationNotPerformed
           # doesnt matter if no authorization is performed
         end

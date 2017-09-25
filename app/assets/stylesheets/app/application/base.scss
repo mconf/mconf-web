@@ -511,6 +511,23 @@ form {
     .btn {
       margin-bottom: 5px;
     }
+
+    .pending-join-request {
+      border: 1px solid $m-border-color-normal;
+      border-radius: $m-border-radius-base;
+      padding: 10px;
+      background: $m-site-bg-color;
+
+      span {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .btn, .comment {
+        display: inline-block;
+        margin: 0 5px;
+      }
+    }
   }
 
   .toolbar {

@@ -4,4 +4,4 @@
   %p= t('.message.user_message', candidate: @join_request.candidate.full_name).html_safe
   .invite-message= @join_request.comment
 
-%p= t('.message.link', url: space_join_requests_url(@join_request.group, host: Site.current.domain)).html_safe
+%p= t('.message.link', url: admissions_space_join_requests_url(@join_request.group, host: Site.current.domain)).html_safe

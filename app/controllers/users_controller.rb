@@ -23,12 +23,17 @@ class UsersController < InheritedResources::Base
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
+  # modals
+  before_filter :force_modal, only: :new
+
   layout :determine_layout
 
   def determine_layout
     case params[:action].to_sym
     when :show
       'no_sidebar'
+    when :new
+      false
     else
       'application'
     end
@@ -152,9 +157,6 @@ class UsersController < InheritedResources::Base
   # Methods to let admins create new users
   def new
     @user = User.new
-    respond_to do |format|
-      format.html { render layout: !request.xhr? }
-    end
   end
 
   def create
