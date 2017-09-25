@@ -1067,10 +1067,55 @@ strong.highlight {
 
 #social-login-section {
   text-align: center;
+  margin: 30px 0px;
+
   #google-login {
+    width: 48%;
     display: inline-block;
+    background: #DD4B39;
+    position: relative;
+    .icon-mconf-google {
+      font-size: 22px;
+    }
+    .icon {
+      border-right: 1px solid #FFF;
+      width: 45px;
+      float: left;
+      padding: 10px 5px 10px 0px;
+    }
+    .info {
+      border-left: 1px solid #FFF;
+      width: calc(100% - 45px);
+      float: left;
+      padding: 10px 0px;
+      margin-left: -1px;
+    }
   }
   #facebook-login {
+    width: 48%;
+    display: inline-block;
+    background: #3b5998;
+    position: relative;
+    .icon-mconf-facebook {
+      font-size: 22px;
+    }
+    .icon {
+      border-right: 1px solid #FFF;
+      width: 45px;
+      float: left;
+      padding: 10px 5px;
+    }
+    .info {
+      border-left: 1px solid #FFF;
+      width: calc(100% - 45px);
+      float: left;
+      padding: 10px 0px;
+      margin-left: -1px;
+    }
+  }
+  .login-text {
+    color: #FFFFFF;
+    font-weight: bold;
     display: inline-block;
   }
 }

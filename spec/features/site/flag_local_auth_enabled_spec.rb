@@ -21,7 +21,7 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
 
     context 'allows facebook authentication for normal users' do
       before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
-               visit login_path }
+               visit root_path }
 
       it { page.find(:css, "#facebook-login a").click
            expect(current_path).to eq(my_home_path) }
@@ -29,7 +29,7 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
 
     context 'allows google authentication for normal users' do
       before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
-               visit login_path }
+               visit root_path }
 
       it { page.find(:css, "#google-login a").click
            expect(current_path).to eq(my_home_path) }
@@ -79,6 +79,22 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
     scenario 'accessing the standard login route' do
       visit new_user_session_path
       expect(current_path).to eq(root_path)
+    end
+
+    context 'allows facebook authentication for normal users' do
+      before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+               visit root_path }
+
+      it { page.find(:css, "#facebook-login a").click
+           expect(current_path).to eq(my_home_path) }
+    end
+
+    context 'allows google authentication for normal users' do
+      before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+               visit root_path }
+
+      it { page.find(:css, "#google-login a").click
+           expect(current_path).to eq(my_home_path) }
     end
 
     context "accessing from the admin sign in page" do
