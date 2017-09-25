@@ -116,6 +116,12 @@ module Mconf
     # Themes: set to the theme name if using any!
     config.theme = ENV['MCONF_THEME']
 
+    # Socual login API Keys
+    config.omniauth_google_key       = ENV['MCONF_OMNIAUTH_GOOGLE_KEY'] || nil
+    config.omniauth_facebook_key     = ENV['MCONF_OMNIAUTH_FACEBOOK_KEY'] || nil
+    config.omniauth_google_secret    = ENV['MCONF_OMNIAUTH_GOOGLE_SECRET'] || nil
+    config.omniauth_facebook_secret  = ENV['MCONF_OMNIAUTH_FACEBOOK_SECRET'] || nil
+
     # Themes: configure assets paths here!
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "stylesheets")
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")

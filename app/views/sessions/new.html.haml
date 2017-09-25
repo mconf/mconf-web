@@ -3,5 +3,6 @@
 %h1= t('.form_title')
 
 #login-wrapper
+  = render "devise/shared/social_login"
   = render partial: 'login_form'
   = render "devise/shared/links"

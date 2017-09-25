@@ -1,64 +1,37 @@
 @import "definitions";
 
 body.registrations.new, body.registrations.create {
-  h1 {
-    text-align: center;
-  }
 
   #register-wrapper {
     margin: 40px auto;
-    width: 80%;
+    width: 50%;
     @include mconf-clearfix;
 
-    #register-form {
-      @include make-xs-column(12);
-      @include make-sm-column(6);
-      @include make-sm-column-offset(3);
+    #register-mconf {
+      text-align: center;
+    }
 
-      form {
-        .form-accept-terms {
-          float: right;
-          margin-right: 5px;
-        }
+    form {
+      // every field is required, we don't need to show it
+      abbr { display: none; }
 
-        .form-actions {
-          border: none;
-          margin-top: 0px;
-          padding-top: 0px;
-        }
-
-        .user__service_usage {
-          display: none;
-        }
-      }
-
-      .field-group {
-        padding-bottom: 16px;
-        clear: both;
-
-        h3 {
-          margin-bottom: 16px;
-        }
-      }
-
-      .webconf-observation {
-        text-align: center;
-        color: $m-font-light;
+      .form-actions {
+        border: none;
       }
     }
 
     .alert {
+      clear: both;
       text-align: center;
+      margin-bottom: 32px;
+      background: $m-navbar-internal-border-color;
+      color: $m-navbar-font-color;
 
       .icon-mconf-info {
         color: $m-yellow;
         &:hover, &:focus { color: $m-yellow; }
       }
     }
-  }
-
-  #user_profile_attributes_service_usage {
-    display: none;
   }
 
   .captcha {

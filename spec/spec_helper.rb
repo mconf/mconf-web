@@ -64,6 +64,8 @@ WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
 # Temporary workaround for https://github.com/thoughtbot/shoulda-matchers/issues/809#issuecomment-165383383
 Shoulda::Matchers::ActionController::RouteParams::PARAMS_TO_SYMBOLIZE = []
 
+OmniAuth.config.test_mode = true
+
 RSpec.configure do |config|
   # == Mock Framework
   #
@@ -166,6 +168,34 @@ RSpec.configure do |config|
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
     end
   end
+
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    :provider => "google_oauth2",
+    :uid => "123456789",
+    :info => {
+        :name => "Google User",
+        :email => "googleuser@gmail.com"
+      },
+    :credentials => {
+        :token => "token",
+        :refresh_token => "refresh token"
+      }
+    }
+  )
+
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    :provider => "facebook",
+    :uid => "123456789",
+    :info => {
+        :name => "Face User",
+        :email => "faceuser@face.com"
+      },
+    :credentials => {
+        :token => "token",
+        :refresh_token => "refresh token"
+      }
+    }
+  )
 end
 
 # Note: this was being included directly in the factories that need `fixture_file_upload`, but

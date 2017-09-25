@@ -21,6 +21,7 @@
         %span= t('.or')
       - if show_login
         = link_to t('.login.title'), login_path, class: 'btn btn-primary btn-lg'
+      = render "devise/shared/social_login"
 
     %ul#action-links-extra
       - if current_site.local_auth_enabled?
