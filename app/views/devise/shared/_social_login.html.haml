@@ -8,7 +8,7 @@
           = icon_google :class => "tooltipped", :title => t(".social_google")
         .info
           .login-text= t(".social_google")
-      
+
   - if Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?
     #facebook-login
       = link_to user_omniauth_authorize_path(:facebook) do

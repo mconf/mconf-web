@@ -21,5 +21,13 @@
     = f.input_field :username, class: "form-control"
   = f.input :password, :required => true
   = f.input :password_confirmation, :required => true
-  = captcha_tags theme: 'dark'
+  .alert
+    = icon_info
+    = t('.confirmation')
+  .field-group
+    = captcha_tags
+  .form-accept-terms.field-group
+    = check_box_tag :terms, 1, false, as: :boolean
+    = label_tag :terms, t('.terms').html_safe
+
   = f.button :wrapped, :value => t(".register")

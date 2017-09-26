@@ -18,6 +18,11 @@ body.registrations.new, body.registrations.create {
       .form-actions {
         border: none;
       }
+
+      .form-accept-terms {
+        float: right;
+        margin-right: 5px;
+      }
     }
 
     .alert {
