@@ -82,6 +82,8 @@ class Subscription < ActiveRecord::Base
         raise ActiveRecord::Rollback
       end
 
+      self.user.bigbluebutton_room.update_attributes(max_participants: nil)
+
     else
       logger.error "Bad ops_type, can't create subscription"
       errors.add(:ops_error, "Bad ops_type, can't create subscription")
@@ -152,6 +154,8 @@ class Subscription < ActiveRecord::Base
         errors.add(:ops_error, "Could not delete customer from OPS, aborting")
         raise ActiveRecord::Rollback
       end
+
+      self.user.bigbluebutton_room.update_attributes(max_participants: 2)
 
     else
       logger.error "Bad ops_type, can't destroy subscription"

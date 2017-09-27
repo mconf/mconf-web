@@ -60,9 +60,10 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def destroy
-    @subscription.destroy
-    flash = { success: t("subscriptions.destroy") }
-    redirect_to my_home_path, :flash => flash
+    if @subscription.destroy
+      flash = { success: t("subscriptions.destroy") }
+      redirect_to my_home_path, :flash => flash
+    end
   end
 
   def update

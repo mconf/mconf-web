@@ -216,7 +216,8 @@ class User < ActiveRecord::Base
       name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
-      attendee_key: SecureRandom.hex(4)
+      attendee_key: SecureRandom.hex(4),
+      max_participants: 2
     }
     create_bigbluebutton_room(params)
   end
