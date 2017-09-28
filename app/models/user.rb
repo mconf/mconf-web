@@ -413,6 +413,10 @@ class User < ActiveRecord::Base
     Permission.find_by(subject: space, user: self).present?
   end
 
+  def exceeded_recording_limit_free_account
+    self.bigbluebutton_room.recordings.count >= 2 && !(self.subscription.present?)
+  end
+
   protected
 
   def before_disable_and_destroy
