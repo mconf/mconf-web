@@ -347,8 +347,7 @@ class Space < ActiveRecord::Base
       private: false,
       moderator_key: SecureRandom.hex(8),
       attendee_key: SecureRandom.hex(4),
-      logout_url: "/feedback/webconf/",
-      max_participants: 2
+      logout_url: "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
   end
