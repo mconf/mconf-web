@@ -13,6 +13,7 @@ en:
         headline: "Read the documentation for this service at (in portuguese):"
         link_faq: "<a href=\"%{url}\">FAQ</a>"
         link_index: "<a href=\"%{url}\">General index</a>"
+        link_lumina: "<a href=\"%{url}\">Mconf course on Lumina</a>"
         link_moodle: "<a href=\"%{url}\">Use this application on Moodle</a>"
         link_tutorials: "<a href=\"%{url}\">Tutorials</a>"
         title: "Documentation"

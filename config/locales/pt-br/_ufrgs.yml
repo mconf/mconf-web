@@ -13,6 +13,7 @@ pt-br:
         headline: "Consulte a documentação deste serviço em:"
         link_faq: "<a href=\"%{url}\">FAQ</a>"
         link_index: "<a href=\"%{url}\">Índice geral da documentação</a>"
+        link_lumina: "<a href=\"%{url}\">Curso do Mconf na plataforma Lumina</a>"
         link_moodle: "<a href=\"%{url}\">Uso de webconferência através do Moodle</a>"
         link_tutorials: "<a href=\"%{url}\">Tutoriais</a>"
         title: "Documentação"
