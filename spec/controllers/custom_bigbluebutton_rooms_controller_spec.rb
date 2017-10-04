@@ -482,6 +482,7 @@ describe CustomBigbluebuttonRoomsController do
       context "when a meeting is running" do
         before{
           room.stub(:is_running?) { true }
+          room.stub(:fetch_meeting_info) { { :participantCount => 0 } }
           room.should_receive(:fetch_is_running?).at_least(:once) { true }
           room.should_receive(:fetch_meeting_info)
           get :join, id: room.to_param
@@ -532,6 +533,7 @@ describe CustomBigbluebuttonRoomsController do
           end
         end
 
+#Criar um teste que não entra na sala por ser plano free e ja ter dois users
         context "testing the unauth_access_to_conferences flag when a guest is trying to enter a meeting" do
           let(:user) { FactoryGirl.create(:user) }
           let(:hash) { { :name => "Elftor", :key => room.attendee_key } }
@@ -544,6 +546,7 @@ describe CustomBigbluebuttonRoomsController do
             before {
               Site.current.update_attributes(unauth_access_to_conferences: true)
               room.stub(:is_running?) { true }
+              room.stub(:fetch_meeting_info) { { :participantCount => 0 } }
               room.should_receive(:fetch_is_running?).at_least(:once) { true }
               room.should_receive(:fetch_meeting_info)
             }
@@ -553,7 +556,6 @@ describe CustomBigbluebuttonRoomsController do
               should_not set_flash.to(I18n.t('custom_bigbluebutton_rooms.join.unauth_access_to_conferences'))
             end
           end
-
           context "when a meeting is running and the flag is false" do
             before {
               Site.current.update_attributes(unauth_access_to_conferences: false) #this is breaking check user limit?!

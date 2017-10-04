@@ -125,7 +125,7 @@ describe BigbluebuttonRoom do
 
         context "with permission to record" do
           before { user.update_attributes(:can_record => true) }
-          it { should be_able_to(:record_meeting, target) }
+          it { should be_able_to(:record_meeting, target) } #criar a subscription pra ele conseguir gravar e criar um teste que nao consegue por nao ter
         end
 
         context "when the owner is disabled" do
