@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 module Mconf
-  VERSION = "2.4.0-ufrgs1".freeze
+  VERSION = "2.4.0-ufrgs2".freeze
 
   # get the current revision from git
   @@revision = nil
