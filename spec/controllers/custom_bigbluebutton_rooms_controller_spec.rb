@@ -533,7 +533,6 @@ describe CustomBigbluebuttonRoomsController do
           end
         end
 
-#Criar um teste que não entra na sala por ser plano free e ja ter dois users
         context "testing the unauth_access_to_conferences flag when a guest is trying to enter a meeting" do
           let(:user) { FactoryGirl.create(:user) }
           let(:hash) { { :name => "Elftor", :key => room.attendee_key } }
@@ -633,7 +632,15 @@ describe CustomBigbluebuttonRoomsController do
         end
 
         describe "checks the maximum number of participants" do
+          before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:update_customer).and_return(true) }
+          let(:iugu_plan) { FactoryGirl.create(:plan) }
+
           let!(:join_url) { "http://test.com/attendee/join" }
+          let!(:subscribed_user) { FactoryGirl.create(:user) }
+          let!(:subscription) { FactoryGirl.create(:subscription, user_id: subscribed_user.id) }
 
           # important to check this because this before filter needs specific information in the room
           context "#check_user_limit is called with the same @room that we fetched information from" do
@@ -707,7 +714,6 @@ describe CustomBigbluebuttonRoomsController do
             context "blocks the user from joining if the limit was reached" do
               before do
                 login_as(another_user)
-                room.update_attributes({ max_participants: 2 })
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
                 room.stub(:fetch_meeting_info).and_return({ participantCount: 2 })
@@ -727,6 +733,23 @@ describe CustomBigbluebuttonRoomsController do
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
                 room.stub(:fetch_meeting_info).and_return({ participantCount: 999 })
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
+            end
+
+            context "lets more than 2 users join a room if the user is subscribed" do
+              let(:room) { subscribed_user.bigbluebutton_room }
+              before do
+                login_as(another_user)
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 8 })
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
