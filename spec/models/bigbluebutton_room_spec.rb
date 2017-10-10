@@ -125,7 +125,7 @@ describe BigbluebuttonRoom do
 
         context "with permission to record" do
           before { user.update_attributes(:can_record => true) }
-          it { should be_able_to(:record_meeting, target) } #criar a subscription pra ele conseguir gravar e criar um teste que nao consegue por nao ter
+          it { should be_able_to(:record_meeting, target) }
         end
 
         context "when the owner is disabled" do
@@ -134,6 +134,36 @@ describe BigbluebuttonRoom do
             user.update_attributes(:can_record => true)
           }
           it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "free account user with more than 2 recordings can't record anymore meetings" do
+          let!(:rec1){ FactoryGirl.create(:bigbluebutton_recording, room: target) }
+          let!(:rec2){ FactoryGirl.create(:bigbluebutton_recording, room: target) }
+
+          before do
+            user.update_attributes(:can_record => true)
+          end
+
+          it { should_not be_able_to(:record_meeting, target) }
+        end
+
+        context "subscribed user can record any ammount (more than two) of meetings" do
+          before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+                 }
+
+          let(:iugu_plan) { FactoryGirl.create(:plan) }
+          let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+          let(:room) { user.bigbluebutton_room }
+          let!(:rec1) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
+          let!(:rec2) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
+
+          before do
+            user.update_attributes(:can_record => true)
+          end
+
+          it { should be_able_to(:record_meeting, room) }
         end
       end
 
