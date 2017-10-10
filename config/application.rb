@@ -129,6 +129,10 @@ module Mconf
     # how long the trial lasts
     config.trial_months = 2
 
+    # free plan limitations
+    config.free_rec_limit = 2
+    config.free_attendee_limit = 2
+
     # invoice pricing area
     config.minimum_users = 15
     config.base_month_days = 30.0

@@ -217,7 +217,7 @@ class User < ActiveRecord::Base
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
       attendee_key: SecureRandom.hex(4),
-      max_participants: 2
+      max_participants: Rails.application.config.free_attendee_limit
     }
     create_bigbluebutton_room(params)
   end
@@ -414,7 +414,7 @@ class User < ActiveRecord::Base
   end
 
   def exceeded_recording_limit_free_account
-    self.bigbluebutton_room.recordings.count >= 2 && !(self.subscription.present?)
+    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && !(self.subscription.present?)
   end
 
   protected

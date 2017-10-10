@@ -696,7 +696,7 @@ describe CustomBigbluebuttonRoomsController do
             context "allows the user to join if there are still spots left" do
               before do
                 login_as(another_user)
-                room.update_attributes({ max_participants: 2 })
+                room.update_attributes({ max_participants: Rails.application.config.free_attendee_limit })
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
                 room.stub(:fetch_meeting_info).and_return({ participantCount: 1 })
@@ -748,7 +748,7 @@ describe CustomBigbluebuttonRoomsController do
                 login_as(another_user)
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
-                room.stub(:fetch_meeting_info).and_return({ participantCount: 8 })
+                room.stub(:fetch_meeting_info).and_return({ participantCount: (Rails.application.config.free_attendee_limit + 10) })
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {

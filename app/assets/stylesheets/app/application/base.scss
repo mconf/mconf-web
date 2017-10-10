@@ -1071,6 +1071,7 @@ strong.highlight {
 
   #google-login {
     width: 48%;
+    min-width: 115px;
     display: inline-block;
     background: #DD4B39;
     .icon-mconf-google {
@@ -1092,6 +1093,7 @@ strong.highlight {
   }
   #facebook-login {
     width: 48%;
+    min-width: 115px;
     display: inline-block;
     background: #3b5998;
     .icon-mconf-facebook {
