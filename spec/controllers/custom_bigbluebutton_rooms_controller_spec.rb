@@ -635,8 +635,7 @@ describe CustomBigbluebuttonRoomsController do
           before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
                    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
                    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
-                   Mconf::Iugu.stub(:update_customer).and_return(true) }
-          let(:iugu_plan) { FactoryGirl.create(:plan) }
+                 }
 
           let!(:join_url) { "http://test.com/attendee/join" }
           let!(:subscribed_user) { FactoryGirl.create(:user) }
