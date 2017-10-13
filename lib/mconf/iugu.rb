@@ -117,7 +117,7 @@ module Mconf
     end
 
 ###PLAN#################################################################################################
-    def self.create_plan(name, identifier, currency, interval, interval_type)
+    def self.create_plan(name, identifier, currency, interval, interval_type, ops_id=nil)
       plan = ::Iugu::Plan.create({
         name: name,
         identifier: identifier,
@@ -128,7 +128,7 @@ module Mconf
         payable_with: "all"
       })
 
-      plan.attributes["id"]
+      ops_id.present? ? ops_id : plan.attributes["id"]
     end
 
     def self.destroy_plan(plan_id)
@@ -139,7 +139,7 @@ module Mconf
     # Get the plans from Iugu to the db on a new server
     def self.fetch_all_plans
       plans = ::Iugu::Plan.fetch
-      plans.inspect
+      plans.results
     end
 
 ###TEST#SCRIPTS#########################################################################################

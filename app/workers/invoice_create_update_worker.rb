@@ -11,11 +11,6 @@ class InvoiceCreateUpdateWorker < BaseWorker
 
   def self.perform
     invoices_create
-    ###################
-    #Add a perform to #
-    #post the invoices#
-    #to iugu or ops   #
-    ###################
   end
 
   def self.invoices_create

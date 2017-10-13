@@ -11,4 +11,4 @@ describe InvoicePostWorker, type: :worker do
   skip "test next creates"
   skip "test posting"
   skip "test updates"
-end 
+end

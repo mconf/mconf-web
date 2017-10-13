@@ -14,9 +14,6 @@ class Plan < ActiveRecord::Base
   validates :currency, :presence => true
   validates :interval, :presence => true
   validates :interval_type, :presence => true
-  validates :item_price, :presence => true
-  validates :base_price, :presence => true
-  validates :max_users, :numericality => { :greater_than_or_equal_to => 0 }, :allow_nil => true
   has_many :subscription, dependent: :destroy
 
   before_create :create_ops_plan
@@ -29,12 +26,8 @@ class Plan < ActiveRecord::Base
       ops_type: nil,
       currency: "BRL",
       interval_type: "months",
-      interval: 1,
-      item_price: 0,
-      base_price: 0,
-      max_users: 2
-    }
-    Plan.new params
+      interval: 1 }
+    Plan.new(params)
   end
 
   def free?
@@ -43,7 +36,7 @@ class Plan < ActiveRecord::Base
 
   def create_ops_plan
     if ops_type == "IUGU"
-      self.ops_id = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
+      self.ops_id = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type, self.ops_id)
 
       if self.ops_id == nil
         logger.error "No Token returned from IUGU, aborting"
@@ -55,6 +48,21 @@ class Plan < ActiveRecord::Base
       logger.error "Bad ops_type, can't create plan"
       errors.add(:attr, "Bad ops_type, can't create plan")
       raise ActiveRecord::Rollback
+    end
+  end
+
+  def self.import_ops_plan
+    Mconf::Iugu.fetch_all_plans.each do |plan|
+      params = { 
+                 name: plan.attributes["name"], 
+                 identifier: plan.attributes["identifier"], 
+                 ops_type: 'IUGU',
+                 ops_id: plan.attributes["id"],
+                 currency: plan.attributes["prices"].first["currency"], 
+                 interval_type: plan.attributes["interval_type"], 
+                 interval: plan.attributes["interval"] }
+      
+      Plan.find_by_ops_id(params[:ops_id]).present? ? puts("Plan already imported") : Plan.create(params)
     end
   end
 
@@ -78,7 +86,6 @@ class Plan < ActiveRecord::Base
   def self.get_plans_from_ops
     plans = Mconf::Iugu.fetch_all_plans
     puts plans
-    # An array of plan objects - check which ones are already on the DB and create the missing ones
   end
 
 end

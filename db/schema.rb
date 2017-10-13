@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802160001) do
+ActiveRecord::Schema.define(version: 20171013205033) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -331,9 +331,6 @@ ActiveRecord::Schema.define(version: 20170802160001) do
     t.string  "currency"
     t.string  "interval_type"
     t.integer "interval"
-    t.integer "item_price"
-    t.integer "base_price"
-    t.integer "max_users"
   end
 
   create_table "posts", force: true do |t|
