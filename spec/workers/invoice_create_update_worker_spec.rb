@@ -1,14 +1,14 @@
 # This file is part of Mconf-Web, a web application that provides access
-# to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
+# to the Mconf webconferencing system. Copyright (C) 2010-2017 Mconf.
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
 require 'spec_helper'
 
-describe InvitationsWorker, type: :worker do
+describe InvoiceCreateUpdateWorker, type: :worker do
   skip "test first create"
   skip "test next creates"
   skip "test posting"
   skip "test updates"
-end
+end 

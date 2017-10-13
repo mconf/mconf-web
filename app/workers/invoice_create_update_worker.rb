@@ -24,11 +24,13 @@ class InvoiceCreateUpdateWorker < BaseWorker
         # There is one and it is for this month
         if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
           subscription.invoices.last.update_unique_user_qty
+        
         # There is none and is gonna be the first
         elsif !subscription.invoices.last.present?
           invoice = subscription.invoices.create(due_date: (DateTime.now.change({day: 10})), flag_invoice_status: "local")
           invoice.update_unique_user_qty
           invoice.generate_consumed_days("create")
+        
         # There are invoices but not for this month
         else
           invoice = subscription.invoices.create(due_date: (DateTime.now.change({day: 10})), flag_invoice_status: "local")
