@@ -51,43 +51,43 @@ class ShibbolethController < ApplicationController
     else
       token = @shib.find_and_update_token
 
-      # there's a token with a user associated
-      if token.present? && !token.user_with_disabled.nil?
-        user = token.user_with_disabled
-        if user.disabled
-          logger.info "Shibolleth: user local account is disabled, can't login"
-          flash[:error] = t('shibboleth.login.local_account_disabled')
-          redirect_to root_path
-        else
-          # the user is not disabled, logs the user in
-          logger.info "Shibboleth: logging in the user #{token.user.inspect}"
-          logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
-
-          # set that the user signed in via shib
-          @shib.set_signed_in(user, token)
-          # Update user data with the latest version from the federation
-          @shib.update_user(token) if current_site.shib_update_users?
-
-          if token.user.active_for_authentication?
-            sign_in user
-            flash.keep # keep the message set before by #create_association
-            redirect_to after_sign_in_path_for(token.user)
+      if params[:create] == "false"
+        # there's a token with a user associated
+        if token.present? && !token.user_with_disabled.nil?
+          user = token.user_with_disabled
+          if user.disabled
+            logger.info "Shibolleth: user local account is disabled, can't login"
+            flash[:error] = t('shibboleth.login.local_account_disabled')
+            redirect_to root_path
           else
-            # go to the pending approval page without a flash msg, the page already has a msg
-            flash.clear
-            redirect_to my_approval_pending_path
-          end
-        end
+            # the user is not disabled, logs the user in
+            logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+            logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
 
-      # no token means the user has no association yet, render a page to do it
-      else
-        if !get_always_new_account
-          logger.info "Shibboleth: first access for this user, rendering the association page"
-          render :associate
+            # set that the user signed in via shib
+            @shib.set_signed_in(user, token)
+            # Update user data with the latest version from the federation
+            @shib.update_user(token) if current_site.shib_update_users?
+
+            if token.user.active_for_authentication?
+              sign_in user
+              flash.keep # keep the message set before by #create_association
+              redirect_to after_sign_in_path_for(token.user)
+            else
+              # go to the pending approval page without a flash msg, the page already has a msg
+              flash.clear
+              redirect_to my_approval_pending_path
+            end
+          end
         else
-          logger.info "Shibboleth: flag `shib_always_new_account` is set"
-          logger.info "Shibboleth: first access for this user, automatically creating a new account"
-          associate_with_new_account(@shib)
+          if !get_always_new_account
+            logger.info "Shibboleth: first access for this user, rendering the association page"
+            render :associate
+          else
+            logger.info "Shibboleth: flag `shib_always_new_account` is set"
+            logger.info "Shibboleth: first access for this user, automatically creating a new account"
+            associate_with_new_account(@shib)
+          end
         end
       end
     end
@@ -122,6 +122,7 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
+    #test_data
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
     @shib.load_data(request.env, current_site.shib_env_variables)
