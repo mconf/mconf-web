@@ -270,15 +270,10 @@
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: 30px 15px 25px 15px;
+    padding: 30px 15px;
     display: block;
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color, $m-navbar-font-color);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);
-
-    &:hover {
-      border-bottom: 4px solid $m-border-color-highlight;
-      //font-weight: bold;
-    }
   }
 
   .icon-awesome {

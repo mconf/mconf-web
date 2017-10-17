@@ -1,18 +1,51 @@
 @import "definitions";
 
+@import "app/shared/social_login";
+
 body.registrations.new, body.registrations.create {
 
+  #headline {
+    @include make-sm-column(12);
+    @include make-md-column(6);
+
+    h1 {
+      font-size: 72px;
+      margin-top: 0;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 39px;
+      font-weight: 200;
+    }
+  }
+
   #register-wrapper {
-    margin: 40px auto;
-    width: 50%;
-    @include mconf-clearfix;
+    @include make-sm-column(12);
+    @include make-md-column(5);
+    @include make-md-column-offset(1);
 
     form {
       // every field is required, we don't need to show it
       abbr { display: none; }
 
+      .form-control {
+        font-size: $m-font-big;
+        padding: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
       .form-actions {
         border: none;
+
+        .btn {
+          font-size: $m-font-big;
+          padding: 15px;
+          width: 100%;
+        }
       }
     }
 

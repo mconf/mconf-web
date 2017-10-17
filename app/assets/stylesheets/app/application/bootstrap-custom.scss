@@ -26,6 +26,8 @@
 // override a few things in inputs that we can't do with variables only
 .form-control {
   box-shadow: none;
+  padding: 12px;
+  height: 48px;
 
   &:focus {
     background: $m-input-focus-bg;

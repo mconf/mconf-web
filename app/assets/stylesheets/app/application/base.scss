@@ -349,7 +349,7 @@ form {
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
-  font-family: $m-font-family-h;
+  font-family: $m-navbar-font-family;
   position: relative;
   height: $m-navbar-height;
 
@@ -357,7 +357,7 @@ form {
   @include font-size($m-navbar-font);
   text-align: center;
   @include mconf-clearfix;
-  padding: 0 15px;
+  padding: 0 $m-site-horizontal-padding;
 
   a:hover { text-decoration: none; }
 }
@@ -373,11 +373,7 @@ form {
 
 #navbar-right {
   @include navbar-lists;
-  position: absolute;
-  left: auto;
-  right: 16px;
-  top: 0;
-  bottom: auto;
+  float: right;
 
   .dropdown-user.chip {
     margin: 0;
@@ -435,13 +431,14 @@ form {
 
 #navbar-logo {
   white-space: nowrap;
-  margin: 15px 0 5px 0;
+  margin: ($m-navbar-height - 60px)/2 0;
   @include mconf-clearfix;
   display: inline-block;
-  background: image-url('logos/mconf-white-transp.png') no-repeat left top;
-  background-size: 54px 28px;
-  width: 54px;
-  height: 28px;
+  background: image-url('logos/mconf-color-transp.png') no-repeat left top;
+  background-size: 116px 60px;
+  width: 116px;
+  height: 60px;
+  float: left;
 }
 
 #content-notification {
@@ -458,6 +455,9 @@ form {
 }
 
 #footer, #footer-mconf {
+  /* TODO TEMPORARY */
+  display:none;
+
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
@@ -685,7 +685,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 60px;
+  padding: 60px $m-site-horizontal-padding;
 
   h3 {
     margin-bottom: 8px;

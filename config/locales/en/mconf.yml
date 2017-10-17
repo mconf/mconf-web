@@ -1283,10 +1283,11 @@ en:
   register_now: "Register now!"
   registrations:
     new:
-      form_title: "Registration"
+      headline: "Webconference Platform"
+      headline2: "focused on distance learning and remote meetings"
       title: "Register"
     signup_form:
-      register: "Register"
+      register: "Create an account"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1339,12 +1340,12 @@ en:
     one: Session
   sessions:
     login_form:
-      email_or_login: "Email or username"
       ldap_authentication: "Authenticate via LDAP"
       login: "Login"
-      password: "Password"
+      lost_password: "Forgot my password"
     new:
-      form_title: "Sign in"
+      headline: "Web Conference Platform"
+      headline2: "focused on distance learning and remote meetings"
       title: "Sign in"
   session_locales:
     create:
@@ -1377,6 +1378,10 @@ en:
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
+    social_login:
+      facebook: "Facebook"
+      google: "Google"
+      or_connect_with: "or connect with"
     user_card:
       gravatar_label: "Image from Gravatar"
       gravatar_label_tooltip: "This is your avatar on Gravatar.com"

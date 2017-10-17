@@ -94,6 +94,10 @@ a:not(.btn) {
   &:focus { color: lighten($m-link-color-active, 7); }
 }
 
+a, .btn {
+  transition: all .3s ease;
+}
+
 .label {
   font-family: $m-font-family-label;
 }

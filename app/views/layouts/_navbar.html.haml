@@ -1,5 +1,5 @@
--# - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
--# %a#navbar-logo{:href => url}
+- url = user_signed_in? ? main_app.my_home_path : main_app.root_path
+%a#navbar-logo{:href => url}
 
 - if content_for?(:navbar_menu)
   #navbar-menu

@@ -126,7 +126,14 @@ pt-br:
       post:
         text: "Texto da mensagem"
         title: "Título da mensagem"
+      profile:
+        full_name: 'Nome completo'
       user:
         edit:
           current_password: "Deixe em branco se você não quiser mudar"
+        email: 'E-mail'
+        login: "E-mail ou nome de usuário"
+        password: 'Senha'
+        password_confirmation: 'Confirmação de senha'
+        username: 'Identificador da sala'
     # labels:

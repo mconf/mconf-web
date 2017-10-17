@@ -1311,10 +1311,11 @@ pt-br:
   register_now: "Registe-se agora!"
   registrations:
     new:
-      form_title: "Registre-se"
+      headline: "Plataforma de webconferência"
+      headline2: "com foco em educação a distância e reuniões remotas"
       title: "Registrar"
     signup_form:
-      register: "Registre-se"
+      register: "Criar uma conta"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
@@ -1367,12 +1368,12 @@ pt-br:
     one: Sessão
   sessions:
     login_form:
-      email_or_login: "E-mail ou nome de usuário"
       ldap_authentication: "Autenticar via LDAP"
       login: "Entrar"
-      password: "Senha"
+      lost_password: "Esqueci minha senha"
     new:
-      form_title: "Acesse sua conta"
+      headline: "Plataforma de webconferência"
+      headline2: "com foco em educação a distância e reuniões remotas"
       title: "Entrar"
   session_locales:
     create:
@@ -1405,6 +1406,10 @@ pt-br:
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+    social_login:
+      facebook: "Facebook"
+      google: "Google"
+      or_connect_with: "ou conecte-se com"
     webconf_index_links:
       view_playback_type_list: "Tipos de Reprodução"
       view_recording_list: "Gravações"
