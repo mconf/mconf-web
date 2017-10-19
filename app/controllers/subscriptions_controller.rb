@@ -39,9 +39,9 @@ class SubscriptionsController < InheritedResources::Base
 
     @subscription.user_id = current_user.id
     # Will create it on IUGU for now
-    @subscription.plan_id = Plan.find_by_ops_type("IUGU").id
+    @subscription.plan_token = Plan.find_by_ops_type("IUGU").ops_token
     # Will create invoice for the 10th of the month after the trial expires (Mconf is post payed)
-    @subscription.pay_day = (Date.today + free_months.months + 1.month).strftime('%Y/%m/10')
+    @subscription.pay_day = (Date.today + free_months.months + 1.month).strftime('%Y-%m-10')
     # This will define when to start charging the user
     @subscription.user.set_expire_date!
 

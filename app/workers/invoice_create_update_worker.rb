@@ -7,8 +7,6 @@
 
 # Updates local invoices
 class InvoiceCreateUpdateWorker < BaseWorker
-  include dates_helper
-
   def self.perform
     invoices_create
   end

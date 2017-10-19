@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013205033) do
+ActiveRecord::Schema.define(version: 20171018195744) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -326,7 +326,7 @@ ActiveRecord::Schema.define(version: 20171013205033) do
   create_table "plans", force: true do |t|
     t.string  "name"
     t.string  "identifier"
-    t.string  "ops_id"
+    t.string  "ops_token"
     t.string  "ops_type"
     t.string  "currency"
     t.string  "interval_type"
@@ -467,7 +467,7 @@ ActiveRecord::Schema.define(version: 20171013205033) do
   add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
 
   create_table "subscriptions", force: true do |t|
-    t.integer "plan_id"
+    t.string  "plan_token"
     t.integer "user_id"
     t.string  "customer_token"
     t.string  "subscription_token"

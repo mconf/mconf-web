@@ -8,9 +8,11 @@ FactoryGirl.define do
   factory :subscription do |f|
     f.association :plan, :factory => :plan
     f.association :user, :factory => :user
+    # These two must be set to nil or it will look like this subscription is being imported
     f.customer_token Forgery::CreditCard.number
     f.subscription_token Forgery::CreditCard.number
-    f.pay_day (Time.now+1.month).strftime('%Y/%m/%d')
+    #
+    f.pay_day (Time.now+1.month).strftime('%Y-%m-%d')
     f.cpf_cnpj "658.753.830-46"
     f.address Forgery::Address.street_name
     f.number Forgery::Address.street_number

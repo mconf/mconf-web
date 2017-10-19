@@ -5,13 +5,13 @@
 # 3 or later. See the LICENSE file.
 
 class Subscription < ActiveRecord::Base
-  belongs_to :plan
+  belongs_to :plan, foreign_key: 'plan_token', primary_key: "ops_token"
   belongs_to :user
 
   has_many :invoices
 
   validates :user_id, :presence => true, :uniqueness => true
-  validates :plan_id, :presence => true
+  validates :plan_token, :presence => true
 
   validates :pay_day, :presence => true
   validates :cpf_cnpj, :presence => true
@@ -21,7 +21,6 @@ class Subscription < ActiveRecord::Base
   validates :city, :presence => true
   validates :province, :presence => true
   validates :district, :presence => true
-  validates :country, :presence => true
 
 
   before_create :create_customer_and_sub
@@ -30,38 +29,42 @@ class Subscription < ActiveRecord::Base
 
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
-      self.customer_token = Mconf::Iugu.create_customer(
-                                          self.user.email,
-                                          self.user.full_name,
-                                          self.cpf_cnpj,
-                                          self.address,
-                                          self.additional_address_info,
-                                          self.number,
-                                          self.zipcode,
-                                          self.city,
-                                          self.province,
-                                          self.district,
-                                          self.country)
+      unless self.subscription_token.present?
+        self.customer_token = Mconf::Iugu.create_customer(
+                                            self.user.email,
+                                            self.user.full_name,
+                                            self.cpf_cnpj,
+                                            self.address,
+                                            self.additional_address_info,
+                                            self.number,
+                                            self.zipcode,
+                                            self.city,
+                                            self.province,
+                                            self.district,
+                                            self.country)
 
-      if self.customer_token == nil
-        logger.error "No Token returned from IUGU, aborting"
-        errors.add(:ops_error, "No Token returned from IUGU, aborting")
-        raise ActiveRecord::Rollback
-      elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
-        errors.add(:cpf_cnpj, :invalid)
-        errors.add(:zipcode, :invalid)
-        raise ActiveRecord::Rollback
-      elsif self.customer_token["cpf_cnpj"].present?
-        errors.add(:cpf_cnpj, :invalid)
-        raise ActiveRecord::Rollback
-      elsif self.customer_token["zip_code"].present?
-        errors.add(:zipcode, :invalid)
-        raise ActiveRecord::Rollback
+        if self.customer_token == nil
+          logger.error "No Token returned from IUGU, aborting"
+          errors.add(:ops_error, "No Token returned from IUGU, aborting")
+          raise ActiveRecord::Rollback
+        elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
+          errors.add(:cpf_cnpj, :invalid)
+          errors.add(:zipcode, :invalid)
+          raise ActiveRecord::Rollback
+        elsif self.customer_token["cpf_cnpj"].present?
+          errors.add(:cpf_cnpj, :invalid)
+          raise ActiveRecord::Rollback
+        elsif self.customer_token["zip_code"].present?
+          errors.add(:zipcode, :invalid)
+          raise ActiveRecord::Rollback
+        end
+
+        # Here we are calling the creation of the subscription:
+        self.create_sub
+      else
+        # If this is an imported subscription we must se the max_participants
+        self.user.bigbluebutton_room.update_attributes(max_participants: nil)
       end
-
-      # Here we are calling the creation of the subscription:
-      self.create_sub
-
     else
       logger.error "Bad ops_type, can't create customer"
       errors.add(:ops_error, "Bad ops_type, can't create customer")
@@ -129,9 +132,33 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  #def get_sub_data
-  #  subscription = Mconf::Iugu.get_subscription(self.subscription_token)
-  #end
+  def self.import_ops_sub
+    Mconf::Iugu.fetch_all_subscriptions.each do |subs|
+      cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
+      user = User.find_by_email(cust.email)
+      plan = Plan.find_by_identifier(subs.plan_identifier)
+
+      params = {
+                 plan_token: plan.ops_token,
+                 user_id: user.id,
+                 subscription_token: subs.id,
+                 customer_token: cust.id,
+                 pay_day: subs.expires_at,
+                 cpf_cnpj: cust.cpf_cnpj,
+                 address: cust.street,
+                 additional_address_info: cust.complement,
+                 number: cust.number,
+                 zipcode: cust.zip_code,
+                 city: cust.city,
+                 province: cust.state,
+                 district: cust.district,
+                 country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
+                 integrator: false
+                 }
+
+      Subscription.find_by_subscription_token(params[:subscription_token]).present? ? puts("Subscription already imported") : Subscription.create(params)
+    end
+  end
 
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub

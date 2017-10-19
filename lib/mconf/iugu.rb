@@ -9,9 +9,9 @@ module Mconf
 
 ###SUBSCRIPTION##########################################################################################
     # We will have to create a customer here to link to a subscription
-    def self.create_subscription(plan_id, customer_id, pay_day)
+    def self.create_subscription(plan_identifier, customer_id, pay_day)
       subscription = ::Iugu::Subscription.create({
-        plan_identifier: plan_id,
+        plan_identifier: plan_identifier,
         customer_id: customer_id,
         expires_at: pay_day
       })
@@ -52,6 +52,11 @@ module Mconf
     def self.get_subscription(subscription_id)
       subscription = ::Iugu::Subscription.fetch(subscription_id)
       subscription
+    end
+
+    def self.fetch_all_subscriptions
+      subscriptions = ::Iugu::Subscription.fetch
+      subscriptions.results
     end
 
 ###INVOICES#############################################################################################
@@ -116,8 +121,13 @@ module Mconf
       customer.delete
     end
 
+    def self.find_customer_by_id(customer_id)
+      customer = ::Iugu::Customer.fetch(customer_id)
+      customer
+    end
+
 ###PLAN#################################################################################################
-    def self.create_plan(name, identifier, currency, interval, interval_type, ops_id=nil)
+    def self.create_plan(name, identifier, currency, interval, interval_type)
       plan = ::Iugu::Plan.create({
         name: name,
         identifier: identifier,
@@ -128,11 +138,11 @@ module Mconf
         payable_with: "all"
       })
 
-      ops_id.present? ? ops_id : plan.attributes["id"]
+      plan.attributes["id"]
     end
 
-    def self.destroy_plan(plan_id)
-      plan = ::Iugu::Plan.fetch(plan_id)
+    def self.destroy_plan(plan_token)
+      plan = ::Iugu::Plan.fetch(plan_token)
       plan.delete
     end
 
