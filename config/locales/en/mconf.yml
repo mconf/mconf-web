@@ -969,6 +969,7 @@ en:
     navbar:
       account: "Account"
       conference_room: "Conference room"
+      conference_fast_play_tt: "Click to quick start a conference"
       events: "Events"
       inbox: "Inbox"
       login: "Sign in"
@@ -1128,7 +1129,8 @@ en:
       events:
         other: "Other"
         today: "Today"
-      hi: "Hi %{name}!"
+      hi: "Hi, %{name}!"
+      no_meetings_headline: "Start your first conference and interact with other participants"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
@@ -1145,6 +1147,7 @@ en:
     page_header:
       activity_list: "Activity list"
     meetings:
+      no_meetings_headline: "There are no recordings or conferences to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
       subtitle: "Past meetings and recordings"

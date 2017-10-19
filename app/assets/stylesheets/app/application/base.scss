@@ -352,23 +352,22 @@ form {
   font-family: $m-navbar-font-family;
   position: relative;
   height: $m-navbar-height;
-
   color: $m-navbar-font-color;
-  @include font-size($m-navbar-font);
+  font-size: $m-navbar-font;
   text-align: center;
   @include mconf-clearfix;
   padding: 0 $m-site-horizontal-padding;
+
+  .btn {
+    font-size: $m-navbar-font;
+  }
 
   a:hover { text-decoration: none; }
 }
 
 #navbar-menu {
   @include navbar-lists;
-  position: absolute;
-  left: 16px;
-  right: auto;
-  top: 0;
-  bottom: auto;
+  float: right;
 }
 
 #navbar-right {
@@ -384,7 +383,7 @@ form {
     @include transition(background-color 0.2s ease-in);
     @include text-truncate;
     max-width: 350px;
-    padding: 25px 10px 23px 20px;
+    /* padding: 25px 10px 23px 20px; */
     @include border-radius(0);
     overflow: inherit;
     height: auto;
@@ -396,12 +395,16 @@ form {
     .caret {
       margin-top: -2px;
       margin-left: 2px;
+      /* border-top: 8px dashed $m-border-color-normal; */
+      border-top: 8px dashed #000;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
     }
 
     img, .logo-user {
-      height: 36px;
-      width: 36px;
-      float: left;
+      height: 46px;
+      width: 46px;
+      float: none;
       margin: 0 8px 0 -12px;
       border: 1px solid $m-logo-bg;
       background: $m-logo-bg;
@@ -409,7 +412,7 @@ form {
   }
 
   .dropdown-menu {
-    margin: 0;
+    margin: 10px 0 0 0;
     @include border-radius(0);
     @include box-shadow(none);
 
@@ -420,13 +423,33 @@ form {
     }
   }
 
-  .navbar-conf-btn {
-    padding: 22px 10px 20px 10px;
+  .navbar-chip {
+    padding-left: 36px;
+    /* border-left: 1px solid $m-border-color-normal; */
+    border-left: 1px solid #000;
+    margin: 23px 0;
+  }
 
-    .btn {
+  .navbar-conf-btn {
+    padding: 21px 0 20px 0;
+    margin: 0 36px 0 18px;
+
+    .btn:first-child {
       padding: 10px 20px;
+      /* border-right: 1px solid $m-navbar-bg-color-light; */
+    }
+
+    .btn-play {
+      padding: 9px 12px 8px 12px;
+      margin-left: 1px;
+
+      img {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
+
 }
 
 #navbar-logo {

@@ -49,12 +49,16 @@ $m-font-big: $m-font-normal * 1.4;
 $m-font-bigger: $m-font-normal * 1.6;
 $m-font-double: $m-font-normal * 2;
 /* multipliers over the standard font size */
-$m-font-h1-multiplier: 2.5;
-$m-font-h2-multiplier: 2;
+$m-font-h1-multiplier: 2.71;
+$m-font-h2-multiplier: 2.28;
 $m-font-h3-multiplier: 1.4;
 $m-font-h4-multiplier: 1.2;
 $m-font-h5-multiplier: 1;
 $m-font-h6-multiplier: 1;
+$m-font-weight-light: 300;
+$m-font-weight-normal: 400;
+$m-font-weight-bold: 700;
+$m-font-weight-bolder: 900;
 $m-font-color: #444; //desaturate($m-color-primary, 25%);
 $m-font-strong: darken($m-font-color, 10%); //#000;
 $m-font-light: lighten($m-font-color, 10%); //#666;

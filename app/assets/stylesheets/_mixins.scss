@@ -244,7 +244,7 @@
     > li {
       display: inline;
       float: left;
-      margin: 0 10px;
+      margin: 0;
 
       &:first-child { border: 0 }
 
@@ -262,7 +262,6 @@
       }
 
       &.active a {
-        border-bottom: 4px solid $m-border-color-highlight;
         font-weight: bold;
       }
     }
@@ -270,7 +269,7 @@
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: 30px 15px;
+    padding: 30px 18px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);

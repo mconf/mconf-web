@@ -1,10 +1,6 @@
 - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
 %a#navbar-logo{:href => url}
 
-- if content_for?(:navbar_menu)
-  #navbar-menu
-    = yield :navbar_menu
-
 -# #navbar-left
 -#   %ul
 -#     - if user_signed_in?
@@ -32,12 +28,15 @@
     - if user_signed_in?
       -# TODO: link, context based link and localization
       %li.navbar-conf-btn
-        .btn.btn-primary= t(".conference_room")
+        .btn-group{ role: "group" }
+          .btn.btn-primary= t(".conference_room")
+          = link_to join_bigbluebutton_room_path(current_user.bigbluebutton_room), class: "btn btn-primary btn-play tooltipped webconf-join-link", title: t('.conference_fast_play_tt') do
+            = icon_conference_play
 
       %li.navbar-chip.dropdown.last
         .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '32', class: "logo-user")
-          %span.username= current_user.profile.first_name
+          -# %span.username= current_user.profile.first_name
           %span.caret
         %ul.dropdown-menu.dropdown-menu-right
           %li
@@ -53,3 +52,7 @@
         %li.last= link_to t('.login'), main_app.login_path
       - if current_site.registration_enabled?
         %li= link_to t('.register'), main_app.register_path
+
+- if content_for?(:navbar_menu)
+  #navbar-menu
+    = yield :navbar_menu

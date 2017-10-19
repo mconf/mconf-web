@@ -277,6 +277,10 @@ module IconsHelper
     end
   end
 
+  def icon_conference_play(options={})
+    image_tag image_path('icons/conference-play.svg'), class: 'icon-mconf-conference-play'
+  end
+
   private
 
   # Base method for most of the methods above

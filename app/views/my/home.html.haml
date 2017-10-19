@@ -4,17 +4,19 @@
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
 
-%h1= t('.hi', name: current_user.first_name)
-
--# = render "shared/webconference_join", room: @room
-
 -# TODO: #1087 make it look good for a new user (no recs, no meetings yet)
 
-#user-meetings-recordings
-  %h3= t(".past_meetings.title")
-  = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
-  .content-block-footer
-    = link_to t('.past_meetings.view_more'), my_meetings_path
+- cls = @meetings.count <= 0 ? 'empty' : ''
+#user-meetings-recordings{ class: cls }
+  - if @meetings.count > 0
+    %h1= t('.hi', name: current_user.first_name)
+    %h3= t(".past_meetings.title")
+    = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
+    .content-block-footer
+      = link_to t('.past_meetings.view_more'), my_meetings_path
+  - else
+    %h1= t('.hi', name: current_user.first_name)
+    %h2= t('.no_meetings_headline')
 
 - if mod_enabled?("spaces")
   - if @pending_requests.count > 0

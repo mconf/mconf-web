@@ -237,6 +237,8 @@ module ApplicationHelper
   end
 
   def sidenav_visible?
-    user_signed_in?
+    # TODO: TEMPORARY
+    # user_signed_in?
+    false
   end
 end

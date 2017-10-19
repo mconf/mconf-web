@@ -979,6 +979,7 @@ pt-br:
     navbar:
       account: "Conta"
       conference_room: "Sala de conferência"
+      conference_fast_play_tt: "Clique para iniciar uma conferência de forma rápida"
       events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"
@@ -1134,7 +1135,8 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
-      hi: "Olá %{name}!"
+      hi: "Olá, %{name}!"
+      no_meetings_headline: "Inicie sua primeira conferência e interaja a distância com outros participantes"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"
@@ -1151,6 +1153,7 @@ pt-br:
     page_header:
       activity_list: "Atividades recentes"
     meetings:
+      no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
       subtitle: "Reuniões e gravações passadas"
