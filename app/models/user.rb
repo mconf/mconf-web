@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
   # define the creation for social omniauth
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
+    user = User.find_by_email(data['email'])
 
     unless user
       user = User.create(username: data['name'].parameterize,
