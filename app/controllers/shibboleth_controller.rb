@@ -79,15 +79,11 @@ class ShibbolethController < ApplicationController
               redirect_to my_approval_pending_path
             end
           end
-        else
-          if !get_always_new_account
-            logger.info "Shibboleth: first access for this user, rendering the association page"
-            render :associate
-          else
-            logger.info "Shibboleth: flag `shib_always_new_account` is set"
-            logger.info "Shibboleth: first access for this user, automatically creating a new account"
-            associate_with_new_account(@shib)
-          end
+         else
+          token = @shib.find_or_create_token()
+          token.user = @shib.create_fake_user(token)
+          sign_in_guest(token.user.full_name, token.user.email)
+          redirect_to after_sign_in_path_for(token.user)
         end
       end
     end
@@ -272,4 +268,22 @@ class ShibbolethController < ApplicationController
       request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
     end
   end
+  # def test_data
+  #   if Rails.env == "development"
+  #     request.env["Shib-Application-ID"] = "default"
+  #     request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500853"
+  #     request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
+  #     request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
+  #     request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+  #     request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+  #     request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia88"
+  #     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "julia.leticia.da.silva@mconf-institution.org"
+  #     request.env["Shib-inetOrgPerson-cn"] = "Julia111ss Let\xC3\xADcia da Silva"
+  #     request.env["Shib-inetOrgPerson-mail"] = "julia.leticia.da.silva111sss11@personal-email.org"
+  #     request.env["Shib-inetOrgPerson-sn"] = "Julia111sss da Silva"
+  #     request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
+  #     request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
+  #     request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
+  #   end
+  # end
 end
