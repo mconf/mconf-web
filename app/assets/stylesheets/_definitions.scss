@@ -38,6 +38,7 @@ $m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
 $m-focus-border-color: $m-color-secondary;
 $m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primary $m-color-secondary;
 $m-logo-bg: lighten($m-color-primary, 15);
+$m-logo-border: $m-color-primary;
 $m-site-horizontal-padding: 120px;
 
 // fonts
@@ -159,6 +160,10 @@ $m-navbar-link-color: lighten($m-link-color, 15);
 $m-navbar-link-color-hover: lighten($m-navbar-link-color, 8);
 $m-navbar-link-color-active: $m-navbar-link-color;
 $m-navbar-height: 90px;
+$m-navbar-btn-size: 46px;
+$m-navbar-btn-bg: $m-color-primary;
+$m-navbar-btn-bg-hover: darken($m-color-primary, 5);
+$m-navbar-btn-color: #fff;
 
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */
@@ -223,6 +228,14 @@ $m-tags-font-color: #fff; //#39739d;
 $m-tags-bg-color: #4b9ace; //#E1ECF4;
 $m-tags-bg-color-hover: darken($m-tags-bg-color, 10);
 
+// tooltips
+$m-tooltip-color: #fff;
+$m-tooltip-bg: $m-color-primary;
+$m-tooltip-opacity: .9;
+$m-tooltip-arrow-width: 8px;
+$m-tooltip-arrow-color: $m-color-primary;
+
+
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
 // Some are definef here with their default values because we might need them when using
@@ -285,6 +298,11 @@ $btn-border-radius-base: $m-border-radius-base;
 $btn-border-radius-large: $m-border-radius-base;
 $btn-border-radius-small: $m-border-radius-base;
 $cursor-disabled: default;
+$tooltip-color: $m-tooltip-color;
+$tooltip-bg: $m-tooltip-bg;
+$tooltip-opacity: $m-tooltip-opacity;
+$tooltip-arrow-width: $m-tooltip-arrow-width;
+$tooltip-arrow-color: $m-tooltip-arrow-color;
 
 // Themes: if using a theme, import it here!
 // @import "../themes/theme-name/stylesheets/variables";

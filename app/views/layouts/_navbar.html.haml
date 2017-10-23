@@ -27,17 +27,18 @@
   %ul#navbar-right-links
     - if user_signed_in?
       -# TODO: link, context based link and localization
+      - room = current_user.bigbluebutton_room
       %li.navbar-conf-btn
-        .btn-group{ role: "group" }
-          .btn.btn-primary= t(".conference_room")
-          = link_to join_bigbluebutton_room_path(current_user.bigbluebutton_room), class: "btn btn-primary btn-play tooltipped webconf-join-link", title: t('.conference_fast_play_tt') do
-            = icon_conference_play
+        = link_to join_bigbluebutton_room_path(room), class: "btn-navbar btn-play tooltipped webconf-join-link", title: t('.conference_play_tooltip') do
+          = icon_conference_play
+        - if can?(:user_edit, room)
+          = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn-navbar btn-config tooltipped", title: t('.conference_config_tooltip') do
+            = icon_options
 
       %li.navbar-chip.dropdown.last
-        .chip.dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
-          = logo_image(current_user, size: '32', class: "logo-user")
-          -# %span.username= current_user.profile.first_name
-          %span.caret
+        .dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
+          = logo_image(current_user, size: '128', class: "logo-user")
+          %span.username= current_user.profile.first_name
         %ul.dropdown-menu.dropdown-menu-right
           %li
             .observation= current_user.name
@@ -53,6 +54,6 @@
       - if current_site.registration_enabled?
         %li= link_to t('.register'), main_app.register_path
 
-- if content_for?(:navbar_menu)
-  #navbar-menu
-    = yield :navbar_menu
+-# - if content_for?(:navbar_menu)
+-#   #navbar-menu
+-#     = yield :navbar_menu

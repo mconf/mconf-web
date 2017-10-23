@@ -978,8 +978,10 @@ pt-br:
       search: "Pesquisar..."
     navbar:
       account: "Conta"
-      conference_room: "Sala de conferência"
-      conference_fast_play_tt: "Clique para iniciar uma conferência de forma rápida"
+      conference_config_tooltip: "Personalizar a sala virtual"
+      conference_history_tooltip: "Histórico de webconferências"
+      conference_invite_tooltip: "Convidar para webconferência"
+      conference_play_tooltip: "Iniciar webconferência"
       events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"

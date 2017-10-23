@@ -93,10 +93,11 @@
 }
 
 // general logo style (user avatars, space logos)
-@mixin logo-container($imgw: "84px") {
+@mixin logo-container($imgw: 84px) {
   text-decoration: none;
   display: inline-block;
   @include broken-img-parent;
+  @include text-truncate;
 
   img {
     margin: 2px 0;
@@ -134,7 +135,7 @@
   .logo-user {
     width: $imgw;
     height: $imgw;
-    @include border-radius($m-border-radius-large);
+    @include border-radius($imgw/2);
   }
 }
 

@@ -358,8 +358,35 @@ form {
   @include mconf-clearfix;
   padding: 0 $m-site-horizontal-padding;
 
-  .btn {
-    font-size: $m-navbar-font;
+  .btn-navbar {
+    height: $m-navbar-btn-size;
+    width: $m-navbar-btn-size;
+    margin: 0 18px;
+    display: inline-block;
+    font-size: $m-font-big;
+    @include border-radius($m-navbar-btn-size/2);
+    background: $m-navbar-btn-bg;
+    margin: 23px 18px;
+    padding: 6px;
+
+    color: $m-navbar-btn-color;
+    .icon-awesome {
+      color: $m-navbar-btn-color;
+      &:hover { color: $m-navbar-btn-color; }
+    }
+
+    &:last-child {
+      margin-right: 36px;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+
+    &:hover {
+      background: $m-navbar-btn-bg-hover;
+    }
   }
 
   a:hover { text-decoration: none; }
@@ -374,40 +401,28 @@ form {
   @include navbar-lists;
   float: right;
 
-  .dropdown-user.chip {
-    margin: 0;
+  .dropdown-user {
     font-size: $m-font-medium;
-    font-weight: normal;
-    border: none;
-    color: $m-navbar-font-color;
-    @include transition(background-color 0.2s ease-in);
-    @include text-truncate;
-    max-width: 350px;
-    /* padding: 25px 10px 23px 20px; */
-    @include border-radius(0);
-    overflow: inherit;
-    height: auto;
+    @include logo-container;
 
     &:hover, &[aria-expanded=true] {
       background: $m-navbar-font-highlight;
     }
 
-    .caret {
-      margin-top: -2px;
-      margin-left: 2px;
-      /* border-top: 8px dashed $m-border-color-normal; */
-      border-top: 8px dashed #000;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
+    img, .logo-user {
+      height: $m-navbar-btn-size;
+      width: $m-navbar-btn-size;
+      float: none;
+      margin: 0 16px 0 0;
+      display: inline-block;
+      border: 1px solid $m-logo-border;
+      font-size: $m-font-big;
     }
 
-    img, .logo-user {
-      height: 46px;
-      width: 46px;
-      float: none;
-      margin: 0 8px 0 -12px;
-      border: 1px solid $m-logo-bg;
-      background: $m-logo-bg;
+    .username {
+      display: inline-block;
+      font-size: $m-font-big;
+      vertical-align: middle;
     }
   }
 
@@ -429,27 +444,6 @@ form {
     border-left: 1px solid #000;
     margin: 23px 0;
   }
-
-  .navbar-conf-btn {
-    padding: 21px 0 20px 0;
-    margin: 0 36px 0 18px;
-
-    .btn:first-child {
-      padding: 10px 20px;
-      /* border-right: 1px solid $m-navbar-bg-color-light; */
-    }
-
-    .btn-play {
-      padding: 9px 12px 8px 12px;
-      margin-left: 1px;
-
-      img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-
 }
 
 #navbar-logo {

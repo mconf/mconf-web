@@ -968,8 +968,10 @@ en:
       title: "Management"
     navbar:
       account: "Account"
-      conference_room: "Conference room"
-      conference_fast_play_tt: "Click to quick start a conference"
+      conference_config_tooltip: "Customize your virtual room"
+      conference_history_tooltip: "History of web conferences"
+      conference_invite_tooltip: "Invite people to a web conference"
+      conference_play_tooltip: "Start a web conference"
       events: "Events"
       inbox: "Inbox"
       login: "Sign in"
