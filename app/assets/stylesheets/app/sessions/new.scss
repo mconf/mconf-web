@@ -26,6 +26,13 @@ body.sessions.new, body.sessions.create {
     @include make-md-column(5);
     @include make-md-column-offset(1);
 
+    h1 {
+      font-weight: $m-font-weight-bold;
+      text-align: center;
+      margin-bottom: 36px;
+      margin-top: 0;
+    }
+
     form {
       // every field is required, we don't need to show it
       abbr { display: none; }

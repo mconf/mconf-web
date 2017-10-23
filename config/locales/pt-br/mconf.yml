@@ -1316,9 +1316,9 @@ pt-br:
     new:
       headline: "Plataforma de webconferência"
       headline2: "com foco em educação a distância e reuniões remotas"
-      title: "Registrar"
+      title: "Crie uma conta"
     signup_form:
-      register: "Criar uma conta"
+      register: "Criar conta"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
@@ -1377,7 +1377,7 @@ pt-br:
     new:
       headline: "Plataforma de webconferência"
       headline2: "com foco em educação a distância e reuniões remotas"
-      title: "Entrar"
+      title: "Acesse sua conta"
   session_locales:
     create:
       success: "Idioma da aplicação alterado para %{value}"

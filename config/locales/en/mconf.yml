@@ -1286,11 +1286,11 @@ en:
   register_now: "Register now!"
   registrations:
     new:
-      headline: "Webconference Platform"
+      headline: "Web Conference Platform"
       headline2: "focused on distance learning and remote meetings"
-      title: "Register"
+      title: "Create an account"
     signup_form:
-      register: "Create an account"
+      register: "Register"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1344,12 +1344,12 @@ en:
   sessions:
     login_form:
       ldap_authentication: "Authenticate via LDAP"
-      login: "Login"
+      login: "Sign in"
       lost_password: "Forgot my password"
     new:
       headline: "Web Conference Platform"
       headline2: "focused on distance learning and remote meetings"
-      title: "Sign in"
+      title: "Sign into your account"
   session_locales:
     create:
       success: "Application language changed to %{value}"
