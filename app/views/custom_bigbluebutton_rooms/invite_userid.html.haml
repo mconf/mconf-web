@@ -22,7 +22,7 @@
 
     %ul#login-extra-links
       - if current_site.shib_enabled?
-        %li= link_to t('.login_federation'), shibboleth_path(:create => false)
+        %li= link_to t('.login_federation'), shibboleth_path
       - if current_site.certificate_login_enabled?
         %li= certificate_auth_link t('.login_certificate'), false
 

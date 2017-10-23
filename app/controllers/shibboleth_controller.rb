@@ -51,40 +51,38 @@ class ShibbolethController < ApplicationController
     else
       token = @shib.find_and_update_token
 
-      if params[:create] == "false"
-        # there's a token with a user associated
-        if token.present? && !token.user_with_disabled.nil?
-          user = token.user_with_disabled
-          if user.disabled
-            logger.info "Shibolleth: user local account is disabled, can't login"
-            flash[:error] = t('shibboleth.login.local_account_disabled')
-            redirect_to root_path
+      # there's a token with a user associated
+      if token.present? && !token.user_with_disabled.nil?
+        user = token.user_with_disabled
+        if user.disabled
+          logger.info "Shibolleth: user local account is disabled, can't login"
+          flash[:error] = t('shibboleth.login.local_account_disabled')
+          redirect_to root_path
+        else
+          # the user is not disabled, logs the user in
+          logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+          logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # set that the user signed in via shib
+          @shib.set_signed_in(user, token)
+          # Update user data with the latest version from the federation
+          @shib.update_user(token) if current_site.shib_update_users?
+
+          if token.user.active_for_authentication?
+            sign_in user
+            flash.keep # keep the message set before by #create_association
+            redirect_to after_sign_in_path_for(token.user)
           else
-            # the user is not disabled, logs the user in
-            logger.info "Shibboleth: logging in the user #{token.user.inspect}"
-            logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
-
-            # set that the user signed in via shib
-            @shib.set_signed_in(user, token)
-            # Update user data with the latest version from the federation
-            @shib.update_user(token) if current_site.shib_update_users?
-
-            if token.user.active_for_authentication?
-              sign_in user
-              flash.keep # keep the message set before by #create_association
-              redirect_to after_sign_in_path_for(token.user)
-            else
-              # go to the pending approval page without a flash msg, the page already has a msg
-              flash.clear
-              redirect_to my_approval_pending_path
-            end
+            # go to the pending approval page without a flash msg, the page already has a msg
+            flash.clear
+            redirect_to my_approval_pending_path
           end
-         else
-          token = @shib.find_or_create_token()
-          token.user = @shib.create_fake_user(token)
-          sign_in_guest(token.user.full_name, token.user.email)
-          redirect_to after_sign_in_path_for(token.user)
         end
+       else
+        token = @shib.find_or_create_token()
+        token.user = @shib.create_fake_user(token)
+        sign_in_guest(token.user.full_name, token.user.email)
+        redirect_to after_sign_in_path_for(token.user)
       end
     end
   end
@@ -118,7 +116,7 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
-    #test_data
+    test_data
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
     @shib.load_data(request.env, current_site.shib_env_variables)
@@ -250,40 +248,40 @@ class ShibbolethController < ApplicationController
   end
 
   # Adds fake test data to the environment to test shibboleth in development.
-  def test_data
-    if Rails.env == "development"
-      request.env["Shib-Application-ID"] = "default"
-      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
-      request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
-      request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
-      request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-      request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
-      request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
-      request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
-      request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
-      request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
-      request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
-      request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
-    end
-  end
   # def test_data
   #   if Rails.env == "development"
   #     request.env["Shib-Application-ID"] = "default"
-  #     request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500853"
+  #     request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
   #     request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
   #     request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
   #     request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
   #     request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-  #     request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia88"
-  #     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "julia.leticia.da.silva@mconf-institution.org"
-  #     request.env["Shib-inetOrgPerson-cn"] = "Julia111ss Let\xC3\xADcia da Silva"
-  #     request.env["Shib-inetOrgPerson-mail"] = "julia.leticia.da.silva111sss11@personal-email.org"
-  #     request.env["Shib-inetOrgPerson-sn"] = "Julia111sss da Silva"
+  #     request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
+  #     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
+  #     request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
+  #     request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
+  #     request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
   #     request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
   #     request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
   #     request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
   #   end
   # end
+  def test_data
+    if Rails.env == "development"
+      request.env["Shib-Application-ID"] = "default"
+      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500853"
+      request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
+      request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia88"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "julia.leticia.da.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-cn"] = "Julia111ss Let\xC3\xADcia da Silva"
+      request.env["Shib-inetOrgPerson-mail"] = "julia.leticia.da.silva111sss11@personal-email.org"
+      request.env["Shib-inetOrgPerson-sn"] = "Julia111sss da Silva"
+      request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
+      request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
+      request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
+    end
+  end
 end

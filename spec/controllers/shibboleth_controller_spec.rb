@@ -321,34 +321,12 @@ describe ShibbolethController do
         end
       end
 
-      context "renders the association page if the user doesn't have a token yet" do
-        before(:each) { get :login }
-        it { should render_template('associate') }
-        it { should render_with_layout('no_sidebar') }
-      end
-
-      context "if the flag shib_always_new_account is set" do
-        let(:attrs) {
-          attrs = FactoryGirl.attributes_for(:user)
-          attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
-          attrs
-        }
-
-        before {
-          Site.current.update_attributes(:shib_always_new_account => true)
-          setup_shib(attrs[:profile_attributes][:full_name], attrs[:email], attrs[:email])
-        }
-
-        context "skips the association page" do
-          before(:each) { get :login }
-          it { should set_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
-          it { should redirect_to(shibboleth_path)}
-        end
-
-        context "calls #associate_with_new_account" do
-          let(:run_route) { get :login }
-          it_should_behave_like "a caller of #associate_with_new_account"
-        end
+      context "don't create a new account" do
+        it { expect { get :login, format: 'json', join_only: true }.not_to change{ User.count } }
+        it { expect { get :login, format: 'json', join_only: true }.not_to change{ ShibToken.count } }
+        it {
+          get :login, format: 'json', join_only: true
+          should redirect_to(my_home_path) }
       end
 
       context "user has a token and his local account is disabled" do
