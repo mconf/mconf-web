@@ -359,6 +359,8 @@ form {
   padding: 0 $m-site-horizontal-padding;
 
   .btn-navbar {
+    $imgsize: 42px;
+
     height: $m-navbar-btn-size;
     width: $m-navbar-btn-size;
     margin: 0 18px;
@@ -366,8 +368,11 @@ form {
     font-size: $m-font-big;
     @include border-radius($m-navbar-btn-size/2);
     background: $m-navbar-btn-bg;
-    margin: 23px 18px;
-    padding: 6px;
+    margin: ($m-navbar-height - $m-navbar-btn-size)/2 18px;
+    padding: ($m-navbar-btn-size - $imgsize) / 2;
+    float: left;
+
+    transition: all .3s ease-in-out;
 
     color: $m-navbar-btn-color;
     .icon-awesome {
@@ -380,12 +385,13 @@ form {
     }
 
     img {
-      width: 30px;
-      height: 30px;
+      width: $imgsize;
+      height: $imgsize;
     }
 
     &:hover {
       background: $m-navbar-btn-bg-hover;
+      transform: scale(1.05);
     }
   }
 
@@ -417,6 +423,10 @@ form {
       display: inline-block;
       border: 1px solid $m-logo-border;
       font-size: $m-font-big;
+
+      &.logo-initials {
+        padding: ($m-navbar-btn-size - $m-font-big)/2 0;
+      }
     }
 
     .username {
@@ -440,9 +450,8 @@ form {
 
   .navbar-chip {
     padding-left: 36px;
-    /* border-left: 1px solid $m-border-color-normal; */
     border-left: 1px solid #000;
-    margin: 23px 0;
+    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
   }
 }
 

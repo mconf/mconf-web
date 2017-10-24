@@ -43,6 +43,7 @@ body.my.home, body.my.activity, body.my.meetings {
         max-width: 70%;
         margin: 0 auto;
         line-height: 1.4;
+        font-size: $m-font-normal * $m-font-h1-multiplier;
       }
     }
   }

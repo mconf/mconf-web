@@ -33,8 +33,9 @@ $m-transparent: rgba(255,255,255,0);
 $m-site-bg-color: #f2f2f2;
 $m-site-content-bg-color: #fff;
 $m-color-primary: $m-green-mconf;
-$m-color-primary-light: lighten($m-green-mconf, 12);
-$m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
+$m-color-primary-hover: darken($m-color-primary, 5);
+$m-color-secondary: #337ab7;
+$m-color-secondary-hover: darken($m-color-secondary, 5);
 $m-focus-border-color: $m-color-secondary;
 $m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primary $m-color-secondary;
 $m-logo-bg: lighten($m-color-primary, 15);
@@ -159,10 +160,12 @@ $m-navbar-font-family: $m-font-family-h;
 $m-navbar-link-color: lighten($m-link-color, 15);
 $m-navbar-link-color-hover: lighten($m-navbar-link-color, 8);
 $m-navbar-link-color-active: $m-navbar-link-color;
-$m-navbar-height: 90px;
-$m-navbar-btn-size: 46px;
+$m-navbar-height: 120px;
+$m-navbar-btn-size: 64px;
+/* $m-navbar-height: 90px; */
+/* $m-navbar-btn-size: 46px; */
 $m-navbar-btn-bg: $m-color-primary;
-$m-navbar-btn-bg-hover: darken($m-color-primary, 5);
+$m-navbar-btn-bg-hover: $m-color-primary-hover;
 $m-navbar-btn-color: #fff;
 
 // for a light/white navbar:
@@ -245,10 +248,11 @@ $m-tooltip-arrow-color: $m-color-primary;
 /* $grid-gutter-width:         30px; */
 /* $grid-float-breakpoint:     768px; */
 
+
 /*
  * Customized variables for bootstrap
  */
-$brand-primary: $m-color-primary-light; //$m-color-primary; //$m-link-color; //#4589C4;//#2186DE;
+$brand-primary: lighten($m-green-mconf, 12);
 $border-radius-base: $m-border-radius-base;
 $border-radius-small: $m-border-radius-small;
 $border-radius-large: $m-border-radius-large;

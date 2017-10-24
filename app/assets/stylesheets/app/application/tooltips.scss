@@ -7,7 +7,6 @@
 
 .tooltip {
   z-index: $m-z-index-tooltip;
-  color: red;
 }
 
 .tooltip-inner {
@@ -17,4 +16,6 @@
   font-weight: normal;
 
   font-size: $m-font-normal;
+  padding: 6px 12px;
+  max-width: 300px;
 }

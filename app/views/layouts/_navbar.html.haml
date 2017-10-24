@@ -28,12 +28,18 @@
     - if user_signed_in?
       -# TODO: link, context based link and localization
       - room = current_user.bigbluebutton_room
+
       %li.navbar-conf-btn
-        = link_to join_bigbluebutton_room_path(room), class: "btn-navbar btn-play tooltipped webconf-join-link", title: t('.conference_play_tooltip') do
+        = link_to join_bigbluebutton_room_path(room), class: "btn-navbar tooltipped webconf-join-link", title: t('.conference_play_tooltip') do
           = icon_conference_play
         - if can?(:user_edit, room)
-          = link_to user_edit_bigbluebutton_room_path(room), class: "open-modal btn-navbar btn-config tooltipped", title: t('.conference_config_tooltip') do
+          = link_to user_edit_bigbluebutton_room_path(room), class: "btn-navbar open-modal tooltipped", title: t('.conference_config_tooltip') do
             = icon_options
+        - if can?(:create_meeting, room)
+          = link_to invitation_bigbluebutton_room_path(room), class: "btn-navbar open-modal tooltipped", title: t('.conference_invite_tooltip') do
+            = icon_invitation
+        = link_to my_meetings_path, class: "btn-navbar tooltipped", title: t('.conference_history_tooltip') do
+          = icon_invitation
 
       %li.navbar-chip.dropdown.last
         .dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
