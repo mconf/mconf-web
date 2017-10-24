@@ -697,6 +697,10 @@ pt-br:
         other_options: "Outras opções"
         register: "Criar uma nova conta"
         resend_confirmation_email: "Reenviar e-mail de confirmação"
+      social_login:
+        social_facebook: "Acessar com o Facebook"
+        social_google: "Acessar com o Google"
+        social_login: "Login Social"
     strategies:
       ldap_authenticatable:
         create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador"
@@ -1283,6 +1287,7 @@ pt-br:
       title: "Registrar"
     signup_form:
       register: "Registre-se"
+      register_local: "Criar uma conta no Mconf"
   remove: Remover
   reply: Responder
   reply_to: "Responder para:"
