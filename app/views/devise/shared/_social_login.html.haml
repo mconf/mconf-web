@@ -1,16 +1,16 @@
 #social-login-section
-  - if Site.current.social_login_enabled?
+  - if current_site.social_login_enabled?
     %h3= t('.social_login')
 
-  - if Site.current.social_login_enabled?("google")
+  - if current_site.social_login_enabled?("google")
     #google-login
       = link_to user_omniauth_authorize_path(:google_oauth2) do
         .icon
           = icon_google :class => "tooltipped", :title => t(".social_google")
         .info
           .login-text= t(".social_google")
-      
-  - if Site.current.social_login_enabled?("facebook")
+
+  - if current_site.social_login_enabled?("facebook")
     #facebook-login
       = link_to user_omniauth_authorize_path(:facebook) do
         .icon
