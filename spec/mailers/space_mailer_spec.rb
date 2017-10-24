@@ -177,7 +177,7 @@ describe SpaceMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([candidate.email]) }
       it("assigns @join_request") { mail_content(mail).should match(join_request.comment) }
       it("renders the link to accept the join request") {
-        url = space_join_requests_url(space, host: Site.current.domain)
+        url = admissions_space_join_requests_url(space, host: Site.current.domain)
         content = I18n.t('space_mailer.join_request_email.message.link', :url => url).html_safe
         mail_content(mail).should match(Regexp.escape(content))
       }
