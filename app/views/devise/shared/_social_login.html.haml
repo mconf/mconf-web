@@ -1,7 +1,8 @@
 #social-login-section
-  - if (Rails.application.config.omniauth_google_key.present? && Rails.application.config.omniauth_google_secret.present?) || (Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?)
+  - if current_site.social_login_enabled?
     %h3= t('.social_login')
-  - if Rails.application.config.omniauth_google_key.present? && Rails.application.config.omniauth_google_secret.present?
+
+  - if current_site.social_login_enabled?("google")
     #google-login
       = link_to user_omniauth_authorize_path(:google_oauth2) do
         .icon
@@ -9,7 +10,7 @@
         .info
           .login-text= t(".social_google")
 
-  - if Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?
+  - if current_site.social_login_enabled?("facebook")
     #facebook-login
       = link_to user_omniauth_authorize_path(:facebook) do
         .icon

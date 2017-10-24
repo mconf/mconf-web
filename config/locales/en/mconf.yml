@@ -690,8 +690,8 @@ en:
         register: "Create a new account"
         resend_confirmation_email: "Resend confirmation email"
       social_login:
-        social_facebook: "Login with Facebook Account"
-        social_google: "Login with Google Account"
+        social_facebook: "Login with Facebook"
+        social_google: "Login with Google"
         social_login: "Social Login"
     strategies:
       ldap_authenticatable:

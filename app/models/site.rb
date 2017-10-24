@@ -56,6 +56,18 @@ class Site < ActiveRecord::Base
     end
   end
 
+  def social_login_enabled?(method=nil)
+    if method == "google"
+      Rails.application.config.omniauth_google_key.present? && Rails.application.config.omniauth_google_secret.present?
+    elsif method == "facebook"
+      Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?
+    elsif method.nil?
+      social_login_enabled?("google") || social_login_enabled?("facebook")
+    else
+      false
+    end
+  end
+
   private
 
   def validate_and_adjust_max_upload_size
