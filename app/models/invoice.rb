@@ -44,39 +44,56 @@ class Invoice < ActiveRecord::Base
   end
 
 
-  def get_stats_for_subscription
-    server = BigbluebuttonServer.default
-    server.api.send_api_request(:getStats, { meetingID: self.subscription.user.bigbluebutton_room.meetingid })
+  def get_unique_users_for_invoice
+    # API CALL FOR GET_STATS
+      #server = BigbluebuttonServer.default
+      #server.api.send_api_request(:getStats, { meetingID: self.subscription.user.bigbluebutton_room.meetingid })
+
+    quantity = 0
+
+    user = self.subscription.user_id
+    date = Time.now.strftime("%Y-%m")
+
+    if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
+      CSV.foreach(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"), headers: true) do |row|
+        quantity = row["total"]
+      end
+    end
+
+    quantity
   end
 
   def update_unique_user_qty
-    get_stats = get_stats_for_subscription
-    begin
-      if get_stats[:messageKey].present?
-        logger.info "There are still no stats for this customer"
-      elsif get_stats[:stats].present?
-        all_meetings = get_stats[:stats][:meeting]
-        # Make it an array if it is not
-        all_meetings = [all_meetings] unless all_meetings.is_a?(Array)
-        # Reject all recordings older than the beginning of last month
-        this_month = all_meetings.reject { |meet| (meet[:epochStartTime].to_i/1000) < (due_date.at_beginning_of_month.last_month.to_i) }
-        # Reject all recordings that happened in the new month
-        this_month = this_month.reject { |meet| (meet[:epochStartTime].to_i/1000) > (due_date.at_end_of_month.last_month.to_i) }
-        # Get all users in the defined interval
-        list_users = this_month.map { |meeting| meeting[:participants][:participant] }.flatten.map { |participant| participant[:userName] }
-        # We must replace uniq with the name deduplicator algorithm
-        unique_user = list_users.uniq
-        unique_total = unique_user.count
+    unique_total = get_unique_users_for_invoice
+    update_attributes(user_qty: unique_total)
 
-        update_attributes(user_qty: unique_total)
-      else
-        logger.error "get_stats API call has failed"
-        raise "get_stats error"
-      end
-    rescue BigBlueButton::BigBlueButtonException
-      logger.error "get_stats API call has failed"
-      raise "get_stats error"
-    end
+    # USING API WE CURRENTLY HAD TO RESTRICT THE TIMESPAN MANUALLY
+    # begin
+    #   if get_stats[:messageKey].present?
+    #     logger.info "There are still no stats for this customer"
+    #   elsif get_stats[:stats].present?
+    #     all_meetings = get_stats[:stats][:meeting]
+    #     # Make it an array if it is not
+    #     all_meetings = [all_meetings] unless all_meetings.is_a?(Array)
+    #     # Reject all recordings older than the beginning of last month
+    #     this_month = all_meetings.reject { |meet| (meet[:epochStartTime].to_i/1000) < (due_date.at_beginning_of_month.last_month.to_i) }
+    #     # Reject all recordings that happened in the new month
+    #     this_month = this_month.reject { |meet| (meet[:epochStartTime].to_i/1000) > (due_date.at_end_of_month.last_month.to_i) }
+    #     # Get all users in the defined interval
+    #     list_users = this_month.map { |meeting| meeting[:participants][:participant] }.flatten.map { |participant| participant[:userName] }
+    #     # We must replace uniq with the name deduplicator algorithm
+    #     unique_user = list_users.uniq
+    #     unique_total = unique_user.count
+
+    #     update_attributes(user_qty: unique_total)
+    #   else
+    #     logger.error "get_stats API call has failed"
+    #     raise "get_stats error"
+    #   end
+    # rescue BigBlueButton::BigBlueButtonException
+    #   logger.error "get_stats API call has failed"
+    #   raise "get_stats error"
+    # end
   end
 
   def post_invoice_to_ops

@@ -12,8 +12,8 @@ class InvoiceCreateUpdateWorker < BaseWorker
   end
 
   def self.invoices_create
-    Subscriptions.find_each do |sub|
-      if sub.user.trial_ended?
+    Subscription.find_each do |subscription|
+      if true #sub.user.trial_ended?
         # There is one and it is for this month
         if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
           subscription.invoices.last.update_unique_user_qty
