@@ -237,6 +237,7 @@
 
 @mixin navbar-lists {
   font-size: $m-navbar-font;
+  line-height: 1;
 
   > ul {
     list-style-type: none;
@@ -265,7 +266,8 @@
       }
 
       &.active a {
-        font-weight: bold;
+        /* font-weight: bold; */
+        border-bottom: 4px solid $m-color-primary-hover;
       }
     }
   }

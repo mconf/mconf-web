@@ -56,9 +56,9 @@
 
     - else
       - if current_site.local_auth_enabled? || current_site.ldap_enabled?
-        %li.last= link_to t('.login'), main_app.login_path
+        %li{ sessions_menu_select_if(:login) }= link_to t('.login'), main_app.login_path
       - if current_site.registration_enabled?
-        %li= link_to t('.register'), main_app.register_path
+        %li{ sessions_menu_select_if(:register) }= link_to t('.register'), main_app.register_path
 
 -# - if content_for?(:navbar_menu)
 -#   #navbar-menu

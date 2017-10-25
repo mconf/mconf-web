@@ -241,4 +241,22 @@ module ApplicationHelper
     # user_signed_in?
     false
   end
+
+  # Stores the current tab in the sessions for spaces
+  def sessions_menu_at(tab)
+    @sessions_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the menu for sessions
+  def sessions_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @sessions_menu_tab == tab ?
+      options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
+  # Returns whether the selected menu is `tab`
+  def sessions_menu_is(tab)
+    @sessions_menu_tab == tab
+  end
 end
