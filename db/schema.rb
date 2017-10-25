@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018195744) do
+ActiveRecord::Schema.define(version: 20171025131033) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 20171018195744) do
     t.integer  "user_qty"
     t.integer  "days_consumed"
     t.float    "invoice_value",       limit: 24
+    t.boolean  "notified"
   end
 
   create_table "join_requests", force: true do |t|
