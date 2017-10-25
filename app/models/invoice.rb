@@ -147,8 +147,11 @@ class Invoice < ActiveRecord::Base
       quantity: self.user_qty
     }
 
-    # test for 700 users
-    self.update_attributes(user_qty: 500)
+    ########################################
+    # test for 500 users                   #
+    # self.update_attributes(user_qty: 500)#
+    ########################################
+
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
       if self.user_qty >= discount[:users] && !result[:discounts].has_key?(:users)
@@ -164,9 +167,11 @@ class Invoice < ActiveRecord::Base
       result[:discounts][:days] = self.days_consumed /  Rails.application.config.base_month_days
     end
 
-    #test for 15 days usage:
-    self.days_consumed = 20
-    result[:discounts][:days] = 20.0/30.0
+    ########################################
+    #test for 15 days usage:               #
+    #self.days_consumed = 20               #
+    #result[:discounts][:days] = 20.0/30.0 #
+    ########################################
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users
