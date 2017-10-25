@@ -123,6 +123,11 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def check_for_posted_invoices
+    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
+    ops_invoice
+  end
+
   def generate_consumed_days(action)
     if action == "create"
       consumed = DateTime.now.day >= Rails.application.config.base_month_days ? nil : (Rails.application.config.base_month_days - DateTime.now.day)

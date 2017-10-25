@@ -10,23 +10,23 @@
     %td.invoice-value-col
       -# Move this formatting to a helper, prices are save in cents and must be parsed
       = sprintf('R$ %.2f', invoice.invoice_value/100)
-    %td.invoice-status-col
-      - status = invoice.flag_invoice_status
-      - if status == 'local'
-        .label.label-default
-          = t('.local')
-      - if status == 'pending'
-        .label.label-warning
-          = t('.pending')
-      - if status == 'canceled'
-        .label.label-default
-          = t('.canceled')
-      - if status == 'paid'
-        .label.label-success
-          = t('.paid')
-      - if status == 'expired'
-        .label.label-danger
-          = t('.expired')
+    -#%td.invoice-status-col
+    -#  - status = invoice.flag_invoice_status
+    -#  - if status == 'local'
+    -#    .label.label-default
+    -#      = t('.local')
+    -#  - if status == 'pending'
+    -#    .label.label-warning
+    -#      = t('.pending')
+    -#  - if status == 'canceled'
+    -#    .label.label-default
+    -#      = t('.canceled')
+    -#  - if status == 'paid'
+    -#    .label.label-success
+    -#      = t('.paid')
+    -#  - if status == 'expired'
+    -#    .label.label-danger
+    -#      = t('.expired')
     %td.invoice-pay-col
       - if invoice.invoice_url.present?
         = link_to invoice.invoice_url do

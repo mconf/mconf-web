@@ -26,6 +26,11 @@ module Mconf
       subscription.save
     end
 
+    def self.get_invoice_items(subscription_id)
+      subscription = ::Iugu::Subscription.fetch(subscription_id)
+      subscription.subitems
+    end
+
     # Upon changing/destroying subscription we will also destroy the customer
     def self.destroy_subscription(subscription_id)
       subscription = ::Iugu::Subscription.fetch(subscription_id)

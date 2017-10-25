@@ -12,12 +12,13 @@ class InvoicePostWorker < BaseWorker
   end
 
   def self.invoices_post
-    #Invoice.where(flag_invoice_status: ['local', 'paid']) do |inv|
-      # if local or pending then we can still post or update the subitem, else we will never change it.
-      # possible flag values include local, pending, canceled, paid, expired.
-
-      # this worker is going to be the one that updates the status flag, therefore even if it will not post an invoice
-      # it still might update the status locally
-    #end
+    # possible flag values include local, pending, canceled, paid, expired.
+    Invoice.where(flag_invoice_status: 'local') do |inv|
+      inv.post_invoice_to_ops
+      posted = inv.check_for_posted_invoices
+      if posted.frist.present?
+        update_attributes(flag_invoice_status: 'posted')
+      end
+    end
   end
 end

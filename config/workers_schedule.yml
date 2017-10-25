@@ -52,6 +52,12 @@ get_stats:
   class: BigbluebuttonGetStatsForRecentWorker
   description: "Gets stats for recent meetings that have no stats yet. Same as 'rake bigbluebutton_rails:meetings:get_stats' but for only a subset of meetings."
 
+post_subscription_invoice:
+  cron: "0 0 * * *" # daily at the beginning of the day
+  class: InvoicePostWorker
+  queue: high
+  description: "Posts the invoices to the OPS"
+
 update_recordings:
   every:
     - "30m"
