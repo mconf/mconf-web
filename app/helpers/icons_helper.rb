@@ -216,7 +216,7 @@ module IconsHelper
   end
 
   def icon_options(options={})
-    icon_constructor nil, "fa fa-gears icon-awesome icon-mconf-options", options
+    image_tag image_path('icons/config.svg'), class: 'icon-mconf-options'
   end
 
   def icon_join_request(options={})
@@ -232,7 +232,7 @@ module IconsHelper
   end
 
   def icon_invitation(options={})
-    icon_constructor nil, "fa fa-envelope-o icon-awesome icon-mconf-invitation", options
+    image_tag image_path('icons/conference-invite.svg'), class: 'icon-mconf-conference-invite'
   end
 
   def icon_list(options={})
@@ -277,8 +277,12 @@ module IconsHelper
     end
   end
 
-  def icon_conference_play(options={})
+  def icon_conference_play
     image_tag image_path('icons/conference-play.svg'), class: 'icon-mconf-conference-play'
+  end
+
+  def icon_conference_history
+    image_tag image_path('icons/conference-history.svg'), class: 'icon-mconf-history'
   end
 
   private
