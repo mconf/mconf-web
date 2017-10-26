@@ -84,3 +84,10 @@ trial_notifications:
   class: TrialNotificationsWorker
   queue: low
   description: "Send notifications about the trial period."
+
+invoice_report_notification:
+  every:
+    - "10s"
+  class: InvoiceNotificationReportWorker
+  queue: low
+  description: "Send notification with the invoice report attachment."

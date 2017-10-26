@@ -96,6 +96,10 @@ pt-br:
         join: "Sala"
         subject: "Assunto"
       subject: "Convite para webconferência"
+  invoice_mailer:
+    message:
+      header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
+    subject: "Fatura do mês."
   shared:
     invitation_email:
       message:

@@ -1,0 +1,22 @@
+@import "compass/css3";
+@import "definitions";
+
+.invoice_mailer.invoice_report_email {
+
+  .field {
+    display: block;
+    margin: 3px 0;
+
+    label {
+      color: $m-dark-gray;
+      display: inline;
+      font-weight: bold;
+      margin-right: 3px;
+    }
+
+    span {
+      display: inline;
+    }
+  }
+
+}

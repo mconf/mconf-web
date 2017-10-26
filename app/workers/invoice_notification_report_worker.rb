@@ -14,13 +14,19 @@ class InvoiceNotificationReportWorker < BaseWorker
   def self.invoices_report
     Invoice.where(notified: false).each do |invoice|
       date = invoice.due_date.strftime("%Y-%m")
-      user = invoice.subscription.user_id
+      user = invoice.subscription.user
+      user_id = invoice.subscription.user_id
       invoice_id = invoice.id
+      puts "entrou 222"
+      puts date
+      puts user_id
 
-      if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt"))
-        Resque.logger.info "Sending report invoice to #{user}."
-        InvoiceMailer.invoice_report_email(user, invoice_id).deliver
+      if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user_id}/report.txt"))
+        puts "entrou a"
+        Resque.logger.info "Sending report invoice to #{user.name}."
+        InvoiceMailer.invoice_report_email(user_id, invoice_id).deliver
       end
+      invoice.update_attributes(notified: true)
     end
   end
 end
