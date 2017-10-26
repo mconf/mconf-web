@@ -1158,7 +1158,7 @@ pt-br:
       no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
-      subtitle: "Reuniões e gravações passadas"
+      subtitle: "Histórico de webconferências e gravações"
       title: "Reuniões e gravações"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
@@ -1169,7 +1169,7 @@ pt-br:
         account: "Conta"
         activity: "Atividades recentes"
         home: "Início"
-        meetings: "Reuniões e gravações"
+        meetings: "Histórico"
         profile: "Perfil"
         webconf_room: "Minha sala de webconferência"
       spaces:
@@ -1391,6 +1391,7 @@ pt-br:
       delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
+      duration: "Duração"
       edit: "Editar esta gravação"
       manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
@@ -1401,9 +1402,12 @@ pt-br:
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
       publish: Publicar
+      published: "Visível"
+      status: "Status"
       unpublish: Ocultar
       unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
       unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
+      unpublished: "Não visível"
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"

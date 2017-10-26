@@ -357,18 +357,24 @@ form {
   text-align: center;
   @include mconf-clearfix;
   padding: 0 $m-site-horizontal-padding;
+  box-shadow: $m-navbar-box-shadow;
+
+  a:hover, a:focus { text-decoration: none; }
+
+  .navbar-conf-panel {
+    background: $m-navbar-conf-panel-bg;
+    padding: ($m-navbar-height - $m-navbar-btn-size)/2 18px;
+    margin: 0 36px;
+  }
 
   .btn-navbar {
     $imgsize: 42px;
 
     height: $m-navbar-btn-size;
     width: $m-navbar-btn-size;
-    margin: 0 18px;
     display: inline-block;
-    font-size: $m-font-big;
-    @include border-radius($m-navbar-btn-size/2);
+    @include border-radius($m-navbar-btn-size / 2);
     background: $m-navbar-btn-bg;
-    margin: ($m-navbar-height - $m-navbar-btn-size)/2 18px;
     padding: ($m-navbar-btn-size - $imgsize) / 2;
     float: left;
 
@@ -378,10 +384,6 @@ form {
     .icon-awesome {
       color: $m-navbar-btn-color;
       &:hover { color: $m-navbar-btn-color; }
-    }
-
-    &:last-child {
-      margin-right: 36px;
     }
 
     img {
@@ -395,7 +397,51 @@ form {
     }
   }
 
-  a:hover { text-decoration: none; }
+  .navbar-user-chip {
+    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
+
+    .navbar-user-toggle {
+      /* font-size: $m-font-medium; */
+      @include logo-container;
+
+      &:hover, &[aria-expanded=true] {
+        background: $m-navbar-font-highlight;
+      }
+
+      img, .logo-user {
+        height: $m-navbar-btn-size;
+        width: $m-navbar-btn-size;
+        float: none;
+        margin: 0 16px 0 0;
+        display: inline-block;
+        border: 1px solid $m-logo-border;
+        font-size: $m-font-big;
+
+        &.logo-initials {
+          padding: ($m-navbar-btn-size - $m-font-big)/2 0;
+        }
+      }
+
+      .username {
+        display: inline-block;
+        font-size: $m-font-big;
+        vertical-align: middle;
+      }
+    }
+
+    .navbar-user-menu {
+      margin: 10px 0 0 0;
+      @include border-radius(0);
+      @include box-shadow(none);
+
+      .observation {
+        padding: 3px 14px;
+        font-size: $m-font-small;
+        color: $m-font-color-gray;
+      }
+    }
+  }
+
 }
 
 #navbar-menu {
@@ -406,53 +452,6 @@ form {
 #navbar-right {
   @include navbar-lists;
   float: right;
-
-  .dropdown-user {
-    font-size: $m-font-medium;
-    @include logo-container;
-
-    &:hover, &[aria-expanded=true] {
-      background: $m-navbar-font-highlight;
-    }
-
-    img, .logo-user {
-      height: $m-navbar-btn-size;
-      width: $m-navbar-btn-size;
-      float: none;
-      margin: 0 16px 0 0;
-      display: inline-block;
-      border: 1px solid $m-logo-border;
-      font-size: $m-font-big;
-
-      &.logo-initials {
-        padding: ($m-navbar-btn-size - $m-font-big)/2 0;
-      }
-    }
-
-    .username {
-      display: inline-block;
-      font-size: $m-font-big;
-      vertical-align: middle;
-    }
-  }
-
-  .dropdown-menu {
-    margin: 10px 0 0 0;
-    @include border-radius(0);
-    @include box-shadow(none);
-
-    .observation {
-      padding: 3px 14px;
-      font-size: $m-font-small;
-      color: $m-font-color-gray;
-    }
-  }
-
-  .navbar-chip {
-    padding-left: 36px;
-    border-left: 1px solid #000;
-    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
-  }
 }
 
 #navbar-logo {

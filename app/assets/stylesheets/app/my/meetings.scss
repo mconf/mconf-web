@@ -6,6 +6,10 @@
 body.my.meetings {
 
   #my-meetings {
+    h1 {
+      margin-bottom: 90px;
+    }
+
     &.empty {
       h2 {
         font-weight: $m-font-weight-light;
@@ -16,11 +20,6 @@ body.my.meetings {
         margin-top: 200px;
       }
     }
-  }
-
-  .recordedonly-buttons {
-    float: right;
-    margin-bottom: 10px;
   }
 
 }

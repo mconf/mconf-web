@@ -1,10 +1,8 @@
 - page_title t('.title')
 
-- home_navbar_menu_at(:home) # TODO: home_navbar_menu
+- home_navbar_menu_at(:home)
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
-
--# TODO: #1087 make it look good for a new user (no recs, no meetings yet)
 
 - cls = @meetings.count <= 0 ? 'empty' : ''
 #user-meetings-recordings{ class: cls }

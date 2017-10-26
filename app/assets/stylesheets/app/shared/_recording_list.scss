@@ -12,4 +12,9 @@
   .rec-not-recorded-col {
     color: $m-font-color-gray;
   }
+
+  .recording-playback-links li {
+    float: left;
+    margin: 0 4px;
+  }
 }

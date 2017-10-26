@@ -100,10 +100,17 @@ Rails.application.config.to_prepare do
     scope :with_recording, -> {
       joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
     }
+
+    def duration
+      if self.finish_time.present?
+        self.finish_time - self.create_time
+      else
+        nil
+      end
+    end
   end
 
   BigbluebuttonRecording.class_eval do
-
     # Search recordings based on a list of words
     scope :search_by_terms, -> (words) {
       query = joins(:room).includes(:room)
@@ -149,5 +156,13 @@ Rails.application.config.to_prepare do
     scope :no_playback, -> {
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
+
+    def duration
+      if self.end_time.present?
+        self.end_time - self.start_time
+      else
+        nil
+      end
+    end
   end
 end

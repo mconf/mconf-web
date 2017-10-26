@@ -1152,7 +1152,7 @@ en:
       no_meetings_headline: "There are no recordings or conferences to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
-      subtitle: "Past meetings and recordings"
+      subtitle: "History of web conferences and recordings"
       title: "Meetings and recordings"
       update_meetings:
         error: "Error updating recordings, plase try again later"
@@ -1163,7 +1163,7 @@ en:
         account: "Account"
         activity: "Activity dashboard"
         home: "Home"
-        meetings: "Meetings and recordings"
+        meetings: "History"
         profile: "Profile"
         spaces: "My spaces"
         webconf_room: "My web conference room"
@@ -1363,6 +1363,7 @@ en:
       delete: "Remove recording"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
+      duration: "Duration"
       edit: "Edit this recording"
       manage: "Manage"
       no_description: "<no description specified>"
@@ -1373,9 +1374,12 @@ en:
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
       publish: Publish
+      published: Visible
+      status: "Status"
       unpublish: Unpublish
       unpublish_confirm: "Are you sure you want to remove this recording?"
       unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
+      unpublished: "Not visible"
     recording_playback:
       duration: "duration"
       playback: "Playback links"

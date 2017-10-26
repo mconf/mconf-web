@@ -29,7 +29,7 @@
       -# TODO: link, context based link and localization
       - room = current_user.bigbluebutton_room
 
-      %li.navbar-conf-btn
+      %li.navbar-conf-panel
         = link_to join_bigbluebutton_room_path(room), class: "btn-navbar tooltipped webconf-join-link", title: t('.conference_play_tooltip') do
           = icon_conference_play
         - if can?(:user_edit, room)
@@ -38,14 +38,12 @@
         - if can?(:create_meeting, room)
           = link_to invitation_bigbluebutton_room_path(room), class: "btn-navbar open-modal tooltipped", title: t('.conference_invite_tooltip') do
             = icon_invitation
-        = link_to my_meetings_path, class: "btn-navbar tooltipped", title: t('.conference_history_tooltip') do
-          = icon_conference_history
 
-      %li.navbar-chip.dropdown.last
-        .dropdown-user.dropdown-toggle{ data: { toggle: 'dropdown' } }
+      %li.navbar-user-chip.dropdown.last
+        .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '128', class: "logo-user")
           %span.username= current_user.profile.first_name
-        %ul.dropdown-menu.dropdown-menu-right
+        %ul.navbar-user-menu.dropdown-menu.dropdown-menu-right
           %li
             .observation= current_user.name
           %li.divider{ role: 'separator' }
@@ -60,6 +58,6 @@
       - if current_site.registration_enabled?
         %li{ sessions_menu_select_if(:register) }= link_to t('.register'), main_app.register_path
 
--# - if content_for?(:navbar_menu)
--#   #navbar-menu
--#     = yield :navbar_menu
+- if content_for?(:navbar_menu)
+  #navbar-menu
+    = yield :navbar_menu

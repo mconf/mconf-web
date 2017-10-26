@@ -281,8 +281,16 @@ module IconsHelper
     image_tag image_path('icons/conference-play.svg'), class: 'icon-mconf-conference-play'
   end
 
-  def icon_conference_history
-    image_tag image_path('icons/conference-history.svg'), class: 'icon-mconf-history'
+  def icon_published(options={})
+    icon_constructor nil, "fa fa-circle-o icon-awesome icon-mconf-published", options
+  end
+
+  def icon_unpublished(options={})
+    icon_constructor nil, "fa fa-circle-o icon-awesome icon-mconf-unpublished", options
+  end
+
+  def icon_options_dots(options={})
+    icon_constructor nil, "fa fa-ellipsis-v icon-awesome icon-mconf-options-dots", options
   end
 
   private

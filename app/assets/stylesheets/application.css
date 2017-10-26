@@ -26,7 +26,7 @@
  *= require ./app/application/resource_filter
  *= require ./app/application/logo_images
  *= require ./app/application/footer-pusher
- *= require ./app/application/lists
+ *= require ./app/application/lists-and-tables
  *= require ./app/application/select2
  *= require ./app/application/copy-clipboard
  *= require ./app/application/page-menu-js

@@ -248,56 +248,6 @@ label {
   @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
 }
 
-// Change the colors for table borders and bgs, make it more like our lists
-.table > thead > tr > th {
-  border-bottom-color: $m-border-color-medium;
-}
-.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
-  border-top-color: $m-border-color-medium;
-}
-.table-hover > tbody > tr:hover {
-  /* background-color: #f6f6f6; */
-  background: $m-site-content-bg-color;
-}
-table, .table {
-  thead th {
-    color: #4d4d4d;
-    font-size: $m-font-small;
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
-
-  tbody {
-    td:first-child {
-      border-top-left-radius: 14px;
-      border-bottom-left-radius: 14px;
-      /* border-left: 1px solid red; */
-    }
-
-    td:last-child {
-      border-top-right-radius: 14px;
-      border-bottom-right-radius: 14px;
-      /* border-right: 1px solid red; */
-    }
-
-    tr {
-      background: $m-site-content-bg-color;
-      border: solid 8px $m-site-bg-color;
-
-      &.fadeout {
-        opacity: 0.6;
-      }
-
-      td {
-        /* border-top: 1px solid red; */
-        /* border-bottom: 1px solid red; */
-        padding: 12px;
-        color: #848484;
-      }
-    }
-  }
-}
-
 // Make labels a bit bigger and add a new type of label
 .label {
   font-size: 85%;

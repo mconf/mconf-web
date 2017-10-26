@@ -258,6 +258,14 @@ a:not(.btn) .icon-awesome {
     font-size: 11px;
   }
 
+  &.icon-mconf-published {
+    color: $m-green;
+  }
+
+  &.icon-mconf-unpublished {
+    color: $m-red;
+  }
+
   &.icon-mconf-event {}
   &.icon-mconf-logout {}
   &.icon-mconf-logout {}
