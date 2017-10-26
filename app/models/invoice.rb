@@ -14,7 +14,11 @@ class Invoice < ActiveRecord::Base
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
-    sprintf('+ R$ %.2f', (cost * quantity)/100)
+    if (quantity > 15)
+      sprintf('+ R$ %.2f', (cost * quantity)/100)
+    else
+      sprintf('+ R$ %.2f', (cost * 15)/100)
+    end
   end
 
   def invoice_users_discount
@@ -120,6 +124,11 @@ class Invoice < ActiveRecord::Base
       else
         Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee', locale: self.subscription.user.locale), final_cost, quantity)
       end
+    end
+
+    posted = self.check_for_posted_invoices
+    if posted.first.present?
+      update_attributes(flag_invoice_status: 'posted')
     end
   end
 

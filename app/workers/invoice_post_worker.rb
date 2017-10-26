@@ -11,14 +11,11 @@ class InvoicePostWorker < BaseWorker
     invoices_post
   end
 
-  def self.invoices_post
+  def self.invoices_post(invoice_id)
     # possible flag values include local, pending, canceled, paid, expired.
-    Invoice.where(flag_invoice_status: 'local') do |inv|
+    inv = Invoice.find_by(id: invoice_id)
+    if inv.flag_invoice_status == 'local'
       inv.post_invoice_to_ops
-      posted = inv.check_for_posted_invoices
-      if posted.frist.present?
-        update_attributes(flag_invoice_status: 'posted')
-      end
     end
   end
 end
