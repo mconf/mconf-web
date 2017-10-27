@@ -1373,10 +1373,10 @@ en:
       started_at: "Date - Time"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
-      publish: Publish
-      published: Visible
+      publish: "Make it visible"
+      published: "Visible"
       status: "Status"
-      unpublish: Unpublish
+      unpublish: "Make it not visible"
       unpublish_confirm: "Are you sure you want to remove this recording?"
       unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
       unpublished: "Not visible"

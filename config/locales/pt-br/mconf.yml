@@ -1401,10 +1401,10 @@ pt-br:
       started_at: "Data - Hora"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
-      publish: Publicar
+      publish: "Tornar visível"
       published: "Visível"
       status: "Status"
-      unpublish: Ocultar
+      unpublish: "Ocultar"
       unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
       unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
       unpublished: "Não visível"

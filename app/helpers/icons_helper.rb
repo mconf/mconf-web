@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2015 Mconf.
 #
@@ -282,11 +283,11 @@ module IconsHelper
   end
 
   def icon_published(options={})
-    icon_constructor nil, "fa fa-circle-o icon-awesome icon-mconf-published", options
+    content_tag :span, "•", class: "icon-awesome icon-mconf-published"
   end
 
   def icon_unpublished(options={})
-    icon_constructor nil, "fa fa-circle-o icon-awesome icon-mconf-unpublished", options
+    content_tag :span, "•", class: "icon-awesome icon-mconf-unpublished"
   end
 
   def icon_options_dots(options={})

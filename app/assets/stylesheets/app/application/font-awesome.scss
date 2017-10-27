@@ -260,10 +260,14 @@ a:not(.btn) .icon-awesome {
 
   &.icon-mconf-published {
     color: $m-green;
+    font-size: $m-font-big;
+    line-height: 1;
   }
 
   &.icon-mconf-unpublished {
     color: $m-red;
+    font-size: $m-font-big;
+    line-height: 1;
   }
 
   &.icon-mconf-event {}

@@ -89,12 +89,12 @@
                       - if recording.published?
                         %li
                           = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            = icon_unpublish(alt: t('.unpublish'))
+                            -# = icon_unpublish(alt: t('.unpublish'))
                             = t('.unpublish')
                       - else
                         %li
                           = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            = icon_publish(alt: t('.publish'))
+                            -# = icon_publish(alt: t('.publish'))
                             = t('.publish')
 
               %td.rec-playback-col
