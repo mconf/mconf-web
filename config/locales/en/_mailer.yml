@@ -97,9 +97,11 @@ en:
         subject: "Subject"
       subject: "Web conference invitation"
   invoice_mailer:
-    message:
-      header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf chanel."
-    subject: "Invoice report."
+    invoice_report_email:
+      message:
+        header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
+        link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
+    subject: "Invoice report"
   shared:
     invitation_email:
       message:
