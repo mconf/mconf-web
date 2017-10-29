@@ -285,7 +285,7 @@
     @include transition(background-color 0.2s ease-in);
   }
 
-  .icon-awesome {
+  .icon {
     margin: 3px 3px 0px 0px;
     @include font-size($m-font-normal);
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);

@@ -9,10 +9,10 @@ class mconf.HelpIcon
 
   @bindIcon: (el) ->
     hintOptions = _.extend(mconf.Tooltip.defaultOptions, hintOptions)
-    unless $(el).children('.icon-mconf-help').length > 0
-      help = $("<i class='fa fa-question-circle-o icon-awesome icon-mconf-help'></i>")
+    unless $(el).children('.icon-help').length > 0
+      help = $("<i class='fa fa-question-circle-o icon icon-help'></i>")
       $(el).append(help)
-      $(el).find(".icon-mconf-help").tooltip(hintOptions)
+      $(el).find(".icon-help").tooltip(hintOptions)
 
   @bind: ->
     $(".form-group.has-hint > label").each ->

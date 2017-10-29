@@ -29,7 +29,7 @@ form {
 
 .webconf-join-group {
   // adjust make the 'fast start' icon
-  .btn i.icon-awesome {
+  .btn i.icon {
     float: none;
     margin: 0;
     padding: 0;
@@ -37,7 +37,7 @@ form {
     color: white;
     &:hover { color: white; }
   }
-  .btn-small i.icon-awesome {
+  .btn-small i.icon {
     @include font-size($m-font-small);
   }
 }
@@ -96,14 +96,14 @@ form {
       overflow: hidden;
 
       // usually seen inside .resource-visibility
-      .small > .icon-awesome {
+      .small > .icon {
         margin-right: 1px;
       }
 
       h2 {
         margin-bottom: 0;
 
-        .icon-awesome {
+        .icon {
           margin: 7px 6px 0 0;
         }
       }
@@ -375,20 +375,33 @@ form {
     display: inline-block;
     @include border-radius($m-navbar-btn-size / 2);
     background: $m-navbar-btn-bg;
-    padding: ($m-navbar-btn-size - $imgsize) / 2;
+    padding: (($m-navbar-btn-size - $imgsize) / 2);
     float: left;
-
     transition: all .3s ease-in-out;
-
     color: $m-navbar-btn-color;
-    .icon-awesome {
-      color: $m-navbar-btn-color;
-      &:hover { color: $m-navbar-btn-color; }
-    }
 
-    img {
-      width: $imgsize;
-      height: $imgsize;
+    .icon {
+      color: #fff;
+      font-size: $imgsize;
+      line-height: 1;
+      margin: 0;
+      width: 100%;
+      text-align: center;
+
+      &:hover { color: #fff; }
+
+      &.icon-options {
+        $imgsize: $imgsize - 4;
+        font-size: $imgsize;
+        /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
+        padding: 1px 0;
+      }
+      &.icon-conference-invite {
+        $imgsize: $imgsize - 10;
+        font-size: $imgsize;
+        /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
+        padding: 6px 0;
+      }
     }
 
     &:hover {
@@ -901,14 +914,14 @@ strong.highlight {
   display: block;
   font-weight: normal;
 
-  .icon-awesome {
+  .icon {
     float: none;
   }
 
   &.small {
     @include font-size($m-font-small);
 
-    .icon-awesome {
+    .icon {
       @include font-size($m-font-small);
       width: $m-font-small;
       height: $m-font-small;
@@ -1129,7 +1142,7 @@ strong.highlight {
   margin: 19px 24px 0 0;
   float: right;
 
-  i.icon-awesome {
+  i.icon {
     color: #fff;
     &:active, &:hover { color: #fff; }
   }

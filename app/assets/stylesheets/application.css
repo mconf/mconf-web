@@ -9,13 +9,14 @@
  *= require bootstrap/select2-bootstrap
  *= require bootstrap/bootstrap-datetimepicker
  *= require fineuploader
+ *= require mconf-web-font
  *
  * Note: the order matters!
  *= require ./app/application/typography
  *= require ./app/application/base
  * require ./app/application/sidebar-size
  * require ./app/application/set-max-width # disabled for now
- *= require ./app/application/font-awesome
+ *= require ./app/application/icons
  *= require ./app/application/simple_form
  *= require ./app/application/dropdown-menu
  *= require ./app/application/notifications

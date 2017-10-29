@@ -19,11 +19,11 @@ body.space_events.index {
       margin-top: 5px;
     }
 
-    .icon-awesome {
+    .icon {
       padding: 3px;
     }
 
-    .selected-ordering .icon-awesome {
+    .selected-ordering .icon {
       background: #666;
       color: white;
       @include border-radius($m-border-radius-base);

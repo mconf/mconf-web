@@ -7,6 +7,7 @@
 require 'version'
 
 module CustomBigbluebuttonPlaybackTypesHelper
+  include IconsHelper
 
   def link_to_playback(recording, playback, options={})
     link_params = { type: playback.format_type }
@@ -21,7 +22,11 @@ module CustomBigbluebuttonPlaybackTypesHelper
       link_params.merge!(name: name.parameterize('_'))
     end
 
-    playback_icon = image_tag image_path('icons/conference-play.svg'), class: 'icon-mconf-conference-play'
+    if playback.identifier == 'presentation_video'
+      playback_icon = icon_rec_download
+    else
+      playback_icon = icon_conference_play
+    end
 
     link_to playback_icon, play_bigbluebutton_recording_path(recording, link_params),
             options_for_tooltip(t("bigbluebutton_rails.playback_types.#{playback.identifier}.tip"), options)

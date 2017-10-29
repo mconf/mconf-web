@@ -22,7 +22,7 @@ module ApplicationHelper
         concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
         concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
         btn = content_tag :a, '', :class => 'input-group-addon btn clipboard-copy', 'data-clipboard-target': "##{id}" do
-          concat content_tag(:i, '', :class => "icon-awesome fa fa-paste")
+          concat content_tag(:i, '', :class => "icon fa fa-paste")
         end
         concat btn
       end
