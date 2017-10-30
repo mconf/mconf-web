@@ -56,7 +56,7 @@ class Invoice < ActiveRecord::Base
     quantity = 0
 
     user = self.subscription.user_id
-    date = Time.now.strftime("%Y-%m")
+    date = (self.due_date-1.month).strftime("%Y-%m")
 
     if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
       CSV.foreach(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"), headers: true) do |row|

@@ -50,7 +50,7 @@
       %h3= t('.unique_users')
       .field
         %span.field-title= t('.unique_users_list')
-        %span.field-value= invoice.flag_invoice_status
+        %span.field-value= link_to user_invoice_invoice_report_path(invoice.subscription.user_id, invoice.id)
 
         - if invoice.invoice_url.present?
           .pay-btn

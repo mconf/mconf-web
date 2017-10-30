@@ -98,7 +98,9 @@ Mconf::Application.routes.draw do
     end
 
     resource :subscription, only: [:edit, :update, :show, :destroy]
-    resources :invoices, only: [:show]
+    resources :invoices, only: [:show] do
+      get :invoice_report
+    end
   end
 
  resources :subscriptions, only: [:new, :create, :index]
