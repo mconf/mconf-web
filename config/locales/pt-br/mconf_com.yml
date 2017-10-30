@@ -50,6 +50,7 @@ pt-br:
       disabled_pay: "Fatura ainda não disponível"
       expired: "Expirado"
       local: "Em aberto"
+      no_value: "Valor ainda não calculado"
       not_ready: "Fatura não consolidada do mês atual"
       paid: "Pago"
       pending: "Pendente"
@@ -67,6 +68,7 @@ pt-br:
       invoice_data: "Dados da fatura"
       invoice_status: "Status da fatura"
       pay: "Pagar fatura"
+      report: "Baixar relatório completo"
       status:
         canceled: "Cancelado"
         expired: "Expirado"

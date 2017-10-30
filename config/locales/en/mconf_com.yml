@@ -47,6 +47,7 @@ en:
       disabled_pay: "Invoice not available yet"
       expired: "Expired"
       local: "Ongoing"
+      no_value: "Value not generated yet"
       not_ready: "Current month invoice"
       paid: "Paid"
       pending: "Pending"
@@ -64,6 +65,7 @@ en:
       invoice_data: "Invoice data"
       invoice_status: "Invoice status"
       pay: "Pay invoice"
+      report: "Download full report"
       status:
         canceled: "Canceled"
         expired: "Expired"

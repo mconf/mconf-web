@@ -50,7 +50,9 @@
       %h3= t('.unique_users')
       .field
         %span.field-title= t('.unique_users_list')
-        %span.field-value= link_to "Test Download", report_user_invoice_path(invoice.subscription.user_id, invoice.id)
+        %span.field-value
+          = link_to report_user_invoice_path(invoice.subscription.user_id, invoice.id), class: 'btn btn-default' do
+            = t('.report')
 
         - if invoice.invoice_url.present?
           .pay-btn

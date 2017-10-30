@@ -9,7 +9,10 @@
         = link_to t('.not_ready'), user_invoice_path(invoice.subscription.user.username, invoice.id)
     %td.invoice-value-col
       -# Move this formatting to a helper, prices are save in cents and must be parsed
-      = sprintf('R$ %.2f', invoice.invoice_value/100)
+      - if invoice.invoice_value.present?
+        = sprintf('R$ %.2f', invoice.invoice_value/100)
+      - else
+        = sprintf(t('.no_value'))
     -#%td.invoice-status-col
     -#  - status = invoice.flag_invoice_status
     -#  - if status == 'local'
