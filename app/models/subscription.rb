@@ -157,6 +157,8 @@ class Subscription < ActiveRecord::Base
                  }
 
       Subscription.find_by_subscription_token(params[:subscription_token]).present? ? puts("Subscription already imported") : Subscription.create(params)
+      trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
+      user.update_attributes(trial_expires_at: trial_expitaion)
     end
   end
 
