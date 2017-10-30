@@ -12,7 +12,7 @@
 // link colors
 $m-link-color: #2274A5;
 $m-link-color-hover: lighten($m-link-color, 15);
-$m-link-color-active: darken($m-link-color-hover, 20);
+$m-link-color-active: $m-link-color-hover; //darken($m-link-color-hover, 20);
 
 // standard colors
 $m-green-mconf: #004956; // #27535C
@@ -163,7 +163,7 @@ $m-navbar-link-color: lighten($m-link-color, 15);
 $m-navbar-link-color-hover: lighten($m-navbar-link-color, 8);
 $m-navbar-link-color-active: $m-navbar-link-color;
 $m-navbar-height: 100px;
-$m-navbar-btn-size: 64px;
+$m-navbar-btn-size: 58px;
 /* $m-navbar-height: 90px; */
 /* $m-navbar-btn-size: 46px; */
 $m-navbar-btn-bg: $m-color-primary;
@@ -292,6 +292,7 @@ $navbar-default-bg: $m-navbar-bg-color-dark;
 //$link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
+$link-color-active: $m-link-color-hover;
 $input-bg: $m-input-bg;
 $input-color: $m-input-color;
 $input-color-placeholder: $m-input-color-placeholder;

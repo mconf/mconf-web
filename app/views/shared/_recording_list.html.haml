@@ -40,7 +40,7 @@
           - cls = recording.present? ? '' : 'fadeout'
           %tr{ class: cls }
 
-            %td.meeting-date-col
+            %td.thin.meeting-date-col
               - m_create = format_date(meeting.create_time, :long)
               - if recording
                 - rec_create = format_date(recording.start_time, :long)
@@ -72,10 +72,10 @@
                 - else
                   %span= recording.description
 
-              %td.rec-duration-col
+              %td.thin.rec-duration-col
                 %span= distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false)
 
-              %td.rec-status-col
+              %td.thin.rec-status-col
                 - if recording.available?
                   .dropdown
                     .dropdown-toggle{ data: { toggle: "dropdown" } }
@@ -98,11 +98,9 @@
                             = t('.publish')
 
               %td.rec-playback-col
-                = render partial: 'shared/recording_playback', locals: { recording: recording }
-
-                .dropdown
-                  .dropdown-toggle{ data: { toggle: "dropdown" } }= icon_options_dots
-                  %ul.dropdown-menu
+                .dropdown.recording-playback-options
+                  %a.dropdown-toggle{ href: '#', data: { toggle: "dropdown" } }= icon_options_dots
+                  %ul.dropdown-menu.dropdown-menu-right
                     %li
                       - if recording.room.owner_type == "User"
                         - if can?(:user_edit, recording)
@@ -118,6 +116,7 @@
                       = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('.destroy_confirm') }, method: :delete do
                         = icon_delete(alt: t('.delete'))
                         = t('.delete')
+                = render partial: 'shared/recording_playback', locals: { recording: recording }
 
             - else
               %td.rec-description-col= t('.not_recorded')

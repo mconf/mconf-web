@@ -364,11 +364,11 @@ form {
   .navbar-conf-panel {
     background: $m-navbar-conf-panel-bg;
     padding: ($m-navbar-height - $m-navbar-btn-size)/2 18px;
-    margin: 0 36px;
+    margin: 0 28px;
   }
 
   .btn-navbar {
-    $imgsize: 42px;
+    $imgsize: 36px;
 
     height: $m-navbar-btn-size;
     width: $m-navbar-btn-size;

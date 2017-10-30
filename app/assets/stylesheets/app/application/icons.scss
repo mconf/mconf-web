@@ -13,10 +13,12 @@ $light-icon-color: #aaa;
   color: $default-icon-color;
 
   /* so all icons look similar even though they have different aspect ratios */
-  max-width: 13px;
-  width: 13px;
+  max-width: 16px;
+  width: 16px;
   text-align: center;
   display: inline-table;
+  font-size: 18px;
+  line-height: 1;
 }
 
 h2 .icon {
@@ -261,14 +263,16 @@ a:not(.btn) .icon {
 
   &.icon-published {
     color: $m-green;
-    font-size: $m-font-big;
-    line-height: 1;
+    font-size: $m-font-bigger;
+    line-height: 0.5;
+    vertical-align: middle;
   }
 
   &.icon-unpublished {
     color: $m-red;
-    font-size: $m-font-big;
-    line-height: 1;
+    font-size: $m-font-bigger;
+    line-height: 0.5;
+    vertical-align: middle;
   }
 
   &.icon-event {}

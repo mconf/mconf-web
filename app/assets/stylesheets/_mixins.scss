@@ -279,7 +279,7 @@
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
     padding: (($m-navbar-height - $m-navbar-font)/2 - 2) 0;
-    margin: 0 18px;
+    margin: 0 14px;
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color);
     @include transition(background-color 0.2s ease-in);

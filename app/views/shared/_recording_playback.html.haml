@@ -4,14 +4,14 @@
 
 - show_invisible = set_default(local_assigns, "show_invisible", false)
 
-- unless recording.available
+- if !recording.available
   %ul.recording-playback-links
     %li
       %span.thread-playback-processing= '...'
       = icon_help(t('.processing_tip'))
       -# %span.playback-unavailable= t('.unavailable')
       -# = icon_help(t('.unavailable_tip'))
-- else
+- elsif recording.published?
   - if recording.playback_formats.size > 0
     %ul.recording-playback-links
       - recording.playback_formats.ordered.each do |playback|

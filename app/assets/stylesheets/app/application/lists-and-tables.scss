@@ -87,7 +87,6 @@
 table, .table {
   margin: 0;
   font-size: $m-font-medium;
-  font-weight: $m-font-weight-light;
 
   thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
     font-size: $m-font-small;
@@ -107,6 +106,7 @@ table, .table {
       td {
         background: $m-site-bg-color;
         padding: 12px;
+        vertical-align: top;
       }
 
       &:last-child {
@@ -127,6 +127,10 @@ table, .table {
     border-top-right-radius: $m-border-radius-large;
     border-bottom-right-radius: $m-border-radius-large;
     /* border-right: 30px solid $m-site-content-bg-color; */
+                 }
+
+  td.thin {
+    font-weight: $m-font-weight-light;
   }
 }
 
