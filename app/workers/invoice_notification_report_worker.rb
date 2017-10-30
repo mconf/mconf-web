@@ -13,7 +13,7 @@ class InvoiceNotificationReportWorker < BaseWorker
 
   def self.invoices_report
     Invoice.where(notified: false).each do |invoice|
-      date = invoice.due_date.strftime("%Y-%m")
+      date = (invoice.due_date - 1.month).strftime("%Y-%m")
       user = invoice.subscription.user
       user_id = invoice.subscription.user_id
       invoice_id = invoice.id
