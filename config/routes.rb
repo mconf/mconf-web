@@ -99,12 +99,14 @@ Mconf::Application.routes.draw do
 
     resource :subscription, only: [:edit, :update, :show, :destroy]
     resources :invoices, only: [:show] do
-      get :invoice_report
+      member do
+        get :report
+      end
     end
   end
 
  resources :subscriptions, only: [:new, :create, :index]
- resources :invoices, only: [:index]
+ # resources :invoices, only: [:index]
   # routes specific for the current user
   scope 'home' do
     get '/', to: 'my#home', as: 'my_home'

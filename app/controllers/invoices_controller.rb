@@ -28,8 +28,8 @@ class InvoicesController < InheritedResources::Base
   def show
   end
 
-  def invoice_report
-    @invoice ||= Invoice.find_by(id: params[:id])
+  def report
+    @invoice ||= Invoice.find_by(id: params[:invoice_id])
     user = @invoice.subscription.user_id
     date = (@invoice.due_date-1.month).strftime("%Y-%m")
 
