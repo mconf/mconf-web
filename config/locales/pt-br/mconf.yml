@@ -601,7 +601,7 @@ pt-br:
       layout_empty_option: "<padrão>"
       private: "Privada"
       public: "Pública"
-      subtitle: "Configurações da sala de conferência web"
+      subtitle: "Personalizar sala"
       visibility: "Visibilidade"
   custom_bigbluebutton_recordings:
     edit:

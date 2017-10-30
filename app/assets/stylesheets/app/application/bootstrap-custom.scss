@@ -14,38 +14,6 @@
  * Customized styles
  */
 
-.modal .modal-header {
-  padding-top: 20px;
-
-  h1, h2, h3, h4, h5 {
-    margin: 0;
-  }
-}
-
-
-// override a few things in inputs that we can't do with variables only
-.form-control {
-  box-shadow: none;
-  padding: 12px;
-  height: 48px;
-
-  &:focus {
-    background: $m-input-focus-bg;
-  }
-}
-.has-error .form-control:focus {
-  box-shadow: none;
-}
-
-label {
-  font-weight: normal;
-  color: $m-font-strong;
-}
-
-/* Align the checkbox with the text beside it */
-.checkbox input[type='checkbox'] {
-  margin-top: 3px;
-}
 
 // the background on selected items in a pagination list is dark, so we have to make
 // the links bright
@@ -56,29 +24,6 @@ label {
     }
   }
 }
-
-// make the background of modals darker
-.modal-scrollable {
-  background: rgba(0,0,0,0.4);
-}
-.modal-open .modal {
-  background: none;
-}
-
-// for modals that don't open, show an error
-.modal .modal-error {
-  background: $m-alert-danger-font;
-  color: #fff;
-  @include font-size($m-font-double);
-  text-align: center;
-  padding: 40px;
-}
-
-// for some reason it stays on top of modals if not resetting the z-index
-.input-group .form-control {
-  z-index: auto;
-}
-
 
 /* .form-inline { */
 /*   padding: 0; */

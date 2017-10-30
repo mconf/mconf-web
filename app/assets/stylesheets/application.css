@@ -19,6 +19,7 @@
  *= require ./app/application/icons
  *= require ./app/application/simple_form
  *= require ./app/application/dropdown-menu
+ *= require ./app/application/modal
  *= require ./app/application/notifications
  *= require ./app/application/tooltips
  *= require ./app/application/tags

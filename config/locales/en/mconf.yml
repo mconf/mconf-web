@@ -593,7 +593,7 @@ en:
       layout_empty_option: "<default>"
       private: "Private"
       public: "Public"
-      subtitle: "Web conference room configurations"
+      subtitle: "Personalize your room"
       visibility: "Visibility"
   custom_bigbluebutton_recordings:
     edit:

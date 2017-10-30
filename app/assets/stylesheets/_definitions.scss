@@ -59,7 +59,7 @@ $m-font-h3-multiplier: 1.4;
 $m-font-h4-multiplier: 1.2;
 $m-font-h5-multiplier: 1;
 $m-font-h6-multiplier: 1;
-$m-font-weight-light: 300;
+$m-font-weight-thin: 300;
 $m-font-weight-normal: 400;
 $m-font-weight-bold: 700;
 $m-font-weight-bolder: 900;
@@ -312,6 +312,15 @@ $tooltip-bg: $m-tooltip-bg;
 $tooltip-opacity: $m-tooltip-opacity;
 $tooltip-arrow-width: $m-tooltip-arrow-width;
 $tooltip-arrow-color: $m-tooltip-arrow-color;
+$padding-base-vertical: 8px;
+$padding-base-horizontal: 16px;
+$padding-large-vertical: 12px;
+$padding-large-horizontal: 18px;
+$padding-small-vertical: 6px;
+$padding-small-horizontal: 12px;
+$font-size-base: $m-font-normal;
+$font-size-large: $m-font-big;
+$font-size-small: $m-font-small;
 
 // Themes: if using a theme, import it here!
 // @import "../themes/theme-name/stylesheets/variables";

@@ -53,7 +53,7 @@
     clear: both;
     padding-top: 16px;
     margin-top: 16px;
-    border-top: 1px solid $m-border-color-normal;
+    /* border-top: 1px solid $m-border-color-normal; */
     text-align: right;
 
     // wider space between form buttons and links
@@ -100,6 +100,11 @@
       text-align: right;
       padding-top: 6px;
     }
+  }
+
+  label {
+    font-size: $m-font-small;
+    font-weight: $m-font-weight-thin;
   }
 }
 
@@ -163,4 +168,29 @@
     // more confortable padding
     padding: 8px;
   }
+}
+
+// override a few things in inputs that we can't do with variables only
+.form-control {
+  box-shadow: none;
+  /* padding: 12px 18px; */
+  height: auto;
+  font-size: $m-font-medium;
+
+  &:focus {
+    background: $m-input-focus-bg;
+  }
+}
+.has-error .form-control:focus {
+  box-shadow: none;
+}
+
+/* label { */
+/*   font-weight: normal; */
+/*   color: $m-font-strong; */
+/* } */
+
+/* Align the checkbox with the text beside it */
+.checkbox input[type='checkbox'] {
+  margin-top: 3px;
 }

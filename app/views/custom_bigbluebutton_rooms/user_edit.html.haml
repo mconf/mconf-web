@@ -11,11 +11,11 @@
       = disable_autocomplete_for('bigbluebutton_room[name]')
       = f.input :name, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.name')
 
-      - if can?(:change_url, @room)
-        = disable_autocomplete_for('bigbluebutton_room[param]')
-        = f.input :param, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :vertical_input_group do
-          = content_tag :span, webconf_url_prefix, class: "input-group-addon"
-          = f.input_field :param, class: "form-control"
+      -# - if can?(:change_url, @room)
+      -#   = disable_autocomplete_for('bigbluebutton_room[param]')
+      -#   = f.input :param, :as => :string, :hint => t('simple_form.hints.user.bigbluebutton_room.url'), :wrapper => :vertical_input_group do
+      -#     = content_tag :span, webconf_url_prefix, class: "input-group-addon"
+      -#     = f.input_field :param, class: "form-control"
 
       .form-group.room-visibility
         = f.input :private, hint: t('simple_form.hints.user.bigbluebutton_room.private'), wrapper: :label_only, label: t('.visibility')
@@ -24,14 +24,14 @@
           .btn-group{ 'data-toggle': "buttons" }
 
             - cls = !@room.private ? 'active' : nil
-            %label.btn.btn-default{ class: cls, 'data-attr-value': '0' }
+            .btn.btn-default{ class: cls, 'data-attr-value': '0' }
               - checked = !@room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
               = icon_space_public
               = t('.public')
 
             - cls = @room.private ? 'active' : nil
-            %label.btn.btn-default{ class: cls, 'data-attr-value': '1' }
+            .btn.btn-default{ class: cls, 'data-attr-value': '1' }
               - checked = @room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
               = icon_space_private
@@ -39,13 +39,13 @@
 
           = f.input :attendee_key, as: :showable_password, label: false
 
+      = f.input :default_layout do
+        = f.select :default_layout, @room.available_layouts_for_select, { :include_blank => t('.layout_empty_option') }, { :class => "form-control" }
       - unless @room.dial_number.blank?
-        = f.input :dial_number, as: :string, disabled: true
+        -# = f.input :dial_number, as: :string, disabled: true
         - welcome_msg = t("bigbluebutton_rails.rooms.default_welcome_msg_dial_number", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")
       - else
         - welcome_msg = t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%")
       = f.input :welcome_msg, :as => :text, :hint => t('simple_form.hints.user.bigbluebutton_room.welcome_msg'), :placeholder => welcome_msg
-      = f.input :default_layout do
-        = f.select :default_layout, @room.available_layouts_for_select, { :include_blank => t('.layout_empty_option') }, { :class => "form-control" }
     .modal-footer.form-actions
       = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true
