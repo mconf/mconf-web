@@ -29,13 +29,13 @@ class InvoicesController < InheritedResources::Base
   end
 
   def report
-    @invoice ||= Invoice.find_by(id: params[:invoice_id])
+    @invoice ||= Invoice.find_by(id: params[:id])
     user = @invoice.subscription.user_id
     date = (@invoice.due_date-1.month).strftime("%Y-%m")
 
     if File.exists?(@invoice.report_txt_file_path)
       @file = @invoice.report_txt_file_path
-      send_file @file, :disposition => 'inline', :x_sendfile=>true
+      send_file @file, disposition: 'attachment', x_sendfile: true
     else
       nil
     end
