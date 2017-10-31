@@ -135,30 +135,40 @@ class Subscription < ActiveRecord::Base
   def self.import_ops_sub
     Mconf::Iugu.fetch_all_subscriptions.each do |subs|
       cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
-      user = User.find_by_email(cust.email)
-      plan = Plan.find_by_identifier(subs.plan_identifier)
+      user = User.find_by(email: cust.email)
+      plan = Plan.find_by(identifier: subs.plan_identifier)
 
-      params = {
-                 plan_token: plan.ops_token,
-                 user_id: user.id,
-                 subscription_token: subs.id,
-                 customer_token: cust.id,
-                 pay_day: subs.expires_at,
-                 cpf_cnpj: cust.cpf_cnpj,
-                 address: cust.street,
-                 additional_address_info: cust.complement,
-                 number: cust.number,
-                 zipcode: cust.zip_code,
-                 city: cust.city,
-                 province: cust.state,
-                 district: cust.district,
-                 country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
-                 integrator: false
-                 }
+      if user.present? && plan.present?
+        params = {
+                   plan_token: plan.ops_token,
+                   user_id: user.id,
+                   subscription_token: subs.id,
+                   customer_token: cust.id,
+                   pay_day: subs.expires_at,
+                   cpf_cnpj: cust.cpf_cnpj,
+                   address: cust.street,
+                   additional_address_info: cust.complement,
+                   number: cust.number,
+                   zipcode: cust.zip_code,
+                   city: cust.city,
+                   province: cust.state,
+                   district: cust.district,
+                   country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
+                   integrator: false
+                   }
 
-      Subscription.find_by_subscription_token(params[:subscription_token]).present? ? puts("Subscription already imported") : Subscription.create(params)
-      trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
-      user.update_attributes(trial_expires_at: trial_expitaion)
+        if Subscription.find_by_subscription_token(params[:subscription_token]).present?
+          puts("Subscription already imported")
+        else
+          Subscription.create(params)
+          trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
+          user.update_attributes(trial_expires_at: trial_expitaion)
+        end
+      else
+        # Should we create a new user based on the subscription?
+        # If it's the missing plan, must import plans and then try again
+        puts "Failed to match this subscription to a user or plan"
+      end
     end
   end
 

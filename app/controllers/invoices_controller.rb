@@ -33,8 +33,8 @@ class InvoicesController < InheritedResources::Base
     user = @invoice.subscription.user_id
     date = (@invoice.due_date-1.month).strftime("%Y-%m")
 
-    if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt"))
-      @file = File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt")
+    if File.exists?(@invoice.report_txt_file_path)
+      @file = @invoice.report_txt_file_path
       send_file @file, :disposition => 'inline', :x_sendfile=>true
     else
       nil

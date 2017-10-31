@@ -9,6 +9,18 @@ class Invoice < ActiveRecord::Base
 
   validates :subscription_id, :presence => true
 
+  def report_txt_file_path
+    user = self.subscription.user_id
+    date = (self.due_date-1.month).strftime("%Y-%m")
+    (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt"))
+  end
+
+  def csv_file_path
+    user = self.subscription.user_id
+    date = (self.due_date-1.month).strftime("%Y-%m")
+    (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
+  end
+
   # Processed prices for the invoice
   def invoice_full_price
     data = generate_invoice_value
@@ -55,11 +67,8 @@ class Invoice < ActiveRecord::Base
 
     quantity = 0
 
-    user = self.subscription.user_id
-    date = (self.due_date-1.month).strftime("%Y-%m")
-
-    if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
-      CSV.foreach(File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"), headers: true) do |row|
+    if File.exists?(self.csv_file_path)
+      CSV.foreach(self.csv_file_path, headers: true) do |row|
         quantity = row["total"]
       end
     end
