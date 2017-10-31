@@ -11,8 +11,9 @@ FactoryGirl.define do
     f.invoice_url "http://#{Forgery::Internet.domain_name}"
     f.flag_invoice_status "pending"
     f.due_date (Time.now + 29.days).strftime('%Y/%m/%d')
-    f.user_qty rand(6999)
-    f.invoice_value nil
-    f.days_consumed rand(0..20)
+    f.user_qty SecureRandom.random_number(6999)
+    f.days_consumed SecureRandom.random_number(29)
+    f.invoice_value SecureRandom.random_number(79)
+    f.notified false
   end
 end
