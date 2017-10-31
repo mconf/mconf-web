@@ -18,7 +18,7 @@ class InvoiceNotificationReportWorker < BaseWorker
       user_id = invoice.subscription.user_id
       invoice_id = invoice.id
 
-      if File.exists?(File.join(Rails.root, "private/subscriptions/#{date}/#{user_id}/report.txt"))
+      if File.exists?(invoice.report_txt_file_path)
         Resque.logger.info "Sending report invoice to #{user.name}."
         InvoiceMailer.invoice_report_email(user_id, invoice_id, date).deliver
         invoice.update_attributes(notified: true)
