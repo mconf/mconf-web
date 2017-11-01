@@ -4,13 +4,13 @@
 - is_candidate = candidate == current_user
 - is_other = !is_introducer && !is_candidate
 
-= content_for :sidebar do
-  - if @space.users.include?(current_user)
-    - spaces_menu_at :users
-    = render 'spaces/sidebar', space: @space, full: false
-  - else
-    - home_navbar_menu_at(:spaces)
-    = render "my/sidebar", user_spaces: @user_spaces
+-# = content_for :sidebar do
+-#   - if @space.users.include?(current_user)
+-#     - spaces_menu_at :users
+-#     = render 'spaces/sidebar', space: @space, full: false
+-#   - else
+-#     - home_navbar_menu_at(:spaces)
+-#     = render "my/sidebar", user_spaces: @user_spaces
 
 #join-requests-show
 
