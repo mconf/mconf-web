@@ -1,0 +1,53 @@
+@import "definitions";
+
+.modal .modal-header {
+  padding-top: 20px 15px;
+  border-bottom: 0;
+
+  h1, h2, h3, h4, h5 {
+    margin: 0;
+    font-size: $m-font-normal * $m-font-h2-multiplier;
+    font-weight: $m-font-weight-bold;
+    line-height: 1;
+  }
+
+  .close {
+    background: darken($m-site-bg-color, 20);
+    border: 1px solid #000;
+    padding: 0;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+  }
+}
+
+// make the background of modals darker
+.modal-scrollable {
+  background: rgba(0,0,0,0.4);
+}
+.modal-open .modal {
+  background: none;
+}
+
+// for modals that don't open, show an error
+.modal .modal-error {
+  background: $m-alert-danger-font;
+  color: #fff;
+  @include font-size($m-font-double);
+  text-align: center;
+  padding: 40px;
+}
+
+// for some reason it stays on top of modals if not resetting the z-index
+.input-group .form-control {
+  z-index: auto;
+}
+
+.modal-content {
+  background: $m-site-bg-color;
+}
+
+.modal-footer {
+  border-top: 0;
+}

@@ -79,13 +79,13 @@ pt-br:
           success: "Formato de reprodução atualizado com sucesso."
       presentation:
         name: "Reproduzir"
-        tip: "Reproduz a gravação em uma página HTML5. Não é feito download da gravação para o seu computador, portanto exige internet para a gravação ser reproduzida."
+        tip: "Reproduzir gravação online"
       presentation_export:
         name: "Download HTML"
-        tip: "Faz o download de uma página HTML que você pode usar para reproduzir a gravação usando o seu navegador mesmo sem conexão com a internet. Tem todas as características da versão online, mas com a vantagem de não exigir internet. Atualmente só pode ser reproduzida usando o navegador Firefox."
+        tip: "Download da gravação para reprodução offline"
       presentation_video:
         name: "Download"
-        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação offline e/ou compartilhar esta gravação em outros sites."
+        tip: "Download da gravação em arquivo de vídeo"
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"

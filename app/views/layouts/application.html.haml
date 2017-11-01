@@ -11,15 +11,19 @@
     = stylesheet_link_tag "application", :media => "screen, projection"
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,700,900", rel: "stylesheet"
     = yield :stylesheets
 
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
-    #site
+    - if sidenav_visible?
+      #sidenav= render :partial => "layouts/sidenav"
 
+    - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
+    #site{ class: cls_sidenav }
       #navbar
-        = render :partial => 'layouts/application_navbar'
+        = render :partial => 'layouts/navbar'
 
       - if content_for?(:content_notification)
         #content-notification

@@ -4,24 +4,24 @@
 
 - show_invisible = set_default(local_assigns, "show_invisible", false)
 
-- unless recording.available
+- if !recording.available
   %ul.recording-playback-links
     %li
-      %span.playback-unavailable= t('.unavailable')
-      = icon_help(t('.unavailable_tip'))
-- else
+      %span.thread-playback-processing= '...'
+      = icon_help(t('.processing_tip'))
+      -# %span.playback-unavailable= t('.unavailable')
+      -# = icon_help(t('.unavailable_tip'))
+- elsif recording.published?
   - if recording.playback_formats.size > 0
     %ul.recording-playback-links
-      - show_duration = true
       - recording.playback_formats.ordered.each do |playback|
         - if playback.visible? || show_invisible
           %li
             = link_to_playback(recording, playback)
-            - if show_duration
-              %span.small-date= "(#{t('.duration')}: #{distance_of_time(playback.length_in_secs)})"
-              - show_duration = false
   - else
     %ul.recording-playback-links
       %li
-        %span.thread-playback-processing= t('.processing_dots')
+        %span.thread-playback-processing= '...'
         = icon_help(t('.processing_tip'))
+        -# %span.thread-playback-processing= t('.processing_dots')
+        -# = icon_help(t('.processing_tip'))

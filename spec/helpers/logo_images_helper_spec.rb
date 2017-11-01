@@ -21,13 +21,13 @@ describe LogoImagesHelper do
     it { validate_logo_size('129').should eq('128') }
   end
 
-  describe "#empty_logo_image" do
-    it { empty_logo_image(:user, :size => '32').should eq(image_tag('default_logos/32/user.png', class: 'empty-logo')) }
-    it { empty_logo_image(:space, :size => '32').should eq(image_tag('default_logos/32/space.png', class: 'empty-logo')) }
-    it { empty_logo_image(:space, :size => '128').should eq(image_tag('default_logos/128/space.png', class: 'empty-logo')) }
+  describe "#logo_initials" do
+    it { logo_initials(:user, :size => '32').should eq(image_tag('default_logos/32/user.png', class: 'empty-logo')) }
+    it { logo_initials(:space, :size => '32').should eq(image_tag('default_logos/32/space.png', class: 'empty-logo')) }
+    it { logo_initials(:space, :size => '128').should eq(image_tag('default_logos/128/space.png', class: 'empty-logo')) }
 
     # invalid logo sizes
-    it { empty_logo_image(:user, :size => '10').should eq(image_tag('default_logos/128/user.png', class: 'empty-logo')) }
+    it { logo_initials(:user, :size => '10').should eq(image_tag('default_logos/128/user.png', class: 'empty-logo')) }
   end
 
   describe "#logo_image" do

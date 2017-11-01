@@ -4,7 +4,7 @@
     - if post.author
       = link_logo_image(post.author, :size => '32', :title => post.author.name, :url => user_path(post.author), :class => "logo logo-user")
     - else
-      = empty_logo_image(:user, :size => '32', :class => "logo logo-user")
+      = logo_initials(:user, :size => '32', :class => "logo logo-user")
   .thread-content
     .thread-title
       = icon_comment t('post.home.one', :space => post.space.name)

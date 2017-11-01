@@ -6,30 +6,33 @@
 @import "compass/typography/links";
 @import "definitions";
 
-$default-icon-color: #888; /* lighten($m-green-logo, 10); */
+$default-icon-color: #888; /* lighten($m-green-mconf, 10); */
 $light-icon-color: #aaa;
 
-.icon-awesome {
+.icon {
   color: $default-icon-color;
 
   /* so all icons look similar even though they have different aspect ratios */
-  max-width: 13px;
-  width: 13px;
+  max-width: 16px;
+  width: 16px;
   text-align: center;
+  display: inline-table;
+  font-size: 18px;
+  line-height: 1;
 }
 
-h2 .icon-awesome {
+h2 .icon {
   @include font-size(16px);
   width: 16px;
   height: 16px;
 }
 
-h3 .icon-awesome {
+h3 .icon {
   // make it smaller than the default font size for normal text
   @include font-size($m-font-normal);
 }
 
-a:not(.btn) .icon-awesome {
+a:not(.btn) .icon {
   @include link-colors($default-icon-color, $m-link-color-hover, $m-link-color-active);
   cursor: pointer;
   text-decoration: none;
@@ -41,12 +44,12 @@ a:not(.btn) .icon-awesome {
 /* The position of the icons changes slightly depending on where it is placed.
    Below we set this positions. */
 
-/* .btn .icon-awesome { */
+/* .btn .icon { */
 /*   float: none; */
 /* } */
 
 /* .btn.btn-small, .btn.btn-mini { */
-/*   .icon-awesome { */
+/*   .icon { */
 /*     float: none; */
 /*     @include font-size(12px); */
 /*     width: 12px; */
@@ -55,23 +58,23 @@ a:not(.btn) .icon-awesome {
 /* } */
 
 /* #sidebar, .sidebar { */
-/*   .content-block-header .icon-awesome { float: right; } */
+/*   .content-block-header .icon { float: right; } */
 /* } */
 
 /* Icons in the title of sections everywhere in the website */
 #content-middle .content-block-header {
-  .icon-awesome {
+  .icon {
     float: left;
     margin: 5px 5px 0px 4px;
   }
-  .btn .icon-awesome {
+  .btn .icon {
     margin: 3px 5px 0 0;
   }
 }
 
 /* Force the color on all icons when inside components that have a darker background. */
 /* .btn-primary, .btn-success, .btn-danger, .btn-error, .btn-info { */
-/*   .icon-awesome { */
+/*   .icon { */
 /*     color: white; */
 /*   } */
 /* } */
@@ -80,13 +83,13 @@ a:not(.btn) .icon-awesome {
 .label {
   &.label-default, &.label-primary, &.label-warning, &.label-info,
   &.label-success, &.label-danger {
-    .icon-awesome {
+    .icon {
       color: #fff;
     }
   }
 
   &.label-flat {
-    .icon-awesome {
+    .icon {
       color: $m-font-color-gray;
     }
   }
@@ -101,119 +104,119 @@ a:not(.btn) .icon-awesome {
 
 /* Include this scope here so the colors have precedence over the other
    styles specified above. */
-.icon-awesome, a:not(.btn) .icon-awesome {
+.icon, a:not(.btn) .icon {
 
-  &.icon-mconf-rss {
+  &.icon-rss {
     color: $m-orange;
   }
 
-  &.icon-mconf-help, &.icon-mconf-info {
+  &.icon-help, &.icon-info {
     color: $m-blue;
   }
 
-  &.icon-mconf-waiting-moderation {
+  &.icon-waiting-moderation {
     color: #e9b624;
   }
 
-  &.icon-mconf-superuser {
+  &.icon-superuser {
     color: $m-red;
   }
 
-  &.icon-mconf-in-progress, .icon-mconf-loading {
+  &.icon-in-progress, .icon-loading {
     color: $m-green;
   }
 
-  &.icon-mconf-delete {
+  &.icon-delete {
     color: $m-red;
   }
 
-  &.icon-mconf-disable {
+  &.icon-disable {
     color: $m-red;
   }
 
-  &.icon-mconf-confirm {
+  &.icon-confirm {
     color: $m-green;
   }
 
-  &.icon-mconf-enable {
+  &.icon-enable {
     color: $m-green;
   }
 
-  &.icon-mconf-new-tag {
+  &.icon-new-tag {
     color: $m-yellow;
   }
 
-  &.icon-mconf-download {
+  &.icon-download {
     color: $m-blue;
   }
 
-  &.icon-mconf-message {
+  &.icon-message {
     &.active {
       color: $m-alert-danger-font;
     }
   }
 
-  &.icon-mconf-mobile {
+  &.icon-mobile {
     color: $m-blue;
   }
 
-  &.icon-mconf-success {
+  &.icon-success {
     color: $m-green;
   }
 
-  &.icon-mconf-error {
+  &.icon-error {
     color: $m-red;
   }
 
-  &.icon-mconf-recording {
+  &.icon-recording {
     color: $light-icon-color;
   }
 
-  &.icon-mconf-meeting {
+  &.icon-meeting {
     color: $light-icon-color;
   }
 
-  &.icon-mconf-space-public {
+  &.icon-space-public {
     color: $m-alert-success-font;
   }
 
-  &.icon-mconf-space-private {
+  &.icon-space-private {
     color: $m-alert-danger-font;
   }
 
-  &.icon-mconf-approve {
+  &.icon-approve {
     color: $m-alert-success-font;
   }
 
-  &.icon-mconf-disapprove {
+  &.icon-disapprove {
     color: $m-yellow;
   }
 
-  &.icon-mconf-is-member {
+  &.icon-is-member {
     color: $m-yellow;
   }
 
-  &.icon-mconf-confirm-user {
+  &.icon-confirm-user {
     color: $m-green;
   }
 
-  &.icon-mconf-participant-confirmed {
+  &.icon-participant-confirmed {
     color: $green;
   }
 
-  &.icon-mconf-participant-not-confirmed {
+  &.icon-participant-not-confirmed {
     color: $red;
   }
 
-  &.icon-mconf-publish {
+  &.icon-publish {
     color: $m-green;
   }
 
-  &.icon-mconf-unpublish {
+  &.icon-unpublish {
     color: $m-yellow;
   }
 
-  &.icon-mconf-list {
+  &.icon-list {
     &.enabled {
       color: #888;
     }
@@ -222,40 +225,54 @@ a:not(.btn) .icon-awesome {
     }
   }
 
-  &.icon-mconf-can-rec {
+  &.icon-can-rec {
     color: $red;
   }
 
-  &.icon-mconf-cant-rec {
+  &.icon-cant-rec {
     color: #CCC;
   }
 
-  &.icon-mconf-show {
+  &.icon-show {
     color: $m-green;
   }
 
-  &.icon-mconf-hide {
+  &.icon-hide {
     color: $m-yellow;
   }
 
-  &.icon-mconf-stack-superuser {
+  &.icon-stack-superuser {
     font-size: 18px;
     position: relative;
     left: 2px;
     color: $m-red;
   }
 
-  &.icon-mconf-stack-user {
+  &.icon-stack-user {
     font-size: 18px;
     position: relative;
     left: 4px;
   }
 
-  &.icon-mconf-stack-plus {
+  &.icon-stack-plus {
     position: absolute;
     right: 7px;
     bottom: 5px;
     font-size: 11px;
+  }
+
+  &.icon-published {
+    color: $m-green;
+    font-size: $m-font-bigger;
+    line-height: 0.5;
+    vertical-align: middle;
+  }
+
+  &.icon-unpublished {
+    color: $m-red;
+    font-size: $m-font-bigger;
+    line-height: 0.5;
+    vertical-align: middle;
   }
 
   &.icon-mconf-pay {
@@ -273,28 +290,29 @@ a:not(.btn) .icon-awesome {
   &.icon-mconf-facebook {
     color: #FFF;
   }
-  &.icon-mconf-event {}
-  &.icon-mconf-logout {}
-  &.icon-mconf-logout {}
-  &.icon-mconf-account {}
-  &.icon-mconf-activity {}
-  &.icon-mconf-comment {}
-  &.icon-mconf-comments {}
-  &.icon-mconf-attachment {}
-  &.icon-mconf-users {}
-  &.icon-mconf-edit {}
-  &.icon-mconf-share {}
-  &.icon-mconf-order-number-asc {}
-  &.icon-mconf-order-number-desc {}
-  &.icon-mconf-check {}
-  &.icon-mconf-picture {}
-  &.icon-mconf-playback {}
-  &.icon-mconf-date {}
-  &.icon-mconf-user {}
-  &.icon-mconf-space {}
-  &.icon-mconf-profile {}
-  &.icon-mconf-options {}
-  &.icon-mconf-join-request {}
-  &.icon-mconf-list {}
-  &.icon-mconf-externa-link {}
+
+  &.icon-event {}
+  &.icon-logout {}
+  &.icon-logout {}
+  &.icon-account {}
+  &.icon-activity {}
+  &.icon-comment {}
+  &.icon-comments {}
+  &.icon-attachment {}
+  &.icon-users {}
+  &.icon-edit {}
+  &.icon-share {}
+  &.icon-order-number-asc {}
+  &.icon-order-number-desc {}
+  &.icon-check {}
+  &.icon-picture {}
+  &.icon-playback {}
+  &.icon-date {}
+  &.icon-user {}
+  &.icon-space {}
+  &.icon-profile {}
+  &.icon-options {}
+  &.icon-join-request {}
+  &.icon-list {}
+  &.icon-externa-link {}
 }

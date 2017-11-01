@@ -20,14 +20,14 @@ module MyHelper
   end
 
   # Stores the current tab in the user's home menu
-  def home_sidebar_menu_at(tab)
-    @home_sidebar_menu_tab = tab
+  def home_navbar_menu_at(tab)
+    @home_navbar_menu_tab = tab
   end
 
   # Selects the tab if it is the current tab in the user's home menu
-  def home_sidebar_menu_select_if(tab, options={})
+  def home_navbar_menu_select_if(tab, options={})
     old_class = options[:class] || ''
-    @home_sidebar_menu_tab == tab ?
+    @home_navbar_menu_tab == tab ?
     options.update({ :class => "#{old_class} active" }) :
       options
   end

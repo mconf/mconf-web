@@ -1,8 +1,11 @@
 = page_title t('.title')
+- sessions_menu_at :login
 
-%h1= t('.form_title')
+#headline
+  %h1= t('.headline')
+  %h3= t('.headline2')
 
 #login-wrapper
-  = render "devise/shared/social_login"
-  = render partial: 'login_form'
-  = render "devise/shared/links"
+  %h1= t('.title')
+  = render partial: 'sessions/login_form'
+  = render partial: 'shared/social_login'

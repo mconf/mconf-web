@@ -1,0 +1,43 @@
+@import "compass/typography";
+@import "definitions";
+
+#social-login-btns {
+  border-top: 1px solid $m-border-color-normal;
+  text-align: center;
+  margin-top: 70px;
+
+  .social-call {
+    background: $m-site-bg-color;
+    padding: 0 25px;
+    font-size: $m-font-big;
+    display: inline-block;
+    transform: translateY(-$m-font-big + 3px);
+    font-weight: 200;
+  }
+
+  .social-btns {
+    .btn {
+      width: 48%;
+      font-size: $m-font-big;
+      padding: 12px;
+    }
+
+    .btn-google {
+      float: left;
+      background: #df4a32;
+      &:hover {
+        background: #e56e5b;
+        border-color: #e56e5b;
+      }
+    }
+
+    .btn-facebook {
+      float: right;
+      background: #3b579d;
+      &:hover {
+        background: #6279b1;
+        border-color: #6279b1;
+      }
+    }
+  }
+}

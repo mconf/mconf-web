@@ -129,7 +129,14 @@ en:
       post:
         text: "Message body"
         title: "Message title"
+      profile:
+        full_name: 'Full name'
       user:
         edit:
           current_password: "Leave it blank if you don't want to change it"
+        email: 'Email'
+        login: "Email or username"
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+        username: 'Room identifier'
     # labels:

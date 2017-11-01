@@ -336,6 +336,10 @@ class Space < ActiveRecord::Base
     logo_image.height < 100 || logo_image.width < 100
   end
 
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
+  end
+
   private
 
   # Creates the webconf room after the space is created

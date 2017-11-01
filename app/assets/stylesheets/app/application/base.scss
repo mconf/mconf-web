@@ -29,7 +29,7 @@ form {
 
 .webconf-join-group {
   // adjust make the 'fast start' icon
-  .btn i.icon-awesome {
+  .btn i.icon {
     float: none;
     margin: 0;
     padding: 0;
@@ -37,7 +37,7 @@ form {
     color: white;
     &:hover { color: white; }
   }
-  .btn-small i.icon-awesome {
+  .btn-small i.icon {
     @include font-size($m-font-small);
   }
 }
@@ -96,14 +96,14 @@ form {
       overflow: hidden;
 
       // usually seen inside .resource-visibility
-      .small > .icon-awesome {
+      .small > .icon {
         margin-right: 1px;
       }
 
       h2 {
         margin-bottom: 0;
 
-        .icon-awesome {
+        .icon {
           margin: 7px 6px 0 0;
         }
       }
@@ -250,6 +250,95 @@ form {
 // Here we define the basic styles used in all layouts
 //
 
+#sidenav {
+  background: $m-sidenav-bg-color;
+  border-right: 1px solid $m-sidenav-border;
+  padding: $m-sidenav-padding;
+  box-shadow: $m-sidenav-box-shadow;
+
+  width: $m-sidenav-width-md;
+  position: fixed;
+  left: 0;
+  right: auto;
+  top: 0;
+  bottom: 0;
+  z-index: $m-z-index-sidenav;
+
+  > .logo {
+    margin: 0 auto;
+    display: block;
+    background: image-url('logos/mconf-color-transp.png') no-repeat left top;
+    background-size: 87px 45px;
+    width: 87px;
+    height: 45px;
+
+    // - logo height - sidenav top padding
+    margin-top: ($m-navbar-height - 45px)/2 - 20px;
+    margin-bottom: ($m-navbar-height - 45px)/2;
+    @include mconf-clearfix;
+  }
+
+  .search {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    input {
+      width: 100%;
+      text-align: center;
+
+      // TODO: move to common input definitions
+      border-radius: 4px;
+      border: none;
+      background-color: #f4f0f3; //#c9b8c3;
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.15;
+      //color: desaturate($m-color-primary, 10%); //#784d68;
+    }
+  }
+
+  .subtitle {
+    font-size: $m-font-small; //13px; //$m-font-normal;
+    line-height: 1;
+    padding: 8px 0 16px 0;
+    color: #784d68;
+    opacity: 0.7;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .space-item {
+    @include mconf-clearfix;
+    margin: 16px 0;
+    @include text-truncate;
+    white-space: nowrap;
+
+    > .logo {
+      @include logo-container(53px);
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    > .name {
+      display: inline-block;
+      color: #2c0b23;
+      font-size: $m-font-medium;
+      opacity: 0.4;
+      margin: 8px 0;
+
+      &:hover {
+        text-decoration: none;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+#site.with-sidenav, #footer.with-sidenav {
+  padding-left: $m-sidenav-width-md;
+}
+
 #site {
   @include container-fixed; // without params this is actually a .container-fluid
   padding: 0;
@@ -260,89 +349,134 @@ form {
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
   border-bottom: $m-navbar-border-width solid $m-navbar-border-color;
-  font-family: $m-font-family-h;
+  font-family: $m-navbar-font-family;
   position: relative;
   height: $m-navbar-height;
-
   color: $m-navbar-font-color;
-  @include font-size($m-navbar-font);
+  font-size: $m-navbar-font;
   text-align: center;
   @include mconf-clearfix;
-  padding: 0 15px;
+  padding: 0 $m-site-horizontal-padding;
+  box-shadow: $m-navbar-box-shadow;
 
-  a:hover { text-decoration: none; }
+  a:hover, a:focus { text-decoration: none; }
+
+  .navbar-conf-panel {
+    background: $m-navbar-conf-panel-bg;
+    padding: ($m-navbar-height - $m-navbar-btn-size)/2 18px;
+    margin: 0 28px;
+  }
+
+  .btn-navbar {
+    $imgsize: 36px;
+
+    height: $m-navbar-btn-size;
+    width: $m-navbar-btn-size;
+    display: inline-block;
+    @include border-radius($m-navbar-btn-size / 2);
+    background: $m-navbar-btn-bg;
+    padding: (($m-navbar-btn-size - $imgsize) / 2);
+    float: left;
+    transition: all .3s ease-in-out;
+    color: $m-navbar-btn-color;
+
+    .icon {
+      color: #fff;
+      font-size: $imgsize;
+      line-height: 1;
+      margin: 0;
+      width: 100%;
+      text-align: center;
+
+      &:hover { color: #fff; }
+
+      &.icon-options {
+        $imgsize: $imgsize - 4;
+        font-size: $imgsize;
+        /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
+        padding: 1px 0;
+      }
+      &.icon-conference-invite {
+        $imgsize: $imgsize - 10;
+        font-size: $imgsize;
+        /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
+        padding: 6px 0;
+      }
+    }
+
+    &:hover {
+      background: $m-navbar-btn-bg-hover;
+      transform: scale(1.05);
+    }
+  }
+
+  .navbar-user-chip {
+    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
+
+    .navbar-user-toggle {
+      /* font-size: $m-font-medium; */
+      @include logo-container;
+
+      &:hover, &[aria-expanded=true] {
+        background: $m-navbar-font-highlight;
+      }
+
+      img, .logo-user {
+        height: $m-navbar-btn-size;
+        width: $m-navbar-btn-size;
+        float: none;
+        margin: 0 16px 0 0;
+        display: inline-block;
+        border: 1px solid $m-logo-border;
+        font-size: $m-font-big;
+
+        &.logo-initials {
+          padding: ($m-navbar-btn-size - $m-font-big)/2 0;
+        }
+      }
+
+      .username {
+        display: inline-block;
+        font-size: $m-font-big;
+        vertical-align: middle;
+      }
+    }
+
+    .navbar-user-menu {
+      margin: 10px 0 0 0;
+      @include border-radius(0);
+      @include box-shadow(none);
+
+      .observation {
+        padding: 3px 14px;
+        font-size: $m-font-small;
+        color: $m-font-color-gray;
+      }
+    }
+  }
+
 }
 
-#navbar-left {
+#navbar-menu {
   @include navbar-lists;
-  position: absolute;
-  left: 16px;
-  right: auto;
-  top: 0;
-  bottom: auto;
+  float: right;
 }
 
 #navbar-right {
   @include navbar-lists;
-  position: absolute;
-  left: auto;
-  right: 16px;
-  top: 0;
-  bottom: auto;
-
-  .dropdown-user.chip {
-    margin: 0;
-    font-size: $m-font-normal;
-    font-weight: normal;
-    border: none;
-    color: $m-navbar-font-color;
-    @include transition(background-color 0.2s ease-in);
-    @include text-truncate;
-    max-width: 350px;
-    padding: 13px 16px 11px 26px;
-    @include border-radius(0);
-    height: auto;
-    overflow: inherit;
-
-    &:hover, &[aria-expanded=true] {
-      background: $m-navbar-font-highlight;
-    }
-
-    .caret {
-      margin-top: -2px;
-      margin-left: 2px;
-    }
-
-    img {
-      float: left;
-      margin: 0 8px 0 -12px;
-      border: 1px solid lighten($m-navbar-bg-color-dark, 5);
-      background: lighten($m-navbar-bg-color-dark, 5);
-    }
-  }
-
-  .dropdown-menu {
-    margin: 0;
-    @include border-radius(0);
-    @include box-shadow(none);
-
-    .observation {
-      padding: 3px 14px;
-      font-size: $m-font-small;
-      color: $m-font-color-gray;
-    }
-  }
+  float: right;
 }
 
 #navbar-logo {
   white-space: nowrap;
-  margin: 15px 0 5px 0;
+  margin: ($m-navbar-height - 60px)/2 0;
   @include mconf-clearfix;
   display: inline-block;
-  background: image-url('logos/mconf-white-transp.png') no-repeat left top;
-  background-size: 54px 28px;
-  width: 54px;
-  height: 28px;
+  background: image-url('logos/mconf-color-transp.png') no-repeat left top;
+  background-size: 116px 60px;
+  width: 116px;
+  height: 60px;
+  float: left;
 }
 
 #content-notification {
@@ -359,10 +493,14 @@ form {
 }
 
 #footer, #footer-mconf {
+  /* TODO TEMPORARY */
+  display:none;
+
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
   padding: 10px 0 0 0;
+  /* padding-left: $m-sidenav-width-md; */
 
   clear: both;
   color: $m-footer-font-color;
@@ -375,7 +513,7 @@ form {
   }
 
   #footer-left {
-    padding: 4px 16px;
+    padding: 0 16px;
     text-align: left;
     @include make-xs-column(7);
   }
@@ -383,7 +521,7 @@ form {
   #footer-right {
     text-align: right;
     @include make-xs-column(5);
-    padding: 8px 16px;
+    padding: 0 16px;
 
     ul { float: right; }
   }
@@ -602,7 +740,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 26px;
+  padding: 60px $m-site-horizontal-padding;
 
   h3 {
     margin-bottom: 8px;
@@ -652,22 +790,12 @@ form {
   }
 
   .content-block-footer {
-    text-align: right;
+    text-align: center;
     clear: both;
     margin: 5px 0;
-
-    &.content-block-footer-fancy {
-      //background: $m-light-gray;
-      border-top: 1px solid darken($m-light-gray, 5);
-    }
-
-    .content-block-footer-middle {
-      margin-top: -12px;
-      background: white;
-      float: right;
-      padding: 0 10px;
-    }
-
+    color: $m-color-primary;
+    font-weight: bold;
+    font-size: $m-font-small;
     @include content-block-pagination;
   }
 
@@ -803,14 +931,14 @@ strong.highlight {
   display: block;
   font-weight: normal;
 
-  .icon-awesome {
+  .icon {
     float: none;
   }
 
   &.small {
     @include font-size($m-font-small);
 
-    .icon-awesome {
+    .icon {
       @include font-size($m-font-small);
       width: $m-font-small;
       height: $m-font-small;
@@ -893,11 +1021,11 @@ strong.highlight {
   border-radius: 16px;
   border: 1px solid #e4e4e4;
 
-  img {
-    float: right;
-    margin: 0 -12px 0 8px;
+  .logo-user, img {
     height: 32px;
     width: 32px;
+    float: right;
+    margin: 0 -12px 0 8px;
     border-radius: 50%;
   }
 }
@@ -1031,7 +1159,7 @@ strong.highlight {
   margin: 19px 24px 0 0;
   float: right;
 
-  i.icon-awesome {
+  i.icon {
     color: #fff;
     &:active, &:hover { color: #fff; }
   }
@@ -1206,6 +1334,36 @@ strong.highlight {
   &.resource-space {
     img {
       max-width: 300px;
+    }
+  }
+}
+
+.card-container {
+  @include make-row;
+
+  .card-item {
+    float: left;
+    @include size(30%, 300px);
+    margin: 1.6666%;
+    background: $m-site-content-bg-color;
+    padding: 20px;
+    @include border-radius($m-border-radius-large);
+    text-align: center;
+
+    > .logo {
+      @include logo-container(84px);
+      @include mconf-clearfix;
+      margin: 10px auto;
+    }
+
+    .card-item-title {
+      font-size: $m-font-medium;
+      color: $m-color-primary;
+      margin: 8px 0;
+    }
+
+    .card-tags {
+      margin: 10px 0;
     }
   }
 }

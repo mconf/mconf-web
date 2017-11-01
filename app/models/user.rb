@@ -227,10 +227,6 @@ class User < ActiveRecord::Base
     [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
-  def self.usage_collection
-    [[("-"), {disabled: "disabled"}],[I18n.t(".user.usage.education"), "Education"], [I18n.t(".user.usage.meetings"), "Meetings"], [I18n.t(".user.usage.other"), "Other"]]
-  end
-
   # Builds a guest user based on the e-mail
   def self.build_guest opt={}
     return nil if opt[:email].blank?
@@ -395,6 +391,10 @@ class User < ActiveRecord::Base
 
   def enabled_parse(value)
     enabled_rename(value)
+  end
+
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
   end
 
   def trial_ending_soon_email

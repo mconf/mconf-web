@@ -849,7 +849,7 @@ bg:
   last_week: "Миналата седмица"
   latest_events: "Последни събития"
   layouts:
-    application_navbar:
+    navbar:
       events: "Събития"
       inbox: "Входящи"
       login: "Вход"
@@ -1483,7 +1483,7 @@ bg:
         updating: "Обновяване на списъка с вашите записите..."
     show:
       events_now: "Текущи събития!"
-    sidebar:
+    navbar_menu:
       upcoming_events: "Предстоящи събития"
       webconference:
         attendees:

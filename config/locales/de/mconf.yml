@@ -824,7 +824,7 @@ de:
   last_week: "Letzte Woche"
   latest_events: "Letzte Ereignisse"
   layouts:
-    application_navbar:
+    navbar:
       events: "Events"
       inbox: "Posteingang"
       login: "Anmelden"
@@ -1442,7 +1442,7 @@ de:
         updating: "Aktualisiere die Liste Ihrer Aufzeichnungen..."
     show:
       events_now: "Gerade stattfindende Events!"
-    sidebar:
+    navbar_menu:
       upcoming_events: "Zukünftige Events"
       webconference:
         attendees:

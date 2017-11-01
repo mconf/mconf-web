@@ -1,0 +1,21 @@
+-# Locals:
+-#   space (Space): the target model
+
+.card-item.card-item-space{ name: space.permalink }
+
+  = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
+
+  .card-item-title
+    = link_to space.name, space_path(space)
+
+  - if space.public
+    .resource-visibility.small.public
+      = icon_space_public
+      = t('.members', :count => space.users.size)
+  - else
+    .resource-visibility.small.private
+      = icon_space_private
+      = t('.members', :count => space.users.size)
+
+  .card-tags
+    = render :partial => "spaces/space_tags", :locals => { :space => space }

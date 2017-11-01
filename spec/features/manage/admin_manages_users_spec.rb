@@ -31,22 +31,22 @@ describe 'Admin manages users' do
       before { visit manage_users_path }
 
       it { should have_css '#users-list .list-item', count: 8 }
-      it { should have_css '#users-list .icon-mconf-delete', count: 7 }
+      it { should have_css '#users-list .icon-delete', count: 7 }
 
       it { should have_css '#users-list .list-item.list-item-disabled', count: 2 }
-      it { should have_css '#users-list .icon-mconf-enable', count: 2 }
+      it { should have_css '#users-list .icon-enable', count: 2 }
 
-      it { should have_css '#users-list .icon-mconf-confirm-user', count: 2 }
-      it { should have_css '#users-list .icon-mconf-approve', count: 2 }
-      it { should have_css '#users-list .icon-mconf-superuser', count: 2 }
-      it { should have_css '#users-list .icon-mconf-cant-rec', :count => 5 }
-      it { should have_css '#users-list .icon-mconf-can-rec', :count => 1 }
+      it { should have_css '#users-list .icon-confirm-user', count: 2 }
+      it { should have_css '#users-list .icon-approve', count: 2 }
+      it { should have_css '#users-list .icon-superuser', count: 2 }
+      it { should have_css '#users-list .icon-cant-rec', :count => 5 }
+      it { should have_css '#users-list .icon-can-rec', :count => 1 }
 
       context 'elements for the signed in user' do
         let(:user) { admin }
         subject { page.find("#user-#{user.permalink}") }
 
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_edit_user(user) }
@@ -64,7 +64,7 @@ describe 'Admin manages users' do
         let(:user) { @user1 }
         subject { page.find("#user-#{user.permalink}") }
 
-        it { should have_css '.icon-mconf-user' }
+        it { should have_css '.icon-user' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.normal_user') }
         it { should have_link_to_edit_user(user) }
@@ -80,7 +80,7 @@ describe 'Admin manages users' do
         let(:user) { @user_admin }
         subject { page.find("#user-#{user.permalink}") }
 
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_edit_user(user) }
@@ -178,7 +178,7 @@ describe 'Admin manages users' do
         it { should have_link_to_edit_user(user) }
         it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disapprove_user(user) }
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_disable_user(user) }
       end
@@ -213,8 +213,8 @@ describe 'Admin manages users' do
         before { visit manage_users_path }
 
         it { should have_css '.list-item', count: 7 }
-        it { should have_css '.icon-mconf-delete', count: 6 }
-        it { should have_css '.icon-mconf-superuser', count: 1 }
+        it { should have_css '.icon-delete', count: 6 }
+        it { should have_css '.icon-superuser', count: 1 }
 
         it { should have_content @user_local.full_name }
         it { should have_content @user_ldap.full_name }
