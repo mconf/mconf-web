@@ -54,7 +54,7 @@ describe 'Admin manages spaces' do
         let(:space) { @approved_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -68,7 +68,7 @@ describe 'Admin manages spaces' do
         let(:space) { @not_approved_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -82,7 +82,7 @@ describe 'Admin manages spaces' do
         let(:space) { @disabled_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_css '.icon-edit' }
         it { should_not have_content t('._other.not_approved.text') }
@@ -98,7 +98,7 @@ describe 'Admin manages spaces' do
         let(:space) { @enabled_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -119,7 +119,7 @@ describe 'Admin manages spaces' do
         let(:space) { @approved_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -133,7 +133,7 @@ describe 'Admin manages spaces' do
         let(:space) { @not_approved_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -147,7 +147,7 @@ describe 'Admin manages spaces' do
         let(:space) { @disabled_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_css '.icon-edit' }
         it { should_not have_content t('._other.not_approved.text') }
@@ -163,7 +163,7 @@ describe 'Admin manages spaces' do
         let(:space) { @enabled_space }
         subject { page.find("#space-#{space.permalink}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }

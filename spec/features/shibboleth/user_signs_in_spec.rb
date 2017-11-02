@@ -28,7 +28,10 @@ describe 'User signs in via shibboleth' do
 
     it { current_path.should eq(my_home_path) }
     it { should have_content @attrs[:profile_attributes][:full_name] }
-    it { should have_content @attrs[:email] }
+    it {
+      visit edit_user_path(User.last)
+      should have_content @attrs[:email]
+    }
     it { has_success_message strip_links(t('shibboleth.create_association.account_created', :url => new_user_password_path))}
     it { should_not have_content t('my.home.not_confirmed') }
     context "should generate a RecentActivity" do
@@ -70,7 +73,10 @@ describe 'User signs in via shibboleth' do
 
       it { current_path.should eq(my_home_path) }
       it { should have_content @attrs[:profile_attributes][:full_name] }
-      it { should have_content @attrs[:email] }
+      it {
+        visit edit_user_path(User.last)
+        should have_content @attrs[:email]
+      }
     end
 
     context 'and the user already has another account' do
@@ -213,7 +219,10 @@ describe 'User signs in via shibboleth' do
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user.full_name }
-        it { should have_content user.email }
+        it {
+          visit edit_user_path(user)
+          should have_content user.email
+        }
       end
 
       context "if the site is set to update user information" do
@@ -237,9 +246,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should have_content new_name }
-          it { should have_content new_email }
-          it { should_not have_content @old_email }
           it { should_not have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should_not have_content @old_email
+          }
         end
 
         context "and the user account was not created by shib" do
@@ -260,9 +275,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should_not have_content new_name }
-          it { should_not have_content new_email }
-          it { should have_content @old_email }
           it { should have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should_not have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should have_content @old_email
+          }
         end
       end
 
@@ -287,9 +308,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should_not have_content new_name }
-          it { should_not have_content new_email }
-          it { should have_content @old_email }
           it { should have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should_not have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should have_content @old_email
+          }
         end
       end
 
