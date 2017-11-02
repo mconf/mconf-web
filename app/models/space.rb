@@ -90,7 +90,7 @@ class Space < ActiveRecord::Base
 
   # the friendly name / slug for the space
   extend FriendlyId
-  friendly_id :permalink
+  friendly_id :name, use: :slugged, slug_column: :permalink
 
   after_validation :check_errors_on_bigbluebutton_room
 

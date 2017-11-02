@@ -229,7 +229,7 @@ GEM
       railties (>= 3.2, < 5.1)
     fooldap (0.0.2)
       ruby-ldapserver
-    friendly_id (5.0.4)
+    friendly_id (5.2.3)
       activerecord (>= 4.0.0)
     geocoder (1.2.9)
     gravatar_image_tag (1.2.0)
@@ -588,7 +588,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.0)
   fooldap
   forgery!
-  friendly_id (~> 5.0.4)
+  friendly_id (~> 5.0)
   geocoder
   gravatar_image_tag
   haml
@@ -656,4 +656,4 @@ DEPENDENCIES
   zonebie
 
 BUNDLED WITH
-   1.13.7
+   1.15.4
