@@ -298,6 +298,14 @@ module IconsHelper
     icon_constructor nil, "icon icon-mw-options-dots icon-options-dots", options
   end
 
+  def icon_login_facebook(options={})
+    image_tag 'icons/login-facebook.svg', size: "46x46", class: ""
+  end
+
+  def icon_login_google(options={})
+    image_tag 'icons/login-google.svg', size: "46x46", class: ""
+  end
+
   private
 
   # Base method for most of the methods above

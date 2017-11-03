@@ -1,6 +1,10 @@
 #social-login-btns
   .social-call= t('.or_connect_with')
   .social-btns
-    .btn.btn-large.btn-danger.btn-google= t('.google')
-    .btn.btn-large.btn-info.btn-facebook= t('.facebook')
+    .btn.btn-large.btn-danger.btn-google
+      = icon_login_google
+      %span= t('.google')
+    .btn.btn-large.btn-info.btn-facebook
+      = icon_login_facebook
+      %span= t('.facebook')
   .disclaimer= t('.disclaimer')
