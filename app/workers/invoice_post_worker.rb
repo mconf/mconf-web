@@ -23,7 +23,7 @@ class InvoicePostWorker < BaseWorker
   def self.invoices_sync(invoice_id)
     # possible flag values include local, pending, canceled, paid, expired.
     inv = Invoice.find_by(id: invoice_id)
-    unless inv.invoice_url.present?
+    unless inv.invoice_url.present? || inv.flag_invoice_status != 'posted'
       inv.get_invoice_payment_data
     end
   end

@@ -6,6 +6,8 @@
 
 require 'spec_helper'
 
+# ------------------------ TO DO: invoices_sync ------------------------
+
 describe InvoicePostWorker, type: :worker do
   let(:worker) { InvoicePostWorker }
   let!(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: "local") }
