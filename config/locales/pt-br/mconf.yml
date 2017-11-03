@@ -698,11 +698,6 @@ pt-br:
         lost_password: "Esqueceu sua senha?"
         other_options: "Outras opções"
         register: "Criar uma nova conta"
-        resend_confirmation_email: "Reenviar e-mail de confirmação"
-      social_login:
-        social_facebook: "Acessar com o Facebook"
-        social_google: "Acessar com o Google"
-        social_login: "Login Social"
     strategies:
       ldap_authenticatable:
         create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador"
@@ -1311,7 +1306,6 @@ pt-br:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
-    confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
     thank_you: "Bem-vindo e obrigado por registrar-se no %{sitename}"
@@ -1382,6 +1376,7 @@ pt-br:
       ldap_authentication: "Autenticar via LDAP"
       login: "Entrar"
       lost_password: "Esqueci minha senha"
+      resend_confirmation_email: "Reenviar e-mail de confirmação"
     new:
       headline: "Plataforma de webconferência"
       headline2: "com foco em educação a distância e reuniões remotas"
@@ -1422,6 +1417,7 @@ pt-br:
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     social_login:
+      disclaimer: "Nunca postaremos nada sem a sua permissão"
       facebook: "Facebook"
       google: "Google"
       or_connect_with: "ou conecte-se com"

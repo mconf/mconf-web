@@ -16,28 +16,55 @@
   }
 
   .social-btns {
+    @include mconf-clearfix;
+
     .btn {
       width: 48%;
       font-size: $m-font-big;
       padding: 12px;
     }
 
-    .btn-google {
+    .btn-google, .btn-facebook {
+      $bg-normal: #df4a32;
+      $bg-hover: lighten(#702519, 5);
+
       float: left;
-      background: #df4a32;
+      background: $bg-normal;
+      padding: 0;
+      border: 0;
+
       &:hover {
-        background: #e56e5b;
-        border-color: #e56e5b;
+        background: $bg-hover;
+      }
+
+      img {
+        float: left;
+        border-right: 1px solid $m-site-bg-color;
+        height: 51px;
+        width: 51px;
+      }
+
+      span {
+        padding: 12px;
+        display: block;
       }
     }
 
     .btn-facebook {
+      $bg-normal: #3b579d;
+      $bg-hover: lighten(#0e0132, 5);
+
       float: right;
-      background: #3b579d;
+      background: $bg-normal;
       &:hover {
-        background: #6279b1;
-        border-color: #6279b1;
+        background: $bg-hover;
       }
     }
+  }
+
+  .disclaimer {
+    font-size: $m-font-small;
+    font-weight: $m-font-weight-thin;
+    margin-top: 8px;
   }
 }

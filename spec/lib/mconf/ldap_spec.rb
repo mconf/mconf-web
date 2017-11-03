@@ -294,11 +294,6 @@ describe Devise::Strategies::LdapAuthenticatable do
         include_examples "fails to create account and RecentActivity"
       end
 
-      context "username not informed" do
-        let(:username) { '' }
-        include_examples "fails to create account and RecentActivity"
-      end
-
       context "name not informed" do
         let(:name) { '' }
         include_examples "fails to create account and RecentActivity"

@@ -22,12 +22,13 @@ describe LogoImagesHelper do
   end
 
   describe "#logo_initials" do
-    it { logo_initials(:user, :size => '32').should eq(image_tag('default_logos/32/user.png', class: 'empty-logo')) }
-    it { logo_initials(:space, :size => '32').should eq(image_tag('default_logos/32/space.png', class: 'empty-logo')) }
-    it { logo_initials(:space, :size => '128').should eq(image_tag('default_logos/128/space.png', class: 'empty-logo')) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
 
-    # invalid logo sizes
-    it { logo_initials(:user, :size => '10').should eq(image_tag('default_logos/128/user.png', class: 'empty-logo')) }
+    it { logo_initials(user, size: '32').should eq(content_tag(:div, user.initials[0..1].upcase, class: "logo-initials #{logo_initials_class(user.name)}")) }
+    it { logo_initials(user, size: '10').should eq(content_tag(:div, user.initials[0..1].upcase, class: "logo-initials #{logo_initials_class(user.name)}")) }
+    it { logo_initials(space, size: '32').should eq(content_tag(:div, space.initials[0..1].upcase, class: "logo-initials #{logo_initials_class(space.name)}")) }
+    it { logo_initials(space, size: '128').should eq(content_tag(:div, space.initials[0..1].upcase, class: "logo-initials #{logo_initials_class(space.name)}")) }
   end
 
   describe "#logo_image" do

@@ -53,10 +53,12 @@
     #user-address
       %h3= t('.address')
       = f.simple_fields_for :profile do |p|
+        .form-group.select.optional.user_profile_country
+          = p.input :country, wrapper: :label_only
+          = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
         = p.input :address
         = p.input :city
         = p.input :province
-        = p.input :country, as: :string
         = p.input :zipcode
         = p.input :phone
       = f.input :timezone, required: false do

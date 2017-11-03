@@ -60,6 +60,8 @@ body.sessions.new, body.sessions.create {
       .forgot-password {
         float: right;
         margin: 10px 0;
+
+        a { display: block; }
       }
 
       .form-actions {

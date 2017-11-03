@@ -90,7 +90,10 @@ class Space < ActiveRecord::Base
 
   # the friendly name / slug for the space
   extend FriendlyId
-  friendly_id :permalink
+  friendly_id :slug_candidates, use: :slugged, slug_column: :permalink
+  def slug_candidates
+    [ Mconf::Identifier.unique_mconf_id(name) ]
+  end
 
   after_validation :check_errors_on_bigbluebutton_room
 

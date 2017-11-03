@@ -306,12 +306,12 @@ module IconsHelper
     icon_constructor nil, "fa fa-credit-card-alt icon-awesome icon-mconf-pay-disabled", options
   end
 
-  def icon_google(options={})
-    icon_constructor nil, "fa fa-google icon-awesome icon-mconf-google", options
+  def icon_login_facebook(options={})
+    image_tag 'icons/login-facebook.svg', size: "46x46", class: ""
   end
 
-  def icon_facebook(options={})
-    icon_constructor nil, "fa fa-facebook icon-awesome icon-mconf-facebook", options
+  def icon_login_google(options={})
+    image_tag 'icons/login-google.svg', size: "46x46", class: ""
   end
 
   private

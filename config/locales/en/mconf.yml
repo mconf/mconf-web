@@ -690,11 +690,6 @@ en:
         lost_password: "Lost your password?"
         other_options: "Other options"
         register: "Create a new account"
-        resend_confirmation_email: "Resend confirmation email"
-      social_login:
-        social_facebook: "Login with Facebook"
-        social_google: "Login with Google"
-        social_login: "Social Login"
     strategies:
       ldap_authenticatable:
         create_failed: "Unable to create internal structures for your LDAP account, please contact an administrator"
@@ -912,11 +907,9 @@ en:
           title: "Your message"
       your_request: "You requested to join this space."
     new:
-      already_invited: "You were already invited to join this space! You can see the invitation in your home page."
-      already_requested: "You already requested to join this space, please wait for an administrator to accept it. You can cancel your request in your home page."
-      message_title: "Access to %{name}"
-      need_to_join: "You are still not a member of this space. Request access to view and interact in this space."
-      view_join_request: "Go to your home page"
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
+      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
+      message_title: "Request to join %{name}"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
   keywords: "Keywords (*)"
@@ -1258,7 +1251,6 @@ en:
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
     and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
-    confirmation: "After registering you will receive an email confirmation with the link to activate your account"
     one: Register
     or_choose: "or you can go"
     thank_you: "Welcome and thank you for registering in %{sitename}"
@@ -1329,6 +1321,7 @@ en:
       ldap_authentication: "Authenticate via LDAP"
       login: "Sign in"
       lost_password: "Forgot my password"
+      resend_confirmation_email: "Resend confirmation email"
     new:
       headline: "Web Conference Platform"
       headline2: "focused on distance learning and remote meetings"
@@ -1369,6 +1362,7 @@ en:
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
     social_login:
+      disclaimer: "We will never post anything without your permission"
       facebook: "Facebook"
       google: "Google"
       or_connect_with: "or connect with"
@@ -1613,7 +1607,9 @@ en:
       is_member: "You are a member of this space"
       private: "Private space"
       public: "Public space"
+      reply_invitation: "Reply to the invitation"
       user_is_member: "You are a member of this space"
+      view_join_request: "View the request you sent"
       with_members: "with %{count} members"
     list_view:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"

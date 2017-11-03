@@ -26,8 +26,6 @@ feature 'LDAP is misconfigured', ldap: true do
     user = FactoryGirl.create(:user, username: 'user-1', password: 'password')
     sign_in_with user.email, user.password
 
-    expect(page).to have_title(I18n.t('home.my'))
-    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 
@@ -37,8 +35,6 @@ feature 'LDAP is misconfigured', ldap: true do
     user = FactoryGirl.create(:user, username: 'user-1', password: 'password')
     sign_in_with user.email, user.password
 
-    expect(page).to have_title(I18n.t('home.my'))
-    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 

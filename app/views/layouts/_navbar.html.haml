@@ -1,28 +1,6 @@
 - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
 %a#navbar-logo{:href => url}
 
--# #navbar-left
--#   %ul
--#     - if user_signed_in?
--#       %li
--#         = link_to main_app.my_home_path do
--#           = t('home.my')
--#       - if mod_enabled?("spaces")
--#         %li= link_to t('space.all'), main_app.spaces_path
--#       - if mod_enabled?("events")
--#         %li= link_to t('.events'), events_path
--#       - if can?(:manage, @site)
--#         %li
--#           = link_to main_app.manage_path do
--#             = t('.manage')
-
--#     - else
--#       -# for anonymous users
--#       - if mod_enabled?("spaces")
--#         %li= link_to t('space.all'), main_app.spaces_path
--#       - if mod_enabled?("events")
--#         %li= link_to t('.events'), events_path
-
 #navbar-right
   %ul#navbar-right-links
     - if user_signed_in?
@@ -57,6 +35,25 @@
         %li{ sessions_menu_select_if(:login) }= link_to t('.login'), main_app.login_path
       - if current_site.registration_enabled?
         %li{ sessions_menu_select_if(:register) }= link_to t('.register'), main_app.register_path
+
+#navbar-left
+  %ul
+    - if user_signed_in?
+      - if mod_enabled?("spaces")
+        %li= link_to t('space.all'), main_app.spaces_path
+      - if mod_enabled?("events")
+        %li= link_to t('.events'), events_path
+      - if can?(:manage, @site)
+        %li
+          = link_to main_app.manage_path do
+            = t('.manage')
+
+    - else
+      -# for anonymous users
+      - if mod_enabled?("spaces")
+        %li= link_to t('space.all'), main_app.spaces_path
+      - if mod_enabled?("events")
+        %li= link_to t('.events'), events_path
 
 - if content_for?(:navbar_menu)
   #navbar-menu
