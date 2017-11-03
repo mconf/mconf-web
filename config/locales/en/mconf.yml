@@ -1278,7 +1278,6 @@ en:
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
     and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
-    confirmation: "After registering you will receive an email confirmation with the link to activate your account"
     one: Register
     or_choose: "or you can go"
     thank_you: "Welcome and thank you for registering in %{sitename}"

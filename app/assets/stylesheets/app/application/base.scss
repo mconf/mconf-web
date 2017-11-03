@@ -467,6 +467,11 @@ form {
   float: right;
 }
 
+#navbar-left {
+  @include navbar-lists;
+  float: left;
+}
+
 #navbar-logo {
   white-space: nowrap;
   margin: ($m-navbar-height - 60px)/2 0;

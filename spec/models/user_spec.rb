@@ -255,7 +255,6 @@ describe User do
   end
 
   describe "#username" do
-    it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username).case_insensitive }
     it { should validate_length_of(:username).is_at_least(1) }
     it { should_not allow_value("123 321").for(:username) }

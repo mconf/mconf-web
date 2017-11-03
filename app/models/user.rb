@@ -45,7 +45,10 @@ class User < ActiveRecord::Base
     room_param_uniqueness: true
 
   extend FriendlyId
-  friendly_id :full_name, use: :slugged, slug_column: :username
+  friendly_id :slug_candidates, use: :slugged, slug_column: :username
+  def slug_candidates
+    [ Mconf::Identifier.unique_mconf_id(full_name) ]
+  end
 
   validates :email, uniqueness: true, presence: true, email: true
 

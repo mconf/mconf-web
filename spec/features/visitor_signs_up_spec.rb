@@ -85,43 +85,43 @@ feature 'Visitor signs up' do
   end
 
   scenario 'with the username of another user' do
-    another_user = FactoryGirl.create(:user)
-    attrs = FactoryGirl.attributes_for(:user, username: another_user.username)
-    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    another_user = FactoryGirl.create(:user, username: nil)
+    attrs = FactoryGirl.attributes_for(:user, username: nil)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: another_user.full_name)
     register_with(attrs)
 
-    current_path.should eq(user_registration_path)
-    has_field_with_error "user_username"
+    current_path.should eq(my_home_path)
+    User.last.username.should eql(another_user.username + "-2")
   end
 
   scenario 'with the username of a disabled user' do
-    disabled_user = FactoryGirl.create(:user)
-    attrs = FactoryGirl.attributes_for(:user, username: disabled_user.username)
-    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    disabled_user = FactoryGirl.create(:user, username: nil)
+    attrs = FactoryGirl.attributes_for(:user, username: nil)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: disabled_user.full_name)
     register_with(attrs)
 
-    current_path.should eq(user_registration_path)
-    has_field_with_error "user_username"
+    current_path.should eq(my_home_path)
+    User.last.username.should eql(disabled_user.username + "-2")
   end
 
   scenario "with the username equal to some space's permalink" do
-    space = FactoryGirl.create(:space)
-    attrs = FactoryGirl.attributes_for(:user, username: space.permalink)
-    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    space = FactoryGirl.create(:space, permalink: nil)
+    attrs = FactoryGirl.attributes_for(:user, username: nil)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: space.name)
     register_with(attrs)
 
-    current_path.should eq(user_registration_path)
-    has_field_with_error "user_username"
+    current_path.should eq(my_home_path)
+    User.last.username.should eql(space.permalink + "-2")
   end
 
   scenario "with the username equal to some disabled space's permalink" do
-    disabled_space = FactoryGirl.create(:space, disabled: true)
-    attrs = FactoryGirl.attributes_for(:user, username: disabled_space.permalink)
-    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile)
+    disabled_space = FactoryGirl.create(:space, disabled: true, permalink: nil)
+    attrs = FactoryGirl.attributes_for(:user, username: nil)
+    attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: disabled_space.name)
     register_with(attrs)
 
-    current_path.should eq(user_registration_path)
-    has_field_with_error "user_username"
+    current_path.should eq(my_home_path)
+    User.last.username.should eql(disabled_space.permalink + "-2")
   end
 
   scenario "when the password confirmation doesn't match" do

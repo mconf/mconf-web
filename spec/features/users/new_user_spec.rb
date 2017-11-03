@@ -9,7 +9,6 @@ require 'spec_helper'
 def register_user(params)
   fill_in 'user[email]', with: params[:email]
   fill_in 'user[profile_attributes][full_name]', with: params[:profile_attributes][:full_name]
-  fill_in 'user[username]', with: params[:username]
   fill_in 'user[password]', with: params[:password]
   fill_in 'user[password_confirmation]', with: params[:password]
 
@@ -73,7 +72,6 @@ feature 'Creating a user account' do
         it { has_failure_message t('recaptcha.errors.verification_failed') }
         it { page.should have_css("input[name='user[email]'][value='#{params[:email]}']") }
         it { page.should have_css("input[name='user[profile_attributes][full_name]'][value='#{params[:profile_attributes][:full_name]}']") }
-        it { page.should have_css("input[name='user[username]'][value='#{params[:username]}']") }
         it { find_field('user[password]').value.should be_nil }
         it { find_field('user[password_confirmation]').value.should be_nil }
       end

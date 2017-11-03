@@ -47,7 +47,6 @@ describe Space do
 
   describe "#permalink" do
     it { should validate_uniqueness_of(:permalink).case_insensitive }
-    it { should validate_presence_of(:permalink) }
     it { should validate_length_of(:permalink).is_at_least(3) }
     it { should_not allow_value("123 321").for(:permalink) }
     it { should_not allow_value("").for(:permalink) }
