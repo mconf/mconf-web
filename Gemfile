@@ -37,7 +37,8 @@ gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', '~> 0.0.10'#, :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity', '~> 1.5.0'
 gem 'acts-as-taggable-on', '~> 4.0' # tags for spaces
-gem "awesome_print", require:"ap" # better visualization for query results
+gem 'awesome_print', require: 'ap' # better visualization for query results
+gem 'country_select'
 
 # For queues
 gem 'resque', '~> 1.25.2', :require => 'resque/server'

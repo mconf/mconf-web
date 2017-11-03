@@ -51,6 +51,7 @@ module Mconf
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
     config.i18n.available_locales = [:bg, :de, :en, :"es-419", :"pt-br", :ru]
+    config.available_locales_countries = [:bg, :de, :en, :es, :pt, :ru] # for the countries gem
     config.i18n.default_locale = :en
 
     config.generators do |g|
