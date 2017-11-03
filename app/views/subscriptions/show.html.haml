@@ -1,10 +1,10 @@
 - user = User.find_by_username(params[:user_id])
 - page_title user.full_name + t('.title')
 
-- home_sidebar_menu_at(:subscription)
+-# - home_sidebar_menu_at(:subscription)
 
-= content_for :sidebar do
-  = render "my/sidebar"
+-# = content_for :sidebar do
+-#   = render "my/sidebar"
 
 #subscription-wrapper
   .resource-card

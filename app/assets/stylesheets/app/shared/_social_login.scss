@@ -32,6 +32,7 @@
       background: $bg-normal;
       padding: 0;
       border: 0;
+      @include link-colors(#fff, #fff, #fff, #fff);
 
       &:hover {
         background: $bg-hover;
