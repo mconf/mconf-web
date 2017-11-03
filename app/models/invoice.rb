@@ -137,9 +137,18 @@ class Invoice < ActiveRecord::Base
 
     posted = self.check_for_posted_invoices
     if posted.first.present?
-      update_attributes(flag_invoice_status: 'posted')
+      self.update_attributes(flag_invoice_status: 'posted')
     end
   end
+
+  def get_invoice_payment_data
+    invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
+    if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
+      self.update_attributes(invoice_token: invoices.first.attributes['id'])
+      self.update_attributes(invoice_url: invoices.first.attributes['secure_url'])
+    end
+  end
+
 
   def check_for_posted_invoices
     ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
