@@ -16,6 +16,8 @@
   }
 
   .social-btns {
+    @include mconf-clearfix;
+
     .btn {
       width: 48%;
       font-size: $m-font-big;

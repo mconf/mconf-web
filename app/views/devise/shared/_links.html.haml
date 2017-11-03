@@ -18,10 +18,6 @@
   -#   - if devise_mapping.registerable? && controller_name != 'registrations'
   -#     %li= link_to t('.register'), register_path
 
-  - if registration_enabled
-    - if devise_mapping.confirmable? && controller_name != 'confirmations'
-      %li= link_to t(".resend_confirmation_email"), new_confirmation_path(resource_name)
-
   - if shib_enabled
     %li= link_to t('.login.federation'), shibboleth_path
 

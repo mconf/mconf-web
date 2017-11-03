@@ -469,7 +469,8 @@ form {
 
 #navbar-left {
   @include navbar-lists;
-  float: left;
+  float: right;
+  margin-right: 28px;
 }
 
 #navbar-logo {

@@ -2,6 +2,9 @@
   = f.input :login, label: false, required: true, autofocus: true
   = f.input :password, label: false, required: true
   - if devise_mapping.rememberable?
-    .forgot-password= link_to t('.lost_password'), new_password_path(resource_name)
+    .forgot-password
+      = link_to t('.lost_password'), new_password_path(resource_name)
+      - if current_site.registration_enabled?
+        = link_to t(".resend_confirmation_email"), new_confirmation_path(resource_name)
     .remember-me= f.input :remember_me, as: :boolean
   = f.button :wrapped, value: t(".login")

@@ -690,7 +690,6 @@ en:
         lost_password: "Lost your password?"
         other_options: "Other options"
         register: "Create a new account"
-        resend_confirmation_email: "Resend confirmation email"
     strategies:
       ldap_authenticatable:
         create_failed: "Unable to create internal structures for your LDAP account, please contact an administrator"
@@ -1347,6 +1346,7 @@ en:
       ldap_authentication: "Authenticate via LDAP"
       login: "Sign in"
       lost_password: "Forgot my password"
+      resend_confirmation_email: "Resend confirmation email"
     new:
       headline: "Web Conference Platform"
       headline2: "focused on distance learning and remote meetings"

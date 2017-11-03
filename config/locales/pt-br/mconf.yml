@@ -698,7 +698,6 @@ pt-br:
         lost_password: "Esqueceu sua senha?"
         other_options: "Outras opções"
         register: "Criar uma nova conta"
-        resend_confirmation_email: "Reenviar e-mail de confirmação"
     strategies:
       ldap_authenticatable:
         create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador"
@@ -1375,6 +1374,7 @@ pt-br:
       ldap_authentication: "Autenticar via LDAP"
       login: "Entrar"
       lost_password: "Esqueci minha senha"
+      resend_confirmation_email: "Reenviar e-mail de confirmação"
     new:
       headline: "Plataforma de webconferência"
       headline2: "com foco em educação a distância e reuniões remotas"
