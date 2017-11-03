@@ -7,8 +7,8 @@
 
 # Updates local invoices
 class InvoicePostWorker < BaseWorker
-  def self.perform
-    invoices_post
+  def self.perform(invoice_id)
+    invoices_post(invoice_id)
   end
 
   def self.invoices_post(invoice_id)
