@@ -6,6 +6,9 @@
 
   .field-group
     %h3= t('.address_section')
+    .form-group.select.optional.user_profile_country
+      = f.input :country, autofocus: true, wrapper: :label_only
+      = f.country_select :country, { priority_countries: ["BR", "US"], include_blank: true, prompt: t('.country') }, { class: 'form-control' }
     = f.input :address, required: true, placeholder: t('.address')
     = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info')
     = f.input :number, required:true, placeholder: t('.number')
@@ -13,7 +16,6 @@
     = f.input :city, required: true, placeholder: t('.city')
     = f.input :province, required: true, placeholder: t('.province')
     = f.input :district, required: true, placeholder: t('.district')
-    = f.input :country, as: :string, required: true, placeholder: t('.country')
 
     .alert.alert-gray
       = icon_info

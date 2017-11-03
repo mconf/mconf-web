@@ -7,10 +7,7 @@
   = disable_autocomplete_for('user[password]', 'password')
   = f.hidden_field :locale, value: I18n.locale
   = f.fields_for :profile do |p|
-    .form-group.select.optional.user_profile_country
-      = p.input :country, autofocus: true, wrapper: :label_only
-      = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
-    = p.input :full_name, required: true
+    = p.input :full_name, required: true, autofocus: true
   = f.input :email, required: true
   -# = f.input :username, required: true, wrapper: :horizontal_input_group do
   -#   - if webconf_url_prefix.length <= 35
