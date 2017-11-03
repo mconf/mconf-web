@@ -1415,6 +1415,7 @@ pt-br:
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     social_login:
+      disclaimer: "Nunca postaremos nada sem a sua permissão"
       facebook: "Facebook"
       google: "Google"
       or_connect_with: "ou conecte-se com"

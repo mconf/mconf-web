@@ -1387,6 +1387,7 @@ en:
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
     social_login:
+      disclaimer: "We will never post anything without your permission"
       facebook: "Facebook"
       google: "Google"
       or_connect_with: "or connect with"
