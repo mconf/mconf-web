@@ -5,6 +5,10 @@ cache: bundler
 services:
   - redis-server
   - mysql
+addons:
+  apt:
+    packages:
+      - libqtwebkit-dev
 bundler_args: "--without production development"
 env:
   global:

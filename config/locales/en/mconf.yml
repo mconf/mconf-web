@@ -690,6 +690,10 @@ en:
         lost_password: "Lost your password?"
         other_options: "Other options"
         register: "Create a new account"
+      social_login:
+        social_facebook: "Login with Facebook"
+        social_google: "Login with Google"
+        social_login: "Social Login"
     strategies:
       ldap_authenticatable:
         create_failed: "Unable to create internal structures for your LDAP account, please contact an administrator"
@@ -1265,7 +1269,6 @@ en:
       title: "Create an account"
     signup_form:
       register: "Register"
-      register_local: "Create account on Mconf"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"
@@ -1318,6 +1321,7 @@ en:
     one: Session
   sessions:
     login_form:
+      email_or_login: "Email or username"
       ldap_authentication: "Authenticate via LDAP"
       login: "Sign in"
       lost_password: "Forgot my password"

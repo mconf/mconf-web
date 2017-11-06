@@ -396,6 +396,10 @@ class User < ActiveRecord::Base
     enabled_rename(value)
   end
 
+  def member_of?(space)
+    Permission.find_by(subject: space, user: self).present?
+  end
+
   def initials
     self.name.split(' ').collect{ |w| w[0] }.join('')
   end
@@ -410,10 +414,6 @@ class User < ActiveRecord::Base
 
   def trial_ended?
     self.trial_expires_at <= DateTime.now
-  end
-
-  def member_of?(space)
-    Permission.find_by(subject: space, user: self).present?
   end
 
   def exceeded_recording_limit_free_account
