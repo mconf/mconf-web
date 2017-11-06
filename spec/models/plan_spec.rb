@@ -15,7 +15,17 @@ describe Plan do
   it { should validate_presence_of(:interval)       }
   it { should validate_presence_of(:interval_type)  }
 
-  skip "test the creation of plans from command line"
+  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number) }
+
+  describe "#create_ops_plan" do
+    context "no token returned from OPS" do
+      let(:attrs) { FactoryGirl.attributes_for(:plan, ops_token: nil) }
+      # before { Mconf::Iugu.stub(:create_customer).and_return(nil) }
+      # subject { Subscription.create(attrs) }
+      # it { subject.new_record?.should be(true) }
+      # it { subject.errors.should have_key(:ops_error) }
+    end
+  end
   skip "test importing of a plan from iugu"
   skip "get the plans and associate to a created subscription"
   skip "remove the plans in command line"
