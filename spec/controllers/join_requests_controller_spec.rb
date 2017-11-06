@@ -63,9 +63,9 @@ describe JoinRequestsController do
 
       context "and has no pending join request" do
         context "template and layout" do
-          before(:each) { get :new, :space_id => space.to_param }
+          before(:each) { xhr :get, :new, :space_id => space.to_param }
           it { should render_template('new') }
-          it { should render_with_layout('no_sidebar') }
+          it { should_not render_with_layout }
         end
       end
 
@@ -74,9 +74,9 @@ describe JoinRequestsController do
           @join_request =
           FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
-        before(:each) { get :new, :space_id => space.to_param }
+        before(:each) { xhr :get, :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
         it { should assign_to(:pending_request).with(@join_request) }
       end
 
@@ -85,9 +85,9 @@ describe JoinRequestsController do
           @join_request =
             FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
-        before(:each) { get :new, :space_id => space.to_param }
+        before(:each) { xhr :get, :new, :space_id => space.to_param }
         it { should render_template("new") }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
         it { should assign_to(:pending_request).with(@join_request) }
       end
     end
@@ -96,22 +96,22 @@ describe JoinRequestsController do
       before(:each) {
         space.add_member!(user)
         sign_in(user)
-        get :new, :space_id => space.to_param
+        xhr :get, :new, :space_id => space.to_param
       }
       it { should redirect_to(space_path(space)) }
-      it { should assign_to(:pending_request).with(nil) }
+      it { should_not assign_to(:pending_request) }
     end
 
     context "an anonymous user with no permission to create a new join request" do
       before(:each) {
-        get :new, space_id: space.to_param
+        xhr :get, :new, space_id: space.to_param
       }
       it { should redirect_to(login_path) }
     end
 
     # There's no link shown in the interface to permit this, but we'll block it on a controller level
     context "a logged in user trying to join an unapproved space" do
-      subject { get :new, space_id: space.to_param }
+      subject { xhr :get, :new, space_id: space.to_param }
       before(:each) {
         space.update_attributes(approved: false)
         sign_in(user)
@@ -120,64 +120,6 @@ describe JoinRequestsController do
       it { expect { subject }.to raise_error(CanCan::AccessDenied) }
     end
 
-  end
-
-  describe "#show" do
-    let(:jr) { FactoryGirl.create(:space_join_request) }
-    let(:space) { jr.group }
-    let(:user) { FactoryGirl.create(:user) }
-
-    it { should_authorize an_instance_of(JoinRequest), :show, :space_id => space.to_param, :id => jr }
-
-    context "a normal user" do
-      context "is not the subject of the join request" do
-        before(:each) {
-          sign_in(user)
-          expect {
-            get :show, :space_id => space.to_param, :id => jr
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-
-      context "is the subject of the join request" do
-        before(:each) {
-          sign_in(jr.candidate)
-          get :show, :space_id => space.to_param, :id => jr
-        }
-
-        it { should render_template('show') }
-        it { should render_with_layout('application') }
-      end
-
-      context "is the admin of the space of the join request" do
-        before(:each) {
-          space.add_member!(user, 'Admin')
-          sign_in(user)
-          get :show, :space_id => space.to_param, :id => jr
-        }
-
-        it { should render_template('show') }
-        it { should render_with_layout('application') }
-      end
-
-      context "is not related at all with the join request" do
-        it {
-          sign_in(FactoryGirl.create(:user))
-          expect {
-            get :show, space_id: space.to_param, id: jr
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-    end
-
-    context "an anonymous user with no permission to access the join request" do
-      before {
-        expect {
-          get :show, space_id: space.to_param, id: jr
-        }.not_to raise_error
-      }
-      it { redirect_to login_path }
-    end
   end
 
   describe "#create" do
@@ -248,7 +190,7 @@ describe JoinRequestsController do
         }.to change{space.join_requests.count}.by(0)
       }
 
-      it { should redirect_to(spaces_path) }
+      it { should redirect_to(space_path(space)) }
       it { should set_flash.to(I18n.t('join_requests.create.you_are_already_a_member')) }
     end
 
@@ -336,8 +278,8 @@ describe JoinRequestsController do
 
       before(:each) {
         expect {
-          post :create, { space_id: space.to_param}.merge(attributes)
-        }.to change{space.pending_invitations.count}.by(1)
+          post :create, { space_id: space.to_param }.merge(attributes)
+        }.to change{ space.pending_invitations.count }.by(1)
       }
 
       it { should redirect_to(admissions_space_join_requests_path(space)) }
@@ -361,8 +303,8 @@ describe JoinRequestsController do
 
       before(:each) {
         expect {
-          post :create, { space_id: space.to_param}.merge(attributes)
-        }.to change{space.pending_invitations.count}.by(2)
+          post :create, { space_id: space.to_param }.merge(attributes)
+        }.to change{ space.pending_invitations.count }.by(2)
       }
 
       it { should redirect_to(admissions_space_join_requests_path(space)) }
@@ -447,7 +389,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space_with_associations) }
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize space, :invite, :space_id => space.to_param, :ability_name => :manage_join_requests }
+    it { should_authorize space, :invite, space_id: space.to_param, ability_name: :manage_join_requests, xhr: true }
 
     context "if the user is not a member of the space" do
       before(:each) {
@@ -455,7 +397,7 @@ describe JoinRequestsController do
       }
       it {
         expect {
-          get :invite, :space_id => space.to_param
+          xhr :get, :invite, :space_id => space.to_param
         }.to raise_error(CanCan::AccessDenied)
       }
     end
@@ -467,7 +409,7 @@ describe JoinRequestsController do
       }
       it {
         expect {
-          get :invite, :space_id => space.to_param
+          xhr :get, :invite, :space_id => space.to_param
         }.to raise_error(CanCan::AccessDenied)
       }
     end
@@ -476,12 +418,12 @@ describe JoinRequestsController do
       before(:each) {
         space.add_member!(user, 'Admin')
         sign_in(user)
-        get :invite, :space_id => space.to_param
+        xhr :get, :invite, :space_id => space.to_param
       }
 
       context "template and layout" do
         it { should render_template('invite') }
-        it { should render_with_layout('no_sidebar') }
+        it { should_not render_with_layout }
       end
 
     end
@@ -578,18 +520,6 @@ describe JoinRequestsController do
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
         it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
-      end
-
-      context "accepts a user request from the join request's show view" do
-        before(:each) {
-          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
-          expect {
-            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
-          }.to change{ space.pending_join_requests.count }.by(-1)
-          jr.reload
-        }
-
-        it { should redirect_to(admissions_space_join_requests_path(space)) }
       end
 
       # to be extra sure admins can't accept invitations they sent
@@ -786,21 +716,10 @@ describe JoinRequestsController do
         it { should set_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
-      context "declines a user request from the join request's show view" do
-        before(:each) {
-          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
-          expect {
-            post :decline, space_id: space.to_param, id: jr
-          }.to change{ space.pending_join_requests.count }.by(-1)
-          jr.reload
-        }
-
-        it { should redirect_to(admissions_space_join_requests_path(space)) }
-      end
-
       context "declines an invitation he (or another admin) sent" do
         let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space) }
         before(:each) {
+          request.env['HTTP_REFERER'] = admissions_space_join_requests_path(space)
           expect {
             post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
@@ -886,14 +805,30 @@ describe JoinRequestsController do
 
       context "declines a request he made" do
         let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
-        before(:each) {
-          expect {
-            post :decline, space_id: space.to_param, id: jr
-          }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
-        }
-        it { should redirect_to(my_home_path) }
-        it { JoinRequest.exists?(jr.id).should be(false) }
-        it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+
+        context "from his home path" do
+          before(:each) {
+            request.env['HTTP_REFERER'] = my_home_path
+            expect {
+              post :decline, space_id: space.to_param, id: jr
+            }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
+          }
+          it { should redirect_to(my_home_path) }
+          it { JoinRequest.exists?(jr.id).should be(false) }
+          it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        end
+
+        context "from the space's page" do
+          before(:each) {
+            request.env['HTTP_REFERER'] = space_path(space)
+            expect {
+              post :decline, space_id: space.to_param, id: jr
+            }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
+          }
+          it { should redirect_to(space_path(space)) }
+          it { JoinRequest.exists?(jr.id).should be(false) }
+          it { should set_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
+        end
       end
     end
   end
@@ -934,7 +869,6 @@ describe JoinRequestsController do
       it { expect { get :admissions, space_id: space_id }.not_to raise_error }
       it { expect { post :create, space_id: space_id }.not_to raise_error }
       it { expect { get :new, space_id: space_id }.not_to raise_error }
-      it { expect { get :show, id: jr, space_id: space_id }.not_to raise_error }
     end
   end
 end

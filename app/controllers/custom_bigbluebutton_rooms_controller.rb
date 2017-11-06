@@ -31,6 +31,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # don't let users join if the room's limit was exceeded
   before_filter :check_user_limit, only: [:join]
 
+  # modals
+  before_filter :force_modal, only: [:user_edit, :invitation]
+
   # use the patter configured on the site to generate dial numbers
   before_filter :set_site_pattern, only: :generate_dial_number
 
@@ -44,12 +47,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       false
     when :invite_userid, :invite
       "navbar_bg"
-    when :user_edit
-      if request.xhr?
-        false
-      else
-        "no_sidebar"
-      end
+    when :user_edit, :invitation
+      false
     else
       "manage"
     end
@@ -84,11 +83,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def invitation
-    respond_to do |format|
-      format.html {
-        render layout: false if request.xhr?
-      }
-    end
   end
 
   def send_invitation

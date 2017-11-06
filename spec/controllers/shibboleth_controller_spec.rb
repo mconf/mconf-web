@@ -569,17 +569,17 @@ describe ShibbolethController do
           shib_token.update_attributes(data: expected)
           sign_in(user)
         }
-        before(:each) { get :info }
+        before(:each) { xhr :get, :info }
         it { should assign_to(:data).with(expected) }
       end
 
       context "with nil if there's no user signed in" do
-        before(:each) { get :info }
+        before(:each) { xhr :get, :info }
         it { assigns(:data).should be_nil }
       end
 
       context "with nil if the user has no shib_token" do
-        before(:each) { get :info }
+        before(:each) { xhr :get, :info }
         before {
           shib_token.destroy
           sign_in(user)
@@ -589,8 +589,13 @@ describe ShibbolethController do
     end
 
     context "renders with no layout" do
-      before(:each) { get :info }
-      it { should_not render_with_layout() }
+      before(:each) { xhr :get, :info }
+      it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :info }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 

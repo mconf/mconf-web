@@ -5,6 +5,9 @@
 # 3 or later. See the LICENSE file.
 
 class LogoImagesController < ApplicationController
+  # modals
+  before_filter :force_modal, only: [:crop]
+
   def crop
     if params[:model_type] == 'user'
       @user = User.find_by(username: params[:model_id])

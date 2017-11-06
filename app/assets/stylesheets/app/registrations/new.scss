@@ -32,6 +32,10 @@ body.registrations.new, body.registrations.create {
       margin-top: 0;
     }
 
+    #register-mconf {
+      text-align: center;
+    }
+
     form {
       // every field is required, we don't need to show it
       abbr { display: none; }

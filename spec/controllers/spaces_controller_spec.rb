@@ -111,6 +111,20 @@ describe SpacesController do
       end
 
     end
+
+    context "use params[:q] to filter the results" do
+      context "by name" do
+        before {
+          @s1 = FactoryGirl.create(:space, :name => 'First')
+          @s2 = FactoryGirl.create(:space, :name => 'Second')
+          @s3 = FactoryGirl.create(:space, :name => 'Secondary')
+        }
+        before(:each) { get :index, :q => 'sec' }
+        it { assigns(:spaces).count.should be(2) }
+        it { assigns(:spaces).should include(@s2) }
+        it { assigns(:spaces).should include(@s3) }
+      end
+    end
   end
 
   it "#index.json"
@@ -678,20 +692,15 @@ describe SpacesController do
       login_as(user)
     }
 
-    context "html request" do
-      before { request.env["HTTP_REFERER"] = "/test" }
-      before(:each) { get :edit_recording, :space_id => space.to_param, :id => recording.to_param }
-      it { should render_template(:edit_recording) }
-      it { should render_with_layout("application") }
-      it { should assign_to(:space).with(space) }
-      it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redir_url).with("/test") }
-    end
-
     context "xhr request" do
       before(:each) { xhr :get, :edit_recording, :space_id => space.to_param, :id => recording.to_param }
       it { should render_template(:edit_recording) }
       it { should_not render_with_layout }
+    end
+
+    context "html request" do
+      let(:do_action) { get :edit_recording, :space_id => space.to_param, :id => recording.to_param }
+      it_should_behave_like "an action that renders a modal - signed in"
     end
   end
 
@@ -803,20 +812,6 @@ describe SpacesController do
 
   end
 
-  context "use params[:q] to filter the results" do
-    context "by name" do
-      before {
-        @s1 = FactoryGirl.create(:space, :name => 'First')
-        @s2 = FactoryGirl.create(:space, :name => 'Second')
-        @s3 = FactoryGirl.create(:space, :name => 'Secondary')
-      }
-      before(:each) { get :index, :q => 'sec' }
-      it { assigns(:spaces).count.should be(2) }
-      it { assigns(:spaces).should include(@s2) }
-      it { assigns(:spaces).should include(@s3) }
-    end
-  end
-
   describe "spaces module" do
     let(:user) { FactoryGirl.create(:superuser) }
     let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
@@ -836,8 +831,10 @@ describe SpacesController do
       it { expect { get :show, id: space_id }.to raise_error(ActionController::RoutingError) }
       it { expect { get :create, id: space_id }.to raise_error(ActionController::RoutingError) }
       it { expect { post :update_logo, space_params }.to raise_error(ActionController::RoutingError) }
-      it { request.env["HTTP_REFERER"] = "/any"
-           expect { put :update, id: space_id, space: space_attributes }.to raise_error(ActionController::RoutingError) }
+      it {
+        request.env["HTTP_REFERER"] = "/any"
+        expect { put :update, id: space_id, space: space_attributes }.to raise_error(ActionController::RoutingError)
+      }
       it { expect { delete :destroy, id: space_id }.to raise_error(ActionController::RoutingError) }
       it { expect { get :user_permissions, id: space_id }.to raise_error(ActionController::RoutingError) }
       it { expect { get :leave, id: space_id }.to raise_error(ActionController::RoutingError) }
@@ -857,8 +854,10 @@ describe SpacesController do
       it { expect { get :show, id: space_id }.not_to raise_error }
       it { expect { get :create, id: space_id }.not_to raise_error }
       it { expect { post :update_logo, space_params }.not_to raise_error }
-      it { request.env["HTTP_REFERER"] = "/any"
-           expect { put :update, id: space_id, space: space_attributes }.not_to raise_error }
+      it {
+        request.env["HTTP_REFERER"] = "/any"
+        expect { put :update, id: space_id, space: space_attributes }.not_to raise_error
+      }
       it { expect { delete :destroy, id: space_id }.not_to raise_error }
       it { expect { get :user_permissions, id: space_id }.not_to raise_error }
       it { expect { get :leave, id: space_id }.not_to raise_error }

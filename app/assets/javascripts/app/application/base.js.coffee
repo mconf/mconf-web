@@ -171,6 +171,17 @@ class mconf.Base
     else
       ''
 
+  # Removes the parameter 'param' from the current URL and sets a new
+  # URL in the browser's history
+  @removeParamFromUrl = (param) ->
+    url = new URL(window.location)
+    params = mconf.Base.parseQueryString(url.search)
+    delete params[param]
+    params = mconf.Base.makeQueryString(params)
+    newpath = url.pathname
+    newpath = newpath + params if params isnt ''
+    window.history.pushState({}, document.title, newpath)
+
 $ ->
   # Setting I18n-js with the user language
   I18n.locale = $('html').attr "lang"

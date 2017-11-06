@@ -18,11 +18,13 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
-  root to: 'frontpage#show'
+  frontpage = Rails.application.config.external_frontpage
+  root to: frontpage.blank? ? 'frontpage#show' : redirect(frontpage)
 
   # devise
   controllers = { sessions: "sessions", registrations: "registrations",
-                  passwords: "passwords", confirmations: "confirmations" }
+                  passwords: "passwords", confirmations: "confirmations",
+                  omniauth_callbacks: "callbacks" }
   paths = { sign_in: "login", sign_out: "logout", sign_up: "signup", registration: "registration" }
   devise_for :users, paths: "", path_names: paths, controllers: controllers
   devise_scope :user do
@@ -129,7 +131,7 @@ Mconf::Application.routes.draw do
 
     resources :users, only: :index
 
-    resources :join_requests, only: [:show, :new, :create] do
+    resources :join_requests, only: [:new, :create] do
       collection do
         get :admissions
         get :invite

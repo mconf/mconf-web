@@ -5,7 +5,7 @@
     %p= t('.message.user_message', sender: @user.full_name).html_safe
     .invite-message= @invitation.comment
 
-  %p= t('.message.link', url: space_join_request_url(@invitation.group, @invitation, host: Site.current.domain)).html_safe
+  %p= t('.message.link', url: my_home_url(host: Site.current.domain)).html_safe
 
   - if @space.public
     %p= t('.message.space_info', space_url: space_url(@space, host: Site.current.domain)).html_safe

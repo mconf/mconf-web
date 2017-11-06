@@ -655,6 +655,23 @@ form {
     .btn {
       margin-bottom: 5px;
     }
+
+    .pending-join-request {
+      border: 1px solid $m-border-color-normal;
+      border-radius: $m-border-radius-base;
+      padding: 10px;
+      background: $m-site-bg-color;
+
+      span {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .btn, .comment {
+        display: inline-block;
+        margin: 0 5px;
+      }
+    }
   }
 
   .toolbar {
@@ -1179,6 +1196,59 @@ strong.highlight {
       padding: 16px;
       @include link-colors($m-navbar-font-color, $m-link-color-hover, $m-link-color-active);
     }
+  }
+}
+
+#social-login-section {
+  text-align: center;
+  margin: 30px 0px;
+
+  #google-login {
+    width: 48%;
+    display: inline-block;
+    background: #DD4B39;
+    .icon-mconf-google {
+      font-size: 22px;
+    }
+    .icon {
+      border-right: 1px solid #FFF;
+      width: 45px;
+      float: left;
+      padding: 10px 5px 10px 0px;
+    }
+    .info {
+      border-left: 1px solid #FFF;
+      width: calc(100% - 45px);
+      float: left;
+      padding: 10px 0px;
+      margin-left: -1px;
+    }
+  }
+  #facebook-login {
+    width: 48%;
+    display: inline-block;
+    background: #3b5998;
+    .icon-mconf-facebook {
+      font-size: 22px;
+    }
+    .icon {
+      border-right: 1px solid #FFF;
+      width: 45px;
+      float: left;
+      padding: 10px 5px;
+    }
+    .info {
+      border-left: 1px solid #FFF;
+      width: calc(100% - 45px);
+      float: left;
+      padding: 10px 0px;
+      margin-left: -1px;
+    }
+  }
+  .login-text {
+    color: #FFFFFF;
+    font-weight: bold;
+    display: inline-block;
   }
 }
 
