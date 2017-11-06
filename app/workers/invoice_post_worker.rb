@@ -7,8 +7,9 @@
 
 # Updates local invoices
 class InvoicePostWorker < BaseWorker
-  def self.perform
-    invoices_post
+  def self.perform(invoice_id)
+    invoices_post(invoice_id)
+    invoices_sync(invoice_id)
   end
 
   def self.invoices_post(invoice_id)
@@ -16,6 +17,14 @@ class InvoicePostWorker < BaseWorker
     inv = Invoice.find_by(id: invoice_id)
     if inv.flag_invoice_status == 'local'
       inv.post_invoice_to_ops
+    end
+  end
+
+  def self.invoices_sync(invoice_id)
+    # possible flag values include local, pending, canceled, paid, expired.
+    inv = Invoice.find_by(id: invoice_id)
+    unless inv.invoice_url.present? || inv.flag_invoice_status != 'posted'
+      inv.get_invoice_payment_data
     end
   end
 end
