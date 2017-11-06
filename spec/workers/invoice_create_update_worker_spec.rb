@@ -37,8 +37,20 @@ describe InvoiceCreateUpdateWorker, type: :worker do
       end
     end
 
-    # context "There is none invoice for the subscription" do
-    # end
+    context "There is none invoice for the subscription" do
+      before {  Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
+      it "invoice.user_qty: unique_total (0)" do
+        subject
+        subscription.invoices.last.reload
+        subscription.invoices.last.user_qty.should eql(0)
+      end
+      it "invoice.days_consumed: consumed)" do
+        consumed = DateTime.now.day >= Rails.application.config.base_month_days ? nil : (Rails.application.config.base_month_days - DateTime.now.day)
+        subject
+        subscription.invoices.last.reload
+        subscription.invoices.last.days_consumed.should be(consumed.to_i)
+      end
+    end
 
     context "There is one invoice for the subscription but it is not for this month" do
       let!(:old_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: (DateTime.now.change({day: 10})-1.month)) }
