@@ -41,29 +41,32 @@ class Plan < ActiveRecord::Base
 
         if self.ops_token == nil
           logger.error "No Token returned from IUGU, aborting"
-          errors.add(:attr, "No Token returned from IUGU, aborting")
+          errors.add(:ops_error, "No Token returned from IUGU, aborting")
           raise ActiveRecord::Rollback
         end
       end
     else
       logger.error "Bad ops_type, can't create plan"
-      errors.add(:attr, "Bad ops_type, can't create plan")
+      errors.add(:ops_error, "Bad ops_type, can't create plan")
       raise ActiveRecord::Rollback
     end
   end
 
   def self.import_ops_plan
-    Mconf::Iugu.fetch_all_plans.each do |plan|
-      params = { 
-                 name: plan.attributes["name"],
-                 identifier: plan.attributes["identifier"],
-                 ops_type: 'IUGU',
-                 ops_token: plan.attributes["id"],
-                 currency: plan.attributes["prices"].first["currency"],
-                 interval_type: plan.attributes["interval_type"],
-                 interval: plan.attributes["interval"] }
+    plans = Mconf::Iugu.fetch_all_plans
+    if plans.present?
+      plans.each do |plan|
+        params = {
+                   name: plan.attributes["name"],
+                   identifier: plan.attributes["identifier"],
+                   ops_type: 'IUGU',
+                   ops_token: plan.attributes["id"],
+                   currency: plan.attributes["prices"].first["currency"],
+                   interval_type: plan.attributes["interval_type"],
+                   interval: plan.attributes["interval"] }
 
-      Plan.find_by_ops_token(params[:ops_token]).present? ? puts("Plan already imported") : Plan.create(params)
+        Plan.find_by_ops_token(params[:ops_token]).present? ? puts("Plan already imported") : Plan.create(params)
+      end
     end
   end
 
@@ -73,13 +76,13 @@ class Plan < ActiveRecord::Base
 
       if plan == false
         logger.error "Could not delete plan from OPS, aborting"
-        errors.add(:attr, "Could not delete plan from OPS, aborting")
+        errors.add(:ops_error, "Could not delete plan from OPS, aborting")
         raise ActiveRecord::Rollback
       end
 
     else
       logger.error "Bad ops_type, can't delete plan"
-      errors.add(:attr, "Bad ops_type, can't delete plan")
+      errors.add(:ops_error, "Bad ops_type, can't delete plan")
       raise ActiveRecord::Rollback
     end
   end

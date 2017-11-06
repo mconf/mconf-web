@@ -147,6 +147,10 @@ describe Subscription do
     end
   end
 
+  describe "#import_ops_sub" do
+    skip "test the scenarios where we import a subscription for an existing user and when we just detect it is already imported"
+  end
+
   describe "abilities", :abilities => true do
 
     subject { ability }
