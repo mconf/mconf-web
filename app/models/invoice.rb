@@ -7,7 +7,9 @@
 class Invoice < ActiveRecord::Base
   belongs_to :subscription
 
-  validates :subscription_id, :presence => true
+  validates :subscription_id, presence: true
+  validates :due_date, presence: true
+  validates :flag_invoice_status, presence: true
 
   def report_txt_file_path
     user = self.subscription.user_id

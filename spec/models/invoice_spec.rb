@@ -7,6 +7,18 @@
 require "spec_helper"
 
 describe Invoice do
+  it { should validate_presence_of(:subscription_id)      }
+  it { should validate_presence_of(:due_date)             }
+  it { should validate_presence_of(:flag_invoice_status)  }
+
+  describe "create" do
+    context "Create an invoice for a subscription" do
+      let(:subscription) { FactoryGirl.create(:subscription) }
+      subject { subscription.invoices.create(due_date: DateTime.now.change({day: 10}), flag_invoice_status: "local") }
+      it { expect { subject }.to change{ Invoice.count }.by(1) }
+    end
+  end
+
   skip "test the creation of invoices"
   skip "get the invoices and associate to a created subscription"
   skip "calculate the invoice value"
