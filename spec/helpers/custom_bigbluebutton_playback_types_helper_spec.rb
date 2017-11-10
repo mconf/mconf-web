@@ -19,7 +19,7 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
     context "when the identifier was presentation" do
       let(:playback) { FactoryGirl.create(:bigbluebutton_playback_format, playback_type: presentation) }
       let!(:link) {
-        link_to icon_conference_play, play_bigbluebutton_recording_path(recording, type: presentation.identifier), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation.tip"))
+        link_to icon_rec_play, play_bigbluebutton_recording_path(recording, type: presentation.identifier), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation.tip"))
       }
 
       subject { link_to_playback(recording, playback) }

@@ -24,7 +24,7 @@
     }
 
     &:hover, &.active {
-      background-color: #f6f6f6;
+      background-color: $m-light-gray;
     }
 
     &.list-item-disabled {
@@ -82,6 +82,7 @@
   background: $m-site-content-bg-color;
   @include border-radius($m-border-radius-large);
   padding: 40px 30px 30px 30px;
+  /* border: 1px solid $m-border-color-normal; */
 }
 
 table, .table {
@@ -95,18 +96,29 @@ table, .table {
 
   tbody {
     tr {
-      background: $m-site-content-bg-color;
+      /* background: $m-site-content-bg-color; */
       padding: 12px 0;
-      border-top: 12px solid $m-site-content-bg-color;
+      /* border-top: 12px solid $m-site-content-bg-color; */
+      border: 0;
+
+      &:nth-child(even) {
+        background: $m-very-light-gray;
+      }
+      /* tr:nth-child(odd) {background: #FFF} */
 
   /*     &.fadeout { */
   /*       opacity: 0.6; */
   /*     } */
 
       td {
-        background: $m-site-bg-color;
-        padding: 12px;
+        /* background: $m-site-bg-color; */
+        padding: 20px 12px;
         vertical-align: top;
+        border: 0;
+      }
+
+      &:hover {
+        background: $m-light-gray;
       }
 
       &:last-child {
@@ -134,33 +146,19 @@ table, .table {
   }
 }
 
-.table-tabs {
-  font-size: $m-font-medium;
-  margin: 0;
-  padding: 0;
-  @include mconf-clearfix;
-  margin-bottom: 20px;
+/* .table-wrapper { */
+/*   background: transparent; */
+/* } */
 
-  li {
-    float: left;
+/* table, .table { */
+/*   tbody { */
+/*     tr { */
+/*       background: $m-very-light-gray; */
+/*       border-radius: 10%; */
+/*     } */
 
-    a {
-      padding: 20px;
-      @include link-colors($m-font-color, $m-link-color-hover, $m-link-color-hover, $m-font-color);
-
-      &.active {
-        font-weight: $m-font-weight-bold;
-        border-bottom: $m-active-item-border;
-        color: $m-active-item-border-color;
-
-        &:hover {
-          color: $m-active-item-border-color;
-        }
-      }
-
-      &:hover, &:focus {
-        text-decoration: none;
-      }
-    }
-  }
-}
+/*     tr { */
+/*       border-top: 12px solid $m-site-bg-color; */
+/*     } */
+/*   } */
+/* } */
