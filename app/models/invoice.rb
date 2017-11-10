@@ -31,7 +31,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.next_due_date
-    (DateTime.now.change({day: Rails.application.config.due_day})+1.month).beginning_of_day
+    (DateTime.now.change({day: Rails.application.config.due_day})+1.month).utc.beginning_of_day
   end
 
   # Processed prices for the invoice
