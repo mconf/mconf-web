@@ -11,10 +11,17 @@ class Invoice < ActiveRecord::Base
   validates :due_date, presence: true
   validates :flag_invoice_status, presence: true
 
-  def report_txt_file_path
-    user = self.subscription.user_id
+  def report_file_path
+    user = self.subscription.user
     date = (self.due_date-1.month).strftime("%Y-%m")
-    (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt"))
+
+    if (user.locale == "pt-br")
+      filename = Rails.application.config.report_txt_pt
+    else
+      filename = Rails.application.config.report_txt_en
+    end
+
+    File.join(Rails.root, "private/subscriptions/#{date}/#{user.id}/#{filename}")
   end
 
   def csv_file_path

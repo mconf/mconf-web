@@ -97,8 +97,10 @@ pt-br:
         subject: "Assunto"
       subject: "Convite para webconferência"
   invoice_mailer:
-    message:
-      header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
+    invoice_report_email:
+      message:
+        header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
+        link: "Para abrir sua fatura, por favor clique aqui: <a href=\"%{url}\">%{url}</a>"
     subject: "Fatura do mês."
   shared:
     invitation_email:

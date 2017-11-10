@@ -151,5 +151,9 @@ module Mconf
 
     # iugu api token for test and for prod
     config.iugu_token = ENV['MCONF_IUGU_TOKEN'] || ''
+
+    # iugu report file names
+    config.report_txt_pt = "report-pt.pdf"
+    config.report_txt_en = "report-en.pdf"
   end
 end
