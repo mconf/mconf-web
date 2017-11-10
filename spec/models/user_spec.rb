@@ -461,6 +461,62 @@ describe User do
       end
     end
 
+    describe "generates a unique username when creating without setting a username" do
+
+      context "conflicting with another user" do
+        let(:another_user) { FactoryGirl.create(:user, username: nil) }
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: another_user.name })
+        }
+        it { user.username.should eql(another_user.username + "-2") }
+      end
+
+      context "conflicting with a disabled user" do
+        let(:another_user) { FactoryGirl.create(:user, username: nil, disabled: true) }
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: another_user.name })
+        }
+        it { user.username.should eql(another_user.username + "-2") }
+      end
+
+      context "conflicting with a space" do
+        let(:space) { FactoryGirl.create(:space, permalink: nil) }
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
+        }
+        it { user.username.should eql(space.permalink + "-2") }
+      end
+
+      context "conflicting with a disabled space" do
+        let(:space) { FactoryGirl.create(:space, permalink: nil, disabled: false) }
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
+        }
+        it { user.username.should eql(space.permalink + "-2") }
+      end
+
+      context "conflicting with a room" do
+        let!(:another_user) {
+          u = FactoryGirl.create(:user)
+          u.bigbluebutton_room.update_attributes(param: 'anything')
+          u
+        }
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: 'anything' })
+        }
+        it { user.username.should eql("anything-2") }
+      end
+
+      context "conflicting with a blacklisted word" do
+        let(:user) {
+          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: 'Spaces' })
+        }
+        it { user.username.should eql("spaces-2") }
+      end
+
+      ## TODO CONFLICTING ROOM ONLY
+
+    end
   end
 
   describe "on update" do

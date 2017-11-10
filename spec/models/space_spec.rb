@@ -252,6 +252,70 @@ describe Space do
       end
     end
 
+    describe "generates a unique permalink when creating without setting a permalink" do
+
+      context "conflicting with a user" do
+        let(:user) { FactoryGirl.create(:user, username: nil) }
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: user.name)
+        }
+        it { space.permalink.should eql(user.username + "-2") }
+      end
+
+      context "conflicting with a disabled user" do
+        let(:user) { FactoryGirl.create(:user, username: nil, disabled: true) }
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: user.name)
+        }
+        it { space.permalink.should eql(user.username + "-2") }
+      end
+
+      context "conflicting with another space" do
+        let(:another_space) {
+          s = FactoryGirl.create(:space, permalink: nil)
+          s.update_attributes(name: s.name + "-other") # so it won't give a conflict on #name
+          s
+        }
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: another_space.permalink)
+        }
+        it { space.permalink.should eql(another_space.permalink + "-2") }
+      end
+
+      context "conflicting with a disabled space" do
+        let(:another_space) {
+          s = FactoryGirl.create(:space, permalink: nil, disabled: true)
+          s.update_attributes(name: s.name + "-other") # so it won't give a conflict on #name
+          s
+        }
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: another_space.permalink)
+        }
+        it { space.permalink.should eql(another_space.permalink + "-2") }
+      end
+
+      context "conflicting with a room" do
+        let!(:user) {
+          u = FactoryGirl.create(:user)
+          u.bigbluebutton_room.update_attributes(param: 'anything')
+          u
+        }
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: 'anything')
+        }
+        it { space.permalink.should eql("anything-2") }
+      end
+
+      context "conflicting with a blacklisted word" do
+        let(:space) {
+          FactoryGirl.create(:space, permalink: nil, name: 'Users')
+        }
+        it { space.permalink.should eql("users-2") }
+      end
+
+      # TODO: if setting the permalink, should not generate but show a conflict
+
+    end
   end
 
   it "#check_errors_on_bigbluebutton_room"

@@ -28,7 +28,12 @@ module Mconf
           users = User.with_disabled.where(username: new_value).count
           spaces = Space.with_disabled.where(permalink: new_value).count
           rooms = BigbluebuttonRoom.where(param: new_value).count
-          break if users == 0 && spaces == 0 && rooms == 0
+
+          # blacklisted words
+          file = File.join(::Rails.root, "config", "reserved_words.yml")
+          words = YAML.load_file(file)['words']
+
+          break if users == 0 && spaces == 0 && rooms == 0 && !words.include?(new_value)
 
           new_value = "#{base}-#{num}"
           num += 1

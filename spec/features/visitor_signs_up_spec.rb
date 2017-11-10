@@ -95,7 +95,7 @@ feature 'Visitor signs up' do
   end
 
   scenario 'with the username of a disabled user' do
-    disabled_user = FactoryGirl.create(:user, username: nil)
+    disabled_user = FactoryGirl.create(:user, username: nil, disabled: true)
     attrs = FactoryGirl.attributes_for(:user, username: nil)
     attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: disabled_user.full_name)
     register_with(attrs)

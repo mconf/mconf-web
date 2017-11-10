@@ -51,6 +51,14 @@ describe Mconf::Identifier do
       it { target.unique_mconf_id("My Name").should eql("my-name-4") }
     end
 
+    it "considers blacklisted words" do
+      file = File.join(::Rails.root, "config", "reserved_words.yml")
+      words = YAML.load_file(file)['words']
+      words.each do |word|
+        target.unique_mconf_id(word).should eql("#{word}-2")
+      end
+    end
+
     context "ignores case when checking if it's unique" do
       before {
         FactoryGirl.create(:user, username: "my-namE")
