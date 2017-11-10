@@ -138,6 +138,8 @@ module Mconf
     config.minimum_users = 15
     config.base_month_days = 30.0
 
+    config.due_day = 10
+
     config.discounts = [
       { users:  250, value: 0.1 },
       { users:  500, value: 0.2 },

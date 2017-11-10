@@ -19,9 +19,30 @@ describe Invoice do
     end
   end
 
-  skip "test the creation of invoices"
-  skip "get the invoices and associate to a created subscription"
+
+  skip "get the invoices data (url and token)"
   skip "calculate the invoice value"
   skip "test posting the invoice value"
-  skip "test abilities"
+  skip "test getting the related files"
+
+  describe "abilities", :abilities => true do
+    set_custom_ability_actions([:report])
+
+    subject { ability }
+    let(:ability) { Abilities.ability_for(user) }
+
+    context "an user on his own invoice page" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+      let(:target) { FactoryGirl.create(:invoice, subscription_id: subscription.id) }
+      it { should_not be_able_to_do_anything_to(target).except([:show, :report]) }
+    end
+
+    context "an user on another user's invoice" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:target) { FactoryGirl.create(:invoice) }
+      it { should_not be_able_to_do_anything_to(target) }
+    end
+
+  end
 end

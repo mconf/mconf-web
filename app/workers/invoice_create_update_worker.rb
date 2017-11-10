@@ -27,14 +27,14 @@ class InvoiceCreateUpdateWorker < BaseWorker
         
         # There is none and is gonna be the first
         elsif !subscription.invoices.last.present?
-          invoice = subscription.invoices.create(due_date: DateTime.now.change({day: 10}), flag_invoice_status: "local")
+          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
           invoice.update_unique_user_qty
           invoice.generate_consumed_days("create")
         
         # There are invoices but not for this month
         else
           # We give a post command to the old invoice
-          invoice = subscription.invoices.create(due_date: DateTime.now.change({day: 10}), flag_invoice_status: "local")
+          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
           secondtolast = subscription.invoices.offset(1).last
           if secondtolast.present?
             Queue::High.enqueue(InvoicePostWorker, :perform, secondtolast.id)

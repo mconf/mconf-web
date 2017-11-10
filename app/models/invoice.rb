@@ -30,6 +30,10 @@ class Invoice < ActiveRecord::Base
     (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
   end
 
+  def self.next_due_date
+    (DateTime.now.change({day: Rails.application.config.due_day})+1.month).beginning_of_day
+  end
+
   # Processed prices for the invoice
   def invoice_full_price
     data = generate_invoice_value
@@ -157,7 +161,6 @@ class Invoice < ActiveRecord::Base
       self.update_attributes(invoice_url: invoices.first.attributes['secure_url'])
     end
   end
-
 
   def check_for_posted_invoices
     ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)

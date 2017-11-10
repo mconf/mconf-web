@@ -148,7 +148,76 @@ describe Subscription do
   end
 
   describe "#import_ops_sub" do
-    skip "test the scenarios where we import a subscription for an existing user and when we just detect it is already imported"
+    let!(:plan) { FactoryGirl.create(:plan, identifier: "base") }
+    let!(:user) { FactoryGirl.create(:user, email: "shughes@flipstorm.info") }
+    let!(:user_import) { FactoryGirl.create(:user, email: "import@flipstorm.info") }
+    let!(:subscription) { FactoryGirl.create(:subscription, subscription_token: "ABC123456", user_id: user.id) }
+    let(:present_subscription) { ::Iugu::Subscription.new(@attributes={"id"=>"ABC123456", "suspended"=>false,
+                                                                       "plan_identifier"=>"base", "price_cents"=>0, "currency"=>"BRL",
+                                                                       "features"=>{}, "expires_at"=>"2018-01-10", "created_at"=>"2017-10-19T13:42:48-02:00",
+                                                                       "updated_at"=>"2017-10-26T16:42:12-02:00", "customer_name"=>"Diana Medina",
+                                                                       "customer_email"=>"shughes@flipstorm.info", "cycled_at"=>nil, "credits_min"=>0,
+                                                                       "credits_cycle"=>nil, "payable_with"=>"all", "customer_id"=>"BCDS123123123",
+                                                                       "plan_name"=>"Basic Plan", "customer_ref"=>"Diana Medina", "plan_ref"=>"Basic Plan", "active"=>true,
+                                                                       "in_trial"=>nil, "credits"=>0, "credits_based"=>false, "recent_invoices"=>nil,
+                                                                       "subitems"=>[{"id"=>"EF62061C3FEE499782858DF5272C309D", "description"=>"Minimum service fee",
+                                                                                     "quantity"=>15, "price_cents"=>600, "recurrent"=>false, "price"=>"R$ 6,00",
+                                                                                     "total"=>"R$ 90,00"}],
+                                                                        "logs"=>[{"id"=>"BA3993C7EAED4A0FBCC098E577D93966", "description"=>"Subscription Created",
+                                                                                  "notes"=>"Subscription Created ", "created_at"=>"2017-10-19T13:42:48-02:00"}],
+                                                                        "custom_variables"=>[]}) }
+
+    let(:importable_subscription) { ::Iugu::Subscription.new(@attributes={"id"=>"654321CBA", "suspended"=>false,
+                                                                          "plan_identifier"=>"base", "price_cents"=>0, "currency"=>"BRL",
+                                                                          "features"=>{}, "expires_at"=>"2018-01-10", "created_at"=>"2017-10-19T13:42:48-02:00",
+                                                                          "updated_at"=>"2017-10-26T16:42:12-02:00", "customer_name"=>"Diana Medina",
+                                                                          "customer_email"=>"import@flipstorm.info", "cycled_at"=>nil, "credits_min"=>0,
+                                                                          "credits_cycle"=>nil, "payable_with"=>"all", "customer_id"=>"ASDF123456",
+                                                                          "plan_name"=>"Basic Plan", "customer_ref"=>"Diana Medina", "plan_ref"=>"Basic Plan", "active"=>true,
+                                                                          "in_trial"=>nil, "credits"=>0, "credits_based"=>false, "recent_invoices"=>nil,
+                                                                          "subitems"=>[{"id"=>"EF62061C3FEE499782858DF5272C309D", "description"=>"Minimum service fee",
+                                                                                        "quantity"=>15, "price_cents"=>600, "recurrent"=>false, "price"=>"R$ 6,00",
+                                                                                        "total"=>"R$ 90,00"}],
+                                                                           "logs"=>[{"id"=>"BA3993C7EAED4A0FBCC098E577D93966", "description"=>"Subscription Created",
+                                                                                     "notes"=>"Subscription Created ", "created_at"=>"2017-10-19T13:42:48-02:00"}],
+                                                                           "custom_variables"=>[]}) }
+
+    let(:customer) { ::Iugu::Customer.new(@attributes={"id"=>"BCDS123123123", "email"=>"shughes@flipstorm.info", "name"=>"Diana Medina",
+                                                       "notes"=>nil, "created_at"=>"2017-10-19T13:42:47-02:00", "updated_at"=>"2017-10-19T13:42:47-02:00",
+                                                       "cc_emails"=>nil, "cpf_cnpj"=>"011.354.780-31", "zip_code"=>"90040-060", "number"=>"203", "complement"=>"Casa 2",
+                                                       "default_payment_method_id"=>nil, "proxy_payments_from_customer_id"=>nil, "city"=>"Porto Alegre", "state"=>"RS",
+                                                       "district"=>"Farroupilha", "street"=>"Avenida Paulo Gama", "custom_variables"=>[{"name"=>"Country", "value"=>"Brazil"}]}) }
+
+    let(:import_customer) { ::Iugu::Customer.new(@attributes={"id"=>"ASDF123456", "email"=>"import@flipstorm.info", "name"=>"Diana Medina",
+                                                       "notes"=>nil, "created_at"=>"2017-10-19T13:42:47-02:00", "updated_at"=>"2017-10-19T13:42:47-02:00",
+                                                       "cc_emails"=>nil, "cpf_cnpj"=>"011.354.780-31", "zip_code"=>"90040-060", "number"=>"203", "complement"=>"Casa 2",
+                                                       "default_payment_method_id"=>nil, "proxy_payments_from_customer_id"=>nil, "city"=>"Porto Alegre", "state"=>"RS",
+                                                       "district"=>"Farroupilha", "street"=>"Avenida Paulo Gama", "custom_variables"=>[{"name"=>"Country", "value"=>"Brazil"}]}) }
+
+    context "the subscription already exists in our database" do
+      before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([present_subscription])
+               Mconf::Iugu.stub(:find_customer_by_id).and_return(customer) }
+      subject { Subscription.import_ops_sub }
+      it { expect { subject }.to change{ Subscription.count }.by(0) }
+    end
+
+    context "the subscription is imported correctly" do
+      before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([importable_subscription])
+               Mconf::Iugu.stub(:find_customer_by_id).and_return(import_customer) }
+      subject { Subscription.import_ops_sub }
+      it { expect { subject }.to change{ Subscription.count }.by(1) }
+    end
+
+    context "there is no user to match" do
+
+    end
+
+    context "there are no plans to import from ops" do
+      before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return(nil)
+               Mconf::Iugu.stub(:find_customer_by_id).and_return([customer]) }
+      subject { Subscription.import_ops_sub }
+      it { expect { subject }.to change{ Subscription.count }.by(0) }
+    end
   end
 
   describe "abilities", :abilities => true do
