@@ -29,7 +29,7 @@ describe InvoiceNotificationReportWorker, type: :worker do
         # SEND THE EMAIL
         # see invoice_mailer_spec
         before {
-          Invoice.any_instance.stub(:report_txt_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-invoice.txt"))
+          Invoice.any_instance.stub(:report_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
         }
         it "invoice.notified == true" do
           subject
