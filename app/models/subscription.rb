@@ -22,10 +22,11 @@ class Subscription < ActiveRecord::Base
   validates :province, :presence => true
   validates :district, :presence => true
 
-
   before_create :create_customer_and_sub
+  after_create :subscription_created_notification
   before_update :update_sub
   before_destroy :destroy_sub
+  before_destroy :subscription_destroyed_notification
 
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
@@ -202,6 +203,16 @@ class Subscription < ActiveRecord::Base
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end
+  end
+
+  def subscription_created_notification
+    subscription_owner = User.find_by(id: self.user_id)
+    self.create_activity 'created', owner: self, recipient: subscription_owner, notified: false
+  end
+
+  def subscription_destroyed_notification
+    subscription_owner = User.find_by(id: self.user_id)
+    self.create_activity 'destroyed', owner: self, recipient: subscription_owner, notified: false
   end
 
 end
