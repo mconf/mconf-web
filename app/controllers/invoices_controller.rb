@@ -33,8 +33,8 @@ class InvoicesController < InheritedResources::Base
     user = @invoice.subscription.user_id
     date = (@invoice.due_date-1.month).strftime("%Y-%m")
 
-    if File.exists?(@invoice.report_txt_file_path)
-      @file = @invoice.report_txt_file_path
+    if File.exists?(@invoice.report_file_path)
+      @file = @invoice.report_file_path
       send_file @file, disposition: 'attachment', x_sendfile: true
     else
       nil
