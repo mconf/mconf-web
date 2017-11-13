@@ -14,7 +14,6 @@ describe Invoice do
 
   skip "calculate the invoice value"
   skip "test posting the invoice value"
-  skip "get the data from the csv for unique users"
 
   describe "create" do
     context "Create an invoice for a subscription" do
@@ -28,6 +27,20 @@ describe Invoice do
     skip "stub return from ops and check flags update"
   end
 
+  describe "get the data from the csv for unique users" do
+    context "#update_unique_user_qty" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+      let(:target) { FactoryGirl.create(:invoice, subscription_id: subscription.id, user_qty: 0) }
+      before { Invoice.any_instance.stub(:csv_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-unique-users.csv")) }
+
+      it "upadtes to the ammount specified in csv file (which is 55)" do
+        target.update_unique_user_qty
+        target.user_qty.should eql(55)
+      end
+    end
+  end
+
   describe "values generated for invoice#show are correct" do
     let(:user) { FactoryGirl.create(:user) }
     let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
@@ -36,19 +49,19 @@ describe Invoice do
     before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:users=>0.3, :days=>0.7333333333333333},
                                        :quantity=>1000, :cost_per_user=>600, :total=>308000.0, :minimum=>false}) }
 
-    context "invoice_full_price" do
+    context "#invoice_full_price" do
       it { target.invoice_full_price.should eql("+ R$ 6000.00")}
     end
 
-    context "invoice_users_discount" do
+    context "#invoice_users_discount" do
       it { target.invoice_users_discount.should eql("- R$ 1800.00")}
     end
 
-    context "invoice_days_discount" do
+    context "#invoice_days_discount" do
       it { target.invoice_days_discount.should eql("- R$ 1120.00")}
     end
 
-    context "invoice_total" do
+    context "#invoice_total" do
       it { target.invoice_total.should eql("R$ 3080.00")}
     end
   end
@@ -63,7 +76,7 @@ describe Invoice do
     let(:target) { FactoryGirl.create(:invoice, subscription_id: subscription.id) }
 
     context "#report_file_path" do
-      it { target.report_file_path.should eql("/vagrant/private/subscriptions/#{(target.due_date-1.month).strftime("%Y-%m")}/#{user.id}/report-en.pdf") }
+      it { target.report_file_path.should eql("/vagrant/private/subscriptions/#{(target.due_date-1.month).strftime("%Y-%m")}/#{user.id}/#{Rails.application.config.report_en}") }
     end
     context "#csv_file_path" do
       it { target.csv_file_path.should eql("/vagrant/private/subscriptions/#{(target.due_date-1.month).strftime("%Y-%m")}/#{user.id}/unique-users.csv") }
