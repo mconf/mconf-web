@@ -16,9 +16,9 @@ class Invoice < ActiveRecord::Base
     date = (self.due_date-1.month).strftime("%Y-%m")
 
     if (user.locale == "pt-br")
-      filename = Rails.application.config.report_txt_pt
+      filename = Rails.application.config.report_pt
     else
-      filename = Rails.application.config.report_txt_en
+      filename = Rails.application.config.report_en
     end
 
     File.join(Rails.root, "private/subscriptions/#{date}/#{user.id}/#{filename}")

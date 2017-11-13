@@ -14,7 +14,7 @@ describe InvoiceMailer do
   describe '.invoice_report_email' do
 
     before {
-      Invoice.any_instance.stub(:report_txt_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-invoice.txt"))
+      Invoice.any_instance.stub(:report_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
     }
     let(:date) { (invoice.due_date - 1.month).strftime("%Y-%m") }
     let(:mail) { InvoiceMailer.invoice_report_email(user.id, invoice.id, date) }
@@ -28,11 +28,11 @@ describe InvoiceMailer do
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
     it("sets 'headers'") { mail.headers.should eql({}) }
     it("assigns @user") { mail.body.encoded.should match(user.name) }
-    it("sends a .txt file attached") {
+    it("sends a .pdf file attached") {
       mail.attachments.should have(4).attachment
       attachment = mail.attachments[0]
       attachment.should be_a_kind_of(Mail::Part)
-      attachment.filename.should eql('invoice-report.txt')
+      attachment.filename.should eql('report.pdf')
     }
     it("renders the link to see all the subscriptions with all invoices") {
       allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:user_subscription_url).and_return(url)
