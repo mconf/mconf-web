@@ -11,9 +11,10 @@ describe Invoice do
   it { should validate_presence_of(:due_date)             }
   it { should validate_presence_of(:flag_invoice_status)  }
 
-  skip "get the invoices data (url and token)"
+
   skip "calculate the invoice value"
   skip "test posting the invoice value"
+  skip "get the data from the csv for unique users"
 
   describe "create" do
     context "Create an invoice for a subscription" do
@@ -23,13 +24,32 @@ describe Invoice do
     end
   end
 
-  describe "values generated for showing invoice are correct" do
+  describe "get the invoices data (url and token)" do
+    skip "stub return from ops and check flags update"
+  end
+
+  describe "values generated for invoice#show are correct" do
     let(:user) { FactoryGirl.create(:user) }
     let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     let(:target) { FactoryGirl.create(:invoice, subscription_id: subscription.id) }
 
-    context "" do
-      it { target.invoice_full_price }
+    before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:users=>0.3, :days=>0.7333333333333333},
+                                       :quantity=>1000, :cost_per_user=>600, :total=>308000.0, :minimum=>false}) }
+
+    context "invoice_full_price" do
+      it { target.invoice_full_price.should eql("+ R$ 6000.00")}
+    end
+
+    context "invoice_users_discount" do
+      it { target.invoice_users_discount.should eql("- R$ 1800.00")}
+    end
+
+    context "invoice_days_discount" do
+      it { target.invoice_days_discount.should eql("- R$ 1120.00")}
+    end
+
+    context "invoice_total" do
+      it { target.invoice_total.should eql("R$ 3080.00")}
     end
   end
 
