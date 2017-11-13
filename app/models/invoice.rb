@@ -68,8 +68,9 @@ class Invoice < ActiveRecord::Base
   end
 
   def invoice_total
-    generate_invoice_value
-    sprintf('R$ %.2f', self.invoice_value/100)
+    data = generate_invoice_value
+    total = data[:total]
+    sprintf('R$ %.2f', total/100)
   end
 
 
