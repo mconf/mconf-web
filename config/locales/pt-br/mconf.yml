@@ -149,7 +149,7 @@ pt-br:
     attributes:
       bigbluebutton_room:
         name: "Nome"
-        param: "Endereço"
+        slug: "Endereço"
       invitation:
         duration_values:
           5m: "5 minutos"

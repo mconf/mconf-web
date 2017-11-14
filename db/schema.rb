@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114124112) do
+ActiveRecord::Schema.define(version: 20171114142537) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20171114124112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "external",                                            default: false
-    t.string   "param"
+    t.string   "slug"
     t.boolean  "record_meeting",                                      default: false
     t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20171114124112) do
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "param"
+    t.string   "slug"
   end
 
   create_table "certificate_tokens", force: true do |t|

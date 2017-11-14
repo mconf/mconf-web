@@ -46,17 +46,16 @@ pt-br:
         moderator_key: "Chave para moderadores"
         moderator_only_message: "Mensagem mostrada somente aos moderadores"
         name: Nome
-        param: Identificador
         private: Privada
         presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
         record: Gravar
-        server_id: "ID do Servidor"
+        slug: Identificador
         voice_bridge: "Voice Bridge"
         welcome_msg: "Mensagem de boas-vindas"
       bigbluebutton_server:
         name: Nome
-        param: Identificador
         secret: "Chave de segurança"
+        slug: Identificador
         url: URL
         version: Versão
       bigbluebutton_server_config:
@@ -79,13 +78,13 @@ pt-br:
           success: "Formato de reprodução atualizado com sucesso."
       presentation:
         name: "Reproduzir"
-        tip: "Reproduzir gravação online"
+        tip: "Reproduz a gravação em uma página HTML5. Não é feito download da gravação para o seu computador, portanto exige internet para a gravação ser reproduzida."
       presentation_export:
         name: "Download HTML"
-        tip: "Download da gravação para reprodução offline"
+        tip: "Faz o download de uma página HTML que você pode usar para reproduzir a gravação usando o seu navegador mesmo sem conexão com a internet. Tem todas as características da versão online, mas com a vantagem de não exigir internet. Atualmente só pode ser reproduzida usando o navegador Firefox."
       presentation_video:
         name: "Download"
-        tip: "Download da gravação em arquivo de vídeo"
+        tip: "Realiza o download da gravação em um arquivo de vídeo (no formato WebM). Você pode usar esse arquivo de vídeo para assistir a gravação offline e/ou compartilhar esta gravação em outros sites."
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"
@@ -106,7 +105,7 @@ pt-br:
           success: "Sua gravação foi atualizada com sucesso."
     rooms:
       default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
-      default_welcome_msg_dial_number: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>Você pode discar para esta conferência através de um telefone usando o número \"%%DIALNUM%%\".<br>"
+      default_welcome_msg_dial_number: "<br>Você pode discar para esta conferência através de um telefone usando o número \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "Não há nenhum servidor associado a esta sala."
@@ -117,9 +116,9 @@ pt-br:
           wrong_params: "Parâmetros errados na sua requisição."
         generate_dial_number:
           not_unique: "Desculpe, mas não foi possível gerar um número de discagem único. Você pode tentar novamente ou então atribuir um número manualmente."
-        param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         server:
           nil: "Sua sala deve ser associada a um servidor para executar esta operação."
+        slug_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
       notice:
         create:
           failure: "Sua sala não pôde ser criada."
@@ -139,7 +138,7 @@ pt-br:
           success: "Sua sala foi atualizada com sucesso."
     servers:
       errors:
-        param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
+        slug_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         url_format: "deve utilizar o padrão http://<servidor>/bigbluebutton/api"
       notice:
         create:

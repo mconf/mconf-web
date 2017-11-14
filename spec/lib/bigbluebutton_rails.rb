@@ -17,14 +17,14 @@ describe BigbluebuttonRails do
 
     it { target.should respond_to(:get_invitation_url) }
     it { target.get_invitation_url.should be_a(Proc) }
-    it { target.get_invitation_url.call(room).should eql("http://#{Site.current.domain}/webconf/#{room.param}") }
+    it { target.get_invitation_url.call(room).should eql("http://#{Site.current.domain}/webconf/#{room.slug}") }
 
     context "works with HTTPS" do
       before {
         Site.current.update_attributes(ssl: true)
       }
 
-      it { target.get_invitation_url.call(room).should eql("https://#{Site.current.domain}/webconf/#{room.param}") }
+      it { target.get_invitation_url.call(room).should eql("https://#{Site.current.domain}/webconf/#{room.slug}") }
     end
   end
 

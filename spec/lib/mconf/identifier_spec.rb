@@ -36,8 +36,8 @@ describe Mconf::Identifier do
 
     context "makes sure the id is unique among rooms" do
       before {
-        FactoryGirl.create(:bigbluebutton_room, param: "my-name")
-        FactoryGirl.create(:bigbluebutton_room, param: "my-name-2")
+        FactoryGirl.create(:bigbluebutton_room, slug: "my-name")
+        FactoryGirl.create(:bigbluebutton_room, slug: "my-name-2")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-3") }
     end
@@ -46,7 +46,7 @@ describe Mconf::Identifier do
       before {
         FactoryGirl.create(:user, username: "my-name")
         FactoryGirl.create(:space, slug: "my-name-2")
-        FactoryGirl.create(:bigbluebutton_room, param: "my-name-3")
+        FactoryGirl.create(:bigbluebutton_room, slug: "my-name-3")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-4") }
     end

@@ -86,7 +86,7 @@ class Space < ActiveRecord::Base
     length: { minimum: 3 },
     identifier_uniqueness: true,
     blacklist: true,
-    room_param_uniqueness: true
+    room_slug_uniqueness: true
 
   # the friendly name / slug for the space
   extend FriendlyId
@@ -349,7 +349,7 @@ class Space < ActiveRecord::Base
   def create_webconf_room
     params = {
       owner: self,
-      param: self.slug,
+      slug: self.slug,
       name: self.name,
       private: false,
       moderator_key: SecureRandom.hex(8),
@@ -373,10 +373,10 @@ class Space < ActiveRecord::Base
 
   # Checks if an error happened when creating the associated 'bigbluebutton_room'
   # and sets this error in an attribute that can be seen by the user in the views.
-  # TODO: Check for any error, not only on :param; test it better; do it for users too.
+  # TODO: Check for any error, not only on :slug; test it better; do it for users too.
   def check_errors_on_bigbluebutton_room
-    if self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
-      self.errors.add :slug, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
+    if self.bigbluebutton_room and self.bigbluebutton_room.errors[:slug].size > 0
+      self.errors.add :slug, I18n.t('activerecord.errors.messages.invalid_identifier', id: self.bigbluebutton_room.slug)
     end
   end
 

@@ -159,7 +159,7 @@ describe 'User signs in via ldap', ldap: true do
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:username])
+          FactoryGirl.create(:bigbluebutton_room, slug: @ldap_attrs[:username])
           expect {
             sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
           }.to change{ User.count }

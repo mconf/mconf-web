@@ -215,12 +215,12 @@ describe Space do
       describe "on create" do
         context "with an exact match" do
           let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-          subject { FactoryGirl.build(:space_with_associations, slug: room.param) }
+          subject { FactoryGirl.build(:space_with_associations, slug: room.slug) }
           include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
-          let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          let!(:room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
           subject { FactoryGirl.build(:space_with_associations, slug: "mY-weiRD-NAMe") }
           include_examples "invalid space with slug not unique"
         end
@@ -231,14 +231,14 @@ describe Space do
           let(:subject) { FactoryGirl.create(:space) }
           let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
           before(:each) {
-            subject.slug = other_room.param
+            subject.slug = other_room.slug
           }
           include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:space) }
-          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
           before(:each) {
             subject.slug = "mY-weiRD-NAMe"
           }
@@ -297,7 +297,7 @@ describe Space do
       context "conflicting with a room" do
         let!(:user) {
           u = FactoryGirl.create(:user)
-          u.bigbluebutton_room.update_attributes(param: 'anything')
+          u.bigbluebutton_room.update_attributes(slug: 'anything')
           u
         }
         let(:space) {
@@ -1062,8 +1062,8 @@ describe Space do
         space.bigbluebutton_room.owner.should be(space)
       end
 
-      it "with param and name equal the space's slug" do
-        space.bigbluebutton_room.param.should eql(space.slug)
+      it "with slug and name equal the space's slug" do
+        space.bigbluebutton_room.slug.should eql(space.slug)
         space.bigbluebutton_room.name.should eql(space.name)
       end
 
@@ -1093,7 +1093,7 @@ describe Space do
       let(:space) { FactoryGirl.create(:space_with_associations, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
 
-      it { space.bigbluebutton_room.param.should be(space.slug) }
+      it { space.bigbluebutton_room.slug.should be(space.slug) }
       it { space.bigbluebutton_room.name.should be(space.name) }
       it { space.bigbluebutton_room.private.should be(false) }
     end

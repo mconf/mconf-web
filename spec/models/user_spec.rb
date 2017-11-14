@@ -235,8 +235,8 @@ describe User do
       user.bigbluebutton_room.owner.should eq(user)
     end
 
-    it "has param and name equal the user's username" do
-      user.bigbluebutton_room.param.should eql(user.username)
+    it "has slug and name equal the user's username" do
+      user.bigbluebutton_room.slug.should eql(user.username)
       user.bigbluebutton_room.name.should eql(user.name)
     end
 
@@ -424,12 +424,12 @@ describe User do
       describe "on create" do
         context "with an exact match" do
           let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-          subject { FactoryGirl.build(:user, username: room.param) }
+          subject { FactoryGirl.build(:user, username: room.slug) }
           include_examples "invalid user with username not unique"
         end
 
         context "uses case-insensitive comparisons" do
-          let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          let!(:room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
           subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
           include_examples "invalid user with username not unique"
         end
@@ -440,14 +440,14 @@ describe User do
           let(:subject) { FactoryGirl.create(:user) }
           let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
           before(:each) {
-            subject.username = other_room.param
+            subject.username = other_room.slug
           }
           include_examples "invalid user with username not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:user) }
-          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
           before(:each) {
             subject.username = "mY-weiRD-NAMe"
           }
@@ -498,7 +498,7 @@ describe User do
       context "conflicting with a room" do
         let!(:another_user) {
           u = FactoryGirl.create(:user)
-          u.bigbluebutton_room.update_attributes(param: 'anything')
+          u.bigbluebutton_room.update_attributes(slug: 'anything')
           u
         }
         let(:user) {
@@ -523,7 +523,7 @@ describe User do
     context "updates the webconf room" do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
-      it { user.bigbluebutton_room.param.should_not be(user.username) }
+      it { user.bigbluebutton_room.slug.should_not be(user.username) }
       it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end

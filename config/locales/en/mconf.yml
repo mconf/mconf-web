@@ -154,7 +154,7 @@ en:
     attributes:
       bigbluebutton_room:
         name: "Name"
-        param: "Address"
+        slug: "Address"
       invitation:
         duration_values:
           5m: "5 minutes"

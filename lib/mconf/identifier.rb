@@ -27,7 +27,7 @@ module Mconf
           # have to consider both users and spaces, including disabled ones
           users = User.with_disabled.where(username: new_value).count
           spaces = Space.with_disabled.where(slug: new_value).count
-          rooms = BigbluebuttonRoom.where(param: new_value).count
+          rooms = BigbluebuttonRoom.where(slug: new_value).count
 
           # blacklisted words
           file = File.join(::Rails.root, "config", "reserved_words.yml")

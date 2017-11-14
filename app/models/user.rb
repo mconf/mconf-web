@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     length: { minimum: 1 },
     identifier_uniqueness: true,
     blacklist: true,
-    room_param_uniqueness: true
+    room_slug_uniqueness: true
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged, slug_column: :username
@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
   def create_webconf_room
     params = {
       owner: self,
-      param: self.username,
+      slug: self.username,
       name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
@@ -443,11 +443,11 @@ class User < ActiveRecord::Base
     if disabled
       self.username = disabled_rename(self.username)
       self.email = disabled_rename(self.email)
-      self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = disabled_rename(self.bigbluebutton_room.slug)
     else
       self.username = enabled_rename(self.username)
       self.email = enabled_rename(self.email)
-      self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = enabled_rename(self.bigbluebutton_room.slug)
     end
     self.skip_confirmation_notification!
     self.save
