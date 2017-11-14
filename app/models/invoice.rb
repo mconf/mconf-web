@@ -155,17 +155,17 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def check_for_posted_invoices
+    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
+    ops_invoice
+  end
+
   def get_invoice_payment_data
     invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
     if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
       self.update_attributes(invoice_token: invoices.first.attributes['id'])
       self.update_attributes(invoice_url: invoices.first.attributes['secure_url'])
     end
-  end
-
-  def check_for_posted_invoices
-    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
-    ops_invoice
   end
 
   def generate_consumed_days(action)
@@ -180,22 +180,16 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_invoice_value
-    #move to initializer to make @s after initilaize
     b_price =  Rails.application.config.base_price
     b_price_i =  Rails.application.config.base_price_integrator
 
-    # Make sure we are updated and also that we are working with the correct month
-    #update_unique_user_qty
+    # Make sure we are updated on the ammount of users before generating the prices
+    self.update_unique_user_qty
 
     result = {
       discounts: {},
       quantity: self.user_qty
     }
-
-    ########################################
-    # test for 500 users                   #
-    # self.update_attributes(user_qty: 500)#
-    ########################################
 
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
@@ -211,12 +205,6 @@ class Invoice < ActiveRecord::Base
     if self.days_consumed.present? && self.days_consumed <  Rails.application.config.base_month_days
       result[:discounts][:days] = self.days_consumed /  Rails.application.config.base_month_days
     end
-
-    ########################################
-    #test for 15 days usage:               #
-    #self.days_consumed = 20               #
-    #result[:discounts][:days] = 20.0/30.0 #
-    ########################################
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users
