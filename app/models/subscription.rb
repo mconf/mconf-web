@@ -5,6 +5,8 @@
 # 3 or later. See the LICENSE file.
 
 class Subscription < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :plan, foreign_key: 'plan_token', primary_key: "ops_token"
   belongs_to :user
 
@@ -207,12 +209,12 @@ class Subscription < ActiveRecord::Base
 
   def subscription_created_notification
     subscription_owner = User.find_by(id: self.user_id)
-    self.create_activity 'created', owner: self, recipient: subscription_owner, notified: false
+    create_activity 'created', owner: self, recipient: subscription_owner, notified: false
   end
 
   def subscription_destroyed_notification
     subscription_owner = User.find_by(id: self.user_id)
-    self.create_activity 'destroyed', owner: self, recipient: subscription_owner, notified: false
+    create_activity 'destroyed', owner: self, recipient: subscription_owner, notified: false
   end
 
 end

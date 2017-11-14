@@ -6,11 +6,16 @@
 # 3 or later. See the LICENSE file.
 
 class SubscriptionCreatedSenderWorker < BaseWorker
-  def perform(activity_id)
+  def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
 
     if !activity.notified? && activity.trackable.present?
+      subscription_creator_name = activity.recipient.username
+      subscription_id = activity.trackable_id
 
+      Resque.logger.info "Sending subscription created to #{subscription_creator_name} with subscription ID: #{subscription_id}"
+      SubscriptionMailer.subscription_created_notification_email(activity.recipient, subscription_id).deliver
+      activity.update_attributes(notified: true)
     end
   end
 end

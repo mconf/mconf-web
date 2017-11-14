@@ -8,7 +8,7 @@
 
 # For recently created and destroyed subscriptions.
 
-class SubscriptionNotificationsWorker < BaseWorker
+class SubscriptionNotificationWorker < BaseWorker
 
   def self.perform
     notify_users_of_subscription_created
