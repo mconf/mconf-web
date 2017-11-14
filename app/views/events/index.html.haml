@@ -20,7 +20,7 @@
       - @events.each do |event|
         -# TODO: everybody has access?
         - has_access = true
-        .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
+        .content-block-middle{ :id => "#{event.slug}-description", :style => "display:none;" }
           .event-logo-wrapper
             = event_logo_link(event, :class => "logo logo-event")
           - if has_access

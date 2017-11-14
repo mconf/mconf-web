@@ -52,7 +52,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for an approved space' do
         let(:space) { @approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -66,7 +66,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for a not approved space' do
         let(:space) { @not_approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -80,7 +80,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for a disabled space' do
         let(:space) { @disabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -96,7 +96,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for an enabled space' do
         let(:space) { @enabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -117,7 +117,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for an approved space' do
         let(:space) { @approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -131,7 +131,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for a not approved space' do
         let(:space) { @not_approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -145,7 +145,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for a disabled space' do
         let(:space) { @disabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
@@ -161,7 +161,7 @@ describe 'Admin manages spaces' do
 
       context 'elements for an enabled space' do
         let(:space) { @enabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
         it { should have_css '.logo-space' }
         it { should have_css '.management-links' }

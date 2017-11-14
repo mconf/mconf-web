@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
 
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
-  alias_attribute :permalink, :username
+  alias_attribute :slug, :username
 
   delegate :full_name, :first_name, :organization, :city, :country,
            :logo, :logo_image, :logo_image_url,

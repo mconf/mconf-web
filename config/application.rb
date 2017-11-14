@@ -29,7 +29,7 @@ module Mconf
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-    # config.plugins = [ :simple_captcha, :permalink_fu, :all ]
+    # config.plugins = [ :simple_captcha, :slug_fu, :all ]
     config.plugins = [:all]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

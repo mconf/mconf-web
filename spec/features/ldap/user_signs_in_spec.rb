@@ -147,7 +147,7 @@ describe 'User signs in via ldap', ldap: true do
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @ldap_attrs[:username])
+          FactoryGirl.create(:space, slug: @ldap_attrs[:username])
           expect {
             sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
           }.to change{ User.count }

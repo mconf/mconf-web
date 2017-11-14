@@ -28,8 +28,8 @@ describe Mconf::Identifier do
 
     context "makes sure the id is unique among spaces" do
       before {
-        FactoryGirl.create(:space, permalink: "my-name")
-        FactoryGirl.create(:space, permalink: "my-name-2")
+        FactoryGirl.create(:space, slug: "my-name")
+        FactoryGirl.create(:space, slug: "my-name-2")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-3") }
     end
@@ -45,7 +45,7 @@ describe Mconf::Identifier do
     context "makes sure the id is unique among users, spaces and rooms" do
       before {
         FactoryGirl.create(:user, username: "my-name")
-        FactoryGirl.create(:space, permalink: "my-name-2")
+        FactoryGirl.create(:space, slug: "my-name-2")
         FactoryGirl.create(:bigbluebutton_room, param: "my-name-3")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-4") }
@@ -72,9 +72,9 @@ describe Mconf::Identifier do
         FactoryGirl.create(:user, username: "my-name")
         FactoryGirl.create(:user, username: "my-name-2", disabled: true)
         FactoryGirl.create(:user, username: "my-name-3", approved: false)
-        FactoryGirl.create(:space, permalink: "my-name-4")
-        FactoryGirl.create(:space, permalink: "my-name-5", disabled: true)
-        FactoryGirl.create(:space, permalink: "my-name-6", approved: false)
+        FactoryGirl.create(:space, slug: "my-name-4")
+        FactoryGirl.create(:space, slug: "my-name-5", disabled: true)
+        FactoryGirl.create(:space, slug: "my-name-6", approved: false)
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-7") }
     end

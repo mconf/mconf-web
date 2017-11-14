@@ -684,10 +684,10 @@ describe Mconf::Shibboleth do
       }
     end
 
-    context "doesn't fail if the login is already used as the permalink of a space" do
+    context "doesn't fail if the login is already used as the slug of a space" do
       let(:token) { ShibToken.new(identifier: 'any@email.com') }
       before {
-        FactoryGirl.create(:space, permalink: 'any-name')
+        FactoryGirl.create(:space, slug: 'any-name')
         shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('Any Name')
         shibboleth.should_receive(:get_name).and_return('Any Name')

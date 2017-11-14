@@ -12,10 +12,10 @@ class ParticipantsController < InheritedResources::Base
 
   layout "no_sidebar", only: [:new, :create]
 
-  load_and_authorize_resource :event, find_by: :permalink
+  load_and_authorize_resource :event, find_by: :slug
   load_and_authorize_resource :participant, :through => :event
 
-  belongs_to :event, finder: :find_by_permalink
+  belongs_to :event, finder: :find_by_slug
 
   before_filter :custom_loading, only: [:index]
   before_filter only: [:create] do

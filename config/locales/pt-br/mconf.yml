@@ -258,7 +258,7 @@ pt-br:
         description: "Descrição"
         moderator_key: "Chave para moderadores"
         name: "Nome"
-        permalink: "Identificador"
+        slug: "Identificador"
         public: "Pública"
         repository: "Repositório de documentos"
         tag_list: "Tags"
@@ -1626,7 +1626,7 @@ pt-br:
       creation_forbidden: "Você não possui permissão para criar comunidades"
       last_admin_cant_leave: "Você não pode sair desta comunidade pois você é o último administrador"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
-      not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      not_found: "A comunidade \"%{slug}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index:
       create_new_space: "Criar uma comunidade"

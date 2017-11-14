@@ -26,7 +26,7 @@ module Mconf
         loop do
           # have to consider both users and spaces, including disabled ones
           users = User.with_disabled.where(username: new_value).count
-          spaces = Space.with_disabled.where(permalink: new_value).count
+          spaces = Space.with_disabled.where(slug: new_value).count
           rooms = BigbluebuttonRoom.where(param: new_value).count
 
           # blacklisted words

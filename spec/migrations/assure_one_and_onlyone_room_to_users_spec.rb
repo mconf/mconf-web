@@ -28,9 +28,9 @@ describe AssureOneAndOnlyOneRoomToUsers, :migration => true do
         end
       end
 
-      it 'all space rooms need to have the param matching the space\'s permalink' do
+      it 'all space rooms need to have the param matching the space\'s slug' do
         Space.all.each do |space|
-          space.bigbluebutton_room.param.should =~ /^((#{space.permalink})|(#{space.permalink}-.*))$/
+          space.bigbluebutton_room.param.should =~ /^((#{space.slug})|(#{space.slug}-.*))$/
         end
       end
 

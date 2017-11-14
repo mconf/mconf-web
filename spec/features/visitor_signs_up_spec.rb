@@ -104,24 +104,24 @@ feature 'Visitor signs up' do
     User.last.username.should eql(disabled_user.username + "-2")
   end
 
-  scenario "with the username equal to some space's permalink" do
-    space = FactoryGirl.create(:space, permalink: nil)
+  scenario "with the username equal to some space's slug" do
+    space = FactoryGirl.create(:space, slug: nil)
     attrs = FactoryGirl.attributes_for(:user, username: nil)
     attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: space.name)
     register_with(attrs)
 
     current_path.should eq(my_home_path)
-    User.last.username.should eql(space.permalink + "-2")
+    User.last.username.should eql(space.slug + "-2")
   end
 
-  scenario "with the username equal to some disabled space's permalink" do
-    disabled_space = FactoryGirl.create(:space, disabled: true, permalink: nil)
+  scenario "with the username equal to some disabled space's slug" do
+    disabled_space = FactoryGirl.create(:space, disabled: true, slug: nil)
     attrs = FactoryGirl.attributes_for(:user, username: nil)
     attrs[:profile_attributes] = FactoryGirl.attributes_for(:profile, full_name: disabled_space.name)
     register_with(attrs)
 
     current_path.should eq(my_home_path)
-    User.last.username.should eql(disabled_space.permalink + "-2")
+    User.last.username.should eql(disabled_space.slug + "-2")
   end
 
   scenario "when the password confirmation doesn't match" do

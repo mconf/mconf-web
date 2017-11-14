@@ -182,7 +182,7 @@ de:
         description: "Beschreibung"
         moderator_key: "Schlüssel für Moderatoren"
         name: "Name"
-        permalink: "Bezeichnung"
+        slug: "Bezeichnung"
         public: "Öffentlich"
         repository: "Dokumentenablage"
       user:
@@ -1405,7 +1405,7 @@ de:
       already_invited: "Sie wurden bereits zu dieser Gruppe eingeladen, bitte folgen Sie der Einladung oder lehnen Sie sie ab"
       creation_forbidden: "Sie sind nicht berechtigt, Gruppen zu erstellen"
       need_join_to_access: "Sie müssen der Gruppe beitreten, um weiter zu kommen. Senden Sie eine Betrittsanfrage an einen der Administratoren"
-      not_found: "Die Gruppe \"%{permalink}\" wurde nicht gefunden. <br> Möchten sie nach ihm in <a href=\"%{path}\">allen Gruppen</a> suchen?"
+      not_found: "Die Gruppe \"%{slug}\" wurde nicht gefunden. <br> Möchten sie nach ihm in <a href=\"%{path}\">allen Gruppen</a> suchen?"
       unapproved: "Die Gruppe wurde noch nicht von einem Administrator freigeschalten."
     index:
       create_new_space: "Neue Gruppe erstellen"

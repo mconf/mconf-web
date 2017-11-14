@@ -202,7 +202,7 @@ es-419:
         description: "Descripcion "
         moderator_key: "Clave para moderadores"
         name: "Nombre"
-        permalink: "Identificador"
+        slug: "Identificador"
         public: "Público"
         repository: "Repositorio de documentos"
       user:
@@ -1444,7 +1444,7 @@ es-419:
       already_invited: "Ya ha sido invitado a unirse a este espacio. Por favor, acepte o rechace la invitación"
       creation_forbidden: "No está autorizado a crear espacios"
       need_join_to_access: "Necesita unirse a este espacio para acceder. Envíe una solicitud a los administradores."
-      not_found: "El espacio \"%{permalink}\" no fue encontrado.<br>¿Le gustaría buscarlo en <a href=\"%{path}\">todos los espacios</a>?"
+      not_found: "El espacio \"%{slug}\" no fue encontrado.<br>¿Le gustaría buscarlo en <a href=\"%{path}\">todos los espacios</a>?"
       unapproved: "Este espacio aún no ha sido aprobado por un administrador."
     index:
       create_new_space: "Crear un nuevo espacio"

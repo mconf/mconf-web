@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531162723) do
+ActiveRecord::Schema.define(version: 20171114124112) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.text     "parameters"
     t.integer  "recipient_id"
     t.string   "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.boolean  "notified"
   end
 
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "name"
     t.boolean  "running",                                default: false
     t.boolean  "recorded",                               default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "creator_id"
     t.string   "creator_name"
     t.string   "server_url"
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
   create_table "bigbluebutton_room_options", force: true do |t|
     t.integer  "room_id"
     t.string   "default_layout"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.boolean  "presenter_share_only"
     t.boolean  "auto_start_video"
     t.boolean  "auto_start_audio"
@@ -226,12 +226,29 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "address"
     t.float    "latitude",        limit: 24
     t.float    "longitude",       limit: 24
-    t.string   "permalink"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "slug"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
+
+  create_table "institutions", force: true do |t|
+    t.string   "name"
+    t.string   "acronym"
+    t.string   "permalink"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "user_limit"
+    t.integer  "can_record_limit"
+    t.text     "identifier"
+    t.boolean  "force_shib_login",                     default: false
+    t.boolean  "require_space_approval",               default: true
+    t.boolean  "forbid_user_space_creation",           default: true
+    t.integer  "recordings_disk_used",       limit: 8, default: 0
+    t.integer  "recordings_disk_quota",      limit: 8, default: 0
+    t.string   "secret"
+  end
 
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
@@ -266,8 +283,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.integer  "role_id"
     t.string   "email"
     t.boolean  "accepted"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.datetime "processed_at"
     t.string   "secret_token"
   end
@@ -276,8 +293,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.integer  "user_id"
     t.string   "identifier"
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.boolean  "new_account",        default: false
     t.datetime "current_sign_in_at"
   end
@@ -299,8 +316,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "owner_type"
     t.integer  "event_id"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "permissions", force: true do |t|
@@ -308,8 +325,8 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.integer  "subject_id",   null: false
     t.string   "subject_type", null: false
     t.integer  "role_id",      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "posts", force: true do |t|
@@ -384,11 +401,11 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
     t.string   "timezone",                       default: "UTC"
     t.string   "external_help"
+    t.string   "xmpp_server"
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
     t.integer  "ldap_port"
@@ -405,18 +422,19 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "ldap_filter"
     t.boolean  "shib_always_new_account",        default: false
     t.boolean  "local_auth_enabled",             default: true
+    t.string   "ldap_principal_name_field"
     t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
     t.string   "room_dial_number_pattern"
+    t.boolean  "require_space_approval",         default: false
+    t.boolean  "forbid_user_space_creation",     default: false
+    t.boolean  "shib_update_users",              default: false
+    t.string   "max_upload_size",                default: "15000000"
     t.boolean  "captcha_enabled",                default: false
     t.string   "recaptcha_public_key"
     t.string   "recaptcha_private_key"
-    t.boolean  "require_space_approval",         default: false
-    t.boolean  "forbid_user_space_creation",     default: false
-    t.string   "max_upload_size",                default: "15000000"
-    t.boolean  "shib_update_users",              default: false
     t.boolean  "use_gravatar",                   default: false
-    t.boolean  "spaces_enabled",                 default: true
     t.string   "smtp_receiver"
+    t.boolean  "spaces_enabled",                 default: true
     t.boolean  "unauth_access_to_conferences",   default: true
     t.boolean  "certificate_login_enabled"
     t.string   "certificate_id_field"
@@ -431,10 +449,11 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "permalink"
+    t.string   "slug"
     t.boolean  "disabled",            default: false
     t.boolean  "repository",          default: false
     t.string   "logo_image"
+    t.integer  "institution_id"
     t.boolean  "approved",            default: false
     t.datetime "last_activity"
     t.integer  "last_activity_count"

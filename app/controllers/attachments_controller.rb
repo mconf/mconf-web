@@ -12,7 +12,7 @@ class AttachmentsController < ApplicationController
   # anonymous users can view and download attachments
   before_filter :authenticate_user!, except: [:index, :show]
 
-  load_and_authorize_resource :space, :find_by => :permalink
+  load_and_authorize_resource :space, :find_by => :slug
   before_filter :check_repository_enabled
 
   # note: delete_collection is authorized internally

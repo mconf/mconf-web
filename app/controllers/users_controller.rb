@@ -16,7 +16,7 @@ class UsersController < InheritedResources::Base
   respond_to :json, only: [:select, :current, :fellows]
   respond_to :xml, only: [:current]
 
-  defaults finder: :find_by_permalink!
+  defaults finder: :find_by_slug!
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :destroy]
 
@@ -40,7 +40,7 @@ class UsersController < InheritedResources::Base
   end
 
   def index
-    @space = Space.find_by_permalink!(params[:space_id])
+    @space = Space.find_by!(slug: params[:space_id])
     webconf_room!
 
     authorize! :show, @space

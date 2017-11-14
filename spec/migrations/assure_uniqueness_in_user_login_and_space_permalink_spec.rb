@@ -14,7 +14,7 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
 
   describe ".up" do
 
-    context "makes User.login's and Space.permalink's unique" do
+    context "makes User.login's and Space.slug's unique" do
 
       context "using with test data" do
         let(:users) {
@@ -33,10 +33,10 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
         before do
           TestMigrator.migrate_to_previous(@target_migration)
 
-          # two spaces with permalink duplicated (equal users' logins)
-          spaces[0].update_attribute(:permalink, users[0].login)
-          spaces[1].update_attribute(:permalink, users[1].login)
-          # to conflict with spaces[0] default permalink "space-one"
+          # two spaces with slug duplicated (equal users' logins)
+          spaces[0].update_attribute(:slug, users[0].login)
+          spaces[1].update_attribute(:slug, users[1].login)
+          # to conflict with spaces[0] default slug "space-one"
           users[2].update_attribute(:login, "space-one")
 
           AssureUniquenessInUserLoginAndSpacePermalink.up
@@ -48,10 +48,10 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
           it { User.find(users[2].id).login.should == users[2].login }
         end
 
-        context "changing spaces' permalinks" do
-          it { Space.find(spaces[0].id).permalink.should_not == users[0].login }
-          it { Space.find(spaces[1].id).permalink.should_not == users[1].login }
-          it { Space.find(spaces[2].id).permalink.should == spaces[2].permalink }
+        context "changing spaces' slugs" do
+          it { Space.find(spaces[0].id).slug.should_not == users[0].login }
+          it { Space.find(spaces[1].id).slug.should_not == users[1].login }
+          it { Space.find(spaces[2].id).slug.should == spaces[2].slug }
         end
 
       end
@@ -76,9 +76,9 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
 end
 
 def check_unique_attribute(model)
-  attribute = model.class == Space ? model.permalink : model.login
+  attribute = model.class == Space ? model.slug : model.login
 
-  spaces = Space.where(:permalink => attribute)
+  spaces = Space.where(:slug => attribute)
   spaces.select!{ |s| s.id != model.id } if model.class == Space
   users = User.where(:login => attribute)
   users.select!{ |u| u.id != model.id } if model.class == User

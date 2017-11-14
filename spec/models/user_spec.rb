@@ -312,24 +312,24 @@ describe User do
       end
     end
 
-    describe "validates uniqueness against Space#permalink" do
+    describe "validates uniqueness against Space#slug" do
       let(:message) { "has already been taken" }
 
       describe "on create" do
         context "with an enabled space" do
           let(:space) { FactoryGirl.create(:space) }
-          subject { FactoryGirl.build(:user, username: space.permalink) }
+          subject { FactoryGirl.build(:user, username: space.slug) }
           include_examples "invalid user with username not unique"
         end
 
         context "with a disabled space" do
           let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
-          subject { FactoryGirl.build(:user, username: disabled_space.permalink) }
+          subject { FactoryGirl.build(:user, username: disabled_space.slug) }
           include_examples "invalid user with username not unique"
         end
 
         context "uses case-insensitive comparisons" do
-          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
           subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
           include_examples "invalid user with username not unique"
         end
@@ -340,7 +340,7 @@ describe User do
           let(:subject) { FactoryGirl.create(:user) }
           let(:space) { FactoryGirl.create(:space) }
           before(:each) {
-            subject.username = space.permalink
+            subject.username = space.slug
           }
           include_examples "invalid user with username not unique"
         end
@@ -349,14 +349,14 @@ describe User do
           let(:subject) { FactoryGirl.create(:user) }
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           before(:each) {
-            subject.username = disabled_space.permalink
+            subject.username = disabled_space.slug
           }
           include_examples "invalid user with username not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:user) }
-          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
           before(:each) {
             subject.username = "mY-weiRD-NAMe"
           }
@@ -480,19 +480,19 @@ describe User do
       end
 
       context "conflicting with a space" do
-        let(:space) { FactoryGirl.create(:space, permalink: nil) }
+        let(:space) { FactoryGirl.create(:space, slug: nil) }
         let(:user) {
           FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
         }
-        it { user.username.should eql(space.permalink + "-2") }
+        it { user.username.should eql(space.slug + "-2") }
       end
 
       context "conflicting with a disabled space" do
-        let(:space) { FactoryGirl.create(:space, permalink: nil, disabled: false) }
+        let(:space) { FactoryGirl.create(:space, slug: nil, disabled: false) }
         let(:user) {
           FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
         }
-        it { user.username.should eql(space.permalink + "-2") }
+        it { user.username.should eql(space.slug + "-2") }
       end
 
       context "conflicting with a room" do
