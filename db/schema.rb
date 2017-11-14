@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114142537) do
+ActiveRecord::Schema.define(version: 20171114154853) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -490,7 +490,7 @@ ActiveRecord::Schema.define(version: 20171114142537) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username"
+    t.string   "slug"
     t.string   "email",                               default: "",    null: false
     t.string   "encrypted_password",                  default: "",    null: false
     t.string   "password_salt",            limit: 40

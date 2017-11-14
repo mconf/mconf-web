@@ -32,41 +32,41 @@ describe RoomSlugUniquenessValidator do
     before { user.valid? }
 
     it "when the value is empty" do
-      target.validate_each(user, "username", "")
+      target.validate_each(user, "slug", "")
       user.errors.should be_empty
     end
 
     it "when the value is nil" do
-      target.validate_each(user, "username", nil)
+      target.validate_each(user, "slug", nil)
       user.errors.should be_empty
     end
 
     it "when there's no conflict" do
-      target.validate_each(user, "username", "new-value")
+      target.validate_each(user, "slug", "new-value")
       user.errors.should be_empty
     end
 
     context "when there's a conflict" do
       let!(:room) { FactoryGirl.create(:bigbluebutton_room) }
       it {
-        target.validate_each(user, "username", room.slug)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", room.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
       context "when using the reserved word '#{word}'" do
         it {
-          target.validate_each(user, "username", word)
-          user.errors.should have_key(:username)
-          user.errors.messages[:username].should include(message)
+          target.validate_each(user, "slug", word)
+          user.errors.should have_key(:slug)
+          user.errors.messages[:slug].should include(message)
         }
       end
     end
 
     it "ignores the user's own room" do
-      target.validate_each(user, "username", user.bigbluebutton_room.slug)
+      target.validate_each(user, "slug", user.bigbluebutton_room.slug)
       user.errors.should be_empty
     end
   end

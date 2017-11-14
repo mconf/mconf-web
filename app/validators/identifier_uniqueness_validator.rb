@@ -6,8 +6,8 @@
 # 3 or later. See the LICENSE file.
 
 # Validates the value of an attribute against the identifiers in the application:
-#  * Space#slugs
-#  * User#username.
+#  * Space#slug
+#  * User#slug
 # Invalidates the record if the value is already taken.
 # Uses case-insensitive comparisons.
 class IdentifierUniquenessValidator < ActiveModel::EachValidator
@@ -18,7 +18,7 @@ class IdentifierUniquenessValidator < ActiveModel::EachValidator
         spaces = spaces.where("id != ?", record.id)
       end
 
-      users = User.with_disabled.where("lower(username) = ?", value.downcase)
+      users = User.with_disabled.where("lower(slug) = ?", value.downcase)
       if record.is_a?(User) && !record.new_record?
         users = users.where("id != ?", record.id)
       end

@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   include Mconf::ApprovalModule
   include Mconf::DisableModule
 
-  # TODO: block :username from being modified after registration
-
   ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
@@ -29,12 +27,14 @@ class User < ActiveRecord::Base
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       hash = { :value => login.downcase }
-      where_clause = ["lower(username) = :value OR lower(email) = :value", hash]
+      where_clause = ["lower(slug) = :value OR lower(email) = :value", hash]
       where(conditions).where(where_clause).first
     else
       where(conditions).first
     end
   end
+
+  alias_attribute :username, :slug
 
   validates :username,
     presence: true,
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     room_slug_uniqueness: true
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged, slug_column: :username
+  friendly_id :slug_candidates, use: :slugged, slug_column: :slug
   def slug_candidates
     [ Mconf::Identifier.unique_mconf_id(full_name) ]
   end
@@ -96,14 +96,14 @@ class User < ActiveRecord::Base
       query_orders = []
 
       words.reject(&:blank?).each do |word|
-        str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+        str  = "profiles.full_name LIKE ? OR users.slug LIKE ?"
         str += " OR users.email LIKE ?" if include_private
         query_strs << str
         query_params += ["%#{word}%", "%#{word}%"]
         query_params += ["%#{word}%"] if include_private
         query_orders += [
           "CASE WHEN profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
-           CASE WHEN users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.slug LIKE '%#{word}%' THEN 1 ELSE 0 END + \
            CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"
         ]
       end
@@ -158,7 +158,6 @@ class User < ActiveRecord::Base
 
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
-  alias_attribute :slug, :username
 
   delegate :full_name, :first_name, :organization, :city, :country,
            :logo, :logo_image, :logo_image_url,
@@ -214,7 +213,7 @@ class User < ActiveRecord::Base
   def create_webconf_room
     params = {
       owner: self,
-      slug: self.username,
+      slug: self.slug,
       name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),

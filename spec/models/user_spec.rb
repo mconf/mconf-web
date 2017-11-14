@@ -275,247 +275,248 @@ describe User do
     it { should allow_value("a").for(:username) }
     it { should allow_value("_").for(:username) }
     it { should allow_value("abc-123_d5").for(:username) }
+  end
 
-    shared_examples "invalid user with username not unique" do
-      it { subject.should_not be_valid }
-      it {
-        subject.save.should be(false)
-        subject.errors.should have_key(:username)
-        subject.errors.messages[:username].should include(message)
-      }
-    end
+  %w[username slug].each do |method_name|
+    describe "##{method_name}" do
+      shared_examples "invalid user with username not unique" do
+        it { subject.should_not be_valid }
+        it {
+          subject.save.should be(false)
+          subject.errors.should have_key(:username)
+          subject.errors.messages[:username].should include(message)
+        }
+      end
 
-    describe "blocks reserved words" do
-      let(:message) { "has already been taken" }
-      file = File.join(::Rails.root, "config", "reserved_words.yml")
-      words = YAML.load_file(file)['words']
+      describe "blocks reserved words" do
+        let(:message) { "has already been taken" }
+        file = File.join(::Rails.root, "config", "reserved_words.yml")
+        words = YAML.load_file(file)['words']
 
-      describe "on create" do
-        words.each do |word|
-          context "word: #{word}" do
-            subject { FactoryGirl.build(:user, username: word) }
-            include_examples "invalid user with username not unique"
+        describe "on create" do
+          words.each do |word|
+            context "word: #{word}" do
+              subject { FactoryGirl.build(:user, "#{method_name}": word) }
+              include_examples "invalid user with username not unique"
+            end
+          end
+        end
+
+        describe "on update" do
+          words.each do |word|
+            context "word: #{word}" do
+              let(:subject) { FactoryGirl.create(:user) }
+              before(:each) {
+                subject.send("#{method_name}=", word)
+              }
+              include_examples "invalid user with username not unique"
+            end
           end
         end
       end
 
-      describe "on update" do
-        words.each do |word|
-          context "word: #{word}" do
+      describe "validates uniqueness against Space#slug" do
+        let(:message) { "has already been taken" }
+
+        describe "on create" do
+          context "with an enabled space" do
+            let(:space) { FactoryGirl.create(:space) }
+            subject { FactoryGirl.build(:user, "#{method_name}": space.slug) }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "with a disabled space" do
+            let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
+            subject { FactoryGirl.build(:user, "#{method_name}": disabled_space.slug) }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
+            subject { FactoryGirl.build(:user, "#{method_name}": "mY-weiRD-NAMe") }
+            include_examples "invalid user with username not unique"
+          end
+        end
+
+        describe "on update" do
+          context "with an enabled space" do
             let(:subject) { FactoryGirl.create(:user) }
+            let(:space) { FactoryGirl.create(:space) }
             before(:each) {
-              subject.username = word
+              subject.send("#{method_name}=", space.slug)
+            }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "with a disabled space" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
+            before(:each) {
+              subject.send("#{method_name}=", disabled_space.slug)
+            }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
+            before(:each) {
+              subject.send("#{method_name}=", "mY-weiRD-NAMe")
             }
             include_examples "invalid user with username not unique"
           end
         end
       end
-    end
 
-    describe "validates uniqueness against Space#slug" do
-      let(:message) { "has already been taken" }
+      describe "validates uniqueness against User##{method_name}" do
+        let(:message) { "has already been taken" }
 
-      describe "on create" do
-        context "with an enabled space" do
-          let(:space) { FactoryGirl.create(:space) }
-          subject { FactoryGirl.build(:user, username: space.slug) }
-          include_examples "invalid user with username not unique"
+        describe "on create" do
+          context "with an enabled user" do
+            let(:user) { FactoryGirl.create(:user) }
+            subject { FactoryGirl.build(:user, "#{method_name}": user.username) }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "with a disabled user" do
+            let(:disabled_user) { FactoryGirl.create(:user, disabled: true) }
+            subject { FactoryGirl.build(:user, "#{method_name}": disabled_user.username) }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let!(:user) { FactoryGirl.create(:user, "#{method_name}": "My-Weird-Name") }
+            subject { FactoryGirl.build(:user, "#{method_name}": "mY-weiRD-NAMe") }
+            include_examples "invalid user with username not unique"
+          end
         end
 
-        context "with a disabled space" do
-          let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
-          subject { FactoryGirl.build(:user, username: disabled_space.slug) }
-          include_examples "invalid user with username not unique"
-        end
+        describe "on update" do
+          context "with an enabled space" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let(:other_user) { FactoryGirl.create(:user) }
+            before(:each) {
+              subject.send("#{method_name}=", other_user.username)
+            }
+            include_examples "invalid user with username not unique"
+          end
 
-        context "uses case-insensitive comparisons" do
-          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
-          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
-          include_examples "invalid user with username not unique"
+          context "with a disabled space" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+            before(:each) {
+              subject.send("#{method_name}=", disabled_user.username)
+            }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let!(:other_user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
+            before(:each) {
+              subject.send("#{method_name}=", "mY-weiRD-NAMe")
+            }
+            include_examples "invalid user with username not unique"
+          end
         end
       end
 
-      describe "on update" do
-        context "with an enabled space" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let(:space) { FactoryGirl.create(:space) }
-          before(:each) {
-            subject.username = space.slug
+      context "validates against webconf room params" do
+        let(:message) { "has already been taken" }
+
+        describe "on create" do
+          context "with an exact match" do
+            let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+            subject { FactoryGirl.build(:user, "#{method_name}": room.slug) }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let!(:room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
+            subject { FactoryGirl.build(:user, "#{method_name}": "mY-weiRD-NAMe") }
+            include_examples "invalid user with username not unique"
+          end
+        end
+
+        describe "on update" do
+          context "with an exact match" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
+            before(:each) {
+              subject.send("#{method_name}=", other_room.slug)
+            }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "uses case-insensitive comparisons" do
+            let(:subject) { FactoryGirl.create(:user) }
+            let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
+            before(:each) {
+              subject.send("#{method_name}=", "mY-weiRD-NAMe")
+            }
+            include_examples "invalid user with username not unique"
+          end
+
+          context "doesn't validate against its own room" do
+            let!(:user) { FactoryGirl.create(:user) }
+            it { user.update_attributes("#{method_name}": user.send(method_name)).should be(true) }
+          end
+        end
+      end
+
+      describe "generates a unique username when creating without setting a username" do
+
+        context "conflicting with another user" do
+          let(:another_user) { FactoryGirl.create(:user, "#{method_name}": nil) }
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: another_user.name })
           }
-          include_examples "invalid user with username not unique"
+          it { user.send(method_name).should eql(another_user.username + "-2") }
         end
 
-        context "with a disabled space" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
-          before(:each) {
-            subject.username = disabled_space.slug
+        context "conflicting with a disabled user" do
+          let(:another_user) { FactoryGirl.create(:user, "#{method_name}": nil, disabled: true) }
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: another_user.name })
           }
-          include_examples "invalid user with username not unique"
+          it { user.send(method_name).should eql(another_user.send(method_name) + "-2") }
         end
 
-        context "uses case-insensitive comparisons" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
-          before(:each) {
-            subject.username = "mY-weiRD-NAMe"
+        context "conflicting with a space" do
+          let(:space) { FactoryGirl.create(:space, slug: nil) }
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: space.name })
           }
-          include_examples "invalid user with username not unique"
-        end
-      end
-    end
-
-    describe "validates uniqueness against User#username" do
-      let(:message) { "has already been taken" }
-
-      describe "on create" do
-        context "with an enabled user" do
-          let(:user) { FactoryGirl.create(:user) }
-          subject { FactoryGirl.build(:user, username: user.username) }
-          include_examples "invalid user with username not unique"
+          it { user.send(method_name).should eql(space.slug + "-2") }
         end
 
-        context "with a disabled user" do
-          let(:disabled_user) { FactoryGirl.create(:user, disabled: true) }
-          subject { FactoryGirl.build(:user, username: disabled_user.username) }
-          include_examples "invalid user with username not unique"
-        end
-
-        context "uses case-insensitive comparisons" do
-          let!(:user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
-          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
-          include_examples "invalid user with username not unique"
-        end
-      end
-
-      describe "on update" do
-        context "with an enabled space" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let(:other_user) { FactoryGirl.create(:user) }
-          before(:each) {
-            subject.username = other_user.username
+        context "conflicting with a disabled space" do
+          let(:space) { FactoryGirl.create(:space, slug: nil, disabled: false) }
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: space.name })
           }
-          include_examples "invalid user with username not unique"
+          it { user.send(method_name).should eql(space.slug + "-2") }
         end
 
-        context "with a disabled space" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
-          before(:each) {
-            subject.username = disabled_user.username
+        context "conflicting with a room" do
+          let!(:another_user) {
+            u = FactoryGirl.create(:user)
+            u.bigbluebutton_room.update_attributes(slug: 'anything')
+            u
           }
-          include_examples "invalid user with username not unique"
-        end
-
-        context "uses case-insensitive comparisons" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let!(:other_user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
-          before(:each) {
-            subject.username = "mY-weiRD-NAMe"
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: 'anything' })
           }
-          include_examples "invalid user with username not unique"
-        end
-      end
-    end
-
-    context "validates against webconf room params" do
-      let(:message) { "has already been taken" }
-
-      describe "on create" do
-        context "with an exact match" do
-          let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-          subject { FactoryGirl.build(:user, username: room.slug) }
-          include_examples "invalid user with username not unique"
+          it { user.send(method_name).should eql("anything-2") }
         end
 
-        context "uses case-insensitive comparisons" do
-          let!(:room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
-          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
-          include_examples "invalid user with username not unique"
-        end
-      end
-
-      describe "on update" do
-        context "with an exact match" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
-          before(:each) {
-            subject.username = other_room.slug
+        context "conflicting with a blacklisted word" do
+          let(:user) {
+            FactoryGirl.create(:user, "#{method_name}": nil, profile_attributes: { full_name: 'Spaces' })
           }
-          include_examples "invalid user with username not unique"
-        end
-
-        context "uses case-insensitive comparisons" do
-          let(:subject) { FactoryGirl.create(:user) }
-          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
-          before(:each) {
-            subject.username = "mY-weiRD-NAMe"
-          }
-          include_examples "invalid user with username not unique"
-        end
-
-        context "doesn't validate against its own room" do
-          let!(:user) { FactoryGirl.create(:user) }
-          it { user.update_attributes(username: user.username).should be(true) }
+          it { user.send(method_name).should eql("spaces-2") }
         end
       end
-    end
-
-    describe "generates a unique username when creating without setting a username" do
-
-      context "conflicting with another user" do
-        let(:another_user) { FactoryGirl.create(:user, username: nil) }
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: another_user.name })
-        }
-        it { user.username.should eql(another_user.username + "-2") }
-      end
-
-      context "conflicting with a disabled user" do
-        let(:another_user) { FactoryGirl.create(:user, username: nil, disabled: true) }
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: another_user.name })
-        }
-        it { user.username.should eql(another_user.username + "-2") }
-      end
-
-      context "conflicting with a space" do
-        let(:space) { FactoryGirl.create(:space, slug: nil) }
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
-        }
-        it { user.username.should eql(space.slug + "-2") }
-      end
-
-      context "conflicting with a disabled space" do
-        let(:space) { FactoryGirl.create(:space, slug: nil, disabled: false) }
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: space.name })
-        }
-        it { user.username.should eql(space.slug + "-2") }
-      end
-
-      context "conflicting with a room" do
-        let!(:another_user) {
-          u = FactoryGirl.create(:user)
-          u.bigbluebutton_room.update_attributes(slug: 'anything')
-          u
-        }
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: 'anything' })
-        }
-        it { user.username.should eql("anything-2") }
-      end
-
-      context "conflicting with a blacklisted word" do
-        let(:user) {
-          FactoryGirl.create(:user, username: nil, profile_attributes: { full_name: 'Spaces' })
-        }
-        it { user.username.should eql("spaces-2") }
-      end
-
-      ## TODO CONFLICTING ROOM ONLY
-
     end
   end
 
@@ -899,7 +900,7 @@ describe User do
       let!(:user2) { FactoryGirl.create(:user, can_record: true, username: "def") }
       let!(:user3) { FactoryGirl.create(:user, can_record: false, username: "abc-2") }
       let!(:user4) { FactoryGirl.create(:user, can_record: false, username: "def-2") }
-      subject { User.where(can_record: true).with_disabled.where('users.username LIKE ?', '%abc%') }
+      subject { User.where(can_record: true).with_disabled.where('users.slug LIKE ?', '%abc%') }
       it { subject.count.should eq(1) }
     end
   end

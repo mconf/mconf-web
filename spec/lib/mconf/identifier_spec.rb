@@ -20,8 +20,8 @@ describe Mconf::Identifier do
 
     context "makes sure the id is unique among users" do
       before {
-        FactoryGirl.create(:user, username: "my-name")
-        FactoryGirl.create(:user, username: "my-name-2")
+        FactoryGirl.create(:user, slug: "my-name")
+        FactoryGirl.create(:user, slug: "my-name-2")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-3") }
     end
@@ -44,7 +44,7 @@ describe Mconf::Identifier do
 
     context "makes sure the id is unique among users, spaces and rooms" do
       before {
-        FactoryGirl.create(:user, username: "my-name")
+        FactoryGirl.create(:user, slug: "my-name")
         FactoryGirl.create(:space, slug: "my-name-2")
         FactoryGirl.create(:bigbluebutton_room, slug: "my-name-3")
       }
@@ -61,17 +61,17 @@ describe Mconf::Identifier do
 
     context "ignores case when checking if it's unique" do
       before {
-        FactoryGirl.create(:user, username: "my-namE")
-        FactoryGirl.create(:user, username: "MY-Name-2")
+        FactoryGirl.create(:user, slug: "my-namE")
+        FactoryGirl.create(:user, slug: "MY-Name-2")
       }
       it { target.unique_mconf_id("My Name").should eql("my-name-3") }
     end
 
     context "considers disabled and unapproved users and spaces" do
       before {
-        FactoryGirl.create(:user, username: "my-name")
-        FactoryGirl.create(:user, username: "my-name-2", disabled: true)
-        FactoryGirl.create(:user, username: "my-name-3", approved: false)
+        FactoryGirl.create(:user, slug: "my-name")
+        FactoryGirl.create(:user, slug: "my-name-2", disabled: true)
+        FactoryGirl.create(:user, slug: "my-name-3", approved: false)
         FactoryGirl.create(:space, slug: "my-name-4")
         FactoryGirl.create(:space, slug: "my-name-5", disabled: true)
         FactoryGirl.create(:space, slug: "my-name-6", approved: false)
