@@ -367,6 +367,15 @@ describe Space do
     it { Space.unscoped.should include(@s3) }
   end
 
+  context "on update" do
+    let(:space) { FactoryGirl.create(:space) }
+
+    it("calls #update_webconf_room") {
+      space.should_receive(:update_webconf_room)
+      space.update_attributes(slug: "new-slug")
+    }
+  end
+
   describe ".public_spaces" do
     before {
       @public1 = FactoryGirl.create(:public_space)
@@ -1089,13 +1098,38 @@ describe Space do
   describe "#update_webconf_room" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
 
-    context "updates the webconf room" do
-      let(:space) { FactoryGirl.create(:space_with_associations, :name => "Old Name", :public => true) }
-      before(:each) { space.update_attributes(:name => "New Name", :public => false) }
+    context "updates the name" do
+      let(:space) { FactoryGirl.create(:space_with_associations, name: "Old Name") }
+      before(:each) { space.update_attributes(name: "New Name") }
+      it { space.name.should eql("New Name") }
+      it { space.bigbluebutton_room.name.should eql("New Name") }
+    end
 
-      it { space.bigbluebutton_room.slug.should be(space.slug) }
-      it { space.bigbluebutton_room.name.should be(space.name) }
-      it { space.bigbluebutton_room.private.should be(false) }
+    context "doesn't update the name if the name was already changed directly before" do
+      let(:space) { FactoryGirl.create(:space_with_associations, name: "Old Name") }
+      before(:each) {
+        space.bigbluebutton_room.update_attributes(name: "Custom Room Name")
+        space.update_attributes(name: "New Name")
+      }
+      it { space.name.should eql("New Name") }
+      it { space.bigbluebutton_room.name.should eql("Custom Room Name") }
+    end
+
+    context "updates the slug" do
+      let(:space) { FactoryGirl.create(:space_with_associations, slug: "old-slug") }
+      before(:each) { space.update_attributes(slug: "new-slug") }
+      it { space.slug.should eql("new-slug") }
+      it { space.bigbluebutton_room.slug.should eql("new-slug") }
+    end
+
+    context "updates the slug even if it was already changed directly before" do
+      let(:space) { FactoryGirl.create(:space_with_associations, slug: "old-slug") }
+      before(:each) {
+        space.bigbluebutton_room.update_attributes(slug: "custom-slug")
+        space.update_attributes(slug: "new-slug")
+      }
+      it { space.slug.should eql("new-slug") }
+      it { space.bigbluebutton_room.slug.should eql("new-slug") }
     end
 
     # Space visibility is not linked to webconf visibility anymore

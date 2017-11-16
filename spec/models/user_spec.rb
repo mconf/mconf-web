@@ -521,12 +521,12 @@ describe User do
   end
 
   describe "on update" do
-    context "updates the webconf room" do
-      let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
-      before(:each) { user.update_attributes(:username => "new-user-name") }
-      it { user.bigbluebutton_room.slug.should_not be(user.username) }
-      it { user.bigbluebutton_room.name.should_not be(user.username) }
-    end
+    let(:user) { FactoryGirl.create(:user) }
+
+    it("calls #update_webconf_room") {
+      user.should_receive(:update_webconf_room)
+      user.update_attributes(slug: "new-slug")
+    }
   end
 
   describe "on create" do
@@ -1252,6 +1252,27 @@ describe User do
     context "when the user is an admin of the space" do
       before { space.add_member!(user, 'Admin') }
       it { user.member_of?(space).should be(true) }
+    end
+  end
+
+  describe "#update_webconf_room" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "updates the slug" do
+      let(:user) { FactoryGirl.create(:user, slug: "old-slug") }
+      before(:each) { user.update_attributes(slug: "new-slug") }
+      it { user.slug.should eql("new-slug") }
+      it { user.bigbluebutton_room.slug.should eql("new-slug") }
+    end
+
+    context "updates the slug even if it was already changed directly before" do
+      let(:user) { FactoryGirl.create(:user, slug: "old-slug") }
+      before(:each) {
+        user.bigbluebutton_room.update_attributes(slug: "custom-slug")
+        user.update_attributes(slug: "new-slug")
+      }
+      it { user.slug.should eql("new-slug") }
+      it { user.bigbluebutton_room.slug.should eql("new-slug") }
     end
   end
 

@@ -15,12 +15,12 @@ class IdentifierUniquenessValidator < ActiveModel::EachValidator
     unless value.blank?
       spaces = Space.with_disabled.where("lower(slug) = ?", value.downcase)
       if record.is_a?(Space) && !record.new_record?
-        spaces = spaces.where("id != ?", record.id)
+        spaces = spaces.where.not(id: record.id)
       end
 
       users = User.with_disabled.where("lower(slug) = ?", value.downcase)
       if record.is_a?(User) && !record.new_record?
-        users = users.where("id != ?", record.id)
+        users = users.where.not(id: record.id)
       end
 
       if spaces.count > 0 || users.count > 0

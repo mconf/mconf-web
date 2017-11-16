@@ -26,9 +26,7 @@ class Profile < ActiveRecord::Base
   def update_webconf_room
     if self.full_name_changed? && self.user.bigbluebutton_room
       if self.full_name_was == self.user.bigbluebutton_room.name
-        params = {
-          :name => self.full_name
-        }
+        params = { name: self.full_name }
         self.user.bigbluebutton_room.update_attributes(params)
       end
     end
