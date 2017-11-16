@@ -73,38 +73,73 @@ describe Invoice do
 
   describe "post invoice to the ops #post_invoice_to_ops" do
     let(:subscription) { FactoryGirl.create(:subscription) }
-    let(:invoice) { FactoryGirl.create(:invoice, subscription_id: subscription.id) }
+    let(:invoice) { FactoryGirl.create(:invoice, subscription_id: subscription.id, days_consumed: nil) }
+    let(:sub_token) { invoice.subscription.subscription_token }
+    let(:subitems) { [{"id"=>"EF62061C3FEE499782858DF5272C309D", "description"=>"CONTENT", "quantity"=>000, "price_cents"=>000, "recurrent"=>false, "price"=>"R$ 0,00", "total"=>"R$ 000,00"}] }
+    before { Mconf::Iugu.stub(:get_invoice_items).and_return(subitems) }
     #generation of invoice value will be stubbed to return all scenarios for a regular user (non-integrator)
     context "post an invoice" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{},
-                                       :quantity=>30, :cost_per_user=>600, :total=>18000.0, :minimum=>false}) }
+                                       :quantity=>30, :cost_per_user=>600, :total=>18000.0, :minimum=>false})
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.user_fee', locale: invoice.subscription.user.locale), 600, 30) }
+
+      it "posted a regular invoice" do
+        invoice.post_invoice_to_ops
+      end
     end
 
     context "post an invoice with consumed days discount" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:days=>0.8},
-                                       :quantity=>30, :cost_per_user=>600, :total=>14400.0, :minimum=>false}) }
+                                       :quantity=>30, :cost_per_user=>600, :total=>14400.0, :minimum=>false})
+               invoice.update_attributes(days_consumed: 24)
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.discount_days', percent_d: 19, qtd_d: invoice.days_consumed, locale: invoice.subscription.user.locale), 480, 30) }
+
+      it "posted an invoice with days_consumed discount" do
+        invoice.post_invoice_to_ops
+      end
     end
 
     context "post an invoice with user treshold discount" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:users=>0.3},
-                                       :quantity=>1005, :cost_per_user=>600, :total=>422100.0, :minimum=>false}) }
+                                       :quantity=>1005, :cost_per_user=>600, :total=>422100.0, :minimum=>false})
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.discount_users', percent_u: 30, locale: invoice.subscription.user.locale), 420, 1005) }
+
+      it "posted an invoice with user_treshold discount" do
+        invoice.post_invoice_to_ops
+      end
     end
 
     context "post an invoice with user treshold and consumed days discount" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:users=>0.3, :days=>0.8},
-                                       :quantity=>1005, :cost_per_user=>600, :total=>337680.0, :minimum=>false}) }
+                                       :quantity=>1005, :cost_per_user=>600, :total=>337680.0, :minimum=>false})
+               invoice.update_attributes(days_consumed: 24)
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.discount_users_and_days', percent_d: 19, qtd_d: invoice.days_consumed, percent_u: 30, locale: invoice.subscription.user.locale), 336, 1005) }
+
+      it "posted an invoice with user_treshold and days_consumed discount" do
+        invoice.post_invoice_to_ops
+      end
     end
 
     context "post a minimum fee invoice" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{},
-                                       :quantity=>5, :cost_per_user=>600, :total=>9000.0, :minimum=>true}) }
+                                       :quantity=>5, :cost_per_user=>600, :total=>9000.0, :minimum=>true})
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.minimum_fee', locale: invoice.subscription.user.locale), 600, 15) }
+
+      it "posted a minimum_fee invoice" do
+        invoice.post_invoice_to_ops
+      end
     end
 
     context "post a minimum fee with consumed days discount invoice" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:days=>0.8},
-                                       :quantity=>5, :cost_per_user=>600, :total=>7200.0, :minimum=>true}) }
-    end
+                                       :quantity=>5, :cost_per_user=>600, :total=>7200.0, :minimum=>true})
+               invoice.update_attributes(days_consumed: 24)
+               Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: 19, qtd_d: invoice.days_consumed, locale: invoice.subscription.user.locale), 480, 15) }
 
+      it "posted a minimum_fee invoice with days_consumed discount" do
+        invoice.post_invoice_to_ops
+      end
+    end
 
   end
 
