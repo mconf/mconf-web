@@ -55,20 +55,164 @@ describe Invoice do
     end
   end
 
-  describe "invoice values generated" do
-    skip "calculate the invoice value #generate_invoice_value"
+  describe "invoice values generated #generate_invoice_value" do
+    let(:invoice) { FactoryGirl.create(:invoice, days_consumed:nil, invoice_value: nil) }
+    before { Invoice.any_instance.stub(:update_unique_user_qty) }
 
-    ########################################
-    # test for 500 users                   #
-    # self.update_attributes(user_qty: 500)#
-    ########################################
+    describe "applies the correct percent discount for user treshold" do
+      context "for 15 up to 249 users" do
+        before { invoice.update_attributes(user_qty: 100) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(60000.0)
+          subject.should eql({:discounts=>{}, :quantity=>100, :cost_per_user=>600, :total=>60000, :minimum=>false})
+        end
+      end
 
+      context "for 250 up to 499 users" do
+        before { invoice.update_attributes(user_qty: 300) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(162000.0)
+          subject.should eql({:discounts=>{:users=>0.1}, :quantity=>300, :cost_per_user=>600, :total=>162000.0, :minimum=>false})
+        end
+      end
 
-    ########################################
-    #test for 15 days usage:               #
-    #self.days_consumed = 20               #
-    #result[:discounts][:days] = 20.0/30.0 #
-    ########################################
+      context "for 500 up to 999 users" do
+        before { invoice.update_attributes(user_qty: 600) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(288000.0)
+          subject.should eql({:discounts=>{:users=>0.2}, :quantity=>600, :cost_per_user=>600, :total=>288000.0, :minimum=>false})
+        end
+      end
+
+      context "for 1000 up to 2499 users" do
+        before { invoice.update_attributes(user_qty: 1500) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(630000.0)
+          subject.should eql({:discounts=>{:users=>0.3}, :quantity=>1500, :cost_per_user=>600, :total=>630000.0, :minimum=>false})
+        end
+      end
+
+      context "for 2500 up to 4999 users" do
+        before { invoice.update_attributes(user_qty: 3000) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(1080000.0)
+          subject.should eql({:discounts=>{:users=>0.4}, :quantity=>3000, :cost_per_user=>600, :total=>1080000.0, :minimum=>false})
+        end
+      end
+
+      context "for over 5000 users" do
+        before { invoice.update_attributes(user_qty: 6000) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(1800000.0)
+          subject.should eql({:discounts=>{:users=>0.5}, :quantity=>6000, :cost_per_user=>600, :total=>1800000.0, :minimum=>false})
+        end
+      end
+    end
+
+    describe "applies the correct percent discount for days consumed" do
+      context "for nil days consumed" do
+        before { invoice.update_attributes(days_consumed: nil, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(12000.0)
+          subject.should eql({:discounts=>{}, :quantity=>20, :cost_per_user=>600, :total=>12000, :minimum=>false})
+        end
+      end
+
+      context "for 0 days consumed" do
+        before { invoice.update_attributes(days_consumed: 0, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(0.0)
+          subject.should eql({:discounts=>{:days=>0.0}, :quantity=>20, :cost_per_user=>600, :total=>0.0, :minimum=>false})
+        end
+      end
+
+      context "for 1 day consumed" do
+        before { invoice.update_attributes(days_consumed: 1, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(400.0)
+          subject.should eql({:discounts=>{:days=>0.03333333333333333}, :quantity=>20, :cost_per_user=>600, :total=>400.0, :minimum=>false})
+        end
+      end
+
+      context "for 15 days consumed" do
+        before { invoice.update_attributes(days_consumed: 15, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(6000.0)
+          subject.should eql({:discounts=>{:days=>0.5}, :quantity=>20, :cost_per_user=>600, :total=>6000.0, :minimum=>false})
+        end
+      end
+
+      context "for 29 days consumed" do
+        before { invoice.update_attributes(days_consumed: 29, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(11600.0)
+          subject.should eql({:discounts=>{:days=>0.9666666666666667}, :quantity=>20, :cost_per_user=>600, :total=>11600.0, :minimum=>false})
+        end
+      end
+
+      context "for 30 days consumed" do
+        before { invoice.update_attributes(days_consumed: 30, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(12000.0)
+          subject.should eql({:discounts=>{}, :quantity=>20, :cost_per_user=>600, :total=>12000, :minimum=>false})
+        end
+      end
+
+      context "for 31 days consumed" do
+        before { invoice.update_attributes(days_consumed: 31, user_qty: 20) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(12000.0)
+          subject.should eql({:discounts=>{}, :quantity=>20, :cost_per_user=>600, :total=>12000, :minimum=>false})
+        end
+      end
+    end
+
+    describe "applies the correct price for a minimum fee charge" do
+      skip "test minimum fee flag with and without days consumed"
+    end
+
+    describe "applies the correct percent discount for user treshold and days consumed simultaneously" do
+      skip "simple test with 5000 users and 15 days consumed"
+    end
   end
 
   describe "post invoice to the ops #post_invoice_to_ops" do
@@ -223,11 +367,11 @@ describe Invoice do
       subject { target.get_invoice_payment_data }
 
       it "should update the values to data from iugu ops" do
-       target.invoice_url.should eql(nil)
-       target.invoice_token.should eql(nil)
-       subject
-       target.invoice_url.should eql("https://faturas.iugu.com/c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7")
-       target.invoice_token.should eql("C963AAF1125D4AFCA1FCC83F494947FF")
+        target.invoice_url.should eql(nil)
+        target.invoice_token.should eql(nil)
+        subject
+        target.invoice_url.should eql("https://faturas.iugu.com/c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7")
+        target.invoice_token.should eql("C963AAF1125D4AFCA1FCC83F494947FF")
       end
     end
   end
