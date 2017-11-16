@@ -13,11 +13,8 @@ class SubscriptionDestroyedSenderWorker < BaseWorker
       subscription_creator_name = activity.recipient.username
       subscription_id = activity.trackable_id
 
-      puts "está aqui"
-
       Resque.logger.info "Sending subscription destroyed to #{subscription_creator_name} with subscription ID: #{subscription_id}"
-      SubscriptionMailer.subscription_destroyed_notification_email(activity.recipient, subscription_id).deliver
-      puts "saiu do mailer"
+      SubscriptionMailer.subscription_destroyed_notification_email(activity.recipient_id, subscription_id).deliver
       activity.update_attributes(notified: true)
     end
   end

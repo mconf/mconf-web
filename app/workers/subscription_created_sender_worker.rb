@@ -14,7 +14,7 @@ class SubscriptionCreatedSenderWorker < BaseWorker
       subscription_id = activity.trackable_id
 
       Resque.logger.info "Sending subscription created to #{subscription_creator_name} with subscription ID: #{subscription_id}"
-      SubscriptionMailer.subscription_created_notification_email(activity.recipient, subscription_id).deliver
+      SubscriptionMailer.subscription_created_notification_email(activity.recipient_id, subscription_id).deliver
       activity.update_attributes(notified: true)
     end
   end

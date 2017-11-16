@@ -91,3 +91,10 @@ invoice_report_notification:
   class: InvoiceNotificationReportWorker
   queue: low
   description: "Send notification with the invoice report attachment."
+
+subscription_created_deleted_notification:
+  every:
+    - "10s"
+  class: SubscriptionNotificationWorker
+  queue: low
+  description: "Create activity for recently created or deleted subscriptions."
