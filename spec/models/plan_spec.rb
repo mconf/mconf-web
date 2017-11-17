@@ -16,6 +16,7 @@ describe Plan do
   it { should validate_presence_of(:interval_type)  }
 
   before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number) }
+  before { Mconf::Iugu.stub(:destroy_plan).and_return(true) }
 
   describe "#create_ops_plan" do
     context "no token returned from OPS" do
@@ -24,6 +25,7 @@ describe Plan do
       subject { Plan.create(attrs) }
       it { subject.new_record?.should be(true) }
       it { subject.errors.should have_key(:ops_error) }
+      it { expect { subject }.to change{ Plan.count }.by(0) }
     end
 
     context "OPS returns a token" do
@@ -73,6 +75,18 @@ describe Plan do
     end
   end
 
-  skip "get the plans and associate to a created subscription"
-  skip "remove the plans in command line"
+  describe "#delete_ops_plan" do
+    context "delete failed by OPS" do
+      before { Mconf::Iugu.stub(:destroy_plan).and_return(false) }
+      let!(:indestructible_plan) { FactoryGirl.create(:plan, ops_token: "NK3320") }
+      subject { indestructible_plan.destroy }
+      it { expect { subject }.to change{ Plan.count }.by(0) }
+    end
+
+    context "delete confirmed by OPS" do
+      let!(:destructible_plan) { FactoryGirl.create(:plan, ops_token: "2138127302173AB") }
+      subject { destructible_plan.destroy }
+      it { expect { subject }.to change{ Plan.count }.by(-1) }
+    end
+  end
 end

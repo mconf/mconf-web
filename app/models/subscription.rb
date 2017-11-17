@@ -5,6 +5,8 @@
 # 3 or later. See the LICENSE file.
 
 class Subscription < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :plan, foreign_key: 'plan_token', primary_key: "ops_token"
   belongs_to :user
 
@@ -22,10 +24,11 @@ class Subscription < ActiveRecord::Base
   validates :province, :presence => true
   validates :district, :presence => true
 
-
   before_create :create_customer_and_sub
+  after_create :subscription_created_notification
   before_update :update_sub
   before_destroy :destroy_sub
+  before_destroy :subscription_destroyed_notification
 
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
@@ -133,41 +136,44 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.import_ops_sub
-    Mconf::Iugu.fetch_all_subscriptions.each do |subs|
-      cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
-      user = User.find_by(email: cust.email)
-      plan = Plan.find_by(identifier: subs.plan_identifier)
+    subscriptions = Mconf::Iugu.fetch_all_subscriptions
+    if subscriptions.present?
+      subscriptions.each do |subs|
+        cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
+        user = User.find_by(email: cust.email)
+        plan = Plan.find_by(identifier: subs.plan_identifier)
 
-      if user.present? && plan.present?
-        params = {
-                   plan_token: plan.ops_token,
-                   user_id: user.id,
-                   subscription_token: subs.id,
-                   customer_token: cust.id,
-                   pay_day: subs.expires_at,
-                   cpf_cnpj: cust.cpf_cnpj,
-                   address: cust.street,
-                   additional_address_info: cust.complement,
-                   number: cust.number,
-                   zipcode: cust.zip_code,
-                   city: cust.city,
-                   province: cust.state,
-                   district: cust.district,
-                   country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
-                   integrator: false
-                   }
+        if user.present? && plan.present?
+          params = {
+                     plan_token: plan.ops_token,
+                     user_id: user.id,
+                     subscription_token: subs.id,
+                     customer_token: cust.id,
+                     pay_day: subs.expires_at,
+                     cpf_cnpj: cust.cpf_cnpj,
+                     address: cust.street,
+                     additional_address_info: cust.complement,
+                     number: cust.number,
+                     zipcode: cust.zip_code,
+                     city: cust.city,
+                     province: cust.state,
+                     district: cust.district,
+                     country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
+                     integrator: false
+                     }
 
-        if Subscription.find_by_subscription_token(params[:subscription_token]).present?
-          puts("Subscription already imported")
+          if Subscription.find_by_subscription_token(params[:subscription_token]).present?
+            puts("Subscription already imported")
+          else
+            Subscription.create(params)
+            trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
+            user.update_attributes(trial_expires_at: trial_expitaion)
+          end
         else
-          Subscription.create(params)
-          trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
-          user.update_attributes(trial_expires_at: trial_expitaion)
+          # Should we create a new user based on the subscription?
+          # If it's the missing plan, must import plans and then try again
+          puts "Failed to match this subscription to a user or plan"
         end
-      else
-        # Should we create a new user based on the subscription?
-        # If it's the missing plan, must import plans and then try again
-        puts "Failed to match this subscription to a user or plan"
       end
     end
   end
@@ -199,6 +205,16 @@ class Subscription < ActiveRecord::Base
     else
       logger.error "Bad ops_type, can't destroy subscription"
     end
+  end
+
+  def subscription_created_notification
+    subscription_owner = User.find_by(id: self.user_id)
+    create_activity 'created', owner: self, recipient: subscription_owner, notified: false
+  end
+
+  def subscription_destroyed_notification
+    subscription_owner = User.find_by(id: self.user_id)
+    create_activity 'destroyed', owner: self, recipient: subscription_owner, notified: false
   end
 
 end

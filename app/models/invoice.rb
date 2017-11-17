@@ -7,18 +7,31 @@
 class Invoice < ActiveRecord::Base
   belongs_to :subscription
 
-  validates :subscription_id, :presence => true
+  validates :subscription_id, presence: true
+  validates :due_date, presence: true
+  validates :flag_invoice_status, presence: true
 
-  def report_txt_file_path
-    user = self.subscription.user_id
+  def report_file_path
+    user = self.subscription.user
     date = (self.due_date-1.month).strftime("%Y-%m")
-    (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/report.txt"))
+
+    if (user.locale == "pt-br")
+      filename = Rails.application.config.report_pt
+    else
+      filename = Rails.application.config.report_en
+    end
+
+    File.join(Rails.root, "private/subscriptions/#{date}/#{user.id}/#{filename}")
   end
 
   def csv_file_path
     user = self.subscription.user_id
     date = (self.due_date-1.month).strftime("%Y-%m")
     (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
+  end
+
+  def self.next_due_date
+    (DateTime.now.change({day: Rails.application.config.due_day})+1.month).utc.beginning_of_day
   end
 
   # Processed prices for the invoice
@@ -55,8 +68,9 @@ class Invoice < ActiveRecord::Base
   end
 
   def invoice_total
-    generate_invoice_value
-    sprintf('R$ %.2f', self.invoice_value/100)
+    data = generate_invoice_value
+    total = data[:total]
+    sprintf('R$ %.2f', total/100)
   end
 
 
@@ -141,18 +155,17 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def check_for_posted_invoices
+    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
+    ops_invoice
+  end
+
   def get_invoice_payment_data
     invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
     if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
       self.update_attributes(invoice_token: invoices.first.attributes['id'])
       self.update_attributes(invoice_url: invoices.first.attributes['secure_url'])
     end
-  end
-
-
-  def check_for_posted_invoices
-    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
-    ops_invoice
   end
 
   def generate_consumed_days(action)
@@ -167,22 +180,16 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_invoice_value
-    #move to initializer to make @s after initilaize
     b_price =  Rails.application.config.base_price
     b_price_i =  Rails.application.config.base_price_integrator
 
-    # Make sure we are updated and also that we are working with the correct month
-    #update_unique_user_qty
+    # Make sure we are updated on the ammount of users before generating the prices
+    self.update_unique_user_qty
 
     result = {
       discounts: {},
       quantity: self.user_qty
     }
-
-    ########################################
-    # test for 500 users                   #
-    # self.update_attributes(user_qty: 500)#
-    ########################################
 
     # discounts for user quantity
      Rails.application.config.discounts.reverse_each do |discount|
@@ -198,12 +205,6 @@ class Invoice < ActiveRecord::Base
     if self.days_consumed.present? && self.days_consumed <  Rails.application.config.base_month_days
       result[:discounts][:days] = self.days_consumed /  Rails.application.config.base_month_days
     end
-
-    ########################################
-    #test for 15 days usage:               #
-    #self.days_consumed = 20               #
-    #result[:discounts][:days] = 20.0/30.0 #
-    ########################################
 
     # calculates the final price for the invoice
     if self.user_qty <  Rails.application.config.minimum_users

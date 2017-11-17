@@ -1,0 +1,33 @@
+%p.content
+  %h1= t('.message.hello', name: @user.username).html_safe
+
+%p.content
+  = t('.message.introduction_1').html_safe
+
+%p.content
+  %h2= t('.message.sub_title_beggining').html_safe
+
+%p.content
+  = t('.message.link', url: join_webconf_url(@user.username)).html_safe
+
+- @attendee_key = @user.bigbluebutton_room.attendee_key
+- if @attendee_key.present?
+  %p.content
+    = t('.message.participants').html_safe
+
+  %p.info-block
+    = t('.message.password', participant_password: @attendee_key).html_safe
+
+%p.content
+  = t('.message.attention').html_safe
+
+%p.content
+  = t('.message.end').html_safe
+
+%p.content
+  %h2= t('.message.sub_title_go_beyond').html_safe
+
+%p.content
+  = t('.message.more').html_safe
+
+%p= t('.message.contact', contact_email: Site.current.smtp_receiver).html_safe

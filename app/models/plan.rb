@@ -6,7 +6,7 @@
 
 class Plan < ActiveRecord::Base
 
-  has_many :subscriptions, primary_key: "ops_token"
+  has_many :subscriptions, primary_key: "ops_token", foreign_key: "plan_token", dependent: :restrict_with_exception
 
   validates :name, :presence => true
   validates :identifier, :presence => true
@@ -14,7 +14,6 @@ class Plan < ActiveRecord::Base
   validates :currency, :presence => true
   validates :interval, :presence => true
   validates :interval_type, :presence => true
-  has_many :subscription, dependent: :destroy
 
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
