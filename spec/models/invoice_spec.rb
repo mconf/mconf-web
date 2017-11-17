@@ -207,11 +207,54 @@ describe Invoice do
     end
 
     describe "applies the correct price for a minimum fee charge" do
-      skip "test minimum fee flag with and without days consumed"
+      context "for minimum fee" do
+        before { invoice.update_attributes(user_qty: 5) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(9000.0)
+          subject.should eql({:discounts=>{}, :quantity=>5, :cost_per_user=>600, :total=>9000, :minimum=>true})
+        end
+      end
+
+      context "for minimum fee with days consumed discount" do
+        before { invoice.update_attributes(days_consumed: 15, user_qty: 5) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(4500.0)
+          subject.should eql({:discounts=>{:days=>0.5}, :quantity=>5, :cost_per_user=>600, :total=>4500.0, :minimum=>true})
+        end
+      end
     end
 
     describe "applies the correct percent discount for user treshold and days consumed simultaneously" do
-      skip "simple test with 5000 users and 15 days consumed"
+      context "for a combined discount" do
+        before { invoice.update_attributes(days_consumed: 15, user_qty: 5000) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(750000.0)
+          subject.should eql({:discounts=>{:days=>0.5, :users=>0.5}, :quantity=>5000, :cost_per_user=>600, :total=>750000.0, :minimum=>false})
+        end
+      end
+    end
+
+    describe "applies the correct cost for an integrator" do
+      context "for a regular integrator" do
+        before { invoice.update_attributes(user_qty: 15)
+                 invoice.subscription.update_column(:integrator, true) }
+        subject { invoice.generate_invoice_value }
+        it "should update invoice value" do
+          invoice.invoice_value.should eql(nil)
+          subject
+          invoice.invoice_value.should eql(6000.0)
+          subject.should eql({:discounts=>{}, :quantity=>15, :cost_per_user=>400, :total=>6000, :minimum=>false})
+        end
+      end
     end
   end
 
