@@ -240,4 +240,11 @@ describe Subscription do
 
   end
 
+  describe "#subscription_created_notification" do
+
+  end
+
+  describe "#subscription_destroyed_notification" do
+  end
+
 end
