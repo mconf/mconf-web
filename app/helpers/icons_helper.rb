@@ -282,16 +282,20 @@ module IconsHelper
     icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
+  def icon_rec_play(options={})
+    icon_constructor nil, "icon icon-mw-conference-play icon-rec-play", options
+  end
+
   def icon_rec_download(options={})
     icon_constructor nil, "icon icon-mw-rec-download icon-rec-download", options
   end
 
   def icon_published(options={})
-    content_tag :span, "•", class: "icon icon-published"
+    content_tag :div, "", class: "icon icon-published"
   end
 
   def icon_unpublished(options={})
-    content_tag :span, "•", class: "icon icon-unpublished"
+    content_tag :div, "", class: "icon icon-unpublished"
   end
 
   def icon_options_dots(options={})

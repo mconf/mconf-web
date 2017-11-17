@@ -262,17 +262,28 @@ a:not(.btn) .icon {
   }
 
   &.icon-published {
-    color: $m-green;
-    font-size: $m-font-bigger;
-    line-height: 0.5;
-    vertical-align: middle;
+    background: $m-green;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    max-width: auto;
   }
 
   &.icon-unpublished {
-    color: $m-red;
-    font-size: $m-font-bigger;
-    line-height: 0.5;
-    vertical-align: middle;
+    background: $m-red;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    max-width: auto;
+  }
+
+  &.icon-rec-play {
+    color: $m-green;
+  }
+
+  &.icon-rec-download {
+    color: $m-orange;
+    font-size: 18px;
   }
 
   &.icon-mconf-pay {

@@ -45,34 +45,34 @@ describe Space do
   it { should validate_uniqueness_of(:name).case_insensitive }
   it { should validate_length_of(:name).is_at_least(3) }
 
-  describe "#permalink" do
-    it { should validate_uniqueness_of(:permalink).case_insensitive }
-    it { should validate_length_of(:permalink).is_at_least(3) }
-    it { should_not allow_value("123 321").for(:permalink) }
-    it { should_not allow_value("").for(:permalink) }
-    it { should_not allow_value("ab@c").for(:permalink) }
-    it { should_not allow_value("ab#c").for(:permalink) }
-    it { should_not allow_value("ab$c").for(:permalink) }
-    it { should_not allow_value("ab%c").for(:permalink) }
-    it { should_not allow_value("ábcd").for(:permalink) }
-    it { should allow_value("---").for(:permalink) }
-    it { should allow_value("-abc").for(:permalink) }
-    it { should allow_value("abc-").for(:permalink) }
-    it { should allow_value("_abc").for(:permalink) }
-    it { should allow_value("abc_").for(:permalink) }
-    it { should allow_value("abc").for(:permalink) }
-    it { should allow_value("123").for(:permalink) }
-    it { should allow_value("111").for(:permalink) }
-    it { should allow_value("aaa").for(:permalink) }
-    it { should allow_value("___").for(:permalink) }
-    it { should allow_value("abc-123_d5").for(:permalink) }
+  describe "#slug" do
+    it { should validate_uniqueness_of(:slug).case_insensitive }
+    it { should validate_length_of(:slug).is_at_least(3) }
+    it { should_not allow_value("123 321").for(:slug) }
+    it { should_not allow_value("").for(:slug) }
+    it { should_not allow_value("ab@c").for(:slug) }
+    it { should_not allow_value("ab#c").for(:slug) }
+    it { should_not allow_value("ab$c").for(:slug) }
+    it { should_not allow_value("ab%c").for(:slug) }
+    it { should_not allow_value("ábcd").for(:slug) }
+    it { should allow_value("---").for(:slug) }
+    it { should allow_value("-abc").for(:slug) }
+    it { should allow_value("abc-").for(:slug) }
+    it { should allow_value("_abc").for(:slug) }
+    it { should allow_value("abc_").for(:slug) }
+    it { should allow_value("abc").for(:slug) }
+    it { should allow_value("123").for(:slug) }
+    it { should allow_value("111").for(:slug) }
+    it { should allow_value("aaa").for(:slug) }
+    it { should allow_value("___").for(:slug) }
+    it { should allow_value("abc-123_d5").for(:slug) }
 
-    shared_examples "invalid space with permalink not unique" do
+    shared_examples "invalid space with slug not unique" do
       it { subject.should_not be_valid }
       it {
         subject.save.should be(false)
-        subject.errors.should have_key(:permalink)
-        subject.errors.messages[:permalink].should include(message)
+        subject.errors.should have_key(:slug)
+        subject.errors.messages[:slug].should include(message)
       }
     end
 
@@ -84,8 +84,8 @@ describe Space do
       describe "on create" do
         words.each do |word|
           context "word: #{word}" do
-            subject { FactoryGirl.build(:space, permalink: word) }
-            include_examples "invalid space with permalink not unique"
+            subject { FactoryGirl.build(:space, slug: word) }
+            include_examples "invalid space with slug not unique"
           end
         end
       end
@@ -95,34 +95,34 @@ describe Space do
           context "word: #{word}" do
             let(:subject) { FactoryGirl.create(:space) }
             before(:each) {
-              subject.permalink = word
+              subject.slug = word
             }
-            include_examples "invalid space with permalink not unique"
+            include_examples "invalid space with slug not unique"
           end
         end
       end
     end
 
-    describe "validates uniqueness against Space#permalink" do
+    describe "validates uniqueness against Space#slug" do
       let(:message) { "has already been taken" }
 
       describe "on create" do
         context "with an enabled space" do
           let(:space) { FactoryGirl.create(:space) }
-          subject { FactoryGirl.build(:space, permalink: space.permalink) }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space, slug: space.slug) }
+          include_examples "invalid space with slug not unique"
         end
 
         context "with a disabled space" do
           let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
-          subject { FactoryGirl.build(:space, permalink: disabled_space.permalink) }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space, slug: disabled_space.slug) }
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
-          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
-          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
-          include_examples "invalid space with permalink not unique"
+          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
+          subject { FactoryGirl.build(:space, slug: "mY-weiRD-NAMe") }
+          include_examples "invalid space with slug not unique"
         end
       end
 
@@ -131,27 +131,27 @@ describe Space do
           let(:subject) { FactoryGirl.create(:space) }
           let(:space) { FactoryGirl.create(:space) }
           before(:each) {
-            subject.permalink = space.permalink
+            subject.slug = space.slug
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "with a disabled space" do
           let(:subject) { FactoryGirl.create(:space) }
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           before(:each) {
-            subject.permalink = disabled_space.permalink
+            subject.slug = disabled_space.slug
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:space) }
-          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          let!(:space) { FactoryGirl.create(:space, slug: "My-Weird-Name") }
           before(:each) {
-            subject.permalink = "mY-weiRD-NAMe"
+            subject.slug = "mY-weiRD-NAMe"
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
       end
     end
@@ -162,20 +162,20 @@ describe Space do
       describe "on create" do
         context "with an enabled user" do
           let(:user) { FactoryGirl.create(:user) }
-          subject { FactoryGirl.build(:space, permalink: user.username) }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space, slug: user.username) }
+          include_examples "invalid space with slug not unique"
         end
 
         context "with a disabled user" do
           let(:disabled_user) { FactoryGirl.create(:user, disabled: true) }
-          subject { FactoryGirl.build(:space, permalink: disabled_user.username) }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space, slug: disabled_user.username) }
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let!(:user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
-          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space, slug: "mY-weiRD-NAMe") }
+          include_examples "invalid space with slug not unique"
         end
       end
 
@@ -184,27 +184,27 @@ describe Space do
           let(:subject) { FactoryGirl.create(:space) }
           let(:other_user) { FactoryGirl.create(:user) }
           before(:each) {
-            subject.permalink = other_user.username
+            subject.slug = other_user.username
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "with a disabled space" do
           let(:subject) { FactoryGirl.create(:space) }
           let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
           before(:each) {
-            subject.permalink = disabled_user.username
+            subject.slug = disabled_user.username
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:space) }
           let!(:other_user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
           before(:each) {
-            subject.permalink = "mY-weiRD-NAMe"
+            subject.slug = "mY-weiRD-NAMe"
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
       end
     end
@@ -215,14 +215,14 @@ describe Space do
       describe "on create" do
         context "with an exact match" do
           let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-          subject { FactoryGirl.build(:space_with_associations, permalink: room.param) }
-          include_examples "invalid space with permalink not unique"
+          subject { FactoryGirl.build(:space_with_associations, slug: room.slug) }
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
-          let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
-          subject { FactoryGirl.build(:space_with_associations, permalink: "mY-weiRD-NAMe") }
-          include_examples "invalid space with permalink not unique"
+          let!(:room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
+          subject { FactoryGirl.build(:space_with_associations, slug: "mY-weiRD-NAMe") }
+          include_examples "invalid space with slug not unique"
         end
       end
 
@@ -231,27 +231,91 @@ describe Space do
           let(:subject) { FactoryGirl.create(:space) }
           let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
           before(:each) {
-            subject.permalink = other_room.param
+            subject.slug = other_room.slug
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "uses case-insensitive comparisons" do
           let(:subject) { FactoryGirl.create(:space) }
-          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, slug: "My-Weird-Name") }
           before(:each) {
-            subject.permalink = "mY-weiRD-NAMe"
+            subject.slug = "mY-weiRD-NAMe"
           }
-          include_examples "invalid space with permalink not unique"
+          include_examples "invalid space with slug not unique"
         end
 
         context "doesn't validate against its own room" do
           let!(:space) { FactoryGirl.create(:space) }
-          it { space.update_attributes(permalink: space.permalink).should be(true) }
+          it { space.update_attributes(slug: space.slug).should be(true) }
         end
       end
     end
 
+    describe "generates a unique slug when creating without setting a slug" do
+
+      context "conflicting with a user" do
+        let(:user) { FactoryGirl.create(:user, username: nil) }
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: user.name)
+        }
+        it { space.slug.should eql(user.username + "-2") }
+      end
+
+      context "conflicting with a disabled user" do
+        let(:user) { FactoryGirl.create(:user, username: nil, disabled: true) }
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: user.name)
+        }
+        it { space.slug.should eql(user.username + "-2") }
+      end
+
+      context "conflicting with another space" do
+        let(:another_space) {
+          s = FactoryGirl.create(:space, slug: nil)
+          s.update_attributes(name: s.name + "-other") # so it won't give a conflict on #name
+          s
+        }
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: another_space.slug)
+        }
+        it { space.slug.should eql(another_space.slug + "-2") }
+      end
+
+      context "conflicting with a disabled space" do
+        let(:another_space) {
+          s = FactoryGirl.create(:space, slug: nil, disabled: true)
+          s.update_attributes(name: s.name + "-other") # so it won't give a conflict on #name
+          s
+        }
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: another_space.slug)
+        }
+        it { space.slug.should eql(another_space.slug + "-2") }
+      end
+
+      context "conflicting with a room" do
+        let!(:user) {
+          u = FactoryGirl.create(:user)
+          u.bigbluebutton_room.update_attributes(slug: 'anything')
+          u
+        }
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: 'anything')
+        }
+        it { space.slug.should eql("anything-2") }
+      end
+
+      context "conflicting with a blacklisted word" do
+        let(:space) {
+          FactoryGirl.create(:space, slug: nil, name: 'Users')
+        }
+        it { space.slug.should eql("users-2") }
+      end
+
+      # TODO: if setting the slug, should not generate but show a conflict
+
+    end
   end
 
   it "#check_errors_on_bigbluebutton_room"
@@ -301,6 +365,15 @@ describe Space do
     it { Space.unscoped.should include(@s1) }
     it { Space.unscoped.should include(@s2) }
     it { Space.unscoped.should include(@s3) }
+  end
+
+  context "on update" do
+    let(:space) { FactoryGirl.create(:space) }
+
+    it("calls #update_webconf_room") {
+      space.should_receive(:update_webconf_room)
+      space.update_attributes(slug: "new-slug")
+    }
   end
 
   describe ".public_spaces" do
@@ -998,8 +1071,8 @@ describe Space do
         space.bigbluebutton_room.owner.should be(space)
       end
 
-      it "with param and name equal the space's permalink" do
-        space.bigbluebutton_room.param.should eql(space.permalink)
+      it "with slug and name equal the space's slug" do
+        space.bigbluebutton_room.slug.should eql(space.slug)
         space.bigbluebutton_room.name.should eql(space.name)
       end
 
@@ -1025,13 +1098,38 @@ describe Space do
   describe "#update_webconf_room" do
     let(:space) { FactoryGirl.create(:space_with_associations) }
 
-    context "updates the webconf room" do
-      let(:space) { FactoryGirl.create(:space_with_associations, :name => "Old Name", :public => true) }
-      before(:each) { space.update_attributes(:name => "New Name", :public => false) }
+    context "updates the name" do
+      let(:space) { FactoryGirl.create(:space_with_associations, name: "Old Name") }
+      before(:each) { space.update_attributes(name: "New Name") }
+      it { space.name.should eql("New Name") }
+      it { space.bigbluebutton_room.name.should eql("New Name") }
+    end
 
-      it { space.bigbluebutton_room.param.should be(space.permalink) }
-      it { space.bigbluebutton_room.name.should be(space.name) }
-      it { space.bigbluebutton_room.private.should be(false) }
+    context "doesn't update the name if the name was already changed directly before" do
+      let(:space) { FactoryGirl.create(:space_with_associations, name: "Old Name") }
+      before(:each) {
+        space.bigbluebutton_room.update_attributes(name: "Custom Room Name")
+        space.update_attributes(name: "New Name")
+      }
+      it { space.name.should eql("New Name") }
+      it { space.bigbluebutton_room.name.should eql("Custom Room Name") }
+    end
+
+    context "updates the slug" do
+      let(:space) { FactoryGirl.create(:space_with_associations, slug: "old-slug") }
+      before(:each) { space.update_attributes(slug: "new-slug") }
+      it { space.slug.should eql("new-slug") }
+      it { space.bigbluebutton_room.slug.should eql("new-slug") }
+    end
+
+    context "updates the slug even if it was already changed directly before" do
+      let(:space) { FactoryGirl.create(:space_with_associations, slug: "old-slug") }
+      before(:each) {
+        space.bigbluebutton_room.update_attributes(slug: "custom-slug")
+        space.update_attributes(slug: "new-slug")
+      }
+      it { space.slug.should eql("new-slug") }
+      it { space.bigbluebutton_room.slug.should eql("new-slug") }
     end
 
     # Space visibility is not linked to webconf visibility anymore

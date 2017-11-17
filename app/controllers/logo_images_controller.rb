@@ -18,7 +18,7 @@ class LogoImagesController < ApplicationController
       @circular = true
       @width = 100
     elsif params[:model_type] == 'space'
-      @space = Space.find_by(permalink: params[:model_id])
+      @space = Space.find_by(slug: params[:model_id])
       @model = @space
       @url = space_path(@space)
       @page = t('logo.crop')

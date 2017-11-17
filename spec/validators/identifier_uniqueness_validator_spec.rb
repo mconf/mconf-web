@@ -18,7 +18,7 @@ describe IdentifierUniquenessValidator do
     let(:target) { IdentifierUniquenessValidator.new({ attributes: { any: 1 }, message: custom_error }) }
 
     it {
-      target.validate_each(user, "my_attribute", other_user.username)
+      target.validate_each(user, "my_attribute", other_user.slug)
       user.errors.should have_key(:my_attribute)
       user.errors[:my_attribute].should include(custom_error)
     }
@@ -31,76 +31,76 @@ describe IdentifierUniquenessValidator do
     before { user.valid? }
 
     it "when the value is empty" do
-      target.validate_each(user, "username", "")
+      target.validate_each(user, "slug", "")
       user.errors.should be_empty
     end
 
     it "when the value is nil" do
-      target.validate_each(user, "username", nil)
+      target.validate_each(user, "slug", nil)
       user.errors.should be_empty
     end
 
     it "when there's no conflict" do
-      target.validate_each(user, "username", "new-value")
+      target.validate_each(user, "slug", "new-value")
       user.errors.should be_empty
     end
 
     context "when there's a conflict with another user" do
       let!(:other_user) { FactoryGirl.create(:user) }
       it {
-        target.validate_each(user, "username", other_user.username)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", other_user.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a disabled user" do
       let!(:other_user) { FactoryGirl.create(:user, disabled: true) }
       it {
-        target.validate_each(user, "username", other_user.username)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", other_user.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with another user ignoring case" do
-      let!(:other_user) { FactoryGirl.create(:user, username: "ANY-username") }
+      let!(:other_user) { FactoryGirl.create(:user, slug: "ANY-username") }
       it {
-        target.validate_each(user, "username", "any-USERnaME")
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", "any-USERnaME")
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a space" do
       let!(:space) { FactoryGirl.create(:space) }
       it {
-        target.validate_each(user, "username", space.permalink)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", space.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a disabled space" do
       let!(:space) { FactoryGirl.create(:space, disabled: true) }
       it {
-        target.validate_each(user, "username", space.permalink)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", space.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a space ignoring case" do
-      let!(:space) { FactoryGirl.create(:space, permalink: "ANY-username") }
+      let!(:space) { FactoryGirl.create(:space, slug: "ANY-username") }
       it {
-        target.validate_each(user, "username", "any-USERnaME")
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", "any-USERnaME")
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
     it "ignores the user himself" do
-      target.validate_each(user, "username", user.username)
+      target.validate_each(user, "slug", user.slug)
       user.errors.should be_empty
     end
   end
@@ -112,76 +112,76 @@ describe IdentifierUniquenessValidator do
     before { space.valid? }
 
     it "when the value is empty" do
-      target.validate_each(space, "permalink", "")
+      target.validate_each(space, "slug", "")
       space.errors.should be_empty
     end
 
     it "when the value is nil" do
-      target.validate_each(space, "permalink", nil)
+      target.validate_each(space, "slug", nil)
       space.errors.should be_empty
     end
 
     it "when there's no conflict" do
-      target.validate_each(space, "permalink", "new-value")
+      target.validate_each(space, "slug", "new-value")
       space.errors.should be_empty
     end
 
     context "when there's a conflict with another space" do
       let!(:another_space) { FactoryGirl.create(:space) }
       it {
-        target.validate_each(space, "permalink", another_space.permalink)
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", another_space.slug)
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a disabled space" do
       let!(:another_space) { FactoryGirl.create(:space, disabled: true) }
       it {
-        target.validate_each(space, "permalink", another_space.permalink)
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", another_space.slug)
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with another space ignoring case" do
-      let!(:another_space) { FactoryGirl.create(:space, permalink: "ANY-username") }
+      let!(:another_space) { FactoryGirl.create(:space, slug: "ANY-username") }
       it {
-        target.validate_each(space, "permalink", "any-USERnaME")
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", "any-USERnaME")
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a user" do
       let!(:user) { FactoryGirl.create(:user) }
       it {
-        target.validate_each(space, "permalink", user.username)
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", user.slug)
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a disabled user" do
       let!(:user) { FactoryGirl.create(:user, disabled: true) }
       it {
-        target.validate_each(space, "permalink", user.username)
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", user.slug)
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     context "when there's a conflict with a user ignoring case" do
-      let!(:user) { FactoryGirl.create(:user, username: "ANY-username") }
+      let!(:user) { FactoryGirl.create(:user, slug: "ANY-username") }
       it {
-        target.validate_each(space, "permalink", "any-USERnaME")
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", "any-USERnaME")
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
     it "ignores the space itself" do
-      target.validate_each(space, "permalink", space.permalink)
+      target.validate_each(space, "slug", space.slug)
       space.errors.should be_empty
     end
   end

@@ -160,7 +160,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @attrs[:profile_attributes][:full_name].parameterize)
+          FactoryGirl.create(:space, slug: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
@@ -173,7 +173,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:profile_attributes][:full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, slug: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)

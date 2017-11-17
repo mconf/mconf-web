@@ -65,7 +65,7 @@ de:
           presenter_share_only: "Wenn diese Option gesetzt ist, ist nur der Präsentator berechtigt, seine Kamera und sein Mikrofon zu teilen. Das ist geeignet für one-to-many Konferenzen."
           private: "Private Räume benötigen ein Passwort für Benutzer, um teilzunehmen. Öffentliche Räume können von jedem mit diesem Link betreten werden. Nur Mitglieder können eine Konferenz in einem Raum einer Gruppe beginnen, unhabhängig davon ob der Raum privat oder öffentlich ist."
           welcome_msg: "Diese Nachricht wird im Chat gezeigt wenn ein Benutzer an der Konferenz teilnimmt. Wenn Sie nichts eingeben, wird die Standardmitteilung angezeigt. Sie können meetingspezifische Informationen mit den Variablen %%CONFNAME%%, %%DIALNUM%% und %%CONFNUM%% angeben."
-        permalink: "Dieses Attribut wird verwendet, um Ihre Gruppe in URLs, inklusive der URL des Konferenzraums, zu identifizieren. Erlaubt sind Kleinbuchstaben, Nummern und Bindestriche."
+        slug: "Dieses Attribut wird verwendet, um Ihre Gruppe in URLs, inklusive der URL des Konferenzraums, zu identifizieren. Erlaubt sind Kleinbuchstaben, Nummern und Bindestriche."
         public: "Gruppen können öffentlich sein, damit Jeder sehen kann, was darin passiert, oder privat, sodass nur Mitglieder die Aktivitäten der Gruppe sehen können"
         repository: "Die Dokumentenablage ist ein Ort, an dem Benutzer einer Gruppe Dokumente jeder Art hochladen und teilen können"
       user:

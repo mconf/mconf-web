@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   include Mconf::ApprovalModule
   include Mconf::DisableModule
 
-  # TODO: block :username from being modified after registration
-
   ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
@@ -29,12 +27,14 @@ class User < ActiveRecord::Base
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       hash = { :value => login.downcase }
-      where_clause = ["lower(username) = :value OR lower(email) = :value", hash]
+      where_clause = ["lower(slug) = :value OR lower(email) = :value", hash]
       where(conditions).where(where_clause).first
     else
       where(conditions).first
     end
   end
+
+  alias_attribute :username, :slug
 
   validates :username,
     presence: true,
@@ -42,10 +42,10 @@ class User < ActiveRecord::Base
     length: { minimum: 1 },
     identifier_uniqueness: true,
     blacklist: true,
-    room_param_uniqueness: true
+    room_slug_uniqueness: true
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged, slug_column: :username
+  friendly_id :slug_candidates, use: :slugged, slug_column: :slug
   def slug_candidates
     [ Mconf::Identifier.unique_mconf_id(full_name) ]
   end
@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
+  after_update :update_webconf_room
   after_create :new_activity_user_created
 
   before_destroy :before_disable_and_destroy, prepend: true
@@ -97,14 +98,14 @@ class User < ActiveRecord::Base
       query_orders = []
 
       words.reject(&:blank?).each do |word|
-        str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+        str  = "profiles.full_name LIKE ? OR users.slug LIKE ?"
         str += " OR users.email LIKE ?" if include_private
         query_strs << str
         query_params += ["%#{word}%", "%#{word}%"]
         query_params += ["%#{word}%"] if include_private
         query_orders += [
           "CASE WHEN profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
-           CASE WHEN users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.slug LIKE '%#{word}%' THEN 1 ELSE 0 END + \
            CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"
         ]
       end
@@ -159,7 +160,6 @@ class User < ActiveRecord::Base
 
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
-  alias_attribute :permalink, :username
 
   delegate :full_name, :first_name, :organization, :city, :country,
            :logo, :logo_image, :logo_image_url,
@@ -212,10 +212,11 @@ class User < ActiveRecord::Base
     Site.current.require_registration_approval
   end
 
+  # Creates the webconf room after creating the user
   def create_webconf_room
     params = {
       owner: self,
-      param: self.username,
+      slug: self.slug,
       name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
@@ -223,6 +224,14 @@ class User < ActiveRecord::Base
       max_participants: Rails.application.config.free_attendee_limit
     }
     create_bigbluebutton_room(params)
+  end
+
+  # Updates the webconf room after updating the user
+  def update_webconf_room
+    if self.bigbluebutton_room
+      params = { slug: self.slug }
+      bigbluebutton_room.update_attributes(params)
+    end
   end
 
   # Full location: city + country
@@ -467,11 +476,11 @@ class User < ActiveRecord::Base
     if disabled
       self.username = disabled_rename(self.username)
       self.email = disabled_rename(self.email)
-      self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = disabled_rename(self.bigbluebutton_room.slug)
     else
       self.username = enabled_rename(self.username)
       self.email = enabled_rename(self.email)
-      self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = enabled_rename(self.bigbluebutton_room.slug)
     end
     self.skip_confirmation_notification!
     self.save

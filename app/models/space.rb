@@ -15,7 +15,7 @@
 #
 # == Attributes
 # * +name+ : String with a human friendly name of the space
-# * +permalink+ : The string used to identify the space in URLs
+# * +slug+ : The string used to identify the space in URLs
 # * +description+ : Text with a human friendly description of the space
 # * +public+ : A boolean value denoting whether the space is public
 # * +disabled+: A boolean value denoting whether the space has been disabled
@@ -77,20 +77,20 @@ class Space < ActiveRecord::Base
                    :length => { :minimum => 3 }
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from
-  # 'permalink', so we require it to have have length >= 3
+  # 'slug', so we require it to have have length >= 3
   # TODO: improve the format matcher, check specs for some values that are allowed today
   #   but are not really recommended (e.g. '---')
-  validates :permalink,
+  validates :slug,
     presence: true,
     format: /\A[A-Za-z0-9\-_]*\z/,
     length: { minimum: 3 },
     identifier_uniqueness: true,
     blacklist: true,
-    room_param_uniqueness: true
+    room_slug_uniqueness: true
 
   # the friendly name / slug for the space
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged, slug_column: :permalink
+  friendly_id :slug_candidates, use: :slugged, slug_column: :slug
   def slug_candidates
     [ Mconf::Identifier.unique_mconf_id(name) ]
   end
@@ -349,7 +349,7 @@ class Space < ActiveRecord::Base
   def create_webconf_room
     params = {
       owner: self,
-      param: self.permalink,
+      slug: self.slug,
       name: self.name,
       private: false,
       moderator_key: SecureRandom.hex(8),
@@ -362,21 +362,21 @@ class Space < ActiveRecord::Base
   # Updates the webconf room after updating the space
   def update_webconf_room
     if self.bigbluebutton_room
-      if self.name_was == self.bigbluebutton_room.name
-        params = {
-          :name => self.name
-        }
-        bigbluebutton_room.update_attributes(params)
-      end
+      params = { slug: self.slug }
+
+      # update the name only if it was unchanged
+      params[:name] = self.name if self.name_was == self.bigbluebutton_room.name
+
+      bigbluebutton_room.update_attributes(params)
     end
   end
 
   # Checks if an error happened when creating the associated 'bigbluebutton_room'
   # and sets this error in an attribute that can be seen by the user in the views.
-  # TODO: Check for any error, not only on :param; test it better; do it for users too.
+  # TODO: Check for any error, not only on :slug; test it better; do it for users too.
   def check_errors_on_bigbluebutton_room
-    if self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
-      self.errors.add :permalink, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
+    if self.bigbluebutton_room and self.bigbluebutton_room.errors[:slug].size > 0
+      self.errors.add :slug, I18n.t('activerecord.errors.messages.invalid_identifier', id: self.bigbluebutton_room.slug)
     end
   end
 

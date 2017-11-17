@@ -9,7 +9,7 @@
   = f.input :url, :disabled => !editing
   = f.input :secret, :disabled => !editing
   = f.input :version, :disabled => true
-  = f.input :param, :disabled => !editing
+  = f.input :slug, :disabled => !editing
   - if editing
     - if server.new_record?
       - cancel_route = nil

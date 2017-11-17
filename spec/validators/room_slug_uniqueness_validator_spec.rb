@@ -7,18 +7,18 @@
 
 require "spec_helper"
 
-describe RoomParamUniquenessValidator do
-  let!(:target) { RoomParamUniquenessValidator.new({ attributes: { any: 1 } }) }
+describe RoomSlugUniquenessValidator do
+  let!(:target) { RoomSlugUniquenessValidator.new({ attributes: { any: 1 } }) }
   let(:message) { "has already been taken" }
 
   context "accepts a custom message in the options" do
     let(:user) { FactoryGirl.create(:user) }
     let(:room) { FactoryGirl.create(:bigbluebutton_room) }
     let(:custom_error) { "my custom error message" }
-    let(:target) { RoomParamUniquenessValidator.new({ attributes: { any: 1 }, message: custom_error }) }
+    let(:target) { RoomSlugUniquenessValidator.new({ attributes: { any: 1 }, message: custom_error }) }
 
     it {
-      target.validate_each(user, "my_attribute", room.param)
+      target.validate_each(user, "my_attribute", room.slug)
       user.errors.should have_key(:my_attribute)
       user.errors[:my_attribute].should include(custom_error)
     }
@@ -32,31 +32,41 @@ describe RoomParamUniquenessValidator do
     before { user.valid? }
 
     it "when the value is empty" do
-      target.validate_each(user, "username", "")
+      target.validate_each(user, "slug", "")
       user.errors.should be_empty
     end
 
     it "when the value is nil" do
-      target.validate_each(user, "username", nil)
+      target.validate_each(user, "slug", nil)
       user.errors.should be_empty
     end
 
     it "when there's no conflict" do
-      target.validate_each(user, "username", "new-value")
+      target.validate_each(user, "slug", "new-value")
       user.errors.should be_empty
     end
 
     context "when there's a conflict" do
       let!(:room) { FactoryGirl.create(:bigbluebutton_room) }
       it {
-        target.validate_each(user, "username", room.param)
-        user.errors.should have_key(:username)
-        user.errors.messages[:username].should include(message)
+        target.validate_each(user, "slug", room.slug)
+        user.errors.should have_key(:slug)
+        user.errors.messages[:slug].should include(message)
       }
     end
 
+    ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      context "when using the reserved word '#{word}'" do
+        it {
+          target.validate_each(user, "slug", word)
+          user.errors.should have_key(:slug)
+          user.errors.messages[:slug].should include(message)
+        }
+      end
+    end
+
     it "ignores the user's own room" do
-      target.validate_each(user, "username", user.bigbluebutton_room.param)
+      target.validate_each(user, "slug", user.bigbluebutton_room.slug)
       user.errors.should be_empty
     end
   end
@@ -69,31 +79,41 @@ describe RoomParamUniquenessValidator do
     before { space.valid? }
 
     it "when the value is empty" do
-      target.validate_each(space, "permalink", "")
+      target.validate_each(space, "slug", "")
       space.errors.should be_empty
     end
 
     it "when the value is nil" do
-      target.validate_each(space, "permalink", nil)
+      target.validate_each(space, "slug", nil)
       space.errors.should be_empty
     end
 
     it "when there's no conflict" do
-      target.validate_each(space, "permalink", "new-value")
+      target.validate_each(space, "slug", "new-value")
       space.errors.should be_empty
     end
 
     context "when there's a conflict" do
       let!(:room) { FactoryGirl.create(:bigbluebutton_room) }
       it {
-        target.validate_each(space, "permalink", room.param)
-        space.errors.should have_key(:permalink)
-        space.errors.messages[:permalink].should include(message)
+        target.validate_each(space, "slug", room.slug)
+        space.errors.should have_key(:slug)
+        space.errors.messages[:slug].should include(message)
       }
     end
 
+    ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      context "when using the reserved word '#{word}'" do
+        it {
+          target.validate_each(space, "slug", word)
+          space.errors.should have_key(:slug)
+          space.errors.messages[:slug].should include(message)
+        }
+      end
+    end
+
     it "ignores the space's own room" do
-      target.validate_each(space, "permalink", space.bigbluebutton_room.param)
+      target.validate_each(space, "slug", space.bigbluebutton_room.slug)
       space.errors.should be_empty
     end
   end

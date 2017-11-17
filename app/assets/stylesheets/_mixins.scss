@@ -264,13 +264,12 @@
         }
       }
 
-      &.active a {
+      &.active > a {
         font-weight: $m-font-weight-bold;
-        border-bottom: $m-active-item-border;
-        color: $m-active-item-border-color;
+        color: $m-navbar-font-color-hover;
 
-        &:hover {
-          color: $m-active-item-border-color;
+        &:hover, &:focus {
+          color: $m-navbar-font-color-hover;
         }
       }
     }
@@ -278,11 +277,15 @@
 
   // very specific selector se we don't mess with dropdowns and others
   > ul > li > a, > a {
-    padding: (($m-navbar-height - $m-navbar-font)/2 - 2) 0;
+    padding: (($m-navbar-height - $m-navbar-font)/2) 0;
     margin: 0 14px;
     display: block;
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color);
-    @include transition(background-color 0.2s ease-in);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+    @include transition(border-color 0.2s ease-in);
+
+    &:hover {
+      border-bottom: $m-active-item-border;
+    }
   }
 
   .icon {

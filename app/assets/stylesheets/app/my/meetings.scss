@@ -5,11 +5,11 @@
 
 body.my.meetings {
 
-  #my-meetings {
-    h1 {
-      margin-bottom: 90px;
-    }
+  #sidebar {
+    margin-top: $m-content-vertical-padding + 50px + 30px + ($m-font-normal * $m-font-h1-multiplier) + 5px;
+  }
 
+  #my-meetings {
     &.empty {
       h2 {
         font-weight: $m-font-weight-thin;

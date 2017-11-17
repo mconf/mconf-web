@@ -50,7 +50,7 @@ feature 'Visitor logs in' do
 
     scenario 'from /webconf/:id' do
       user = FactoryGirl.create(:user)
-      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      room = FactoryGirl.create(:bigbluebutton_room, slug: "test", owner: user)
       visit invite_bigbluebutton_room_path(room)
 
       sign_in_with @user.username, @user.password, false
@@ -84,7 +84,7 @@ feature 'Visitor logs in' do
       Site.current.update_attributes(ssl: true)
 
       user = FactoryGirl.create(:user)
-      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      room = FactoryGirl.create(:bigbluebutton_room, slug: "test", owner: user)
       visit invite_bigbluebutton_room_path(room)
 
       sign_in_with @user.username, @user.password
