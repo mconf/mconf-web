@@ -204,3 +204,10 @@ end
 FactoryGirl::SyntaxRunner.class_eval do
   include ActionDispatch::TestProcess
 end
+
+def with_activities
+  #value_before = PublicActivity.enabled
+  PublicActivity.enabled = true
+  yield
+  PublicActivity.enabled = false
+end
