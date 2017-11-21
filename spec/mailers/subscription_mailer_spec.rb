@@ -30,7 +30,6 @@ describe SubscriptionMailer do
     }
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
     it("sets 'headers'") { mail.headers.should eql({}) }
-    it("assigns @user") { mail.body.encoded.should match(user.name) }
     it("renders the link to see the web conference room of the user") {
       allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:join_webconf_url).and_return(url)
       content = I18n.t('subscription_mailer.subscription_created_notification_email.message.link', :url => url).html_safe
@@ -39,5 +38,19 @@ describe SubscriptionMailer do
   end
 
   describe '.subscription_destroyed_notification_email' do
+    let(:mail) { SubscriptionMailer.subscription_destroyed_notification_email(user.id, subscription.id) }
+    let(:url) { "www.contact.com" }
+
+    it("sets 'to'") { mail.to.should eql([user.email]) }
+    it("sets 'subject'") {
+      text = I18n.t('subscription_mailer.subscription_destroyed_notification_email.subject', :id => subscription.id)
+      mail.subject.should eql(text)
+    }
+    it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+    it("sets 'headers'") { mail.headers.should eql({}) }
+    it("renders contact email") {
+      content = I18n.t('subscription_mailer.subscription_destroyed_notification_email.message.contact', :contact_email => Site.current.smtp_receiver).html_safe
+      mail_content(mail).should match(content)
+    }
   end
 end
