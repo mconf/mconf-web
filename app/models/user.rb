@@ -179,7 +179,7 @@ class User < ActiveRecord::Base
         profile_attributes: { full_name: data['name'] },
         password: Devise.friendly_token[0,20]
       )
-      skip_confirmation!
+      user.skip_confirmation!
     end
 
     user
