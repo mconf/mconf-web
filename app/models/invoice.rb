@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2017 Mconf.
 #
@@ -124,20 +125,19 @@ class Invoice < ActiveRecord::Base
   end
 
   def post_invoice_to_ops
-
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
-    final_cost = (data[:total] / quantity).to_i
-    final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
 
     if data[:minimum]
+      final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
       if data[:discounts].has_key?(:days)
         Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
       else
         Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee', locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
       end
     else
+      final_cost = (data[:total] / quantity).to_i
       if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
         Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
       elsif data[:discounts].has_key?(:users)
@@ -156,8 +156,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def check_for_posted_invoices
-    ops_invoice = Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
-    ops_invoice
+    Mconf::Iugu.get_invoice_items(self.subscription.subscription_token)
   end
 
   def get_invoice_payment_data
