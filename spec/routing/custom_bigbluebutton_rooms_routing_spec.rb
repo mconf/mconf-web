@@ -21,28 +21,12 @@ describe CustomBigbluebuttonRoomsController do
     it { should route(:get, "/#{Rails.application.config.conf_scope}/rooms/my-room/user_edit").to(action: :user_edit, id: "my-room") }
 
     context "with a scope for rooms" do
-      before {
-        @previous = Rails.application.config.conf_scope_rooms
-        Rails.application.config.conf_scope_rooms = 'webconf'
-        Helpers.reload_routes!
-      }
-      after {
-        Rails.application.config.conf_scope_rooms = @previous
-        Rails.application.reload_routes!
-      }
+      set_conf_scope_rooms('webconf')
       it { should route(:get, "/webconf/my-room").to(action: :invite_userid, id: "my-room") }
     end
 
     context "with an empty scope for rooms" do
-      before {
-        @previous = Rails.application.config.conf_scope_rooms
-        Rails.application.config.conf_scope_rooms = ''
-        Helpers.reload_routes!
-      }
-      after {
-        Rails.application.config.conf_scope_rooms = @previous
-        Rails.application.reload_routes!
-      }
+      set_conf_scope_rooms('')
       it { should route(:get, "/my-room").to(action: :invite_userid, id: "my-room") }
     end
 

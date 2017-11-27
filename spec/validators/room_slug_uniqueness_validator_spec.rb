@@ -56,13 +56,7 @@ describe RoomSlugUniquenessValidator do
     end
 
     ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
-      before {
-        @previous_scope = Rails.application.config.conf_scope_rooms
-        Rails.application.config.conf_scope_rooms = Rails.application.config.conf_scope
-      }
-      after {
-        Rails.application.config.conf_scope_rooms = @previous_scope
-      }
+      set_conf_scope_rooms(Rails.application.config.conf_scope)
       context "when using the reserved word '#{word}'" do
         it {
           target.validate_each(user, "slug", word)
@@ -110,13 +104,7 @@ describe RoomSlugUniquenessValidator do
     end
 
     ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
-      before {
-        @previous_scope = Rails.application.config.conf_scope_rooms
-        Rails.application.config.conf_scope_rooms = Rails.application.config.conf_scope
-      }
-      after {
-        Rails.application.config.conf_scope_rooms = @previous_scope
-      }
+      set_conf_scope_rooms(Rails.application.config.conf_scope)
       context "when using the reserved word '#{word}'" do
         it {
           target.validate_each(space, "slug", word)

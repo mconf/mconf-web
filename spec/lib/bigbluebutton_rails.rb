@@ -14,6 +14,7 @@ describe BigbluebuttonRails do
     before {
       Site.current.update_attributes(domain: "localhost:4000")
     }
+    set_conf_scope_rooms('webconf')
 
     it { target.should respond_to(:get_invitation_url) }
     it { target.get_invitation_url.should be_a(Proc) }
