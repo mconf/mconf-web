@@ -8,8 +8,8 @@ require 'spec_helper'
 
 describe InvoicePostWorker, type: :worker do
   let(:worker) { InvoicePostWorker }
-  let!(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: "local") }
-  before {  Mconf::Iugu.stub(:add_invoice_item).and_return(true) }
+  let(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: "local") }
+  before { Mconf::Iugu.stub(:add_invoice_item).and_return(true) }
   subject { worker.perform(invoice.id) }
 
   describe "#perform" do
@@ -18,13 +18,21 @@ describe InvoicePostWorker, type: :worker do
       context "invoice.flag_invoice_status == 'local'" do
         # FYI: posted = self.check_for_posted_invoices
         context "posted.first.present" do
-          before { Mconf::Iugu.stub(:get_invoice_items).and_return([{"id"=>"EF62061C3FEE499782858DF5272C309D",
-                                                                    "description"=>"Minimum service fee",
-                                                                    "quantity"=>15,
-                                                                    "price_cents"=>600,
-                                                                    "recurrent"=>false,
-                                                                    "price"=>"R$ 6,00",
-                                                                    "total"=>"R$ 90,00"}]) }
+          before {
+            Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(15)
+            Mconf::Iugu.stub(:get_invoice_items).and_return(
+              [
+                { "id"=>"EF62061C3FEE499782858DF5272C309D",
+                  "description"=>"Minimum service fee",
+                  "quantity"=>15,
+                  "price_cents"=>600,
+                  "recurrent"=>false,
+                  "price"=>"R$ 6,00",
+                  "total"=>"R$ 90,00"
+                }
+              ]
+            )
+          }
           it "changes to posted" do
             subject
             invoice.reload
@@ -33,7 +41,10 @@ describe InvoicePostWorker, type: :worker do
         end
 
         context "!posted.first.present" do
-          before { Mconf::Iugu.stub(:get_invoice_items).and_return([]) }
+          before {
+            Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(1)
+            Mconf::Iugu.stub(:get_invoice_items).and_return([])
+          }
           it "does not change to posted" do
             subject
             invoice.flag_invoice_status.should eql("local")

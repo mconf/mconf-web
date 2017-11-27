@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2017 Mconf.
 #
@@ -328,6 +329,29 @@ describe Invoice do
       end
     end
 
+    context "post a minimum fee with consumed days discount invoice" do
+      before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:days=>0.8},
+                                                                              :quantity=>5, :cost_per_user=>600, :total=>7200.0, :minimum=>true})
+        invoice.update_attributes(days_consumed: 24)
+        Mconf::Iugu.should_receive(:add_invoice_item).with(sub_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: 19, qtd_d: invoice.days_consumed, locale: invoice.subscription.user.locale), 480, 15) }
+
+      it "posted a minimum_fee invoice with days_consumed discount" do
+        invoice.post_invoice_to_ops
+      end
+    end
+
+    context "doesn't fail if quantity is 0" do
+      before {
+        Invoice.any_instance.stub(:generate_invoice_value).and_return(
+          { :discounts=>{:days=>0.8},
+            :quantity=>0, :cost_per_user=>600, :total=>7200.0, :minimum=>true
+          }
+        )
+        Mconf::Iugu.stub(:add_invoice_item)
+        # no need to check anything else, just want to make sure it doesn't raise an exception
+      }
+      it { invoice.post_invoice_to_ops }
+    end
   end
 
   describe "values generated for invoice#show are correct using arbitrary return" do

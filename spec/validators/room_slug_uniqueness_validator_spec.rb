@@ -49,13 +49,14 @@ describe RoomSlugUniquenessValidator do
     context "when there's a conflict" do
       let!(:room) { FactoryGirl.create(:bigbluebutton_room) }
       it {
-        target.validate_each(user, "slug", room.slug)
-        user.errors.should have_key(:slug)
-        user.errors.messages[:slug].should include(message)
+        target.validate_each(user, "username", room.slug)
+        user.errors.should have_key(:username)
+        user.errors.messages[:username].should include(message)
       }
     end
 
     ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      set_conf_scope_rooms(Rails.application.config.conf_scope)
       context "when using the reserved word '#{word}'" do
         it {
           target.validate_each(user, "slug", word)
@@ -103,6 +104,7 @@ describe RoomSlugUniquenessValidator do
     end
 
     ['rooms', 'servers', 'recordings', 'playback_types'].each do |word|
+      set_conf_scope_rooms(Rails.application.config.conf_scope)
       context "when using the reserved word '#{word}'" do
         it {
           target.validate_each(space, "slug", word)
