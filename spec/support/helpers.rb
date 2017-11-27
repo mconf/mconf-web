@@ -90,6 +90,18 @@ module Helpers
         content
       end
     end
+
+    def set_conf_scope_rooms(value)
+      before {
+        @previous_conf_scope_rooms = Rails.application.config.conf_scope_rooms
+        Rails.application.config.conf_scope_rooms = value
+        Helpers.reload_routes!
+      }
+      after {
+        Rails.application.config.conf_scope_rooms = @previous_conf_scope_rooms
+        Rails.application.reload_routes!
+      }
+    end
   end
 
 end
