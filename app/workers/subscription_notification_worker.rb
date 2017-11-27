@@ -19,7 +19,7 @@ class SubscriptionNotificationWorker < BaseWorker
     activities = RecentActivity
       .where(trackable_type: 'Subscription', notified: [nil, false], key: 'subscription.created')
     activities.each do |activity|
-      Queue::High.enqueue(SubscriptionCreatedSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(SubscriptionSenderWorker, :perform, activity.id)
     end
   end
 
@@ -27,7 +27,7 @@ class SubscriptionNotificationWorker < BaseWorker
     activities = RecentActivity
       .where(trackable_type: 'Subscription', notified: [nil, false], key: 'subscription.destroyed')
     activities.each do |activity|
-      Queue::High.enqueue(SubscriptionDestroyedSenderWorker, :perform, activity.id)
+      Queue::High.enqueue(SubscriptionSenderWorker, :perform, activity.id)
     end
   end
 end

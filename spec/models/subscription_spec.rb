@@ -22,7 +22,8 @@ describe Subscription do
   before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
            Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
            Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
-           Mconf::Iugu.stub(:update_customer).and_return(true) }
+           Mconf::Iugu.stub(:update_customer).and_return(true)
+            }
   let(:iugu_plan) { FactoryGirl.create(:plan) }
 
   describe "#create_customer_and_sub" do
@@ -241,10 +242,48 @@ describe Subscription do
   end
 
   describe "#subscription_created_notification" do
-
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:plan) { FactoryGirl.create(:plan) }
+    subject {
+      with_activities do
+        Subscription.create(plan_token: plan.ops_token,
+                            user_id:user.id,
+                            customer_token: "ASF",
+                            subscription_token: "ASDF",
+                            pay_day: "2018-01-11",
+                            cpf_cnpj: "011.354.780-31",
+                            address: "frase",
+                            additional_address_info: "a 5",
+                            number: "201",
+                            zipcode: "2222-22",
+                            city: "poa",
+                            province: "rs",
+                            district: "bla",
+                            country: "brazil",
+                            integrator: false)
+      end
+    }
+    it do
+      subject
+      RecentActivity.last.key.should eql("subscription.created")
+      RecentActivity.last.recipient_id.should eql(user.id)
+    end
   end
 
   describe "#subscription_destroyed_notification" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+    before { Mconf::Iugu.stub(:destroy_subscription).and_return(true)
+             Mconf::Iugu.stub(:destroy_customer).and_return(true) }
+    subject {
+      with_activities do
+        subscription.destroy
+      end
+    }
+    it do
+      subject
+      RecentActivity.last.key.should eql("subscription.destroyed")
+      RecentActivity.last.recipient_id.should eql(user.id)
+    end
   end
-
 end
