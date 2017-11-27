@@ -14,7 +14,7 @@ class InvoicesController < InheritedResources::Base
   layout :determine_layout
 
   def determine_layout
-    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+    if [:new, :create].include?(action_name.to_sym)
       "no_sidebar"
     else
       "application"

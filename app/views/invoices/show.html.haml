@@ -1,10 +1,10 @@
 - user = User.find_by_username(params[:user_id])
 - invoice = user.subscription.invoices.find_by_id(params[:id])
 
-- home_sidebar_menu_at(:subscription)
+-# - home_sidebar_menu_at(:subscription)
 
-= content_for :sidebar do
-  = render "my/sidebar"
+-# = content_for :sidebar do
+-#   = render "my/sidebar"
 
 #invoice-wrapper
   .resource-card
@@ -60,4 +60,4 @@
         - else
           .pay-btn.btn.btn-warning.disabled
             = t('.disabled_pay')
-            = icon_payment_invoice_disabled(alt: t('.disabled_pay'), title: t('.disabled_pay'))
+            = icon_payment_invoice(alt: t('.disabled_pay'), title: t('.disabled_pay'))

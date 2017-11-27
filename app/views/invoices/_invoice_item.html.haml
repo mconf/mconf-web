@@ -4,7 +4,7 @@
       = format_date(invoice.due_date)
     %td.invoice-id-col
       - if invoice.invoice_token.present?
-        = link_to invoice.invoice_token, user_invoice_path(invoice.id)
+        = link_to invoice.invoice_token, user_invoice_path(invoice.subscription.user.username, invoice.id)
       - else
         = link_to t('.not_ready'), user_invoice_path(invoice.subscription.user.username, invoice.id)
     %td.invoice-value-col
@@ -35,4 +35,4 @@
         = link_to invoice.invoice_url do
           = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
       - else
-        = icon_payment_invoice_disabled(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))
+        = icon_payment_invoice(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))

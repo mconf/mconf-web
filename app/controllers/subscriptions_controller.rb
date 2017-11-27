@@ -10,7 +10,7 @@ class SubscriptionsController < InheritedResources::Base
   before_filter :authenticate_user!
 
   before_filter :find_subscription
-  authorize_resource :subscription, :through => :user, :singleton => true
+  authorize_resource :subscription, through: :user, singleton: true
 
   layout :determine_layout
 
@@ -20,7 +20,7 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def determine_layout
-    if [:new].include?(action_name.to_sym) or [:create].include?(action_name.to_sym)
+    if [:new, :create].include?(action_name.to_sym)
       "no_sidebar"
     else
       "application"
@@ -39,7 +39,7 @@ class SubscriptionsController < InheritedResources::Base
 
     @subscription.user_id = current_user.id
     # Will create it on IUGU for now
-    @subscription.plan_token = Plan.find_by_ops_type("IUGU").ops_token
+    @subscription.plan_token = Plan.find_by(ops_type: "IUGU").ops_token
     # Will create invoice for the 10th of the month after the trial expires (Mconf is post payed)
     @subscription.pay_day = (Date.today + free_months.months + 1.month).strftime('%Y-%m-10')
     # This will define when to start charging the user
@@ -68,8 +68,10 @@ class SubscriptionsController < InheritedResources::Base
 
   def update
     update! do |success, failure|
-      success.html { flash[:notice] = t("subscriptions.update");
-                     redirect_to user_subscription_path(current_user) }
+      success.html {
+        flash[:notice] = t("subscriptions.update");
+        redirect_to user_subscription_path(current_user)
+      }
       failure.html { render }
     end
   end
@@ -92,7 +94,4 @@ class SubscriptionsController < InheritedResources::Base
       :number, :zipcode, :city, :province, :district, :country ]
   end
 
-  def back_url
-    request.referer
-  end
 end

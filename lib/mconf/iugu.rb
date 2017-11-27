@@ -8,7 +8,7 @@ module Mconf
   class Iugu
 
 ###SUBSCRIPTION##########################################################################################
-    # We will have to create a customer here to link to a subscription
+    # Creates a subscription, needs a plan and costumer to exist since it's a relation between such
     def self.create_subscription(plan_identifier, customer_id, pay_day)
       subscription = ::Iugu::Subscription.create({
         plan_identifier: plan_identifier,
@@ -151,7 +151,7 @@ module Mconf
       plan.delete
     end
 
-    # Get the plans from Iugu to the db on a new server
+    # Get the plans from Iugu
     def self.fetch_all_plans
       plans = ::Iugu::Plan.fetch
       plans.results
@@ -161,19 +161,20 @@ module Mconf
 
     # Since Iugu doesn't support dropping the test DB these scripts will do the trick
     # Should not be used on production DB to avoid loss of data and inconsistency on IUGU reports
-    def self.drop_subscriptions
-      subscriptions = ::Iugu::Subscription.fetch()
-      subscriptions.results.each do |sub|
-        puts ::Iugu::Subscription.fetch(sub.attributes['id']).delete
-      end
-    end
 
-    def self.drop_customers
-      customer = ::Iugu::Customer.fetch()
-      customer.results.each do |cus|
-        puts ::Iugu::Customer.fetch(cus.attributes['id']).delete
-      end
-    end
+    # def self.drop_subscriptions
+    #   subscriptions = ::Iugu::Subscription.fetch()
+    #   subscriptions.results.each do |sub|
+    #     puts ::Iugu::Subscription.fetch(sub.attributes['id']).delete
+    #   end
+    # end
+
+    # def self.drop_customers
+    #   customer = ::Iugu::Customer.fetch()
+    #   customer.results.each do |cus|
+    #     puts ::Iugu::Customer.fetch(cus.attributes['id']).delete
+    #   end
+    # end
 
 ########################################################################################################
 
