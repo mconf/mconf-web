@@ -12,36 +12,37 @@ class InvoiceCreateUpdateWorker < BaseWorker
   end
 
   def self.invoices_create
-    Subscription.find_each do |subscription|
-      if subscription.user.trial_ended?
+    Subscription.not_on_trial.find_each do |subscription|
 
-        # There is one and it is for this month
-        if subscription.invoices.last.present? && subscription.invoices.last.due_date.to_date.month == (Date.today).month
-          # We give a post command to the old invoice
-          secondtolast = subscription.invoices.offset(1).last
-          if secondtolast.present?
-            Queue::High.enqueue(InvoicePostWorker, :perform, secondtolast.id)
-          end
+      # there are already invoices for this subscription
+      if subscription.invoices.last.present?
 
+        # the last invoice is for the current month
+        if subscription.invoices.last.due_this_month?
           subscription.invoices.last.update_unique_user_qty
-        
-        # There is none and is gonna be the first
-        elsif !subscription.invoices.last.present?
-          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
-          invoice.update_unique_user_qty
-          invoice.generate_consumed_days("create")
-        
-        # There are invoices but not for this month
+
+          # post the previous invoice just in case it wasn't posted the first time we tried
+          post_invoice(subscription.invoices.offset(1).last)
+
+        # the last invoice is not for this month
         else
-          # We give a post command to the old invoice
           invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
-          secondtolast = subscription.invoices.offset(1).last
-          if secondtolast.present?
-            Queue::High.enqueue(InvoicePostWorker, :perform, secondtolast.id)
-          end
           invoice.update_unique_user_qty
+
+          # post the previous invoice that is now closed
+          post_invoice(subscription.invoices.offset(1).last)
         end
+
+      # there are no invoices, create the first one
+      else
+        invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
+        invoice.update_unique_user_qty
+        invoice.generate_consumed_days("create")
       end
     end
+  end
+
+  def self.post_invoice(invoice)
+    Queue::High.enqueue(InvoicePostWorker, :perform, invoice.id) if invoice.present?
   end
 end

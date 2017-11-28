@@ -17,57 +17,68 @@ describe InvoiceCreateUpdateWorker, type: :worker do
     let!(:user) { FactoryGirl.create(:user, trial_expires_at: DateTime.now - 1.day) }
     let!(:subscription) { FactoryGirl.create(:subscription, user: user, pay_day: "2017-12-10") }
 
-    context "There is one invoice for the subscription and it is for this month" do
-      let!(:old_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: (DateTime.now.change({day: 10})-1.month)) }
-      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: (DateTime.now.change({day: 10}))) }
+    context "there is one invoice for the subscription and it is for this month" do
+      let!(:previous_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: DateTime.now.change({day: 10}) - 1.month) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, user_qty: 5, due_date: DateTime.now.change({day: 10})) }
+      before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
 
-      # FYI: secondtolast = subscription.invoices.offset(1).last
-      context "secondtolast.present" do
-        it "Queue::High.enqueue(InvoicePostWorker, :perform, secondtolast.id)" do
-          subject
-          expect(queue).to have_queued(params, old_invoice.id)
-        end
+      it "enqueues a worker to post the previous invoice" do
+        subject
+        expect(queue).to have_queued(params, previous_invoice.id)
       end
 
-      before {  Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
-      it "invoice.user_qty: unique_total (0)" do
+      it "updates to the number of users in the invoice" do
         subject
         invoice.reload
         invoice.user_qty.should eql(0)
       end
     end
 
-    context "There is none invoice for the subscription" do
-      before {  Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
-      it "invoice.user_qty: unique_total (0)" do
+    context "there is no invoice for the subscription" do
+      before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(4) }
+
+      it "creates a new invoice" do
+        expect { subject }.to change{ Invoice.count }.by(1)
+      end
+
+      it "sets the user quantity in the new invoice" do
         subject
         subscription.invoices.last.reload
-        subscription.invoices.last.user_qty.should eql(0)
+        subscription.invoices.last.user_qty.should eql(4)
       end
-      it "invoice.days_consumed: consumed)" do
-        consumed = DateTime.now.day >= Rails.application.config.base_month_days ? nil : (Rails.application.config.base_month_days - DateTime.now.day)
+
+      it "set the days consumed in the new invoice" do
+        consumed = if DateTime.now.day >= Rails.application.config.base_month_days
+                     nil
+                   else
+                     Rails.application.config.base_month_days - DateTime.now.day
+                   end
         subject
         subscription.invoices.last.reload
         subscription.invoices.last.days_consumed.should be(consumed.to_i)
       end
     end
 
-    context "There is one invoice for the subscription but it is not for this month" do
-      let!(:old_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: (DateTime.now.change({day: 10})-1.month)) }
+    context "there are invoices for the subscription but for this month" do
+      let!(:other_invoice) { FactoryGirl.create(:invoice, subscription: subscription,
+                                                due_date: DateTime.now.change({day: 10}) - 2.month) }
+      let!(:previous_invoice) { FactoryGirl.create(:invoice, subscription: subscription,
+                                                   due_date: DateTime.now.change({day: 10}) - 1.month) }
+      before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(6) }
 
-      # FYI: secondtolast = subscription.invoices.offset(1).last
-      context "secondtolast.present" do
-        it "Queue::High.enqueue(InvoicePostWorker, :perform, secondtolast.id)" do
-          subject
-          expect(queue).to have_queued(params, old_invoice.id)
-        end
+      it "enqueues a worker to post the previous invoice" do
+        subject
+        expect(queue).to have_queued(params, previous_invoice.id)
       end
 
-      before {  Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
-      it "invoice.user_qty: unique_total (0)" do
+      it "creates a new invoice" do
+        expect { subject }.to change{ Invoice.count }.by(1)
+      end
+
+      it "sets the user quantity in the new invoice" do
         subject
         subscription.invoices.last.reload
-        subscription.invoices.last.user_qty.should eql(0)
+        subscription.invoices.last.user_qty.should eql(6)
       end
     end
   end

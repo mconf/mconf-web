@@ -56,7 +56,7 @@ describe Invoice do
     end
   end
 
-  describe "invoice values generated #generate_invoice_value" do
+  describe "#generate_invoice_value" do
     let(:invoice) { FactoryGirl.create(:invoice, days_consumed:nil, invoice_value: nil) }
     before { Invoice.any_instance.stub(:update_unique_user_qty) }
 
@@ -439,6 +439,37 @@ describe Invoice do
         subject
         target.invoice_url.should eql("https://faturas.iugu.com/c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7")
         target.invoice_token.should eql("C963AAF1125D4AFCA1FCC83F494947FF")
+      end
+    end
+  end
+
+  describe "#due_this_month?" do
+    let(:target) { FactoryGirl.create(:invoice) }
+    before { Timecop.freeze(DateTime.now.utc) }
+    after { Timecop.return }
+
+    context "when it's due this month" do
+      [DateTime.now.utc, DateTime.now.utc.beginning_of_month, DateTime.now.utc.end_of_month].each do |due|
+        it("due_date: #{due}") {
+          target.update_attributes(due_date: due)
+          target.due_this_month?.should be(true)
+        }
+      end
+    end
+
+    context "when it's not due this month" do
+      [DateTime.now.utc - 1.month,
+       DateTime.now.utc - 1.year,
+       DateTime.now.utc - 1.year - 3.months,
+       DateTime.now.utc + 1.month,
+       DateTime.now.utc + 1.year,
+       DateTime.now + 1.year + 2.months,
+       DateTime.now.utc.beginning_of_month - 1.second,
+       DateTime.now.utc.end_of_month + 1.second].each do |due|
+        it("due_date: #{due}") {
+          target.update_attributes(due_date: due)
+          target.due_this_month?.should be(false)
+        }
       end
     end
   end

@@ -30,6 +30,10 @@ class Subscription < ActiveRecord::Base
   before_destroy :destroy_sub
   before_destroy :subscription_destroyed_notification
 
+  scope :not_on_trial, -> {
+    joins(:user).where("trial_expires_at <= ?", DateTime.now)
+  }
+
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
       unless self.subscription_token.present?

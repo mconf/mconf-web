@@ -206,8 +206,8 @@ class Invoice < ActiveRecord::Base
     end
 
     # calculates the final price for the invoice
-    if self.user_qty <  Rails.application.config.minimum_users
-      total = result[:cost_per_user] *  Rails.application.config.minimum_users
+    if self.user_qty < Rails.application.config.minimum_users
+      total = result[:cost_per_user] * Rails.application.config.minimum_users
       total *= result[:discounts][:days] if result[:discounts].has_key?(:days)
 
       result[:total] = total
@@ -223,6 +223,11 @@ class Invoice < ActiveRecord::Base
 
     update_attributes(invoice_value: result[:total])
     result
+  end
+
+  def due_this_month?
+    self.due_date.utc.to_date.month == DateTime.now.utc.month &&
+      self.due_date.utc.to_date.year == DateTime.now.utc.year
   end
 
 end

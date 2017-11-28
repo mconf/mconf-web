@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2017 Mconf.
 #
@@ -19,12 +20,46 @@ describe Subscription do
   it { should validate_presence_of(:province)    }
   it { should validate_presence_of(:district)    }
 
-  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
-           Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
-           Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
-           Mconf::Iugu.stub(:update_customer).and_return(true)
-            }
+  before {
+    Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:update_customer).and_return(true)
+  }
+
   let(:iugu_plan) { FactoryGirl.create(:plan) }
+
+  describe ".not_on_trial" do
+    let(:user_on_trial1) { FactoryGirl.create(:user, trial_expires_at: DateTime.now + 1.day) }
+    let(:user_on_trial2) { FactoryGirl.create(:user, trial_expires_at: DateTime.now + 1.month) }
+    let(:user_not_on_trial1) { FactoryGirl.create(:user, trial_expires_at: DateTime.now - 1.second) }
+    let(:user_not_on_trial2) { FactoryGirl.create(:user, trial_expires_at: DateTime.now - 1.day) }
+    let!(:expected_subscriptions) {
+      [
+        FactoryGirl.create(:subscription, user: user_not_on_trial1),
+        FactoryGirl.create(:subscription, user: user_not_on_trial2)
+      ]
+    }
+    let!(:not_expected_subscriptions) {
+      [
+        FactoryGirl.create(:subscription, user: user_on_trial1),
+        FactoryGirl.create(:subscription, user: user_on_trial2)
+      ]
+    }
+    subject { Subscription.not_on_trial }
+
+    it { subject.count.should eql(2) }
+    it {
+      expected_subscriptions.each do |user|
+        subject.should include(user)
+      end
+    }
+    it {
+      not_expected_subscriptions.each do |user|
+        subject.should_not include(user)
+      end
+    }
+  end
 
   describe "#create_customer_and_sub" do
     let(:user) { FactoryGirl.create(:user) }
