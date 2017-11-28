@@ -20,26 +20,123 @@ describe Invoice do
     end
   end
 
-  describe "calculate how many days the user should be charged for" do
-    before { DateTime.stub(:now).and_return(DateTime.civil(2017, 10, 10).beginning_of_day.utc) }
+  describe "#generate_consumed_days" do
+    let(:base_days) { Rails.application.config.base_month_days.to_i }
+    before { Timecop.freeze(date) }
+    after { Timecop.return }
 
-    context "#generate_consumed_days for new subscription" do
+    context "for a new subscription" do
       let(:target) { FactoryGirl.create(:invoice, days_consumed: 0) }
       subject { target.generate_consumed_days("create") }
 
-      it "should return 20 days because it started on the 10th of the month" do
-        subject
-        target.days_consumed.should eql(20)
+      context "on the 1st" do
+        let(:date) { DateTime.strptime('01/10/2017 12:00', "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(base_days - 1)
+        }
+      end
+
+      context "on the 10th" do
+        let(:date) { DateTime.strptime('10/10/2017 12:00', "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(20)
+        }
+      end
+
+      context "on the last day of the base days" do
+        let(:date) { DateTime.strptime("#{base_days}/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(0)
+        }
+      end
+
+      context "after the base days" do
+        let(:date) { DateTime.strptime("31/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(0)
+        }
       end
     end
 
-    context "#generate_consumed_days for cancelled subscription" do
+    context "for a cancelled subscription" do
       let(:target) { FactoryGirl.create(:invoice, days_consumed: 0) }
+      let(:base_days) { Rails.application.config.base_month_days.to_i }
       subject { target.generate_consumed_days("destroy") }
 
-      it "should return 10 days because its being cancelled on the 10th of the month" do
-        subject
-        target.days_consumed.should eql(10)
+      context "on the 1st" do
+        let(:date) { DateTime.strptime('01/10/2017 12:00', "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(1)
+        }
+      end
+
+      context "on the 10th" do
+        let(:date) { DateTime.strptime('10/10/2017 12:00', "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(10)
+        }
+      end
+
+      context "on the last day of the base days" do
+        let(:date) { DateTime.strptime("#{base_days}/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(base_days)
+        }
+      end
+
+      context "after the base days" do
+        let(:date) { DateTime.strptime("31/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(base_days)
+        }
+      end
+    end
+
+    context "canceling the subscription the same month it was created" do
+      subject { target.generate_consumed_days("destroy") }
+
+      context "created on the 5th, canceled on the 10th" do
+        let(:target) { FactoryGirl.create(:invoice, days_consumed: 25) }
+        let(:date) { DateTime.strptime('10/10/2017 12:00', "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(5)
+        }
+      end
+
+      context "created on the 1st, canceled after base days" do
+        let(:target) { FactoryGirl.create(:invoice, days_consumed: base_days - 1) }
+        let(:date) { DateTime.strptime("#{base_days}/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(base_days - 1)
+        }
+      end
+
+      context "canceled on the same day it was created" do
+        let(:target) { FactoryGirl.create(:invoice, days_consumed: 10) }
+        let(:date) { DateTime.strptime("20/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(0)
+        }
+      end
+
+      context "canceled one day after creating" do
+        let(:target) { FactoryGirl.create(:invoice, days_consumed: 10) }
+        let(:date) { DateTime.strptime("21/10/2017 12:00", "%d/%m/%Y %H:%M") }
+        it {
+          subject
+          target.days_consumed.should eql(1)
+        }
       end
     end
   end

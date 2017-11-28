@@ -168,19 +168,30 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_consumed_days(action)
+    today = DateTime.now.utc.day
+    base_month_days = Rails.application.config.base_month_days
+
     if action == "create"
-      consumed = DateTime.now.day >= Rails.application.config.base_month_days ? nil : (Rails.application.config.base_month_days - DateTime.now.day)
+      consumed = Rails.application.config.base_month_days - today
+      consumed = 0 if consumed < 0
     elsif action == "destroy"
-      consumed = DateTime.now.day >= Rails.application.config.base_month_days ? Rails.application.config.base_month_days : DateTime.now.day
+      # canceling the same month the subscription was created
+      if self.days_consumed.present? && days_consumed != 0
+        consumed = today - (base_month_days - days_consumed)
+      else
+        consumed = today
+      end
+      consumed = base_month_days if consumed > base_month_days
     else
       consumed = nil
     end
+
     self.update_attributes(days_consumed: consumed)
   end
 
   def generate_invoice_value
-    b_price =  Rails.application.config.base_price
-    b_price_i =  Rails.application.config.base_price_integrator
+    b_price = Rails.application.config.base_price
+    b_price_i = Rails.application.config.base_price_integrator
 
     # Make sure we are updated on the ammount of users before generating the prices
     self.update_unique_user_qty
