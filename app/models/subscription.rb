@@ -30,21 +30,36 @@ class Subscription < ActiveRecord::Base
   before_destroy :destroy_sub
   before_destroy :subscription_destroyed_notification
 
+  def setup(user, ops)
+    free_months = Rails.application.config.trial_months
+    pay_day = Rails.application.config.due_day
+
+    self.user_id = user.id
+    # Will create it on IUGU for now
+    self.plan_token = Plan.find_by(ops_type: ops).ops_token
+    # Will create invoice for the 10th of the month after the trial expires (Mconf is post payed)
+    self.pay_day = (Date.today + free_months.months + 1.month).strftime("%Y-%m-#{pay_day}")
+    # This will define when to start charging the user
+    self.user.set_expire_date!
+  end
+
   def create_customer_and_sub
     if self.plan.ops_type == "IUGU"
       unless self.subscription_token.present?
-        self.customer_token = Mconf::Iugu.create_customer(
-                                            self.user.email,
-                                            self.user.full_name,
-                                            self.cpf_cnpj,
-                                            self.address,
-                                            self.additional_address_info,
-                                            self.number,
-                                            self.zipcode,
-                                            self.city,
-                                            self.province,
-                                            self.district,
-                                            self.country)
+        self.customer_token =
+          Mconf::Iugu.create_customer(
+            self.user.email,
+            self.user.full_name,
+            self.cpf_cnpj,
+            self.address,
+            self.additional_address_info,
+            self.number,
+            self.zipcode,
+            self.city,
+            self.province,
+            self.district,
+            self.country
+          )
 
         if self.customer_token == nil
           logger.error "No Token returned from IUGU, aborting"
@@ -64,9 +79,6 @@ class Subscription < ActiveRecord::Base
 
         # Here we are calling the creation of the subscription:
         self.create_sub
-      else
-        # If this is an imported subscription we must se the max_participants
-        self.user.bigbluebutton_room.update_attributes(max_participants: nil)
       end
     else
       logger.error "Bad ops_type, can't create customer"
@@ -77,10 +89,12 @@ class Subscription < ActiveRecord::Base
 
   def create_sub
     if self.plan.ops_type == "IUGU"
-      self.subscription_token = Mconf::Iugu.create_subscription(
-                                              self.plan.identifier,
-                                              self.customer_token,
-                                              self.pay_day)
+      self.subscription_token =
+        Mconf::Iugu.create_subscription(
+          self.plan.identifier,
+          self.customer_token,
+          self.pay_day
+        )
 
       if self.subscription_token == nil
         logger.error "No Token returned from IUGU, aborting"
@@ -100,16 +114,18 @@ class Subscription < ActiveRecord::Base
   # This update function does not cover changes in user full_name or email for now
   def update_sub
     if self.plan.ops_type == "IUGU"
-      updated = Mconf::Iugu.update_customer(
-                              self.customer_token,
-                              self.cpf_cnpj,
-                              self.address,
-                              self.additional_address_info,
-                              self.number,
-                              self.zipcode,
-                              self.city,
-                              self.province,
-                              self.district)
+      updated =
+        Mconf::Iugu.update_customer(
+          self.customer_token,
+          self.cpf_cnpj,
+          self.address,
+          self.additional_address_info,
+          self.number,
+          self.zipcode,
+          self.city,
+          self.province,
+          self.district
+        )
 
       if updated == false
         logger.error "Could not update IUGU, aborting"
@@ -145,22 +161,22 @@ class Subscription < ActiveRecord::Base
 
         if user.present? && plan.present?
           params = {
-                     plan_token: plan.ops_token,
-                     user_id: user.id,
-                     subscription_token: subs.id,
-                     customer_token: cust.id,
-                     pay_day: subs.expires_at,
-                     cpf_cnpj: cust.cpf_cnpj,
-                     address: cust.street,
-                     additional_address_info: cust.complement,
-                     number: cust.number,
-                     zipcode: cust.zip_code,
-                     city: cust.city,
-                     province: cust.state,
-                     district: cust.district,
-                     country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
-                     integrator: false
-                     }
+            plan_token: plan.ops_token,
+            user_id: user.id,
+            subscription_token: subs.id,
+            customer_token: cust.id,
+            pay_day: subs.expires_at,
+            cpf_cnpj: cust.cpf_cnpj,
+            address: cust.street,
+            additional_address_info: cust.complement,
+            number: cust.number,
+            zipcode: cust.zip_code,
+            city: cust.city,
+            province: cust.state,
+            district: cust.district,
+            country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
+            integrator: false
+          }
 
           if Subscription.find_by_subscription_token(params[:subscription_token]).present?
             puts("Subscription already imported")
@@ -168,6 +184,7 @@ class Subscription < ActiveRecord::Base
             Subscription.create(params)
             trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
             user.update_attributes(trial_expires_at: trial_expitaion)
+            user.bigbluebutton_room.update_attributes(max_participants: nil)
           end
         else
           # Should we create a new user based on the subscription?

@@ -35,15 +35,7 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def create
-    free_months = Rails.application.config.trial_months
-
-    @subscription.user_id = current_user.id
-    # Will create it on IUGU for now
-    @subscription.plan_token = Plan.find_by(ops_type: "IUGU").ops_token
-    # Will create invoice for the 10th of the month after the trial expires (Mconf is post payed)
-    @subscription.pay_day = (Date.today + free_months.months + 1.month).strftime('%Y-%m-10')
-    # This will define when to start charging the user
-    @subscription.user.set_expire_date!
+    @subscription.setup(current_user, "IUGU")
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }
