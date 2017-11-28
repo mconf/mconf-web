@@ -25,7 +25,8 @@ class Plan < ActiveRecord::Base
       ops_type: nil,
       currency: "BRL",
       interval_type: "months",
-      interval: 1 }
+      interval: 1
+    }
     Plan.new(params)
   end
 
@@ -64,7 +65,7 @@ class Plan < ActiveRecord::Base
                    interval_type: plan.attributes["interval_type"],
                    interval: plan.attributes["interval"] }
 
-        Plan.find_by_ops_token(params[:ops_token]).present? ? puts("Plan already imported") : Plan.create(params)
+        Plan.find_by(ops_token: params[:ops_token]).present? ? logger.info("OPS: Plan already imported") : Plan.create(params)
       end
     end
   end

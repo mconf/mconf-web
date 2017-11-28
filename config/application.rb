@@ -129,6 +129,7 @@ module Mconf
 
     # how long the trial lasts
     config.trial_months = 2
+    config.due_day = 10
 
     # free plan limitations
     config.free_rec_limit = 2

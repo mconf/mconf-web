@@ -22,13 +22,13 @@ class Invoice < ActiveRecord::Base
       filename = Rails.application.config.report_en
     end
 
-    File.join(Rails.root, "private/subscriptions/#{date}/#{user.id}/#{filename}")
+    File.join(Rails.root, "private", "subscriptions", date, user, filename)
   end
 
   def csv_file_path
     user = self.subscription.user_id
     date = (self.due_date-1.month).strftime("%Y-%m")
-    (File.join(Rails.root, "private/subscriptions/#{date}/#{user}/unique-users.csv"))
+    (File.join(Rails.root, "private", "subscriptions", date, user, "unique-users.csv"))
   end
 
   def self.next_due_date
