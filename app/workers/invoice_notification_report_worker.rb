@@ -8,21 +8,24 @@
 # Updates local invoices
 class InvoiceNotificationReportWorker < BaseWorker
 	def self.perform
-    invoices_report
+    send_all_reports
   end
 
-  def self.invoices_report
-    Invoice.where(notified: false).each do |invoice|
+  def self.send_all_reports
+    Invoice.where(notified: false).find_each do |invoice|
       date = (invoice.due_date - 1.month).strftime("%Y-%m")
       user = invoice.subscription.user
-      user_id = invoice.subscription.user_id
-      invoice_id = invoice.id
 
       if File.exists?(invoice.report_file_path)
-        Resque.logger.info "Sending report invoice to #{user.name}."
-        InvoiceMailer.invoice_report_email(user_id, invoice_id, date).deliver
-        invoice.update_attributes(notified: true)
+        Queue::High.enqueue(InvoiceNotificationReportWorker, :send_report, invoice.id, user.id, date)
       end
     end
+  end
+
+  def self.send_report(invoice_id, user_id, date)
+    invoice = Invoice.find_by(id: invoice_id)
+    Resque.logger.info "Sending invoice report from date #{date} to #{user_id}"
+    InvoiceMailer.invoice_report_email(user_id, invoice_id, date).deliver
+    invoice.update_attributes(notified: true)
   end
 end
