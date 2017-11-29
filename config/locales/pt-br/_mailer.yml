@@ -96,12 +96,6 @@ pt-br:
         join: "Sala"
         subject: "Assunto"
       subject: "Convite para webconferência"
-  invoice_mailer:
-    invoice_report_email:
-      message:
-        header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
-        link: "Para abrir sua fatura, por favor clique aqui: <a href=\"%{url}\">%{url}</a>"
-    subject: "Fatura do mês."
   subscription_mailer:
     subscription_created_notification_email:
       message:

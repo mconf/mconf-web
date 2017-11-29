@@ -205,3 +205,9 @@ pt-br:
         how_to: "Como acessar?"
         how_to_text: "Para acessar basta clicar no link da sala abaixo, digitar seu <strong>nome completo</strong> e fornecer a chave de acesso (só é necessária caso a conferência seja privada)."
         subtitle: "Você foi convidado para uma conferência web"
+  invoice_mailer:
+    invoice_report_email:
+      message:
+        header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
+        link: "Para abrir sua fatura, por favor clique aqui: <a href=\"%{url}\">%{url}</a>"
+    subject: "Fatura do mês."

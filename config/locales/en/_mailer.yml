@@ -96,12 +96,6 @@ en:
         join: "Room"
         subject: "Subject"
       subject: "Web conference invitation"
-  invoice_mailer:
-    invoice_report_email:
-      message:
-        header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
-        link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
-    subject: "Invoice report"
   subscription_mailer:
     subscription_created_notification_email:
       message:

@@ -213,3 +213,9 @@ en:
         how_to: "How to access?"
         how_to_text: "To access the conference, just click on the room link below, enter your <b>full name</b> and the access key (only necessary if the conference is private)."
         subtitle: "You've been invited to a web conference"
+  invoice_mailer:
+    invoice_report_email:
+      message:
+        header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
+        link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
+    subject: "Invoice report"
