@@ -140,7 +140,18 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
+    errors:
+      no_token: "No Token returned from IUGU, aborting"
+      ops_type_create_customer: "Bad ops_type, can't create customer"
+      ops_type_update_customer: "Bad ops_type, can't update customer"
+      update: "Could not update IUGU, aborting"
+      match: "Failed to match this subscription to a user or plan"
+      delete_subscription: "Could not delete subscription from OPS, aborting"
+      delete_customer: "Could not delete customer from OPS, aborting"
+      ops_type_create_subscription: "Bad ops_type, can't create subscription"
+      ops_type_destroy_subscription: "Bad ops_type, can't destroy subscription"
     failed: "Unable to create subscription"
+    info: "OPS: Subscription already imported"
     new:
       form_title: "Subscription"
       title: "Subscribe"

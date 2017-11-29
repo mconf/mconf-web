@@ -66,8 +66,8 @@ class Subscription < ActiveRecord::Base
           )
 
         if self.customer_token == nil
-          logger.error "No Token returned from IUGU, aborting"
-          errors.add(:ops_error, "No Token returned from IUGU, aborting")
+          logger.error I18n.t('.subscription.errors.no_token')
+          errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
           raise ActiveRecord::Rollback
         elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
           errors.add(:cpf_cnpj, :invalid)
@@ -85,8 +85,8 @@ class Subscription < ActiveRecord::Base
         self.create_sub
       end
     else
-      logger.error "Bad ops_type, can't create customer"
-      errors.add(:ops_error, "Bad ops_type, can't create customer")
+      logger.error I18n.t('.subscription.errors.ops_type_customer')
+      errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_customer'))
       raise ActiveRecord::Rollback
     end
   end
@@ -101,16 +101,16 @@ class Subscription < ActiveRecord::Base
         )
 
       if self.subscription_token == nil
-        logger.error "No Token returned from IUGU, aborting"
-        errors.add(:ops_error, "No Token returned from IUGU, aborting")
+        logger.error I18n.t('.subscription.errors.no_token')
+        errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
         raise ActiveRecord::Rollback
       end
 
       self.user.bigbluebutton_room.update_attributes(max_participants: nil)
 
     else
-      logger.error "Bad ops_type, can't create subscription"
-      errors.add(:ops_error, "Bad ops_type, can't create subscription")
+      logger.error I18n.t('.subscription.errors.ops_type_create_subscription')
+      errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_create_subscription'))
       raise ActiveRecord::Rollback
     end
   end
@@ -132,7 +132,7 @@ class Subscription < ActiveRecord::Base
         )
 
       if updated == false
-        logger.error "Could not update IUGU, aborting"
+        logger.error I18n.t('.subscription.errors.update')
         raise ActiveRecord::Rollback
       elsif updated.is_a?(Hash)
         if updated["cpf_cnpj"].present? && updated["zip_code"].present?
@@ -149,8 +149,8 @@ class Subscription < ActiveRecord::Base
       end
 
     else
-      logger.error "Bad ops_type, can't update customer"
-      errors.add(:ops_error, "Bad ops_type, can't update customer")
+      logger.error I18n.t('.subscription.errors.ops_type_update_customer')
+      errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_update_customer'))
       raise ActiveRecord::Rollback
     end
   end
@@ -183,7 +183,7 @@ class Subscription < ActiveRecord::Base
           }
 
           if Subscription.find_by_subscription_token(params[:subscription_token]).present?
-            logger.info "OPS: Subscription already imported"
+            logger.info I18n.t('.subscription.info')
           else
             Subscription.create(params)
             trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
@@ -193,7 +193,7 @@ class Subscription < ActiveRecord::Base
         else
           # Should we create a new user based on the subscription?
           # If it's the missing plan, must import plans and then try again
-          puts "Failed to match this subscription to a user or plan"
+          logger.error I18n.t('.subscription.errors.match')
         end
       end
     end
@@ -208,23 +208,23 @@ class Subscription < ActiveRecord::Base
       subscription = Mconf::Iugu.destroy_subscription(self.subscription_token)
 
       if subscription == false
-        logger.error "Could not delete subscription from OPS, aborting"
-        errors.add(:ops_error, "Could not delete subscription from OPS, aborting")
+        logger.error I18n.t('.subscription.errors.delete_subscription')
+        errors.add(:ops_error, I18n.t('.subscription.errors.delete'))
         raise ActiveRecord::Rollback
       end
 
       customer = Mconf::Iugu.destroy_customer(self.customer_token)
 
       if customer == false
-        logger.error "Could not delete customer from OPS, aborting"
-        errors.add(:ops_error, "Could not delete customer from OPS, aborting")
+        logger.error I18n.t('.subscription.errors.delete_customer')     
+        errors.add(:ops_error, I18n.t('.subscription.errors.delete_customer'))
         raise ActiveRecord::Rollback
       end
 
       self.user.bigbluebutton_room.update_attributes(max_participants: 2)
 
     else
-      logger.error "Bad ops_type, can't destroy subscription"
+      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription'))
     end
   end
 
