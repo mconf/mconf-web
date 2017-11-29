@@ -122,7 +122,7 @@ pt-br:
     denied: "Acesso negado"
     destroy: "Assinatura removida com sucesso"
     edit:
-      title: " Assinatura"
+      title: "%{name} Assinatura"
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
       cpf_cnpj: "CPF/CNPJ"

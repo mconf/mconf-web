@@ -126,7 +126,7 @@ en:
     denied: "Access denied"
     destroy: "Subscription successfully removed"
     edit:
-      title: " Subscription"
+      title: "%{name} Subscription"
       address_section: "Address information"
       confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"
