@@ -1,5 +1,5 @@
 - user = User.find_by_username(params[:user_id])
-- page_title user.full_name + t('.title')
+- page_title t('.title', name: user.full_name)
 
 -# - home_sidebar_menu_at(:subscription)
 
