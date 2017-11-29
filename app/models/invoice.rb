@@ -37,7 +37,7 @@ class Invoice < ActiveRecord::Base
   end
 
   # Processed prices for the invoice
-  def invoice_full_price
+  def invoice_full_price_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -48,7 +48,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def invoice_users_discount
+  def invoice_users_discount_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -56,7 +56,7 @@ class Invoice < ActiveRecord::Base
     sprintf('- R$ %.2f', (cost * quantity * discount_users)/100)
   end
 
-  def invoice_days_discount
+  def invoice_days_discount_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -69,7 +69,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def invoice_total
+  def invoice_total_as_string
     data = generate_invoice_value
     total = data[:total]
     sprintf('R$ %.2f', total/100)
@@ -163,8 +163,7 @@ class Invoice < ActiveRecord::Base
   def get_invoice_payment_data
     invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
     if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
-      self.update_attributes(invoice_token: invoices.first.attributes['id'])
-      self.update_attributes(invoice_url: invoices.first.attributes['secure_url'])
+      self.update_attributes(invoice_token: invoices.first.attributes['id'], invoice_url: invoices.first.attributes['secure_url'])
     end
   end
 
