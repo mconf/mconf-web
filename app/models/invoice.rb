@@ -14,6 +14,7 @@ class Invoice < ActiveRecord::Base
 
   def report_file_path
     user = self.subscription.user
+    user_id = user.id.to_s
     date = (self.due_date-1.month).strftime("%Y-%m")
 
     if (user.locale == "pt-br")
@@ -22,13 +23,13 @@ class Invoice < ActiveRecord::Base
       filename = Rails.application.config.report_en
     end
 
-    File.join(Rails.root, "private", "subscriptions", date, user, filename)
+    File.join(Rails.root, "private", "subscriptions", date, user_id, filename)
   end
 
   def csv_file_path
-    user = self.subscription.user_id
+    user_id = self.subscription.user.id.to_s
     date = (self.due_date-1.month).strftime("%Y-%m")
-    (File.join(Rails.root, "private", "subscriptions", date, user, "unique-users.csv"))
+    (File.join(Rails.root, "private", "subscriptions", date, user_id, "unique-users.csv"))
   end
 
   def self.next_due_date

@@ -183,7 +183,7 @@ class Subscription < ActiveRecord::Base
           }
 
           if Subscription.find_by_subscription_token(params[:subscription_token]).present?
-            puts("Subscription already imported")
+            logger.info "OPS: Subscription already imported"
           else
             Subscription.create(params)
             trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)

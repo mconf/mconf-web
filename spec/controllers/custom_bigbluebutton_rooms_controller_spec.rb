@@ -639,7 +639,7 @@ describe CustomBigbluebuttonRoomsController do
 
           let!(:join_url) { "http://test.com/attendee/join" }
           let!(:subscribed_user) { FactoryGirl.create(:user) }
-          let!(:subscription) { FactoryGirl.create(:subscription, user_id: subscribed_user.id) }
+          let!(:subscription) { FactoryGirl.create(:subscription, user_id: subscribed_user.id, subscription_token: nil, customer_token: nil) }
 
           # important to check this because this before filter needs specific information in the room
           context "#check_user_limit is called with the same @room that we fetched information from" do
