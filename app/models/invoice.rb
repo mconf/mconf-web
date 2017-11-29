@@ -12,6 +12,16 @@ class Invoice < ActiveRecord::Base
   validates :due_date, presence: true
   validates :flag_invoice_status, presence: true
 
+  INVOICE_STATUS = {
+    posted: 'posted',
+    local: 'local',
+    canceled: 'canceled',
+    expired: 'expired',
+    paid: 'paid',
+    pending: 'pending',
+    pay: 'pay'
+  }
+
   def report_file_path
     user = self.subscription.user
     user_id = user.id.to_s

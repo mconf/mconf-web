@@ -18,6 +18,10 @@ class Plan < ActiveRecord::Base
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
 
+  OPS_TYPES = {
+    iugu: "IUGU"
+  }
+
   def self.free_plan
     params = {
       name: "Free Plan",
