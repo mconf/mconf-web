@@ -22,11 +22,6 @@ describe InvoiceCreateUpdateWorker, type: :worker do
       let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, user_qty: 5, due_date: DateTime.now.change({day: 10})) }
       before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
 
-      it "enqueues a worker to post the previous invoice" do
-        subject
-        expect(queue).to have_queued(params, previous_invoice.id)
-      end
-
       it "updates to the number of users in the invoice" do
         subject
         invoice.reload
@@ -65,11 +60,6 @@ describe InvoiceCreateUpdateWorker, type: :worker do
       let!(:previous_invoice) { FactoryGirl.create(:invoice, subscription: subscription,
                                                    due_date: DateTime.now.change({day: 10}) - 1.month) }
       before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(6) }
-
-      it "enqueues a worker to post the previous invoice" do
-        subject
-        expect(queue).to have_queued(params, previous_invoice.id)
-      end
 
       it "creates a new invoice" do
         expect { subject }.to change{ Invoice.count }.by(1)

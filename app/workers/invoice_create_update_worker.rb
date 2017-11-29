@@ -21,16 +21,10 @@ class InvoiceCreateUpdateWorker < BaseWorker
         if subscription.invoices.last.due_this_month?
           subscription.invoices.last.update_unique_user_qty
 
-          # post the previous invoice just in case it wasn't posted the first time we tried
-          post_invoice(subscription.invoices.offset(1).last)
-
         # the last invoice is not for this month
         else
           invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
           invoice.update_unique_user_qty
-
-          # post the previous invoice that is now closed
-          post_invoice(subscription.invoices.offset(1).last)
         end
 
       # there are no invoices, create the first one
@@ -40,9 +34,5 @@ class InvoiceCreateUpdateWorker < BaseWorker
         invoice.generate_consumed_days("create")
       end
     end
-  end
-
-  def self.post_invoice(invoice)
-    Queue::High.enqueue(InvoicePostWorker, :perform, invoice.id) if invoice.present?
   end
 end

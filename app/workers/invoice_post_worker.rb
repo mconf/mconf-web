@@ -7,24 +7,24 @@
 
 # Updates local invoices
 class InvoicePostWorker < BaseWorker
-  def self.perform(invoice_id)
-    invoices_post(invoice_id)
-    invoices_sync(invoice_id)
+  def self.perform
+    invoices_post
+    invoices_sync
   end
 
-  def self.invoices_post(invoice_id)
-    # possible flag values include local, pending, canceled, paid, expired.
-    inv = Invoice.find_by(id: invoice_id)
-    if inv.flag_invoice_status == 'local'
-      inv.post_invoice_to_ops
+  def self.invoices_post
+    # To send it to the OPS
+    Invoice.where(flag_invoice_status: "local").find_each do |invoice|
+      invoice.post_invoice_to_ops
     end
   end
 
-  def self.invoices_sync(invoice_id)
-    # possible flag values include local, pending, canceled, paid, expired.
-    inv = Invoice.find_by(id: invoice_id)
-    unless inv.invoice_url.present? || inv.flag_invoice_status != 'posted'
-      inv.get_invoice_payment_data
+  def self.invoices_sync
+    # To get payment data from OPS
+    Invoice.where(flag_invoice_status: "posted").find_each do |invoice|
+      unless invoice.invoice_url.present?
+        invoice.get_invoice_payment_data
+      end
     end
   end
 end
