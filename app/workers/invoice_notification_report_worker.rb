@@ -7,7 +7,7 @@
 
 # Updates local invoices
 class InvoiceNotificationReportWorker < BaseWorker
-	def self.perform
+  def self.perform
     send_all_reports
   end
 
