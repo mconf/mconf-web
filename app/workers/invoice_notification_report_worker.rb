@@ -25,7 +25,7 @@ class InvoiceNotificationReportWorker < BaseWorker
   def self.send_report(invoice_id, user_id, date)
     invoice = Invoice.find_by(id: invoice_id)
     Resque.logger.info "Sending invoice report from date #{date} to #{user_id}"
-    InvoiceMailer.invoice_report_email(user_id, invoice_id, date).deliver
+    InvoiceMailer.invoice_report_email(user_id, invoice_id).deliver
     invoice.update_attributes(notified: true)
   end
 end
