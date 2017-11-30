@@ -9,7 +9,7 @@ FactoryGirl.define do
     f.name Forgery::Name.company_name
     f.identifier Forgery::Name.company_name.downcase.tr(' ', '_')
     f.ops_token Forgery::CreditCard.number
-    f.ops_type "IUGU"
+    f.ops_type Plan::OPS_TYPES[:iugu]
     f.currency "BRL"
     f.interval_type "months"
     f.interval 1

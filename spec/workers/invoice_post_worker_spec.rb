@@ -8,7 +8,7 @@ require 'spec_helper'
 
 describe InvoicePostWorker, type: :worker do
   let(:worker) { InvoicePostWorker }
-  let!(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: "local") }
+  let!(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: Invoice::INVOICE_STATUS[:local]) }
   before { Mconf::Iugu.stub(:add_invoice_item).and_return(true) }
 
   describe "#perform" do
@@ -18,7 +18,7 @@ describe InvoicePostWorker, type: :worker do
   end
 
   describe "#invoices_post"do
-    context "invoice.flag_invoice_status == 'local'" do
+    context "invoice.flag_invoice_status == Invoice::INVOICE_STATUS[:local]" do
       # FYI: posted = self.check_for_posted_invoices
       context "calls post invoice" do
         before {
@@ -58,8 +58,8 @@ describe InvoicePostWorker, type: :worker do
   describe "invoices_sync" do
     let(:subscription) { FactoryGirl.create(:subscription, customer_token: "7A9E0083A898485F875590DFF4597549") }
 
-    context "unless invoice_url.present? || invoice.flag_invoice_status != 'posted'" do
-      let!(:invoice) { FactoryGirl.create(:invoice, id: 10, flag_invoice_status: "posted", invoice_url: nil, invoice_token: nil, due_date: (DateTime.now.change({day: 10}))) }
+    context "unless invoice_url.present? || invoice.flag_invoice_status != Invoice::INVOICE_STATUS[:posted]" do
+      let!(:invoice) { FactoryGirl.create(:invoice, id: 10, flag_invoice_status: Invoice::INVOICE_STATUS[:posted], invoice_url: nil, invoice_token: nil, due_date: (DateTime.now.change({day: 10}))) }
       let!(:iugu_invoice) { ::Iugu::Invoice.new(@attributes={
         "id"=>"C963AAF1125D4AFCA1FCC83F494947FF",
         "due_date"=>"2017-11-08",

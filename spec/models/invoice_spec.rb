@@ -15,7 +15,7 @@ describe Invoice do
   describe "create" do
     context "Create an invoice for a subscription" do
       let(:subscription) { FactoryGirl.create(:subscription) }
-      subject { subscription.invoices.create(due_date: DateTime.now.change({day: 10}), flag_invoice_status: "local") }
+      subject { subscription.invoices.create(due_date: DateTime.now.change({day: 10}), flag_invoice_status: Invoice::INVOICE_STATUS[:local]) }
       it { expect { subject }.to change{ Invoice.count }.by(1) }
     end
   end

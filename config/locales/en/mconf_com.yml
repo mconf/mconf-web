@@ -84,6 +84,13 @@ en:
     mailers:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
       social: "Follow us on:"
+  plan:
+    errors:
+      no_token: "No Token returned from IUGU, aborting"
+      ops_type_create_plan: "Bad ops_type, can't create plan"
+      ops_type_delete_plan: "Bad ops_type, can't delete plan"
+      delete: "Could not delete plan from OPS, aborting"
+    info: "OPS: Plan already imported"
   registrations:
     signup_form:
       address_section: "Address"

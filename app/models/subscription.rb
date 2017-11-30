@@ -48,7 +48,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def create_customer_and_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       unless self.subscription_token.present?
         self.customer_token =
           Mconf::Iugu.create_customer(
@@ -65,9 +65,9 @@ class Subscription < ActiveRecord::Base
             self.country
           )
 
-        if self.customer_token == nil
-          logger.error I18n.t('.subscription.errors.no_token')
-          errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
+        if self.customer_token.blank?
+          logger.error I18n.t('.subscriptions.errors.no_token')
+          errors.add(:ops_error, I18n.t('.subscriptions.errors.no_token'))
           raise ActiveRecord::Rollback
         elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
           errors.add(:cpf_cnpj, :invalid)
@@ -92,7 +92,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def create_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       self.subscription_token =
         Mconf::Iugu.create_subscription(
           self.plan.identifier,
@@ -100,22 +100,22 @@ class Subscription < ActiveRecord::Base
           self.pay_day
         )
 
-      if self.subscription_token == nil
-        logger.error I18n.t('.subscription.errors.no_token')
-        errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
+      if self.subscription_token.blank?
+        logger.error I18n.t('.subscriptions.errors.no_token')
+        errors.add(:ops_error, I18n.t('.subscriptions.errors.no_token'))
         raise ActiveRecord::Rollback
       end
 
     else
-      logger.error I18n.t('.subscription.errors.ops_type_create_subscription')
-      errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_create_subscription'))
+      logger.error I18n.t('.subscriptions.errors.ops_type_create_subscription')
+      errors.add(:ops_error, I18n.t('.subscriptions.errors.ops_type_create_subscription'))
       raise ActiveRecord::Rollback
     end
   end
 
   # This update function does not cover changes in user full_name or email for now
   def update_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       updated =
         Mconf::Iugu.update_customer(
           self.customer_token,
@@ -130,7 +130,7 @@ class Subscription < ActiveRecord::Base
         )
 
       if updated == false
-        logger.error I18n.t('.subscription.errors.update')
+        logger.error I18n.t('.subscriptions.errors.update')
         raise ActiveRecord::Rollback
       elsif updated.is_a?(Hash)
         if updated["cpf_cnpj"].present? && updated["zip_code"].present?
@@ -147,8 +147,8 @@ class Subscription < ActiveRecord::Base
       end
 
     else
-      logger.error I18n.t('.subscription.errors.ops_type_update_customer')
-      errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_update_customer'))
+      logger.error I18n.t('.subscriptions.errors.ops_type_update_customer')
+      errors.add(:ops_error, I18n.t('.subscriptions.errors.ops_type_update_customer'))
       raise ActiveRecord::Rollback
     end
   end
@@ -180,17 +180,17 @@ class Subscription < ActiveRecord::Base
             integrator: false
           }
 
-          if Subscription.find_by_subscription_token(params[:subscription_token]).present?
-            logger.info I18n.t('.subscription.info')
+          if Subscription.find_by(subscription_token: (params[:subscription_token])).present?
+            logger.info I18n.t('.subscriptions.info')
           else
             Subscription.create(params)
-            trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
-            user.update_attributes(trial_expires_at: trial_expitaion)
+            trial_expiraion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
+            user.update_attributes(trial_expires_at: trial_expiraion)
           end
         else
           # Should we create a new user based on the subscription?
           # If it's the missing plan, must import plans and then try again
-          logger.error I18n.t('.subscription.errors.match')
+          logger.error I18n.t('.subscriptions.errors.match')
         end
       end
     end
@@ -201,25 +201,25 @@ class Subscription < ActiveRecord::Base
     if self.invoices.last.present?
       self.invoices.last.generate_consumed_days("destroy")
     end
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       subscription = Mconf::Iugu.destroy_subscription(self.subscription_token)
 
       if subscription == false
-        logger.error I18n.t('.subscription.errors.delete_subscription')
-        errors.add(:ops_error, I18n.t('.subscription.errors.delete'))
+        logger.error I18n.t('.subscriptions.errors.delete_subscription')
+        errors.add(:ops_error, I18n.t('.subscriptions.errors.delete'))
         raise ActiveRecord::Rollback
       end
 
       customer = Mconf::Iugu.destroy_customer(self.customer_token)
 
       if customer == false
-        logger.error I18n.t('.subscription.errors.delete_customer')
-        errors.add(:ops_error, I18n.t('.subscription.errors.delete_customer'))
+        logger.error I18n.t('.subscriptions.errors.delete_customer')
+        errors.add(:ops_error, I18n.t('.subscriptions.errors.delete_customer'))
         raise ActiveRecord::Rollback
       end
 
     else
-      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription')
+      logger.error I18n.t('.subscriptions.errors.ops_type_destroy_subscription')
     end
   end
 

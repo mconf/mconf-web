@@ -18,9 +18,7 @@ class Plan < ActiveRecord::Base
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
 
-  OPS_TYPES = {
-    iugu: "IUGU"
-  }
+  OPS_TYPES = { iugu: "IUGU" }
 
   def self.free_plan
     params = {
@@ -39,19 +37,19 @@ class Plan < ActiveRecord::Base
   end
 
   def create_ops_plan
-    if ops_type == "IUGU"
+    if ops_type == Plan::OPS_TYPES[:iugu]
       unless self.ops_token.present?
         self.ops_token = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
 
         if self.ops_token == nil
-          logger.error "No Token returned from IUGU, aborting"
-          errors.add(:ops_error, "No Token returned from IUGU, aborting")
+          logger.error I18n.t('.plan.errors.no_token')
+          errors.add(:ops_error, I18n.t('.plan.errors.no_token'))
           raise ActiveRecord::Rollback
         end
       end
     else
-      logger.error "Bad ops_type, can't create plan"
-      errors.add(:ops_error, "Bad ops_type, can't create plan")
+      logger.error I18n.t('.plan.errors.ops_type_create_plan')
+      errors.add(:ops_error, I18n.t('.plan.errors.ops_type_create_plan'))
       raise ActiveRecord::Rollback
     end
   end
@@ -61,32 +59,33 @@ class Plan < ActiveRecord::Base
     if plans.present?
       plans.each do |plan|
         params = {
-                   name: plan.attributes["name"],
-                   identifier: plan.attributes["identifier"],
-                   ops_type: 'IUGU',
-                   ops_token: plan.attributes["id"],
-                   currency: plan.attributes["prices"].first["currency"],
-                   interval_type: plan.attributes["interval_type"],
-                   interval: plan.attributes["interval"] }
+          name: plan.attributes["name"],
+          identifier: plan.attributes["identifier"],
+          ops_type: 'IUGU',
+          ops_token: plan.attributes["id"],
+          currency: plan.attributes["prices"].first["currency"],
+          interval_type: plan.attributes["interval_type"],
+          interval: plan.attributes["interval"]
+        }
 
-        Plan.find_by(ops_token: params[:ops_token]).present? ? logger.info("OPS: Plan already imported") : Plan.create(params)
+        Plan.find_by(ops_token: params[:ops_token]).present? ? logger.info(I18n.t('.plan.info')) : Plan.create(params)
       end
     end
   end
 
   def delete_ops_plan
-    if ops_type == "IUGU"
+    if ops_type == Plan::OPS_TYPES[:iugu]
       plan = Mconf::Iugu.destroy_plan(self.ops_token)
 
       if plan == false
-        logger.error "Could not delete plan from OPS, aborting"
-        errors.add(:ops_error, "Could not delete plan from OPS, aborting")
+        logger.error I18n.t('.plan.errors.delete')
+        errors.add(:ops_error, I18n.t('.plan.errors.delete'))
         raise ActiveRecord::Rollback
       end
 
     else
-      logger.error "Bad ops_type, can't delete plan"
-      errors.add(:ops_error, "Bad ops_type, can't delete plan")
+      logger.error I18n.t('.plan.errors.ops_type_delete_plan')
+      errors.add(:ops_error, I18n.t('.plan.errors.ops_type_delete_plan'))
       raise ActiveRecord::Rollback
     end
   end

@@ -39,7 +39,7 @@ class Invoice < ActiveRecord::Base
   def csv_file_path
     user_id = self.subscription.user.id.to_s
     date = (self.due_date-1.month).strftime("%Y-%m")
-    (File.join(Rails.root, "private", "subscriptions", date, user_id, "unique-users.csv"))
+    File.join(Rails.root, "private", "subscriptions", date, user_id, "unique-users.csv")
   end
 
   def self.next_due_date
@@ -162,7 +162,7 @@ class Invoice < ActiveRecord::Base
 
     posted = self.check_for_posted_invoices
     if posted.first.present?
-      self.update_attributes(flag_invoice_status: 'posted')
+      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:posted])
     end
   end
 

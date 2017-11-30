@@ -9,7 +9,7 @@ FactoryGirl.define do
     f.association :subscription, :factory => :subscription
     f.invoice_token Forgery::CreditCard.number
     f.invoice_url "http://#{Forgery::Internet.domain_name}"
-    f.flag_invoice_status "local"
+    f.flag_invoice_status Invoice::INVOICE_STATUS[:local]
     f.due_date (Time.now + 29.days).strftime('%Y/%m/%d')
     f.user_qty SecureRandom.random_number(6999)
     f.days_consumed SecureRandom.random_number(29)
