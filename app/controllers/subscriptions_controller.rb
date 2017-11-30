@@ -35,7 +35,7 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def create
-    @subscription.setup(current_user, "IUGU")
+    @subscription.setup(current_user, Plan::OPS_TYPES[:iugu])
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }

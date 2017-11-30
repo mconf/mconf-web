@@ -48,7 +48,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def create_customer_and_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       unless self.subscription_token.present?
         self.customer_token =
           Mconf::Iugu.create_customer(
@@ -65,7 +65,7 @@ class Subscription < ActiveRecord::Base
             self.country
           )
 
-        if self.customer_token == nil
+        if self.customer_token.blank?
           logger.error I18n.t('.subscription.errors.no_token')
           errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
           raise ActiveRecord::Rollback
@@ -92,7 +92,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def create_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       self.subscription_token =
         Mconf::Iugu.create_subscription(
           self.plan.identifier,
@@ -117,7 +117,7 @@ class Subscription < ActiveRecord::Base
 
   # This update function does not cover changes in user full_name or email for now
   def update_sub
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       updated =
         Mconf::Iugu.update_customer(
           self.customer_token,
@@ -182,12 +182,12 @@ class Subscription < ActiveRecord::Base
             integrator: false
           }
 
-          if Subscription.find_by_subscription_token(params[:subscription_token]).present?
+          if Subscription.find_by(subscription_token: (params[:subscription_token])).present?
             logger.info I18n.t('.subscription.info')
           else
             Subscription.create(params)
-            trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
-            user.update_attributes(trial_expires_at: trial_expitaion)
+            trial_expiraion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
+            user.update_attributes(trial_expires_at: trial_expiraion)
             user.bigbluebutton_room.update_attributes(max_participants: nil)
           end
         else
@@ -204,7 +204,7 @@ class Subscription < ActiveRecord::Base
     if self.invoices.last.present?
       self.invoices.last.generate_consumed_days("destroy")
     end
-    if self.plan.ops_type == "IUGU"
+    if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
       subscription = Mconf::Iugu.destroy_subscription(self.subscription_token)
 
       if subscription == false
@@ -224,7 +224,7 @@ class Subscription < ActiveRecord::Base
       self.user.bigbluebutton_room.update_attributes(max_participants: 2)
 
     else
-      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription'))
+      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription')
     end
   end
 

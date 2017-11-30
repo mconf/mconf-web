@@ -18,9 +18,7 @@ class Plan < ActiveRecord::Base
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
 
-  OPS_TYPES = {
-    iugu: "IUGU"
-  }
+  OPS_TYPES = { iugu: "IUGU" }
 
   def self.free_plan
     params = {
@@ -39,7 +37,7 @@ class Plan < ActiveRecord::Base
   end
 
   def create_ops_plan
-    if ops_type == "IUGU"
+    if ops_type == Plan::OPS_TYPES[:iugu]
       unless self.ops_token.present?
         self.ops_token = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
 
@@ -75,7 +73,7 @@ class Plan < ActiveRecord::Base
   end
 
   def delete_ops_plan
-    if ops_type == "IUGU"
+    if ops_type == Plan::OPS_TYPES[:iugu]
       plan = Mconf::Iugu.destroy_plan(self.ops_token)
 
       if plan == false
