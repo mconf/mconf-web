@@ -100,7 +100,7 @@ class Subscription < ActiveRecord::Base
           self.pay_day
         )
 
-      if self.subscription_token == nil
+      if self.subscription_token.blank?
         logger.error I18n.t('.subscription.errors.no_token')
         errors.add(:ops_error, I18n.t('.subscription.errors.no_token'))
         raise ActiveRecord::Rollback

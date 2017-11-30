@@ -15,19 +15,19 @@
         = sprintf(t('.no_value'))
     -#%td.invoice-status-col
     -#  - status = invoice.flag_invoice_status
-    -#  - if status == 'local'
+    -#  - if status == Invoice::INVOICE_STATUS[:local]
     -#    .label.label-default
     -#      = t('.local')
-    -#  - if status == 'pending'
+    -#  - if status == Invoice::INVOICE_STATUS[:pending]
     -#    .label.label-warning
     -#      = t('.pending')
-    -#  - if status == 'canceled'
+    -#  - if status == Invoice::INVOICE_STATUS[:canceled]
     -#    .label.label-default
     -#      = t('.canceled')
-    -#  - if status == 'paid'
+    -#  - if status == Invoice::INVOICE_STATUS[:paid]
     -#    .label.label-success
     -#      = t('.paid')
-    -#  - if status == 'expired'
+    -#  - if status == Invoice::INVOICE_STATUS[:expired]
     -#    .label.label-danger
     -#      = t('.expired')
     %td.invoice-pay-col

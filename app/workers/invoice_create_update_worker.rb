@@ -23,13 +23,13 @@ class InvoiceCreateUpdateWorker < BaseWorker
 
         # the last invoice is not for this month
         else
-          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
+          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
           invoice.update_unique_user_qty
         end
 
       # there are no invoices, create the first one
       else
-        invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: "local")
+        invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
         invoice.update_unique_user_qty
         invoice.generate_consumed_days("create")
       end

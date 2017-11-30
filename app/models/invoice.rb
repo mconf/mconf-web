@@ -162,7 +162,7 @@ class Invoice < ActiveRecord::Base
 
     posted = self.check_for_posted_invoices
     if posted.first.present?
-      self.update_attributes(flag_invoice_status: 'posted')
+      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:posted])
     end
   end
 
