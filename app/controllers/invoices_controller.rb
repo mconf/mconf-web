@@ -32,8 +32,6 @@ class InvoicesController < InheritedResources::Base
 
   def report
     @invoice ||= Invoice.find_by(id: params[:id])
-    user = @invoice.subscription.user_id
-    date = (@invoice.due_date-1.month).strftime("%Y-%m")
 
     if File.exists?(@invoice.report_file_path)
       @file = @invoice.report_file_path

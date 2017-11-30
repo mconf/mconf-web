@@ -571,6 +571,12 @@ describe Invoice do
     end
   end
 
+  describe "#reference_month" do
+    let(:due_date) { Mconf::Timezone.parse_in_timezone('14/01/2017 16:00', 'Brasilia') }
+    let(:invoice) { FactoryGirl.create(:invoice, due_date: due_date) }
+    it { invoice.reference_month.should eql('2016-12') }
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:report])
 
