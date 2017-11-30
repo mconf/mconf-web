@@ -1,5 +1,5 @@
 create_or_update_subscription_invoice:
-  cron: "0 0 * * *" # daily at the beginning of the day
+  cron: "30 5 * * *" # daily at the beginning of the day
   class: InvoiceCreateUpdateWorker
   queue: high
   description: "Creates the invoices for the current month and updates the value"
@@ -53,7 +53,7 @@ get_stats:
   description: "Gets stats for recent meetings that have no stats yet. Same as 'rake bigbluebutton_rails:meetings:get_stats' but for only a subset of meetings."
 
 post_subscription_invoice:
-  cron: "0 0 * * *" # daily at the beginning of the day
+  cron: "30 5 * * *" # daily at the beginning of the day
   class: InvoicePostWorker
   queue: high
   description: "Posts invoice items for the previous months to selected OPS"
