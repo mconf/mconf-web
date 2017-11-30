@@ -88,7 +88,10 @@ module Mconf::BigbluebuttonRailsControllerModule
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
     # show the record button if the user has permissions to record
-    { record: ability.can?(:record_meeting, room) }
+    {
+      record: ability.can?(:record_meeting, room),
+      max_participants: room.max_participants
+    }
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information

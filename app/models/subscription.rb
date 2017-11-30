@@ -106,8 +106,6 @@ class Subscription < ActiveRecord::Base
         raise ActiveRecord::Rollback
       end
 
-      self.user.bigbluebutton_room.update_attributes(max_participants: nil)
-
     else
       logger.error I18n.t('.subscription.errors.ops_type_create_subscription')
       errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_create_subscription'))
@@ -188,7 +186,6 @@ class Subscription < ActiveRecord::Base
             Subscription.create(params)
             trial_expitaion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
             user.update_attributes(trial_expires_at: trial_expitaion)
-            user.bigbluebutton_room.update_attributes(max_participants: nil)
           end
         else
           # Should we create a new user based on the subscription?
@@ -216,15 +213,13 @@ class Subscription < ActiveRecord::Base
       customer = Mconf::Iugu.destroy_customer(self.customer_token)
 
       if customer == false
-        logger.error I18n.t('.subscription.errors.delete_customer')     
+        logger.error I18n.t('.subscription.errors.delete_customer')
         errors.add(:ops_error, I18n.t('.subscription.errors.delete_customer'))
         raise ActiveRecord::Rollback
       end
 
-      self.user.bigbluebutton_room.update_attributes(max_participants: 2)
-
     else
-      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription'))
+      logger.error I18n.t('.subscription.errors.ops_type_destroy_subscription')
     end
   end
 

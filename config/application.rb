@@ -133,7 +133,7 @@ module Mconf
 
     # free plan limitations
     config.free_rec_limit = 2
-    config.free_attendee_limit = 2
+    config.free_attendee_limit = 3
 
     # invoice pricing area
     config.minimum_users = 15

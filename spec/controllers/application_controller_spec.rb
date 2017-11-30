@@ -430,6 +430,10 @@ describe ApplicationController do
   #   the symbols to strings, so we can't check it exactly as we should. See:
   #   http://stackoverflow.com/questions/4348195/unwanted-symbol-to-string-conversion-of-hash-key
   describe "#bigbluebutton_create_options" do
+    let(:free_limit) { Rails.application.config.free_attendee_limit }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:room) { FactoryGirl.create(:bigbluebutton_room, max_participants: nil) }
+
     controller do
       def index
         room = BigbluebuttonRoom.find(params[:room_id])
@@ -438,52 +442,97 @@ describe ApplicationController do
       end
     end
 
-    context "if there's no user logged returns false" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    context "if there's no user logged" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, max_participants: nil) }
       before(:each) { get :index, :room_id => room.id }
-      it { assigns(:result).should eql({ record: false }) }
+      it { assigns(:result)[:record].should be(false) }
+      it { assigns(:result)[:max_participants].should eql(0) }
     end
 
     context "if there's a user logged" do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before {
         # a custom ability to control what the user can do
         @ability = Object.new
         @ability.extend(CanCan::Ability)
         Abilities.stub(:ability_for).and_return(@ability)
+        @controller.stub(:current_user).and_return(user)
       }
 
-      context "when the user can record" do
-        before { @ability.can :record_meeting, room }
+      context "sets the record option" do
+        context "when the user can record" do
+          before { @ability.can :record_meeting, room }
 
-        context "and the room is set to record" do
-          before { room.update_attributes(record_meeting: true) }
-          before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql({ record: true }) }
+          context "and the room is set to record" do
+            before { room.update_attributes(record_meeting: true) }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result)[:record].should be(true) }
+          end
+
+          context "and the room is not set to record" do
+            before { room.update_attributes(record_meeting: false) }
+            before(:each) { get :index, :room_id => room.id }
+            # uses the user's permission only, ignores that the room is not set to record
+            it { assigns(:result)[:record].should be(true) }
+          end
         end
 
-        context "and the room is not set to record" do
-          before { room.update_attributes(record_meeting: false) }
-          before(:each) { get :index, :room_id => room.id }
-          # uses the user's permission only, ignores that the room is not set to record
-          it { assigns(:result).should eql({ record: true }) }
+        context "when the user cannot record" do
+          before { @ability.cannot :record_meeting, room }
+
+          context "and the room is set to record" do
+            before { room.update_attributes(record_meeting: true) }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result)[:record].should be(false) }
+          end
+
+          context "and the room is not set to record" do
+            before { room.update_attributes(record_meeting: false) }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result)[:record].should be(false) }
+          end
         end
       end
 
-      context "when the user cannot record" do
-        before { @ability.cannot :record_meeting, room }
+      context "sets the max_participants option" do
+        context "when the room belongs to a user" do
+          before { room.update_attributes(owner: user) }
 
-        context "and the room is set to record" do
-          before { room.update_attributes(record_meeting: true) }
-          before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql({ record: false }) }
+          context "and already has a max_participants set in the db" do
+            before {
+              room.update_attributes(max_participants: 123)
+              get :index, :room_id => room.id
+            }
+            it { assigns(:result)[:max_participants].should eql(123) }
+          end
+
+          context "when the user has no subscription" do
+            before { get :index, :room_id => room.id }
+            it { assigns(:result)[:max_participants].should eql(free_limit) }
+          end
+
+          context "when the user has a subscription" do
+            let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+            before { get :index, :room_id => room.id }
+            it { assigns(:result)[:max_participants].should eql(nil) }
+          end
         end
 
-        context "and the room is not set to record" do
-          before { room.update_attributes(record_meeting: false) }
-          before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql({ record: false }) }
+        context "when the room belongs to a space" do
+          let(:space) { FactoryGirl.create(:space) }
+          before { room.update_attributes(owner: space) }
+
+          context "and the room has no max_participants set" do
+            before { get :index, :room_id => room.id }
+            it { assigns(:result)[:max_participants].should eql(nil) }
+          end
+
+          context "and already has a max_participants set in the db" do
+            before {
+              room.update_attributes(max_participants: 123)
+              get :index, :room_id => room.id
+            }
+            it { assigns(:result)[:max_participants].should eql(123) }
+          end
         end
       end
     end
