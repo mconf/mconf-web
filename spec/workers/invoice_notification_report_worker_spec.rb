@@ -35,8 +35,8 @@ describe InvoiceNotificationReportWorker, type: :worker do
       before(:each) { worker.send_all_reports }
 
       it { expect(queue).to have_queue_size_of(2) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id, "2014-12") }
-      it { expect(queue).to have_queued(paramsSendReport, invoice2.id, user2.id, "2017-11") }
+      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
+      it { expect(queue).to have_queued(paramsSendReport, invoice2.id, user2.id) }
     end
 
     context "if the report file doesn't exist" do
@@ -56,8 +56,8 @@ describe InvoiceNotificationReportWorker, type: :worker do
       before(:each) { worker.send_all_reports }
 
       it { expect(queue).to have_queue_size_of(1) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id, "2014-12") }
-      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id, "2017-11") }
+      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id) }
     end
 
     context "doesn't resend subscriptions already sent" do
@@ -75,8 +75,8 @@ describe InvoiceNotificationReportWorker, type: :worker do
       before(:each) { worker.send_all_reports }
 
       it { expect(queue).to have_queue_size_of(1) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id, "2014-12") }
-      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id, "2017-11") }
+      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id) }
     end
   end
 
@@ -85,9 +85,9 @@ describe InvoiceNotificationReportWorker, type: :worker do
     let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
     let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false) }
 
-    before(:each) { worker.send_report(invoice.id, user.id, "2014-12") }
+    before(:each) { worker.send_report(invoice.id, user.id) }
 
     it { InvoiceMailer.should have_queue_size_of(1) }
-    it { InvoiceMailer.should have_queued(:invoice_report_email, user.id, invoice.id, "2014-12").in(:mailer) }
+    it { InvoiceMailer.should have_queued(:invoice_report_email, user.id, invoice.id).in(:mailer) }
   end
 end

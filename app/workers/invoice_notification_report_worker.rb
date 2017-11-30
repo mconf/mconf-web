@@ -13,18 +13,17 @@ class InvoiceNotificationReportWorker < BaseWorker
 
   def self.send_all_reports
     Invoice.where(notified: false).find_each do |invoice|
-      date = (invoice.due_date - 1.month).strftime("%Y-%m")
       user = invoice.subscription.user
 
       if File.exists?(invoice.report_file_path)
-        Queue::High.enqueue(InvoiceNotificationReportWorker, :send_report, invoice.id, user.id, date)
+        Queue::High.enqueue(InvoiceNotificationReportWorker, :send_report, invoice.id, user.id)
       end
     end
   end
 
-  def self.send_report(invoice_id, user_id, date)
+  def self.send_report(invoice_id, user_id)
     invoice = Invoice.find_by(id: invoice_id)
-    Resque.logger.info "Sending invoice report from date #{date} to #{user_id}"
+    Resque.logger.info "Sending invoice report #{invoice.report_file_path} to #{user_id}"
     InvoiceMailer.invoice_report_email(user_id, invoice_id).deliver
     invoice.update_attributes(notified: true)
   end
