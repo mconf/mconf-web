@@ -1103,6 +1103,48 @@ describe User do
     end
   end
 
+  describe "created by social_login" do
+    context "check that the google login is confirmed" do
+      let(:omniauth_data) { OmniAuth::AuthHash.new({
+                             :provider => "google_oauth2",
+                             :uid => "123456789",
+                             :info => {
+                                 :name => "Google User",
+                                 :email => "googleuser@gmail.com"
+                               },
+                             :credentials => {
+                                 :token => "token",
+                                 :refresh_token => "refresh token"
+                               }
+                             }
+                           )
+                          }
+
+      let!(:google_user) { User.from_omniauth(omniauth_data) }
+      it { google_user.confirmed?.should eql(true) }
+    end
+
+    context "check that the facebook login is confirmed" do
+      let(:omniauth_data) { OmniAuth::AuthHash.new({
+                              :provider => "facebook",
+                              :uid => "123456789",
+                              :info => {
+                                  :name => "Face User",
+                                  :email => "faceuser@face.com"
+                                },
+                              :credentials => {
+                                  :token => "token",
+                                  :refresh_token => "refresh token"
+                                }
+                              }
+                            )
+                          }
+
+      let!(:facebook_user) { User.from_omniauth(omniauth_data) }
+      it { facebook_user.confirmed?.should eql(true) }
+    end
+  end
+
   describe "#local_auth?" do
     it "false if has LDAP auth"
     it "false if has shibboleth auth"
