@@ -32,10 +32,6 @@ class Plan < ActiveRecord::Base
     Plan.new(params)
   end
 
-  def free?
-    self.ops_token == "Free Plan"
-  end
-
   def create_ops_plan
     if ops_type == Plan::OPS_TYPES[:iugu]
       unless self.ops_token.present?
@@ -56,7 +52,7 @@ class Plan < ActiveRecord::Base
 
   def self.import_ops_plan
     plans = Mconf::Iugu.fetch_all_plans
-    if plans.present?
+    if !plans.empty?
       plans.each do |plan|
         params = {
           name: plan.attributes["name"],
