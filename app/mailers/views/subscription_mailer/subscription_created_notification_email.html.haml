@@ -10,8 +10,8 @@
 %p.content
   = t('.message.link', url: join_webconf_url(@user.username)).html_safe
 
-- @attendee_key = @user.bigbluebutton_room.attendee_key
-- if @attendee_key.present?
+- attendee_key = @user.bigbluebutton_room.attendee_key
+- if attendee_key.present?
   %p.content
     = t('.message.participants').html_safe
 
