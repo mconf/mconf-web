@@ -26,6 +26,8 @@ class InvoicesController < InheritedResources::Base
   end
 
   def show
+    @user = User.find_by(username: (params[:user_id]))
+    @invoice = @user.subscription.invoices.find_by(id: (params[:id]))
   end
 
   def report

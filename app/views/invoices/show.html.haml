@@ -1,6 +1,4 @@
-- user = User.find_by_username(params[:user_id])
-- invoice = user.subscription.invoices.find_by_id(params[:id])
-
+- page_title t('.title', name: @user.full_name)
 -# - home_sidebar_menu_at(:subscription)
 
 -# = content_for :sidebar do
@@ -12,49 +10,49 @@
       %h3= t('.total_price')
       .field
         %span.field-title= t('.total')
-        %span.field-value= invoice.invoice_total_as_string
+        %span.field-value= @invoice.invoice_total_as_string
 
       %h3= t('.detailed_price')
       .field
         %span.field-title= t('.cost_base')
-        %span.field-value.price= invoice.invoice_full_price_as_string
+        %span.field-value.price= @invoice.invoice_full_price_as_string
 
-      - value_data = invoice.generate_invoice_value
+      - value_data = @invoice.generate_invoice_value
 
       - if value_data[:discounts][:users].present?
         .field
           %span.field-title= t('.discount_users')
-          %span.field-value.discount= invoice.invoice_users_discount_as_string
-          %span.field-value= t('.users_percent', percent: (value_data[:discounts][:users]*100).to_i , qty: invoice.user_qty)
+          %span.field-value.discount= @invoice.invoice_users_discount_as_string
+          %span.field-value= t('.users_percent', percent: (value_data[:discounts][:users]*100).to_i , qty: @invoice.user_qty)
 
       - if value_data[:discounts][:days].present?
         .field
           %span.field-title= t('.discount_days')
-          %span.field-value.discount= invoice.invoice_days_discount_as_string
-          %span.field-value= t('.days_percent', percent: (value_data[:discounts][:days]*100).to_i, days: invoice.days_consumed)
+          %span.field-value.discount= @invoice.invoice_days_discount_as_string
+          %span.field-value= t('.days_percent', percent: (value_data[:discounts][:days]*100).to_i, days: @invoice.days_consumed)
 
       %h3= t('.invoice_data')
       .field
-        %span.field-title= t('.users_ammount')users
-        %span.field-value= invoice.user_qty
+        %span.field-title= t('.users_ammount')
+        %span.field-value= @invoice.user_qty
 
       - if value_data[:discounts][:days].present?
         .field
           %span.field-title= t('.days_consumed')
-          %span.field-value= invoice.days_consumed
+          %span.field-value= @invoice.days_consumed
 
       -# .field
       -#   %span.field-title= t('.invoice_status')
       -#   %span.field-value= t(".status.#{invoice.flag_invoice_status}")
       .field
         .download-report
-          = link_to report_user_invoice_path(invoice.subscription.user_id, invoice.id), class: 'btn btn-default' do
+          = link_to report_user_invoice_path(@invoice.subscription.user_id, @invoice.id), class: 'btn btn-default' do
             = icon_download(alt: t('.report'), title: t('.report'))
             = t('.report')
 
-        - if invoice.invoice_url.present?
+        - if @invoice.invoice_url.present?
           .pay-btn
-            = link_to invoice.invoice_url, class: 'btn btn-default' do
+            = link_to @invoice.invoice_url, class: 'btn btn-default' do
               = t('.pay')
               = icon_payment_invoice(alt: t('.pay'), title: t('.pay'))
         - else

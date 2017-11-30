@@ -1,5 +1,4 @@
-- user = User.find_by_username(params[:user_id])
-- page_title t('.title',  name: user.full_name)
+- page_title t('.title',  name: @user.full_name)
 
 -# - home_sidebar_menu_at(:subscription)
 
@@ -9,7 +8,7 @@
 #subscription-wrapper
   .row
     #edit-form
-      = simple_form_for @subscription, :html => { :method => :patch }, :url => user_subscription_path(user), wrapper: :horizontal_form do |f|
+      = simple_form_for @subscription, :html => { :method => :patch }, :url => user_subscription_path(@user), wrapper: :horizontal_form do |f|
         .field-group
           %h3= t('.customer_section')
           = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')

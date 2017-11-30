@@ -46,9 +46,11 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def show
+    @user = User.find_by(username: (params[:user_id]))
   end
 
   def edit
+    @user = User.find_by(username: (params[:user_id]))
   end
 
   def destroy
