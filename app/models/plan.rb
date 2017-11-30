@@ -52,7 +52,7 @@ class Plan < ActiveRecord::Base
 
   def self.import_ops_plan
     plans = Mconf::Iugu.fetch_all_plans
-    if !plans.empty?
+    if plans.present?
       plans.each do |plan|
         params = {
           name: plan.attributes["name"],

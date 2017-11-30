@@ -155,7 +155,7 @@ class Subscription < ActiveRecord::Base
 
   def self.import_ops_sub
     subscriptions = Mconf::Iugu.fetch_all_subscriptions
-    if !subscriptions.empty?
+    if subscriptions.present?
       subscriptions.each do |subs|
         cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
         user = User.find_by(email: cust.email)
