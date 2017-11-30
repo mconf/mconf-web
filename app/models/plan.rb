@@ -59,13 +59,14 @@ class Plan < ActiveRecord::Base
     if plans.present?
       plans.each do |plan|
         params = {
-                   name: plan.attributes["name"],
-                   identifier: plan.attributes["identifier"],
-                   ops_type: 'IUGU',
-                   ops_token: plan.attributes["id"],
-                   currency: plan.attributes["prices"].first["currency"],
-                   interval_type: plan.attributes["interval_type"],
-                   interval: plan.attributes["interval"] }
+          name: plan.attributes["name"],
+          identifier: plan.attributes["identifier"],
+          ops_type: 'IUGU',
+          ops_token: plan.attributes["id"],
+          currency: plan.attributes["prices"].first["currency"],
+          interval_type: plan.attributes["interval_type"],
+          interval: plan.attributes["interval"]
+        }
 
         Plan.find_by(ops_token: params[:ops_token]).present? ? logger.info(I18n.t('.plan.info')) : Plan.create(params)
       end
