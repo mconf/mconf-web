@@ -88,6 +88,6 @@ describe InvoiceNotificationReportWorker, type: :worker do
     before(:each) { worker.send_report(invoice.id, user.id, "2014-12") }
 
     it { InvoiceMailer.should have_queue_size_of(1) }
-    it { InvoiceMailer.should have_queued(:invoice_report_email, user.id, invoice.id, "2014-12").in(:mailer) }
+    it { InvoiceMailer.should have_queued(:invoice_report_email, user.id, invoice.id).in(:mailer) }
   end
 end

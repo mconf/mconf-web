@@ -16,8 +16,7 @@ describe InvoiceMailer do
     before {
       Invoice.any_instance.stub(:report_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
     }
-    let(:date) { (invoice.due_date - 1.month).strftime("%Y-%m") }
-    let(:mail) { InvoiceMailer.invoice_report_email(user.id, invoice.id, date) }
+    let(:mail) { InvoiceMailer.invoice_report_email(user.id, invoice.id) }
     let(:url) { "www.test.com" }
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
