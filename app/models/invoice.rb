@@ -45,7 +45,7 @@ class Invoice < ActiveRecord::Base
   end
 
   # Processed prices for the invoice
-  def invoice_full_price_as_string
+  def full_price_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -56,7 +56,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def invoice_users_discount_as_string
+  def users_discount_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -64,7 +64,7 @@ class Invoice < ActiveRecord::Base
     sprintf('- R$ %.2f', (cost * quantity * discount_users)/100)
   end
 
-  def invoice_days_discount_as_string
+  def days_discount_as_string
     data = generate_invoice_value
     cost = data[:cost_per_user]
     quantity = data[:quantity]
@@ -77,7 +77,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
-  def invoice_total_as_string
+  def total_as_string
     data = generate_invoice_value
     total = data[:total]
     sprintf('R$ %.2f', total/100)

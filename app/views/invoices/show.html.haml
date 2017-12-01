@@ -10,25 +10,25 @@
       %h3= t('.total_price')
       .field
         %span.field-title= t('.total')
-        %span.field-value= @invoice.invoice_total_as_string
+        %span.field-value= @invoice.total_as_string
 
       %h3= t('.detailed_price')
       .field
         %span.field-title= t('.cost_base')
-        %span.field-value.price= @invoice.invoice_full_price_as_string
+        %span.field-value.price= @invoice.full_price_as_string
 
       - value_data = @invoice.generate_invoice_value
 
       - if value_data[:discounts][:users].present?
         .field
           %span.field-title= t('.discount_users')
-          %span.field-value.discount= @invoice.invoice_users_discount_as_string
+          %span.field-value.discount= @invoice.users_discount_as_string
           %span.field-value= t('.users_percent', percent: (value_data[:discounts][:users]*100).to_i , qty: @invoice.user_qty)
 
       - if value_data[:discounts][:days].present?
         .field
           %span.field-title= t('.discount_days')
-          %span.field-value.discount= @invoice.invoice_days_discount_as_string
+          %span.field-value.discount= @invoice.days_discount_as_string
           %span.field-value= t('.days_percent', percent: (value_data[:discounts][:days]*100).to_i, days: @invoice.days_consumed)
 
       %h3= t('.invoice_data')
