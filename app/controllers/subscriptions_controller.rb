@@ -47,6 +47,8 @@ class SubscriptionsController < InheritedResources::Base
 
   def show
     @user = User.find_by(username: (params[:user_id]))
+    @invoices = @subscription.invoices.flatten
+    @invoices.sort_by! { |invoice_date| invoice_date.due_date }.reverse!
   end
 
   def edit

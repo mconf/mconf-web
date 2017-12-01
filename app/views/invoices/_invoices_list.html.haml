@@ -1,4 +1,3 @@
-- invoices = subscription.invoices.flatten
 .content-block
   %h3= t(".invoices")
   %table.recording-list.table.table-hover
@@ -11,10 +10,9 @@
         %th.col-sm-1.invoice-pay-col= t(".pay")
 
     %tbody
-      - if invoices.count <= 0
+      - if @invoices.count <= 0
         %tr
           %td{ colspan: 4 }= t('.no_invoices')
 
-      - invoices.sort_by! { |invoice_date| invoice_date.due_date }.reverse!
-      - invoices.each do |invoice|
+      - @invoices.each do |invoice|
         = render partial: 'invoices/invoice_item', locals: { invoice: invoice }
