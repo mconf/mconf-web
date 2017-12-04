@@ -457,20 +457,20 @@ describe Invoice do
     before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{:users=>0.3, :days=>0.7333333333333333},
                                        :quantity=>1000, :cost_per_user=>600, :total=>308000.0, :minimum=>false}) }
 
-    context "#invoice_full_price_as_string" do
-      it { target.invoice_full_price_as_string.should eql("+ R$ 6000.00")}
+    context "#full_price_as_string" do
+      it { target.full_price_as_string.should eql("+ R$ 6000.00")}
     end
 
-    context "#invoice_users_discount_as_string" do
-      it { target.invoice_users_discount_as_string.should eql("- R$ 1800.00")}
+    context "#users_discount_as_string" do
+      it { target.users_discount_as_string.should eql("- R$ 1800.00")}
     end
 
-    context "#invoice_days_discount_as_string" do
-      it { target.invoice_days_discount_as_string.should eql("- R$ 1120.00")}
+    context "#days_discount_as_string" do
+      it { target.days_discount_as_string.should eql("- R$ 1120.00")}
     end
 
-    context "#invoice_total_as_string" do
-      it { target.invoice_total_as_string.should eql("R$ 3080.00")}
+    context "#total_as_string" do
+      it { target.total_as_string.should eql("R$ 3080.00")}
     end
   end
 
