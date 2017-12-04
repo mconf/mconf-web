@@ -39,44 +39,108 @@ describe BigbluebuttonRails do
     it { target.should respond_to(:get_create_options) }
     it { target.get_create_options.should be_a(Proc) }
 
-    context "for a user room" do
-      before {
-        room.update_attributes(owner: FactoryGirl.create(:user))
-      }
+    context "sets the metadata" do
+      context "for a user room" do
+        before {
+          room.update_attributes(owner: FactoryGirl.create(:user))
+        }
 
-      it {
-        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
-        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
-        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
-        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("User")
-      }
+        it {
+          target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+          target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+          target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
+          target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("User")
+        }
+      end
+
+      context "for a space room" do
+        before {
+          room.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+          target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+          target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
+          target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
+        }
+      end
+
+      context "works with HTTPS" do
+        before {
+          Site.current.update_attributes(ssl: true)
+          room.update_attributes(owner: FactoryGirl.create(:space))
+        }
+
+        it {
+          target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+          target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+          target.get_create_options.call(room)["meta_mconfweb-url"].should eql("https://#{Site.current.domain}/")
+          target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
+        }
+      end
     end
 
-    context "for a space room" do
-      before {
-        room.update_attributes(owner: FactoryGirl.create(:space))
-      }
+    context "sets the record flag" do
+      context "if there's no user logged" do
+        it {
+          target.get_create_options.call(room, nil).should have_key(:record)
+          target.get_create_options.call(room, nil)[:record].should be(false)
+        }
+      end
 
-      it {
-        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
-        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
-        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
-        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
-      }
-    end
+      context "if there's a user logged" do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          # a custom ability to control what the user can do
+          @ability = Object.new
+          @ability.extend(CanCan::Ability)
+          Abilities.stub(:ability_for).and_return(@ability)
+        }
 
-    context "works with HTTPS" do
-      before {
-        Site.current.update_attributes(ssl: true)
-        room.update_attributes(owner: FactoryGirl.create(:space))
-      }
+        context "sets the record option" do
+          context "when the user can record" do
+            before { @ability.can :record_meeting, room }
 
-      it {
-        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
-        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
-        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("https://#{Site.current.domain}/")
-        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
-      }
+            context "and the room is set to record" do
+              before { room.update_attributes(record_meeting: true) }
+              it {
+                target.get_create_options.call(room, user).should have_key(:record)
+                target.get_create_options.call(room, user)[:record].should be(true)
+              }
+            end
+
+            context "and the room is not set to record" do
+              before { room.update_attributes(record_meeting: false) }
+              it {
+                target.get_create_options.call(room, user).should have_key(:record)
+                target.get_create_options.call(room, user)[:record].should be(true)
+              }
+            end
+          end
+
+          context "when the user cannot record" do
+            before { @ability.cannot :record_meeting, room }
+
+            context "and the room is set to record" do
+              before { room.update_attributes(record_meeting: true) }
+              it {
+                target.get_create_options.call(room, user).should have_key(:record)
+                target.get_create_options.call(room, user)[:record].should be(false)
+              }
+            end
+
+            context "and the room is not set to record" do
+              before { room.update_attributes(record_meeting: false) }
+              it {
+                target.get_create_options.call(room, nil).should have_key(:record)
+                target.get_create_options.call(room, nil)[:record].should be(false)
+              }
+            end
+          end
+        end
+
+      end
     end
   end
 end
