@@ -14,13 +14,16 @@ BigbluebuttonRails.configure do |config|
   end
 
   # Add custom metadata to all create calls
-  config.get_dynamic_metadata = Proc.new do |room|
+  config.get_create_options = Proc.new do |room, user|
     host = Site.current.domain_with_protocol
-    meta = {
-      "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
-      "mconfweb-room-type" => room.try(:owner).try(:class).try(:name)
+    ability = Abilities.ability_for(user)
+
+    {
+      "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
+      "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
+      record: ability.can?(:record_meeting, room),
+      max_participants: room.max_participants
     }
-    meta
   end
 end
 
@@ -71,43 +74,6 @@ Rails.application.config.to_prepare do
         end
       end
     end
-  end
-
-  BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Model
-
-    tracked only: [:create], owner: :room,
-      recipient: -> (ctrl, model) { model.room.owner },
-      params: {
-        creator_id: -> (ctrl, model) {
-          model.try(:creator_id)
-        },
-      creator_username: -> (ctrl, model) {
-        id = model.try(:creator_id)
-        user = User.find_by(id: id)
-        user.try(:username)
-      }
-    }
-
-    scope :newest, -> (count=0) {
-      ordered = order("create_time DESC")
-      if count > 0
-        ordered.first(count)
-      else
-        ordered
-      end
-    }
-  end
-
-  BigbluebuttonServer.instance_eval do
-
-    # When the URL of the default server changes, change the URL of all institution servers.
-    after_update if: :url_changed? do
-      if BigbluebuttonServer.default.id == self.id
-        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
-      end
-    end
-
   end
 
   BigbluebuttonMeeting.class_eval do
@@ -184,5 +150,42 @@ Rails.application.config.to_prepare do
         nil
       end
     end
+  end
+
+  BigbluebuttonMeeting.instance_eval do
+    include PublicActivity::Model
+
+    tracked only: [:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+      creator_username: -> (ctrl, model) {
+        id = model.try(:creator_id)
+        user = User.find_by(id: id)
+        user.try(:username)
+      }
+    }
+
+    scope :newest, -> (count=0) {
+      ordered = order("create_time DESC")
+      if count > 0
+        ordered.first(count)
+      else
+        ordered
+      end
+    }
+  end
+
+  BigbluebuttonServer.instance_eval do
+
+    # When the URL of the default server changes, change the URL of all institution servers.
+    after_update if: :url_changed? do
+      if BigbluebuttonServer.default.id == self.id
+        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
+      end
+    end
+
   end
 end
