@@ -406,6 +406,19 @@ class User < ActiveRecord::Base
     self.name.split(' ').collect{ |w| w[0] }.join('')
   end
 
+  # Returns a string describing why the user cannot record meetings in the `room`. If
+  # the user *can* record, returns nil.
+  def cant_record_reason(room)
+    ability = Abilities.ability_for(self)
+    can = ability.can?(:record_meeting, room)
+
+    if !can
+      if !self.can_record
+        I18n.t('users.cant_record_reason.user_cannot_record')
+      end
+    end
+  end
+
   protected
 
   def before_disable_and_destroy

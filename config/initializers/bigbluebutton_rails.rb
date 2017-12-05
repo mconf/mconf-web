@@ -18,11 +18,16 @@ BigbluebuttonRails.configure do |config|
     host = Site.current.domain_with_protocol
     ability = Abilities.ability_for(user)
 
-    {
+    opts = {
       "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
       "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
       record: ability.can?(:record_meeting, room)
     }
+
+    reason = user.try(:cant_record_reason, room)
+    opts["meta_mconf-live-wont-record-message"] = reason if reason.present?
+
+    opts
   end
 end
 

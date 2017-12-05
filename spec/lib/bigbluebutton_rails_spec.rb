@@ -142,5 +142,28 @@ describe BigbluebuttonRails do
 
       end
     end
+
+    context "sets the 'wont record' message" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context "if the user doesn't have permission to record meetings" do
+        let(:msg) { I18n.t('users.cant_record_reason.user_cannot_record') }
+        before { user.update_attributes(can_record: false) }
+
+        it {
+          target.get_create_options.call(room, user).should have_key("meta_mconf-live-wont-record-message")
+          target.get_create_options.call(room, user)["meta_mconf-live-wont-record-message"].should eql(msg)
+        }
+      end
+
+      context "if the user has permission to record meetings" do
+        before { user.update_attributes(can_record: true) }
+
+        it {
+          target.get_create_options.call(room, user).should_not have_key("meta_mconf-live-wont-record-message")
+        }
+      end
+    end
+
   end
 end
