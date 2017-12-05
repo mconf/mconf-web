@@ -122,6 +122,7 @@ pt-br:
     created: "Assinatura criada com sucesso"
     denied: "Acesso negado"
     destroy: "Assinatura removida com sucesso"
+    destroy_fail: "Assinatura não pode ser destruída, por favor, tente novamente ou entre em contato com um administrador"
     edit:
       title: "%{name} Assinatura"
       address_section: "Informações de endereço"

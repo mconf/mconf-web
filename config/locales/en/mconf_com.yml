@@ -133,6 +133,7 @@ en:
     created: "Subscription successfully created"
     denied: "Access denied"
     destroy: "Subscription successfully removed"
+    destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
       title: "%{name} Subscription"
       address_section: "Address information"

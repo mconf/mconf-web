@@ -56,9 +56,14 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def destroy
-    if @subscription.destroy
-      flash = { success: t("subscriptions.destroy") }
-      redirect_to my_home_path, :flash => flash
+    begin
+      if @subscription.destroy
+        flash = { success: t("subscriptions.destroy") }
+        redirect_to my_home_path, :flash => flash
+      end
+    rescue RestClient::Unauthorized
+      flash = { error: t("subscriptions.destroy_fail") }
+      redirect_to user_subscription_path(current_user), :flash => flash
     end
   end
 
