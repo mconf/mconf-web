@@ -12,6 +12,9 @@ class SubscriptionsController < InheritedResources::Base
   before_filter :find_subscription
   authorize_resource :subscription, through: :user, singleton: true
 
+  # Handle errors - error pages
+  rescue_from RestClient::Unauthorized, with: :ops_error
+
   layout :determine_layout
 
   def find_subscription
@@ -56,14 +59,11 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def destroy
-    begin
-      if @subscription.destroy
-        flash = { success: t("subscriptions.destroy") }
-        redirect_to my_home_path, :flash => flash
-      end
-    rescue RestClient::Unauthorized
-      flash = { error: t("subscriptions.destroy_fail") }
-      redirect_to user_subscription_path(current_user), :flash => flash
+    if @subscription.destroy
+      flash = { success: t("subscriptions.destroy") }
+      redirect_to my_home_path, :flash => flash
+    else
+      self.ops_error
     end
   end
 
@@ -83,6 +83,11 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   private
+
+  def ops_error
+    flash = { error: t("subscriptions.destroy_fail") }
+    redirect_to user_subscription_path(current_user), :flash => flash
+  end
 
   def paginate_subscriptions
     @subscriptions = @subscriptions.paginate(:page => params[:page], :per_page => 15)
