@@ -24,11 +24,15 @@ class Subscription < ActiveRecord::Base
   validates :province, :presence => true
   validates :district, :presence => true
 
+  attr_accessor :importing_subscription
+
   before_create :create_customer_and_sub
   after_create :subscription_created_notification
   before_update :update_sub
   before_destroy :destroy_sub
   before_destroy :subscription_destroyed_notification
+
+  skip_callback :create, :before, :create_customer_and_sub, if: :importing_subscription
 
   scope :not_on_trial, -> {
     joins(:user).where("trial_expires_at <= ?", DateTime.now)
@@ -49,41 +53,39 @@ class Subscription < ActiveRecord::Base
 
   def create_customer_and_sub
     if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
-      unless self.subscription_token.present?
-        self.customer_token =
-          Mconf::Iugu.create_customer(
-            self.user.email,
-            self.user.full_name,
-            self.cpf_cnpj,
-            self.address,
-            self.additional_address_info,
-            self.number,
-            self.zipcode,
-            self.city,
-            self.province,
-            self.district,
-            self.country
-          )
+      self.customer_token =
+        Mconf::Iugu.create_customer(
+          self.user.email,
+          self.user.full_name,
+          self.cpf_cnpj,
+          self.address,
+          self.additional_address_info,
+          self.number,
+          self.zipcode,
+          self.city,
+          self.province,
+          self.district,
+          self.country
+        )
 
-        if self.customer_token.blank?
-          logger.error I18n.t('.subscriptions.errors.no_token')
-          errors.add(:ops_error, I18n.t('.subscriptions.errors.no_token'))
-          raise ActiveRecord::Rollback
-        elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
-          errors.add(:cpf_cnpj, :invalid)
-          errors.add(:zipcode, :invalid)
-          raise ActiveRecord::Rollback
-        elsif self.customer_token["cpf_cnpj"].present?
-          errors.add(:cpf_cnpj, :invalid)
-          raise ActiveRecord::Rollback
-        elsif self.customer_token["zip_code"].present?
-          errors.add(:zipcode, :invalid)
-          raise ActiveRecord::Rollback
-        end
-
-        # Here we are calling the creation of the subscription:
-        self.create_sub
+      if self.customer_token.blank?
+        logger.error I18n.t('.subscriptions.errors.no_token')
+        errors.add(:ops_error, I18n.t('.subscriptions.errors.no_token'))
+        raise ActiveRecord::Rollback
+      elsif self.customer_token["cpf_cnpj"].present? && self.customer_token["zip_code"].present?
+        errors.add(:cpf_cnpj, :invalid)
+        errors.add(:zipcode, :invalid)
+        raise ActiveRecord::Rollback
+      elsif self.customer_token["cpf_cnpj"].present?
+        errors.add(:cpf_cnpj, :invalid)
+        raise ActiveRecord::Rollback
+      elsif self.customer_token["zip_code"].present?
+        errors.add(:zipcode, :invalid)
+        raise ActiveRecord::Rollback
       end
+
+      # Here we are calling the creation of the subscription:
+      self.create_sub
     else
       logger.error I18n.t('.subscription.errors.ops_type_customer')
       errors.add(:ops_error, I18n.t('.subscription.errors.ops_type_customer'))
@@ -183,7 +185,9 @@ class Subscription < ActiveRecord::Base
           if Subscription.find_by(subscription_token: (params[:subscription_token])).present?
             logger.info I18n.t('.subscriptions.info')
           else
-            Subscription.create(params)
+            imported_sub = Subscription.new(params)
+            imported_sub.importing_subscription = true
+            imported_sub.save!
             trial_expiraion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
             user.update_attributes(trial_expires_at: trial_expiraion)
           end

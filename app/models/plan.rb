@@ -15,8 +15,12 @@ class Plan < ActiveRecord::Base
   validates :interval, :presence => true
   validates :interval_type, :presence => true
 
+  attr_accessor :importing_plan
+
   before_create :create_ops_plan
   before_destroy :delete_ops_plan
+
+  skip_callback :create, :before, :create_ops_plan, if: :importing_plan
 
   OPS_TYPES = { iugu: "IUGU" }
 
@@ -34,14 +38,12 @@ class Plan < ActiveRecord::Base
 
   def create_ops_plan
     if ops_type == Plan::OPS_TYPES[:iugu]
-      unless self.ops_token.present?
-        self.ops_token = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
+      self.ops_token = Mconf::Iugu.create_plan(self.name, self.identifier, self.currency, self.interval, self.interval_type)
 
-        if self.ops_token == nil
-          logger.error I18n.t('.plan.errors.no_token')
-          errors.add(:ops_error, I18n.t('.plan.errors.no_token'))
-          raise ActiveRecord::Rollback
-        end
+      if self.ops_token == nil
+        logger.error I18n.t('.plan.errors.no_token')
+        errors.add(:ops_error, I18n.t('.plan.errors.no_token'))
+        raise ActiveRecord::Rollback
       end
     else
       logger.error I18n.t('.plan.errors.ops_type_create_plan')
@@ -64,7 +66,13 @@ class Plan < ActiveRecord::Base
           interval: plan.attributes["interval"]
         }
 
-        Plan.find_by(ops_token: params[:ops_token]).present? ? logger.info(I18n.t('.plan.info')) : Plan.create(params)
+        if Plan.find_by(ops_token: params[:ops_token]).present?
+          logger.info(I18n.t('.plan.info'))
+        else
+          imported_plan = Plan.new(params)
+          imported_plan.importing_plan = true
+          imported_plan.save!
+        end
       end
     end
   end
