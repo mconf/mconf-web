@@ -117,7 +117,9 @@ pt-br:
     space:
       disabled: "Desabilitado"
       private: "Privado"
+      private_space: "Comunidade privada"
       public: "Público"
+      public_space: "Comunidade pública"
     unpublish: "Despublicar"
     update: "Atualizar"
     updated_time_ago: "%{time} atrás"
@@ -147,7 +149,7 @@ pt-br:
     attributes:
       bigbluebutton_room:
         name: "Nome"
-        param: "Endereço"
+        slug: "Endereço"
       invitation:
         duration_values:
           5m: "5 minutos"
@@ -256,7 +258,7 @@ pt-br:
         description: "Descrição"
         moderator_key: "Chave para moderadores"
         name: "Nome"
-        permalink: "Identificador"
+        slug: "Identificador"
         public: "Pública"
         repository: "Repositório de documentos"
         tag_list: "Tags"
@@ -599,7 +601,7 @@ pt-br:
       layout_empty_option: "<padrão>"
       private: "Privada"
       public: "Pública"
-      subtitle: "Configurações da sala de conferência web"
+      subtitle: "Personalizar sala"
       visibility: "Visibilidade"
   custom_bigbluebutton_recordings:
     edit:
@@ -930,16 +932,8 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   layouts:
-    application_navbar:
-      account: "Conta"
-      events: "Eventos"
-      inbox: "Caixa de entrada"
-      login: "Login"
-      manage: "Gerenciar"
-      profile: "Perfil"
-      register: "Registre-se"
     footer:
-      copyright: "© %{year} %{site}"
+      copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -947,7 +941,6 @@ pt-br:
       links:
         feedback: "Contato"
         help: Ajuda
-        powered_by: "Powered by Mconf, visite"
         title: Links
       project_website: "Site do projeto"
       sponsors:
@@ -958,6 +951,22 @@ pt-br:
         change: "Mudar a linguagem"
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
+    sidenav:
+      my_room: "Minha sala"
+      my_spaces: "Minhas comunidades"
+      search: "Pesquisar..."
+    navbar:
+      account: "Conta"
+      conference_config_tooltip: "Personalizar a sala virtual"
+      conference_history_tooltip: "Histórico de webconferências"
+      conference_invite_tooltip: "Convidar para webconferência"
+      conference_play_tooltip: "Iniciar webconferência"
+      events: "Eventos"
+      inbox: "Caixa de entrada"
+      login: "Login"
+      manage: "Gerenciar"
+      profile: "Perfil"
+      register: "Registre-se"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"
@@ -1107,6 +1116,8 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
+      hi: "Olá, %{name}!"
+      no_meetings_headline: "Inicie sua primeira conferência e interaja a distância com outros participantes"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"
@@ -1116,27 +1127,28 @@ pt-br:
         no_spaces: "Você ainda não é membro de nenhuma comunidade."
         or: "ou"
         pending: "Pedidos de ingresso pendentes"
-        title: "Minhas comunidades"
+        title: "Comunidades"
         view_all: "Ver todas minhas comunidades"
       title: "Início"
       view_all_spaces: "Ver todas comunidades"
     page_header:
       activity_list: "Atividades recentes"
     meetings:
+      no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
-      subtitle: "Reuniões e gravações passadas"
+      subtitle: "Histórico de webconferências e gravações"
       title: "Reuniões e gravações"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
-    sidebar:
+    navbar_menu:
       menu:
         account: "Conta"
         activity: "Atividades recentes"
         home: "Início"
-        meetings: "Reuniões e gravações"
+        meetings: "Histórico"
         profile: "Perfil"
         webconf_room: "Minha sala de webconferência"
       spaces:
@@ -1273,7 +1285,6 @@ pt-br:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
-    confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
     thank_you: "Bem-vindo e obrigado por registrar-se no %{sitename}"
@@ -1283,10 +1294,11 @@ pt-br:
   register_now: "Registe-se agora!"
   registrations:
     new:
-      form_title: "Registre-se"
-      title: "Registrar"
+      headline: "Plataforma de webconferência"
+      headline2: "com foco em educação a distância e reuniões remotas"
+      title: "Crie uma conta"
     signup_form:
-      register: "Registre-se"
+      register: "Criar conta"
       register_local: "Criar uma conta no Mconf"
   remove: Remover
   reply: Responder
@@ -1340,13 +1352,14 @@ pt-br:
     one: Sessão
   sessions:
     login_form:
-      email_or_login: "E-mail ou nome de usuário"
       ldap_authentication: "Autenticar via LDAP"
       login: "Entrar"
-      password: "Senha"
+      lost_password: "Esqueci minha senha"
+      resend_confirmation_email: "Reenviar e-mail de confirmação"
     new:
-      form_title: "Acesse sua conta"
-      title: "Entrar"
+      headline: "Plataforma de webconferência"
+      headline2: "com foco em educação a distância e reuniões remotas"
+      title: "Acesse sua conta"
   session_locales:
     create:
       success: "Idioma da aplicação alterado para %{value}"
@@ -1358,19 +1371,23 @@ pt-br:
       delete: "Remover gravação"
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
+      duration: "Duração"
       edit: "Editar esta gravação"
       manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
       no_meetings: "Ainda não existem reuniões ou gravações nesta sala."
       not_recorded: "(Esta reunião não foi gravada.)"
       playback_links: "Links para reprodução"
-      started_at: "Data"
+      started_at: "Data - Hora"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
-      publish: Publicar
-      unpublish: Ocultar
+      publish: "Tornar visível"
+      published: "Visível"
+      status: "Status"
+      unpublish: "Ocultar"
       unpublish_confirm: "Você tem certeza que deseja ocultar esta gravação?"
       unpublish_unavailable: "Esta ação está desabilitada pois a gravação não está disponível. Entre em contato com um administrador se você deseja remover esta gravação da sua lista."
+      unpublished: "Não visível"
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"
@@ -1378,6 +1395,11 @@ pt-br:
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
       unavailable: "A gravação não está disponível"
       unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+    social_login:
+      disclaimer: "Nunca postaremos nada sem a sua permissão"
+      facebook: "Facebook"
+      google: "Google"
+      or_connect_with: "ou conecte-se com"
     webconf_index_links:
       view_playback_type_list: "Tipos de Reprodução"
       view_recording_list: "Gravações"
@@ -1578,6 +1600,8 @@ pt-br:
     approve:
       approved: "A comunidade %{name} foi aprovada"
       not_enabled: "A aprovação de comunidades não está habilitada ou a comunidade já está aprovada"
+    card_item:
+      members: "%{count} membros"
     disapprove:
       disapproved: "Acesso bloqueado à comunidade %{name}"
       not_enabled: "A aprovação de comunidades não está habilitada"
@@ -1602,7 +1626,7 @@ pt-br:
       creation_forbidden: "Você não possui permissão para criar comunidades"
       last_admin_cant_leave: "Você não pode sair desta comunidade pois você é o último administrador"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
-      not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      not_found: "A comunidade \"%{slug}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
       unapproved: "Esta comunidade ainda não foi aprovada por um administrador."
     index:
       create_new_space: "Criar uma comunidade"
@@ -1813,6 +1837,8 @@ pt-br:
     approve:
       approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site ou o usuário já está aprovado"
+    cant_record_reason:
+      user_cannot_record: "O usuário que criou esta reunião não tem permissão para gravar reuniões."
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
     create:

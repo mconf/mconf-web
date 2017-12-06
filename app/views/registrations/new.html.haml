@@ -1,11 +1,12 @@
 = page_title t('.title')
+- sessions_menu_at :register
 
-%h1= t('.form_title')
+#headline
+  %h1= t('.headline')
+  %h3= t('.headline2')
 
 #register-wrapper
-  .alert.alert-clean
-    = icon_info
-    = t('register.confirmation')
-  = render "devise/shared/social_login"
+  %h1= t('.title')
   = render partial: 'signup_form'
-  = render "devise/shared/links"
+  = render partial: 'shared/social_login'
+  = render partial: 'devise/shared/links'

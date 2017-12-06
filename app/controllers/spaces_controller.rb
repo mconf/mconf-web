@@ -22,10 +22,10 @@ class SpacesController < InheritedResources::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Cancan and inherited resources load
-  defaults finder: :find_by_permalink!
+  defaults finder: :find_by_slug!
   before_filter :load_space_via_space_id, only: [:edit_recording]
   before_filter :load_spaces_index, only: [:index, :select]
-  load_and_authorize_resource :find_by => :permalink, :except => [:enable, :disable, :destroy]
+  load_and_authorize_resource :find_by => :slug, :except => [:enable, :disable, :destroy]
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the web conference room snippet
@@ -238,7 +238,7 @@ class SpacesController < InheritedResources::Base
   end
 
   def load_and_authorize_with_disabled
-    @space = Space.with_disabled.find_by_permalink(params[:id])
+    @space = Space.with_disabled.find_by(slug: params[:id])
     authorize! action_name.to_sym, @space
   end
 
@@ -254,11 +254,11 @@ class SpacesController < InheritedResources::Base
 
   # For edit_recording
   def load_space_via_space_id
-    @space = Space.find_by_permalink(params[:space_id])
+    @space = Space.find_by(slug: params[:space_id])
   end
 
   def handle_record_not_found(exception)
-    @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
+    @error_message = t("spaces.error.not_found", :slug => params[:id], :path => spaces_path)
     render_404 exception
   end
 
@@ -309,7 +309,7 @@ class SpacesController < InheritedResources::Base
 
   allow_params_for :space
   def allowed_params
-    [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
+    [ :name, :description, :logo_image, :public, :slug, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
       :bigbluebutton_room_attributes =>
         [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]

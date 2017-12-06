@@ -22,6 +22,40 @@ describe Profile do
   it { should respond_to(:crop_img_h) }
   it { should respond_to(:"crop_img_h=") }
 
+  context "after_update" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:profile) { user.profile }
+
+    it("calls #update_webconf_room") {
+      profile.should_receive(:update_webconf_room)
+      profile.update_attributes(full_name: "New Name")
+    }
+  end
+
+  describe "#update_webconf_room" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:profile) { user.profile }
+
+    context "updates the name" do
+      before(:each) {
+        profile.update_attributes(full_name: "Old Name")
+        profile.update_attributes(full_name: "New Name")
+      }
+      it { profile.full_name.should eql("New Name") }
+      it { user.bigbluebutton_room.name.should eql("New Name") }
+    end
+
+    context "doesn't update the name if the name was already changed directly before" do
+      before(:each) {
+        profile.update_attributes(full_name: "Old Name")
+        user.bigbluebutton_room.update_attributes(name: "Custom Room Name")
+        profile.update_attributes(full_name: "New Name")
+      }
+      it { profile.full_name.should eql("New Name") }
+      it { user.bigbluebutton_room.name.should eql("Custom Room Name") }
+    end
+  end
+
   describe "#linkable_url" do
     let(:profile) { FactoryGirl.create(:profile) }
 
@@ -85,30 +119,4 @@ describe Profile do
     it { FactoryGirl.build(:profile, url: "lala@gmail.com").valid_url?.should be(false) }
     it { FactoryGirl.build(:profile, url: "https://mconf.org").valid_url?.should be(true) }
   end
-
-  context "after_update" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:profile) { user.profile }
-
-    context "updates the name of the user's web conference room if both were equal" do
-      before(:each) {
-        profile.update_attributes(full_name: "name before")
-        profile.user.bigbluebutton_room.update_attribute(:name, "name before")
-        profile.update_attributes(full_name: "name after")
-      }
-
-      it { profile.user.bigbluebutton_room.name.should eq("name after") }
-    end
-
-    context "does not update the name of the user's web conference room if both were different" do
-      before(:each) {
-        profile.update_attributes(full_name: "name before")
-        profile.user.bigbluebutton_room.update_attribute(:name, "other name")
-        profile.update_attributes(full_name: "name after")
-      }
-
-      it { profile.user.bigbluebutton_room.name.should eq("other name") }
-    end
-  end
-
 end

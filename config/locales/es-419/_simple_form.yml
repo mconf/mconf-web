@@ -69,7 +69,7 @@ es-419:
           presenter_share_only: "Cuando se activa, sólo se le permite al presentador compartir su webcam y micrófono. Esto es ideal para conferencias uno a muchos."
           private: "Salas privadas requieren una contraseña para que los usuarios puedan unirse. Las salas públicas son accesibles por cualquier persona con su enlace. Sólo los miembros pueden iniciar una conferencia en la sala de un espacio, sin importar si es privada o pública."
           welcome_msg: "Este mensaje se mostrará en el chat cuando un usuario se una a la conferencia. Déjelo vacío para usar el mensaje predeterminado. Puede incluir información específica de la reunión utilizando las variables %%CONFNAME%%, %%DIALNUM%% y %%CONFNUM%%"
-        permalink: "Este atributo es utilizado para identificar su espacio en la URL, incluso la URL de su sala de conferencias. Utilice sólo letras minúsculas, números o guiones."
+        slug: "Este atributo es utilizado para identificar su espacio en la URL, incluso la URL de su sala de conferencias. Utilice sólo letras minúsculas, números o guiones."
         public: "Los espacios colaborativos pueden ser públicos, para que cualquier persona pueda acceder a ellos, o privados, donde sólo los miembros tienen acceso a las actividades del espacio"
         repository: "El repositorio de documentos es un lugar donde los usuarios de este espacio pueden subir y compartir documentos de cualquier tipo"
       user:

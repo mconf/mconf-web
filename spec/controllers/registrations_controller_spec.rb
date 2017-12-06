@@ -15,7 +15,7 @@ describe RegistrationsController do
     describe "if registrations are enabled in the site" do
       before(:each) { get :new }
       it { should render_template(:new) }
-      it { should render_with_layout("navbar_bg") }
+      it { should render_with_layout("application") }
     end
 
     describe "if registrations are disabled in the site" do

@@ -31,22 +31,22 @@ describe 'Admin manages users' do
       before { visit manage_users_path }
 
       it { should have_css '#users-list .list-item', count: 8 }
-      it { should have_css '#users-list .icon-mconf-delete', count: 7 }
+      it { should have_css '#users-list .icon-delete', count: 7 }
 
       it { should have_css '#users-list .list-item.list-item-disabled', count: 2 }
-      it { should have_css '#users-list .icon-mconf-enable', count: 2 }
+      it { should have_css '#users-list .icon-enable', count: 2 }
 
-      it { should have_css '#users-list .icon-mconf-confirm-user', count: 2 }
-      it { should have_css '#users-list .icon-mconf-approve', count: 2 }
-      it { should have_css '#users-list .icon-mconf-superuser', count: 2 }
-      it { should have_css '#users-list .icon-mconf-cant-rec', :count => 5 }
-      it { should have_css '#users-list .icon-mconf-can-rec', :count => 1 }
+      it { should have_css '#users-list .icon-confirm-user', count: 2 }
+      it { should have_css '#users-list .icon-approve', count: 2 }
+      it { should have_css '#users-list .icon-superuser', count: 2 }
+      it { should have_css '#users-list .icon-cant-rec', :count => 5 }
+      it { should have_css '#users-list .icon-can-rec', :count => 1 }
 
       context 'elements for the signed in user' do
         let(:user) { admin }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_edit_user(user) }
@@ -62,9 +62,9 @@ describe 'Admin manages users' do
 
       context 'elements for a normal user' do
         let(:user) { @user1 }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
-        it { should have_css '.icon-mconf-user' }
+        it { should have_css '.icon-user' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.normal_user') }
         it { should have_link_to_edit_user(user) }
@@ -78,9 +78,9 @@ describe 'Admin manages users' do
 
       context 'elements for an admin' do
         let(:user) { @user_admin }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_css '.management-links' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_edit_user(user) }
@@ -94,7 +94,7 @@ describe 'Admin manages users' do
 
       context 'elements for a disabled user' do
         let(:user) { @disabled_user1 }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_css '.management-links' }
         it { should have_link_to_enable_user(user) }
@@ -109,7 +109,7 @@ describe 'Admin manages users' do
 
       context 'elements for an unconfirmed normal user' do
         let!(:user) { @unconfirmed_user }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_link_to_edit_user(user) }
         it { should have_link_to_destroy_user(user) }
@@ -141,7 +141,7 @@ describe 'Admin manages users' do
 
       context 'elements for a normal approved user' do
         let(:user) { @user1 }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_css '.management-links' }
         it { should have_link_to_disapprove_user(user) }
@@ -150,7 +150,7 @@ describe 'Admin manages users' do
 
       context 'elements for an approved admin user' do
         let(:user) { User.first }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_css '.management-links' }
         it { should_not have_link_to_disapprove_user(user) }
@@ -159,7 +159,7 @@ describe 'Admin manages users' do
 
       context 'elements for a unapproved user' do
         let(:user) { @unapproved_user }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_css '.management-links' }
         it { should have_link_to_edit_user(user) }
@@ -172,20 +172,20 @@ describe 'Admin manages users' do
 
       context 'elements for a second approved admin user' do
         let(:user) { @user_admin }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_css '.management-links' }
         it { should have_link_to_edit_user(user) }
         it { should have_link_to_destroy_user(user) }
         it { should have_link_to_disapprove_user(user) }
-        it { should have_css '.icon-mconf-superuser' }
+        it { should have_css '.icon-superuser' }
         it { should have_content t('_other.user.administrator') }
         it { should have_link_to_disable_user(user) }
       end
 
       context 'elements for an unapproved and unconfirmed user' do
         let!(:user) { @unconfirmed_unapproved_user }
-        subject { page.find("#user-#{user.permalink}") }
+        subject { page.find("#user-#{user.slug}") }
 
         it { should have_link_to_edit_user(user) }
         it { should have_link_to_destroy_user(user) }
@@ -213,8 +213,8 @@ describe 'Admin manages users' do
         before { visit manage_users_path }
 
         it { should have_css '.list-item', count: 7 }
-        it { should have_css '.icon-mconf-delete', count: 6 }
-        it { should have_css '.icon-mconf-superuser', count: 1 }
+        it { should have_css '.icon-delete', count: 6 }
+        it { should have_css '.icon-superuser', count: 1 }
 
         it { should have_content @user_local.full_name }
         it { should have_content @user_ldap.full_name }
@@ -225,7 +225,7 @@ describe 'Admin manages users' do
 
         context 'elements for admin' do
           let(:user) { User.first }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { should have_content user.last_sign_in_method }
           it { should have_content I18n.l(user.current_sign_in_at.in_time_zone, format: :numeric) }
@@ -233,7 +233,7 @@ describe 'Admin manages users' do
 
         context 'elements for a local user' do
           let(:user) { @user_local }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
           it { should have_css "[title='#{t('.manage.user_item.never_sign_in')}']" }
@@ -241,7 +241,7 @@ describe 'Admin manages users' do
 
         context 'elements for a shib user' do
           let(:user) { @user_shib }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should_not have_content User.last.sign_in_method_name }
           it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }
@@ -253,7 +253,7 @@ describe 'Admin manages users' do
 
         context 'elements for a ldap user' do
           let(:user) { @user_ldap }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should_not have_content User.last.sign_in_method_name }
           it { subject.find(".user-login").should_not have_content ShibToken.last.sign_in_method_name }
@@ -263,7 +263,7 @@ describe 'Admin manages users' do
 
         context 'elements for a shib and local user' do
           let(:user) { @user_shib_local }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
           it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }
@@ -273,7 +273,7 @@ describe 'Admin manages users' do
 
         context 'elements for a ldap and local user' do
           let(:user) { @user_ldap_local }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
           it { subject.find(".user-login").should_not have_content ShibToken.last.sign_in_method_name }
@@ -283,7 +283,7 @@ describe 'Admin manages users' do
 
         context 'elements for a shib and ldap and local user' do
           let(:user) { @user_ldap_shib_local }
-          subject { page.find("#user-#{user.permalink}") }
+          subject { page.find("#user-#{user.slug}") }
 
           it { subject.find(".user-login").should have_content User.last.sign_in_method_name }
           it { subject.find(".user-login").should have_content ShibToken.last.sign_in_method_name }

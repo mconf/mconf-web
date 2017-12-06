@@ -13,6 +13,7 @@ class Profile < ActiveRecord::Base
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :full_name to have length >= 3
   validates :full_name, presence: true, length: { minimum: 3 }, on: :create
+  alias_attribute :name, :full_name
 
   after_update :crop_avatar
 
@@ -23,11 +24,9 @@ class Profile < ActiveRecord::Base
   after_update :update_webconf_room
 
   def update_webconf_room
-    if self.full_name_changed?
+    if self.full_name_changed? && self.user.bigbluebutton_room
       if self.full_name_was == self.user.bigbluebutton_room.name
-        params = {
-          :name => self.full_name
-        }
+        params = { name: self.full_name }
         self.user.bigbluebutton_room.update_attributes(params)
       end
     end

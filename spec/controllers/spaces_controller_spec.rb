@@ -337,7 +337,7 @@ describe SpacesController do
       let(:space_attributes) { FactoryGirl.attributes_for(:space) }
       let(:params) {
         {
-          :id => space.permalink,
+          :id => space.slug,
           :controller => "spaces",
           :action => "update",
           :space => space_attributes
@@ -345,7 +345,7 @@ describe SpacesController do
       }
 
       let(:space_allowed_params) {
-        [ :name, :description, :logo_image, :public, :permalink, :disabled,
+        [ :name, :description, :logo_image, :public, :slug, :disabled,
           :repository, :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h, :tag_list,
           :bigbluebutton_room_attributes =>
             [ :id, :attendee_key, :moderator_key, :default_layout, :private, :welcome_msg ]
@@ -500,7 +500,7 @@ describe SpacesController do
       login_as(FactoryGirl.create(:superuser))
     }
 
-    context "loads the space by permalink" do
+    context "loads the space by slug" do
       let(:space) { FactoryGirl.create(:space) }
       before(:each) { post :enable, :id => space.to_param }
       it { assigns(:space).should eql(space) }
@@ -711,7 +711,7 @@ describe SpacesController do
     context ".json" do
       let(:expected) {
         @spaces.map do |s|
-          { :id => s.id, :permalink => s.permalink, :name => s.name,
+          { :id => s.id, :slug => s.slug, :name => s.name,
             :public => s.public, :text => s.name, :url => space_url(s) }
         end
       }

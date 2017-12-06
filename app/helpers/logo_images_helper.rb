@@ -4,6 +4,8 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require 'digest/sha1'
+
 def image_url(path)
   "#{root_url}/#{image_path(path)}"
 end
@@ -42,7 +44,7 @@ module LogoImagesHelper
 
         image_tag(resource.logo_image_url(version_name), options)
       else
-        empty_logo_image(model_type, options)
+        logo_initials(resource, options)
       end
 
     # Try a gravatar image if we have a confirmed user
@@ -55,25 +57,21 @@ module LogoImagesHelper
       image_tag(GravatarImageTag.gravatar_url(resource.email, grav_options), options)
 
     else
-      empty_logo_image(model_type, options)
+      logo_initials(resource, options)
     end
   end
 
-  def empty_logo_url(resource, options={})
-    case resource
-    when :user
-      "default_logos/" + options[:size] + "/user.png"
-    when :space
-      "default_logos/" + options[:size] + "/space.png"
-    when :event
-      "default_logos/" + options[:size] + "/event.png"
-    end
+  def logo_initials_class(seed)
+    i = Digest::SHA1.hexdigest(seed).to_i(16)
+    i = (i % 9) + 1
+    #i = (seed/1000) % 10
+    "logo-initials-#{i}"
   end
 
-  def empty_logo_image(resource, options={})
-    options[:size] = validate_logo_size(options[:size])
-    cls = "#{options[:class]} empty-logo".strip
-    image_tag(empty_logo_url(resource, options), class: cls, title: options[:title])
+  def logo_initials(resource, options={})
+    logo_initials_cls = logo_initials_class(resource.name)
+    cls = "#{options[:class]} logo-initials #{logo_initials_cls}".strip
+    content_tag :div, resource.initials[0..1].upcase, class: cls, title: options[:title]
   end
 
   def link_logo_image(resource, options={})

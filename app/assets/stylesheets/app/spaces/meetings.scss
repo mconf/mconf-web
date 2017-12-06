@@ -19,7 +19,7 @@ body.spaces.meetings {
       @include border-radius($m-border-radius-base);
       background: $m-red;
       color: white;
-      .icon-awesome { color: white; }
+      .icon { color: white; }
     }
 
     #space-meetings-success {
@@ -27,7 +27,7 @@ body.spaces.meetings {
       @include border-radius($m-border-radius-base);
       background: $m-green;
       color: white;
-      .icon-awesome { color: white; }
+      .icon { color: white; }
     }
 
     #space-meetings-loading {
@@ -42,7 +42,7 @@ body.spaces.meetings {
       display: none;
     }
 
-    .icon-awesome {
+    .icon {
       margin-top: 2px;
       float: none;
     }

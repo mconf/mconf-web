@@ -37,15 +37,15 @@ describe 'Admin manages recordings' do
       before { visit manage_recordings_path }
 
       it { should have_css '.list-item', :count => 5 }
-      it { should have_css '.icon-mconf-delete', :count => 5 }
+      it { should have_css '.icon-delete', :count => 5 }
 
       it { should have_css '.recording-not-available-name', :count => 1 }
 
-      it { should have_css '.icon-mconf-edit', :count => 5 }
-      it { should have_css '.icon-mconf-publish', :count => 1 }
-      it { should have_css '.icon-mconf-unpublish', :count => 3 }
-      skip { should have_css '.icon-mconf-list.enabled', :count => 1 } # TODO: show playbacks icon
-      skip { should have_css '.icon-mconf-list.disabled', :count => 3 } # TODO: show playbacks icon
+      it { should have_css '.icon-edit', :count => 5 }
+      it { should have_css '.icon-publish', :count => 1 }
+      it { should have_css '.icon-unpublish', :count => 3 }
+      skip { should have_css '.icon-list.enabled', :count => 1 } # TODO: show playbacks icon
+      skip { should have_css '.icon-list.disabled', :count => 3 } # TODO: show playbacks icon
 
       context "recording with playback contains" do
         let(:recording) {@has_playback_rec}
@@ -77,10 +77,10 @@ describe 'Admin manages recordings' do
         let(:recording) { @has_playback_rec }
         subject { page.find("#recording-#{recording.id}") }
 
-        it { should have_css '.icon-mconf-edit' }
-        it { should have_css '.icon-mconf-unpublish' }
-        it { should have_css '.icon-mconf-delete' }
-        it { should have_css '.icon-mconf-list.enabled' }
+        it { should have_css '.icon-edit' }
+        it { should have_css '.icon-unpublish' }
+        it { should have_css '.icon-delete' }
+        it { should have_css '.icon-list.enabled' }
         it { should have_link_to_edit_bigbluebutton_recording(recording) }
         it { should have_link_to_unpublish_bigbluebutton_recording(recording) }
         it { should have_link_to_delete_bigbluebutton_recording(recording) }
@@ -96,10 +96,10 @@ describe 'Admin manages recordings' do
         let(:recording) { @no_playback_rec }
         subject { page.find("#recording-#{recording.recordid}") }
 
-        it { should have_css '.icon-mconf-edit' }
-        it { should have_css '.icon-mconf-unpublish' }
-        it { should have_css '.icon-mconf-delete' }
-        skip { should have_css '.icon-mconf-list.disabled' } # TODO
+        it { should have_css '.icon-edit' }
+        it { should have_css '.icon-unpublish' }
+        it { should have_css '.icon-delete' }
+        skip { should have_css '.icon-list.disabled' } # TODO
         it { should have_link_to_edit_bigbluebutton_recording(recording) }
         it { should have_link_to_unpublish_bigbluebutton_recording(recording) }
         it { should have_link_to_delete_bigbluebutton_recording(recording) }
@@ -111,10 +111,10 @@ describe 'Admin manages recordings' do
         let(:recording) { @published_rec }
         subject { page.find("#recording-#{recording.recordid}") }
 
-        it { should have_css '.icon-mconf-edit' }
-        it { should have_css '.icon-mconf-unpublish' }
-        it { should have_css '.icon-mconf-delete' }
-        skip { should have_css '.icon-mconf-list.disabled' } # TODO
+        it { should have_css '.icon-edit' }
+        it { should have_css '.icon-unpublish' }
+        it { should have_css '.icon-delete' }
+        skip { should have_css '.icon-list.disabled' } # TODO
         it { should have_link_to_edit_bigbluebutton_recording(recording) }
         it { should have_link_to_unpublish_bigbluebutton_recording(recording) }
         it { should have_link_to_delete_bigbluebutton_recording(recording) }
@@ -126,10 +126,10 @@ describe 'Admin manages recordings' do
         let(:recording) { @unpublished_rec }
         subject { page.find("#recording-#{recording.recordid}") }
 
-        it { should have_css '.icon-mconf-edit' }
-        it { should have_css '.icon-mconf-publish' }
-        it { should have_css '.icon-mconf-delete' }
-        skip { should have_css '.icon-mconf-list.disabled' } # TODO
+        it { should have_css '.icon-edit' }
+        it { should have_css '.icon-publish' }
+        it { should have_css '.icon-delete' }
+        skip { should have_css '.icon-list.disabled' } # TODO
         it { should have_link_to_edit_bigbluebutton_recording(recording) }
         it { should have_link_to_publish_bigbluebutton_recording(recording) }
         it { should have_link_to_delete_bigbluebutton_recording(recording) }
@@ -141,9 +141,9 @@ describe 'Admin manages recordings' do
         let(:recording) { @unavailable_rec }
         subject { page.find("#recording-#{recording.recordid}") }
 
-        it { should have_css '.icon-mconf-edit' }
-        it { should have_css '.icon-mconf-delete' }
-        it { should_not have_css '.icon-mconf-list' }
+        it { should have_css '.icon-edit' }
+        it { should have_css '.icon-delete' }
+        it { should_not have_css '.icon-list' }
         it { should have_link_to_edit_bigbluebutton_recording(recording) }
         it { should have_link_to_delete_bigbluebutton_recording(recording) }
         skip { should_not have_link_to_showplayback_bigbluebutton_recording(recording) } # TODO

@@ -1,7 +1,7 @@
 - page_title t('.title')
-- home_sidebar_menu_at(:activity)
+- home_navbar_menu_at(:activity)
 
-= content_for :sidebar do
-  = render "my/sidebar", user_spaces: @user_spaces
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
 
 = render "users/recent_activity", :content => @all_contents, :paginate => true

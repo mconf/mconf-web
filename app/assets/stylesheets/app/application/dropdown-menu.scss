@@ -19,6 +19,12 @@ $dropdown-bg-color: white;
 
   // show the menu when the dropdown is open
   &.open .dropdown-menu { display: block; }
+
+  &.open a.dropdown-toggle {
+    &, i {
+      color: $m-link-color-active;
+    }
+  }
 }
 
 // the arrow in the top of the dropdown menu

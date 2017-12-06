@@ -8,13 +8,17 @@
 = page_title title
 
 = content_for :sidebar do
-  .sidebar-title= title
-
   = render 'shared/user_card', user: @user, editing: true
-
-  - if current_user == @user
-    #user-cancel-account
-      = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t('.cancel_confirm').html_safe }, method: :delete, class: 'btn btn-danger btn-sm'
+= content_for :sidebar_menu do
+  %ul
+    %li= link_to "Perfil", my_meetings_path(recordedonly: 'false')
+    %li= link_to "Segurança", my_meetings_path
+    %li= link_to "Dados da assinatura", my_meetings_path
+    %li= link_to "Pagamentos", my_meetings_path
+  -# .sidebar-title= title
+  -# - if current_user == @user
+  -#   #user-cancel-account
+  -#     = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t('.cancel_confirm').html_safe }, method: :delete, class: 'btn btn-danger btn-sm'
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
@@ -51,10 +55,12 @@
     #user-address
       %h3= t('.address')
       = f.simple_fields_for :profile do |p|
+        .form-group.select.optional.user_profile_country
+          = p.input :country, wrapper: :label_only
+          = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
         = p.input :address
         = p.input :city
         = p.input :province
-        = p.input :country, as: :string
         = p.input :zipcode
         = p.input :phone
       = f.input :timezone, required: false do

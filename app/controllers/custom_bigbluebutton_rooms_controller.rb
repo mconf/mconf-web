@@ -13,7 +13,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # For :join and :end we need information from the web conference server, so we have to fetch it.
   # This has to run before any kind of authorization because some methods need this extra
   # information, see `ApplicationController.bigbluebutton_role`.
-  load_resource find_by: :param, class: "BigbluebuttonRoom",
+  load_resource find_by: :slug, class: "BigbluebuttonRoom",
     instance_name: "room", except: [:join, :end]
   prepend_before_action :load_and_fetch_room_info, only: [:join, :end]
 
@@ -132,7 +132,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   # Loads the room and fetches information from the web conference server.
   def load_and_fetch_room_info
-    @room = BigbluebuttonRoom.find_by!(param: params[:id])
+    @room = BigbluebuttonRoom.find_by!(slug: params[:id])
     @room.fetch_is_running?
     @room.fetch_meeting_info if @room.is_running?
   end
