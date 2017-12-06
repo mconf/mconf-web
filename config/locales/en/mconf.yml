@@ -1769,6 +1769,8 @@ en:
     approve:
       approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of users is not enabled in this website or the user is already approved"
+    cant_record_reason:
+      user_cannot_record: "The user that created this meeting has no permission to record meetings."
     create:
       error: "Errors creating the user: %{errors}"
       success: "User created successfully"
