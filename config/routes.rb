@@ -60,7 +60,7 @@ Mconf::Application.routes.draw do
   get '/webconf/:id',
     to: 'custom_bigbluebutton_rooms#invite_userid',
     as: "join_webconf"
-
+  bigbluebutton_api_routes
 
   # shibboleth controller
   get '/secure', to: 'shibboleth#login', as: "shibboleth"
