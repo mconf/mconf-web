@@ -31,8 +31,6 @@ pt-br:
       reset_password_instructions:
         copy_link: "(Se o botão acima não funcionar, copie e cole este endereço no seu navegador: %{url})"
         redefine_password: "Redefinir minha senha"
-    registrations:
-      terms_reject: "É preciso aceitar os termos de uso para criar uma conta."
   invoices:
     discount_days: "Taxa por usuário único com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
     discount_users: "Taxa por usuário único com desconto por quantidade de usuários %{percent_u}%"
@@ -94,7 +92,7 @@ pt-br:
       confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
       password_section: "Defina uma senha"
       service_usage_select: "Usarei o serviço para..."
-      terms: "Li e concordo com os <a href=\"https://mconf.com/termos/\" target=\"_blank\">termos de uso</a>"
+      terms: "Ao clicar em <em>%{Register}</em>, você concorda com os nossos <a href=\"https://mconf.com/termos/\" target=\"_blank\">termos de uso</a>. Ocasionalmente, nós lhe enviaremos emails relacionados com sua conta."
       user_info_section: "Seus dados"
       webconf_section: "Sua sala de conferência"
       webconf_id_tip: "Este será o identificador da URL da sua sala de conferência. Utilize apenas letras, números ou traços (“-“)."

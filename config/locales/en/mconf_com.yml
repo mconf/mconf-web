@@ -28,8 +28,6 @@ en:
       reset_password_instructions:
         copy_link: "(If the button above doesn't work, copy and paste this link in your browser: %{url})"
         redefine_password: "Redefine my password"
-    registrations:
-      terms_reject: "You must accept the terms and conditions to register an account."
   invoices:
     discount_days: "Unique users fee with discount for using only %{qtd_d} days (%{percent_d}%)"
     discount_users: "Unique users fee with discount for user ammount %{percent_u}%"
@@ -98,7 +96,7 @@ en:
       confirmation: "After registering you will receive an email confirmation with the link to activate your account"
       password_section: "Define a password"
       service_usage_select: "I will use the service for..."
-      terms: "I have read and agree to the <a href=\"https://mconf.com/terms/\" target=\"_blank\">terms and conditions</a>"
+      terms: "By clicking <em>%{register}</em>, you agree to our <a href=\"https://mconf.com/terms/\" target=\"_blank\">terms and conditions</a>. We’ll occasionally send you account related emails."
       user_info_section: "User information"
       webconf_section: "Your web conference room"
       webconf_id_tip: "This will be the identifier of your conference room in URLs. Use only letters, numbers or dashes (“-“)."

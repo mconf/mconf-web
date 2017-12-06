@@ -21,15 +21,6 @@ class mconf.SignupForm
     $cpfcnpj = $('#user_profile_attributes_cpf_cnpj:not(disabled)')
     $cpfcnpj.mask("99999999999?999",{placeholder:" "})
 
-    submitToggle = ->
-      $button.prop('disabled', !$terms.is(":checked"));
-
-    $terms = $("#terms")
-    $button = $("input[name='commit']")
-    submitToggle()
-    $terms.on 'change', (e) ->
-      submitToggle()
-
     $usageSelect = $("#service_usage_select")
     $usage = $("#user_profile_attributes_service_usage")
     $usageSelect.on 'change', (e) ->
