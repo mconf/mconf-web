@@ -602,7 +602,7 @@ describe CustomBigbluebuttonRoomsController do
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
               room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
-              room.should_receive(:create_meeting).with(user, anything, anything)
+              room.should_receive(:create_meeting).with(user, anything)
               room.should_receive(:fetch_new_token)
               room.should_receive(:join_url).and_return("http://test.com/attendee/join")
             end
@@ -673,7 +673,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: 0 })
                 room.stub(:fetch_is_running?).and_return(false)
                 room.stub(:is_running?).and_return(false)
-                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything)
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
@@ -752,7 +752,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: 0 })
                 room.stub(:fetch_is_running?).and_return(false)
                 room.stub(:is_running?).and_return(false)
-                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything)
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {

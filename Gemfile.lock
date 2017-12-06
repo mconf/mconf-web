@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 24d83a7d46b99b2445640f1f0ecebad6b82de587
-  branch: master
+  revision: fa4bfcd59a33af300d0882bd852609219a7b3d9b
+  branch: release-2.3
   specs:
-    bigbluebutton_rails (2.1.0)
+    bigbluebutton_rails (2.2.0)
       bigbluebutton-api-ruby (~> 1.6)
       browser (~> 0.8.0)
       rails (>= 4.0.0)

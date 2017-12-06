@@ -171,17 +171,6 @@ class ApplicationController < ActionController::Base
     ability.can?(:create_meeting, room)
   end
 
-  # This method is called from BigbluebuttonRails.
-  # Returns a hash with options to override the options used when making the API call to
-  # create a meeting in the room 'room'. The parameters returned are used directly in the
-  # API, so the keys should match the attributes used in the API and not the columns saved
-  # in the database (e.g. :attendeePW instead of :attendee_key)!
-  def bigbluebutton_create_options(room)
-    ability = Abilities.ability_for(current_user)
-    # show the record button if the user has permissions to record
-    { record: ability.can?(:record_meeting, room) }
-  end
-
   # loads the web conference room for the current space into `@webconf_room` and fetches information
   # about it from the web conference server (`getMeetingInfo`)
   def webconf_room!

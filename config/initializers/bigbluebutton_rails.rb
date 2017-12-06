@@ -14,13 +14,15 @@ BigbluebuttonRails.configure do |config|
   end
 
   # Add custom metadata to all create calls
-  config.get_dynamic_metadata = Proc.new do |room|
+  config.get_create_options = Proc.new do |room, user|
     host = Site.current.domain_with_protocol
-    meta = {
-      "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
-      "mconfweb-room-type" => room.try(:owner).try(:class).try(:name)
+    ability = Abilities.ability_for(user)
+
+    {
+      "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
+      "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
+      record: ability.can?(:record_meeting, room)
     }
-    meta
   end
 end
 

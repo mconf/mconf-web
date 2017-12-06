@@ -28,15 +28,15 @@ describe BigbluebuttonRails do
     end
   end
 
-  describe "#dynamic_metadata" do
+  describe "#get_create_options" do
     let(:target) { BigbluebuttonRails.configuration }
     let(:room) { FactoryGirl.create(:bigbluebutton_room) }
     before {
       Site.current.update_attributes(domain: "localhost:4000")
     }
 
-    it { target.should respond_to(:get_dynamic_metadata) }
-    it { target.get_dynamic_metadata.should be_a(Proc) }
+    it { target.should respond_to(:get_create_options) }
+    it { target.get_create_options.should be_a(Proc) }
 
     context "for a user room" do
       before {
@@ -44,11 +44,10 @@ describe BigbluebuttonRails do
       }
 
       it {
-        expected = {
-          "mconfweb-url" => "http://#{Site.current.domain}/",
-          "mconfweb-room-type" => "User"
-        }
-        target.get_dynamic_metadata.call(room).should eql(expected)
+        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
+        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("User")
       }
     end
 
@@ -58,11 +57,10 @@ describe BigbluebuttonRails do
       }
 
       it {
-        expected = {
-          "mconfweb-url" => "http://#{Site.current.domain}/",
-          "mconfweb-room-type" => "Space"
-        }
-        target.get_dynamic_metadata.call(room).should eql(expected)
+        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("http://#{Site.current.domain}/")
+        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
       }
     end
 
@@ -73,11 +71,10 @@ describe BigbluebuttonRails do
       }
 
       it {
-        expected = {
-          "mconfweb-url" => "https://#{Site.current.domain}/",
-          "mconfweb-room-type" => "Space"
-        }
-        target.get_dynamic_metadata.call(room).should eql(expected)
+        target.get_create_options.call(room).should have_key("meta_mconfweb-url")
+        target.get_create_options.call(room).should have_key("meta_mconfweb-room-type")
+        target.get_create_options.call(room)["meta_mconfweb-url"].should eql("https://#{Site.current.domain}/")
+        target.get_create_options.call(room)["meta_mconfweb-room-type"].should eql("Space")
       }
     end
   end

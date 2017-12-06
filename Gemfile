@@ -54,7 +54,7 @@ gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :git => 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
+gem 'bigbluebutton_rails', :git => 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'release-2.3'
 
 # Used on Profile to generate a vcard
 gem 'vpim', '~> 13.11.11'
