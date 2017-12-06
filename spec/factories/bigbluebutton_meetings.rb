@@ -12,7 +12,6 @@ FactoryGirl.define do
     m.recorded false
     m.running false
     m.ended false
-    m.start_time { Time.at(Time.now.to_i + rand(999999)) }
     m.create_time { Time.now.to_i + rand(999999) }
     # m.creator_id
     # m.creator_name

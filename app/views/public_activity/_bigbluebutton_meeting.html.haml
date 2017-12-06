@@ -20,9 +20,9 @@
     = icon_meeting
     - if meeting.present?
       - if meeting.room.owner_type == 'User'
-        = activity_translate('bigbluebutton_meeting.user.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
+        = activity_translate('bigbluebutton_meeting.user.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.create_time))
       - elsif meeting.room.owner_type == 'Space'
-        = activity_translate('bigbluebutton_meeting.space.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
+        = activity_translate('bigbluebutton_meeting.space.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.create_time))
     - else
       = activity_translate('bigbluebutton_meeting.deleted')
 
