@@ -166,23 +166,4 @@ describe BigbluebuttonRails do
 
   end
 
-  describe "#select_server" do
-    let(:target) { BigbluebuttonRails.configuration }
-    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-
-    it { target.should respond_to(:select_server) }
-    it { target.select_server.should be_a(Proc) }
-
-    context "calls room#server_considering_secret" do
-      before {
-        Site.current.update_attributes(domain: "localhost:4000")
-        room.should_receive(:server_considering_secret).with(:create).and_return('expected result')
-      }
-
-      it {
-        target.select_server.call(room, :create).should eql('expected result')
-      }
-    end
-  end
-
 end

@@ -62,7 +62,7 @@
     %div
       = t('.created_at') + ": "
       %span.tooltipped{title: recording.start_time}
-        = I18n.l(recording.start_time, format: :long)
+        = I18n.l(Time.at(recording.start_time), format: :long)
 
   .playback-types
     %h5= t(".playback_links")

@@ -259,7 +259,7 @@ namespace :db do
         recording.name = Populator.words(3..5).titleize
         recording.published = true
         recording.available = true
-        recording.start_time = @created_at_start..Time.now
+        recording.start_time = (Time.now-1.year).to_i..Time.now.to_i
         recording.end_time = recording.start_time + rand(5).hours
         recording.description = Populator.words(5..8)
         recording.size = rand((20*1024**2)..(500*1024**2)) #size ranging from 20Mb to 500Mb

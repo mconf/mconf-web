@@ -120,7 +120,7 @@ Rails.application.config.to_prepare do
 
     # The default ordering for search methods
     scope :search_order, -> {
-      order("bigbluebutton_recordings.create_time DESC")
+      order("bigbluebutton_recordings.start_time DESC")
     }
 
     # Filters a query to return only recordings that have at least one playback format
@@ -132,26 +132,5 @@ Rails.application.config.to_prepare do
     scope :no_playback, -> {
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
-
-
-    # Finds the BigbluebuttonMeeting that generated this recording. The meeting is searched using
-    # the room associated with this recording and the create time of the meeting, taken from
-    # the recording's ID.
-    def self.find_matching_meeting(recording)
-      meeting = nil
-
-      unless recording.nil? or recording.room.nil?
-        unless recording.start_time.nil?
-          start_time = recording.start_time
-          meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time = ?", recording.room.id, start_time).last
-            if meeting.nil?
-              meeting = BigbluebuttonMeeting.where("room_id = ? AND create_time DIV 1000 = ?", recording.room.id, start_time).last
-            end
-          logger.info "Recording: meeting found for the recording #{recording.inspect}: #{meeting.inspect}"
-        end
-      end
-
-      meeting
-    end
   end
 end
