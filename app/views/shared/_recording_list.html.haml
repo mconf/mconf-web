@@ -47,8 +47,8 @@
                 %span.recording-description= recording.description
 
             .thread-subtitle
-              .recording-date{ :title => "#{t('.ended_at')}: #{format_date(recording.end_time)}" }
-                = "#{t('.started_at')} #{format_date(Time.at(recording.create_time))}"
+              .recording-date{ :title => "#{t('.ended_at')}: #{format_date(Time.at(recording.end_time))}" }
+                = "#{t('.started_at')} #{format_date(Time.at(recording.start_time))}"
 
             - if show_authors
               .thread-subtitle

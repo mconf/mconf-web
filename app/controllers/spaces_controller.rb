@@ -160,15 +160,7 @@ class SpacesController < InheritedResources::Base
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    # FIXME: Temporarily matching users by name, should use the userID
-    @webconf_attendees = []
-    unless @webconf_room.attendees.nil?
-      @webconf_room.attendees.each do |attendee|
-        user = User.where(id: attendee.user_id).first
-        @webconf_attendees << user unless user.nil?
-      end
-      @webconf_attendees.uniq!
-    end
+    @webconf_attendees = @webconf_room.current_attendees
   end
 
   # Action used to show the recordings of a space

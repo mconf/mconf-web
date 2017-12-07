@@ -43,14 +43,14 @@
     - else
       #webconference-all-users
         %h4= t('.webconference.attendees.all_users') + ":"
-        - @webconf_room.attendees.each_with_index do |attendee, i|
+        - @webconf_attendees.each_with_index do |attendee, i|
           - if attendee.role == :moderator
             = icon_user title: "Moderator"
           %span
-            - unless i == @webconf_room.attendees.size-1
-              = "#{attendee.full_name}, "
+            - unless i == @webconf_attendees.size-1
+              = "#{attendee.user_name}, "
             - else
-              = attendee.full_name
+              = attendee.user_name
       %h4= t('.webconference.attendees.registered_users') + ":"
       - @webconf_attendees.each do |user|
         = render :partial => 'users/simple_user', :locals => { :user => user }

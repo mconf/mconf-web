@@ -22,7 +22,7 @@
         = t('bigbluebutton_rails.servers.activity.ended_at', :time => room.end_time.strftime("%F, %R UTC%z"), :forcibly => room.has_been_forcibly_ended)
 
     .meeting-attendees
-      - unless room.attendees.count == 0
+      - unless room.current_attendees.count == 0
         = t('bigbluebutton_rails.servers.activity.participants', :total => room.participant_count, :mods => room.moderator_count)
         %table.table.table-bordered.table-condensed
           %thead
@@ -31,8 +31,8 @@
               %th= t('bigbluebutton_rails.attendees.id')
               %th= t('bigbluebutton_rails.attendees.name')
           %tbody
-            - room.attendees.each do |attendee|
+            - room.current_attendees.each do |attendee|
               %tr
                 %td= attendee.role
                 %td= attendee.user_id
-                %td= attendee.full_name
+                %td= attendee.user_name
