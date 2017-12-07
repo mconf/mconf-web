@@ -54,6 +54,8 @@ en:
       pay: "Pay invoice"
     minimum_fee: "Minimum service fee"
     minimum_fee_discount_days: "Minimum service fee with discount for using only %{qtd_d} days (%{percent_d}%)"
+    report:
+      report_missing: "Report not found, try again or contact an admin"
     show:
       cost_base: "Total cost without discounts"
       days_consumed: "Ammount of days consumed"

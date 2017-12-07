@@ -57,6 +57,8 @@ pt-br:
       pay: "Pagar fatura"
     minimum_fee: "Taxa mínima de serviço"
     minimum_fee_discount_days: "Taxa mínima de serviço com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
+    report:
+      report_missing: "Relatório não encontrado, tente novamente ou entre em contato com um administrador"
     show:
       cost_base: "Valor total sem desconto"
       days_consumed: "Quantidade de dias consumidos"

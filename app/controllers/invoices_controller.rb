@@ -37,7 +37,8 @@ class InvoicesController < InheritedResources::Base
       @file = @invoice.report_file_path
       send_file @file, disposition: 'attachment', x_sendfile: true
     else
-      nil
+      flash = { error: t(".report_missing") }
+      redirect_to user_invoice_path(current_user.username, @invoice.id), :flash => flash
     end
   end
 end
