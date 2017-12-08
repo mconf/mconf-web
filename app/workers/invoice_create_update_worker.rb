@@ -18,7 +18,7 @@ class InvoiceCreateUpdateWorker < BaseWorker
       if subscription.invoices.last.present?
 
         # the last invoice is for the current month
-        if subscription.invoices.last.due_this_month?
+        if subscription.invoices.last.reference_this_month?
           subscription.invoices.last.update_unique_user_qty
 
         # the last invoice is not for this month
