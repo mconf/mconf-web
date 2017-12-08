@@ -40,5 +40,10 @@ describe DatesHelper do
         format_date(d).should eql("05 Ago, 12:00")
       }
     end
+
+    context "accepts timestamps" do
+      it { format_date(1490108071).should eql("21 Mar 14:54") }
+      it("with microseconds") { format_date(1490108071000).should eql("21 Mar 14:54") }
+    end
   end
 end
