@@ -12,7 +12,7 @@ class SubscriptionMailer < BaseMailer
     @user = User.find(subscription_creator_id)
     I18n.with_locale(default_email_locale(@user, nil)) do
       subject = t("subscription_mailer.subscription_created_notification_email.subject",
-        :id => subscription.id).html_safe
+        :name => @user.name).html_safe
       create_email(@user.email, Site.current.smtp_sender, subject)
     end
   end
@@ -22,7 +22,7 @@ class SubscriptionMailer < BaseMailer
     @user = User.find(subscription_creator_id)
     I18n.with_locale(default_email_locale(@user, nil)) do
       subject = t("subscription_mailer.subscription_destroyed_notification_email.subject",
-        :id => subscription.id).html_safe
+        :name => @user.name).html_safe
       create_email(@user.email, Site.current.smtp_sender, subject)
     end
   end

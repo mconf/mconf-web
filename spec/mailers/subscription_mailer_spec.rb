@@ -24,10 +24,10 @@ describe SubscriptionMailer do
     end
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
-    it("sets 'subject'") {
+    it("sets 'subject'") do
       text = I18n.t('subscription_mailer.subscription_created_notification_email.subject', :id => subscription.id)
       mail.subject.should eql(text)
-    }
+    end
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
     it("sets 'headers'") { mail.headers.should eql({}) }
     it("renders the link to see the web conference room of the user") {
@@ -42,15 +42,15 @@ describe SubscriptionMailer do
     let(:url) { "www.contact.com" }
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
-    it("sets 'subject'") {
+    it("sets 'subject'") do
       text = I18n.t('subscription_mailer.subscription_destroyed_notification_email.subject', :id => subscription.id)
       mail.subject.should eql(text)
-    }
+    end
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
     it("sets 'headers'") { mail.headers.should eql({}) }
-    it("renders contact email") {
+    it("renders contact email") do
       content = I18n.t('subscription_mailer.subscription_destroyed_notification_email.message.contact', :contact_email => Site.current.smtp_receiver).html_safe
       mail_content(mail).should match(content)
-    }
+    end
   end
 end

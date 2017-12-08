@@ -281,21 +281,23 @@ describe Subscription do
     let!(:plan) { FactoryGirl.create(:plan) }
     subject {
       with_activities do
-        Subscription.create(plan_token: plan.ops_token,
-                            user_id:user.id,
-                            customer_token: "ASF",
-                            subscription_token: "ASDF",
-                            pay_day: "2018-01-11",
-                            cpf_cnpj: "011.354.780-31",
-                            address: "frase",
-                            additional_address_info: "a 5",
-                            number: "201",
-                            zipcode: "2222-22",
-                            city: "poa",
-                            province: "rs",
-                            district: "bla",
-                            country: "brazil",
-                            integrator: false)
+        Subscription.create(
+          plan_token: plan.ops_token,
+          user_id:user.id,
+          customer_token: "ASF",
+          subscription_token: "ASDF",
+          pay_day: "2018-01-11",
+          cpf_cnpj: "011.354.780-31",
+          address: "frase",
+          additional_address_info: "a 5",
+          number: "201",
+          zipcode: "2222-22",
+          city: "poa",
+          province: "rs",
+          district: "bla",
+          country: "brazil",
+          integrator: false
+        )
       end
     }
     it do

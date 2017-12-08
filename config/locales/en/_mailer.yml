@@ -110,13 +110,13 @@ en:
         sub_title_go_beyond: "Go beyond!"
         more: "<ul> <li>Customize your room with the logo and colors of your company. <b>No extra charges</b>;</li> <li>Integrate with the LMS (Learning Management System) of your choice. Available: <b>Moodle; WordPress; Canvas;</b></li> <li>Provide a custom access link directly from your web site.</li></ul>"
         contact: "Please contact us for more information! <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "Subscription %{id} created."
+      subject: "%{name}: Your subscription was successfully created."
     subscription_destroyed_notification_email:
       message:
         hello: "Hi %{name},"
         main_text: "Your subscription to Mconf has ended and your account will now be downgraded to a free plan. Thank you for subscribing to Mconf!"
         contact: "For further questions please contact us at <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "Subscription %{id} ended."
+      subject: "%{name}: Your subscription had ended."
   shared:
     invitation_email:
       message:

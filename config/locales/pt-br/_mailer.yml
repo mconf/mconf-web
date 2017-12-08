@@ -110,13 +110,13 @@ pt-br:
         sub_title_go_beyond: "Vá além!"
         more: "<ul> <li>Customize sua sala com o logo e as cores da sua empresa. <b>Sem custos adicionais</b>;</li> <li>Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <b>Moodle; WordPress; Canvas;</b></li> <li>Disponibilize um link de acesso personalizado diretamente do seu site.</li></ul>"
         contact: "Entre em contato conosco para maiores informações: <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "Assinatura %{id} criada."
+      subject: "%{name}: Sua assinatura foi criada com sucesso."
     subscription_destroyed_notification_email:
       message:
         hello: "Ola %{name},"
         main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
         contact: "Entre em contato conosco caso tenha dúvidas ou precise maiores informações através do e-mail <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "Assinatura %{id} cancelada."
+      subject: "%{name}: Sua assinatura foi cancelada."
   shared:
     invitation_email:
       message:
