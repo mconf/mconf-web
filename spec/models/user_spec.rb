@@ -438,6 +438,31 @@ describe User do
         end
       end
     end
+
+    describe 'user approval notifications' do
+      let(:admin) { User.superusers.first }
+
+      context 'dont send notifications if the site doesnt require approval' do
+        before {
+          Site.current.update_attributes(require_registration_approval: false)
+          @user = FactoryGirl.create(:user, approved: false)
+        }
+
+        it { AdminMailer.should have_queue_size_of(0) }
+        it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+      end
+
+      context 'send notifications if site requires approval' do
+        before { Site.current.update_attributes(require_registration_approval: true) }
+
+        context 'dont send notifications if the user is created with approved: true' do
+          before { @user = FactoryGirl.build(:user, approved: true) }
+
+          it { AdminMailer.should have_queue_size_of(0) }
+          it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+        end
+      end
+    end
   end
 
   describe "on destroy" do
