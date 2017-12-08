@@ -74,17 +74,6 @@ Rails.application.config.to_prepare do
     }
   end
 
-  BigbluebuttonServer.instance_eval do
-
-    # When the URL of the default server changes, change the URL of all institution servers.
-    after_update if: :url_changed? do
-      if BigbluebuttonServer.default.id == self.id
-        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
-      end
-    end
-
-  end
-
   BigbluebuttonRecording.instance_eval do
 
     # Search recordings based on a list of words
