@@ -1200,6 +1200,21 @@ describe User do
     end
   end
 
+  describe "#cant_record_reason" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    let(:user) { FactoryGirl.create(:user, bigbluebutton_room: room) }
+
+    context "returns the reason if the user can't record" do
+      before { user.update_attributes(can_record: false) }
+      it { user.cant_record_reason(room).should eql(I18n.t('users.cant_record_reason.user_cannot_record')) }
+    end
+
+    context "returns nil if the user can record" do
+      before { user.update_attributes(can_record: true) }
+      it { user.cant_record_reason(room).should be_nil }
+    end
+  end
+
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
     set_custom_ability_actions([

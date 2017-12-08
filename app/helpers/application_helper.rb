@@ -209,6 +209,11 @@ module ApplicationHelper
     end
   end
 
+  # Just a wrapper around the Rails method to convert values to boolean
+  def value_to_boolean(value)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
