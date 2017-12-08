@@ -245,8 +245,8 @@ class Invoice < ActiveRecord::Base
   end
 
   def reference_this_month?
-    (self.due_date.utc.to_date.month == DateTime.now.utc.month+1.month && self.due_date.utc.to_date.year == DateTime.now.utc.year) ||
-    (self.due_date.utc.to_date.month == DateTime.now.utc.month+1.month && self.due_date.utc.to_date.month == 1 && self.due_date.utc.to_date.year == DateTime.now.utc.year+1.year)
+    (self.due_date.utc.to_date.month == (DateTime.now.utc+1.month).month && self.due_date.utc.to_date.year == (DateTime.now.utc+1.month).year) ||
+    (self.due_date.utc.to_date.month == (DateTime.now.utc+1.month).month && self.due_date.utc.to_date.month == 1 && self.due_date.utc.to_date.year == (DateTime.now.utc+1.year).year)
   end
 
   # The reference month is the month that generated this invoice (the month before

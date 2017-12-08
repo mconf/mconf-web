@@ -7,6 +7,13 @@
 require 'spec_helper'
 
 describe SubscriptionSenderWorker, type: :worker do
+  before {
+    Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:update_customer).and_return(true)
+  }
+
   let(:worker) { SubscriptionSenderWorker }
   let(:subscription) { FactoryGirl.create(:subscription) }
   let(:user) { FactoryGirl.create(:user) }

@@ -7,6 +7,13 @@
 require "spec_helper"
 
 describe SubscriptionMailer do
+  before {
+    Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:update_customer).and_return(true)
+  }
+
   let(:user) { FactoryGirl.create(:user) }
   let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
 

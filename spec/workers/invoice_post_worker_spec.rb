@@ -7,6 +7,13 @@
 require 'spec_helper'
 
 describe InvoicePostWorker, type: :worker do
+  before {
+    Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:update_customer).and_return(true)
+  }
+
   let(:worker) { InvoicePostWorker }
   let!(:invoice) { FactoryGirl.create(:invoice, flag_invoice_status: Invoice::INVOICE_STATUS[:local]) }
   before { Mconf::Iugu.stub(:add_invoice_item).and_return(true) }

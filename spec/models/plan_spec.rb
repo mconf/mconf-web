@@ -15,8 +15,13 @@ describe Plan do
   it { should validate_presence_of(:interval)       }
   it { should validate_presence_of(:interval_type)  }
 
-  before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number) }
-  before { Mconf::Iugu.stub(:destroy_plan).and_return(true) }
+  before {
+    Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+    Mconf::Iugu.stub(:update_customer).and_return(true)
+    Mconf::Iugu.stub(:destroy_plan).and_return(true)
+  }
 
   describe "#create_ops_plan" do
     context "no token returned from OPS" do
