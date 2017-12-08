@@ -176,13 +176,13 @@ class Invoice < ActiveRecord::Base
   end
 
   def generate_consumed_days(action)
-    today = DateTime.now.utc.day
     base_month_days = Rails.application.config.base_month_days
 
     if action == "create"
-      consumed = Rails.application.config.base_month_days - today
+      consumed = Rails.application.config.base_month_days - self.subscription.pay_day.to_date.day
       consumed = 0 if consumed < 0
     elsif action == "destroy"
+      today = DateTime.now.utc.day
       # canceling the same month the subscription was created
       if self.days_consumed.present? && days_consumed != 0
         consumed = today - (base_month_days - days_consumed)
