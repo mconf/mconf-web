@@ -9,16 +9,19 @@ class SubscriptionSenderWorker < BaseWorker
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
 
-    if !activity.notified? && activity.trackable.present?
+    if !activity.notified?
       subscription_creator_name = activity.recipient.username
-      subscription_id = activity.trackable_id
 
-      if (activity.key == "subscription.created")
-        Resque.logger.info "Sending subscription created to #{subscription_creator_name} with subscription ID: #{subscription_id}"
-        SubscriptionMailer.subscription_created_notification_email(activity.recipient_id, subscription_id).deliver
+      if activity.trackable.present?
+        subscription_id = activity.trackable_id
+
+        if (activity.key == "subscription.created")
+          Resque.logger.info "Sending subscription created to #{subscription_creator_name} with subscription ID: #{subscription_id}"
+          SubscriptionMailer.subscription_created_notification_email(activity.recipient_id, subscription_id).deliver
+        end
       elsif (activity.key == "subscription.destroyed")
         Resque.logger.info "Sending subscription destroyed to #{subscription_creator_name} with subscription ID: #{subscription_id}"
-        SubscriptionMailer.subscription_destroyed_notification_email(activity.recipient_id, subscription_id).deliver
+        SubscriptionMailer.subscription_destroyed_notification_email(activity.recipient_id).deliver
       end
       activity.update_attributes(notified: true)
     end

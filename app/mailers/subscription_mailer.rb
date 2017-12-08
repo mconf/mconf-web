@@ -17,8 +17,7 @@ class SubscriptionMailer < BaseMailer
     end
   end
 
-  def subscription_destroyed_notification_email(subscription_creator_id, subscription_id)
-    subscription = Subscription.find(subscription_id)
+  def subscription_destroyed_notification_email(subscription_creator_id)
     @user = User.find(subscription_creator_id)
     I18n.with_locale(default_email_locale(@user, nil)) do
       subject = t("subscription_mailer.subscription_destroyed_notification_email.subject",
