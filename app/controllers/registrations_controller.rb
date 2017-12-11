@@ -10,7 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   before_filter :check_registration_enabled, :only => [:new, :create]
   before_filter :configure_permitted_parameters, :only => [:create]
-  before_filter :check_terms_acceptance, :only => [:create]
   before_filter only: [:create] do
     if verify_captcha == false
       flash[:error] = I18n.t('recaptcha.errors.verification_failed')
@@ -41,14 +40,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up).push(*allowed_params)
-  end
-
-  def check_terms_acceptance
-    unless ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms])
-      flash[:error] = I18n.t("devise.registrations.terms_reject")
-      build_resource(sign_up_params)
-      render :new
-    end
   end
 
   def allowed_params

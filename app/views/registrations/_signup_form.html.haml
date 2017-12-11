@@ -21,7 +21,6 @@
   .field-group
     = captcha_tags
   .form-accept-terms.field-group
-    = check_box_tag :terms, 1, false, as: :boolean
-    = label_tag :terms, t('.terms').html_safe
+    = label_tag :terms, t('.terms', register: t(".register")).html_safe
   = captcha_tags theme: 'dark'
   = f.button :wrapped, :value => t(".register")
