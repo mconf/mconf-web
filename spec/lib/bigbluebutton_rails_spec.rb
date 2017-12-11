@@ -157,15 +157,15 @@ describe BigbluebuttonRails do
             room.update_attributes(max_participants: 123)
           }
           it {
-            target.get_create_options.call(room, nil).should have_key(:max_participants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(123)
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
           }
         end
 
         context "when the user has no subscription" do
           it {
-            target.get_create_options.call(room, nil).should have_key(:max_participants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(free_limit)
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
           }
         end
 
@@ -179,7 +179,7 @@ describe BigbluebuttonRails do
 
           let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
           it {
-            target.get_create_options.call(room, nil).should have_key(:max_participants)
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
             target.get_create_options.call(room, nil)[:max_participants].should eql(nil)
           }
         end
@@ -191,7 +191,7 @@ describe BigbluebuttonRails do
 
         context "and the room has no max_participants set" do
           it {
-            target.get_create_options.call(room, nil).should have_key(:max_participants)
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
             target.get_create_options.call(room, nil)[:max_participants].should eql(nil)
           }
         end
@@ -201,8 +201,8 @@ describe BigbluebuttonRails do
             room.update_attributes(max_participants: 123)
           }
           it {
-            target.get_create_options.call(room, nil).should have_key(:max_participants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(123)
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
           }
         end
       end
