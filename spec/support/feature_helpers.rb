@@ -79,7 +79,6 @@ module FeatureHelpers
     # fill_in "user[username]", with: attrs[:username]
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password_confirmation] || attrs[:password]
-    check "terms"
     click_button I18n.t("registrations.signup_form.register")
   end
 

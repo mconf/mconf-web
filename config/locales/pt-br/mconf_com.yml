@@ -94,7 +94,7 @@ pt-br:
       confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
       password_section: "Defina uma senha"
       service_usage_select: "Usarei o serviço para..."
-      terms: "Ao clicar em <em>%{Register}</em>, você concorda com os nossos <a href=\"https://mconf.com/termos/\" target=\"_blank\">termos de uso</a>. Ocasionalmente, nós lhe enviaremos emails relacionados com sua conta."
+      terms: "Ao clicar em <em>%{register}</em>, você concorda com os nossos <a href=\"https://mconf.com/termos/\" target=\"_blank\">termos de uso</a>. Ocasionalmente, nós lhe enviaremos emails relacionados com sua conta."
       user_info_section: "Seus dados"
       webconf_section: "Sua sala de conferência"
       webconf_id_tip: "Este será o identificador da URL da sua sala de conferência. Utilize apenas letras, números ou traços (“-“)."
