@@ -30,6 +30,13 @@ describe BigbluebuttonRoom do
         end
 
         context "with a subscription" do
+          before {
+            Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:update_customer).and_return(true)
+          }
+
           let!(:subscription) { FactoryGirl.create(:subscription, user: owner) }
           it { target.reload.max_participants.should eql(nil) }
         end

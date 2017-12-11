@@ -25,8 +25,8 @@ describe InvoiceCreateUpdateWorker, type: :worker do
     let!(:subscription) { FactoryGirl.create(:subscription, user: user, pay_day: "2017-12-10") }
 
     context "there is one invoice for the subscription and it is for this month" do
-      let!(:previous_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: DateTime.now.change({day: 10}) - 1.month) }
-      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, user_qty: 5, due_date: DateTime.now.change({day: 10})) }
+      let!(:previous_invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: DateTime.now) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, user_qty: 5, due_date: DateTime.now+1.month) }
       before { Invoice.any_instance.stub(:get_unique_users_for_invoice).and_return(0) }
 
       it "updates to the number of users in the invoice" do
@@ -50,10 +50,10 @@ describe InvoiceCreateUpdateWorker, type: :worker do
       end
 
       it "set the days consumed in the new invoice" do
-        consumed = if DateTime.now.day >= Rails.application.config.base_month_days
+        consumed = if subscription.pay_day.to_date.day.to_i >= Rails.application.config.base_month_days
                      nil
                    else
-                     Rails.application.config.base_month_days - DateTime.now.day
+                     Rails.application.config.base_month_days - subscription.pay_day.to_date.day.to_i
                    end
         subject
         subscription.invoices.last.reload

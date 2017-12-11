@@ -32,7 +32,7 @@ describe SubscriptionMailer do
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
     it("sets 'subject'") do
-      text = I18n.t('subscription_mailer.subscription_created_notification_email.subject', :id => subscription.id)
+      text = I18n.t('subscription_mailer.subscription_created_notification_email.subject', :name => user.name)
       mail.subject.should eql(text)
     end
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
@@ -45,12 +45,12 @@ describe SubscriptionMailer do
   end
 
   describe '.subscription_destroyed_notification_email' do
-    let(:mail) { SubscriptionMailer.subscription_destroyed_notification_email(user.id, subscription.id) }
+    let(:mail) { SubscriptionMailer.subscription_destroyed_notification_email(user.id) }
     let(:url) { "www.contact.com" }
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
     it("sets 'subject'") do
-      text = I18n.t('subscription_mailer.subscription_destroyed_notification_email.subject', :id => subscription.id)
+      text = I18n.t('subscription_mailer.subscription_destroyed_notification_email.subject', :name => user.name)
       mail.subject.should eql(text)
     end
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }

@@ -42,7 +42,11 @@ describe Plan do
   end
 
   describe "#import_ops_plan" do
-    before { FactoryGirl.create(:plan, ops_token: "ABC123456") }
+    before {
+      Mconf::Iugu.stub(:create_plan).and_return("ABC123456")
+      FactoryGirl.create(:plan)
+    }
+
     let(:present_plan) { ::Iugu::Plan.new(@attributes={"id"=>"ABC123456",
                                            "name"=>"Basic Plan", "identifier"=>"base", "interval"=>1,
                                            "interval_type"=>"months", "created_at"=>"2017-09-27T17:33:03-03:00",

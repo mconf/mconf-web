@@ -19,36 +19,38 @@ describe SubscriptionSenderWorker, type: :worker do
   let(:user) { FactoryGirl.create(:user) }
 
   describe "#perform" do
-    context "Only activity.notified == false AND activity.trackable.present" do
+    context "Only activity.notified == false" do
       # SEND THE EMAIL
       # see subscription_mailer_spec
-      let(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: subscription, recipient: user) }
+      context "Activity trackable present - is a creation case" do
+        let(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: subscription, recipient: user, key: "subscription.created") }
 
-      it "activity.notified == true" do
-        worker.perform(activity.id)
-        activity.reload
-        activity.notified.should be(true)
-      end
-    end
-
-    context "Activity.notified == true OR activity.trackable not present" do
-      context "Activity.notified == true" do
-        let(:activity) { FactoryGirl.create(:recent_activity, notified: true, trackable: subscription) }
-
-        it "Dont update (still true) and dont send the email" do
+        it "activity.notified == true" do
           worker.perform(activity.id)
           activity.reload
           activity.notified.should be(true)
         end
       end
 
-      context "Activity.trackable not present" do
-        let(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: nil) }
+      context "Activity.trackable not present - is a deletion case" do
+        let!(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: nil, recipient: user, key: "subscription.destroyed") }
 
         it "Dont update (still false) and dont send the email" do
           worker.perform(activity.id)
           activity.reload
-          activity.notified.should be(false)
+          activity.notified.should be(true)
+        end
+      end
+    end
+
+    context "Activity.notified == true" do
+      context "Activity.notified == true" do
+        let!(:activity) { FactoryGirl.create(:recent_activity, notified: true, trackable: subscription) }
+
+        it "Dont update (still true) and dont send the email" do
+          worker.perform(activity.id)
+          activity.reload
+          activity.notified.should be(true)
         end
       end
     end

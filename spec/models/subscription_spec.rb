@@ -187,7 +187,6 @@ describe Subscription do
     let!(:plan) { FactoryGirl.create(:plan, identifier: "base") }
     let!(:user) { FactoryGirl.create(:user, email: "shughes@flipstorm.info") }
     let!(:user_import) { FactoryGirl.create(:user, email: "import@flipstorm.info") }
-    let!(:subscription) { FactoryGirl.create(:subscription, subscription_token: "ABC123456", user_id: user.id) }
     let(:present_subscription) { ::Iugu::Subscription.new(@attributes={"id"=>"ABC123456", "suspended"=>false,
                                                                        "plan_identifier"=>"base", "price_cents"=>0, "currency"=>"BRL",
                                                                        "features"=>{}, "expires_at"=>"2018-01-10", "created_at"=>"2017-10-19T13:42:48-02:00",
@@ -231,8 +230,12 @@ describe Subscription do
                                                        "district"=>"Farroupilha", "street"=>"Avenida Paulo Gama", "custom_variables"=>[{"name"=>"Country", "value"=>"Brazil"}]}) }
 
     context "the subscription already exists in our database" do
-      before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([present_subscription])
-               Mconf::Iugu.stub(:find_customer_by_id).and_return(customer) }
+      before {
+        Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([present_subscription])
+        Mconf::Iugu.stub(:find_customer_by_id).and_return(customer)
+        Mconf::Iugu.stub(:create_subscription).and_return("ABC123456")
+      }
+      let!(:subscription) { FactoryGirl.create(:subscription, subscription_token: "ABC123456", user_id: user.id) }
       subject { Subscription.import_ops_sub }
       it { expect { subject }.to change{ Subscription.count }.by(0) }
     end

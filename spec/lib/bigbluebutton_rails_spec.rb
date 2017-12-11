@@ -170,6 +170,13 @@ describe BigbluebuttonRails do
         end
 
         context "when the user has a subscription" do
+          before {
+            Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:update_customer).and_return(true)
+          }
+
           let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
           it {
             target.get_create_options.call(room, nil).should have_key(:max_participants)
