@@ -22,7 +22,7 @@ BigbluebuttonRails.configure do |config|
       "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
       "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
       record: ability.can?(:record_meeting, room),
-      max_participants: room.max_participants
+      maxParticipants: 0 #room.max_participants
     }
   end
 end
