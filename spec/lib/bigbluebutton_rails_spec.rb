@@ -152,20 +152,20 @@ describe BigbluebuttonRails do
         let(:user) { FactoryGirl.create(:user) }
         before { room.update_attributes(owner: user) }
 
-        context "and already has a max_participants set in the db" do
+        context "and already has a maxParticipants set in the db" do
           before {
             room.update_attributes(max_participants: 123)
           }
           it {
             target.get_create_options.call(room, nil).should have_key(:maxParticipants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
           }
         end
 
         context "when the user has no subscription" do
           it {
             target.get_create_options.call(room, nil).should have_key(:maxParticipants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
           }
         end
 
@@ -180,7 +180,7 @@ describe BigbluebuttonRails do
           let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
           it {
             target.get_create_options.call(room, nil).should have_key(:maxParticipants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(nil)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
           }
         end
       end
@@ -189,20 +189,20 @@ describe BigbluebuttonRails do
         let(:space) { FactoryGirl.create(:space) }
         before { room.update_attributes(owner: space) }
 
-        context "and the room has no max_participants set" do
+        context "and the room has no maxParticipants set" do
           it {
             target.get_create_options.call(room, nil).should have_key(:maxParticipants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(nil)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
           }
         end
 
-        context "and already has a max_participants set in the db" do
+        context "and already has a maxParticipants set in the db" do
           before {
             room.update_attributes(max_participants: 123)
           }
           it {
             target.get_create_options.call(room, nil).should have_key(:maxParticipants)
-            target.get_create_options.call(room, nil)[:max_participants].should eql(0)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
           }
         end
       end
