@@ -411,12 +411,15 @@ class User < ActiveRecord::Base
   def cant_record_reason(room)
     ability = Abilities.ability_for(self)
     can = ability.can?(:record_meeting, room)
+    msg = nil
 
     if !can
       if !self.can_record
-        I18n.t('users.cant_record_reason.user_cannot_record')
+        msg = I18n.t('users.cant_record_reason.user_cannot_record')
       end
     end
+
+    msg
   end
 
   protected

@@ -550,6 +550,31 @@ describe User do
         end
       end
     end
+
+    describe 'user approval notifications' do
+      let(:admin) { User.superusers.first }
+
+      context 'dont send notifications if the site doesnt require approval' do
+        before {
+          Site.current.update_attributes(require_registration_approval: false)
+          @user = FactoryGirl.create(:user, approved: false)
+        }
+
+        it { AdminMailer.should have_queue_size_of(0) }
+        it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+      end
+
+      context 'send notifications if site requires approval' do
+        before { Site.current.update_attributes(require_registration_approval: true) }
+
+        context 'dont send notifications if the user is created with approved: true' do
+          before { @user = FactoryGirl.build(:user, approved: true) }
+
+          it { AdminMailer.should have_queue_size_of(0) }
+          it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+        end
+      end
+    end
   end
 
   describe "on destroy" do
@@ -1347,6 +1372,21 @@ describe User do
         user.save!
       }
       it { user.location.should eql("Country Y") }
+    end
+  end
+
+  describe "#cant_record_reason" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    let(:user) { FactoryGirl.create(:user, bigbluebutton_room: room) }
+
+    context "returns the reason if the user can't record" do
+      before { user.update_attributes(can_record: false) }
+      it { user.cant_record_reason(room).should eql(I18n.t('users.cant_record_reason.user_cannot_record')) }
+    end
+
+    context "returns nil if the user can record" do
+      before { user.update_attributes(can_record: true) }
+      it { user.cant_record_reason(room).should be_nil }
     end
   end
 

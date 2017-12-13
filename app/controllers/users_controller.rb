@@ -11,6 +11,7 @@ class UsersController < InheritedResources::Base
   include Mconf::ApprovalControllerModule # for approve and disapprove
   include Mconf::DisableControllerModule # for enable, disable
   include Mconf::SelectControllerModule # for select
+  include ApplicationHelper
 
   respond_to :html, except: [:select, :current, :fellows]
   respond_to :json, only: [:select, :current, :fellows]
