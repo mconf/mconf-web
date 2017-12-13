@@ -5,7 +5,7 @@ class CertificateAuthenticationController < ApplicationController
 
     @cert = Mconf::SSLClientCert.new(certificate, session)
 
-    if params[:create] == "true"
+    if create_account?
       @cert.create_user
       @user = @cert.user
 
@@ -40,4 +40,10 @@ class CertificateAuthenticationController < ApplicationController
     end
   end
 
+  private
+
+  def create_account?
+    # defaults to true, to create an account, unless:
+    params[:create] != "false" && params[:create] != false
+  end
 end

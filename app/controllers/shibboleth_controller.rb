@@ -43,8 +43,8 @@ class ShibbolethController < ApplicationController
 
     unless @shib.has_basic_info
       logger.error "Shibboleth: couldn't find basic user information from session, " +
-        "searching fields #{@shib.basic_info_fields.inspect} " +
-        "in: #{@shib.get_data.inspect}"
+                   "searching fields #{@shib.basic_info_fields.inspect} " +
+                   "in: #{@shib.get_data.inspect}"
       @attrs_required = @shib.basic_info_fields
       @attrs_informed = @shib.get_data
       render :attribute_error
@@ -78,11 +78,20 @@ class ShibbolethController < ApplicationController
             redirect_to my_approval_pending_path
           end
         end
-       else
-        token = @shib.find_or_create_token()
-        token.user = @shib.create_fake_user(token)
-        sign_in_guest(token.user.full_name, token.user.email)
-        redirect_to after_sign_in_path_for(token.user)
+      else
+        if create_account?
+          if !get_always_new_account
+            logger.info "Shibboleth: first access for this user, rendering the association page"
+            render :associate
+          else
+            logger.info "Shibboleth: flag `shib_always_new_account` is set"
+            logger.info "Shibboleth: first access for this user, automatically creating a new account"
+            associate_with_new_account(@shib)
+          end
+        else
+          sign_in_guest(@shib.get_name, @shib.get_email)
+          redirect_to after_sign_in_path_for('')
+        end
       end
     end
   end
@@ -116,7 +125,6 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
-    test_data
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
     @shib.load_data(request.env, current_site.shib_env_variables)
@@ -247,38 +255,25 @@ class ShibbolethController < ApplicationController
     return current_site.shib_always_new_account
   end
 
+  def create_account?
+    # defaults to true, to create an account, unless:
+    params[:create] != "false" && params[:create] != false
+  end
+
   # Adds fake test data to the environment to test shibboleth in development.
-  # def test_data
-  #   if Rails.env == "development"
-  #     request.env["Shib-Application-ID"] = "default"
-  #     request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
-  #     request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
-  #     request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
-  #     request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-  #     request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-  #     request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
-  #     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
-  #     request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
-  #     request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
-  #     request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
-  #     request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
-  #     request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
-  #     request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
-  #   end
-  # end
   def test_data
     if Rails.env == "development"
       request.env["Shib-Application-ID"] = "default"
-      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500853"
+      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
       request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
       request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia88"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "julia.leticia.da.silva@mconf-institution.org"
-      request.env["Shib-inetOrgPerson-cn"] = "Julia111ss Let\xC3\xADcia da Silva"
-      request.env["Shib-inetOrgPerson-mail"] = "julia.leticia.da.silva111sss11@personal-email.org"
-      request.env["Shib-inetOrgPerson-sn"] = "Julia111sss da Silva"
+      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
+      request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
       request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
       request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
       request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone

@@ -184,23 +184,6 @@ module Mconf
       user
     end
 
-    # Creates a new user ONLY IN MEMORY using the information stored in the session.
-    # This function is used when a user that don't have a shibboleth account wants to enter in a conference room without create a new account.
-    def create_fake_user(shib_token)
-      password = SecureRandom.hex(16)
-      params = {
-        username: get_unique_login, email: get_email,
-        password: password, password_confirmation: password,
-        profile_attributes: {
-          full_name: get_name
-        }
-      }
-
-      user = User.new params
-
-      user
-    end
-
     # Update data in the user model which might change in the federation, for now
     # the only fields used are 'email' and 'name'
     def update_user(token)
