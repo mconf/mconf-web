@@ -90,7 +90,7 @@ class ShibbolethController < ApplicationController
           end
         else
           sign_in_guest(@shib.get_name, @shib.get_email)
-          redirect_to after_sign_in_path_for('')
+          redirect_to after_sign_in_path_for(nil)
         end
       end
     end

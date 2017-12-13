@@ -377,19 +377,36 @@ describe ShibbolethController do
         it { token.reload.data.should eql(new_data) }
       end
 
-      context "when passing create=false it signs in but doesn't create a user" do
-        before {
-          setup_shib("Expected User Full Name", "expectedemail@mconf.org", "expectedemail@mconf.org")
-          controller.should_receive(:after_sign_in_path_for).and_return('/expected')
-          controller.should_receive(:sign_in_guest).with("Expected User Full Name", "expectedemail@mconf.org")
-        }
+      context "when passing create=false" do
+        context "for a new user it signs in as guest but doesn't create a user" do
+          before {
+            setup_shib("Expected User Full Name", "expectedemail@mconf.org", "expectedemail@mconf.org")
+            controller.should_receive(:after_sign_in_path_for).and_return('/expected')
+            controller.should_receive(:sign_in_guest).with("Expected User Full Name", "expectedemail@mconf.org")
+          }
 
-        it { expect { get :login, create: false }.not_to change{ ShibToken.count } }
-        it { expect { get :login, create: false }.not_to change{ User.count } }
-        it {
-          get :login, create: false
-          should redirect_to('/expected')
-        }
+          it { expect { get :login, create: false }.not_to change{ ShibToken.count } }
+          it { expect { get :login, create: false }.not_to change{ User.count } }
+          it {
+            get :login, create: false
+            should redirect_to('/expected')
+          }
+        end
+
+        context "for a returning user it signs in into the user account" do
+          let(:user) { FactoryGirl.create(:user) }
+          before {
+            setup_shib(user.full_name, user.email, user.email)
+            ShibToken.create!(identifier: user.email, user: user)
+            controller.should_not_receive(:sign_in_guest)
+          }
+
+          before {
+            get :login, create: false
+          }
+          it { should redirect_to(my_home_path) }
+          it { subject.current_user.should eq(user) }
+        end
       end
     end
   end
