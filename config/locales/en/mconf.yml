@@ -911,11 +911,9 @@ en:
           title: "Your message"
       your_request: "You requested to join this space."
     new:
-      already_invited: "You were already invited to join this space! You can see the invitation in your home page."
-      already_requested: "You already requested to join this space, please wait for an administrator to accept it. You can cancel your request in your home page."
-      message_title: "Access to %{name}"
-      need_to_join: "You are still not a member of this space. Request access to view and interact in this space."
-      view_join_request: "Go to your home page"
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
+      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
+      message_title: "Request to join %{name}"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
   keywords: "Keywords (*)"
@@ -1144,6 +1142,7 @@ en:
         meetings: "History"
         profile: "Profile"
         spaces: "My spaces"
+        subscription: "My subscription"
         webconf_room: "My web conference room"
   my_friends: "My friends"
   next: Next

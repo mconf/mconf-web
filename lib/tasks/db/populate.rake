@@ -10,7 +10,7 @@ namespace :db do
     @site_attrs = Site.current.attributes
     Site.current.update_attributes(spaces_enabled: true, events_enabled: true, activities_enabled: true)
 
-    reserved_usernames = ['lfzawacki', 'daronco', 'rafael']
+    reserved_usernames = ['lfzawacki', 'daronco', 'rafael', 'vitoria']
 
     @created_at_start = 1.year.ago
     @created_at_start_months = 12

@@ -1,0 +1,159 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body {
+  padding: 5px;
+  background: $m-mail-background;
+  font-family: $m-font-family;
+  color: $m-mail-text;
+  line-height: 1.5em;
+
+  a {
+    @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
+    text-decoration: $m-link-decoration;
+    &:hover, &:active, &:focus { text-decoration: $m-link-decoration-hover; }
+    &:focus { color: lighten($m-link-color-active, 7); }
+  }
+
+  #logo {
+    text-align: center;
+    margin: 8px auto 16px auto;
+    width: 90%;
+  }
+
+  #message-box {
+    background: $m-mail-message-background;
+    width: 70%;
+    max-width: 700px;
+    padding: 40px;
+    margin: 0 auto;
+    text-align: justify;
+
+    h1 {
+      color: $m-mail-main-title;
+      font-weight: bold;
+      margin-top: 0px;
+    }
+
+    h2 {
+      color: $m-mail-secondary-title;
+      font-weight: bold;
+    }
+
+    .title {
+      color: $m-font-strong;
+      font-size: $m-font-normal * $m-font-h2-multiplier;
+      line-height: $m-font-normal * ($m-font-h2-multiplier + 0.5);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: darken($m-mail-text, 5);
+      font-size: $m-font-normal * $m-font-h3-multiplier;
+      line-height: $m-font-normal * ($m-font-h3-multiplier + 0.5);
+      margin-bottom: 40px;
+    }
+
+    .invite-message {
+      margin: 10px 0;
+      padding: 5px 10px;
+      border-left: 4px solid $m-mail-message-border;
+    }
+
+    .centralized {
+      text-align: center;
+    }
+  }
+
+  .info-block {
+    background: $m-mail-inner-box-background;
+    border: 1px solid $m-mail-inner-box-border;
+    padding: 16px;
+    margin-top: 10px;
+    border-radius: $m-border-radius-base;
+
+    .field {
+      display: block;
+      margin: 3px 0;
+
+      label {
+        display: inline;
+        font-weight: bold;
+        margin-right: 3px;
+      }
+
+      span {
+        display: inline;
+      }
+    }
+
+    .info-block-section {
+      margin-top: 16px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  #footer {
+    text-align: center;
+    font-size: $m-font-small;
+    margin-top: 24px;
+    line-height: 1.2em;
+
+    .social-links {
+      margin: 8px 0;
+
+      span {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      a {
+        text-decoration: none;
+        margin: 0 2px;
+      }
+    }
+  }
+
+  .observation {
+    color: $m-font-color-gray;
+  }
+
+  .timezone {
+    color: $m-font-color-gray;
+    font-size: $m-font-small;
+  }
+
+  .action-button {
+    display: block;
+    background: $m-mail-action-btn-bg;
+    padding: 16px 16px;
+    font-size: $m-font-big;
+    border-radius: $m-border-radius-base;
+    color: $m-mail-action-btn-font-color;
+    max-width: 300px;
+    margin: 24px auto 24px auto;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .unsubscribe-info {
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    padding-top: 24px;
+    text-align: center;
+    font-size: 0.9em;
+  }
+}
+
+body.trial_notifications_mailer.ending_soon,
+body.trial_notifications_mailer.ended {
+  em {
+    color: $m-mail-secondary-title;
+    font-weight: bold;
+    font-style: normal;
+  }
+}

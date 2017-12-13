@@ -325,7 +325,7 @@ $font-size-large: $m-font-big;
 $font-size-small: $m-font-small;
 
 // Themes: if using a theme, import it here!
-// @import "../themes/theme-name/stylesheets/variables";
+@import "../themes/mconf-com/stylesheets/variables";
 
 // Important: have to be imported after customizing bootstrap's variables
 @import "bootstrap/mixins";

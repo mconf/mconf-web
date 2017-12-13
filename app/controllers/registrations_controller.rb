@@ -43,7 +43,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def allowed_params
-    [ :locale, :email, profile_attributes: [ :full_name ] ]
+    [ :locale, :email,
+      profile_attributes: [ :full_name, :service_usage_select, :service_usage ]
+    ]
   end
 
   private

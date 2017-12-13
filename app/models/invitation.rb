@@ -95,24 +95,6 @@ class Invitation < ActiveRecord::Base
     return success, error
   end
 
-  # Sends the invitation to the recipient.
-  # Respects the preferences of the user, sending the notification
-  # (usually via email).
-  # Uses the mailer variable to build the correct emails.
-  def send_invitation
-    mailer = if self.is_a? WebConferenceInvitation
-               WebConferenceMailer
-             elsif self.is_a? EventInvitation
-               EventMailer
-             else
-               nil
-             end
-    return false if mailer.nil?
-
-    mailer.invitation_email(self.id).deliver
-    true
-  end
-
   def to_ical
     if self.is_a? EventInvitation
       target.to_ical
@@ -144,6 +126,24 @@ class Invitation < ActiveRecord::Base
     end
   end
 
+  # Sends the invitation to the recipient.
+  # Respects the preferences of the user, sending the notification
+  # (usually via email).
+  # Uses the mailer variable to build the correct emails.
+  def send_invitation
+    mailer = if self.is_a? WebConferenceInvitation
+               WebConferenceMailer
+             elsif self.is_a? EventInvitation
+               EventMailer
+             else
+               nil
+             end
+    return false if mailer.nil?
+
+    mailer.invitation_email(self.id).deliver
+    true
+  end
+
   # Get a https/http URL depending on the setting on the site
   def url_with_protocol
     begin
@@ -163,5 +163,9 @@ class Invitation < ActiveRecord::Base
 
   def has_duration?
     !self.duration.blank? && self.duration > 0
+  end
+
+  def room_name
+    self.target.name
   end
 end

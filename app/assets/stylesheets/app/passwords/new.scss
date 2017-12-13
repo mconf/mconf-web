@@ -6,6 +6,8 @@ body.passwords.new, body.passwords.create {
   #form-wrapper {
     margin: 40px auto;
     width: 50%;
+    max-width: 500px;
+    min-width: 200px;
     @include mconf-clearfix;
 
     form {

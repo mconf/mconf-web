@@ -139,7 +139,6 @@ describe BigbluebuttonRails do
             end
           end
         end
-
       end
     end
 
@@ -165,5 +164,70 @@ describe BigbluebuttonRails do
       end
     end
 
+    context "sets the max participants flag" do
+      let(:free_limit) { Rails.application.config.free_attendee_limit }
+      before {
+        room.update_attributes(max_participants: nil)
+      }
+
+      context "when the room belongs to a user" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { room.update_attributes(owner: user) }
+
+        context "and already has a maxParticipants set in the db" do
+          before {
+            room.update_attributes(max_participants: 123)
+          }
+          it {
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
+          }
+        end
+
+        context "when the user has no subscription" do
+          it {
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
+          }
+        end
+
+        context "when the user has a subscription" do
+          before {
+            Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:update_customer).and_return(true)
+          }
+
+          let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+          it {
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
+          }
+        end
+      end
+
+      context "when the room belongs to a space" do
+        let(:space) { FactoryGirl.create(:space) }
+        before { room.update_attributes(owner: space) }
+
+        context "and the room has no maxParticipants set" do
+          it {
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
+          }
+        end
+
+        context "and already has a maxParticipants set in the db" do
+          before {
+            room.update_attributes(max_participants: 123)
+          }
+          it {
+            target.get_create_options.call(room, nil).should have_key(:maxParticipants)
+            target.get_create_options.call(room, nil)[:maxParticipants].should eql(0)
+          }
+        end
+      end
+    end
   end
 end

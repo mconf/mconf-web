@@ -698,7 +698,6 @@ pt-br:
         lost_password: "Esqueceu sua senha?"
         other_options: "Outras opções"
         register: "Criar uma nova conta"
-        resend_confirmation_email: "Reenviar e-mail de confirmação"
       social_login:
         social_facebook: "Acessar com o Facebook"
         social_google: "Acessar com o Google"
@@ -920,11 +919,9 @@ pt-br:
           title: "Sua mensagem"
       your_request: "Você requisitou ingresso nesta comunidade."
     new:
-      already_invited: "Você já foi convidado para entrar nesta comunidade! Veja o convite na sua página inicial."
-      already_requested: "Você já requisitou ingresso a esta comunidade, por favor espere que um administrador aceite o pedido. Você pode cancelar a sua requisição na sua página inicial."
-      message_title: "Acesso a %{name}"
-      need_to_join: "Você ainda não é um membro desta comunidade. Solicite acesso para visualizar e interagir na comunidade."
-      view_join_request: "Ir para página inicial"
+      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
+      already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
+      message_title: "Requisição para entrar em %{name}"
     request:
       decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de adesão?"
   keywords: "Palavras-chave (*)"
@@ -1150,6 +1147,7 @@ pt-br:
         home: "Início"
         meetings: "Histórico"
         profile: "Perfil"
+        subscription: "Minha assinatura"
         webconf_room: "Minha sala de webconferência"
       spaces:
         create: "Criar uma comunidade"

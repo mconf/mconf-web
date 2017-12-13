@@ -47,7 +47,8 @@ module Mconf
     # loaded after all the others, so that it can override strings.
     config.i18n.load_path +=
       Dir[Rails.root.join('config', 'locales', '**', '_*.yml').to_s] +
-      Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
+      Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s] +
+      Dir[Rails.root.join('config', 'locales', '**', 'mconf_com.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
     config.i18n.available_locales = [:bg, :de, :en, :"es-419", :"pt-br", :ru]
@@ -123,7 +124,39 @@ module Mconf
     config.omniauth_facebook_secret  = ENV['MCONF_OMNIAUTH_FACEBOOK_SECRET'] || nil
 
     # Themes: configure assets paths here!
-    # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme", "stylesheets")
-    # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme", "images")
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "stylesheets")
+    config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")
+
+    # how long the trial lasts
+    config.trial_months = 2
+    config.due_day = 10
+
+    # free plan limitations
+    config.free_rec_limit = 2
+    config.free_attendee_limit = 3
+
+    # invoice pricing area
+    config.minimum_users = 15
+    config.base_month_days = 30.0
+
+    config.due_day = 10
+
+    config.discounts = [
+      { users:  250, value: 0.1 },
+      { users:  500, value: 0.2 },
+      { users: 1000, value: 0.3 },
+      { users: 2500, value: 0.4 },
+      { users: 5000, value: 0.5 }
+    ]
+
+    config.base_price = 600
+    config.base_price_integrator = 400
+
+    # iugu api token for test and for prod
+    config.iugu_token = ENV['MCONF_IUGU_TOKEN'] || ''
+
+    # iugu report file names
+    config.report_pt = "report-pt.pdf"
+    config.report_en = "report-en.pdf"
   end
 end

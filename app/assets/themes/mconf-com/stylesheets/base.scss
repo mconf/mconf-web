@@ -1,0 +1,35 @@
+@import "definitions";
+
+body.theme-mconf-com {
+
+  #navbar-logo {
+    background: image-url('MconfTec.png') no-repeat left top;
+    background-size: 152px 50px;
+    width: 152px;
+    height: 50px;
+    margin: 24px 0 0 0;
+  }
+
+  &.frontpage.show {
+    #navbar {
+      #navbar-logo {
+        margin: 48px auto 24px auto;
+        background: image-url('MconfTec-w.png') no-repeat left top;
+        background-size: 486px 160px;
+        width: 486px;
+        height: 160px;
+      }
+    }
+  }
+
+  &.navbar_bg {
+    #content-middle {
+      a:not(.btn) {
+        $normal: $m-navbar-font-color;
+        $hover: $m-navbar-link-color-hover;
+        @include link-colors($normal, $hover, $hover, $normal);
+      }
+    }
+  }
+
+}

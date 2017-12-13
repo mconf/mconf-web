@@ -1,0 +1,18 @@
+.content-block
+  %h3= t(".invoices")
+  %table.recording-list.table.table-hover
+    %thead
+      %tr
+        %th.col-sm-2.invoice-date-col= t(".due_date")
+        %th.col-sm-5.invoice-id-col= t(".id")
+        %th.col-sm-3.invoice-value-col= t(".value")
+        -#%th.col-sm-1.invoice-status-col= t(".status")
+        %th.col-sm-1.invoice-pay-col= t(".pay")
+
+    %tbody
+      - if @invoices.count <= 0
+        %tr
+          %td{ colspan: 4 }= t('.no_invoices')
+
+      - @invoices.each do |invoice|
+        = render partial: 'invoices/invoice_item', locals: { invoice: invoice }

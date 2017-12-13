@@ -3,7 +3,9 @@
  *= require ./app/mailers/web_conference_mailer
  *= require ./app/mailers/space_mailer
  *= require ./app/mailers/event_mailer
+ *= require ./app/mailers/invoice_mailer
+ *= require ./app/mailers/subscription_mailer
  *
  * Themes: if using a theme, import it here!
- * require theme-name/stylesheets/mailer
+ *= require mconf-com/stylesheets/mailer
  */

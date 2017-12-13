@@ -1,0 +1,18 @@
+= page_title t('.title')
+
+%h1= t('.form_title')
+
+#subscription-wrapper
+  .row
+    #subscription-form
+      = render partial: 'subscription_form'
+
+    #subscription-rules
+      .rule-block
+        %h3= t('.rules_title').html_safe
+        %p= t('.rules_text').html_safe
+      .rule-block
+        %h3= t('.pricing_title').html_safe
+        %ul
+          %li= t('.pricing_text1').html_safe
+          %li= t('.pricing_text2').html_safe

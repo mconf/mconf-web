@@ -1,0 +1,230 @@
+---
+en:
+  _other:
+    hi_name: "Hi, %{name}"
+    mailers:
+      contact: "Contact us for more information at <a href='mailto:%{mail}'>%{mail}</a>."
+      unsubscribe: "If you wish to cancel your subscription, access the <a href='%{link}'>account</a> page and click the option to cancel your account."
+  activerecord:
+    attributes:
+      profile:
+        cpf_cnpj: "CPF/CNPJ"
+  application_mailer:
+    feedback_email:
+      content: "<b>%{name}</b> (%{email}) sent the following feedback:"
+      hello: "Hello"
+      subject: "Feedback message"
+      subtitle: "A user sent a feedback message"
+  devise:
+    confirmations:
+      new:
+        description: "The welcome message you received by email when you registered contains a link you can click to confirm your account. If you lost access to this email, you can request a new one using the form below."
+    mailer:
+      confirmation_instructions:
+        confirmation_pending: "Your account is being approved"
+        confirmation_pending2: "Thank your for registering on Mconf. Your registration is being verified by our team and we will contact you as soon as it is approved."
+        subject: "Welcome to Mconf!"
+        welcome: "Hi, %{email}!"
+      reset_password_instructions:
+        copy_link: "(If the button above doesn't work, copy and paste this link in your browser: %{url})"
+        redefine_password: "Redefine my password"
+  invoices:
+    discount_days: "Unique users fee with discount for using only %{qtd_d} days (%{percent_d}%)"
+    discount_users: "Unique users fee with discount for user ammount %{percent_u}%"
+    discount_users_and_days: "Unique users fee with discount for for using only %{qtd_d} days (%{percent_d}%) and user ammount %{percent_u}%"
+    invoices_list:
+      due_date: "Date"
+      id: "Invoice identifier"
+      invoices: "Customer Invoices"
+      no_invoices: "There are no invoices for this customer"
+      pay: "Pay invoice"
+      status: "Status"
+      value: "Price"
+    invoice_item:
+      canceled: "Canceled"
+      disabled_pay: "Invoice not available yet"
+      expired: "Expired"
+      local: "Ongoing"
+      no_value: "Value not generated yet"
+      not_ready: "Current month invoice"
+      paid: "Paid"
+      pending: "Pending"
+      pay: "Pay invoice"
+    minimum_fee: "Minimum service fee"
+    minimum_fee_discount_days: "Minimum service fee with discount for using only %{qtd_d} days (%{percent_d}%)"
+    report:
+      report_missing: "Report not found, try again or contact an admin"
+    show:
+      cost_base: "Total cost without discounts"
+      days_consumed: "Ammount of days consumed"
+      days_percent: "- %{percent}% for using the service for only %{days} days this month"
+      detailed_price: "Detailed invoice price"
+      disabled_pay: "Invoice not available yet"
+      discount_users: "Discount for users ammount"
+      discount_days: "Discount for days consumed"
+      invoice_data: "Invoice data"
+      invoice_status: "Invoice status"
+      pay: "Pay invoice"
+      report: "Download full report"
+      status:
+        canceled: "Canceled"
+        expired: "Expired"
+        local: "Ongoing"
+        paid: "Paid"
+        pending: "Pending"
+        pay: "Pay invoice"
+      title: "%{name} Invoice"
+      total: "Total"
+      total_price: "Total invoice price"
+      unique_users: "Unique users data"
+      unique_users_list: "Unique users list"
+      users_ammount: "Ammount of users"
+      users_percent: "- %{percent}% for having %{qty} users this month"
+    user_fee: "Unique users fee"
+  layouts:
+    mailers:
+      signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
+      social: "Follow us on:"
+  plan:
+    errors:
+      no_token: "No Token returned from IUGU, aborting"
+      ops_type_create_plan: "Bad ops_type, can't create plan"
+      ops_type_delete_plan: "Bad ops_type, can't delete plan"
+      delete: "Could not delete plan from OPS, aborting"
+    info: "OPS: Plan already imported"
+  registrations:
+    signup_form:
+      address_section: "Address"
+      confirmation: "After registering you will receive an email confirmation with the link to activate your account"
+      password_section: "Define a password"
+      service_usage_select: "I will use the service for..."
+      terms: "By clicking <em>%{register}</em>, you agree to our <a href=\"https://mconf.com/terms/\" target=\"_blank\">terms and conditions</a>. We’ll occasionally send you account related emails."
+      user_info_section: "User information"
+      webconf_section: "Your web conference room"
+      webconf_id_tip: "This will be the identifier of your conference room in URLs. Use only letters, numbers or dashes (“-“)."
+  shared:
+    invitation_email:
+      message:
+        access_room: "Go to the meeting"
+    welcome:
+      go_beyond:
+        item1: "Customize your room with the logo and the colors of your organization. <strong>No additional cost</strong>;"
+        item2: "Integrate with your LMS (Learning Management System). Available for: <strong>Moodle</strong>, <strong>WordPress</strong>, <strong>Canvas</strong>;"
+        item3: "Provide a personalized access link directly from your website."
+        title: "Go beyond!"
+      lets_start:
+        confirm_email: "Please confirm your email to start using the service:"
+        confirm_email_btn: "Confirm my email"
+        features: "With Mconf you can: share your knowledge on <em>live classes</em>; promote discussions over topics mentioned in the <em>chat</em>; make live presentations toup to <em>350 simultaneously connected users</em>; annotate your presentations using the <em>whiteboard</em>; <em>record</em> your classes or presentations to review them later or share them with the attendees; and much more!"
+        from_home_page: "In your home page on Mconf you have access to your personal web conference room. You can set your preferences in the room, start new meetings and invite other people to join your meetings."
+        go_to_home: "Access your home page"
+        got_access: "From now on you can already access your account on Mconf."
+        short_url: "You can also have quick access to your room using the address below. Share this address with other people when inviting them to join a conference you created."
+        title: "Starting with Mconf"
+      subject: "Welcome!"
+  trial_notifications_mailer:
+    ended:
+      line1: "We would like to remind you that your trial period is ending today. You can find the <em>service fees</em> that will be applicable to your account at: <a href='https://mconf.com/pricing'>https://mconf.com/pricing</a>"
+      subject: "Your trial period has ended"
+    ending_soon:
+      line1: "Your trial period will end on <em>%{date}</em>, but don't worry! You are already signed up to the service and won't need to do anything to keep using it. We hope you're enjoying the experience and wish to stay with us!"
+      subject: "Your trial period is ending soon"
+  subscriptions:
+    created: "Subscription successfully created"
+    denied: "Access denied"
+    destroy: "Subscription successfully removed"
+    destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
+    edit:
+      title: "%{name} Subscription"
+      address_section: "Address information"
+      confirmation: "After subscribing you will receive an email confirmation"
+      cpf_cnpj: "CPF/CNPJ"
+      customer_section: "Customer information"
+      save: "Save"
+      address: "Street address"
+      additional_address_info: "Complement"
+      number: "Number"
+      zipcode: "Zipcode"
+      city: "City"
+      province: "Province"
+      district: "District"
+      country: "Country"
+    errors:
+      no_token: "No Token returned from IUGU, aborting"
+      ops_type_create_customer: "Bad ops_type, can't create customer"
+      ops_type_update_customer: "Bad ops_type, can't update customer"
+      update: "Could not update IUGU, aborting"
+      match: "Failed to match this subscription to a user or plan"
+      delete_subscription: "Could not delete subscription from OPS, aborting"
+      delete_customer: "Could not delete customer from OPS, aborting"
+      ops_type_create_subscription: "Bad ops_type, can't create subscription"
+      ops_type_destroy_subscription: "Bad ops_type, can't destroy subscription"
+    failed: "Unable to create subscription"
+    info: "OPS: Subscription already imported"
+    new:
+      form_title: "Subscription"
+      title: "Subscribe"
+      pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
+      pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
+      pricing_title: "Pricing"
+      rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
+      rules_title: "How it works"
+    show:
+      title: "%{name} Subscription"
+      edit: "Edit"
+      delete: "Remove Subscription"
+      address_section: "Address information"
+      confirmation: "After subscribing you will receive an email confirmation"
+      cpf_cnpj: "CPF/CNPJ"
+      customer_section: "Customer information"
+      save: "Save"
+      address: "Street address"
+      additional_address_info: "Complement"
+      number: "Number"
+      zipcode: "Zipcode"
+      city: "City"
+      province: "Province"
+      district: "District"
+      country: "Country"
+    subscription_form:
+      address_section: "Address information"
+      confirmation: "After subscribing you will receive an email confirmation"
+      cpf_cnpj: "CPF/CNPJ"
+      customer_section: "Customer information"
+      subscribe: "Subscribe"
+      address: "Street address"
+      additional_address_info: "Complement"
+      number: "Number"
+      zipcode: "Zipcode"
+      city: "City"
+      province: "Province"
+      district: "District"
+      country: "Country"
+    update: "Subscription successfully updated"
+  user:
+    usage:
+      education: "Education"
+      meetings: "Meetings"
+      other: "Other"
+  user_mailer:
+    cancellation_notification_email:
+      message: "We're sending this email to inform you that your account has been cancelled, either by your request or by the request of an administrator."
+    registration_by_admin_notification_email:
+      notification: "You are receiving this message because an account was created for you by an administrator. If you think this was an error please contact us responding to this email."
+      subject: "Welcome to Mconf!"
+  web_conference_mailer:
+    invitation_email:
+      message:
+        did_you_know: "Did you know that?"
+        did_you_know_text: "The technology used for this webconference was developed by Mconf Tecnologia, a Brazilian company located in Porto Alegre/RS, that can be integrated with several LMS (Learning Management System), such as Moodle, WordPress, and Canvas. <i>Interested?</i> Contact:"
+        header: "You were invited by %{sender} (%{email_sender}) to access the web conferencing room %{room}."
+        hello: "Hello!"
+        how_to: "How to access?"
+        how_to_text: "To access the conference, just click on the room link below, enter your <b>full name</b> and the access key (only necessary if the conference is private)."
+        subtitle: "You've been invited to a web conference"
+  invoice_mailer:
+    invoice_report_email:
+      message:
+        header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
+        link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
+    subject: "Invoice report"

@@ -1,11 +1,9 @@
-= t('devise.mailer.confirmation_instructions.welcome', email: @email)
-
-%p
-  - unless Site.current.require_registration_approval?
-    = t('devise.mailer.confirmation_instructions.confirmation_ok')
+- if Site.current.require_registration_approval?
+  .centralized
+    %h1.title= t('devise.mailer.confirmation_instructions.welcome', email: @resource.first_name)
     %p
-      - url = confirmation_url(@resource, confirmation_token: @token)
-      = link_to url, url
+      .subtitle= t('devise.mailer.confirmation_instructions.confirmation_pending')
+      %p= t('devise.mailer.confirmation_instructions.confirmation_pending2')
 
-  - else
-    = t('devise.mailer.confirmation_instructions.confirmation_pending')
+- else
+  = render 'shared/welcome', user: @user, confirm: true

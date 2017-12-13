@@ -1,6 +1,5 @@
-#space-processed-join-request-mail
-  %p= t('.message.header', action: @action, space: @space.name).html_safe
-  - if @join_request.accepted?
-    %p= t('.message.link.accepted', space: @space.name, space_url: space_url(@space, host: Site.current.domain)).html_safe
-  - else
-    %p= t('.message.link.rejected', space_url: space_url(@space, host: Site.current.domain)).html_safe
+%p= t('.message.header', action: @action, space: @space.name).html_safe
+- if @join_request.accepted?
+  %p= t('.message.link.accepted', space: @space.name, space_url: space_url(@space, host: Site.current.domain)).html_safe
+- else
+  %p= t('.message.link.rejected', space_url: space_url(@space, host: Site.current.domain)).html_safe

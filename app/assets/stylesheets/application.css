@@ -39,5 +39,5 @@
  *= require ./app/join_requests/new
  *
  * Themes: if using a theme, import it here!
- * require theme-name/stylesheets/base
+ *= require mconf-com/stylesheets/base
  */

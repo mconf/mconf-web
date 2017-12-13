@@ -58,6 +58,11 @@ body.registrations.new, body.registrations.create {
           width: 100%;
         }
       }
+
+      .form-accept-terms {
+        float: right;
+        margin-right: 5px;
+      }
     }
 
     .alert {

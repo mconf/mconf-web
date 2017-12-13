@@ -302,6 +302,10 @@ module IconsHelper
     icon_constructor nil, "icon icon-mw-options-dots icon-options-dots", options
   end
 
+  def icon_payment_invoice(options={})
+    icon_constructor nil, "fa fa-credit-card-alt icon-awesome icon-mconf-pay", options
+  end
+
   def icon_login_facebook(options={})
     image_tag 'icons/login-facebook.svg', size: "46x46", class: ""
   end

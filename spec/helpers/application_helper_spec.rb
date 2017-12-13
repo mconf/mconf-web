@@ -69,7 +69,7 @@ describe ApplicationHelper do
     before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
 
     context "returns what is configured in the site" do
-      it { webconf_url_prefix.should eq("https://test.com/#{Rails.application.config.conf_scope_rooms}/") }
+      it { webconf_url_prefix.should eq("https://test.com/#{Rails.application.config.conf_scope_rooms}") }
     end
 
     context "doesn't return duplicated / when conf_scope_rooms=nil" do

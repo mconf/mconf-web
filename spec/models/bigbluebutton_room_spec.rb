@@ -16,6 +16,55 @@ describe BigbluebuttonRoom do
       it "false if it was another user that created the current meeting running in the room"
       it "true if the current meeting running in the room was created by the user informed"
     end
+
+    describe "#max_participants" do
+      let(:target) { FactoryGirl.create(:bigbluebutton_room, max_participants: nil) }
+      let(:free_limit) { Rails.application.config.free_attendee_limit }
+
+      context "belonging to a user" do
+        let(:owner) { FactoryGirl.create(:user) }
+        before { target.update_attributes(owner: owner) }
+
+        context "without a subscription" do
+          it { target.reload.max_participants.should eql(free_limit) }
+        end
+
+        context "with a subscription" do
+          before {
+            Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+            Mconf::Iugu.stub(:update_customer).and_return(true)
+          }
+
+          let!(:subscription) { FactoryGirl.create(:subscription, user: owner) }
+          it { target.reload.max_participants.should eql(nil) }
+        end
+      end
+
+      context "belonging to a space" do
+        let(:owner) { FactoryGirl.create(:space) }
+        before { target.update_attributes(owner: owner) }
+        it { target.reload.max_participants.should eql(nil) }
+      end
+
+      context "belonging to an invalid owner" do
+        let(:owner) { FactoryGirl.create(:profile) }
+        before { target.update_attributes(owner: owner) }
+        it { target.reload.max_participants.should eql(0) }
+      end
+
+      context "if the attribute is set in the db, use it" do
+        before { target.update_attributes(max_participants: 992) }
+        it { target.reload.max_participants.should eql(992) }
+      end
+
+      context "if the attribute is nil in the db, don't use it" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { target.update_attributes(max_participants: nil, owner: user) }
+        it { target.reload.max_participants.should eql(free_limit) }
+      end
+    end
   end
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
@@ -134,6 +183,36 @@ describe BigbluebuttonRoom do
             user.update_attributes(:can_record => true)
           }
           it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "free account user with more than 2 recordings can't record anymore meetings" do
+          let!(:rec1){ FactoryGirl.create(:bigbluebutton_recording, room: target) }
+          let!(:rec2){ FactoryGirl.create(:bigbluebutton_recording, room: target) }
+
+          before do
+            user.update_attributes(:can_record => true)
+          end
+
+          it { should_not be_able_to(:record_meeting, target) }
+        end
+
+        context "subscribed user can record any ammount (more than two) of meetings" do
+          before { Mconf::Iugu.stub(:create_plan).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_subscription).and_return(Forgery::CreditCard.number)
+                   Mconf::Iugu.stub(:create_customer).and_return(Forgery::CreditCard.number)
+                 }
+
+          let(:iugu_plan) { FactoryGirl.create(:plan) }
+          let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
+          let(:room) { user.bigbluebutton_room }
+          let!(:rec1) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
+          let!(:rec2) { FactoryGirl.create(:bigbluebutton_recording, room: room) }
+
+          before do
+            user.update_attributes(:can_record => true)
+          end
+
+          it { should be_able_to(:record_meeting, room) }
         end
       end
 

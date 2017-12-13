@@ -1,3 +1,2 @@
-#event-invitation-mail
-  %p= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email, event: @event.name).html_safe
-  = render "shared/invitation_email"
+%p= t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email, event: @event.name).html_safe
+= render "shared/invitation_email"

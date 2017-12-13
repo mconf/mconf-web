@@ -21,7 +21,8 @@ BigbluebuttonRails.configure do |config|
     opts = {
       "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
       "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
-      record: ability.can?(:record_meeting, room)
+      record: ability.can?(:record_meeting, room),
+      maxParticipants: 0 #room.max_participants
     }
 
     reason = user.try(:cant_record_reason, room)
@@ -57,6 +58,26 @@ Rails.application.config.to_prepare do
 
     def short_path
       Rails.application.routes.url_helpers.join_webconf_path(self)
+    end
+
+    # Returns the `max_participants` of this room considering the user that is creating a meeting in
+    # it and the subscription the user has (or doesn't have).
+    # Overrides the default `max_participants` getter.
+    def max_participants
+      if !self[:max_participants].blank?
+        # if set to anything, use it
+        self[:max_participants]
+      else
+        if self.owner.is_a?(User)
+          # subscribed users have no limit, all others have a limit
+          self.owner.subscription.present? ? nil : Rails.application.config.free_attendee_limit
+        elsif self.owner.is_a?(Space)
+          nil # unlimited
+        else
+          # there shouldn't be rooms with other types of owner, so block access
+          0
+        end
+      end
     end
   end
 

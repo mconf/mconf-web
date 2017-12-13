@@ -286,6 +286,14 @@ a:not(.btn) .icon {
     font-size: 18px;
   }
 
+  &.icon-mconf-pay {
+    color: $black;
+  }
+
+  &.icon-mconf-pay-disabled {
+    color: #CCC;
+  }
+
   &.icon-mconf-google {
     color: #FFF;
   }

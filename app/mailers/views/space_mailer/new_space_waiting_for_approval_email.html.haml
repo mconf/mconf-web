@@ -1,3 +1,2 @@
-#new-space-waiting-approval-email
-  %p= t('.message', name: @space_name)
-  %p= t('.click_here', url: manage_spaces_url(host: Site.current.domain, q: @space_name)).html_safe
+%p= t('.message', name: @space_name)
+%p= t('.click_here', url: manage_spaces_url(host: Site.current.domain, q: @space_name)).html_safe

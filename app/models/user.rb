@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
   has_one :shib_token, dependent: :destroy
   has_one :certificate_token, dependent: :destroy
   has_one :profile, dependent: :destroy, autosave: true
+  has_one :subscription, dependent: :destroy
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
@@ -306,6 +307,14 @@ class User < ActiveRecord::Base
     update_attributes(approved: true)
   end
 
+  # This was removed from approve! method, it will now be defined by subscription
+  def set_expire_date!
+    if self.trial_expires_at.blank?
+      expires = Time.now + Rails.application.config.trial_months.months
+      update_attributes(trial_expires_at: expires)
+    end
+  end
+
   # Overrides a method from devise, see:
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
@@ -420,6 +429,22 @@ class User < ActiveRecord::Base
     end
 
     msg
+  end
+
+  def trial_ending_soon_email
+    self.emails.find_by(mailer: "TrialNotificationsMailer#ending_soon")
+  end
+
+  def trial_ended_email
+    self.emails.find_by(mailer: "TrialNotificationsMailer#ended")
+  end
+
+  def trial_ended?
+    self.trial_expires_at <= DateTime.now
+  end
+
+  def exceeded_recording_limit_free_account
+    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && self.subscription.blank?
   end
 
   protected

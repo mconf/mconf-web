@@ -1,2 +1,6 @@
+.centralized
+  %h1.title= t('_other.hi_name', name: @user.first_name)
+  .subtitle= t('.subject')
+
 %p= t('.message', name: @user.full_name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
 %p= t('.more', mail: Site.current.smtp_receiver).html_safe

@@ -1,7 +1,7 @@
 class mconf.NewSpaceForm
   @setup: ->
-    $name = $("#space_name")
-    $slug = $("#space_slug")
+    $name = $("#space_name:not(.disabled)")
+    $slug = $("#space_slug:not(.disabled)")
     $slug.attr "value", mconf.Base.stringToSlug($slug.val(), true)
     $slug.on "input", () ->
       $slug.val(mconf.Base.stringToSlug($slug.val(), true))

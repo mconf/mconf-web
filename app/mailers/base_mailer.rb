@@ -74,7 +74,6 @@ class BaseMailer < ActionMailer::Base
     file = caller_obj.absolute_path # e.g. /vagrant/app/mailers/web_conference_mailer.rb
     file = File.basename(file).gsub(/\..*/, '')
     method = caller_obj.base_label # e.g. invitation_email
-    # "#{file}##{method}"
     [file, method]
   end
 end
