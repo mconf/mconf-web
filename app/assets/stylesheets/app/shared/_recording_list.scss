@@ -7,9 +7,38 @@
   .recording-playback-links {
     margin: 0;
     padding: 0;
+    float: right;
   }
 
   .rec-not-recorded-col {
     color: $m-font-color-gray;
+  }
+
+  .recording-playback-links li {
+    float: left;
+    margin: 0 4px;
+  }
+
+  .rec-playback-col {
+    text-align: right;
+
+    .recording-playback-options {
+      display: inline-block;
+      float: right;
+    }
+  }
+
+  .recording-playback-links, .recording-playback-options {
+    i {
+      font-size: 20px;
+      color: #666;
+      width: 20px;
+      height: 20px;
+      margin: 0 3px;
+    }
+  }
+
+  .recording-playback-options i {
+    color: #bbb;
   }
 }

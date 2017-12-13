@@ -46,17 +46,16 @@ en:
         moderator_key: "Key for moderators"
         moderator_only_message: "Message to be shown to moderators only"
         name: Name
-        param: "String ID"
         private: Private
         presenter_share_only: "Only presenter shares audio and video"
         record: Record
-        server_id: "Server ID"
+        slug: "String ID"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Welcome Message"
       bigbluebutton_server:
         name: Name
-        param: "String ID"
         secret: "Shared Secret"
+        slug: "String ID"
         url: URL
         version: Version
       bigbluebutton_server_config:
@@ -69,6 +68,26 @@ en:
       bigbluebutton_server: "Web Conference Server"
       bigbluebutton_server_config: "Web Conference Server Configurations"
   bigbluebutton_rails:
+    api:
+      errors:
+        forbidden:
+          msg: "You are not authorized to make this API call"
+          title: "Forbidden"
+        invalid_pagination:
+          msg: "One or more pagination parameters are wrong"
+          title: "Invalid pagination parameters"
+        invalid_key:
+          msg: "The key informed is not valid for this room"
+          title: "Invalid key"
+        missing_params:
+          msg: "You did not inform one or more required parameters"
+          title: "Missing parameters"
+        room_not_found:
+          msg: "Could not find the target room"
+          title: "Resource not found"
+        room_not_running:
+          msg: "There's no meeting currently running in this room"
+          title: "Meeting not running"
     bigbluebutton: BigBlueButton
     metadata:
       errors:
@@ -106,7 +125,7 @@ en:
           success: "Your recording was successfully updated."
     rooms:
       default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
-      default_welcome_msg_dial_number: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
+      default_welcome_msg_dial_number: "<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
       errors:
         fetch_recordings:
           no_server: "There's no server associated with this room."
@@ -117,9 +136,9 @@ en:
           wrong_params: "Wrong params in your request."
         generate_dial_number:
           not_unique: "We're sorry, but it wasn't possible to generate a unique dial number for this room. You can either try again or manually set a dial number."
-        param_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         server:
           nil: "Your room must be associated to a server to execute this operation."
+        slug_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
       notice:
         create:
           failure: "Your room could not be created."
@@ -139,7 +158,7 @@ en:
           success: "Your room was successfully updated."
     servers:
       errors:
-        param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        slug_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         url_format: "should use the pattern http://<server>/bigbluebutton/api"
       notice:
         create:

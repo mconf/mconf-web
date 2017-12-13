@@ -1,0 +1,329 @@
+/*
+ * Styles related to font-awesome.
+ */
+
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+$default-icon-color: #888; /* lighten($m-green-mconf, 10); */
+$light-icon-color: #aaa;
+
+.icon {
+  color: $default-icon-color;
+
+  /* so all icons look similar even though they have different aspect ratios */
+  max-width: 16px;
+  width: 16px;
+  text-align: center;
+  display: inline-table;
+  font-size: 18px;
+  line-height: 1;
+}
+
+h2 .icon {
+  @include font-size(16px);
+  width: 16px;
+  height: 16px;
+}
+
+h3 .icon {
+  // make it smaller than the default font size for normal text
+  @include font-size($m-font-normal);
+}
+
+a:not(.btn) .icon {
+  @include link-colors($default-icon-color, $m-link-color-hover, $m-link-color-active);
+  cursor: pointer;
+  text-decoration: none;
+  &:hover { color: $m-link-color-hover; }
+  &:active { color: $m-link-color-active; }
+}
+
+
+/* The position of the icons changes slightly depending on where it is placed.
+   Below we set this positions. */
+
+/* .btn .icon { */
+/*   float: none; */
+/* } */
+
+/* .btn.btn-small, .btn.btn-mini { */
+/*   .icon { */
+/*     float: none; */
+/*     @include font-size(12px); */
+/*     width: 12px; */
+/*     height: 12px; */
+/*   } */
+/* } */
+
+/* #sidebar, .sidebar { */
+/*   .content-block-header .icon { float: right; } */
+/* } */
+
+/* Icons in the title of sections everywhere in the website */
+#content-middle .content-block-header {
+  .icon {
+    float: left;
+    margin: 5px 5px 0px 4px;
+  }
+  .btn .icon {
+    margin: 3px 5px 0 0;
+  }
+}
+
+/* Force the color on all icons when inside components that have a darker background. */
+/* .btn-primary, .btn-success, .btn-danger, .btn-error, .btn-info { */
+/*   .icon { */
+/*     color: white; */
+/*   } */
+/* } */
+
+// Icons in labels have a different style
+.label {
+  &.label-default, &.label-primary, &.label-warning, &.label-info,
+  &.label-success, &.label-danger {
+    .icon {
+      color: #fff;
+    }
+  }
+
+  &.label-flat {
+    .icon {
+      color: $m-font-color-gray;
+    }
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+/* Some icons have a specific color, set below. */
+/* Some have nothing inside, but are kept here as a reference to all the icons we have. */
+
+/* Include this scope here so the colors have precedence over the other
+   styles specified above. */
+.icon, a:not(.btn) .icon {
+
+  &.icon-rss {
+    color: $m-orange;
+  }
+
+  &.icon-help, &.icon-info {
+    color: $m-blue;
+  }
+
+  &.icon-waiting-moderation {
+    color: #e9b624;
+  }
+
+  &.icon-superuser {
+    color: $m-red;
+  }
+
+  &.icon-in-progress, .icon-loading {
+    color: $m-green;
+  }
+
+  &.icon-delete {
+    color: $m-red;
+  }
+
+  &.icon-disable {
+    color: $m-red;
+  }
+
+  &.icon-confirm {
+    color: $m-green;
+  }
+
+  &.icon-enable {
+    color: $m-green;
+  }
+
+  &.icon-new-tag {
+    color: $m-yellow;
+  }
+
+  &.icon-download {
+    color: $m-blue;
+  }
+
+  &.icon-message {
+    &.active {
+      color: $m-alert-danger-font;
+    }
+  }
+
+  &.icon-mobile {
+    color: $m-blue;
+  }
+
+  &.icon-success {
+    color: $m-green;
+  }
+
+  &.icon-error {
+    color: $m-red;
+  }
+
+  &.icon-recording {
+    color: $light-icon-color;
+  }
+
+  &.icon-meeting {
+    color: $light-icon-color;
+  }
+
+  &.icon-space-public {
+    color: $m-alert-success-font;
+  }
+
+  &.icon-space-private {
+    color: $m-alert-danger-font;
+  }
+
+  &.icon-approve {
+    color: $m-alert-success-font;
+  }
+
+  &.icon-disapprove {
+    color: $m-yellow;
+  }
+
+  &.icon-is-member {
+    color: $m-yellow;
+  }
+
+  &.icon-confirm-user {
+    color: $m-green;
+  }
+
+  &.icon-participant-confirmed {
+    color: $green;
+  }
+
+  &.icon-participant-not-confirmed {
+    color: $red;
+  }
+
+  &.icon-publish {
+    color: $m-green;
+  }
+
+  &.icon-unpublish {
+    color: $m-yellow;
+  }
+
+  &.icon-list {
+    &.enabled {
+      color: #888;
+    }
+    &.disabled {
+      color: #CCC;
+    }
+  }
+
+  &.icon-can-rec {
+    color: $red;
+  }
+
+  &.icon-cant-rec {
+    color: #CCC;
+  }
+
+  &.icon-show {
+    color: $m-green;
+  }
+
+  &.icon-hide {
+    color: $m-yellow;
+  }
+
+  &.icon-stack-superuser {
+    font-size: 18px;
+    position: relative;
+    left: 2px;
+    color: $m-red;
+  }
+
+  &.icon-stack-user {
+    font-size: 18px;
+    position: relative;
+    left: 4px;
+  }
+
+  &.icon-stack-plus {
+    position: absolute;
+    right: 7px;
+    bottom: 5px;
+    font-size: 11px;
+  }
+
+  &.icon-published {
+    background: $m-green;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    max-width: auto;
+  }
+
+  &.icon-unpublished {
+    background: $m-red;
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    max-width: auto;
+  }
+
+  &.icon-rec-play {
+    color: $m-green;
+  }
+
+  &.icon-rec-download {
+    color: $m-orange;
+    font-size: 18px;
+  }
+
+  &.icon-mconf-pay {
+    color: $black;
+  }
+
+  &.icon-mconf-pay-disabled {
+    color: #CCC;
+  }
+
+  &.icon-mconf-google {
+    color: #FFF;
+  }
+
+  &.icon-mconf-facebook {
+    color: #FFF;
+  }
+
+  &.icon-event {}
+  &.icon-logout {}
+  &.icon-logout {}
+  &.icon-account {}
+  &.icon-activity {}
+  &.icon-comment {}
+  &.icon-comments {}
+  &.icon-attachment {}
+  &.icon-users {}
+  &.icon-edit {}
+  &.icon-share {}
+  &.icon-order-number-asc {}
+  &.icon-order-number-desc {}
+  &.icon-check {}
+  &.icon-picture {}
+  &.icon-playback {}
+  &.icon-date {}
+  &.icon-user {}
+  &.icon-space {}
+  &.icon-profile {}
+  &.icon-options {}
+  &.icon-join-request {}
+  &.icon-list {}
+  &.icon-externa-link {}
+}

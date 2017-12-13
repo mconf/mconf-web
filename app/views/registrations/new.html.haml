@@ -1,18 +1,12 @@
 = page_title t('.title')
+- sessions_menu_at :register
 
-%h1= t('.form_title')
+#headline
+  %h1= t('.headline')
+  %h3= t('.headline2')
 
 #register-wrapper
-  .row
-    #register-form
-      = render partial: 'signup_form'
-
-    #register-rules
-      .rule-block
-        %h3= t('.rules_title').html_safe
-        %p= t('.rules_text').html_safe
-      .rule-block
-        %h3= t('.pricing_title').html_safe
-        %ul
-          %li= t('.pricing_text1').html_safe
-          %li= t('.pricing_text2').html_safe
+  %h1= t('.title')
+  = render partial: 'signup_form'
+  = render partial: 'shared/social_login'
+  = render partial: 'devise/shared/links'

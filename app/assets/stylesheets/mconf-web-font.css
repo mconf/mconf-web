@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'MconfWebFont';
+  src:  url('MconfWebFont.eot?xml3c3');
+  src:  url('MconfWebFont.eot?xml3c3#iefix') format('embedded-opentype'),
+    url('MconfWebFont.ttf?xml3c3') format('truetype'),
+    url('MconfWebFont.woff?xml3c3') format('woff'),
+    url('MconfWebFont.svg?xml3c3#MconfWebFont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-mw-"], [class*=" icon-mw-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'MconfWebFont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mw-conference-play:before {
+  content: "\e900";
+}
+.icon-mw-options-dots:before {
+  content: "\e901";
+}
+.icon-mw-calendar:before {
+  content: "\e902";
+}
+.icon-mw-conference-invite:before {
+  content: "\e903";
+}
+.icon-mw-clock:before {
+  content: "\e904";
+}
+.icon-mw-rec-download:before {
+  content: "\e905";
+}
+.icon-mw-link:before {
+  content: "\e906";
+}
+.icon-mw-options:before {
+  content: "\e907";
+}

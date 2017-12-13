@@ -19,11 +19,11 @@ describe 'User accesses spaces index' do
       context 'with default logo' do
         before { visit spaces_path }
 
-        it { should have_css '.space-container', :count => 1 }
+        it { should have_css '.space-container', count: 1 }
         it { should have_content space.name }
         it { should have_content space.tag_list.first }
         it { should have_content space.description }
-        it { should have_image default_logo84x64 }
+        it { should have_css '.logo-space.logo-initials', text: space.initials }
       end
 
       context 'and with valid logo' do

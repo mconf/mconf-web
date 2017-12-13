@@ -1,0 +1,28 @@
+= minimal_form_for @subscription, :html => { :method => :post }, :url => subscriptions_path, wrapper: :vertical_form do |f|
+
+  .field-group
+    %h3= t('.customer_section')
+    = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
+
+  .field-group
+    %h3= t('.address_section')
+    .form-group.select.optional.user_profile_country
+      = f.input :country, autofocus: true, wrapper: :label_only
+      = f.country_select :country, { priority_countries: ["BR", "US"], include_blank: true, prompt: t('.country') }, { class: 'form-control' }
+    = f.input :address, required: true, placeholder: t('.address')
+    = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info')
+    = f.input :number, required:true, placeholder: t('.number')
+    = f.input :zipcode, required: true, placeholder: t('.zipcode')
+    = f.input :city, required: true, placeholder: t('.city')
+    = f.input :province, required: true, placeholder: t('.province')
+    = f.input :district, required: true, placeholder: t('.district')
+
+    .alert.alert-gray
+      = icon_info
+      = t('.confirmation')
+
+  -#.form-accept-terms.field-group
+  -#  = check_box_tag :terms, 1, false, as: :boolean
+  -#  = label_tag :terms, t('.terms').html_safe
+
+  = f.button :wrapped, value: t(".subscribe")

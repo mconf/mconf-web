@@ -1,24 +1,50 @@
-$m-com-purple: rgb(51, 19, 42); //rgb(72, 34, 61);
-$m-com-purple-light: #7a506b;
+$m-com-purple: #7a516c; //rgb(51, 19, 42); //rgb(72, 34, 61);
+$m-com-purple-dark: #48223d;
+//$m-com-purple-light: #7a506b;
 $m-com-red: #cd4b57;
 $m-com-orange: #eb8039;
-
-/* $m-link-color: $m-com-red; */
-$m-link-color-hover: $m-com-red;
-/* $m-link-color-active: $m-link-color; */
-
+$m-color-primary: $m-com-purple;
+$m-color-primary-hover: $m-com-purple-dark;
 $m-color-secondary: $m-com-red;
+$m-color-secondary-hover: darken($m-color-secondary, 5);
+$m-link-color: $m-com-purple;
+$m-link-color-hover: $m-com-red;
+$m-link-color-active: $m-link-color-hover;
+$m-active-item-border-color: $m-color-primary;
+$m-active-item-border: 4px solid $m-active-item-border-color;
+/* $m-link-color-active: $m-link-color; */
 $m-focus-border-color: $m-color-secondary;
-
-$m-navbar-bg-color-light: $m-com-purple;
+$m-navbar-font-color-hover: $m-link-color-hover;
+$m-navbar-bg-color-light: #fff; //$m-com-purple;
 $m-navbar-bg-color-dark: $m-navbar-bg-color-light;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
 $m-navbar-internal-border-color: lighten($m-navbar-bg-color-dark, 5);
 $m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 10);
-
-$btn-primary-bg: $m-color-secondary;
+$m-navbar-btn-bg: $m-com-purple;
+$m-navbar-btn-bg-hover: $m-com-purple-dark;
+$m-navbar-btn-color: #fff;
+$m-navbar-link-color: $m-link-color;
+$m-navbar-link-color-hover: $m-navbar-link-color;
+$m-navbar-link-color-active: $m-navbar-link-color;
+$m-tooltip-color: #fff;
+$m-tooltip-bg: $m-com-purple;
+$m-tooltip-arrow-color: $m-com-purple;
+$m-font-h-color: $m-color-primary;
+$m-font-h-color-hover: $m-link-color-hover;
+$m-font-h-color-active: $m-link-color-active;
+$m-logo-border: $m-color-primary;
+$m-logo-initials-bg: $m-com-purple $m-com-purple-dark $m-com-red $m-com-orange $m-com-purple $m-com-purple-dark $m-com-red $m-com-orange darken($m-com-red, 5);
+// bootstrap
+$brand-primary: $m-com-purple;
+$btn-primary-bg: $m-color-primary;
 $btn-primary-border: $btn-primary-bg;
-
+$btn-info-bg: $m-color-primary;
+$btn-info-border: $btn-primary-bg;
+$tooltip-color: $m-tooltip-color;
+$tooltip-bg: $m-tooltip-bg;
+$tooltip-arrow-color: $m-tooltip-arrow-color;
+$link-color: $m-link-color;
+$link-color-hover: $m-link-color-hover;
 // mailer colors
 $m-mail-main-title: #696969;
 $m-mail-text: $m-mail-main-title;

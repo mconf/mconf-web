@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531162723) do
+ActiveRecord::Schema.define(version: 20171207192319) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "external",                                            default: false
-    t.string   "param"
+    t.string   "slug"
     t.boolean  "record_meeting",                                      default: false
     t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "param"
+    t.string   "slug"
   end
 
   create_table "certificate_tokens", force: true do |t|
@@ -226,12 +226,12 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "address"
     t.float    "latitude",        limit: 24
     t.float    "longitude",       limit: 24
-    t.string   "permalink"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
@@ -255,6 +255,18 @@ ActiveRecord::Schema.define(version: 20170531162723) do
   end
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree
+
+  create_table "invoices", force: true do |t|
+    t.integer  "subscription_id"
+    t.string   "invoice_token"
+    t.string   "invoice_url"
+    t.string   "flag_invoice_status"
+    t.datetime "due_date"
+    t.integer  "user_qty"
+    t.integer  "days_consumed"
+    t.float    "invoice_value",       limit: 24
+    t.boolean  "notified",                       default: false
+  end
 
   create_table "join_requests", force: true do |t|
     t.string   "request_type"
@@ -310,6 +322,16 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.integer  "role_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "plans", force: true do |t|
+    t.string  "name"
+    t.string  "identifier"
+    t.string  "ops_token"
+    t.string  "ops_type"
+    t.string  "currency"
+    t.string  "interval_type"
+    t.integer "interval"
   end
 
   create_table "posts", force: true do |t|
@@ -433,7 +455,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "permalink"
+    t.string   "slug"
     t.boolean  "disabled",            default: false
     t.boolean  "repository",          default: false
     t.string   "logo_image"
@@ -444,6 +466,24 @@ ActiveRecord::Schema.define(version: 20170531162723) do
 
   add_index "spaces", ["last_activity"], name: "index_spaces_on_last_activity", using: :btree
   add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
+
+  create_table "subscriptions", force: true do |t|
+    t.string  "plan_token"
+    t.integer "user_id"
+    t.string  "customer_token"
+    t.string  "subscription_token"
+    t.string  "pay_day"
+    t.string  "cpf_cnpj"
+    t.string  "address"
+    t.string  "additional_address_info"
+    t.string  "number"
+    t.string  "zipcode"
+    t.string  "city"
+    t.string  "province"
+    t.string  "district"
+    t.string  "country"
+    t.boolean "integrator",              default: false
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -473,7 +513,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username"
+    t.string   "slug"
     t.string   "email",                               default: "",    null: false
     t.string   "encrypted_password",                  default: "",    null: false
     t.string   "password_salt",            limit: 40

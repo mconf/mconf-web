@@ -1,0 +1,7 @@
+%p.content
+  %h1= t('.message.hello', name: @user.name).html_safe
+
+%p.content
+  = t('.message.main_text').html_safe
+
+%p= t('.message.contact', contact_email: Site.current.smtp_receiver).html_safe

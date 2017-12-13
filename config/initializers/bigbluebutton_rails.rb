@@ -14,13 +14,16 @@ BigbluebuttonRails.configure do |config|
   end
 
   # Add custom metadata to all create calls
-  config.get_dynamic_metadata = Proc.new do |room|
+  config.get_create_options = Proc.new do |room, user|
     host = Site.current.domain_with_protocol
-    meta = {
-      "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
-      "mconfweb-room-type" => room.try(:owner).try(:class).try(:name)
+    ability = Abilities.ability_for(user)
+
+    {
+      "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
+      "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
+      record: ability.can?(:record_meeting, room),
+      maxParticipants: 0 #room.max_participants
     }
-    meta
   end
 end
 
@@ -29,7 +32,7 @@ Rails.application.config.to_prepare do
   BigbluebuttonRoom.class_eval do
 
     # prevent duplicates and rooms with blacklisted names
-    validates :param, blacklist: true, room_param_uniqueness: true
+    validates :slug, blacklist: true, room_slug_uniqueness: true
 
     # Returns whether the `user` created the current meeting on this room
     # or not. Has to be called after a `fetch_meeting_info`, otherwise will always
@@ -51,43 +54,26 @@ Rails.application.config.to_prepare do
     def short_path
       Rails.application.routes.url_helpers.join_webconf_path(self)
     end
-  end
 
-  BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Model
-
-    tracked only: [:create], owner: :room,
-      recipient: -> (ctrl, model) { model.room.owner },
-      params: {
-        creator_id: -> (ctrl, model) {
-          model.try(:creator_id)
-        },
-      creator_username: -> (ctrl, model) {
-        id = model.try(:creator_id)
-        user = User.find_by(id: id)
-        user.try(:username)
-      }
-    }
-
-    scope :newest, -> (count=0) {
-      ordered = order("create_time DESC")
-      if count > 0
-        ordered.first(count)
+    # Returns the `max_participants` of this room considering the user that is creating a meeting in
+    # it and the subscription the user has (or doesn't have).
+    # Overrides the default `max_participants` getter.
+    def max_participants
+      if !self[:max_participants].blank?
+        # if set to anything, use it
+        self[:max_participants]
       else
-        ordered
-      end
-    }
-  end
-
-  BigbluebuttonServer.instance_eval do
-
-    # When the URL of the default server changes, change the URL of all institution servers.
-    after_update if: :url_changed? do
-      if BigbluebuttonServer.default.id == self.id
-        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
+        if self.owner.is_a?(User)
+          # subscribed users have no limit, all others have a limit
+          self.owner.subscription.present? ? nil : Rails.application.config.free_attendee_limit
+        elsif self.owner.is_a?(Space)
+          nil # unlimited
+        else
+          # there shouldn't be rooms with other types of owner, so block access
+          0
+        end
       end
     end
-
   end
 
   BigbluebuttonMeeting.class_eval do
@@ -100,10 +86,17 @@ Rails.application.config.to_prepare do
     scope :with_recording, -> {
       joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
     }
+
+    def duration
+      if self.finish_time.present?
+        self.finish_time - self.create_time
+      else
+        nil
+      end
+    end
   end
 
   BigbluebuttonRecording.class_eval do
-
     # Search recordings based on a list of words
     scope :search_by_terms, -> (words) {
       query = joins(:room).includes(:room)
@@ -149,5 +142,50 @@ Rails.application.config.to_prepare do
     scope :no_playback, -> {
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
+
+    def duration
+      if self.end_time.present?
+        self.end_time - self.start_time
+      else
+        nil
+      end
+    end
+  end
+
+  BigbluebuttonMeeting.instance_eval do
+    include PublicActivity::Model
+
+    tracked only: [:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+      creator_username: -> (ctrl, model) {
+        id = model.try(:creator_id)
+        user = User.find_by(id: id)
+        user.try(:username)
+      }
+    }
+
+    scope :newest, -> (count=0) {
+      ordered = order("create_time DESC")
+      if count > 0
+        ordered.first(count)
+      else
+        ordered
+      end
+    }
+  end
+
+  BigbluebuttonServer.instance_eval do
+
+    # When the URL of the default server changes, change the URL of all institution servers.
+    after_update if: :url_changed? do
+      if BigbluebuttonServer.default.id == self.id
+        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
+      end
+    end
+
   end
 end

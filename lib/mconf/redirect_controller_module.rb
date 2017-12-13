@@ -43,6 +43,7 @@ module Mconf::RedirectControllerModule
                       "/users/confirmation/new", "/users/confirmation",
                       "/users/shibboleth", "/users/shibboleth/info", "/users/shibboleth/associate", "/secure",
                       "/users/pending", "/feedback/webconf", "/language/.*",
+                      "/users/auth/.*", ".*/report",
                       "/#{Rails.application.config.conf_scope}/rooms/.*/join", "/#{Rails.application.config.conf_scope}/rooms/.*/end"]
     ignored_paths.select{ |ignored| path.match("^"+ignored+"$") }.empty?
   end

@@ -30,13 +30,13 @@ describe 'Admin manages spaces' do
       before { visit manage_spaces_path }
 
       it { should have_css '.list-item', :count => 4 }
-      it { should have_css '.icon-mconf-delete', :count => 4 }
+      it { should have_css '.icon-delete', :count => 4 }
 
       it { should have_css '.list-item-disabled', :count => 1 }
-      it { should have_css '.icon-mconf-enable', :count => 1 }
+      it { should have_css '.icon-enable', :count => 1 }
 
-      it { should have_css '.icon-mconf-edit', :count => 3 }
-      it { should have_css '.icon-mconf-disable', :count => 3 }
+      it { should have_css '.icon-edit', :count => 3 }
+      it { should have_css '.icon-disable', :count => 3 }
 
       skip { should have_css '.label.label-tag', :count => 3 } # TODO
       skip { should have_content "this one has a tag too"} # TODO
@@ -52,9 +52,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for an approved space' do
         let(:space) { @approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -66,9 +66,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for a not approved space' do
         let(:space) { @not_approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -80,11 +80,11 @@ describe 'Admin manages spaces' do
 
       context 'elements for a disabled space' do
         let(:space) { @disabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
-        it { should_not have_css '.icon-mconf-edit' }
+        it { should_not have_css '.icon-edit' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should_not have_link_to_edit_space(space) }
         it { should have_link_to_destroy_space(space) }
@@ -96,9 +96,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for an enabled space' do
         let(:space) { @enabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -117,9 +117,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for an approved space' do
         let(:space) { @approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -131,9 +131,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for a not approved space' do
         let(:space) { @not_approved_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -145,11 +145,11 @@ describe 'Admin manages spaces' do
 
       context 'elements for a disabled space' do
         let(:space) { @disabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
-        it { should_not have_css '.icon-mconf-edit' }
+        it { should_not have_css '.icon-edit' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should_not have_link_to_edit_space(space) }
         it { should have_link_to_destroy_space(space) }
@@ -161,9 +161,9 @@ describe 'Admin manages spaces' do
 
       context 'elements for an enabled space' do
         let(:space) { @enabled_space }
-        subject { page.find("#space-#{space.permalink}") }
+        subject { page.find("#space-#{space.slug}") }
 
-        it { should have_css 'img.logo-space' }
+        it { should have_css '.logo-space' }
         it { should have_css '.management-links' }
         it { should_not have_content t('._other.not_approved.text') }
         it { should have_link_to_edit_space(space) }
@@ -188,11 +188,11 @@ describe 'Admin manages spaces' do
     }
     context 'no css should load and the page should 404' do
       it { should_not have_css '.list-item' }
-      it { should_not have_css '.icon-mconf-delete' }
+      it { should_not have_css '.icon-delete' }
       it { should_not have_css '.list-item-disabled' }
-      it { should_not have_css '.icon-mconf-enable' }
-      it { should_not have_css '.icon-mconf-edit' }
-      it { should_not have_css '.icon-mconf-disable'}
+      it { should_not have_css '.icon-enable' }
+      it { should_not have_css '.icon-edit' }
+      it { should_not have_css '.icon-disable'}
       it { page.status_code.should == 404 }
     end
   end

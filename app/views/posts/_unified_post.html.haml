@@ -10,7 +10,7 @@
     - if thread.author
       = link_logo_image(thread.author, size: '32', title: thread.author.name, url: user_path(thread.author), class: "logo logo-user")
     - else
-      = empty_logo_image(:user, size: '32', class: "logo logo-user")
+      = logo_initials(:user, size: '32', class: "logo logo-user")
   .thread-content
 
     .thread-title

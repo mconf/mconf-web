@@ -9,85 +9,95 @@
 // use it with $blue, $red, $yellow, etc.
 @import "../../../vendor/assets/stylesheets/colors";
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('/assets/Roboto-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 // link colors
 $m-link-color: #2274A5;
 $m-link-color-hover: lighten($m-link-color, 15);
-$m-link-color-active: darken($m-link-color-hover, 20);
-
-// fonts
-$m-font-normal: 0.8rem; /* base size for all fonts */
-$m-font-mini: $m-font-normal * 0.8;
-$m-font-small: $m-font-normal * 0.9;
-$m-font-medium: $m-font-normal * 1.2;
-$m-font-big: $m-font-normal * 1.4;
-$m-font-bigger: $m-font-normal * 1.6;
-$m-font-double: $m-font-normal * 2;
-/* multipliers over the standard font size */
-$m-font-h1-multiplier: 2.5;
-$m-font-h2-multiplier: 2;
-$m-font-h3-multiplier: 1.4;
-$m-font-h4-multiplier: 1.2;
-$m-font-h5-multiplier: 1;
-$m-font-h6-multiplier: 1;
-$m-font-color: #333;
-$m-font-strong: #000;
-$m-font-light: #666;
-$m-font-color-gray: #888;
-$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
-$m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
-$m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
-$m-font-family-h: $m-font-family;
-$m-font-h-color: #111;
-$m-font-h-color-hover: $m-link-color-hover;
-$m-font-h-color-active: $m-link-color-active;
-$m-base-line-height: 1.5;
-$m-link-decoration: none;
-$m-link-decoration-hover: underline;
+$m-link-color-active: $m-link-color-hover; //darken($m-link-color-hover, 20);
 
 // standard colors
+$m-green-mconf: #004956; // #27535C
 $m-green: $olive;
 $m-blue: #337ab7;
 $m-red: #ff5b5b;
 $m-orange: #e98300; //#C47322;
 $m-yellow: #f3a712; //#BB9403;
 $m-cyan: #00ffff;
-$m-green-logo: #004956; // #27535C
 $m-gray: #ccc;
 $m-dark-gray: #666;
 $m-light-gray: #f6f6f6;
-$m-very-light-gray: #fcfcfc;
+$m-very-light-gray: #fafafa;
 $m-bright-blue: #49afcd;
 $m-transparent: rgba(255,255,255,0);
 
-// site colors
-$m-site-bg-color: #fff;
-$m-color-primary: $m-green-logo;
-$m-color-primary-light: lighten($m-green-logo, 12);
-$m-color-secondary: #337ab7; //#4589c4; //$m-bright-blue;
+// site colors and global configs
+$m-site-bg-color: #f2f2f2;
+$m-site-content-bg-color: #fff;
+$m-color-primary: $m-green-mconf;
+$m-color-primary-hover: darken($m-color-primary, 5);
+$m-color-secondary: #337ab7;
+$m-color-secondary-hover: darken($m-color-secondary, 5);
 $m-focus-border-color: $m-color-secondary;
+$m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primary $m-color-secondary;
+$m-logo-bg: lighten($m-color-primary, 15);
+$m-logo-border: $m-color-primary;
+$m-site-horizontal-padding: 60px;
+$m-content-vertical-padding: 60px;
+$m-active-item-border-color: $m-color-primary;
+$m-active-item-border: 4px solid $m-active-item-border-color;
+$m-active-item-border-off: 4px solid $m-transparent;
+
+// fonts
+$m-font-normal: 14px; //0.85rem; /* 14px, base size for all fonts */
+$m-font-mini: $m-font-normal * 0.8;
+$m-font-small: $m-font-normal * 0.9;
+$m-font-medium: 16px;
+$m-font-big: $m-font-normal * 1.4;
+$m-font-bigger: $m-font-normal * 1.8;
+$m-font-double: $m-font-normal * 2;
+/* multipliers over the standard font size */
+$m-font-h1-multiplier: 2.71;
+$m-font-h2-multiplier: 2.28;
+$m-font-h3-multiplier: 1.4;
+$m-font-h4-multiplier: 1.2;
+$m-font-h5-multiplier: 1;
+$m-font-h6-multiplier: 1;
+$m-font-weight-thin: 300;
+$m-font-weight-normal: 400;
+$m-font-weight-bold: 700;
+$m-font-weight-bolder: 900;
+$m-font-color: #444; //desaturate($m-color-primary, 25%);
+$m-font-strong: darken($m-font-color, 10%); //#000;
+$m-font-light: lighten($m-font-color, 10%); //#666;
+$m-font-color-gray: #888;
+$m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+$m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+$m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
+$m-font-family-h: $m-font-family;
+$m-font-h-color: $m-color-primary; //#111;
+$m-font-h-color-hover: $m-link-color-hover;
+$m-font-h-color-active: $m-link-color-active;
+$m-base-line-height: 1.5;
+$m-link-decoration: none;
+$m-link-decoration-hover: underline;
 
 // borders
-$m-border-color-normal: #ddd;// #e8e8e8;/* #ddd; */
+$m-border-color-normal: #CBCBCB; //#ddd;// #e8e8e8;/* #ddd; */
 $m-border-color-medium: #e6e6e6;
 $m-border-color-light: #eee;
 $m-border-color-dark: #ccc;
+$m-border-color-highlight: $m-bright-blue;
 $m-border-radius-base: 2px;
 $m-border-radius-small: 1px;
-$m-border-radius-large: 3px;
+$m-border-radius-large: 4px;
 
 // inputs
 $m-input-bg: #fff;
+$m-input-color: #4d4d4d;
+$m-input-color-placeholder: #cbcbcb;
 $m-input-border-color: $m-border-color-normal; //$m-border-color-medium;
 $m-input-focus-bg:  #fff; //#fafafa;
 $m-input-focus-border-color: $m-color-secondary; //lighten($m-color-primary-light, 5); // #999999;
-$m-input-disabled-bg: #f6f6f6;
+$m-input-disabled-bg: #e5e5e5; //#f6f6f6;
 
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;
@@ -108,16 +118,16 @@ $m-highlight-bg: #ffff81;
 
 // width of the central container in case we're using a maximum size
 // see `set-max-width`
-$m-contents-max-width: 1180px;
-$m-contents-width: 980px; // TODO: deprecated now that the site is responsive
+$m-contents-max-width: 1280px;
+$m-contents-width: 1080px; // TODO: deprecated now that the site is responsive
 
 // sidebar
-$m-sidebar-width-lg: 350px;
-$m-sidebar-width-md: 3000px;
-$m-sidebar-width-sm: 300px;
+$m-sidebar-width-lg: 300px;
+$m-sidebar-width-md: 300px;
+$m-sidebar-width-sm: 250px;
 $m-sidebar-padding: 25px;
 $m-sidebar-border: $m-border-color-normal;
-$m-sidebar-bg-color: #fafafa; //#f3f6f9;
+$m-sidebar-bg-color: #fff; //#fafafa; //#f3f6f9;
 
 // sidebar menu
 $m-sidebar-menu-hover-bg: darken($m-sidebar-bg-color, 5);
@@ -130,28 +140,44 @@ $m-sidebar-menu-active-border: $m-sidebar-border; //#d9e2ec;
 $m-sidebar-menu-active-color: $m-sidebar-menu-color-hover;
 $m-sidebar-menu-active-color-hover: $m-sidebar-menu-active-color;
 
+// sidenav
+$m-sidenav-width-md: 300px;
+$m-sidenav-padding: 20px;
+$m-sidenav-border: #fff;
+$m-sidenav-bg-color: #fff;
+$m-sidenav-box-shadow: 5px 0 9px 0px rgba(0, 0, 0, 0.05);
+
 // navbar
 $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
-$m-navbar-bg-color-light: $m-color-primary;
-$m-navbar-bg-color-dark: $m-navbar-bg-color-light; //darken($m-green-logo, 3);
+$m-navbar-bg-color-light: #fff; //$m-color-primary;
+$m-navbar-bg-color-dark: #fff; //$m-navbar-bg-color-light; //darken($m-green-mconf, 3);
 $m-navbar-border-width: 0px;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
-$m-navbar-internal-border-color: lighten($m-navbar-bg-color-dark, 3);
-$m-navbar-font: $m-font-medium;
-$m-navbar-font-color: #ddd;//$m-font-color;
-$m-navbar-font-color-hover: white; //$m-link-color-hover;
-$m-navbar-font-highlight: lighten($m-navbar-bg-color-dark, 8);
+$m-navbar-internal-border-color: $m-border-color-normal; //lighten($m-navbar-bg-color-dark, 3);
+$m-navbar-font: $m-font-big;
+$m-navbar-font-color: $m-font-color;
+$m-navbar-font-color-hover: $m-active-item-border-color;
+$m-navbar-font-highlight: #fff; //lighten($m-navbar-bg-color-dark, 8);
+$m-navbar-font-family: $m-font-family-h;
 $m-navbar-link-color: lighten($m-link-color, 15);
-$m-navbar-link-color-hover: lighten($m-navbar-link-color, 8);
-$m-navbar-link-color-active: $m-navbar-link-color;
-$m-navbar-height: 56px;
+$m-navbar-link-color-hover: $m-active-item-border-color;
+$m-navbar-link-color-active: $m-navbar-link-color-hover;
+$m-navbar-height: 80px;
+$m-navbar-btn-size: 48px;
+/* $m-navbar-height: 90px; */
+/* $m-navbar-btn-size: 46px; */
+$m-navbar-btn-bg: $m-color-primary;
+$m-navbar-btn-bg-hover: $m-color-primary-hover;
+$m-navbar-btn-color: #fff;
+$m-navbar-conf-panel-bg: $m-site-bg-color;
+$m-navbar-box-shadow: 5px 0 9px 0px rgba(0, 0, 0, 0.15);
 
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */
 /* $m-navbar-bg-color-light: white; */
-/* $m-navbar-border-color: $m-green-logo; */
+/* $m-navbar-border-color: $m-green-mconf; */
 /* $m-navbar-border-width: 1px; */
 /* $m-navbar-font-color: $m-font-color; */
 /* $m-navbar-font-color-hover: $m-link-color-hover; */
@@ -167,7 +193,7 @@ $m-page-menu-active-color-hover: $m-sidebar-menu-active-color-hover;
 $m-page-menu-active-border: $m-sidebar-border;
 
 // footer
-$m-footer-height: 72px;
+$m-footer-height: 56px;
 $m-footer-font-color: $m-font-color;
 $m-footer-link-color: $m-link-color;
 $m-footer-link-color-hover: $m-link-color-hover;
@@ -176,7 +202,7 @@ $m-footer-bg-color: #fff;
 $m-footer-border-color: $m-sidebar-border;
 
 // dark green bg footer:
-/* $m-footer-bg-color: darken($m-green-logo, 3);// $m-navbar-bg-color-dark; */
+/* $m-footer-bg-color: darken($m-green-mconf, 3);// $m-navbar-bg-color-dark; */
 /* $m-footer-font-color: #bbb; */
 /* $m-footer-border-color: darken($m-footer-bg-color, 10); */
 /* $m-footer-link-color: #bbb; */
@@ -194,6 +220,7 @@ $m-footer-border-color: $m-sidebar-border;
 // z-indexes
 // TODO: not being used yet
 $m-z-index-navbar: 100;
+$m-z-index-sidenav: 101;
 $m-z-index-dialog: 200;
 $m-z-index-tooltip: 999999;
 
@@ -206,9 +233,17 @@ $m-mail-font-size: $m-font-normal;
 $m-notifications-top: 6px;
 
 // tags
-$m-tags-font-color: #39739d;
-$m-tags-bg-color: #E1ECF4;
-$m-tags-bg-color-hover: #cee0ed;
+$m-tags-font-color: #fff; //#39739d;
+$m-tags-bg-color: #4b9ace; //#E1ECF4;
+$m-tags-bg-color-hover: darken($m-tags-bg-color, 10);
+
+// tooltips
+$m-tooltip-color: #fff;
+$m-tooltip-bg: $m-color-primary;
+$m-tooltip-opacity: .9;
+$m-tooltip-arrow-width: 8px;
+$m-tooltip-arrow-color: $m-color-primary;
+
 
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
@@ -219,10 +254,11 @@ $m-tags-bg-color-hover: #cee0ed;
 /* $grid-gutter-width:         30px; */
 /* $grid-float-breakpoint:     768px; */
 
+
 /*
  * Customized variables for bootstrap
  */
-$brand-primary: $m-color-primary-light; //$m-color-primary; //$m-link-color; //#4589C4;//#2186DE;
+$brand-primary: lighten($m-green-mconf, 12);
 $border-radius-base: $m-border-radius-base;
 $border-radius-small: $m-border-radius-small;
 $border-radius-large: $m-border-radius-large;
@@ -258,7 +294,10 @@ $navbar-default-bg: $m-navbar-bg-color-dark;
 //$link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color: $m-link-color; //#1e9a50; //#187d41;
 $link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;
+$link-color-active: $m-link-color-hover;
 $input-bg: $m-input-bg;
+$input-color: $m-input-color;
+$input-color-placeholder: $m-input-color-placeholder;
 $input-bg-disabled: $m-input-disabled-bg;
 $input-border: $m-input-border-color;
 $input-border-focus: $m-input-focus-border-color;
@@ -270,6 +309,20 @@ $btn-border-radius-base: $m-border-radius-base;
 $btn-border-radius-large: $m-border-radius-base;
 $btn-border-radius-small: $m-border-radius-base;
 $cursor-disabled: default;
+$tooltip-color: $m-tooltip-color;
+$tooltip-bg: $m-tooltip-bg;
+$tooltip-opacity: $m-tooltip-opacity;
+$tooltip-arrow-width: $m-tooltip-arrow-width;
+$tooltip-arrow-color: $m-tooltip-arrow-color;
+$padding-base-vertical: 8px;
+$padding-base-horizontal: 16px;
+$padding-large-vertical: 12px;
+$padding-large-horizontal: 18px;
+$padding-small-vertical: 6px;
+$padding-small-horizontal: 12px;
+$font-size-base: $m-font-normal;
+$font-size-large: $m-font-big;
+$font-size-small: $m-font-small;
 
 // Themes: if using a theme, import it here!
 @import "../themes/mconf-com/stylesheets/variables";

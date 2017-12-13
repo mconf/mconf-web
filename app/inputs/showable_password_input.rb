@@ -22,8 +22,8 @@ class ShowablePasswordInput < SimpleForm::Inputs::StringInput
     options[:class] << :"form-control"
     field = @builder.password_field(attribute_name, options)
 
-    ico1 = content_tag :i, nil, class: 'tooltipped fa fa-eye icon-awesome icon-mconf-show showable_password_show', title: I18n.t('_other.showable_password.show')
-    ico2 = content_tag :i, nil, class: 'tooltipped fa fa-eye-slash icon-awesome icon-mconf-hide showable_password_hide', title: I18n.t('_other.showable_password.hide')
+    ico1 = content_tag :i, nil, class: 'tooltipped fa fa-eye icon icon-show showable_password_show', title: I18n.t('_other.showable_password.show')
+    ico2 = content_tag :i, nil, class: 'tooltipped fa fa-eye-slash icon icon-hide showable_password_hide', title: I18n.t('_other.showable_password.hide')
     content_tag(:div, "#{field}#{ico1}#{ico2}".html_safe)
   end
 end

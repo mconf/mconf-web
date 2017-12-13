@@ -9,5 +9,5 @@
     .list-texts
       - for event in events_group
         = render :partial => "events/unified_event", :locals => { :event => event }
-    .content-block-footer.content-block-footer-fancy
+    .content-block-footer
       = page_navigation_links events_group

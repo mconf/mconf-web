@@ -6,11 +6,10 @@
 # 3 or later. See the LICENSE file.
 
 class RegistrationsController < Devise::RegistrationsController
-  layout 'no_sidebar'
+  layout 'application'
 
   before_filter :check_registration_enabled, :only => [:new, :create]
   before_filter :configure_permitted_parameters, :only => [:create]
-  before_filter :check_terms_acceptance, :only => [:create]
   before_filter only: [:create] do
     if verify_captcha == false
       flash[:error] = I18n.t('recaptcha.errors.verification_failed')
@@ -43,19 +42,9 @@ class RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.for(:sign_up).push(*allowed_params)
   end
 
-  def check_terms_acceptance
-    unless ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:terms])
-      flash[:error] = I18n.t("devise.registrations.terms_reject")
-      build_resource(sign_up_params)
-      render :new
-    end
-  end
-
   def allowed_params
-    [ :locale, :email, :username,
-      profile_attributes: [ :address, :city, :province, :country, :zipcode, :phone,
-                            :full_name, :organization, :description, :url,
-                            :cpf_cnpj, :service_usage_select, :service_usage ]
+    [ :locale, :email,
+      profile_attributes: [ :full_name, :service_usage_select, :service_usage ]
     ]
   end
 

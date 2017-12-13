@@ -1,3 +1,9 @@
+create_or_update_subscription_invoice:
+  cron: "30 5 * * *" # daily at the beginning of the day
+  class: InvoiceCreateUpdateWorker
+  queue: high
+  description: "Creates the invoices for the current month and updates the value"
+
 send_join_requests_notifications:
   every:
     - "30s"
@@ -46,6 +52,12 @@ get_stats:
   class: BigbluebuttonGetStatsForRecentWorker
   description: "Gets stats for recent meetings that have no stats yet. Same as 'rake bigbluebutton_rails:meetings:get_stats' but for only a subset of meetings."
 
+post_subscription_invoice:
+  cron: "30 5 * * *" # daily at the beginning of the day
+  class: InvoicePostWorker
+  queue: high
+  description: "Posts invoice items for the previous months to selected OPS"
+
 update_recordings:
   every:
     - "30m"
@@ -72,3 +84,17 @@ trial_notifications:
   class: TrialNotificationsWorker
   queue: low
   description: "Send notifications about the trial period."
+
+invoice_report_notification:
+  every:
+    - "1h"
+  class: InvoiceNotificationReportWorker
+  queue: low
+  description: "Send notification with the invoice report attachment."
+
+subscription_created_deleted_notification:
+  every:
+    - "30s"
+  class: SubscriptionNotificationWorker
+  queue: low
+  description: "Create activity for recently created or deleted subscriptions."

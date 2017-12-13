@@ -10,7 +10,7 @@ namespace :db do
     @site_attrs = Site.current.attributes
     Site.current.update_attributes(spaces_enabled: true, events_enabled: true, activities_enabled: true)
 
-    reserved_usernames = ['lfzawacki', 'daronco', 'rafael']
+    reserved_usernames = ['lfzawacki', 'daronco', 'rafael', 'vitoria']
 
     @created_at_start = 1.year.ago
     @created_at_start_months = 12
@@ -39,11 +39,11 @@ namespace :db do
     User.populate 15 do |user|
 
       if username_offset < reserved_usernames.size # Use some fixed usernames and always approve them
-        user.username = reserved_usernames[username_offset]
+        user.slug = reserved_usernames[username_offset]
         user.approved = true
-        puts "* Create users: default user '#{user.username}'"
+        puts "* Create users: default user '#{user.slug}'"
       else # Create user as normal
-        user.username = "#{Populator.words(1)}-#{username_offset}"
+        user.slug = "#{Populator.words(1)}-#{username_offset}"
         user.approved = rand(0) < 0.8 # ~20% marked as not approved
       end
       username_offset += 1
@@ -71,7 +71,7 @@ namespace :db do
     User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
-                                       :param => user.username,
+                                       :slug => user.slug,
                                        :name => user.full_name
       end
       # set the password this way so that devise makes the encryption
@@ -91,7 +91,7 @@ namespace :db do
       space.public = [ true, false ]
       space.disabled = false
       space.approved = true
-      space.permalink = name.parameterize
+      space.slug = name.parameterize
       space.repository = [ true, false ]
 
       Post.populate 10..50 do |post|
@@ -116,7 +116,7 @@ namespace :db do
           room.private = !space.public
           room.logout_url = "/feedback/webconf"
           room.external = false
-          room.param = space.name.parameterize.downcase
+          room.slug = space.name.parameterize.downcase
           room.duration = 0
           room.record_meeting = false
         end
@@ -161,7 +161,7 @@ namespace :db do
       event.owner_id = available_spaces.sample.id
       event.owner_type = 'Space'
       event.name = Populator.words(1..3).titleize
-      event.permalink = Populator.words(1..3).split.join('-')
+      event.slug = Populator.words(1..3).split.join('-')
       event.time_zone = Forgery::Time.zone
       event.location = Populator.words(1..3)
       event.address = Forgery::Address.street_address
@@ -180,7 +180,7 @@ namespace :db do
       event.owner_id = available_users
       event.owner_type = 'User'
       event.name = Populator.words(1..3).titleize
-      event.permalink = Populator.words(1..3).split.join('-')
+      event.slug = Populator.words(1..3).split.join('-')
       event.time_zone = Forgery::Time.zone
       event.location = Populator.words(1..3)
       event.address = Forgery::Address.street_address
@@ -414,7 +414,7 @@ namespace :db do
       ids = ids.sample(Space.count/5) # 1/5th disabled
       Space.where(:id => ids).map(&:disable)
 
-      users_without_admin = User.where("username NOT IN (?)", reserved_usernames + ['admin'])
+      users_without_admin = User.where("slug NOT IN (?)", reserved_usernames + ['admin'])
       ids = users_without_admin.sample(users_without_admin.count/5) # 1/5th disabled
       User.where(:id => ids).map(&:disable)
 
@@ -433,9 +433,9 @@ namespace :db do
                        :url, :full_name]
 
       # Create 2 insecure users
-      u = FactoryGirl.create(:user, username: 'insecure1', password: '123456')
+      u = FactoryGirl.create(:user, slug: 'insecure1', password: '123456')
       u.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
-      u2 = FactoryGirl.create(:user, username: 'insecure2', password: '123456')
+      u2 = FactoryGirl.create(:user, slug: 'insecure2', password: '123456')
       u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
 
       space_attrs = [:name, :description]

@@ -3,7 +3,7 @@
 -#   is_participant (boolean): Whether the current user is a participant in the event or not
 
 - unless event.nil?
-  = content_tag(:div, :name => event.permalink, :class => "thread thread-event #{cycle("thread-even" , "thread-odd")} unified-event") do
+  = content_tag(:div, :name => event.slug, :class => "thread thread-event #{cycle("thread-even" , "thread-odd")} unified-event") do
     .logo-in-thread
       = event_logo_link(event, :title => sanitize(event.name), :class => "logo logo-event")
 

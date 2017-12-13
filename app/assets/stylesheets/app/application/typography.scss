@@ -40,6 +40,7 @@ h1, .h1 {
   font-size: $m-font-normal * $m-font-h1-multiplier;
   margin: 1em 0 0.5em;
   line-height: 1.1;
+  font-weight: $m-font-weight-bold;
 }
 
 h2, .h2 {
@@ -92,6 +93,10 @@ a:not(.btn) {
   text-decoration: $m-link-decoration;
   &:hover, &:active, &:focus { text-decoration: $m-link-decoration-hover; }
   &:focus { color: lighten($m-link-color-active, 7); }
+}
+
+a, .btn {
+  transition: all .3s ease;
 }
 
 .label {

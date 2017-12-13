@@ -118,7 +118,9 @@ en:
     space:
       disabled: "Disabled"
       private: "Private"
+      private_space: "Private space"
       public: "Public"
+      public_space: "Public space"
     unpublish: "Unpublish"
     update: "Update"
     updated_time_ago: "%{time} ago"
@@ -152,7 +154,7 @@ en:
     attributes:
       bigbluebutton_room:
         name: "Name"
-        param: "Address"
+        slug: "Address"
       invitation:
         duration_values:
           5m: "5 minutes"
@@ -260,7 +262,7 @@ en:
         description: "Description"
         moderator_key: "Key for moderators"
         name: "Name"
-        permalink: "Identifier"
+        slug: "Identifier"
         public: "Public"
         repository: "Document repository"
         tag_list: "Tags"
@@ -591,7 +593,7 @@ en:
       layout_empty_option: "<default>"
       private: "Private"
       public: "Public"
-      subtitle: "Web conference room configurations"
+      subtitle: "Personalize your room"
       visibility: "Visibility"
   custom_bigbluebutton_recordings:
     edit:
@@ -688,7 +690,10 @@ en:
         lost_password: "Lost your password?"
         other_options: "Other options"
         register: "Create a new account"
-        resend_confirmation_email: "Resend confirmation email"
+      social_login:
+        social_facebook: "Login with Facebook"
+        social_google: "Login with Google"
+        social_login: "Social Login"
     strategies:
       ldap_authenticatable:
         create_failed: "Unable to create internal structures for your LDAP account, please contact an administrator"
@@ -906,11 +911,9 @@ en:
           title: "Your message"
       your_request: "You requested to join this space."
     new:
-      already_invited: "You were already invited to join this space! You can see the invitation in your home page."
-      already_requested: "You already requested to join this space, please wait for an administrator to accept it. You can cancel your request in your home page."
-      message_title: "Access to %{name}"
-      need_to_join: "You are still not a member of this space. Request access to view and interact in this space."
-      view_join_request: "Go to your home page"
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
+      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
+      message_title: "Request to join %{name}"
     request:
       decline_confirmation: "Are you sure you want to decline this join request?"
   keywords: "Keywords (*)"
@@ -918,16 +921,8 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   layouts:
-    application_navbar:
-      account: "Account"
-      events: "Events"
-      inbox: "Inbox"
-      login: "Sign in"
-      manage: "Manage"
-      profile: "Profile"
-      register: "Register"
     footer:
-      copyright: "© %{year} %{site}"
+      copyright: "© %{year} %{site} - Powered by Mconf. Visit: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Current version"
       find_us: "Find more about Mconf"
       github: GitHub
@@ -935,7 +930,6 @@ en:
       links:
         feedback: "Contact"
         help: Help
-        powered_by: "Powered by Mconf, visit"
         title: Links
       project_website: "Project website"
       sponsors:
@@ -948,6 +942,22 @@ en:
       wiki: "Wiki"
     manage:
       title: "Management"
+    navbar:
+      account: "Account"
+      conference_config_tooltip: "Customize your virtual room"
+      conference_history_tooltip: "History of web conferences"
+      conference_invite_tooltip: "Invite people to a web conference"
+      conference_play_tooltip: "Start a web conference"
+      events: "Events"
+      inbox: "Inbox"
+      login: "Sign in"
+      manage: "Manage"
+      profile: "Profile"
+      register: "Register"
+    sidenav:
+      my_room: "My room"
+      my_spaces: "My spaces"
+      search: "Search..."
   less: "less..."
   locales:
     error: "Locale not registered"
@@ -1097,6 +1107,8 @@ en:
       events:
         other: "Other"
         today: "Today"
+      hi: "Hi, %{name}!"
+      no_meetings_headline: "Start your first conference and interact with other participants"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
@@ -1106,29 +1118,31 @@ en:
         no_spaces: "You're still not a member of any space."
         or: "or"
         pending: "Pending join requests"
-        title: "My spaces"
+        title: "Spaces"
         view_all: "View all my spaces"
       title: "Home"
       view_all_spaces: "View all spaces"
     page_header:
       activity_list: "Activity list"
     meetings:
+      no_meetings_headline: "There are no recordings or conferences to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
-      subtitle: "Past meetings and recordings"
+      subtitle: "History of web conferences and recordings"
       title: "Meetings and recordings"
       update_meetings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
-    sidebar:
+    navbar_menu:
       menu:
         account: "Account"
         activity: "Activity dashboard"
         home: "Home"
-        meetings: "Meetings and recordings"
+        meetings: "History"
         profile: "Profile"
         spaces: "My spaces"
+        subscription: "My subscription"
         webconf_room: "My web conference room"
   my_friends: "My friends"
   next: Next
@@ -1241,7 +1255,6 @@ en:
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
     and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
-    confirmation: "After registering you will receive an email confirmation with the link to activate your account"
     one: Register
     or_choose: "or you can go"
     thank_you: "Welcome and thank you for registering in %{sitename}"
@@ -1251,8 +1264,9 @@ en:
   register_now: "Register now!"
   registrations:
     new:
-      form_title: "Registration"
-      title: "Register"
+      headline: "Web Conference Platform"
+      headline2: "focused on distance learning and remote meetings"
+      title: "Create an account"
     signup_form:
       register: "Register"
   remove: Remove
@@ -1309,11 +1323,13 @@ en:
     login_form:
       email_or_login: "Email or username"
       ldap_authentication: "Authenticate via LDAP"
-      login: "Login"
-      password: "Password"
+      login: "Sign in"
+      lost_password: "Forgot my password"
+      resend_confirmation_email: "Resend confirmation email"
     new:
-      form_title: "Sign in"
-      title: "Sign in"
+      headline: "Web Conference Platform"
+      headline2: "focused on distance learning and remote meetings"
+      title: "Sign into your account"
   session_locales:
     create:
       success: "Application language changed to %{value}"
@@ -1325,19 +1341,23 @@ en:
       delete: "Remove recording"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
+      duration: "Duration"
       edit: "Edit this recording"
       manage: "Manage"
       no_description: "<no description specified>"
       no_meetings: "There are no meetings or recordings in this room yet."
       not_recorded: "(This meeting was not recorded.)"
       playback_links: "Playback links"
-      started_at: "Date"
+      started_at: "Date - Time"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
-      publish: Publish
-      unpublish: Unpublish
+      publish: "Make it visible"
+      published: "Visible"
+      status: "Status"
+      unpublish: "Make it not visible"
       unpublish_confirm: "Are you sure you want to remove this recording?"
       unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
+      unpublished: "Not visible"
     recording_playback:
       duration: "duration"
       playback: "Playback links"
@@ -1345,6 +1365,11 @@ en:
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
+    social_login:
+      disclaimer: "We will never post anything without your permission"
+      facebook: "Facebook"
+      google: "Google"
+      or_connect_with: "or connect with"
     user_card:
       gravatar_label: "Image from Gravatar"
       gravatar_label_tooltip: "This is your avatar on Gravatar.com"
@@ -1542,6 +1567,8 @@ en:
     approve:
       approved: "The space %{name} was approved"
       not_enabled: "Moderation of spaces is not enabled or the space is already approved"
+    card_item:
+      members: "%{count} members"
     disapprove:
       disapproved: "The space %{name} was disapproved"
       not_enabled: "Moderation of spaces is not enabled"
@@ -1566,7 +1593,7 @@ en:
       creation_forbidden: "You are not allowed to create spaces"
       last_admin_cant_leave: "You can't leave this space because you're the last administrator"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
-      not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
+      not_found: "The space \"%{slug}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
       unapproved: "This space was not yet approved by an administrator."
     index:
       create_new_space: "Create a new space"
@@ -1584,7 +1611,9 @@ en:
       is_member: "You are a member of this space"
       private: "Private space"
       public: "Public space"
+      reply_invitation: "Reply to the invitation"
       user_is_member: "You are a member of this space"
+      view_join_request: "View the request you sent"
       with_members: "with %{count} members"
     list_view:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"

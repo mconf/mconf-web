@@ -5,7 +5,7 @@
   = simple_form_for @space, :html => { :method => :post }, :url => spaces_path,  wrapper: :horizontal_form, html: { class: "form-horizontal" } do |f|
     #new-space-basic-info
       = f.input :name, :autofocus => true
-      = f.input :permalink
+      = f.input :slug
       = f.input :description, :as => :text
       = f.input :public
     = f.button :wrapped, :value => t("_other.create")

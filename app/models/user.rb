@@ -14,14 +14,12 @@ class User < ActiveRecord::Base
   include Mconf::ApprovalModule
   include Mconf::DisableModule
 
-  # TODO: block :username from being modified after registration
-
   ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :async, :registerable,
          :confirmable, :recoverable, :rememberable, :trackable,
-         :validatable, :encryptable
+         :validatable, :encryptable, :omniauthable, omniauth_providers: [:google_oauth2, :facebook]
   # Virtual attribute for authenticating by either username or email
   attr_accessor :login
   # To login with username or email, see: http://goo.gl/zdIZ5
@@ -29,12 +27,14 @@ class User < ActiveRecord::Base
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       hash = { :value => login.downcase }
-      where_clause = ["lower(username) = :value OR lower(email) = :value", hash]
+      where_clause = ["lower(slug) = :value OR lower(email) = :value", hash]
       where(conditions).where(where_clause).first
     else
       where(conditions).first
     end
   end
+
+  alias_attribute :username, :slug
 
   validates :username,
     presence: true,
@@ -42,10 +42,13 @@ class User < ActiveRecord::Base
     length: { minimum: 1 },
     identifier_uniqueness: true,
     blacklist: true,
-    room_param_uniqueness: true
+    room_slug_uniqueness: true
 
   extend FriendlyId
-  friendly_id :username
+  friendly_id :slug_candidates, use: :slugged, slug_column: :slug
+  def slug_candidates
+    [ Mconf::Identifier.unique_mconf_id(full_name) ]
+  end
 
   validates :email, uniqueness: true, presence: true, email: true
 
@@ -61,6 +64,7 @@ class User < ActiveRecord::Base
   has_one :shib_token, dependent: :destroy
   has_one :certificate_token, dependent: :destroy
   has_one :profile, dependent: :destroy, autosave: true
+  has_one :subscription, dependent: :destroy
 
   accepts_nested_attributes_for :profile, update_only: true
   accepts_nested_attributes_for :bigbluebutton_room
@@ -75,6 +79,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
+  after_update :update_webconf_room
   after_create :new_activity_user_created
 
   before_destroy :before_disable_and_destroy, prepend: true
@@ -93,14 +98,14 @@ class User < ActiveRecord::Base
       query_orders = []
 
       words.reject(&:blank?).each do |word|
-        str  = "profiles.full_name LIKE ? OR users.username LIKE ?"
+        str  = "profiles.full_name LIKE ? OR users.slug LIKE ?"
         str += " OR users.email LIKE ?" if include_private
         query_strs << str
         query_params += ["%#{word}%", "%#{word}%"]
         query_params += ["%#{word}%"] if include_private
         query_orders += [
           "CASE WHEN profiles.full_name LIKE '%#{word}%' THEN 1 ELSE 0 END + \
-           CASE WHEN users.username LIKE '%#{word}%' THEN 1 ELSE 0 END + \
+           CASE WHEN users.slug LIKE '%#{word}%' THEN 1 ELSE 0 END + \
            CASE WHEN users.email LIKE '%#{word}%' THEN 1 ELSE 0 END"
         ]
       end
@@ -155,7 +160,6 @@ class User < ActiveRecord::Base
 
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
-  alias_attribute :permalink, :username
 
   delegate :full_name, :first_name, :organization, :city, :country,
            :logo, :logo_image, :logo_image_url,
@@ -164,6 +168,23 @@ class User < ActiveRecord::Base
 
   # set to true when the user signs in via an external authentication method (e.g. LDAP)
   attr_accessor :signed_in_via_external
+
+  # define the creation for social omniauth
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.find_by(email: data['email'])
+
+    unless user
+      user = User.create(username: data['name'].parameterize,
+        email: data['email'],
+        profile_attributes: { full_name: data['name'] },
+        password: Devise.friendly_token[0,20]
+      )
+      user.skip_confirmation!
+    end
+
+    user
+  end
 
   # make sure there will always be a profile
   def profile_with_initialize
@@ -192,10 +213,11 @@ class User < ActiveRecord::Base
     Site.current.require_registration_approval
   end
 
+  # Creates the webconf room after creating the user
   def create_webconf_room
     params = {
       owner: self,
-      param: self.username,
+      slug: self.slug,
       name: self.name,
       logout_url: "/feedback/webconf/",
       moderator_key: SecureRandom.hex(8),
@@ -204,13 +226,17 @@ class User < ActiveRecord::Base
     create_bigbluebutton_room(params)
   end
 
+  # Updates the webconf room after updating the user
+  def update_webconf_room
+    if self.bigbluebutton_room
+      params = { slug: self.slug }
+      bigbluebutton_room.update_attributes(params)
+    end
+  end
+
   # Full location: city + country
   def location
     [ self.city.presence, self.country.presence ].compact.join(', ')
-  end
-
-  def self.usage_collection
-    [[("-"), {disabled: "disabled"}],[I18n.t(".user.usage.education"), "Education"], [I18n.t(".user.usage.meetings"), "Meetings"], [I18n.t(".user.usage.other"), "Other"]]
   end
 
   # Builds a guest user based on the e-mail
@@ -278,8 +304,15 @@ class User < ActiveRecord::Base
   # Sets the user as approved and skips confirmation
   def approve!
     skip_confirmation! unless confirmed?
-    expires = self.trial_expires_at || Time.now + Rails.application.config.trial_days.days
-    update_attributes(approved: true, trial_expires_at: expires)
+    update_attributes(approved: true)
+  end
+
+  # This was removed from approve! method, it will now be defined by subscription
+  def set_expire_date!
+    if self.trial_expires_at.blank?
+      expires = Time.now + Rails.application.config.trial_months.months
+      update_attributes(trial_expires_at: expires)
+    end
   end
 
   # Overrides a method from devise, see:
@@ -374,6 +407,14 @@ class User < ActiveRecord::Base
     enabled_rename(value)
   end
 
+  def member_of?(space)
+    Permission.find_by(subject: space, user: self).present?
+  end
+
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
+  end
+
   def trial_ending_soon_email
     self.emails.find_by(mailer: "TrialNotificationsMailer#ending_soon")
   end
@@ -386,8 +427,8 @@ class User < ActiveRecord::Base
     self.trial_expires_at <= DateTime.now
   end
 
-  def member_of?(space)
-    Permission.find_by(subject: space, user: self).present?
+  def exceeded_recording_limit_free_account
+    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && self.subscription.blank?
   end
 
   protected
@@ -437,11 +478,11 @@ class User < ActiveRecord::Base
     if disabled
       self.username = disabled_rename(self.username)
       self.email = disabled_rename(self.email)
-      self.bigbluebutton_room.param = disabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = disabled_rename(self.bigbluebutton_room.slug)
     else
       self.username = enabled_rename(self.username)
       self.email = enabled_rename(self.email)
-      self.bigbluebutton_room.param = enabled_rename(self.bigbluebutton_room.param)
+      self.bigbluebutton_room.slug = enabled_rename(self.bigbluebutton_room.slug)
     end
     self.skip_confirmation_notification!
     self.save
@@ -460,11 +501,6 @@ class User < ActiveRecord::Base
   def init
     @created_by = nil
     self.can_record = Rails.application.config.can_record_default if self.can_record.nil?
-
-    # otherwise the attribute is set when the user is approved
-    unless require_approval?
-      self.trial_expires_at ||= Time.now + Rails.application.config.trial_days.days
-    end
   end
 
   # This overrides the method from Devise::Models::Trackable

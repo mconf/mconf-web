@@ -1,0 +1,75 @@
+@import "definitions";
+
+body.subscriptions.new, body.subscriptions.create,
+body.subscriptions.index {
+  h1 {
+    text-align: center;
+  }
+
+  #subscription-wrapper {
+    margin: 40px auto;
+    width: 80%;
+    @include mconf-clearfix;
+
+    #subscription-form {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+
+      form {
+        .form-accept-terms {
+          float: right;
+          margin-right: 5px;
+        }
+        .form-actions {
+          border: none;
+          margin-top: 0px;
+          padding-top: 0px;
+        }
+      }
+
+      .field-group {
+        padding-bottom: 16px;
+        clear: both;
+
+        h3 {
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    #subscription-rules {
+      @include make-xs-column(12);
+      @include make-sm-column(6);
+      font-size: $m-font-medium;
+      text-align: justify;
+      padding-left: 32px;
+
+      .attention {
+        color: $m-color-secondary;
+        font-weight: bold;
+      }
+
+      p {
+        margin-bottom: 8px;
+      }
+
+      ul {
+        list-style-type: disc;
+      }
+
+      .rule-block {
+        margin-bottom: 32px;
+      }
+    }
+
+    .alert {
+      text-align: center;
+
+      .icon-mconf-info {
+        color: $m-yellow;
+        &:hover, &:focus { color: $m-yellow; }
+      }
+    }
+  }
+}
+

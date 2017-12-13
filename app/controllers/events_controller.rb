@@ -10,8 +10,8 @@ class EventsController < InheritedResources::Base
 
   before_filter :concat_datetimes, :only => [:create, :update]
 
-  defaults finder: :find_by_permalink!
-  load_and_authorize_resource find_by: :permalink
+  defaults finder: :find_by_slug!
+  load_and_authorize_resource find_by: :slug
 
   before_filter :find_or_create_participant, only: [:show]
 
@@ -36,7 +36,7 @@ class EventsController < InheritedResources::Base
 
   def new
     if params[:space_id].present?
-      @event.owner = Space.find_by_permalink!(params[:space_id])
+      @event.owner = Space.find_by!(slug: params[:space_id])
     else
       @event.owner = current_user
     end

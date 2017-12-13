@@ -42,6 +42,17 @@ module Abilities
         space.admins.include?(user)
       end
 
+      # Subscriptions
+      can [:new, :create], Subscription
+      can [:show, :edit, :update, :destroy], Subscription do |subs|
+        subs.user_id == user.id
+      end
+
+      # Invoices
+      can [:show, :report], Invoice do |invo|
+        invo.subscription.user_id == user.id
+      end
+
       # Join Requests
       # TODO: make everything for events also
 
@@ -206,7 +217,7 @@ module Abilities
       # Users can recording meetings in their rooms, but only if they have the record flag set.
       # `:record_meeting` is a custom name, not an action that exists in the controller
       can :record_meeting, BigbluebuttonRoom do |room|
-        user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
+        user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room) && !user.exceeded_recording_limit_free_account
       end
 
       # Owners of personal rooms or admins of a space can edit rooms

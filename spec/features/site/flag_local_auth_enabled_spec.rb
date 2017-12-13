@@ -19,11 +19,35 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
       expect(current_path).to eq(my_home_path)
     end
 
+    context 'allows facebook authentication for normal users' do
+      before {
+        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+        visit login_path
+      }
+
+      it {
+        page.find(:css, ".btn-facebook").click
+        expect(current_path).to eq(my_home_path)
+      }
+    end
+
+    context 'allows google authentication for normal users' do
+      before {
+        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+        visit login_path
+      }
+
+      it {
+        page.find(:css, ".btn-google").click
+        expect(current_path).to eq(my_home_path)
+      }
+    end
+
     context "shows the 'recover password' link in the login page" do
       before { visit new_user_session_path }
 
-      it { page.should have_content(t('devise.shared.links.lost_password')) }
-      it { page.should have_css("input[type='submit'][value='Login']") }
+      it { page.should have_content(t('sessions.login_form.lost_password')) }
+      it { page.should have_css("input[type='submit'][value='#{t('sessions.login_form.login')}']") }
       it { page.should have_css("#navbar a[href='#{login_path}']") }
     end
 
@@ -65,6 +89,30 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
       expect(current_path).to eq(root_path)
     end
 
+    context 'allows facebook authentication for normal users' do
+      before {
+        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+        visit register_path
+      }
+
+      it {
+        page.find(:css, ".btn-facebook").click
+        expect(current_path).to eq(my_home_path)
+      }
+    end
+
+    context 'allows google authentication for normal users' do
+      before {
+        Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+        visit register_path
+      }
+
+      it {
+        page.find(:css, ".btn-google").click
+        expect(current_path).to eq(my_home_path)
+      }
+    end
+
     context "accessing from the admin sign in page" do
       scenario 'blocks sign in for normal users' do
         visit admin_login_path
@@ -81,8 +129,8 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
       context "still shows login links in login page for admin" do
         before { visit admin_login_path }
 
-        it { page.should have_content(t('devise.shared.links.lost_password')) }
-        it { page.should have_css("input[type='submit'][value='Login']") }
+        it { page.should have_content(t('sessions.login_form.lost_password')) }
+        it { page.should have_css("input[type='submit'][value='#{t('sessions.login_form.login')}']") }
 
         it "hide 'login' link from navbar if ldap is not enabled" do
           page.should_not have_css("#navbar a[href='#{login_path}']")
