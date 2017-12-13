@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531162723) do
+ActiveRecord::Schema.define(version: 20171114154853) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "external",                                            default: false
-    t.string   "param"
+    t.string   "slug"
     t.boolean  "record_meeting",                                      default: false
     t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "param"
+    t.string   "slug"
   end
 
   create_table "certificate_tokens", force: true do |t|
@@ -226,12 +226,12 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "address"
     t.float    "latitude",        limit: 24
     t.float    "longitude",       limit: 24
-    t.string   "permalink"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
@@ -431,7 +431,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "permalink"
+    t.string   "slug"
     t.boolean  "disabled",            default: false
     t.boolean  "repository",          default: false
     t.string   "logo_image"
@@ -471,7 +471,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username"
+    t.string   "slug"
     t.string   "email",                               default: "",    null: false
     t.string   "encrypted_password",                  default: "",    null: false
     t.string   "password_salt",            limit: 40

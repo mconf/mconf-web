@@ -56,7 +56,8 @@ module Mconf
         ldap_user_treebase: "ou=USERS,dc=example,dc=com",
         ldap_username_field: 'uid',
         ldap_name_field: 'cn',
-        ldap_email_field: 'mail'
+        ldap_email_field: 'mail',
+        ldap_filter: ''
       }
     end
 

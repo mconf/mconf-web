@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 5444ec51f44bfb66d7d580f831eb3b24ab1d41a5
+  revision: 820bfeb38ca23de2a89b6cc37f850d626f67e527
   branch: master
   specs:
-    bigbluebutton_rails (2.1.0)
+    bigbluebutton_rails (2.2.0)
       bigbluebutton-api-ruby (~> 1.6)
       browser (~> 0.8.0)
       rails (>= 4.0.0)
@@ -178,6 +178,14 @@ GEM
       sass-rails (< 5.1)
       sprockets (< 4.0)
     concurrent-ruby (1.0.5)
+    countries (2.1.2)
+      i18n_data (~> 0.8.0)
+      money (~> 6.9)
+      sixarm_ruby_unaccent (~> 1.1)
+      unicode_utils (~> 1.4)
+    country_select (3.1.1)
+      countries (~> 2.0)
+      sort_alphabetical (~> 1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     css_parser (1.3.5)
@@ -219,6 +227,8 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    faraday (0.12.2)
+      multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
     ffi (1.9.6)
     ffi-yajl (1.4.0)
@@ -229,7 +239,7 @@ GEM
       railties (>= 3.2, < 5.1)
     fooldap (0.0.2)
       ruby-ldapserver
-    friendly_id (5.0.4)
+    friendly_id (5.2.3)
       activerecord (>= 4.0.0)
     geocoder (1.2.9)
     gravatar_image_tag (1.2.0)
@@ -257,6 +267,7 @@ GEM
     i18n (0.7.0)
     i18n-js (3.0.0.rc15)
       i18n (~> 0.6, >= 0.6.6)
+    i18n_data (0.8.0)
     icalendar (2.1.1)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -268,6 +279,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    jwt (1.5.6)
     launchy (2.4.2)
       addressable (~> 2.3)
     leaflet-rails (0.7.4)
@@ -310,9 +322,12 @@ GEM
     mixlib-shellout (2.0.1)
     momentjs-rails (2.8.3)
       railties (>= 3.1)
+    money (6.9.0)
+      i18n (>= 0.6.4, < 0.9)
     mono_logger (1.1.0)
     multi_json (1.12.0)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     mysql2 (0.3.21)
     net-dhcp (1.3.2)
     net-ldap (0.6.1)
@@ -325,6 +340,12 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
+    oauth2 (1.4.0)
+      faraday (>= 0.8, < 0.13)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
     ohai (8.0.1)
       ffi (~> 1.9)
       ffi-yajl (~> 1.1)
@@ -338,6 +359,19 @@ GEM
       rake (~> 10.1)
       systemu (~> 2.6.4)
       wmi-lite (~> 1.0)
+    omniauth (1.4.2)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-facebook (4.0.0)
+      omniauth-oauth2 (~> 1.2)
+    omniauth-google-oauth2 (0.5.2)
+      jwt (~> 1.5)
+      multi_json (~> 1.3)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.3.1)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     orm_adapter (0.5.0)
     plist (3.1.0)
     populator (1.0.0)
@@ -480,6 +514,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sixarm_ruby_unaccent (1.2.0)
     skinny (0.2.3)
       eventmachine (~> 1.0.0)
       thin (~> 1.5.0)
@@ -488,6 +523,8 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     socksify (1.7.0)
+    sort_alphabetical (1.1.0)
+      unicode_utils (>= 1.2.2)
     spring (1.3.4)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -518,6 +555,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unicode_utils (1.4.0)
     uuidtools (2.1.5)
     valid_email (0.0.11)
       activemodel
@@ -574,6 +612,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   compass-rails (~> 3.0.0)
+  country_select
   database_cleaner
   devise (~> 3.5.4)
   devise-async
@@ -588,7 +627,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.0)
   fooldap
   forgery!
-  friendly_id (~> 5.0.4)
+  friendly_id (~> 5.0)
   geocoder
   gravatar_image_tag
   haml
@@ -610,6 +649,9 @@ DEPENDENCIES
   mysql2 (~> 0.3.0)
   net-ldap
   nokogiri
+  omniauth
+  omniauth-facebook
+  omniauth-google-oauth2
   populator
   premailer-rails
   public_activity (~> 1.5.0)
@@ -656,4 +698,4 @@ DEPENDENCIES
   zonebie
 
 BUNDLED WITH
-   1.13.7
+   1.15.4

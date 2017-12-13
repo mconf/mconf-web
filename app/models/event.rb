@@ -36,8 +36,8 @@ class Event < ActiveRecord::Base
   validates :summary, length: {:maximum => 140}
   validates :owner, presence: true
 
-  friendly_id :name, use: :slugged, :slug_column => :permalink
-  validates :permalink, :presence => true
+  friendly_id :name, use: :slugged, :slug_column => :slug
+  validates :slug, :presence => true
 
   # If the event has no ending date, use a day from start date
   before_save :check_end_on
@@ -223,6 +223,10 @@ class Event < ActiveRecord::Base
       Participant.where(:owner_type => user_or_email.class.name, :owner_id => user_or_email.id,
                         :event_id => id).any?
     end
+  end
+
+  def initials
+    self.name.split(' ').collect{ |w| w[0] }.join('')
   end
 
   private

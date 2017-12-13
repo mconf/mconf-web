@@ -397,13 +397,13 @@ describe CustomBigbluebuttonRoomsController do
         let(:allowed_params) {
           [ :name, :meetingid, :attendee_key, :moderator_key, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
-            :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
+            :owner_type, :external, :slug, :record_meeting, :duration, :default_layout, :presenter_share_only,
             :auto_start_video, :auto_start_audio, :background,
             :moderator_only_message, :auto_start_recording, :allow_start_stop_recording,
             :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
-          BigbluebuttonRoom.stub(:find_by_param).and_return(room)
+          BigbluebuttonRoom.stub(:find_by).and_return(room)
           room.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
           controller.stub(:params).and_return(params)
@@ -426,7 +426,7 @@ describe CustomBigbluebuttonRoomsController do
             :welcome_msg, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
-          BigbluebuttonRoom.stub(:find_by_param).and_return(room)
+          BigbluebuttonRoom.stub(:find_by).and_return(room)
           room.stub(:update_attributes).and_return(true)
           attrs.stub(:permit).and_return(attrs)
           controller.stub(:params).and_return(params)
@@ -603,7 +603,7 @@ describe CustomBigbluebuttonRoomsController do
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
               room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
-              room.should_receive(:create_meeting).with(user, anything, anything)
+              room.should_receive(:create_meeting).with(user, anything)
               room.should_receive(:fetch_new_token)
               room.should_receive(:join_url).and_return("http://test.com/attendee/join")
             end
@@ -674,7 +674,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: 0 })
                 room.stub(:fetch_is_running?).and_return(false)
                 room.stub(:is_running?).and_return(false)
-                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything)
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
@@ -753,7 +753,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: 0 })
                 room.stub(:fetch_is_running?).and_return(false)
                 room.stub(:is_running?).and_return(false)
-                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything)
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {

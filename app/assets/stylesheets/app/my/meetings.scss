@@ -5,47 +5,21 @@
 
 body.my.meetings {
 
-  #my-webconference-meetings-fetch {
-    float: right;
-    @include font-size($m-font-medium);
-
-    #my-webconference-meetings-error {
-      padding: 3px 6px;
-      @include border-radius($m-border-radius-base);
-      background: $m-red;
-      color: white;
-      .icon-awesome { color: white; }
-    }
-
-    #my-webconference-meetings-success {
-      padding: 3px 6px;
-      @include border-radius($m-border-radius-base);
-      background: $m-green;
-      color: white;
-      .icon-awesome { color: white; }
-    }
-
-    #my-webconference-meetings-loading {
-      padding: 3px 6px;
-      @include border-radius($m-border-radius-base);
-      background: $m-light-gray;
-      color: $m-font-color;
-    }
-
-    // all divs for the status start hidden
-    > * {
-      display: none;
-    }
-
-    .icon-awesome {
-      margin-top: 2px;
-      float: none;
-    }
+  #sidebar {
+    margin-top: $m-content-vertical-padding + 50px + 30px + ($m-font-normal * $m-font-h1-multiplier) + 5px;
   }
 
-  .recordedonly-buttons{
-    float: right;
-    margin-bottom: 10px;
+  #my-meetings {
+    &.empty {
+      h2 {
+        font-weight: $m-font-weight-thin;
+        text-align: center;
+        max-width: 70%;
+        margin: 0 auto;
+        line-height: 1.4;
+        margin-top: 200px;
+      }
+    }
   }
 
 }

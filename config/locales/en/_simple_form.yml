@@ -81,7 +81,7 @@ en:
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only members can start a conference in a space's room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
-        permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room. Use only lowercase letters, numbers or dashes."
+        slug: "This attribute is used to identify your space in URLs, including the URL of its conference room. Use only lowercase letters, numbers or dashes."
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
         tag_list: "Write a tag name and select it on the list or type a comma (',')  to create it"
@@ -129,7 +129,14 @@ en:
       post:
         text: "Message body"
         title: "Message title"
+      profile:
+        full_name: 'Full name'
       user:
         edit:
           current_password: "Leave it blank if you don't want to change it"
+        email: 'Email'
+        login: "Email or username"
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+        username: 'Room identifier'
     # labels:

@@ -17,7 +17,7 @@
 
     - @spaces.each do |space|
       - has_access = user_signed_in? || space.public
-      .space-description{ id: "#{space.permalink}-description" }
+      .space-description{ id: "#{space.slug}-description" }
         .space-logo-wrapper
           - if has_access
             = link_logo_image(space, :size => '336x256', :title => space.name, :class => "logo logo-space")

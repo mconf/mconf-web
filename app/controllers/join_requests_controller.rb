@@ -13,7 +13,7 @@ class JoinRequestsController < ApplicationController
     @join_request.new_activity(params[:action]) if !@join_request.errors.any? && @join_request.persisted?
   end
 
-  load_resource :space, :find_by => :permalink
+  load_resource :space, :find_by => :slug
   load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:admissions, :invite]
   load_resource :join_request, :through => :space, :only => [:admissions, :invite] # these are authenticated via space parent
 

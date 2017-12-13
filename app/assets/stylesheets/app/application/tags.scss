@@ -18,7 +18,7 @@
       display: inline-block;
       color: $m-tags-font-color;
 
-      &:hover {
+      &:hover, &:focus {
         text-decoration: none;
       }
     }

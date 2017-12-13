@@ -218,7 +218,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             # login with different federation data
             setup_shib(new_name, new_email, attrs[:email])
@@ -230,7 +230,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.confirmed?.should be(true) }
           it { @old_email.should_not eq(new_email) }
           it { @old_name.should_not eq(new_name) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }
@@ -258,7 +258,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             ShibToken.last.update_attributes(new_account: false)
 
@@ -271,7 +271,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.email.should_not eq(new_email) }
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }
@@ -303,7 +303,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             # login with different federation data
             setup_shib(new_name, new_email, attrs[:email])
@@ -314,7 +314,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.email.should_not eq(new_email) }
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }

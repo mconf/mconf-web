@@ -371,6 +371,23 @@ describe UsersController do
           it { response.should redirect_to edit_user_path(user2) }
           it { user2.superuser.should be(false) }
         end
+
+        # because this is the way the checkbox value gets in the controller
+        context "works when setting the flag as an integer as a string" do
+          let(:user) { FactoryGirl.create(:superuser) }
+          let(:user2) { FactoryGirl.create(:superuser) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, id: user2.to_param, user: { superuser: '0' }
+            user2.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user2) }
+          it { user2.superuser.should be(false) }
+        end
       end
 
       context "trying to update disabled flag" do

@@ -1,0 +1,71 @@
+@import "compass/typography";
+@import "definitions";
+
+#social-login-btns {
+  border-top: 1px solid $m-border-color-normal;
+  text-align: center;
+  margin-top: 70px;
+
+  .social-call {
+    background: $m-site-bg-color;
+    padding: 0 25px;
+    font-size: $m-font-big;
+    display: inline-block;
+    transform: translateY(-$m-font-big + 3px);
+    font-weight: 200;
+  }
+
+  .social-btns {
+    @include mconf-clearfix;
+
+    .btn {
+      width: 48%;
+      font-size: $m-font-big;
+      padding: 12px;
+    }
+
+    .btn-google, .btn-facebook {
+      $bg-normal: #df4a32;
+      $bg-hover: lighten(#702519, 5);
+
+      float: left;
+      background: $bg-normal;
+      padding: 0;
+      border: 0;
+      @include link-colors(#fff, #fff, #fff, #fff);
+
+      &:hover {
+        background: $bg-hover;
+      }
+
+      img {
+        float: left;
+        border-right: 1px solid $m-site-bg-color;
+        height: 51px;
+        width: 51px;
+      }
+
+      span {
+        padding: 12px;
+        display: block;
+      }
+    }
+
+    .btn-facebook {
+      $bg-normal: #3b579d;
+      $bg-hover: lighten(#0e0132, 5);
+
+      float: right;
+      background: $bg-normal;
+      &:hover {
+        background: $bg-hover;
+      }
+    }
+  }
+
+  .disclaimer {
+    font-size: $m-font-small;
+    font-weight: $m-font-weight-thin;
+    margin-top: 8px;
+  }
+}

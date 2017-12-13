@@ -1,11 +1,11 @@
 class mconf.UserEdit
   @setup: ->
-    $param = $("#bigbluebutton_room_param:not(.disabled)")
-    $param.attr "value", mconf.Base.stringToSlug($param.val(), true)
-    $param.on "input", () ->
-      $param.val(mconf.Base.stringToSlug($param.val(), true))
-    $param.on "blur", () ->
-      $param.val(mconf.Base.stringToSlug($param.val(), false))
+    $slug = $("#bigbluebutton_room_slug:not(.disabled)")
+    $slug.attr "value", mconf.Base.stringToSlug($slug.val(), true)
+    $slug.on "input", () ->
+      $slug.val(mconf.Base.stringToSlug($slug.val(), true))
+    $slug.on "blur", () ->
+      $slug.val(mconf.Base.stringToSlug($slug.val(), false))
 
     visibilityChanged()
     $('.room-visibility .btn-group .btn').on 'click', ->

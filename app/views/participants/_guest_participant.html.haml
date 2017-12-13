@@ -1,7 +1,7 @@
 .thread.thread-no-hover.user-information.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
   - user = User.build_guest(:email => participant.email)
   .logo-in-thread
-    = empty_logo_image(:user, :size => '32', :class => 'logo logo-user')
+    = logo_initials(:user, :size => '32', :class => 'logo logo-user')
 
   %ul.management-links
 
