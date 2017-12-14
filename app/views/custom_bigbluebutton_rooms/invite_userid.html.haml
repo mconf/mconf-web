@@ -19,7 +19,7 @@
       .action-links
         %ul
           - if current_site.shib_enabled?
-            %li= link_to t('.login_federation'), shibboleth_path, :class => 'shibboleth_login'
+            %li= link_to t('.login_federation'), shibboleth_path(create: false), :class => 'shibboleth_login'
           - if current_site.certificate_login_enabled?
             %li= certificate_auth_link(t('.login_certificate'), false)
 

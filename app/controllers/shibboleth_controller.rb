@@ -68,13 +68,18 @@ class ShibbolethController < ApplicationController
 
       # no token means the user has no association yet, render a page to do it
       else
-        if !get_always_new_account
-          logger.info "Shibboleth: first access for this user, rendering the association page"
-          render :associate
+        if create_account?
+          if !get_always_new_account
+            logger.info "Shibboleth: first access for this user, rendering the association page"
+            render :associate
+          else
+            logger.info "Shibboleth: flag `shib_always_new_account` is set"
+            logger.info "Shibboleth: first access for this user, automatically creating a new account"
+            associate_with_new_account(@shib)
+          end
         else
-          logger.info "Shibboleth: flag `shib_always_new_account` is set"
-          logger.info "Shibboleth: first access for this user, automatically creating a new account"
-          associate_with_new_account(@shib)
+          sign_in_guest(@shib.get_name, @shib.get_email)
+          redirect_to after_sign_in_path_for(nil)
         end
       end
     end
@@ -238,6 +243,11 @@ class ShibbolethController < ApplicationController
   # Returns the value of the flag `shib_always_new_account`.
   def get_always_new_account
     return current_site.shib_always_new_account
+  end
+
+  def create_account?
+    # defaults to true, to create an account, unless:
+    params[:create] != "false" && params[:create] != false
   end
 
   # Adds fake test data to the environment to test shibboleth in development.
