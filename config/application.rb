@@ -79,6 +79,10 @@ module Mconf
     # add the views for the mailers in the path
     config.paths['app/views'].unshift("#{Rails.root}/app/mailers/views")
 
+    # Set permissions to record when users join conferences instead of when meetings are created.
+    # Set if to false to use the old model based on the `record` flag on the `create` API call.
+    config.per_user_record_permissions = false
+
     config.exceptions_app = self.routes
 
     config.locale_names =

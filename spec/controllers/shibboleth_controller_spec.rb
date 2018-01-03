@@ -652,6 +652,27 @@ describe ShibbolethController do
     }
   end
 
+  describe "#create_account?" do
+    ['false', false].each do |value|
+      it("returns false for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(false)
+      }
+    end
+
+    ['true', true, 1, nil, 0, 'other'].each do |value|
+      it("returns true for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(true)
+      }
+    end
+
+    it("returns true when params is empty") {
+      controller.stub(:params).and_return({})
+      controller.send(:create_account?).should be(true)
+    }
+  end
+
   private
 
   # Sets up the login via shibboleth, including user information in the enviroment.

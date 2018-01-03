@@ -1838,7 +1838,8 @@ pt-br:
       approved: "O usuário %{name} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site ou o usuário já está aprovado"
     cant_record_reason:
-      user_cannot_record: "O usuário que criou esta reunião não tem permissão para gravar reuniões."
+      other: "Você não pode gravar reuniões nesta sala"
+      user_cannot_record: "Você não possui permissão para gravar reuniões"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
     create:
