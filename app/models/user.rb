@@ -386,6 +386,8 @@ class User < ActiveRecord::Base
     if !can
       if !self.can_record
         msg = I18n.t('users.cant_record_reason.user_cannot_record')
+      else
+        msg = I18n.t('users.cant_record_reason.other')
       end
     end
 
