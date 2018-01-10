@@ -18,5 +18,18 @@ body.manage.statistics {
   .page-tools-menu {
     padding-bottom: 5px;
     margin-bottom: 10px;
+
+    .search-words {
+      input { width: 100%; }
+    }
+
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }

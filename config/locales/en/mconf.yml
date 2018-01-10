@@ -1045,6 +1045,13 @@ en:
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     statistics:
+      filter:
+        initial_text: "Filter by user, space, meeting or recording."
+        users: "Users"
+        spaces: "Spaces"
+        meetings: "Meetings"
+        recordings: "Recordings"
+    statistics_list:
       users:
         title: "Users Stats"
         all: "All users: %{value}"

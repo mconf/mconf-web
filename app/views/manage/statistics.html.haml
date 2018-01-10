@@ -1,28 +1,13 @@
 #manage
-- data = Mconf::StatisticsModule.generate
 
-.list-container.list-tablefied
-  .title= t('.users.title')
-  .text= t('.users.all', value: data[:users][:all])
-  .text= t('.users.approved', value: data[:users][:approved])
-  .text= t('.users.not_approved', value: data[:users][:not_approved])
-  .text= t('.users.disabled', value: data[:users][:disabled])
+.page-tools-menu
+  .search-words
+    = text_field_tag :statistics_filter_text, params[:q], placeholder: t('.filter.initial_text'), 'data-load-url' =>  manage_statistics_path, :'data-target' => '#statistics-list', :'data-filter' => '#filter-total', class: 'form-control resource-filter'
+  .search-filters
+    - ['filter.users', 'filter.spaces', 'filter.meetings', 'filter.recordings'].each do |field|
+      .btn-group.search-filter-option
+        = link_to "#", class: "btn btn-default btn-sm #{'active'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
+          = t(".#{field}")
 
-.list-container.list-tablefied
-  .title= t('.spaces.title')
-  .text= t('.spaces.all', value: data[:spaces][:all])
-  .text= t('.spaces.private', value: data[:spaces][:private])
-  .text= t('.spaces.public', value: data[:spaces][:public])
-  .text= t('.spaces.disabled', value: data[:spaces][:disabled])
-
-.list-container.list-tablefied
-  .title= t('.meetings.title')
-  .text= t('.meetings.all', value: data[:meetings][:all])
-  .text= t('.meetings.total', value: distance_of_time_in_words_to_now(Time.now + data[:meetings][:total], include_seconds: false))
-  .text= t('.meetings.average', value: distance_of_time_in_words_to_now(Time.now + data[:meetings][:average], include_seconds: false))
-
-.list-container.list-tablefied
-  .title= t('.recordings.title')
-  .text= t('.recordings.all', value: data[:recordings][:all])
-  .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + data[:recordings][:total], include_seconds: false))
-  .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + data[:recordings][:average], include_seconds: false))
+  #statistics-list
+    = render partial: 'statistics_list'
