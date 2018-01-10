@@ -1046,11 +1046,7 @@ en:
       no_space_found: "No space found"
     statistics:
       filter:
-        initial_text: "Filter by user, space, meeting or recording."
-        users: "Users"
-        spaces: "Spaces"
-        meetings: "Meetings"
-        recordings: "Recordings"
+        initial_text: "Filter by date"
     statistics_list:
       users:
         title: "Users Stats"

@@ -3,11 +3,6 @@
 .page-tools-menu
   .search-words
     = text_field_tag :statistics_filter_text, params[:q], placeholder: t('.filter.initial_text'), 'data-load-url' =>  manage_statistics_path, :'data-target' => '#statistics-list', :'data-filter' => '#filter-total', class: 'form-control resource-filter'
-  .search-filters
-    - ['filter.users', 'filter.spaces', 'filter.meetings', 'filter.recordings'].each do |field|
-      .btn-group.search-filter-option
-        = link_to "#", class: "btn btn-default btn-sm #{'active'}", type: "button", 'data-attr-filter': field, 'data-attr-value': true do
-          = t(".#{field}")
 
   #statistics-list
     = render partial: 'statistics_list'
