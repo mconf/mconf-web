@@ -1,58 +1,104 @@
 module Mconf
   module StatisticsModule
 
-    def total_users
+    def self.total_users
+      result = {}
+
+      #total users
+      result[:all] = User.all.count
+
       # approved users
-      approved_users = User.where(approved: true).count
+      result[:approved] = User.where(approved: true).count
 
       # disapproved users
-      approved_users = User.where(approved: false).count
+      result[:not_approved] = User.where(approved: false).count
 
       # disabled users
-      disabled_users = User.where(disabled: true).count
+      result[:disabled] = User.where(disabled: true).count
+
+      result
     end
 
-    def total_spaces
+    def self.total_spaces
+      result = {}
+
+      #total_spaces
+      result[:all] = Space.all.count
+
       # private spaces
-      private_spaces = Space.where(public: false).count
+      result[:private] = Space.where(public: false).count
 
       # public spaces
-      public_spaces = Space.where(public: true).count
+      result[:public] = Space.where(public: true).count
 
       # disabled spaces
-      disabled_spaces = Space.where(disabled: true).count
+      result[:disabled] = Space.where(disabled: true).count
+
+      result
     end
 
-    def total_meetings
+    def self.total_meetings
+      result = {}
+
       total = 0
       duration = 0
-      media = 0
+      average = 0
+      count = 0
 
-      BigbluebuttonMeeting.each do |m|
+      BigbluebuttonMeeting.find_each do |m|
         # total duration
-          duration = m.finish_time - m.create_time
+          unless m.finish_time == nil
+            duration = m.finish_time - m.create_time
+          end
           total = total + duration
           count = count + 1
       end
 
-      # duration media
-      media = total / count
+      # duration average
+      result[:all] = count
+      result[:average] = total / count
+      result[:total] = total
+
+      result
     end
 
-    def total_recordings
+    def self.total_recordings
+      result = {}
+
       total = 0
       duration = 0
-      media = 0
+      average = 0
+      count = 0
 
-      BigbluebuttonRecording.each do |r|
+      BigbluebuttonRecording.find_each do |r|
         # total duration
         duration = r.end_time - r.start_time
         total = total + duration
         count = count + 1
       end
 
-      # duration media
-      media = total / count
+      # duration average
+      result[:all] = count
+      result[:average] = total / count
+      result[:total] = total
+
+      result
+    end
+
+    def self.generate
+      statistics = {
+        users: {},
+        spaces: {},
+        meetings: {},
+        recordings: {}
+      }
+
+      statistics[:users] = self.total_users
+      statistics[:spaces] = self.total_spaces
+      statistics[:meetings] = self.total_meetings
+      statistics[:recordings] = self.total_recordings
+
+      statistics
     end
   end
 end
