@@ -982,6 +982,7 @@ en:
       recordings: "Recordings"
       resque: "Resque"
       spaces: "Spaces"
+      statistics: "Statistics"
       title: "Site Management"
       users: "Users"
       webconf: "Conference"
@@ -1043,6 +1044,29 @@ en:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
+    statistics:
+      users:
+        title: "Users Stats"
+        all: "All users: %{value}"
+        approved: "Approved users: %{value}"
+        not_approved: "Not approved users: %{value}"
+        disabled: "Disabled users: %{value}"
+      spaces:
+        title: "Spaces Stats"
+        all: "All spaces: %{value}"
+        private: "Private spaces: %{value}"
+        public: "Public spaces: %{value}"
+        disabled: "Disabled spaces: %{value}"
+      meetings:
+        title: "Meetings Stats"
+        all: "All meetings: %{value}"
+        total: "Total meetings duration: %{value}"
+        average: "Average meetings duration: %{value}"
+      recordings:
+        title: "Recordings Stats"
+        all: "All recordings: %{value}"
+        total: "Total recordings duration: %{value}"
+        average: "Average recordings duration: %{value}"
     user_item:
       allow_record: "Give the user permission to record conferences"
       auth_using: "using"

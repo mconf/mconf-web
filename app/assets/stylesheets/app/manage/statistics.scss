@@ -1,0 +1,22 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.statistics {
+
+  .title {
+    font-size: 20px;
+    color: #004956;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+
+  .text {
+    font-size: 15px;
+    margin: 0 15px;
+  }
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+}

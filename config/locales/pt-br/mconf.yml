@@ -988,6 +988,7 @@ pt-br:
       recordings: "Gravações"
       resque: "Resque"
       spaces: "Comunidades"
+      statistics: "Estatísticas"
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Conferência"
@@ -1049,6 +1050,29 @@ pt-br:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
+    statistics:
+      users:
+        title: "Estatísticas de usuários"
+        all: "Total de usuários: %{value}"
+        approved: "Usuários aprovados: %{value}"
+        not_approved: "Usuários não aprovados: %{value}"
+        disabled: "Usuários desabilitados: %{value}"
+      spaces:
+        title: "Estatísticas de comunidades"
+        all: "Total de comunidades: %{value}"
+        private: "Comunidadades privadas: %{value}"
+        public: "Comunidades públicas: %{value}"
+        disabled: "Comunidades desabilitadas: %{value}"
+      meetings:
+        title: "Estatísticas de reuniões"
+        all: "Total de reuniões: %{value}"
+        total: "Duração de todas as reuniões: %{value}"
+        average: "Média de duração por reunião: %{value}"
+      recordings:
+        title: "Estatísticas de gravações"
+        all: "Total de gravações: %{value}"
+        total: "Duração de todas as gravações: %{value}"
+        average: "Média de duração por gravação: %{value}"
     user_item:
       allow_record: "Conceder permissão de gravação"
       auth_using: "usando"
