@@ -32,4 +32,28 @@ body.manage.statistics {
       }
     }
   }
+
+  .starts-at-wrapper {
+    margin-bottom: 16px;
+
+    .btn-group {
+      white-space: nowrap;
+      display: table-cell;
+      width: 1%;
+
+      > .btn {
+        float: none;
+
+        &:last-child {
+          margin-left: -5px;
+        }
+      }
+    }
+
+    .form-group {
+      display: table-cell;
+      width: 100%;
+      padding-left: 8px;
+    }
+  }
 }
