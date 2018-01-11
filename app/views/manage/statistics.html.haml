@@ -14,8 +14,9 @@
 
                 %label.btn.btn-default{ 'data-attr-value': '1' }
                   %input{ type: 'radio' }
-                  = icon_later
-                  = t('.filter.date')
+                  = link_to manage_statistics_filter_path, class: "open-modal tooltipped", title: t('.filter.date') do
+                    = icon_later
+                    = t('.filter.date')
 
               - tz = user_timezone_abbreviation(current_user)
               - lang = locale_for_datetime_picker

@@ -1,6 +1,8 @@
 $ ->
   if isOnPage 'manage', 'statistics'
 
+    mconf.Resources.addToBind ->
+      mconf.StatisticsFilter()
 
     start = $(statistics_starts_on_time)
     end = $(statistics_ends_on_time)

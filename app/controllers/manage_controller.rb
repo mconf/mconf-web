@@ -92,4 +92,7 @@ class ManageController < ApplicationController
       render layout: 'manage'
     end
   end
+
+  def statistics_filter
+  end
 end

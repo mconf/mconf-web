@@ -156,7 +156,7 @@ Mconf::Application.routes.draw do
   scope 'manage' do
     resource :site, only: [:show, :edit, :update]
 
-    ['users', 'spaces', 'recordings', 'statistics'].each do |resource|
+    ['users', 'spaces', 'recordings', 'statistics', 'statistics_filter'].each do |resource|
       get resource, to: "manage##{resource}", as: "manage_#{resource}"
     end
 
