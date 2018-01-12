@@ -11,7 +11,9 @@
           .starts-at-wrapper
             - tz = user_timezone_abbreviation(current_user)
             - lang = locale_for_datetime_picker
+            = f.label (t('.from')), required: false
             = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
+            = f.label (t('.to')), required: false
             = f.input :ends_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
 
     .modal-footer

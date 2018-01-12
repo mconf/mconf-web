@@ -1,21 +1,22 @@
 class mconf.StatisticsFilter
 
-  start = $(statistics_starts_on_time)
-  end = $(statistics_ends_on_time)
-  mconf.DateTimeInput.setDate(start, new Date())
-  mconf.DateTimeInput.setStartDate(start, new Date())
-  mconf.DateTimeInput.setDate(end, new Date())
-  mconf.DateTimeInput.setStartDate(end, new Date())
+  @bind: ->
+    start = $(statistics_starts_on_time)
+    end = $(statistics_ends_on_time)
+    mconf.DateTimeInput.setDate(start, new Date())
+    mconf.DateTimeInput.setStartDate(start, new Date())
+    mconf.DateTimeInput.setDate(end, new Date())
+    mconf.DateTimeInput.setStartDate(end, new Date())
 
-  filterByDate()
-  $('.starts-at-wrapper .btn-group .btn').on 'click', ->
-    filterByDate(this)
+    filterByDate()
+    $('.starts-at-wrapper .btn-group .btn').on 'click', ->
+      filterByDate(this)
 
-  # when submitting, set the starts on date to now, so that
-  # 'now' means when the user submitted the form
-  $('form', '#manage').on 'submit', ->
-    setStartsOnToAll() if isAllSelected()
-    console.log("oi")
+    # when submitting, set the starts on date to now, so that
+    # 'now' means when the user submitted the form
+    $('form', '#manage').on 'submit', ->
+      setStartsOnToAll() if isAllSelected()
+      console.log("oi")
 
 isAllSelected = ->
   selected = $('.starts-at-wrapper .btn.active').data('attr-value')
@@ -37,4 +38,4 @@ filterByDate = (el) ->
     $(statistics_starts_on_time).focus()
 
 setStartsOnToAll = ->
-  mconf.DateTimeInput.setDate(statistics_starts_on_time, new Date())
+  mconf.DateTimeInput.setDate($(statistics_starts_on_time), new Date())

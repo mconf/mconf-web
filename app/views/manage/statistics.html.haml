@@ -18,11 +18,5 @@
                     = icon_later
                     = t('.filter.date')
 
-              - tz = user_timezone_abbreviation(current_user)
-              - lang = locale_for_datetime_picker
-              = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
-              = f.input :ends_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
-
-
 #statistics-list
   = render partial: 'statistics_list'

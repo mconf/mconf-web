@@ -1,16 +1,9 @@
 @import "definitions";
 @import "compass/css3";
 
-body.manage.statistics {
+body.manage.statistics_filter {
 
-  .title {
-    font-size: 20px;
-    color: #004956;
-    font-weight: bold;
-    margin: 8px 0;
-  }
-
-  .text {
+ .text {
     font-size: 15px;
     margin: 0 15px;
   }
@@ -55,10 +48,5 @@ body.manage.statistics {
       width: 100%;
       padding-left: 8px;
     }
-  }
-
-  .open-modal {
-    text-decoration: none;
-    color: black;
   }
 }

@@ -1046,10 +1046,12 @@ en:
       no_space_found: "No space found"
     statistics:
       filter:
-        all: All
-        date: Pick date
-        from: From
-        to: To
+        all: "All"
+        date: "Pick date"
+    statistics_filter:
+      from: "From"
+      to: "To"
+      title: "Date period"
     statistics_list:
       users:
         title: "Users Stats"
