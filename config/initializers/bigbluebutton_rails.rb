@@ -6,6 +6,7 @@
 
 BigbluebuttonRails.configure do |config|
   config.guest_support = true
+  config.playback_url_authentication = ENV['MCONF_PLAYBACK_URL_AUTH'] == 'true'
 
   # Set the invitation URL to the full URL of the room
   config.get_invitation_url = Proc.new do |room|
