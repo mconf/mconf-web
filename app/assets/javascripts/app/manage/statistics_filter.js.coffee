@@ -1,8 +1,11 @@
+submitSelector = 'input[type=\'submit\']'
+
 class mconf.StatisticsFilter
 
   @bind: ->
     start = $(statistics_starts_on_time)
     end = $(statistics_ends_on_time)
+    mconf.DateTimeInput.setStartDate(start, new Date('2010-01-01'))
 
     filterByDate()
     $('.starts-at-wrapper .btn-group .btn').on 'click', ->
@@ -16,23 +19,16 @@ isAllSelected = ->
   selected is 0
 
 filterByDate = (el) ->
-
   if el
     selected = $(el).data('attr-value')
-    console.log(selected)
   else
     selected = $('.starts-at-wrapper .btn.active').data('attr-value')
 
 checkDate = ->
-  console.log("vo chora")
   startDate = statistics_starts_on_time.value
   endDate = statistics_ends_on_time.value
 
-  $('btn-primary').data('disabled', false)
+  $(submitSelector).removeAttr('disabled')
 
-  console.log(startDate)
-  console.log(endDate)
-  if  startDate != "" && endDate != ""
-    console.log("aqui entrou")
-    if startDate < endDate
-      console.log("OLA")
+  if  startDate != ""
+    mconf.DateTimeInput.setStartDate($(statistics_ends_on_time), new Date(startDate))
