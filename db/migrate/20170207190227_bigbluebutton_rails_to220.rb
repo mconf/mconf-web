@@ -1,39 +1,49 @@
 class BigbluebuttonRailsTo220 < ActiveRecord::Migration
   def up
+    # remove start_time, it's now create_time only
     BigbluebuttonMeeting.where(create_time: nil).find_each do |meeting|
       meeting.update_attribute(:create_time, meeting.start_time.to_i)
     end
-
     remove_column :bigbluebutton_meetings, :start_time
 
+    # adapt the content of some columns to another type
     add_column :bigbluebutton_recordings, :temp_start_time, :decimal, precision: 14, scale: 0
     add_column :bigbluebutton_recordings, :temp_end_time, :decimal, precision: 14, scale: 0
-
     BigbluebuttonRecording.find_each do |rec|
       rec.update_attributes(
         temp_start_time: rec.start_time.to_i,
         temp_end_time: rec.end_time.to_i
       )
     end
-
     remove_column :bigbluebutton_recordings, :start_time
     remove_column :bigbluebutton_recordings, :end_time
-
     rename_column :bigbluebutton_recordings, :temp_start_time, :start_time
     rename_column :bigbluebutton_recordings, :temp_end_time, :end_time
 
+    create_table :bigbluebutton_attendees do |t|
+      t.string :user_id
+      t.string :external_user_id
+      t.string :user_name
+      t.decimal :join_time, precision: 14, scale: 0
+      t.decimal :left_time, precision: 14, scale: 0
+      t.integer :bigbluebutton_meeting_id
+    end
+
+    add_column :bigbluebutton_meetings, :finish_time, :decimal, precision: 14, scale: 0
+    add_column :bigbluebutton_meetings, :got_stats, :string
+    BigbluebuttonMeeting.reset_column_information # to be able to use #got_stats below
+
+    # associate meetings with recordings and if no meeting is found, make a new one
     BigbluebuttonRecording.find_each do |rec|
       rec.update_attributes(
         meeting_id: BigbluebuttonRecording.find_matching_meeting(rec).try(:id)
       )
     end
-
     BigbluebuttonRecording.where(meeting_id: nil).find_each do |rec|
       rec.update_attributes(
         meeting_id: find_matching_meeting_closer_create_time(rec)
       )
     end
-
     BigbluebuttonRecording.where(meeting_id: nil).where.not(room_id: nil).find_each do |rec|
       meeting = BigbluebuttonMeeting.create do |m|
         creator_data = find_creator_data(rec)
