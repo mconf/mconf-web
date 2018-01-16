@@ -1,31 +1,30 @@
 -# locals:
-- data = Mconf::StatisticsModule.generate
 
 .list-container.list-tablefied
   .resource-filter-with-text
 
   .resource-filter-without-text
     .title= t('.users.title')
-    .text= t('.users.all', value: data[:users][:all])
-    .text= t('.users.approved', value: data[:users][:approved])
-    .text= t('.users.not_approved', value: data[:users][:not_approved])
-    .text= t('.users.disabled', value: data[:users][:disabled])
+    .text= t('.users.all', value: @data[:users][:all])
+    .text= t('.users.approved', value: @data[:users][:approved])
+    .text= t('.users.not_approved', value: @data[:users][:not_approved])
+    .text= t('.users.disabled', value: @data[:users][:disabled])
 
     -#.list-container.list-tablefied
     .title= t('.spaces.title')
-    .text= t('.spaces.all', value: data[:spaces][:all])
-    .text= t('.spaces.private', value: data[:spaces][:private])
-    .text= t('.spaces.public', value: data[:spaces][:public])
-    .text= t('.spaces.disabled', value: data[:spaces][:disabled])
+    .text= t('.spaces.all', value: @data[:spaces][:all])
+    .text= t('.spaces.private', value: @data[:spaces][:private])
+    .text= t('.spaces.public', value: @data[:spaces][:public])
+    .text= t('.spaces.disabled', value: @data[:spaces][:disabled])
 
     -#.list-container.list-tablefied
     .title= t('.meetings.title')
-    .text= t('.meetings.all', value: data[:meetings][:all])
-    .text= t('.meetings.total', value: distance_of_time_in_words_to_now(Time.now + data[:meetings][:total], include_seconds: false))
-    .text= t('.meetings.average', value: distance_of_time_in_words_to_now(Time.now + data[:meetings][:average], include_seconds: false))
+    .text= t('.meetings.all', value: @data[:meetings][:all])
+    .text= t('.meetings.total', value: distance_of_time_in_words_to_now(Time.now + @data[:meetings][:total], include_seconds: false))
+    .text= t('.meetings.average', value: distance_of_time_in_words_to_now(Time.now + @data[:meetings][:average], include_seconds: false))
 
     -#.list-container.list-tablefied
     .title= t('.recordings.title')
-    .text= t('.recordings.all', value: data[:recordings][:all])
-    .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + data[:recordings][:total], include_seconds: false))
-    .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + data[:recordings][:average], include_seconds: false))
+    .text= t('.recordings.all', value: @data[:recordings][:all])
+    .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + @data[:recordings][:total], include_seconds: false))
+    .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + @data[:recordings][:average], include_seconds: false))

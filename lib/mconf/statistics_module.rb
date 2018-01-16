@@ -1,25 +1,30 @@
 module Mconf
   module StatisticsModule
 
-    def self.total_users
+    def self.total_users(from, to)
       result = {}
 
+      puts from
+      puts to
+
+      users = User.where("created_at >= ? AND created_at < ?", from, to)
+
       #total users
-      result[:all] = User.all.count
+      result[:all] = users.count
 
       # approved users
-      result[:approved] = User.where(approved: true).count
+      result[:approved] = users.where(approved: true).count
 
       # disapproved users
-      result[:not_approved] = User.where(approved: false).count
+      result[:not_approved] = users.where(approved: false).count
 
       # disabled users
-      result[:disabled] = User.where(disabled: true).count
+      result[:disabled] = users.where(disabled: true).count
 
       result
     end
 
-    def self.total_spaces
+    def self.total_spaces(from, to)
       result = {}
 
       #total_spaces
@@ -37,7 +42,7 @@ module Mconf
       result
     end
 
-    def self.total_meetings
+    def self.total_meetings(from, to)
       result = {}
 
       total = 0
@@ -62,7 +67,7 @@ module Mconf
       result
     end
 
-    def self.total_recordings
+    def self.total_recordings(from, to)
       result = {}
 
       total = 0
@@ -85,7 +90,7 @@ module Mconf
       result
     end
 
-    def self.generate
+    def self.generate(from =nil, to =nil)
       statistics = {
         users: {},
         spaces: {},
@@ -93,10 +98,18 @@ module Mconf
         recordings: {}
       }
 
-      statistics[:users] = self.total_users
-      statistics[:spaces] = self.total_spaces
-      statistics[:meetings] = self.total_meetings
-      statistics[:recordings] = self.total_recordings
+      if from.blank?
+        from = Time.at(0).utc
+      end
+
+      if to.blank?
+        to =Time.now.utc
+      end
+
+      statistics[:users] = self.total_users(from, to)
+      statistics[:spaces] = self.total_spaces(from, to)
+      statistics[:meetings] = self.total_meetings(from, to)
+      statistics[:recordings] = self.total_recordings(from, to)
 
       statistics
     end

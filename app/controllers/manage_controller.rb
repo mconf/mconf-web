@@ -93,6 +93,18 @@ class ManageController < ApplicationController
     end
   end
 
+  def statistics
+    if params[:statistics].present?
+      from = params[:statistics][:starts_on_time]
+      to = params[:statistics][:ends_on_time]
+
+      from.present? ? from_date = Date.strptime(from, '%m/%d/%Y') : from_date =nil
+      to.present? ? to_date = Date.strptime(to, '%m/%d/%Y') : to_date =nil
+    end
+
+    @data = Mconf::StatisticsModule.generate(from_date, to_date)
+  end
+
   def statistics_filter
     render layout: false
   end

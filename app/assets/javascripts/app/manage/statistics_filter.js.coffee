@@ -11,7 +11,7 @@ class mconf.StatisticsFilter
     $('.starts-at-wrapper .btn-group .btn').on 'click', ->
       filterByDate(this)
 
-    $('.datetime-picker-input').on 'click', ->
+    $('.datetime-picker-input').on 'change', ->
       checkDate()
 
 isAllSelected = ->
