@@ -4,9 +4,6 @@ module Mconf
     def self.total_users(from, to)
       result = {}
 
-      puts from
-      puts to
-
       users = User.where("created_at >= ? AND created_at < ?", from, to)
 
       #total users
@@ -27,17 +24,19 @@ module Mconf
     def self.total_spaces(from, to)
       result = {}
 
+      spaces = Space.where("created_at >= ? AND created_at < ?", from, to)
+
       #total_spaces
-      result[:all] = Space.all.count
+      result[:all] = spaces.all.count
 
       # private spaces
-      result[:private] = Space.where(public: false).count
+      result[:private] = spaces.where(public: false).count
 
       # public spaces
-      result[:public] = Space.where(public: true).count
+      result[:public] = spaces.where(public: true).count
 
       # disabled spaces
-      result[:disabled] = Space.where(disabled: true).count
+      result[:disabled] = spaces.where(disabled: true).count
 
       result
     end
@@ -45,12 +44,14 @@ module Mconf
     def self.total_meetings(from, to)
       result = {}
 
+      meetings = BigbluebuttonMeeting.where("created_at >= ? AND created_at < ?", from, to)
+
       total = 0
       duration = 0
       average = 0
       count = 0
 
-      BigbluebuttonMeeting.find_each do |m|
+      meetings.find_each do |m|
         # total duration
           unless m.finish_time == nil
             duration = m.finish_time - m.create_time
@@ -61,7 +62,11 @@ module Mconf
 
       # duration average
       result[:all] = count
-      result[:average] = total / count
+      if count == 0
+        result[:average] = 0
+      else
+        result[:average] = total / count
+      end
       result[:total] = total
 
       result
@@ -70,12 +75,14 @@ module Mconf
     def self.total_recordings(from, to)
       result = {}
 
+      recordings = BigbluebuttonRecording.where("created_at >= ? AND created_at < ?", from, to)
+
       total = 0
       duration = 0
       average = 0
       count = 0
 
-      BigbluebuttonRecording.find_each do |r|
+      recordings.find_each do |r|
         # total duration
         duration = r.end_time - r.start_time
         total = total + duration
@@ -84,7 +91,11 @@ module Mconf
 
       # duration average
       result[:all] = count
-      result[:average] = total / count
+      if count == 0
+        result[:average] = 0
+      else
+        result[:average] = total / count
+      end
       result[:total] = total
 
       result
