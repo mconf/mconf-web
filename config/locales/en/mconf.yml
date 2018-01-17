@@ -1075,6 +1075,7 @@ en:
         all: "All recordings: %{value}"
         total: "Total recordings duration: %{value}"
         average: "Average recordings duration: %{value}"
+        size: "Total size: %{value}"
     user_item:
       allow_record: "Give the user permission to record conferences"
       auth_using: "using"

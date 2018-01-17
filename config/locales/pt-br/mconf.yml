@@ -1073,6 +1073,7 @@ pt-br:
         all: "Total de gravações: %{value}"
         total: "Duração de todas as gravações: %{value}"
         average: "Média de duração por gravação: %{value}"
+        size: "Tamanho total de todas as gravações: %{value}"
     user_item:
       allow_record: "Conceder permissão de gravação"
       auth_using: "usando"

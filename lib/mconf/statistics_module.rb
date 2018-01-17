@@ -81,16 +81,19 @@ module Mconf
       duration = 0
       average = 0
       count = 0
+      size = 0
 
       recordings.find_each do |r|
         # total duration
         duration = r.end_time - r.start_time
         total = total + duration
+        size = size + r.size
         count = count + 1
       end
 
       # duration average
       result[:all] = count
+      result[:size] = size
       if count == 0
         result[:average] = 0
       else

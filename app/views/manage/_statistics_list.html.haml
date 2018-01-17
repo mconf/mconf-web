@@ -28,3 +28,4 @@
     .text= t('.recordings.all', value: @data[:recordings][:all])
     .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + @data[:recordings][:total], include_seconds: false))
     .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + @data[:recordings][:average], include_seconds: false))
+    .text= t('.recordings.size', value: human_file_size(@data[:recordings][:size]))
