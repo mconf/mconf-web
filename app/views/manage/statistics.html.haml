@@ -7,7 +7,9 @@
           .col-xs-12.col-sm-9
             .starts-at-wrapper
               .csv
-                = link_to t('.csv'), manage_statistics_csv_path(format: :csv), class: 'btn btn-primary'
+                - starts = params[:statistics].present? ? params[:statistics][:starts_on_time] : nil
+                - ends = params[:statistics].present? ? params[:statistics][:ends_on_time] : nil
+                = link_to t('.csv'), manage_statistics_csv_path(format: :csv, statistics: { starts_on_time: starts, ends_on_time: ends }), class: 'btn btn-primary'
               .btn-group{ 'data-toggle': "buttons" }
 
                 %label.btn.btn-default.all{ 'data-attr-value': '0' }

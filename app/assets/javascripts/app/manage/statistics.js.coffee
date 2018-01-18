@@ -3,10 +3,8 @@ $ ->
     uri = window.location.href
 
     if uri.indexOf("?") < 0
-      console.log("primeiro if")
       $('.starts-at-wrapper .btn.all').addClass("active")
     else
-      console.log("segundo if")
       $('.starts-at-wrapper .btn-group .btn').addClass("active")
 
     mconf.Resources.addToBind ->
