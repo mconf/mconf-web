@@ -1045,9 +1045,9 @@ en:
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     statistics:
-      filter:
-        all: "All"
-        date: "Pick date"
+      all: "All"
+      date: "Pick date"
+      csv: "Download .csv"
     statistics_filter:
       from: "From"
       to: "To"

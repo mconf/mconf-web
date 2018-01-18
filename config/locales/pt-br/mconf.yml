@@ -1051,6 +1051,14 @@ pt-br:
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     statistics:
+      all: "Mostrar tudo"
+      date: "Escolher data"
+      csv: "Baixar .csv"
+    statistics_filter:
+      from: "De"
+      to: "Até"
+      title: "Período"
+    statistics_list:
       users:
         title: "Estatísticas de usuários"
         all: "Total de usuários: %{value}"

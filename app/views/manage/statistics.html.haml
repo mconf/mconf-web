@@ -6,17 +6,19 @@
         .row
           .col-xs-12.col-sm-9
             .starts-at-wrapper
+              .csv
+                = link_to t('.csv'), manage_statistics_csv_path(format: :csv), class: 'btn btn-primary'
               .btn-group{ 'data-toggle': "buttons" }
 
                 %label.btn.btn-default.all{ 'data-attr-value': '0' }
                   %input{ type: 'radio' }
-                  = t('.filter.all')
+                  = t('.all')
 
                 %label.btn.btn-default{ 'data-attr-value': '1' }
                   %input{ type: 'radio' }
-                  = link_to manage_statistics_filter_path, class: "open-modal tooltipped", title: t('.filter.date') do
+                  = link_to manage_statistics_filter_path, class: "open-modal tooltipped", title: t('.date') do
                     = icon_later
-                    = t('.filter.date')
+                    = t('.date')
 
 #statistics-list
   = render partial: 'statistics_list'

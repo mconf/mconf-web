@@ -93,19 +93,29 @@ class ManageController < ApplicationController
     end
   end
 
-  def statistics
+  def check_statistics_params
     if params[:statistics].present?
       from = params[:statistics][:starts_on_time]
       to = params[:statistics][:ends_on_time]
 
-      from.present? ? from_date = Date.strptime(from, '%m/%d/%Y') : from_date =nil
-      to.present? ? to_date = Date.strptime(to, '%m/%d/%Y') : to_date =nil
+      from.present? ? @from_date = Date.strptime(from, '%m/%d/%Y') : @from_date =nil
+      to.present? ? @to_date = Date.strptime(to, '%m/%d/%Y') : @to_date =nil
     end
+  end
 
-    @data = Mconf::StatisticsModule.generate(from_date, to_date)
+  def statistics
+    check_statistics_params
+    @data = Mconf::StatisticsModule.generate(@from_date, @to_date)
   end
 
   def statistics_filter
     render layout: false
+  end
+
+  def statistics_csv
+    check_statistics_params
+    respond_to do |format|
+      format.csv { send_data Mconf::StatisticsModule.generate_csv(@from_date, @to_date), type: Mime::CSV, disposition: "attachment", filename: "overview-#{@from_date}-#{@to_date}.csv" }
+    end
   end
 end

@@ -127,5 +127,27 @@ module Mconf
 
       statistics
     end
+
+    def self.flatten_hash(hash)
+      hash.each_with_object({}) do |(k, v), h|
+        if v.is_a? Hash
+          flatten_hash(v).map do |h_k, h_v|
+            h["#{k}.#{h_k}".to_sym] = h_v
+          end
+        else
+          h[k] = v
+        end
+      end
+    end
+
+    def self.generate_csv(from =nil, to =nil)
+      data = self.generate(from, to)
+      csv_data = self.flatten_hash(data)
+
+      CSV.generate(headers: true) do |csv|
+        csv << csv_data.keys
+        csv << csv_data.values
+      end
+    end
   end
 end
