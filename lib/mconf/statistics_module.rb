@@ -51,15 +51,13 @@ module Mconf
       average = 0
       count = 0
 
-      unless meetings == 0
-        meetings.find_each do |m|
-          # total duration
-            unless m.finish_time == nil
-              duration = m.finish_time - m.create_time
-            end
-            total = total + duration
-            count = count + 1
-        end
+      meetings.find_each do |m|
+        # total duration
+          unless m.finish_time == nil
+            duration = m.finish_time - m.create_time
+          end
+          total = total + duration
+          count = count + 1
       end
 
       # duration average
