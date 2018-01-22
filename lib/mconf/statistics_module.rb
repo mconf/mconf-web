@@ -4,7 +4,7 @@ module Mconf
     def self.total_users(from, to)
       result = {}
 
-      users = User.where("created_at >= ? AND created_at < ?", from, to)
+      users = User.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total users
       result[:all] = users.count
@@ -18,13 +18,14 @@ module Mconf
       # disabled users
       result[:disabled] = users.where(disabled: true).count
 
+
       result
     end
 
     def self.total_spaces(from, to)
       result = {}
 
-      spaces = Space.where("created_at >= ? AND created_at < ?", from, to)
+      spaces = Space.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total_spaces
       result[:all] = spaces.all.count
@@ -44,7 +45,7 @@ module Mconf
     def self.total_meetings(from, to)
       result = {}
 
-      meetings = BigbluebuttonMeeting.where("created_at >= ? AND created_at < ?", from, to)
+      meetings = BigbluebuttonMeeting.where("created_at >= ? AND created_at <= ?", from, to)
 
       total = 0
       duration = 0
@@ -75,7 +76,7 @@ module Mconf
     def self.total_recordings(from, to)
       result = {}
 
-      recordings = BigbluebuttonRecording.where("created_at >= ? AND created_at < ?", from, to)
+      recordings = BigbluebuttonRecording.where("created_at >= ? AND created_at <= ?", from, to)
 
       total = 0
       duration = 0
@@ -111,14 +112,6 @@ module Mconf
         meetings: {},
         recordings: {}
       }
-
-      if from.blank?
-        from = Time.at(0).utc
-      end
-
-      if to.blank?
-        to =Time.now.utc
-      end
 
       statistics[:users] = self.total_users(from, to)
       statistics[:spaces] = self.total_spaces(from, to)

@@ -100,6 +100,9 @@ class ManageController < ApplicationController
 
       from.present? ? @from_date = Date.strptime(from, '%m/%d/%Y') : @from_date = Time.at(0).utc
       to.present? ? @to_date = Date.strptime(to, '%m/%d/%Y') : @to_date = Time.now.utc
+    else
+      @from_date = Time.at(0).utc
+      @to_date = Time.now.utc
     end
   end
 

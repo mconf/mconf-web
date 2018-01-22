@@ -885,4 +885,71 @@ describe ManageController do
       it { expect { get :spaces }.not_to raise_error }
     end
   end
+
+  describe "#statistics" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:meeting) { FactoryGirl.create(:bigbluebutton_meeting) }
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording) }
+
+    context "authorizes" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+      it { should_authorize :manage, :statistics }
+    end
+
+    context "users statistics" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(user) }
+
+      let!(:user1) { FactoryGirl.create(:user, created_at: Time.now.utc) }
+      let!(:user2) { FactoryGirl.create(:user, created_at: Time.now.utc - 5.month) }
+      let!(:user3) { FactoryGirl.create(:user, created_at: Time.now.utc - 6.year) }
+
+      describe "check_statistics_params" do
+
+        before { get :statistics, params }
+
+        context "with params" do
+        end
+
+
+        context "without params" do
+          let(:params) { {} }
+
+          it { assigns(:statistics).should eql(1) }
+        end
+      end
+    end
+  end
+
+  describe "#statistics_csv" do
+    let(:super_user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(super_user) }
+
+    context "authorizes" do
+      it { should_authorize :manage, :statistics }
+    end
+
+    context ".csv format: download .csv" do
+      let(:data) {"users.all,users.approved,users.not_approved,users.disabled,spaces.all,spaces.private,spaces.public,spaces.disabled,meetings.all,meetings.average,meetings.total,recordings.all,recordings.size,recordings.average,recordings.total\n2,2,0,0,0,0,0,0,0,0,0,0,0,0,0\n"}
+      let(:from_date) { Time.at(0).utc }
+      let(:to_date) { Time.now.utc }
+
+      context "respond to send_data" do
+        before do
+          controller.stub(:render)
+          controller.should_receive(:send_data)
+        end
+
+        it { get :statistics_csv, format: :csv }
+      end
+
+      context "respond with .csv file" do
+        before { get :statistics_csv, format: :csv }
+
+        it { response.body.should eql(data) }
+        it { response.header['Content-Type'].should eql('text/csv') }
+      end
+    end
+  end
 end
