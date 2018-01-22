@@ -5,29 +5,29 @@
 
   .resource-filter-without-text
     .title= t('.users.title')
-    .text= t('.users.all', value: @data[:users][:all])
-    .text= t('.users.approved', value: @data[:users][:approved])
-    .text= t('.users.not_approved', value: @data[:users][:not_approved])
-    .text= t('.users.disabled', value: @data[:users][:disabled])
+    .text= t('.users.all', value: @statistics[:users][:all])
+    .text= t('.users.approved', value: @statistics[:users][:approved])
+    .text= t('.users.not_approved', value: @statistics[:users][:not_approved])
+    .text= t('.users.disabled', value: @statistics[:users][:disabled])
 
     -#.list-container.list-tablefied
     .title= t('.spaces.title')
-    .text= t('.spaces.all', value: @data[:spaces][:all])
-    .text= t('.spaces.private', value: @data[:spaces][:private])
-    .text= t('.spaces.public', value: @data[:spaces][:public])
-    .text= t('.spaces.disabled', value: @data[:spaces][:disabled])
+    .text= t('.spaces.all', value: @statistics[:spaces][:all])
+    .text= t('.spaces.private', value: @statistics[:spaces][:private])
+    .text= t('.spaces.public', value: @statistics[:spaces][:public])
+    .text= t('.spaces.disabled', value: @statistics[:spaces][:disabled])
 
     -#.list-container.list-tablefied
     .title= t('.meetings.title')
-    .text= t('.meetings.all', value: @data[:meetings][:all])
+    .text= t('.meetings.all', value: @statistics[:meetings][:all])
 
-    - total = @data[:meetings][:total]
+    - total = @statistics[:meetings][:total]
     - if total == 0
       .text= t('.meetings.total', value: total)
     - else
       .text= t('.meetings.total', value: distance_of_time_in_words_to_now(Time.now + total, include_seconds: false))
 
-    - average = @data[:meetings][:average]
+    - average = @statistics[:meetings][:average]
     - if average == 0
       .text= t('.meetings.average', value: average)
     - else
@@ -35,18 +35,18 @@
 
     -#.list-container.list-tablefied
     .title= t('.recordings.title')
-    .text= t('.recordings.all', value: @data[:recordings][:all])
+    .text= t('.recordings.all', value: @statistics[:recordings][:all])
 
-    - total = @data[:recordings][:total]
+    - total = @statistics[:recordings][:total]
     - if total == 0
       .text= t('.recordings.total', value: total)
     - else
       .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + total, include_seconds: false))
 
-    - average = @data[:recordings][:average]
+    - average = @statistics[:recordings][:average]
     - if average == 0
       .text= t('.recordings.average', value: average)
     - else
       .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + average, include_seconds: false))
 
-    .text= t('.recordings.size', value: human_file_size(@data[:recordings][:size]))
+    .text= t('.recordings.size', value: human_file_size(@statistics[:recordings][:size]))

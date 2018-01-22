@@ -108,7 +108,7 @@ class ManageController < ApplicationController
 
   def statistics
     check_statistics_params
-    @data = Mconf::StatisticsModule.generate(@from_date, @to_date)
+    @statistics = Mconf::StatisticsModule.generate(@from_date, @to_date)
   end
 
   def statistics_filter
@@ -118,7 +118,7 @@ class ManageController < ApplicationController
   def statistics_csv
     check_statistics_params
     respond_to do |format|
-      format.csv { send_data Mconf::StatisticsModule.generate_csv(@from_date, @to_date), type: Mime::CSV, disposition: "attachment", filename: "overview-from-#{@from_date.strftime('%m/%d/%Y')}-to-#{@to_date.strftime('%m/%d/%Y')}.csv" }
+      format.csv { send_data Mconf::StatisticsModule.generate_csv(@from_date, @to_date), type: Mime::CSV, disposition: "attachment", filename: "overview-from-#{@from_date.strftime('%m-%d-%Y')}-to-#{@to_date.strftime('%m-%d-%Y')}.csv" }
     end
   end
 end

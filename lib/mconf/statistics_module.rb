@@ -4,7 +4,7 @@ module Mconf
     def self.total_users(from, to)
       result = {}
 
-      users = User.where("created_at >= ? AND created_at <= ?", from, to)
+      users = User.with_disabled.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total users
       result[:all] = users.count
@@ -25,7 +25,7 @@ module Mconf
     def self.total_spaces(from, to)
       result = {}
 
-      spaces = Space.where("created_at >= ? AND created_at <= ?", from, to)
+      spaces = Space.with_disabled.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total_spaces
       result[:all] = spaces.all.count

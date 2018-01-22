@@ -887,9 +887,9 @@ describe ManageController do
   end
 
   describe "#statistics" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:meeting) { FactoryGirl.create(:bigbluebutton_meeting) }
-    let(:recording) { FactoryGirl.create(:bigbluebutton_recording) }
+    let!(:space) { FactoryGirl.create(:space) }
+    let!(:meeting) { FactoryGirl.create(:bigbluebutton_meeting) }
+    let!(:recording) { FactoryGirl.create(:bigbluebutton_recording, start_time: 15, end_time: 20) }
 
     context "authorizes" do
       let(:user) { FactoryGirl.create(:superuser) }
@@ -912,11 +912,11 @@ describe ManageController do
         context "with params" do
         end
 
-
         context "without params" do
           let(:params) { {} }
+          let(:data) { {:users=>{:all=>5, :approved=>5, :not_approved=>0, :disabled=>0}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
 
-          it { assigns(:statistics).should eql(1) }
+          it { assigns(:statistics).should eql(data) }
         end
       end
     end
