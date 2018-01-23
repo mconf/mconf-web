@@ -18,7 +18,6 @@ module Mconf
       # disabled users
       result[:disabled] = users.where(disabled: true).count
 
-
       result
     end
 
@@ -112,6 +111,9 @@ module Mconf
         meetings: {},
         recordings: {}
       }
+
+      from = from.beginning_of_day
+      to = to.end_of_day
 
       statistics[:users] = self.total_users(from, to)
       statistics[:spaces] = self.total_spaces(from, to)

@@ -894,27 +894,77 @@ describe ManageController do
     context "authorizes" do
       let(:user) { FactoryGirl.create(:superuser) }
       before(:each) { sign_in(user) }
+
       it { should_authorize :manage, :statistics }
     end
 
     context "users statistics" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      before(:each) { sign_in(user) }
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(superuser) }
 
-      let!(:user1) { FactoryGirl.create(:user, created_at: Time.now.utc) }
-      let!(:user2) { FactoryGirl.create(:user, created_at: Time.now.utc - 5.month) }
-      let!(:user3) { FactoryGirl.create(:user, created_at: Time.now.utc - 6.year) }
+      let!(:approved_user) { FactoryGirl.create(:user, created_at: Time.now.utc) }
+      let!(:not_approved_user) { FactoryGirl.create(:user, created_at: Time.now.utc - 5.month) }
+      let!(:disabled_user) { FactoryGirl.create(:user, created_at: Time.now.utc - 6.year, disabled: true) }
+
+      before { not_approved_user.disapprove! }
 
       describe "check_statistics_params" do
 
-        before { get :statistics, params }
-
-        context "with params" do
+        before do
+          User.first.update_attributes(created_at: Time.now.utc)
+          get :statistics, params
         end
 
-        context "without params" do
+        context "with params" do
+          context "date today: result approved_user, admin and superuser" do
+            let(:start_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
+            let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
+            let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
+            let(:data) { {:users=>{:all=>3, :approved=>3, :not_approved=>0, :disabled=>0}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
+
+            it { assigns(:statistics).should eql(data) }
+          end
+
+          context "date 5 months ago until today: result approved_user, not_approved_user, admin and superuser" do
+            let(:start_date) { (Time.now.utc - 5.month).strftime("%m/%d/%Y").to_s }
+            let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
+            let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
+            let(:data) { {:users=>{:all=>4, :approved=>3, :not_approved=>1, :disabled=>0}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
+
+            it { assigns(:statistics).should eql(data) }
+          end
+
+          context "date 6 years ago until today: result approved_user, not_approved_user, disabled_user, admin and superuser" do
+            let(:start_date) { (Time.now.utc - 6.year).strftime("%m/%d/%Y").to_s }
+            let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
+            let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
+            let(:data) { {:users=>{:all=>5, :approved=>4, :not_approved=>1, :disabled=>1}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
+
+            it { assigns(:statistics).should eql(data) }
+          end
+
+          context "date 6 years ago until 5 months ago: result not_approved_user and disabled_user" do
+            let(:start_date) { (Time.now.utc - 6.year).strftime("%m/%d/%Y").to_s }
+            let(:end_date) { (Time.now.utc - 5.month).strftime("%m/%d/%Y").to_s }
+            let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
+            let(:data) { {:users=>{:all=>2, :approved=>1, :not_approved=>1, :disabled=>1}, :spaces=>{:all=>0, :private=>0, :public=>0, :disabled=>0}, :meetings=>{:all=>0, :average=>0, :total=>0}, :recordings=>{:all=>0, :size=>0, :average=>0, :total=>0}} }
+
+            it { assigns(:statistics).should eql(data) }
+          end
+
+          context "date 9 years ago until 7 years ago: result no users" do
+            let(:start_date) { (Time.now.utc - 9.year).strftime("%m/%d/%Y").to_s }
+            let(:end_date) { (Time.now.utc - 7.year).strftime("%m/%d/%Y").to_s }
+            let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
+            let(:data) { {:users=>{:all=>0, :approved=>0, :not_approved=>0, :disabled=>0}, :spaces=>{:all=>0, :private=>0, :public=>0, :disabled=>0}, :meetings=>{:all=>0, :average=>0, :total=>0}, :recordings=>{:all=>0, :size=>0, :average=>0, :total=>0}} }
+
+            it { assigns(:statistics).should eql(data) }
+          end
+        end
+
+        context "without params: result approved_user, not_approved_user, disabled_user, admin and superuser (all)" do
           let(:params) { {} }
-          let(:data) { {:users=>{:all=>5, :approved=>5, :not_approved=>0, :disabled=>0}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
+          let(:data) { {:users=>{:all=>5, :approved=>4, :not_approved=>1, :disabled=>1}, :spaces=>{:all=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:all=>1, :average=>0, :total=>0}, :recordings=>{:all=>1, :size=>0, :average=>5, :total=>5}} }
 
           it { assigns(:statistics).should eql(data) }
         end
@@ -922,9 +972,12 @@ describe ManageController do
     end
   end
 
+  describe "#statistics_filter" do
+  end
+
   describe "#statistics_csv" do
-    let(:super_user) { FactoryGirl.create(:superuser) }
-    before(:each) { sign_in(super_user) }
+    let(:superuser) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(superuser) }
 
     context "authorizes" do
       it { should_authorize :manage, :statistics }
