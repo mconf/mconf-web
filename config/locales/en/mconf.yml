@@ -69,6 +69,7 @@ en:
     create: "Create"
     confirm: Ok
     datetimepicker:
+      datepick: "mm/dd/yyyy"
       format: "mm/dd/yyyy hh:ii Z"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"

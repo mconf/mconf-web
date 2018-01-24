@@ -68,6 +68,7 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
+      datepick: "dd/mm/yyyy"
       format: "dd/mm/yyyy hh:ii Z"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"

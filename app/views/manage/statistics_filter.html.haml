@@ -12,9 +12,9 @@
             - tz = user_timezone_abbreviation(current_user)
             - lang = locale_for_datetime_picker
             = f.label (t('.from')), required: false
-            .start= f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
+            .start= f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.datepick'), 'data-timezone': tz, 'data-language': lang, 'data-minview': 2 }
             = f.label (t('.to')), required: false
-            .end= f.input :ends_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
+            .end= f.input :ends_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.datepick'), 'data-timezone': tz, 'data-language': lang, 'data-minview': 2 }
 
     .modal-footer
       = f.button :wrapped, t('_other.send'), disabled: true, class: "btn btn-primary", cancel_modal: true

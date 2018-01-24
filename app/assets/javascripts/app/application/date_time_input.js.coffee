@@ -17,6 +17,7 @@ class mconf.DateTimeInput
         todayHighlight: true
         fontAwesome: true
         maxView: 3 # year
+        minView: $picker.data('minview')
         language: $picker.data('language')
         timezone: $picker.data('timezone')
         pickerPosition: 'bottom-left'
