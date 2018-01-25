@@ -104,7 +104,7 @@ module Mconf
       result
     end
 
-    def self.generate(from =nil, to =nil)
+    def self.generate(from, to)
       statistics = {
         users: {},
         spaces: {},
@@ -112,8 +112,8 @@ module Mconf
         recordings: {}
       }
 
-      from = from.beginning_of_day
-      to = to.end_of_day
+      from.present? ? from = from.beginning_of_day : nil
+      to.present? ? to = to.end_of_day : nil
 
       statistics[:users] = self.total_users(from, to)
       statistics[:spaces] = self.total_spaces(from, to)
@@ -122,6 +122,20 @@ module Mconf
 
       statistics
     end
+
+    def self.generate_csv(from, to)
+      unless from.blank? || to.blank?
+        data = self.generate(from, to)
+        csv_data = self.flatten_hash(data)
+
+        CSV.generate(headers: true) do |csv|
+          csv << csv_data.keys
+          csv << csv_data.values
+        end
+      end
+    end
+
+    private
 
     def self.flatten_hash(hash)
       hash.each_with_object({}) do |(k, v), h|
@@ -132,16 +146,6 @@ module Mconf
         else
           h[k] = v
         end
-      end
-    end
-
-    def self.generate_csv(from =nil, to =nil)
-      data = self.generate(from, to)
-      csv_data = self.flatten_hash(data)
-
-      CSV.generate(headers: true) do |csv|
-        csv << csv_data.keys
-        csv << csv_data.values
       end
     end
   end
