@@ -973,6 +973,8 @@ describe ManageController do
   end
 
   describe "#statistics_filter" do
+    before { get :statistics_filter }
+    it { should_not render_with_layout }
   end
 
   describe "#statistics_csv" do
