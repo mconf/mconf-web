@@ -42,6 +42,9 @@ class mconf.Notification
 showNotification = (target, type) ->
   $target = $(target)
 
+  if _.isEmpty($target.text().trim())
+    return
+
   unless $target.attr("data-notification-shown") is "1"
     $target.attr("data-notification-shown", "1")
 
