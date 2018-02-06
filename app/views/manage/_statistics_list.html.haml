@@ -22,13 +22,13 @@
     .text= t('.meetings.all', value: @statistics[:meetings][:all])
 
     - total = @statistics[:meetings][:total]
-    - if total == 0
+    - if total.zero?
       .text= t('.meetings.total', value: total)
     - else
       .text= t('.meetings.total', value: distance_of_time_in_words_to_now(Time.now + total, include_seconds: false))
 
     - average = @statistics[:meetings][:average]
-    - if average == 0
+    - if average.zero?
       .text= t('.meetings.average', value: average)
     - else
       .text= t('.meetings.average', value: distance_of_time_in_words_to_now(Time.now + average, include_seconds: false))
@@ -38,13 +38,13 @@
     .text= t('.recordings.all', value: @statistics[:recordings][:all])
 
     - total = @statistics[:recordings][:total]
-    - if total == 0
+    - if total.zero?
       .text= t('.recordings.total', value: total)
     - else
       .text= t('.recordings.total', value: distance_of_time_in_words_to_now(Time.now + total, include_seconds: false))
 
     - average = @statistics[:recordings][:average]
-    - if average == 0
+    - if average.zero?
       .text= t('.recordings.average', value: average)
     - else
       .text= t('.recordings.average', value: distance_of_time_in_words_to_now(Time.now + average, include_seconds: false))

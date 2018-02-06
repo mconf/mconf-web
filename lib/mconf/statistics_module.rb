@@ -53,7 +53,7 @@ module Mconf
 
       meetings.find_each do |m|
         # total duration
-          unless m.finish_time == nil
+          unless m.finish_time.blank?
             duration = m.finish_time - m.create_time
           end
           total = total + duration
@@ -62,7 +62,7 @@ module Mconf
 
       # duration average
       result[:all] = count
-      if count == 0
+      if count.zero?
         result[:average] = 0
       else
         result[:average] = total / count
@@ -94,7 +94,7 @@ module Mconf
       # duration average
       result[:all] = count
       result[:size] = size
-      if count == 0
+      if count.zero?
         result[:average] = 0
       else
         result[:average] = total / count
