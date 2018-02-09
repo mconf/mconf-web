@@ -37,6 +37,9 @@ class mconf.DateTimeInput
   @setStartDate: (element, date) ->
     getDatetimePickerTarget(element).datetimepicker('setStartDate', date)
 
+  @setEndDate: (element, date) ->
+    getDatetimePickerTarget(element).datetimepicker('setEndDate', date)
+
   @show: (element) ->
     getDatetimePickerTarget(element).datetimepicker('show')
 

@@ -17,6 +17,9 @@ class mconf.StatisticsFilter
     start.on 'change', ->
       limitMinimumEnd()
 
+    end.on 'change', ->
+      limitMaximumStart()
+
 filterByDate = (el) ->
   if el
     selected = $(el).data('attr-value')
@@ -28,6 +31,12 @@ limitMinimumEnd = ->
 
   if  startDate != ""
     mconf.DateTimeInput.setStartDate($(statistics_ends_on_time), new Date(startDate))
+
+limitMaximumStart = ->
+  endDate = statistics_ends_on_time.value
+
+  if  endDate != ""
+    mconf.DateTimeInput.setEndDate($(statistics_starts_on_time), new Date(endDate))
 
 checkDate = ->
   startDate = statistics_starts_on_time.value
