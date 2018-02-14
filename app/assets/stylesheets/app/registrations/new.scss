@@ -6,17 +6,36 @@ body.registrations.new, body.registrations.create {
 
   #headline {
     @include make-sm-column(12);
-    @include make-md-column(6);
+    @include make-md-column(5);
+    @include make-md-column-offset(1);
 
     h1 {
-      font-size: 72px;
+      font-size: 46px;
+      text-align: left;
       margin-top: 0;
       font-weight: 700;
+      color: $m-titles;
     }
 
     h3 {
-      font-size: 39px;
+      font-size: 25px;
+      text-align: justify;
       font-weight: 200;
+      color: $m-titles;
+    }
+
+    #registration-logo {
+      @include make-row;
+
+      margin: 50px auto 0 auto;
+      float: none;
+      padding: 36%;
+      overflow: visible;
+
+      background: image-url('logos/Notebook_video_play.png') no-repeat left top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
     }
   }
 
@@ -30,6 +49,7 @@ body.registrations.new, body.registrations.create {
       text-align: center;
       margin-bottom: 36px;
       margin-top: 0;
+      color: #2B2D42;
     }
 
     #register-mconf {

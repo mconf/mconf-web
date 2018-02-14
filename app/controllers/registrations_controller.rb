@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class RegistrationsController < Devise::RegistrationsController
-  layout 'application'
+  layout 'no_sidebar'
 
   before_filter :check_registration_enabled, :only => [:new, :create]
   before_filter :configure_permitted_parameters, :only => [:create]
