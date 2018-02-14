@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class SessionsController < Devise::SessionsController
-  layout 'application'
+  layout 'no_sidebar'
 
   # To allow other applications to sign in users in Mconf-Web
   skip_before_filter :verify_authenticity_token, :only => [:create]

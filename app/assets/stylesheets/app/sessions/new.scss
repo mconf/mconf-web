@@ -7,17 +7,36 @@ body.sessions.new, body.sessions.create {
 
   #headline {
     @include make-sm-column(12);
-    @include make-md-column(6);
+    @include make-md-column(5);
+    @include make-md-column-offset(1);
 
     h1 {
-      font-size: 72px;
+      font-size: 46px;
+      text-align: left;
       margin-top: 0;
       font-weight: 700;
+      color: $m-titles;
     }
 
     h3 {
-      font-size: 39px;
+      font-size: 25px;
+      text-align: justify;
       font-weight: 200;
+      color: $m-titles;
+    }
+
+    #signin-logo {
+      @include make-row;
+
+      margin: 50px auto 0 auto;
+      float: left;
+      padding: 36%;
+      overflow: visible;
+
+      background: image-url('logos/Mobile_conection.png') no-repeat left top;
+      background-size: contain;
+      height: 70%;
+      width: 90%;
     }
   }
 
@@ -29,6 +48,7 @@ body.sessions.new, body.sessions.create {
     h1 {
       font-weight: $m-font-weight-bold;
       text-align: center;
+      color: $m-titles;
       margin-bottom: 36px;
       margin-top: 0;
     }

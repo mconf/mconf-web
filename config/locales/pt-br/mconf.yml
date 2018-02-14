@@ -1295,7 +1295,7 @@ pt-br:
   registrations:
     new:
       headline: "Plataforma de webconferência"
-      headline2: "com foco em educação a distância e reuniões remotas"
+      headline2: "Com foco em educação a distância e reuniões remotas"
       title: "Crie uma conta"
     signup_form:
       register: "Criar conta"
@@ -1358,7 +1358,7 @@ pt-br:
       resend_confirmation_email: "Reenviar e-mail de confirmação"
     new:
       headline: "Plataforma de webconferência"
-      headline2: "com foco em educação a distância e reuniões remotas"
+      headline2: "Com foco em educação a distância e reuniões remotas"
       title: "Acesse sua conta"
   session_locales:
     create:

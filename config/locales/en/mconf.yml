@@ -1329,7 +1329,7 @@ en:
       resend_confirmation_email: "Resend confirmation email"
     new:
       headline: "Web Conference Platform"
-      headline2: "focused on distance learning and remote meetings"
+      headline2: "Focused on distance learning and remote meetings"
       title: "Sign into your account"
   session_locales:
     create:
