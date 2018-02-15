@@ -4,9 +4,13 @@
 body.passwords.new, body.passwords.create {
 
   #form-wrapper {
-    margin: 40px auto;
-    width: 50%;
+    @include make-sm-column(12);
+    @include make-md-column(4);
+    @include make-sm-column-offset(0);
+    @include make-md-column-offset(4);
     @include mconf-clearfix;
+
+    margin: 0px auto;
 
     form {
       // every field is required, we don't need to show it
@@ -14,12 +18,23 @@ body.passwords.new, body.passwords.create {
 
       .form-actions {
         border: none;
+
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
       }
 
       input[type=email] {
         width: 100%;
+        background: $m-site-content-bg-color;
+        margin-top: 20px;
+      }
+      .control-label {
+        color: $m-font-color-default;
+        font-size: 25px;
+        text-align: center;
       }
     }
   }
-
 }
