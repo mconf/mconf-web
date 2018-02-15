@@ -28,11 +28,11 @@ body.registrations.new, body.registrations.create {
       @include make-row;
 
       margin: 50px auto 0 auto;
-      float: none;
+      float: left;
       padding: 36%;
       overflow: visible;
 
-      background: image-url('logos/Notebook_video_play.png') no-repeat left top;
+      background: image-url('logos/Notebook_video_play.png') no-repeat top;
       background-size: contain;
       height: 70%;
       width: 70%;

@@ -10,7 +10,7 @@ body.passwords.new, body.passwords.create {
     @include make-md-column-offset(4);
     @include mconf-clearfix;
 
-    margin: 0px auto;
+    margin: 0 auto;
 
     form {
       // every field is required, we don't need to show it
