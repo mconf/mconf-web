@@ -277,6 +277,18 @@ a:not(.btn) .icon {
     max-width: auto;
   }
 
+  &.icon_conference_play{
+    font-size: 46px;
+  }
+
+  &.icon-conference-invite {
+    font-size: 46px;
+  }
+
+  &.icon-options {
+    font-size: 46px;
+  }
+
   &.icon-rec-play {
     color: $m-green;
   }
@@ -314,7 +326,6 @@ a:not(.btn) .icon {
   &.icon-user {}
   &.icon-space {}
   &.icon-profile {}
-  &.icon-options {}
   &.icon-join-request {}
   &.icon-list {}
   &.icon-externa-link {}

@@ -217,7 +217,8 @@ module IconsHelper
   end
 
   def icon_options(options={})
-    icon_constructor nil, "icon icon-mw-options icon-options", options
+    material_icon_constructor "settings", "icon material-icons icon-options", options
+    #icon_constructor nil, "icon icon-mw-options icon-options", options
   end
 
   def icon_join_request(options={})
@@ -233,7 +234,8 @@ module IconsHelper
   end
 
   def icon_invitation(options={})
-    icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
+    material_icon_constructor "mail", "icon material-icons icon-conference-invite", options
+    #icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
   end
 
   def icon_list(options={})
@@ -279,7 +281,8 @@ module IconsHelper
   end
 
   def icon_conference_play(options={})
-    icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+    material_icon_constructor "play_circle_filled", "icon material-icons icon_conference_play", options
+    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_rec_play(options={})
@@ -320,6 +323,15 @@ module IconsHelper
       options = options_for_tooltip(title, options)
     end
     content_tag :i, nil, options
+  end
+
+  def material_icon_constructor(icon=nil, cls=nil, options={})
+    options[:class] = options.has_key?(:class) ? cls + " " + options[:class] : cls
+    title = title.nil? ? options[:title] : title
+    unless title.nil? or title.blank?
+      options = options_for_tooltip(title, options)
+    end
+    content_tag :i, icon, options
   end
 
   def text_icon_constructor(title, cls=nil, text=nil, options={})

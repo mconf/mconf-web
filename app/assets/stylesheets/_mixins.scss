@@ -282,8 +282,9 @@
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
     @include transition(border-color 0.2s ease-in);
+    border-bottom: $m-active-item-border-off;
 
-    &:hover {
+    &:hover:not(.btn-navbar) {
       border-bottom: $m-active-item-border;
     }
   }

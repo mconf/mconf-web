@@ -36,9 +36,9 @@
       - if current_site.registration_enabled?
         %li{ sessions_menu_select_if(:register) }= link_to t('.register'), main_app.register_path
 
-#navbar-left
-  %ul
-    - if user_signed_in?
+- if user_signed_in?
+  #navbar-left
+    %ul#navbar-left-links
       - if mod_enabled?("spaces")
         %li= link_to t('space.all'), main_app.spaces_path
       - if mod_enabled?("events")
@@ -48,7 +48,9 @@
           = link_to main_app.manage_path do
             = t('.manage')
 
-    - else
+- else
+  #navbar-left.anonymous
+    %ul#navbar-left-links
       -# for anonymous users
       - if mod_enabled?("spaces")
         %li= link_to t('space.all'), main_app.spaces_path

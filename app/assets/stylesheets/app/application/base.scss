@@ -345,6 +345,7 @@ form {
 }
 
 #navbar {
+
   margin: 0;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
@@ -368,7 +369,7 @@ form {
   }
 
   .btn-navbar {
-    $imgsize: $m-navbar-btn-size * 0.65;
+    $imgsize: $m-navbar-btn-size * 0.9;
 
     height: $m-navbar-btn-size;
     width: $m-navbar-btn-size;
@@ -379,34 +380,36 @@ form {
     float: left;
     transition: all .3s ease-in-out;
     color: $m-navbar-btn-color;
+    text-align: left;
 
     .icon {
-      color: #fff;
+      color: $m-navbar-btn-color;
       font-size: $imgsize;
       line-height: 1;
       margin: 0;
       width: 100%;
-      text-align: center;
+      padding-top: 1px;
 
       &:hover { color: #fff; }
 
       &.icon-options {
-        $imgsize: $imgsize - 4;
+        $imgsize: $imgsize - 2;
         font-size: $imgsize;
         /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
-        padding: 1px 0;
+        padding: 1px 0 0 1px;
       }
+
       &.icon-conference-invite {
-        $imgsize: $imgsize - 10;
+        $imgsize: $imgsize - 6;
         font-size: $imgsize;
         /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
-        padding: 6px 0;
+        padding: 5px 0 0 4px;
       }
     }
 
     &:hover {
       background: $m-navbar-btn-bg-hover;
-      transform: scale(1.05);
+      transform: scale(1.15);
     }
   }
 
@@ -470,7 +473,17 @@ form {
 #navbar-left {
   @include navbar-lists;
   float: right;
+
+  &.anonymous{
+    margin: 15px 0;
+    border-right: 1px solid $m-logo-border;
+
+    #navbar-left-links{
+      margin: -15px 0;
+    }
+  }
 }
+
 
 #navbar-logo {
   white-space: nowrap;
