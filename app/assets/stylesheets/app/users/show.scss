@@ -18,41 +18,67 @@ body.users.show {
     @include make-md-column(6);
   }
 
-  .resource-card {
-    width: 100%;
-    max-width: 800px;
-    margin: 24px auto 40px auto;
+  .container-fluid {
+    background: $m-site-content-bg-color;
+    max-width: 40%;
+    margin: 149px 0 0 177px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
 
-    .resource-logo {
-      width: 250px;
+    #profile-logo {
+      margin: 50px auto 0 auto;
       float: left;
-      text-align: right;
+      padding: 36%;
+      overflow: visible;
+
+      background: image-url('logos/Picture.png') no-repeat left top;
+      background-size: contain;
+      height: 70%;
+      width: 90%;
     }
 
-    .resource-data {
-      padding-left: 40px;
-      width: calc(100% - 290px);
-      float: left;
+    .resource-card {
+      width: 100%;
+      max-width: 800px;
+      margin: 24px auto 40px -100px;
       text-align: left;
-    }
 
-    .field {
-      margin-bottom: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #eee;
-
-      span {
-        display: block;
+      .resource-data {
+        @include make-row;
+        padding-left: 40px;
+        width: calc(100% - 290px);
+        float: left;
+        text-align: center;
       }
 
-      &:last-child {
-        border: 0;
-      }
-    }
+      .field {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
 
-    .field-title {
-      font-size: $m-font-small;
-      color: $m-font-light;
+        .field-value {
+          color: $m-font-color-default;
+          font-size: 22px;
+          margin-bottom: 10%;
+
+          &.name {
+            font-weight: bold;
+          }
+        }
+
+        span {
+          display: block;
+        }
+
+        &:last-child {
+          border: 0;
+        }
+      }
+
+      .field-title {
+        font-size: $m-font-small;
+        color: $m-font-light;
+      }
     }
   }
 

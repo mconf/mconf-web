@@ -1,38 +1,21 @@
 = page_title @user.full_name
 
+= content_for :sidebar_menu do
+  %ul
+    %li{class: 'active'}= link_to "Perfil", user_path(@user)
+    %li= link_to "Segurança", my_meetings_path
+    %li= link_to "Dados da assinatura", my_meetings_path
+    %li= link_to "Pagamentos", my_meetings_path
+
 .container-fluid
+  #profile-logo
 
   .resource-card.resource-user
-    .resource-logo
-      = logo_image(@user, size: '300', title: @user.name)
 
     .resource-data
-
       .field
-        %span.field-title= t('.name')
-        %span.field-value= @user.name
-
-      - if user_signed_in? && current_user.superuser?
-        .field
-          %span.field-title= t('.email')
-          %span.field-value
-            = link_to @user.email, "mailto:#{@user.email}"
-
-      - unless @user.profile.organization.blank?
-        .field
-          %span.field-title= t('.organization')
-          %span.field-value= @user.profile.organization
-
-      - if @user.profile.valid_url?
-        .field
-          %span.field-title= t('.url')
-          %span.field-value
-            = link_to @user.profile.url, @user.profile.linkable_url
-
-      - unless @user.profile.description.blank?
-        .field
-          %span.field-title= t('.description')
-          %span.field-value= @user.profile.description
+        %span.field-value.name= @user.name
+        %span.field-value= @user.email
 
   - unless @user_spaces.empty?
     #user-spaces

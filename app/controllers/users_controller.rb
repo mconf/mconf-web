@@ -31,8 +31,6 @@ class UsersController < InheritedResources::Base
 
   def determine_layout
     case params[:action].to_sym
-    when :show
-      'no_sidebar'
     when :new
       false
     else

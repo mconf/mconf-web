@@ -131,16 +131,17 @@ $m-sidebar-width-lg: 300px;
 $m-sidebar-width-md: 300px;
 $m-sidebar-width-sm: 250px;
 $m-sidebar-padding: 25px;
+$m-sidebar-margin: 160px 10px 0 50px;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fff; //#fafafa; //#f3f6f9;
 
 // sidebar menu
 $m-sidebar-menu-hover-bg: darken($m-sidebar-bg-color, 5);
-$m-sidebar-menu-color: #666;
+$m-sidebar-menu-color: #fff;
 $m-sidebar-menu-color-hover: $m-link-color;
 $m-sidebar-menu-font: $m-font-medium;
-$m-sidebar-menu-active-bg: $m-site-bg-color; // #dae3ec;
-$m-sidebar-menu-active-hover-bg: $m-sidebar-menu-active-bg;
+$m-sidebar-menu-active-bg: #B3CFC1;
+$m-sidebar-menu-active-hover-bg: darken($m-sidebar-menu-active-bg, 5);
 $m-sidebar-menu-active-border: $m-sidebar-border; //#d9e2ec;
 $m-sidebar-menu-active-color: $m-sidebar-menu-color-hover;
 $m-sidebar-menu-active-color-hover: $m-sidebar-menu-active-color;

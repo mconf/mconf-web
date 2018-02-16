@@ -8,10 +8,11 @@
 -#   = render "my/navbar_menu", user_spaces: @user_spaces
 -# = render "my/sidebar", user_spaces: @user_spaces
 
-= content_for :sidebar_menu do
-  %ul
-    %li= link_to t(".recordedonly_true"), my_meetings_path, class: "#{'active' if params[:recordedonly].nil? }"
-    %li= link_to t(".recordedonly_false"), my_meetings_path(recordedonly: 'false'), class: "#{'active' if params[:recordedonly] == 'false' }"
+- if @meetings.count > 0
+  = content_for :sidebar_menu do
+    %ul
+      %li= link_to t(".recordedonly_true"), my_meetings_path, class: "#{'active' if params[:recordedonly].nil? }"
+      %li= link_to t(".recordedonly_false"), my_meetings_path(recordedonly: 'false'), class: "#{'active' if params[:recordedonly] == 'false' }"
 
 - cls = @meetings.count <= 0 ? 'empty' : ''
 #my-meetings{ class: cls }
@@ -23,3 +24,4 @@
 
   - else
     %h2= t('.no_meetings_headline')
+    #no-meetings-logo

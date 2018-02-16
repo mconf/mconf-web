@@ -598,9 +598,8 @@ form {
 #sidebar, .sidebar {
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding: $m-sidebar-padding;
 
-  margin: $m-content-vertical-padding 0 0 $m-content-vertical-padding;
+  margin: $m-sidebar-margin;
   border-radius: 4px;
   border: 0;
 
@@ -715,7 +714,9 @@ form {
 #sidebar-menu {
   font-size: $m-font-medium;
   @include mconf-clearfix;
-  text-align: right;
+  text-align: left;
+  border-radius: 2px;
+  box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
 
   ul {
     margin: 0;
@@ -723,8 +724,20 @@ form {
   }
 
   li {
-    margin: 20px 0;
+    padding: 20px 0;
     display: block;
+
+    &:hover {
+      background: $m-sidebar-menu-active-hover-bg;
+      color: $m-sidebar-menu-color;
+    }
+
+    &.active {
+      background: $m-sidebar-menu-active-bg;
+      a {
+        color: $m-sidebar-menu-color
+      }
+    }
 
     a {
       @include link-colors($m-font-color, $m-link-color-hover, $m-link-color-hover, $m-font-color);
@@ -752,7 +765,6 @@ form {
 
       &:hover, &:focus, &.active {
         text-decoration: none;
-        color: $m-active-item-border-color;
         &::after {
           border-left-color: $m-active-item-border-color;
         }

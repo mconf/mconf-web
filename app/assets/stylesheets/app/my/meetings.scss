@@ -18,6 +18,22 @@ body.my.meetings {
         margin: 0 auto;
         line-height: 1.4;
         margin-top: 200px;
+        color: $m-titles;
+        font-size: 25px;
+      }
+
+      #no-meetings-logo {
+        @include make-row;
+
+        margin: 60px auto 0 auto;
+        float: none;
+        padding: 8%;
+        overflow: visible;
+
+        background: image-url('logos/Video_files.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
       }
     }
   }
