@@ -1110,7 +1110,7 @@ en:
         other: "Other"
         today: "Today"
       hi: "Hi, %{name}!"
-      no_meetings_headline: "Start your first conference and interact with other participants"
+      no_meetings_headline: "Welcome to Mconf! Start your first conference and interact with other participants"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
