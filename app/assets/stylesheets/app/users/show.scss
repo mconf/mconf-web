@@ -21,13 +21,9 @@ body.users.show {
   .container-fluid {
     background: $m-site-content-bg-color;
     max-width: 40%;
-  }
-
-  .resource-card {
-    width: 100%;
-    max-width: 800px;
-    margin: 24px auto 40px -100px;
-    text-align: left;
+    margin: 149px 0 0 177px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
 
     #profile-logo {
       margin: 50px auto 0 auto;
@@ -41,41 +37,48 @@ body.users.show {
       width: 90%;
     }
 
-    .resource-data {
-      @include make-row;
-      padding-left: 40px;
-      width: calc(100% - 290px);
-      float: left;
-      text-align: center;
-    }
+    .resource-card {
+      width: 100%;
+      max-width: 800px;
+      margin: 24px auto 40px -100px;
+      text-align: left;
 
-    .field {
-      margin-bottom: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #eee;
+      .resource-data {
+        @include make-row;
+        padding-left: 40px;
+        width: calc(100% - 290px);
+        float: left;
+        text-align: center;
+      }
 
-      .field-value {
-        color: $m-font-color-default;
-        font-size: 22px;
-        margin-bottom: 10%;
+      .field {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
 
-        &.name {
-          font-weight: bold;
+        .field-value {
+          color: $m-font-color-default;
+          font-size: 22px;
+          margin-bottom: 10%;
+
+          &.name {
+            font-weight: bold;
+          }
+        }
+
+        span {
+          display: block;
+        }
+
+        &:last-child {
+          border: 0;
         }
       }
 
-      span {
-        display: block;
+      .field-title {
+        font-size: $m-font-small;
+        color: $m-font-light;
       }
-
-      &:last-child {
-        border: 0;
-      }
-    }
-
-    .field-title {
-      font-size: $m-font-small;
-      color: $m-font-light;
     }
   }
 

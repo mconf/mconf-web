@@ -702,6 +702,8 @@ form {
   font-size: $m-font-medium;
   @include mconf-clearfix;
   text-align: left;
+  border-radius: 2px;
+  box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
 
   ul {
     margin: 0;
@@ -720,7 +722,7 @@ form {
     &.active {
       background: $m-sidebar-menu-active-bg;
       a {
-        color: $m-sidebar-menu-color;
+        color: $m-sidebar-menu-color
       }
     }
 
