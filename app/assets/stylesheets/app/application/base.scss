@@ -511,20 +511,16 @@ form {
 }
 
 #footer, #footer-mconf {
-  /* TODO TEMPORARY */
-  display:none;
-
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 10px 0 0 0;
+  padding: 10px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
   /* padding-left: $m-sidenav-width-md; */
 
   clear: both;
   color: $m-footer-font-color;
   //margin-top: 30px;
   background: $m-footer-bg-color;
-  border-top: 1px solid $m-footer-border-color;
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
@@ -547,7 +543,7 @@ form {
   #footer-links {
     list-style-type: none;
     @include mconf-clearfix;
-    float: right;
+    float: left;
     padding: 2px 8px;
 
     li {

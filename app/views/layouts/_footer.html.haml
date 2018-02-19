@@ -1,15 +1,21 @@
 - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
 #footer{ class: cls_sidenav }
   #footer-left
-    #footer-copyright
-    #footer-powered
-      = t('.copyright', site: current_site.name, year: Time.now.year, link: "https://mconf.org", link_name: 'mconf.org').html_safe
-      - if user_signed_in? && current_user.superuser?
-        %span.current-version
-          = ' - ' + t('.current_version') + ': '
-          = application_version
-          = link_to github_link_to_revision(application_revision) do
-            = application_revision
+    / #footer-copyright
+    / #footer-powered
+    /   = t('.copyright', site: current_site.name, year: Time.now.year, link: "https://mconf.org", link_name: 'mconf.org').html_safe
+    /   - if user_signed_in? && current_user.superuser?
+    /     %span.current-version
+    /       = ' - ' + t('.current_version') + ': '
+    /       = application_version
+    /       = link_to github_link_to_revision(application_revision) do
+    /         = application_revision
+
+    %ul#footer-links
+      - unless current_site.external_help.blank?
+        %li= link_to(t('.links.help'), current_site.external_help)
+      - if user_signed_in?
+        %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
 
   #footer-right
 
@@ -29,8 +35,3 @@
                 = link_to main_app.session_locale_path(lang: locale.to_s), method: :post do
                   = flag + ' ' + name
 
-    %ul#footer-links
-      - unless current_site.external_help.blank?
-        %li= link_to(t('.links.help'), current_site.external_help)
-      - if user_signed_in?
-        %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
