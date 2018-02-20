@@ -306,6 +306,12 @@ a:not(.btn) .icon {
     color: #FFF;
   }
 
+  &.icon-arrow-up{
+    font-size: 33px;
+    line-height: 0.4;
+    vertical-align: middle;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}

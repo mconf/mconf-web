@@ -29,7 +29,13 @@ $m-very-light-gray: #fafafa;
 $m-bright-blue: #49afcd;
 $m-transparent: rgba(255,255,255,0);
 $m-titles: #2B2D42;
+$m-text: #2B2D42;
 $m-background: #F4F4F4;
+
+// header and footer colors
+$m-footer-header-link-color: $m-text;
+$m-footer-header-link-color-hover: $m-green-mconf;
+$m-footer-header-link-color-active: $m-green-mconf;
 
 // site colors and global configs
 $m-site-bg-color: #f2f2f2;
@@ -37,6 +43,7 @@ $m-site-content-bg-color: #fff;
 $m-color-primary: $m-green-mconf;
 $m-color-primary-hover: darken($m-color-primary, 5);
 $m-color-primary-soft: #81B29A;
+$m-color-primary-heavy: #2A535C;
 $m-color-primary-soft-hover: $m-green-mconf;
 $m-color-secondary: #337ab7;
 $m-color-secondary-hover: darken($m-color-secondary, 5);
@@ -83,7 +90,7 @@ $m-font-h-color-active: $m-link-color-active;
 $m-base-line-height: 1.5;
 $m-link-decoration: none;
 $m-link-decoration-hover: underline;
-$m-font-color-default: $m-titles;
+$m-font-color-default: $m-text;
 
 // borders
 $m-border-color-normal: #CBCBCB; //#ddd;// #e8e8e8;/* #ddd; */
@@ -163,7 +170,7 @@ $m-navbar-border-width: 0px;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
 $m-navbar-internal-border-color: $m-border-color-normal; //lighten($m-navbar-bg-color-dark, 3);
 $m-navbar-font: $m-font-big;
-$m-navbar-font-color: $m-titles;
+$m-navbar-font-color: $m-footer-header-link-color;
 $m-navbar-font-color-hover: $m-active-item-border-color;
 $m-navbar-font-highlight: #fff; //lighten($m-navbar-bg-color-dark, 8);
 $m-navbar-font-family: $m-font-family-h;
@@ -201,9 +208,9 @@ $m-page-menu-active-border: $m-sidebar-border;
 // footer
 $m-footer-height: 56px;
 $m-footer-font-color: $m-font-color;
-$m-footer-link-color: $m-link-color;
-$m-footer-link-color-hover: $m-link-color-hover;
-$m-footer-link-color-active: $m-link-color-active;
+$m-footer-link-color: $m-footer-header-link-color;
+$m-footer-link-color-hover: $m-footer-header-link-color-hover;
+$m-footer-link-color-active: $m-footer-header-link-color-active;
 $m-footer-bg-color: #fff;
 $m-footer-border-color: $m-sidebar-border;
 
@@ -274,7 +281,7 @@ $brand-danger: $red; //#d9534f; //$red;
 $brand-warning: $orange;
 //$btn-default-bg:
 $btn-default-border: $m-border-color-normal;
-$btn-primary-bg: $m-color-secondary;
+$btn-primary-bg: $m-color-primary-soft;
 $btn-primary-border: $btn-primary-bg;
 $btn-success-bg: $brand-success;
 $btn-success-border: $btn-success-bg;

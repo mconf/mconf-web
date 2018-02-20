@@ -524,6 +524,7 @@ form {
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
+    text-decoration: none;
   }
 
   #footer-left {
@@ -545,6 +546,8 @@ form {
     @include mconf-clearfix;
     float: left;
     padding: 2px 8px;
+    font-weight: bold;
+    fint-size: 15px;
 
     li {
       float: left;
@@ -555,6 +558,11 @@ form {
   #footer-languages {
     float: right;
     font-size: $m-font-small;
+
+    img {
+      vertical-align: text-top;
+      margin-right: 10px;
+    }
   }
 
   #footer-copyright {

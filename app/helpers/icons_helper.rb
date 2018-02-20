@@ -313,6 +313,11 @@ module IconsHelper
     image_tag 'icons/login-google.svg', size: "46x46", class: ""
   end
 
+  def icon_dropup(options={})
+    material_icon_constructor "keyboard_arrow_up", "icon material-icons icon-arrow-up", options
+    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+  end
+
   private
 
   # Base method for most of the methods above
