@@ -534,6 +534,10 @@ form {
   }
 
   #footer-right {
+    a {
+      @include link-colors($m-footer-link-color, $m-very-light-gray, $m-very-light-gray);
+      text-decoration: none;
+    }
     text-align: right;
     @include make-xs-column(5);
     padding: 0 16px;

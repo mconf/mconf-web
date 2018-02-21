@@ -69,7 +69,9 @@ ul.dropdown-menu {
       padding: 12px 14px;
 
       &:hover, &:active {
-        background: $m-light-gray;
+        font-weight: bold;
+        color: $m-very-light-gray;
+        background: $m-color-primary-heavy;
         @include link-colors(#808080, $m-link-color-hover, $m-link-color-active);
       }
     }
