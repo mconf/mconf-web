@@ -7,7 +7,7 @@ pt-br:
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a confirmação da sua conta.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá uma mensagem com instruções para confirmação da sua conta.'
     failure:
-      already_authenticated: 'Você já está logado.'
+      already_authenticated: ''
       disabled_by_certificate_auth: 'Seu usuário não possui permissão de utilizar o acesso local. Por favor faça login usando um certificado.'
       disabled_by_shib_auth: 'Seu usuário não possui permissão de utilizar o acesso local. Por favor faça login via federação.'
       inactive: 'Sua conta ainda não foi ativada.'
