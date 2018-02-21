@@ -72,7 +72,7 @@ ul.dropdown-menu {
         font-weight: bold;
         color: $m-very-light-gray;
         background: $m-color-primary-heavy;
-        @include link-colors(#808080, $m-link-color-hover, $m-link-color-active);
+        @include link-colors(#808080, $m-very-light-gray, $m-very-light-gray);
       }
     }
   }
