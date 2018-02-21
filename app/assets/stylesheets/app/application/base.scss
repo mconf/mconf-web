@@ -616,9 +616,10 @@ form {
   .sidebar-title {
     font-size: $m-font-double;
     line-height: 1.1;
-    margin-bottom: 15px;
-    padding: 0 10px;
+    padding: 0 10px 40px 0;
     text-align: center;
+    border: none;
+    background: $m-site-bg-color;
   }
 
   .sidebar-subtitle {
