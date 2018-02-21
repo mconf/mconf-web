@@ -596,18 +596,20 @@ form {
   @include make-row;
   width: 100%;
   margin: 0 auto;
+  padding: 0 $m-site-horizontal-padding;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
   @include mconf-clearfix;
   overflow: visible;
+  clear: both;
 }
 
 #sidebar, .sidebar {
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
 
-  margin: $m-sidebar-margin;
+  margin-top: $m-sidebar-margin-top;
   border-radius: 4px;
   border: 0;
 
@@ -792,7 +794,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-content-vertical-padding $m-site-horizontal-padding;
+  padding: $m-content-vertical-padding 0 $m-content-vertical-padding $m-site-horizontal-padding;
 
   h1 {
     text-align: center;

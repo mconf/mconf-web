@@ -8,7 +8,6 @@ body.sessions.new, body.sessions.create {
   #headline {
     @include make-sm-column(12);
     @include make-md-column(5);
-    @include make-md-column-offset(1);
 
     h1 {
       font-size: 46px;
@@ -43,7 +42,7 @@ body.sessions.new, body.sessions.create {
   #login-wrapper {
     @include make-sm-column(12);
     @include make-md-column(5);
-    @include make-md-column-offset(1);
+    @include make-md-column-offset(2);
 
     h1 {
       font-weight: $m-font-weight-bold;
