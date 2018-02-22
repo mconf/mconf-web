@@ -24,29 +24,29 @@ body.users.show {
     margin: 149px 0 0 177px;
     border-radius: 10px;
     box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+    text-align: center;
 
     #profile-logo {
-      margin: 50px auto 0 auto;
-      float: left;
+      margin: -35% auto 0 auto;
       padding: 36%;
       overflow: visible;
 
       background: image-url('logos/Picture.png') no-repeat left top;
       background-size: contain;
       height: 70%;
-      width: 90%;
+      width: 100px;
     }
 
     .resource-card {
       width: 100%;
       max-width: 800px;
-      margin: 24px auto 40px -100px;
+      margin: 24px auto 40px auto;
       text-align: left;
 
       .resource-data {
         @include make-row;
         padding-left: 40px;
-        width: calc(100% - 290px);
+        width: 100%;
         float: left;
         text-align: center;
       }
