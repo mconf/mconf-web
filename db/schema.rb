@@ -108,10 +108,11 @@ ActiveRecord::Schema.define(version: 20171114154853) do
 
   create_table "bigbluebutton_playback_types", force: true do |t|
     t.string   "identifier"
-    t.boolean  "visible",    default: false
-    t.boolean  "default",    default: false
+    t.boolean  "visible",      default: false
+    t.boolean  "default",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "downloadable", default: false
   end
 
   create_table "bigbluebutton_recordings", force: true do |t|

@@ -12,7 +12,7 @@ module CustomBigbluebuttonPlaybackTypesHelper
   def link_to_playback(recording, playback, options={})
     link_params = { type: playback.format_type }
 
-    if playback.identifier == 'presentation_video'
+    if playback.downloadable?
       name = if recording.description.blank?
                recording.name
              else
@@ -20,9 +20,7 @@ module CustomBigbluebuttonPlaybackTypesHelper
              end
       options.merge!(download: name.parameterize('_'))
       link_params.merge!(name: name.parameterize('_'))
-    end
 
-    if ['presentation_video', 'presentation_export'].include?(playback.identifier)
       playback_icon = icon_rec_download
     else
       playback_icon = icon_rec_play

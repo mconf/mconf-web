@@ -128,6 +128,8 @@ module Mconf
 
     # Authenticate playback URLs for recordings
     config.playback_url_authentication = ENV['MCONF_PLAYBACK_URL_AUTH'] == 'true'
+    # Show the playback in an iframe. If false, redirects the user to the playback page.
+    config.playback_iframe = ENV['MCONF_PLAYBACK_IFRAME'] == 'true'
 
     # Themes: configure assets paths here!
     # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme", "stylesheets")
