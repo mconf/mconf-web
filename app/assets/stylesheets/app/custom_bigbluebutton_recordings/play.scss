@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/shared/recording_list";
+
+body.custom_bigbluebutton_recordings.play {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
