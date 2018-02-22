@@ -52,6 +52,7 @@ $m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primar
 $m-logo-bg: lighten($m-color-primary, 15);
 $m-logo-border: $m-color-primary;
 $m-site-horizontal-padding: 160px;
+$m-site-vertical-padding: 160px;
 $m-content-vertical-padding: 60px;
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
@@ -65,6 +66,7 @@ $m-font-medium: 16px;
 $m-font-big: $m-font-normal * 1.4;
 $m-font-bigger: $m-font-normal * 1.8;
 $m-font-double: $m-font-normal * 2;
+$m-font-triple: $m-font-normal * 3;
 /* multipliers over the standard font size */
 $m-font-h1-multiplier: 2.71;
 $m-font-h2-multiplier: 2.28;
@@ -138,7 +140,7 @@ $m-sidebar-width-lg: 300px;
 $m-sidebar-width-md: 300px;
 $m-sidebar-width-sm: 250px;
 $m-sidebar-padding: 25px;
-$m-sidebar-margin-top: 160px;
+$m-sidebar-margin-top: 120px;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fff; //#fafafa; //#f3f6f9;
 

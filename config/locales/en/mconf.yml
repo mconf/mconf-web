@@ -1850,6 +1850,8 @@ en:
       title: "Edit your account"
     errors:
       access_forbidden: "This operation is only available to administrators"
+    menu:
+      profile: "Profile"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."

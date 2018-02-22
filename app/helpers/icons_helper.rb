@@ -318,6 +318,11 @@ module IconsHelper
     #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
+  def icon_sidebar_arrow(options={})
+    material_icon_constructor "keyboard_arrow_right", "icon material-icons icon-sidebar-arrow", options
+    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+  end
+
   private
 
   # Base method for most of the methods above

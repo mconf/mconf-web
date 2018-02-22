@@ -614,16 +614,18 @@ form {
   border: 0;
 
   .sidebar-title {
-    font-size: $m-font-double;
+    font-size: $m-font-triple;
     line-height: 1.1;
     padding: 0 10px 40px 0;
-    text-align: center;
+    text-align: left;
     border: none;
+    color: $m-titles;
     background: $m-site-bg-color;
   }
 
   .sidebar-subtitle {
-    font-size: 14px;
+    font-weight: bold;
+    font-size: $m-font-normal;
     line-height: 1.3;
     margin-bottom: 15px;
     padding: 0 10px;
@@ -723,7 +725,7 @@ form {
 }
 
 #sidebar-menu {
-  font-size: $m-font-medium;
+  font-size: $m-font-big;
   @include mconf-clearfix;
   text-align: left;
   border-radius: 2px;
@@ -737,45 +739,36 @@ form {
   li {
     padding: 20px 0;
     display: block;
+    transition: all 0.1s ease-in;
 
     &:hover {
-      background: $m-sidebar-menu-active-hover-bg;
-      color: $m-sidebar-menu-color;
+      background: $m-color-primary-heavy;
+      a {
+        font-weight: bold;
+        color: $m-light-gray;
+      }
+      .icon {
+        color: $m-light-gray;
+      }
     }
 
     &.active {
-      background: $m-sidebar-menu-active-bg;
+      background: $m-color-primary-heavy;
       a {
-        color: $m-sidebar-menu-color
+        color: $m-light-gray;
       }
     }
 
     a {
-      @include link-colors($m-font-color, $m-link-color-hover, $m-link-color-hover, $m-font-color);
+      @include link-colors($m-text, $m-light-gray, $m-light-gray);
       white-space: nowrap;
       display: block;
-      border-right: $m-active-item-border-off;
-      padding: 5px 15px;
+      padding: 5px 24px 5px 15px;
       position: relative;
-      padding-right: 30px;
-
-      &::after {
-        content: '';
-        border-bottom: 4px solid transparent;
-        border-top: 4px solid transparent;
-        border-left: 4px solid $m-border-color-normal;
-        display: inline-block;
-        height: 0;
-        /* opacity: 0.3; */
-        vertical-align: top;
-        width: 0;
-        top: 12px;
-        right: 5px;
-        position: absolute;
-      }
 
       &:hover, &:focus, &.active {
         text-decoration: none;
+        color: #fff;
         &::after {
           border-left-color: $m-active-item-border-color;
         }
@@ -787,6 +780,17 @@ form {
         /*   color: $m-active-item-border-color; */
         /* } */
       }
+
+      .icon {
+        color: $m-text;
+        &.icon-sidebar-arrow {
+          color: $m-light-gray;
+          transition: all 0.1s ease-in;
+          vertical-align: text-top;
+          float: right;
+          line-height: 0.8;
+        }
+      }
     }
   }
 }
@@ -795,7 +799,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-content-vertical-padding 0 $m-content-vertical-padding $m-site-horizontal-padding;
+  padding: $m-site-vertical-padding 0 $m-content-vertical-padding $m-site-horizontal-padding;
 
   h1 {
     text-align: center;

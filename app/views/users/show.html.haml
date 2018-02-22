@@ -4,11 +4,7 @@
   = render "my/navbar_menu", user_spaces: @user_spaces
 
 = content_for :sidebar_menu do
-  %ul
-    %li{class: 'active'}= link_to "Perfil", user_path(@user)
-    %li= link_to "Segurança", my_meetings_path
-    %li= link_to "Dados da assinatura", my_meetings_path
-    %li= link_to "Pagamentos", my_meetings_path
+  = render :partial => 'users/menu'
 
 .container-fluid
   #profile-logo

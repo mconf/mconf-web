@@ -277,7 +277,7 @@ a:not(.btn) .icon {
     max-width: auto;
   }
 
-  &.icon_conference_play{
+  &.icon-conference-play{
     font-size: 46px;
   }
 
@@ -309,6 +309,12 @@ a:not(.btn) .icon {
   &.icon-arrow-up {
     font-size: 33px;
     line-height: 0.4;
+    vertical-align: middle;
+  }
+
+  &.icon-sidebar-arrow {
+    font-size: 33px;
+    line-height: 0.8;
     vertical-align: middle;
   }
 

@@ -1,0 +1,26 @@
+-# = page_title t('.title')
+
+- profile_page = is_on_page('users', ['show', 'edit'])
+/ - subscription_page = is_on_page('subscription')
+/ - invoice_page = is_on_page('invoice')
+
+= content_for :sidebar_menu do
+  %ul
+
+    %li{ :class => "#{'active' if profile_page}" }
+      = link_to user_path(@user) do
+        = t('.profile')
+        - if profile_page
+          = icon_sidebar_arrow
+
+    / %li{ :class => "#{'active' if subscription_page}" }
+    /   = link_to site_path do
+    /     = t('.subscription')
+    /     - if subscription_page
+    /       = icon_sidebar_arrow
+
+    / %li{ :class => "#{'active' if invoice_page}" }
+    /   = link_to site_path do
+    /     = t('.invoice')
+    /     - if invoice_page
+    /       = icon_sidebar_arrow
