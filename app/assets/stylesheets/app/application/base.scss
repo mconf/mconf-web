@@ -737,12 +737,10 @@ form {
   }
 
   li {
-    padding: 20px 0;
     display: block;
     transition: all 0.1s ease-in;
 
-    &:hover {
-      background: $m-color-primary-heavy;
+    &:hover, &:focus {
       a {
         font-weight: bold;
         color: $m-light-gray;
@@ -763,10 +761,11 @@ form {
       @include link-colors($m-text, $m-light-gray, $m-light-gray);
       white-space: nowrap;
       display: block;
-      padding: 5px 24px 5px 15px;
+      padding: 25px 24px 25px 15px;
       position: relative;
 
       &:hover, &:focus, &.active {
+        background: $m-color-primary-heavy;
         text-decoration: none;
         color: #fff;
         &::after {
