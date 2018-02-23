@@ -30,7 +30,10 @@ describe 'User signs in via ldap', ldap: true do
 
       it { current_path.should eq(my_home_path) }
       it { should have_content @ldap_attrs[:username] }
-      it { should have_content @ldap_attrs[:email] }
+      it {
+        visit edit_user_path(User.last)
+        should have_content @ldap_attrs[:email]
+      }
       it("does not update local sign in date") {
         LdapToken.last.user.current_local_sign_in_at.should eq nil
       }
@@ -48,7 +51,10 @@ describe 'User signs in via ldap', ldap: true do
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user.name }
-        it { should have_content user.email }
+        it {
+          visit edit_user_path(user)
+          should have_content user.email
+        }
         it("updates local sign in date") {
           user.reload.current_local_sign_in_at.to_i.should be >= @startedAt.to_i
         }
@@ -141,7 +147,7 @@ describe 'User signs in via ldap', ldap: true do
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @ldap_attrs[:username])
+          FactoryGirl.create(:space, slug: @ldap_attrs[:username])
           expect {
             sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
           }.to change{ User.count }
@@ -153,7 +159,7 @@ describe 'User signs in via ldap', ldap: true do
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @ldap_attrs[:username])
+          FactoryGirl.create(:bigbluebutton_room, slug: @ldap_attrs[:username])
           expect {
             sign_in_with @ldap_attrs[:username], @ldap_attrs[:password]
           }.to change{ User.count }

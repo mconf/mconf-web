@@ -71,7 +71,7 @@ pt-br:
         shib_env_variables: "O Shibboleth retorna um conjunto de variáveis de ambiente quando o usuário é autenticado. Todas as variáveis especificadas nesta lista serão lidas do Shibboleth e utilizadas pela aplicação como dados do usuário. Especifique cada variável em uma linha diferente. As comparações são \"case-insensitive\" e espaços são removidos, e você também pode utilizar expressões regulares. Se este campo estiver vazio todas variáveis que iniciam com \"Shib-\" serão utilizadas."
         shib_login_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o login do usuário. Se não informado, a aplicação irá automaticamente criar um login a partir do nome do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_name_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-cn"
-        shib_principal_name_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o \"principal name\" do usuário, que contém o seu identificador único. Se você mudar este campo após ter usuários no banco de dados, estes usuários podem perder acesso à aplicação! Exemplo: \"Shib-inetOrgPerson-cn\"."
+        shib_principal_name_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o \"principal name\" do usuário, que contém o seu identificador único. Se você mudar este campo após ter usuários no banco de dados, estes usuários podem perder acesso à aplicação! Exemplo: \"Shib-eduPerson-eduPersonPrincipalName\"."
         shib_update_users: "Se habilitado, alguns atributos do usuário serão atualizados automaticamente com dados recebidos da federação (e.g. atualizar o e-mail do usuário caso tenha mudado na federação). Neste caso usuários também não poderão editar esses atributos através do site. Se não habilitado, os atributos não serão atualizados automaticamente."
         smtp_login: "O e-mail de login no servidor SMTP."
         smtp_password: "A senha para sua conta de e-mail no servidor SMTP."
@@ -90,7 +90,7 @@ pt-br:
           presenter_share_only: "Habilite para que somente o apresentador possa compartilhar sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas membros pode iniciar uma conferência na sala da comunidade, seja ela pública ou privada."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
-        permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
+        slug: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
         tag_list: "Digite uma tag e selecione-a na lista ou digite uma vírgula (',') para criá-la"
@@ -126,7 +126,14 @@ pt-br:
       post:
         text: "Texto da mensagem"
         title: "Título da mensagem"
+      profile:
+        full_name: 'Nome completo'
       user:
         edit:
           current_password: "Deixe em branco se você não quiser mudar"
+        email: 'E-mail'
+        login: "E-mail ou nome de usuário"
+        password: 'Senha'
+        password_confirmation: 'Confirmação de senha'
+        username: 'Identificador da sala'
     # labels:

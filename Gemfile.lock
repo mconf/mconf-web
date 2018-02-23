@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 3edfc60eb7601757c08a09d7a69a05b557fb4da7
+  revision: 80e517e2c029af4d385308f5ce47174271b30bfa
   branch: master
   specs:
-    bigbluebutton_rails (2.1.0)
+    bigbluebutton_rails (2.2.0)
       bigbluebutton-api-ruby (~> 1.6)
       browser (~> 0.8.0)
       rails (>= 4.0.0)
@@ -178,6 +178,14 @@ GEM
       sass-rails (< 5.1)
       sprockets (< 4.0)
     concurrent-ruby (1.0.5)
+    countries (2.1.2)
+      i18n_data (~> 0.8.0)
+      money (~> 6.9)
+      sixarm_ruby_unaccent (~> 1.1)
+      unicode_utils (~> 1.4)
+    country_select (3.1.1)
+      countries (~> 2.0)
+      sort_alphabetical (~> 1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     css_parser (1.3.5)
@@ -231,7 +239,7 @@ GEM
       railties (>= 3.2, < 5.1)
     fooldap (0.0.2)
       ruby-ldapserver
-    friendly_id (5.0.4)
+    friendly_id (5.2.3)
       activerecord (>= 4.0.0)
     geocoder (1.2.9)
     gravatar_image_tag (1.2.0)
@@ -259,6 +267,7 @@ GEM
     i18n (0.7.0)
     i18n-js (3.0.0.rc15)
       i18n (~> 0.6, >= 0.6.6)
+    i18n_data (0.8.0)
     icalendar (2.1.1)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -313,6 +322,8 @@ GEM
     mixlib-shellout (2.0.1)
     momentjs-rails (2.8.3)
       railties (>= 3.1)
+    money (6.9.0)
+      i18n (>= 0.6.4, < 0.9)
     mono_logger (1.1.0)
     multi_json (1.12.0)
     multi_xml (0.5.5)
@@ -503,6 +514,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sixarm_ruby_unaccent (1.2.0)
     skinny (0.2.3)
       eventmachine (~> 1.0.0)
       thin (~> 1.5.0)
@@ -511,6 +523,8 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     socksify (1.7.0)
+    sort_alphabetical (1.1.0)
+      unicode_utils (>= 1.2.2)
     spring (1.3.4)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -541,6 +555,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unicode_utils (1.4.0)
     uuidtools (2.1.5)
     valid_email (0.0.11)
       activemodel
@@ -597,6 +612,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   compass-rails (~> 3.0.0)
+  country_select
   database_cleaner
   devise (~> 3.5.4)
   devise-async
@@ -611,7 +627,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.0)
   fooldap
   forgery!
-  friendly_id (~> 5.0.4)
+  friendly_id (~> 5.0)
   geocoder
   gravatar_image_tag
   haml

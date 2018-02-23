@@ -6,6 +6,8 @@
 
 BigbluebuttonRails.configure do |config|
   config.guest_support = true
+  config.playback_url_authentication = Rails.application.config.playback_url_authentication
+  config.playback_iframe = Rails.application.config.playback_iframe
 
   # Set the invitation URL to the full URL of the room
   config.get_invitation_url = Proc.new do |room|
@@ -14,13 +16,51 @@ BigbluebuttonRails.configure do |config|
   end
 
   # Add custom metadata to all create calls
-  config.get_dynamic_metadata = Proc.new do |room|
+  config.get_create_options = Proc.new do |room, user|
     host = Site.current.domain_with_protocol
-    meta = {
-      "mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
-      "mconfweb-room-type" => room.try(:owner).try(:class).try(:name)
+
+    opts = {
+      "meta_mconfweb-url": Rails.application.routes.url_helpers.root_url(host: host),
+      "meta_mconfweb-room-type": room.try(:owner).try(:class).try(:name)
     }
-    meta
+
+    if Rails.application.config.per_user_record_permissions
+      opts[:record] = true
+    else
+      ability = Abilities.ability_for(user)
+      if user.present?
+        reason = user.try(:cant_record_reason, room)
+      else
+        reason = I18n.t('users.cant_record_reason.user_cannot_record')
+      end
+
+      opts[:record] = ability.can?(:record_meeting, room)
+      opts[:"meta_mconf-live-wont-record-message"] = reason if reason.present?
+    end
+
+    opts
+  end
+
+  # Add custom metadata join calls
+  config.get_join_options = Proc.new do |room, user|
+    if Rails.application.config.per_user_record_permissions
+      ability = Abilities.ability_for(user)
+
+      opts = {
+        "userdata-record": ability.can?(:record_meeting, room)
+      }
+
+      if user.present?
+        reason = user.try(:cant_record_reason, room)
+      else
+        reason = I18n.t('users.cant_record_reason.user_cannot_record')
+      end
+      opts[:"userdata-disabled_record_reason"] = reason if reason.present?
+
+      opts
+    else
+      {}
+    end
   end
 end
 
@@ -29,7 +69,7 @@ Rails.application.config.to_prepare do
   BigbluebuttonRoom.class_eval do
 
     # prevent duplicates and rooms with blacklisted names
-    validates :param, blacklist: true, room_param_uniqueness: true
+    validates :slug, blacklist: true, room_slug_uniqueness: true
 
     # Returns whether the `user` created the current meeting on this room
     # or not. Has to be called after a `fetch_meeting_info`, otherwise will always
@@ -53,43 +93,6 @@ Rails.application.config.to_prepare do
     end
   end
 
-  BigbluebuttonMeeting.instance_eval do
-    include PublicActivity::Model
-
-    tracked only: [:create], owner: :room,
-      recipient: -> (ctrl, model) { model.room.owner },
-      params: {
-        creator_id: -> (ctrl, model) {
-          model.try(:creator_id)
-        },
-      creator_username: -> (ctrl, model) {
-        id = model.try(:creator_id)
-        user = User.find_by(id: id)
-        user.try(:username)
-      }
-    }
-
-    scope :newest, -> (count=0) {
-      ordered = order("create_time DESC")
-      if count > 0
-        ordered.first(count)
-      else
-        ordered
-      end
-    }
-  end
-
-  BigbluebuttonServer.instance_eval do
-
-    # When the URL of the default server changes, change the URL of all institution servers.
-    after_update if: :url_changed? do
-      if BigbluebuttonServer.default.id == self.id
-        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
-      end
-    end
-
-  end
-
   BigbluebuttonMeeting.class_eval do
     # Fetches also the recordings associated with the meetings. Returns meetings even if they do not
     # have a recording.
@@ -100,10 +103,17 @@ Rails.application.config.to_prepare do
     scope :with_recording, -> {
       joins("RIGHT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
     }
+
+    def duration
+      if self.finish_time.present?
+        self.finish_time - self.create_time
+      else
+        nil
+      end
+    end
   end
 
   BigbluebuttonRecording.class_eval do
-
     # Search recordings based on a list of words
     scope :search_by_terms, -> (words) {
       query = joins(:room).includes(:room)
@@ -149,5 +159,50 @@ Rails.application.config.to_prepare do
     scope :no_playback, -> {
       where.not(id: BigbluebuttonPlaybackFormat.select(:recording_id).distinct)
     }
+
+    def duration
+      if self.end_time.present?
+        self.end_time - self.start_time
+      else
+        nil
+      end
+    end
+  end
+
+  BigbluebuttonMeeting.instance_eval do
+    include PublicActivity::Model
+
+    tracked only: [:create], owner: :room,
+      recipient: -> (ctrl, model) { model.room.owner },
+      params: {
+        creator_id: -> (ctrl, model) {
+          model.try(:creator_id)
+        },
+      creator_username: -> (ctrl, model) {
+        id = model.try(:creator_id)
+        user = User.find_by(id: id)
+        user.try(:username)
+      }
+    }
+
+    scope :newest, -> (count=0) {
+      ordered = order("create_time DESC")
+      if count > 0
+        ordered.first(count)
+      else
+        ordered
+      end
+    }
+  end
+
+  BigbluebuttonServer.instance_eval do
+
+    # When the URL of the default server changes, change the URL of all institution servers.
+    after_update if: :url_changed? do
+      if BigbluebuttonServer.default.id == self.id
+        BigbluebuttonServer.where.not(id: self.id).update_all(url: self.url)
+      end
+    end
+
   end
 end

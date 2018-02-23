@@ -9,8 +9,14 @@ require 'spec_helper'
 describe Mconf::Timezone do
 
   describe '#parse_in_timezone' do
-    # Run tests with the date format I wrote them in
-    before { Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M' }
+    # custom format to use in the tests
+    before {
+      @previous_format = Time::DATE_FORMATS[:default]
+      Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M'
+    }
+    after {
+      Time::DATE_FORMATS[:default] = @previous_format
+    }
 
     context 'normal timezone (UTC)' do
       subject { Mconf::Timezone.parse_in_timezone('31/07/2015 16:00', 'UTC') }
@@ -185,6 +191,7 @@ describe Mconf::DSTTimezone do
     context "in August" do
       let(:date) { DateTime.strptime('05/08/2015 12:00', "%d/%m/%Y %H:%M") }
       before { Timecop.freeze(date) }
+      after { Timecop.return }
 
       context "southern hemisphere: Brasilia" do
         let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
@@ -202,6 +209,7 @@ describe Mconf::DSTTimezone do
     context "in January" do
       let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
       before { Timecop.freeze(date) }
+      after { Timecop.return }
 
       context "southern hemisphere: Brasilia" do
         let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
@@ -221,6 +229,7 @@ describe Mconf::DSTTimezone do
     context "in August" do
       let(:date) { DateTime.strptime('05/08/2015 12:00', "%d/%m/%Y %H:%M") }
       before { Timecop.freeze(date) }
+      after { Timecop.return }
 
       context "southern hemisphere: Brasilia" do
         let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }
@@ -238,6 +247,7 @@ describe Mconf::DSTTimezone do
     context "in January" do
       let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
       before { Timecop.freeze(date) }
+      after { Timecop.return }
 
       context "southern hemisphere: Brasilia" do
         let(:tz) { ActiveSupport::TimeZone.new("Brasilia") }

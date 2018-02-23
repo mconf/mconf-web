@@ -28,12 +28,14 @@ describe 'User signs in via shibboleth' do
 
     it { current_path.should eq(my_home_path) }
     it { should have_content @attrs[:profile_attributes][:full_name] }
-    it { should have_content @attrs[:email] }
+    it {
+      visit edit_user_path(User.last)
+      should have_content @attrs[:email]
+    }
     it { has_success_message strip_links(t('shibboleth.create_association.account_created', :url => new_user_password_path))}
     it { should_not have_content t('my.home.not_confirmed') }
     context "should generate a RecentActivity" do
       subject { RecentActivity.where(key: 'shibboleth.user.created').last }
-      it { puts subject.inspect }
       it { subject.should_not be_nil }
       it { subject.trackable.should eq User.last }
 
@@ -70,7 +72,10 @@ describe 'User signs in via shibboleth' do
 
       it { current_path.should eq(my_home_path) }
       it { should have_content @attrs[:profile_attributes][:full_name] }
-      it { should have_content @attrs[:email] }
+      it {
+        visit edit_user_path(User.last)
+        should have_content @attrs[:email]
+      }
     end
 
     context 'and the user already has another account' do
@@ -155,7 +160,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a space" do
         before {
-          FactoryGirl.create(:space, permalink: @attrs[:profile_attributes][:full_name].parameterize)
+          FactoryGirl.create(:space, slug: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
@@ -168,7 +173,7 @@ describe 'User signs in via shibboleth' do
 
       context "and there's a conflict on the user's username with a room" do
         before {
-          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:profile_attributes][:full_name].parameterize)
+          FactoryGirl.create(:bigbluebutton_room, slug: @attrs[:profile_attributes][:full_name].parameterize)
           expect {
             click_button t('shibboleth.associate.new_account.create_new_account')
           }.to change{ User.count }.by(1)
@@ -213,7 +218,10 @@ describe 'User signs in via shibboleth' do
 
         it { current_path.should eq(my_home_path) }
         it { should have_content user.full_name }
-        it { should have_content user.email }
+        it {
+          visit edit_user_path(user)
+          should have_content user.email
+        }
       end
 
       context "if the site is set to update user information" do
@@ -237,9 +245,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should have_content new_name }
-          it { should have_content new_email }
-          it { should_not have_content @old_email }
           it { should_not have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should_not have_content @old_email
+          }
         end
 
         context "and the user account was not created by shib" do
@@ -260,9 +274,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should_not have_content new_name }
-          it { should_not have_content new_email }
-          it { should have_content @old_email }
           it { should have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should_not have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should have_content @old_email
+          }
         end
       end
 
@@ -287,9 +307,15 @@ describe 'User signs in via shibboleth' do
 
           it { current_path.should eq(my_home_path) }
           it { should_not have_content new_name }
-          it { should_not have_content new_email }
-          it { should have_content @old_email }
           it { should have_content @old_name }
+          it {
+            visit edit_user_path(user)
+            should_not have_content new_email
+          }
+          it {
+            visit edit_user_path(user)
+            should have_content @old_email
+          }
         end
       end
 
@@ -405,4 +431,28 @@ describe 'User signs in via shibboleth' do
     end
 
   end
+
+  context 'from the webconference invitation page' do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: space) }
+
+    before {
+      enable_shib
+      setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
+      visit join_webconf_path(room)
+      login_link.click
+    }
+
+    context "joins but doesn't create a new account" do
+      let(:login_link) { find(:xpath, "//a[contains(@href, '#{shibboleth_path}')]", match: :first) }
+
+      it { current_path.should eq(invite_bigbluebutton_room_path(room)) }
+      it { find("[name='user[name]']").value.should eql(@attrs[:profile_attributes][:full_name]) }
+      it {
+        visit my_home_path
+        current_path.should eq(new_user_session_path)
+      }
+    end
+  end
+
 end

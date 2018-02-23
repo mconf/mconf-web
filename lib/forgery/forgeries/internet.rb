@@ -13,7 +13,7 @@ class Forgery::Internet < Forgery
     "#{self.user_name}-#{n}"
   end
 
-  def self.unique_permalink(p)
+  def self.unique_slug(p)
     unique_user_name(p)
   end
 end

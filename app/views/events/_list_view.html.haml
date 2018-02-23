@@ -8,7 +8,7 @@
   - if events.count > 0
     - events.each do |event|
       - is_participant = user_events.include?(event)
-      %li.list-text{:name => event.permalink}
+      %li.list-text{:name => event.slug}
         = render "unified_event", :event => event, :is_participant => is_participant
   - else
     = t(".no_events")

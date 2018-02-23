@@ -12,7 +12,16 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
-  layout "manage"
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :play
+      'base'
+    else
+      'manage'
+    end
+  end
 
   # TODO: #1087 redirect back after updating the desc of a recording
 

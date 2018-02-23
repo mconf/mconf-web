@@ -1,0 +1,164 @@
+@import "compass/css3";
+@import "definitions";
+
+.list-container {
+  padding: 0;
+
+  .list-item-header {
+    border-top-width: 1px;
+    background: $m-light-gray;
+    padding: 3px 0;
+    text-align: center;
+    border-top: 1px solid $m-border-color-medium;
+  }
+
+  .list-item {
+    border-top: 1px solid $m-border-color-medium;
+    clear: both;
+    @include mconf-clearfix;
+    padding: 12px 4px 12px 4px;
+
+    &:first-child {
+      border-top-width: 2px;
+      margin-top: 0;
+    }
+
+    &:hover, &.active {
+      background-color: $m-light-gray;
+    }
+
+    &.list-item-disabled {
+      color: #888;
+      background: $m-very-light-gray;
+      opacity: 0.8;
+
+      .logo-in-thread {
+        opacity: 0.7;
+      }
+
+      .label {
+        opacity: 0.5;
+      }
+    }
+
+    .list-text-title {
+      font-size: $m-font-medium;
+      font-weight: bold;
+      margin-bottom: 4px;
+      @include mconf-clearfix;
+
+      > a {
+        float: left;
+      }
+    }
+
+    .list-text-subtitle {
+      margin-bottom: 4px;
+    }
+
+    .list-text-description {
+      color: $m-font-light;
+    }
+
+    .list-actions {
+      font-size: $m-font-medium;
+      text-align: right;
+
+      /* because they are always just icons */
+      a:hover, a:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .list-item-logo {
+    text-align: center;
+    @include logo-container;
+  }
+}
+
+// Change the colors for table borders and bgs, make it more like our lists
+.table-wrapper {
+  background: $m-site-content-bg-color;
+  @include border-radius($m-border-radius-large);
+  padding: 40px 30px 30px 30px;
+  /* border: 1px solid $m-border-color-normal; */
+}
+
+table, .table {
+  margin: 0;
+  font-size: $m-font-medium;
+
+  thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
+    font-size: $m-font-small;
+    font-weight: $m-font-weight-normal;
+  }
+
+  tbody {
+    tr {
+      /* background: $m-site-content-bg-color; */
+      padding: 12px 0;
+      /* border-top: 12px solid $m-site-content-bg-color; */
+      border: 0;
+
+      &:nth-child(even) {
+        background: $m-very-light-gray;
+      }
+      /* tr:nth-child(odd) {background: #FFF} */
+
+  /*     &.fadeout { */
+  /*       opacity: 0.6; */
+  /*     } */
+
+      td {
+        /* background: $m-site-bg-color; */
+        padding: 20px 12px;
+        vertical-align: top;
+        border: 0;
+      }
+
+      &:hover {
+        background: $m-light-gray;
+      }
+
+      &:last-child {
+        td {
+          /* border-bottom: 30px solid $m-site-content-bg-color; */
+        }
+      }
+    }
+  }
+
+  td:first-child, th:first-child {
+    border-top-left-radius: $m-border-radius-large;
+    border-bottom-left-radius: $m-border-radius-large;
+    /* border-left: 30px solid $m-site-content-bg-color; */
+  }
+
+  td:last-child, th:last-child {
+    border-top-right-radius: $m-border-radius-large;
+    border-bottom-right-radius: $m-border-radius-large;
+    /* border-right: 30px solid $m-site-content-bg-color; */
+                 }
+
+  td.thin {
+    font-weight: $m-font-weight-thin;
+  }
+}
+
+/* .table-wrapper { */
+/*   background: transparent; */
+/* } */
+
+/* table, .table { */
+/*   tbody { */
+/*     tr { */
+/*       background: $m-very-light-gray; */
+/*       border-radius: 10%; */
+/*     } */
+
+/*     tr { */
+/*       border-top: 12px solid $m-site-bg-color; */
+/*     } */
+/*   } */
+/* } */

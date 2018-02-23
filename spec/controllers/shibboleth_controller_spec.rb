@@ -218,7 +218,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             # login with different federation data
             setup_shib(new_name, new_email, attrs[:email])
@@ -230,7 +230,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.confirmed?.should be(true) }
           it { @old_email.should_not eq(new_email) }
           it { @old_name.should_not eq(new_name) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }
@@ -258,7 +258,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             ShibToken.last.update_attributes(new_account: false)
 
@@ -271,7 +271,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.email.should_not eq(new_email) }
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }
@@ -303,7 +303,7 @@ describe ShibbolethController do
 
             @old_name = ShibToken.last.user.name
             @old_email = ShibToken.last.user.email
-            @old_permalink = ShibToken.last.user.permalink
+            @old_slug = ShibToken.last.user.slug
 
             # login with different federation data
             setup_shib(new_name, new_email, attrs[:email])
@@ -314,7 +314,7 @@ describe ShibbolethController do
           it { ShibToken.last.user.email.should_not eq(new_email) }
           it { ShibToken.last.user.name.should eq(@old_name) }
           it { ShibToken.last.user.email.should eq(@old_email) }
-          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+          it { ShibToken.last.user.slug.should eq(@old_slug) }
           it("does not update local sign in date") {
             ShibToken.last.user.reload.current_local_sign_in_at.to_i.should eq(old_current_local_sign_in_at.to_i)
           }
@@ -375,6 +375,38 @@ describe ShibbolethController do
           get :login
         }
         it { token.reload.data.should eql(new_data) }
+      end
+
+      context "when passing create=false" do
+        context "for a new user it signs in as guest but doesn't create a user" do
+          before {
+            setup_shib("Expected User Full Name", "expectedemail@mconf.org", "expectedemail@mconf.org")
+            controller.should_receive(:after_sign_in_path_for).and_return('/expected')
+            controller.should_receive(:sign_in_guest).with("Expected User Full Name", "expectedemail@mconf.org")
+          }
+
+          it { expect { get :login, create: false }.not_to change{ ShibToken.count } }
+          it { expect { get :login, create: false }.not_to change{ User.count } }
+          it {
+            get :login, create: false
+            should redirect_to('/expected')
+          }
+        end
+
+        context "for a returning user it signs in into the user account" do
+          let(:user) { FactoryGirl.create(:user) }
+          before {
+            setup_shib(user.full_name, user.email, user.email)
+            ShibToken.create!(identifier: user.email, user: user)
+            controller.should_not_receive(:sign_in_guest)
+          }
+
+          before {
+            get :login, create: false
+          }
+          it { should redirect_to(my_home_path) }
+          it { subject.current_user.should eq(user) }
+        end
       end
     end
   end
@@ -597,6 +629,48 @@ describe ShibbolethController do
       let(:do_action) { get :info }
       it_should_behave_like "an action that renders a modal - signed in"
     end
+  end
+
+  describe "#create_account?" do
+    ['false', false].each do |value|
+      it("returns false for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(false)
+      }
+    end
+
+    ['true', true, 1, nil, 0, 'other'].each do |value|
+      it("returns true for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(true)
+      }
+    end
+
+    it("returns true when params is empty") {
+      controller.stub(:params).and_return({})
+      controller.send(:create_account?).should be(true)
+    }
+  end
+
+  describe "#create_account?" do
+    ['false', false].each do |value|
+      it("returns false for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(false)
+      }
+    end
+
+    ['true', true, 1, nil, 0, 'other'].each do |value|
+      it("returns true for #{value.inspect}") {
+        controller.stub(:params).and_return({ create: value })
+        controller.send(:create_account?).should be(true)
+      }
+    end
+
+    it("returns true when params is empty") {
+      controller.stub(:params).and_return({})
+      controller.send(:create_account?).should be(true)
+    }
   end
 
   private

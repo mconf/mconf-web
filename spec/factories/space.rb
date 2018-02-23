@@ -6,7 +6,7 @@
 
 FactoryGirl.define do
   factory :space do |s|
-    s.permalink
+    s.slug
     s.sequence(:name) { |n| Forgery::Name.unique_space_name(n) }
     s.description { Forgery::Basic.text }
     s.public false

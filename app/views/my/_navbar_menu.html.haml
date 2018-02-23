@@ -1,0 +1,11 @@
+%ul
+  %li{ home_navbar_menu_select_if(:home) }
+    = link_to main_app.my_home_path do
+      = t(".menu.home")
+  - if mod_enabled?("activities")
+    %li{ home_navbar_menu_select_if(:activity) }
+      = link_to my_activity_path do
+        = t(".menu.activity")
+  %li{ home_navbar_menu_select_if(:meetings) }
+    = link_to my_meetings_path do
+      = t(".menu.meetings")

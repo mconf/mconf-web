@@ -262,7 +262,7 @@ describe Devise::Strategies::LdapAuthenticatable do
     context "doesn't fail if the username is already the identifier of a space" do
       let(:token) { LdapToken.create!(identifier: 'any@email.com') }
       before {
-        FactoryGirl.create(:space, permalink: "any-username")
+        FactoryGirl.create(:space, slug: "any-username")
       }
       it {
         expect {
@@ -291,11 +291,6 @@ describe Devise::Strategies::LdapAuthenticatable do
 
       context "email not informed" do
         let(:email) { '' }
-        include_examples "fails to create account and RecentActivity"
-      end
-
-      context "username not informed" do
-        let(:username) { '' }
         include_examples "fails to create account and RecentActivity"
       end
 

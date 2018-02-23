@@ -29,7 +29,7 @@ module Mconf
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-    # config.plugins = [ :simple_captcha, :permalink_fu, :all ]
+    # config.plugins = [ :simple_captcha, :slug_fu, :all ]
     config.plugins = [:all]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -51,6 +51,7 @@ module Mconf
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
     config.i18n.available_locales = [:bg, :de, :en, :"es-419", :"pt-br", :ru]
+    config.available_locales_countries = [:bg, :de, :en, :es, :pt, :ru] # for the countries gem
     config.i18n.default_locale = :en
 
     config.generators do |g|
@@ -115,11 +116,20 @@ module Mconf
     # Themes: set to the theme name if using any!
     config.theme = ENV['MCONF_THEME']
 
-    # Socual login API Keys
+    # Social login API Keys
     config.omniauth_google_key       = ENV['MCONF_OMNIAUTH_GOOGLE_KEY'] || nil
     config.omniauth_facebook_key     = ENV['MCONF_OMNIAUTH_FACEBOOK_KEY'] || nil
     config.omniauth_google_secret    = ENV['MCONF_OMNIAUTH_GOOGLE_SECRET'] || nil
     config.omniauth_facebook_secret  = ENV['MCONF_OMNIAUTH_FACEBOOK_SECRET'] || nil
+
+    # Set permissions to record when users join conferences instead of when meetings are created.
+    # Set if to false to use the old model based on the `record` flag on the `create` API call.
+    config.per_user_record_permissions = ENV['MCONF_PER_USER_RECORD_PERMISSIONS'] == 'true'
+
+    # Authenticate playback URLs for recordings
+    config.playback_url_authentication = ENV['MCONF_PLAYBACK_URL_AUTH'] == 'true'
+    # Show the playback in an iframe. If false, redirects the user to the playback page.
+    config.playback_iframe = ENV['MCONF_PLAYBACK_IFRAME'] == 'true'
 
     # Themes: configure assets paths here!
     # config.assets.paths << Rails.root.join("app", "assets", "themes", "my-theme", "stylesheets")

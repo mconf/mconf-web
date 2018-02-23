@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531162723) do
+ActiveRecord::Schema.define(version: 20171114154853) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -108,10 +108,11 @@ ActiveRecord::Schema.define(version: 20170531162723) do
 
   create_table "bigbluebutton_playback_types", force: true do |t|
     t.string   "identifier"
-    t.boolean  "visible",    default: false
-    t.boolean  "default",    default: false
+    t.boolean  "visible",      default: false
+    t.boolean  "default",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "downloadable", default: false
   end
 
   create_table "bigbluebutton_recordings", force: true do |t|
@@ -120,15 +121,16 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",                                      default: false
-    t.boolean  "available",                                      default: true
+    t.boolean  "published",                                          default: false
+    t.boolean  "available",                                          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        limit: 8,                          default: 0
-    t.decimal  "start_time",            precision: 14, scale: 0
-    t.decimal  "end_time",              precision: 14, scale: 0
+    t.integer  "size",            limit: 8,                          default: 0
+    t.decimal  "start_time",                precision: 14, scale: 0
+    t.decimal  "end_time",                  precision: 14, scale: 0
+    t.text     "recording_users"
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -164,7 +166,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "external",                                            default: false
-    t.string   "param"
+    t.string   "slug"
     t.boolean  "record_meeting",                                      default: false
     t.integer  "duration",                                            default: 0
     t.string   "moderator_api_password"
@@ -192,7 +194,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "param"
+    t.string   "slug"
   end
 
   create_table "certificate_tokens", force: true do |t|
@@ -226,12 +228,12 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.string   "address"
     t.float    "latitude",        limit: 24
     t.float    "longitude",       limit: 24
-    t.string   "permalink"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "events", ["permalink"], name: "index_events_on_permalink", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "invitations", force: true do |t|
     t.integer  "target_id"
@@ -431,7 +433,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "permalink"
+    t.string   "slug"
     t.boolean  "disabled",            default: false
     t.boolean  "repository",          default: false
     t.string   "logo_image"
@@ -471,7 +473,7 @@ ActiveRecord::Schema.define(version: 20170531162723) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "username"
+    t.string   "slug"
     t.string   "email",                               default: "",    null: false
     t.string   "encrypted_password",                  default: "",    null: false
     t.string   "password_salt",            limit: 40

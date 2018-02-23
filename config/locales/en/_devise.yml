@@ -7,7 +7,7 @@ en:
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
-      already_authenticated: "You are already signed in."
+      already_authenticated: ''
       disabled_by_certificate_auth: 'Your user is not allowed to sign in via local authentication. Please sign in using a certificate.'
       disabled_by_shib_auth: 'Your user is not allowed to sign in via local authentication. Please sign in using the federation.'
       inactive: "Your account was not activated yet."

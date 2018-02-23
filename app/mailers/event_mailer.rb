@@ -42,7 +42,7 @@ class EventMailer < BaseMailer
       @event.time_zone = time_zone
 
       subject = t('event_mailer.invitation_email.subject', :event => @event.name)
-      attachments["#{@event.permalink}.ics"] = { :mime_type => 'text/calendar', :content => @invitation.to_ical }
+      attachments["#{@event.slug}.ics"] = { :mime_type => 'text/calendar', :content => @invitation.to_ical }
 
       if to.is_a?(User)
         create_email(to.email, @invitation.sender.email, subject)

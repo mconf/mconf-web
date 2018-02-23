@@ -224,7 +224,7 @@ describe EventsController do
     context ".json" do
       let(:expected) {
         @events.map do |e|
-          { :id => e.id, :permalink => e.permalink, :public => true,
+          { :id => e.id, :slug => e.slug, :public => true,
             :name => e.name, :text => e.name, :url => event_url(e) }
         end
       }

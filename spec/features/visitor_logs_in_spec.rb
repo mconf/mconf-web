@@ -16,7 +16,6 @@ feature 'Visitor logs in' do
     sign_in_with @user.email, @user.password
 
     expect(page).to have_title(I18n.t('home.my'))
-    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 
@@ -24,7 +23,6 @@ feature 'Visitor logs in' do
     sign_in_with @user.username, @user.password
 
     expect(page).to have_title(I18n.t('home.my'))
-    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 
@@ -52,7 +50,7 @@ feature 'Visitor logs in' do
 
     scenario 'from /webconf/:id' do
       user = FactoryGirl.create(:user)
-      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      room = FactoryGirl.create(:bigbluebutton_room, slug: "test", owner: user)
       visit invite_bigbluebutton_room_path(room)
 
       sign_in_with @user.username, @user.password, false
@@ -86,7 +84,7 @@ feature 'Visitor logs in' do
       Site.current.update_attributes(ssl: true)
 
       user = FactoryGirl.create(:user)
-      room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
+      room = FactoryGirl.create(:bigbluebutton_room, slug: "test", owner: user)
       visit invite_bigbluebutton_room_path(room)
 
       sign_in_with @user.username, @user.password

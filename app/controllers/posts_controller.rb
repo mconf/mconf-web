@@ -8,9 +8,9 @@
 class PostsController < InheritedResources::Base
   before_filter :require_spaces_mod
 
-  belongs_to :space, finder: :find_by_permalink
+  belongs_to :space, finder: :find_by_slug
 
-  load_and_authorize_resource :space, :find_by => :permalink
+  load_and_authorize_resource :space, :find_by => :slug
   before_filter :get_posts, :only => [:index]
   load_and_authorize_resource :through => :space
 

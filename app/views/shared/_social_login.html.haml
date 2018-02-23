@@ -1,0 +1,13 @@
+- if current_site.social_login_enabled?
+  #social-login-btns
+    .social-call= t('.or_connect_with')
+    .social-btns
+      - if current_site.social_login_enabled?("google")
+        = link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-large btn-google' do
+          = icon_login_google
+          %span= t('.google')
+      - if current_site.social_login_enabled?("facebook")
+        = link_to user_omniauth_authorize_path(:facebook), class: 'btn btn-large btn-facebook' do
+          = icon_login_facebook
+          %span= t('.facebook')
+    .disclaimer= t('.disclaimer')

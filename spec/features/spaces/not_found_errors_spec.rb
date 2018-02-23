@@ -29,7 +29,7 @@ feature 'User accesses an URL of a space that' do
     it { should have_title(t('error.e404.title')) }
     it { should have_content(t('error.e404.title')) }
     it { should have_content(
-      strip_tags(t('spaces.error.not_found', :permalink => 'nonexistent', :path => spaces_path))
+      strip_tags(t('spaces.error.not_found', :slug => 'nonexistent', :path => spaces_path))
       )
     }
     it { should have_link('', :href => spaces_path) }

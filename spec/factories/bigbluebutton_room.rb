@@ -16,7 +16,7 @@ FactoryGirl.define do
     r.moderator_api_password { SecureRandom.uuid }
     r.welcome_msg { Forgery(:lorem_ipsum).sentences(2) }
     r.private false
-    r.sequence(:param) { |n| "meeting-#{n}" }
+    r.sequence(:slug) { |n| "meeting-#{n}" }
     r.external false
     r.record_meeting false
     r.duration 0

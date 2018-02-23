@@ -206,7 +206,7 @@ ru:
         description: "Описание"
         moderator_key: "Пароль для модераторов"
         name: "Имя"
-        permalink: "Идентификатор"
+        slug: "Идентификатор"
         public: "Публичный"
         repository: "Хранилище документов"
       user:
@@ -854,7 +854,7 @@ ru:
   last_week: "Last week"
   latest_events: "Последние события"
   layouts:
-    application_navbar:
+    navbar:
       events: "События"
       inbox: "Входящие"
       login: "Вход"
@@ -1452,7 +1452,7 @@ ru:
       already_invited: "Вы уже были приглашены в это сообщество, пожалуйста примите или отклоните приглашение"
       creation_forbidden: "Вы не можете создавать сообщества"
       need_join_to_access: "Для доступа к сообществу Вам необходимо к нему присоединиться. Отправьте заявку администраторам."
-      not_found: "Сообщество \"%{permalink}\" не найдно. <br> Попробуйте поискать на странице <a href=\"%{path}\">все сообщества</a>?"
+      not_found: "Сообщество \"%{slug}\" не найдно. <br> Попробуйте поискать на странице <a href=\"%{path}\">все сообщества</a>?"
       unapproved: "Сообщество еще не было одобрено администратором."
     index:
       create_new_space: "Создать новое сообщество"
@@ -1489,7 +1489,7 @@ ru:
         updating: "Обновляем список Ваших записей..."
     show:
       events_now: "Текущие события!"
-    sidebar:
+    navbar_menu:
       upcoming_events: "Предстоящие события"
       webconference:
         attendees:

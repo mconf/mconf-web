@@ -15,18 +15,27 @@ $sidebar-sm: $m-sidebar-width-sm;
   body {
     background: linear-gradient(
                     to right,
-                    $m-sidebar-bg-color 0%,
-                    $m-sidebar-bg-color $size - 1,
-                    $m-sidebar-border $size - 1,
-                    $m-sidebar-border $size,
+                    $m-site-bg-color 0%,
+                    $m-site-bg-color $size - 1,
+                    $m-site-bg-color $size - 1,
+                    $m-site-bg-color $size,
                     $m-site-bg-color $size,
                     $m-site-bg-color 100%
                   );
+    /* background: linear-gradient( */
+    /*                 to right, */
+    /*                 $m-sidebar-bg-color 0%, */
+    /*                 $m-sidebar-bg-color $size - 1, */
+    /*                 $m-sidebar-border $size - 1, */
+    /*                 $m-sidebar-border $size, */
+    /*                 $m-site-bg-color $size, */
+    /*                 $m-site-bg-color 100% */
+    /*               ); */
   }
 
   #sidebar, .sidebar {
     float: left;
-    width: $size;
+    width: $size - $m-content-vertical-padding;
   }
 
   #content-middle {
@@ -49,7 +58,7 @@ $sidebar-sm: $m-sidebar-width-sm;
 
 @include breakpoint(xs) {
   body {
-    background-color: $m-site-bg-color;
+    /* background-color: $m-site-bg-color; */
   }
 
   #sidebar, .sidebar {

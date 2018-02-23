@@ -6,6 +6,6 @@
     - for user in @latest_users
       = render :partial => 'users/simple_user', :locals => { :user => user }
 
-  .content-block-footer.content-block-footer-fancy
+  .content-block-footer
     .content-block-footer-middle
       = link_to t('read_more'), space_users_path(@space) if can?(:show, @space)
