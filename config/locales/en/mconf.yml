@@ -1862,6 +1862,7 @@ en:
       email: "Email"
       name: "Name"
       organization: "Organization"
+      title: "Account"
       url: "Website"
       user_spaces: "Membro of the spaces"
   username: Username

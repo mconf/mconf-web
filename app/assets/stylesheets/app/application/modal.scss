@@ -1,29 +1,34 @@
 @import "definitions";
 
 .modal .modal-header {
-  padding: 20px;
+  padding: 50px;
   border-bottom: 0;
+  text-align: center;
 
   h1, h2, h3, h4, h5 {
+    color: $m-titles;
     margin: 0;
-    font-size: $m-font-normal * $m-font-h2-multiplier;
+    font-size: $m-font-big;
     font-weight: $m-font-weight-bold;
     line-height: 1;
   }
 
   .close {
-    background: darken($m-site-bg-color, 20);
-    border: 1px solid #000;
-    padding: 0;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
+    margin: -15px 0px;
+    opacity: 0.5;
+
+    &:hover, &:focus, &:active {
+      opacity: 0.8;
+    }
   }
 }
 
 .modal-body {
-  padding: 0 20px;
+  padding: 0 60px;
+
+  .form-group {
+    padding-bottom: 25px;
+  }
 }
 
 // make the background of modals darker
@@ -49,9 +54,33 @@
 }
 
 .modal-content {
-  background: $m-site-bg-color;
+  background: $m-modal-bg;
+  border: 0;
+  box-shadow: none;
 }
 
 .modal-footer {
   border-top: 0;
+  margin: 60px;
+  .form-actions {
+
+    .btn {
+      background: $m-site-content-bg-color;
+      border: none;
+      font-size: 22px;
+      transition: all .3s ease;
+      text-decoration: none;
+      color: $m-color-primary-soft;
+      vertical-align: middle;
+
+      &:hover, &:active, &:active:hover {
+        background: $m-site-content-bg-color;
+        text-shadow: $m-bold-by-shadow;
+        box-shadow: none;
+        text-decoration: none;
+        color: $m-color-primary-heavy;
+        vertical-align: middle;
+      }
+    }
+  }
 }

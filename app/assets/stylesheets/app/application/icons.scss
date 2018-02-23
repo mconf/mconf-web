@@ -318,6 +318,13 @@ a:not(.btn) .icon {
     vertical-align: middle;
   }
 
+  &.icon-modal-cancel {
+    font-size: 33px;
+    line-height: 0.8;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}

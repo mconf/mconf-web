@@ -13,6 +13,9 @@
 = content_for :sidebar do
   = render 'shared/user_card', user: @user, editing: true
 
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
 = content_for :sidebar_menu do
   = render :partial => 'users/menu'
 

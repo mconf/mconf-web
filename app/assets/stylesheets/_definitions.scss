@@ -31,6 +31,7 @@ $m-transparent: rgba(255,255,255,0);
 $m-titles: #2B2D42;
 $m-text: #2B2D42;
 $m-background: #F4F4F4;
+$m-bold-by-shadow: 0 0 .65px #333, 0 0 .65px #333;
 
 // header and footer colors
 $m-footer-header-link-color: $m-text;
@@ -126,6 +127,10 @@ $m-alert-warn-bg: #feeba6;
 $m-alert-warn-font: #BB9403;
 $m-alert-gray-bg: #f6f6f6;
 $m-alert-gray-font: #666;
+
+// modal
+$m-modal-bg: #fff;
+$m-modal-buttons: #888;
 
 // color for elements highlighted using rails' highlight() view helper.
 $m-highlight-bg: #ffff81;

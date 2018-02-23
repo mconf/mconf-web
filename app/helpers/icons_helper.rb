@@ -323,6 +323,11 @@ module IconsHelper
     #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
+  def icon_modal_cancel(options={})
+    material_icon_constructor "cancel", "icon material-icons icon-modal-cancel", options
+    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+  end
+
   private
 
   # Base method for most of the methods above

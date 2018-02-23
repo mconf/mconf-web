@@ -20,15 +20,15 @@ body.users.show {
 
   .container-fluid {
     background: $m-site-content-bg-color;
-    max-width: 40%;
+    max-width: 55%;
     margin: 149px 0 0 177px;
     border-radius: 10px;
     box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
     text-align: center;
 
     #profile-logo {
-      margin: -35% auto 0 auto;
-      padding: 36%;
+      margin: -28% auto 0 auto;
+      padding: 26%;
       overflow: visible;
 
       background: image-url('logos/Picture.png') no-repeat left top;
@@ -54,12 +54,12 @@ body.users.show {
       .field {
         margin-bottom: 8px;
         padding-bottom: 8px;
-        border-bottom: 1px solid #eee;
+        margin-bottom: 40px;
 
         .field-value {
           color: $m-font-color-default;
           font-size: 22px;
-          margin-bottom: 10%;
+          margin-bottom: 5px;
 
           &.name {
             font-weight: bold;
@@ -70,8 +70,11 @@ body.users.show {
           display: block;
         }
 
-        &:last-child {
-          border: 0;
+        .border {
+          border-bottom: 1px solid #ccc;
+          margin-top: 20px;
+          margin-left: 40px;
+          margin-right: 40px;
         }
       }
 

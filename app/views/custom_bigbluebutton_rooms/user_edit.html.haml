@@ -27,14 +27,12 @@
             .btn.btn-default{ class: cls, 'data-attr-value': '0' }
               - checked = !@room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
-              = icon_space_public
               = t('.public')
 
             - cls = @room.private ? 'active' : nil
             .btn.btn-default{ class: cls, 'data-attr-value': '1' }
               - checked = @room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
-              = icon_space_private
               = t('.private')
 
           = f.input :attendee_key, as: :showable_password, label: false
