@@ -61,7 +61,8 @@
 
 .modal-footer {
   border-top: 0;
-  margin: 60px;
+  margin: 0 40px;
+  padding-bottom: 30px;
   .form-actions {
 
     .btn {
@@ -72,8 +73,13 @@
       text-decoration: none;
       color: $m-color-primary-soft;
       vertical-align: middle;
+      padding: 8px 0 8px 22px;
 
-      &:hover, &:active, &:active:hover {
+      &:disabled {
+        color: $m-gray;
+      }
+
+      &:hover:enabled, &:active, &:active:hover {
         background: $m-site-content-bg-color;
         text-shadow: $m-bold-by-shadow;
         box-shadow: none;

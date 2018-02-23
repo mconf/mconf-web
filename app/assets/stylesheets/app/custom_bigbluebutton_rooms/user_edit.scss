@@ -15,16 +15,23 @@
 
       .btn-group {
         white-space: nowrap;
-        display: table-cell;
+        display: inline-block;
         width: 1%;
 
         > .btn {
           float: none;
+          font-size: $m-font-big;
 
           &:last-child {
             margin-left: -5px;
           }
         }
+      }
+
+      .form-group.showable_password {
+        display: inline-block;
+        float: right;
+        width: 50%;
       }
 
       .form-group {

@@ -219,8 +219,10 @@ mark {
 }
 
 // buttons default
-.btn-primary:hover {
-  background: $m-color-primary-heavy;
+.btn-primary {
+  :hover, :active, .active, :focus {
+    background: $m-color-primary-heavy;
+  }
 }
 
 // dropup menu
