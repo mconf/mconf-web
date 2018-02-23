@@ -11,7 +11,7 @@ module CustomBigbluebuttonPlaybackTypesHelper
   def link_to_playback(recording, playback, options={})
     link_params = { type: playback.format_type }
 
-    if playback.identifier == 'presentation_video'
+    if playback.downloadable?
       name = if recording.description.blank?
                recording.name
              else

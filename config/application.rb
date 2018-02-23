@@ -81,6 +81,11 @@ module Mconf
     # Set if to false to use the old model based on the `record` flag on the `create` API call.
     config.per_user_record_permissions = false
 
+    # Authenticate playback URLs for recordings
+    config.playback_url_authentication = false
+    # Show the playback in an iframe. If false, redirects the user to the playback page.
+    config.playback_iframe = false
+
     config.exceptions_app = self.routes
   end
 end

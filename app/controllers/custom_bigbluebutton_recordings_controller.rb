@@ -12,6 +12,17 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :play
+      'base'
+    else
+      'manage'
+    end
+  end
+
   protected
 
   def handle_access_denied exception

@@ -1,58 +1,33 @@
-!!! Strict
-%html{:lang => I18n.locale.to_s}
+= content_for :base_content do
+  #site
+    #navbar-wrapper
+      #navbar
+        = render :partial => 'layouts/application_navbar'
 
-  %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
-    %title= content_for?(:title) ? yield(:title) : current_site.name
-    = favicon_link_tag
+    #page-header-wrapper
+      #page-header
+        - if content_for?(:page_header)
+          = yield :page_header
+        - else
+          = render :partial => "layouts/spaces_page_title"
+        - if content_for?(:page_menu)
+          #page-menu
+            = yield :page_menu
 
-    = stylesheet_link_tag "application_print", :media => "print"
-    = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag_for_controller :media => "screen, projection"
-    = stylesheet_link_tag "_development" unless Rails.env == "production"
-    = yield :stylesheets
+    #content-wrapper
+      #content
+        #content-middle
+          = yield
+        - if content_for?(:sidebar)
+          #sidebar
+            = yield :sidebar
 
-    /[if IE]
-      // HTML5 shim, for IE6-8 support of HTML elements
-      /[if lt IE 9]
-        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
-    = csrf_meta_tag
-    = yield :headers
+    #footer-pusher
 
-  %body{:class => "#{controller_name_for_view} #{params[:action]}"}
-    #site
-      #navbar-wrapper
-        #navbar
-          = render :partial => 'layouts/application_navbar'
+  = render :partial => "layouts/footer"
 
-      #page-header-wrapper
-        #page-header
-          - if content_for?(:page_header)
-            = yield :page_header
-          - else
-            = render :partial => "layouts/spaces_page_title"
-          - if content_for?(:page_menu)
-            #page-menu
-              = yield :page_menu
+  = render :partial => "layouts/analytics"
+  = render :partial => "layouts/notifications"
+  = render :partial => "shared/copy_modal"
 
-      #content-wrapper
-        #content
-          #content-middle
-            = yield
-          - if content_for?(:sidebar)
-            #sidebar
-              = yield :sidebar
-
-      #footer-pusher
-
-    = render :partial => "layouts/footer"
-
-    = render :partial => "layouts/analytics"
-    = render :partial => "layouts/notifications"
-    = render :partial => "shared/copy_modal"
-
-    -# Javascript placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
-    = render :partial => 'layouts/javascript_locales'
-    = javascript_include_tag_for_controller
-    = yield :javascripts
+= render :file => 'layouts/base'
