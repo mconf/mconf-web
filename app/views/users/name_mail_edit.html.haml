@@ -1,0 +1,25 @@
+= page_title @user.full_name
+
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
+
+.container-fluid
+  #profile-logo
+
+  .resource-card.resource-user
+
+    .resource-data
+      .field
+        %span.field-value.title= t('.subtitle')
+        = simple_form_for @user, url: user_path(@user) do |f|
+          = f.simple_fields_for :profile do |p|
+            = p.input :full_name, :required => true # anota o rafael la chato zzzzzzzzzzzzzzzzzzzzzzzzzzz
+          = f.input :email, :required => false
+
+          =f.button :wrapped, :cancel => user_path, :value => t("_other.save")

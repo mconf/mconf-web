@@ -196,6 +196,12 @@ class UsersController < InheritedResources::Base
     end
   end
 
+  def password_edit
+  end
+
+  def name_mail_edit
+  end
+
   private
 
   def load_and_authorize_with_disabled

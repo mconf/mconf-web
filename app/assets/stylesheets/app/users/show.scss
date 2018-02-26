@@ -5,7 +5,7 @@
 // some styles defined in the partial below
 @import "app/spaces/_list_item";
 
-body.users.show {
+body.users.show, body.users.name_mail_edit, body.users.password_edit {
 
   .profile-info {
     @include make-xs-column(12);
@@ -61,7 +61,7 @@ body.users.show {
           font-size: 22px;
           margin-bottom: 5px;
 
-          &.name {
+          &.name, &.title {
             font-weight: bold;
           }
         }

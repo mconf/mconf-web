@@ -1853,16 +1853,24 @@ en:
       access_forbidden: "This operation is only available to administrators"
     menu:
       profile: "Profile"
+    name_mail_edit:
+      subtitle: "Edit data"
+      title: "Account"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
       title: "Create user"
+    password_edit:
+      subtitle: "Change password"
+      title: "Account"
     show:
+      data: "Edit data"
       description: "About"
       email: "Email"
       name: "Name"
       organization: "Organization"
+      password: "Change password"
       title: "Account"
       url: "Website"
       user_spaces: "Membro of the spaces"
