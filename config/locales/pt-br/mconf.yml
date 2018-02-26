@@ -515,6 +515,7 @@ pt-br:
     important: Importante
     invitation:
       at: "às"
+      date: "Data"
       duration: "Duração"
       later: "Mais tarde"
       meeting_in: "Enviando convite para conferência em: %{room}"

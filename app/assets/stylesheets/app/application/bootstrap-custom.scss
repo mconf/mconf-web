@@ -225,11 +225,36 @@ mark {
   }
 }
 
+.btn-default {
+  background: $m-site-content-bg-color;
+  border: none;
+  font-size: 22px;
+  transition: all .3s ease;
+  text-decoration: none;
+  color: $m-color-primary-soft;
+  vertical-align: middle;
+  padding: 8px 0 8px 22px;
+
+  &:disabled {
+    color: $m-gray;
+  }
+
+  &:hover:enabled, &:active, &:active:hover {
+    background: $m-site-content-bg-color;
+    text-shadow: $m-bold-by-shadow;
+    box-shadow: none;
+    text-decoration: none;
+    color: $m-color-primary-heavy;
+    vertical-align: middle;
+  }
+}
+
 // dropup menu
 .dropdown-toggle {
   background: $m-site-content-bg-color;
   border: none;
   font-size: 15px;
+  color: $m-titles;
   .icon {
     transition: all .3s ease;
   }

@@ -38,6 +38,7 @@
  *= require ./app/feedback/new
  *= require ./app/join_requests/new
  *= require ./app/custom_bigbluebutton_rooms/user_edit
+ *= require ./app/custom_bigbluebutton_rooms/invitation
  *
  * Themes: if using a theme, import it here!
  * require theme-name/stylesheets/base

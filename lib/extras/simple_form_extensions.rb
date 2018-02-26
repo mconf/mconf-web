@@ -14,12 +14,12 @@ module WrappedButton
     template.content_tag :div, :class => wrapper_class do
       loading = !self.object or self.object.new_record? ? I18n.t('simple_form.creating') : I18n.t('simple_form.updating')
       options[:"data-loading-text"] = [loading, options[:"data-loading-text"]].compact
-      options[:class] = ["btn", 'btn-primary', options[:class]].compact
+      options[:class] = ["btn", options[:class]].compact
       args << options
       if cancel = options.delete(:cancel)
-        submit(*args, &block) + template.link_to(I18n.t('simple_form.buttons.cancel'), cancel, :class => 'btn')
+        submit(*args, &block) + template.link_to(I18n.t('simple_form.buttons.cancel'), cancel, :class => 'btn btn-default')
       elsif cancel = options.delete(:cancel_modal)
-        submit(*args, &block) + template.link_to(I18n.t('simple_form.buttons.cancel'), '#', :'data-dismiss' => 'modal', :class => 'btn')
+        submit(*args, &block) + template.link_to(I18n.t('simple_form.buttons.cancel'), '#', :'data-dismiss' => 'modal', :class => 'btn btn-default')
       else
         submit(*args, &block)
       end

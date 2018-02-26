@@ -325,6 +325,13 @@ a:not(.btn) .icon {
     color: $m-modal-buttons;
   }
 
+  &.icon-date {
+    color: #AAA;
+    line-height: 0.8;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}

@@ -521,6 +521,7 @@ en:
     important: Important
     invitation:
       at: "at"
+      date: "Date"
       duration: "Duration"
       later: "Later"
       meeting_in: "Inviting people to a meeting in: %{room}"

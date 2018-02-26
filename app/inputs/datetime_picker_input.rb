@@ -11,7 +11,7 @@ class DatetimePickerInput < SimpleForm::Inputs::StringInput
     options = merge_wrapper_options(input_html_options, wrapper_options)
 
     field = @builder.text_field(attribute_name, options)
-    ico1 = content_tag :i, nil, class: 'tooltipped fa fa-calendar-o icon icon-date'
+    ico1 = content_tag :i, "date_range", class: 'tooltipped icon material-icons icon-date'
     content_tag :div, "#{field}#{ico1}".html_safe, class: 'datetime-picker-input'
   end
 end
