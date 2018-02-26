@@ -233,13 +233,14 @@ mark {
   text-decoration: none;
   color: $m-color-primary-soft;
   vertical-align: middle;
-  padding: 8px 0 8px 22px;
+  padding: 8px 10px 8px 10px;
 
   &:disabled {
     color: $m-gray;
   }
 
-  &:hover:enabled, &:active, &:active:hover {
+  &:hover:not(:disabled), &:active:not(:disabled),
+  &:active:hover:not(:disabled), &:focus {
     background: $m-site-content-bg-color;
     text-shadow: $m-bold-by-shadow;
     box-shadow: none;
