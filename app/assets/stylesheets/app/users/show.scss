@@ -66,6 +66,11 @@ body.users.show, body.users.name_mail_edit, body.users.password_edit {
           }
         }
 
+        .simple-form-wrapper {
+          max-width: 300px;
+          margin: 0 auto;
+        }
+
         .btn-group {
           margin-top: 20px;
         }
