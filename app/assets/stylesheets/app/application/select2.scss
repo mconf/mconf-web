@@ -98,12 +98,12 @@
   padding: 13px 17px;
   height: auto;
   font-size: $m-font-fields;
-  color: $m-sf-text-color !important;
+  color: $m-text !important;
   border: $m-sf-field-border !important;
 }
 
 .select2-drop-active {
-  color: $m-sf-text-color !important;
+  color: $m-text !important;
   border: $m-sf-field-border !important;
 }
 
@@ -111,13 +111,21 @@
   margin-top: -2px;
   margin-bottom: 4px;
   margin-left: 6px;
-  background: $m-color-primary-soft;
   color: #fff;
+  background: $m-color-primary-soft;
   border: none;
   padding: 8px 12px 8px 20px;
   line-height: 1;
 }
 
 .select2-default {
-  color: $m-sf-text-color !important;
+  color: $m-text;
+
+  &::placeholder {
+    color: $m-sf-placeholder-color !important;
+  }
+
+  &:hover:not(.disabled) {
+    text-shadow: $m-bold-by-shadow;
+  }
 }

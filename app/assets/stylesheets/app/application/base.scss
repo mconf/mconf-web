@@ -798,7 +798,7 @@ form {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-site-vertical-padding 0 $m-content-vertical-padding $m-site-horizontal-padding;
+  padding: $m-site-vertical-padding 0 $m-content-vertical-padding 0;
 
   h1 {
     text-align: center;

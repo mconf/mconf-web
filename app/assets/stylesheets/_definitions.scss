@@ -30,14 +30,15 @@ $m-bright-blue: #49afcd;
 $m-transparent: rgba(255,255,255,0);
 $m-titles: #2B2D42;
 $m-text: #2B2D42;
+$m-text-shadow: #B4BBBC;
 $m-background: #F4F4F4;
-$m-edit-text: #B4BBBC;
-$m-edit-border: #B4BBBC;
-$m-bold-by-shadow: 0 0 .65px #333, 0 0 .65px #333;
+$m-disabled-placeholder-text: #B4BBBC;
+$m-field-border: #B4BBBC;
+$m-bold-by-shadow: 0 0 .65px $m-text-shadow, 0 0 .65px $m-text-shadow;
 
 // simple-form custom
-$m-sf-text-color: $m-edit-text;
-$m-sf-field-border: 1px solid $m-edit-border;
+$m-sf-placeholder-color: $m-disabled-placeholder-text;
+$m-sf-field-border: 1px solid $m-field-border;
 
 // header and footer colors
 $m-footer-header-link-color: $m-text;

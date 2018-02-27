@@ -176,11 +176,19 @@
   padding: 13px 17px;
   height: auto;
   font-size: $m-font-fields;
-  color: $m-sf-text-color;
+  color: $m-text;
   border: $m-sf-field-border;
 
-  &:focus {
-    background: $m-input-focus-bg;
+  &::placeholder {
+    color: $m-sf-placeholder-color;
+  }
+
+  &.disabled {
+    color: $m-disabled-placeholder-text;
+  }
+
+  &:hover:not(.disabled) {
+    text-shadow: $m-bold-by-shadow;
   }
 }
 .has-error .form-control:focus {
