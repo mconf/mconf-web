@@ -118,13 +118,9 @@ class UsersController < InheritedResources::Base
       redirect_to_p user_path(@user), :flash => flash
     else
       flash = { error: t("user.not_updated") }
-      url = request.env['PATH_INFO']
+      prev = Rails.application.routes.recognize_path(request.referrer)
 
-      if url == edit_user_path(@user)
-        render_p :edit, flash: flash
-      elsif url == user_path(@user)
-        render_p :edit_data, flash: flash
-      end
+      render_p prev[:action], flash: flash
     end
   end
 

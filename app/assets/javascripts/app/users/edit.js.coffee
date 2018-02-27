@@ -11,8 +11,10 @@ $ ->
 
     uploaderCallbacks =
       onComplete: mconf.Crop.onUploadComplete
-    mconf.Uploader.bind
-      callbacks: uploaderCallbacks
+
+    if $('.upload-button').length > 0
+      mconf.Uploader.bind
+        callbacks: uploaderCallbacks
 
     $("#user_timezone").select2
       minimumInputLength: 0
