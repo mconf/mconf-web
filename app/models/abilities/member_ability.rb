@@ -12,7 +12,7 @@ module Abilities
 
       # Users
       can [:index, :show, :fellows, :current, :select], User
-      can [:edit, :update, :disable, :update_logo, :name_mail_edit, :password_edit], User, id: user.id
+      can [:edit, :update, :disable, :update_logo, :edit_data, :password_edit], User, id: user.id
       can :update_password, User do |target_user|
         user == target_user &&
           (Site.current.local_auth_enabled? && target_user.local_auth?)

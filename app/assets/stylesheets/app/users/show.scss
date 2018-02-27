@@ -5,7 +5,7 @@
 // some styles defined in the partial below
 @import "app/spaces/_list_item";
 
-body.users.show, body.users.name_mail_edit, body.users.password_edit {
+body.users.show, body.users.edit_data, body.users.password_edit, body.users.update {
 
   .profile-info {
     @include make-xs-column(12);

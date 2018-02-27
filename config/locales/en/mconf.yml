@@ -1849,13 +1849,13 @@ en:
       public_profile: "Public profile"
       public_profile_tip: "Your public profile is visible to anyone in the Internet"
       title: "Edit your account"
+    edit_data:
+      subtitle: "Edit data"
+      title: "Account"
     errors:
       access_forbidden: "This operation is only available to administrators"
     menu:
       profile: "Profile"
-    name_mail_edit:
-      subtitle: "Edit data"
-      title: "Account"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."

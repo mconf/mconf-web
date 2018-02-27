@@ -21,6 +21,5 @@
           = simple_form_for @user, url: user_path(@user) do |f|
             = f.simple_fields_for :profile do |p|
               = p.input :full_name, :required => true # anota o rafael la chato zzzzzzzzzzzzzzzzzzzzzzzzzzz disabled
-            = f.input :email, :required => false
 
             =f.button :wrapped, :cancel => user_path, :value => t("_other.save")

@@ -20,7 +20,7 @@
         %span.field-value= @user.email
         %span.border
         .btn-group
-          %span.link= link_to t('.data'), name_mail_edit_user_path(@user), class: "btn btn-default"
+          %span.link= link_to t('.data'), edit_data_user_path(@user), class: "btn btn-default"
           %span.link= link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
 
   - unless @user_spaces.empty?

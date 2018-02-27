@@ -96,7 +96,7 @@ Mconf::Application.routes.draw do
       post :confirm
       post :update_logo
       get :password_edit
-      get :name_mail_edit
+      get :edit_data
     end
   end
 

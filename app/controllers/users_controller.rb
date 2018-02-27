@@ -115,10 +115,16 @@ class UsersController < InheritedResources::Base
       sign_in @user, bypass: true if current_user == @user
 
       flash = { success: t("user.updated") }
-      redirect_to_p edit_user_path(@user), :flash => flash
+      redirect_to_p user_path(@user), :flash => flash
     else
       flash = { error: t("user.not_updated") }
-      render_p :edit, flash: flash
+      url = request.env['PATH_INFO']
+
+      if url == edit_user_path(@user)
+        render_p :edit, flash: flash
+      elsif url == user_path(@user)
+        render_p :edit_data, flash: flash
+      end
     end
   end
 
@@ -199,7 +205,7 @@ class UsersController < InheritedResources::Base
   def password_edit
   end
 
-  def name_mail_edit
+  def edit_data
   end
 
   private
