@@ -80,9 +80,9 @@ class mconf.CustomBigbluebuttonRooms.Invitation
     #$('form', container).on 'submit', ->
     #  setStartsOnToNow() if isNowSelected()
 
-isNowSelected = ->
-  selected = $('.starts-at-wrapper .btn.active').data('attr-value')
-  selected is 0
+# isNowSelected = ->
+#   selected = $('.starts-at-wrapper .btn.active').data('attr-value')
+#   selected is 0
 
 startChanged = (el) ->
   setStartsOnToNow()
