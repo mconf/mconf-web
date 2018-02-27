@@ -21,8 +21,11 @@
     margin-bottom: 16px;
 
     .form-group {
-      display: table-cell;
       width: 100%;
+
+      .icon.icon-date{
+        margin-right: 10px;
+      }
     }
   }
 

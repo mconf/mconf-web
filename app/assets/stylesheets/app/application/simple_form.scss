@@ -173,9 +173,11 @@
 // override a few things in inputs that we can't do with variables only
 .form-control {
   box-shadow: none;
-  padding: 7px 10px;
+  padding: 13px 17px;
   height: auto;
-  font-size: $m-font-medium;
+  font-size: $m-font-fields;
+  color: $m-sf-text-color;
+  border: $m-sf-field-border;
 
   &:focus {
     background: $m-input-focus-bg;

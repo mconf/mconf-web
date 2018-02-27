@@ -31,7 +31,13 @@ $m-transparent: rgba(255,255,255,0);
 $m-titles: #2B2D42;
 $m-text: #2B2D42;
 $m-background: #F4F4F4;
+$m-edit-text: #B4BBBC;
+$m-edit-border: #B4BBBC;
 $m-bold-by-shadow: 0 0 .65px #333, 0 0 .65px #333;
+
+// simple-form custom
+$m-sf-text-color: $m-edit-text;
+$m-sf-field-border: 1px solid $m-edit-border;
 
 // header and footer colors
 $m-footer-header-link-color: $m-text;
@@ -64,6 +70,7 @@ $m-font-normal: 14px; //0.85rem; /* 14px, base size for all fonts */
 $m-font-mini: $m-font-normal * 0.8;
 $m-font-small: $m-font-normal * 0.9;
 $m-font-medium: 16px;
+$m-font-fields: 22px;
 $m-font-big: $m-font-normal * 1.4;
 $m-font-bigger: $m-font-normal * 1.8;
 $m-font-double: $m-font-normal * 2;

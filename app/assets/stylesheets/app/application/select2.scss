@@ -92,3 +92,32 @@
 .btn-group .select2-container:first-child .select2-choice {
   border-left-width: 1px;
 }
+
+.select2-container-multi .select2-choices, .select2-container-multi.select2-container-active .select2-choices {
+  box-shadow: none;
+  padding: 13px 17px;
+  height: auto;
+  font-size: $m-font-fields;
+  color: $m-sf-text-color !important;
+  border: $m-sf-field-border !important;
+}
+
+.select2-drop-active {
+  color: $m-sf-text-color !important;
+  border: $m-sf-field-border !important;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin-top: -2px;
+  margin-bottom: 4px;
+  margin-left: 6px;
+  background: $m-color-primary-soft;
+  color: #fff;
+  border: none;
+  padding: 8px 12px 8px 20px;
+  line-height: 1;
+}
+
+.select2-default {
+  color: $m-sf-text-color !important;
+}

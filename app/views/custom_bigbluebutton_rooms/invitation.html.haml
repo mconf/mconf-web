@@ -12,14 +12,14 @@
       = f.input :users, as: :string, label: t('activerecord.attributes.invite.users')
 
       .row
-        .col-xs-12.col-sm-6
+        .col-xs-12.col-sm-12
           .starts-at-wrapper
             - tz = user_timezone_abbreviation(current_user)
             - lang = locale_for_datetime_picker
             = f.label (t('.date')), required: false
             = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
 
-        .col-xs-12.col-sm-6
+        .col-xs-12.col-sm-12
           = f.input :duration, as: :select, label: t('activerecord.attributes.invite.duration'), collection: Invitation.duration_i18n(I18n.locale), required: false
 
       = f.input :title, as: :string, label: t('activerecord.attributes.invite.title')
