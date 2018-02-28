@@ -69,6 +69,8 @@ en:
     create: "Create"
     confirm: Ok
     datetimepicker:
+      datepick: "mm/dd/yyyy"
+      datepick_rails: "%m/%d/%Y"
       format: "mm/dd/yyyy hh:ii Z"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
@@ -990,6 +992,7 @@ en:
       recordings: "Recordings"
       resque: "Resque"
       spaces: "Spaces"
+      statistics: "Overview"
       title: "Site Management"
       users: "Users"
       webconf: "Conference"
@@ -1051,6 +1054,38 @@ en:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
+    statistics:
+      all: "All"
+      date: "Pick date"
+      csv: "Download .csv"
+    statistics_filter:
+      from: "From"
+      to: "To"
+      title: "Date period"
+    statistics_list:
+      users:
+        title: "Users Stats"
+        all: "All users"
+        approved: "Approved users"
+        not_approved: "Not approved users"
+        disabled: "Disabled users"
+      spaces:
+        title: "Spaces Stats"
+        all: "All spaces"
+        private: "Private spaces"
+        public: "Public spaces"
+        disabled: "Disabled spaces"
+      meetings:
+        title: "Meetings Stats"
+        all: "All meetings"
+        total: "Total meetings duration"
+        average: "Average meetings duration"
+      recordings:
+        title: "Recordings Stats"
+        all: "All recordings"
+        total: "Total recordings duration"
+        average: "Average recordings duration"
+        size: "Total size"
     user_item:
       allow_record: "Give the user permission to record conferences"
       auth_using: "using"
