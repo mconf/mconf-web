@@ -62,6 +62,8 @@ pt-br:
     create: "Criar"
     confirm: Ok
     datetimepicker:
+      datepick: "dd/mm/yyyy"
+      datepick_rails: "%d/%m/%Y"
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
       format_rails: "%d/%m/%Y %H:%M"
@@ -972,6 +974,7 @@ pt-br:
     menu:
       general: "Geral"
       spaces: "Comunidades"
+      statistics: "Resumo"
       title: "Gerenciamento do Site"
       users: "Usuários"
       recordings: "Gravações"
@@ -1040,6 +1043,38 @@ pt-br:
       filter_count_empty: "%{count} gravações encontradas"
       no_recording_found: "Nenhuma gravação encontrada"
       total_size: "Tamanho total:"
+    statistics:
+      all: "Mostrar tudo"
+      date: "Escolher data"
+      csv: "Baixar .csv"
+    statistics_filter:
+      from: "De"
+      to: "Até"
+      title: "Período"
+    statistics_list:
+      users:
+        title: "Estatísticas de usuários"
+        all: "Total de usuários"
+        approved: "Usuários aprovados"
+        not_approved: "Usuários não aprovados"
+        disabled: "Usuários desabilitados"
+      spaces:
+        title: "Estatísticas de comunidades"
+        all: "Total de comunidades"
+        private: "Comunidadades privadas"
+        public: "Comunidades públicas"
+        disabled: "Comunidades desabilitadas"
+      meetings:
+        title: "Estatísticas de reuniões"
+        all: "Total de reuniões"
+        total: "Duração de todas as reuniões"
+        average: "Média de duração por reunião"
+      recordings:
+        title: "Estatísticas de gravações"
+        all: "Total de gravações"
+        total: "Duração de todas as gravações"
+        average: "Média de duração por gravação"
+        size: "Tamanho total de todas as gravações"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   moderatorPW: "Senha de Moderador"

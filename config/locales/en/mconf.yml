@@ -62,6 +62,8 @@ en:
     create: "Create"
     confirm: Ok
     datetimepicker:
+      datepick: "mm/dd/yyyy"
+      datepick_rails: "%m/%d/%Y"
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
       format_rails: "%m/%d/%Y %H:%M"
@@ -966,6 +968,7 @@ en:
     menu:
       general: "General"
       spaces: "Spaces"
+      statistics: "Overview"
       title: "Site Management"
       users: "Users"
       recordings: "Recordings"
@@ -1035,6 +1038,38 @@ en:
       filter_count_empty: "Found %{count} recordings"
       no_recording_found: "No recordings found"
       total_size: "Total size:"
+    statistics:
+      all: "All"
+      date: "Pick date"
+      csv: "Download .csv"
+    statistics_filter:
+      from: "From"
+      to: "To"
+      title: "Date period"
+    statistics_list:
+      users:
+        title: "Users Stats"
+        all: "All users"
+        approved: "Approved users"
+        not_approved: "Not approved users"
+        disabled: "Disabled users"
+      spaces:
+        title: "Spaces Stats"
+        all: "All spaces"
+        private: "Private spaces"
+        public: "Public spaces"
+        disabled: "Disabled spaces"
+      meetings:
+        title: "Meetings Stats"
+        all: "All meetings"
+        total: "Total meetings duration"
+        average: "Average meetings duration"
+      recordings:
+        title: "Recordings Stats"
+        all: "All recordings"
+        total: "Total recordings duration"
+        average: "Average recordings duration"
+        size: "Total size"
   mandatory_field: "Mandatory field"
   mconf: Mconf
   moderatorPW: "Moderator Password"

@@ -1,0 +1,30 @@
+#statistics_filter
+
+  .modal-header
+    = modal_close_button
+    %h3
+      = t('.title')
+
+  = simple_form_for :statistics, url: manage_statistics_path, method: "get", html: { class: 'single-column' } do |f|
+    .statistics-dates.modal-body
+
+      %label#starts_on_label
+        = t('.from')
+      #statistics_starts_on.input.input-append
+        %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'statistics[starts_on]' }
+        %span.add-on
+          %i{ :class => "icon icon-calendar" }
+      #statistics_starts_on_time
+        = f.input :starts_on_time, :label => false, :as => :time, :minute_step => 5, :prompt => { :hour => "", :minute => "" }
+
+      %label#ends_on_label
+        = t('.to')
+      #statistics_ends_on.input.input-append
+        %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'statistics[ends_on]' }
+        %span.add-on
+          %i{ :class => "icon icon-calendar" }
+      #statistics_ends_on_time
+        = f.input :ends_on_time, :label => false, :as => :time, :minute_step => 5, :prompt => { :hour => "", :minute => "" }
+
+    .modal-footer
+      = f.button :wrapped, t('_other.send'), class: "btn btn-primary", cancel_modal: true

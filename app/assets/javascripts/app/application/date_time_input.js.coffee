@@ -93,6 +93,21 @@ class mconf.DateTimeInput
     picker = @_getDateTimePicker()
     picker.setMinDate(date)
 
+  # Sets the maximum date the user is allowed to select in this DateTimeInput.
+  # Will affect only the date, not the time!
+  setMaxDate: (value) ->
+    date = moment(value)
+
+    # since the maximum date will affect the date input only, we ignore the
+    # time passed (consider it the beginning of the day)
+    date.set("hour", 0)
+    date.set("minute", 0)
+    date.set("second", 0)
+    date.set("millisecond", 0)
+
+    picker = @_getDateTimePicker()
+    picker.setMaxDate(date)
+
   # TODO: we could use a simple js library to emit events
   on: (type, callback) ->
     @events.push({ type: type, callback: callback })
