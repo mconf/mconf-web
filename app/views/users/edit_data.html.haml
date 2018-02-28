@@ -10,7 +10,8 @@
   = render :partial => 'users/menu'
 
 .container-fluid
-  #profile-logo
+  = logo_image(current_user, class: "logo-user")
+  = upload_logo_controls(@user)
 
   .resource-card.resource-user
 
