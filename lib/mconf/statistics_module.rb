@@ -7,7 +7,7 @@ module Mconf
       users = User.with_disabled.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total users
-      result[:all] = users.count
+      result[:count] = users.count
 
       # approved users
       result[:approved] = users.where(approved: true).count
@@ -27,7 +27,7 @@ module Mconf
       spaces = Space.with_disabled.where("created_at >= ? AND created_at <= ?", from, to)
 
       #total_spaces
-      result[:all] = spaces.all.count
+      result[:count] = spaces.all.count
 
       # private spaces
       result[:private] = spaces.where(public: false).count
@@ -42,64 +42,32 @@ module Mconf
     end
 
     def self.total_meetings(from, to)
-      result = {}
-
       meetings = BigbluebuttonMeeting.where("created_at >= ? AND created_at <= ?", from, to)
 
-      total = 0
-      duration = 0
-      average = 0
-      count = 0
-
-      meetings.find_each do |m|
-        # total duration
-          unless m.finish_time.blank?
-            duration = m.finish_time - m.create_time
-          end
-          total = total + duration
-          count = count + 1
-      end
-
-      # duration average
-      result[:all] = count
-      if count.zero?
-        result[:average] = 0
+      result = {}
+      result[:count] = meetings.count
+      result[:total_duration] = meetings.sum('finish_time - create_time')
+      if result[:count].zero? || result[:count].nil?
+        result[:average_duration] = 0
       else
-        result[:average] = total / count
+        result[:average_duration] = result[:total_duration] / result[:count]
       end
-      result[:total] = total
 
       result
     end
 
     def self.total_recordings(from, to)
-      result = {}
-
       recordings = BigbluebuttonRecording.where("created_at >= ? AND created_at <= ?", from, to)
 
-      total = 0
-      duration = 0
-      average = 0
-      count = 0
-      size = 0
-
-      recordings.find_each do |r|
-        # total duration
-        duration = r.end_time - r.start_time
-        total = total + duration
-        size = size + r.size
-        count = count + 1
-      end
-
-      # duration average
-      result[:all] = count
-      result[:size] = size
-      if count.zero?
-        result[:average] = 0
+      result = {}
+      result[:count] = recordings.count
+      result[:size] = recordings.sum(:size)
+      result[:total_duration] = recordings.sum('end_time - start_time')
+      if result[:count].zero? || result[:count].nil?
+        result[:average_duration] = 0
       else
-        result[:average] = total / count
+        result[:average_duration] = result[:total_duration] / result[:count]
       end
-      result[:total] = total
 
       result
     end

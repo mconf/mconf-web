@@ -1,26 +1,19 @@
 #manage
 
-  .modal-header
+  #statistics-filters
     = simple_form_for :statistics, url: manage_statistics_path, html: { class: 'single-column' } do |f|
-      .modal-body
-        .row
-          .col-xs-12.col-sm-9
-            .starts-at-wrapper
-              .csv
-                - starts = params[:statistics].present? ? params[:statistics][:starts_on_time] : nil
-                - ends = params[:statistics].present? ? params[:statistics][:ends_on_time] : nil
-                = link_to t('.csv'), manage_statistics_csv_path(format: :csv, statistics: { starts_on_time: starts, ends_on_time: ends }), class: 'btn btn-primary'
-              .btn-group{ 'data-toggle': "buttons" }
+      .csv
+        - starts = params[:statistics].present? ? params[:statistics][:starts_on_time] : nil
+        - ends = params[:statistics].present? ? params[:statistics][:ends_on_time] : nil
+        = link_to t('.csv'), manage_statistics_csv_path(format: :csv, statistics: { starts_on_time: starts, ends_on_time: ends }), class: 'btn btn-primary'
 
-                %label.btn.btn-default.all{ 'data-attr-value': '0' }
-                  %input{ type: 'radio' }
-                  = t('.all')
+      .btn-group{ 'data-toggle': "buttons" }
 
-                %label.btn.btn-default.pick{ 'data-attr-value': '1' }
-                  %input{ type: 'radio' }
-                  = link_to manage_statistics_filter_path, class: "open-modal tooltipped", title: t('.date') do
-                    = icon_later
-                    = t('.date')
+        = link_to manage_statistics_path, class: "btn btn-default all #{'active' unless params[:statistics].present?}" do
+          = t('.all')
+        = link_to manage_statistics_filter_path, class: "btn btn-default pick open-modal #{'active' if params[:statistics].present?}" do
+          = icon_date
+          = t('.date')
 
-#statistics-list
+#statistics-list{  'data-filtered-by-date': params[:statistics].present?.to_s }
   = render partial: 'statistics_list'

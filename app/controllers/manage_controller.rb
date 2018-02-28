@@ -97,9 +97,10 @@ class ManageController < ApplicationController
     if params[:statistics].present?
       from = params[:statistics][:starts_on_time]
       to = params[:statistics][:ends_on_time]
+      date_format = I18n.t('_other.datetimepicker.datepick_rails')
 
-      from.present? ? @from_date = Date.strptime(from, '%m/%d/%Y') : @from_date = Time.at(0).utc
-      to.present? ? @to_date = Date.strptime(to, '%m/%d/%Y') : @to_date = Time.now.utc
+      @from_date = from.present? ? Date.strptime(from, date_format) : Time.at(0).utc
+      @to_date = to.present? ? Date.strptime(to, date_format) : Time.now.utc
     else
       @from_date = Time.at(0).utc
       @to_date = Time.now.utc

@@ -19,7 +19,7 @@ describe 'Admin manages statistics' do
   context " testing buttons" do
     it { should have_css '.btn-default', :count => 3 }
     it { should have_css '.btn-primary', :count => 1 }
-    it { should have_css '.icon-mconf-later', :count => 1 }
+    it { should have_css '.icon-date', :count => 1 }
   end
 
   context "testing content" do

@@ -70,6 +70,7 @@ en:
     confirm: Ok
     datetimepicker:
       datepick: "mm/dd/yyyy"
+      datepick_rails: "%m/%d/%Y"
       format: "mm/dd/yyyy hh:ii Z"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
@@ -1064,27 +1065,27 @@ en:
     statistics_list:
       users:
         title: "Users Stats"
-        all: "All users: %{value}"
-        approved: "Approved users: %{value}"
-        not_approved: "Not approved users: %{value}"
-        disabled: "Disabled users: %{value}"
+        all: "All users"
+        approved: "Approved users"
+        not_approved: "Not approved users"
+        disabled: "Disabled users"
       spaces:
         title: "Spaces Stats"
-        all: "All spaces: %{value}"
-        private: "Private spaces: %{value}"
-        public: "Public spaces: %{value}"
-        disabled: "Disabled spaces: %{value}"
+        all: "All spaces"
+        private: "Private spaces"
+        public: "Public spaces"
+        disabled: "Disabled spaces"
       meetings:
         title: "Meetings Stats"
-        all: "All meetings: %{value}"
-        total: "Total meetings duration: %{value}"
-        average: "Average meetings duration: %{value}"
+        all: "All meetings"
+        total: "Total meetings duration"
+        average: "Average meetings duration"
       recordings:
         title: "Recordings Stats"
-        all: "All recordings: %{value}"
-        total: "Total recordings duration: %{value}"
-        average: "Average recordings duration: %{value}"
-        size: "Total size: %{value}"
+        all: "All recordings"
+        total: "Total recordings duration"
+        average: "Average recordings duration"
+        size: "Total size"
     user_item:
       allow_record: "Give the user permission to record conferences"
       auth_using: "using"
