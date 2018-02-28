@@ -88,8 +88,18 @@
     }
 
     input.string, input.password, input.numeric, input.fake, textarea, select {
-      width: 100%
+      width: 100%;
     }
+
+    select {
+      box-shadow: none;
+      padding: 13px 17px;
+      height: auto;
+      font-size: $m-font-fields;
+      color: $m-text;
+      border: $m-sf-field-border;
+    }
+
     select.datetime {
       width: 13%;
     }
@@ -189,6 +199,10 @@
 
   &:hover:not(.disabled) {
     text-shadow: $m-bold-by-shadow;
+  }
+
+  &:focus {
+    border: $m-sf-field-border-focused;
   }
 }
 .has-error .form-control:focus {

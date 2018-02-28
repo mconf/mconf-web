@@ -16,6 +16,7 @@ $m-link-color-active: $m-link-color-hover; //darken($m-link-color-hover, 20);
 
 // standard colors
 $m-green-mconf: #004956; // #27535C
+$m-green-soft: #81B29A;
 $m-green: $olive;
 $m-blue: #337ab7;
 $m-red: #ff5b5b;
@@ -39,6 +40,7 @@ $m-bold-by-shadow: 0 0 .65px $m-text-shadow, 0 0 .65px $m-text-shadow;
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;
 $m-sf-field-border: 1px solid $m-field-border;
+$m-sf-field-border-focused: 1px solid $m-green-soft;
 
 // header and footer colors
 $m-footer-header-link-color: $m-text;
@@ -50,7 +52,7 @@ $m-site-bg-color: #f2f2f2;
 $m-site-content-bg-color: #fff;
 $m-color-primary: $m-green-mconf;
 $m-color-primary-hover: darken($m-color-primary, 5);
-$m-color-primary-soft: #81B29A;
+$m-color-primary-soft: $m-green-soft;
 $m-color-primary-heavy: #2A535C;
 $m-color-primary-soft-hover: $m-green-mconf;
 $m-color-secondary: #337ab7;

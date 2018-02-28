@@ -51,6 +51,21 @@
 .select2-container {
   a.select2-choice, .select2-choice a {
     text-decoration: none;
+    box-shadow: none;
+    padding: 13px 17px;
+    height: auto;
+    font-size: $m-font-fields;
+    color: $m-text !important;
+    border: $m-sf-field-border !important;
+
+    > span:first-child {
+      padding: 0;
+    }
+
+    .select2-arrow {
+      padding-top: 12px;
+      border-left: transparent;
+    }
   }
 }
 
