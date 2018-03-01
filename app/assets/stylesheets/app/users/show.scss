@@ -58,6 +58,47 @@ body.users.show, body.users.edit_data, body.users.password_edit, body.users.upda
       }
     }
 
+    .btn.btn-default.dropdown-toggle {
+      margin-top: -36%;
+      background: none;
+
+      img, .logo-user {
+        height: 200px;
+        width: 200px;
+        float: none;
+        display: inline-block;
+        border: 1px solid $m-logo-border;
+        border-radius: 50%;
+        font-size: $m-font-big;
+
+        &.logo-initials {
+          padding: 80px 0;
+          font-size: 40px;
+          margin: auto 50px;
+        }
+      }
+    }
+
+    .dropdown-menu-right {
+      position: inherit;
+      float: none;
+      margin: 1px 55px 0;
+
+      .file-uploader-logo {
+        position: relative;
+
+        .upload-button {
+          background: $m-site-content-bg-color;
+          color: #000;
+
+          &:hover {
+            background: $m-green-mconf;
+            color: $m-site-content-bg-color;
+          }
+        }
+      }
+    }
+
     .resource-card {
       width: 100%;
       max-width: 800px;

@@ -10,8 +10,11 @@
   = render :partial => 'users/menu'
 
 .container-fluid
-  = logo_image(current_user, class: "logo-user")
-  = upload_logo_controls(@user)
+  .btn.btn-default.dropdown-toggle{ data: { toggle: 'dropdown' } }
+    = logo_image(current_user, class: "logo-user")
+  %ul.dropdown-menu.dropdown-menu-right
+    %li= upload_logo_controls(@user)
+    %li= link_to t(".profile"), main_app.user_path(current_user)
 
   .resource-card.resource-user
 
