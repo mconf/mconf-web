@@ -108,12 +108,18 @@ body.users.update {
         margin-bottom: 40px;
 
         .field-value {
+          @include text-truncate(normal);
           color: $m-font-color-default;
           font-size: 20px;
           margin-bottom: 5px;
 
           &.name, &.title {
             font-weight: bold;
+            margin-bottom: 20px;
+          }
+
+          &.description {
+            margin-top: 20px;
           }
         }
 
