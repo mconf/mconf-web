@@ -14,37 +14,37 @@
     - if can?(:sites, :manage)
       %li{ :class => "#{'active' if sites_page}" }
         = link_to site_path do
-          = t('.general')
           - if sites_page
             = icon_sidebar_arrow
+          = t('.general')
 
     - if can?(:users, :manage)
       %li{ :class => "#{'active' if manage_users_page}" }
         = link_to manage_users_path do
-          = t('.users')
           - if manage_users_page
             = icon_sidebar_arrow
+          = t('.users')
 
     - if can?(:spaces, :manage) && mod_enabled?("spaces")
       %li{ :class => "#{'active' if manage_spaces_page}" }
         = link_to manage_spaces_path do
-          = t('.spaces')
           - if manage_spaces_page
             = icon_sidebar_arrow
+          = t('.spaces')
 
     - if can?(:manage, BigbluebuttonRecording)
       %li{ :class => "#{'active' if manage_recordings_page}" }
         = link_to manage_recordings_path do
-          = t('.recordings')
           - if manage_recordings_page
             = icon_sidebar_arrow
+          = t('.recordings')
 
     - if can?(:manage, BigbluebuttonServer) && can?(:manage, BigbluebuttonRoom)
       %li{ :class => "#{'active' if webconf_page}" }
         = link_to bigbluebutton_servers_path do
-          = t('.webconf')
           - if webconf_page
             = icon_sidebar_arrow
+          = t('.webconf')
 
     - if can?(:resque, :manage)
       %li

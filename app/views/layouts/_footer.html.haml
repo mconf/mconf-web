@@ -30,7 +30,7 @@
           - available_locales.each do |locale|
             - if locale.to_s != I18n.locale.to_s
               %li
-                - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
+                - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s, width: "22px", height: "15px")
                 - name = locale_i18n(locale)
                 = link_to main_app.session_locale_path(lang: locale.to_s), method: :post do
                   = flag + ' ' + name.mb_chars.upcase
