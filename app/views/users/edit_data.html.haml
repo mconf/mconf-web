@@ -20,10 +20,26 @@
 
     .resource-data
       .field
-        %span.field-value.title= t('.subtitle')
-        .simple-form-wrapper
-          = simple_form_for @user, url: user_path(@user) do |f|
-            = f.simple_fields_for :profile do |p|
-              = p.input :full_name, :required => true
+        %span.field-value.title= t('.public_profile')
+        = simple_form_for @user, url: user_path(@user) do |f|
+          = f.simple_fields_for :profile do |p|
+            = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user)
+            = p.input :organization
+            = p.input :description, as: :text
+            = p.input :url
 
-            =f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-default"
+        %span.field-value.title= t('.address')
+        = simple_form_for @user, url: user_path(@user) do |f|
+          = f.simple_fields_for :profile do |p|
+            .form-group.select.optional.user_profile_country
+              = p.input :country, wrapper: :label_only
+              = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
+            = p.input :address
+            = p.input :city
+            = p.input :province
+            = p.input :zipcode
+            = p.input :phone
+          = f.input :timezone, required: false do
+            = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
+
+          =f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-default"

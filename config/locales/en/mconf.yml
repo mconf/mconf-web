@@ -1850,6 +1850,8 @@ en:
       public_profile_tip: "Your public profile is visible to anyone in the Internet"
       title: "Edit your account"
     edit_data:
+      address: "Address"
+      public_profile: "Public profile"
       subtitle: "Edit data"
       title: "Account"
       remove_picture: "Remove image"

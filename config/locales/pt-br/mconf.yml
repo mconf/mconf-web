@@ -1877,6 +1877,8 @@ pt-br:
       public_profile_tip: "Seu perfil público é visível para qualquer pessoa na Internet"
       title: "Editar sua conta"
     edit_data:
+      address: "Endereço"
+      public_profile: "Perfil público"
       subtitle: "Editar dados"
       title: "Conta"
       remove_picture: "Remover imagem"
