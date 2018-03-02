@@ -1876,6 +1876,10 @@ pt-br:
       public_profile: "Perfil público"
       public_profile_tip: "Seu perfil público é visível para qualquer pessoa na Internet"
       title: "Editar sua conta"
+    edit_data:
+      subtitle: "Editar dados"
+      title: "Conta"
+      remove_picture: "Remover imagem"
     errors:
       access_forbidden: "Esta operação está disponível apenas para administradores"
     menu:
@@ -1885,11 +1889,16 @@ pt-br:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
         error: "Erro(s) ao criar o novo usuário"
       title: "Cadastrar usuário"
+    password_edit:
+      subtitle: "Alterar senha"
+      title: "Conta"
     show:
+      data: "Editar dados"
       description: "Sobre"
       email: "E-mail"
       name: "Nome"
       organization: "Organização"
+      password: "Alterar senha"
       title: "Conta"
       url: "Website"
       user_spaces: "Membro das comunidades"
