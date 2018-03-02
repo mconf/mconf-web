@@ -198,6 +198,13 @@ class UsersController < InheritedResources::Base
     end
   end
 
+  def remove_logo
+    @user.profile.remove_avatar
+    flash[:success] = t("user.updated")
+
+    redirect_to user_path(@user)
+  end
+
   def password_edit
   end
 

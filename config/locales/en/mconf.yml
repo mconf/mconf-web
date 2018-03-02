@@ -1852,6 +1852,7 @@ en:
     edit_data:
       subtitle: "Edit data"
       title: "Account"
+      remove_picture: "Remove image"
     errors:
       access_forbidden: "This operation is only available to administrators"
     menu:

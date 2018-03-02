@@ -95,6 +95,7 @@ Mconf::Application.routes.draw do
       post :disapprove
       post :confirm
       post :update_logo
+      post :remove_logo
       get :password_edit
       get :edit_data
     end

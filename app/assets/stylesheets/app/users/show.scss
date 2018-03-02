@@ -5,7 +5,8 @@
 // some styles defined in the partial below
 @import "app/spaces/_list_item";
 
-body.users.show, body.users.edit_data, body.users.password_edit, body.users.update {
+body.users.show, body.users.edit_data, body.users.password_edit,
+body.users.update {
 
   .profile-info {
     @include make-xs-column(12);
@@ -83,6 +84,7 @@ body.users.show, body.users.edit_data, body.users.password_edit, body.users.upda
       position: inherit;
       float: none;
       margin: 1px 55px 0;
+      text-align: center;
 
       .file-uploader-logo {
         position: relative;
@@ -126,6 +128,10 @@ body.users.show, body.users.edit_data, body.users.password_edit, body.users.upda
           &.name, &.title {
             font-weight: bold;
           }
+        }
+
+        .form-group {
+          text-align: left;
         }
 
         .simple-form-wrapper {

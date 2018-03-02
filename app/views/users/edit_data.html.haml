@@ -14,7 +14,7 @@
     = logo_image(current_user, class: "logo-user")
   %ul.dropdown-menu.dropdown-menu-right
     %li= upload_logo_controls(@user)
-    %li= link_to t(".profile"), main_app.user_path(current_user)
+    %li= link_to t('.remove_picture'), remove_logo_user_path(@user), method: "post"
 
   .resource-card.resource-user
 
