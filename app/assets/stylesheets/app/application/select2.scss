@@ -52,8 +52,8 @@
   a.select2-choice, .select2-choice a {
     text-decoration: none;
     box-shadow: none;
-    padding: 13px 17px;
-    height: auto;
+    padding: 6px 17px;
+    height: 45px;
     font-size: $m-font-fields;
     color: $m-text !important;
     border: $m-sf-field-border !important;
@@ -110,8 +110,8 @@
 
 .select2-container-multi .select2-choices, .select2-container-multi.select2-container-active .select2-choices {
   box-shadow: none;
-  padding: 13px 17px;
-  height: auto;
+  padding: 6px 17px;
+  height: 45px;
   font-size: $m-font-fields;
   color: $m-text !important;
   border: $m-sf-field-border !important;
