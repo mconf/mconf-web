@@ -6,50 +6,60 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
+background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+
   #webconf-room-invite {
     @include mconf-clearfix;
-    clear: both;
-
+    @include make-xs-column(12);
+    @include make-sm-column(6);
     @include make-row;
 
-    form {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-      @include make-sm-column-push(4);
+    position: absolute;
+    left: 55%;
+    clear: both;
 
-      h3 {
-        color: #fff;
-        margin-top: 8px;
-        border-bottom: 1px solid $m-navbar-internal-border-color;
-        padding: 8px 4px;
-        border-radius: $m-border-radius-base;
-      }
+    .form {
+      float: right;
 
-      .change-name {
-        font-size: $m-font-normal;
-        display: block;
-        text-align: right;
+      form {
+        @include make-xs-column(12);
+        @include make-sm-column(4);
+        @include make-sm-column-push(4);
 
-        a {
-          $normal: $m-link-color-hover;
-          $hover: darken($normal, 5);
-          @include link-colors($normal, $hover, $hover, $normal);
+        h3 {
+          color: $m-titles;
+          margin-top: 8px;
+          border-bottom: 1px solid $m-navbar-internal-border-color;
+          padding: 8px 4px;
+          border-radius: $m-border-radius-base;
+        }
+
+        .change-name {
+          font-size: $m-font-normal;
+          display: block;
+          text-align: right;
+
+          a {
+            $normal: $m-link-color-hover;
+            $hover: darken($normal, 5);
+            @include link-colors($normal, $hover, $hover, $normal);
+          }
+        }
+
+        .form-password {
+          margin-top: 32px;
         }
       }
 
-      .form-password {
-        margin-top: 32px;
-      }
-    }
+      .form-actions {
+        border: none;
+        margin-top: 24px;
+        padding-top: 0;
 
-    .form-actions {
-      border: none;
-      margin-top: 24px;
-      padding-top: 0;
-
-      input {
-        padding-left: 24px;
-        padding-right: 24px;
+        input {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
       }
     }
   }

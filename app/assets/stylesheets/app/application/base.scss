@@ -795,7 +795,7 @@ form {
 }
 
 #content-middle {
-  background-color: $m-site-bg-color;
+  background-color: transparent;
   @include mconf-clearfix;
   overflow: visible;
   padding: $m-site-vertical-padding 0 $m-content-vertical-padding 0;
