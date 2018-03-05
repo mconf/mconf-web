@@ -17,7 +17,9 @@
     .resource-data
       .field
         %span.field-value.name= @user.name
+        %span.field-value= @user.profile.organization
         %span.field-value= @user.email
+        %span.field-value.description= @user.profile.description
         - if can?(:update_full_name, @user) or can?(:update_password, @user)
           %span.border
         .btn-group

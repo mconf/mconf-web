@@ -97,7 +97,7 @@
   text-decoration: none;
   display: inline-block;
   @include broken-img-parent;
-  @include text-truncate;
+  @include text-truncate(nowrap);
 
   img {
     margin: 2px 0;
@@ -222,8 +222,8 @@
   }
 }
 
-@mixin text-truncate {
-  white-space: nowrap;
+@mixin text-truncate($truncate) {
+  white-space: truncate;
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;

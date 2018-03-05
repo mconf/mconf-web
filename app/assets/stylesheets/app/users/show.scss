@@ -27,7 +27,6 @@ body.users.update {
     box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
     text-align: center;
     overflow: visible !important;
-    padding-right: 34px;
     display: block !important;
 
     @include logo-container;
@@ -36,7 +35,7 @@ body.users.update {
       height: 200px;
       width: 200px;
       float: none;
-      margin-top: -36%;
+      margin-top: -25%;
       display: inline-block;
       border: 1px solid $m-logo-border;
       border-radius: 50%;
@@ -70,10 +69,9 @@ body.users.update {
     }
 
     .dropdown-menu-right {
-      position: inherit;
-      float: none;
       margin: 1px 55px 0;
       text-align: center;
+      transform: translate(-60%, 0);
 
       .file-uploader-logo {
         position: relative;
@@ -110,12 +108,18 @@ body.users.update {
         margin-bottom: 40px;
 
         .field-value {
+          @include text-truncate(normal);
           color: $m-font-color-default;
           font-size: 20px;
           margin-bottom: 5px;
 
           &.name, &.title {
             font-weight: bold;
+            margin-bottom: 20px;
+          }
+
+          &.description {
+            margin-top: 20px;
           }
         }
 

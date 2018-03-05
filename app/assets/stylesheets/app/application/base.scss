@@ -228,19 +228,19 @@ form {
     }
     .user-name {
       display: inline;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-mail {
       display: inline;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-organization {
       display: block;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-location {
       display: block;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
   }
 }
@@ -311,7 +311,7 @@ form {
   .space-item {
     @include mconf-clearfix;
     margin: 16px 0;
-    @include text-truncate;
+    @include text-truncate(nowrap);
     white-space: nowrap;
 
     > .logo {
