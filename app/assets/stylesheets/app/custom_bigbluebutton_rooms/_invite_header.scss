@@ -4,21 +4,21 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.invite_userid,
 body.custom_bigbluebutton_rooms.auth {
+  #content {
+    padding: 0;
+  }
 
   #webconf-room-invite-header {
-    text-align: center;
     @include border-radius($m-border-radius-base);
-    background-color: $m-navbar-internal-border-color;
-    @include font-size($m-font-medium);
-    padding: 16px;
-    margin-bottom: 40px;
 
-    @include make-xs-column(12);
-    @include make-sm-column(10);
-    @include make-sm-column-push(1);
+    text-align: left;
+    background-color: transparent;
+    color: #fff;
+    padding: 16px 95px;
+    width: 50%;
 
     .room-welcome {
-      @include font-size($m-font-bigger);
+      font-size: 46px;
       margin-bottom: 8px;
     }
 
@@ -51,6 +51,10 @@ body.custom_bigbluebutton_rooms.auth {
           cursor: pointer;
         }
       }
+    }
+
+    .identify {
+      font-size: 25px;
     }
 
   }

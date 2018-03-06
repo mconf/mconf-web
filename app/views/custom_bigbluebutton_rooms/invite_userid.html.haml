@@ -1,11 +1,11 @@
 = page_title t(".title", :name => @room.name).html_safe
 
 = render partial: "invite_header", locals: { room: @room, page: 1 }
+#login_page
 
 #webconf-room-userid
 
-  - cls = current_site.unauth_access_to_conferences? ? '' : 'only'
-  #webconf-room-userid-member{ class: cls }
+  #webconf-room-userid-member
     %h3.title= t(".member.title")
 
     - show_login = current_site.local_auth_enabled? || current_site.ldap_enabled?

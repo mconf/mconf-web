@@ -46,7 +46,7 @@ transition: all 10s ease-in-out;
 
   #webconf-room-invite {
     @include mconf-clearfix;
-    /* @include make-xs-column(12); */
+    @include make-xs-column(12);
     @include make-sm-column(6);
     @include make-row;
 
