@@ -8,9 +8,9 @@
 #toast-container {
 
   &.toast-top-full-width {
-    right: 10px;
-    left: 10px;
-    top: 10px;
+    right: 0px;
+    left: 0px;
+    top: 0px;
     width: auto;
 
     > div {
@@ -62,8 +62,8 @@
   }
 
   .toast-message {
-    padding: 10px 35px 10px 10px;
-    @include font-size($m-font-big);
+    padding: 5px 35px 5px 10px;
+    @include font-size($m-font-bigger);
     cursor: pointer;
   }
 
@@ -72,6 +72,12 @@
   }
 
   .toast-success {
-    background-color: $olive;
+    background-color: #7AB29B;
+    border-bottom: 5px solid #396554;
+  }
+
+  .toast-error {
+    background-color: #D5455A;
+    border-bottom: 5px solid #6A232D;
   }
 }

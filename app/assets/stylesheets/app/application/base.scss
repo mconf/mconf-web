@@ -487,13 +487,13 @@ form {
 
 #navbar-logo {
   white-space: nowrap;
-  margin-top: ($m-navbar-height - 42px)/2;
+  margin-top: ($m-navbar-height - 44px)/2;
   @include mconf-clearfix;
   display: inline-block;
   background: image-url('logos/mconf-color-transp.png') no-repeat left top;
   background-size: 75px 39px;
-  width: 116px;
-  height: 60px;
+  width: 75px;
+  height: 39px;
   float: left;
 }
 
