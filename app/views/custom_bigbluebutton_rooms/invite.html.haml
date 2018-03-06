@@ -5,9 +5,9 @@
 - else
   - username = bigbluebutton_user.name
 
-#login_page_online
+= render partial: "invite_header", locals: { room: @room, page: 2 }
+#login_page
 
--#= render partial: "invite_header", locals: { room: @room, page: 2 }
 
 #webconf-room-invite
 
