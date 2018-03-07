@@ -463,9 +463,10 @@ form {
       @include box-shadow(none);
 
       .observation {
-        padding: 3px 14px;
+        padding: 10px 14px;
         font-size: $m-font-small;
-        color: $m-font-color-gray;
+        font-weight: $m-font-weight-bold;
+        color: $m-text;
       }
     }
   }

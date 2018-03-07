@@ -986,7 +986,7 @@ pt-br:
       aspect_ratio: "Relação de aspecto fixa"
       crop_it: "Usar a área selecionada"
       full_image: "Usar a imagem inteira"
-  logout: Sair
+  logout: "Sair"
   manage:
     destroy_space:
       destroy: Remover comunidade

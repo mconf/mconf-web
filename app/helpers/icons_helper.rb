@@ -333,6 +333,11 @@ module IconsHelper
     #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
+  def icon_logout(options={})
+    material_icon_constructor "power_settings_new", "icon material-icons icon-logout", options
+    #icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
+  end
+
   private
 
   # Base method for most of the methods above

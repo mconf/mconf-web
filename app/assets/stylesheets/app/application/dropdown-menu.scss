@@ -62,17 +62,31 @@ $dropdown-bg-color: white;
 
 // the menu itself
 ul.dropdown-menu {
-  text-align: left;
+  text-align: center;
 
   > li:not(.divider) {
     a {
       padding: 12px 14px;
 
+      .icon {
+        vertical-align: text-top;
+        color: $m-text;
+        display: inline-block;
+        font-size: $m-font-medium;
+
+        &.icon-logout {
+          vertical-align: sub;
+        }
+      }
+
       &:hover, &:active {
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
         color: $m-very-light-gray;
         background: $m-color-primary-heavy;
-        @include link-colors(#808080, $m-very-light-gray, $m-very-light-gray);
+        @include link-colors($m-text, $m-very-light-gray, $m-very-light-gray);
+        .icon {
+          color: $m-very-light-gray;
+        }
       }
     }
   }

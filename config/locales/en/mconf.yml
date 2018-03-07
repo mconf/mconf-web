@@ -979,7 +979,7 @@ en:
       aspect_ratio: "Fix aspect ratio"
       crop_it: "Use the selected area"
       full_image: "Use the entire image"
-  logout: Logout
+  logout: "Logout"
   manage:
     destroy_space:
       destroy: Delete space
