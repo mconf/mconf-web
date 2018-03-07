@@ -20,7 +20,6 @@
       %li.navbar-user-chip.dropdown.last
         .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '128', class: "logo-user")
-          %span.username= current_user.profile.first_name
         %ul.navbar-user-menu.dropdown-menu.dropdown-menu-right
           %li
             .observation= current_user.name

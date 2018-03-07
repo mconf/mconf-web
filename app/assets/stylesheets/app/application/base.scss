@@ -413,8 +413,17 @@ form {
     }
   }
 
+ .navbar-user-chip.open {
+    .navbar-user-toggle {
+      .border {
+        border: $m-logo-border-size solid $m-green-soft;
+        border-radius: 50%;
+      }
+    }
+  }
+
   .navbar-user-chip {
-    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
+    margin: ($m-navbar-height - $m-navbar-btn-size - $m-logo-border-size - $m-logo-border-size)/2 0;
 
     .navbar-user-toggle {
       /* font-size: $m-font-medium; */
@@ -424,24 +433,27 @@ form {
         background: $m-navbar-font-highlight;
       }
 
+      .border {
+        border: $m-logo-border-size solid $m-logo-border;
+        border-radius: 50%;
+      }
+
+      .border:hover {
+        border: $m-logo-border-size solid $m-green-soft;
+        border-radius: 50%;
+      }
+
       img, .logo-user {
         height: $m-navbar-btn-size;
         width: $m-navbar-btn-size;
         float: none;
-        margin: 0 16px 0 0;
         display: inline-block;
-        border: 1px solid $m-logo-border;
-        font-size: $m-font-big;
+        border: $m-logo-border-size solid $m-logo-border;
+        font-size: $m-logo-font-size;
 
         &.logo-initials {
-          padding: ($m-navbar-btn-size - $m-font-big)/2 0;
+          padding: $m-logo-initials-padding;
         }
-      }
-
-      .username {
-        display: inline-block;
-        font-size: $m-font-big;
-        vertical-align: middle;
       }
     }
 

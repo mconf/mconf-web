@@ -41,10 +41,13 @@ module LogoImagesHelper
         elsif version_name == :logo336x256
           version_name = :logo168x128 unless resource.logo_image.send(version_name).file.exists?
         end
-
-        image_tag(resource.logo_image_url(version_name), options)
+        content_tag :div, class: 'border' do
+          concat image_tag(resource.logo_image_url(version_name), options)
+        end
       else
-        logo_initials(resource, options)
+        content_tag :div, class: 'border' do
+          concat logo_initials(resource, options)
+        end
       end
 
     # Try a gravatar image if we have a confirmed user
@@ -54,10 +57,13 @@ module LogoImagesHelper
       grav_options[:default] = "mm"
       grav_options[:secure] = true
       options[:alt] = resource.name
-      image_tag(GravatarImageTag.gravatar_url(resource.email, grav_options), options)
-
+      content_tag :div, class: 'border' do
+        concat image_tag(GravatarImageTag.gravatar_url(resource.email, grav_options), options)
+      end
     else
-      logo_initials(resource, options)
+      content_tag :div, class: 'border' do
+        concat logo_initials(resource, options)
+      end
     end
   end
 
