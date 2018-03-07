@@ -72,12 +72,12 @@
   }
 
   .toast-success {
-    background-color: #7AB29B;
-    border-bottom: 5px solid #396554;
+    background-color: $m-success-notification;
+    border-bottom: $m-success-notification-border;
   }
 
   .toast-error {
-    background-color: #D5455A;
-    border-bottom: 5px solid #6A232D;
+    background-color: $m-error-notification;
+    border-bottom: $m-error-notification-border;
   }
 }
