@@ -2,12 +2,12 @@
 @import "compass/css3";
 
 @import "app/custom_bigbluebutton_rooms/_invite_header";
+@import "app/shared/social_login";
 
 body.custom_bigbluebutton_rooms.invite_userid {
 
 &.running {
   background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
-  transition: all 10s ease-in-out;
 
   #login_page {
     @include make-sm-column(6);
@@ -23,9 +23,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
   }
 }
 
-&.not-running {
+&:not(.running) {
   background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
-  transition: all 10s ease-in-out;
 
   #login_page {
     @include make-sm-column(6);
@@ -45,11 +44,13 @@ body.custom_bigbluebutton_rooms.invite_userid {
     width: 42%;
     float: right;
     padding-right: 8%;
+    margin-top: -13%;
 
     #webconf-room-userid-member {
     }
 
     #webconf-room-userid-non-member {
+      @include make-row;
     }
 
     .identify {
@@ -59,6 +60,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
     h3.title {
       text-align: center;
       margin-bottom: 16px;
+      font-weight: 700;
+      font-size: 22px;
     }
 
     .form-actions {
@@ -67,8 +70,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
       padding-top: 0;
 
       input {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding: 15px;
+        width: 100%;
       }
     }
   }

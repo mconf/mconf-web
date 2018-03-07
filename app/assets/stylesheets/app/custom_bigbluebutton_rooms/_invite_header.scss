@@ -4,6 +4,7 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.invite_userid,
 body.custom_bigbluebutton_rooms.auth {
+
   #content {
     padding: 0;
   }
@@ -35,7 +36,7 @@ body.custom_bigbluebutton_rooms.auth {
       .status {
         display: inline-block;
         font-weight: bold;
-        background: $m-yellow;
+        background: $m-red;
         border-radius: $m-border-radius-base;
         padding: 4px 8px;
         margin-left: 8px;

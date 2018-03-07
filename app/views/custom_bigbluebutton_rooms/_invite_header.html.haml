@@ -6,7 +6,7 @@
     .room-name= room.name
 
     .room-status{ "data-url": running_bigbluebutton_room_url(@room, format: "json") }
-      .status= t(".status_unknown")
+      .status= t(".not_running")
 
   .identify
     = t('.identify')

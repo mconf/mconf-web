@@ -1,10 +1,10 @@
 = page_title t(".title", :name => @room.name).html_safe
 
 = render partial: "invite_header", locals: { room: @room, page: 1 }
+
 #login_page
 
 #webconf-room-userid
-
   #webconf-room-userid-member
     %h3.title= t(".member.title")
 
@@ -36,3 +36,5 @@
           = text_field_tag "user[name]", "", required: true, class: 'form-control'
         .form-actions
           = f.button :submit, t(".non_member.join"), :class => "btn btn-primary"
+
+  = render partial: 'shared/social_login'
