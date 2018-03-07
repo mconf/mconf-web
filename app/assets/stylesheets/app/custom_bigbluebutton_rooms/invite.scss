@@ -6,35 +6,31 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
-transition: all 10s ease-in-out;
 &.running {
   background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
-  transition: all 10s ease-in-out;
 
   #login_page {
     @include make-sm-column(6);
-    margin: 90px 0 0 -70px;
+    margin: 90px -70px 0 70px;
     float: none;
-    padding: 12%;
+    padding: 10%;
     overflow: visible;
 
     background: image-url('logos/Notebook_online.png') no-repeat left;
     background-size: contain;
     height: 70%;
     width: 70%;
-
   }
 }
 
-&.not-running {
+&:not(.running) {
   background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
-  transition: all 10s ease-in-out;
 
   #login_page {
     @include make-sm-column(6);
-    margin: 90px 0 0 -70px;
+    margin: 90px -70px 0 70px;
     float: none;
-    padding: 12%;
+    padding: 10%;
     overflow: visible;
 
     background: image-url('logos/Notebook_offline.png') no-repeat left;
@@ -45,57 +41,56 @@ transition: all 10s ease-in-out;
 }
 
   #webconf-room-invite {
-    @include mconf-clearfix;
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-    @include make-row;
+    width: 42%;
+    float: right;
+    padding-right: 20%;
+    margin-top: -13%;
+    margin-right: -6%;
 
-    position: absolute;
-    left: 55%;
-    clear: both;
+    .form-group {
+      h3 {
+        color: $m-titles;
+        margin-top: 8px;
+        margin-bottom: 30px;
+        padding: 8px 4px;
+        border-radius: $m-border-radius-base;
+        font-size: 46px;
+        font-weight: 700;
+        text-align: center;
+      }
 
-    .form {
-      float: right;
+      .welcome {
+        color: $m-green-soft;
+        font-size: 22px;
+        text-align: center;
+      }
 
-      form {
-        @include make-xs-column(12);
-        @include make-sm-column(4);
-        @include make-sm-column-push(4);
+      .change-name {
+        font-size: $m-font-normal;
+        display: block;
+        text-align: right;
 
-        h3 {
-          color: $m-titles;
-          margin-top: 8px;
-          border-bottom: 1px solid $m-navbar-internal-border-color;
-          padding: 8px 4px;
-          border-radius: $m-border-radius-base;
-        }
-
-        .change-name {
-          font-size: $m-font-normal;
-          display: block;
-          text-align: right;
-
-          a {
-            $normal: $m-link-color-hover;
-            $hover: darken($normal, 5);
-            @include link-colors($normal, $hover, $hover, $normal);
-          }
-        }
-
-        .form-password {
-          margin-top: 32px;
+        a {
+          $normal: $m-link-color-hover;
+          $hover: darken($normal, 5);
+          @include link-colors($normal, $hover, $hover, $normal);
         }
       }
 
-      .form-actions {
-        border: none;
-        margin-top: 24px;
-        padding-top: 0;
+      .form-password {
+        margin-top: 32px;
+      }
+    }
 
-        input {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
+    .form-actions {
+      border: none;
+      padding-top: 0;
+      margin-top: 15%;
+
+      input {
+        padding: 15px;
+        width: 100%;
+        font-size: 20px;
       }
     }
   }

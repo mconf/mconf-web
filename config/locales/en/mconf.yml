@@ -538,6 +538,7 @@ en:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
       logout_guest: "Wrong person? Change it"
+      welcome: "Welcome to webconference room <b>%{room}</b>!"
       title: "Join room: %{name}"
     invite_header:
       identify: "Please identify yourself to join"

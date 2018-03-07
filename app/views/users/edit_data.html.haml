@@ -29,8 +29,7 @@
             = p.input :description, as: :text
             = p.input :url
 
-        %span.field-value.title= t('.address')
-        = simple_form_for @user, url: user_path(@user) do |f|
+          %span.field-value.title= t('.address')
           = f.simple_fields_for :profile do |p|
             .form-group.select.optional.user_profile_country
               = p.input :country, wrapper: :label_only

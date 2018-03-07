@@ -532,6 +532,7 @@ pt-br:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
       logout_guest: "Pessoa errada? Modificar"
+      welcome: "Bem vindo à sala de conferência <b>%{room}</b>!"
       title: "Acessar sala: %{name}"
     invite_header:
       identify: "Por favor se identifique para entrar"
