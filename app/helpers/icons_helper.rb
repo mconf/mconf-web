@@ -218,7 +218,6 @@ module IconsHelper
 
   def icon_options(options={})
     material_icon_constructor "settings", "icon material-icons icon-options", options
-    #icon_constructor nil, "icon icon-mw-options icon-options", options
   end
 
   def icon_join_request(options={})
@@ -282,7 +281,6 @@ module IconsHelper
 
   def icon_conference_play(options={})
     material_icon_constructor "play_circle_filled", "icon material-icons icon_conference_play", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_rec_play(options={})
@@ -315,32 +313,46 @@ module IconsHelper
 
   def icon_dropdown_up(options={})
     material_icon_constructor "keyboard_arrow_up", "icon material-icons icon-arrow-up", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_dropdown_down(options={})
     material_icon_constructor "keyboard_arrow_down", "icon material-icons icon-arrow-down", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_date(options={})
     material_icon_constructor "date_range", "icon material-icons icon-date", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_sidebar_arrow(options={})
     material_icon_constructor "keyboard_arrow_right", "icon material-icons icon-sidebar-arrow", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
   end
 
   def icon_modal_cancel(options={})
     material_icon_constructor "cancel", "icon material-icons icon-modal-cancel", options
-    #icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+  end
+
+  def icon_visibility(options={})
+    material_icon_constructor "visibility", "icon material-icons icon-visibility", options
+  end
+
+  def icon_visibility_private(options={})
+    material_icon_constructor "visibility", "icon material-icons icon-visibility-private", options
+  end
+
+  def icon_visibility_off(options={})
+    material_icon_constructor "visibility_off", "icon material-icons icon-visibility-off", options
+  end
+
+  def icon_file_download(options={})
+    material_icon_constructor "file_download", "icon material-icons icon-file-download", options
+  end
+
+  def icon_link(options={})
+    material_icon_constructor "link", "icon material-icons icon-link", options
   end
 
   def icon_logout(options={})
     material_icon_constructor "power_settings_new", "icon material-icons icon-logout", options
-    #icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
   end
 
   private

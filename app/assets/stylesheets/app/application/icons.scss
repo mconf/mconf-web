@@ -340,9 +340,38 @@ a:not(.btn) .icon {
 
   &.icon-date {
     color: #AAA;
+    line-height: 1.1;
+    vertical-align: middle;
+  }
+
+  &.icon-visibility {
+    color: $m-green-soft;
     line-height: 1.5;
     vertical-align: middle;
-    color: $m-modal-buttons;
+  }
+
+  &.icon-visibility-off {
+    color: $m-titles;
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+
+  &.icon-visibility-private {
+    color: $m-alert-color;
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+
+  &.icon-file-download {
+    color: #AAA;
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+
+  &.icon-link {
+    color: #AAA;
+    line-height: 1.5;
+    vertical-align: middle;
   }
 
   &.icon-event {}
