@@ -106,6 +106,12 @@ class mconf.Base
       e.preventDefault()
       $($(this).attr("href")).submit()
 
+    footerArrowDown = $('#footer-right i.icon-arrow-down')
+    footerArrowUp = $('#footer-right i.icon-arrow-up')
+    $('#footer-right .dropdown-toggle').on "click.mconfBase", (e) ->
+      footerArrowDown.toggleClass("hidden")
+      footerArrowUp.toggleClass("hidden")
+
   @unbind: (parent) ->
     $("a.webconf-join-link:not(.disabled)", parent).off "click.mconfBase"
     $("a.open-new-window:not(.disabled)", parent).off "click.mconfBase"
