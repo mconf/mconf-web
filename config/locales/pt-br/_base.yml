@@ -68,10 +68,10 @@ pt-br:
         other: quase %{count} anos
       half_a_minute: meio minuto
       less_than_x_minutes:
-        one: menos de um minuto
+        one: < 1 minuto
         other: menos de %{count} minutos
       less_than_x_seconds:
-        one: menos de 1 segundo
+        one: < 1 segundo
         other: menos de %{count} segundos
       over_x_years:
         one: mais de 1 ano

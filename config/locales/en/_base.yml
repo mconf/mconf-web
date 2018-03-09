@@ -68,10 +68,10 @@ en:
         other: almost %{count} years
       half_a_minute: half a minute
       less_than_x_minutes:
-        one: less than a minute
+        one: < 1 minute
         other: less than %{count} minutes
       less_than_x_seconds:
-        one: less than 1 second
+        one: < 1 second
         other: less than %{count} seconds
       over_x_years:
         one: over 1 year

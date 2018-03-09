@@ -24,7 +24,7 @@
           %th.col-sm-1.meeting-date-col= t(".started_date")
           %th.col-sm-1.meeting-time-col= t(".started_time")
           %th.col-sm-1.rec-duration-col= t(".duration")
-          %th.col-sm-5.rec-description-col= t(".description")
+          %th.col-sm-4.rec-description-col= t(".description")
           %th.col-sm-1.rec-status-col= t(".status")
           %th.col-sm-2.rec-playback-col= t(".playback_links")
           %th.col-sm-1.options-col
@@ -74,14 +74,14 @@
               -#   - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.configuration.metadata_user_id.to_s }.first
 
               %td.rec-duration-column
-                %span
+                .duration
                   = distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
 
               %td.rec-description-column
                 - if recording.description.blank?
-                  %span= t('.no_description')
+                  .description= t('.no_description')
                 - else
-                  %span= recording.description
+                  .description= recording.description
 
               %td.thin.rec-status-column
                 - if recording.available?

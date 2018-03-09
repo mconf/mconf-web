@@ -23,6 +23,11 @@
     background: $m-green-soft;
     color: #fff;
     font-weight: bold;
+    text-align: center;
+  }
+
+  .meeting-date, .duration {
+    margin: 20% 0;
   }
 
   .rec-description-column, .rec-status-column, .rec-playback-column, .options-column {

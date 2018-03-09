@@ -223,7 +223,7 @@
 }
 
 @mixin text-truncate($truncate) {
-  white-space: truncate;
+  white-space: $truncate;
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
