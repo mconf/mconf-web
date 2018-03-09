@@ -10,6 +10,8 @@ body.my.meetings {
   }
 
   #my-meetings {
+    padding-left: 100px;
+
     &.empty {
       h2 {
         font-weight: $m-font-weight-thin;

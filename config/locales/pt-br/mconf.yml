@@ -1136,6 +1136,7 @@ pt-br:
     page_header:
       activity_list: "Atividades recentes"
     meetings:
+      history: "Histórico"
       no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
       recordedonly_false: "Todas reuniões"
       recordedonly_true: "Apenas gravadas"
@@ -1381,6 +1382,8 @@ pt-br:
       not_recorded: "(Esta reunião não foi gravada.)"
       playback_links: "Links para reprodução"
       started_at: "Data - Hora"
+      started_date: "Data"
+      started_time: "Hora"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
       publish: "Tornar visível"

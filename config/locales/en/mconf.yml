@@ -1129,6 +1129,7 @@ en:
     page_header:
       activity_list: "Activity list"
     meetings:
+      history: "History"
       no_meetings_headline: "There are no recordings or conferences to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
@@ -1352,6 +1353,8 @@ en:
       not_recorded: "(This meeting was not recorded.)"
       playback_links: "Playback links"
       started_at: "Date - Time"
+      started_date: "Date"
+      started_time: "Time"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
       publish: "Make it visible"

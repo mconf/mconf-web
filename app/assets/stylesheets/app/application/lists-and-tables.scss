@@ -79,7 +79,7 @@
 
 // Change the colors for table borders and bgs, make it more like our lists
 .table-wrapper {
-  background: $m-site-content-bg-color;
+  background: $m-site-bg-color;
   @include border-radius($m-border-radius-large);
   padding: 40px 30px 30px 30px;
   /* border: 1px solid $m-border-color-normal; */
@@ -96,25 +96,17 @@ table, .table {
 
   tbody {
     tr {
-      /* background: $m-site-content-bg-color; */
       padding: 12px 0;
-      /* border-top: 12px solid $m-site-content-bg-color; */
+      border-top: 12px solid $m-site-bg-color;
       border: 0;
 
-      &:nth-child(even) {
-        background: $m-very-light-gray;
-      }
-      /* tr:nth-child(odd) {background: #FFF} */
-
-  /*     &.fadeout { */
-  /*       opacity: 0.6; */
-  /*     } */
-
       td {
-        /* background: $m-site-bg-color; */
         padding: 20px 12px;
         vertical-align: top;
         border: 0;
+        .dropdown-toggle {
+          background: $m-site-bg-color;
+        }
       }
 
       &:hover {

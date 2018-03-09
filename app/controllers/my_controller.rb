@@ -25,6 +25,8 @@ class MyController < ApplicationController
     case params[:action].to_sym
     when :edit_recording
       false
+    when :meetings
+      "application"
     else
       "no_sidebar"
     end
