@@ -110,10 +110,6 @@ a:not(.btn) .icon {
     color: $m-orange;
   }
 
-  &.icon-help, &.icon-info {
-    color: $m-blue;
-  }
-
   &.icon-waiting-moderation {
     color: #e9b624;
   }
@@ -277,10 +273,6 @@ a:not(.btn) .icon {
     max-width: auto;
   }
 
-  &.icon-conference-play{
-    font-size: 46px;
-  }
-
   &.icon-conference-invite {
     font-size: 46px;
   }
@@ -338,6 +330,19 @@ a:not(.btn) .icon {
     color: $m-modal-buttons;
   }
 
+  &.icon-conference-play{
+    color: $m-green-soft;
+    line-height: 1.5;
+    vertical-align: middle;
+
+  }
+
+  &.icon-help, &.icon-info {
+    color: $m-blue;
+    vertical-align: middle;
+    font-size: $m-font-big;
+  }
+
   &.icon-date {
     color: #AAA;
     line-height: 1.1;
@@ -363,13 +368,13 @@ a:not(.btn) .icon {
   }
 
   &.icon-file-download {
-    color: #AAA;
+    color: $m-green-soft;
     line-height: 1.5;
     vertical-align: middle;
   }
 
   &.icon-link {
-    color: #AAA;
+    color: $m-green-soft;
     line-height: 1.5;
     vertical-align: middle;
   }

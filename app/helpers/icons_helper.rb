@@ -7,11 +7,6 @@
 
 module IconsHelper
 
-  # Default icon that shows a tooltip with help about something
-  def icon_help(title=nil, options={})
-    icon_constructor title, "fa fa-question-circle-o icon icon-help", options
-  end
-
   # Default icon that shows a tooltip with information about something
   def icon_info(title=nil, options={})
     icon_constructor title, "fa fa-info-circle icon icon-info", options
@@ -280,7 +275,7 @@ module IconsHelper
   end
 
   def icon_conference_play(options={})
-    material_icon_constructor "play_circle_filled", "icon material-icons icon_conference_play", options
+    material_icon_constructor "play_circle_filled", "icon material-icons icon-conference-play", options
   end
 
   def icon_rec_play(options={})
@@ -309,6 +304,11 @@ module IconsHelper
 
   def icon_login_google(options={})
     image_tag 'icons/login-google.svg', size: "46x46", class: ""
+  end
+
+  # Default icon that shows a tooltip with help about something
+  def icon_help(title=nil, options={})
+    material_icon_constructor "help_outline", "icon material-icons icon icon-help", options
   end
 
   def icon_dropdown_up(options={})

@@ -23,9 +23,9 @@ module CustomBigbluebuttonPlaybackTypesHelper
     end
 
     if ['presentation_video', 'presentation_export'].include?(playback.identifier)
-      playback_icon = icon_rec_download
+      playback_icon = icon_file_download
     else
-      playback_icon = icon_rec_play
+      playback_icon = icon_conference_play
     end
 
     link_to playback_icon, play_bigbluebutton_recording_path(recording, link_params),

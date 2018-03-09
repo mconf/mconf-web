@@ -10,7 +10,7 @@ class mconf.HelpIcon
   @bindIcon: (el) ->
     hintOptions = _.extend(mconf.Tooltip.defaultOptions, hintOptions)
     unless $(el).children('.icon-help').length > 0
-      help = $("<i class='fa fa-question-circle-o icon icon-help'></i>")
+      help = $("<i class='icon material-icons icon-help'>help_outline</i>")
       $(el).append(help)
       $(el).find(".icon-help").tooltip(hintOptions)
 
