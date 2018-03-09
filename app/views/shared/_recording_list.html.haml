@@ -39,33 +39,26 @@
         - meetings.each do |meeting|
           - recording = meeting.recording
 
-          - cls = recording.present? ? '' : 'fadeout'
-          %tr{ class: cls }
-
-            %td.thin.meeting-date-col
+          %tr{ class: "shadowed" }
+            %td.meeting-date-column
               - m_create = format_date(meeting.create_time, :long)
+              - m_date = format_date(meeting.create_time, :short, false)
               - if recording
                 - rec_create = format_date(recording.start_time, :long)
                 - rec_end = format_date(recording.end_time, :long)
                 .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: m_create, rec_start: rec_create, rec_end: rec_end) }
-                  = format_date(meeting.create_time, :numeric)
+                  = m_date
               - else
                 .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
-                  = format_date(meeting.create_time, :numeric)
+                  = m_date
 
-            %td.thin.meeting-time-col
-              - m_create = format_date(meeting.create_time, :long)
-              - if recording
-                - rec_create = format_date(recording.start_time, :long)
-                - rec_end = format_date(recording.end_time, :long)
-                .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: m_create, rec_start: rec_create, rec_end: rec_end) }
-                  = format_date(meeting.create_time, :numeric)
-              - else
-                .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
-                  = format_date(meeting.create_time, :numeric)
+            %td.meeting-time-column
+              - m_create = format_time(meeting.create_time)
+              .meeting-date
+                = m_create
 
             - if show_authors
-              %td.rec-author-col
+              %td.rec-author-column
                 - unless meeting.creator_id.nil?
                   - user = User.find_by(id: meeting.creator_id)
                   .recording-author
@@ -80,16 +73,17 @@
               -# - if can?(action, recording)
               -#   - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.configuration.metadata_user_id.to_s }.first
 
-              %td.thin.rec-duration-col
-                %span= distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false)
+              %td.rec-duration-column
+                %span
+                  = distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
 
-              %td.rec-description-col
+              %td.rec-description-column
                 - if recording.description.blank?
                   %span= t('.no_description')
                 - else
                   %span= recording.description
 
-              %td.thin.rec-status-col
+              %td.thin.rec-status-column
                 - if recording.available?
                   .dropdown
                     .dropdown-toggle{ data: { toggle: "dropdown" } }
@@ -111,10 +105,10 @@
                             -# = icon_publish(alt: t('.publish'))
                             = t('.publish')
 
-              %td.rec-playback-col
+              %td.rec-playback-column
                 = render partial: 'shared/recording_playback', locals: { recording: recording }
 
-              %td.thin.options-col
+              %td.thin.options-column
                 .dropdown.recording-playback-options
                   %a.dropdown-toggle{ href: '#', data: { toggle: "dropdown" } }= icon_options_dots
                   %ul.dropdown-menu.dropdown-menu-right

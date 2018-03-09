@@ -33,7 +33,7 @@ en:
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
-      short: ! '%b %d'
+      short: ! '%b %d, %y'
     month_names:
     -
     - January
@@ -88,6 +88,12 @@ en:
       x_seconds:
         one: 1 second
         other: ! '%{count} seconds'
+      hours:
+        one: 1 hr
+        other: ! '%{count} hr'
+      minutes:
+        one: 1 min
+        other: ! '%{count} min'
     prompts:
       day: Day
       hour: Hour

@@ -33,7 +33,7 @@ pt-br:
     formats:
       default: ! '%d/%m/%Y'
       long: ! '%d de %B de %Y'
-      short: ! '%d de %B'
+      short: ! '%d %b %y'
     month_names:
     -
     - Janeiro
@@ -88,6 +88,12 @@ pt-br:
       x_seconds:
         one: 1 segundo
         other: ! '%{count} segundos'
+      hours:
+        one: 1 hr
+        other: ! '%{count} hr'
+      minutes:
+        one: 1 min
+        other: ! '%{count} min'
     prompts:
       day: Dia
       hour: Hora

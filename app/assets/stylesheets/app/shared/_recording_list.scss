@@ -19,6 +19,17 @@
     margin: 0 4px;
   }
 
+  .meeting-date-column, .meeting-time-column, .rec-duration-column {
+    background: $m-green-soft;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .rec-description-column, .rec-status-column, .rec-playback-column, .options-column {
+    background: #fff;
+    font-size: 22px;
+  }
+
   .options-col {
     text-align: right;
 

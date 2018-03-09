@@ -88,10 +88,14 @@
 table, .table {
   margin: 0;
   font-size: $m-font-medium;
+  border-spacing: 0px 15px;
+  border-collapse: separate;
 
   thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
-    font-size: $m-font-small;
-    font-weight: $m-font-weight-normal;
+    font-size: 14px;
+    font-weight: bold;
+    color: $m-titles;
+    border: 0;
   }
 
   tbody {
@@ -99,6 +103,10 @@ table, .table {
       padding: 12px 0;
       border-top: 12px solid $m-site-bg-color;
       border: 0;
+
+      &.shadowed {
+        box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+      }
 
       td {
         padding: 20px 12px;
