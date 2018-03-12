@@ -4,6 +4,18 @@
 .recording-list {
   margin-top: 10px;
 
+  .icon {
+    font-size: 40px;
+  }
+
+  table, .table {
+    thead:first-child > tr:first-child > th {
+      .col-sm-2.rec-playback-col {
+        text-align: center;
+      }
+    }
+  }
+
   .recording-playback-links {
     margin: 0;
     padding: 0;
@@ -33,6 +45,10 @@
   .rec-description-column, .rec-status-column, .rec-playback-column, .options-column {
     background: #fff;
     font-size: 22px;
+
+    .dropdown-toggle {
+      background: transparent;
+    }
   }
 
   .rec-description-not-recorded {
@@ -52,7 +68,7 @@
 
   .recording-playback-links, .recording-playback-options {
     i {
-      font-size: 20px;
+      font-size: 30px;
       color: #666;
       width: 20px;
       height: 20px;
@@ -62,5 +78,6 @@
 
   .recording-playback-options i {
     color: #bbb;
+    float: right;
   }
 }

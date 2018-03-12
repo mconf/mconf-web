@@ -88,11 +88,11 @@
                   .dropdown
                     .dropdown-toggle{ data: { toggle: "dropdown" } }
                       - if recording.published?
-                        = icon_published
-                        = t('.published')
+                        = icon_visibility
+                        -#= t('.published')
                       - else
-                        = icon_unpublished
-                        = t('.unpublished')
+                        = icon_visibility_private
+                        -#= t('.unpublished')
                     %ul.dropdown-menu
                       - if recording.published?
                         %li
@@ -104,6 +104,8 @@
                           = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
                             -# = icon_publish(alt: t('.publish'))
                             = t('.publish')
+                - else
+                  = icon_visibility_off
 
               %td.rec-playback-column
                 = render partial: 'shared/recording_playback', locals: { recording: recording }

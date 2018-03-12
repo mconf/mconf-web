@@ -13,17 +13,17 @@
     .sidebar-title= t('.history')
   = content_for :sidebar_menu do
     %ul
-      %li{ class: "#{'active' if params[:recordedonly].nil? }" }
-        = link_to  my_meetings_path do
-          - if params[:recordedonly].nil?
-            = icon_sidebar_arrow
-          = t(".recordedonly_true")
-
       %li{ class: "#{'active' if params[:recordedonly] == 'false' }" }
         = link_to my_meetings_path(recordedonly: 'false') do
           - if params[:recordedonly] == 'false'
             = icon_sidebar_arrow
           = t(".recordedonly_false")
+
+      %li{ class: "#{'active' if params[:recordedonly].nil? }" }
+        = link_to  my_meetings_path do
+          - if params[:recordedonly].nil?
+            = icon_sidebar_arrow
+          = t(".recordedonly_true")
 
 - cls = @meetings.count <= 0 ? 'empty' : ''
 #my-meetings{ class: cls }
