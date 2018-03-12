@@ -129,6 +129,13 @@
                         = t('.delete')
 
             - else
-              %td.rec-description-col= t('.not_recorded')
+              %td.rec-duration-column
+                .duration
+                  - duration = meeting.duration
+                  - if duration != nil
+                    - duration = duration/1000
+                    = distance_of_time_in_words_to_now(Time.now + duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
+                  - else
+                    = t('.no_duration')
+              %td.rec-description-not-recorded{ :colspan => "4" }= t('.not_recorded')
               - span = show_authors ? 3 : 2
-              %td.rec-duration-col{ :colspan => "3" }= meeting.duration

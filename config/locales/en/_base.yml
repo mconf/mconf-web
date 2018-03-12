@@ -94,6 +94,9 @@ en:
       minutes:
         one: 1 min
         other: ! '%{count} min'
+      days:
+        one: 1 day
+        other: ! '%{count} days'
     prompts:
       day: Day
       hour: Hour
