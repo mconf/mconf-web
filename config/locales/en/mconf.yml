@@ -1130,7 +1130,8 @@ en:
       activity_list: "Activity list"
     meetings:
       history: "History"
-      no_meetings_headline: "There are no recordings or conferences to show yet"
+      no_meetings_headline: "There are no conferences to show yet"
+      no_recordings_headline: "There are no recordings to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
       subtitle: "History of web conferences and recordings"

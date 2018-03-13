@@ -4,26 +4,22 @@
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
 
--# = content_for :sidebar do
--#   = render "my/navbar_menu", user_spaces: @user_spaces
--# = render "my/sidebar", user_spaces: @user_spaces
+-# if @meetings.count > 0
+= content_for :sidebar do
+  .sidebar-title= t('.history')
+= content_for :sidebar_menu do
+  %ul
+    %li{ class: "#{'active' if params[:recordedonly] == 'false' }" }
+      = link_to my_meetings_path(recordedonly: 'false') do
+        - if params[:recordedonly] == 'false'
+          = icon_sidebar_arrow
+        = t(".recordedonly_false")
 
-- if @meetings.count > 0
-  = content_for :sidebar do
-    .sidebar-title= t('.history')
-  = content_for :sidebar_menu do
-    %ul
-      %li{ class: "#{'active' if params[:recordedonly] == 'false' }" }
-        = link_to my_meetings_path(recordedonly: 'false') do
-          - if params[:recordedonly] == 'false'
-            = icon_sidebar_arrow
-          = t(".recordedonly_false")
-
-      %li{ class: "#{'active' if params[:recordedonly].nil? }" }
-        = link_to  my_meetings_path do
-          - if params[:recordedonly].nil?
-            = icon_sidebar_arrow
-          = t(".recordedonly_true")
+    %li{ class: "#{'active' if params[:recordedonly].nil? }" }
+      = link_to  my_meetings_path do
+        - if params[:recordedonly].nil?
+          = icon_sidebar_arrow
+        = t(".recordedonly_true")
 
 - cls = @meetings.count <= 0 ? 'empty' : ''
 #my-meetings{ class: cls }
@@ -33,5 +29,8 @@
       = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path }
 
   - else
-    %h2= t('.no_meetings_headline')
+    -if params[:recordedonly] == 'false'
+      %h2= t('.no_meetings_headline')
+    -else
+      %h2= t('.no_recordings_headline')
     #no-meetings-logo
