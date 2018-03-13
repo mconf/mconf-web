@@ -1070,19 +1070,27 @@ strong.highlight {
 }
 
 #confirmation-dialog {
+  .modal-content {
+    border-radius: 8px;
+  }
+
   .modal-body {
     text-align: center;
   }
 
   .modal-body {
-    @include font-size($m-font-medium);
-    padding: 30px;
+    padding: 40px 40px 0 40px;
+    font-size: 22px;
+    color: $m-text;
   }
 
   .modal-footer {
+    padding: 10px 10px 30px 10px;
+
     // wider space between footer buttons and links
     .btn, a {
       margin: 0 3px;
+      display: block;
     }
   }
 }

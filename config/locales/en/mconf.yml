@@ -48,8 +48,8 @@ en:
       deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
-      cancel: "Cancel"
-      confirm: "OK"
+      cancel: "No"
+      confirm: "Yes, I'm sure"
       or: "or"
       title: "Confirmation"
     copy_modal:
@@ -1343,7 +1343,7 @@ en:
     recording_list:
       created_by: "Created by"
       delay_warning: "(recordings can take a few minutes to appear after the end of a meeting)"
-      delete: "Remove recording"
+      delete: "Remove"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
       duration: "Duration"

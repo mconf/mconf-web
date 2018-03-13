@@ -118,7 +118,6 @@
                       - if recording.room.owner_type == "User"
                         - if can?(:user_edit, recording)
                           = link_to edit_my_recording_path(recording), class: "tooltipped open-modal" do
-                            = icon_edit
                             = t('.edit')
                       - else
                         - if can?(:space_edit, recording)
@@ -127,7 +126,6 @@
                             = t('.edit')
                     %li
                       = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('.destroy_confirm') }, method: :delete do
-                        = icon_delete(alt: t('.delete'))
                         = t('.delete')
 
             - else

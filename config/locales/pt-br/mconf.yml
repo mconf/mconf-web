@@ -48,8 +48,8 @@ pt-br:
       deleted_tooltip: "Este usuário não está mais registrado"
   _js:
     confirmation_dialog:
-      cancel: "Cancelar"
-      confirm: "OK"
+      cancel: "Não"
+      confirm: "Sim, tenho certeza"
       or: "ou"
       title: "Confirmação"
     copy_modal:
@@ -1006,7 +1006,7 @@ pt-br:
       available_false: "Não disponíveis"
       available_true: "Disponíveis"
       confirm_delete: "Tem certeza que deseja remover esta gravação? Esta operação também remove os arquivos do servidor e é irreversível. Tenha certeza que já salvou esta gravação antes de prosseguir."
-      delete: "Remover gravação"
+      delete: "Remover"
       direct_link: "Link direto"
       edit: "Editar gravação"
       filter_name: "Filtrar por nome, descrição ou ID da gravação"
