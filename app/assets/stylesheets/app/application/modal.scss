@@ -30,7 +30,12 @@
 // make the background of modals darker
 .modal-scrollable {
   background: rgba(0,0,0,0.4);
+
+  .modal-content {
+    border-radius: 8px;
+  }
 }
+
 .modal-open .modal {
   background: none;
 }

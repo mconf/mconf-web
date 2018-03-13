@@ -1,7 +1,6 @@
 #edit-webconference-recording
 
   .modal-header
-    = modal_close_button
     %h3= t('.title')
 
   = simple_form_for @recording, :html => { :class => "single-column" } do |f|
@@ -9,4 +8,4 @@
       = hidden_field_tag :redir_url, @redir_url
       = f.input :description, :autofocus => true
     .modal-footer
-      = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true
+      = f.button :wrapped, t("save"), :class => "btn btn-default", :cancel_modal => true

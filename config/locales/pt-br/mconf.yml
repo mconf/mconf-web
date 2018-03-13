@@ -1112,7 +1112,7 @@ pt-br:
       events_list: Eventos
       spaces_list: Comunidades
     edit_recording:
-      title: "Editar sua gravação"
+      title: "Editar descrição"
     home:
       create_space: "Criar uma comunidade"
       events:
@@ -1375,7 +1375,7 @@ pt-br:
       destroy_confirm: "Você tem certeza que deseja remover esta gravação permanentemente?"
       description: "Descrição"
       duration: "Duração"
-      edit: "Editar esta gravação"
+      edit: "Editar descrição"
       manage: "Gerenciar"
       no_description: "<nenhuma descrição especificada>"
       no_meetings: "Ainda não existem reuniões ou gravações nesta sala."

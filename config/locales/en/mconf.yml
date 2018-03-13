@@ -1105,7 +1105,7 @@ en:
       events_list: Events
       spaces_list: Spaces
     edit_recording:
-      title: "Edit your recording"
+      title: "Edit description"
     home:
       create_space: "Create a new space"
       events:
@@ -1347,7 +1347,7 @@ en:
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
       duration: "Duration"
-      edit: "Edit this recording"
+      edit: "Edit description"
       manage: "Manage"
       no_description: "<no description specified>"
       no_meetings: "There are no meetings or recordings in this room yet."

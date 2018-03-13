@@ -1,0 +1,18 @@
+@import "compass/css3";
+@import "definitions";
+
+body.my.meetings {
+
+  .modal-header {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    float: left;
+    margin-left: 2%;
+  }
+
+  .modal-body {
+    label.control-label.text.optional {
+      visibility: collapse;
+    }
+  }
+}
