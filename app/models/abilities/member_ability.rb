@@ -228,7 +228,7 @@ module Abilities
       end
 
       # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
-      can [:update, :unpublish], BigbluebuttonRecording do |recording|
+      can [:update, :unpublish, :publish, :destroy], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
           user_is_admin_of_meetings_space(user, recording)
       end
