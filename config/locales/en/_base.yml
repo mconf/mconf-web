@@ -94,6 +94,9 @@ en:
       minutes:
         one: 1 min
         other: ! '%{count} min'
+      seconds:
+        one: 1 sec
+        other: ! '%{count} sec'
       days:
         one: 1 day
         other: ! '%{count} days'
