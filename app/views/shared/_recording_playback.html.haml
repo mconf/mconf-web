@@ -8,7 +8,7 @@
   %ul.recording-playback-links
     %li
       %span.thread-playback-processing= '...'
-      = icon_help(t('.processing_tip'))
+      = icon_help(title: t('.processing_tip'))
       -# %span.playback-unavailable= t('.unavailable')
       -# = icon_help(t('.unavailable_tip'))
 - elsif recording.published?
@@ -22,6 +22,6 @@
     %ul.recording-playback-links
       %li
         %span.thread-playback-processing= '...'
-        = icon_help(t('.processing_tip'))
+        = icon_help(title: t('.processing_tip'))
         -# %span.thread-playback-processing= t('.processing_dots')
         -# = icon_help(t('.processing_tip'))

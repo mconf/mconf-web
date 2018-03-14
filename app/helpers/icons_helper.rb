@@ -307,7 +307,7 @@ module IconsHelper
   end
 
   # Default icon that shows a tooltip with help about something
-  def icon_help(title=nil, options={})
+  def icon_help(options={})
     material_icon_constructor "help_outline", "icon material-icons icon icon-help", options
   end
 
