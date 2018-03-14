@@ -85,14 +85,10 @@
 
               %td.thin.rec-status-column
                 - if recording.available?
-                  .dropdown
-                    .dropdown-toggle{ data: { toggle: "dropdown" } }
-                      - if recording.published?
-                        = icon_visibility
-                        -#= t('.published')
-                      - else
-                        = icon_visibility_private
-                        -#= t('.unpublished')
+                  - if recording.published?
+                    = icon_visibility(title: t('.published'))
+                  - else
+                    = icon_visibility_private(title: t('.unpublished'))
                 - else
                   = icon_visibility_off
 
