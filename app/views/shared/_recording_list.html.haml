@@ -93,17 +93,6 @@
                       - else
                         = icon_visibility_private
                         -#= t('.unpublished')
-                    %ul.dropdown-menu
-                      - if recording.published?
-                        %li
-                          = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            -# = icon_unpublish(alt: t('.unpublish'))
-                            = t('.unpublish')
-                      - else
-                        %li
-                          = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            -# = icon_publish(alt: t('.publish'))
-                            = t('.publish')
                 - else
                   = icon_visibility_off
 
@@ -124,6 +113,13 @@
                           = link_to space_edit_recording_path(recording.room.owner, recording), class: "tooltipped open-modal" do
                             = icon_edit
                             = t('.edit')
+                    %li
+                      - if recording.published?
+                        = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
+                          = t('.private')
+                      - else
+                        = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
+                          = t('.publish')
                     %li
                       = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('.destroy_confirm') }, method: :delete do
                         = t('.delete')

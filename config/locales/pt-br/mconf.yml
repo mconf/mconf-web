@@ -1387,6 +1387,7 @@ pt-br:
       started_time: "Hora"
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
+      private: "Tornar privado"
       publish: "Tornar visível"
       published: "Visível"
       status: "Status"
