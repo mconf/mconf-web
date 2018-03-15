@@ -70,9 +70,13 @@
     i {
       font-size: 30px;
       color: $m-green-soft;
+      line-height: 0.7;
       width: 20px;
       height: 20px;
       margin: 0 3px;
+      .icon-archive {
+        line-height: 0.6;
+      }
     }
   }
 
