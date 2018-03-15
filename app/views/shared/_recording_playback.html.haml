@@ -14,7 +14,7 @@
 - elsif recording.published?
   - if recording.playback_formats.size > 0
     %ul.recording-playback-links
-      - recording.playback_formats.ordered.each do |playback|
+      - recording.playback_formats.sort_by{|e| e[:playback_type_id]}.each do |playback|
         - if playback.visible? || show_invisible
           %li
             = link_to_playback(recording, playback)
