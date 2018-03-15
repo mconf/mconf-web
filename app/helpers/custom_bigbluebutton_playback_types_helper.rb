@@ -22,8 +22,10 @@ module CustomBigbluebuttonPlaybackTypesHelper
       link_params.merge!(name: name.parameterize('_'))
     end
 
-    if ['presentation_video', 'presentation_export'].include?(playback.identifier)
+    if ['presentation_video'].include?(playback.identifier)
       playback_icon = icon_file_download
+    elsif ['presentation_export'].include?(playback.identifier)
+      playback_icon = icon_archive
     else
       playback_icon = icon_conference_play
     end

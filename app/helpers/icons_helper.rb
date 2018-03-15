@@ -355,6 +355,22 @@ module IconsHelper
     material_icon_constructor "power_settings_new", "icon material-icons icon-logout", options
   end
 
+  def icon_broken(options={})
+    material_icon_constructor "broken_image", "icon material-icons icon-broken", options
+  end
+
+  def icon_processing(options={})
+    material_icon_constructor "sync", "icon material-icons icon-processing", options
+  end
+
+  def icon_processing_fail(options={})
+    material_icon_constructor "sync_problem", "icon material-icons icon-processing-fail", options
+  end
+
+  def icon_archive(options={})
+    material_icon_constructor "archive", "icon material-icons icon-archive", options
+  end
+
   private
 
   # Base method for most of the methods above

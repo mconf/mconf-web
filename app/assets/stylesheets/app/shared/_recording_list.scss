@@ -80,4 +80,11 @@
     color: #bbb;
     float: right;
   }
+
+  .meeting-date-col, .meeting-time-col, .rec-duration-col, .rec-description-col,
+  .rec-status-col, .rec-playback-col, .options-col, .meeting-date-column,
+  .meeting-time-column, .rec-duration-column, .rec-status-column, .rec-playback-column,
+  .options-column {
+    white-space: nowrap;
+  }
 }

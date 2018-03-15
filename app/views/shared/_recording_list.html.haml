@@ -21,13 +21,13 @@
           %th.col-sm-1.rec-playback-col= t(".playback_links")
           - total_columns = 6
         - else
-          %th.col-sm-1.meeting-date-col= t(".started_date")
-          %th.col-sm-1.meeting-time-col= t(".started_time")
-          %th.col-sm-1.rec-duration-col= t(".duration")
-          %th.col-sm-4.rec-description-col= t(".description")
-          %th.col-sm-1.rec-status-col= t(".status")
-          %th.col-sm-2.rec-playback-col= t(".playback_links")
-          %th.col-sm-1.options-col
+          %th.meeting-date-col= t(".started_date")
+          %th.meeting-time-col= t(".started_time")
+          %th.rec-duration-col= t(".duration")
+          %th.rec-description-col= t(".description")
+          %th.rec-status-col= t(".status")
+          %th.rec-playback-col= t(".playback_links")
+          %th.options-col
           - total_columns = 6
     %tbody
       - if meetings.count <= 0
@@ -86,11 +86,14 @@
               %td.thin.rec-status-column
                 - if recording.available?
                   - if recording.published?
-                    = icon_visibility(title: t('.published'))
+                    - if recording.playback_formats.size > 0
+                      = icon_visibility(title: t('.published'))
+                    -else
+                      = icon_processing(title: t('.processing'))
                   - else
                     = icon_visibility_private(title: t('.unpublished'))
                 - else
-                  = icon_visibility_off
+                  = icon_broken(title: t('.unavailable'))
 
               %td.rec-playback-column
                 = render partial: 'shared/recording_playback', locals: { recording: recording }
