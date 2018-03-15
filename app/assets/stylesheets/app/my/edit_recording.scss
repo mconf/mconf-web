@@ -2,17 +2,18 @@
 @import "definitions";
 
 body.my.meetings {
+  #edit-webconference-recording {
+    .modal-header {
+      padding-top: 50px;
+      padding-bottom: 20px;
+      float: left;
+      margin-left: 2%;
+    }
 
-  .modal-header {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    float: left;
-    margin-left: 2%;
-  }
-
-  .modal-body {
-    label.control-label.text.optional {
-      visibility: collapse;
+    .modal-body {
+      label.control-label.text.optional {
+        visibility: collapse;
+      }
     }
   }
 }
