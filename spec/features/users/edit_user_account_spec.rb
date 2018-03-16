@@ -11,17 +11,17 @@ feature 'Editing a user account', with_truncation: true do
   let!(:admin) { FactoryGirl.create(:superuser) }
   let!(:user) { FactoryGirl.create(:user) }
 
-  scenario "a user updating his account should stay in the edit page" do
+  scenario "a user updating his account should go to the show page" do
     sign_in_with user.username, user.password
 
     visit my_home_path
     find("a[href='#{ edit_user_path(user) }']").click
     find("[name='commit']", match: :first).click
 
-    expect(current_path).to eq(edit_user_path(user))
+    expect(current_path).to eq(user_path(user))
   end
 
-  scenario "an admin updating a user account should stay in the edit page" do
+  scenario "an admin updating a user account should go to the show page" do
     sign_in_with admin.username, admin.password
 
     visit manage_users_path(q: user.username.first(3), admin: false)
@@ -29,7 +29,7 @@ feature 'Editing a user account', with_truncation: true do
     save_page
     find("[name='commit']", match: :first).click
 
-    expect(current_path_with_query).to eq(edit_user_path(user))
+    expect(current_path_with_query).to eq(user_path(user))
   end
 
   # # bug1719 - Waiting for javascript tests

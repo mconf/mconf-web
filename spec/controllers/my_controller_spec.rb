@@ -22,7 +22,7 @@ describe MyController do
       }
       it { should respond_with(:success) }
       it { should render_template(:approval_pending) }
-      it { should render_with_layout("navbar_bg") }
+      it { should render_with_layout("no_sidebar") }
     end
 
     context "renders the page if the referer is /" do
