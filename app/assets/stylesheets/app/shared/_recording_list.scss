@@ -67,12 +67,12 @@
   }
 
   .recording-playback-links, .recording-playback-options {
+    float: left;
+
     i {
       font-size: 30px;
       color: $m-green-soft;
       line-height: 0.7;
-      width: 20px;
-      height: 20px;
       margin: 0 3px;
       .icon-archive {
         line-height: 0.6;
@@ -88,7 +88,7 @@
   .meeting-date-col, .meeting-time-col, .rec-duration-col, .rec-description-col,
   .rec-status-col, .rec-playback-col, .options-col, .meeting-date-column,
   .meeting-time-column, .rec-duration-column, .rec-status-column, .rec-playback-column,
-  .options-column {
+  .options-column, .recording-playback-links {
     white-space: nowrap;
   }
 }
