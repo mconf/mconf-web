@@ -40,6 +40,10 @@ pt-br:
       success: 'Autenticado com sucesso com uma conta de %{kind}.'
     passwords:
       no_token: "Você só pode acessar essa página através de um e-mail de troca de senha. Se já estiver acessando por um e-mail, verifique se a URL fornecida está completa."
+      reset_email:
+        title: "Pronto!"
+        login: "LOGIN"
+        description: "Um email será enviado para %(email) com instruções para redefinir sua senha."
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a troca da sua senha.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail.'
       updated: 'Sua senha foi alterada com sucesso.'

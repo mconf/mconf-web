@@ -6,10 +6,16 @@
 # 3 or later. See the LICENSE file.
 
 class PasswordsController < Devise::PasswordsController
-  layout 'navbar_bg'
+  layout 'no_sidebar'
 
   before_filter :check_only_local_authentication, :only => [:new]
   before_filter :sanitize_parameters, only: [:create]
+
+  protected
+
+  def after_sending_reset_password_instructions_path_for(resource_name)
+    reset_email_path
+  end
 
   private
 

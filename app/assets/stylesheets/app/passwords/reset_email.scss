@@ -1,0 +1,47 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body.passwords.reset_email {
+
+  #content-middle {
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+
+    #password-reset-email-wrapper {
+      @include make-sm-column(12);
+      @include make-md-column(6);
+      @include make-sm-column-offset(0);
+      @include make-md-column-offset(3);
+
+      #email-logo {
+        @include make-row;
+
+        margin: 50px auto 0 auto;
+        float: none;
+        padding: 17%;
+        overflow: visible;
+
+        background: image-url('logos/Email.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
+      }
+
+      .description {
+        margin: 40px 0;
+        padding: 24px 0;
+        font-size: 25px;
+      }
+
+      .btn-block {
+        background: $m-green-soft;
+        color: $m-very-light-gray;
+        font-size: 20px;
+        font-weight: $m-font-weight-bold;
+      }
+    }
+  }
+
+}
