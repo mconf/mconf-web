@@ -89,11 +89,11 @@
                     - if recording.playback_formats.size > 0
                       = icon_visibility(title: t('.published'))
                     -else
-                      = icon_processing(title: t('.processing'))
+                      = icon_processing(title: t('.processing_tip'))
                   - else
                     = icon_visibility_private(title: t('.unpublished'))
                 - else
-                  = icon_broken(title: t('.unavailable'))
+                  = icon_broken(title: t('.unavailable_tip'))
 
               %td.rec-playback-column
                 = render partial: 'shared/recording_playback', locals: { recording: recording }
