@@ -356,11 +356,11 @@ module IconsHelper
   end
 
   def icon_broken(options={})
-    material_icon_constructor "broken_image", "icon material-icons icon-broken", options
+    material_icon_constructor "error", "icon material-icons icon-broken", options
   end
 
   def icon_processing(options={})
-    material_icon_constructor "sync", "icon material-icons icon-processing", options
+    material_icon_constructor "watch_later", "icon material-icons icon-processing", options
   end
 
   def icon_processing_fail(options={})
@@ -368,7 +368,7 @@ module IconsHelper
   end
 
   def icon_archive(options={})
-    material_icon_constructor "archive", "icon material-icons icon-archive", options
+    material_icon_constructor "folder", "icon material-icons icon-archive", options
   end
 
   private
