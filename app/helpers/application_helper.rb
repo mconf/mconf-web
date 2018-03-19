@@ -259,4 +259,17 @@ module ApplicationHelper
   def sessions_menu_is(tab)
     @sessions_menu_tab == tab
   end
+
+  def is_on_page(controller, action=nil)
+    controller = [controller] unless controller.is_a?(Array)
+    if action.present?
+      action = [action] unless action.is_a?(Array)
+    end
+
+    if (controller.include? (params[:controller]))
+      action.present? ? (action.include?(params[:action])) : true
+    else
+      false
+    end
+  end
 end

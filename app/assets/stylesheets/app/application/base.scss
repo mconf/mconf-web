@@ -228,19 +228,19 @@ form {
     }
     .user-name {
       display: inline;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-mail {
       display: inline;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-organization {
       display: block;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
     .user-location {
       display: block;
-      @include text-truncate;
+      @include text-truncate(nowrap);
     }
   }
 }
@@ -311,7 +311,7 @@ form {
   .space-item {
     @include mconf-clearfix;
     margin: 16px 0;
-    @include text-truncate;
+    @include text-truncate(nowrap);
     white-space: nowrap;
 
     > .logo {
@@ -345,6 +345,7 @@ form {
 }
 
 #navbar {
+
   margin: 0;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(to top, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
@@ -368,7 +369,7 @@ form {
   }
 
   .btn-navbar {
-    $imgsize: $m-navbar-btn-size * 0.65;
+    $imgsize: $m-navbar-btn-size * 0.9;
 
     height: $m-navbar-btn-size;
     width: $m-navbar-btn-size;
@@ -379,39 +380,50 @@ form {
     float: left;
     transition: all .3s ease-in-out;
     color: $m-navbar-btn-color;
+    text-align: left;
 
     .icon {
-      color: #fff;
+      color: $m-navbar-btn-color;
       font-size: $imgsize;
       line-height: 1;
       margin: 0;
       width: 100%;
-      text-align: center;
+      padding-top: 1px;
 
       &:hover { color: #fff; }
 
       &.icon-options {
-        $imgsize: $imgsize - 4;
+        $imgsize: $imgsize - 2;
         font-size: $imgsize;
         /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
-        padding: 1px 0;
+        padding: 1px 0 0 1px;
       }
+
       &.icon-conference-invite {
-        $imgsize: $imgsize - 10;
+        $imgsize: $imgsize - 6;
         font-size: $imgsize;
         /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
-        padding: 6px 0;
+        padding-top: 5px;
       }
     }
 
     &:hover {
       background: $m-navbar-btn-bg-hover;
-      transform: scale(1.05);
+      transform: scale(1.15);
+    }
+  }
+
+ .navbar-user-chip.open {
+    .navbar-user-toggle {
+      .border {
+        border: $m-logo-border-size solid $m-green-soft;
+        border-radius: 50%;
+      }
     }
   }
 
   .navbar-user-chip {
-    margin: ($m-navbar-height - $m-navbar-btn-size)/2 0;
+    margin: ($m-navbar-height - $m-navbar-btn-size - $m-logo-border-size - $m-logo-border-size)/2 0;
 
     .navbar-user-toggle {
       /* font-size: $m-font-medium; */
@@ -421,24 +433,27 @@ form {
         background: $m-navbar-font-highlight;
       }
 
+      .border {
+        border: $m-logo-border-size solid $m-logo-border;
+        border-radius: 50%;
+      }
+
+      .border:hover {
+        border: $m-logo-border-size solid $m-green-soft;
+        border-radius: 50%;
+      }
+
       img, .logo-user {
         height: $m-navbar-btn-size;
         width: $m-navbar-btn-size;
         float: none;
-        margin: 0 16px 0 0;
         display: inline-block;
-        border: 1px solid $m-logo-border;
-        font-size: $m-font-big;
+        border: $m-logo-border-size solid $m-logo-border;
+        font-size: $m-logo-font-size;
 
         &.logo-initials {
-          padding: ($m-navbar-btn-size - $m-font-big)/2 0;
+          padding: $m-logo-initials-padding;
         }
-      }
-
-      .username {
-        display: inline-block;
-        font-size: $m-font-big;
-        vertical-align: middle;
       }
     }
 
@@ -448,9 +463,10 @@ form {
       @include box-shadow(none);
 
       .observation {
-        padding: 3px 14px;
+        padding: 10px 14px;
         font-size: $m-font-small;
-        color: $m-font-color-gray;
+        font-weight: $m-font-weight-bold;
+        color: $m-text;
       }
     }
   }
@@ -470,17 +486,27 @@ form {
 #navbar-left {
   @include navbar-lists;
   float: right;
+
+  &.anonymous{
+    margin: 15px 0;
+    border-right: 1px solid $m-logo-border;
+
+    #navbar-left-links{
+      margin: -15px 0;
+    }
+  }
 }
+
 
 #navbar-logo {
   white-space: nowrap;
-  margin: ($m-navbar-height - 60px)/2 0;
+  margin-top: ($m-navbar-height - 44px)/2;
   @include mconf-clearfix;
   display: inline-block;
   background: image-url('logos/mconf-color-transp.png') no-repeat left top;
-  background-size: 116px 60px;
-  width: 116px;
-  height: 60px;
+  background-size: 75px 39px;
+  width: 75px;
+  height: 39px;
   float: left;
 }
 
@@ -498,23 +524,20 @@ form {
 }
 
 #footer, #footer-mconf {
-  /* TODO TEMPORARY */
-  display:none;
-
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 10px 0 0 0;
+  padding: 10px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
   /* padding-left: $m-sidenav-width-md; */
 
   clear: both;
   color: $m-footer-font-color;
   //margin-top: 30px;
   background: $m-footer-bg-color;
-  border-top: 1px solid $m-footer-border-color;
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
+    text-decoration: none;
   }
 
   #footer-left {
@@ -524,6 +547,11 @@ form {
   }
 
   #footer-right {
+    a {
+      @include link-colors($m-footer-link-color, $m-very-light-gray, $m-very-light-gray);
+      text-decoration: none;
+      text-align: left;
+    }
     text-align: right;
     @include make-xs-column(5);
     padding: 0 16px;
@@ -534,8 +562,10 @@ form {
   #footer-links {
     list-style-type: none;
     @include mconf-clearfix;
-    float: right;
+    float: left;
     padding: 2px 8px;
+    font-weight: bold;
+    fint-size: 15px;
 
     li {
       float: left;
@@ -546,6 +576,11 @@ form {
   #footer-languages {
     float: right;
     font-size: $m-font-small;
+
+    img {
+      vertical-align: text-top;
+      margin-right: 10px;
+    }
   }
 
   #footer-copyright {
@@ -575,32 +610,37 @@ form {
   @include make-row;
   width: 100%;
   margin: 0 auto;
+  padding: 0 $m-site-horizontal-padding;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
   @include mconf-clearfix;
   overflow: visible;
+  clear: both;
 }
 
 #sidebar, .sidebar {
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding: $m-sidebar-padding;
 
-  margin: $m-content-vertical-padding 0 0 $m-content-vertical-padding;
+  margin-top: $m-sidebar-margin-top;
   border-radius: 4px;
   border: 0;
 
   .sidebar-title {
-    font-size: $m-font-double;
+    font-size: $m-font-triple;
     line-height: 1.1;
-    margin-bottom: 15px;
-    padding: 0 10px;
-    text-align: center;
+    padding: 0 10px 40px 0;
+    text-align: left;
+    border: none;
+    color: $m-titles;
+    background: $m-site-bg-color;
+    font-weight: $m-font-weight-bold;
   }
 
   .sidebar-subtitle {
-    font-size: 14px;
+    font-weight: bold;
+    font-size: $m-font-normal;
     line-height: 1.3;
     margin-bottom: 15px;
     padding: 0 10px;
@@ -700,9 +740,11 @@ form {
 }
 
 #sidebar-menu {
-  font-size: $m-font-medium;
+  font-size: $m-font-big;
   @include mconf-clearfix;
-  text-align: right;
+  text-align: left;
+  border-radius: 2px;
+  box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
 
   ul {
     margin: 0;
@@ -710,36 +752,37 @@ form {
   }
 
   li {
-    margin: 20px 0;
     display: block;
+    transition: all 0.1s ease-in;
+
+    &:hover, &:focus {
+      a {
+        font-weight: bold;
+        color: $m-light-gray;
+      }
+      .icon {
+        color: $m-light-gray;
+      }
+    }
+
+    &.active {
+      background: $m-color-primary-heavy;
+      a {
+        color: $m-light-gray;
+      }
+    }
 
     a {
-      @include link-colors($m-font-color, $m-link-color-hover, $m-link-color-hover, $m-font-color);
+      @include link-colors($m-text, $m-light-gray, $m-light-gray);
       white-space: nowrap;
       display: block;
-      border-right: $m-active-item-border-off;
-      padding: 5px 15px;
+      padding: 25px 24px 25px 15px;
       position: relative;
-      padding-right: 30px;
-
-      &::after {
-        content: '';
-        border-bottom: 4px solid transparent;
-        border-top: 4px solid transparent;
-        border-left: 4px solid $m-border-color-normal;
-        display: inline-block;
-        height: 0;
-        /* opacity: 0.3; */
-        vertical-align: top;
-        width: 0;
-        top: 12px;
-        right: 5px;
-        position: absolute;
-      }
 
       &:hover, &:focus, &.active {
+        background: $m-color-primary-heavy;
         text-decoration: none;
-        color: $m-active-item-border-color;
+        color: #fff;
         &::after {
           border-left-color: $m-active-item-border-color;
         }
@@ -751,15 +794,26 @@ form {
         /*   color: $m-active-item-border-color; */
         /* } */
       }
+
+      .icon {
+        color: $m-text;
+        &.icon-sidebar-arrow {
+          color: $m-light-gray;
+          transition: all 0.1s ease-in;
+          vertical-align: text-top;
+          float: right;
+          line-height: 0.8;
+        }
+      }
     }
   }
 }
 
 #content-middle {
-  background-color: $m-site-bg-color;
+  background-color: transparent;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-content-vertical-padding $m-site-horizontal-padding;
+  padding: $m-site-vertical-padding 0 $m-content-vertical-padding 0;
 
   h1 {
     text-align: center;
@@ -1016,19 +1070,27 @@ strong.highlight {
 }
 
 #confirmation-dialog {
+  .modal-content {
+    border-radius: 8px;
+  }
+
   .modal-body {
     text-align: center;
   }
 
   .modal-body {
-    @include font-size($m-font-medium);
-    padding: 30px;
+    padding: 40px 40px 0 40px;
+    font-size: 22px;
+    color: $m-text;
   }
 
   .modal-footer {
+    padding: 10px 10px 30px 10px;
+
     // wider space between footer buttons and links
     .btn, a {
       margin: 0 3px;
+      display: block;
     }
   }
 }

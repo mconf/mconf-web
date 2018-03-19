@@ -68,7 +68,7 @@ feature "Confirmation instructions" do
       mail_content(last_email).should match(t('shared.welcome.lets_start.confirm_email_btn'))
       mail_content(last_email).should match(t('_other.hi_name', name: user.first_name))
 
-      current_path.should eq(new_user_session_path)
+      current_path.should eq(reset_email_path)
       has_success_message
     end
 
@@ -83,7 +83,7 @@ feature "Confirmation instructions" do
         }.not_to send_email
       end
 
-      current_path.should eq(new_user_session_path)
+      current_path.should eq(reset_email_path)
       has_success_message
     end
 
@@ -96,7 +96,7 @@ feature "Confirmation instructions" do
         }.not_to send_email
       end
 
-      current_path.should eq(new_user_session_path)
+      current_path.should eq(reset_email_path)
       has_success_message
     end
   end

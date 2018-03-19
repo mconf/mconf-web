@@ -31,7 +31,7 @@
       .showable_password_show, .showable_password_hide {
         position: absolute;
         right: 12px;
-        top: 12px;
+        top: 13px;
         cursor: pointer;
       }
 
@@ -88,8 +88,18 @@
     }
 
     input.string, input.password, input.numeric, input.fake, textarea, select {
-      width: 100%
+      width: 100%;
     }
+
+    select {
+      box-shadow: none;
+      padding: 6px 17px;
+      height: auto;
+      font-size: $m-font-fields;
+      color: $m-text;
+      border: $m-sf-field-border;
+    }
+
     select.datetime {
       width: 13%;
     }
@@ -173,12 +183,26 @@
 // override a few things in inputs that we can't do with variables only
 .form-control {
   box-shadow: none;
-  padding: 7px 10px;
-  height: auto;
-  font-size: $m-font-medium;
+  padding: 6px 17px;
+  height: 45px;
+  font-size: $m-font-fields;
+  color: $m-text;
+  border: $m-sf-field-border;
+
+  &::placeholder {
+    color: $m-sf-placeholder-color;
+  }
+
+  &.disabled {
+    color: $m-disabled-placeholder-text;
+  }
+
+  &:hover:not(.disabled) {
+    text-shadow: $m-bold-by-shadow;
+  }
 
   &:focus {
-    background: $m-input-focus-bg;
+    border: $m-sf-field-border-focused;
   }
 }
 .has-error .form-control:focus {

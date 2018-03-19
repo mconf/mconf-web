@@ -5,7 +5,8 @@
 // some styles defined in the partial below
 @import "app/spaces/_list_item";
 
-body.users.show {
+body.users.show, body.users.edit_data, body.users.password_edit,
+body.users.update {
 
   .profile-info {
     @include make-xs-column(12);
@@ -18,41 +19,139 @@ body.users.show {
     @include make-md-column(6);
   }
 
-  .resource-card {
-    width: 100%;
-    max-width: 800px;
-    margin: 24px auto 40px auto;
+  .container-fluid {
+    background: $m-site-content-bg-color;
+    max-width: 500px;
+    margin: 149px auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+    text-align: center;
+    overflow: visible !important;
+    display: block !important;
 
-    .resource-logo {
-      width: 250px;
-      float: left;
-      text-align: right;
+    @include logo-container;
+
+    img, .logo-user {
+      height: 200px;
+      width: 200px;
+      float: none;
+      margin-top: -25%;
+      display: inline-block;
+      border: 1px solid $m-logo-border;
+      border-radius: 50%;
+      font-size: $m-font-big;
+
+      &.logo-initials {
+        padding: 80px 0;
+        font-size: 40px;
+      }
     }
 
-    .resource-data {
-      padding-left: 40px;
-      width: calc(100% - 290px);
-      float: left;
+    .btn.btn-default.dropdown-toggle {
+      margin-top: -25%;
+      background: none;
+
+      img, .logo-user {
+        height: 200px;
+        width: 200px;
+        float: none;
+        display: inline-block;
+        border: 1px solid $m-logo-border;
+        border-radius: 50%;
+        font-size: $m-font-big;
+
+        &.logo-initials {
+          padding: 80px 0;
+          font-size: 40px;
+          margin: auto 50px;
+        }
+      }
+    }
+
+    .dropdown-menu-right {
+      margin: 1px 55px 0;
+      text-align: center;
+      transform: translate(-60%, 0);
+
+      .file-uploader-logo {
+        position: relative;
+
+        .upload-button {
+          background: $m-site-content-bg-color;
+          color: #000;
+
+          &:hover {
+            background: $m-green-mconf;
+            color: $m-site-content-bg-color;
+          }
+        }
+      }
+    }
+
+    .resource-card {
+      width: 100%;
+      max-width: 800px;
+      margin: 24px auto 40px auto;
       text-align: left;
-    }
 
-    .field {
-      margin-bottom: 8px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #eee;
-
-      span {
-        display: block;
+      .resource-data {
+        @include make-row;
+        padding-left: 40px;
+        width: 100%;
+        float: left;
+        text-align: center;
       }
 
-      &:last-child {
-        border: 0;
-      }
-    }
+      .field {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 40px;
 
-    .field-title {
-      font-size: $m-font-small;
-      color: $m-font-light;
+        .field-value {
+          @include text-truncate(normal);
+          color: $m-font-color-default;
+          font-size: 20px;
+          margin-bottom: 5px;
+
+          &.name, &.title {
+            font-weight: bold;
+            margin-bottom: 20px;
+          }
+
+          &.description {
+            margin-top: 20px;
+          }
+        }
+
+        .form-group {
+          text-align: left;
+        }
+
+        .simple-form-wrapper {
+          max-width: 300px;
+          margin: 0 auto;
+        }
+
+        .btn-group {
+          margin-top: 20px;
+        }
+
+        span {
+          display: block;
+        }
+
+        .border {
+          border-bottom: 1px solid #ccc;
+          margin-top: 20px;
+          margin-left: 40px;
+          margin-right: 40px;
+        }
+      }
+
+      .field-title {
+        font-size: $m-font-small;
+        color: $m-font-light;
+      }
     }
   }
 

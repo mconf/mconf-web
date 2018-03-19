@@ -217,3 +217,84 @@ mark {
   border-radius: $m-border-radius-large;
   display: inline-block;
 }
+
+// buttons default
+.btn-primary {
+  :hover, :active, .active, :focus {
+    background: $m-color-primary-heavy;
+  }
+}
+
+.btn-default {
+  background: $m-site-content-bg-color;
+  border: none;
+  font-size: 22px;
+  transition: all .3s ease;
+  text-decoration: none;
+  color: $m-color-primary-soft;
+  vertical-align: middle;
+  padding: 8px 10px 8px 10px;
+
+  &:disabled {
+    color: $m-gray;
+  }
+
+  &:hover:not(:disabled), &:active:not(:disabled),
+  &:active:hover:not(:disabled), &:focus {
+    background: $m-site-content-bg-color;
+    text-shadow: $m-bold-by-shadow;
+    box-shadow: none;
+    text-decoration: none;
+    color: $m-color-primary-heavy;
+    vertical-align: middle;
+  }
+}
+
+// dropup menu
+.dropdown-toggle {
+  background: $m-site-content-bg-color;
+  border: none;
+  font-size: 15px;
+  color: $m-titles;
+  .icon {
+    transition: all .3s ease;
+  }
+
+  &:hover, &:active, &:active:hover {
+    background: $m-site-content-bg-color;
+    font-weight: bold;
+    box-shadow: none;
+    .icon {
+      color: #000;
+    }
+  }
+}
+
+.open {
+  > .btn-default.dropdown-toggle {
+    &, &:hover, &:active, &:focus {
+      background: $m-site-content-bg-color;
+      font-weight: bold;
+      box-shadow: none;
+        .icon {
+      color: #000;
+      }
+    }
+  }
+}
+
+.dropup{
+  .dropdown-menu {
+    border: none;
+    margin-bottom: 20px;
+    padding: 0;
+  }
+}
+
+.modal-sm {
+  width: 800px;
+}
+
+.modal-dialog {
+  margin: 0 auto;
+}

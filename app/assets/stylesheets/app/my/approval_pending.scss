@@ -8,13 +8,33 @@ body.my.approval_pending {
     margin: 0 auto;
     float: none;
     text-align: center;
-    max-width: $m-contents-width * 0.7;
 
-    .description {
-      margin: 40px 0;
-      padding: 24px 0;
-      border-bottom: 1px solid $m-navbar-internal-border-color;
-      border-top: 1px solid $m-navbar-internal-border-color;
+    #approval-pending-wrapper {
+      @include make-sm-column(12);
+      @include make-md-column(6);
+      @include make-sm-column-offset(0);
+      @include make-md-column-offset(3);
+
+      #profile-logo {
+        @include make-row;
+
+        margin: 50px auto 0 auto;
+        float: none;
+        padding: 17%;
+        overflow: visible;
+
+        background: image-url('logos/Profile.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
+      }
+
+      .description {
+        margin: 40px 0;
+        padding: 24px 0;
+        border-bottom: 1px solid $m-navbar-internal-border-color;
+        border-top: 1px solid $m-navbar-internal-border-color;
+      }
     }
   }
 

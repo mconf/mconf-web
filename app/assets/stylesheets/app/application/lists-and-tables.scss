@@ -79,7 +79,7 @@
 
 // Change the colors for table borders and bgs, make it more like our lists
 .table-wrapper {
-  background: $m-site-content-bg-color;
+  background: $m-site-bg-color;
   @include border-radius($m-border-radius-large);
   padding: 40px 30px 30px 30px;
   /* border: 1px solid $m-border-color-normal; */
@@ -88,33 +88,33 @@
 table, .table {
   margin: 0;
   font-size: $m-font-medium;
+  border-spacing: 0px 15px;
+  border-collapse: separate;
 
   thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
-    font-size: $m-font-small;
-    font-weight: $m-font-weight-normal;
+    font-size: 14px;
+    font-weight: bold;
+    color: $m-titles;
+    border: 0;
   }
 
   tbody {
     tr {
-      /* background: $m-site-content-bg-color; */
       padding: 12px 0;
-      /* border-top: 12px solid $m-site-content-bg-color; */
+      border-top: 12px solid $m-site-bg-color;
       border: 0;
 
-      &:nth-child(even) {
-        background: $m-very-light-gray;
+      &.shadowed {
+        box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
       }
-      /* tr:nth-child(odd) {background: #FFF} */
-
-  /*     &.fadeout { */
-  /*       opacity: 0.6; */
-  /*     } */
 
       td {
-        /* background: $m-site-bg-color; */
         padding: 20px 12px;
-        vertical-align: top;
+        vertical-align: middle;
         border: 0;
+        .dropdown-toggle {
+          background: $m-site-bg-color;
+        }
       }
 
       &:hover {

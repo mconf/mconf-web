@@ -48,8 +48,8 @@ en:
       deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
-      cancel: "Cancel"
-      confirm: "OK"
+      cancel: "No"
+      confirm: "Yes, I'm sure"
       or: "or"
       title: "Confirmation"
     copy_modal:
@@ -521,6 +521,7 @@ en:
     important: Important
     invitation:
       at: "at"
+      date: "Date"
       duration: "Duration"
       later: "Later"
       meeting_in: "Inviting people to a meeting in: %{room}"
@@ -537,6 +538,7 @@ en:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
       logout_guest: "Wrong person? Change it"
+      welcome: "Welcome to webconference room <b>%{room}</b>!"
       title: "Join room: %{name}"
     invite_header:
       identify: "Please identify yourself to join"
@@ -929,7 +931,7 @@ en:
       issues: "Issue tracker"
       links:
         feedback: "Contact"
-        help: Help
+        help: "Help"
         title: Links
       project_website: "Project website"
       sponsors:
@@ -975,7 +977,7 @@ en:
       aspect_ratio: "Fix aspect ratio"
       crop_it: "Use the selected area"
       full_image: "Use the entire image"
-  logout: Logout
+  logout: "Logout"
   manage:
     destroy_space:
       destroy: Delete space
@@ -1058,7 +1060,7 @@ en:
       confirm: "Confirm this user"
       confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
-      disable_confirm: "Are you sure you want to disable this user's account?</br>(The user will receive a notification by email)"
+      disable_confirm: "Are you sure you want to disable this user's account? The user will be removed from all his spaces.</br>(The user will receive a notification by email)"
       disallow_record: "Remove the user's permission to record conferences"
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
@@ -1096,19 +1098,19 @@ en:
       title: "Recent activities"
     approval_pending:
       title: Pending approval
-      description: You have succesfully registered and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      description: You have succesfully registered and your account was submitted to the approval of an administrator. You will be contacted when your account is approved.
       interesting_links: "Meanwhile you can browse the open sections of the website, check the navigation bar at the top of the page!"
       events_list: Events
       spaces_list: Spaces
     edit_recording:
-      title: "Edit your recording"
+      title: "Edit description"
     home:
       create_space: "Create a new space"
       events:
         other: "Other"
         today: "Today"
       hi: "Hi, %{name}!"
-      no_meetings_headline: "Start your first conference and interact with other participants"
+      no_meetings_headline: "Welcome to Mconf! Start your first conference and interact with other participants"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
@@ -1125,7 +1127,9 @@ en:
     page_header:
       activity_list: "Activity list"
     meetings:
-      no_meetings_headline: "There are no recordings or conferences to show yet"
+      history: "History"
+      no_meetings_headline: "There are no conferences to show yet"
+      no_recordings_headline: "There are no recordings to show yet"
       recordedonly_false: "All meetings"
       recordedonly_true: "Recorded only"
       subtitle: "History of web conferences and recordings"
@@ -1265,7 +1269,7 @@ en:
   registrations:
     new:
       headline: "Web Conference Platform"
-      headline2: "focused on distance learning and remote meetings"
+      headline2: "Focused on distance learning and remote meetings"
       title: "Create an account"
     signup_form:
       register: "Register"
@@ -1328,7 +1332,7 @@ en:
       resend_confirmation_email: "Resend confirmation email"
     new:
       headline: "Web Conference Platform"
-      headline2: "focused on distance learning and remote meetings"
+      headline2: "Focused on distance learning and remote meetings"
       title: "Sign into your account"
   session_locales:
     create:
@@ -1338,22 +1342,28 @@ en:
     recording_list:
       created_by: "Created by"
       delay_warning: "(recordings can take a few minutes to appear after the end of a meeting)"
-      delete: "Remove recording"
+      delete: "Remove"
       destroy_confirm: "Are you sure you want to permanently remove this recording?"
       description: "Description"
       duration: "Duration"
-      edit: "Edit this recording"
+      edit: "Edit description"
       manage: "Manage"
       no_description: "<no description specified>"
       no_meetings: "There are no meetings or recordings in this room yet."
-      not_recorded: "(This meeting was not recorded.)"
+      not_recorded: "This meeting was not recorded."
+      no_duration: "-"
       playback_links: "Playback links"
       started_at: "Date - Time"
+      started_date: "Date"
+      started_time: "Time"
       started_at_desc: "This meeting started at %{meeting_start}"
       started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
+      private: "Make it private"
+      processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       publish: "Make it visible"
       published: "Visible"
       status: "Status"
+      unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
       unpublish: "Make it not visible"
       unpublish_confirm: "Are you sure you want to remove this recording?"
       unpublish_unavailable: "This action is not possible because the recording is currently unavailable. Contact an administrator if you wish to remove it from your list."
@@ -1362,9 +1372,7 @@ en:
       duration: "duration"
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
-      processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
       unavailable: "The recording is unavailable"
-      unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
     social_login:
       disclaimer: "We will never post anything without your permission"
       facebook: "Facebook"
@@ -1809,7 +1817,8 @@ en:
       approved: "The user %{name} was approved to access the website!"
       not_enabled: "Approval of users is not enabled in this website or the user is already approved"
     cant_record_reason:
-      user_cannot_record: "The user that created this meeting has no permission to record meetings."
+      other: "You can't record meetings in this room"
+      user_cannot_record: "You don't have permission to record meetings"
     create:
       error: "Errors creating the user: %{errors}"
       success: "User created successfully"
@@ -1831,7 +1840,7 @@ en:
       confirm_user: "Confirm this user's account"
       confirm_user_confirm: "Are you sure you want to confirm this user's account?"
       disable: "Disable this user's account"
-      disable_confirm: "Are you sure you want to disable this user's account?</br>(The user will receive a notification by email)"
+      disable_confirm: "Are you sure you want to disable this user's account? The user will be removed from all his spaces.</br>(The user will receive a notification by email)"
       federated:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"
@@ -1846,18 +1855,32 @@ en:
       public_profile: "Public profile"
       public_profile_tip: "Your public profile is visible to anyone in the Internet"
       title: "Edit your account"
+    edit_data:
+      address: "Address"
+      public_profile: "Public profile"
+      subtitle: "Edit data"
+      title: "Account"
+      remove_picture: "Remove image"
     errors:
       access_forbidden: "This operation is only available to administrators"
+    menu:
+      profile: "Profile"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
       title: "Create user"
+    password_edit:
+      subtitle: "Change password"
+      title: "Account"
     show:
+      data: "Edit data"
       description: "About"
       email: "Email"
       name: "Name"
       organization: "Organization"
+      password: "Change password"
+      title: "Account"
       url: "Website"
       user_spaces: "Membro of the spaces"
   username: Username

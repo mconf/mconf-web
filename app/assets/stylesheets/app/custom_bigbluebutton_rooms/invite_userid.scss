@@ -2,42 +2,66 @@
 @import "compass/css3";
 
 @import "app/custom_bigbluebutton_rooms/_invite_header";
+@import "app/shared/social_login";
 
 body.custom_bigbluebutton_rooms.invite_userid {
 
+&.running {
+  background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('logos/Notebook_online.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
+&:not(.running) {
+  background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
+
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('logos/Notebook_offline.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
   #webconf-room-userid {
-    clear: both;
-    @include make-row;
+    width: 42%;
+    float: right;
+    padding-right: 8%;
+    margin-top: -13%;
 
     #webconf-room-userid-member {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-      @include make-sm-column-push(2);
-      padding-right: 48px;
-      border-right: 1px solid $m-navbar-internal-border-color;
-
-      &.only {
-        @include make-sm-column(4);
-        @include make-sm-column-push(4);
-        border: none;
-      }
     }
 
     #webconf-room-userid-non-member {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-      @include make-sm-column-push(2);
-      padding-left: 48px;
+      @include make-row;
     }
 
     .identify {
       text-align: center;
-      border-bottom: 1px solid $m-navbar-internal-border-color;
     }
 
     h3.title {
       text-align: center;
       margin-bottom: 16px;
+      font-weight: 700;
+      font-size: 22px;
     }
 
     .form-actions {
@@ -46,8 +70,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
       padding-top: 0;
 
       input {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding: 15px;
+        width: 100%;
       }
     }
   }

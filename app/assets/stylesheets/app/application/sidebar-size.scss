@@ -12,35 +12,14 @@ $sidebar-md: $m-sidebar-width-md;
 $sidebar-sm: $m-sidebar-width-sm;
 
 @mixin sidebar-sizing($size) {
-  body {
-    background: linear-gradient(
-                    to right,
-                    $m-site-bg-color 0%,
-                    $m-site-bg-color $size - 1,
-                    $m-site-bg-color $size - 1,
-                    $m-site-bg-color $size,
-                    $m-site-bg-color $size,
-                    $m-site-bg-color 100%
-                  );
-    /* background: linear-gradient( */
-    /*                 to right, */
-    /*                 $m-sidebar-bg-color 0%, */
-    /*                 $m-sidebar-bg-color $size - 1, */
-    /*                 $m-sidebar-border $size - 1, */
-    /*                 $m-sidebar-border $size, */
-    /*                 $m-site-bg-color $size, */
-    /*                 $m-site-bg-color 100% */
-    /*               ); */
-  }
-
   #sidebar, .sidebar {
     float: left;
-    width: $size - $m-content-vertical-padding;
+    width: $size;
   }
 
   #content-middle {
-    float: left;
-    width: calc(100% - #{$size});
+    float: right;
+    width: calc(100% - #{$size} - 4px);
   }
 }
 

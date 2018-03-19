@@ -9,6 +9,7 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
+    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", rel: "stylesheet", media: "all"
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,700,900", rel: "stylesheet"

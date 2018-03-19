@@ -7,4 +7,4 @@
       - if current_site.registration_enabled?
         = link_to t(".resend_confirmation_email"), new_confirmation_path(resource_name)
     .remember-me= f.input :remember_me, as: :boolean
-  = f.button :wrapped, value: t(".login")
+  = f.button :wrapped, value: t(".login"), :class => "btn-primary"

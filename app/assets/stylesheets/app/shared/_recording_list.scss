@@ -2,7 +2,19 @@
 @import "definitions";
 
 .recording-list {
-  margin-top: 10px;
+  margin-top: -70px;
+
+  .icon {
+    font-size: 40px;
+  }
+
+  table, .table {
+    thead:first-child > tr:first-child > th {
+      .col-sm-2.rec-playback-col {
+        text-align: center;
+      }
+    }
+  }
 
   .recording-playback-links {
     margin: 0;
@@ -19,7 +31,33 @@
     margin: 0 4px;
   }
 
-  .rec-playback-col {
+  .meeting-date-column, .meeting-time-column, .rec-duration-column {
+    background: $m-green-soft;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .meeting-date, .duration {
+    margin: 20% 0;
+  }
+
+  .rec-description-column, .rec-status-column, .rec-playback-column, .options-column {
+    background: #fff;
+    font-size: 22px;
+
+    .dropdown-toggle {
+      background: transparent;
+    }
+  }
+
+  .rec-description-not-recorded {
+    background: $m-medium-light-gray;
+    font-size: 22px;
+    color: $m-dark-gray;
+  }
+
+  .options-col {
     text-align: right;
 
     .recording-playback-options {
@@ -29,16 +67,28 @@
   }
 
   .recording-playback-links, .recording-playback-options {
+    float: left;
+
     i {
-      font-size: 20px;
-      color: #666;
-      width: 20px;
-      height: 20px;
+      font-size: 30px;
+      color: $m-green-soft;
+      line-height: 0.7;
       margin: 0 3px;
+      .icon-archive {
+        line-height: 0.6;
+      }
     }
   }
 
   .recording-playback-options i {
     color: #bbb;
+    float: right;
+  }
+
+  .meeting-date-col, .meeting-time-col, .rec-duration-col, .rec-description-col,
+  .rec-status-col, .rec-playback-col, .options-col, .meeting-date-column,
+  .meeting-time-column, .rec-duration-column, .rec-status-column, .rec-playback-column,
+  .options-column, .recording-playback-links {
+    white-space: nowrap;
   }
 }

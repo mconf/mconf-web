@@ -6,23 +6,63 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
+&.running {
+  background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('logos/Notebook_online.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
+&:not(.running) {
+  background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
+
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('logos/Notebook_offline.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
   #webconf-room-invite {
-    @include mconf-clearfix;
-    clear: both;
+    width: 42%;
+    float: right;
+    padding-right: 20%;
+    margin-top: -13%;
+    margin-right: -6%;
 
-    @include make-row;
-
-    form {
-      @include make-xs-column(12);
-      @include make-sm-column(4);
-      @include make-sm-column-push(4);
-
+    .form-group {
       h3 {
-        color: #fff;
+        color: $m-titles;
         margin-top: 8px;
-        border-bottom: 1px solid $m-navbar-internal-border-color;
+        margin-bottom: 30px;
         padding: 8px 4px;
         border-radius: $m-border-radius-base;
+        font-size: 46px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .welcome {
+        color: $m-green-soft;
+        font-size: 22px;
+        text-align: center;
       }
 
       .change-name {
@@ -44,12 +84,13 @@ body.custom_bigbluebutton_rooms.auth {
 
     .form-actions {
       border: none;
-      margin-top: 24px;
       padding-top: 0;
+      margin-top: 15%;
 
       input {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding: 15px;
+        width: 100%;
+        font-size: 20px;
       }
     }
   }

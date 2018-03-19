@@ -137,7 +137,7 @@ feature 'Visitor signs up' do
   scenario "send invalid register form and try to change language after" do
     attrs = { email: "", password: "" }
     register_with(attrs)
-    click_link "Português"
+    page.find(:xpath, "//a[@href='/language/pt-br']").click
 
     current_path.should eq(register_path)
   end

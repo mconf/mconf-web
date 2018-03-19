@@ -267,8 +267,8 @@ describe CustomBigbluebuttonRecordingsController do
           room = user.bigbluebutton_room
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
-        it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should_not allow_access_to(:publish, hash).via(:post) }
+        it { should allow_access_to(:destroy, hash).via(:delete) }
+        it { should allow_access_to(:publish, hash).via(:post) }
         it { should allow_access_to(:unpublish, hash).via(:post) }
         it { should allow_access_to(:play, hash) }
       end
@@ -304,8 +304,8 @@ describe CustomBigbluebuttonRecordingsController do
         context "he is an admin of" do
           before { space.add_member!(user, 'Admin') }
 
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should_not allow_access_to(:publish, hash).via(:post) }
+          it { should allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:publish, hash).via(:post) }
           it { should allow_access_to(:unpublish, hash).via(:post) }
           it { should allow_access_to(:play, hash) }
         end
@@ -332,8 +332,8 @@ describe CustomBigbluebuttonRecordingsController do
         context "he is an admin of" do
           before { space.add_member!(user, 'Admin') }
 
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should_not allow_access_to(:publish, hash).via(:post) }
+          it { should allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:publish, hash).via(:post) }
           it { should allow_access_to(:unpublish, hash).via(:post) }
           it { should allow_access_to(:play, hash) }
         end

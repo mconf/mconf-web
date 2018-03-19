@@ -20,15 +20,20 @@
       %li.navbar-user-chip.dropdown.last
         .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '128', class: "logo-user")
-          %span.username= current_user.profile.first_name
         %ul.navbar-user-menu.dropdown-menu.dropdown-menu-right
           %li
-            .observation= current_user.name
+            .observation= current_user.full_name
           %li.divider{ role: 'separator' }
           %li= link_to t(".profile"), main_app.user_path(current_user)
-          %li= link_to t(".account"), main_app.edit_user_path(current_user)
+          %li
+            = link_to  main_app.edit_user_path(current_user) do
+              = icon_options
+              = t(".account")
           %li.divider{ role: "separator"}
-          %li= link_to t('logout', :user => current_user.name), main_app.logout_path
+          %li
+            = link_to main_app.logout_path do
+              = icon_logout
+              = t('logout', :user => current_user.name)
 
     - else
       - if current_site.local_auth_enabled? || current_site.ldap_enabled?
@@ -36,9 +41,9 @@
       - if current_site.registration_enabled?
         %li{ sessions_menu_select_if(:register) }= link_to t('.register'), main_app.register_path
 
-#navbar-left
-  %ul
-    - if user_signed_in?
+- if user_signed_in?
+  #navbar-left
+    %ul#navbar-left-links
       - if mod_enabled?("spaces")
         %li= link_to t('space.all'), main_app.spaces_path
       - if mod_enabled?("events")
@@ -48,7 +53,9 @@
           = link_to main_app.manage_path do
             = t('.manage')
 
-    - else
+- else
+  #navbar-left.anonymous
+    %ul#navbar-left-links
       -# for anonymous users
       - if mod_enabled?("spaces")
         %li= link_to t('space.all'), main_app.spaces_path

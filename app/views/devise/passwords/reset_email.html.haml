@@ -1,0 +1,13 @@
+- page_title t('.title')
+
+#password-reset-email-wrapper
+  %h1= t('.title')
+
+  #email-logo
+
+  %h3.description
+    = t('.description')
+    %span.email
+      = t('.email', email: @email)
+
+  = link_to t('.login'), login_path, :class => "btn btn-large btn-block"

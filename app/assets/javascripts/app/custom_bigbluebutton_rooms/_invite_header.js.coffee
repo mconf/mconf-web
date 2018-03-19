@@ -22,14 +22,19 @@ errorStatus = (data) ->
 
 successStatus = (data) ->
   target = $(".status", container)
+  body = $("body")
   if data.running is "false"
     target.removeClass("running")
     target.addClass("not-running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.not_running'))
     target.attr('title', I18n.t('custom_bigbluebutton_rooms.invite_header.not_running_tooltip'))
+    body.removeClass("running")
+    body.addClass("not-running")
   else
     target.removeClass("not-running")
     target.addClass("running")
     target.text(I18n.t('custom_bigbluebutton_rooms.invite_header.running'))
     target.attr('title', I18n.t('custom_bigbluebutton_rooms.invite_header.running_tooltip'))
+    body.removeClass("not-running")
+    body.addClass("running")
   mconf.Tooltip.bindOne(target)

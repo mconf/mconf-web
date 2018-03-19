@@ -12,28 +12,18 @@
       = f.input :users, as: :string, label: t('activerecord.attributes.invite.users')
 
       .row
-        .col-xs-12.col-sm-3
-          = f.input :duration, as: :select, label: t('activerecord.attributes.invite.duration'), collection: Invitation.duration_i18n(I18n.locale), required: false
-        .col-xs-12.col-sm-9
-          = f.input :starts_on_time, wrapper: :label_only, required: false, label: t('activerecord.attributes.invite.starts_on')
+        .col-xs-12.col-sm-12
           .starts-at-wrapper
-            .btn-group{ 'data-toggle': "buttons" }
-
-              %label.btn.btn-default.active{ 'data-attr-value': '0' }
-                %input{ type: 'radio', checked: 'checked' }
-                = t('.now')
-
-              %label.btn.btn-default{ 'data-attr-value': '1' }
-                %input{ type: 'radio' }
-                = icon_later
-                = t('.later')
-
             - tz = user_timezone_abbreviation(current_user)
             - lang = locale_for_datetime_picker
+            = f.label (t('.date')), required: false
             = f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.format'), 'data-timezone': tz, 'data-language': lang }
+
+        .col-xs-12.col-sm-12
+          = f.input :duration, as: :select, label: t('activerecord.attributes.invite.duration'), collection: Invitation.duration_i18n(I18n.locale), required: false
 
       = f.input :title, as: :string, label: t('activerecord.attributes.invite.title')
       = f.input :message, as: :text, label: t('activerecord.attributes.invite.message'), required: false
 
     .modal-footer
-      = f.button :wrapped, t('_other.send'), disabled: true, class: "btn btn-primary", cancel_modal: true
+      = f.button :wrapped, t('_other.send'), disabled: true, cancel_modal: true, class: "btn-default"

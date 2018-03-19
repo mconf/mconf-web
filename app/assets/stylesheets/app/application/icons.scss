@@ -13,8 +13,6 @@ $light-icon-color: #aaa;
   color: $default-icon-color;
 
   /* so all icons look similar even though they have different aspect ratios */
-  max-width: 16px;
-  width: 16px;
   text-align: center;
   display: inline-table;
   font-size: 18px;
@@ -108,10 +106,6 @@ a:not(.btn) .icon {
 
   &.icon-rss {
     color: $m-orange;
-  }
-
-  &.icon-help, &.icon-info {
-    color: $m-blue;
   }
 
   &.icon-waiting-moderation {
@@ -277,6 +271,14 @@ a:not(.btn) .icon {
     max-width: auto;
   }
 
+  &.icon-conference-invite {
+    font-size: 46px;
+  }
+
+  &.icon-options {
+    font-size: 46px;
+  }
+
   &.icon-rec-play {
     color: $m-green;
   }
@@ -302,6 +304,99 @@ a:not(.btn) .icon {
     color: #FFF;
   }
 
+  &.icon-arrow-up {
+    font-size: 33px;
+    vertical-align: middle;
+  }
+
+  &.icon-arrow-down {
+    font-size: 33px;
+    vertical-align: middle;
+  }
+
+  &.icon-sidebar-arrow {
+    font-size: 33px;
+    vertical-align: middle;
+  }
+
+  &.icon-modal-cancel {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
+  &.icon-logout {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
+  &.icon-broken {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
+  &.icon-processing {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
+  &.icon-processing-fail {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-modal-buttons;
+  }
+
+  &.icon-archive {
+    font-size: 33px;
+    vertical-align: middle;
+    color: $m-green-soft;
+  }
+
+  &.icon-conference-play{
+    color: $m-green-soft;
+    vertical-align: middle;
+
+  }
+
+  &.icon-help, &.icon-info {
+    color: $m-blue;
+    vertical-align: middle;
+    font-size: $m-font-big;
+  }
+
+  &.icon-date {
+    color: #AAA;
+    vertical-align: middle;
+  }
+
+  &.icon-visibility {
+    color: $m-green-soft;
+    vertical-align: middle;
+  }
+
+  &.icon-visibility-off {
+    color: $m-titles;
+    vertical-align: middle;
+  }
+
+  &.icon-visibility-private {
+    color: $m-alert-color;
+    vertical-align: middle;
+  }
+
+  &.icon-file-download {
+    color: $m-green-soft;
+    vertical-align: middle;
+  }
+
+  &.icon-link {
+    color: $m-green-soft;
+    vertical-align: middle;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}
@@ -322,7 +417,6 @@ a:not(.btn) .icon {
   &.icon-user {}
   &.icon-space {}
   &.icon-profile {}
-  &.icon-options {}
   &.icon-join-request {}
   &.icon-list {}
   &.icon-externa-link {}

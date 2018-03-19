@@ -16,6 +16,8 @@
     %h1= t('.hi', name: current_user.first_name)
     %h2= t('.no_meetings_headline')
 
+    #empty-home-logo
+
 - if mod_enabled?("spaces")
   - if @pending_requests.count > 0
     #user-spaces-pending.content-block

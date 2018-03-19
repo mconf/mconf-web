@@ -7,18 +7,17 @@
   - title = t('.other_user.title')
 = page_title title
 
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
 = content_for :sidebar do
   = render 'shared/user_card', user: @user, editing: true
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
 = content_for :sidebar_menu do
-  %ul
-    %li= link_to "Perfil", my_meetings_path(recordedonly: 'false')
-    %li= link_to "Segurança", my_meetings_path
-    %li= link_to "Dados da assinatura", my_meetings_path
-    %li= link_to "Pagamentos", my_meetings_path
-  -# .sidebar-title= title
-  -# - if current_user == @user
-  -#   #user-cancel-account
-  -#     = link_to t('.cancel_account'), disable_user_path(current_user), data: { confirm: t('.cancel_confirm').html_safe }, method: :delete, class: 'btn btn-danger btn-sm'
+  = render :partial => 'users/menu'
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning

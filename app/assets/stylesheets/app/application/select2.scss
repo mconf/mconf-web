@@ -51,6 +51,21 @@
 .select2-container {
   a.select2-choice, .select2-choice a {
     text-decoration: none;
+    box-shadow: none;
+    padding: 6px 17px;
+    height: 45px;
+    font-size: $m-font-fields;
+    color: $m-text !important;
+    border: $m-sf-field-border !important;
+
+    > span:first-child {
+      padding: 0;
+    }
+
+    .select2-arrow {
+      padding-top: 6px;
+      border-left: transparent;
+    }
   }
 }
 
@@ -91,4 +106,41 @@
 }
 .btn-group .select2-container:first-child .select2-choice {
   border-left-width: 1px;
+}
+
+.select2-container-multi .select2-choices, .select2-container-multi.select2-container-active .select2-choices {
+  box-shadow: none;
+  padding: 6px 17px;
+  height: 45px;
+  font-size: $m-font-fields;
+  color: $m-text !important;
+  border: $m-sf-field-border !important;
+}
+
+.select2-drop-active {
+  color: $m-text !important;
+  border: $m-sf-field-border !important;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin-top: -2px;
+  margin-bottom: 4px;
+  margin-left: 6px;
+  color: #fff;
+  background: $m-color-primary-soft;
+  border: none;
+  padding: 8px 12px 8px 20px;
+  line-height: 1;
+}
+
+.select2-default {
+  color: $m-text;
+
+  &::placeholder {
+    color: $m-sf-placeholder-color !important;
+  }
+
+  &:hover:not(.disabled) {
+    text-shadow: $m-bold-by-shadow;
+  }
 }

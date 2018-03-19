@@ -2,10 +2,10 @@
 
 = render partial: "invite_header", locals: { room: @room, page: 1 }
 
-#webconf-room-userid
+#login_page
 
-  - cls = current_site.unauth_access_to_conferences? ? '' : 'only'
-  #webconf-room-userid-member{ class: cls }
+#webconf-room-userid
+  #webconf-room-userid-member
     %h3.title= t(".member.title")
 
     - show_login = current_site.local_auth_enabled? || current_site.ldap_enabled?
@@ -22,7 +22,7 @@
 
     %ul#login-extra-links
       - if current_site.shib_enabled?
-        %li= link_to t('.login_federation'), shibboleth_path
+        %li= link_to t('.login_federation'), shibboleth_path(create: false)
       - if current_site.certificate_login_enabled?
         %li= certificate_auth_link t('.login_certificate'), false
 
@@ -36,3 +36,5 @@
           = text_field_tag "user[name]", "", required: true, class: 'form-control'
         .form-actions
           = f.button :submit, t(".non_member.join"), :class => "btn btn-primary"
+
+  = render partial: 'shared/social_login'

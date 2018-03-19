@@ -19,16 +19,49 @@ BigbluebuttonRails.configure do |config|
     ability = Abilities.ability_for(user)
 
     opts = {
-      "meta_mconfweb-url" => Rails.application.routes.url_helpers.root_url(host: host),
-      "meta_mconfweb-room-type" => room.try(:owner).try(:class).try(:name),
+      "meta_mconfweb-url": Rails.application.routes.url_helpers.root_url(host: host),
+      "meta_mconfweb-room-type": room.try(:owner).try(:class).try(:name),
       record: ability.can?(:record_meeting, room),
       maxParticipants: 0 #room.max_participants
     }
 
-    reason = user.try(:cant_record_reason, room)
-    opts["meta_mconf-live-wont-record-message"] = reason if reason.present?
+    if Rails.application.config.per_user_record_permissions
+      opts[:record] = true
+    else
+      ability = Abilities.ability_for(user)
+      if user.present?
+        reason = user.try(:cant_record_reason, room)
+      else
+        reason = I18n.t('users.cant_record_reason.user_cannot_record')
+      end
+
+      opts[:record] = ability.can?(:record_meeting, room)
+      opts[:"meta_mconf-live-wont-record-message"] = reason if reason.present?
+    end
 
     opts
+  end
+
+  # Add custom metadata join calls
+  config.get_join_options = Proc.new do |room, user|
+    if Rails.application.config.per_user_record_permissions
+      ability = Abilities.ability_for(user)
+
+      opts = {
+        "userdata-record": ability.can?(:record_meeting, room)
+      }
+
+      if user.present?
+        reason = user.try(:cant_record_reason, room)
+      else
+        reason = I18n.t('users.cant_record_reason.user_cannot_record')
+      end
+      opts[:"userdata-disabled_record_reason"] = reason if reason.present?
+
+      opts
+    else
+      {}
+    end
   end
 end
 

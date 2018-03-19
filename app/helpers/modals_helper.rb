@@ -11,7 +11,7 @@ module ModalsHelper
     cls = 'close'
     options[:class] = options.has_key?(:class) ? "#{cls} #{options[:class]}" : cls
     options[:'data-dismiss'] = 'modal'
-    content_tag :button, '&times;'.html_safe, options
+    content_tag :button, icon_modal_cancel, options
   end
 
 end

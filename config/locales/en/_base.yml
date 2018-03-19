@@ -33,7 +33,7 @@ en:
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
-      short: ! '%b %d'
+      short: ! '%b %d, %y'
     month_names:
     -
     - January
@@ -68,10 +68,10 @@ en:
         other: almost %{count} years
       half_a_minute: half a minute
       less_than_x_minutes:
-        one: less than a minute
+        one: < 1 minute
         other: less than %{count} minutes
       less_than_x_seconds:
-        one: less than 1 second
+        one: < 1 second
         other: less than %{count} seconds
       over_x_years:
         one: over 1 year
@@ -88,6 +88,18 @@ en:
       x_seconds:
         one: 1 second
         other: ! '%{count} seconds'
+      hours:
+        one: 1 hr
+        other: ! '%{count} hr'
+      minutes:
+        one: 1 min
+        other: ! '%{count} min'
+      seconds:
+        one: 1 sec
+        other: ! '%{count} sec'
+      days:
+        one: 1 day
+        other: ! '%{count} days'
     prompts:
       day: Day
       hour: Hour

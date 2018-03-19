@@ -97,10 +97,10 @@
   text-decoration: none;
   display: inline-block;
   @include broken-img-parent;
-  @include text-truncate;
+  @include text-truncate(nowrap);
 
   img {
-    margin: 2px 0;
+    margin: 0px 0;
     @include border-radius($m-border-radius-base);
     width: 100%;
     height: auto;
@@ -222,8 +222,8 @@
   }
 }
 
-@mixin text-truncate {
-  white-space: nowrap;
+@mixin text-truncate($truncate) {
+  white-space: $truncate;
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -282,16 +282,11 @@
     display: block;
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
     @include transition(border-color 0.2s ease-in);
+    border-bottom: $m-active-item-border-off;
 
-    &:hover {
+    &:hover:not(.btn-navbar) {
       border-bottom: $m-active-item-border;
     }
-  }
-
-  .icon {
-    margin: 3px 3px 0px 0px;
-    @include font-size($m-font-normal);
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
   }
 }
 

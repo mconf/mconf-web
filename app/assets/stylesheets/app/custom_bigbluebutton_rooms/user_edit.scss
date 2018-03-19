@@ -3,7 +3,7 @@
 
 #edit-webconference-room {
   textarea {
-    height: 80px;
+    height: 175px;
   }
 
   .room-visibility {
@@ -15,16 +15,23 @@
 
       .btn-group {
         white-space: nowrap;
-        display: table-cell;
+        display: inline-block;
         width: 1%;
 
         > .btn {
           float: none;
+          font-size: $m-font-big;
 
           &:last-child {
             margin-left: -5px;
           }
         }
+      }
+
+      .form-group.showable_password {
+        display: inline-block;
+        float: right;
+        width: 58%;
       }
 
       .form-group {

@@ -14,8 +14,8 @@ feature 'User accesses an URL of a user that' do
     before { visit user_path(user) }
     subject { page }
 
-    it { should have_title(user.name) }
-    it { should have_content(user.name) }
+    it { should have_title(user.full_name) }
+    it { should have_content(user.full_name) }
     it { page.status_code.should == 200 }
   end
 

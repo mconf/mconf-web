@@ -5,7 +5,7 @@
 
 -# TODO: #1087 show only recordings that are published
 
-- show_authors = set_default(local_assigns, "show_authors", true)
+- show_authors = set_default(local_assigns, "show_authors", false)
 - redir_to = set_default(local_assigns, "redir_to", "")
 
 .table-wrapper
@@ -21,12 +21,14 @@
           %th.col-sm-1.rec-playback-col= t(".playback_links")
           - total_columns = 6
         - else
-          %th.col-sm-2.meeting-date-col= t(".started_at")
-          %th.col-sm-5.rec-description-col= t(".description")
-          %th.col-sm-2.rec-duration-col= t(".duration")
-          %th.col-sm-1.rec-status-col= t(".status")
-          %th.col-sm-2.rec-playback-col= t(".playback_links")
-          - total_columns = 5
+          %th.meeting-date-col= t(".started_date")
+          %th.meeting-time-col= t(".started_time")
+          %th.rec-duration-col= t(".duration")
+          %th.rec-description-col= t(".description")
+          %th.rec-status-col= t(".status")
+          %th.rec-playback-col= t(".playback_links")
+          %th.options-col
+          - total_columns = 6
     %tbody
       - if meetings.count <= 0
         %tr
@@ -37,22 +39,26 @@
         - meetings.each do |meeting|
           - recording = meeting.recording
 
-          - cls = recording.present? ? '' : 'fadeout'
-          %tr{ class: cls }
-
-            %td.thin.meeting-date-col
+          %tr{ class: "shadowed" }
+            %td.meeting-date-column
               - m_create = format_date(meeting.create_time, :long)
+              - m_date = format_date(meeting.create_time, :short, false)
               - if recording
                 - rec_create = format_date(recording.start_time, :long)
                 - rec_end = format_date(recording.end_time, :long)
                 .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: m_create, rec_start: rec_create, rec_end: rec_end) }
-                  = format_date(meeting.create_time, :numeric)
+                  = m_date
               - else
                 .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
-                  = format_date(meeting.create_time, :numeric)
+                  = m_date
+
+            %td.meeting-time-column
+              - m_create = format_time(meeting.create_time)
+              .meeting-date
+                = m_create
 
             - if show_authors
-              %td.rec-author-col
+              %td.rec-author-column
                 - unless meeting.creator_id.nil?
                   - user = User.find_by(id: meeting.creator_id)
                   .recording-author
@@ -66,38 +72,33 @@
               -# - action = recording.room.owner_type == "User" ? :user_show : :space_show
               -# - if can?(action, recording)
               -#   - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.configuration.metadata_user_id.to_s }.first
-              %td.rec-description-col
+
+              %td.rec-duration-column
+                .duration
+                  = distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
+
+              %td.rec-description-column
                 - if recording.description.blank?
-                  %span= t('.no_description')
+                  .description= t('.no_description')
                 - else
-                  %span= recording.description
+                  .description= recording.description
 
-              %td.thin.rec-duration-col
-                %span= distance_of_time_in_words_to_now(Time.now + recording.duration, include_seconds: false)
-
-              %td.thin.rec-status-col
+              %td.thin.rec-status-column
                 - if recording.available?
-                  .dropdown
-                    .dropdown-toggle{ data: { toggle: "dropdown" } }
-                      - if recording.published?
-                        = icon_published
-                        = t('.published')
-                      - else
-                        = icon_unpublished
-                        = t('.unpublished')
-                    %ul.dropdown-menu
-                      - if recording.published?
-                        %li
-                          = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            -# = icon_unpublish(alt: t('.unpublish'))
-                            = t('.unpublish')
-                      - else
-                        %li
-                          = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
-                            -# = icon_publish(alt: t('.publish'))
-                            = t('.publish')
+                  - if recording.published?
+                    - if recording.playback_formats.size > 0
+                      = icon_visibility(title: t('.published'))
+                    -else
+                      = icon_processing(title: t('.processing_tip'))
+                  - else
+                    = icon_visibility_private(title: t('.unpublished'))
+                - else
+                  = icon_broken(title: t('.unavailable_tip'))
 
-              %td.rec-playback-col
+              %td.rec-playback-column
+                = render partial: 'shared/recording_playback', locals: { recording: recording }
+
+              %td.thin.options-column
                 .dropdown.recording-playback-options
                   %a.dropdown-toggle{ href: '#', data: { toggle: "dropdown" } }= icon_options_dots
                   %ul.dropdown-menu.dropdown-menu-right
@@ -105,7 +106,6 @@
                       - if recording.room.owner_type == "User"
                         - if can?(:user_edit, recording)
                           = link_to edit_my_recording_path(recording), class: "tooltipped open-modal" do
-                            = icon_edit
                             = t('.edit')
                       - else
                         - if can?(:space_edit, recording)
@@ -113,12 +113,24 @@
                             = icon_edit
                             = t('.edit')
                     %li
+                      - if recording.published?
+                        = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
+                          = t('.private')
+                      - else
+                        = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
+                          = t('.publish')
+                    %li
                       = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('.destroy_confirm') }, method: :delete do
-                        = icon_delete(alt: t('.delete'))
                         = t('.delete')
-                = render partial: 'shared/recording_playback', locals: { recording: recording }
 
             - else
-              %td.rec-description-col= t('.not_recorded')
+              %td.rec-duration-column
+                .duration
+                  - duration = meeting.duration
+                  - if duration != nil
+                    - duration = duration/1000
+                    = distance_of_time_in_words_to_now(Time.now + duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
+                  - else
+                    = t('.no_duration')
+              %td.rec-description-not-recorded{ :colspan => "4" }= t('.not_recorded')
               - span = show_authors ? 3 : 2
-              %td.rec-duration-col{ :colspan => "3" }= meeting.duration

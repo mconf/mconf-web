@@ -7,11 +7,6 @@
 
 module IconsHelper
 
-  # Default icon that shows a tooltip with help about something
-  def icon_help(title=nil, options={})
-    icon_constructor title, "fa fa-question-circle-o icon icon-help", options
-  end
-
   # Default icon that shows a tooltip with information about something
   def icon_info(title=nil, options={})
     icon_constructor title, "fa fa-info-circle icon icon-info", options
@@ -217,7 +212,7 @@ module IconsHelper
   end
 
   def icon_options(options={})
-    icon_constructor nil, "icon icon-mw-options icon-options", options
+    material_icon_constructor "settings", "icon material-icons icon-options", options
   end
 
   def icon_join_request(options={})
@@ -233,7 +228,8 @@ module IconsHelper
   end
 
   def icon_invitation(options={})
-    icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
+    material_icon_constructor "mail", "icon material-icons icon-conference-invite", options
+    #icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
   end
 
   def icon_list(options={})
@@ -279,7 +275,7 @@ module IconsHelper
   end
 
   def icon_conference_play(options={})
-    icon_constructor nil, "icon icon-mw-conference-play icon-conference-play", options
+    material_icon_constructor "play_circle_filled", "icon material-icons icon-conference-play", options
   end
 
   def icon_rec_play(options={})
@@ -314,6 +310,71 @@ module IconsHelper
     image_tag 'icons/login-google.svg', size: "46x46", class: ""
   end
 
+  # Default icon that shows a tooltip with help about something
+  def icon_help(options={})
+    material_icon_constructor "help_outline", "icon material-icons icon icon-help", options
+  end
+
+  def icon_dropdown_up(options={})
+    material_icon_constructor "keyboard_arrow_up", "icon material-icons icon-arrow-up", options
+  end
+
+  def icon_dropdown_down(options={})
+    material_icon_constructor "keyboard_arrow_down", "icon material-icons icon-arrow-down", options
+  end
+
+  def icon_date(options={})
+    material_icon_constructor "date_range", "icon material-icons icon-date", options
+  end
+
+  def icon_sidebar_arrow(options={})
+    material_icon_constructor "keyboard_arrow_right", "icon material-icons icon-sidebar-arrow", options
+  end
+
+  def icon_modal_cancel(options={})
+    material_icon_constructor "cancel", "icon material-icons icon-modal-cancel", options
+  end
+
+  def icon_visibility(options={})
+    material_icon_constructor "visibility", "icon material-icons icon-visibility", options
+  end
+
+  def icon_visibility_private(options={})
+    material_icon_constructor "visibility", "icon material-icons icon-visibility-private", options
+  end
+
+  def icon_visibility_off(options={})
+    material_icon_constructor "visibility_off", "icon material-icons icon-visibility-off", options
+  end
+
+  def icon_file_download(options={})
+    material_icon_constructor "file_download", "icon material-icons icon-file-download", options
+  end
+
+  def icon_link(options={})
+    material_icon_constructor "link", "icon material-icons icon-link", options
+  end
+
+  def icon_logout(options={})
+    material_icon_constructor "power_settings_new", "icon material-icons icon-logout", options
+  end
+
+  def icon_broken(options={})
+    material_icon_constructor "error", "icon material-icons icon-broken", options
+  end
+
+  def icon_processing(options={})
+    material_icon_constructor "watch_later", "icon material-icons icon-processing", options
+  end
+
+  def icon_processing_fail(options={})
+    material_icon_constructor "sync_problem", "icon material-icons icon-processing-fail", options
+  end
+
+  def icon_archive(options={})
+    material_icon_constructor "folder", "icon material-icons icon-archive", options
+  end
+
   private
 
   # Base method for most of the methods above
@@ -324,6 +385,15 @@ module IconsHelper
       options = options_for_tooltip(title, options)
     end
     content_tag :i, nil, options
+  end
+
+  def material_icon_constructor(icon=nil, cls=nil, options={})
+    options[:class] = options.has_key?(:class) ? cls + " " + options[:class] : cls
+    title = title.nil? ? options[:title] : title
+    unless title.nil? or title.blank?
+      options = options_for_tooltip(title, options)
+    end
+    content_tag :i, icon, options
   end
 
   def text_icon_constructor(title, cls=nil, text=nil, options={})

@@ -14,6 +14,7 @@ $ ->
 
     uploaderCallbacks =
       onComplete: mconf.Crop.onUploadComplete
+
     mconf.Uploader.bind
       callbacks: uploaderCallbacks
 

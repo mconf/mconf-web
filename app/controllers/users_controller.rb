@@ -31,8 +31,6 @@ class UsersController < InheritedResources::Base
 
   def determine_layout
     case params[:action].to_sym
-    when :show
-      'no_sidebar'
     when :new
       false
     else
@@ -117,10 +115,12 @@ class UsersController < InheritedResources::Base
       sign_in @user, bypass: true if current_user == @user
 
       flash = { success: t("user.updated") }
-      redirect_to_p edit_user_path(@user), :flash => flash
+      redirect_to_p user_path(@user), :flash => flash
     else
       flash = { error: t("user.not_updated") }
-      render_p :edit, flash: flash
+      prev = Rails.application.routes.recognize_path(request.referrer)
+
+      render_p prev[:action], flash: flash
     end
   end
 
@@ -196,6 +196,19 @@ class UsersController < InheritedResources::Base
         format.json { render json: { success: false } }
       end
     end
+  end
+
+  def remove_logo
+    @user.profile.remove_avatar
+    flash[:success] = t("user.updated")
+
+    redirect_to user_path(@user)
+  end
+
+  def password_edit
+  end
+
+  def edit_data
   end
 
   private

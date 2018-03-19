@@ -31,6 +31,7 @@ Mconf::Application.routes.draw do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
     get "register", to: "registrations#new"
+    get 'reset_email', to: 'passwords#reset_email'
 
     # so admins can log in even if local auth is disabled
     get '/manage/login', to: 'sessions#new', as: 'admin_login'
@@ -95,6 +96,9 @@ Mconf::Application.routes.draw do
       post :disapprove
       post :confirm
       post :update_logo
+      post :remove_logo
+      get :password_edit
+      get :edit_data
     end
 
     resource :subscription, only: [:edit, :update, :show, :destroy]

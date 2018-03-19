@@ -1,10 +1,14 @@
 = page_title t('.title')
 
-%h1= t('.title')
+#approval-pending-wrapper
 
-%h3.description
-  = t('.description')
+  %h1= t('.title')
 
-- has_open_section = mod_enabled?('spaces') || mod_enabled?('events')
-- if has_open_section
-  %span= t('.interesting_links')
+  #profile-logo
+
+  %h3.description
+    = t('.description')
+
+  - has_open_section = mod_enabled?('spaces') || mod_enabled?('events')
+  - if has_open_section
+    %span= t('.interesting_links')

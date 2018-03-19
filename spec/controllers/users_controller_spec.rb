@@ -286,7 +286,7 @@ describe UsersController do
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
+        it { response.should redirect_to user_path(@user) }
         it { @user.username.should_not == @new_username }
         it { @user.username.should == @old_username }
       end
@@ -304,7 +304,7 @@ describe UsersController do
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(user) }
+        it { response.should redirect_to user_path(user) }
         it { user.email.should_not eq(new_email) }
         it { user.email.should eq(old_email) }
       end
@@ -321,7 +321,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user) }
+          it { response.should redirect_to user_path(user) }
           it { user.superuser.should be(false) }
         end
 
@@ -336,7 +336,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user) }
+          it { response.should redirect_to user_path(user) }
           it { user.superuser.should be(true) }
         end
 
@@ -352,7 +352,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user2) }
+          it { response.should redirect_to user_path(user2) }
           it { user2.superuser.should be(true) }
         end
 
@@ -368,7 +368,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user2) }
+          it { response.should redirect_to user_path(user2) }
           it { user2.superuser.should be(false) }
         end
 
@@ -385,7 +385,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user2) }
+          it { response.should redirect_to user_path(user2) }
           it { user2.superuser.should be(false) }
         end
       end
@@ -402,7 +402,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user) }
+          it { response.should redirect_to user_path(user) }
           it { user.disabled.should be(false) }
 
         end
@@ -420,7 +420,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user) }
+          it { response.should redirect_to user_path(user) }
           it { user.reload.can_record.should be(true) }
         end
       end
@@ -437,7 +437,7 @@ describe UsersController do
           end
 
           it { response.status.should == 302 }
-          it { response.should redirect_to edit_user_path(user) }
+          it { response.should redirect_to user_path(user) }
           it { user.approved.should be(true) }
         end
       end
@@ -457,7 +457,7 @@ describe UsersController do
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(user) }
+        it { response.should redirect_to user_path(user) }
         it { user.timezone.should_not eq(old_tz) }
         it { user.timezone.should eq(new_tz) }
       end
@@ -481,7 +481,7 @@ describe UsersController do
 
             it { response.status.should == 302 }
             it { should set_flash.to(I18n.t('user.updated')) }
-            it { response.should redirect_to edit_user_path(@user) }
+            it { response.should redirect_to user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
 
@@ -498,7 +498,7 @@ describe UsersController do
             end
 
             it { response.status.should == 200 }
-            it { should render_template(:edit) }
+            it { should render_template(:show) }
             it { @user.encrypted_password.should == @old_encrypted }
           end
 
@@ -516,7 +516,7 @@ describe UsersController do
 
             it { response.status.should == 302 }
             it { should set_flash.to(I18n.t('user.updated')) }
-            it { response.should redirect_to edit_user_path(@user) }
+            it { response.should redirect_to user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
 
@@ -535,7 +535,7 @@ describe UsersController do
 
             it { response.status.should == 302 }
             it { should set_flash.to(I18n.t('user.updated')) }
-            it { response.should redirect_to edit_user_path(@user) }
+            it { response.should redirect_to user_path(@user) }
             it { @user.encrypted_password.should_not == @old_encrypted }
           end
         end
@@ -555,7 +555,7 @@ describe UsersController do
 
           it { response.status.should == 302 }
           it { should set_flash.to(I18n.t('user.updated')) }
-          it { response.should redirect_to edit_user_path(@user) }
+          it { response.should redirect_to user_path(@user) }
           it { @user.encrypted_password.should == @old_encrypted }
         end
       end
@@ -598,7 +598,7 @@ describe UsersController do
 
       subject { RecentActivity.where(key: 'user.approved').last }
       it { response.status.should == 302 }
-      it { response.should redirect_to edit_user_path(user) }
+      it { response.should redirect_to user_path(user) }
       it { user.approved.should be(true) }
 
       it { subject.should_not be_nil }

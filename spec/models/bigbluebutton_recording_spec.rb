@@ -97,7 +97,7 @@ describe BigbluebuttonRecording do
 
       context "in his own room" do
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
-        let(:allowed) { [:play, :update, :user_show, :user_edit] }
+        let(:allowed) { [:play, :update, :user_show, :user_edit, :destroy] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 
@@ -125,7 +125,7 @@ describe BigbluebuttonRecording do
 
           context "as an admin" do
             before { space.add_member!(user, 'Admin') }
-            let(:allowed) { [:play, :space_show, :update, :space_edit] }
+            let(:allowed) { [:play, :space_show, :update, :space_edit, :destroy] }
             it { should_not be_able_to_do_anything_to(target).except(allowed) }
           end
         end
@@ -148,7 +148,7 @@ describe BigbluebuttonRecording do
 
           context "as an admin" do
             before { space.add_member!(user, 'Admin') }
-            let(:allowed) { [:play, :space_show, :update, :space_edit] }
+            let(:allowed) { [:play, :space_show, :update, :space_edit, :destroy] }
             it { should_not be_able_to_do_anything_to(target).except(allowed) }
           end
         end

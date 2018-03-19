@@ -117,11 +117,15 @@ module Mconf
     # Themes: set to the theme name if using any!
     config.theme = ENV['MCONF_THEME']
 
-    # Socual login API Keys
+    # Social login API Keys
     config.omniauth_google_key       = ENV['MCONF_OMNIAUTH_GOOGLE_KEY'] || nil
     config.omniauth_facebook_key     = ENV['MCONF_OMNIAUTH_FACEBOOK_KEY'] || nil
     config.omniauth_google_secret    = ENV['MCONF_OMNIAUTH_GOOGLE_SECRET'] || nil
     config.omniauth_facebook_secret  = ENV['MCONF_OMNIAUTH_FACEBOOK_SECRET'] || nil
+
+    # Set permissions to record when users join conferences instead of when meetings are created.
+    # Set if to false to use the old model based on the `record` flag on the `create` API call.
+    config.per_user_record_permissions = ENV['MCONF_PER_USER_RECORD_PERMISSIONS'] == 'true'
 
     # Themes: configure assets paths here!
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "stylesheets")

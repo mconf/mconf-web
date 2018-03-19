@@ -12,7 +12,7 @@ module Abilities
 
       # Users
       can [:index, :show, :fellows, :current, :select], User
-      can [:edit, :update, :disable, :update_logo], User, id: user.id
+      can [:edit, :update, :disable, :update_logo, :edit_data, :password_edit, :remove_logo], User, id: user.id
       can :update_password, User do |target_user|
         user == target_user &&
           (Site.current.local_auth_enabled? && target_user.local_auth?)
@@ -239,7 +239,7 @@ module Abilities
       end
 
       # a user can edit and unpublish (see #447) his recordings and recordings in spaces where he's an admin
-      can [:update, :unpublish], BigbluebuttonRecording do |recording|
+      can [:update, :unpublish, :publish, :destroy], BigbluebuttonRecording do |recording|
         user_is_owner_of_recording(user, recording) ||
           user_is_admin_of_meetings_space(user, recording)
       end

@@ -71,17 +71,18 @@ class mconf.CustomBigbluebuttonRooms.Invitation
     mconf.DateTimeInput.setStartDate(start, new Date())
 
     startChanged()
-    $('.starts-at-wrapper .btn-group .btn').on 'click', ->
+    $('.starts-at-wrapper').on 'click', ->
       startChanged(this)
 
+    # WE LOST THE "NOW" BUTTON, DO WE NEED THIS?
     # when submitting, set the starts on date to now, so that
     # 'now' means when the user submitted the form
-    $('form', container).on 'submit', ->
-      setStartsOnToNow() if isNowSelected()
+    #$('form', container).on 'submit', ->
+    #  setStartsOnToNow() if isNowSelected()
 
-isNowSelected = ->
-  selected = $('.starts-at-wrapper .btn.active').data('attr-value')
-  selected is 0
+# isNowSelected = ->
+#   selected = $('.starts-at-wrapper .btn.active').data('attr-value')
+#   selected is 0
 
 startChanged = (el) ->
   setStartsOnToNow()
@@ -89,12 +90,7 @@ startChanged = (el) ->
   if el
     selected = $(el).data('attr-value')
   else
-    selected = $('.starts-at-wrapper .btn.active').data('attr-value')
-  if selected is 0
-    $(startsOnSelector).parent().hide()
-  else
-    $(startsOnSelector).parent().show()
-    $(startsOnSelector).focus()
+    selected = $('.starts-at-wrapper').data('attr-value')
 
 setStartsOnToNow = ->
   mconf.DateTimeInput.setDate(startsOnSelector, new Date())

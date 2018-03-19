@@ -40,7 +40,7 @@
 
 
             .help{ class: can?(:update, perm) ? "hidden" : '' }
-              = icon_help t(".tooltip_last_admin")
+              = icon_help(title: t(".tooltip_last_admin"))
 
             .quit-space{ class: can?(:destroy, perm) ? '' : "hidden" }
               - if user == current_user

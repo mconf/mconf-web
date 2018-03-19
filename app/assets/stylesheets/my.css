@@ -2,4 +2,5 @@
  *= require ./app/my/home
  *= require ./app/my/meetings
  *= require ./app/my/approval_pending
+ *= require ./app/my/edit_recording
  */

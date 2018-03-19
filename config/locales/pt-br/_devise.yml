@@ -7,7 +7,7 @@ pt-br:
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a confirmação da sua conta.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá uma mensagem com instruções para confirmação da sua conta.'
     failure:
-      already_authenticated: 'Você já está logado.'
+      already_authenticated: ''
       disabled_by_certificate_auth: 'Seu usuário não possui permissão de utilizar o acesso local. Por favor faça login usando um certificado.'
       disabled_by_shib_auth: 'Seu usuário não possui permissão de utilizar o acesso local. Por favor faça login via federação.'
       inactive: 'Sua conta ainda não foi ativada.'
@@ -40,6 +40,11 @@ pt-br:
       success: 'Autenticado com sucesso com uma conta de %{kind}.'
     passwords:
       no_token: "Você só pode acessar essa página através de um e-mail de troca de senha. Se já estiver acessando por um e-mail, verifique se a URL fornecida está completa."
+      reset_email:
+        title: "Pronto!"
+        login: "LOGIN"
+        description: "Um email com instruções para redefinir sua senha será enviado para "
+        email: "%{email}"
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a troca da sua senha.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail.'
       updated: 'Sua senha foi alterada com sucesso.'

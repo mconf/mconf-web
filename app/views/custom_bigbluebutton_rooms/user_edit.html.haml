@@ -24,17 +24,15 @@
           .btn-group{ 'data-toggle': "buttons" }
 
             - cls = !@room.private ? 'active' : nil
-            .btn.btn-default{ class: cls, 'data-attr-value': '0' }
+            .btn.btn-primary{ class: cls, 'data-attr-value': '0' }
               - checked = !@room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
-              = icon_space_public
               = t('.public')
 
             - cls = @room.private ? 'active' : nil
-            .btn.btn-default{ class: cls, 'data-attr-value': '1' }
+            .btn.btn-primary{ class: cls, 'data-attr-value': '1' }
               - checked = @room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
-              = icon_space_private
               = t('.private')
 
           = f.input :attendee_key, as: :showable_password, label: false
@@ -48,4 +46,4 @@
         - welcome_msg = t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%")
       = f.input :welcome_msg, :as => :text, :hint => t('simple_form.hints.user.bigbluebutton_room.welcome_msg'), :placeholder => welcome_msg
     .modal-footer.form-actions
-      = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true
+      = f.button :wrapped, t("save"), :cancel_modal => true, class: "btn-default"

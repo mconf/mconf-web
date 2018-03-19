@@ -1,40 +1,34 @@
 = page_title @user.full_name
 
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
+
 .container-fluid
+  = logo_image(@user, class: "logo-user")
 
   .resource-card.resource-user
-    .resource-logo
-      = logo_image(@user, size: '300', title: @user.name)
 
     .resource-data
-
       .field
-        %span.field-title= t('.name')
-        %span.field-value= @user.name
+        %span.field-value.name= @user.name
+        %span.field-value= @user.profile.organization
+        %span.field-value= @user.email
+        %span.field-value.description= @user.profile.description
+        - if can?(:update_full_name, @user) or can?(:update_password, @user)
+          %span.border
+        .btn-group
+          - if can?(:update_full_name, @user)
+            %span.link= link_to t('.data'), edit_data_user_path(@user), class: "btn btn-default"
+          - if can?(:update_password, @user)
+            %span.link= link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
 
-      - if user_signed_in? && current_user.superuser?
-        .field
-          %span.field-title= t('.email')
-          %span.field-value
-            = link_to @user.email, "mailto:#{@user.email}"
-
-      - unless @user.profile.organization.blank?
-        .field
-          %span.field-title= t('.organization')
-          %span.field-value= @user.profile.organization
-
-      - if @user.profile.valid_url?
-        .field
-          %span.field-title= t('.url')
-          %span.field-value
-            = link_to @user.profile.url, @user.profile.linkable_url
-
-      - unless @user.profile.description.blank?
-        .field
-          %span.field-title= t('.description')
-          %span.field-value= @user.profile.description
-
-  - unless @user_spaces.empty?
+  - unless @user_spaces.blank?
     #user-spaces
       %h3= t('.user_spaces')
       = render 'users/user_spaces', user: @user, spaces: @user_spaces, compact: true

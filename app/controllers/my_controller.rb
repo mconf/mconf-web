@@ -25,10 +25,10 @@ class MyController < ApplicationController
     case params[:action].to_sym
     when :edit_recording
       false
-    when :approval_pending
-      "navbar_bg"
-    else
+    when :meetings
       "application"
+    else
+      "no_sidebar"
     end
   end
 

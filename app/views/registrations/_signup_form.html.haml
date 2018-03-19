@@ -23,4 +23,4 @@
   .form-accept-terms.field-group
     = label_tag :terms, t('.terms', register: t(".register")).html_safe
   = captcha_tags theme: 'dark'
-  = f.button :wrapped, :value => t(".register")
+  = f.button :wrapped, :value => t(".register"), :class => "btn-primary"

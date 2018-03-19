@@ -21,6 +21,10 @@ class Profile < ActiveRecord::Base
     logo_image.recreate_versions! if crop_x.present?
   end
 
+  def remove_avatar
+    self.remove_logo_image!
+  end
+
   after_update :update_webconf_room
 
   def update_webconf_room

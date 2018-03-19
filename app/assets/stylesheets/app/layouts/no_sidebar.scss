@@ -13,6 +13,7 @@
 #content-middle {
   @include make-xs-column(12);
   @include make-sm-column(12);
+  padding: $m-site-vertical-padding 0 $m-content-vertical-padding 0;
 }
 
 body {
