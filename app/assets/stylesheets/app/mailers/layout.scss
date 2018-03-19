@@ -4,6 +4,61 @@
 
 body {
   padding: 5px;
-  color: $m-mail-font-color;
+  color: $m-grey-email-color;
   line-height: 1.5em;
+  background: $m-background;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  .header-logo {
+    text-align: center;
+  }
+  .header_image {
+    text-align: center;
+  }
+  .header_messege {
+    color: $m-mail-header-footer-color;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .message-body {
+    margin: 39px auto;
+    background: $m-site-content-bg-color;
+    padding: 32px;
+    width: 30%;
+  }
+  .image_footer {
+    margin-top: 10px;
+    text-align: center;
+    image_icon {
+      margin: 0 10px;
+    }
+  }
+  .footer {
+    margin: 0 auto;
+    width: 30%;
+    text-align: center;
+    label{
+      font-size: 12px;
+      color: $m-grey-email-color;
+      display: block;
+    }
+    .cancel {
+      color: $m-mail-header-footer-color;
+      font-size: 10px;
+    }
+  }
+  .footer_messege {
+    display: block;
+    color: $m-grey-email-color;
+    text-align: center;
+    line-height: 1.5em;
+    font-size: 22px;
+    margin-top: 30px;
+    .contact {
+      color: $m-mail-header-footer-color;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
 }

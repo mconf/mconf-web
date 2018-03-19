@@ -26,6 +26,7 @@ en:
         confirmation_pending: "Your account was created and is waiting the approval of an administrator."
         subject: "Registration successful"
         welcome: "Welcome %{email}!"
+        welcome_name: "Welcome, %{name}!"
       reset_password_instructions:
         subject: "Reset password instructions"
         greeting: "Hello %{email},"

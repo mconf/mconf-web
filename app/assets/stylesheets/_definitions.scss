@@ -43,6 +43,7 @@ $m-success-notification: #7AB29B;
 $m-success-notification-border: 5px solid #396554;
 $m-error-notification: #D5455A;
 $m-error-notification-border: 5px solid #6A232D;
+$m-grey-email-color: #848D95;
 
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;
@@ -269,6 +270,7 @@ $m-z-index-tooltip: 999999;
 $m-mail-font-color: $m-font-color;
 $m-mail-header-font-color: $m-navbar-bg-color-dark;
 $m-mail-font-size: $m-font-normal;
+$m-mail-header-footer-color: #8A73BD;
 
 // notifications
 $m-notifications-top: 6px;
