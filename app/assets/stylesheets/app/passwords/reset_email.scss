@@ -33,6 +33,10 @@ body.passwords.reset_email {
         margin: 40px 0;
         padding: 24px 0;
         font-size: 25px;
+
+        .email {
+          color: $m-green-soft;
+        }
       }
 
       .btn-block {

@@ -6,6 +6,8 @@
   #email-logo
 
   %h3.description
-    = t('.description', email: "teste.com")
+    = t('.description')
+    %span.email
+      = t('.email', email: @email)
 
   = link_to t('.login'), login_path, :class => "btn btn-large btn-block"

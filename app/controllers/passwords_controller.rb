@@ -7,14 +7,18 @@
 
 class PasswordsController < Devise::PasswordsController
   layout 'no_sidebar'
-
+  @email = "teste"
   before_filter :check_only_local_authentication, :only => [:new]
   before_filter :sanitize_parameters, only: [:create]
+
+  def reset_email
+    @email = params[:email]
+  end
 
   protected
 
   def after_sending_reset_password_instructions_path_for(resource_name)
-    reset_email_path
+    reset_email_path(email: resource_params[:email])
   end
 
   private
