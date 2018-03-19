@@ -156,6 +156,7 @@ feature 'Visitor logs in' do
       visit new_user_password_path
       click_button "Request password"
       expect(current_path).to eq("/reset_email")
+      has_success_message
 
       find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
@@ -176,14 +177,14 @@ feature 'Visitor logs in' do
     scenario 'after a failed submit in the resend confirmation form (/users/confirmation)' do
       visit new_user_confirmation_path
       click_button 'Request confirmation email'
-      expect(current_path).to eq("/users/login")
+      expect(current_path).to eq("/reset_email")
+      has_success_message
 
       find("a[href='#{login_path}']", match: :first).click
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(my_home_path)
-      has_success_message
     end
 
     scenario 'after changing the language' do

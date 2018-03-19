@@ -53,7 +53,7 @@ describe ConfirmationsController do
       end
 
       context "if there's no user signed in" do
-        it { subject.should eql(controller.new_session_path("user")) }
+        it { subject.should eql(controller.reset_email_path) }
       end
     end
 
