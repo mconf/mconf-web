@@ -18,7 +18,7 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
 
     context "when the identifier was presentation" do
       let(:playback) { FactoryGirl.create(:bigbluebutton_playback_format, playback_type: presentation) }
-      let!(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, type: presentation.identifier), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation.tip")) }
+      let!(:link) { link_to playback.name, short_play_recording_path(recording, type: presentation.identifier), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation.tip")) }
 
       subject { link_to_playback(recording, playback) }
 
@@ -29,7 +29,7 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
       let(:playback) { FactoryGirl.create(:bigbluebutton_playback_format, playback_type: presentation_export) }
       let(:name) { 'my_recording' }
       let(:link) {
-        link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_export.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_export.tip"), { download: name })
+        link_to playback.name, short_play_recording_path(recording, { type: presentation_export.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_export.tip"), { download: name })
       }
       before {
         recording.update_attributes(description: 'my recording')
@@ -50,14 +50,14 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
 
       context 'and the description is set' do
         let(:name) { 'my_recording_description_1' }
-        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+        let(:link) { link_to playback.name, short_play_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
 
         it("returns the correctly link") { should eq(link) }
       end
 
       context 'and the description is not set' do
         let(:name) { 'my_recording_name_1' }
-        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+        let(:link) { link_to playback.name, short_play_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
 
         before { recording.update_attributes(description: nil) }
 
@@ -66,7 +66,7 @@ describe CustomBigbluebuttonPlaybackTypesHelper do
 
       context 'and the description is empty' do
         let(:name) { 'my_recording_name_1' }
-        let(:link) { link_to playback.name, play_bigbluebutton_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
+        let(:link) { link_to playback.name, short_play_recording_path(recording, { type: presentation_video.identifier, name: name }), options_for_tooltip(t("bigbluebutton_rails.playback_types.presentation_video.tip"), { download: name }) }
 
         before { recording.update_attributes(description: '') }
 

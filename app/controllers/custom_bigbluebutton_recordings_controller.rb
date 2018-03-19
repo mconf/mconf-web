@@ -8,7 +8,8 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
   # need authentication except to play a record (#1675)
   before_filter :authenticate_user!, except: :play
 
-  before_filter :set_parameters, only: :play
+  before_filter :find_playback, only: [:play, :short_play]
+  before_filter :set_parameters, only: [:play, :short_play]
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
@@ -16,10 +17,17 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   def determine_layout
     case params[:action].to_sym
-    when :play
+    when :play, :short_play
       'base'
     else
-      'manage'
+      'no_sidebar'
+    end
+  end
+
+  def short_play
+    self.play
+    unless performed?
+      render :play
     end
   end
 
@@ -55,5 +63,4 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
       [ :description ]
     end
   end
-
 end

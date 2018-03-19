@@ -21,7 +21,7 @@ module CustomBigbluebuttonPlaybackTypesHelper
       link_params.merge!(name: name.parameterize('_'))
     end
 
-    link_to playback.name, play_bigbluebutton_recording_path(recording, link_params),
+    link_to playback.name, short_play_recording_path(recording, link_params),
             options_for_tooltip(t("bigbluebutton_rails.playback_types.#{playback.identifier}.tip"), options)
   end
 

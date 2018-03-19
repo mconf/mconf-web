@@ -174,5 +174,5 @@ end
 
 #TODO test with more than one playback format and making one fail to make sure the loop fails
 def have_link_to_playbacks(playback)
-  have_css("a[href='#{play_bigbluebutton_recording_path(playback.recording, type: playback.format_type) }']")
+  have_css("a[href='#{short_play_recording_path(playback.recording, type: playback.format_type) }']")
 end

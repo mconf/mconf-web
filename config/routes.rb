@@ -60,6 +60,10 @@ Mconf::Application.routes.draw do
   get '/webconf/:id',
     to: 'custom_bigbluebutton_rooms#invite_userid',
     as: "join_webconf"
+
+  rec_scope = Rails.application.config.rec_scope
+  get "/#{rec_scope}/:id(/:type)", to: 'custom_bigbluebutton_recordings#short_play', as: 'short_play_recording'
+
   bigbluebutton_api_routes
 
   # shibboleth controller

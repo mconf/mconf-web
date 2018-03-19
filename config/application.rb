@@ -86,6 +86,9 @@ module Mconf
     # Show the playback in an iframe. If false, redirects the user to the playback page.
     config.playback_iframe = false
 
+    # Scope for shortened recording playback links
+    config.rec_scope = 'rec'
+
     config.exceptions_app = self.routes
   end
 end
