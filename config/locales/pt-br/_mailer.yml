@@ -7,7 +7,7 @@ pt-br:
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
-      message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
+      message: "Um usuário chamado <b>%{name}</b> (%{email}) se registrou e está esperando por aprovação."
       subject: "Um novo usuário está a espera de aprovação"
     new_user_approved:
       click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
@@ -90,6 +90,7 @@ pt-br:
     invitation_email:
       event_name: "Conferência com %{name}"
       message:
+        hi: "Olá, %{name}!"
         description: "Descrição"
         end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"

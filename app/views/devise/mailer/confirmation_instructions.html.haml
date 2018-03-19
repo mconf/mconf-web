@@ -1,4 +1,8 @@
-= t('devise.mailer.confirmation_instructions.welcome', email: @email)
+%p
+  .header_image
+    =image_tag URI.join(root_url, "assets/mailer/waiting_approval.png"), size: '544x263'
+  .header_messege
+    = t('devise.mailer.confirmation_instructions.welcome_name', name: @user.full_name)
 
 %p
   - unless Site.current.require_registration_approval?
@@ -6,6 +10,5 @@
     %p
       - url = confirmation_url(@resource, confirmation_token: @token)
       = link_to url, url
-
   - else
     = t('devise.mailer.confirmation_instructions.confirmation_pending')
