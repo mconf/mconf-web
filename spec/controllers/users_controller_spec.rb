@@ -498,7 +498,7 @@ describe UsersController do
             end
 
             it { response.status.should == 200 }
-            it { should render_template(:edit) }
+            it { should render_template(:show) }
             it { @user.encrypted_password.should == @old_encrypted }
           end
 

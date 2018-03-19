@@ -28,7 +28,7 @@
           - if can?(:update_password, @user)
             %span.link= link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
 
-  - unless @user_spaces.empty?
+  - unless @user_spaces.blank?
     #user-spaces
       %h3= t('.user_spaces')
       = render 'users/user_spaces', user: @user, spaces: @user_spaces, compact: true
