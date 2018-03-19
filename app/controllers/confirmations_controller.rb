@@ -6,11 +6,15 @@
 # 3 or later. See the LICENSE file.
 
 class ConfirmationsController < Devise::ConfirmationsController
-  layout 'navbar_bg'
+  layout 'no_sidebar'
 
   before_filter :check_registration_enabled, only: [:new, :create, :show]
   before_filter :check_already_confirmed, only: [:new, :create, :show]
   before_action :sanitize_parameters, only: [:create]
+
+  def reset_email
+    @email = params[:email]
+  end
 
   protected
 
@@ -25,6 +29,7 @@ class ConfirmationsController < Devise::ConfirmationsController
         my_home_path
       else
         new_session_path(resource_name)
+        reset_email_path(email: resource_params[:email])
       end
     else
       '/'
