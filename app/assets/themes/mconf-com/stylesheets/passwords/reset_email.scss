@@ -1,9 +1,10 @@
 @import "definitions";
 
-body.my.approval_pending.theme-mconf-com {
+body.passwords.reset_email.theme-mconf-com {
+
   #content-middle {
-    #approval-pending-wrapper {
-      #profile-logo {
+    #password-reset-email-wrapper {
+      #email-logo {
         @include make-row;
 
         margin: 50px auto 0 auto;
@@ -11,7 +12,7 @@ body.my.approval_pending.theme-mconf-com {
         padding: 17%;
         overflow: visible;
 
-        background: image-url('Profile.png') no-repeat top;
+        background: image-url('Email.png') no-repeat top;
         background-size: contain;
         height: 70%;
         width: 70%;

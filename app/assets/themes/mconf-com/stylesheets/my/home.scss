@@ -1,0 +1,22 @@
+@import "definitions";
+
+body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings.theme-mconf-com {
+
+  #user-meetings-recordings {
+    &.empty {
+      #empty-home-logo {
+        @include make-row;
+
+        margin: 60px auto 0 auto;
+        float: none;
+        padding: 8%;
+        overflow: visible;
+
+        background: image-url('Play_webconference.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
+      }
+    }
+  }
+}
