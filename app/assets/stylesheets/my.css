@@ -3,4 +3,7 @@
  *= require ./app/my/meetings
  *= require ./app/my/approval_pending
  *= require ./app/my/edit_recording
+ *
+ * Themes: if using a theme, import it here!
+ *= require mconf-com/stylesheets/my/approval_pending
  */

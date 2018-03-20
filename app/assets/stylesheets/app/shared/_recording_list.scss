@@ -91,4 +91,8 @@
   .options-column, .recording-playback-links {
     white-space: nowrap;
   }
+
+  .rec-playback-column {
+    min-width: 160px;
+  }
 }

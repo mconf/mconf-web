@@ -1,3 +1,6 @@
 /*
  *= require ./app/sessions/new
+ *
+ * Themes: if using a theme, import it here!
+ *= require mconf-com/stylesheets/sessions/new
  */
