@@ -334,7 +334,7 @@ a:not(.btn) .icon {
   &.icon-broken {
     font-size: 33px;
     vertical-align: middle;
-    color: $m-modal-buttons;
+    color: $m-red;
   }
 
   &.icon-processing {
@@ -352,13 +352,12 @@ a:not(.btn) .icon {
   &.icon-archive {
     font-size: 33px;
     vertical-align: middle;
-    color: $m-green-soft;
+    color: $m-purple-soft;
   }
 
   &.icon-conference-play{
-    color: $m-green-soft;
+    color: $m-purple-soft;
     vertical-align: middle;
-
   }
 
   &.icon-help, &.icon-info {
@@ -388,12 +387,12 @@ a:not(.btn) .icon {
   }
 
   &.icon-file-download {
-    color: $m-green-soft;
+    color: $m-purple-soft;
     vertical-align: middle;
   }
 
   &.icon-link {
-    color: $m-green-soft;
+    color: $m-purple-soft;
     vertical-align: middle;
   }
 
