@@ -60,3 +60,11 @@ $m-mail-inner-box-border: #CCCCCC;
 $m-mail-message-border: #DDDDDD;
 $m-mail-action-btn-bg: $m-color-secondary;
 $m-mail-action-btn-font-color: #fff;
+// simple-form custom
+$m-sf-placeholder-color: $m-disabled-placeholder-text;
+$m-sf-field-border: 1px solid $m-field-border;
+$m-sf-field-border-focused: 1px solid $m-color-primary-soft;
+// header and footer colors
+$m-footer-header-link-color: $m-text;
+$m-footer-header-link-color-hover: $m-color-primary;
+$m-footer-header-link-color-active: $m-color-primary;

@@ -219,6 +219,13 @@ mark {
 }
 
 // buttons default
+.btn-group {
+  > :not(.active){
+    border-color: $m-field-border;
+    background: $m-field-border;
+  }
+}
+
 .btn-primary {
   :hover, :active, .active, :focus {
     background: $m-color-primary-heavy;
