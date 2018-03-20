@@ -8,62 +8,83 @@ body.subscriptions.show {
 
   #subscription-wrapper {
     margin: 40px auto;
-    @include mconf-clearfix;
 
+    @include mconf-clearfix;
     @include make-xs-column(12);
-    @include make-sm-column(8);
+    @include make-sm-column(10);
     @include make-sm-column-offset(2);
 
     h3 {
       margin-bottom: 16px;
     }
 
-    .edit-link {
-      float: right;
-    }
-    .delete-link {
-      float: left;
-    }
+    .container-fluid {
+      background: $m-site-content-bg-color;
+      max-width: 570px;
+      margin: 0 0;
+      border-radius: 10px;
+      box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+      text-align: center;
+      overflow: visible !important;
+      display: block !important;
 
-    .resource-card {
-      width: 100%;
-      max-width: 1000px;
-      margin: 24px auto 40px auto;
+      .resource-card {
+        width: 100%;
+        max-width: 1000px;
+        margin: 30px auto 40px auto;
 
-      .resource-logo {
-        width: 250px;
-        float: left;
-        text-align: right;
-      }
-
-      .resource-data {
-        padding-left: 40px;
-        width: calc(100% - 290px);
-        float: left;
-        text-align: left;
-      }
-
-      .field {
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #eee;
-
-        span {
-          display: block;
+        .card-title {
+          font-size: 22px;
+          font-weight: $m-font-weight-bold;
+          color: $m-titles;
+          margin-bottom: 40px;
+          margin-top: 40px;
         }
 
-        &:last-child {
-          border: 0;
+        .resource-logo {
+          width: 250px;
+          float: left;
+          text-align: right;
         }
-      }
 
-      .field-title {
-        font-size: $m-font-small;
-        color: $m-font-light;
-      }
+        .resource-data {
+          padding-left: 40px;
+          padding-right: 40px;
+          width: 100%;
+          float: left;
+          text-align: left;
+        }
 
-      .field-value {
-        margin-left: 12px;
+        .field {
+          margin-bottom: 20px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid #eee;
+          padding-left: 10px;
+
+          .field-value {
+            font-size: 22px;
+            margin-left: 12px;
+            color: $m-text;
+          }
+
+          span {
+            display: block;
+          }
+
+          &:last-child {
+            border: 0;
+          }
+        }
+
+        .field-title {
+          font-size: 18px;
+          font-weight: $m-font-weight-bold;
+          color: $m-text;
+        }
+
+        .delete-link {
+          margin-bottom: 20px;
+        }
       }
     }
   }

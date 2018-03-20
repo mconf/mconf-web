@@ -1865,6 +1865,7 @@ en:
       access_forbidden: "This operation is only available to administrators"
     menu:
       profile: "Profile"
+      subscription: "Subscription"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."

@@ -68,6 +68,7 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def update
+    @user = User.find_by(username: (params[:user_id]))
     update! do |success, failure|
       success.html {
         flash[:notice] = t("subscriptions.update");
@@ -90,7 +91,9 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def paginate_subscriptions
-    @subscriptions = @subscriptions.paginate(:page => params[:page], :per_page => 15)
+    unless @subscriptions.blank?
+      @subscriptions = @subscriptions.paginate(:page => params[:page], :per_page => 15)
+    end
   end
 
 

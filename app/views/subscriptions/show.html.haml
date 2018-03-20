@@ -5,54 +5,57 @@
 -# = content_for :sidebar do
 -#   = render "my/sidebar"
 
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
+
 #subscription-wrapper
-  .resource-card
-    .resource-logo
-      -#%img{ src: "https://iugu.com/wp-content/uploads/2017/06/iugu_eps-300x188.jpg" }
-      -# Add a logo here like "Mconf Subscription IMG" and a smaller logo of the payment service
+  .container-fluid
+    .resource-card
+      .card-title= t('.subtitle')
 
-    .resource-data
-      %h3= t('.customer_section')
-      .field
-        %span.field-title= t('.cpf_cnpj')
-        %span.field-value= @subscription.cpf_cnpj
+      .resource-data
+        .field
+          %span.field-title= t('.cpf_cnpj')
+          %span.field-value= @subscription.cpf_cnpj
 
-      %h3= t('.address_section')
-      .field
-        %span.field-title= t('.address')
-        %span.field-value= @subscription.address
+        .field
+          %span.field-title= t('.address')
+          %span.field-value= @subscription.address
 
-      .field
-        %span.field-title= t('.additional_address_info')
-        %span.field-value= @subscription.additional_address_info
+        .field
+          %span.field-title= t('.additional_address_info')
+          %span.field-value= @subscription.additional_address_info
 
-      .field
-        %span.field-title= t('.number')
-        %span.field-value= @subscription.number
+        .field
+          %span.field-title= t('.number')
+          %span.field-value= @subscription.number
 
-      .field
-        %span.field-title= t('.zipcode')
-        %span.field-value= @subscription.zipcode
+        .field
+          %span.field-title= t('.district')
+          %span.field-value= @subscription.district
 
-      .field
-        %span.field-title= t('.city')
-        %span.field-value= @subscription.city
+        .field
+          %span.field-title= t('.zipcode')
+          %span.field-value= @subscription.zipcode
 
-      .field
-        %span.field-title= t('.province')
-        %span.field-value= @subscription.province
+        .field
+          %span.field-title= t('.city')
+          %span.field-value= @subscription.city
 
-      .field
-        %span.field-title= t('.district')
-        %span.field-value= @subscription.district
+        .field
+          %span.field-title= t('.province')
+          %span.field-value= @subscription.province
 
-      .field
-        %span.field-title= t('.country')
-        %span.field-value= @subscription.country
+        .field
+          %span.field-title= t('.country')
+          %span.field-value= @subscription.country
 
-      .edit-link
-        = link_to t('.edit'), edit_user_subscription_path(@user), :class => "btn btn-danger"
-      .delete-link
-        = link_to t('.delete'), user_subscription_path(@user), data: { confirm: t(".delete") }, method: :delete, :class => "btn btn-danger"
+        .edit-link
+          = link_to t('.edit'), edit_user_subscription_path(@user), :class => "btn btn-default"
+        .delete-link
+          = link_to t('.delete'), user_subscription_path(@user), data: { confirm: t(".delete") }, method: :delete, :class => "btn btn-default"
 
-= render "invoices/invoices_list", subscription: @subscription
+-#= render "invoices/invoices_list", subscription: @subscription

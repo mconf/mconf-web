@@ -1890,6 +1890,7 @@ pt-br:
       access_forbidden: "Esta operação está disponível apenas para administradores"
     menu:
       profile: "Perfil"
+      subscription: "Assinatura"
     new:
       create:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."

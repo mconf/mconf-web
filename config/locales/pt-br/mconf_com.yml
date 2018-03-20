@@ -124,7 +124,7 @@ pt-br:
     destroy: "Assinatura removida com sucesso"
     destroy_fail: "Assinatura não pode ser destruída, por favor, tente novamente ou entre em contato com um administrador"
     edit:
-      title: "%{name} Assinatura"
+      title: "Assinatura"
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
       cpf_cnpj: "CPF/CNPJ"
@@ -148,7 +148,8 @@ pt-br:
       rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">60 dias</span> (2 meses) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
       rules_title: "Como Funciona"
     show:
-      title: "%{name} Assinatura"
+      title: "Assinatura"
+      subtitle: "Assinatura Premium"
       edit: "Editar"
       delete: "Remover Assinatura"
       address_section: "Informações de endereço"
