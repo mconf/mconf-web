@@ -8,4 +8,8 @@
  *= require ./app/custom_bigbluebutton_rooms/show
  *= require ./app/custom_bigbluebutton_rooms/recordings
  *= require ./app/custom_bigbluebutton_rooms/invitation
+ *
+ * Themes: if using a theme, import it here!
+ *= require mconf-com/stylesheets/custom_bigbluebutton_rooms/invite
+ *= require mconf-com/stylesheets/custom_bigbluebutton_rooms/invite_userid
  */

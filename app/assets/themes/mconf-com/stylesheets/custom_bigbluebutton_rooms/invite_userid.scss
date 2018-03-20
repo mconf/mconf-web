@@ -1,0 +1,35 @@
+@import "definitions";
+
+body.custom_bigbluebutton_rooms.invite_userid.theme-mconf-com {
+
+&.running {
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('Notebook_online.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
+&:not(.running) {
+  #login_page {
+    @include make-sm-column(6);
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('Notebook_offline.png') no-repeat left;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
+}

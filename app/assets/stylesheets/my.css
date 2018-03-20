@@ -6,5 +6,6 @@
  *
  * Themes: if using a theme, import it here!
  *= require mconf-com/stylesheets/my/home
+ *= require mconf-com/stylesheets/my/meetings
  *= require mconf-com/stylesheets/my/approval_pending
  */
