@@ -17,12 +17,10 @@ $m-link-color-active: $m-link-color-hover; //darken($m-link-color-hover, 20);
 // standard colors
 $m-green-mconf: #004956; // #27535C
 $m-green-soft: #81B29A;
-$m-purple-mconf: #481E9D;
-$m-purple-soft: #8D74C0;
 $m-alert-color: #F47B48;
 $m-green: $olive;
 $m-blue: #337ab7;
-$m-red: #D5455A;
+$m-red: #ff5b5b;
 $m-orange: #e98300; //#C47322;
 $m-yellow: #f3a712; //#BB9403;
 $m-cyan: #00ffff;
@@ -46,24 +44,14 @@ $m-success-notification-border: 5px solid #396554;
 $m-error-notification: #D5455A;
 $m-error-notification-border: 5px solid #6A232D;
 
-// simple-form custom
-$m-sf-placeholder-color: $m-disabled-placeholder-text;
-$m-sf-field-border: 1px solid $m-field-border;
-$m-sf-field-border-focused: 1px solid $m-purple-soft;
-
-// header and footer colors
-$m-footer-header-link-color: $m-text;
-$m-footer-header-link-color-hover: $m-purple-mconf;
-$m-footer-header-link-color-active: $m-purple-mconf;
-
 // site colors and global configs
 $m-site-bg-color: #f2f2f2;
 $m-site-content-bg-color: #fff;
-$m-color-primary: $m-purple-mconf;
+$m-color-primary: $m-green-mconf;
 $m-color-primary-hover: darken($m-color-primary, 5);
-$m-color-primary-soft: $m-purple-soft;
-$m-color-primary-heavy: #452A97;
-$m-color-primary-soft-hover: $m-purple-mconf;
+$m-color-primary-soft: $m-green-soft;
+$m-color-primary-heavy: #2A535C;
+$m-color-primary-soft-hover: $m-green-mconf;
 $m-color-secondary: #337ab7;
 $m-color-secondary-hover: darken($m-color-secondary, 5);
 $m-focus-border-color: $m-color-secondary;
@@ -80,6 +68,16 @@ $m-content-vertical-padding: 60px;
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
 $m-active-item-border-off: 4px solid $m-transparent;
+
+// simple-form custom
+$m-sf-placeholder-color: $m-disabled-placeholder-text;
+$m-sf-field-border: 1px solid $m-field-border;
+$m-sf-field-border-focused: 1px solid $m-color-primary-soft;
+
+// header and footer colors
+$m-footer-header-link-color: $m-text;
+$m-footer-header-link-color-hover: $m-color-primary;
+$m-footer-header-link-color-active: $m-color-primary;
 
 // fonts
 $m-font-normal: 14px; //0.85rem; /* 14px, base size for all fonts */
@@ -301,7 +299,7 @@ $m-tooltip-arrow-color: $m-color-primary;
 /*
  * Customized variables for bootstrap
  */
-$brand-primary: lighten($m-purple-mconf, 12);
+$brand-primary: lighten($m-green-mconf, 12);
 $border-radius-base: $m-border-radius-base;
 $border-radius-small: $m-border-radius-small;
 $border-radius-large: $m-border-radius-large;
