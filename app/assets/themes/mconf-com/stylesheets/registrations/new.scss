@@ -1,0 +1,22 @@
+@import "definitions";
+
+@import "app/shared/social_login";
+
+body.registrations.new.theme-mconf-com, body.registrations.create.theme-mconf-com {
+
+  #headline {
+    #registration-logo {
+      @include make-row;
+
+      margin: 50px auto 0 auto;
+      float: left;
+      padding: 36%;
+      overflow: visible;
+
+      background: image-url('Notebook_video_play.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
+    }
+  }
+}

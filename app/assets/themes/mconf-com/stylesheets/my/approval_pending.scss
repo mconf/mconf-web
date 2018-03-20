@@ -1,0 +1,23 @@
+@import "definitions";
+
+@import "app/shared/social_login";
+
+body.my.approval_pending.theme-mconf-com {
+  #content-middle {
+    #approval-pending-wrapper {
+      #profile-logo {
+        @include make-row;
+
+        margin: 50px auto 0 auto;
+        float: none;
+        padding: 17%;
+        overflow: visible;
+
+        background: image-url('Profile.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
+      }
+    }
+  }
+}
