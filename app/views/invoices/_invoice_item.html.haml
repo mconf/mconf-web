@@ -1,38 +1,39 @@
-.list-item.container-fluid{ id: "invoice-#{invoice.attributes["id"]}" }
-  %tr
-    %td.invoice-date-col
-      = format_date(invoice.due_date)
-    %td.invoice-id-col
-      - if invoice.invoice_token.present?
-        = link_to invoice.invoice_token, user_invoice_path(invoice.subscription.user.username, invoice.id)
-      - else
-        = link_to t('.not_ready'), user_invoice_path(invoice.subscription.user.username, invoice.id)
-    %td.invoice-value-col
-      -# Move this formatting to a helper, prices are save in cents and must be parsed
-      - if invoice.invoice_value.present?
-        = sprintf('R$ %.2f', invoice.invoice_value/100)
-      - else
-        = sprintf(t('.no_value'))
-    -#%td.invoice-status-col
-    -#  - status = invoice.flag_invoice_status
-    -#  - if status == Invoice::INVOICE_STATUS[:local]
-    -#    .label.label-default
-    -#      = t('.local')
-    -#  - if status == Invoice::INVOICE_STATUS[:pending]
-    -#    .label.label-warning
-    -#      = t('.pending')
-    -#  - if status == Invoice::INVOICE_STATUS[:canceled]
-    -#    .label.label-default
-    -#      = t('.canceled')
-    -#  - if status == Invoice::INVOICE_STATUS[:paid]
-    -#    .label.label-success
-    -#      = t('.paid')
-    -#  - if status == Invoice::INVOICE_STATUS[:expired]
-    -#    .label.label-danger
-    -#      = t('.expired')
-    %td.invoice-pay-col
-      - if invoice.invoice_url.present?
-        = link_to invoice.invoice_url do
-          = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
-      - else
-        = icon_payment_invoice(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))
+#invoice-item
+  .list-item.container-fluid{ id: "invoice-#{invoice.attributes["id"]}" }
+    %tr
+      %td.invoice-date-col
+        = format_date(invoice.due_date)
+      -#%td.invoice-id-col
+      -#  - if invoice.invoice_token.present?
+      -#    = link_to invoice.invoice_token, user_invoice_path(invoice.subscription.user.username, invoice.id)
+      -#  - else
+      -#    = link_to t('.not_ready'), user_invoice_path(invoice.subscription.user.username, invoice.id)
+      %td.invoice-value-col
+        -# Move this formatting to a helper, prices are save in cents and must be parsed
+        - if invoice.invoice_value.present?
+          = sprintf('R$ %.2f', invoice.invoice_value/100)
+        - else
+          = sprintf(t('.no_value'))
+      -#%td.invoice-status-col
+      -#  - status = invoice.flag_invoice_status
+      -#  - if status == Invoice::INVOICE_STATUS[:local]
+      -#    .label.label-default
+      -#      = t('.local')
+      -#  - if status == Invoice::INVOICE_STATUS[:pending]
+      -#    .label.label-warning
+      -#      = t('.pending')
+      -#  - if status == Invoice::INVOICE_STATUS[:canceled]
+      -#    .label.label-default
+      -#      = t('.canceled')
+      -#  - if status == Invoice::INVOICE_STATUS[:paid]
+      -#    .label.label-success
+      -#      = t('.paid')
+      -#  - if status == Invoice::INVOICE_STATUS[:expired]
+      -#    .label.label-danger
+      -#      = t('.expired')
+      %td.invoice-pay-col
+        - if invoice.invoice_url.present?
+          = link_to invoice.invoice_url do
+            = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
+        - else
+          = icon_payment_invoice(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))
