@@ -30,6 +30,11 @@ class InvoicesController < InheritedResources::Base
     @invoice = @user.subscription.invoices.find_by(id: (params[:id]))
   end
 
+  def index
+    @user = User.find_by(username: (params[:user_id]))
+    @invoices = @user.subscription.invoices
+  end
+
   def report
     @invoice ||= Invoice.find_by(id: params[:id])
 

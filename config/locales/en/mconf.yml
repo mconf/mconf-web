@@ -1866,6 +1866,7 @@ en:
     menu:
       profile: "Profile"
       subscription: "Subscription"
+      invoice: "Invoices"
     new:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."

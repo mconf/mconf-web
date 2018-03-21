@@ -102,7 +102,7 @@ Mconf::Application.routes.draw do
     end
 
     resource :subscription, only: [:edit, :update, :show, :destroy]
-    resources :invoices, only: [:show] do
+    resources :invoices, only: [:show, :index] do
       member do
         get :report
       end

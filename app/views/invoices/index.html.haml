@@ -1,0 +1,9 @@
+- page_title t('.title', name: @user.full_name)
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
+
+= render "invoices/invoices_list", subscription: @subscription
