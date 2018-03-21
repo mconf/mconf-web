@@ -22,12 +22,14 @@
       width: 48%;
       font-size: $m-font-big;
       padding: 12px;
+      &:only-child {
+        width: 100%;
+      }
     }
 
     .btn-google, .btn-facebook {
-      $bg-normal: #df4a32;
-      $bg-hover: lighten(#702519, 5);
-
+      $bg-normal: #DF4A32;
+      $bg-hover: #A7220C;
       float: left;
       background: $bg-normal;
       padding: 0;
@@ -52,8 +54,8 @@
     }
 
     .btn-facebook {
-      $bg-normal: #3b579d;
-      $bg-hover: lighten(#0e0132, 5);
+      $bg-normal: #3B579D;
+      $bg-hover: #283B6A;
 
       float: right;
       background: $bg-normal;
