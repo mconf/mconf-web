@@ -219,13 +219,6 @@ mark {
 }
 
 // buttons default
-.btn-group {
-  > :not(.active){
-    border-color: $m-field-border;
-    background: $m-field-border;
-  }
-}
-
 .btn-primary, .btn-primary.active {
   background: $m-color-primary-soft;
   border-color: $m-color-primary-soft;
