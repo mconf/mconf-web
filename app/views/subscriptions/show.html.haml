@@ -51,6 +51,6 @@
         .edit-link
           = link_to t('.edit'), edit_user_subscription_path(@user), :class => "btn btn-default"
         .delete-link
-          = link_to t('.delete'), user_subscription_path(@user), data: { confirm: t(".delete") }, method: :delete, :class => "btn btn-default"
+          = link_to t('.delete'), user_subscription_path(@user), data: { confirm: t(".delete_confirmation") }, method: :delete, :class => "btn btn-default"
 
 -#= render "invoices/invoices_list", subscription: @subscription
