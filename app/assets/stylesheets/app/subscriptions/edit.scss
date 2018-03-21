@@ -8,18 +8,53 @@ body.subscriptions.edit, body.subscriptions.update {
   #subscription-wrapper {
     margin: 40px auto;
     @include mconf-clearfix;
+    @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-offset(2);
 
-    #edit-form {
-      @include make-xs-column(12);
-      @include make-sm-column(8);
-      @include make-sm-column-offset(2);
+    .container-fluid {
+      background: $m-site-content-bg-color;
+      max-width: 570px;
+      margin: 0 0;
+      border-radius: 10px;
+      box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+      text-align: center;
+      overflow: visible !important;
+      display: block !important;
+
+      .resource-card {
+        width: 100%;
+        max-width: 1000px;
+        margin: 30px auto 40px auto;
+
+        .card-title {
+          font-size: 22px;
+          font-weight: $m-font-weight-bold;
+          color: $m-titles;
+          margin-bottom: 20px;
+          margin-top: 40px;
+        }
+      }
+
+      .form-control {
+        max-width: 75%;
+        margin-left: 25px;
+      }
+
+      .control-label {
+        float: left;
+        padding-right: 20%;
+        padding-left: 4%;
+        font-size: 15px;
+        color: $m-text;
+      }
 
       .form-actions {
         min-width: 650px;
         border: none;
-        margin: 40px auto;
-        padding-top: 10px;
-        padding-right: 10px;
+        margin: 10px auto;
+        padding-top: 0;
+        padding-right: 125px;
       }
       
       .field-group {

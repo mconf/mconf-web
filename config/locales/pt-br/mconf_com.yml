@@ -125,6 +125,7 @@ pt-br:
     destroy_fail: "Assinatura não pode ser destruída, por favor, tente novamente ou entre em contato com um administrador"
     edit:
       title: "Assinatura"
+      subtitle: "Informações da conta"
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
       cpf_cnpj: "CPF/CNPJ"

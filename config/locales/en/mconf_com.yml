@@ -135,7 +135,8 @@ en:
     destroy: "Subscription successfully removed"
     destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
-      title: "%{name} Subscription"
+      title: "Subscription"
+      subtitle: "Account information"
       address_section: "Address information"
       confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"

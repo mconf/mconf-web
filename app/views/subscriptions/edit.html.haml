@@ -1,31 +1,32 @@
 - page_title t('.title',  name: @user.full_name)
 
--# - home_sidebar_menu_at(:subscription)
+= content_for :sidebar do
+  .sidebar-title= t('.title')
 
--# = content_for :sidebar do
--#   = render "my/sidebar", user_spaces: @user_spaces
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
 
 #subscription-wrapper
-  .row
-    #edit-form
-      = simple_form_for @subscription, :html => { :method => :patch }, :url => user_subscription_path(@user), wrapper: :horizontal_form do |f|
-        .field-group
-          %h3= t('.customer_section')
-          = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
+  .container-fluid
+    .resource-card
+      .card-title= t('.subtitle')
 
-        .field-group
-          %h3= t('.address_section')
-          = f.input :address, required: true, placeholder: t('.address')
-          = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info')
-          = f.input :number, required:true, placeholder: t('.number')
-          = f.input :zipcode, required: true, placeholder: t('.zipcode')
-          = f.input :city, required: true, placeholder: t('.city')
-          = f.input :province, required: true, placeholder: t('.province')
-          = f.input :district, required: true, placeholder: t('.district')
-          = f.input :country, as: :string, required: true, placeholder: t('.country')
+      .resource-data
+        .field
+          = simple_form_for @subscription, :html => { :method => :patch }, :url => user_subscription_path(@user) do |f|
+            .field-group
+              = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
+              = f.input :address, required: true, placeholder: t('.address')
+              = f.input :additional_address_info, required: false, placeholder: t('.additional_address_info')
+              = f.input :number, required:true, placeholder: t('.number')
+              = f.input :zipcode, required: true, placeholder: t('.zipcode')
+              = f.input :city, required: true, placeholder: t('.city')
+              = f.input :province, required: true, placeholder: t('.province')
+              = f.input :district, required: true, placeholder: t('.district')
+              = f.input :country, as: :string, required: true, placeholder: t('.country')
 
-        -#.form-accept-terms.field-group
-        -#  = check_box_tag :terms, 1, false, as: :boolean
-        -#  = label_tag :terms, t('.terms').html_safe
+            -#.form-accept-terms.field-group
+            -#  = check_box_tag :terms, 1, false, as: :boolean
+            -#  = label_tag :terms, t('.terms').html_safe
 
-        = f.button :wrapped, value: t(".save")
+            =f.button :wrapped, :cancel => user_subscription_path(@user), :value => t("_other.save"), class: "btn-default"
