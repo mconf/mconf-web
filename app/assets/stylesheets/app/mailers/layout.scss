@@ -8,12 +8,14 @@ body {
   line-height: 1.5em;
   background: $m-background;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  word-wrap: break-word;
 
   .header-logo {
     text-align: center;
   }
   .header_image {
     text-align: center;
+    margin-bottom: 1.5em;
   }
   .header_messege {
     color: $m-mail-header-footer-color;
@@ -60,5 +62,8 @@ body {
       font-weight: bold;
       font-size: 15px;
     }
+  }
+  .feedback_text {
+    font-style: italic;
   }
 }
