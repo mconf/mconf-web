@@ -1891,6 +1891,7 @@ pt-br:
     menu:
       profile: "Perfil"
       subscription: "Assinatura"
+      invoice: "Faturas"
     new:
       create:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."

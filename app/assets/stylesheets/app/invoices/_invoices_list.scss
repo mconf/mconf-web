@@ -1,0 +1,29 @@
+@import "compass/css3";
+@import "definitions";
+
+body.invoices.index {
+  #invoices-wrapper {
+    margin: 40px auto;
+
+    @include mconf-clearfix;
+    @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-offset(2);
+
+    .container-fluid {
+      background: $m-site-content-bg-color;
+      max-width: 570px;
+      margin: 0 0;
+      border-radius: 10px;
+      box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+      text-align: center;
+      overflow: visible !important;
+      display: block !important;
+    }
+
+    td {
+      text-align: left;
+    }
+
+  }
+}

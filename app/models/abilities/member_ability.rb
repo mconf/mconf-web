@@ -49,7 +49,7 @@ module Abilities
       end
 
       # Invoices
-      can [:show, :report], Invoice do |invo|
+      can [:show, :report, :index], Invoice do |invo|
         invo.subscription.user_id == user.id
       end
 
