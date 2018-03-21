@@ -15,23 +15,24 @@ class SubscriptionsController < InheritedResources::Base
   # Handle errors - error pages
   rescue_from RestClient::Unauthorized, with: :ops_error
 
-  layout :determine_layout
+  layout "application"
 
   def find_subscription
     @subscription ||= User.find_by(username: params[:user_id]).try(:subscription)
     @subscription ||= Subscription.new(subscription_params)
   end
 
-  def determine_layout
-    if [:new, :create].include?(action_name.to_sym)
-      "no_sidebar"
-    else
-      "application"
-    end
-  end
+  # def determine_layout
+  #   if [:new, :create].include?(action_name.to_sym)
+  #     "application"
+  #   else
+  #     "application"
+  #   end
+  # end
 
 
   def new
+    @user = User.find_by(username: (params[:user_id]))
     if current_user.subscription.present?
       redirect_to user_subscription_path(current_user)
     end
@@ -39,12 +40,13 @@ class SubscriptionsController < InheritedResources::Base
 
   def create
     @subscription.setup(current_user, Plan::OPS_TYPES[:iugu])
+    @user = User.find_by(username: (params[:user_id]))
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }
       redirect_to user_subscription_path(current_user), :flash => flash
     else
-      render new_subscription_path
+      render new_user_subscription_path(@user)
     end
   end
 

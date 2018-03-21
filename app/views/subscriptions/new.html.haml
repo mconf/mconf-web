@@ -1,18 +1,26 @@
-= page_title t('.title')
+- page_title t('.title', name: @user.full_name)
 
-%h1= t('.form_title')
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
 
 #subscription-wrapper
-  .row
-    #subscription-form
-      = render partial: 'subscription_form'
+  .container-fluid
+    .header
+      .resource-card
+        .card-title= t('.subtitle')
 
-    #subscription-rules
-      .rule-block
-        %h3= t('.rules_title').html_safe
-        %p= t('.rules_text').html_safe
-      .rule-block
-        %h3= t('.pricing_title').html_safe
-        %ul
-          %li= t('.pricing_text1').html_safe
-          %li= t('.pricing_text2').html_safe
+      #subscription-rules
+        .rule-block
+          .rule-title= t('.rules_title').html_safe
+          %p= t('.rules_text').html_safe
+        .rule-block
+          .rule-title= t('.pricing_title').html_safe
+          %ul
+            %li= t('.pricing_text1').html_safe
+            %li= t('.pricing_text2').html_safe
+
+    .body
+      = render partial: 'subscription_form'

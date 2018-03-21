@@ -10,55 +10,87 @@ body.subscriptions.index {
     margin: 40px auto;
     width: 80%;
     @include mconf-clearfix;
+    @include make-xs-column(12);
+    @include make-sm-column(10);
+    @include make-sm-column-offset(2);
 
-    #subscription-form {
-      @include make-xs-column(12);
-      @include make-sm-column(6);
+    .container-fluid {
+      background: $m-site-content-bg-color;
+      max-width: 570px;
+      margin: 0 0;
+      border-radius: 3px;
+      box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+      text-align: center;
+      overflow: visible !important;
+      display: block !important;
 
-      form {
-        .form-accept-terms {
-          float: right;
-          margin-right: 5px;
+      .header {
+        background: $m-com-purple;
+        border-radius: 3px 3px 0 0;
+        padding: 50px 10% 10px 10%;
+        margin-left: -3%;
+        margin-right: -3%;
+        color: $m-com-white;
+
+        .resource-card {
+          width: 100%;
+          max-width: 1000px;
+          margin: -40px auto 40px auto;
+
+          .card-title {
+            font-size: 22px;
+            font-weight: $m-font-weight-bold;
+            margin-bottom: 20px;
+            margin-top: 40px;
+          }
         }
-        .form-actions {
-          border: none;
-          margin-top: 0px;
-          padding-top: 0px;
-        }
-      }
 
-      .field-group {
-        padding-bottom: 16px;
-        clear: both;
+        #subscription-rules {
+          font-size: $m-font-medium;
+          text-align: justify;
 
-        h3 {
-          margin-bottom: 16px;
+          .rule-title {
+            font-weight: $m-font-weight-bold;
+          }
+
+          .attention {
+            color: $m-com-purple-dark;
+            font-weight: bold;
+          }
+
+          p {
+            margin-bottom: 8px;
+          }
+
+          ul {
+            list-style-type: disc;
+          }
+
+          .rule-block {
+            margin-bottom: 32px;
+          }
         }
       }
     }
 
-    #subscription-rules {
-      @include make-xs-column(12);
-      @include make-sm-column(6);
-      font-size: $m-font-medium;
-      text-align: justify;
-      padding-left: 32px;
-
-      .attention {
-        color: $m-color-secondary;
-        font-weight: bold;
+    form {
+      .form-accept-terms {
+        float: right;
+        margin-right: 5px;
       }
-
-      p {
-        margin-bottom: 8px;
+      .form-actions {
+        border: none;
+        margin-top: 0px;
+        padding-top: 0px;
       }
+    }
 
-      ul {
-        list-style-type: disc;
-      }
+    .field-group {
+      padding-bottom: 16px;
+      clear: both;
 
-      .rule-block {
-        margin-bottom: 32px;
+      h3 {
+        margin-bottom: 35px;
       }
     }
 

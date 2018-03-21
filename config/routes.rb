@@ -101,7 +101,7 @@ Mconf::Application.routes.draw do
       get :edit_data
     end
 
-    resource :subscription, only: [:edit, :update, :show, :destroy]
+    resource :subscription, only: [:edit, :update, :show, :destroy, :new]
     resources :invoices, only: [:show] do
       member do
         get :report
@@ -109,7 +109,7 @@ Mconf::Application.routes.draw do
     end
   end
 
- resources :subscriptions, only: [:new, :create, :index]
+ resources :subscriptions, only: [:create, :index]
  # resources :invoices, only: [:index]
   # routes specific for the current user
   scope 'home' do

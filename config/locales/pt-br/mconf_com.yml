@@ -171,7 +171,7 @@ pt-br:
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
       cpf_cnpj: "CPF/CNPJ"
-      customer_section: "Informações do cliente"
+      customer_information: "Informações do cliente"
       select_subscription: "Selecione sua assinatura"
       subscribe: "Assinar"
       address: "Rua"

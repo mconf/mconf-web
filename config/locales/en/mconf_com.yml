@@ -165,6 +165,7 @@ en:
     new:
       form_title: "Subscription"
       title: "Subscribe"
+      subtitle: "Premium Subscription"
       pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
       pricing_text2: "Over 15 users: <span class=\"attention\">US$ 4</span> per user per month"
       pricing_title: "Pricing"
@@ -190,10 +191,9 @@ en:
       district: "District"
       country: "Country"
     subscription_form:
-      address_section: "Address information"
       confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"
-      customer_section: "Customer information"
+      customer_information: "Customer information"
       subscribe: "Subscribe"
       address: "Street address"
       additional_address_info: "Complement"
