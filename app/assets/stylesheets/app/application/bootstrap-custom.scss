@@ -226,9 +226,11 @@ mark {
   }
 }
 
-.btn-primary {
-  :hover, :active, .active, :focus {
-    background: $m-color-primary-heavy;
+.btn-primary, .btn-primary.active {
+  background: $m-color-primary-soft;
+  border-color: $m-color-primary-soft;
+  :hover, :active, :focus {
+    background: $m-color-primary;
   }
 }
 

@@ -14,7 +14,7 @@
         = t('.profile')
 
     %li{ :class => "#{'active' if subscription_page}" }
-      = link_to user_subscription_path(@user) do
+      = link_to new_subscription_path do
         - if subscription_page
           = icon_sidebar_arrow
         = t('.subscription')
