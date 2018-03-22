@@ -15,6 +15,7 @@ pt-br:
       subject: "Seu acesso ao site foi aprovado"
   user_mailer:
     cancellation_notification_email:
+      title: "A sua assinatura foi cancelada!"
       message: "Estamos enviando este e-mail para lhe informar que sua conta em <a href=\"%{url}\">%{site}</a> foi cancelada."
       more: "Caso tenha sido um engano ou precise mais informações, entre em contato pelo e-mail <a href=\"mailto:%{mail}\">%{mail}</a>."
       subject: "Sua conta foi cancelada"

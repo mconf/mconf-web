@@ -4,7 +4,7 @@
 
 body {
   padding: 5px;
-  color: $m-mail-font-color;
+  color: $m-grey-email-color;
   line-height: 1.5em;
   background: $m-background;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -28,6 +28,7 @@ body {
     background: $m-site-content-bg-color;
     padding: 32px;
     width: 30%;
+    border-radius: 8px;
   }
   .image_footer {
     margin-top: 10px;
@@ -65,5 +66,23 @@ body {
   }
   .feedback_text {
     font-style: italic;
+  }
+  .button {
+    a {
+      color: #ffffff;
+      cursor: pointer;
+      background-color: #8A73BD;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      font-size: 20px;
+      max-width: 250px;
+      margin: 30px auto 30px auto;
+      margin-right: auto;
+      margin-left: auto;
+      border-radius: 5px;
+      font-weight: bold;
+    }
   }
 }

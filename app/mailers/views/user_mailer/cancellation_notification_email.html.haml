@@ -1,2 +1,7 @@
+%p
+  .header_image
+    =image_tag URI.join(root_url, "assets/mailer/assign_cancelation.png"), size: '494x263'
+  .header_messege
+    =t('.title')
 %p= t('.message', name: @user.full_name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
 %p= t('.more', mail: Site.current.smtp_receiver).html_safe

@@ -15,6 +15,7 @@ en:
       subject: "Your registration has been approved"
   user_mailer:
     cancellation_notification_email:
+      title: "Your signature was cancelled!"
       message: "We're sending this email to inform you that your account on <a href=\"%{url}\">%{site}</a> was cancelled."
       more: "In case this was a mistake or if you need more information, contact us at <a href=\"mailto:%{mail}\">%{mail}</a>."
       subject: "Your account has been cancelled"
