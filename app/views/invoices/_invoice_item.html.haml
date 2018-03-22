@@ -37,3 +37,11 @@
             = icon_payment_invoice(:alt => t('.pay'), :title => t('.pay'))
         - else
           = icon_payment_invoice(:alt => t('.disabled_pay'), :title => t('.disabled_pay'))
+
+      %td.thin.options-column
+        .dropdown
+          %a.dropdown-toggle{ href: '#', data: { toggle: "dropdown" } }= icon_options_dots
+          %ul.dropdown-menu.dropdown-menu-right
+            %li
+              = link_to user_invoice_path(invoice.subscription.user.username, invoice.id), class: "tooltipped open-modal" do
+                = t('.view')

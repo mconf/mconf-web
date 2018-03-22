@@ -53,6 +53,7 @@ pt-br:
       paid: "Pago"
       pending: "Pendente"
       pay: "Pagar fatura"
+      view: "Ver Detalhes"
     minimum_fee: "Taxa mínima de serviço"
     minimum_fee_discount_days: "Taxa mínima de serviço com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
     report:

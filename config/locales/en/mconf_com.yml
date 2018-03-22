@@ -50,6 +50,7 @@ en:
       paid: "Paid"
       pending: "Pending"
       pay: "Pay invoice"
+      view: "View Details"
     minimum_fee: "Minimum service fee"
     minimum_fee_discount_days: "Minimum service fee with discount for using only %{qtd_d} days (%{percent_d}%)"
     report:
