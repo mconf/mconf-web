@@ -252,6 +252,17 @@ mark {
   }
 }
 
+// dropdown
+.dropdown-menu {
+  padding: 0;
+}
+
+.dropdown-menu-right-over {
+  left: auto;
+  right: 0;
+  top: 0;
+}
+
 // dropup menu
 .dropdown-toggle {
   background: $m-site-content-bg-color;
