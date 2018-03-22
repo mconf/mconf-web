@@ -2,6 +2,25 @@
 @import "definitions";
 
 body.invoices.index {
+  table {
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid #ccc;
+      border-radius: 0;
+    }
+
+    tr:last-of-type {
+      border: 0;
+    }
+
+    td {
+      text-align: left;
+      padding: 20px 30px;
+    }
+
+  }
+
   #invoices-wrapper {
     margin: 40px auto;
 
@@ -9,6 +28,20 @@ body.invoices.index {
     @include make-xs-column(12);
     @include make-sm-column(10);
     @include make-sm-column-offset(2);
+
+    .resource-card {
+      width: 100%;
+      max-width: 1000px;
+      margin: 24px auto 40px auto;
+
+      .card-title {
+        font-size: 22px;
+        font-weight: $m-font-weight-bold;
+        color: $m-titles;
+        margin-bottom: 40px;
+        margin-top: 40px;
+      }
+    }
 
     .container-fluid {
       background: $m-site-content-bg-color;
@@ -19,11 +52,6 @@ body.invoices.index {
       text-align: center;
       overflow: visible !important;
       display: block !important;
-    }
-
-    td {
-      text-align: left;
-      padding: 10px 30px;
     }
 
     .invoice-date-col {

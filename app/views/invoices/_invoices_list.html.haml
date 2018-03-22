@@ -1,9 +1,10 @@
 #invoices-wrapper
   .container-fluid
-    %h3= t(".invoices")
+    .resource-card
+      .card-title= t(".invoices")
     %table.invoice-list.table.table-hover
-      %thead
-        %tr
+      -#%thead
+        -#%tr
           -#%th.col-sm-2.invoice-date-col= t(".due_date")
           -#%th.col-sm-5.invoice-id-col= t(".id")
           -#%th.col-sm-3.invoice-value-col= t(".value")
