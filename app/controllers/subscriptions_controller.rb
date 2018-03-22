@@ -30,7 +30,7 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def create
-    @user = User.find_by(username: (params[:user_id]))
+    @user = User.find_by(username: (params[:subscription][:user_id]))
     @subscription.setup(@user, Plan::OPS_TYPES[:iugu])
 
     if @subscription.save

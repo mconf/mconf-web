@@ -2,6 +2,8 @@
 
   .field-group
     %h3= t('.customer_information')
+    - owner = params[:user_id]
+    = f.input :user_id, :as => :hidden, :input_html => { value: owner }
     = f.input :cpf_cnpj, required: true, placeholder: t('.cpf_cnpj')
 
     .form-group.select.optional.user_profile_country
