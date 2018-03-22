@@ -1,7 +1,7 @@
 -# = page_title t('.title')
 
 - profile_page = is_on_page('users', ['show', 'edit', 'edit_data', 'password_edit', 'update'])
-- subscription_page = is_on_page('subscriptions', ['show', 'edit', 'new', 'create']) - invoice_page = is_on_page('invoice')
+- subscription_page = is_on_page('subscriptions', ['show', 'edit', 'new', 'create'])
 - invoice_page = is_on_page('invoices', ['index'])
 
 = content_for :sidebar_menu do
@@ -13,14 +13,19 @@
           = icon_sidebar_arrow
         = t('.profile')
 
-    %li{ :class => "#{'active' if subscription_page}" }
-      = link_to new_user_subscription_path(@user) do
-        - if subscription_page
-          = icon_sidebar_arrow
-        = t('.subscription')
+    - if (can?(:show, @user.subscription) && can?(:edit, @user.subscription)) || @user == current_user
+      %li{ :class => "#{'active' if subscription_page}" }
+        = link_to new_user_subscription_path(@user) do
+          - if subscription_page
+            = icon_sidebar_arrow
+          = t('.subscription')
 
-    %li{ :class => "#{'active' if invoice_page}" }
-      = link_to user_invoices_path(@user) do
-        - if invoice_page
-          = icon_sidebar_arrow
-        = t('.invoice')
+    - if @user.subscription.present?
+      -if can?(:index, @user.subscription.invoices)
+        %li{ :class => "#{'active' if invoice_page}" }
+          = link_to user_invoices_path(@user) do
+            - if invoice_page
+              = icon_sidebar_arrow
+            = t('.invoice')
+
+

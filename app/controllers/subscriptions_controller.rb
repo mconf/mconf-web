@@ -22,29 +22,20 @@ class SubscriptionsController < InheritedResources::Base
     @subscription ||= Subscription.new(subscription_params)
   end
 
-  # def determine_layout
-  #   if [:new, :create].include?(action_name.to_sym)
-  #     "application"
-  #   else
-  #     "application"
-  #   end
-  # end
-
-
   def new
     @user = User.find_by(username: (params[:user_id]))
-    if current_user.subscription.present?
-      redirect_to user_subscription_path(current_user)
+    if @user.subscription.present?
+      redirect_to user_subscription_path(@user)
     end
   end
 
   def create
-    @subscription.setup(current_user, Plan::OPS_TYPES[:iugu])
     @user = User.find_by(username: (params[:user_id]))
+    @subscription.setup(@user, Plan::OPS_TYPES[:iugu])
 
     if @subscription.save
       flash = { success: t("subscriptions.created") }
-      redirect_to user_subscription_path(current_user), :flash => flash
+      redirect_to user_subscription_path(@user), :flash => flash
     else
       render new_user_subscription_path(@user)
     end
@@ -74,7 +65,7 @@ class SubscriptionsController < InheritedResources::Base
     update! do |success, failure|
       success.html {
         flash[:notice] = t("subscriptions.update");
-        redirect_to user_subscription_path(current_user)
+        redirect_to user_subscription_path(@user)
       }
       failure.html { render }
     end
@@ -89,7 +80,7 @@ class SubscriptionsController < InheritedResources::Base
 
   def ops_error
     flash = { error: t("subscriptions.destroy_fail") }
-    redirect_to user_subscription_path(current_user), :flash => flash
+    redirect_to user_subscription_path(@user), :flash => flash
   end
 
   def paginate_subscriptions
