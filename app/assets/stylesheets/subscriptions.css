@@ -2,4 +2,8 @@
  *= require ./app/subscriptions/new
  *= require ./app/subscriptions/show
  *= require ./app/subscriptions/edit
+ *= require ./app/subscriptions/removed
+ *
+ * Themes: if using a theme, import it here!
+ *= require mconf-com/stylesheets/subscriptions/removed
  */

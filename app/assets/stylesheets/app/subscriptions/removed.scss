@@ -1,0 +1,44 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+body.subscriptions.removed {
+
+  #content-middle {
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+
+    #subscription_removed-wrapper {
+      @include make-sm-column(12);
+      @include make-md-column(6);
+      @include make-sm-column-offset(0);
+      @include make-md-column-offset(3);
+
+      h1 {
+        font-size: $m-font-triple;
+        color: $m-titles;
+      }
+
+      #subscription-removed-logo {
+        @include make-row;
+
+        margin: 50px auto 0 auto;
+        float: none;
+        padding: 20%;
+        overflow: visible;
+
+        background: image-url('logos/Profile.png') no-repeat top;
+        background-size: contain;
+        height: 70%;
+        width: 70%;
+      }
+
+      .description {
+        margin: 40px 0;
+        padding: 24px 0;
+        font-size: $m-font-bigger;
+      }
+    }
+  }
+}

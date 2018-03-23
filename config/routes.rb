@@ -109,8 +109,11 @@ Mconf::Application.routes.draw do
     end
   end
 
- resources :subscriptions, only: [:create, :index]
- # resources :invoices, only: [:index]
+  resources :subscriptions, only: [:create, :index]
+  resource :subscription, only: [] do
+    get :removed
+  end
+
   # routes specific for the current user
   scope 'home' do
     get '/', to: 'my#home', as: 'my_home'

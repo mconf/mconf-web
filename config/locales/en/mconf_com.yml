@@ -174,6 +174,9 @@ en:
       pricing_title: "Pricing"
       rules_text: "<p>Upon signing up, you will have <span class=\"attention\">60 days</span> (2 months) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
       rules_title: "How it works"
+    removed:
+      title: "Subscription cancelled"
+      description: "Your subscription was successfully cancelled. To subscribe again go to Subscription Premium menu, in your profile."
     show:
       title: "Subscription"
       subtitle: "Premium Subscription"
