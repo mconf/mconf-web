@@ -6,7 +6,7 @@ body.invoices.index {
     border-collapse: collapse;
 
     tr {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #eee;
       border-radius: 0;
     }
 
@@ -16,7 +16,7 @@ body.invoices.index {
 
     td {
       text-align: left;
-      padding: 20px 30px;
+      padding: 20px 0;
     }
 
   }
@@ -52,6 +52,8 @@ body.invoices.index {
       text-align: center;
       overflow: visible !important;
       display: block !important;
+      padding-left: 45px;
+      padding-right: 45px;
     }
 
     .invoice-date-col {
