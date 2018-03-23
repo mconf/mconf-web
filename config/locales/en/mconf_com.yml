@@ -60,7 +60,7 @@ en:
     show:
       cost_base: "Total cost without discounts"
       days_consumed: "Ammount of days consumed"
-      days_percent: "- %{percent}% for using the service for only %{days} days this month"
+      days_percent: "Discount %{percent}% for %{days} days consumed this month"
       detailed_price: "Detailed invoice price"
       disabled_pay: "Invoice not available yet"
       discount_users: "Discount for users ammount"
@@ -82,7 +82,7 @@ en:
       unique_users: "Unique users data"
       unique_users_list: "Unique users list"
       users_ammount: "Ammount of users"
-      users_percent: "- %{percent}% for having %{qty} users this month"
+      users_percent: "Discount %{percent}% for %{qty} users this month"
     user_fee: "Unique users fee"
   layouts:
     mailers:

@@ -63,7 +63,7 @@ pt-br:
     show:
       cost_base: "Valor total sem desconto"
       days_consumed: "Quantidade de dias consumidos"
-      days_percent: "- %{percent}% por ter utilizado o serviço por apenas %{days} dias neste mês"
+      days_percent: "Desconto de %{percent}% por %{days} dias de uso este mês"
       detailed_price: "Valor detalhado da fatura"
       disabled_pay: "Fatura ainda não disponível"
       discount_users: "Desconto por quantidade de usuários"
@@ -85,7 +85,7 @@ pt-br:
       unique_users: "Dados de usuários únicos"
       unique_users_list: "Lista de usuários únicos"
       users_ammount: "Quantidade de usuários"
-      users_percent: "- %{percent}% por ter atingido %{qty} usuários neste mês"
+      users_percent: "Desconto de %{percent}% por %{qty} usuários este mês"
     user_fee: "Taxa por usuário único"
   layouts:
     mailers:

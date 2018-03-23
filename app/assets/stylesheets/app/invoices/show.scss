@@ -6,59 +6,58 @@ body.invoices.index {
     text-align: center;
   }
 
+  h3 {
+    font-weight: $m-font-weight-bold;
+    font-size: $m-font-fields;
+  }
+
   #invoice-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 24px auto 20px auto;
 
-    .resource-card {
-      width: 100%;
-      max-width: 1000px;
-      margin: 24px auto 20px auto;
+    .field {
+      margin-bottom: 8px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      font-size: $m-font-fields;
 
-      .resource-data {
-        padding-left: 40px;
-        width: calc(100% - 290px);
+      .total, .data {
+        color: $m-color-primary;
+        font-weight: bold;
+      }
+      .price {
+        color: $m-color-primary-soft;
+        font-weight: bold;
+      }
+      .discount {
+        color: $m-green-soft;
+        font-weight: bold;
+      }
+      .discount-text {
+        color: $m-green-soft;
+      }
+      .pay-btn {
+        float: right;
+        margin-top: 20px;
+      }
+      .download-report {
         float: left;
-        text-align: left;
+        margin-top: 20px;
       }
 
-      .field {
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #eee;
-
-        .price {
-          color: $orange;
-          font-weight: bold;
-        }
-        .discount {
-          color: $green;
-          font-weight: bold;
-        }
-        .pay-btn {
-          float: right;
-          margin-top: 20px;
-        }
-        .download-report {
-          float: left;
-          margin-top: 20px;
-        }
-
-        span {
-          display: block;
-        }
-
-        &:last-child {
-          border: 0;
-        }
+      span {
+        display: block;
       }
 
-      .field-title {
-        font-size: $m-font-small;
-        color: $m-font-light;
+      &:last-child {
+        border: 0;
       }
+    }
 
-      .field-value {
-        margin-left: 12px;
-      }
+    .field-title {
+      font-size: $m-font-fields;
+      color: $m-font-light;
     }
   }
 }

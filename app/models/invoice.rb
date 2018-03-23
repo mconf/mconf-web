@@ -50,9 +50,9 @@ class Invoice < ActiveRecord::Base
     cost = data[:cost_per_user]
     quantity = data[:quantity]
     if (quantity > 15)
-      sprintf('+ R$ %.2f', (cost * quantity)/100)
+      sprintf('R$ %.2f', (cost * quantity)/100)
     else
-      sprintf('+ R$ %.2f', (cost * 15)/100)
+      sprintf('R$ %.2f', (cost * 15)/100)
     end
   end
 
@@ -61,7 +61,7 @@ class Invoice < ActiveRecord::Base
     cost = data[:cost_per_user]
     quantity = data[:quantity]
     discount_users = data[:discounts][:users]
-    sprintf('- R$ %.2f', (cost * quantity * discount_users)/100)
+    sprintf('R$ %.2f', (cost * quantity * discount_users)/100)
   end
 
   def days_discount_as_string
@@ -71,9 +71,11 @@ class Invoice < ActiveRecord::Base
     discount_days = data[:discounts][:days]
     if data[:discounts][:users].present?
       discount_users = data[:discounts][:users]
-      sprintf('- R$ %.2f', ((cost * quantity * (1 - discount_users))*(1 - discount_days))/100)
+      sprintf('R$ %.2f', ((cost * quantity * (1 - discount_users))*(1 - discount_days))/100)
+    elsif (quantity < 15)
+      sprintf('R$ %.2f', (cost * 15 * (1 - discount_days))/100)
     else
-      sprintf('- R$ %.2f', (cost * quantity * (1 - discount_days))/100)
+      sprintf('R$ %.2f', (cost * quantity * (1 - discount_days))/100)
     end
   end
 
