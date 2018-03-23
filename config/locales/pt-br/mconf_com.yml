@@ -146,6 +146,7 @@ pt-br:
     new:
       form_title: "Assinatura"
       title: "Assinar"
+      subtitle: "Assinatura Premium"
       pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
       pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
       pricing_title: "Tarifas"
@@ -171,7 +172,7 @@ pt-br:
       district: "Bairro"
       country: "País"
     subscription_form:
-      address_section: "Informações de endereço"
+      additional_address_info: "Complemento"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
       cpf_cnpj: "CPF/CNPJ"
       customer_information: "Informações do cliente"

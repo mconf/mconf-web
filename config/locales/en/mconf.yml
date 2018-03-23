@@ -1866,6 +1866,7 @@ en:
     menu:
       profile: "Profile"
       subscription: "Subscription"
+      subscription_create: "Subscribe to Mconf Premium"
       invoice: "Invoices"
     new:
       create:

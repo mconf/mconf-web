@@ -34,7 +34,7 @@ body.subscriptions.show {
         margin: 30px auto 40px auto;
 
         .card-title {
-          font-size: 22px;
+          font-size: $m-font-fields;
           font-weight: $m-font-weight-bold;
           color: $m-titles;
           margin-bottom: 40px;
@@ -62,7 +62,7 @@ body.subscriptions.show {
           padding-left: 10px;
 
           .field-value {
-            font-size: 22px;
+            font-size: $m-font-fields;
             margin-left: 12px;
             color: $m-text;
           }
@@ -77,7 +77,7 @@ body.subscriptions.show {
         }
 
         .field-title {
-          font-size: 18px;
+          font-size: $m-font-form;
           font-weight: $m-font-weight-bold;
           color: $m-text;
         }

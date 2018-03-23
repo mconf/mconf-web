@@ -11,14 +11,17 @@
       = link_to user_path(@user) do
         - if profile_page
           = icon_sidebar_arrow
-        = t('.profile')
+        %span= t('.profile')
 
     - if (can?(:show, @user.subscription) && can?(:edit, @user.subscription)) || @user == current_user
       %li{ :class => "#{'active' if subscription_page}" }
         = link_to new_user_subscription_path(@user) do
           - if subscription_page
             = icon_sidebar_arrow
-          = t('.subscription')
+          - if @user.subscription.present?
+            %span= t('.subscription')
+          - else
+            %span= t('.subscription_create')
 
     - if @user.subscription.present?
       -if can?(:index, @user.subscription.invoices)
@@ -26,6 +29,6 @@
           = link_to user_invoices_path(@user) do
             - if invoice_page
               = icon_sidebar_arrow
-            = t('.invoice')
+            %span= t('.invoice')
 
 

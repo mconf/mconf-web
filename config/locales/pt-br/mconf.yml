@@ -1891,6 +1891,7 @@ pt-br:
     menu:
       profile: "Perfil"
       subscription: "Assinatura"
+      subscription_create: "Assinar o Mconf Premium"
       invoice: "Faturas"
     new:
       create:

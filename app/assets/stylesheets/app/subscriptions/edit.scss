@@ -28,7 +28,7 @@ body.subscriptions.edit, body.subscriptions.update {
         margin: 30px auto 40px auto;
 
         .card-title {
-          font-size: 22px;
+          font-size: $m-font-fields;
           font-weight: $m-font-weight-bold;
           color: $m-titles;
           margin-bottom: 20px;
@@ -39,13 +39,14 @@ body.subscriptions.edit, body.subscriptions.update {
       .form-control {
         max-width: 75%;
         margin-left: 25px;
+        font-size: $m-font-form;
       }
 
       .control-label {
         float: left;
         padding-right: 20%;
         padding-left: 4%;
-        font-size: 15px;
+        font-size: $m-font-medium;
         color: $m-text;
       }
 

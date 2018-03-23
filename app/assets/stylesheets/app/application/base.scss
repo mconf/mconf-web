@@ -754,6 +754,7 @@ form {
   li {
     display: block;
     transition: all 0.1s ease-in;
+    height: 107px;
 
     &:hover, &:focus {
       a {
@@ -774,10 +775,16 @@ form {
 
     a {
       @include link-colors($m-text, $m-light-gray, $m-light-gray);
-      white-space: nowrap;
       display: block;
       padding: 25px 24px 25px 15px;
       position: relative;
+      height: 107px;
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        height: 57px;
+      }
 
       &:hover, &:focus, &.active {
         background: $m-color-primary-heavy;
@@ -802,7 +809,7 @@ form {
           transition: all 0.1s ease-in;
           vertical-align: text-top;
           float: right;
-          line-height: 0.8;
+          line-height: 1.8;
         }
       }
     }
