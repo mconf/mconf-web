@@ -16,6 +16,10 @@ body.invoices.index {
     max-width: 1000px;
     margin: 24px auto 20px auto;
 
+    .btn-default {
+      padding-left: 0;
+    }
+
     .field {
       margin-bottom: 8px;
       padding-bottom: 20px;
@@ -37,21 +41,17 @@ body.invoices.index {
       .discount-text {
         color: $m-green-soft;
       }
-      .pay-btn {
-        float: right;
-        margin-top: 20px;
-      }
-      .download-report {
-        float: left;
-        margin-top: 20px;
-      }
-
       span {
         display: block;
       }
 
+      &.buttons {
+        padding-top: 30px;
+      }
+
       &:last-child {
-        border: 0;
+        border-bottom: 0;
+        padding-bottom: 30px;
       }
     }
 

@@ -38,15 +38,15 @@ class InvoicesController < InheritedResources::Base
   end
 
   def report
-    @user = User.find_by(username: (params[:user_id]))
     @invoice ||= Invoice.find_by(id: params[:id])
+    @user = @invoice.subscription.user
 
     if File.exists?(@invoice.report_file_path)
       @file = @invoice.report_file_path
       send_file @file, disposition: 'attachment', x_sendfile: true
     else
       flash = { error: t(".report_missing") }
-      redirect_to user_invoice_path(@user, @invoice.id), :flash => flash
+      redirect_to user_invoices_path(@user), :flash => flash
     end
   end
 end

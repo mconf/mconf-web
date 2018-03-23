@@ -1,6 +1,6 @@
 %tr
   %td.invoice-date-col
-    = format_date(invoice.due_date)
+    = format_date(invoice.due_date, :month_year, false)
   -#%td.invoice-id-col
   -#  - if invoice.invoice_token.present?
   -#    = link_to invoice.invoice_token, user_invoice_path(invoice.subscription.user.username, invoice.id)

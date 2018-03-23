@@ -26,31 +26,27 @@
         %span.field-value.discount= @invoice.days_discount_as_string
         %span.field-value.discount-text= t('.days_percent', percent: (value_data[:discounts][:days]*100).to_i, days: @invoice.days_consumed)
 
-    %h3= t('.invoice_data')
-    .field
-      %span.field-title= t('.users_ammount')
-      %span.field-value.data= @invoice.user_qty
+    -#%h3= t('.invoice_data')
+    -#.field
+    -#  %span.field-title= t('.users_ammount')
+    -#  %span.field-value.data= @invoice.user_qty
 
-    - if value_data[:discounts][:days].present?
-      .field
-        %span.field-title= t('.days_consumed')
-        %span.field-value.data= @invoice.days_consumed
+    -#- if value_data[:discounts][:days].present?
+    -#  .field
+    -#    %span.field-title= t('.days_consumed')
+    -#    %span.field-value.data= @invoice.days_consumed
 
     -# .field
     -#   %span.field-title= t('.invoice_status')
     -#   %span.field-value= t(".status.#{invoice.flag_invoice_status}")
-    .field
-      .download-report
-        = link_to report_user_invoice_path(@invoice.subscription.user_id, @invoice.id), class: 'btn btn-default' do
-          = icon_download(alt: t('.report'), title: t('.report'))
-          = t('.report')
+    .field.buttons
+      = link_to report_user_invoice_path(@invoice.subscription.user_id, @invoice.id), class: 'btn btn-default' do
+        = t('.report')
 
       - if @invoice.invoice_url.present?
         .pay-btn
           = link_to @invoice.invoice_url, class: 'btn btn-default' do
             = t('.pay')
-            = icon_payment_invoice(alt: t('.pay'), title: t('.pay'))
       - else
-        .pay-btn.btn.btn-warning.disabled
+        .pay-btn.disabled
           = t('.disabled_pay')
-          = icon_payment_invoice(alt: t('.disabled_pay'), title: t('.disabled_pay'))
