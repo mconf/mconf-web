@@ -16,8 +16,12 @@ body {
   .header_image {
     text-align: center;
     margin-bottom: 1.5em;
+    img {
+      width: 90%;
+      height: auto;
+    }
   }
-  .header_messege {
+  .header_message {
     color: $m-mail-header-footer-color;
     text-align: center;
     font-size: 22px;
@@ -51,7 +55,7 @@ body {
       font-size: 10px;
     }
   }
-  .footer_messege {
+  .footer_message {
     display: block;
     color: $m-grey-email-color;
     text-align: center;
@@ -69,9 +73,9 @@ body {
   }
   .button {
     a {
-      color: #ffffff;
+      color: $m-mail-link-color;
       cursor: pointer;
-      background-color: #8A73BD;
+      background-color: $m-mail-header-footer-color;
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
