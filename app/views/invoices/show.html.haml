@@ -1,11 +1,8 @@
-- page_title t('.title', name: @user.full_name)
--# - home_sidebar_menu_at(:subscription)
-
--# = content_for :sidebar do
--#   = render "my/sidebar"
-
 #invoice-wrapper
   .modal-header
+    = modal_close_button
+    %h3= t('.title', date: format_date(@invoice.due_date, :month_year, false))
+  .modal-body
     .resource-data
       %h3= t('.total_price')
       .field

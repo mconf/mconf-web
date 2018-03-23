@@ -76,7 +76,7 @@ en:
         paid: "Paid"
         pending: "Pending"
         pay: "Pay invoice"
-      title: "%{name} Invoice"
+      title: "Invoice details - %{date}"
       total: "Total"
       total_price: "Total invoice price"
       unique_users: "Unique users data"

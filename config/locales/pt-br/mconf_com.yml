@@ -79,7 +79,7 @@ pt-br:
         paid: "Pago"
         pending: "Pendente"
         pay: "Pagar fatura"
-      title: "Fatura de %{name}"
+      title: "Detealhes da Fatura - %{date}"
       total: "Total"
       total_price: "Valor total da fatura"
       unique_users: "Dados de usuários únicos"
