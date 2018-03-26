@@ -1,5 +1,8 @@
 - page_title t('.title',  name: @user.full_name)
 
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
 = content_for :sidebar do
   .sidebar-title= t('.title')
 
