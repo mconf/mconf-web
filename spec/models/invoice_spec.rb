@@ -473,15 +473,15 @@ describe Invoice do
                                        :quantity=>1000, :cost_per_user=>600, :total=>308000.0, :minimum=>false}) }
 
     context "#full_price_as_string" do
-      it { target.full_price_as_string.should eql("+ R$ 6000.00")}
+      it { target.full_price_as_string.should eql("R$ 6000.00")}
     end
 
     context "#users_discount_as_string" do
-      it { target.users_discount_as_string.should eql("- R$ 1800.00")}
+      it { target.users_discount_as_string.should eql("R$ 1800.00")}
     end
 
     context "#days_discount_as_string" do
-      it { target.days_discount_as_string.should eql("- R$ 1120.00")}
+      it { target.days_discount_as_string.should eql("R$ 1120.00")}
     end
 
     context "#total_as_string" do
@@ -604,7 +604,7 @@ describe Invoice do
       let(:user) { FactoryGirl.create(:user) }
       let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
       let(:target) { FactoryGirl.create(:invoice, subscription_id: subscription.id) }
-      it { should_not be_able_to_do_anything_to(target).except([:show, :report]) }
+      it { should_not be_able_to_do_anything_to(target).except([:index, :show, :report]) }
     end
 
     context "an user on another user's invoice" do

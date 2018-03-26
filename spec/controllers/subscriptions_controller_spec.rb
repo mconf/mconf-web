@@ -50,7 +50,7 @@ describe SubscriptionsController do
     let!(:subscription) { FactoryGirl.create(:subscription, user_id: user.id) }
     before { delete :destroy, user_id: user.username }
 
-    it { should redirect_to(my_home_path) }
+    it { should redirect_to(removed_subscription_path) }
     it { should set_flash.to(I18n.t("subscriptions.destroy")) }
   end
 
