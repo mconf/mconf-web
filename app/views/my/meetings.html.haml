@@ -13,13 +13,13 @@
       = link_to my_meetings_path(recordedonly: 'false') do
         - if params[:recordedonly] == 'false'
           = icon_sidebar_arrow
-        = t(".recordedonly_false")
+        %span= t(".recordedonly_false")
 
     %li{ class: "#{'active' if params[:recordedonly].nil? }" }
       = link_to  my_meetings_path do
         - if params[:recordedonly].nil?
           = icon_sidebar_arrow
-        = t(".recordedonly_true")
+        %span= t(".recordedonly_true")
 
 - cls = @meetings.count <= 0 ? 'empty' : ''
 #my-meetings{ class: cls }
