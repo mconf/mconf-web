@@ -54,7 +54,7 @@ class SubscriptionsController < InheritedResources::Base
   def destroy
     if @subscription.destroy
       flash = { success: t("subscriptions.destroy") }
-      redirect_to removed_subscription_path
+      redirect_to removed_subscription_path, :flash => flash
     else
       self.ops_error
     end

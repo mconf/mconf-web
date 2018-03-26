@@ -55,10 +55,10 @@ describe SubscriptionsController do
   end
 
   context "new" do
-    before { get :new }
+    before { get :new, user_id: user.username }
 
     it { should render_template('new') }
-    it { should render_with_layout('no_sidebar') }
+    it { should render_with_layout('application') }
   end
 
   describe "abilities", :abilities => true do
@@ -71,7 +71,7 @@ describe SubscriptionsController do
       before(:each) { login_as(superuser) }
       it { should allow_access_to(:show, hash) }
       it { should allow_access_to(:create) }
-      it { should allow_access_to(:new) }
+      it { should allow_access_to(:new, hash) }
       it { should allow_access_to(:edit, hash) }
       it { should allow_access_to(:update, hash).via(:put) }
       it { should allow_access_to(:destroy, hash).via(:delete) }
@@ -81,7 +81,7 @@ describe SubscriptionsController do
       before(:each) { login_as(user) }
       it { should allow_access_to(:show, hash) }
       it { should allow_access_to(:create) }
-      it { should allow_access_to(:new) }
+      it { should allow_access_to(:new, hash) }
       it { should allow_access_to(:edit, hash) }
       it { should allow_access_to(:update, hash).via(:put) }
       it { should allow_access_to(:destroy, hash).via(:delete) }
@@ -93,7 +93,7 @@ describe SubscriptionsController do
       before(:each) { login_as(other_user) }
       it { should_not allow_access_to(:show, hash) }
       it { should allow_access_to(:create) }
-      it { should allow_access_to(:new) }
+      it { should allow_access_to(:new, hash) }
       it { should_not allow_access_to(:edit, hash) }
       it { should_not allow_access_to(:update, hash).via(:put) }
       it { should_not allow_access_to(:destroy, hash).via(:delete) }
@@ -103,7 +103,7 @@ describe SubscriptionsController do
       before { sign_out(user) }
       it { should_not allow_access_to(:show, hash) }
       it { should_not allow_access_to(:create) }
-      it { should_not allow_access_to(:new) }
+      it { should_not allow_access_to(:new, hash) }
       it { should_not allow_access_to(:edit, hash) }
       it { should_not allow_access_to(:update, hash).via(:put) }
       it { should_not allow_access_to(:destroy, hash).via(:delete) }
