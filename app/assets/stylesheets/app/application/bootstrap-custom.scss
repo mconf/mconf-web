@@ -219,14 +219,16 @@ mark {
 }
 
 // buttons default
-.btn-primary {
-  :hover, :active, .active, :focus {
-    background: $m-color-primary-heavy;
+.btn-primary, .btn-primary.active {
+  background: $m-color-primary-soft;
+  border-color: $m-color-primary-soft;
+  :hover, :active, :focus {
+    background: $m-color-primary;
   }
 }
 
 .btn-default {
-  background: $m-site-content-bg-color;
+  background: transparent;
   border: none;
   font-size: 22px;
   transition: all .3s ease;
@@ -241,13 +243,24 @@ mark {
 
   &:hover:not(:disabled), &:active:not(:disabled),
   &:active:hover:not(:disabled), &:focus {
-    background: $m-site-content-bg-color;
+    background: transparent;
     text-shadow: $m-bold-by-shadow;
     box-shadow: none;
     text-decoration: none;
     color: $m-color-primary-heavy;
     vertical-align: middle;
   }
+}
+
+// dropdown
+.dropdown-menu {
+  padding: 0;
+}
+
+.dropdown-menu-right-over {
+  left: auto;
+  right: 0;
+  top: -10px;
 }
 
 // dropup menu

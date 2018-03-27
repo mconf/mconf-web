@@ -18,6 +18,11 @@
         display: inline-block;
         width: 1%;
 
+        > :not(.active){
+          border-color: $m-field-border;
+          background: $m-field-border;
+        }
+
         > .btn {
           float: none;
           font-size: $m-font-big;

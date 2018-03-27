@@ -396,7 +396,7 @@ form {
         $imgsize: $imgsize - 2;
         font-size: $imgsize;
         /* padding: (($m-navbar-btn-size - $imgsize) / 2) - 2; */
-        padding: 1px 0 0 1px;
+        padding: 1px 0 0 0;
       }
 
       &.icon-conference-invite {
@@ -416,7 +416,7 @@ form {
  .navbar-user-chip.open {
     .navbar-user-toggle {
       .border {
-        border: $m-logo-border-size solid $m-green-soft;
+        border: $m-logo-border-size solid $m-color-primary-soft;
         border-radius: 50%;
       }
     }
@@ -439,7 +439,7 @@ form {
       }
 
       .border:hover {
-        border: $m-logo-border-size solid $m-green-soft;
+        border: $m-logo-border-size solid $m-color-primary-soft;
         border-radius: 50%;
       }
 
@@ -754,6 +754,7 @@ form {
   li {
     display: block;
     transition: all 0.1s ease-in;
+    height: 107px;
 
     &:hover, &:focus {
       a {
@@ -774,10 +775,16 @@ form {
 
     a {
       @include link-colors($m-text, $m-light-gray, $m-light-gray);
-      white-space: nowrap;
       display: block;
       padding: 25px 24px 25px 15px;
       position: relative;
+      height: 107px;
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        height: 57px;
+      }
 
       &:hover, &:focus, &.active {
         background: $m-color-primary-heavy;
@@ -802,7 +809,7 @@ form {
           transition: all 0.1s ease-in;
           vertical-align: text-top;
           float: right;
-          line-height: 0.8;
+          line-height: 1.8;
         }
       }
     }

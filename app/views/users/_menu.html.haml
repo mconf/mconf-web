@@ -11,7 +11,7 @@
       = link_to user_path(@user) do
         - if profile_page
           = icon_sidebar_arrow
-        = t('.profile')
+        %span= t('.profile')
 
     / %li{ :class => "#{'active' if subscription_page}" }
     /   = link_to site_path do
