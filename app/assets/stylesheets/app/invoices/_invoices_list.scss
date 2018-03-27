@@ -35,7 +35,7 @@ body.invoices.index {
       margin: 24px auto 40px auto;
 
       .card-title {
-        font-size: 22px;
+        font-size: $m-font-fields;
         font-weight: $m-font-weight-bold;
         color: $m-titles;
         margin-bottom: 40px;
@@ -50,8 +50,8 @@ body.invoices.index {
       border-radius: 10px;
       box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
       text-align: center;
-      overflow: visible !important;
-      display: block !important;
+      overflow: visible;
+      display: block;
       padding-left: 45px;
       padding-right: 45px;
       padding-bottom: 30px;

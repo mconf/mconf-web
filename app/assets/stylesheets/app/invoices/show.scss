@@ -28,15 +28,15 @@ body.invoices.index {
 
       .total, .data {
         color: $m-color-primary;
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
       }
       .price {
         color: $m-color-primary-soft;
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
       }
       .discount {
         color: $m-green-soft;
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
       }
       .discount-text {
         color: $m-green-soft;
