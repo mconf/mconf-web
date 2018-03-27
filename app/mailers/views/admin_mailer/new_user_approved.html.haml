@@ -1,3 +1,9 @@
 #new-user-approved-email
-  %p= t('.message', name: @user_name).html_safe
+  %p
+    .header_image
+      =image_tag URI.join(root_url, "assets/mailer/approved_by_admin.png"), size: '494x263'
+  %p
+    .header_message
+      = t('.hello', name: @user_name).html_safe
+  %p= t('.message').html_safe
   %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe

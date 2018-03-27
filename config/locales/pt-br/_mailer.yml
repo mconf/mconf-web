@@ -10,8 +10,9 @@ pt-br:
       message: "Um usuário chamado <b>%{name}</b> (%{email}) se registrou e está esperando por aprovação."
       subject: "Um novo usuário está a espera de aprovação"
     new_user_approved:
+      hello: "Olá %{name}!"
       click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
-      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
+      message: "Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
       subject: "Seu acesso ao site foi aprovado"
   user_mailer:
     cancellation_notification_email:

@@ -10,8 +10,9 @@ en:
       message: "A user named <b>%{name}</b> (%{email}) has registered and is waiting for approval."
       subject: "A new user is waiting approval"
     new_user_approved:
+      hello: "Hello %{name}!"
       click_here: "You can access your home page at: <a href=\"%{url}\">%{url}</a>"
-      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your access to the site has been approved."
+      message: "We're sending this email to inform you that your access to the site has been approved."
       subject: "Your registration has been approved"
   user_mailer:
     cancellation_notification_email:
