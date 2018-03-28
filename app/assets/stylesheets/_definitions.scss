@@ -23,6 +23,7 @@ $m-blue: #337ab7;
 $m-red: #ff5b5b;
 $m-orange: #e98300; //#C47322;
 $m-yellow: #f3a712; //#BB9403;
+$m-white: #fff;
 $m-cyan: #00ffff;
 $m-gray: #ccc;
 $m-dark-gray: #666;
@@ -68,6 +69,8 @@ $m-content-vertical-padding: 60px;
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
 $m-active-item-border-off: 4px solid $m-transparent;
+$m-background-meeting-on: #85AE98;
+$m-background-meeting-off: #2B2D41;
 
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;

@@ -60,8 +60,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
     h3.title {
       text-align: center;
       margin-bottom: 16px;
-      font-weight: 700;
-      font-size: 22px;
+      font-weight: $m-font-weight-bold;
+      font-size: $m-font-fields;
     }
 
     .form-actions {

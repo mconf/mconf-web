@@ -14,17 +14,17 @@ body.custom_bigbluebutton_rooms.auth {
 
     text-align: left;
     background-color: transparent;
-    color: #fff;
+    color: $m-white;
     padding: 16px 95px;
     width: 50%;
 
     .room-welcome {
-      font-size: 46px;
+      font-size: $m-font-triple;
       margin-bottom: 8px;
     }
 
     .room-name {
-      font-weight: bold;
+      font-weight: $m-font-weight-bold;
       display: inline-block;
     }
 
@@ -35,12 +35,12 @@ body.custom_bigbluebutton_rooms.auth {
 
       .status {
         display: inline-block;
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
         background: $m-red;
         border-radius: $m-border-radius-base;
         padding: 4px 8px;
         margin-left: 8px;
-        color: #fff;
+        color: $m-white;
 
         &.running {
           background-color: $m-green;
@@ -55,7 +55,7 @@ body.custom_bigbluebutton_rooms.auth {
     }
 
     .identify {
-      font-size: 25px;
+      font-size: $m-font-bigger;
     }
 
   }
