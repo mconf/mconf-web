@@ -25,7 +25,6 @@ describe AdminMailer do
       it("assigns @user_name") {
         mail_content(mail).should match(user.name)
       }
-      it("assings image_tag") {mail_content(mail).should match('assets/mailer/accept.png')}
     end
 
     context "uses the receiver's locale" do
@@ -82,10 +81,6 @@ describe AdminMailer do
       it("assigns @user_name") {
         mail_content(mail).should match(user.name)
       }
-      #it("assigns user.name in the message") {
-      #  content = I18n.t('admin_mailer.new_user_approved.hello', name: user.name)
-      #  mail_content(mail).should match(content)
-      #}
     end
 
     context "uses the receiver's locale" do

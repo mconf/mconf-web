@@ -4,10 +4,10 @@
 
 body {
   padding: 5px;
-  color: $m-grey-email-color;
+  color: $m-gray-email-color;
   line-height: 1.5em;
   background: $m-background;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $m-font-family-label;
   word-wrap: break-word;
 
   .header-logo {
@@ -24,8 +24,8 @@ body {
   .header_message {
     color: $m-mail-header-footer-color;
     text-align: center;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: $m-mail-header-footer-font-size;
+    font-weight: $m-font-weight-bold;
   }
   .message-body {
     margin: 39px auto;
@@ -46,26 +46,26 @@ body {
     width: 30%;
     text-align: center;
     label{
-      font-size: 12px;
-      color: $m-grey-email-color;
+      font-size: $m-mail-footer-label-font-size;
+      color: $m-gray-email-color;
       display: block;
     }
     .cancel {
       color: $m-mail-header-footer-color;
-      font-size: 10px;
+      font-size: $m-mail-footer-cancel-font-size;
     }
   }
   .footer_message {
     display: block;
-    color: $m-grey-email-color;
+    color: $m-gray-email-color;
     text-align: center;
     line-height: 1.5em;
-    font-size: 22px;
+    font-size: $m-mail-header-footer-font-size;
     margin-top: 30px;
     .contact {
       color: $m-mail-header-footer-color;
-      font-weight: bold;
-      font-size: 15px;
+      font-weight: $m-font-weight-bold;
+      font-size: $m-mail-footer-contact-font-size;
     }
   }
   .feedback_text {
@@ -80,13 +80,13 @@ body {
       text-align: center;
       text-decoration: none;
       display: block;
-      font-size: 20px;
+      font-size: $m-mail-button-font-size;
       max-width: 250px;
       margin: 30px auto 30px auto;
       margin-right: auto;
       margin-left: auto;
       border-radius: 5px;
-      font-weight: bold;
+      font-weight: $m-font-weight-bold;
     }
   }
 }

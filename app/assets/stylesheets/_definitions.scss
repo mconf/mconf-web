@@ -43,7 +43,7 @@ $m-success-notification: #7AB29B;
 $m-success-notification-border: 5px solid #396554;
 $m-error-notification: #D5455A;
 $m-error-notification-border: 5px solid #6A232D;
-$m-grey-email-color: #848D95;
+$m-gray-email-color: #848D95;
 
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;
@@ -272,6 +272,11 @@ $m-mail-header-font-color: $m-navbar-bg-color-dark;
 $m-mail-font-size: $m-font-normal;
 $m-mail-header-footer-color: #8A73BD;
 $m-mail-link-color: #FFFFFF;
+$m-mail-header-footer-font-size: 22px;
+$m-mail-footer-label-font-size: 12px;
+$m-mail-footer-cancel-font-size: 10px;
+$m-mail-footer-contact-font-size: 15px;
+$m-mail-button-font-size: 20px;
 
 // notifications
 $m-notifications-top: 6px;
