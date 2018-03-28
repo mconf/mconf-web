@@ -934,6 +934,13 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   layouts:
+    mailers:
+      question: "Duvidas? Entre em contato conosco!"
+      e_mail: "contato@mconf.com"
+      footer_title: "Esse e-mail foi encaminhado pela empresa mconf."
+      adress: "Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil"
+      phone: "+55 51 33086812"
+      unsubscribe : "Descadastre-se caso não queira receber mais e-mails"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"

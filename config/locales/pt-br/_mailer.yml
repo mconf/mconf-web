@@ -7,14 +7,16 @@ pt-br:
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Aceite ou rejeite este usuário na página de gerenciamento de usuários em: <br/><a href=\"%{url}\">%{url}</a>"
-      message: "Um usuário chamado \"%{name}\" (%{email}) se registrou e está esperando por aprovação."
+      message: "Um usuário chamado <b>%{name}</b> (%{email}) se registrou e está esperando por aprovação."
       subject: "Um novo usuário está a espera de aprovação"
     new_user_approved:
+      hello: "Olá %{name}!"
       click_here: "Você pode visitar a sua página inicial em: <a href=\"%{url}\">%{url}</a>"
-      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
+      message: "Estamos enviando este email para lhe avisar que o seu acesso ao site já foi aprovado."
       subject: "Seu acesso ao site foi aprovado"
   user_mailer:
     cancellation_notification_email:
+      title: "A sua assinatura foi cancelada!"
       message: "Estamos enviando este e-mail para lhe informar que sua conta em <a href=\"%{url}\">%{site}</a> foi cancelada."
       more: "Caso tenha sido um engano ou precise mais informações, entre em contato pelo e-mail <a href=\"mailto:%{mail}\">%{mail}</a>."
       subject: "Sua conta foi cancelada"
@@ -25,8 +27,9 @@ pt-br:
       message: "Estamos enviado este email para lhe informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
       subject: "Registro realizado com sucesso"
     registration_by_admin_notification_email:
+      hello: "Olá, %{name}!"
       click_here: "Você pode acessar a sua página inicial através do endereço: <a href=\"%{url}\">%{url}</a>"
-      message: "Olá %{name},<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco respondendo a este e-mail."
+      message: "<br/><br/>Estamos enviando este email para lhe informar que uma conta foi criada para você em <a href=\"%{url}\">%{site}</a>.<br><br>Esta conta foi criada por um administrador do site. Se você acha que foi um mal entendido entre em contato conosco respondendo a este e-mail."
       subject: "Uma conta foi criada para você por um administrador"
   event_mailer:
     invitation_email:
@@ -90,6 +93,7 @@ pt-br:
     invitation_email:
       event_name: "Conferência com %{name}"
       message:
+        hi: "Olá, %{name}!"
         description: "Descrição"
         end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"

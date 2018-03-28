@@ -24,6 +24,7 @@ describe ApplicationMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([user.email]) }
       it("assigns @text") { mail_content(mail).should match(message) }
       it("assigns @email") { mail_content(mail).should match(user.email) }
+      it("assings image_tag") {mail_content(mail).should match('assets/mailer/feedback.png')}
     end
 
     context "uses the current site's locale, not the sender's" do
