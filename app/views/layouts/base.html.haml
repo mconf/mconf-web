@@ -1,0 +1,30 @@
+!!! Strict
+%html{:lang => I18n.locale.to_s}
+
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    %title= content_for?(:title) ? yield(:title) : current_site.name
+    = theme_favico
+    = csrf_meta_tag
+
+    = stylesheet_link_tag "application_print", :media => "print"
+    = stylesheet_link_tag "application", :media => "screen, projection"
+    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", rel: "stylesheet", media: "all"
+    = stylesheet_link_tag_for_controller :media => "screen, projection"
+    = stylesheet_link_tag "_development" unless Rails.env == "production"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,700,900", rel: "stylesheet"
+    = yield :stylesheets
+
+    = yield :headers
+
+  %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
+    - if content_for?(:base_content)
+      = yield :base_content
+    - else
+      = yield
+
+    -# Javascript placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = render :partial => 'layouts/javascript_locales'
+    = javascript_include_tag_for_controller
+    = yield :javascripts

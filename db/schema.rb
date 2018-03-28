@@ -108,10 +108,11 @@ ActiveRecord::Schema.define(version: 20171114154853) do
 
   create_table "bigbluebutton_playback_types", force: true do |t|
     t.string   "identifier"
-    t.boolean  "visible",    default: false
-    t.boolean  "default",    default: false
+    t.boolean  "visible",      default: false
+    t.boolean  "default",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "downloadable", default: false
   end
 
   create_table "bigbluebutton_recordings", force: true do |t|
@@ -120,15 +121,16 @@ ActiveRecord::Schema.define(version: 20171114154853) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",                                      default: false
-    t.boolean  "available",                                      default: true
+    t.boolean  "published",                                          default: false
+    t.boolean  "available",                                          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        limit: 8,                          default: 0
-    t.decimal  "start_time",            precision: 14, scale: 0
-    t.decimal  "end_time",              precision: 14, scale: 0
+    t.integer  "size",            limit: 8,                          default: 0
+    t.decimal  "start_time",                precision: 14, scale: 0
+    t.decimal  "end_time",                  precision: 14, scale: 0
+    t.text     "recording_users"
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree

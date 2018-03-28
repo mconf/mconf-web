@@ -1,0 +1,92 @@
+-# locals:
+
+%div.table-wrapper
+
+  %table.table
+    %thead
+      %tr
+        %th{ colspan: 2 }= t('.users.title')
+    %tbody
+      %tr
+        %td= t('.users.all')
+        %td= @statistics[:users][:count]
+      %tr
+        %td= t('.users.approved')
+        %td= @statistics[:users][:approved]
+      %tr
+        %td= t('.users.not_approved')
+        %td= @statistics[:users][:not_approved]
+      %tr
+        %td= t('.users.disabled')
+        %td= @statistics[:users][:disabled]
+
+  %table.table
+    %thead
+      %tr
+        %th{ colspan: 2 }= t('.spaces.title')
+    %tbody
+      %tr
+        %td= t('.spaces.all')
+        %td= @statistics[:spaces][:count]
+      %tr
+        %td= t('.spaces.private')
+        %td= @statistics[:spaces][:private]
+      %tr
+        %td= t('.spaces.public')
+        %td= @statistics[:spaces][:public]
+      %tr
+        %td= t('.spaces.disabled')
+        %td= @statistics[:spaces][:disabled]
+
+  %table.table
+    %thead
+      %tr
+        %th{ colspan: 2 }= t('.meetings.title')
+    %tbody
+      %tr
+        %td= t('.meetings.all')
+        %td= @statistics[:meetings][:count]
+      %tr
+        %td= t('.meetings.total')
+        %td
+          - total = @statistics[:meetings][:total_duration]
+          - if total.zero?
+            = total
+          - else
+            = distance_of_time_in_words_to_now(Time.now + total, include_seconds: false)
+      %tr
+        %td= t('.meetings.average')
+        %td
+          - average = @statistics[:meetings][:average_duration]
+          - if average.zero?
+            = average
+          - else
+            = distance_of_time_in_words_to_now(Time.now + average, include_seconds: false)
+
+  %table.table
+    %thead
+      %tr
+        %th{ colspan: 2 }= t('.recordings.title')
+    %tbody
+      %tr
+        %td= t('.recordings.all')
+        %td= @statistics[:recordings][:count]
+      %tr
+        %td= t('.recordings.total')
+        %td
+          - total = @statistics[:recordings][:total_duration]
+          - if total.zero?
+            = total
+          - else
+            = distance_of_time_in_words_to_now(Time.now + total, include_seconds: false)
+      %tr
+        %td= t('.recordings.average')
+        %td
+          - average = @statistics[:recordings][:average_duration]
+          - if average.zero?
+            = average
+          - else
+            = distance_of_time_in_words_to_now(Time.now + average, include_seconds: false)
+      %tr
+        %td= t('.recordings.size')
+        %td= human_file_size(@statistics[:recordings][:size])

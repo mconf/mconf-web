@@ -18,6 +18,10 @@
             = icon_sidebar_arrow
           %span= t('.general')
 
+    - if can?(:statistics, :manage)
+      %li{ :class => "#{'active' if params[:controller] == 'manage' && params[:action] == 'statistics'}" }
+        = link_to t('.statistics'), manage_statistics_path
+
     - if can?(:users, :manage)
       %li{ :class => "#{'active' if manage_users_page}" }
         = link_to manage_users_path do

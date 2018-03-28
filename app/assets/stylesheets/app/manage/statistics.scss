@@ -1,0 +1,66 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.statistics {
+
+  .page-tools-menu {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    .search-words {
+      input { width: 100%; }
+    }
+
+    .search-filters {
+      margin-top: 10px;
+
+      .search-filter-option {
+        margin-right: 5px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  #statistics-filters {
+    margin-bottom: 16px;
+    @include mconf-clearfix;
+
+    .csv {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+      float: right;
+    }
+
+    .btn-group {
+      white-space: nowrap;
+      float: left;
+
+      > .btn {
+        float: none;
+
+        &:last-child {
+          margin-left: -5px;
+        }
+      }
+    }
+  }
+
+  #statistics-list {
+    .table {
+      margin-bottom: 30px;
+
+      tbody td:first-child {
+        width: 40%;
+      }
+      tbody td:last-child {
+        width: 40%;
+      }
+    }
+  };
+
+  .open-modal {
+    text-decoration: none;
+    color: black;
+  }
+}
