@@ -224,7 +224,7 @@ Devise.setup do |config|
   end
 
   if Rails.application.config.omniauth_facebook_key.present? && Rails.application.config.omniauth_facebook_secret.present?
-    config.omniauth :facebook, Rails.application.config.omniauth_facebook_key, Rails.application.config.omniauth_facebook_secret, {}
+    config.omniauth :facebook, Rails.application.config.omniauth_facebook_key, Rails.application.config.omniauth_facebook_secret, auth_type: 'rerequest'
   end
 
   # ==> Warden configuration
