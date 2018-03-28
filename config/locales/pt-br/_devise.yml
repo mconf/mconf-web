@@ -43,7 +43,7 @@ pt-br:
       reset_email:
         title: "Pronto!"
         login: "LOGIN"
-        description: "Um email com instruções para redefinir sua senha será enviado para "
+        description: "Um e-mail com instruções para redefinir sua senha será enviado para "
         email: "%{email}"
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a troca da sua senha.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail.'
