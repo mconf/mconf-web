@@ -6,18 +6,18 @@
     = yield :headers
   %body{:class => "#{@mailer_name} #{@mail_name}"}
     .header-logo
-      =image_tag URI.join(root_url, "assets/mailer/mconf_live.png"), size: '277x37'
+      = image_tag URI.join(root_url, "assets/mailer/mconf_live.png"), size: '277x37'
     .message-body
       = yield
       .footer_message
-        %label=t('.question')
-        .contact=t('.e_mail')
+        %label= t('.question')
+        .contact= t('.e_mail')
       .image_footer
-        %image_icon=link_to (image_tag URI.join(root_url, "assets/mailer/facebook.png"), size: '30x30'), t('.facebook')
-        %image_icon=link_to (image_tag URI.join(root_url, "assets/mailer/linkedin.png"), size: '30x30'), t('.linkedin')
-        %image_icon=link_to (image_tag URI.join(root_url, "assets/mailer/medium.png"), size: '30x30'), t('.medium')
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/facebook.png"), size: '30x30'), t('.facebook')
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/linkedin.png"), size: '30x30'), t('.linkedin')
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/medium.png"), size: '30x30'), t('.medium')
     .footer
-      %label=t('.footer_title')
-      %label=t('.adress')
-      %label=t('.phone')
-      .cancel=t('.unsubscribe')
+      %label= t('.footer_title')
+      %label= t('.adress')
+      %label= t('.phone')
+      .cancel= t('.unsubscribe')
