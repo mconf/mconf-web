@@ -127,7 +127,7 @@
               %td.rec-duration-column
                 .duration
                   - duration = meeting.duration
-                  - if duration != nil
+                  - if duration.present?
                     - duration = duration/1000
                     = distance_of_time_in_words_to_now(Time.now + duration, include_seconds: false, scope: 'datetime.distance_in_words', two_words_connector: " ")
                   - else

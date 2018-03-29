@@ -27,8 +27,8 @@ feature "Confirmation instructions" do
       last_email.should_not be_nil
       last_email.subject.should eql(I18n.t('devise.mailer.confirmation_instructions.subject'))
       mail_content(last_email).should match(/http.*users\/confirmation[^" ]*/)
-      mail_content(last_email).should match(t('shared.welcome.lets_start.confirm_email_btn'))
-      mail_content(last_email).should match(t('_other.hi_name', name: user.first_name))
+      mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
+      mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.welcome_name', name: user.full_name))
 
       current_path.should eq(my_home_path)
       has_success_message
@@ -65,8 +65,8 @@ feature "Confirmation instructions" do
       last_email.should_not be_nil
       last_email.subject.should eql(I18n.t('devise.mailer.confirmation_instructions.subject'))
       mail_content(last_email).should match(/http.*users\/confirmation[^" ]*/)
-      mail_content(last_email).should match(t('shared.welcome.lets_start.confirm_email_btn'))
-      mail_content(last_email).should match(t('_other.hi_name', name: user.first_name))
+      mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.confirmation_ok'))
+      mail_content(last_email).should match(t('devise.mailer.confirmation_instructions.welcome', email: user.email))
 
       current_path.should eq(reset_email_path)
       has_success_message

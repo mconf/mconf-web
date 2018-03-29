@@ -23,6 +23,7 @@ $m-blue: #337ab7;
 $m-red: #ff5b5b;
 $m-orange: #e98300; //#C47322;
 $m-yellow: #f3a712; //#BB9403;
+$m-white: #fff;
 $m-cyan: #00ffff;
 $m-gray: #ccc;
 $m-dark-gray: #666;
@@ -43,6 +44,7 @@ $m-success-notification: #7AB29B;
 $m-success-notification-border: 5px solid #396554;
 $m-error-notification: #D5455A;
 $m-error-notification-border: 5px solid #6A232D;
+$m-gray-email-color: #848D95;
 
 // site colors and global configs
 $m-site-bg-color: #f2f2f2;
@@ -68,6 +70,10 @@ $m-content-vertical-padding: 60px;
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
 $m-active-item-border-off: 4px solid $m-transparent;
+$m-background-meeting-on: #85AE98;
+$m-background-meeting-off: #2B2D41;
+$m-background-recording-disabled: #888;
+$m-background-recording-options: #bbb;
 
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;
@@ -90,6 +96,7 @@ $m-font-big: $m-font-normal * 1.4;
 $m-font-bigger: $m-font-normal * 1.8;
 $m-font-double: $m-font-normal * 2;
 $m-font-triple: $m-font-normal * 3;
+$m-font-icon: 40px;
 /* multipliers over the standard font size */
 $m-font-h1-multiplier: 2.71;
 $m-font-h2-multiplier: 2.28;
@@ -270,6 +277,13 @@ $m-z-index-tooltip: 999999;
 $m-mail-font-color: $m-font-color;
 $m-mail-header-font-color: $m-navbar-bg-color-dark;
 $m-mail-font-size: $m-font-normal;
+$m-mail-header-footer-color: #8A73BD;
+$m-mail-link-color: #FFFFFF;
+$m-mail-header-footer-font-size: 22px;
+$m-mail-footer-label-font-size: 12px;
+$m-mail-footer-cancel-font-size: 10px;
+$m-mail-footer-contact-font-size: 15px;
+$m-mail-button-font-size: 20px;
 
 // notifications
 $m-notifications-top: 6px;

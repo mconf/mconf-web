@@ -1,5 +1,3 @@
-- image_path = "app/assets/themes/mconf-com/images"
-
 !!! Strict
 %html{:lang => I18n.locale.to_s}
   %head
@@ -7,18 +5,19 @@
     = stylesheet_link_tag "mailers", :media => "screen, projection"
     = yield :headers
   %body{:class => "#{@mailer_name} #{@mail_name}"}
-    #logo
-      = link_to root_url do
-        = email_image_tag "#{image_path}/MconfTec.png", size: '364x120'
-
-    #message-box
+    .header-logo
+      = image_tag URI.join(root_url, "assets/mailer/mconf_live.png"), size: '277x37'
+    .message-body
       = yield
-    #footer
-      .social-links
-        %p
-          %span= t('.social')
-          = link_to "https://www.facebook.com/mconftecnologia/" do
-            = email_image_tag "#{image_path}/ico-facebook.png", size: '30x30'
-          = link_to "https://www.linkedin.com/company/15257740" do
-            = email_image_tag "#{image_path}/ico-linkedin.png", size: '30x30'
-      %p= t('.signature').html_safe
+      .footer_message
+        %label= t('.question')
+        .contact= t('.e_mail')
+      .image_footer
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/facebook.png"), size: '30x30'), t('.facebook')
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/linkedin.png"), size: '30x30'), t('.linkedin')
+        %image_icon= link_to (image_tag URI.join(root_url, "assets/mailer/medium.png"), size: '30x30'), t('.medium')
+    .footer
+      %label= t('.footer_title')
+      %label= t('.adress')
+      %label= t('.phone')
+      .cancel= t('.unsubscribe')

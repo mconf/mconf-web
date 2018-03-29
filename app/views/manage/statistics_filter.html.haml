@@ -1,0 +1,18 @@
+#statistics_filter
+
+  .modal-header
+    = modal_close_button
+    %h3
+      = t('.title')
+  = simple_form_for :statistics, url: manage_statistics_path, method: "get", html: { class: 'single-column' } do |f|
+    .modal-body
+      .starts-at-wrapper
+        - tz = user_timezone_abbreviation(current_user)
+        - lang = locale_for_datetime_picker
+        = f.label (t('.from')), required: false
+        .start= f.input :starts_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.datepick'), 'data-timezone': tz, 'data-language': lang, 'data-minview': 2 }
+        = f.label (t('.to')), required: false
+        .end= f.input :ends_on_time, as: :datetime_picker, label: false, required: false, input_html: { 'data-format': t('_other.datetimepicker.datepick'), 'data-timezone': tz, 'data-language': lang, 'data-minview': 2 }
+
+    .modal-footer
+      = f.button :wrapped, t('_other.send'), disabled: true, class: "btn btn-primary", cancel_modal: true

@@ -43,7 +43,7 @@ body.users.update {
 
       &.logo-initials {
         padding: 80px 0;
-        font-size: 40px;
+        font-size: $m-font-triple;
       }
     }
 
@@ -62,7 +62,7 @@ body.users.update {
 
         &.logo-initials {
           padding: 80px 0;
-          font-size: 40px;
+          font-size: $m-font-triple;
           margin: auto 50px;
         }
       }
@@ -78,7 +78,7 @@ body.users.update {
 
         .upload-button {
           background: $m-site-content-bg-color;
-          color: #000;
+          color: $m-font-strong;
 
           &:hover {
             background: $m-color-primary;
@@ -110,11 +110,11 @@ body.users.update {
         .field-value {
           @include text-truncate(normal);
           color: $m-font-color-default;
-          font-size: 20px;
+          font-size: $m-font-big;
           margin-bottom: 5px;
 
           &.name, &.title {
-            font-weight: bold;
+            font-weight: $m-font-weight-bold;
             margin-bottom: 20px;
           }
 

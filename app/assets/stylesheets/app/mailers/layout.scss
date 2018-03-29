@@ -4,6 +4,89 @@
 
 body {
   padding: 5px;
-  color: $m-mail-font-color;
+  color: $m-gray-email-color;
   line-height: 1.5em;
+  background: $m-background;
+  font-family: $m-font-family-label;
+  word-wrap: break-word;
+
+  .header-logo {
+    text-align: center;
+  }
+  .header_image {
+    text-align: center;
+    margin-bottom: 1.5em;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .header_message {
+    color: $m-mail-header-footer-color;
+    text-align: center;
+    font-size: $m-mail-header-footer-font-size;
+    font-weight: $m-font-weight-bold;
+  }
+  .message-body {
+    margin: 39px auto;
+    background: $m-site-content-bg-color;
+    padding: 32px;
+    width: 30%;
+    border-radius: 8px;
+  }
+  .image_footer {
+    margin-top: 10px;
+    text-align: center;
+    image_icon {
+      margin: 0 10px;
+    }
+  }
+  .footer {
+    margin: 0 auto;
+    width: 30%;
+    text-align: center;
+    label{
+      font-size: $m-mail-footer-label-font-size;
+      color: $m-gray-email-color;
+      display: block;
+    }
+    .cancel {
+      color: $m-mail-header-footer-color;
+      font-size: $m-mail-footer-cancel-font-size;
+    }
+  }
+  .footer_message {
+    display: block;
+    color: $m-gray-email-color;
+    text-align: center;
+    line-height: 1.5em;
+    font-size: $m-mail-header-footer-font-size;
+    margin-top: 30px;
+    .contact {
+      color: $m-mail-header-footer-color;
+      font-weight: $m-font-weight-bold;
+      font-size: $m-mail-footer-contact-font-size;
+    }
+  }
+  .feedback_text {
+    font-style: italic;
+  }
+  .button {
+    a {
+      color: $m-mail-link-color;
+      cursor: pointer;
+      background-color: $m-mail-header-footer-color;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      font-size: $m-mail-button-font-size;
+      max-width: 250px;
+      margin: 30px auto 30px auto;
+      margin-right: auto;
+      margin-left: auto;
+      border-radius: 5px;
+      font-weight: $m-font-weight-bold;
+    }
+  }
 }

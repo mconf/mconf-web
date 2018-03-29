@@ -92,4 +92,34 @@ class ManageController < ApplicationController
       render layout: 'manage'
     end
   end
+
+  def check_statistics_params
+    if params[:statistics].present?
+      from = params[:statistics][:starts_on_time]
+      to = params[:statistics][:ends_on_time]
+      date_format = I18n.t('_other.datetimepicker.datepick_rails')
+
+      @from_date = from.present? ? Date.strptime(from, date_format) : Time.at(0).utc
+      @to_date = to.present? ? Date.strptime(to, date_format) : Time.now.utc
+    else
+      @from_date = Time.at(0).utc
+      @to_date = Time.now.utc
+    end
+  end
+
+  def statistics
+    check_statistics_params
+    @statistics = Mconf::StatisticsModule.generate(@from_date, @to_date)
+  end
+
+  def statistics_filter
+    render layout: false
+  end
+
+  def statistics_csv
+    check_statistics_params
+    respond_to do |format|
+      format.csv { send_data Mconf::StatisticsModule.generate_csv(@from_date, @to_date), type: Mime::CSV, disposition: "attachment", filename: "overview-from-#{@from_date.strftime('%m-%d-%Y')}-to-#{@to_date.strftime('%m-%d-%Y')}.csv" }
+    end
+  end
 end

@@ -23,7 +23,7 @@ feature "Reset password instructions" do
     it("sets 'headers'") { last_email.headers.should eql({}) }
     it("sets 'reply_to'") { last_email.reply_to.should eql([Devise.mailer_sender]) }
     it("content") {
-      mail_content(last_email).should match(t('_other.hi_name', name: user.first_name))
+      mail_content(last_email).should match(I18n.t('devise.mailer.reset_password_instructions.greeting', name: user.name))
       mail_content(last_email).should match(I18n.t('devise.mailer.reset_password_instructions.requested'))
       mail_content(last_email).should match(I18n.t('devise.mailer.reset_password_instructions.ignore'))
       mail_content(last_email).should match(I18n.t('devise.mailer.reset_password_instructions.wont_change'))

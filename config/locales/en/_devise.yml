@@ -26,9 +26,11 @@ en:
         confirmation_pending: "Your account was created and is waiting the approval of an administrator."
         subject: "Registration successful"
         welcome: "Welcome %{email}!"
+        welcome_name: "Welcome, %{name}!"
       reset_password_instructions:
+        redefine: "Redefine Here"
         subject: "Reset password instructions"
-        greeting: "Hello %{email},"
+        greeting: "Hello %{name}!"
         requested: "Someone has requested a link to change your password. You can do this through the link below:"
         change_password: "Change Password"
         ignore: "If you didn't request this, please ignore this email."

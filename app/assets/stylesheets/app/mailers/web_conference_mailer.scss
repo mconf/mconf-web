@@ -8,9 +8,9 @@
     margin: 3px 0;
 
     label {
-      color: $m-dark-gray;
+      color: $m-gray-email-color;
       display: inline;
-      font-weight: bold;
+      font-weight: $m-font-weight-bold;
       margin-right: 3px;
     }
 
@@ -18,5 +18,4 @@
       display: inline;
     }
   }
-
 }

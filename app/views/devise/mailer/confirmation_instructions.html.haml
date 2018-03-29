@@ -1,9 +1,16 @@
-- if Site.current.require_registration_approval?
-  .centralized
-    %h1.title= t('devise.mailer.confirmation_instructions.welcome', email: @resource.first_name)
-    %p
-      .subtitle= t('devise.mailer.confirmation_instructions.confirmation_pending')
-      %p= t('devise.mailer.confirmation_instructions.confirmation_pending2')
-
+- unless Site.current.require_registration_approval?
+  .header_image
+    =image_tag URI.join(root_url, "assets/mailer/approval_email.png"), size: '544x263'
 - else
-  = render 'shared/welcome', user: @user, confirm: true
+  .header_image
+    =image_tag URI.join(root_url, "assets/mailer/waiting_approval.png"), size: '544x263'
+.header_message
+  = t('devise.mailer.confirmation_instructions.welcome_name', name: @user.full_name)
+%p
+  - unless Site.current.require_registration_approval?
+    = t('devise.mailer.confirmation_instructions.confirmation_ok')
+    %p
+      - url = confirmation_url(@resource, confirmation_token: @token)
+      = link_to url, url
+  - else
+    =t('devise.mailer.confirmation_instructions.confirmation_pending')

@@ -21,6 +21,7 @@ pt-br:
       unconfirmed: 'Antes de continuar, confirme a sua conta.'
     mailer:
       confirmation_instructions:
+        redefine: "Redefina Aqui"
         confirmation_link: "Confirme minha conta"
         confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
         confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
@@ -28,7 +29,7 @@ pt-br:
         welcome: "Bem-vindo %{email}!"
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
-        greeting: "Olá %{email},"
+        greeting: "Olá %{name}!"
         requested: "Alguém requisitou uma troca de senha em sua conta. Você pode fazer isto clicando no link abaixo:"
         change_password: "Mudar senha"
         ignore: "Caso você não tenha pedido uma troca de senha, ignore esta mensagem."
@@ -43,7 +44,7 @@ pt-br:
       reset_email:
         title: "Pronto!"
         login: "LOGIN"
-        description: "Um email com instruções para redefinir sua senha será enviado para "
+        description: "Um e-mail com instruções para redefinir sua senha será enviado para "
         email: "%{email}"
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a troca da sua senha.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail.'

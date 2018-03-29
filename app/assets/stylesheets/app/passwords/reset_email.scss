@@ -32,7 +32,7 @@ body.passwords.reset_email {
       .description {
         margin: 40px 0;
         padding: 24px 0;
-        font-size: 25px;
+        font-size: $m-font-bigger;
 
         .email {
           color: $m-color-primary-soft;
@@ -42,7 +42,7 @@ body.passwords.reset_email {
       .btn-block {
         background: $m-color-primary-soft;
         color: $m-very-light-gray;
-        font-size: 20px;
+        font-size: $m-font-big;
         font-weight: $m-font-weight-bold;
       }
     }

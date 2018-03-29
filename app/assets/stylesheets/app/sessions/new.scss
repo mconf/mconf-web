@@ -10,7 +10,7 @@ body.sessions.new, body.sessions.create {
     @include make-md-column(5);
 
     h1 {
-      font-size: 46px;
+      font-size: $m-font-triple;
       text-align: left;
       margin-top: 0;
       font-weight: 700;
@@ -18,7 +18,7 @@ body.sessions.new, body.sessions.create {
     }
 
     h3 {
-      font-size: 25px;
+      font-size: $m-font-bigger;
       text-align: left;
       font-weight: 200;
       color: $m-titles;

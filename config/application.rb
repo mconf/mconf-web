@@ -127,6 +127,11 @@ module Mconf
     # Set if to false to use the old model based on the `record` flag on the `create` API call.
     config.per_user_record_permissions = ENV['MCONF_PER_USER_RECORD_PERMISSIONS'] == 'true'
 
+    # Authenticate playback URLs for recordings
+    config.playback_url_authentication = ENV['MCONF_PLAYBACK_URL_AUTH'] == 'true'
+    # Show the playback in an iframe. If false, redirects the user to the playback page.
+    config.playback_iframe = ENV['MCONF_PLAYBACK_IFRAME'] == 'true'
+
     # Themes: configure assets paths here!
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "stylesheets")
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")

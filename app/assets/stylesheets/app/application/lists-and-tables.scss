@@ -28,7 +28,7 @@
     }
 
     &.list-item-disabled {
-      color: #888;
+      color: $m-background-recording-disabled;
       background: $m-very-light-gray;
       opacity: 0.8;
 
@@ -43,7 +43,7 @@
 
     .list-text-title {
       font-size: $m-font-medium;
-      font-weight: bold;
+      font-weight: $m-font-weight-bold;
       margin-bottom: 4px;
       @include mconf-clearfix;
 
@@ -92,8 +92,8 @@ table, .table {
   border-collapse: separate;
 
   thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
-    font-size: 14px;
-    font-weight: bold;
+    font-size: $m-font-normal;
+    font-weight: $m-font-weight-bold;
     color: $m-titles;
     border: 0;
   }

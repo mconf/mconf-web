@@ -1,9 +1,7 @@
-.centralized
-  %h1.title= t('.hello')
-  .subtitle= t('.subtitle')
-
-%p= t('.content', name: @user.name, email: @user.email).html_safe
-
-.info-block
-  .info-block-section= @subject
-  .info-block-section= @text
+.header_image
+  =image_tag URI.join(root_url, "assets/mailer/feedback.png"), size: '494x263'
+= t('.content', email: @email).html_safe
+%br
+%br
+.feedback_text
+  %q= @text

@@ -1,67 +1,45 @@
-!!! Strict
-%html{:lang => I18n.locale.to_s}
+-# Default layout
+= content_for :base_content do
+  - if sidenav_visible?
+    #sidenav= render :partial => "layouts/sidenav"
 
-  %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
-    %title= content_for?(:title) ? yield(:title) : current_site.name
-    = theme_favico
-    = csrf_meta_tag
+  - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
+  #site{ class: cls_sidenav }
+    #navbar
+      = render :partial => 'layouts/navbar'
 
-    = stylesheet_link_tag "application_print", :media => "print"
-    = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", rel: "stylesheet", media: "all"
-    = stylesheet_link_tag_for_controller :media => "screen, projection"
-    = stylesheet_link_tag "_development" unless Rails.env == "production"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,700,900", rel: "stylesheet"
-    = yield :stylesheets
+    - if content_for?(:content_notification)
+      #content-notification
+        = yield :content_notification
 
-    = yield :headers
+    #content
 
-  %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
-    - if sidenav_visible?
-      #sidenav= render :partial => "layouts/sidenav"
+      - if content_for?(:sidebar) || content_for?(:sidebar_menu)
+        #sidebar
+          = yield :sidebar
+          - if content_for?(:sidebar_menu)
+            #sidebar-menu
+              = yield :sidebar_menu
 
-    - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
-    #site{ class: cls_sidenav }
-      #navbar
-        = render :partial => 'layouts/navbar'
+      #content-middle
 
-      - if content_for?(:content_notification)
-        #content-notification
-          = yield :content_notification
+        -# an internal menu for the page to navigate through sub-pages
+        - if content_for?(:page_menu)
+          #page-menu
+            = yield :page_menu
 
-      #content
+        -# a list of actions for this page (e.g. destroy resource)
+        - if content_for?(:page_actions)
+          #page-actions
+            = yield :page_actions
 
-        - if content_for?(:sidebar) || content_for?(:sidebar_menu)
-          #sidebar
-            = yield :sidebar
-            - if content_for?(:sidebar_menu)
-              #sidebar-menu
-                = yield :sidebar_menu
+        -# the actual page content
+        = yield
 
-        #content-middle
+    #footer-pusher
 
-          -# an internal menu for the page to navigate through sub-pages
-          - if content_for?(:page_menu)
-            #page-menu
-              = yield :page_menu
+  = render :partial => "layouts/footer"
+  = render :partial => "layouts/analytics"
+  = render :partial => "layouts/notifications"
 
-          -# a list of actions for this page (e.g. destroy resource)
-          - if content_for?(:page_actions)
-            #page-actions
-              = yield :page_actions
-
-          -# the actual page content
-          = yield
-
-      #footer-pusher
-
-    = render :partial => "layouts/footer"
-    = render :partial => "layouts/analytics"
-    = render :partial => "layouts/notifications"
-
-    -# Javascript placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
-    = render :partial => 'layouts/javascript_locales'
-    = javascript_include_tag_for_controller
-    = yield :javascripts
+= render :file => 'layouts/base'

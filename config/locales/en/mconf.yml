@@ -69,6 +69,8 @@ en:
     create: "Create"
     confirm: Ok
     datetimepicker:
+      datepick: "mm/dd/yyyy"
+      datepick_rails: "%m/%d/%Y"
       format: "mm/dd/yyyy hh:ii Z"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
@@ -923,6 +925,16 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   layouts:
+    mailers:
+      facebook: "https://www.facebook.com/mconftecnologia/?hc_ref=ARSQOhTM0W8GW_jLjeB3EVf8pZjgSw1y-7jc5bCBY0oqct82289GU532-kMJpPicgW8"
+      linkedin: "https://www.linkedin.com/company/mconf"
+      medium: "https://medium.com/mconf/mconfrelease-6b2a024908a1"
+      question: "Questions? Contact us!"
+      e_mail: "contato@mconf.com"
+      footer_title: "This e-mail was delivered by Mconf Company."
+      adress: "Av. Bento Gonçalves, 9500. Porto Alegre/RS-Brazil"
+      phone: "+55 51 33086812"
+      unsubscribe : "Unsubscribe if you don't want to receive more E-mails"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visit: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Current version"
@@ -990,6 +1002,7 @@ en:
       recordings: "Recordings"
       resque: "Resque"
       spaces: "Spaces"
+      statistics: "Overview"
       title: "Site Management"
       users: "Users"
       webconf: "Conference"
@@ -1051,6 +1064,38 @@ en:
       filter_count_with_text: "Found %{count} spaces (searched \"%{value}\")"
       filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
+    statistics:
+      all: "All"
+      date: "Pick date"
+      csv: "Download .csv"
+    statistics_filter:
+      from: "From"
+      to: "To"
+      title: "Date period"
+    statistics_list:
+      users:
+        title: "Users Stats"
+        all: "All users"
+        approved: "Approved users"
+        not_approved: "Not approved users"
+        disabled: "Disabled users"
+      spaces:
+        title: "Spaces Stats"
+        all: "All spaces"
+        private: "Private spaces"
+        public: "Public spaces"
+        disabled: "Disabled spaces"
+      meetings:
+        title: "Meetings Stats"
+        all: "All meetings"
+        total: "Total meetings duration"
+        average: "Average meetings duration"
+      recordings:
+        title: "Recordings Stats"
+        all: "All recordings"
+        total: "Total recordings duration"
+        average: "Average recordings duration"
+        size: "Total size"
     user_item:
       allow_record: "Give the user permission to record conferences"
       auth_using: "using"

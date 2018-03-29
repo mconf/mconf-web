@@ -16,7 +16,7 @@ body.my.meetings {
         margin: 60px 55px;
         line-height: 1.4;
         color: $m-titles;
-        font-size: 25px;
+        font-size: $m-font-bigger;
       }
 
       #no-meetings-logo {

@@ -7,14 +7,16 @@ en:
   admin_mailer:
     new_user_waiting_for_approval:
       click_here: "Accept or reject this user in the user management page in: <br/><a href=\"%{url}\">%{url}</a>"
-      message: "A user named \"%{name}\" (%{email}) has registered and is waiting for approval."
+      message: "A user named <b>%{name}</b> (%{email}) has registered and is waiting for approval."
       subject: "A new user is waiting approval"
     new_user_approved:
+      hello: "Hello %{name}!"
       click_here: "You can access your home page at: <a href=\"%{url}\">%{url}</a>"
-      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your access to the site has been approved."
+      message: "We're sending this email to inform you that your access to the site has been approved."
       subject: "Your registration has been approved"
   user_mailer:
     cancellation_notification_email:
+      title: "Your signature was cancelled!"
       message: "We're sending this email to inform you that your account on <a href=\"%{url}\">%{site}</a> was cancelled."
       more: "In case this was a mistake or if you need more information, contact us at <a href=\"mailto:%{mail}\">%{mail}</a>."
       subject: "Your account has been cancelled"
@@ -25,8 +27,9 @@ en:
       message: "We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!"
       subject: "Your registration has been completed"
     registration_by_admin_notification_email:
+      hello: "Hello, %{name}!"
       click_here: "You can go to your home page by clicking on this link: <a href=\"%{url}\">%{url}</a>"
-      message: "Hello %{name},<br/><br/>We're sending this email to inform you that an account was created for you on <a href=\"%{url}\">%{site}</a>.<br><br>This account was created by an administrator. If you think this was an error please contact us responding to this email."
+      message: "<br/>We're sending this email to inform you that an account was created for you on <a href=\"%{url}\">%{site}</a>.<br><br>This account was created by an administrator. If you think this was an error please contact us responding to this email."
       subject: "An account was created for you by an administrator"
   event_mailer:
     invitation_email:
@@ -90,6 +93,7 @@ en:
     invitation_email:
       event_name: "Meeting with %{name}"
       message:
+        hi: "Hi, %{name}!"
         description: "Description"
         end: "End"
         header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"

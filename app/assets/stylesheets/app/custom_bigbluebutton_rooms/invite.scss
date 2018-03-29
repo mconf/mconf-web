@@ -7,7 +7,7 @@ body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
 &.running {
-  background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+  background: linear-gradient(90deg, $m-background-meeting-on 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
@@ -24,7 +24,7 @@ body.custom_bigbluebutton_rooms.auth {
 }
 
 &:not(.running) {
-  background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
+  background: linear-gradient(90deg, $m-background-meeting-off 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
@@ -54,14 +54,14 @@ body.custom_bigbluebutton_rooms.auth {
         margin-bottom: 30px;
         padding: 8px 4px;
         border-radius: $m-border-radius-base;
-        font-size: 46px;
-        font-weight: 700;
+        font-size: $m-font-triple;
+        font-weight: $m-font-weight-bold;
         text-align: center;
       }
 
       .welcome {
         color: $m-color-primary-soft;
-        font-size: 22px;
+        font-size: $m-font-fields;
         text-align: center;
       }
 
@@ -90,7 +90,7 @@ body.custom_bigbluebutton_rooms.auth {
       input {
         padding: 15px;
         width: 100%;
-        font-size: 20px;
+        font-size: $m-font-big;
       }
     }
   }

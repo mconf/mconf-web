@@ -68,6 +68,8 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
+      datepick: "dd/mm/yyyy"
+      datepick_rails: "%d/%m/%Y"
       format: "dd/mm/yyyy hh:ii Z"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
@@ -931,6 +933,13 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   layouts:
+    mailers:
+      question: "Duvidas? Entre em contato conosco!"
+      e_mail: "contato@mconf.com"
+      footer_title: "Esse e-mail foi encaminhado pela empresa mconf."
+      adress: "Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil"
+      phone: "+55 51 33086812"
+      unsubscribe : "Descadastre-se caso não queira receber mais e-mails"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"
@@ -996,6 +1005,7 @@ pt-br:
       recordings: "Gravações"
       resque: "Resque"
       spaces: "Comunidades"
+      statistics: "Resumo"
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Conferência"
@@ -1057,6 +1067,38 @@ pt-br:
       filter_count_with_text: "%{count} comunidades encontradas (busca por \"%{value}\")"
       filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
+    statistics:
+      all: "Mostrar tudo"
+      date: "Escolher data"
+      csv: "Baixar .csv"
+    statistics_filter:
+      from: "De"
+      to: "Até"
+      title: "Período"
+    statistics_list:
+      users:
+        title: "Estatísticas de usuários"
+        all: "Total de usuários"
+        approved: "Usuários aprovados"
+        not_approved: "Usuários não aprovados"
+        disabled: "Usuários desabilitados"
+      spaces:
+        title: "Estatísticas de comunidades"
+        all: "Total de comunidades"
+        private: "Comunidadades privadas"
+        public: "Comunidades públicas"
+        disabled: "Comunidades desabilitadas"
+      meetings:
+        title: "Estatísticas de reuniões"
+        all: "Total de reuniões"
+        total: "Duração de todas as reuniões"
+        average: "Média de duração por reunião"
+      recordings:
+        title: "Estatísticas de gravações"
+        all: "Total de gravações"
+        total: "Duração de todas as gravações"
+        average: "Média de duração por gravação"
+        size: "Tamanho total de todas as gravações"
     user_item:
       allow_record: "Conceder permissão de gravação"
       auth_using: "usando"
