@@ -51,9 +51,8 @@
 
   .form-actions {
     clear: both;
-    padding-top: 16px;
-    margin-top: 16px;
-    /* border-top: 1px solid $m-border-color-normal; */
+    /* padding-top: 8px; */
+    /* margin-top: 8px; */
     text-align: right;
 
     // wider space between form buttons and links
@@ -95,9 +94,10 @@
       box-shadow: none;
       padding: 6px 17px;
       height: auto;
-      font-size: $m-font-fields;
+      font-size: $m-font-normal;
       color: $m-text;
       border: $m-sf-field-border;
+      padding: 19px 15px 21px 15px;
     }
 
     select.datetime {
@@ -183,9 +183,10 @@
 // override a few things in inputs that we can't do with variables only
 .form-control {
   box-shadow: none;
-  padding: 6px 17px;
-  height: 45px;
-  font-size: $m-font-fields;
+  padding: 18px 15px;
+  height: auto;
+  font-size: $m-font-normal;
+  line-height: 1;
   color: $m-text;
   border: $m-sf-field-border;
 
@@ -197,12 +198,9 @@
     color: $m-disabled-placeholder-text;
   }
 
-  &:hover:not(.disabled) {
-    text-shadow: $m-bold-by-shadow;
-  }
-
   &:focus {
     border: $m-sf-field-border-focused;
+    padding: 17px 14px;
   }
 }
 .has-error .form-control:focus {

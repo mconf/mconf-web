@@ -290,7 +290,6 @@ form {
       border-radius: 4px;
       border: none;
       background-color: #f4f0f3; //#c9b8c3;
-      font-family: Roboto;
       font-size: 13px;
       font-weight: 500;
       line-height: 1.15;
@@ -436,6 +435,7 @@ form {
       .border {
         border: $m-logo-border-size solid $m-logo-border;
         border-radius: 50%;
+        @include transition(all 0.2s ease-in-out);
       }
 
       .border:hover {
@@ -575,15 +575,16 @@ form {
 
   #footer-languages {
     float: right;
-    font-size: $m-font-small;
+    font-size: $m-font-mini;
+
+    .dropdown-menu {
+      font-size: $m-font-mini;
+    }
 
     img {
       vertical-align: text-top;
       margin-right: 10px;
     }
-  }
-
-  #footer-copyright {
   }
 
   #footer-powered {
@@ -653,37 +654,6 @@ form {
     text-align: center;
   }
 
-  /* .content-block-container { */
-  /*   margin-bottom: 10px; */
-  /*   clear: both; */
-  /* } */
-
-  /* .content-block { */
-  /*   clear: both; */
-  /*   padding: 10px; */
-  /* } */
-
-  /* .content-block-middle { */
-  /*   clear: both; */
-  /* } */
-
-  /* .content-block-footer { */
-  /*   text-align: right; */
-  /*   margin-top: 10px; */
-  /*   padding-top: 2px; */
-  /*   padding-right: 5px; */
-  /*   clear: both; */
-  /* } */
-
-  /* .content-block-header { */
-  /*   @include mconf-clearfix; */
-  /*   h3, h4 { */
-  /*     float: left; */
-  /*     margin-top: 0; */
-  /*     img { margin-bottom: -3px; } */
-  /*   } */
-  /* } */
-
   .sidebar-top-action-button {
     @include mconf-clearfix;
     text-align: center;
@@ -744,7 +714,7 @@ form {
   @include mconf-clearfix;
   text-align: left;
   border-radius: 2px;
-  box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+  box-shadow: 0px 0px 20px 0px rgba(43,45,66, 0.15);
 
   ul {
     margin: 0;
@@ -820,17 +790,13 @@ form {
   background-color: transparent;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-site-vertical-padding 0 $m-content-vertical-padding 0;
+  padding: $m-site-vertical-padding 0 0 0;
 
   h1 {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 50px;
   }
 
   h3 {
-    margin-bottom: 8px;
-
     // horitontal line in the title
     &.horizontal-line {
       height: 13px;

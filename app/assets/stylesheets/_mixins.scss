@@ -288,6 +288,9 @@
       border-bottom: $m-active-item-border;
     }
   }
+  > ul > li.active > a {
+    border-bottom: $m-active-item-border;
+  }
 }
 
 @mixin two-column-list($logo-size, $margin) {

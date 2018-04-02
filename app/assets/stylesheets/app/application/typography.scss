@@ -29,6 +29,7 @@ h6, .h6 {
   color: $m-font-h-color;
   font-style: normal;
   font-family: $m-font-family-h;
+  margin: 0;
 
   a:not(.btn) {
     @include link-colors($m-font-h-color, $m-font-h-color-hover, $m-font-h-color-active, $m-font-h-color);
@@ -37,39 +38,39 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  font-size: $m-font-normal * $m-font-h1-multiplier;
-  margin: 1em 0 0.5em;
+  font-size: $m-font-title;
+  margin-bottom: 30px;
   line-height: 1.1;
   font-weight: $m-font-weight-bold;
 }
 
 h2, .h2 {
-  font-size: $m-font-normal * $m-font-h2-multiplier;
+  font-size: $m-font-subtitle;
   margin: 1em 0 0.5em;
   line-height: 1.1;
 }
 
 h3, .h3 {
-  font-size: $m-font-normal * $m-font-h3-multiplier;
+  font-size: $m-font-medium;
   margin: 1em 0 0.5em;
   line-height: 1.3;
 }
 
 h4, .h4 {
-  font-size: $m-font-normal * $m-font-h4-multiplier;
+  font-size: $m-font-normal;
   margin: 1em 0 0.5em;
   line-height: 1.3;
 }
 
 h5, .h5 {
-  font-size: $m-font-normal * $m-font-h5-multiplier;
+  font-size: $m-font-normal;
   margin: 1em 0 0.5em;
   line-height: 1.3;
   color: lighten($m-font-color, 10);
 }
 
 h6, .h6 {
-  font-size: $m-font-normal * $m-font-h6-multiplier;
+  font-size: $m-font-normal;
   margin: 1em 0 0.5em;
   line-height: 1.3;
   color: lighten($m-font-color, 20);
