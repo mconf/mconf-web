@@ -34,7 +34,7 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.subject', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
         mail_content(mail).should match(Regexp.escape(content))
       }
     end
@@ -46,7 +46,7 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.subject', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
         mail_content(mail).should match(Regexp.escape(content))
       }
     end
@@ -59,7 +59,7 @@ describe AdminMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('admin_mailer.new_user_waiting_for_approval.subject', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_waiting_for_approval.click_here', url: manage_users_url(host: Site.current.domain, q: user.email), locale: "pt-br")
         mail_content(mail).should match(Regexp.escape(content))
       }
     end
@@ -72,14 +72,14 @@ describe AdminMailer do
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
-        text = I18n.t('shared.welcome.subject')
+        text = I18n.t('admin_mailer.new_user_approved.subject')
         mail.subject.should eql(text)
       }
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
-      it("assigns @user") {
-        mail_content(mail).should match(user.first_name)
+      it("assigns @user_name") {
+        mail_content(mail).should match(user.name)
       }
     end
 
@@ -89,7 +89,7 @@ describe AdminMailer do
         user.update_attribute(:locale, "pt-br")
       }
       it {
-        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
         mail_content(mail).should match(content)
       }
     end
@@ -100,7 +100,7 @@ describe AdminMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
         mail_content(mail).should match(content)
       }
     end
@@ -112,7 +112,7 @@ describe AdminMailer do
         user.update_attribute(:locale, nil)
       }
       it {
-        content = I18n.t('shared.welcome.lets_start.title', locale: "pt-br")
+        content = I18n.t('admin_mailer.new_user_approved.click_here', url: my_home_url(host: Site.current.domain), locale: "pt-br")
         mail_content(mail).should match(content)
       }
     end

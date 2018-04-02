@@ -33,7 +33,7 @@ describe ApplicationMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('application_mailer.feedback_email.content', :name => user.name, :email => user.email, :locale => "pt-br")
+        content = I18n.t('application_mailer.feedback_email.content', :name => user.full_name, :email => user.email, :locale => "pt-br")
         mail_content(mail).should match(Regexp.escape(content))
       }
     end
@@ -45,7 +45,7 @@ describe ApplicationMailer do
         user.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('application_mailer.feedback_email.content', :name => user.name, :email => user.email, :locale => "pt-br")
+        content = I18n.t('application_mailer.feedback_email.content', :name => user.full_name, :email => user.email, :locale => "pt-br")
         mail_content(mail).should match(Regexp.escape(content))
       }
     end

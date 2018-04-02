@@ -22,7 +22,7 @@ class AdminMailer < BaseMailer
     user = User.find(user_id)
     I18n.with_locale(default_email_locale(user, nil)) do
       @user = user
-      @subject = t('shared.welcome.subject')
+      @subject = t('admin_mailer.new_user_approved.subject')
       create_email(user.email, Site.current.smtp_sender, @subject)
     end
   end

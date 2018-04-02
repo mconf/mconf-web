@@ -202,8 +202,6 @@ pt-br:
       meetings: "Reuniões"
       other: "Outros"
   user_mailer:
-    cancellation_notification_email:
-      message: "Estamos lhe enviando este e-mail para informar que sua conta foi cancelada por requisição sua ou de um administrador."
     registration_by_admin_notification_email:
       notification: "Você está recebendo esta mensagem pois uma conta foi criada para você por um administrador do site. Se você acha que foi um mal entendido por favor entre em contato conosco respondendo a este e-mail."
       subject: 'Bem vindo(a) ao Mconf!'
@@ -212,7 +210,6 @@ pt-br:
       message:
         did_you_know: "Você sabia que?"
         did_you_know_text: "A tecnologia utilizada para esta webconferência foi desenvolvida pela Mconf Tecnologia, uma empresa brasileira situada em Porto Alegre/RS, e pode ser integrada com diversos LMS (Sistema de Gestão de Aprendizagem), como Moodle, WordPress e Canvas. Ficou <i>interessado?</i> Entre em contato e saiba mais:"
-        header: "Você foi convidado por %{sender} (%{email_sender}) para acessar a sala de conferência web %{room}."
         hello: "Olá!"
         how_to: "Como acessar?"
         how_to_text: "Para acessar basta clicar no link da sala abaixo, digitar seu <strong>nome completo</strong> e fornecer a chave de acesso (só é necessária caso a conferência seja privada)."

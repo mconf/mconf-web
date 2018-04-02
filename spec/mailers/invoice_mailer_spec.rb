@@ -35,7 +35,7 @@ describe InvoiceMailer do
     it("sets 'headers'") { mail.headers.should eql({}) }
     it("assigns @user") { mail.body.encoded.should match(user.name) }
     it("sends a .pdf file attached") {
-      mail.attachments.should have(4).attachment
+      mail.attachments.should have(1).attachment
       attachment = mail.attachments[0]
       attachment.should be_a_kind_of(Mail::Part)
       attachment.filename.should eql('report.pdf')

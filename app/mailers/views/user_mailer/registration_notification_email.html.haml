@@ -1,12 +1,7 @@
--# This is about the same as the view devise/mailer/confimation_instructions, except
--# that it doesn't have the 'confirmation' block.
-
-- if Site.current.require_registration_approval?
-  .centralized
-    %h1.title= t('devise.mailer.confirmation_instructions.welcome', email: @user.first_name)
-    %p
-      .subtitle= t('devise.mailer.confirmation_instructions.confirmation_pending')
-      %p= t('devise.mailer.confirmation_instructions.confirmation_pending2')
-
-- else
-  = render 'shared/welcome', user: @user
+#registration-notification-email
+  %p= t('.hello', name: @user.name)
+  - if Site.current.require_registration_approval?
+    %p= t('.confirmation_pending', url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+  - else
+    %p= t('.message', name: @user.name, url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+    %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe

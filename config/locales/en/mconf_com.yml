@@ -216,8 +216,6 @@ en:
       meetings: "Meetings"
       other: "Other"
   user_mailer:
-    cancellation_notification_email:
-      message: "We're sending this email to inform you that your account has been cancelled, either by your request or by the request of an administrator."
     registration_by_admin_notification_email:
       notification: "You are receiving this message because an account was created for you by an administrator. If you think this was an error please contact us responding to this email."
       subject: "Welcome to Mconf!"
@@ -226,7 +224,6 @@ en:
       message:
         did_you_know: "Did you know that?"
         did_you_know_text: "The technology used for this webconference was developed by Mconf Tecnologia, a Brazilian company located in Porto Alegre/RS, that can be integrated with several LMS (Learning Management System), such as Moodle, WordPress, and Canvas. <i>Interested?</i> Contact:"
-        header: "You were invited by %{sender} (%{email_sender}) to access the web conferencing room %{room}."
         hello: "Hello!"
         how_to: "How to access?"
         how_to_text: "To access the conference, just click on the room link below, enter your <b>full name</b> and the access key (only necessary if the conference is private)."
