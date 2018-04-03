@@ -28,8 +28,8 @@
     }
 
     .btn-google, .btn-facebook {
-      $bg-normal: #DF4A32;
-      $bg-hover: #A7220C;
+      $bg-normal: $m-google;
+      $bg-hover: $m-google-hover;
 
       float: left;
       background: $bg-normal;
@@ -55,8 +55,8 @@
     }
 
     .btn-facebook {
-      $bg-normal: #3B579D;
-      $bg-hover: #283B6A;
+      $bg-normal: $m-facebook;
+      $bg-hover: $m-facebook-hover;
 
       float: right;
       background: $bg-normal;

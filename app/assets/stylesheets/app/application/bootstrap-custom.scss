@@ -147,7 +147,7 @@
   }
 
   h3, h4 {
-    font-weight: bold;
+    font-weight: $m-font-weight-bold;
   }
 
   &.alert-danger {
@@ -230,7 +230,7 @@ mark {
 .btn-default {
   background: transparent;
   border: none;
-  font-size: 22px;
+  font-size: $m-font-buttons;
   transition: all .3s ease;
   text-decoration: none;
   color: $m-color-primary-soft;
@@ -267,7 +267,7 @@ mark {
 .dropdown-toggle {
   background: $m-site-content-bg-color;
   border: none;
-  font-size: 15px;
+  font-size: $m-font-normal;
   color: $m-titles;
   .icon {
     transition: all .3s ease;
@@ -275,10 +275,10 @@ mark {
 
   &:hover, &:active, &:active:hover {
     background: $m-site-content-bg-color;
-    font-weight: bold;
+    font-weight: $m-font-weight-bold;
     box-shadow: none;
     .icon {
-      color: #000;
+      color: $m-black;
     }
   }
 }
@@ -287,10 +287,10 @@ mark {
   > .btn-default.dropdown-toggle {
     &, &:hover, &:active, &:focus {
       background: $m-site-content-bg-color;
-      font-weight: bold;
+      font-weight: $m-font-weight-bold;
       box-shadow: none;
         .icon {
-      color: #000;
+      color: $m-black;
       }
     }
   }

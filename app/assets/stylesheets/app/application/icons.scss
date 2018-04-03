@@ -305,52 +305,52 @@ a:not(.btn) .icon {
   }
 
   &.icon-arrow-up {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
   }
 
   &.icon-arrow-down {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
   }
 
   &.icon-sidebar-arrow {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
   }
 
   &.icon-modal-cancel {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-modal-buttons;
   }
 
   &.icon-logout {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-modal-buttons;
   }
 
   &.icon-broken {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-red;
   }
 
   &.icon-processing {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-modal-buttons;
   }
 
   &.icon-processing-fail {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-modal-buttons;
   }
 
   &.icon-archive {
-    font-size: 33px;
+    font-size: $m-icon-font-size;
     vertical-align: middle;
     color: $m-color-primary-soft;
   }
@@ -367,7 +367,7 @@ a:not(.btn) .icon {
   }
 
   &.icon-date {
-    color: #AAA;
+    color: $m-icon-gray;
     vertical-align: middle;
   }
 

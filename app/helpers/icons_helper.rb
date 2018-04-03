@@ -227,11 +227,6 @@ module IconsHelper
     icon_constructor nil, "fa fa-sign-out icon icon-leave-space", options
   end
 
-  def icon_invitation(options={})
-    material_icon_constructor "mail", "icon material-icons icon-conference-invite", options
-    #icon_constructor nil, "icon icon-mw-conference-invite icon-conference-invite", options
-  end
-
   def icon_list(options={})
     icon_constructor nil, "fa fa-list icon icon-list", options
   end
@@ -274,10 +269,6 @@ module IconsHelper
     end
   end
 
-  def icon_conference_play(options={})
-    material_icon_constructor "play_circle_filled", "icon material-icons icon-conference-play", options
-  end
-
   def icon_rec_play(options={})
     icon_constructor nil, "icon icon-mw-conference-play icon-rec-play", options
   end
@@ -313,6 +304,14 @@ module IconsHelper
   # Default icon that shows a tooltip with help about something
   def icon_help(options={})
     material_icon_constructor "help_outline", "icon material-icons icon icon-help", options
+  end
+
+  def icon_conference_play(options={})
+    material_icon_constructor "play_circle_filled", "icon material-icons icon-conference-play", options
+  end
+
+  def icon_invitation(options={})
+    material_icon_constructor "mail", "icon material-icons icon-conference-invite", options
   end
 
   def icon_dropdown_up(options={})
