@@ -19,57 +19,38 @@ body.users.update {
     @include make-md-column(6);
   }
 
-  .container-fluid {
-    background: $m-site-content-bg-color;
-    max-width: 500px;
+  #content-strip {
     margin: 140px auto 0 auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
     text-align: center;
     overflow: visible !important;
     display: block !important;
 
-    @include logo-container;
+    h3 {
+      text-align: center;
+      font-weight: $m-font-weight-bold;
+    }
 
-    img, .logo-user {
-      height: 200px;
-      width: 200px;
+    .logo-user {
+      height: 250px;
+      width: 250px;
       float: none;
-      margin-top: -25%;
+      margin-top: -35%;
       display: inline-block;
       border: 1px solid $m-logo-border;
       border-radius: 50%;
-      font-size: $m-font-big;
 
       &.logo-initials {
-        padding: 80px 0;
-        font-size: $m-font-triple;
+        padding: 90px 0;
+        font-size: 80px;
       }
     }
 
-    .btn.btn-default.dropdown-toggle {
-      margin-top: -25%;
+    .dropdown-toggle {
       background: none;
-
-      img, .logo-user {
-        height: 200px;
-        width: 200px;
-        float: none;
-        display: inline-block;
-        border: 1px solid $m-logo-border;
-        border-radius: 50%;
-        font-size: $m-font-big;
-
-        &.logo-initials {
-          padding: 80px 0;
-          font-size: $m-font-triple;
-          margin: auto 50px;
-        }
-      }
     }
 
     .dropdown-menu-right {
-      margin: 1px 55px 0;
+      margin: 1px 84px 0;
       text-align: center;
       transform: translate(-60%, 0);
 
@@ -88,69 +69,39 @@ body.users.update {
       }
     }
 
-    .resource-card {
-      width: 100%;
-      max-width: 800px;
-      margin: 24px auto 40px auto;
+    .user-profile {
+      @include mconf-clearfix;
+      text-align: center;
+      margin-top: 10px;
+
+      a, span {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .name {
+        font-weight: $m-font-weight-bold;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+
+      .description {
+        margin: 20px 0;
+      }
+
+      .profile-options {
+        padding-top: 20px;
+        border-top: 2px solid #eee;
+      }
+    }
+
+    form {
       text-align: left;
 
-      .resource-data {
-        @include make-row;
-        padding-left: 40px;
-        width: 100%;
-        float: left;
+      h3 {
         text-align: center;
-      }
-
-      .field {
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        margin-bottom: 40px;
-
-        .field-value {
-          @include text-truncate(normal);
-          color: $m-font-color-default;
-          font-size: $m-font-big;
-          margin-bottom: 5px;
-
-          &.name, &.title {
-            font-weight: $m-font-weight-bold;
-            margin-bottom: 20px;
-          }
-
-          &.description {
-            margin-top: 20px;
-          }
-        }
-
-        .form-group {
-          text-align: left;
-        }
-
-        .simple-form-wrapper {
-          max-width: 300px;
-          margin: 0 auto;
-        }
-
-        .btn-group {
-          margin-top: 20px;
-        }
-
-        span {
-          display: block;
-        }
-
-        .border {
-          border-bottom: 1px solid #ccc;
-          margin-top: 20px;
-          margin-left: 40px;
-          margin-right: 40px;
-        }
-      }
-
-      .field-title {
-        font-size: $m-font-small;
-        color: $m-font-light;
+        font-weight: $m-font-weight-bold;
+        margin-top: 50px;
       }
     }
   }

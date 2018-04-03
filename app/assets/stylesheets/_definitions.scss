@@ -66,7 +66,7 @@ $m-logo-bg: lighten($m-color-primary, 15);
 $m-logo-border: #fff;
 $m-site-horizontal-padding: 160px;
 $m-site-vertical-padding: 100px;
-$m-content-vertical-padding: 60px;
+$m-content-vertical-padding: 60px; // TODO review
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
 $m-active-item-border-off: 4px solid $m-transparent;
@@ -88,18 +88,12 @@ $m-footer-header-link-color-active: $m-color-primary;
 // fonts
 
 
-$m-font-normal: 20px; //14px; //0.85rem; /* 14px, base size for all fonts */
+$m-font-normal: 20px;
 $m-font-mini: $m-font-normal * 0.75;
-$m-font-small: $m-font-normal * 0.9; // TODO: remove
-$m-font-medium: $m-font-normal * 1.25; //16px; 'super'
-$m-font-form: 18px; // TODO: review
-$m-font-fields: 22px; // TODO: review
-$m-font-big: $m-font-normal * 1.5; // 'subtitle'
-$m-font-subtitle: $m-font-big;
-$m-font-bigger: $m-font-normal * 2.25; //1.8; 'title'
-$m-font-title: $m-font-bigger;
-$m-font-double: $m-font-normal * 2; // TODO: remove
-$m-font-triple: $m-font-normal * 3; // TODO: remove
+$m-font-medium: $m-font-normal * 1.25;
+$m-font-subtitle: $m-font-normal * 1.5;
+$m-font-title: $m-font-normal * 2.25;
+$m-font-fields: $m-font-normal;
 $m-font-icon: 40px;
 $m-font-weight-thin: 300;
 $m-font-weight-normal: 400;
@@ -173,7 +167,7 @@ $m-sidebar-width-lg: 300px;
 $m-sidebar-width-md: 300px;
 $m-sidebar-width-sm: 250px;
 $m-sidebar-padding: 25px;
-$m-sidebar-margin-top: 110px;
+$m-sidebar-margin-top: $m-site-vertical-padding;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fff; //#fafafa; //#f3f6f9;
 
@@ -376,8 +370,8 @@ $padding-large-horizontal: 18px;
 $padding-small-vertical: 6px;
 $padding-small-horizontal: 12px;
 $font-size-base: $m-font-normal;
-$font-size-large: $m-font-big;
-$font-size-small: $m-font-small;
+$font-size-large: $m-font-subtitle;
+$font-size-small: $m-font-mini;
 
 // Themes: if using a theme, import it here!
 // @import "../themes/theme-name/stylesheets/variables";

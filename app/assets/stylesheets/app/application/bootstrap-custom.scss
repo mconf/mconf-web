@@ -159,13 +159,10 @@ mark {
 .btn-large {
   font-size: $m-font-normal;
   line-height: $m-font-normal;
-  padding: 18px 15px;
+  padding: 16px;
 }
 
 // dropdown
-.dropdown-menu {
-  padding: 0;
-}
 
 .dropdown-menu-right-over {
   left: auto;

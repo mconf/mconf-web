@@ -31,7 +31,8 @@
       .showable_password_show, .showable_password_hide {
         position: absolute;
         right: 12px;
-        top: 13px;
+        top: 18px;
+        font-size: $m-font-fields;
         cursor: pointer;
       }
 
@@ -51,8 +52,6 @@
 
   .form-actions {
     clear: both;
-    /* padding-top: 8px; */
-    /* margin-top: 8px; */
     text-align: right;
 
     // wider space between form buttons and links
@@ -92,12 +91,9 @@
 
     select {
       box-shadow: none;
-      padding: 6px 17px;
       height: auto;
-      font-size: $m-font-normal;
       color: $m-text;
       border: $m-sf-field-border;
-      padding: 19px 15px 21px 15px;
     }
 
     select.datetime {
@@ -113,7 +109,7 @@
   }
 
   label {
-    font-size: $m-font-small;
+    font-size: $m-font-mini;
     font-weight: $m-font-weight-thin;
   }
 }
@@ -182,11 +178,13 @@
 
 // override a few things in inputs that we can't do with variables only
 .form-control {
+  $form-control-padding: 12px;
+
   box-shadow: none;
-  padding: 18px 15px;
+  padding: $form-control-padding;
   height: auto;
-  font-size: $m-font-normal;
-  line-height: 1;
+  font-size: $m-font-fields;
+  line-height: 1.4; // spacing between lines for multi-line inputs
   color: $m-text;
   border: $m-sf-field-border;
 
@@ -200,17 +198,12 @@
 
   &:focus {
     border: $m-sf-field-border-focused;
-    padding: 17px 14px;
+    padding: $form-control-padding - 1px;
   }
 }
 .has-error .form-control:focus {
   box-shadow: none;
 }
-
-/* label { */
-/*   font-weight: normal; */
-/*   color: $m-font-strong; */
-/* } */
 
 /* Align the checkbox with the text beside it */
 .checkbox input[type='checkbox'] {

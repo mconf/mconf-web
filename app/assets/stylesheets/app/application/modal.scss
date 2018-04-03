@@ -8,7 +8,7 @@
   h1, h2, h3, h4, h5 {
     color: $m-titles;
     margin: 0;
-    font-size: $m-font-big;
+    font-size: $m-font-normal;
     font-weight: $m-font-weight-bold;
     line-height: 1;
   }
@@ -44,7 +44,7 @@
 .modal .modal-error {
   background: $m-alert-danger-font;
   color: #fff;
-  @include font-size($m-font-double);
+  @include font-size($m-font-title);
   text-align: center;
   padding: 40px;
 }

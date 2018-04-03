@@ -33,12 +33,12 @@ form {
     float: none;
     margin: 0;
     padding: 0;
-    @include font-size($m-font-small);
+    @include font-size($m-font-mini);
     color: white;
     &:hover { color: white; }
   }
   .btn-small i.icon {
-    @include font-size($m-font-small);
+    @include font-size($m-font-mini);
   }
 }
 
@@ -298,7 +298,7 @@ form {
   }
 
   .subtitle {
-    font-size: $m-font-small; //13px; //$m-font-normal;
+    font-size: $m-font-mini; //13px; //$m-font-normal;
     line-height: 1;
     padding: 8px 0 16px 0;
     color: #784d68;
@@ -412,7 +412,7 @@ form {
     }
   }
 
- .navbar-user-chip.open {
+  .navbar-user-chip.open {
     .navbar-user-toggle {
       .border {
         border: $m-logo-border-size solid $m-color-primary-soft;
@@ -422,6 +422,7 @@ form {
   }
 
   .navbar-user-chip {
+    font-size: $m-font-mini;
     margin: ($m-navbar-height - $m-navbar-btn-size - $m-logo-border-size - $m-logo-border-size)/2 0;
 
     .navbar-user-toggle {
@@ -461,10 +462,10 @@ form {
       margin: 10px 0 0 0;
       @include border-radius(0);
       @include box-shadow(none);
+      font-size: $m-font-mini;
 
       .observation {
         padding: 10px 14px;
-        font-size: $m-font-small;
         font-weight: $m-font-weight-bold;
         color: $m-text;
       }
@@ -528,7 +529,7 @@ form {
   @include make-row;
   margin: 0 auto;
   padding: 10px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
-  /* padding-left: $m-sidenav-width-md; */
+  font-size: $m-font-mini;
 
   clear: both;
   color: $m-footer-font-color;
@@ -563,9 +564,8 @@ form {
     list-style-type: none;
     @include mconf-clearfix;
     float: left;
-    padding: 2px 8px;
+    padding: 12px;
     font-weight: bold;
-    fint-size: 15px;
 
     li {
       float: left;
@@ -591,7 +591,7 @@ form {
     clear: both;
     margin-top: 8px;
     text-align: left;
-    @include font-size($m-font-small);
+    @include font-size($m-font-mini);
   }
 
 }
@@ -629,7 +629,7 @@ form {
   border: 0;
 
   .sidebar-title {
-    font-size: $m-font-triple;
+    font-size: $m-font-title;
     line-height: 1.1;
     padding: 0 10px 40px 0;
     text-align: left;
@@ -710,7 +710,6 @@ form {
 }
 
 #sidebar-menu {
-  font-size: $m-font-big;
   @include mconf-clearfix;
   text-align: left;
   border-radius: 2px;
@@ -790,7 +789,10 @@ form {
   background-color: transparent;
   @include mconf-clearfix;
   overflow: visible;
-  padding: $m-site-vertical-padding 0 0 0;
+
+  // NOTE: 9px is a magic number to line up the sidebar items with a table inside content-middle
+  //       might change depending on how the new pages will be
+  padding: ($m-site-vertical-padding + 13px) 0 $m-site-vertical-padding $m-site-horizontal-padding;
 
   h1 {
     text-align: center;
@@ -832,48 +834,13 @@ form {
     }
   }
 
-  /* .content-block-container { */
-  /*   @include block-wrapper-active; */
-  /* } */
-
-  /* .content-block { */
-  /*   clear: both; */
-  /*   margin: 10px 0 30px 0; */
-  /* } */
-
-  /* .content-block-footer { */
-  /*   text-align: center; */
-  /*   clear: both; */
-  /*   margin: 5px 0; */
-  /*   color: $m-color-primary; */
-  /*   font-weight: bold; */
-  /*   font-size: $m-font-small; */
-  /*   @include content-block-pagination; */
-  /* } */
-
-  /* .content-block-middle { */
-  /*   padding: 5px 0; */
-  /*   clear: both; */
-  /* } */
-
-  /* .content-block-header { */
-  /*   @include mconf-clearfix; */
-  /*   margin: 5px 0; */
-
-  /*   img { float: left; } */
-  /*   h3, h4 { */
-  /*     float: left; */
-  /*     margin: 0; */
-  /*   } */
-
-  /*   .toolbar { */
-  /*     float: right; */
-
-  /*     a { margin-right: 10px; } */
-  /*   } */
-
-  /*   @include content-block-pagination; */
-  /* } */
+  #content-strip {
+    background: $m-site-content-bg-color;
+    max-width: 640px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
+    padding: 60px;
+  }
 }
 
 #page-menu {
@@ -933,7 +900,7 @@ form {
 #sidebar-upcoming-events {
   .event-timezone {
     color: #777;
-    @include font-size($m-font-small);
+    @include font-size($m-font-mini);
   }
 
   .event-wrapper {
@@ -946,7 +913,7 @@ form {
 
     .event-date {
       display: block;
-      @include font-size($m-font-small);
+      @include font-size($m-font-mini);
       color: #777;
     }
   }
@@ -988,13 +955,13 @@ strong.highlight {
   }
 
   &.small {
-    @include font-size($m-font-small);
+    @include font-size($m-font-mini);
 
     .icon {
-      @include font-size($m-font-small);
-      width: $m-font-small;
-      height: $m-font-small;
-      line-height: $m-font-small;
+      @include font-size($m-font-mini);
+      width: $m-font-mini;
+      height: $m-font-mini;
+      line-height: $m-font-mini;
       margin: 0;
     }
   }
@@ -1053,7 +1020,7 @@ strong.highlight {
 
   .modal-body {
     padding: 40px 40px 0 40px;
-    font-size: $m-font-fields;
+    font-size: $m-font-normal;
     color: $m-text;
   }
 
@@ -1312,7 +1279,7 @@ strong.highlight {
 .table-observation-row {
   color: $m-font-light;
   text-align: center;
-  font-size: $m-font-small;
+  font-size: $m-font-mini;
   background: $m-very-light-gray;
 }
 
@@ -1321,82 +1288,6 @@ strong.highlight {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-/* "Card" with a log and some information, mostly for users */
-.resource-card {
-  @include broken-img-parent;
-  margin: 0 auto 20px 0;
-  text-align: center;
-
-  .resource-logo {
-    position: relative;
-
-    img {
-      width: 100%;
-      height: auto;
-      border: 1px solid $m-border-color-normal;
-      padding: 3px;
-      background: $m-site-bg-color;
-
-      &.editing {
-        opacity: 0.5;
-        border-color: $m-dark-gray;
-      }
-    }
-  }
-
-  .data {
-    @include mconf-clearfix;
-    text-align: center;
-    margin-top: 10px;
-
-    a, span {
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .data-main {
-      @include font-size($m-font-big);
-      font-weight: bold;
-    }
-
-    .data-other {
-      min-height: calculate-px($m-font-big) + 2px;
-    }
-  }
-
-  &.resource-user {
-    img {
-      border-radius: 50%;
-      max-width: 220px;
-    }
-
-    .label-superuser, .label-gravatar {
-      position: absolute;
-      bottom: 5px;
-      padding: .3em .7em .4em;
-      white-space: nowrap;
-      font-weight: normal;
-      background: $m-red;
-      color: #fff;
-
-      /* center */
-      left: calc(50%);
-      transform: translate(-50%, -50%);
-    }
-
-    .label-gravatar {
-      bottom: 30px;
-      background: $m-blue;
-    }
-  }
-
-  &.resource-space {
-    img {
-      max-width: 300px;
-    }
-  }
 }
 
 .card-container {
