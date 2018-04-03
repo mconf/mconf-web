@@ -48,8 +48,8 @@ pt-br:
       deleted_tooltip: "Este usuário não está mais registrado"
   _js:
     confirmation_dialog:
-      cancel: "Não"
-      confirm: "Sim, tenho certeza"
+      cancel: "Cancelar"
+      confirm: "Remover"
       or: "ou"
       title: "Confirmação"
     copy_modal:
