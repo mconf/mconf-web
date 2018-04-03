@@ -48,8 +48,8 @@ en:
       deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
-      cancel: "No"
-      confirm: "Yes, I'm sure"
+      cancel: "Cancel"
+      confirm: "Remove"
       or: "or"
       title: "Confirmation"
     copy_modal:
@@ -945,7 +945,8 @@ en:
       issues: "Issue tracker"
       links:
         feedback: "Contact"
-        help: "Help"
+        help: "FAQ"
+        terms: "Terms"
         title: Links
       project_website: "Project website"
       sponsors:

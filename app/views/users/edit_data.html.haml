@@ -38,4 +38,4 @@
     = f.input :timezone, required: false do
       = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
 
-    = f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-default"
+    = f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-primary"

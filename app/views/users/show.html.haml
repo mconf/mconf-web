@@ -19,10 +19,10 @@
     %span.description= @user.profile.description
     - if can?(:update_full_name, @user) || can?(:update_password, @user)
       .profile-options
-        - if can?(:update_full_name, @user)
-          = link_to t('.data'), edit_data_user_path(@user), class: "btn btn-default"
         - if can?(:update_password, @user)
           = link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
+        - if can?(:update_full_name, @user)
+          = link_to t('.data'), edit_data_user_path(@user), class: "btn btn-primary"
 
   - unless @user_spaces.blank?
     #user-spaces

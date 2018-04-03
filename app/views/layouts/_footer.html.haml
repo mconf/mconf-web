@@ -1,17 +1,9 @@
 - cls_sidenav = sidenav_visible? ? 'with-sidenav' : 'without-sidenav'
 #footer{ class: cls_sidenav }
   #footer-left
-    / #footer-copyright
-    / #footer-powered
-    /   = t('.copyright', site: current_site.name, year: Time.now.year, link: "https://mconf.org", link_name: 'mconf.org').html_safe
-    /   - if user_signed_in? && current_user.superuser?
-    /     %span.current-version
-    /       = ' - ' + t('.current_version') + ': '
-    /       = application_version
-    /       = link_to github_link_to_revision(application_revision) do
-    /         = application_revision
-
     %ul#footer-links
+      - unless current_site.terms_url.blank?
+        %li= link_to(t('.links.terms').upcase, current_site.terms_url)
       - unless current_site.external_help.blank?
         %li= link_to(t('.links.help').upcase, current_site.external_help)
       - if user_signed_in?
@@ -23,7 +15,7 @@
       #footer-languages.dropup
         .btn.btn-default.dropdown-toggle{ data: { toggle: 'dropdown' } }
           - locale = I18n.locale
-          - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s)
+          - flag = image_tag("flags/" + locale.to_s + ".png", title: locale.to_s, width: "22px", height: "15px")
           = flag + ' ' + locale_i18n(locale).mb_chars.upcase
           %span= icon_dropdown_up(options={class: 'hidden'})
           %span= icon_dropdown_down

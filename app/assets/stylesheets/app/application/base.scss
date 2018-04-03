@@ -408,7 +408,6 @@ form {
 
     &:hover {
       background: $m-navbar-btn-bg-hover;
-      transform: scale(1.15);
     }
   }
 
@@ -528,7 +527,7 @@ form {
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 10px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
+  padding: 8px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
   font-size: $m-font-mini;
 
   clear: both;
@@ -564,22 +563,18 @@ form {
     list-style-type: none;
     @include mconf-clearfix;
     float: left;
-    padding: 12px;
-    font-weight: bold;
+    padding-top: 12px;
+    font-weight: $m-font-weight-bold;
 
     li {
       float: left;
-      margin: 5px 10px;
+      margin: 10px 10px;
     }
   }
 
   #footer-languages {
     float: right;
     font-size: $m-font-mini;
-
-    .dropdown-menu {
-      font-size: $m-font-mini;
-    }
 
     img {
       vertical-align: text-top;
@@ -640,7 +635,7 @@ form {
   }
 
   .sidebar-subtitle {
-    font-weight: bold;
+    font-weight: $m-font-weight-bold;
     font-size: $m-font-normal;
     line-height: 1.3;
     margin-bottom: 15px;
@@ -727,7 +722,7 @@ form {
 
     &:hover, &:focus {
       a {
-        font-weight: bold;
+        font-weight: $m-font-weight-bold;
         color: $m-light-gray;
       }
       .icon {
@@ -1025,12 +1020,11 @@ strong.highlight {
   }
 
   .modal-footer {
-    padding: 10px 10px 30px 10px;
+    padding: 10px 60px 30px 10px;
 
     // wider space between footer buttons and links
     .btn, a {
       margin: 0 3px;
-      display: block;
     }
   }
 }

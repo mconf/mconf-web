@@ -24,8 +24,10 @@ $m-red: #ff5b5b;
 $m-orange: #e98300; //#C47322;
 $m-yellow: #f3a712; //#BB9403;
 $m-white: #fff;
+$m-black: #000;
 $m-cyan: #00ffff;
 $m-gray: #ccc;
+$m-icon-gray: #AAA;
 $m-dark-gray: #666;
 $m-medium-gray: #B4BBBC;
 $m-medium-light-gray: #D3D3D3;
@@ -45,6 +47,11 @@ $m-success-notification-border: 5px solid #396554;
 $m-error-notification: #D5455A;
 $m-error-notification-border: 5px solid #6A232D;
 $m-gray-email-color: #848D95;
+$m-facebook: #3B579D;
+$m-facebook-hover: #283B6A;
+$m-google: #DF4A32;
+$m-google-hover: #A7220C;
+
 
 // site colors and global configs
 $m-site-bg-color: #f2f2f2;
@@ -61,6 +68,7 @@ $m-logo-initials-bg: red blue yellow green orange purple magenta $m-color-primar
 $m-logo-border-size: 2px;
 $m-logo-font-size: 19.6px;
 $m-logo-btn-size: 48px;
+$m-icon-font-size: 33px;
 $m-logo-initials-padding: (($m-logo-btn-size - $m-logo-font-size)/2 - $m-logo-border-size) 0;
 $m-logo-bg: lighten($m-color-primary, 15);
 $m-logo-border: #fff;
@@ -94,6 +102,7 @@ $m-font-medium: $m-font-normal * 1.25;
 $m-font-subtitle: $m-font-normal * 1.5;
 $m-font-title: $m-font-normal * 2.25;
 $m-font-fields: $m-font-normal;
+$m-font-buttons: $m-font-normal;
 $m-font-icon: 40px;
 $m-font-weight-thin: 300;
 $m-font-weight-normal: 400;

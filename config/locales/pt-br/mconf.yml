@@ -48,8 +48,8 @@ pt-br:
       deleted_tooltip: "Este usuário não está mais registrado"
   _js:
     confirmation_dialog:
-      cancel: "Não"
-      confirm: "Sim, tenho certeza"
+      cancel: "Cancelar"
+      confirm: "Remover"
       or: "ou"
       title: "Confirmação"
     copy_modal:
@@ -951,7 +951,8 @@ pt-br:
       issues: "Issue tracker"
       links:
         feedback: "Contato"
-        help: Ajuda
+        help: "FAQ"
+        terms: "Termos de uso"
         title: Links
       project_website: "Site do projeto"
       sponsors:
@@ -1430,7 +1431,7 @@ pt-br:
       started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
       started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
       private: "Tornar privado"
-      processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
+      processing_tip: "Esta gravação foi encontrada em um dos servidores, mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
       publish: "Tornar visível"
       published: "Visível"
       status: "Status"
