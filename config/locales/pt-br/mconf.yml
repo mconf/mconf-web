@@ -948,7 +948,8 @@ pt-br:
       issues: "Issue tracker"
       links:
         feedback: "Contato"
-        help: Ajuda
+        help: "FAQ"
+        terms: "Termos de uso"
         title: Links
       project_website: "Site do projeto"
       sponsors:

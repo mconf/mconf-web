@@ -268,6 +268,7 @@ mark {
   background: $m-site-content-bg-color;
   border: none;
   font-size: $m-font-normal;
+  font-weight: $m-font-weight-bold;
   color: $m-titles;
   .icon {
     transition: all .3s ease;
@@ -278,7 +279,7 @@ mark {
     font-weight: $m-font-weight-bold;
     box-shadow: none;
     .icon {
-      color: $m-black;
+      color: $m-color-primary;
     }
   }
 }
@@ -289,8 +290,9 @@ mark {
       background: $m-site-content-bg-color;
       font-weight: $m-font-weight-bold;
       box-shadow: none;
-        .icon {
-      color: $m-black;
+      color: $m-color-primary;
+      .icon {
+        color: $m-color-primary;
       }
     }
   }
