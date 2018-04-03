@@ -290,9 +290,9 @@ mark {
       background: $m-site-content-bg-color;
       font-weight: $m-font-weight-bold;
       box-shadow: none;
-      color: m-color-primary;
+      color: $m-color-primary;
       .icon {
-        color: m-color-primary;
+        color: $m-color-primary;
       }
     }
   }
