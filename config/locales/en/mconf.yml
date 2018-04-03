@@ -945,7 +945,8 @@ en:
       issues: "Issue tracker"
       links:
         feedback: "Contact"
-        help: "Help"
+        help: "FAQ"
+        terms: "Terms"
         title: Links
       project_website: "Project website"
       sponsors:

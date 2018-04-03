@@ -527,7 +527,7 @@ form {
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 10px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
+  padding: 8px $m-site-horizontal-padding 0 $m-site-horizontal-padding;
   /* padding-left: $m-sidenav-width-md; */
 
   clear: both;
@@ -569,7 +569,7 @@ form {
 
     li {
       float: left;
-      margin: 5px 10px;
+      margin: 10px 10px;
     }
   }
 
