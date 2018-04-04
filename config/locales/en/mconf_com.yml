@@ -19,15 +19,6 @@ en:
     confirmations:
       new:
         description: "The welcome message you received by email when you registered contains a link you can click to confirm your account. If you lost access to this email, you can request a new one using the form below."
-    mailer:
-      confirmation_instructions:
-        confirmation_pending: "Your account is being approved"
-        confirmation_pending2: "Thank your for registering on Mconf. Your registration is being verified by our team and we will contact you as soon as it is approved."
-        subject: "Welcome to Mconf!"
-        welcome: "Hi, %{email}!"
-      reset_password_instructions:
-        copy_link: "(If the button above doesn't work, copy and paste this link in your browser: %{url})"
-        redefine_password: "Redefine my password"
   invoices:
     discount_days: "Unique users fee with discount for using only %{qtd_d} days (%{percent_d}%)"
     discount_users: "Unique users fee with discount for user ammount %{percent_u}%"

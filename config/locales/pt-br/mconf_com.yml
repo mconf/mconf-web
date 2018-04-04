@@ -22,15 +22,6 @@ pt-br:
       new:
         description: "A mensagem de boas vindas que você recebeu por e-mail ao se registrar tem um link para confirmar sua conta. Se você perdeu acesso a este e-mail você pode solicitar um novo usuando o formulário abaixo."
         title: "Reenviar e-mail de confirmação"
-    mailer:
-      confirmation_instructions:
-        confirmation_pending: "Sua conta está sendo aprovada"
-        confirmation_pending2: "Obrigado por se registrar no Mconf. Seu cadastro está sendo verificado pela nossa equipe e entraremos em contato assim que ele for aprovado."
-        subject: 'Bem vindo(a) ao Mconf!'
-        welcome: "Olá, %{email}"
-      reset_password_instructions:
-        copy_link: "(Se o botão acima não funcionar, copie e cole este endereço no seu navegador: %{url})"
-        redefine_password: "Redefinir minha senha"
   invoices:
     discount_days: "Taxa por usuário único com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
     discount_users: "Taxa por usuário único com desconto por quantidade de usuários %{percent_u}%"
