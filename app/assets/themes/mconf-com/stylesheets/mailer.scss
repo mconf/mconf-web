@@ -43,15 +43,15 @@ body {
 
     .title {
       color: $m-font-strong;
-      font-size: $m-font-normal * $m-font-h2-multiplier;
-      line-height: $m-font-normal * ($m-font-h2-multiplier + 0.5);
+      font-size: $m-font-title;
+      line-height: $m-font-title + 1.0);
       margin-bottom: 8px;
     }
 
     .subtitle {
       color: darken($m-mail-text, 5);
-      font-size: $m-font-normal * $m-font-h3-multiplier;
-      line-height: $m-font-normal * ($m-font-h3-multiplier + 0.5);
+      font-size: $m-font-subtitle;
+      line-height: $m-font-subtitle + 1.0);
       margin-bottom: 40px;
     }
 
@@ -131,7 +131,7 @@ body {
     display: block;
     background: $m-mail-action-btn-bg;
     padding: 16px 16px;
-    font-size: $m-font-big;
+    font-size: $m-font-medium;
     border-radius: $m-border-radius-base;
     color: $m-mail-action-btn-font-color;
     max-width: 300px;

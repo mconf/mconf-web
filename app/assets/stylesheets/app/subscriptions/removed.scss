@@ -16,7 +16,7 @@ body.subscriptions.removed {
       @include make-md-column-offset(3);
 
       h1 {
-        font-size: $m-font-triple;
+        font-size: $m-font-title;
         color: $m-titles;
       }
 
@@ -37,7 +37,7 @@ body.subscriptions.removed {
       .description {
         margin: 40px 0;
         padding: 24px 0;
-        font-size: $m-font-bigger;
+        font-size: $m-font-subtitle;
       }
     }
   }
