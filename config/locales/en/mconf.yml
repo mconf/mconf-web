@@ -1317,9 +1317,13 @@ en:
     new:
       headline: "Web Conference Platform"
       headline2: "Focused on distance learning and remote meetings"
-      title: "Create an account"
+      title: "Register"
     signup_form:
+      email: "Email "
+      full_name: "Full name "
+      password: "Password "
       register: "Register"
+      register_local: "Register to Mconf"
   remove: Remove
   reply: Reply
   reply_to: "Reply to:"

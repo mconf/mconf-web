@@ -4,7 +4,7 @@
 #social-login-btns {
   border-top: 1px solid $m-border-color-normal;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 50px;
 
   .social-call {
     background: $m-site-bg-color;
@@ -41,16 +41,18 @@
         background: $bg-hover;
       }
 
-      img {
-        float: left;
-        border-right: 1px solid $m-site-bg-color;
-        height: 51px;
-        width: 51px;
-      }
-
       span {
         padding: 12px;
         display: block;
+      }
+    }
+
+    .btn-google {
+      img {
+        float: left;
+        border-right: 1px solid $m-dark-red;
+        height: 51px;
+        width: 51px;
       }
     }
 
@@ -62,6 +64,13 @@
       background: $bg-normal;
       &:hover {
         background: $bg-hover;
+      }
+
+      img {
+        float: left;
+        border-right: 1px solid $m-dark-blue;
+        height: 51px;
+        width: 51px;
       }
     }
   }
