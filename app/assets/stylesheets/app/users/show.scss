@@ -30,6 +30,7 @@ body.users.update {
       font-weight: $m-font-weight-bold;
     }
 
+    @include logo-container;
     .logo-user {
       height: 250px;
       width: 250px;
