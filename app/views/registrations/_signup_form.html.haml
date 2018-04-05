@@ -17,7 +17,7 @@
   -#   = content_tag :span, prepend_text, class: "input-group-addon"
   -#   = f.input_field :username, class: "form-control"
   = f.input :password, required: true, label: t(".password")
-  = f.input :password_confirmation, required: true, label: false
+  = f.input :password_confirmation, required: true, label: t(".password_confirmation")
   .form-accept-terms.field-group
     = label_tag :terms, t('.terms', register: t(".register")).html_safe  
   = captcha_tags
