@@ -21,12 +21,12 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: 'control-label'
 
-    b.use :input, class: 'form-control'
     b.use :error, wrap_with: { tag: 'span', class: 'error-block' }
+    b.use :input, class: 'form-control'
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :vertical_file_input, tag: 'div', class: 'form-group',
+  config.wrappers :vertical_file_inpzut, tag: 'div', class: 'form-group',
                   error_class: 'has-error', hint_class: 'has-hint' do |b|
     b.use :html5
     b.use :placeholder

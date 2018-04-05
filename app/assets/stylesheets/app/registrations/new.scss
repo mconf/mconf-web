@@ -10,6 +10,7 @@ body.registrations.new, body.registrations.create {
 
     h1 {
       text-align: left;
+      margin-bottom: 30px;
     }
 
     h3 {
@@ -21,7 +22,7 @@ body.registrations.new, body.registrations.create {
 
       margin: 50px auto 0 auto;
       float: left;
-      padding: 36%;
+      padding: 38%;
       overflow: visible;
 
       background: image-url('logos/Notebook_video_play.png') no-repeat top;
@@ -48,6 +49,7 @@ body.registrations.new, body.registrations.create {
         .btn {
           width: 100%;
           font-size: $m-font-normal;
+          height: 51px;
         }
       }
 

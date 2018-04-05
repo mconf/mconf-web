@@ -7,20 +7,18 @@
   = disable_autocomplete_for('user[password]', 'password')
   = f.hidden_field :locale, value: I18n.locale
   = f.fields_for :profile do |p|
-    = p.input :full_name, required: true, autofocus: true
-  = f.input :email, required: true
-  -# = f.input :username, required: true, wrapper: :horizontal_input_group do
+    = p.input :full_name, autofocus: true, required: true, label: t(".full_name")
+  = f.input :email, required: true, label: t(".email")
+  -# = f.input :username, label: false, required: true, wrapper: :horizontal_input_group do
   -#   - if webconf_url_prefix.length <= 35
   -#     - prepend_text = webconf_url_prefix
   -#   - else
   -#     - prepend_text = "/#{webconf_path_prefix}"
   -#   = content_tag :span, prepend_text, class: "input-group-addon"
   -#   = f.input_field :username, class: "form-control"
-  = f.input :password, required: true
-  = f.input :password_confirmation, required: true
-  .field-group
-    = captcha_tags
+  = f.input :password, required: true, label: t(".password")
+  = f.input :password_confirmation, required: true, label: false
   .form-accept-terms.field-group
-    = label_tag :terms, t('.terms', register: t(".register")).html_safe
-  = captcha_tags theme: 'dark'
+    = label_tag :terms, t('.terms', register: t(".register")).html_safe  
+  = captcha_tags
   = f.button :wrapped, :value => t(".register"), :class => "btn-primary btn-caps btn-large"

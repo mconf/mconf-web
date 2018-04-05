@@ -1340,8 +1340,11 @@ pt-br:
     new:
       headline: "Plataforma de webconferência"
       headline2: "Com foco em educação a distância e reuniões remotas"
-      title: "Crie uma conta"
+      title: "Registre-se"
     signup_form:
+      email: "E-mail "
+      full_name: "Nome completo "
+      password: "Senha "
       register: "Criar conta"
       register_local: "Criar uma conta no Mconf"
   remove: Remover

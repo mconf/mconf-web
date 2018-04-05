@@ -62,10 +62,9 @@
 
   .has-error {
     .error-block {
-      display: block;
-      text-align: right;
       color: $m-red;
       margin-top: 4px;
+      margin-left: 5px;
     }
 
     .form-control {
@@ -74,6 +73,12 @@
 
     .input-group-addon {
       color: #fff;
+    }
+
+    .control-label {
+      color: $m-red;
+      font-size: $m-font-normal;
+      font-weight: $m-font-weight-normal;
     }
   }
 
@@ -182,7 +187,7 @@
 
   box-shadow: none;
   padding: $form-control-padding;
-  height: auto;
+  height: 51px;
   font-size: $m-font-fields;
   line-height: 1.4; // spacing between lines for multi-line inputs
   color: $m-text;
