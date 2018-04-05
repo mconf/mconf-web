@@ -7,21 +7,15 @@ body.sessions.new, body.sessions.create {
 
   #headline {
     @include make-sm-column(12);
-    @include make-md-column(5);
+    @include make-md-column(6);
 
     h1 {
-      font-size: $m-font-triple;
       text-align: left;
       margin-top: 0;
-      font-weight: 700;
-      color: $m-titles;
     }
 
     h3 {
-      font-size: $m-font-bigger;
       text-align: left;
-      font-weight: 200;
-      color: $m-titles;
     }
 
     #signin-logo {
@@ -42,7 +36,7 @@ body.sessions.new, body.sessions.create {
   #login-wrapper {
     @include make-sm-column(12);
     @include make-md-column(5);
-    @include make-md-column-offset(2);
+    @include make-md-column-offset(1);
 
     h1 {
       font-weight: $m-font-weight-bold;
@@ -56,41 +50,39 @@ body.sessions.new, body.sessions.create {
       // every field is required, we don't need to show it
       abbr { display: none; }
 
-      .form-control {
-        font-size: $m-font-big;
-        padding: 15px;
-      }
-
-      .form-group {
-        margin-bottom: 18px;
-      }
-
       .remember-me {
         float: left;
 
-        label { margin-top: 0; }
-
-        input[type=checkbox] {
-          margin-top: 3px;
-          margin-right: 5px;
+        label {
+          font-size: $m-font-mini;
+          margin-top: 0;
         }
-      }
 
-      .forgot-password {
-        float: right;
-        margin: 10px 0;
-
-        a { display: block; }
+        .checkbox {
+          margin: 0;
+        }
       }
 
       .form-actions {
         border: none;
 
         .btn {
-          font-size: $m-font-big;
+          font-size: $m-font-normal;
           padding: 15px;
           width: 100%;
         }
+      }
+    }
+
+    .forgot-password {
+      float: left;
+      font-size: $m-font-mini;
+      margin: 20px 0 30px;
+      @include mconf-clearfix;
+
+      a {
+        float: left;
+        clear: both;
       }
     }
   }

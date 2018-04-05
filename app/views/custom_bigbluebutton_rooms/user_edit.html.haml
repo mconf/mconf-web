@@ -24,13 +24,13 @@
           .btn-group{ 'data-toggle': "buttons" }
 
             - cls = !@room.private ? 'active' : nil
-            .btn.btn-primary{ class: cls, 'data-attr-value': '0' }
+            .btn.btn-primary.btn-large{ class: cls, 'data-attr-value': '0' }
               - checked = !@room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
               = t('.public')
 
             - cls = @room.private ? 'active' : nil
-            .btn.btn-primary{ class: cls, 'data-attr-value': '1' }
+            .btn.btn-primary.btn-large{ class: cls, 'data-attr-value': '1' }
               - checked = @room.private ? 'checked' : nil
               %input{ type: 'radio', checked: checked }
               = t('.private')

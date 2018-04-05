@@ -75,8 +75,8 @@ $m-logo-initials-padding: (($m-logo-btn-size - $m-logo-font-size)/2 - $m-logo-bo
 $m-logo-bg: lighten($m-color-primary, 15);
 $m-logo-border: #fff;
 $m-site-horizontal-padding: 160px;
-$m-site-vertical-padding: 160px;
-$m-content-vertical-padding: 60px;
+$m-site-vertical-padding: 100px;
+$m-content-vertical-padding: 60px; // TODO review
 $m-active-item-border-color: $m-color-primary;
 $m-active-item-border: 4px solid $m-active-item-border-color;
 $m-active-item-border-off: 4px solid $m-transparent;
@@ -88,7 +88,7 @@ $m-background-recording-options: #bbb;
 // simple-form custom
 $m-sf-placeholder-color: $m-disabled-placeholder-text;
 $m-sf-field-border: 1px solid $m-field-border;
-$m-sf-field-border-focused: 1px solid $m-color-primary-soft;
+$m-sf-field-border-focused: 2px solid $m-color-primary-soft;
 
 // header and footer colors
 $m-footer-header-link-color: $m-text;
@@ -96,25 +96,16 @@ $m-footer-header-link-color-hover: $m-color-primary;
 $m-footer-header-link-color-active: $m-color-primary;
 
 // fonts
-$m-font-normal: 14px; //0.85rem; /* 14px, base size for all fonts */
-$m-font-mini: $m-font-normal * 0.8;
-$m-font-small: $m-font-normal * 0.9;
-$m-font-medium: 16px;
-$m-font-form: 18px;
-$m-font-fields: 22px;
-$m-font-buttons: 22px;
-$m-font-big: $m-font-normal * 1.4;
-$m-font-bigger: $m-font-normal * 1.8;
-$m-font-double: $m-font-normal * 2;
-$m-font-triple: $m-font-normal * 3;
+
+
+$m-font-normal: 20px;
+$m-font-mini: $m-font-normal * 0.75;
+$m-font-medium: $m-font-normal * 1.25;
+$m-font-subtitle: $m-font-normal * 1.5;
+$m-font-title: $m-font-normal * 2.25;
+$m-font-fields: $m-font-normal;
+$m-font-buttons: $m-font-normal;
 $m-font-icon: 40px;
-/* multipliers over the standard font size */
-$m-font-h1-multiplier: 2.71;
-$m-font-h2-multiplier: 2.28;
-$m-font-h3-multiplier: 1.4;
-$m-font-h4-multiplier: 1.2;
-$m-font-h5-multiplier: 1;
-$m-font-h6-multiplier: 1;
 $m-font-weight-thin: 300;
 $m-font-weight-normal: 400;
 $m-font-weight-bold: 700;
@@ -123,11 +114,13 @@ $m-font-color: #444; //desaturate($m-color-primary, 25%);
 $m-font-strong: darken($m-font-color, 10%); //#000;
 $m-font-light: lighten($m-font-color, 10%); //#666;
 $m-font-color-gray: #888;
-$m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
-$m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+//$m-font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+//$m-font-family-label: "Roboto","Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+$m-font-family: "Raleway";
+$m-font-family-label: "Raleway";
 $m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
 $m-font-family-h: $m-font-family;
-$m-font-h-color: $m-color-primary; //#111;
+$m-font-h-color: $m-titles; //$m-color-primary; //#111;
 $m-font-h-color-hover: $m-link-color-hover;
 $m-font-h-color-active: $m-link-color-active;
 $m-base-line-height: 1.5;
@@ -185,7 +178,7 @@ $m-sidebar-width-lg: 300px;
 $m-sidebar-width-md: 300px;
 $m-sidebar-width-sm: 250px;
 $m-sidebar-padding: 25px;
-$m-sidebar-margin-top: 110px;
+$m-sidebar-margin-top: $m-site-vertical-padding;
 $m-sidebar-border: $m-border-color-normal;
 $m-sidebar-bg-color: #fff; //#fafafa; //#f3f6f9;
 
@@ -216,7 +209,7 @@ $m-navbar-bg-color-dark: #fff; //$m-navbar-bg-color-light; //darken($m-green-mco
 $m-navbar-border-width: 0px;
 $m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
 $m-navbar-internal-border-color: $m-border-color-normal; //lighten($m-navbar-bg-color-dark, 3);
-$m-navbar-font: $m-font-big;
+$m-navbar-font: $m-font-normal;
 $m-navbar-font-color: $m-footer-header-link-color;
 $m-navbar-font-color-hover: $m-active-item-border-color;
 $m-navbar-font-highlight: #fff; //lighten($m-navbar-bg-color-dark, 8);
@@ -253,7 +246,7 @@ $m-page-menu-active-color-hover: $m-sidebar-menu-active-color-hover;
 $m-page-menu-active-border: $m-sidebar-border;
 
 // footer
-$m-footer-height: 56px;
+$m-footer-height: 61px + 10px; // height plus vertical padding
 $m-footer-font-color: $m-font-color;
 $m-footer-link-color: $m-footer-header-link-color;
 $m-footer-link-color-hover: $m-footer-header-link-color-hover;
@@ -388,8 +381,8 @@ $padding-large-horizontal: 18px;
 $padding-small-vertical: 6px;
 $padding-small-horizontal: 12px;
 $font-size-base: $m-font-normal;
-$font-size-large: $m-font-big;
-$font-size-small: $m-font-small;
+$font-size-large: $m-font-subtitle;
+$font-size-small: $m-font-mini;
 
 // Themes: if using a theme, import it here!
 // @import "../themes/theme-name/stylesheets/variables";

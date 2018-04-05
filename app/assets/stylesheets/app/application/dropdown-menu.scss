@@ -63,6 +63,8 @@ $dropdown-bg-color: white;
 // the menu itself
 ul.dropdown-menu {
   text-align: center;
+  font-size: $m-font-mini;
+  padding: 0;
 
   > li:not(.divider) {
     transition: all .3s ease;
@@ -74,7 +76,7 @@ ul.dropdown-menu {
         vertical-align: text-top;
         color: $m-text;
         display: inline-block;
-        font-size: $m-font-medium;
+        font-size: $m-font-mini;
 
         &.icon-logout {
           vertical-align: sub;

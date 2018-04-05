@@ -121,15 +121,16 @@ ActiveRecord::Schema.define(version: 20180403173906) do
     t.string   "recordid"
     t.string   "meetingid"
     t.string   "name"
-    t.boolean  "published",                                      default: false
-    t.boolean  "available",                                      default: true
+    t.boolean  "published",                                          default: false
+    t.boolean  "available",                                          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "meeting_id"
-    t.integer  "size",        limit: 8,                          default: 0
-    t.decimal  "start_time",            precision: 14, scale: 0
-    t.decimal  "end_time",              precision: 14, scale: 0
+    t.integer  "size",            limit: 8,                          default: 0
+    t.decimal  "start_time",                precision: 14, scale: 0
+    t.decimal  "end_time",                  precision: 14, scale: 0
+    t.text     "recording_users"
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], name: "index_bigbluebutton_recordings_on_recordid", unique: true, using: :btree
@@ -257,18 +258,6 @@ ActiveRecord::Schema.define(version: 20180403173906) do
 
   add_index "invitations", ["target_id", "target_type"], name: "index_invitations_on_target_id_and_target_type", using: :btree
 
-  create_table "invoices", force: true do |t|
-    t.integer  "subscription_id"
-    t.string   "invoice_token"
-    t.string   "invoice_url"
-    t.string   "flag_invoice_status"
-    t.datetime "due_date"
-    t.integer  "user_qty"
-    t.integer  "days_consumed"
-    t.float    "invoice_value",       limit: 24
-    t.boolean  "notified",                       default: false
-  end
-
   create_table "join_requests", force: true do |t|
     t.string   "request_type"
     t.integer  "candidate_id"
@@ -325,16 +314,6 @@ ActiveRecord::Schema.define(version: 20180403173906) do
     t.datetime "updated_at"
   end
 
-  create_table "plans", force: true do |t|
-    t.string  "name"
-    t.string  "identifier"
-    t.string  "ops_token"
-    t.string  "ops_type"
-    t.string  "currency"
-    t.string  "interval_type"
-    t.integer "interval"
-  end
-
   create_table "posts", force: true do |t|
     t.string   "title"
     t.text     "text"
@@ -360,8 +339,6 @@ ActiveRecord::Schema.define(version: 20180403173906) do
     t.string  "url"
     t.string  "full_name"
     t.string  "logo_image"
-    t.string  "cpf_cnpj"
-    t.string  "service_usage"
   end
 
   create_table "roles", force: true do |t|
@@ -469,24 +446,6 @@ ActiveRecord::Schema.define(version: 20180403173906) do
   add_index "spaces", ["last_activity"], name: "index_spaces_on_last_activity", using: :btree
   add_index "spaces", ["last_activity_count"], name: "index_spaces_on_last_activity_count", using: :btree
 
-  create_table "subscriptions", force: true do |t|
-    t.string  "plan_token"
-    t.integer "user_id"
-    t.string  "customer_token"
-    t.string  "subscription_token"
-    t.string  "pay_day"
-    t.string  "cpf_cnpj"
-    t.string  "address"
-    t.string  "additional_address_info"
-    t.string  "number"
-    t.string  "zipcode"
-    t.string  "city"
-    t.string  "province"
-    t.string  "district"
-    t.string  "country"
-    t.boolean "integrator",              default: false
-  end
-
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -539,7 +498,6 @@ ActiveRecord::Schema.define(version: 20180403173906) do
     t.boolean  "can_record"
     t.boolean  "approved",                            default: false, null: false
     t.datetime "current_local_sign_in_at"
-    t.datetime "trial_expires_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -9,37 +9,33 @@
 = content_for :sidebar_menu do
   = render :partial => 'users/menu'
 
-.container-fluid
+#content-strip.container-fluid
   .dropdown
-    .btn.btn-default.dropdown-toggle{ data: { toggle: 'dropdown' } }
+    .dropdown-toggle{ data: { toggle: 'dropdown' } }
       = logo_image(@user, class: "logo-user")
     %ul.dropdown-menu.dropdown-menu-right
       %li= upload_logo_controls(@user)
       %li= link_to t('.remove_picture'), remove_logo_user_path(@user), method: "post"
 
-  .resource-card.resource-user
+  %h3= t('.public_profile')
+  = simple_form_for @user, url: user_path(@user) do |f|
+    = f.simple_fields_for :profile do |p|
+      = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user)
+      = p.input :organization
+      = p.input :description, as: :text
+      = p.input :url
 
-    .resource-data
-      .field
-        %span.field-value.title= t('.public_profile')
-        = simple_form_for @user, url: user_path(@user) do |f|
-          = f.simple_fields_for :profile do |p|
-            = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user)
-            = p.input :organization
-            = p.input :description, as: :text
-            = p.input :url
+    %h3= t('.address')
+    = f.simple_fields_for :profile do |p|
+      .form-group.select.optional.user_profile_country
+        = p.input :country, wrapper: :label_only
+        = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
+      = p.input :address
+      = p.input :city
+      = p.input :province
+      = p.input :zipcode
+      = p.input :phone
+    = f.input :timezone, required: false do
+      = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
 
-          %span.field-value.title= t('.address')
-          = f.simple_fields_for :profile do |p|
-            .form-group.select.optional.user_profile_country
-              = p.input :country, wrapper: :label_only
-              = p.country_select :country, { priority_countries: ["BR", "US"], include_blank: true }, { class: 'form-control' }
-            = p.input :address
-            = p.input :city
-            = p.input :province
-            = p.input :zipcode
-            = p.input :phone
-          = f.input :timezone, required: false do
-            = f.collection_select :timezone, Mconf::DSTTimezone.all, :name, :dst_string, { include_blank: true }, { class: 'form-control' }
-
-          =f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-primary"
+    = f.button :wrapped, :cancel => user_path, :value => t("_other.save"), class: "btn-primary"

@@ -19,7 +19,7 @@ body.custom_bigbluebutton_rooms.auth {
     width: 50%;
 
     .room-welcome {
-      font-size: $m-font-triple;
+      font-size: $m-font-title;
       margin-bottom: 8px;
     }
 
@@ -55,7 +55,7 @@ body.custom_bigbluebutton_rooms.auth {
     }
 
     .identify {
-      font-size: $m-font-bigger;
+      font-size: $m-font-title;
     }
 
   }

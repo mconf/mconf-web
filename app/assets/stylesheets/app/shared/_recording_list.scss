@@ -2,8 +2,6 @@
 @import "definitions";
 
 .recording-list {
-  margin-top: -70px;
-
   .icon {
     font-size: $m-font-icon;
   }
@@ -44,7 +42,6 @@
 
   .rec-description-column, .rec-status-column, .rec-playback-column, .options-column {
     background: $m-site-content-bg-color;
-    font-size: $m-font-fields;
 
     .dropdown-toggle {
       background: transparent;
@@ -70,7 +67,7 @@
     float: left;
 
     i {
-      font-size: $m-font-double;
+      font-size: $m-font-title;
       color: $m-color-primary-soft;
       line-height: 0.7;
       margin: 0 3px;

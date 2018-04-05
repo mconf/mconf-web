@@ -1181,8 +1181,8 @@ pt-br:
     meetings:
       history: "Histórico"
       no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
-      recordedonly_false: "Todas reuniões"
-      recordedonly_true: "Apenas gravadas"
+      recordedonly_false: "Todas webconferências"
+      recordedonly_true: "Webconferências gravadas"
       subtitle: "Histórico de webconferências e gravações"
       title: "Reuniões e gravações"
       update_meetings:
@@ -1408,7 +1408,7 @@ pt-br:
     new:
       headline: "Plataforma de webconferência"
       headline2: "Com foco em educação a distância e reuniões remotas"
-      title: "Acesse sua conta"
+      title: "Login"
   session_locales:
     create:
       success: "Idioma da aplicação alterado para %{value}"
@@ -1709,8 +1709,8 @@ pt-br:
         title: "Exemplos de comunidades:"
       title: "Criar uma comunidade"
     meetings:
-      recordedonly_false: "Todas reuniões"
-      recordedonly_true: "Apenas gravadas"
+      recordedonly_false: "Todas webconferências"
+      recordedonly_true: "Webconferências gravadas"
       title: "Reuniões e gravações desta comunidade"
       update_meetings:
         error: "Erro atualizando gravações, tente novamente mais tarde"

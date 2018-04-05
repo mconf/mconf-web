@@ -9,24 +9,20 @@
 = content_for :sidebar_menu do
   = render :partial => 'users/menu'
 
-.container-fluid
+#content-strip.container-fluid
   = logo_image(@user, class: "logo-user")
 
-  .resource-card.resource-user
-
-    .resource-data
-      .field
-        %span.field-value.name= @user.name
-        %span.field-value= @user.profile.organization
-        %span.field-value= @user.email
-        %span.field-value.description= @user.profile.description
-        - if can?(:update_full_name, @user) or can?(:update_password, @user)
-          %span.border
-        .btn-group
-          - if can?(:update_password, @user)
-            %span.link= link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
-          - if can?(:update_full_name, @user)
-            %span.link= link_to t('.data'), edit_data_user_path(@user), class: "btn btn-primary"
+  .user-profile
+    %span.name= @user.name
+    %span= @user.profile.organization
+    %span= @user.email
+    %span.description= @user.profile.description
+    - if can?(:update_full_name, @user) || can?(:update_password, @user)
+      .profile-options
+        - if can?(:update_password, @user)
+          = link_to t('.password'), password_edit_user_path(@user), class: "btn btn-default"
+        - if can?(:update_full_name, @user)
+          = link_to t('.data'), edit_data_user_path(@user), class: "btn btn-primary"
 
   - unless @user_spaces.blank?
     #user-spaces
