@@ -92,7 +92,7 @@ class SubscriptionsController < InheritedResources::Base
 
   allow_params_for :subscription
   def allowed_params
-    [ :cpf_cnpj, :address, :additional_address_info,
+    [ :user_id, :cpf_cnpj, :address, :additional_address_info,
       :number, :zipcode, :city, :province, :district, :country ]
   end
 
