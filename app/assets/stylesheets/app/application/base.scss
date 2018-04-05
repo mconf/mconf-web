@@ -421,16 +421,25 @@ form {
   }
 
   .navbar-user-chip {
+    .premium {
+      .icon {
+        color: $m-color-primary;
+        top: -27px;
+        position: relative;
+        left: 20px;
+        background: $m-white;
+        border-radius: 50%;
+      }
+    }
+
     font-size: $m-font-mini;
     margin: ($m-navbar-height - $m-navbar-btn-size - $m-logo-border-size - $m-logo-border-size)/2 0;
 
     .navbar-user-toggle {
+      background: transparent;
+      overflow: visible !important;
       /* font-size: $m-font-medium; */
       @include logo-container;
-
-      &:hover, &[aria-expanded=true] {
-        background: $m-navbar-font-highlight;
-      }
 
       .border {
         border: $m-logo-border-size solid $m-logo-border;

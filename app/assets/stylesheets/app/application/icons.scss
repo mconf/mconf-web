@@ -396,6 +396,11 @@ a:not(.btn) .icon {
     vertical-align: middle;
   }
 
+  &.icon-star {
+    color: $m-color-primary-soft;
+    vertical-align: middle;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}

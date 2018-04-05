@@ -374,6 +374,10 @@ module IconsHelper
     material_icon_constructor "folder", "icon material-icons icon-archive", options
   end
 
+  def icon_stars(options={})
+    material_icon_constructor "stars", "icon material-icons icon-stars", options
+  end
+
   private
 
   # Base method for most of the methods above

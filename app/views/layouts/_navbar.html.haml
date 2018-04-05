@@ -20,6 +20,7 @@
       %li.navbar-user-chip.dropdown.last
         .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '128', class: "logo-user")
+          .premium.tooltipped= icon_stars
         %ul.navbar-user-menu.dropdown-menu.dropdown-menu-right
           %li
             .observation= current_user.full_name
