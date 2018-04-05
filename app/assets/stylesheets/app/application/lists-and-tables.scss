@@ -42,8 +42,6 @@
     }
 
     .list-text-title {
-      font-size: $m-font-medium;
-      font-weight: $m-font-weight-bold;
       margin-bottom: 4px;
       @include mconf-clearfix;
 
@@ -61,7 +59,6 @@
     }
 
     .list-actions {
-      font-size: $m-font-medium;
       text-align: right;
 
       /* because they are always just icons */
@@ -77,23 +74,17 @@
   }
 }
 
-// Change the colors for table borders and bgs, make it more like our lists
-.table-wrapper {
-  background: $m-site-bg-color;
-  @include border-radius($m-border-radius-large);
-  padding: 40px 30px 30px 30px;
-  /* border: 1px solid $m-border-color-normal; */
-}
-
 table, .table {
   margin: 0;
-  font-size: $m-font-medium;
-  border-spacing: 0px 15px;
+  border-spacing: 0px 20px;
   border-collapse: separate;
 
-  thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
-    font-size: $m-font-normal;
+  th {
+    font-size: $m-font-mini;
     font-weight: $m-font-weight-bold;
+  }
+
+  thead:first-child > tr:first-child > th { /* very specific to override bootstrap */
     color: $m-titles;
     border: 0;
   }
@@ -109,7 +100,7 @@ table, .table {
       }
 
       td {
-        padding: 20px 12px;
+        padding: 16px 12px;
         vertical-align: middle;
         border: 0;
         .dropdown-toggle {

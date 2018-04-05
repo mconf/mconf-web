@@ -232,7 +232,7 @@
 @mixin small-date {
   color: #666;
   font-weight: normal;
-  @include font-size($m-font-small);
+  @include font-size($m-font-mini);
 }
 
 @mixin navbar-lists {
@@ -287,6 +287,9 @@
     &:hover:not(.btn-navbar) {
       border-bottom: $m-active-item-border;
     }
+  }
+  > ul > li.active > a {
+    border-bottom: $m-active-item-border;
   }
 }
 

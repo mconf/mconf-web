@@ -103,7 +103,7 @@ body.events, body.space_events {
 
   /* For event logos */
 
-  $m-font-big: 26px;
+  $m-font-subtitle: 26px;
   $m-font-color: #333;
 
   .event-logo {
@@ -115,8 +115,8 @@ body.events, body.space_events {
     color: $m-font-color;
 
     .event-logo-hour {
-      font-size: $m-font-big * 0.7;
-      line-height: $m-font-big * 0.7;
+      font-size: $m-font-subtitle * 0.7;
+      line-height: $m-font-subtitle * 0.7;
       white-space: nowrap;
       font-weight: bold;
       margin: 8px 0;
@@ -125,8 +125,8 @@ body.events, body.space_events {
     }
 
     .event-logo-day {
-      font-size: $m-font-big * 0.75;
-      line-height: $m-font-big * 0.75;
+      font-size: $m-font-subtitle * 0.75;
+      line-height: $m-font-subtitle * 0.75;
       margin: 6px 0;
       white-space: nowrap;
       font-weight: bold;
@@ -134,8 +134,8 @@ body.events, body.space_events {
     }
 
     .event-logo-year {
-      font-size: $m-font-big * 0.6;
-      line-height: $m-font-big * 0.6;
+      font-size: $m-font-subtitle * 0.6;
+      line-height: $m-font-subtitle * 0.6;
       margin: 8px 0;
       white-space: nowrap;
       color: #777;

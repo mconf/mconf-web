@@ -54,14 +54,14 @@ body.custom_bigbluebutton_rooms.auth {
         margin-bottom: 30px;
         padding: 8px 4px;
         border-radius: $m-border-radius-base;
-        font-size: $m-font-triple;
+        font-size: $m-font-title;
         font-weight: $m-font-weight-bold;
         text-align: center;
       }
 
       .welcome {
         color: $m-color-primary-soft;
-        font-size: $m-font-fields;
+        font-size: $m-font-normal;
         text-align: center;
       }
 
@@ -90,7 +90,7 @@ body.custom_bigbluebutton_rooms.auth {
       input {
         padding: 15px;
         width: 100%;
-        font-size: $m-font-big;
+        font-size: $m-font-subtitle;
       }
     }
   }

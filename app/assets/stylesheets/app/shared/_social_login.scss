@@ -5,13 +5,14 @@
   border-top: 1px solid $m-border-color-normal;
   text-align: center;
   margin-top: 70px;
+  clear: both;
 
   .social-call {
     background: $m-site-bg-color;
     padding: 0 25px;
-    font-size: $m-font-big;
+    font-size: $m-font-normal;
     display: inline-block;
-    transform: translateY(-$m-font-big + 3px);
+    transform: translateY(-$m-font-normal + 3px);
     font-weight: 200;
   }
 
@@ -20,7 +21,7 @@
 
     .btn {
       width: 48%;
-      font-size: $m-font-big;
+      font-size: $m-font-normal;
       padding: 12px;
       &:only-child {
         width: 100%;
@@ -31,7 +32,7 @@
       $bg-normal: $m-google;
       $bg-hover: $m-google-hover;
 
-      float: left;
+      float: right;
       background: $bg-normal;
       padding: 0;
       border: 0;
@@ -58,7 +59,7 @@
       $bg-normal: $m-facebook;
       $bg-hover: $m-facebook-hover;
 
-      float: right;
+      float: left;
       background: $bg-normal;
       &:hover {
         background: $bg-hover;
@@ -67,7 +68,7 @@
   }
 
   .disclaimer {
-    font-size: $m-font-small;
+    font-size: $m-font-mini;
     font-weight: $m-font-weight-thin;
     margin-top: 8px;
   }

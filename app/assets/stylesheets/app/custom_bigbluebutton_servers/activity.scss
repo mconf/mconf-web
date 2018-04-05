@@ -11,7 +11,7 @@ body.custom_bigbluebutton_servers.activity {
 
   #server-activity-wrapper {
     h3 .comments {
-      @include font-size($m-font-small);
+      @include font-size($m-font-mini);
       font-weight: normal;
       display: inline;
     }

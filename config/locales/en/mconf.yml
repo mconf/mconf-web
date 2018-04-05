@@ -48,8 +48,8 @@ en:
       deleted_tooltip: "This user is not registered anymore"
   _js:
     confirmation_dialog:
-      cancel: "No"
-      confirm: "Yes, I'm sure"
+      cancel: "Cancel"
+      confirm: "Remove"
       or: "or"
       title: "Confirmation"
     copy_modal:
@@ -1379,7 +1379,7 @@ en:
     new:
       headline: "Web Conference Platform"
       headline2: "Focused on distance learning and remote meetings"
-      title: "Sign into your account"
+      title: "Login"
   session_locales:
     create:
       success: "Application language changed to %{value}"

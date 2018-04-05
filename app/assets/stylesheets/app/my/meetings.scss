@@ -6,8 +6,6 @@
 body.my.meetings {
 
   #my-meetings {
-    padding-left: 30px;
-
     &.empty {
       h2 {
         font-weight: $m-font-weight-thin;
@@ -16,7 +14,7 @@ body.my.meetings {
         margin: 60px 55px;
         line-height: 1.4;
         color: $m-titles;
-        font-size: $m-font-bigger;
+        font-size: $m-font-title;
       }
 
       #no-meetings-logo {
