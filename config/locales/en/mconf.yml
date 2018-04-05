@@ -1319,9 +1319,10 @@ en:
       headline2: "Focused on distance learning and remote meetings"
       title: "Register"
     signup_form:
-      email: "Email "
-      full_name: "Full name "
-      password: "Password "
+      email: "Email"
+      full_name: "Full name"
+      password: "Password"
+      password_confirmation: "Password confirmation"
       register: "Register"
       register_local: "Register to Mconf"
   remove: Remove

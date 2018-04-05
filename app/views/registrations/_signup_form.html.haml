@@ -17,6 +17,6 @@
   -#   = content_tag :span, prepend_text, class: "input-group-addon"
   -#   = f.input_field :username, class: "form-control"
   = f.input :password, required: true, label: t(".password")
-  = f.input :password_confirmation, required: true, label: false
+  = f.input :password_confirmation, required: true, label: t(".password_confirmation")
   = captcha_tags theme: 'dark'
   = f.button :wrapped, :value => t(".register"), :class => "btn-primary btn-caps btn-large"

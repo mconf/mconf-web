@@ -53,7 +53,7 @@ en:
   valid_email:
     validations:
       email:
-        invalid: Isn't a valid e-mail address
+        invalid: isn't a valid email address
   events:
     show:
       date: When?

@@ -1344,9 +1344,10 @@ pt-br:
       headline2: "Com foco em educação a distância e reuniões remotas"
       title: "Registre-se"
     signup_form:
-      email: "E-mail "
-      full_name: "Nome completo "
-      password: "Senha "
+      email: "E-mail"
+      full_name: "Nome completo"
+      password: "Senha"
+      password_confirmation: "Confirmação de senha"
       register: "Criar conta"
       register_local: "Criar uma conta no Mconf"
   remove: Remover
