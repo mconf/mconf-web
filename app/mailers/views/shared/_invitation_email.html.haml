@@ -1,5 +1,5 @@
-.info-block
-  .info-block-section
+#invitation-email
+  %p
     - unless @invitation.title.blank?
       .field
         %label= t('.message.subject') + ':'
@@ -9,7 +9,7 @@
         %label= t('.message.description') + ':'
         %span= @invitation.description
 
-  .info-block-section
+  %p
     - Time.use_zone(@time_zone) do
       - unless @invitation.starts_on.nil?
         .field
@@ -20,7 +20,6 @@
           %span
             = format_time(@invitation.starts_on.in_time_zone)
             %span.timezone= @time_zone
-
       - if @invitation.has_duration?
         .field
           %label= t('.message.duration') + ':'
@@ -47,5 +46,3 @@
         .field
           %label= t('.message.password') + ':'
           %span= @invitation.target.attendee_key
-
-= link_to t('.message.access_room'), @invitation.url_with_protocol, class: 'action-button'

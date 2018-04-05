@@ -3,12 +3,6 @@
 @import "definitions";
 
 body {
-  padding: 5px;
-  background: $m-mail-background;
-  font-family: $m-font-family;
-  color: $m-mail-text;
-  line-height: 1.5em;
-
   a {
     @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
     text-decoration: $m-link-decoration;
