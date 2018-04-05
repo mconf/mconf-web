@@ -114,8 +114,8 @@ mark {
 // buttons default
 
 .btn {
-  font-size: $m-font-mini;
-  line-height: $m-font-mini;
+  font-size: $m-font-buttons;
+  line-height: $m-font-buttons;
   font-weight: $m-font-weight-bold;
   padding: 14px 13px;
 }
@@ -127,8 +127,14 @@ mark {
 .btn-primary, .btn-primary.active {
   background: $m-color-primary-soft;
   border-color: $m-color-primary-soft;
-  :hover, :active, :focus {
+
+  &:hover, &:active, &:active:hover, &:focus {
     background: $m-color-primary;
+  }
+
+  &:disabled, &:disabled:hover {
+    background: $m-gray;
+    border-color: $m-gray;
   }
 }
 
