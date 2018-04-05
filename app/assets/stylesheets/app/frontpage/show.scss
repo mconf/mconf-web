@@ -15,6 +15,7 @@ body.frontpage.show {
     border: none;
     @include clearfix;
     height: auto;
+    background: linear-gradient($m-color-primary, $m-color-primary-soft);
 
     #navbar-logo {
       margin: 24px auto 0 auto;
