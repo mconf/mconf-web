@@ -32,6 +32,7 @@ class mconf.Resources
     mconf.Tags.bind()
     mconf.Popover.bind()
     mconf.CertificateAuthentication.bind()
+    mconf.Feedback.bind()
     for method in temporaryBinds
       method.call()
 
@@ -62,3 +63,4 @@ class mconf.Resources
     mconf.Tags.unbind?(parent)
     mconf.Popover.unbind?(parent)
     mconf.CertificateAuthentication.unbind?(parent)
+    mconf.Feedback.unbind?(parent)
