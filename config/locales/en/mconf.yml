@@ -1384,7 +1384,7 @@ en:
     new:
       headline: "Web Conference Platform"
       headline2: "Focused on distance learning and remote meetings"
-      title: "Login"
+      title: "Sign in"
   session_locales:
     create:
       success: "Application language changed to %{value}"
