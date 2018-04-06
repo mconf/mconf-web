@@ -123,14 +123,13 @@
 }
 
 .select2-container-multi .select2-choices .select2-search-choice {
-  margin-top: -2px;
-  margin-bottom: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   margin-left: 6px;
   color: $m-white;
   background: $m-color-primary-soft;
   border: none;
   padding: 8px 12px 8px 20px;
-  line-height: 1;
 }
 
 .select2-default {
