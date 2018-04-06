@@ -735,7 +735,6 @@ form {
 
     &:hover, &:focus {
       a {
-        font-weight: $m-font-weight-bold;
         color: $m-light-gray;
       }
       .icon {
@@ -744,7 +743,7 @@ form {
     }
 
     &.active {
-      background: $m-color-primary-heavy;
+      background: $m-color-primary;
       a {
         color: $m-light-gray;
       }
@@ -764,7 +763,7 @@ form {
       }
 
       &:hover, &:focus, &.active {
-        background: $m-color-primary-heavy;
+        background: $m-color-primary-soft;
         text-decoration: none;
         color: #fff;
         &::after {
