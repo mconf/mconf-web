@@ -69,6 +69,11 @@
   }
 }
 
+// should not have padding inside the field
+.select2-chosen, .select2-choice > span:first-child, .select2-container .select2-choices .select2-search-field input {
+  padding: 0;
+}
+
 // a select2 inside a form and an .input, should behave just like any other input
 // does when inside a form
 .simple_form .input .select2-container {
