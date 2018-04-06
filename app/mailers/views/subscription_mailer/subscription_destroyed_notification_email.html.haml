@@ -1,7 +1,7 @@
-%p.content
-  %h1= t('.message.hello', name: @user.name).html_safe
+.header_image
+  = image_tag URI.join(root_url, "assets/mailer/assign_cancelation.png"), size: '494x263'
+%p.header_message
+  = t('.message.hello', name: @user.name).html_safe
 
 %p.content
   = t('.message.main_text').html_safe
-
-%p= t('.message.contact', contact_email: Site.current.smtp_receiver).html_safe

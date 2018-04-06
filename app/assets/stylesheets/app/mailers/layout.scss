@@ -89,4 +89,25 @@ body {
       font-weight: $m-font-weight-bold;
     }
   }
+  .mail_title{
+    color: $m-mail-header-footer-color;
+    font-weight: $m-font-weight-bold;
+  }
+  .box_image{
+    img{
+      width: 50%;
+      height: auto;
+      max-height: 240px;
+      float: left;
+      margin-top: 10px;
+    }
+    ul {
+      display: grid;
+    }
+    .text_ident{
+      color: $m-mail-header-footer-color;
+      font-weight: $m-font-weight-bold;
+      text-indent: 5%;
+    }
+  }
 }

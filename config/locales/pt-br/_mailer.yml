@@ -122,7 +122,6 @@ pt-br:
       message:
         hello: "Ola %{name},"
         main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
-        contact: "Entre em contato conosco caso tenha dúvidas ou precise maiores informações através do e-mail <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
       subject: "%{name}: Sua assinatura foi cancelada."
   shared:
     invitation_email:
