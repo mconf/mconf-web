@@ -137,7 +137,7 @@ module Mconf
     config.assets.paths << Rails.root.join("app", "assets", "themes", "mconf-com", "images")
 
     # how long the trial lasts
-    config.trial_months = 2
+    config.trial_months = 1
     config.due_day = 10
 
     # free plan limitations
