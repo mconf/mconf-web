@@ -5,4 +5,4 @@
 #form-wrapper
   = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
     = f.input :email, :label => t('user.email_used_to_create_account'), :required => true
-    = f.button :wrapped, :value => t('user.request_password')
+    = f.button :wrapped, :value => t('user.request_password').upcase, class: "btn-primary", disabled: true

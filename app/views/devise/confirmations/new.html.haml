@@ -8,4 +8,4 @@
       = f.input :email, :label => t('user.email_used_to_create_account'), :required => true, :input_html => { :value => current_user.email, :readonly => true }
     - else
       = f.input :email, :label => t('user.email_used_to_create_account'), :required => true
-    = f.button :wrapped, :value => t('user.request_confirmation')
+    = f.button :wrapped, :value => t('user.request_confirmation').upcase, class: "btn-primary", disabled: true
