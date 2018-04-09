@@ -8,12 +8,25 @@ require "spec_helper"
 
 describe UserMailer do
 
+  shared_examples 'footer e-mail' do
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.e_mail')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.footer_title')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.adress')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
+    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
+    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
+    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+  end
+
   describe '.registration_notification_email' do
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.registration_notification_email(user.id) }
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
+      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_notification_email.subject')
@@ -41,6 +54,7 @@ describe UserMailer do
           mail_content(mail).should match(content)
         }
       end
+      it_behaves_like 'footer e-mail'
     end
 
     context "uses the receiver's locale" do
@@ -84,6 +98,7 @@ describe UserMailer do
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
+      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_by_admin_notification_email.subject')
@@ -105,6 +120,7 @@ describe UserMailer do
           mail_content(mail).should match(content)
         }
       end
+        it_behaves_like 'footer e-mail'
     end
 
     context "uses the receiver's locale" do
@@ -150,6 +166,7 @@ describe UserMailer do
     let(:contact) { Site.current.smtp_receiver }
 
     context "in the standard case" do
+      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.cancellation_notification_email.subject')
@@ -166,6 +183,7 @@ describe UserMailer do
           mail.body.encoded.should match(contact)
         }
       end
+      it_behaves_like 'footer e-mail'
     end
 
     context "uses the receiver's locale" do
