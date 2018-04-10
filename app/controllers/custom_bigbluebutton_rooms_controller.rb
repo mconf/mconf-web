@@ -37,6 +37,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # use the patter configured on the site to generate dial numbers
   before_filter :set_site_pattern, only: :generate_dial_number
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
+
   layout :determine_layout
 
   def determine_layout
@@ -127,6 +129,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   protected
+
+  def handle_record_not_found(exception)
+    redirect_to 404
+  end
 
   # Loads the room and fetches information from the web conference server.
   def load_and_fetch_room_info

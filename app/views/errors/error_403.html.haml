@@ -1,8 +1,6 @@
 %h1.title.error-mild
   - if flash[:error]
     = flash[:error]
-  - else
-    = t("error.e403.title")
 
 .error-description
   %p
@@ -10,3 +8,5 @@
       = @error_message.html_safe
     - else
       = t("error.e403.description")
+
+#error403-logo
