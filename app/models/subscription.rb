@@ -6,6 +6,7 @@
 
 class Subscription < ActiveRecord::Base
   include PublicActivity::Common
+  include Mconf::DisableModule
 
   belongs_to :plan, foreign_key: 'plan_token', primary_key: "ops_token"
   belongs_to :user

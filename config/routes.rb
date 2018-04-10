@@ -109,7 +109,12 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resources :subscriptions, only: [:create, :index]
+  resources :subscriptions, only: [:create, :index] do
+    member do
+      post :enable
+      delete :disable
+    end
+  end
   resource :subscription, only: [] do
     get :removed
   end

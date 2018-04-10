@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403173906) do
+ActiveRecord::Schema.define(version: 20180410173828) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -485,6 +485,7 @@ ActiveRecord::Schema.define(version: 20180403173906) do
     t.string  "district"
     t.string  "country"
     t.boolean "integrator",              default: false
+    t.boolean "disabled",                default: false
   end
 
   create_table "taggings", force: true do |t|

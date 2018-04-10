@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class SubscriptionsController < InheritedResources::Base
+  include Mconf::DisableControllerModule # for enable, disable
 
   before_filter :authenticate_user!
 
