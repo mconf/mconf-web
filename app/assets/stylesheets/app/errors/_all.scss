@@ -55,7 +55,22 @@ $m-z-index-footer: 0;
     margin: 30px auto;
   }
 
-  #error-logo {
+  #error403-logo {
+    @include make-row;
+
+    margin: 60px auto 0 auto;
+    margin-top: 200px;
+    float: none;
+    padding: 13%;
+    overflow: visible;
+
+    background: image-url('logos/403_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+
+  #error404-logo {
     @include make-row;
 
     margin: 60px auto 0 auto;
@@ -65,6 +80,21 @@ $m-z-index-footer: 0;
     overflow: visible;
 
     background: image-url('logos/404_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+
+  #error500-logo {
+    @include make-row;
+
+    margin: 60px auto 0 auto;
+    margin-top: 200px;
+    float: none;
+    padding: 13%;
+    overflow: visible;
+
+    background: image-url('logos/500_Error.png') no-repeat top;
     background-size: contain;
     height: 70%;
     width: 70%;
