@@ -144,9 +144,7 @@ class Invoice < ActiveRecord::Base
     posted = self.check_for_posted_invoices
 
     # In this case, if there is a subitem there, we will not be sending another one
-    if posted.first.present?
-      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:posted])
-    else
+    unless posted.first.present?
       if data[:minimum]
         final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
         if data[:discounts].has_key?(:days)
@@ -166,6 +164,7 @@ class Invoice < ActiveRecord::Base
           Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee', locale: self.subscription.user.locale), final_cost, quantity)
         end
       end
+      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:posted])
     end
   end
 
