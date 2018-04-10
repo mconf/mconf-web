@@ -73,6 +73,11 @@ module Mconf
       invoices
     end
 
+    def self.fetch_invoice(invoice_token)
+      invoice = ::Iugu::Invoice.fetch(invoice_token)
+      invoice
+    end
+
 ###CUSTOMER#############################################################################################
     # We must create a customer account on Iugu when an user signs a subscription plan  
     def self.create_customer(email, full_name, cpf_cnpj, address, additional_address_info, number,

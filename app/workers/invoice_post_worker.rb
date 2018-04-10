@@ -14,7 +14,7 @@ class InvoicePostWorker < BaseWorker
 
   def self.invoices_post
     # To send it to the OPS
-    Invoice.where(flag_invoice_status: Invoice::INVOICE_STATUS[:local]).find_each do |invoice|
+    Invoice.where(flag_invoice_status: Invoice::INVOICE_STATUS[:closed]).find_each do |invoice|
       invoice.post_invoice_to_ops
     end
   end
@@ -24,6 +24,12 @@ class InvoicePostWorker < BaseWorker
     Invoice.where(flag_invoice_status: Invoice::INVOICE_STATUS[:posted]).find_each do |invoice|
       unless invoice.invoice_url.present?
         invoice.get_invoice_payment_data
+      end
+    end
+
+    Invoice.where(flag_invoice_status: Invoice::INVOICE_STATUS[:pending]).find_each do |invoice|
+      unless invoice.invoice_url.present?
+        invoice.check_payment
       end
     end
   end

@@ -13,13 +13,14 @@ class Invoice < ActiveRecord::Base
   validates :flag_invoice_status, presence: true
 
   INVOICE_STATUS = {
-    posted: 'posted',
-    local: 'local',
     canceled: 'canceled',
+    closed: 'closed',
     expired: 'expired',
+    local: 'local',
     paid: 'paid',
+    pay: 'pay',
     pending: 'pending',
-    pay: 'pay'
+    posted: 'posted'
   }
 
   def self.next_due_date
@@ -140,29 +141,31 @@ class Invoice < ActiveRecord::Base
     cost = data[:cost_per_user]
     quantity = data[:quantity]
 
-    if data[:minimum]
-      final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
-      if data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
-      else
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee', locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
-      end
-    else
-      final_cost = (data[:total] / quantity).to_i
-      if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
-      elsif data[:discounts].has_key?(:users)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users', percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
-      elsif data[:discounts].has_key?(:days)
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost, quantity)
-      else
-        Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee', locale: self.subscription.user.locale), final_cost, quantity)
-      end
-    end
-
     posted = self.check_for_posted_invoices
+
+    # In this case, if there is a subitem there, we will not be sending another one
     if posted.first.present?
       self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:posted])
+    else
+      if data[:minimum]
+        final_cost_minimum = (data[:total] / Rails.application.config.minimum_users).to_i
+        if data[:discounts].has_key?(:days)
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee_discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
+        else
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.minimum_fee', locale: self.subscription.user.locale), final_cost_minimum, Rails.application.config.minimum_users)
+        end
+      else
+        final_cost = (data[:total] / quantity).to_i
+        if data[:discounts].has_key?(:users) && data[:discounts].has_key?(:days)
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users_and_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
+        elsif data[:discounts].has_key?(:users)
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_users', percent_u: (data[:discounts][:users]*100).to_i, locale: self.subscription.user.locale), final_cost, quantity)
+        elsif data[:discounts].has_key?(:days)
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.discount_days', percent_d: ((1-data[:discounts][:days])*100).to_i, qtd_d: self.days_consumed, locale: self.subscription.user.locale), final_cost, quantity)
+        else
+          Mconf::Iugu.add_invoice_item(self.subscription.subscription_token, I18n.t('.invoices.user_fee', locale: self.subscription.user.locale), final_cost, quantity)
+        end
+      end
     end
   end
 
@@ -174,6 +177,16 @@ class Invoice < ActiveRecord::Base
     invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
     if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
       self.update_attributes(invoice_token: invoices.first.attributes['id'], invoice_url: invoices.first.attributes['secure_url'])
+      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:pending])
+    end
+  end
+
+  def check_payment
+    if self.invoice_token.present?
+      invoice = Mconf::Iugu.fetch_invoice(self.invoice_token)
+      if invoice.status == "paid"
+        self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:paid])
+      end
     end
   end
 
@@ -244,6 +257,10 @@ class Invoice < ActiveRecord::Base
 
     update_attributes(invoice_value: result[:total])
     result
+  end
+
+  def close
+    self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:closed])
   end
 
   def reference_this_month?

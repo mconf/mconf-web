@@ -23,6 +23,7 @@ class InvoiceCreateUpdateWorker < BaseWorker
 
         # the last invoice is not for this month
         else
+          subscription.invoices.last.close
           invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
           invoice.update_unique_user_qty
         end
