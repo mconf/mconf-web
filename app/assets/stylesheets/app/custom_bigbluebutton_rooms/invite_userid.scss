@@ -6,22 +6,22 @@
 
 body.custom_bigbluebutton_rooms.invite_userid {
 
+#content #error-wrapper #error404-logo {
+  @include make-sm-column(6);
+
+  margin: 272px -70px 0 -45px;;
+  float: none;
+  padding: 10%;
+  overflow: visible;
+
+  background: image-url('logos/Notebook_online.png') no-repeat top;
+  background-size: contain;
+  height: 70%;
+  width: 70%;
+}
+
 &.error {
   background: linear-gradient(90deg, $m-error-notification 50%, $m-site-bg-color 50%);
-
-  #content #error-wrapper #error500-logo {
-    @include make-sm-column(6);
-
-    margin: 220px -70px 0 -36px;
-    float: none;
-    padding: 10%;
-    overflow: visible;
-
-    background: image-url('logos/Notebook_online.png') no-repeat top;
-    background-size: contain;
-    height: 70%;
-    width: 70%;
-  }
 }
 
 &.running {
