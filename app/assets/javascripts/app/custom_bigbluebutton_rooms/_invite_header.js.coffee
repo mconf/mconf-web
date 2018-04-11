@@ -38,8 +38,3 @@ successStatus = (data) ->
     body.removeClass("not-running")
     body.addClass("running")
   mconf.Tooltip.bindOne(target)
-
-  if $("#error-wrapper").length > 0
-    body.removeClass("running")
-    body.removeClass("not-running")
-    body.addClass("error")
