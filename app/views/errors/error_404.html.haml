@@ -1,10 +1,11 @@
-= page_title t("error.e404.title")
+#error-wrapper
+  = page_title t("error.e404.title")
 
-.error-description
-  %p
-    - if @error_message
-      = @error_message.html_safe
-    - else
-      = t("error.e404.description", :url => @route)
+  .error-description
+    %p
+      - if @error_message
+        = @error_message.html_safe
+      - else
+        = t("error.e404.description", :url => @route)
 
-#error404-logo
+  #error404-logo
