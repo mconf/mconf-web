@@ -6,6 +6,10 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
+&.error {
+  background: linear-gradient(90deg, $m-error-notification 50%, $m-site-bg-color 50%);
+}
+
 &.running {
   background: linear-gradient(90deg, $m-background-meeting-on 50%, $m-site-bg-color 50%);
 

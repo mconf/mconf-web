@@ -6,8 +6,26 @@
 
 body.custom_bigbluebutton_rooms.invite_userid {
 
+&.error {
+  background: linear-gradient(90deg, $m-error-notification 50%, $m-site-bg-color 50%);
+
+  #content #error-wrapper #error500-logo {
+    @include make-sm-column(6);
+
+    margin: 90px -70px 0 70px;
+    float: none;
+    padding: 10%;
+    overflow: visible;
+
+    background: image-url('logos/404_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+}
+
 &.running {
-  background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+  background: linear-gradient(90deg, $m-background-meeting-on 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
@@ -23,8 +41,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
   }
 }
 
-&:not(.running) {
-  background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
+&:not(.running):not(.error) {
+  background: linear-gradient(90deg, $m-background-meeting-off 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
