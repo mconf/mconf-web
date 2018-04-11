@@ -625,6 +625,101 @@ form {
   @include mconf-clearfix;
   overflow: visible;
   clear: both;
+
+  $m-z-index-content: 1;
+  $m-z-index-footer: 0;
+
+  #error-wrapper {
+    z-index: $m-z-index-content;
+    margin-top: 80px;
+    h1 {
+      font-weight: bold;
+
+      &.error-mild {
+        color: $orange;
+      }
+      &.error-grave {
+        color: $red;
+      }
+    }
+
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+
+    .title {
+      border: 0;
+      text-align: center;
+      max-width: 80%;
+      margin: 30px auto;
+    }
+
+    #error403-logo {
+      @include make-row;
+
+      margin: 60px auto 0 auto;
+      margin-top: 200px;
+      float: none;
+      padding: 13%;
+      overflow: visible;
+
+      background: image-url('logos/403_Error.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
+    }
+
+    #error404-logo {
+      @include make-row;
+
+      margin: 60px auto 0 auto;
+      margin-top: 200px;
+      float: none;
+      padding: 13%;
+      overflow: visible;
+
+      background: image-url('logos/404_Error.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
+    }
+
+    #error500-logo {
+      @include make-row;
+
+      margin: 60px auto 0 auto;
+      margin-top: 200px;
+      float: none;
+      padding: 13%;
+      overflow: visible;
+
+      background: image-url('logos/500_Error.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
+    }
+
+    .error-description {
+      max-width: 70%;
+      margin: -83px auto;
+      text-align: center;
+      @include font-size($m-font-title);
+      line-height: calculate-px($m-font-title) + 6px;
+      color: $m-text;
+      font-weight: $m-font-weight-bold;
+
+      p {
+        @include font-size($m-font-title);
+        line-height: calculate-px($m-font-title) + 6px;
+      }
+    }
+
+    @include breakpoint(xs) {
+      .title, .error-description {
+        max-width: 95;
+      }
+    }
+  }
 }
 
 #sidebar, .sidebar {
