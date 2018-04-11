@@ -12,12 +12,12 @@ body.custom_bigbluebutton_rooms.invite_userid {
   #content #error-wrapper #error500-logo {
     @include make-sm-column(6);
 
-    margin: 90px -70px 0 70px;
+    margin: 220px -70px 0 -36px;
     float: none;
     padding: 10%;
     overflow: visible;
 
-    background: image-url('logos/404_Error.png') no-repeat top;
+    background: image-url('logos/Notebook_online.png') no-repeat top;
     background-size: contain;
     height: 70%;
     width: 70%;
