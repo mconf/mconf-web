@@ -30,34 +30,4 @@ body.spaces.show {
   #events-current {
     margin-bottom: 15px;
   }
-
-  #error-logo {
-    @include make-row;
-
-    margin: 60px auto 0 auto;
-    margin-top: 100px;
-    float: none;
-    padding: 13%;
-    overflow: visible;
-
-    background: image-url('logos/404_Error.png') no-repeat top;
-    background-size: contain;
-    height: 70%;
-    width: 70%;
-  }
-
-  .error-description {
-    max-width: 70%;
-    margin: 3px auto;
-    text-align: center;
-    @include font-size($m-font-title);
-    line-height: calculate-px($m-font-title) + 6px;
-    color: $m-text;
-    font-weight: $m-font-weight-bold;
-
-    p {
-      @include font-size($m-font-title);
-      line-height: calculate-px($m-font-title) + 6px;
-    }
-  }
 }
