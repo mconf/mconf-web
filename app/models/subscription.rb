@@ -11,7 +11,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :plan, foreign_key: 'plan_token', primary_key: "ops_token"
   belongs_to :user
 
-  has_many :invoices
+  has_many :invoices,dependent: :restrict_with_error
 
   validates :user_id, :presence => true, :uniqueness => true
   validates :plan_token, :presence => true

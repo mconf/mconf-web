@@ -101,7 +101,11 @@ Mconf::Application.routes.draw do
       get :edit_data
     end
 
-    resource :subscription, only: [:edit, :update, :show, :destroy, :new]
+    resource :subscription, only: [:edit, :update, :show, :destroy, :new] do
+      post :enable
+      delete :disable
+    end
+
     resources :invoices, only: [:show, :index] do
       member do
         get :report
@@ -109,12 +113,6 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resources :subscriptions, only: [:create, :index] do
-    member do
-      post :enable
-      delete :disable
-    end
-  end
   resource :subscription, only: [] do
     get :removed
   end
