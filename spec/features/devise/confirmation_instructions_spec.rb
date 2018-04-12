@@ -19,7 +19,8 @@ feature "Confirmation instructions" do
           visit new_user_confirmation_path
           expect(page).to have_field("user_email", with: user.email)
           expect(page).to have_css("#user_email[readonly]")
-          click_button I18n.t('user.request_confirmation')
+          page.should have_button(I18n.t('user.request_confirmation').upcase)
+          click_button I18n.t('user.request_confirmation').upcase
         }.to send_email(1)
       end
 

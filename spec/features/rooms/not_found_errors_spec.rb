@@ -39,7 +39,6 @@ feature 'Uses see the correct error for rooms that are not found' do
 
       it { page.status_code.should == 404 }
       it { page.should have_title(t('error.e404.title')) }
-      it { page.should have_content(t('error.e404.title')) }
       it { page.should have_content(t('error.e404.description', url: url)) }
     end
 
@@ -49,7 +48,6 @@ feature 'Uses see the correct error for rooms that are not found' do
 
       it { page.status_code.should == 404 }
       it { page.should have_title(t('error.e404.title')) }
-      it { page.should have_content(t('error.e404.title')) }
       it { page.should have_content(t('error.e404.description', url: url)) }
     end
   end
