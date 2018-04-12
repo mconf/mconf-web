@@ -35,6 +35,10 @@ class Subscription < ActiveRecord::Base
 
   skip_callback :create, :before, :create_customer_and_sub, if: :importing_subscription
 
+  alias_attribute :name, :full_name
+
+  delegate :full_name, to: :user
+
   scope :not_on_trial, -> {
     joins(:user).where("trial_expires_at <= ?", DateTime.now)
   }

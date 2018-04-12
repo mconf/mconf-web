@@ -310,6 +310,13 @@ en:
         notice: "User successfully enabled"
         failure: "User %{name} is already enabled"
         unable: "User %{name} could not be enabled (e-mail, username or room name already in use)"
+    subscriptions:
+      disable:
+        notice: "Subscription successfully disabled"
+      enable:
+        notice: "Subscription successfully enabled"
+        failure: "Subscription for %{name} is already enabled"
+        unable: "Subscription for %{name} could not be enabled"
   address: Address
   admin:
     one: Admin

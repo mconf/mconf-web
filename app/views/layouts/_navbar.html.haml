@@ -20,7 +20,7 @@
       %li.navbar-user-chip.dropdown.last
         .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = logo_image(current_user, size: '128', class: "logo-user")
-          - if current_user.subscription.present?
+          - if current_user.subscription.present? && !current_user.subscription.disabled?
             .premium.tooltipped= icon_stars
         %ul.navbar-user-menu.dropdown-menu.dropdown-menu-right
           %li

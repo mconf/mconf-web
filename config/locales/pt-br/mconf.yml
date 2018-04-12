@@ -306,6 +306,13 @@ pt-br:
         unable: "Usuário %{name} não pode ser habilitado (e-mail, id ou nome da sala já está em uso)"
       disable:
         notice: "Usuário %{username} desabilitado"
+    subscriptions:
+      disable:
+        notice: "Assinatura desabilitada com sucesso"
+      enable:
+        notice: "Assinatura habilitada com sucesso"
+        failure: "Assinatura de %{name} já está habilitada"
+        unable: "Assinatura de %{name} não pode ser desabilitada"
   admin:
     one: Administrador
     space: "Administração do %{spacename}"
