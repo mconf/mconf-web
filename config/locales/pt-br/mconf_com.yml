@@ -161,6 +161,7 @@ pt-br:
       edit: "Editar"
       disable: "Cancelar Assinatura"
       disable_confirm: "Você tem certeza de que quer cancelar sua assinatura?"
+      disabled: "Sua assinatura está desabilitada e pode ser editada e habilitada quando você quiser."
       enable: "Habilitar assinatura"
       enable_confirm: "Vamos habilitar sua assinatura e cobranças serão geradas se seu período gratuito já acabou. Você tem certeza?"
       address_section: "Informações de endereço"

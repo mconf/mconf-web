@@ -101,7 +101,7 @@ Mconf::Application.routes.draw do
       get :edit_data
     end
 
-    resource :subscription, only: [:edit, :update, :show, :destroy, :new] do
+    resource :subscription, only: [:edit, :update, :show, :destroy, :new, :create] do
       post :enable
       delete :disable
     end
