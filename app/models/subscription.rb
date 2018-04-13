@@ -39,7 +39,11 @@ class Subscription < ActiveRecord::Base
 
   delegate :full_name, to: :user
 
-  default_scope { where(disabled: false) }
+  #default_scope { where(disabled: false) }
+
+  #def self.with_disabled
+  #  unscope(where: :disabled) # removes the target scope only
+  #end
 
   scope :not_on_trial, -> {
     joins(:user).where("trial_expires_at <= ?", DateTime.now)
@@ -207,9 +211,6 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.with_disabled
-    unscope(where: :disabled) # removes the target scope only
-  end
 
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub

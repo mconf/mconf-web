@@ -24,9 +24,13 @@ class SubscriptionsController < InheritedResources::Base
   end
 
   def new
-    @user = User.find_by(username: (params[:user_id]))
-    if @user.subscription.present?
-      redirect_to user_subscription_path(@user)
+    if current_user.superuser || current_user.username == params[:user_id]
+      @user = User.find_by(username: (params[:user_id]))
+      if @user.subscription.present?
+        redirect_to user_subscription_path(@user)
+      end
+    else
+      redirect_to new_user_subscription_path(current_user)
     end
   end
 

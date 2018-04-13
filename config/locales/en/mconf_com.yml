@@ -181,6 +181,7 @@ en:
       title: "Subscription"
       subtitle: "Premium Subscription"
       edit: "Edit"
+      blank: "This user does not have a subscription"
       disable: "Cancel Subscription"
       disable_confirm: "Are you sure you want to cancel your subscription?"
       disabled: "Your subscription is currently disabled and can be edited or enabled any time you want."

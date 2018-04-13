@@ -15,52 +15,57 @@
       .card-title= t('.subtitle')
 
       .resource-data
-        - unless @subscription.disabled?
-          .field
-            %span.field-title= t('.cpf_cnpj')
-            %span.field-value= @subscription.cpf_cnpj
+        - if @user.subscription.present?
+          - unless @subscription.disabled?
+            .field
+              %span.field-title= t('.cpf_cnpj')
+              %span.field-value= @subscription.cpf_cnpj
 
-          .field
-            %span.field-title= t('.address')
-            %span.field-value= @subscription.address
+            .field
+              %span.field-title= t('.address')
+              %span.field-value= @subscription.address
 
-          .field
-            %span.field-title= t('.additional_address_info')
-            %span.field-value= @subscription.additional_address_info
+            .field
+              %span.field-title= t('.additional_address_info')
+              %span.field-value= @subscription.additional_address_info
 
-          .field
-            %span.field-title= t('.number')
-            %span.field-value= @subscription.number
+            .field
+              %span.field-title= t('.number')
+              %span.field-value= @subscription.number
 
-          .field
-            %span.field-title= t('.district')
-            %span.field-value= @subscription.district
+            .field
+              %span.field-title= t('.district')
+              %span.field-value= @subscription.district
 
-          .field
-            %span.field-title= t('.zipcode')
-            %span.field-value= @subscription.zipcode
+            .field
+              %span.field-title= t('.zipcode')
+              %span.field-value= @subscription.zipcode
 
-          .field
-            %span.field-title= t('.city')
-            %span.field-value= @subscription.city
+            .field
+              %span.field-title= t('.city')
+              %span.field-value= @subscription.city
 
-          .field
-            %span.field-title= t('.province')
-            %span.field-value= @subscription.province
+            .field
+              %span.field-title= t('.province')
+              %span.field-value= @subscription.province
 
-          .field
-            %span.field-title= t('.country')
-            %span.field-value= @subscription.country
-        
-        - else
-          .field
-            %span.field-disabled= t('.disabled')
- 
-        .edit-link
-          = link_to t('.edit'), edit_user_subscription_path(@user), :class => "btn btn-default"
+            .field
+              %span.field-title= t('.country')
+              %span.field-value= @subscription.country
 
-        .delete-link
-          - if @subscription.disabled
-            = link_to t('.enable'), enable_user_subscription_path(@user), :data => { :confirm => t('.enable_confirm').html_safe }, :method => :post, :class => "btn btn-default"
           - else
-            = link_to t('.disable'), disable_user_subscription_path(@user), :data => { :confirm => t('.disable_confirm').html_safe }, :method => :delete, :class => "btn btn-default"
+            .field
+              %span.field-disabled= t('.disabled')
+
+          .edit-link
+            = link_to t('.edit'), edit_user_subscription_path(@user), :class => "btn btn-default"
+
+          .delete-link
+            - if @subscription.disabled
+              = link_to t('.enable'), enable_user_subscription_path(@user), :data => { :confirm => t('.enable_confirm').html_safe }, :method => :post, :class => "btn btn-default"
+            - else
+              = link_to t('.disable'), disable_user_subscription_path(@user), :data => { :confirm => t('.disable_confirm').html_safe }, :method => :delete, :class => "btn btn-default"
+
+        - else #He has no subscription
+          .field
+            %span.field-blank= t('.blank')

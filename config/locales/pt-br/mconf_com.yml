@@ -159,6 +159,7 @@ pt-br:
       title: "Assinatura"
       subtitle: "Assinatura Premium"
       edit: "Editar"
+      blank: "Esse usuário ainda não possui assinatura"
       disable: "Cancelar Assinatura"
       disable_confirm: "Você tem certeza de que quer cancelar sua assinatura?"
       disabled: "Sua assinatura está desabilitada e pode ser editada e habilitada quando você quiser."

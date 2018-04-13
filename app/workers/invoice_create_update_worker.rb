@@ -14,25 +14,28 @@ class InvoiceCreateUpdateWorker < BaseWorker
   def self.invoices_create
     Subscription.not_on_trial.find_each do |subscription|
 
-      # there are already invoices for this subscription
-      if subscription.invoices.last.present?
+      unless subscription.disabled # on disable we stop everithing and invoices controller closes it
 
-        # the last invoice is for the current month
-        if subscription.invoices.last.reference_this_month?
-          subscription.invoices.last.update_unique_user_qty
+        # there are already invoices for this subscription
+        if subscription.invoices.last.present?
 
-        # the last invoice is not for this month
-        else
-          subscription.invoices.last.close
-          invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
-          invoice.update_unique_user_qty
+            # the last invoice is for the current month
+            if subscription.invoices.last.reference_this_month?
+              subscription.invoices.last.update_unique_user_qty
+
+            # the last invoice is not for this month
+            else
+              subscription.invoices.last.close
+              invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
+              invoice.update_unique_user_qty
+            end
+
+          # there are no invoices, create the first one
+          else
+            invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
+            invoice.update_unique_user_qty
+            invoice.generate_consumed_days("create")
         end
-
-      # there are no invoices, create the first one
-      else
-        invoice = subscription.invoices.create(due_date: Invoice.next_due_date, flag_invoice_status: Invoice::INVOICE_STATUS[:local])
-        invoice.update_unique_user_qty
-        invoice.generate_consumed_days("create")
       end
     end
   end
