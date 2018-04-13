@@ -442,7 +442,7 @@ class User < ActiveRecord::Base
   end
 
   def trial_ended?
-    self.trial_expires_at <= DateTime.now
+    self.trial_expires_at.present? ?self.trial_expires_at <= DateTime.now : false
   end
 
   def exceeded_recording_limit_free_account

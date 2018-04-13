@@ -4,7 +4,7 @@
   = t('.message.hello', name: @user.name).html_safe
 
 %p.content
-- if @user.trial_expires_at && (@user.trial_expires_at > Time.now)
+- if @user.trial_ended?
   = t('.message.trial_expires', date: format_date(@user.trial_expires_at, :long, false)).html_safe
 - else
   = t('.message.main_text').html_safe
