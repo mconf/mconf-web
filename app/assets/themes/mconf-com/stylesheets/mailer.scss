@@ -9,7 +9,6 @@ body {
     &:hover, &:active, &:focus { text-decoration: $m-link-decoration-hover; }
     &:focus { color: lighten($m-link-color-active, 7); }
   }
-
   #logo {
     text-align: center;
     margin: 8px auto 16px auto;

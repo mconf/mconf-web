@@ -208,7 +208,8 @@ pt-br:
       line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"
       subject: "Seu período de testes chegou ao fim"
     ending_soon:
-      line1: "Seu período de testes gratuito se encerra no dia <em>%{date}</em>, mas não se preocupe! Você já é nosso assinante e não precisa tomar nenhuma ação para continuar usando o Mconf. Esperamos que esteja gostando do serviço e queira continuar conosco! "
+      line1: "oi, você assinou o Premium a algum tempo e ganhou um período de testes sem cobrança, esse período está acabando em %{date}, se você ainda está cadastrado no Premium, a partir do próximo mês você começa a receber as faturas (não se preocupe, vamos dar desconto proporcional ao dia do mês que você assinou na primeira fatura."
+      line2: "Se você não quer continuar utilizando o Premium, basta cancelar sua assinatura na sua pagina de <a href='%{link}'>conta</a>, e se você já tinha cancelado, está tudo certo, você não receberá nenhuma cobrança."
       subject: "Seu período de testes está chegando ao fim"
   user:
     usage:
