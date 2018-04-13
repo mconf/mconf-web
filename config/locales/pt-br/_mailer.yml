@@ -100,29 +100,6 @@ pt-br:
         join: "Sala"
         subject: "Assunto"
       subject: "Convite para webconferência"
-  subscription_mailer:
-    subscription_created_notification_email:
-      message:
-        hello: "Olá %{name}!"
-        introduction_1: "Agradecemos a preferência por nosso serviço de conferência web!"
-        sub_title_beggining: "Como acessar sua conta"
-        link: "A partir de agora você já pode utilizar sua sala de webconferência através do link: <a href=\"%{url}\">%{url}</a>"
-        webconf: "Ao acessar sua sala de webconferência informe o seu nome completo e a seguinte senha: %{participant_password}"
-        allow_particip: "Como permitir a entrada de participantes na sua sala"
-        participants: "Para permitir a entrada de participantes na sua sala de webconferência, basta fornecer o link da sala e a seguinte senha de acesso: %{participant_password}."
-        password: "Senha participante: %{participant_password}"
-        attention: "<b>É importante solicitar aos participantes que acessem a sala de webconferência sempre utilizando o nome completo, pois é através dele que identificamos os usuários únicos e geramos relatórios de uso.</b>"
-        functionality: "Funcionalidades do produto"
-        end: "Através desse serviço você poderá: compartilhar conhecimento oferecendo aulas ao vivo; promover discussões sobre os assuntos abordados através do chat; realizar apresentações para até 350 usuários conectados simultaneamente; fazer anotações utilizando a lousa; gravar suas aulas ou apresentações para assistir mais tarde ou compartilhar com os participantes e muito mais!"
-        sub_title_go_beyond: "Vá além!"
-        more: "<ul> <li>Customize sua sala com o logo e as cores da sua empresa. <b>Sem custos adicionais</b>;</li> <li>Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <b>Moodle; WordPress; Canvas;</b></li> <li>Disponibilize um link de acesso personalizado diretamente do seu site.</li></ul>"
-        contact: "Entre em contato conosco para maiores informações: <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "%{name}: Sua assinatura foi criada com sucesso."
-    subscription_destroyed_notification_email:
-      message:
-        hello: "Ola %{name},"
-        main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
-      subject: "%{name}: Sua assinatura foi cancelada."
   shared:
     invitation_email:
       message:

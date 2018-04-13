@@ -1,8 +1,9 @@
-.centralized
-  %h1.title= t('_other.hi_name', name: @user.first_name)
-  .subtitle= t('.subject')
+.header_image
+  = image_tag URI.join(root_url, "assets/mailer/trial_ending_soon.png"), size: '544x263'
+
+.header_message
+  = t('_other.hi_name', name: @user.first_name)
 
 %p= t('.line1', date: format_date(@user.trial_expires_at, :long, false)).html_safe
-%p= t('_other.mailers.contact', mail: Site.current.smtp_receiver).html_safe
+%p= t('.line2', link: edit_user_url(@user)).html_safe
 
-%p.unsubscribe-info= t('_other.mailers.unsubscribe', link: edit_user_url(@user)).html_safe

@@ -1,7 +1,7 @@
 ---
 en:
   _other:
-    hi_name: "Hi, %{name}"
+    hi_name: "Hi, %{name}!"
     mailers:
       contact: "Contact us for more information at <a href='mailto:%{mail}'>%{mail}</a>."
       unsubscribe: "If you wish to cancel your subscription, access the <a href='%{link}'>account</a> page and click the option to cancel your account."
@@ -116,12 +116,40 @@ en:
         short_url: "You can also have quick access to your room using the address below. Share this address with other people when inviting them to join a conference you created."
         title: "Starting with Mconf"
       subject: "Welcome!"
+  subscription_mailer:
+    subscription_created_notification_email:
+      message:
+        hello: "Hi %{name}!"
+        introduction_1: "Thank you for choosing our web conferencing service!"
+        sub_title_beggining: "How to access your room"
+        link: "From now on you can already use your web conferencing room through the link: <a href=\"%{url}\">%{url}</a>"
+        webconf: "when you access your web conferencing room, give your full name and the following access password %{participant_password}"
+        allow_particip: "how to allow participants to enter in your room "
+        participants: "To allow participants to enter your web conferencing room, simply send the link of your room and the following password %{participant_password}"
+        password: "Participant password: %{participant_password}"
+        attention: "<b>It's important to ask participants to always access the web conferencing room using their full name, as it is through them that we identify unique users and generate usage reports.</b>"
+        functionality: "Product's functionality"
+        end: "Through this service you can: share knowledge by offering live lessons; promote discussions on subjects covered through chat; perform presentations for up to 350 connected users <em>simultaneously</em>; make notes using the blackboard; record your classes or presentations to watch later or share with participants and more!"
+        sub_title_go_beyond: "Go beyond!"
+        more: "<ul> <li>Customize your room with the logo and colors of your company. <b>No extra charges</b>;</li> <li>Integrate with the LMS (Learning Management System) of your choice. Available: <b>Moodle; WordPress; Canvas;</b></li> <li>Provide a custom access link directly from your web site.</li></ul>"
+        contact: "Please contact us for more information! <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
+      subject: "%{name}: Your subscription was successfully created."
+    subscription_destroyed_notification_email:
+      message:
+        hello: "Hi %{name},"
+        main_text: "Your subscription to Mconf has ended and your account will now be downgraded to a free plan. Thank you for subscribing to Mconf!"
+        trial_expires: "You are canceling the subscription in trial period, you can reactivate and still have free use until the <b>%{date}</b>. We'll let you know when the trial is running out. You will not receive any type of charge if you do not re-sign the Premium."
+        see_you_again: "We hope see you again soon!"
+      subject: "%{name}: Your subscription had ended."
   trial_notifications_mailer:
     ended:
-      line1: "We would like to remind you that your trial period is ending today. You can find the <em>service fees</em> that will be applicable to your account at: <a href='https://mconf.com/pricing'>https://mconf.com/pricing</a>"
+      line1: "We would like to remind you that your trial period is ending today. To know our service fees, click on the link below:"
       subject: "Your trial period has ended"
+      know_here: "Know our service fees"
+      pricing: "https://mconf.com/pricings"
     ending_soon:
-      line1: "Your trial period will end on <em>%{date}</em>, but don't worry! You are already signed up to the service and won't need to do anything to keep using it. We hope you're enjoying the experience and wish to stay with us!"
+      line1: "Hi, you signed the Premium some time and won a trial period without charge, and this period is ending at <b>%{date}</b>, if you are still registered in the Premium, from next month you begin to receive the invoices (do not worry, we will give discount proportional to the day of the month you signed on the first invoice."
+      line2: "If you do not want to continue using Premium, you simply cancel your subscription on your <a href='%{link}'>account</a> page, and if you had already canceled, that's fine, you will not receive any charges."
       subject: "Your trial period is ending soon"
   subscriptions:
     created: "Subscription successfully created"
