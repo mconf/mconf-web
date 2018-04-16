@@ -211,7 +211,6 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-
   # Destroy the customer on OPS, if there's a customer token set in the model.
   def destroy_sub
     if self.invoices.last.present?
@@ -248,5 +247,26 @@ class Subscription < ActiveRecord::Base
     subscription_owner = User.find_by(id: self.user_id)
     create_activity 'destroyed', owner: self, recipient: subscription_owner, notified: false
   end
+
+  protected
+
+  # For the disable module to disable it on Iugu
+  def before_disable
+    if self.invoices.last.flag_invoice_status == Invoice::INVOICE_STATUS[:local]
+      self.invoices.last.generate_consumed_days("destroy")
+    end
+
+    Mconf::Iugu.disable_subscription(self.subscription_token)
+  end
+
+  # In enable it on Iugu and cancel the discount for consumed days if it is enbled on the same month it was disabled
+  def before_enable
+    if self.invoices.last.flag_invoice_status == Invoice::INVOICE_STATUS[:local]
+      self.invoices.last.clear_consumed_days
+    end
+
+    Mconf::Iugu.enable_subscription(self.subscription_token)
+  end
+
 
 end

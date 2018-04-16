@@ -211,6 +211,10 @@ class Invoice < ActiveRecord::Base
     self.update_attributes(days_consumed: consumed)
   end
 
+  def clear_consumed_days
+    self.update_attributes(days_consumed: nil)
+  end
+
   def generate_invoice_value
     b_price = Rails.application.config.base_price
     b_price_i = Rails.application.config.base_price_integrator

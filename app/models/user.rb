@@ -446,7 +446,7 @@ class User < ActiveRecord::Base
   end
 
   def exceeded_recording_limit_free_account
-    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && self.subscription.blank?
+    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && self.subscription.try(:disabled)
   end
 
   protected
