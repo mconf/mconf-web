@@ -49,7 +49,7 @@ pt-br:
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
-      confirm: "Remover"
+      confirm: "Sim"
       or: "ou"
       title: "Confirmação"
     copy_modal:
@@ -968,7 +968,7 @@ pt-br:
       my_spaces: "Minhas comunidades"
       search: "Pesquisar..."
     navbar:
-      account: "Conta"
+      account: "Gerencie sua conta"
       conference_config_tooltip: "Personalizar a sala virtual"
       conference_history_tooltip: "Histórico de webconferências"
       conference_invite_tooltip: "Convidar para webconferência"
