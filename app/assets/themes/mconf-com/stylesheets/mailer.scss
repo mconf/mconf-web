@@ -44,14 +44,14 @@ body {
     .title {
       color: $m-font-strong;
       font-size: $m-font-title;
-      line-height: $m-font-title + 1.0);
+      line-height: $m-font-title + 1.0;
       margin-bottom: 8px;
     }
 
     .subtitle {
       color: darken($m-mail-text, 5);
       font-size: $m-font-subtitle;
-      line-height: $m-font-subtitle + 1.0);
+      line-height: $m-font-subtitle + 1.0;
       margin-bottom: 40px;
     }
 
