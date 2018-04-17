@@ -26,9 +26,8 @@
           %li
             .observation= current_user.full_name
           %li.divider{ role: 'separator' }
-          %li= link_to t(".profile"), main_app.user_path(current_user)
           %li
-            = link_to  main_app.edit_user_path(current_user) do
+            = link_to  main_app.user_path(current_user) do
               = icon_options
               = t(".account")
           %li.divider{ role: "separator"}

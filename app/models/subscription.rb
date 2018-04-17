@@ -252,7 +252,7 @@ class Subscription < ActiveRecord::Base
 
   # For the disable module to disable it on Iugu
   def before_disable
-    if self.invoices.last.flag_invoice_status == Invoice::INVOICE_STATUS[:local]
+    if self.invoices.last.try(:flag_invoice_status) == Invoice::INVOICE_STATUS[:local]
       self.invoices.last.generate_consumed_days("destroy")
     end
 
@@ -261,7 +261,7 @@ class Subscription < ActiveRecord::Base
 
   # In enable it on Iugu and cancel the discount for consumed days if it is enbled on the same month it was disabled
   def before_enable
-    if self.invoices.last.flag_invoice_status == Invoice::INVOICE_STATUS[:local]
+    if self.invoices.last.try(:flag_invoice_status) == Invoice::INVOICE_STATUS[:local]
       self.invoices.last.clear_consumed_days
     end
 

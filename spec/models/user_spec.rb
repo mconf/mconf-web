@@ -1301,6 +1301,13 @@ describe User do
       end
 
     end
+    context "a user that has a subscription, his subscription must be disabled here too" do
+      skip
+    end
+
+    context "a user that has a subscription, his subscription must be enabled if he is enabled back again" do
+      skip
+    end
   end
 
   describe "#member_of?" do

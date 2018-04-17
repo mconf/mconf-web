@@ -49,7 +49,7 @@ en:
   _js:
     confirmation_dialog:
       cancel: "Cancel"
-      confirm: "Remove"
+      confirm: "Yes"
       or: "or"
       title: "Confirmation"
     copy_modal:
@@ -965,7 +965,7 @@ en:
     manage:
       title: "Management"
     navbar:
-      account: "Account"
+      account: "Manage your account"
       conference_config_tooltip: "Customize your virtual room"
       conference_history_tooltip: "History of web conferences"
       conference_invite_tooltip: "Invite people to a web conference"

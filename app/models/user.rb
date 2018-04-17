@@ -481,12 +481,15 @@ class User < ActiveRecord::Base
       controller.try(:current_user)
     }, notified: false
 
+    self.subscription.try(:disable)
+
     modify_user_after_disabled
   end
 
   # In order to clean the username and e-mail if re-enabled by admin
   def before_enable
     modify_user_after_disabled(false)
+    self.subscription.try(:enable)
   end
 
   # This will make the user "dirty" so that the same person can register again using
