@@ -100,27 +100,6 @@ en:
         join: "Room"
         subject: "Subject"
       subject: "Web conference invitation"
-  subscription_mailer:
-    subscription_created_notification_email:
-      message:
-        hello: "Hi %{name}!"
-        introduction_1: "Thank you for choosing our web conferencing service!"
-        sub_title_beggining: "Let's start?"
-        link: "From now on you can already use your web conferencing room through the link: <a href=\"%{url}\">%{url}</a>"
-        participants: "The next step is to allow other participants to join. You just need to send them the <b>room link</b> and the <b>password</b> below:"
-        password: "Participant password: %{participant_password}"
-        attention: "<b>Attention:</b> instruct the participants to <b>always</b> join the conference using their <b>full name</b>, as it is through the name that we identify unique users and generate the usage reports."
-        end: "Through this service you can: share knowledge by offering live lessons; promote discussions on subjects covered through chat; perform presentations for up to 350 connected users <em>simultaneously</em>; make notes using the blackboard; record your classes or presentations to watch later or share with participants and more!"
-        sub_title_go_beyond: "Go beyond!"
-        more: "<ul> <li>Customize your room with the logo and colors of your company. <b>No extra charges</b>;</li> <li>Integrate with the LMS (Learning Management System) of your choice. Available: <b>Moodle; WordPress; Canvas;</b></li> <li>Provide a custom access link directly from your web site.</li></ul>"
-        contact: "Please contact us for more information! <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "%{name}: Your subscription was successfully created."
-    subscription_destroyed_notification_email:
-      message:
-        hello: "Hi %{name},"
-        main_text: "Your subscription to Mconf has ended and your account will now be downgraded to a free plan. Thank you for subscribing to Mconf!"
-        contact: "For further questions please contact us at <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
-      subject: "%{name}: Your subscription had ended."
   shared:
     invitation_email:
       message:

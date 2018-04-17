@@ -8,6 +8,18 @@ require "spec_helper"
 
 describe ParticipantConfirmationMailer do
 
+  shared_examples 'footer e-mail' do
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.e_mail')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.footer_title')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.adress')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
+    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
+    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
+    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+  end
+
   describe '.confirmation_email' do
     let(:participant) { FactoryGirl.create(:participant, email: 'son@icbo.om') }
     let(:pc) { FactoryGirl.create(:participant_confirmation, participant: participant) }
@@ -15,6 +27,7 @@ describe ParticipantConfirmationMailer do
     let(:url) { participant_confirmation_events_path(token: pc.token, host: Site.current.domain) }
 
     context "in the standard case" do
+      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
       it("sets 'to'") { mail.to.should eql([pc.email]) }
       it("sets 'subject'") {
         text = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name)
@@ -35,6 +48,7 @@ describe ParticipantConfirmationMailer do
       it("sends a link to the confirmation page") {
         mail_content(mail).should match(url)
       }
+      it_behaves_like 'footer e-mail'
     end
 
     context "uses the current site's locale if the receiver has no locale set" do

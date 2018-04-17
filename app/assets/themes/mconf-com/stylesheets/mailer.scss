@@ -3,19 +3,12 @@
 @import "definitions";
 
 body {
-  padding: 5px;
-  background: $m-mail-background;
-  font-family: $m-font-family;
-  color: $m-mail-text;
-  line-height: 1.5em;
-
   a {
     @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
     text-decoration: $m-link-decoration;
     &:hover, &:active, &:focus { text-decoration: $m-link-decoration-hover; }
     &:focus { color: lighten($m-link-color-active, 7); }
   }
-
   #logo {
     text-align: center;
     margin: 8px auto 16px auto;
@@ -146,6 +139,27 @@ body {
     padding-top: 24px;
     text-align: center;
     font-size: 0.9em;
+  }
+  .mail_title{
+    color: $m-mail-header-footer-color;
+    font-weight: $m-font-weight-bold;
+  }
+  .box_image{
+    img{
+      width: 50%;
+      height: auto;
+      max-height: 240px;
+      float: left;
+      margin-top: 10px;
+    }
+    ul {
+      display: grid;
+    }
+    .text_ident{
+      color: $m-mail-header-footer-color;
+      font-weight: $m-font-weight-bold;
+      text-indent: 5%;
+    }
   }
 }
 

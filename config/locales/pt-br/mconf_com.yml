@@ -1,7 +1,7 @@
 ---
 pt-br:
   _other:
-    hi_name: "Olá, %{name}"
+    hi_name: "Olá, %{name}!"
     mailers:
       contact: "Para mais informações entre em contato conosco em <a href='mailto:%{mail}'>%{mail}</a>."
       unsubscribe: "Caso queira cancelar sua assinatura, acesse a página <a href='%{link}'>conta</a> e clique na opção para cancelar sua conta."
@@ -22,15 +22,6 @@ pt-br:
       new:
         description: "A mensagem de boas vindas que você recebeu por e-mail ao se registrar tem um link para confirmar sua conta. Se você perdeu acesso a este e-mail você pode solicitar um novo usuando o formulário abaixo."
         title: "Reenviar e-mail de confirmação"
-    mailer:
-      confirmation_instructions:
-        confirmation_pending: "Sua conta está sendo aprovada"
-        confirmation_pending2: "Obrigado por se registrar no Mconf. Seu cadastro está sendo verificado pela nossa equipe e entraremos em contato assim que ele for aprovado."
-        subject: 'Bem vindo(a) ao Mconf!'
-        welcome: "Olá, %{email}"
-      reset_password_instructions:
-        copy_link: "(Se o botão acima não funcionar, copie e cole este endereço no seu navegador: %{url})"
-        redefine_password: "Redefinir minha senha"
   invoices:
     discount_days: "Taxa por usuário único com desconto por consumo de apenas %{qtd_d} dias (%{percent_d}%)"
     discount_users: "Taxa por usuário único com desconto por quantidade de usuários %{percent_u}%"
@@ -193,12 +184,38 @@ pt-br:
       district: "Bairro"
       country: "País"
     update: "Assinatura atualizada com sucesso"
+  subscription_mailer:
+    subscription_created_notification_email:
+      message:
+        hello: "Olá %{name}!"
+        introduction_1: "Agradecemos a preferência por nosso serviço de conferência web!"
+        sub_title_beggining: "Como acessar sua conta"
+        link: "A partir de agora você já pode utilizar sua sala de webconferência através do link: <a href=\"%{url}\">%{url}</a>"
+        webconf: "Ao acessar sua sala de webconferência informe o seu nome completo e a seguinte senha: %{participant_password}"
+        allow_particip: "Como permitir a entrada de participantes na sua sala"
+        participants: "Para permitir a entrada de participantes na sua sala de webconferência, basta fornecer o link da sala e a seguinte senha de acesso: %{participant_password}."
+        password: "Senha participante: %{participant_password}"
+        attention: "<b>É importante solicitar aos participantes que acessem a sala de webconferência sempre utilizando o nome completo, pois é através dele que identificamos os usuários únicos e geramos relatórios de uso.</b>"
+        functionality: "Funcionalidades do produto"
+        end: "Através desse serviço você poderá: compartilhar conhecimento oferecendo aulas ao vivo; promover discussões sobre os assuntos abordados através do chat; realizar apresentações para até 350 usuários conectados simultaneamente; fazer anotações utilizando a lousa; gravar suas aulas ou apresentações para assistir mais tarde ou compartilhar com os participantes e muito mais!"
+        sub_title_go_beyond: "Vá além!"
+        more: "<ul> <li>Customize sua sala com o logo e as cores da sua empresa. <b>Sem custos adicionais</b>;</li> <li>Integre com o LMS (Sistema de Gestão de Aprendizagem) da sua preferência. Disponíveis: <b>Moodle; WordPress; Canvas;</b></li> <li>Disponibilize um link de acesso personalizado diretamente do seu site.</li></ul>"
+        contact: "Entre em contato conosco para maiores informações: <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
+      subject: "%{name}: Sua assinatura foi criada com sucesso."
+    subscription_destroyed_notification_email:
+      message:
+        hello: "Ola %{name},"
+        main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
+      subject: "%{name}: Sua assinatura foi cancelada."
   trial_notifications_mailer:
     ended:
-      line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as <em>tarifas do serviço</em>, visite o site: <a href='https://mconf.com/precos'>https://mconf.com/precos</a>"
+      line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as tarifas do serviço, Clique no botão abaixo:"
       subject: "Seu período de testes chegou ao fim"
+      know_here: "Conheça nossas tarifas"
+      pricing: "https://mconf.com/pricings"
     ending_soon:
-      line1: "Seu período de testes gratuito se encerra no dia <em>%{date}</em>, mas não se preocupe! Você já é nosso assinante e não precisa tomar nenhuma ação para continuar usando o Mconf. Esperamos que esteja gostando do serviço e queira continuar conosco! "
+      line1: "oi, você assinou o Premium a algum tempo e ganhou um período de testes sem cobrança, esse período está acabando em %{date}, se você ainda está cadastrado no Premium, a partir do próximo mês você começa a receber as faturas (não se preocupe, vamos dar desconto proporcional ao dia do mês que você assinou na primeira fatura."
+      line2: "Se você não quer continuar utilizando o Premium, basta cancelar sua assinatura na sua pagina de <a href='%{link}'>conta</a>, e se você já tinha cancelado, está tudo certo, você não receberá nenhuma cobrança."
       subject: "Seu período de testes está chegando ao fim"
   user:
     usage:

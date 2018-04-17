@@ -174,9 +174,11 @@ class Invoice < ActiveRecord::Base
 
   def get_invoice_payment_data
     invoices = Mconf::Iugu.fetch_user_invoices(self.subscription.customer_token)
-    if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
-      self.update_attributes(invoice_token: invoices.first.attributes['id'], invoice_url: invoices.first.attributes['secure_url'])
-      self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:pending])
+    unless invoices.blank
+      if self.due_date.strftime('%Y-%m') == invoices.first.attributes['due_date'].to_date.strftime('%Y-%m')
+        self.update_attributes(invoice_token: invoices.first.attributes['id'], invoice_url: invoices.first.attributes['secure_url'])
+        self.update_attributes(flag_invoice_status: Invoice::INVOICE_STATUS[:pending])
+      end
     end
   end
 

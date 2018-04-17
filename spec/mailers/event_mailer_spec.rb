@@ -10,8 +10,20 @@ describe EventMailer do
   let(:invitation) { FactoryGirl.create(:event_invitation) }
   let(:mail) { EventMailer.invitation_email(invitation.id) }
 
-  describe '.invitation_email' do
+  shared_examples 'footer e-mail' do
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.e_mail')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.footer_title')) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.adress')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
+    it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
+    it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
+    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
+    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
+    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+  end
 
+  describe '.invitation_email' do
+    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
     context "if there's no recipient set in the invitation" do
       before {
         @invitation = Invitation.find(invitation.id)
@@ -94,6 +106,7 @@ describe EventMailer do
         mail_content(mail).should match(Regexp.escape(content))
       }
     end
+    it_behaves_like 'footer e-mail'
   end
 
   context "calls the error handler on exceptions" do
