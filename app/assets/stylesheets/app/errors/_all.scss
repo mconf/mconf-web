@@ -104,14 +104,14 @@ $m-z-index-footer: 0;
     max-width: 70%;
     margin: -83px auto;
     text-align: center;
-    @include font-size($m-font-title);
-    line-height: calculate-px($m-font-title) + 6px;
+    font-size: $m-font-title;
+    line-height: $m-font-title + 6px;
     color: $m-text;
     font-weight: $m-font-weight-bold;
 
     p {
-      @include font-size($m-font-title);
-      line-height: calculate-px($m-font-title) + 6px;
+      font-size: $m-font-title;
+      line-height: $m-font-title + 6px;
     }
   }
 
