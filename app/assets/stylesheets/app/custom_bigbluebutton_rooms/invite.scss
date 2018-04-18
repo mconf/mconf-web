@@ -6,22 +6,27 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
-#content #error-wrapper #error404-logo {
-  @include make-sm-column(6);
+#content #error-wrapper {
+  #error404-logo {
+    @include make-sm-column(6);
 
-  margin: 272px -70px 0 -45px;;
-  float: none;
-  padding: 10%;
-  overflow: visible;
+    margin: 120px -117px 0 -5px;
+    float: none;
+    padding: 11%;
+    overflow: visible;
 
-  background: image-url('logos/Notebook_online.png') no-repeat top;
-  background-size: contain;
-  height: 70%;
-  width: 70%;
-}
+    background: image-url('logos/404_Conference_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
 
-&.error {
-  background: linear-gradient(90deg, $m-error-notification 50%, $m-site-bg-color 50%);
+  .error-description {
+    max-width: 40%;
+    float: right;
+    padding-top: 265px;
+    padding-right: 10%;
+  }
 }
 
 &.running {
@@ -41,7 +46,7 @@ body.custom_bigbluebutton_rooms.auth {
   }
 }
 
-&:not(.running):not(.error) {
+&:not(.running) {
   background: linear-gradient(90deg, $m-background-meeting-off 50%, $m-site-bg-color 50%);
 
   #login_page {
