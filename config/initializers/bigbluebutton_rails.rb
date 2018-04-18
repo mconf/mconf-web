@@ -105,7 +105,7 @@ Rails.application.config.to_prepare do
       else
         if self.owner.is_a?(User)
           # subscribed users have no limit, all others have a limit
-          if self.owner.subscription.try(:disabled)
+          if self.owner.subscription.try(:disabled) || self.owner.subscription.blank?
             Rails.application.config.free_attendee_limit
           else
             nil

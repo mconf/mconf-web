@@ -699,7 +699,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: Rails.application.config.free_attendee_limit })
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
-                room.stub(:fetch_meeting_info).and_return({ participantCount: 1 })
+                room.stub(:fetch_meeting_info).and_return({ participantCount: Rails.application.config.free_attendee_limit - 1 })
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
@@ -715,7 +715,7 @@ describe CustomBigbluebuttonRoomsController do
                 login_as(another_user)
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
-                room.stub(:fetch_meeting_info).and_return({ participantCount: 3 })
+                room.stub(:fetch_meeting_info).and_return({ participantCount: Rails.application.config.free_attendee_limit + 1 })
               end
               before(:each) {
                 send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
@@ -731,7 +731,7 @@ describe CustomBigbluebuttonRoomsController do
                 room.update_attributes({ max_participants: nil })
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
-                room.stub(:fetch_meeting_info).and_return({ participantCount: 3 })
+                room.stub(:fetch_meeting_info).and_return({ participantCount: Rails.application.config.free_attendee_limit + 1 })
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
@@ -748,7 +748,7 @@ describe CustomBigbluebuttonRoomsController do
                 login_as(another_user)
                 room.stub(:fetch_is_running?).and_return(true)
                 room.stub(:is_running?).and_return(true)
-                room.stub(:fetch_meeting_info).and_return({ participantCount: 3 })
+                room.stub(:fetch_meeting_info).and_return({ participantCount: Rails.application.config.free_attendee_limit + 1 })
                 room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
               before(:each) {
