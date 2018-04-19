@@ -14,8 +14,8 @@ feature 'Editing a user account', with_truncation: true do
   scenario "a user updating his account should go to the show page" do
     sign_in_with user.username, user.password
 
-    visit my_home_path
-    find("a[href='#{ edit_user_path(user) }']").click
+    visit user_path(user)
+    find("a[href='#{ edit_data_user_path(user) }']").click
     find("[name='commit']", match: :first).click
 
     expect(current_path).to eq(user_path(user))

@@ -1943,7 +1943,7 @@ en:
       password: "Change password"
       title: "Account"
       url: "Website"
-      user_spaces: "Membro of the spaces"
+      user_spaces: "Member of the spaces"
   username: Username
   uploader:
     attachments:

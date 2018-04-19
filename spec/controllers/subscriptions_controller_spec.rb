@@ -70,7 +70,7 @@ describe SubscriptionsController do
       let(:superuser) { FactoryGirl.create(:superuser) }
       before(:each) { login_as(superuser) }
       it { should allow_access_to(:show, hash) }
-      it { should allow_access_to(:create) }
+      it { should allow_access_to(:create, hash) }
       it { should allow_access_to(:new, hash) }
       it { should allow_access_to(:edit, hash) }
       it { should allow_access_to(:update, hash).via(:put) }
@@ -80,7 +80,7 @@ describe SubscriptionsController do
     context "for a normal user", :user => "normal" do
       before(:each) { login_as(user) }
       it { should allow_access_to(:show, hash) }
-      it { should allow_access_to(:create) }
+      it { should allow_access_to(:create, hash) }
       it { should allow_access_to(:new, hash) }
       it { should allow_access_to(:edit, hash) }
       it { should allow_access_to(:update, hash).via(:put) }
@@ -92,7 +92,7 @@ describe SubscriptionsController do
       let(:other_user) { FactoryGirl.create(:user) }
       before(:each) { login_as(other_user) }
       it { should_not allow_access_to(:show, hash) }
-      it { should allow_access_to(:create) }
+      it { should allow_access_to(:create, hash) }
       it { should allow_access_to(:new, hash) }
       it { should_not allow_access_to(:edit, hash) }
       it { should_not allow_access_to(:update, hash).via(:put) }
@@ -102,7 +102,7 @@ describe SubscriptionsController do
     context "for an anonymous user", :user => "anonymous" do
       before { sign_out(user) }
       it { should_not allow_access_to(:show, hash) }
-      it { should_not allow_access_to(:create) }
+      it { should_not allow_access_to(:create, hash) }
       it { should_not allow_access_to(:new, hash) }
       it { should_not allow_access_to(:edit, hash) }
       it { should_not allow_access_to(:update, hash).via(:put) }
