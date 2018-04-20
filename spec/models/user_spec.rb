@@ -1242,12 +1242,14 @@ describe User do
 
     context "for a user without shibboleth information" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room)}
       before { user.shib_token = nil }
-      it { user.has_enrollment_allowed_to_record?.should be(false) }
+      it { user.has_enrollment_allowed_to_record?(room).should be(false) }
     end
 
     context "for a user logged via federation" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room)}
 
       before {
         Site.current.update_attribute :allowed_to_record, default_enrollments
@@ -1260,109 +1262,183 @@ describe User do
           t
         }
         before { user.update_attribute("shib_token", token) }
-        it { user.has_enrollment_allowed_to_record?.should be(false) }
+        it { user.has_enrollment_allowed_to_record?(room).should be(false) }
       end
 
       context "without an active enrollment" do
         let(:token) { FactoryGirl.create(:shib_token, :user => user) }
-        it { user.has_enrollment_allowed_to_record?.should be(false) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room)}
+        it { user.has_enrollment_allowed_to_record?(room).should be(false) }
       end
 
       context "with a blank enrollment" do
         let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room)}
         before {
           data = token.data
           data["ufrgsVinculo"] = ""
           token.update_attribute("data", data)
         }
-        it { user.has_enrollment_allowed_to_record?.should be(false) }
+        it { user.has_enrollment_allowed_to_record?(room).should be(false) }
       end
 
-      context "with an active enrollment" do
-        context "but with a role that can't record" do
+      context "with enrollment aluno and is a admin of the space" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:space) { FactoryGirl.create(:space_with_associations)}
+          let(:room) { space.bigbluebutton_room}
+          before {
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+            space.add_member!(user, "Admin")
+          }
+          it { user.has_enrollment_allowed_to_record?(room).should be(true) }
+        end
+
+        context "with enrollment aluno and not and admin of the space, but is a member of it" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:space) { FactoryGirl.create(:space_with_associations)}
+          let(:room) { space.bigbluebutton_room}
+          before {
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+            space.add_member!(user, "User")
+          }
+          it { user.has_enrollment_allowed_to_record?(room).should be(false) }
+        end
+
+        context "with enrollment aluno and not a member of the space" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:space) { FactoryGirl.create(:space_with_associations)}
+          let(:room) { space.bigbluebutton_room}
           before {
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_enrollment_allowed_to_record?.should be(false) }
+          it { user.has_enrollment_allowed_to_record?(room).should be(false) }
+        end
+
+        context "admin of a space and has no enrollment" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:space) { FactoryGirl.create(:space_with_associations)}
+          let(:room) { space.bigbluebutton_room}
+          before {
+            data = token.data
+            data["ufrgsVinculo"] = ""
+            token.update_attribute("data", data)
+            space.add_member!(user, "Admin")
+          }
+          it { user.has_enrollment_allowed_to_record?(room).should be(false) }
+        end
+
+        context "either admin or enrollment aluno, but a member of the space" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:space) { FactoryGirl.create(:space_with_associations)}
+          let(:room) { space.bigbluebutton_room}
+          before {
+            data = token.data
+            data["ufrgsVinculo"] = ""
+            token.update_attribute("data", data)
+            space.add_member!(user, "User")
+          }
+          it { user.has_enrollment_allowed_to_record?(room).should be(false) }
+        end
+
+      context "with an active enrollment" do
+        context "but with a role that can't record" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:room) { FactoryGirl.create(:bigbluebutton_room)}
+          before {
+            data = token.data
+            data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+            token.update_attribute("data", data)
+          }
+          it { user.has_enrollment_allowed_to_record?(room).should be(false) }
         end
 
         default_enrollments.each do |enrollment|
           context "as '#{enrollment}'" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            let(:room) { FactoryGirl.create(:bigbluebutton_room)}
             before {
               data = token.data
               data["ufrgsVinculo"] = "ativo:2:#{enrollment}:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
               token.update_attribute("data", data)
             }
-            it("can record") { user.has_enrollment_allowed_to_record?.should be(true) }
+            it("can record") { user.has_enrollment_allowed_to_record?(room).should be(true) }
           end
         end
 
         context "ignores accents when matching the enrollment" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:room) { FactoryGirl.create(:bigbluebutton_room)}
           before {
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:Funcionario de Fundacoes da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_enrollment_allowed_to_record?.should be(true) }
+          it { user.has_enrollment_allowed_to_record?(room).should be(true) }
         end
 
         context "works with special characters, reserved for regexps" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:room) { FactoryGirl.create(:bigbluebutton_room)}
           before {
             Site.current.update_attribute :allowed_to_record, "TA?cnico..\A/dministrati[^6]"
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:TA?cnico..\A/dministrati[^6]:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_enrollment_allowed_to_record?.should be(true) }
+          it { user.has_enrollment_allowed_to_record?(room).should be(true) }
         end
 
         context "transliterates the target enrollment before comparing" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:room) { FactoryGirl.create(:bigbluebutton_room)}
           before {
             Site.current.update_attribute :allowed_to_record, "TA?cnico-Administrativo"
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:TÃ©cnico-Administrativo:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_enrollment_allowed_to_record?.should be(true) }
+          it { user.has_enrollment_allowed_to_record?(room).should be(true) }
         end
 
         context "transliterates the configure enrollments before comparing" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          let(:room) { FactoryGirl.create(:bigbluebutton_room)}
           before {
             Site.current.update_attribute :allowed_to_record, "TÃ©cnico-Administrativo"
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:TA?cnico-Administrativo:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_enrollment_allowed_to_record?.should be(true) }
+          it { user.has_enrollment_allowed_to_record?(room).should be(true) }
         end
 
         context "with more than one active enrollment" do
           context "and one allows recording" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            let(:room) { FactoryGirl.create(:bigbluebutton_room)}
             before {
               data = token.data
               data["ufrgsVinculo"] = "ativo:11:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
               token.update_attribute("data", data)
             }
-            it { user.has_enrollment_allowed_to_record?.should be(true) }
+            it { user.has_enrollment_allowed_to_record?(room).should be(true) }
           end
 
           context "but none allows recording" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            let(:room) { FactoryGirl.create(:bigbluebutton_room)}
             before {
               data = token.data
               data["ufrgsVinculo"] = "ativo:11:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
               token.update_attribute("data", data)
             }
-            it { user.has_enrollment_allowed_to_record?.should be(false) }
+            it { user.has_enrollment_allowed_to_record?(room).should be(false) }
           end
         end
       end
@@ -1371,13 +1447,14 @@ describe User do
     context "allowed_to_record is empty meaning nobody can record" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room)}
       before {
         Site.current.update_attribute :allowed_to_record, []
         data = token.data
         data["ufrgsVinculo"] = "ativo:12:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
         token.update_attribute("data", data)
       }
-      it { user.has_enrollment_allowed_to_record?.should be(false) }
+      it { user.has_enrollment_allowed_to_record?(room).should be(false) }
     end
   end
 
