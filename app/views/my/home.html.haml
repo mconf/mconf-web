@@ -6,12 +6,26 @@
 
 #user-free-home
   %h1= t('.subscribe_promo')
-  .promo-card
-    #empty-home-logo
-  .promo-card
-    #empty-home-logo
-  .promo-card
-    #empty-home-logo
+
+  #cards
+    .promo-card
+      #content-strip.container-fluid
+        #room-users-logo
+        %h5.title=t('.rooms_users_title')
+        %h5=t('.rooms_users')
+    .promo-card
+      #content-strip.container-fluid
+        #integration-logo
+        %h5.title=t('.integration_title')
+        %h5=t('.integration')
+    .promo-card
+      #content-strip.container-fluid
+        #personalization-logo
+        %h5.title=t('.personalization_title')
+        %h5=t('.personalization')
+
+  #plans-button
+    = link_to t('.plans_button'), class: "btn btn-primary"
 
 / - cls = @meetings.count <= 0 ? 'empty' : ''
 / #user-meetings-recordings{ class: cls }

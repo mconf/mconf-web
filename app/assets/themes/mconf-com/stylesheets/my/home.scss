@@ -11,19 +11,69 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
       margin: 0 auto;
       line-height: 1.4;
     }
-    .promo-card {
 
+    #cards {
+      @include make-sm-column(12);
+      @include make-md-column(10);
+      @include make-sm-column-offset(0);
+      @include make-md-column-offset(1);
 
-      #empty-home-logo {
-        margin: 60px auto 0 auto;
-        float: right;
-        padding: 8%;
-        overflow: visible;
+      margin-top: 80px;
 
-        background: image-url('Play_webconference.png') no-repeat top;
-        background-size: contain;
-        height: 70%;
-        width: 70%;
+      .promo-card {
+        @include make-sm-column(10);
+        @include make-md-column(4);
+        @include make-sm-column-offset(1);
+        @include make-md-column-offset(0);
+
+        #content-strip {
+          @include make-sm-column(10);
+          @include make-sm-column-offset(1);
+
+          margin-left: 20px;
+          text-align: center;
+          overflow: visible !important;
+          display: block !important;
+          height: 430px;
+
+          h5.title {
+            color: $m-color-primary-soft;
+            font-weight: $m-font-weight-bold;
+          }
+
+          #room-users-logo {
+            margin: 0 auto;
+            padding: 25%;
+            overflow: visible;
+
+            background: image-url('Rooms_users.png') no-repeat top;
+            background-size: contain;
+            height: 62%;
+            width: 70%;
+          }
+
+          #integration-logo {
+            margin: 0 auto;
+            padding: 25%;
+            overflow: visible;
+
+            background: image-url('Integration.png') no-repeat top;
+            background-size: contain;
+            height: 60%;
+            width: 70%;
+          }
+
+          #personalization-logo {
+            margin: 0 auto;
+            padding: 22%;
+            overflow: visible;
+
+            background: image-url('Personalization.png') no-repeat top;
+            background-size: contain;
+            height: 58%;
+            width: 70%;
+          }
+        }
       }
     }
   }

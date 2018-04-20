@@ -84,6 +84,13 @@ pt-br:
       social: "Siga nos em:"
   my:
     home:
+      integration_title: "Integração"
+      integration: "Integre sua sala com ambientes de aprendizagem virtual, como Moodle, Canvas e Wordpress."
+      personalization_title: "Personalização"
+      personalization: "Personalize sua sala com a identidade visual da sua empresa."
+      plans_button: "Conheça nossos planos"
+      rooms_users_title: "Mais salas e usuários"
+      rooms_users: "Tenha um número maior de usuários e salas de webconferência."
       subscribe_promo: "Assine o Mconf e tenha mais vantagens"
   registrations:
     signup_form:
