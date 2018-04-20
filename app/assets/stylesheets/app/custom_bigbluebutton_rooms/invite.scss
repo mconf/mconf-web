@@ -21,6 +21,20 @@ body.custom_bigbluebutton_rooms.auth {
     width: 70%;
   }
 
+  #error500-logo {
+    @include make-sm-column(6);
+
+    margin: 120px -117px 0 -5px;
+    float: none;
+    padding: 11%;
+    overflow: visible;
+
+    background: image-url('logos/500_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+
   .error-description {
     max-width: 40%;
     float: right;
