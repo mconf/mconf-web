@@ -35,6 +35,12 @@
     %span.user-category
       = user_category(user)
 
+      - if user.enrollment.blank?
+        = t(".enrollment_none")
+      - else
+        = t(".enrollment", enrollment: user.enrollment)
+
+
     .current-sign-in
       = t('.last_sign_in')
       - if user.current_sign_in_at
