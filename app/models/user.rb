@@ -398,8 +398,8 @@ class User < ActiveRecord::Base
   end
 
   # Returns whether the user has a role allowed to record meetings.
-  def has_enrollment_allowed_to_record?
-    is_enrollment_allowed_to_record?(enrollment)
+  def has_enrollment_allowed_to_record?(room)
+    is_enrollment_allowed_to_record?(enrollment, room)
   end
 
   protected
@@ -442,7 +442,7 @@ class User < ActiveRecord::Base
   end
 
   # Returns whether a enrollment (a string, such as "Docente") is permitted to record meetings.
-  def is_enrollment_allowed_to_record?(enrollment)
+  def is_enrollment_allowed_to_record?(enrollment, room)
     if enrollment.blank?
       false
     else
@@ -453,6 +453,10 @@ class User < ActiveRecord::Base
       all_allowed.each do |allowed|
         allowed = I18n.transliterate(allowed)
         if enrollment_to_match.match(/#{Regexp.quote(allowed)}/i)
+          return true
+        end
+
+        if enrollment.match(/aluno/i) && (room.owner_type == Space.name && room.owner.admins.include?(self))
           return true
         end
       end
