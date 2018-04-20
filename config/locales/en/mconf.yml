@@ -965,6 +965,8 @@ en:
       edit: "Edit user"
       last_sign_in: "Last login at"
       never_sign_in: "This user has never signed in"
+      enrollment: "(Enrollment: %{enrollment})"
+      enrollment_none: "(Enrollment : None)"
     menu:
       general: "General"
       spaces: "Spaces"

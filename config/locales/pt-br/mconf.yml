@@ -971,6 +971,8 @@ pt-br:
       edit: "Editar usuário"
       last_sign_in: "Último login em"
       never_sign_in: "Este usuário nunca fez login"
+      enrollment_none: "(vínculo: Nenhum)"
+      enrollment: "(Vínculo: %{enrollment})"
     menu:
       general: "Geral"
       spaces: "Comunidades"
