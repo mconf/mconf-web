@@ -79,6 +79,9 @@ en:
     mailers:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
       social: "Follow us on:"
+  my:
+    home:
+      subscribe_promo: "Subscribe to Mconf and get the most of it"
   plan:
     errors:
       no_token: "No Token returned from IUGU, aborting"

@@ -4,43 +4,52 @@
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
 
-- cls = @meetings.count <= 0 ? 'empty' : ''
-#user-meetings-recordings{ class: cls }
-  - if @meetings.count > 0
-    %h1= t('.hi', name: current_user.first_name)
-    %h3= t(".past_meetings.title")
-    = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
-    .content-block-footer
-      = link_to t('.past_meetings.view_more'), my_meetings_path
-  - else
-    %h1= t('.hi', name: current_user.first_name)
-    %h2= t('.no_meetings_headline')
-
+#user-free-home
+  %h1= t('.subscribe_promo')
+  .promo-card
+    #empty-home-logo
+  .promo-card
+    #empty-home-logo
+  .promo-card
     #empty-home-logo
 
-- if mod_enabled?("spaces")
-  - if @pending_requests.count > 0
-    #user-spaces-pending.content-block
-      %h3= t(".spaces.pending")
-      .content-block-middle
-        .list-container.list-tablefied
-          - @pending_requests.each do |jr|
-            = render "join_requests/list_item", jr: jr
+/ - cls = @meetings.count <= 0 ? 'empty' : ''
+/ #user-meetings-recordings{ class: cls }
+/   - if @meetings.count > 0
+/     %h1= t('.hi', name: current_user.first_name)
+/     %h3= t(".past_meetings.title")
+/     = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
+/     .content-block-footer
+/       = link_to t('.past_meetings.view_more'), my_meetings_path
+/   - else
+/     %h1= t('.hi', name: current_user.first_name)
+/     %h2= t('.no_meetings_headline')
 
-  #user-spaces
-    %h3= t(".spaces.title")
+/     #empty-home-logo
 
-    - if @user_spaces.count > 0
-      .card-container
-        - @user_spaces.each do |space|
-          - unless space.nil?
-            - is_member = @user_spaces && @user_spaces.include?(space)
-            = render "spaces/card_item", space: space
-    - else
-      = t(".spaces.no_spaces")
+/ - if mod_enabled?("spaces")
+/   - if @pending_requests.count > 0
+/     #user-spaces-pending.content-block
+/       %h3= t(".spaces.pending")
+/       .content-block-middle
+/         .list-container.list-tablefied
+/           - @pending_requests.each do |jr|
+/             = render "join_requests/list_item", jr: jr
 
-    .content-block-footer
-      = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)
-      %span= t(".spaces.or")
-      - if can?(:create, Space)
-        = link_to t(".spaces.create"), new_space_path
+/   #user-spaces
+/     %h3= t(".spaces.title")
+
+/     - if @user_spaces.count > 0
+/       .card-container
+/         - @user_spaces.each do |space|
+/           - unless space.nil?
+/             - is_member = @user_spaces && @user_spaces.include?(space)
+/             = render "spaces/card_item", space: space
+/     - else
+/       = t(".spaces.no_spaces")
+
+/     .content-block-footer
+/       = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)
+/       %span= t(".spaces.or")
+/       - if can?(:create, Space)
+/         = link_to t(".spaces.create"), new_space_path
