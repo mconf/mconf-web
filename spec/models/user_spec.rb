@@ -1281,8 +1281,8 @@ describe User do
         }
         it { user.has_enrollment_allowed_to_record?(room).should be(false) }
       end
-
-      context "with enrollment aluno and is a admin of the space" do
+      context "With enrollment aluno"
+        context "is an admin of the space" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
           let(:space) { FactoryGirl.create(:space_with_associations)}
           let(:room) { space.bigbluebutton_room}
@@ -1295,7 +1295,7 @@ describe User do
           it { user.has_enrollment_allowed_to_record?(room).should be(true) }
         end
 
-        context "with enrollment aluno and not and admin of the space, but is a member of it" do
+        context "not an admin of the space, but is a member of it" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
           let(:space) { FactoryGirl.create(:space_with_associations)}
           let(:room) { space.bigbluebutton_room}
@@ -1308,7 +1308,7 @@ describe User do
           it { user.has_enrollment_allowed_to_record?(room).should be(false) }
         end
 
-        context "with enrollment aluno and not a member of the space" do
+        context "not a member of the space" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
           let(:space) { FactoryGirl.create(:space_with_associations)}
           let(:room) { space.bigbluebutton_room}
