@@ -29,6 +29,20 @@ module ApplicationHelper
     end
   end
 
+  def clipboard_copy_icon(id, content, opt={})
+    content_tag :div, :class => 'form-group copyable-field' do
+      content_tag :div, :class => 'input-group' do
+        input_class = "#{opt[:class]} form-control hidden"
+        concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
+        concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
+        btn = content_tag :a, '', title: t('.conference_play_tooltip'), :class => 'btn-navbar open-modal tooltipped clipboard-copy', 'data-clipboard-target': "##{id}" do
+          icon_link
+        end
+        concat btn
+      end
+    end
+  end
+
   def application_version
     Mconf::VERSION
   end
