@@ -1,0 +1,55 @@
+@import "definitions";
+
+#cards {
+  @include make-sm-column(12);
+  @include make-sm-column-offset(0);
+
+  margin-top: 75px;
+
+  .promo-card {
+    @include make-sm-column(10);
+    @include make-md-column(6);
+    @include make-sm-column-offset(1);
+    @include make-md-column-offset(0);
+
+    #content-strip {
+      @include make-sm-column(10);
+      @include make-sm-column-offset(1);
+
+      text-align: center;
+      overflow: visible !important;
+      border-top: 7px solid $m-color-primary;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      display: block !important;
+      min-height: 630px;
+      padding-bottom: 0;
+
+      h3.title {
+        font-weight: $m-font-weight-bold;
+        margin-top: -30px;
+      }
+
+      h3.value {
+        color: $m-color-primary-soft;
+        font-weight: $m-font-weight-bold;
+      }
+
+      #border {
+        margin: 25px 42%;
+        border-bottom: 2px solid $m-gray;
+      }
+
+      .icon-check {
+        color: $m-success-notification;
+        margin-right: 5px;
+        vertical-align: bottom;
+      }
+
+      a.btn.btn-primary {
+        width: 55%;
+        margin-top: 25px;
+      }
+    }
+  }
+}

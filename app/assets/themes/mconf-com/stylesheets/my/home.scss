@@ -34,7 +34,7 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
           text-align: center;
           overflow: visible !important;
           display: block !important;
-          height: 430px;
+          min-height: 430px;
 
           h5.title {
             color: $m-color-primary-soft;

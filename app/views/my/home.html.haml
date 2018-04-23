@@ -25,7 +25,7 @@
         %h5=t('.personalization')
 
   #plans-button
-    = link_to t('.plans_button'), new_user_subscription_path(current_user), class: "btn btn-primary"
+    = link_to t('.plans_button'), plans_subscription_path, class: "btn btn-primary"
 
 / - cls = @meetings.count <= 0 ? 'empty' : ''
 / #user-meetings-recordings{ class: cls }

@@ -115,6 +115,7 @@ Mconf::Application.routes.draw do
 
   resource :subscription, only: [] do
     get :removed
+    get :plans
   end
 
   # routes specific for the current user

@@ -378,6 +378,10 @@ module IconsHelper
     material_icon_constructor "stars", "icon material-icons icon-stars", options
   end
 
+  def icon_check(options={})
+    material_icon_constructor "check", "icon material-icons icon-check", options
+  end
+
   private
 
   # Base method for most of the methods above

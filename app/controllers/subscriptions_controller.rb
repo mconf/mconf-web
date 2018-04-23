@@ -81,6 +81,10 @@ class SubscriptionsController < InheritedResources::Base
     # TODO: pagination stuff
   end
 
+  def plans
+    @user = current_user
+  end
+
   private
 
   def ops_error
