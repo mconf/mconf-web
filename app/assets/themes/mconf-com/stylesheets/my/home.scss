@@ -76,6 +76,16 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
         }
       }
     }
+
+    #plans-button {
+      margin: 40px auto;
+      width: 50%;
+
+      a.btn.btn-primary {
+        margin-top: 80px;
+        width: 100%;
+      }
+    }
   }
 
   #user-meetings-recordings {
