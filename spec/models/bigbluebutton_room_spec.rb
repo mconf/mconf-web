@@ -131,40 +131,24 @@ describe BigbluebuttonRoom do
           it { should be_able_to(:record_meeting, target) }
         end
 
-        context "admin without permission to record" do
+        context "enrollment aluno with no permission to record" do
           before {
-            space.add_member!(user, "Admin")
-            user.update_attributes(:can_record => false)
-          }
-          it { should_not be_able_to(:record_meeting, target) }
-        end
-        context "admin permission to record" do
-          before {
-            space.add_member!(user, "Admin")
-            user.update_attributes(:can_record => true)
-          }
-          it { should be_able_to(:record_meeting, target) }
-        end
-        context "enrollment aluno and is an admin and have permission to record" do
-          before {
-            space.add_member!(user, "Admin")
-            user.update_attributes(:can_record => true)
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
+            user.update_attributes(:can_record => false)
           }
-          it { should be_able_to(:record_meeting, target) }
+          it { should_not be_able_to(:record_meeting, target) }
         end
 
-        context "enrollment aluno and is an admin and do not have permission to record" do
+        context "enrollment aluno with permission to record" do
           before {
-            space.add_member!(user, "Admin")
-            user.update_attributes(:can_record => false)
             data = token.data
             data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
+            user.update_attributes(:can_record => true)
           }
-          it { should_not be_able_to(:record_meeting, target) }
+          it { should be_able_to(:record_meeting, target) }
         end
 
         context "when the owner is disabled" do
