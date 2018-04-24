@@ -23,6 +23,7 @@
       %h5=icon_check + t('.integration')
       %h5=icon_check + t('.team_report')
       = link_to t('.subscribe'), new_user_subscription_path(current_user), class: "btn btn-primary"
+    %h5.observation=t('.team_observation').html_safe
   .promo-card
     #content-strip.container-fluid
       %h3.title=t('.enterprise_title')
@@ -36,3 +37,4 @@
       %h5=icon_check + t('.integration')
       %h5=icon_check + t('.enterprise_report')
       = link_to t('.subscribe'), new_user_subscription_path(current_user), class: "btn btn-primary"
+    %h5.observation=t('.enterprise_observation').html_safe
