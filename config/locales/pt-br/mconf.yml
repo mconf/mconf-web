@@ -974,6 +974,7 @@ pt-br:
     navbar:
       account: "Gerencie sua conta"
       conference_config_tooltip: "Personalizar a sala virtual"
+      conference_copy_url_tooltip: "Copiar endereço da sala"
       conference_history_tooltip: "Histórico de webconferências"
       conference_invite_tooltip: "Convidar para webconferência"
       conference_play_tooltip: "Iniciar webconferência"

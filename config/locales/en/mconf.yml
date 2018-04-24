@@ -967,6 +967,7 @@ en:
     navbar:
       account: "Manage your account"
       conference_config_tooltip: "Customize your virtual room"
+      conference_copy_url_tooltip: "Copy conference link to clipboard"
       conference_history_tooltip: "History of web conferences"
       conference_invite_tooltip: "Invite people to a web conference"
       conference_play_tooltip: "Start a web conference"

@@ -16,7 +16,7 @@
         - if can?(:create_meeting, room)
           = link_to invitation_bigbluebutton_room_path(room), class: "btn-navbar open-modal tooltipped", title: t('.conference_invite_tooltip') do
             = icon_invitation
-        = clipboard_copy_icon 'invite-url-text', join_webconf_url(room), readonly: true, class: "btn-navbar open-modal tooltipped"
+        = copy_room_url_icon 'invite-url-text', join_webconf_url(room), readonly: true, class: "btn-navbar open-modal tooltipped"
 
       %li.navbar-user-chip.dropdown.last
         .navbar-user-toggle.dropdown-toggle{ data: { toggle: 'dropdown' } }
