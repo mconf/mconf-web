@@ -128,7 +128,7 @@ pt-br:
     destroy: "Assinatura removida com sucesso"
     destroy_fail: "Assinatura não pode ser destruída, por favor, tente novamente ou entre em contato com um administrador"
     edit:
-      title: "Assinatura"
+      title: "Editar Assinatura"
       subtitle: "Informações da conta"
       address_section: "Informações de endereço"
       confirmation: "Depois de assinar você recebera um e-mail confirmando que a assintaura foi realizada com sucesso"
@@ -145,7 +145,7 @@ pt-br:
       country: "País"
     failed: "Falha na criação da assintaura"
     new:
-      form_title: "Assinatura"
+      form_title: "Criar Assinatura"
       title: "Assinar"
       subtitle: "Assinatura Premium"
       pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
@@ -163,7 +163,7 @@ pt-br:
       integration: "Integração com ambientes de aprendizagem virtual"
       rooms_customization: "Personalização de sala"
       subscribe: "Assinar"
-      title: "Planos"
+      title: "Planos de Assinatura"
       team_observation: "*<b>Tarifa mínima de R$90,00 para 15 usuários únicos.</b> Possui uma tabela de descontos conforme o crescimento do número de usuários únicos e salas simultâneas."
       team_report: "Relatórios de uso"
       team_title: "Plano Team"

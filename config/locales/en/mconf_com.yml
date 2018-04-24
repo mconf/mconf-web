@@ -167,7 +167,7 @@ en:
     destroy: "Subscription successfully removed"
     destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
-      title: "Subscription"
+      title: "Edit Subscription"
       subtitle: "Account information"
       address_section: "Address information"
       confirmation: "After subscribing you will receive an email confirmation"
@@ -195,7 +195,7 @@ en:
     failed: "Unable to create subscription"
     info: "OPS: Subscription already imported"
     new:
-      form_title: "Subscription"
+      form_title: "Create Subscription"
       title: "Subscribe"
       subtitle: "Premium Subscription"
       pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
@@ -213,7 +213,7 @@ en:
       integration: "Integration with virtual learning environments"
       rooms_customization: "Rooms customization"
       subscribe: "Subscribe"
-      title: "Plans"
+      title: "Subscription Plans"
       team_observation: "*<b>Minimum rate of R$90,00 for 15 unique users.</b> Have a discount table according growth of unique users number and simultaneous rooms."
       team_report: "User report"
       team_title: "Team Plan"
