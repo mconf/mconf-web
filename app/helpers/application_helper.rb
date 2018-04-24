@@ -29,8 +29,8 @@ module ApplicationHelper
     end
   end
 
-  def copy_room_url_icon(id, content, opt={})
-    btn = content_tag :a, '', title: t('.conference_copy_url_tooltip'), :class => 'btn-navbar open-modal clipboard-copy tooltipped', 'data-clipboard-text': "#{content}" do
+  def clipboard_copy_icon(content, opt={})
+    btn = content_tag :a, '', title: opt[:title], :class => 'btn-navbar open-modal clipboard-copy tooltipped', 'data-clipboard-text': "#{content}" do
       icon_link
     end
   end
