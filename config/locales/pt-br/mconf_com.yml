@@ -157,7 +157,7 @@ pt-br:
       title: "Planos de assinaturas"
     removed:
       title: "Assinatura cancelada"
-      description: "Sua assinatura foi cancelada com sucesso. Para assinar novamente vá para o menu de Assinatura Premium, localizado em seu perfil."
+      description: "Obrigado por nos acompanhar até aqui, e esperamos que você continue usando sua sala no plano Free (<a href='%{link}'>ver planos</a>)."
     show:
       title: "Assinatura"
       subtitle: "Assinatura Premium"

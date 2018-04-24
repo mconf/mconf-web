@@ -221,7 +221,7 @@ en:
       webconference_room_unlimited: "Webconference rooms unlimited"
     removed:
       title: "Subscription cancelled"
-      description: "Your subscription was successfully cancelled. To subscribe again go to Subscription Premium menu, in your profile."
+      description: "Thanks for working with us for all this time, we hope you keep using your room on the Free Plan (<a href='%{link}'>see plans</a>)."
     show:
       title: "Subscription"
       subtitle: "Premium Subscription"

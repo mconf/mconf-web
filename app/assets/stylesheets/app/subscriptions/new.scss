@@ -11,12 +11,11 @@ body.subscriptions.index {
     width: 80%;
     @include mconf-clearfix;
     @include make-xs-column(12);
-    @include make-sm-column(10);
-    @include make-sm-column-offset(2);
+    @include make-sm-column(9);
+    @include make-sm-column-offset(1);
 
     .container-fluid {
       background: $m-site-content-bg-color;
-      max-width: 570px;
       margin: 0 0;
       border-radius: 3px;
       box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
@@ -29,8 +28,8 @@ body.subscriptions.index {
         border-radius: 3px 3px 0 0;
         padding: 50px 10% 10px 10%;
         box-shadow: 0px 0px 12px 0px rgba(43,45,66, 0.15);
-        margin-left: -3%;
-        margin-right: -3%;
+        margin-left: -15px;
+        margin-right: -15px;
         color: $m-com-white;
 
         .resource-card {
@@ -111,7 +110,7 @@ body.subscriptions.index {
     .alert {
       text-align: center;
       margin-left: 40px;
-      margin-right: 40px;
+      max-width: 85%;
 
       .icon-mconf-info {
         color: $m-yellow;
