@@ -88,21 +88,34 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
     }
   }
 
-  #user-meetings-recordings {
-    &.empty {
-      #empty-home-logo {
-        @include make-row;
+  #user-new-home {
+    h1 {
+      margin-bottom: 45px;
+    }
 
-        margin: 60px auto 0 auto;
-        float: none;
-        padding: 8%;
-        overflow: visible;
+    h2 {
+      margin-left: 30%;
+      margin-right: 30%;
+      text-align: center;
+      font-size: $m-font-medium;
 
-        background: image-url('Play_webconference.png') no-repeat top;
-        background-size: contain;
-        height: 70%;
-        width: 70%;
+      a {
+        @include link-colors($m-color-primary-soft, $m-color-primary-soft, $m-color-primary-soft);
       }
+    }
+
+    #empty-home-logo {
+      @include make-row;
+
+      margin: 125px auto 0 auto;
+      float: none;
+      padding: 8%;
+      overflow: visible;
+
+      background: image-url('Play_webconference.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
     }
   }
 }

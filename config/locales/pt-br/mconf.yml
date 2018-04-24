@@ -1167,7 +1167,7 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       hi: "Olá, %{name}!"
-      no_meetings_headline: "Inicie sua primeira conferência e interaja a distância com outros participantes"
+      no_meetings_headline: "Bem vindo ao Mconf! Você sabia que pode convidar até %{users_number} pessoas para interagirem na sua sala de webconferência? Basta compartilhar o link da sala: "
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"

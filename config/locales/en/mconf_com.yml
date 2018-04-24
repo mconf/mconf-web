@@ -218,8 +218,8 @@ en:
       team_title: "Team Plan"
       team_users: "Up to <b>100 users</b> per meeting"
       team_value: "R$ 6,00*"
-      webconference_recording_unlimited: "Webconference recordings unlimited"
-      webconference_room_unlimited: "Webconference rooms unlimited"
+      webconference_recording_unlimited: "Unlimited webconference recordings"
+      webconference_room_unlimited: "Unlimited webconference rooms"
     removed:
       title: "Subscription cancelled"
       description: "Thanks for working with us for all this time, we hope you keep using your room on the Free Plan (<a href='%{link}'>see plans</a>)."

@@ -4,66 +4,43 @@
 = content_for :navbar_menu do
   = render "my/navbar_menu", user_spaces: @user_spaces
 
-#user-free-home
-  %h1= t('.subscribe_promo')
+- if current_user.bigbluebutton_room.meetings.count.zero?
+  #user-new-home
+    %h1= t('.hi', name: current_user.first_name)
+    %h2= t('.no_meetings_headline', users_number: Rails.application.config.free_attendee_limit)
+    %h2= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room)
+    #empty-home-logo
 
-  #cards
-    .promo-card
-      #content-strip.container-fluid
-        #room-users-logo
-        %h5.title=t('.rooms_users_title')
-        %h5=t('.rooms_users')
-    .promo-card
-      #content-strip.container-fluid
-        #integration-logo
-        %h5.title=t('.integration_title')
-        %h5=t('.integration')
-    .promo-card
-      #content-strip.container-fluid
-        #personalization-logo
-        %h5.title=t('.personalization_title')
-        %h5=t('.personalization')
+- elsif current_user.bigbluebutton_room.meetings.count > 0 && (current_user.subscription.blank? || current_user.subscription.try(:disabled))
+  #user-free-home
+    %h1= t('.subscribe_promo')
 
-  #plans-button
-    = link_to t('.plans_button'), plans_subscription_path, class: "btn btn-primary"
+    #cards
+      .promo-card
+        #content-strip.container-fluid
+          #room-users-logo
+          %h5.title=t('.rooms_users_title')
+          %h5=t('.rooms_users')
+      .promo-card
+        #content-strip.container-fluid
+          #integration-logo
+          %h5.title=t('.integration_title')
+          %h5=t('.integration')
+      .promo-card
+        #content-strip.container-fluid
+          #personalization-logo
+          %h5.title=t('.personalization_title')
+          %h5=t('.personalization')
+    #plans-button
+      = link_to t('.plans_button'), plans_subscription_path, class: "btn btn-primary"
 
-/ - cls = @meetings.count <= 0 ? 'empty' : ''
-/ #user-meetings-recordings{ class: cls }
-/   - if @meetings.count > 0
-/     %h1= t('.hi', name: current_user.first_name)
-/     %h3= t(".past_meetings.title")
-/     = render :partial => 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_home_path }
-/     .content-block-footer
-/       = link_to t('.past_meetings.view_more'), my_meetings_path
-/   - else
-/     %h1= t('.hi', name: current_user.first_name)
-/     %h2= t('.no_meetings_headline')
-
-/     #empty-home-logo
-
-/ - if mod_enabled?("spaces")
-/   - if @pending_requests.count > 0
-/     #user-spaces-pending.content-block
-/       %h3= t(".spaces.pending")
-/       .content-block-middle
-/         .list-container.list-tablefied
-/           - @pending_requests.each do |jr|
-/             = render "join_requests/list_item", jr: jr
-
-/   #user-spaces
-/     %h3= t(".spaces.title")
-
-/     - if @user_spaces.count > 0
-/       .card-container
-/         - @user_spaces.each do |space|
-/           - unless space.nil?
-/             - is_member = @user_spaces && @user_spaces.include?(space)
-/             = render "spaces/card_item", space: space
-/     - else
-/       = t(".spaces.no_spaces")
-
-/     .content-block-footer
-/       = link_to t(".spaces.view_all"), spaces_path(my_spaces: true)
-/       %span= t(".spaces.or")
-/       - if can?(:create, Space)
-/         = link_to t(".spaces.create"), new_space_path
+- else
+  #user-subscriber-home
+    %h1= t('.hi', name: current_user.first_name)
+    %h2= t('.subscribed_home')
+    %h2=icon_check + t('.user_report')
+    %h2=icon_check + t('.webconference_recording_unlimited')
+    %h2=icon_check + t('.webconference_room_unlimited')
+    %h2= t('.subscribed_link')
+    %h2= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room)
+    #empty-home-logo
