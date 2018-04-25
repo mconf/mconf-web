@@ -1192,6 +1192,7 @@ pt-br:
     meetings:
       history: "Histórico"
       no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
+      no_recordings_headline: "Ainda não existem gravações para exibir."
       recordedonly_false: "Todas webconferências"
       recordedonly_true: "Webconferências gravadas"
       subtitle: "Histórico de webconferências e gravações"
