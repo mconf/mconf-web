@@ -33,6 +33,23 @@
     right: 10px;
   }
 
+  &.toast-after-navbar {
+    right: 33%;
+    left: 33%;
+    top: $m-navbar-height * 1.5;
+    width: auto;
+
+    > div {
+      width: auto;
+      @include border-radius(0);
+    }
+
+    .toast-message {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  }
+
   > .toast-error, > .toast-warning, > .toast-success {
     background-image: none !important;
   }
@@ -71,11 +88,11 @@
 
   .toast-success {
     background-color: $m-success-notification;
-    border-bottom: $m-success-notification-border;
+    /*border-bottom: $m-success-notification-border;*/
   }
 
   .toast-error {
     background-color: $m-error-notification;
-    border-bottom: $m-error-notification-border;
+    /*border-bottom: $m-error-notification-border;*/
   }
 }
