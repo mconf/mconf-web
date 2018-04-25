@@ -53,6 +53,7 @@ en:
       or: "or"
       title: "Confirmation"
     copy_modal:
+      copied: "Copied!"
       message: Text copied to clipboard
       title: Press Ctrl+C to copy the text
   _other:

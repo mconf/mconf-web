@@ -5,7 +5,7 @@ class mconf.ClipboardCopy
     $('.clipboard-copy').each ->
       clipboardBtn = new Clipboard(this)
       clipboardBtn.on 'success', (e)->
-        showTooltip(e.trigger,'Copied!')
+        showTooltip(e.trigger,I18n.t("_js.copy_modal.copied"))
       $(this).on 'mouseout', (e)->
         mconf.Tooltip.unbindOne(e.target)
 

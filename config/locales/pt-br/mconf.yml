@@ -53,6 +53,7 @@ pt-br:
       or: "ou"
       title: "Confirmação"
     copy_modal:
+      copied: "Copiado!"
       message: Texto copiado para a área de transferência
       title: Aperte Ctrl+C para copiar o texto
   _other:
