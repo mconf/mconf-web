@@ -37,10 +37,10 @@
 - else
   #user-subscriber-home
     %h1= t('.hi', name: current_user.first_name)
-    %h2= t('.subscribed_home')
-    %h2=icon_check + t('.user_report')
-    %h2=icon_check + t('.webconference_recording_unlimited')
-    %h2=icon_check + t('.webconference_room_unlimited')
-    %h2= t('.subscribed_link')
-    %h2= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room)
+    %h4= t('.subscribed_home')
+    %h4=icon_check + t('.user_report')
+    %h4=icon_check + t('.webconference_recording_unlimited')
+    %h4=icon_check + t('.webconference_room_unlimited')
+    %h4= t('.subscribed_link')
+    %h4= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room)
     #empty-home-logo

@@ -1173,6 +1173,11 @@ pt-br:
       past_meetings:
         title: "Reuniões gravadas"
         view_more: "Ver todas reuniões e gravações"
+      subscribed_home: "Agora você pode convidar 100 pessoas para interagir na sua sala de webconferência, além de ter:"
+      subscribed_link: "Para começar a interagir com pessoas na sua sala de webconferência, compartilhe o link da sala:"
+      user_report: "Relatórios de uso"
+      webconference_recording_unlimited: "Gravações de webconferências sem limites"
+      webconference_room_unlimited: "Salas de webconferências sem limites"
       spaces:
         create: "crie uma comunidade"
         no_spaces: "Você ainda não é membro de nenhuma comunidade."
