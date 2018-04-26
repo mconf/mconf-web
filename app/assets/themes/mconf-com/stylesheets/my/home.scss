@@ -125,8 +125,8 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
     }
 
     h4 {
-      margin-left: 30%;
-      margin-right: 30%;
+      margin-left: 25%;
+      margin-right: 25%;
       text-align: center;
       font-size: $m-font-medium;
 
@@ -135,15 +135,15 @@ body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings
       }
     }
 
-    #empty-home-logo {
+    #subscriber-home-logo {
       @include make-row;
 
-      margin: 46px auto 0 auto;
+      margin: 50px auto 0 auto;
       float: none;
-      padding: 8%;
+      padding: 10%;
       overflow: visible;
 
-      background: image-url('Play_webconference.png') no-repeat top;
+      background: image-url('Subscriber_home.png') no-repeat top;
       background-size: contain;
       height: 70%;
       width: 70%;
