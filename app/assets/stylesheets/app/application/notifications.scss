@@ -33,11 +33,10 @@
     right: 10px;
   }
 
-  &.toast-after-navbar {
-    right: 33%;
-    left: 33%;
-    top: $m-navbar-height * 1.5;
-    width: auto;
+  &.toast-right-navbar {
+    right: 60px;
+    top: $m-navbar-height * 1.3;
+    width: 520px;
 
     > div {
       width: auto;

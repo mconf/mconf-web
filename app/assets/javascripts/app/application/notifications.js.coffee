@@ -3,7 +3,7 @@
 defaultOpts =
   tapToDismiss: true
   # positionClass: 'toast-top-right'
-  positionClass: 'toast-after-navbar'
+  positionClass: 'toast-right-navbar'
   iconClass: ''
   hideMethod: 'slideUp'
   hideDuration: 200
