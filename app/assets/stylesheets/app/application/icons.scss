@@ -406,6 +406,16 @@ a:not(.btn) .icon {
     vertical-align: middle;
   }
 
+  &.icon-check-circle {
+    color: $m-white;
+    vertical-align: middle;
+  }
+
+  &.icon-highlight-off {
+    color: $m-white;
+    vertical-align: middle;
+  }
+
   &.icon-event {}
   &.icon-logout {}
   &.icon-logout {}

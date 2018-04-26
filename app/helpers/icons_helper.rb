@@ -382,6 +382,14 @@ module IconsHelper
     material_icon_constructor "check", "icon material-icons icon-check", options
   end
 
+  def icon_success_notification(options={})
+    material_icon_constructor "check_circle", "icon material-icons icon-check-circle", options
+  end
+
+  def icon_error_notification(options={})
+    material_icon_constructor "highlight_off", "icon material-icons icon-highlight-off", options
+  end
+
   private
 
   # Base method for most of the methods above

@@ -75,7 +75,12 @@ showNotification = (target, type) ->
         method = toastr.warning
 
     toastr.options = opts
-    method mconf.Base.escapeHTML($target.text())
+
+    icon = ($target.find("i"))
+    message = ($target.find("span").text())
+
+    method mconf.Base.escapeHTML(message)
+    $('.toast-message').before(icon)
 
 $ ->
   mconf.Notification.bind()

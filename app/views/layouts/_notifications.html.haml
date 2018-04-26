@@ -2,5 +2,11 @@
   -#.click-to-hide
   -#  = t('click_to_hide')
   - flash.each do |name, msg|
+    - if name.eql?("success")
+      - icon = icon_success_notification
+    - else
+      - icon = icon_error_notification
+
     %div{:name => "#{name}"}
-      = msg
+      = icon
+      %span= msg

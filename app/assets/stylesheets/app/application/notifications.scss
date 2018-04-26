@@ -43,9 +43,15 @@
       @include border-radius(0);
     }
 
+    .icon {
+      vertical-align: top;
+      font-size: $m-font-icon;
+    }
+
     .toast-message {
       padding-top: 5px;
       padding-bottom: 5px;
+      display: inline-block;
     }
   }
 
