@@ -27,53 +27,130 @@ describe InvoiceNotificationReportWorker, type: :worker do
   describe "#send_all_reports" do
     let(:user2) { FactoryGirl.create(:user) }
 
-    context "if the report file exists" do
-      let(:date1) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
-      let(:date2) { DateTime.strptime('10/12/2017 02:00', "%d/%m/%Y %H:%M") }
-      let!(:subscription1) { FactoryGirl.create(:subscription, user: user) }
-      let!(:invoice1) { FactoryGirl.create(:invoice, subscription: subscription1, due_date: date1, notified: false) }
-      let!(:subscription2) { FactoryGirl.create(:subscription, user: user2) }
-      let!(:invoice2) { FactoryGirl.create(:invoice, subscription: subscription2, due_date: date2, notified: false) }
+    context "if the report file exists and invoice_status is pending and notified false" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "pending") }
 
       before {
         Invoice.any_instance.stub(:report_file_path)
           .and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
-      }
-      before(:each) { worker.send_all_reports }
-
-      it { expect(queue).to have_queue_size_of(2) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice2.id, user2.id) }
-    end
-
-    context "if the report file doesn't exist" do
-      let(:date1) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
-      let(:date2) { DateTime.strptime('10/12/2017 02:00', "%d/%m/%Y %H:%M") }
-      let!(:subscription1) { FactoryGirl.create(:subscription, user: user) }
-      let!(:invoice1) { FactoryGirl.create(:invoice, subscription: subscription1, due_date: date1, notified: false) }
-      let!(:subscription2) { FactoryGirl.create(:subscription, user: user2) }
-      let!(:invoice2) { FactoryGirl.create(:invoice, subscription: subscription2, due_date: date2, notified: false) }
-
-      before {
-        Invoice.any_instance.stub(:report_file_path)
-          .and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
-        File.should_receive(:exists?).once.and_return(true)
-        File.should_receive(:exists?).once.and_return(false)
       }
       before(:each) { worker.send_all_reports }
 
       it { expect(queue).to have_queue_size_of(1) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
-      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id) }
+      it { expect(queue).to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file exists and invoice_status is pending and notified true" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: true,flag_invoice_status: "pending") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file exists and invoice_status is not pending and notified is false" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "local") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file exists and invoice_status is not pending and notified is true" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: true,flag_invoice_status: "local") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file doesn't exist and invoice_status is pending and notified false" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "pending") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/noFiles"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file doesn't exist and invoice_status is pending and notified true " do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: true,flag_invoice_status: "pending") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/noFiles"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file doesn't exist and invoice_status is not pending and notified false" do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "local") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/noFiles"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
+    end
+
+    context "if the report file doesn't exist and invoice_status is not pending and notified true " do
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: true,flag_invoice_status: "local") }
+
+      before {
+        Invoice.any_instance.stub(:report_file_path)
+          .and_return(File.join(Rails.root, "spec/fixtures/noFiles"))
+      }
+      before(:each) { worker.send_all_reports }
+
+      it { expect(queue).to have_queue_size_of(0) }
+      it { expect(queue).not_to have_queued(paramsSendReport, invoice.id, user.id) }
     end
 
     context "doesn't resend subscriptions already sent" do
-      let(:date1) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
-      let(:date2) { DateTime.strptime('10/12/2017 02:00', "%d/%m/%Y %H:%M") }
-      let!(:subscription1) { FactoryGirl.create(:subscription, user: user) }
-      let!(:invoice1) { FactoryGirl.create(:invoice, subscription: subscription1, due_date: date1, notified: false) }
-      let!(:subscription2) { FactoryGirl.create(:subscription, user: user2) }
-      let!(:invoice2) { FactoryGirl.create(:invoice, subscription: subscription2, due_date: date2, notified: true) }
+      let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
+      let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
+      let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "pending") }
 
       before {
         Invoice.any_instance.stub(:report_file_path)
@@ -82,15 +159,14 @@ describe InvoiceNotificationReportWorker, type: :worker do
       before(:each) { worker.send_all_reports }
 
       it { expect(queue).to have_queue_size_of(1) }
-      it { expect(queue).to have_queued(paramsSendReport, invoice1.id, user.id) }
-      it { expect(queue).not_to have_queued(paramsSendReport, invoice2.id, user2.id) }
+      it { expect(queue).to have_queued(paramsSendReport, invoice.id, user.id) }
     end
   end
 
   describe "#send_report" do
     let(:date) { DateTime.strptime('02/01/2015 12:00', "%d/%m/%Y %H:%M") }
     let!(:subscription) { FactoryGirl.create(:subscription, user: user) }
-    let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false) }
+    let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription, due_date: date, notified: false,flag_invoice_status: "pending") }
 
     before(:each) { worker.send_report(invoice.id, user.id) }
 
