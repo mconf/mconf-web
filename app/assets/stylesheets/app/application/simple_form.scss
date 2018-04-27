@@ -149,6 +149,10 @@
     padding: 7px;
   }
 
+  table {
+    border-collapse: collapse;
+  }
+
   table tr td {
     &.active.active,
     span.active.active {
@@ -177,7 +181,11 @@
 
   .table-condensed > tbody > tr > td {
     // more confortable padding
-    padding: 8px;
+    padding: 5px;
+  }
+
+  table tr td span {
+    width: 31%;
   }
 }
 

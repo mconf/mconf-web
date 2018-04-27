@@ -72,7 +72,7 @@ en:
     datetimepicker:
       datepick: "mm/dd/yyyy"
       datepick_rails: "%m/%d/%Y"
-      format: "mm/dd/yyyy hh:ii Z"
+      format: "M dd yyyy, hh:ii"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
