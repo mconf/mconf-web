@@ -24,6 +24,8 @@
 
       = f.input :title, as: :string, label: t('activerecord.attributes.invite.title')
       = f.input :message, as: :text, label: t('activerecord.attributes.invite.message'), required: false
+      = f.label :copy, t('activerecord.attributes.invite.copy')
+      = clipboard_copy_field 'invite-url-text', join_webconf_url(@room), readonly: true
 
     .modal-footer
       = f.button :wrapped, t('_other.send'), disabled: true, cancel_modal: true, class: "btn-primary"

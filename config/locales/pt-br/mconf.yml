@@ -170,6 +170,7 @@ pt-br:
           6h: "6 horas"
           12h: "12 horas"
       invite:
+        copy: "Copiar endereço da webconferência"
         duration: "Duração"
         ends_on: "Acaba em"
         message: "Descrição"

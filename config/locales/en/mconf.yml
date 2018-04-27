@@ -175,6 +175,7 @@ en:
           6h: "6 hours"
           12h: "12 hours"
       invite:
+        copy: "Copy webconference link"
         duration: "Duration"
         ends_on: "Ends on"
         message: "Description"

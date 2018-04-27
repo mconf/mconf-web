@@ -2,8 +2,25 @@
 @import "definitions";
 
 .copyable-field {
+  .form-control[readonly] {
+    background-color: $m-white;
+    color: $m-medium-gray;
+    border-right: 0;
+    &:focus {
+      border: $m-sf-field-border-focused;
+    }
+  }
+
+  .btn {
+    background-color: $m-white;
+    padding: 7px;
+    border-left: 0;
+  }
+
   .icon {
+    font-size: $m-icon-font-size;
     margin-top: 0;
+    color: $m-icon-gray;
   }
 }
 
