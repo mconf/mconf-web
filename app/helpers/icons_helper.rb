@@ -387,7 +387,7 @@ module IconsHelper
   end
 
   def icon_error_notification(options={})
-    material_icon_constructor "highlight_off", "icon material-icons icon-highlight-off", options
+    material_icon_constructor "cancel", "icon material-icons icon-cancel-notification", options
   end
 
   private

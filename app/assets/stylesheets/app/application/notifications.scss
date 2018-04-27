@@ -36,7 +36,7 @@
   &.toast-right-navbar {
     right: 60px;
     top: $m-navbar-height * 1.3;
-    width: 520px;
+    width: 720px;
 
     > div {
       width: auto;
@@ -53,6 +53,7 @@
       padding-bottom: 5px;
       display: inline-block;
       max-width: 80%;
+      text-align: left;
     }
   }
 

@@ -411,7 +411,7 @@ a:not(.btn) .icon {
     vertical-align: middle;
   }
 
-  &.icon-highlight-off {
+  &.icon-cancel-notification {
     color: $m-white;
     vertical-align: middle;
   }
@@ -438,5 +438,5 @@ a:not(.btn) .icon {
   &.icon-profile {}
   &.icon-join-request {}
   &.icon-list {}
-  &.icon-externa-link {}
+  &.icon-external-link {}
 }
