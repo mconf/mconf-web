@@ -80,26 +80,21 @@ body.custom_bigbluebutton_rooms.auth {
   #webconf-room-invite {
     width: 42%;
     float: right;
-    padding-right: 20%;
-    margin-top: -13%;
-    margin-right: -6%;
+    padding-right: 8%;
+    margin-top: -12%;
 
     .form-group {
       h3 {
-        color: $m-titles;
-        margin-top: 8px;
-        margin-bottom: 30px;
-        padding: 8px 4px;
-        border-radius: $m-border-radius-base;
-        font-size: $m-font-title;
+        text-align: left;
+        margin-bottom: 16px;
         font-weight: $m-font-weight-bold;
-        text-align: center;
+        font-size: $m-font-title;
       }
 
-      .welcome {
-        color: $m-color-primary-soft;
-        font-size: $m-font-normal;
-        text-align: center;
+      .description-status {
+        color: $m-text;
+        font-size: $m-font-medium;
+        text-align: left;
       }
 
       .change-name {
@@ -122,7 +117,8 @@ body.custom_bigbluebutton_rooms.auth {
     .form-actions {
       border: none;
       padding-top: 0;
-      margin-top: 15%;
+      margin-top: 30px;
+      margin-bottom: 30px;
 
       input {
         padding: 15px;

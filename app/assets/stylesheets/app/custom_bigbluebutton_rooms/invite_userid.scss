@@ -69,22 +69,20 @@ body.custom_bigbluebutton_rooms.invite_userid {
     padding-right: 8%;
     margin-top: -13%;
 
-    #webconf-room-userid-member {
-    }
-
-    #webconf-room-userid-non-member {
-      @include make-row;
-    }
-
     .identify {
       text-align: center;
     }
 
     h3.title {
-      text-align: center;
+      text-align: left;
       margin-bottom: 16px;
       font-weight: $m-font-weight-bold;
-      font-size: $m-font-normal;
+      font-size: $m-font-title;
+    }
+
+    h4 {
+      font-size: $m-font-medium;
+      margin-bottom: 30px;
     }
 
     .form-actions {
@@ -95,6 +93,91 @@ body.custom_bigbluebutton_rooms.invite_userid {
       input {
         padding: 15px;
         width: 100%;
+      }
+    }
+
+    .social-btns {
+      @include mconf-clearfix;
+
+      .btn {
+        @include link-colors(#fff, #fff, #fff, #fff);
+        width: 100%;
+        font-size: $m-font-normal;
+        padding: 12px;
+        display: block;
+      }
+
+      .btn-facebook {
+        $bg-normal: $m-facebook;
+        $bg-hover: $m-facebook-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+          padding-right: 51px;
+        }
+
+        img {
+          float: left;
+          border-right: 1px solid $m-dark-blue;
+          height: 50px;
+          width: 51px;
+        }
+      }
+
+      .btn-google {
+        $bg-normal: $m-google;
+        $bg-hover: $m-google-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+          padding-right: 51px;
+        }
+
+        img {
+          float: left;
+          border-right: 1px solid $m-dark-red;
+          height: 50px;
+          width: 51px;
+        }
+      }
+
+      .btn-guest {
+        $bg-normal: $m-color-primary-soft;
+        $bg-hover: $m-color-primary-soft-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+        }
       }
     }
   }
