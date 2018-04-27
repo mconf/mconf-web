@@ -256,4 +256,5 @@ en:
       message:
         header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
         link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
+        link: "To open your invoice payment page, please click here: <a href=\"%{url}\">%{url}</a>"
     subject: "Invoice report"

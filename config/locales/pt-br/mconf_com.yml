@@ -240,4 +240,5 @@ pt-br:
       message:
         header: "Olá %{name}, você está recebendo em anexo a fatura de sua inscrição no canal do Mconf."
         link: "Para abrir sua fatura, por favor clique aqui: <a href=\"%{url}\">%{url}</a>"
+        link2: Para abrir sua pagina de pagamento, por favor clique aqui <a href=\"%{url}\">%{url}</a>"
     subject: "Fatura do mês."

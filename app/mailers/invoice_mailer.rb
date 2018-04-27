@@ -7,9 +7,9 @@
 
 class InvoiceMailer < BaseMailer
   def invoice_report_email(user_id, invoice_id)
-    invoice = Invoice.find(invoice_id)
+    @invoice = Invoice.find(invoice_id)
     @user = User.find(user_id)
-    content = File.read(invoice.report_file_path)
+    content = File.read(@invoice.report_file_path)
     I18n.with_locale(default_email_locale(@user, nil)) do
       subject = t("invoice_mailer.subject").html_safe
       attachments['report.pdf'] = { mime_type: 'application/pdf', content: content }

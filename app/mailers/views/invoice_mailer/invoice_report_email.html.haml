@@ -3,4 +3,6 @@
 %p.content
   = t('.message.header', name: @user.name).html_safe
 
-%p= t('.message.link', url: user_subscription_url(@user.username)).html_safe
+%p= t('.message.link', url: user_invoices_url(@user.username)).html_safe
+
+%p= t('.message.link2', url: @invoice.invoice_url).html_safe
