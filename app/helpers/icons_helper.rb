@@ -8,9 +8,9 @@
 module IconsHelper
 
   # Default icon that shows a tooltip with information about something
-  def icon_info(title=nil, options={})
-    icon_constructor title, "fa fa-info-circle icon icon-info", options
-  end
+  #def icon_info(title=nil, options={})
+  #  icon_constructor title, "fa fa-info-circle icon icon-info", options
+  #end
 
   # Default icon to a feed (rss)
   def icon_feed(options={})
@@ -304,6 +304,10 @@ module IconsHelper
   # Default icon that shows a tooltip with help about something
   def icon_help(options={})
     material_icon_constructor "help_outline", "icon material-icons icon icon-help", options
+  end
+
+  def icon_info(options={})
+    material_icon_constructor "info_outline", "icon material-icons icon icon-info", options
   end
 
   def icon_conference_play(options={})

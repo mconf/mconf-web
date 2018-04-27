@@ -12,7 +12,7 @@
   - if title
     .content-block-header
       %h3= t('recent.activity')
-      = icon_info t('recent_activity.tooltip')
+      = icon_info class: "tooltipped", title: t('recent_activity.tooltip')
 
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => content, :paginate => false

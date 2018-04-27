@@ -3,5 +3,5 @@
 
 %h3
   = t('.editing_recording')
-  = icon_info t('.tip')
+  = icon_info class: "tooltipped", title: t('.tip')
 = render 'custom_bigbluebutton_recordings/form', :editing => true, :recording => @recording
