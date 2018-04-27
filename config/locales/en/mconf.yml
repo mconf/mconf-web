@@ -53,6 +53,7 @@ en:
       or: "or"
       title: "Confirmation"
     copy_modal:
+      copied: "Copied!"
       message: Text copied to clipboard
       title: Press Ctrl+C to copy the text
   _other:
@@ -71,7 +72,7 @@ en:
     datetimepicker:
       datepick: "mm/dd/yyyy"
       datepick_rails: "%m/%d/%Y"
-      format: "mm/dd/yyyy hh:ii Z"
+      format: "M dd yyyy, hh:ii"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
@@ -547,29 +548,24 @@ en:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
       logout_guest: "Wrong person? Change it"
-      welcome: "Welcome to webconference room <b>%{room}</b>!"
       title: "Join room: %{name}"
+      webconference_not_running: "The webconference has not started yet by the host. Please wait."
     invite_header:
-      identify: "Please identify yourself to join"
+      identify: "You are almost entering in the room %{name}."
       not_running: "not running"
       not_running_tooltip: "The room is not open yet, there's no meeting in progress"
       running: "in progress!"
       running_tooltip: "The room is open, there's a meeting in progress!"
       status_unknown: "unknown"
+      webconference_running: "Login and don't be late, the webconference has already started."
+      webconference_not_running: "Take your time to login, the webconference has not started yet."
       welcome: "Virtual room"
     invite_userid:
-      login: "Login"
-      login_certificate: "Login via client certificate"
-      login_federation: "Login via federation"
-      member:
-        email_or_username: "Email or username"
-        password: "Password"
-        title: "I have an account"
-      non_member:
-        join: "Join"
-        name: "Your full name"
-        title: "I don't have an account"
-      title: "Join the room: %{name}"
+      facebook: "Sign in with Facebook"
+      google: "Sign in with Google"
+      guest: "Sign in as guest"
+      subtitle: "Choose how do you want to register"
+      title: "Welcome!"
     join:
       unauth_access_to_conferences: "You need to sign in before you can join this conference."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
@@ -967,6 +963,7 @@ en:
     navbar:
       account: "Manage your account"
       conference_config_tooltip: "Customize your virtual room"
+      conference_copy_url_tooltip: "Copy conference link to clipboard"
       conference_history_tooltip: "History of web conferences"
       conference_invite_tooltip: "Invite people to a web conference"
       conference_play_tooltip: "Start a web conference"
@@ -1163,11 +1160,13 @@ en:
         other: "Other"
         today: "Today"
       hi: "Hi, %{name}!"
-      no_meetings_headline: "Welcome to Mconf! Start your first conference and interact with other participants"
+      no_meetings_headline: "Welcome to Mconf! Do you know that you can invite up to %{users_number} people to interact in your webconference room? Just share your room link: "
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       past_meetings:
         title: "Recorded meetings"
         view_more: "View all meetings and recordings"
+      subscribed_home: "Now besides inviting up to 100 people to interact in your webconference room, you also have unlimited webconference rooms, unlimited recordings and other benefits."
+      subscribed_link: "Share your room link and interact with others participants!"
       spaces:
         create: "create a space"
         no_spaces: "You're still not a member of any space."
@@ -1943,7 +1942,7 @@ en:
       password: "Change password"
       title: "Account"
       url: "Website"
-      user_spaces: "Membro of the spaces"
+      user_spaces: "Member of the spaces"
   username: Username
   uploader:
     attachments:

@@ -376,7 +376,7 @@ describe Invoice do
     let(:invoice) { FactoryGirl.create(:invoice, subscription_id: subscription.id, days_consumed: nil) }
     let(:sub_token) { invoice.subscription.subscription_token }
     let(:subitems) { [{"id"=>"EF62061C3FEE499782858DF5272C309D", "description"=>"CONTENT", "quantity"=>000, "price_cents"=>000, "recurrent"=>false, "price"=>"R$ 0,00", "total"=>"R$ 000,00"}] }
-    before { Mconf::Iugu.stub(:get_invoice_items).and_return(subitems) }
+    before { Mconf::Iugu.stub(:get_invoice_items).and_return([]) }
     #generation of invoice value will be stubbed to return all scenarios for a regular user (non-integrator)
     context "post an invoice" do
       before { Invoice.any_instance.stub(:generate_invoice_value).and_return({:discounts=>{},
@@ -385,6 +385,7 @@ describe Invoice do
 
       it "posted a regular invoice" do
         invoice.post_invoice_to_ops
+        invoice.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:posted])
       end
     end
 
@@ -553,6 +554,68 @@ describe Invoice do
         subject
         target.invoice_url.should eql("https://faturas.iugu.com/c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7")
         target.invoice_token.should eql("C963AAF1125D4AFCA1FCC83F494947FF")
+        target.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:pending])
+      end
+    end
+  end
+
+  describe "closing the invoice" do
+    context "#close" do
+      let(:target) { FactoryGirl.create(:invoice) }
+      subject { target.close }
+
+      it "should update the flag to closed" do
+        target.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:local])
+        subject
+        target.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:closed])
+      end
+    end
+  end
+
+  describe "checking if the last invoice is already paid for" do
+    context "#check_payment" do
+      let(:target) { FactoryGirl.create(:invoice, flag_invoice_status: Invoice::INVOICE_STATUS[:pending]) }
+      let(:paid_invoice_iugu) { ::Iugu::Subscription.new(@attributes={
+        "id"=>"C963AAF1125D4AFCA1FCC83F494947FF", "due_date"=>"2017-10-10",
+        "currency"=>"BRL", "discount_cents"=>nil, "email"=>"shughes@flipstorm.info",
+        "notification_url"=>nil, "return_url"=>nil, "status"=>"paid", "tax_cents"=>nil,
+        "updated_at"=>"2017-11-13T05:46:42-02:00", "total_cents"=>2222, "total_paid_cents"=>0,
+        "paid_at"=>nil, "taxes_paid_cents"=>nil, "paid_cents"=>nil, "cc_emails"=>nil, "payable_with"=>"all",
+        "overpaid_cents"=>nil, "ignore_due_email"=>true, "ignore_canceled_email"=>nil, "advance_fee_cents"=>nil,
+        "commission_cents"=>nil, "early_payment_discount"=>false, "secure_id"=>"c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7",
+        "secure_url"=>"https://faturas.iugu.com/c963aaf1-125d-4afc-a1fc-c83f494947ff-84e7",
+        "customer_id"=>"7A9E0083A898485F875590DFF4597549", "customer_ref"=>"Diana Medina",
+        "customer_name"=>"Diana Medina", "user_id"=>nil, "total"=>"R$ 22,22", "taxes_paid"=>"R$ 0,00",
+        "total_paid"=>"R$ 0,00", "total_overpaid"=>"R$ 0,00", "commission"=>"R$ 0,00", "fines_on_occurrence_day"=>nil,
+        "total_on_occurrence_day"=>nil, "fines_on_occurrence_day_cents"=>nil, "total_on_occurrence_day_cents"=>nil,
+        "financial_return_date"=>nil, "advance_fee"=>nil, "paid"=>"R$ 0,00", "interest"=>nil, "discount"=>nil,
+        "created_at"=>"03/11, 15:26 h", "refundable"=>nil, "installments"=>nil, "transaction_number"=>1111, "payment_method"=>nil,
+        "created_at_iso"=>"2017-11-03T15:26:07-02:00", "updated_at_iso"=>"2017-11-13T05:46:42-02:00", "occurrence_date"=>nil,
+        "financial_return_dates"=>nil, "bank_slip"=>nil, "items"=>[{"id"=>"77081F811FE54952AE31966491760816",
+        "description"=>"Teste 2", "price_cents"=>2222, "quantity"=>1, "created_at"=>"2017-11-03T15:26:07-02:00",
+        "updated_at"=>"2017-11-03T15:26:07-02:00", "price"=>"R$ 22,22"}], "early_payment_discounts"=>[],
+        "variables"=>[{"id"=>"8E0163AF92764E50B10FD5D5B1321004", "variable"=>"hl", "value"=>"pt-BR"},
+          {"id"=>"5B85B8FB20F4462FBEF1E31B274A7C6E", "variable"=>"last_dunning_day", "value"=>"5"},
+          {"id"=>"00C0A102A3D94BC8B98C940F3627A822", "variable"=>"payer.address.city", "value"=>"Porto Alegre"},
+          {"id"=>"8EC87DB8238B4B7AB8CA1FB3737C7086", "variable"=>"payer.address.complement", "value"=>"Casa 2"},
+          {"id"=>"EC7FECC0B27A4270B859B0A6CC12D03A", "variable"=>"payer.address.district", "value"=>"Farroupilha"},
+          {"id"=>"954056171A834DE099DDB96E99F63D20", "variable"=>"payer.address.number", "value"=>"203"},
+          {"id"=>"F12FA7DFE96143FAABFE690876DA3BE2", "variable"=>"payer.address.state", "value"=>"RS"},
+          {"id"=>"B5D7FABF86A245768E66AE8ABFC1BC9B", "variable"=>"payer.address.street", "value"=>"Avenida Paulo Gama"},
+          {"id"=>"D4CB638C2B2840BAAEA76B39D57A0977", "variable"=>"payer.address.zip_code", "value"=>"90040-060"},
+          {"id"=>"92FBA7D38A7F4623A4AC344F966501FD", "variable"=>"payer.cpf_cnpj", "value"=>"011.354.780-31"},
+          {"id"=>"E5D11B8E72DA4B25AA800AF074F686EA", "variable"=>"payer.name", "value"=>"Diana Medina"},
+          {"id"=>"BD53D47C07F243D2B789B31B49882D6B", "variable"=>"payment_data.transaction_number", "value"=>"1111"}],
+        "custom_variables"=>[], "logs"=>[{"id"=>"5D788A674E5041209371A855F8DF5CF1", "description"=>"Invoice viewed!",
+          "notes"=>"Invoice viewed!", "created_at"=>"07/11, 10:50 h"}]})
+      }
+      before { Mconf::Iugu.stub(:fetch_invoice).and_return(paid_invoice_iugu) }
+      subject { target.check_payment }
+
+      it "should update the flag to paid" do
+        target.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:pending])
+        subject
+        target.flag_invoice_status.should eql(Invoice::INVOICE_STATUS[:paid])
       end
     end
   end

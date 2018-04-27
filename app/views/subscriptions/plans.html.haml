@@ -1,0 +1,40 @@
+- page_title t('.title')
+
+= content_for :navbar_menu do
+  = render "my/navbar_menu"
+
+= content_for :sidebar do
+  .sidebar-title= t('.title')
+
+= content_for :sidebar_menu do
+  = render :partial => 'users/menu'
+
+#cards
+  .promo-card
+    #content-strip.container-fluid
+      %h3.title=t('.team_title')
+      %h3.value=t('.team_value')
+      #border
+      %h5=t('.webconference_room_unlimited')
+      %h5=t('.team_users').html_safe
+      %h5=t('.webconference_recording_unlimited')
+      %h5=icon_check + t('.invitation')
+      %h5=icon_check + t('.rooms_customization')
+      %h5=icon_check + t('.integration')
+      %h5=icon_check + t('.team_report')
+      = link_to t('.subscribe'), new_user_subscription_path(current_user), class: "btn btn-primary"
+    %h5.observation=t('.team_observation').html_safe
+  .promo-card
+    #content-strip.container-fluid
+      %h3.title=t('.enterprise_title')
+      %h3.value=t('.enterprise_value')
+      #border
+      %h5=t('.webconference_room_unlimited')
+      %h5=t('.enterprise_users')
+      %h5=t('.webconference_recording_unlimited')
+      %h5=icon_check + t('.invitation')
+      %h5=icon_check + t('.rooms_customization')
+      %h5=icon_check + t('.integration')
+      %h5=icon_check + t('.enterprise_report')
+      = link_to t('.subscribe'), new_user_subscription_path(current_user), class: "btn btn-primary"
+    %h5.observation=t('.enterprise_observation').html_safe

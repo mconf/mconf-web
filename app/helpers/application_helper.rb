@@ -29,6 +29,12 @@ module ApplicationHelper
     end
   end
 
+  def clipboard_copy_icon(content, opt={})
+    btn = content_tag :a, '', title: opt[:title], :class => 'btn-navbar open-modal clipboard-copy tooltipped', 'data-clipboard-text': "#{content}" do
+      icon_link
+    end
+  end
+
   def application_version
     Mconf::VERSION
   end

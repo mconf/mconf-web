@@ -24,7 +24,6 @@ feature 'User accesses an URL of a user that' do
     subject { page }
 
     it { should have_title(t('error.e404.title')) }
-    it { should have_content(t('error.e404.title')) }
     it { should have_content(t('error.e404.description', :url => user_path(:id => 'nonexistent'))) }
     it { page.status_code.should == 404 }
   end

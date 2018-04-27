@@ -2,21 +2,151 @@
 
 body.my.home.theme-mconf-com, body.my.activity.theme-mconf-com, body.my.meetings.theme-mconf-com {
 
-  #user-meetings-recordings {
-    &.empty {
-      #empty-home-logo {
-        @include make-row;
+  #user-free-home {
+    h1 {
+      font-weight: $m-font-weight-bold;
+      font-size: $m-font-title;
+      color: $m-titles;
+      text-align: center;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
 
-        margin: 60px auto 0 auto;
-        float: none;
-        padding: 8%;
-        overflow: visible;
+    #cards {
+      @include make-sm-column(12);
+      @include make-md-column(10);
+      @include make-sm-column-offset(0);
+      @include make-md-column-offset(1);
 
-        background: image-url('Play_webconference.png') no-repeat top;
-        background-size: contain;
-        height: 70%;
-        width: 70%;
+      margin-top: 80px;
+
+      .promo-card {
+        @include make-sm-column(10);
+        @include make-md-column(4);
+        @include make-sm-column-offset(1);
+        @include make-md-column-offset(0);
+
+        #content-strip {
+          @include make-sm-column(10);
+          @include make-sm-column-offset(1);
+
+          margin-left: 20px;
+          text-align: center;
+          overflow: visible !important;
+          display: block !important;
+          min-height: 430px;
+
+          h5.title {
+            color: $m-color-primary-soft;
+            font-weight: $m-font-weight-bold;
+          }
+
+          #room-users-logo {
+            margin: 0 auto;
+            padding: 25%;
+            overflow: visible;
+
+            background: image-url('Rooms_users.png') no-repeat top;
+            background-size: contain;
+            height: 62%;
+            width: 70%;
+          }
+
+          #integration-logo {
+            margin: 0 auto;
+            padding: 25%;
+            overflow: visible;
+
+            background: image-url('Integration.png') no-repeat top;
+            background-size: contain;
+            height: 60%;
+            width: 70%;
+          }
+
+          #personalization-logo {
+            margin: 0 auto;
+            padding: 22%;
+            overflow: visible;
+
+            background: image-url('Personalization.png') no-repeat top;
+            background-size: contain;
+            height: 58%;
+            width: 70%;
+          }
+        }
       }
+    }
+
+    #plans-button {
+      margin: 40px auto;
+      width: 50%;
+
+      a.btn.btn-primary {
+        margin-top: 80px;
+        width: 100%;
+      }
+    }
+  }
+
+  #user-new-home {
+    h1 {
+      margin-bottom: 45px;
+    }
+
+    h2 {
+      margin-left: 30%;
+      margin-right: 30%;
+      text-align: center;
+      font-size: $m-font-medium;
+
+      a {
+        @include link-colors($m-color-primary-soft, $m-color-primary-soft, $m-color-primary-soft);
+      }
+    }
+
+    #empty-home-logo {
+      @include make-row;
+
+      margin: 125px auto 0 auto;
+      float: none;
+      padding: 8%;
+      overflow: visible;
+
+      background: image-url('Play_webconference.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
+    }
+  }
+
+  #user-subscriber-home {
+    h1 {
+      margin-bottom: 45px;
+    }
+
+    h4 {
+      margin-left: 25%;
+      margin-right: 25%;
+      text-align: center;
+      font-size: $m-font-medium;
+
+      a {
+        @include link-colors($m-color-primary-soft, $m-color-primary-soft, $m-color-primary-soft);
+      }
+    }
+
+    #subscriber-home-logo {
+      @include make-row;
+
+      margin: 50px auto 0 auto;
+      float: none;
+      padding: 10%;
+      overflow: visible;
+
+      background: image-url('Subscriber_home.png') no-repeat top;
+      background-size: contain;
+      height: 70%;
+      width: 70%;
     }
   }
 }

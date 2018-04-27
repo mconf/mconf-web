@@ -79,6 +79,16 @@ en:
     mailers:
       signature: "This email was sent by Mconf Tecnologia. <br/> Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brazil. <br/> +55 51 3308.6812"
       social: "Follow us on:"
+  my:
+    home:
+      integration_title: "Integration"
+      integration: "Integrate your room with virtual learning systems, such as Moodle, Canvas and Wordpress."
+      personalization_title: "Personalization"
+      personalization: "Personalizate your room with your company's visual identity."
+      plans_button: "Know more about subscribing"
+      rooms_users_title: "More rooms and users"
+      rooms_users: "Have more users and webconference rooms."
+      subscribe_promo: "Subscribe to Mconf and get the most of it"
   plan:
     errors:
       no_token: "No Token returned from IUGU, aborting"
@@ -146,10 +156,9 @@ en:
     destroy: "Subscription successfully removed"
     destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
-      title: "Subscription"
+      title: "Edit Subscription"
       subtitle: "Account information"
       address_section: "Address information"
-      confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"
       customer_section: "Customer information"
       save: "Save"
@@ -174,7 +183,7 @@ en:
     failed: "Unable to create subscription"
     info: "OPS: Subscription already imported"
     new:
-      form_title: "Subscription"
+      form_title: "Create Subscription"
       title: "Subscribe"
       subtitle: "Premium Subscription"
       pricing_text1: "Minimum fee: <span class=\"attention\">15 users</span> (US$ 60) per month"
@@ -182,9 +191,27 @@ en:
       pricing_title: "Pricing"
       rules_text: "<p>Upon signing up, you will have <span class=\"attention\">30 days</span> (1 month) to test the service without cost! Fill the sign up form and you will be contacted in up to <span class=\"attention\">48 hours</span> with all the information you need to start using the service.</p><p>You will have a web conference room to use as you please. You will also receive an access key to add web conference into your own website (in your institution’s Learning Management System, for example).</p><p>After the trial period, you will be charged at the beginning of each month an amount equivalent to your consumption until then. Your signature will start immediately after the trial period is over and you can cancel it at any time.</p>"
       rules_title: "How it works"
+    plans:
+      enterprise_observation: "**The payment can be realized montly or anualy, with pre-fixed values. <b>Realized by contract assignature.</b>"
+      enterprise_report: "User report customized"
+      enterprise_title: "Enterprise Plan"
+      enterprise_users: "Users amount customized"
+      enterprise_value: "CUSTOMIZED**"
+      invitation: "Invitations and scheduled meetings"
+      integration: "Integration with virtual learning environments"
+      rooms_customization: "Rooms customization"
+      subscribe: "Subscribe"
+      title: "Subscription Plans"
+      team_observation: "*<b>Minimum rate of R$90,00 for 15 unique users.</b> Have a discount table according growth of unique users number and simultaneous rooms."
+      team_report: "User report"
+      team_title: "Team Plan"
+      team_users: "Up to <b>100 users</b> per meeting"
+      team_value: "R$ 6,00*"
+      webconference_recording_unlimited: "Unlimited webconference recordings"
+      webconference_room_unlimited: "Unlimited webconference rooms"
     removed:
       title: "Subscription cancelled"
-      description: "Your subscription was successfully cancelled. To subscribe again go to Subscription Premium menu, in your profile."
+      description: "Thanks for working with us for all this time, we hope you keep using your room on the Free Plan (<a href='%{link}'>see plans</a>)."
     show:
       title: "Subscription"
       subtitle: "Premium Subscription"
@@ -196,7 +223,6 @@ en:
       enable: "Enable Subscription"
       enable_confirm: "This will enable your subscription and you will be billed if you trial period already expired. Are you sure?"
       address_section: "Address information"
-      confirmation: "After subscribing you will receive an email confirmation"
       cpf_cnpj: "CPF/CNPJ"
       customer_section: "Customer information"
       save: "Save"
@@ -209,7 +235,7 @@ en:
       district: "District"
       country: "Country"
     subscription_form:
-      confirmation: "After subscribing you will receive an email confirmation"
+      confirmation: "You will receive an email confirming your subscription"
       cpf_cnpj: "CPF/CNPJ"
       customer_information: "Customer information"
       subscribe: "Subscribe"

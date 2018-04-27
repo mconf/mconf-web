@@ -175,15 +175,23 @@ class User < ActiveRecord::Base
     user = User.find_by(email: data['email'])
 
     unless user
-      user = User.create(username: data['name'].parameterize,
+      user = User.new(username: data['name'].parameterize,
         email: data['email'],
         profile_attributes: { full_name: data['name'] },
         password: Devise.friendly_token[0,20]
       )
       user.skip_confirmation!
+      user.save!
+      user.create_notification_omniauth
     end
 
     user
+  end
+
+  def create_notification_omniauth
+    RecentActivity.create(
+      key: 'omniauth.user.created', owner: self, trackable: self, notified: false
+    )
   end
 
   # make sure there will always be a profile
@@ -446,7 +454,7 @@ class User < ActiveRecord::Base
   end
 
   def exceeded_recording_limit_free_account
-    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && self.subscription.try(:disabled)
+    self.bigbluebutton_room.recordings.count >= Rails.application.config.free_rec_limit && (self.subscription.try(:disabled) || self.subscription.blank?)
   end
 
   protected

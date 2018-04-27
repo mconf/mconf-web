@@ -3,7 +3,7 @@
 defaultOpts =
   tapToDismiss: true
   # positionClass: 'toast-top-right'
-  positionClass: 'toast-top-full-width'
+  positionClass: 'toast-right-navbar'
   iconClass: ''
   hideMethod: 'slideUp'
   hideDuration: 200
@@ -53,20 +53,20 @@ showNotification = (target, type) ->
       when "success"
         method = toastr.success
         opts = $.extend {}, defaultOpts,
-          timeOut: 0
+          timeOut: 6000
           extendedTimeOut: 5000
       when "error"
         method = toastr.error
         opts = $.extend {}, defaultOpts,
           force: true
-          timeOut: 0
+          timeOut: 6000
           extendedTimeOut: 5000
       when "warning", "warn", "alert"
         # method = toastr.warning
         method = toastr.error
         opts = $.extend {}, defaultOpts,
           force: true
-          timeOut: 0
+          timeOut: 6000
           extendedTimeOut: 5000
 
       # this should never happen, but leave it here so it shows a
@@ -75,7 +75,12 @@ showNotification = (target, type) ->
         method = toastr.warning
 
     toastr.options = opts
-    method mconf.Base.escapeHTML($target.text())
+
+    icon = ($target.find("i"))
+    message = ($target.find("span").text())
+
+    method mconf.Base.escapeHTML(message)
+    $('.toast-message').before(icon)
 
 $ ->
   mconf.Notification.bind()

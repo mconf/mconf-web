@@ -53,6 +53,7 @@ pt-br:
       or: "ou"
       title: "Confirmação"
     copy_modal:
+      copied: "Copiado!"
       message: Texto copiado para a área de transferência
       title: Aperte Ctrl+C para copiar o texto
   _other:
@@ -70,7 +71,7 @@ pt-br:
     datetimepicker:
       datepick: "dd/mm/yyyy"
       datepick_rails: "%d/%m/%Y"
-      format: "dd/mm/yyyy hh:ii Z"
+      format: "dd M yyyy, hh:ii"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
@@ -541,29 +542,24 @@ pt-br:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
       logout_guest: "Pessoa errada? Modificar"
-      welcome: "Bem vindo à sala de conferência <b>%{room}</b>!"
       title: "Acessar sala: %{name}"
+      webconference_not_running: "A webconferência ainda não foi iniciada pelo apresentador. Por favor aguarde."
     invite_header:
-      identify: "Por favor se identifique para entrar"
+      identify: "Você está prester a entrar na sala %{name}."
       not_running: "não iniciada"
       not_running_tooltip: "A sala ainda não está aberta, não há uma reunião em andamento"
       running: "em andamento!"
       running_tooltip: "A sala está aberta, há uma reunião em andamento!"
       status_unknown: "desconhecido"
+      webconference_running: "Faça seu login e não se atrase, pois a webconferência já foi iniciada."
+      webconference_not_running: "Faça seu login tranquilo, pois a webconferência ainda não iniciou."
       welcome: "Sala virtual"
     invite_userid:
-      login: "Entrar"
-      login_certificate: "Login via certificado"
-      login_federation: "Login via federação"
-      member:
-        email_or_username: "E-mail ou nome de usuário"
-        password: "Senha"
-        title: "Já tenho uma conta"
-      non_member:
-        join: "Entrar"
-        name: "Seu nome completo"
-        title: "Não tenho uma conta"
-      title: "Acessar sala: %{name}"
+      facebook: "Entrar com o Facebook"
+      google: "Entrar com o Google"
+      guest: "Entrar como convidado"
+      subtitle: "Escolha como deseja se identificar"
+      title: "Bem-vindo!"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
@@ -974,6 +970,7 @@ pt-br:
     navbar:
       account: "Gerencie sua conta"
       conference_config_tooltip: "Personalizar a sala virtual"
+      conference_copy_url_tooltip: "Copiar endereço da sala"
       conference_history_tooltip: "Histórico de webconferências"
       conference_invite_tooltip: "Convidar para webconferência"
       conference_play_tooltip: "Iniciar webconferência"
@@ -1166,11 +1163,13 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       hi: "Olá, %{name}!"
-      no_meetings_headline: "Inicie sua primeira conferência e interaja a distância com outros participantes"
+      no_meetings_headline: "Bem vindo ao Mconf! Você sabia que pode convidar até %{users_number} pessoas para interagirem na sua sala de webconferência? Basta compartilhar o link da sala: "
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"
         view_more: "Ver todas reuniões e gravações"
+      subscribed_home: "Agora além de convidar até 100 pessoas para interagir na sua sala de webconferência, você também tem um número ilimitado de salas e gravações de suas reuniões, entre outros benefícios."
+      subscribed_link: "Compartilhe o link da sua sala e colabore com outros participantes!"
       spaces:
         create: "crie uma comunidade"
         no_spaces: "Você ainda não é membro de nenhuma comunidade."
@@ -1185,6 +1184,7 @@ pt-br:
     meetings:
       history: "Histórico"
       no_meetings_headline: "Ainda não existem conferências ou gravações para exibir"
+      no_recordings_headline: "Ainda não existem gravações para exibir."
       recordedonly_false: "Todas webconferências"
       recordedonly_true: "Webconferências gravadas"
       subtitle: "Histórico de webconferências e gravações"

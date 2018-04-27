@@ -33,6 +33,30 @@
     right: 10px;
   }
 
+  &.toast-right-navbar {
+    right: 60px;
+    top: $m-navbar-height * 1.3;
+    width: 720px;
+
+    > div {
+      width: auto;
+      @include border-radius(0);
+    }
+
+    .icon {
+      vertical-align: top;
+      font-size: $m-font-icon;
+    }
+
+    .toast-message {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      display: inline-block;
+      max-width: 80%;
+      text-align: left;
+    }
+  }
+
   > .toast-error, > .toast-warning, > .toast-success {
     background-image: none !important;
   }
@@ -71,11 +95,11 @@
 
   .toast-success {
     background-color: $m-success-notification;
-    border-bottom: $m-success-notification-border;
+    /*border-bottom: $m-success-notification-border;*/
   }
 
   .toast-error {
     background-color: $m-error-notification;
-    border-bottom: $m-error-notification-border;
+    /*border-bottom: $m-error-notification-border;*/
   }
 }

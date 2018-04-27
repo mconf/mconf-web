@@ -6,8 +6,31 @@
 
 body.custom_bigbluebutton_rooms.invite_userid {
 
+#content #error-wrapper {
+  #error404-logo {
+    @include make-sm-column(6);
+
+    margin: 120px -117px 0 -5px;
+    float: none;
+    padding: 11%;
+    overflow: visible;
+
+    background: image-url('logos/404_Conference_Error.png') no-repeat top;
+    background-size: contain;
+    height: 70%;
+    width: 70%;
+  }
+
+  .error-description {
+    max-width: 40%;
+    float: right;
+    padding-top: 265px;
+    padding-right: 10%;
+  }
+}
+
 &.running {
-  background: linear-gradient(90deg, #85AE98 50%, #F2F2F2 50%);
+  background: linear-gradient(90deg, $m-background-meeting-on 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
@@ -24,7 +47,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
 }
 
 &:not(.running) {
-  background: linear-gradient(90deg, #2B2D41 50%, #F2F2F2 50%);
+  background: linear-gradient(90deg, $m-background-meeting-off 50%, $m-site-bg-color 50%);
 
   #login_page {
     @include make-sm-column(6);
@@ -46,22 +69,20 @@ body.custom_bigbluebutton_rooms.invite_userid {
     padding-right: 8%;
     margin-top: -13%;
 
-    #webconf-room-userid-member {
-    }
-
-    #webconf-room-userid-non-member {
-      @include make-row;
-    }
-
     .identify {
       text-align: center;
     }
 
     h3.title {
-      text-align: center;
+      text-align: left;
       margin-bottom: 16px;
       font-weight: $m-font-weight-bold;
-      font-size: $m-font-normal;
+      font-size: $m-font-title;
+    }
+
+    h4 {
+      font-size: $m-font-medium;
+      margin-bottom: 30px;
     }
 
     .form-actions {
@@ -72,6 +93,91 @@ body.custom_bigbluebutton_rooms.invite_userid {
       input {
         padding: 15px;
         width: 100%;
+      }
+    }
+
+    .social-btns {
+      @include mconf-clearfix;
+
+      .btn {
+        @include link-colors(#fff, #fff, #fff, #fff);
+        width: 100%;
+        font-size: $m-font-normal;
+        padding: 12px;
+        display: block;
+      }
+
+      .btn-facebook {
+        $bg-normal: $m-facebook;
+        $bg-hover: $m-facebook-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+          padding-right: 51px;
+        }
+
+        img {
+          float: left;
+          border-right: 1px solid $m-dark-blue;
+          height: 50px;
+          width: 51px;
+        }
+      }
+
+      .btn-google {
+        $bg-normal: $m-google;
+        $bg-hover: $m-google-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+          padding-right: 51px;
+        }
+
+        img {
+          float: left;
+          border-right: 1px solid $m-dark-red;
+          height: 50px;
+          width: 51px;
+        }
+      }
+
+      .btn-guest {
+        $bg-normal: $m-color-primary-soft;
+        $bg-hover: $m-color-primary-soft-hover;
+
+        background: $bg-normal;
+        padding: 0;
+        border: 0;
+        margin-bottom: 22px;
+
+        &:hover {
+          background: $bg-hover;
+        }
+
+        span {
+          padding: 15px;
+          display: block;
+        }
       }
     }
   }

@@ -5,36 +5,28 @@
 #login_page
 
 #webconf-room-userid
-  #webconf-room-userid-member
-    %h3.title= t(".member.title")
+  %h3.title= t(".title")
 
-    - show_login = current_site.local_auth_enabled? || current_site.ldap_enabled?
-    - if show_login
-      = simple_form_for "user", url: user_session_path do |f|
-        .form-group
-          %label= t(".member.email_or_username")
-          = text_field_tag "user[login]", "", required: true, autofocus: true, class: 'form-control'
-        .form-group
-          %label= t(".member.password")
-          = password_field_tag "user[password]", "", required: true, class: 'form-control'
-        .form-actions
-          = f.button :submit, t(".login"), :class => "btn btn-primary"
+  %h4= t(".subtitle")
 
-    %ul#login-extra-links
-      - if current_site.shib_enabled?
-        %li= link_to t('.login_federation'), shibboleth_path(create: false)
-      - if current_site.certificate_login_enabled?
-        %li= certificate_auth_link t('.login_certificate'), false
+  / - if current_site.unauth_access_to_conferences?
+  /   #webconf-room-userid-non-member
+  /     %h3.title= t(".non_member.title")
 
-  - if current_site.unauth_access_to_conferences?
-    #webconf-room-userid-non-member
-      %h3.title= t(".non_member.title")
-
-      = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
-        .form-group
-          %label= t(".non_member.name")
-          = text_field_tag "user[name]", "", required: true, class: 'form-control'
-        .form-actions
-          = f.button :submit, t(".non_member.join"), :class => "btn btn-primary"
-
-  = render partial: 'shared/social_login'
+  /     = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
+  /       .form-group
+  /         %label= t(".non_member.name")
+  /         = text_field_tag "user[name]", "", required: true, class: 'form-control'
+  /       .form-actions
+  /         = f.button :submit, t(".non_member.join"), :class => "btn btn-primary"
+  .social-btns
+    - if current_site.social_login_enabled?("facebook")
+      = link_to user_omniauth_authorize_path(:facebook), class: 'btn btn-large btn-facebook' do
+        = icon_login_facebook
+        %span= t('.facebook')
+    - if current_site.social_login_enabled?("google")
+      = link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-large btn-google' do
+        = icon_login_google
+        %span= t('.google')
+    = link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-large btn-guest' do
+      %span= t('.guest')

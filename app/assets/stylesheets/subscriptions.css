@@ -3,6 +3,7 @@
  *= require ./app/subscriptions/show
  *= require ./app/subscriptions/edit
  *= require ./app/subscriptions/removed
+ *= require ./app/subscriptions/plans
  *
  * Themes: if using a theme, import it here!
  *= require mconf-com/stylesheets/subscriptions/removed

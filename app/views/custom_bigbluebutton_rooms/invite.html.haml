@@ -16,12 +16,9 @@
     .form-group
       = hidden_field_tag "user[name]", username
       %h3= username
-      .welcome= t('.welcome', room: @room.name).html_safe
-      - unless user_signed_in?
-        - if guest_user_signed_in?
-          .change-name= link_to t('.logout_guest'), logout_guest_path
-        - else
-          .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
+      .description-status
+        = t('.webconference_not_running')
+
 
     - if @user_role == :key
       .form-group.form-password
@@ -29,4 +26,6 @@
         = password_field_tag "user[key]", "", autofocus: true, class: "string form-control"
 
     .form-actions
-      = f.button :submit, t("join"), class: "btn btn-primary"
+      = f.button :submit, t("join"), class: "btn btn-primary", disabled: true
+
+    .change-name= link_to t('.logout_guest'), join_webconf_path(@room)

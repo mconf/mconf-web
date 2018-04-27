@@ -2,10 +2,11 @@
 
 #webconf-room-invite-header
   .room-welcome
-    = t(".welcome")
     .room-name= room.name
 
     .room-status{ "data-url": running_bigbluebutton_room_url(@room, format: "json") }
 
-  .identify
-    = t('.identify')
+  .description
+    = t('.identify', name: (room.name).upcase)
+    .status-text
+      = t('.webconference_not_running')
