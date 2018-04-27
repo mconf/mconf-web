@@ -11,8 +11,8 @@ class InvoiceNotificationReportWorker < BaseWorker
     send_all_reports
   end
 
-  def self.send_all_reports
-    Invoice.where(notified: false).find_each do |invoice|
+  def self.send_all_reports #filtrar melhor flag
+    Invoice.where(notified: false, flag_invoice_status: Invoice::INVOICE_STATUS[:pending]).find_each do |invoice|
       user = invoice.subscription.user
 
       if File.exists?(invoice.report_file_path)
