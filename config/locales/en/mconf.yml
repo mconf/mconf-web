@@ -547,7 +547,7 @@ en:
         searching: "Searching..."
     invite:
       field_name: "You are joining as"
-      field_password: "Enter the access key for this meeting"
+      field_password: "This meeting is private, enter the access key."
       logout_guest: "Wrong person? Change it"
       title: "Join room: %{name}"
       webconference_not_running: "The webconference has not started yet by the host. Please wait."

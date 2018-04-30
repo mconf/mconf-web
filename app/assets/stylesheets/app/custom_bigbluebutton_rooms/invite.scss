@@ -91,12 +91,6 @@ body.custom_bigbluebutton_rooms.auth {
         font-size: $m-font-title;
       }
 
-      .description-status {
-        color: $m-text;
-        font-size: $m-font-medium;
-        text-align: left;
-      }
-
       .change-name {
         font-size: $m-font-normal;
         display: block;
@@ -108,10 +102,23 @@ body.custom_bigbluebutton_rooms.auth {
           @include link-colors($normal, $hover, $hover, $normal);
         }
       }
+    }
 
-      .form-password {
-        margin-top: 32px;
+    .form-password {
+      h4 {
+        color: $m-text;
+        font-size: $m-font-medium;
       }
+
+      .form-control {
+        margin: 40px 0;
+      }
+    }
+
+    .description-status {
+      color: $m-text;
+      font-size: $m-font-medium;
+      text-align: left;
     }
 
     .form-actions {

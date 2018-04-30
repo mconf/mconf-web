@@ -16,14 +16,14 @@
     .form-group
       = hidden_field_tag "user[name]", username
       %h3= username
-      .description-status
-        = t('.webconference_not_running')
-
 
     - if @user_role == :key
       .form-group.form-password
-        %label= t(".field_password")
+        %h4= t(".field_password")
         = password_field_tag "user[key]", "", autofocus: true, class: "string form-control"
+
+    .description-status
+      = t('.webconference_not_running')
 
     .form-actions
       = f.button :submit, t("join"), class: "btn btn-primary btn-room-status", disabled: true

@@ -541,7 +541,7 @@ pt-br:
         searching: "Procurando..."
     invite:
       field_name: "Você está entrando na conferência como"
-      field_password: "Chave de acesso desta conferência"
+      field_password: "Esta sala é privada, digite a chave de acesso."
       logout_guest: "Pessoa errada? Modificar"
       title: "Acessar sala: %{name}"
       webconference_not_running: "A webconferência ainda não foi iniciada pelo apresentador. Por favor aguarde."
