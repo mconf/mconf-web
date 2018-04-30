@@ -91,7 +91,6 @@ body.subscriptions.index {
       .control-label {
         float: left;
         font-size: $m-font-medium;
-        padding-right: 20%;
         padding-left: 8%;
       }
 
@@ -99,6 +98,14 @@ body.subscriptions.index {
         max-width: 85%;
         margin-left: 42px;
         font-size: $m-font-normal;
+      }
+
+      .form-group {
+        .error-block {
+          float: left;
+          font-size: $m-font-medium;
+          margin: 0 5px;
+        }
       }
 
       h3 {
