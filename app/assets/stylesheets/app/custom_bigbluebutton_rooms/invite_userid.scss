@@ -63,7 +63,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
   }
 }
 
-  #webconf-room-userid {
+  #choose-login {
     width: 42%;
     float: right;
     padding-right: 8%;
@@ -166,8 +166,8 @@ body.custom_bigbluebutton_rooms.invite_userid {
         $bg-hover: $m-color-primary-soft-hover;
 
         background: $bg-normal;
-        padding: 0;
         border: 0;
+        padding: 15px;
         margin-bottom: 22px;
 
         &:hover {
@@ -178,6 +178,33 @@ body.custom_bigbluebutton_rooms.invite_userid {
           padding: 15px;
           display: block;
         }
+      }
+    }
+  }
+
+  #guest-login {
+    width: 42%;
+    float: right;
+    padding-right: 8%;
+    margin-top: -13%;
+
+    h3.title {
+      text-align: left;
+      margin-bottom: 16px;
+      font-weight: $m-font-weight-bold;
+      font-size: $m-font-title;
+    }
+
+    .form-actions {
+      border: none;
+      padding-top: 0;
+      margin-top: 30px;
+      margin-bottom: 30px;
+
+      input {
+        padding: 15px;
+        width: 100%;
+        font-size: $m-font-subtitle;
       }
     }
   }

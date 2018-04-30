@@ -557,10 +557,13 @@ pt-br:
       welcome: "Sala virtual"
     invite_userid:
       facebook: "Entrar com o Facebook"
+      full_name: "Escreva seu nome completo"
       google: "Entrar com o Google"
       guest: "Entrar como convidado"
+      next: "Avançar"
       subtitle: "Escolha como deseja se identificar"
       title: "Bem-vindo!"
+      title_guest: "Convidado"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."

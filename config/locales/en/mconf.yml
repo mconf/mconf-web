@@ -563,10 +563,13 @@ en:
       welcome: "Virtual room"
     invite_userid:
       facebook: "Sign in with Facebook"
+      full_name: "Write your full name"
       google: "Sign in with Google"
       guest: "Sign in as guest"
+      next: "Next"
       subtitle: "Choose how do you want to register"
       title: "Welcome!"
+      title_guest: "Guest"
     join:
       unauth_access_to_conferences: "You need to sign in before you can join this conference."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."

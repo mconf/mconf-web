@@ -26,6 +26,6 @@
         = password_field_tag "user[key]", "", autofocus: true, class: "string form-control"
 
     .form-actions
-      = f.button :submit, t("join"), class: "btn btn-primary", disabled: true
+      = f.button :submit, t("join"), class: "btn btn-primary btn-room-status", disabled: true
 
     .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
