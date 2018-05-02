@@ -1,5 +1,8 @@
 = page_title t(".title", :name => @room.name).html_safe
 
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
 - if bigbluebutton_user.nil?
   - username = params[:user].nil? ? "" : params[:user][:name]
 - else
@@ -12,10 +15,10 @@
       = hidden_field_tag "user[name]", username
       %h3= username
 
-    - if current_user.username == params[:id] || current_user.superuser?
+    - if current_user.try(:username) == params[:id] || current_user.try(:superuser?)
       .form-actions
         = f.button :submit, t('.start'), class: "btn btn-primary"
-      .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
+      .change-name= link_to t('.logout_guest'), main_app.logout_path(return_to: join_webconf_path(@room))
 
     - else
       - if @user_role == :key
@@ -27,7 +30,11 @@
         = t('.webconference_not_running')
       .form-actions
         = f.button :submit, t("join"), class: "btn btn-primary btn-room-status", disabled: true
-      .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
+
+      - if user_signed_in?
+        .change-name= link_to t('.logout_guest'), main_app.logout_path(return_to: join_webconf_path(@room))
+      - else
+        .change-name= link_to t('.logout_guest'), join_webconf_path(@room)
 
 = render partial: "invite_header", locals: { room: @room, page: 2 }
 

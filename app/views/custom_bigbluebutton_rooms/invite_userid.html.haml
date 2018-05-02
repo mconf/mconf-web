@@ -1,5 +1,8 @@
 = page_title t(".title", :name => @room.name).html_safe
 
+= content_for :navbar_menu do
+  = render "my/navbar_menu", user_spaces: @user_spaces
+
 #choose-login
   %h3= t(".title")
   %h4= t(".subtitle")
