@@ -549,9 +549,11 @@ en:
       field_name: "You are joining as"
       field_password: "This meeting is private, enter the access key."
       logout_guest: "Wrong person? Change it"
+      start: "Start"
       title: "Join room: %{name}"
       webconference_not_running: "The webconference has not started yet by the host. Please wait."
     invite_header:
+      create: "You are about to start the room %{name}."
       identify: "You are almost entering in the room %{name}."
       not_running: "not running"
       not_running_tooltip: "The room is not open yet, there's no meeting in progress"

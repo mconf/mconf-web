@@ -19,6 +19,7 @@ body.custom_bigbluebutton_rooms.auth {
     background-size: contain;
     height: 70%;
     width: 70%;
+    clear: both;
   }
 
   #error500-logo {
@@ -33,6 +34,7 @@ body.custom_bigbluebutton_rooms.auth {
     background-size: contain;
     height: 70%;
     width: 70%;
+    clear: both;
   }
 
   .error-description {
@@ -57,6 +59,7 @@ body.custom_bigbluebutton_rooms.auth {
     background-size: contain;
     height: 70%;
     width: 70%;
+    clear: both;
   }
 }
 
@@ -74,6 +77,7 @@ body.custom_bigbluebutton_rooms.auth {
     background-size: contain;
     height: 70%;
     width: 70%;
+    clear: both;
   }
 }
 
@@ -81,12 +85,11 @@ body.custom_bigbluebutton_rooms.auth {
     width: 42%;
     float: right;
     padding-right: 8%;
-    margin-top: -12%;
 
     .form-group {
       h3 {
         text-align: left;
-        margin-bottom: 16px;
+        margin: 0 0 16px 0;
         font-weight: $m-font-weight-bold;
         font-size: $m-font-title;
       }

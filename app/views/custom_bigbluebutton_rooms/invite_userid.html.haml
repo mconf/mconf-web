@@ -1,11 +1,7 @@
 = page_title t(".title", :name => @room.name).html_safe
 
-= render partial: "invite_header", locals: { room: @room, page: 1 }
-
-#login_page
-
 #choose-login
-  %h3.title= t(".title")
+  %h3= t(".title")
   %h4= t(".subtitle")
 
   .social-btns
@@ -21,7 +17,7 @@
       .btn.btn-large.btn-guest= t('.guest')
 
 #guest-login{style: "display: none"}
-  %h3.title= t(".title_guest")
+  %h3= t(".title_guest")
 
   = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
     .form-group
@@ -29,3 +25,7 @@
       = text_field_tag "user[name]", "", required: true, class: 'form-control'
     .form-actions
       = f.button :submit, t(".next"), :class => "btn btn-primary btn-guest-next", disabled: true
+
+= render partial: "invite_header", locals: { room: @room, page: 1 }
+
+#login_page
