@@ -73,7 +73,7 @@ en:
       datepick: "mm/dd/yyyy"
       datepick_rails: "%m/%d/%Y"
       format: "M dd yyyy, hh:ii"
-      format_rails: "%m/%d/%Y %H:%M"
+      format_rails: "%b %d %Y, %H:%M"
     decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
