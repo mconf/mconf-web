@@ -71,8 +71,8 @@ pt-br:
     datetimepicker:
       datepick: "dd/mm/yyyy"
       datepick_rails: "%d/%m/%Y"
-      format: "dd M yyyy, hh:ii"
-      format_rails: "%d %b %Y, %H:%M"
+      format: "dd/mm/yyyy hh:ii"
+      format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
