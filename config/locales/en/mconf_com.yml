@@ -133,6 +133,7 @@ en:
         introduction_1: "Your Team subscription on the Mconf portal came into effect!"
         text: "Now you can hold meetings with 100 participants and have an unlimited number of recordings and web conferencing rooms, among other benefits."
         end: "We appreciate your preference for our service and hope that we can make a collaborative future together."
+      subject: "%{name}: Your subscription was successfully created."
     subscription_destroyed_notification_email:
       message:
         hello: "Hi %{name},"

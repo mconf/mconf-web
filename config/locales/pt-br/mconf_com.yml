@@ -216,11 +216,14 @@ pt-br:
         hello: "Olá %{name}!"
         introduction_1: "A sua assinatura Team no portal Mconf entrou em vigor!"
         text: "Agora você pode realizar reuniões com até 100 participantes e ter um número ilimitado de gravações e salas de webconferência, entre outros benefícios."
-        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos."     
+        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos." 
+      subject: "%{name}: Sua assinatura foi criado com sucesso!"
     subscription_destroyed_notification_email:
       message:
         hello: "Ola %{name},"
         main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
+        trial_expires: "Você está cancelando sua assinatura no período de trial, você pode reativar sua assinatura e ainda ter acesso livre até <b>%{date}</b>.Nós iremos avisar quando o trial acabará.Você não receberá nenhum tipo de cobrança se você não assinar o modo Premium"
+        see_you_again: "Esperemos ver você em breve!"
       subject: "%{name}: Sua assinatura foi cancelada."
   trial_notifications_mailer:
     ended:
