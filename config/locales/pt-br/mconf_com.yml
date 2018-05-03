@@ -123,9 +123,9 @@ pt-br:
         title: "Vamos começar?"
       subject: "Seja bem vindo(a)!"
   subscriptions:
-    created: "Assinatura criada com sucesso"
+    created: "Assinatura criada!"
     denied: "Acesso negado"
-    destroy: "Assinatura removida com sucesso"
+    destroy: "Assinatura removida!"
     destroy_fail: "Assinatura não pode ser destruída, por favor, tente novamente ou entre em contato com um administrador"
     edit:
       title: "Editar Assinatura"
@@ -209,7 +209,7 @@ pt-br:
       province: "Estado"
       district: "Bairro"
       country: "País"
-    update: "Assinatura atualizada com sucesso"
+    update: "Assinatura atualizada!"
   subscription_mailer:
     subscription_created_notification_email:
       message:

@@ -115,14 +115,14 @@ en:
           no_format: "There's no playback url specified for this recording."
       notice:
         destroy:
-          success: "Your recording was successfully destroyed."
+          success: "Recording destroyed!"
           success_with_bbb_error: "The recording was successfully destroyed but it wasn't deleted from the webconference server (\"%{error}\")"
         publish:
-          success: "Your recording was successfully published."
+          success: "Recording published!"
         unpublish:
-          success: "Your recording was successfully unpublished."
+          success: "Recording unpublished!"
         update:
-          success: "Your recording was successfully updated."
+          success: "Recording updated!"
     rooms:
       default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
       default_welcome_msg_dial_number: "<br>You can call into this conference with a regular phone using the number \"%%DIALNUM%%\".<br>"
@@ -141,10 +141,10 @@ en:
         slug_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
       notice:
         create:
-          failure: "Your room could not be created."
-          success: "Your room was successfully created."
+          failure: "Room could not be created."
+          success: "Room created!"
         destroy:
-          success: "The room was successfully destroyed."
+          success: "Room destroyed."
           success_with_bbb_error: "The room was successfully destroyed but the meeting wasn't ended in the webconference server (\"%{error}\")"
         end:
           not_running: "The meeting could not be ended because it is not running."
@@ -154,8 +154,8 @@ en:
         generate_dial_number:
           success: "A unique dial number was generated and saved."
         update:
-          failure: "Your room could not be updated."
-          success: "Your room was successfully updated."
+          failure: "Room not updated!"
+          success: "Room updated!"
     servers:
       errors:
         slug_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"

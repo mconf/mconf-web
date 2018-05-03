@@ -95,14 +95,14 @@ pt-br:
           no_format: "Não há URL de playback para esta gravação"
       notice:
         destroy:
-          success: "Sua gravação foi destruída com sucesso."
+          success: "Gravação destruida!"
           success_with_bbb_error: "A gravação foi destruída com sucesso mas não foi removida do servidor de webconferência (\"%{error}\")"
         publish:
-          success: "Sua gravação foi publicada com sucesso."
+          success: "Gravação publicada!"
         unpublish:
-          success: "Sua gravação foi ocultada com sucesso."
+          success: "Gravação ocultada!"
         update:
-          success: "Sua gravação foi atualizada com sucesso."
+          success: "Gravação atualizada!"
     rooms:
       default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
       default_welcome_msg_dial_number: "<br>Você pode discar para esta conferência através de um telefone usando o número \"%%DIALNUM%%\".<br>"
@@ -121,10 +121,10 @@ pt-br:
         slug_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
       notice:
         create:
-          failure: "Sua sala não pôde ser criada."
-          success: "Sua sala foi criada com sucesso."
+          failure: "Sala não foi criada!"
+          success: "Sala criada!"
         destroy:
-          success: "A reunião foi destruída com sucesso."
+          success: "Reunião destruída!"
           success_with_bbb_error: "A sala foi destruída com sucesso mas a reunião não foi finalizada no servidor de webconferência (\"%{error}\")"
         end:
           not_running: "A reunião não pôde ser finalizada pois não está em andamento."
@@ -134,8 +134,8 @@ pt-br:
         generate_dial_number:
           success: "Um número de discagem único foi gerado e gravado."
         update:
-          failure: "Sua sala não pode ser atualizada."
-          success: "Sua sala foi atualizada com sucesso."
+          failure: "Sala não foi atualizada!"
+          success: "Sala atualizada!"
     servers:
       errors:
         slug_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"

@@ -1,6 +1,11 @@
 # https://gist.github.com/mateusg/924555
 
 pt-br:
+  flash:
+    actions:
+      destroy:
+        notice: '%{resource_name} removido!'
+        alert: '%{resource_name} removido!'
   devise:
     confirmations:
       confirmed: 'Sua conta foi confirmada com sucesso.'

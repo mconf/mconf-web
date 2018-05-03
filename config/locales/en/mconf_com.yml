@@ -151,9 +151,9 @@ en:
       line2: "If you do not want to continue using Premium, you simply cancel your subscription on your <a href='%{link}'>account</a> page, and if you had already canceled, that's fine, you will not receive any charges."
       subject: "Your trial period is ending soon"
   subscriptions:
-    created: "Subscription successfully created"
+    created: "Subscription created!"
     denied: "Access denied"
-    destroy: "Subscription successfully removed"
+    destroy: "Subscription removed!"
     destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
       title: "Edit Subscription"
@@ -247,7 +247,7 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
-    update: "Subscription successfully updated"
+    update: "Subscription updated!"
   user:
     usage:
       education: "Education"

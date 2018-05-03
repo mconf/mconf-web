@@ -306,16 +306,16 @@ en:
         failure: "Message couldn't be posted: %{errors}"
     users:
       disable:
-        notice: "User disabled successfully"
+        notice: "User disabled!"
       enable:
-        notice: "User successfully enabled"
+        notice: "User enabled!"
         failure: "User %{name} is already enabled"
         unable: "User %{name} could not be enabled (e-mail, username or room name already in use)"
     subscriptions:
       disable:
-        notice: "Subscription successfully disabled"
+        notice: "Subscription disabled!"
       enable:
-        notice: "Subscription successfully enabled"
+        notice: "Subscription enabled!"
         failure: "Subscription for %{name} is already enabled"
         unable: "Subscription for %{name} could not be enabled"
   address: Address
@@ -1867,24 +1867,24 @@ en:
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
     results_found: "Users found"
-    updated: "User updated successfully"
+    updated: "User updated!"
     vcc_email: "Mconf user e-mail %{dir}"
   users:
     approve:
-      approved: "The user %{name} was approved to access the website!"
+      approved: "User approved!"
       not_enabled: "Approval of users is not enabled in this website or the user is already approved"
     cant_record_reason:
       other: "You can't record meetings in this room"
       user_cannot_record: "You don't have permission to record meetings"
     create:
       error: "Errors creating the user: %{errors}"
-      success: "User created successfully"
+      success: "User created!"
     confirm:
       confirmed: "The user %{username} was confirmed"
     detailed_user:
       from: "From:"
     disapprove:
-      disapproved: "The user %{name} was blocked from accessing the website!"
+      disapproved: "User blocked!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
       account_info: "Account info"
