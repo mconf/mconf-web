@@ -43,5 +43,8 @@ Mconf::Application.configure do
   config.assets.compress = false # Do not compress assets
   config.assets.debug = true # Expands the lines which load the assets
 
+  config.action_controller.asset_host = 'http://localhost:3000'
+  config.action_mailer.asset_host = 'http://localhost:3000'
+
   config.eager_load = false
 end
