@@ -1,6 +1,6 @@
 #webconference-invitation-mail
 .header_image
-  =image_tag URI.join(root_url, "assets/mailer/invitation.png"), size: '494x263'
+  =image_tag "mailer/invitation.png", size: '494x263'
 .header_message
   %label=t('.message.hi', name: @invitation.recipient.full_name)
 %p=t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe

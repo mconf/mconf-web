@@ -1,5 +1,5 @@
 .header_image
-  = image_tag URI.join(root_url, "assets/mailer/assign_cancelation.png"), size: '494x263'
+  = image_tag "mailer/assign_cancelation.png", size: '494x263'
 %p.header_message
   = t('.message.hello', name: @user.name).html_safe
 

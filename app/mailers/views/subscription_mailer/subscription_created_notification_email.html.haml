@@ -1,5 +1,5 @@
 .header_image
-  = image_tag URI.join(root_url, "assets/mailer/registration.png"), size: '494x263'
+  = image_tag "mailer/registration.png", size: '494x263'
 %p.header_message
   = t('.message.hello', name: @user.name).html_safe
 
@@ -37,7 +37,7 @@
 
 %p.content
   .box_image
-    = image_tag URI.join(root_url, "assets/mailer/personalization.png"), size: '100x100'
+    = image_tag "mailer/personalization.png", size: '100x100'
     .text_ident
       = t('.message.sub_title_go_beyond').html_safe
     = t('.message.more').html_safe

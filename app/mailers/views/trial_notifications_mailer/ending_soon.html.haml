@@ -1,5 +1,5 @@
 .header_image
-  = image_tag URI.join(root_url, "assets/mailer/trial_ending_soon.png"), size: '544x263'
+  = image_tag "mailer/trial_ending_soon.png", size: '544x263'
 
 .header_message
   = t('_other.hi_name', name: @user.first_name)
