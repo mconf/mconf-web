@@ -599,7 +599,7 @@ en:
       error: "Invitation failed to be sent to:"
       error_date_format: "The dates you informed are invalid, please try again"
       error_title: "It is mandatory to include a title for your invitation, please try again"
-      success: "Invitation successfully sent to:"
+      success: "Invitation sent"
     show:
       showing_room: "Showing room '%{room}'"
     user_edit:
