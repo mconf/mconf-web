@@ -303,16 +303,16 @@ pt-br:
         failure: "Mensagem não pode ser enviada: %{errors}"
     users:
       enable:
-        notice: "Usuário habilitado com sucesso"
+        notice: "Usuário habilitado!"
         failure: "Usuário %{name} já está habilitado"
         unable: "Usuário %{name} não pode ser habilitado (e-mail, id ou nome da sala já está em uso)"
       disable:
-        notice: "Usuário %{username} desabilitado"
+        notice: "Usuário desabilitado!"
     subscriptions:
       disable:
-        notice: "Assinatura desabilitada com sucesso"
+        notice: "Assinatura desabilitada!"
       enable:
-        notice: "Assinatura habilitada com sucesso"
+        notice: "Assinatura habilitada !"
         failure: "Assinatura de %{name} já está habilitada"
         unable: "Assinatura de %{name} não pode ser desabilitada"
   admin:
@@ -1896,11 +1896,11 @@ pt-br:
       one: "Pessoas, %{users_size} resultado"
       other: "Pessoas, %{users_size} resultados"
     results_found: "Usuários encontrados"
-    updated: "Usuário atualizado com sucesso"
+    updated: "Usuário atualizado!"
     vcc_email: "E-mail do usuário Mconf %{dir}"
   users:
     approve:
-      approved: "O usuário %{name} foi aprovado para acessar este site!"
+      approved: "Usuário aprovado!"
       not_enabled: "A aprovação de registros não está habilitada neste site ou o usuário já está aprovado"
     cant_record_reason:
       other: "Você não pode gravar reuniões nesta sala"
@@ -1909,11 +1909,11 @@ pt-br:
       confirmed: "O usuário %{username} foi confirmado"
     create:
       error: "Erros ao cadastrar o usuário: %{errors}"
-      success: "Usuário cadastrado com sucesso"
+      success: "Usuário cadastrado!"
     detailed_user:
       from: "De:"
     disapprove:
-      disapproved: "O usuário %{name} foi bloqueado de acessar este site!"
+      disapproved: "Usuário bloqueado!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
       account_info: "Informações da conta"

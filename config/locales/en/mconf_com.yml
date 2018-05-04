@@ -130,19 +130,9 @@ en:
     subscription_created_notification_email:
       message:
         hello: "Hi %{name}!"
-        introduction_1: "Thank you for choosing our web conferencing service!"
-        sub_title_beggining: "How to access your room"
-        link: "From now on you can already use your web conferencing room through the link: <a href=\"%{url}\">%{url}</a>"
-        webconf: "when you access your web conferencing room, give your full name and the following access password %{participant_password}"
-        allow_particip: "how to allow participants to enter in your room "
-        participants: "To allow participants to enter your web conferencing room, simply send the link of your room and the following password %{participant_password}"
-        password: "Participant password: %{participant_password}"
-        attention: "<b>It's important to ask participants to always access the web conferencing room using their full name, as it is through them that we identify unique users and generate usage reports.</b>"
-        functionality: "Product's functionality"
-        end: "Through this service you can: share knowledge by offering live lessons; promote discussions on subjects covered through chat; perform presentations for up to 350 connected users <em>simultaneously</em>; make notes using the blackboard; record your classes or presentations to watch later or share with participants and more!"
-        sub_title_go_beyond: "Go beyond!"
-        more: "<ul> <li>Customize your room with the logo and colors of your company. <b>No extra charges</b>;</li> <li>Integrate with the LMS (Learning Management System) of your choice. Available: <b>Moodle; WordPress; Canvas;</b></li> <li>Provide a custom access link directly from your web site.</li></ul>"
-        contact: "Please contact us for more information! <a href=\"mailto:%{contact_email}\">%{contact_email}</a>"
+        introduction_1: "Your Team subscription on the Mconf portal came into effect!"
+        text: "Now you can hold meetings with 100 participants and have an unlimited number of recordings and web conferencing rooms, among other benefits."
+        end: "We appreciate your preference for our service and hope that we can make a collaborative future together."
       subject: "%{name}: Your subscription was successfully created."
     subscription_destroyed_notification_email:
       message:
@@ -162,9 +152,9 @@ en:
       line2: "If you do not want to continue using Premium, you simply cancel your subscription on your <a href='%{link}'>account</a> page, and if you had already canceled, that's fine, you will not receive any charges."
       subject: "Your trial period is ending soon"
   subscriptions:
-    created: "Subscription successfully created"
+    created: "Subscription created!"
     denied: "Access denied"
-    destroy: "Subscription successfully removed"
+    destroy: "Subscription removed!"
     destroy_fail: "Subscription couldn't be removed, please, try again or contact an admin"
     edit:
       title: "Edit Subscription"
@@ -258,7 +248,7 @@ en:
       province: "Province"
       district: "District"
       country: "Country"
-    update: "Subscription successfully updated"
+    update: "Subscription updated!"
   user:
     usage:
       education: "Education"
@@ -282,4 +272,5 @@ en:
       message:
         header: "Hello %{name}, you are receiving an attachment with the invoice report of your subscription in the Mconf channel."
         link: "To open your invoice report, please click here: <a href=\"%{url}\">%{url}</a>"
+        link: "To open your invoice payment page, please click here: <a href=\"%{url}\">%{url}</a>"
     subject: "Invoice report"

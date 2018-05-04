@@ -1,6 +1,11 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
 en:
+  flash:
+    actions:
+      destroy:
+        notice: '%{resource_name} destroyed!'
+        alert: '%{resource_name} destroyed!'
   devise:
     confirmations:
       confirmed: "Your account was successfully confirmed."

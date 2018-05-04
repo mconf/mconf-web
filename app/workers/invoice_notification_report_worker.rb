@@ -12,7 +12,7 @@ class InvoiceNotificationReportWorker < BaseWorker
   end
 
   def self.send_all_reports
-    Invoice.where(notified: false).find_each do |invoice|
+    Invoice.where(notified: false, flag_invoice_status: Invoice::INVOICE_STATUS[:pending]).find_each do |invoice|
       user = invoice.subscription.user
 
       if File.exists?(invoice.report_file_path)
