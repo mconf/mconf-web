@@ -11,8 +11,11 @@ module Abilities
       abilities_for_bigbluebutton_rails(user)
 
       # Users
-      can [:index, :show, :fellows, :current, :select], User
+      can [:index, :fellows, :current, :select], User
       can [:edit, :update, :disable, :update_logo, :edit_data, :password_edit, :remove_logo], User, id: user.id
+      can [:show], User do |target_user|
+        user == target_user
+      end
       can :update_password, User do |target_user|
         user == target_user &&
           (Site.current.local_auth_enabled? && target_user.local_auth?)
