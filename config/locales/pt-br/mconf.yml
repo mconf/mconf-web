@@ -564,7 +564,7 @@ pt-br:
       guest: "Entrar como convidado"
       next: "Avançar"
       subtitle: "Escolha como deseja se identificar"
-      title: "Bem-vindo!"
+      title: "Bem-vindo(a)!"
       title_guest: "Convidado"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
@@ -766,7 +766,7 @@ pt-br:
     create:
       success: "Sua mensagem foi enviada com sucesso, obrigado!"
     new:
-      note: "Envie suas sugestões, dúvidas ou qualquer outro comentário que tiver! Tentaremos responder o mais rapidamente possível."
+      note: "Envie suas sugestões, dúvidas ou comentários."
       title: "Contato"
     send: "Enviar"
     webconf:
@@ -943,12 +943,12 @@ pt-br:
   latest_events: "Últimos eventos"
   layouts:
     mailers:
-      question: "Duvidas? Entre em contato conosco!"
+      question: "Dúvidas? Entre em contato conosco!"
       e_mail: "contato@mconf.com"
-      footer_title: "Esse e-mail foi encaminhado pela empresa mconf."
+      footer_title: "Esse e-mail foi encaminhado pela <a href=\"https://mconf.com\">Mconf Tecnologia</a>"
       adress: "Av. Bento Gonçalves, 9500, Porto Alegre/RS - Brasil"
-      phone: "+55 51 33086812"
-      unsubscribe : "Descadastre-se caso não queira receber mais e-mails"
+      phone: "+55 51 3308-6812"
+      unsubscribe : "Descadastre-se caso não queira mais receber e-mails"
     footer:
       copyright: "© %{year} %{site} - Powered by Mconf. Visite: <a href=\"%{link}\">%{link_name}</a>."
       current_version: "Versão atual"
@@ -1169,13 +1169,13 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       hi: "Olá, %{name}!"
-      no_meetings_headline: "Bem vindo ao Mconf! Você sabia que pode convidar até %{users_number} pessoas para interagirem na sua sala de webconferência? Basta compartilhar o link da sala: "
+      no_meetings_headline: "Você sabia que pode convidar até %{users_number} pessoas para interagirem na sua sala de webconferência? Basta compartilhar o link da sala: "
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       past_meetings:
         title: "Reuniões gravadas"
         view_more: "Ver todas reuniões e gravações"
-      subscribed_home: "Agora além de convidar até 100 pessoas para interagir na sua sala de webconferência, você também tem um número ilimitado de salas e gravações de suas reuniões, entre outros benefícios."
-      subscribed_link: "Compartilhe o link da sua sala e colabore com outros participantes!"
+      subscribed_home: "Agora além de convidar até 100 pessoas para interagir na sua sala de webconferência, você também tem um número ilimitado de gravações em suas reuniões, entre outros benefícios."
+      subscribed_link: "Compartilhe o link da sua sala e colabore com outros participantes:"
       spaces:
         create: "crie uma comunidade"
         no_spaces: "Você ainda não é membro de nenhuma comunidade."
@@ -1344,7 +1344,7 @@ pt-br:
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
     one: Registre-se
     or_choose: "ou você pode ir"
-    thank_you: "Bem-vindo e obrigado por registrar-se no %{sitename}"
+    thank_you: "Bem-vindo(a) e obrigado por se registrar no %{sitename}"
   register_as_admin: "Registe-se como administrador"
   register_as_invited: "Registe-se como convidado"
   register_as_user: "Registe-se como usuário"

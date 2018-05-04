@@ -28,10 +28,11 @@ pt-br:
       confirmation_instructions:
         redefine: "Redefina Aqui"
         confirmation_link: "Confirme minha conta"
-        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
+        confirmation_ok: "Clique no link abaixo para confirmar sua conta:"
         confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
         subject: 'Registro realizado com sucesso'
-        welcome: "Bem-vindo %{email}!"
+        welcome: "Bem-vindo(a) %{email}!"
+        welcome_name: "Bem-vindo(a), %{name}!"
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
         greeting: "Olá %{name}!"
@@ -43,7 +44,7 @@ pt-br:
         subject: 'Instruções de desbloqueio'
     omniauth_callbacks:
       failure: 'Não foi possível autenticá-lo como %{kind} porque "%{reason}".'
-      success: 'Autenticado com sucesso com uma conta de %{kind}.'
+      success: 'Autenticado com sucesso.'
     passwords:
       no_token: "Você só pode acessar essa página através de um e-mail de troca de senha. Se já estiver acessando por um e-mail, verifique se a URL fornecida está completa."
       reset_email:
@@ -57,7 +58,7 @@ pt-br:
       updated_not_active: 'Sua senha foi alterada com sucesso.'
     registrations:
       destroyed: 'Até mais! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve.'
-      signed_up: 'Login efetuado com sucesso. Se não foi autorizado, a confirmação será enviada por e-mail.'
+      signed_up: 'Para concluir seu registro, verifique a confirmação enviada para o seu e-mail.'
       signed_up_but_inactive: 'Você foi cadastrado com sucesso. No entanto, não foi possível efetuar login, pois sua conta não foi ativada.'
       signed_up_but_locked: 'Você foi cadastrado com sucesso. No entanto, não foi possível efetuar login, pois sua conta está bloqueada.'
       signed_up_but_unconfirmed: 'Uma mensagem com um link de confirmação foi enviada para o seu endereço de e-mail. Por favor, abra o link para confirmar a sua conta.'

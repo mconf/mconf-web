@@ -85,12 +85,12 @@ pt-br:
   my:
     home:
       integration_title: "Integração"
-      integration: "Integre sua sala com ambientes de aprendizagem virtual, como Moodle, Canvas e Wordpress."
+      integration: "Conecte o Mconf ao seu Ambiente Virtual de Aprendizagem, como Moodle, Canvas e Wordpress."
       personalization_title: "Personalização"
       personalization: "Personalize sua sala com a identidade visual da sua empresa."
       plans_button: "Conheça nossos planos"
-      rooms_users_title: "Mais salas e usuários"
-      rooms_users: "Tenha um número maior de usuários e salas de webconferência."
+      rooms_users_title: "Mais gravações e usuários"
+      rooms_users: "Colabore com até 100 usuários simultâneos na sua sala, com gravações ilimitadas."
       subscribe_promo: "Assine o Mconf e tenha mais vantagens"
   registrations:
     signup_form:
@@ -121,7 +121,7 @@ pt-br:
         got_access: "A partir de agora você já pode acessar a sua conta no Mconf."
         short_url: "Você também pode acessar a sua sala de forma rápida através do endereço abaixo. Compartilhe esse endereço com outras pessoas para elas entrarem em uma conferência que você criou."
         title: "Vamos começar?"
-      subject: "Seja bem vindo(a)!"
+      subject: "Seja bem-vindo(a)!"
   subscriptions:
     created: "Assinatura criada!"
     denied: "Acesso negado"
@@ -150,8 +150,8 @@ pt-br:
       pricing_text1: "Tarifa mínima: <span class=\"attention\">15 usuários</span> (R$ 90) por mês"
       pricing_text2: "Acima de 15 usuários: <span class=\"attention\">R$ 6</span> por usuário por mês"
       pricing_title: "Tarifas"
-      rules_text: "<p>Ao assinar o serviço, você terá <span class=\"attention\">30 dias</span> (1 mês) para testar o serviço sem nenhum custo! Preencha o formulário ao lado e você será contatado em até <span class=\"attention\">48 horas</span> com as informações que você precisa para começar a utilizar o serviço.</p><p>Você receberá uma sala de conferência que poderá utilizar como preferir. Você também receberá uma chave de acesso para incluir webconferência dentro do seu próprio site (no ambiente de ensino da sua instituição, por exemplo).</p><p>Após o período de testes, você será cobrado no início de cada mês um valor referente ao consumo até então. Sua assinatura começa imediatamente após o período de testes acabar, e você pode cancelá-la a qualquer momento.</p>"
-      rules_title: "Como Funciona"
+      rules_text: "<p>Ao assinar, você terá <span class=\"attention\">30 dias</span> para testar o serviço completo sem custo. Preencha o formulário abaixo e você receberá por e-mail a confirmação da assinatura e as instruções para personalizar sua sala e integrar com seu Ambiente Virtual de Aprendizagem, se você assim desejar.</p><p>Após o período de testes, você será cobrado no início de cada mês referente ao uso no mês anterior. Sua assinatura começa imediatamente após o período de testes, e você pode cancelá-la a qualquer momento.</p>"
+      rules_title: "Como funciona"
     plans:
       enterprise_observation: "**O pagamento poderá ser realizado mensalmente ou anualmente, com valores pré-fixados. <b>Realizado via assinatura de contrato.</b>"
       enterprise_report: "Relatórios de uso personalizados"
@@ -243,7 +243,7 @@ pt-br:
   user_mailer:
     registration_by_admin_notification_email:
       notification: "Você está recebendo esta mensagem pois uma conta foi criada para você por um administrador do site. Se você acha que foi um mal entendido por favor entre em contato conosco respondendo a este e-mail."
-      subject: 'Bem vindo(a) ao Mconf!'
+      subject: 'Bem-vindo(a) ao Mconf!'
   web_conference_mailer:
     invitation_email:
       message:
