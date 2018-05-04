@@ -23,7 +23,7 @@ describe EventMailer do
   end
 
   describe '.invitation_email' do
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     context "if there's no recipient set in the invitation" do
       before {
         @invitation = Invitation.find(invitation.id)

@@ -21,7 +21,7 @@ describe AdminMailer do
   end
 
   describe '.new_user_waiting_for_approval' do
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     let(:admin) { FactoryGirl.create(:superuser) }
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { AdminMailer.new_user_waiting_for_approval(admin.id, user.id) }
@@ -80,7 +80,7 @@ describe AdminMailer do
   end
 
   describe '.new_user_approved' do
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { AdminMailer.new_user_approved(user.id) }
 
