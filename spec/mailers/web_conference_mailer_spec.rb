@@ -42,7 +42,7 @@ describe WebConferenceMailer do
         # has a recipient but no recipient_email
         invitation.update_attributes(recipient_email: nil)
       }
-      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
         text = I18n.t('web_conference_mailer.invitation_email.subject')
@@ -68,7 +68,7 @@ describe WebConferenceMailer do
         invitation.target.update_attributes(private: false)
         mail_content(mail).should_not match(invitation.target.attendee_key)
       }
-      it("assings image_tag") {mail_content(mail).should match('assets/mailer/invitation.png')}
+      it("assings image_tag") {mail_content(mail).should match('mailer/mconf_tec.png')}
     end
 
     it "uses the receiver's timezone for the start and end dates"

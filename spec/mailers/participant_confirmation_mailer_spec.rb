@@ -27,7 +27,7 @@ describe ParticipantConfirmationMailer do
     let(:url) { participant_confirmation_events_path(token: pc.token, host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
       it("sets 'to'") { mail.to.should eql([pc.email]) }
       it("sets 'subject'") {
         text = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name)

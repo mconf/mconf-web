@@ -26,7 +26,7 @@ describe UserMailer do
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_notification_email.subject')
@@ -98,7 +98,7 @@ describe UserMailer do
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_by_admin_notification_email.subject')
@@ -166,7 +166,7 @@ describe UserMailer do
     let(:contact) { Site.current.smtp_receiver }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.cancellation_notification_email.subject')

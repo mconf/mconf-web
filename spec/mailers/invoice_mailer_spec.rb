@@ -31,7 +31,7 @@ describe InvoiceMailer do
   let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription) }
 
   describe '.invoice_report_email' do
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     before {
       Invoice.any_instance.stub(:report_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
     }
@@ -53,8 +53,14 @@ describe InvoiceMailer do
       attachment.filename.should eql('report.pdf')
     }
     it("renders the link to see all the subscriptions with all invoices") {
-      allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:user_subscription_url).and_return(url)
+      allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:user_invoices_url).and_return(url)
       content = I18n.t('invoice_mailer.invoice_report_email.message.link', :url => url).html_safe
+      mail_content(mail).should match(content)
+    }
+
+    it("renders the link to see the iugu invoice") {
+      allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:invoice_url).and_return(url)
+      content = I18n.t('invoice_mailer.invoice_report_email.message.link2', :url => url).html_safe
       mail_content(mail).should match(content)
     }
     it_behaves_like 'footer e-mail'

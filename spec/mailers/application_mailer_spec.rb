@@ -21,7 +21,7 @@ describe ApplicationMailer do
   end
 
   describe '.feedback_email' do
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     let(:user) { FactoryGirl.create(:user) }
     let(:subject) { Forgery::LoremIpsum.characters 30 }
     let(:message) { Forgery::LoremIpsum.characters 140 }

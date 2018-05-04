@@ -31,14 +31,9 @@ describe SubscriptionMailer do
   describe '.subscription_created_notification_email' do
     let(:mail) { SubscriptionMailer.subscription_created_notification_email(user.id, subscription.id) }
     let(:url) { "www.test.com" }
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     context "attendee_key.present" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: user, attendee_key: "123") }
-
-      it ("renders the participant password") {
-        content = I18n.t('subscription_mailer.subscription_created_notification_email.message.participants')
-        mail_content(mail).should match(content)
-      }
     end
 
     it("sets 'to'") { mail.to.should eql([user.email]) }
@@ -48,18 +43,13 @@ describe SubscriptionMailer do
     end
     it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
     it("sets 'headers'") { mail.headers.should eql({}) }
-    it("renders the link to see the web conference room of the user") {
-      allow_any_instance_of( Rails.application.routes.url_helpers ).to receive(:join_webconf_url).and_return(url)
-      content = I18n.t('subscription_mailer.subscription_created_notification_email.message.link', :url => url).html_safe
-      mail_content(mail).should match(content)
-    }
     it_behaves_like 'footer e-mail'
   end
 
   describe '.subscription_destroyed_notification_email' do
     let(:mail) { SubscriptionMailer.subscription_destroyed_notification_email(user.id) }
     let(:url) { "www.contact.com" }
-    it ("Sets header logo image") { mail_content(mail).should match('assets/mailer/mconf_live.png') }
+    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
     it("sets 'to'") { mail.to.should eql([user.email]) }
     it("sets 'subject'") do
       text = I18n.t('subscription_mailer.subscription_destroyed_notification_email.subject', :name => user.name)
