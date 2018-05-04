@@ -72,7 +72,7 @@ en:
     datetimepicker:
       datepick: "mm/dd/yyyy"
       datepick_rails: "%m/%d/%Y"
-      format: "M dd yyyy, hh:ii"
+      format: "mm/dd/yyyy hh:ii"
       format_rails: "%m/%d/%Y %H:%M"
     decline: "Decline"
     deny: "Deny"
@@ -175,6 +175,7 @@ en:
           6h: "6 hours"
           12h: "12 hours"
       invite:
+        copy: "Copy webconference link"
         duration: "Duration"
         ends_on: "Ends on"
         message: "Description"
@@ -546,11 +547,13 @@ en:
         searching: "Searching..."
     invite:
       field_name: "You are joining as"
-      field_password: "Enter the access key for this meeting"
+      field_password: "This meeting is private, enter the access key."
       logout_guest: "Wrong person? Change it"
+      start: "Start"
       title: "Join room: %{name}"
       webconference_not_running: "The webconference has not started yet by the host. Please wait."
     invite_header:
+      create: "You are about to start the room %{name}."
       identify: "You are almost entering in the room %{name}."
       not_running: "not running"
       not_running_tooltip: "The room is not open yet, there's no meeting in progress"
@@ -562,10 +565,13 @@ en:
       welcome: "Virtual room"
     invite_userid:
       facebook: "Sign in with Facebook"
+      full_name: "Write your full name"
       google: "Sign in with Google"
       guest: "Sign in as guest"
+      next: "Next"
       subtitle: "Choose how do you want to register"
       title: "Welcome!"
+      title_guest: "Guest"
     join:
       unauth_access_to_conferences: "You need to sign in before you can join this conference."
       user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
@@ -593,7 +599,7 @@ en:
       error: "Invitation failed to be sent to:"
       error_date_format: "The dates you informed are invalid, please try again"
       error_title: "It is mandatory to include a title for your invitation, please try again"
-      success: "Invitation successfully sent to:"
+      success: "Invitation sent"
     show:
       showing_room: "Showing room '%{room}'"
     user_edit:

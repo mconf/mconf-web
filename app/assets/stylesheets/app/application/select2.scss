@@ -143,8 +143,4 @@
   &::placeholder {
     color: $m-sf-placeholder-color !important;
   }
-
-  &:hover:not(.disabled) {
-    text-shadow: $m-bold-by-shadow;
-  }
 }

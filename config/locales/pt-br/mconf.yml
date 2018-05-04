@@ -71,7 +71,7 @@ pt-br:
     datetimepicker:
       datepick: "dd/mm/yyyy"
       datepick_rails: "%d/%m/%Y"
-      format: "dd M yyyy, hh:ii"
+      format: "dd/mm/yyyy hh:ii"
       format_rails: "%d/%m/%Y %H:%M"
     decline: "Negar"
     deny: "Negar"
@@ -170,6 +170,7 @@ pt-br:
           6h: "6 horas"
           12h: "12 horas"
       invite:
+        copy: "Copiar endereço da webconferência"
         duration: "Duração"
         ends_on: "Acaba em"
         message: "Descrição"
@@ -540,11 +541,13 @@ pt-br:
         searching: "Procurando..."
     invite:
       field_name: "Você está entrando na conferência como"
-      field_password: "Chave de acesso desta conferência"
+      field_password: "Esta sala é privada, digite a chave de acesso."
       logout_guest: "Pessoa errada? Modificar"
+      start: "Iniciar"
       title: "Acessar sala: %{name}"
       webconference_not_running: "A webconferência ainda não foi iniciada pelo apresentador. Por favor aguarde."
     invite_header:
+      create: "Você está prestes a iniciar a sala %{name}."
       identify: "Você está prester a entrar na sala %{name}."
       not_running: "não iniciada"
       not_running_tooltip: "A sala ainda não está aberta, não há uma reunião em andamento"
@@ -556,10 +559,13 @@ pt-br:
       welcome: "Sala virtual"
     invite_userid:
       facebook: "Entrar com o Facebook"
+      full_name: "Escreva seu nome completo"
       google: "Entrar com o Google"
       guest: "Entrar como convidado"
+      next: "Avançar"
       subtitle: "Escolha como deseja se identificar"
       title: "Bem-vindo!"
+      title_guest: "Convidado"
     join:
       unauth_access_to_conferences: "Você precisa fazer o login antes de acessar esta conferência."
       user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
@@ -601,7 +607,7 @@ pt-br:
       error: "Não foi possível enviar o convite para:"
       error_date_format: "As datas que você informou não são válidas, por favor tente novamente"
       error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
-      success: "Convite enviado com sucesso para:"
+      success: "Convite enviado"
     show:
       showing_room: "Mostrando a sala '%{room}'"
     user_edit:

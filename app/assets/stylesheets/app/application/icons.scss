@@ -360,10 +360,16 @@ a:not(.btn) .icon {
     vertical-align: middle;
   }
 
-  &.icon-help, &.icon-info {
+  &.icon-help {
     color: $m-blue;
     vertical-align: middle;
     font-size: $m-font-mini;
+  }
+
+  &.icon-info {
+    color: $m-blue;
+    vertical-align: middle;
+    font-size: $m-font-medium;
   }
 
   &.icon-date {

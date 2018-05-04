@@ -75,7 +75,7 @@
   #user-profile
     %h3
       = t('.public_profile')
-      = icon_info t('.public_profile_tip')
+      = icon_info class: "tooltipped", title: t('.public_profile_tip')
     = simple_form_for @user, url: user_path(@user) do |f|
       = f.simple_fields_for :profile do |p|
         = p.input :full_name, :required => true, :disabled => !can?(:update_full_name, @user)

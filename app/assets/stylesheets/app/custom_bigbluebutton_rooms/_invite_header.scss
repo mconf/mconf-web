@@ -15,8 +15,9 @@ body.custom_bigbluebutton_rooms.auth {
     text-align: left;
     background-color: transparent;
     color: $m-white;
-    padding: 16px 95px;
+    padding: 0 95px;
     width: 50%;
+    float: left;
 
     .room-welcome {
       font-size: $m-font-title;

@@ -1,5 +1,5 @@
 #new-user-waiting-approval-email
 .header_image
-  =image_tag URI.join(root_url, "assets/mailer/accept.png"), size: '544x263'
+  =image_tag "mailer/accept.png", size: '544x263'
 %p=t('.message', name: @user.name, email: @user.email).html_safe
 %p=t('.click_here', url: manage_users_url(host: Site.current.domain, q: @user.email)).html_safe

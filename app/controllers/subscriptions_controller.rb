@@ -42,7 +42,7 @@ class SubscriptionsController < InheritedResources::Base
       flash = { success: t("subscriptions.created") }
       redirect_to user_subscription_path(@user), :flash => flash
     else
-      render new_user_subscription_path(@user)
+      render :new
     end
   end
 

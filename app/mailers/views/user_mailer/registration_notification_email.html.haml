@@ -1,7 +1,11 @@
 #registration-notification-email
+.header_image
+  =image_tag "mailer/registration_by_admin.png", size: '544x263'
+.header_message
   %p= t('.hello', name: @user.name)
-  - if Site.current.require_registration_approval?
-    %p= t('.confirmation_pending', url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
-  - else
-    %p= t('.message', name: @user.name, url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
-    %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe
+
+- if Site.current.require_registration_approval?
+  %p= t('.confirmation_pending', url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+- else
+  %p= t('.message', name: @user.name, url: root_url(host: Site.current.domain), site: escape_once(Site.current.name)).html_safe
+  %p= t('.click_here', url: my_home_url(host: Site.current.domain)).html_safe

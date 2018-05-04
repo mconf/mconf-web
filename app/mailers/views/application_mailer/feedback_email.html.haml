@@ -1,5 +1,5 @@
 .header_image
-  =image_tag URI.join(root_url, "assets/mailer/feedback.png"), size: '494x263'
+  =image_tag "mailer/feedback.png", size: '494x263'
 = t('.content', name: @user.full_name, email: @user.email).html_safe
 %br
 %br

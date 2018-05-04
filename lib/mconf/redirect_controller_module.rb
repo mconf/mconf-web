@@ -17,6 +17,14 @@ module Mconf::RedirectControllerModule
     return_to
   end
 
+  def after_sign_out_path_for(resource)
+    if !params["return_to"].blank? && is_return_to_valid?(params["return_to"])
+      previous = params["return_to"]
+    elsif !external_or_blank_referer?
+      root_path
+    end
+  end
+
   protected
 
   # Checks if it's ok to redirect the user to the path in `request`. Considers
