@@ -8,7 +8,7 @@
   #user-new-home
     %h1= t('.hi', name: current_user.first_name)
     %h2= t('.no_meetings_headline', users_number: Rails.application.config.free_attendee_limit)
-    %h2= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room)
+    %h2= link_to join_webconf_url(current_user.bigbluebutton_room), join_webconf_url(current_user.bigbluebutton_room), target: :_blank
     #empty-home-logo
 
 - elsif current_user.bigbluebutton_room.meetings.count > 0 && (current_user.subscription.blank? || current_user.subscription.try(:disabled))
