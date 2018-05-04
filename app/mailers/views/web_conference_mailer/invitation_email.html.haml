@@ -2,6 +2,9 @@
 .header_image
   =image_tag "mailer/invitation.png", size: '494x263'
 .header_message
-  %label=t('.message.hi', name: @invitation.recipient.full_name)
+  - if @invitation.recipient.present?
+    %label=t('.message.hi', name: @invitation.recipient.full_name)
+  - else
+    %label=t('.message.hi', name: @invitation.recipient_email)
 %p=t('.message.header', sender: @invitation.sender.full_name, email_sender: @invitation.sender.email).html_safe
 = render "shared/invitation_email"

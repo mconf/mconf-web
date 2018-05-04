@@ -49,7 +49,7 @@ class mconf.CustomBigbluebuttonRooms.Invitation
       tags: true
       tokenSeparators: [",", ";"]
       createSearchChoice: (term, data) ->
-        if mconf.Base.validateEmail(term)
+        if mconf.Base.validateEmail(term.trim())
           { id: term, text: term }
       formatSelection: (object, container) ->
         text = if object.name?
