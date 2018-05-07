@@ -326,9 +326,11 @@ class User < ActiveRecord::Base
 
   # Overrides a method from devise to send email after confirmation
   def send_welcome_email
-    RecentActivity.create(
-      key: 'local_auth.user.confirmed', owner: self, trackable: self, notified: false
-    )
+    if self.created_by.blank?
+      RecentActivity.create(
+        key: 'local_auth.user.confirmed', owner: self, trackable: self, notified: false
+      )
+    end
   end
 
   # Overrides a method from devise, see:

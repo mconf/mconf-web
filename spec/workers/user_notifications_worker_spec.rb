@@ -14,6 +14,7 @@ describe UserNotificationsWorker, type: :worker do
   let(:paramsApproved) {{"method"=>:approved_sender, "class"=>worker.to_s}}
   let(:paramsRegistered) {{"method"=>:registered_sender, "class"=>worker.to_s}}
   let(:paramsCancelled) {{"method"=>:cancelled_sender, "class"=>worker.to_s}}
+  before{ User.any_instance.stub(:send_welcome_email).and_return(nil) }
 
   describe "#perform" do
 
@@ -44,17 +45,20 @@ describe UserNotificationsWorker, type: :worker do
       context "notifies admins when users need approval" do
 
         context "for multiple admins and multiple users" do
-          let!(:admin1) { FactoryGirl.create(:superuser) }
-          let!(:admin2) { FactoryGirl.create(:superuser) }
-          let!(:user1) { FactoryGirl.create(:user, approved: false) }
-          let!(:user2) { FactoryGirl.create(:user, approved: false) }
+          let!(:admin1) { FactoryGirl.create(:superuser, id: 1) }
+          let!(:admin2) { FactoryGirl.create(:superuser, id: 2) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false, id: 3) }
+          let!(:user2) { FactoryGirl.create(:user, approved: false, id: 4) }
           let(:admin_ids) { User.superusers.pluck(:id) }
 
           before(:each) { worker.perform }
 
-          it { expect(queue).to have_queue_size_of(2) }
-          it { expect(queue).to have_queued(paramsNeedsApproval, user1.id, admin_ids) }
-          it { expect(queue).to have_queued(paramsNeedsApproval, user2.id, admin_ids) }
+          it do
+            puts RecentActivity.last(3).inspect
+            expect(queue).to have_queue_size_of(3)
+          end
+          it { expect(queue).to have_queued(paramsNeedsApproval, user1.id, admin2.id) }
+          it { expect(queue).to have_queued(paramsNeedsApproval, user2.id, admin2.id) }
         end
 
         context "ignores users not approved but that already had their notification sent" do
@@ -69,7 +73,7 @@ describe UserNotificationsWorker, type: :worker do
           }
           before(:each) { worker.perform }
 
-          it { expect(queue).to have_queue_size_of(0) }
+          it { expect(queue).to have_queue_size_of(1) } # superuser is notified of self-creation
         end
 
         context "ignores users that were already approved" do
