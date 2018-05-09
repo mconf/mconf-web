@@ -1,6 +1,7 @@
 #registration_by_admin_notification_email
 .header_image
-  =image_tag "mailer/registration_by_admin.png", size: '544x263'
+  .reg_by_admin
+
 .header_message
   =t('.hello', name: @user.name)
 %p= t('.message', url: root_url(host: Site.current.domain), site: Site.current.name).html_safe

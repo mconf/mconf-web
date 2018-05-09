@@ -13,14 +13,68 @@ body {
   .header-logo {
     text-align: center;
   }
-  .header_image {
-    text-align: center;
-    margin-bottom: 1.5em;
-    img {
-      width: 100%;
-      height: auto;
+  .header_image{
+    .feedback_image{
+      background: image-url("mailer/feedback.png");
+      @include mailer_images;
     }
+
+    .app_by_admin{
+      background: image-url("mailer/approved_by_admin.png");
+      @include mailer_images;
+    }
+
+    .app_email{
+      background: image-url("mailer/approval_email.png");
+      @include mailer_images;
+    }
+
+    .waiting_app{
+      background: image-url("mailer/waiting_approval.png");
+      @include mailer_images;
+    }
+
+    .accept{
+      background: image-url("mailer/accept.png");
+      @include mailer_images;
+    }
+    .invoice{
+      background: image-url("mailer/invoices.png");
+      @include mailer_images;
+    }
+    .subs_created{
+      background: image-url("mailer/registration.png");
+      @include mailer_images;
+
+    }
+    .subs_cancel{
+      background: image-url("mailer/assign_cancelation.png");
+      @include mailer_images;
+    }
+    .trial_ended{
+      background: image-url("mailer/trial.png");
+      @include mailer_images;
+
+    }
+    .trial_ending{
+      background: image-url("mailer/trial_ending_soon.png");
+      @include mailer_images;
+    }
+    .reg_by_admin{
+      background: image-url("mailer/registration_by_admin.png");
+      @include mailer_images;
+    }
+    .reg_notification{
+      background: image-url("mailer/registration_by_admin.png");
+      @include mailer_images;
+    }
+    .invitation{
+      background: image-url("mailer/invitation.png");
+      @include mailer_images;
+    }
+
   }
+
   .header_message {
     color: $m-mail-header-footer-color;
     text-align: center;

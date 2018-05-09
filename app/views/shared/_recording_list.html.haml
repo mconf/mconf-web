@@ -53,7 +53,7 @@
               - else
                 .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
                   = m_date
-
+             
             %td.meeting-time-column
               - m_create = format_time(meeting.create_time)
               .meeting-date
