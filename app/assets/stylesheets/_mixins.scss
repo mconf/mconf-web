@@ -312,8 +312,8 @@
 @mixin mailer_images{
   padding: 3%;
   height: 249px;
-  margin-top: 2%;
-  background-size: cover;
+  margin-top: -2%;
+  background-size: contain !important;
   background-repeat: no-repeat;
   background-position: center center;
   margin-bottom: 5%;

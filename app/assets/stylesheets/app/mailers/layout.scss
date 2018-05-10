@@ -11,7 +11,11 @@ body {
   word-wrap: break-word;
 
   .header-logo {
-    text-align: center;
+    .mconf-com{
+      background: image-url("mailer/mconf_tec.png") no-repeat center;
+      padding: 3%;
+      background-size: contain !important;
+      }
   }
   .header_image{
     .feedback_image{
@@ -91,8 +95,37 @@ body {
   .image_footer {
     margin-top: 10px;
     text-align: center;
-    image_icon {
-      margin: 0 10px;
+    display: -webkit-box;
+    .facebook{
+      background: image-url("mailer/facebook.png") no-repeat center;
+      margin-right: 5%;
+      width: 6%;
+      margin-left: 33%;
+      padding: 1%;
+      background-size: contain !important;
+      a{
+        padding: 30% 47% 30% 47%;
+      }
+    }
+
+    .linkedin{
+      background: image-url("mailer/linkedin.png") no-repeat center;
+      margin-right: 5%;
+      width: 6%;
+      background-size: contain !important;
+      padding: 1%;
+      a{
+        padding: 30% 47% 30% 47%;
+    }
+  }
+    .medium{
+      background: image-url("mailer/medium.png") no-repeat center;
+      width: 6%;
+      background-size: contain !important;
+      padding: 1%;
+      a{
+        padding: 30% 47% 30% 47%;
+      }
     }
   }
   .footer {
