@@ -498,6 +498,9 @@ class User < ActiveRecord::Base
   def before_enable
     modify_user_after_disabled(false)
     self.subscription.try(:enable)
+    RecentActivity.create(
+      key: 'user.enabled.confirm', owner: self, trackable: self, notified: false
+    )
   end
 
   # This will make the user "dirty" so that the same person can register again using
