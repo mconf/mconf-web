@@ -15,13 +15,13 @@ describe ApplicationMailer do
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
     it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
-    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
-    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
-    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+    it ("Sets Linkdin image") { mail_content(mail).should have_css("#facebook") }
+    it ("Sets Medium image") { mail_content(mail).should have_css("#linkedin") }
+    it ("Sets Facebook image") { mail_content(mail).should have_css("#medium") }
   end
 
   describe '.feedback_email' do
-    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+    it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
     let(:user) { FactoryGirl.create(:user) }
     let(:subject) { Forgery::LoremIpsum.characters 30 }
     let(:message) { Forgery::LoremIpsum.characters 140 }
@@ -38,7 +38,7 @@ describe ApplicationMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([user.email]) }
       it("assigns @text") { mail_content(mail).should match(message) }
       it("assigns @email") { mail_content(mail).should match(user.email) }
-      it("assings image_tag") {mail_content(mail).should match('assets/mailer/feedback.png')}
+      it("assings image_tag") { mail_content(mail).should have_css("#feedback") }
     end
 
     context "uses the current site's locale, not the sender's" do

@@ -17,9 +17,9 @@ describe WebConferenceMailer do
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
     it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
-    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
-    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
-    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+    it ("Sets Linkdin image") { mail_content(mail).should have_css("#facebook") }
+    it ("Sets Medium image") { mail_content(mail).should have_css("#linkedin") }
+    it ("Sets Facebook image") { mail_content(mail).should have_css("#medium") }
   end
 
   describe '.invitation_email' do
@@ -42,7 +42,7 @@ describe WebConferenceMailer do
         # has a recipient but no recipient_email
         invitation.update_attributes(recipient_email: nil)
       }
-      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
         text = I18n.t('web_conference_mailer.invitation_email.subject')
@@ -68,7 +68,6 @@ describe WebConferenceMailer do
         invitation.target.update_attributes(private: false)
         mail_content(mail).should_not match(invitation.target.attendee_key)
       }
-      it("assings image_tag") {mail_content(mail).should match('mailer/mconf_tec.png')}
     end
 
     it "uses the receiver's timezone for the start and end dates"

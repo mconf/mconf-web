@@ -15,9 +15,9 @@ describe ParticipantConfirmationMailer do
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
     it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
-    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
-    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
-    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+    it ("Sets Linkdin image") { mail_content(mail).should have_css("#facebook") }
+    it ("Sets Medium image") { mail_content(mail).should have_css("#linkedin") }
+    it ("Sets Facebook image") { mail_content(mail).should have_css("#medium") }
   end
 
   describe '.confirmation_email' do
@@ -27,7 +27,7 @@ describe ParticipantConfirmationMailer do
     let(:url) { participant_confirmation_events_path(token: pc.token, host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
       it("sets 'to'") { mail.to.should eql([pc.email]) }
       it("sets 'subject'") {
         text = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name)
