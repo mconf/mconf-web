@@ -1,6 +1,6 @@
 #new-user-waiting-approval-email
 .header_image
-  .accept
+  #accept
 
 %p=t('.message', name: @user.name, email: @user.email).html_safe
 %p=t('.click_here', url: manage_users_url(host: Site.current.domain, q: @user.email)).html_safe

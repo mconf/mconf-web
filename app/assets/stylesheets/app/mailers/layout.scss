@@ -11,69 +11,73 @@ body {
   word-wrap: break-word;
 
   .header-logo {
-    .mconf-com{
+    #mconf-com {
       background: image-url("mailer/mconf_tec.png") no-repeat center;
       padding: 3%;
       background-size: contain !important;
       }
   }
-  .header_image{
-    .feedback_image{
+  .header_image {
+    #feedback {
       background: image-url("mailer/feedback.png");
       @include mailer_images;
     }
 
-    .app_by_admin{
+    #app_by_admin {
       background: image-url("mailer/approved_by_admin.png");
       @include mailer_images;
     }
 
-    .app_email{
+    #app_email {
       background: image-url("mailer/approval_email.png");
       @include mailer_images;
     }
 
-    .waiting_app{
+    #waiting_app {
       background: image-url("mailer/waiting_approval.png");
       @include mailer_images;
     }
 
-    .accept{
+    #accept {
       background: image-url("mailer/accept.png");
       @include mailer_images;
     }
-    .invoice{
+    #invoice{
       background: image-url("mailer/invoices.png");
       @include mailer_images;
     }
-    .subs_created{
+    #subs_created {
       background: image-url("mailer/registration.png");
       @include mailer_images;
 
     }
-    .subs_cancel{
+    #subs_cancel {
       background: image-url("mailer/assign_cancelation.png");
       @include mailer_images;
     }
-    .trial_ended{
+    #trial_ended {
       background: image-url("mailer/trial.png");
       @include mailer_images;
 
     }
-    .trial_ending{
+    #trial_ending {
       background: image-url("mailer/trial_ending_soon.png");
       @include mailer_images;
     }
-    .reg_by_admin{
+    #reg_by_admin {
       background: image-url("mailer/registration_by_admin.png");
       @include mailer_images;
     }
-    .reg_notification{
+    #reg_notification {
       background: image-url("mailer/registration_by_admin.png");
       @include mailer_images;
     }
-    .invitation{
+    #invitation {
       background: image-url("mailer/invitation.png");
+      @include mailer_images;
+    }
+    #reset_pass {
+      background: image-url("mailer/new_password.png");
       @include mailer_images;
     }
 
@@ -96,7 +100,7 @@ body {
     margin-top: 10px;
     text-align: center;
     display: -webkit-box;
-    .facebook{
+    #facebook {
       background: image-url("mailer/facebook.png") no-repeat center;
       margin-right: 5%;
       width: 6%;
@@ -108,7 +112,7 @@ body {
       }
     }
 
-    .linkedin{
+    #linkedin {
       background: image-url("mailer/linkedin.png") no-repeat center;
       margin-right: 5%;
       width: 6%;
@@ -118,7 +122,7 @@ body {
         padding: 30% 47% 30% 47%;
     }
   }
-    .medium{
+    #medium {
       background: image-url("mailer/medium.png") no-repeat center;
       width: 6%;
       background-size: contain !important;
