@@ -286,7 +286,7 @@ module IconsHelper
   end
 
   def icon_options_dots(options={})
-    icon_constructor nil, "icon icon-mw-options-dots icon-options-dots", options
+    material_icon_constructor "more_vert", "icon material-icons icon icon-options-dots", options
   end
 
   def icon_payment_invoice(options={})

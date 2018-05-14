@@ -275,10 +275,6 @@ a:not(.btn) .icon {
     font-size: 46px;
   }
 
-  &.icon-options {
-    font-size: 46px;
-  }
-
   &.icon-rec-play {
     color: $m-green;
   }
@@ -419,6 +415,10 @@ a:not(.btn) .icon {
 
   &.icon-cancel-notification {
     color: $m-white;
+    vertical-align: middle;
+  }
+
+  &.icon-options-dots {
     vertical-align: middle;
   }
 
