@@ -14,6 +14,7 @@ describe UserNotificationsWorker, type: :worker do
   let(:paramsApproved) {{"method"=>:approved_sender, "class"=>worker.to_s}}
   let(:paramsRegistered) {{"method"=>:registered_sender, "class"=>worker.to_s}}
   let(:paramsCancelled) {{"method"=>:cancelled_sender, "class"=>worker.to_s}}
+  let(:paramsReactivated) {{"method"=>:enabled_sender, "class"=>worker.to_s}}
 
   describe "#perform" do
 
@@ -156,6 +157,19 @@ describe UserNotificationsWorker, type: :worker do
 
           it { expect(queue).to have_queue_size_of(1) }
           it { expect(queue).to have_queued(paramsCancelled, activity.id) }
+      end
+    end
+
+    context "if an user account is reactivated" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context "the user should be notified" do
+        let!(:activity) { RecentActivity.create(key: 'user.enabled.confirm', trackable: user, notified: false) }
+
+        before(:each) { worker.perform }
+
+          it { expect(queue).to have_queue_size_of(1) }
+          it { expect(queue).to have_queued(paramsReactivated, activity.id) }
       end
     end
 
@@ -419,6 +433,35 @@ describe UserNotificationsWorker, type: :worker do
 
       it { UserMailer.should have_queue_size_of(0) }
       it { UserMailer.should_not have_queued(:cancellation_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+  end
+
+  describe "#enabled_sender" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "for an account reactivated" do
+      let(:activity) { RecentActivity.create(key: 'user.enabled.confirm', trackable: user, notified: false) }
+
+      before {
+        worker.enabled_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of_at_least(1) }
+      it { UserMailer.should have_queued(:reactivation_notification_email, user.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when the activity has already been notified" do
+      let(:activity) { RecentActivity.create(key: 'user.enabled.confirm', trackable: user, notified: false) }
+
+      before {
+        activity.update_attributes(notified: true)
+        worker.enabled_sender(activity.id)
+      }
+
+      it { UserMailer.should have_queue_size_of(0) }
+      it { UserMailer.should_not have_queued(:reactivation_notification_email, user.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
     end
   end
