@@ -19,7 +19,7 @@ $sidebar-sm: $m-sidebar-width-sm;
 
   #content-middle {
     float: right;
-    width: calc(100% - #{$size} - 4px);
+    width: calc(100% - #{$size});
   }
 }
 

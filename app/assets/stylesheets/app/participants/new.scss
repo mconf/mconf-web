@@ -4,7 +4,7 @@
 body.participants.new, body.create {
 
   #content {
-    width: $m-contents-width*0.7;
+    width: $m-contents-min-width*0.7;
     margin: 0 auto;
 
     h3 {
