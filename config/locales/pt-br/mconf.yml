@@ -1351,9 +1351,9 @@ pt-br:
   register_now: "Registe-se agora!"
   registrations:
     new:
-      headline: "Plataforma de webconferência"
-      headline2: "Com foco em educação a distância e reuniões remotas"
-      title: "Registre-se"
+      headline: "Conecte-se e colabore a distância utilizando o Mconf"
+      headline2: "O Mconf é uma plataforma de webconferência projetada para promover a colaboração de maneira ágil e intuitiva, onde você estiver."
+      title: "Crie uma conta"
     signup_form:
       email: "E-mail"
       full_name: "Nome completo"

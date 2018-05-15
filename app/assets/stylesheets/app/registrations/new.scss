@@ -5,16 +5,11 @@
 body.registrations.new, body.registrations.create {
 
   #headline {
-    @include make-sm-column(12);
-    @include make-md-column(6);
+    @include make-xs-column(6);
 
     h1 {
       text-align: left;
       margin-bottom: 30px;
-    }
-
-    h3 {
-      text-align: justify;
     }
 
     #registration-logo {
@@ -33,9 +28,8 @@ body.registrations.new, body.registrations.create {
   }
 
   #register-wrapper {
-    @include make-sm-column(12);
-    @include make-md-column(5);
-    @include make-md-column-offset(1);
+    @include make-xs-column(5);
+    @include make-xs-column-offset(1);
 
     #register-mconf {
       text-align: center;
@@ -54,8 +48,7 @@ body.registrations.new, body.registrations.create {
       }
 
       .form-accept-terms {
-        float: right;
-        margin-right: 5px;
+        margin-top: 15px;
       }
     }
 
@@ -74,8 +67,7 @@ body.registrations.new, body.registrations.create {
   }
 
   .captcha {
-    float: right;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 }
 
