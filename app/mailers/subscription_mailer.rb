@@ -7,8 +7,7 @@
 
 class SubscriptionMailer < BaseMailer
 
-  def subscription_created_notification_email(subscription_creator_id, subscription_id)
-    subscription = Subscription.find(subscription_id)
+  def subscription_created_notification_email(subscription_creator_id)
     @user = User.find(subscription_creator_id)
     I18n.with_locale(default_email_locale(@user, nil)) do
       subject = t("subscription_mailer.subscription_created_notification_email.subject",
@@ -25,4 +24,14 @@ class SubscriptionMailer < BaseMailer
       create_email(@user.email, Site.current.smtp_sender, subject)
     end
   end
+
+  def subscription_enabled_notification_email(subscription_creator_id)
+    @user = User.find(subscription_creator_id)
+    I18n.with_locale(default_email_locale(@user, nil)) do
+      subject = t("subscription_mailer.subscription_created_notification_email.subject",
+        :name => @user.name).html_safe
+      create_email(@user.email, Site.current.smtp_sender, subject)
+    end
+  end
+
 end

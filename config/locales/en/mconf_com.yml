@@ -140,7 +140,12 @@ en:
         main_text: "Your subscription to Mconf has ended and your account will now be downgraded to a free plan. Thank you for subscribing to Mconf!"
         trial_expires: "You are canceling the subscription in trial period, you can reactivate and still have free use until the <b>%{date}</b>. We'll let you know when the trial is running out. You will not receive any type of charge if you do not re-sign the Premium."
         see_you_again: "We hope see you again soon!"
-      subject: "%{name}: Your subscription had ended."
+      subject: "%{name}: Your subscription had ended!"
+    subscription_enabled_notification_email:
+      message:
+        hello: "Hi %{name}!"
+        end: "We appreciate your preference for our service and hope that we can make a collaborative future together."
+      subject: "%{name}: Your subscription was successfully enabled!"
   trial_notifications_mailer:
     ended:
       line1: "We would like to remind you that your trial period is ending today. To know our service fees, click on the link below:"
