@@ -7,7 +7,6 @@
 
 - show_authors = set_default(local_assigns, "show_authors", false)
 - redir_to = set_default(local_assigns, "redir_to", "")
-- redir_to_rec_false =  my_meetings_path(recordedonly: 'false')
 
 .table-wrapper
   %table.recording-list.table.table-hover
@@ -117,13 +116,13 @@
                             = t('.edit')
                     %li
                       - if recording.published?
-                        = link_to unpublish_bigbluebutton_recording_path(recording, redir_url:redir_to_rec_false), data: { confirm: t('are_you_sure') }, method: :post do
+                        = link_to unpublish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
                           = t('.private')
                       - else
-                        = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to_rec_false), data: { confirm: t('are_you_sure') }, method: :post do
+                        = link_to publish_bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('are_you_sure') }, method: :post do
                           = t('.publish')
                     %li
-                      = link_to bigbluebutton_recording_path(recording, redir_url: redir_to_rec_false), data: { confirm: t('.destroy_confirm') }, method: :delete do
+                      = link_to bigbluebutton_recording_path(recording, redir_url: redir_to), data: { confirm: t('.destroy_confirm') }, method: :delete do
                         = t('.delete')
 
             - else
