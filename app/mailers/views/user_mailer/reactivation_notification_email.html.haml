@@ -1,3 +1,2 @@
-%p
 %p= t('.message', name: @user.name, url: root_url(host: Site.current.domain), site: Site.current.name).html_safe
 %p= t('.more', mail: Site.current.smtp_receiver).html_safe

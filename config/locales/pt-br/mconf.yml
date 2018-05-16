@@ -312,7 +312,7 @@ pt-br:
       disable:
         notice: "Assinatura desabilitada!"
       enable:
-        notice: "Assinatura habilitada !"
+        notice: "Assinatura habilitada!"
         failure: "Assinatura de %{name} já está habilitada"
         unable: "Assinatura de %{name} não pode ser desabilitada"
   admin:
