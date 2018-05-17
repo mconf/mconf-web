@@ -1419,3 +1419,8 @@ strong.highlight {
     }
   }
 }
+
+.captcha {
+  /* So it occupies its position even before the content is fully loaded */
+  min-height: 78px;
+}

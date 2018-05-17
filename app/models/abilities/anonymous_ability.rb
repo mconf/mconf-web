@@ -12,7 +12,7 @@ module Abilities
       abilities_for_bigbluebutton_rails(user)
 
       can [:index], User # restricted through Space and/or manage
-      can [:show, :current], User, disabled: false
+      can [:current], User, disabled: false
 
       can [:index, :select], Space
       can [:show, :webconference, :meetings], Space, public: true

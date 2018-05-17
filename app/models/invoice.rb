@@ -195,7 +195,7 @@ class Invoice < ActiveRecord::Base
     base_month_days = Rails.application.config.base_month_days
 
     if action == "create"
-      consumed = Rails.application.config.base_month_days - self.subscription.pay_day.to_date.day
+      consumed = base_month_days - self.subscription.user.trial_expires_at.day
       consumed = 0 if consumed < 0
     elsif action == "destroy"
       today = DateTime.now.utc.day

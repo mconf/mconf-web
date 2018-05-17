@@ -38,12 +38,42 @@ module DatesHelper
     end
   end
 
+  def format_date_with_timezone(date, format=:short, tz='UTC', include_time=true)
+    if date.present?
+      if date.is_a?(Integer) && date.to_s.length == 13
+        value = Time.at(date/1000).in_time_zone(tz)
+      else
+        value = Time.at(date).in_time_zone(tz)
+      end
+      if include_time
+        I18n.l(value, format: format)
+      else
+        I18n.l(value.to_date, format: format)
+      end
+    else
+      nil
+    end
+  end
+
   def format_time(date)
     if date.present?
       if date.is_a?(Integer) && date.to_s.length == 13
         value = Time.at(date/1000)
       else
         value = Time.at(date)
+      end
+      value.to_s(:time)
+    else
+      nil
+    end
+  end
+
+  def format_time_with_timezone(date, tz='UTC')
+    if date.present?
+      if date.is_a?(Integer) && date.to_s.length == 13
+        value = Time.at(date/1000).in_time_zone(tz)
+      else
+        value = Time.at(date).in_time_zone(tz)
       end
       value.to_s(:time)
     else

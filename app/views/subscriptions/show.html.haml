@@ -34,12 +34,12 @@
               %span.field-value= @subscription.additional_address_info
 
             .field
-              %span.field-title= t('.district')
-              %span.field-value= @subscription.district
-
-            .field
               %span.field-title= t('.zipcode')
               %span.field-value= @subscription.zipcode
+
+            .field
+              %span.field-title= t('.district')
+              %span.field-value= @subscription.district
 
             .field
               %span.field-title= t('.city')
@@ -49,9 +49,9 @@
               %span.field-title= t('.province')
               %span.field-value= @subscription.province
 
-            .field
-              %span.field-title= t('.country')
-              %span.field-value= @subscription.country
+            / .field
+            /   %span.field-title= t('.country')
+            /   %span.field-value= @subscription.country
 
           - else
             .field

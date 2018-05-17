@@ -65,6 +65,7 @@
       color: $m-red;
       margin-top: 4px;
       margin-left: 5px;
+      font-size: $m-font-mini;
     }
 
     .form-control {
@@ -211,7 +212,6 @@
 
   &:focus {
     border: $m-sf-field-border-focused;
-    padding: $form-control-padding - 1px;
   }
 }
 .has-error .form-control:focus {

@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
   after_create :create_webconf_room
   after_update :update_webconf_room
   after_create :new_activity_user_created
+  after_save :send_welcome_email, :if => proc { |l| l.confirmed_at_changed? && l.confirmed_at_was.nil? }
 
   before_destroy :before_disable_and_destroy, prepend: true
 
@@ -320,6 +321,15 @@ class User < ActiveRecord::Base
     if self.trial_expires_at.blank?
       expires = Time.now + Rails.application.config.trial_months.months
       update_attributes(trial_expires_at: expires)
+    end
+  end
+
+  # Overrides a method from devise to send email after confirmation
+  def send_welcome_email
+    if self.created_by.blank?
+      RecentActivity.create(
+        key: 'local_auth.user.confirmed', owner: self, trackable: self, notified: false
+      )
     end
   end
 

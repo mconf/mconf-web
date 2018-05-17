@@ -104,8 +104,7 @@ describe CustomBigbluebuttonRoomsController do
     let(:title) { 'Title' }
     let(:message) { 'Message' }
     let(:success) {
-      I18n.t('custom_bigbluebutton_rooms.send_invitation.success') + ' ' +
-        users.map(&:name).join(', ') + ", #{sender.full_name}"
+      I18n.t('custom_bigbluebutton_rooms.send_invitation.success')
     }
     let(:error) {
       I18n.t('custom_bigbluebutton_rooms.send_invitation.error') + ' ' +

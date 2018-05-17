@@ -51,7 +51,8 @@ Mconf::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = ENV['MCONF_ACTION_CONTROLLER_ASSET_HOST'] || nil
+  config.action_mailer.asset_host = ENV['MCONF_ACTION_MAILER_ASSET_HOST'] || nil
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # Every js or css in the root directory is compiled, except the ones started by "_"

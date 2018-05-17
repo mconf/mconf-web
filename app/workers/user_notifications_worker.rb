@@ -52,7 +52,7 @@ class UserNotificationsWorker < BaseWorker
   # This is not used for normal registrations! In these cases it's devise that sends
   # the emails.
   def self.notify_users_account_created
-    keys = ['shibboleth.user.created', 'ldap.user.created', 'omniauth.user.created']
+    keys = ['shibboleth.user.created', 'ldap.user.created', 'omniauth.user.created', 'local_auth.user.confirmed']
     activities = get_recent_activity
       .where(trackable_type: 'User', notified: [nil, false], key: keys)
     activities.each do |activity|

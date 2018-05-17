@@ -29,7 +29,6 @@ class ConfirmationsController < Devise::ConfirmationsController
         my_home_path
       else
         new_session_path(resource_name)
-        reset_email_path(email: resource_params[:email])
       end
     else
       '/'

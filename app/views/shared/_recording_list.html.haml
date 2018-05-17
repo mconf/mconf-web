@@ -43,11 +43,13 @@
           - cls = recording.present? ? cls : "#{cls} not-recorded"
           %tr{ class: cls }
             %td.meeting-date-column
-              - m_create = format_date(meeting.create_time, :long)
-              - m_date = format_date(meeting.create_time, :short, false)
+              - user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
+              - m_create = format_date_with_timezone(meeting.create_time, :long, user_time_zone)
+              - m_date = format_date_with_timezone(meeting.create_time, :short, user_time_zone, false)
+
               - if recording
-                - rec_create = format_date(recording.start_time, :long)
-                - rec_end = format_date(recording.end_time, :long)
+                - rec_create = format_date_with_timezone(recording.start_time, :long, user_time_zone)
+                - rec_end = format_date_with_timezone(recording.end_time, :long, user_time_zone)
                 .meeting-date{ :title => t('.started_at_desc_with_rec', meeting_start: m_create, rec_start: rec_create, rec_end: rec_end) }
                   = m_date
               - else
@@ -55,7 +57,8 @@
                   = m_date
              
             %td.meeting-time-column
-              - m_create = format_time(meeting.create_time)
+              - user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
+              - m_create = format_time_with_timezone(meeting.create_time, user_time_zone)
               .meeting-date
                 = m_create
 
