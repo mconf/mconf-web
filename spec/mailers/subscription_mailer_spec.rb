@@ -29,7 +29,7 @@ describe SubscriptionMailer do
   end
 
   describe '.subscription_created_notification_email' do
-    let(:mail) { SubscriptionMailer.subscription_created_notification_email(user.id, subscription.id) }
+    let(:mail) { SubscriptionMailer.subscription_created_notification_email(user.id) }
     let(:url) { "www.test.com" }
     it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
     context "attendee_key.present" do
@@ -60,5 +60,19 @@ describe SubscriptionMailer do
     it("sets 'headers'") { mail.headers.should eql({}) }
     it_behaves_like 'footer e-mail'
     it("image_tag") { mail_content(mail).should have_css("#subs_cancel") }
+  end
+
+  describe '.subscription_enabled_notification_email' do
+    let(:mail) { SubscriptionMailer.subscription_enabled_notification_email(user.id) }
+    let(:url) { "www.contact.com" }
+    it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
+    it("sets 'to'") { mail.to.should eql([user.email]) }
+    it("sets 'subject'") do
+      text = I18n.t('subscription_mailer.subscription_enabled_notification_email.subject', :name => user.name)
+      mail.subject.should eql(text)
+    end
+    it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+    it("sets 'headers'") { mail.headers.should eql({}) }
+    it_behaves_like 'footer e-mail'
   end
 end

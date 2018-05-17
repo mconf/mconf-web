@@ -31,11 +31,25 @@ describe SubscriptionNotificationWorker, type: :worker do
       end
     end
 
-    context "Activity subscription destroyed" do
+    context "Activity subscription destroyed or/and disable" do
       let!(:activity) { FactoryGirl.create(:recent_activity, key: 'subscription.destroyed', notified: nil, trackable: subscription) }
+      let!(:activity) { FactoryGirl.create(:recent_activity, key: 'subscription.disabled', notified: nil, trackable: subscription) }
       before(:each) { worker.perform }
 
       it "activity.key == 'subscription.destroyed'" do
+        expect(queue).to have_queued(params, activity.id)
+      end
+
+      it "activity.key == 'subscription.disabled'" do
+        expect(queue).to have_queued(params, activity.id)
+      end
+    end
+
+    context "Activity subscription enabled" do
+      let!(:activity) { FactoryGirl.create(:recent_activity, key: 'subscription.enabled', notified: nil, trackable: subscription) }
+      before(:each) { worker.perform }
+
+      it "activity.key == 'subscription.enabled'" do
         expect(queue).to have_queued(params, activity.id)
       end
     end
