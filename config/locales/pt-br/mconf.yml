@@ -548,7 +548,7 @@ pt-br:
       webconference_not_running: "A webconferência ainda não foi iniciada pelo apresentador. Por favor aguarde."
     invite_header:
       create: "Você está prestes a iniciar a sala %{name}."
-      identify: "Você está prester a entrar na sala %{name}."
+      identify: "Você está prestes a entrar na sala %{name}."
       not_running: "não iniciada"
       not_running_tooltip: "A sala ainda não está aberta, não há uma reunião em andamento"
       running: "em andamento!"
