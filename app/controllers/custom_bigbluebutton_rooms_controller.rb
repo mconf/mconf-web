@@ -161,7 +161,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
     if user_limit.present? && @room.is_running?
       meeting = @room.fetch_meeting_info
-      if meeting[:participantCount] >= user_limit
+      if  meeting && meeting[:participantCount] >= user_limit
         flash[:error] = t('custom_bigbluebutton_rooms.join.user_limit_exceeded')
         redirect_to request.referer
       end
