@@ -3,3 +3,4 @@
 $ ->
   if isOnPage 'registrations', 'new|create'
     mconf.SignupForm.setup()
+    mconf.RD.setupForm("registration")
