@@ -183,7 +183,7 @@ describe Subscription do
     end
   end
 
-  describe "#import_ops_sub" do
+  describe "#import_ops_subscriptions" do
     let!(:plan) { FactoryGirl.create(:plan, identifier: "base") }
     let!(:user) { FactoryGirl.create(:user, email: "shughes@flipstorm.info") }
     let!(:user_import) { FactoryGirl.create(:user, email: "import@flipstorm.info") }
@@ -232,29 +232,31 @@ describe Subscription do
     context "the subscription already exists in our database" do
       before {
         Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([present_subscription])
+        Mconf::Iugu.stub(:get_subscription).and_return(present_subscription)
         Mconf::Iugu.stub(:find_customer_by_id).and_return(customer)
         Mconf::Iugu.stub(:create_subscription).and_return("ABC123456")
       }
       let!(:subscription) { FactoryGirl.create(:subscription, subscription_token: "ABC123456", user_id: user.id) }
-      subject { Subscription.import_ops_sub }
+      subject { Subscription.import_ops_subscriptions }
       it { expect { subject }.to change{ Subscription.count }.by(0) }
     end
 
     context "the subscription is imported correctly" do
-      before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([importable_subscription])
-               Mconf::Iugu.stub(:find_customer_by_id).and_return(import_customer) }
-      subject { Subscription.import_ops_sub }
+      before {
+        Mconf::Iugu.stub(:fetch_all_subscriptions).and_return([importable_subscription])
+        Mconf::Iugu.stub(:get_subscription).and_return(present_subscription)
+        Mconf::Iugu.stub(:find_customer_by_id).and_return(import_customer)
+      }
+      subject { Subscription.import_ops_subscriptions }
       it { expect { subject }.to change{ Subscription.count }.by(1) }
     end
 
-    context "there is no user to match" do
-
-    end
+    skip "there is no user to match"
 
     context "there are no plans to import from ops" do
       before { Mconf::Iugu.stub(:fetch_all_subscriptions).and_return(nil)
                Mconf::Iugu.stub(:find_customer_by_id).and_return([customer]) }
-      subject { Subscription.import_ops_sub }
+      subject { Subscription.import_ops_subscriptions }
       it { expect { subject }.to change{ Subscription.count }.by(0) }
     end
   end
