@@ -5,5 +5,5 @@
   = t('_other.hi_name', name: @user.first_name)
 
 %p= t('.line1', date: format_date(@user.trial_expires_at, :long, false)).html_safe
-%p= t('.line2', link: edit_user_url(@user)).html_safe
+%p= t('.line2', link: user_subscription_url(@user.username)).html_safe
 

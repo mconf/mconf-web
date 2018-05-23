@@ -151,7 +151,7 @@ en:
       line1: "We would like to remind you that your trial period is ending today. To know our service fees, click on the link below:"
       subject: "Your trial period has ended"
       know_here: "Know our service fees"
-      pricing: "https://mconf.com/pricings"
+      pricing: "https://beta.mconf.com/subscription/plans"
     ending_soon:
       line1: "Hi, you signed the Premium some time and won a trial period without charge, and this period is ending at <b>%{date}</b>, if you are still registered in the Premium, from next month you begin to receive the invoices (do not worry, we will give discount proportional to the day of the month you signed on the first invoice."
       line2: "If you do not want to continue using Premium, you simply cancel your subscription on your <a href='%{link}'>account</a> page, and if you had already canceled, that's fine, you will not receive any charges."
