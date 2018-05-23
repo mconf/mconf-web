@@ -6,5 +6,5 @@
 %p= t('.line1').html_safe
 %p
   .button
-    = link_to t('.know_here'), t('.pricing')
+    = link_to t('.know_here'), plans_subscription_url
 %p= t('_other.mailers.unsubscribe', link: user_subscription_url(@user.username)).html_safe
