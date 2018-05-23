@@ -193,6 +193,9 @@ $ ->
   I18n.locale = $('html').attr "lang"
   moment.lang(I18n.locale)
 
+  # global configurations
+  mconf.RDToken = $('body').data("rd-token")
+
   mconf.Base.bind()
 
 # Returns true if we're currently in the view 'action' inside 'controller'

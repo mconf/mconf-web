@@ -8,4 +8,4 @@ class mconf.RD
         'user[username]': 'nome-usuario'
         'user[profile_attributes][full_name]': 'nome'
       options = { fieldMapping: meus_campos }
-      RdIntegration.integrate('c7e7748a2bd3407b8c131725ac1e2650', 'nova-conta', options);
+      RdIntegration.integrate(mconf.RDToken, 'nova-conta', options);

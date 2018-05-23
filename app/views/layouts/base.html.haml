@@ -17,7 +17,8 @@
 
     = yield :headers
 
-  %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}"}
+  %body{:class => "#{controller_name_for_view} #{params[:action]} #{layout_name} #{theme_class}",
+        :data => { :"rd-token" => Rails.application.config.rd_token } }
     - if content_for?(:base_content)
       = yield :base_content
     - else
