@@ -50,10 +50,10 @@ describe InvoiceCreateUpdateWorker, type: :worker do
       end
 
       it "set the days consumed in the new invoice" do
-        consumed = if subscription.pay_day.to_date.day.to_i >= Rails.application.config.base_month_days
+        consumed = if user.trial_expires_at.day.to_i >= Rails.application.config.base_month_days
                      nil
                    else
-                     Rails.application.config.base_month_days - subscription.pay_day.to_date.day.to_i
+                     Rails.application.config.base_month_days - user.trial_expires_at.day.to_i
                    end
         subject
         subscription.invoices.last.reload
