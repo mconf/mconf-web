@@ -29,7 +29,7 @@ describe UserNotificationsWorker, type: :worker do
 
         before(:each) { worker.perform }
 
-          it { expect(queue).to have_queue_size_of(1) }
+          it { expect(queue).to have_queue_size_of(2) }
           it { expect(queue).to have_queued(paramsRegisteredByAdmin, activity.id) }
       end
     end
@@ -54,11 +54,10 @@ describe UserNotificationsWorker, type: :worker do
           before(:each) { worker.perform }
 
           it do
-            puts RecentActivity.last(3).inspect
-            expect(queue).to have_queue_size_of(3)
+            expect(queue).to have_queue_size_of(2)
           end
-          it { expect(queue).to have_queued(paramsNeedsApproval, user1.id, admin2.id) }
-          it { expect(queue).to have_queued(paramsNeedsApproval, user2.id, admin2.id) }
+          it { expect(queue).to have_queued(paramsNeedsApproval, user1.id, admin_ids) }
+          it { expect(queue).to have_queued(paramsNeedsApproval, user2.id, admin_ids) }
         end
 
         context "ignores users not approved but that already had their notification sent" do
@@ -87,11 +86,13 @@ describe UserNotificationsWorker, type: :worker do
         end
 
         context "when there are no recipients" do
-          let!(:user1) { FactoryGirl.create(:user, approved: false) }
+          let!(:user1) { FactoryGirl.create(:unconfirmed_user, approved: false, id: 110) }
 
           before(:each) { worker.perform }
 
-          it { expect(queue).to have_queue_size_of(0) }
+          it {  puts user1.confirmed_at
+            puts RecentActivity.last.inspect
+            expect(queue).to have_queue_size_of(0) }
         end
 
         context "when the target user cannot be found" do
