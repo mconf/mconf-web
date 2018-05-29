@@ -985,7 +985,7 @@ pt-br:
       login: "Login"
       manage: "Gerenciar"
       profile: "Perfil"
-      register: "Registre-se"
+      register: "Crie uma conta"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"
@@ -1342,7 +1342,7 @@ pt-br:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
-    one: Registre-se
+    one: "Crie uma conta"
     or_choose: "ou você pode ir"
     thank_you: "Bem-vindo(a) e obrigado por se registrar no %{sitename}"
   register_as_admin: "Registe-se como administrador"

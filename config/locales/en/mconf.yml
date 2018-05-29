@@ -978,7 +978,7 @@ en:
       login: "Sign in"
       manage: "Manage"
       profile: "Profile"
-      register: "Register"
+      register: "Create an account"
     sidenav:
       my_room: "My room"
       my_spaces: "My spaces"
@@ -1328,13 +1328,13 @@ en:
     new:
       headline: "Web Conference Platform"
       headline2: "Focused on distance learning and remote meetings"
-      title: "Register"
+      title: "Create an account"
     signup_form:
       email: "Email"
       full_name: "Full name"
       password: "Password"
       password_confirmation: "Password confirmation"
-      register: "Register"
+      register: "Create account"
       register_local: "Register to Mconf"
   remove: Remove
   reply: Reply
