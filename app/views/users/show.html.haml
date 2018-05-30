@@ -10,7 +10,8 @@
   = render :partial => 'users/menu'
 
 #content-strip.container-fluid
-  = logo_image(@user, class: "logo-user")
+  .logo-image-container
+    = logo_image(@user, class: "logo-user")
 
   .user-profile
     %span.name= @user.name

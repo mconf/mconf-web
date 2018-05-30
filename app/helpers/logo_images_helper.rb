@@ -41,13 +41,9 @@ module LogoImagesHelper
         elsif version_name == :logo336x256
           version_name = :logo168x128 unless resource.logo_image.send(version_name).file.exists?
         end
-        content_tag :div, class: 'border' do
-          concat image_tag(resource.logo_image_url(version_name), options)
-        end
+        image_tag(resource.logo_image_url(version_name), options)
       else
-        content_tag :div, class: 'border' do
-          concat logo_initials(resource, options)
-        end
+        logo_initials(resource, options)
       end
 
     # Try a gravatar image if we have a confirmed user
