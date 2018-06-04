@@ -135,7 +135,7 @@ feature 'Visitor logs in' do
 
     scenario 'after a failed registration (/users/registration)' do
       visit register_path
-      click_button 'Register'
+      click_button t('registrations.signup_form.register')
       expect(current_path).to eq("/users/registration")
 
       find("a[href='#{login_path}']", match: :first).click

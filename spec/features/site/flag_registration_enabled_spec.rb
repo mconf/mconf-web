@@ -34,14 +34,14 @@ feature 'Behaviour of the flag Site#registration_enabled' do
     context "spaces/index shows a link for anonymous to register" do
       before { visit spaces_path }
 
-      it { page.should have_link(t('register.one'), register_path) }
+      it { page.should have_link(t('layouts.navbar.register'), register_path) }
     end
 
     context "the home of a space shows a link for anonymous to register" do
       let(:space) { FactoryGirl.create(:space_with_associations, public: true) }
       before { visit space_path(space) }
 
-      it { page.should have_link(t('register.one'), register_path) }
+      it { page.should have_link(t('layouts.navbar.register'), register_path) }
     end
   end
 

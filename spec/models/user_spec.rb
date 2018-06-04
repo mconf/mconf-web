@@ -171,6 +171,8 @@ describe User do
   end
 
   describe ".superusers" do
+    before { User.destroy_all }
+
     context "returns only the superusers" do
       let!(:superuser1) { FactoryGirl.create(:superuser) }
       let!(:superuser2) { FactoryGirl.create(:superuser) }
@@ -178,7 +180,7 @@ describe User do
       let!(:user2) { FactoryGirl.create(:user) }
       let(:subject) { User.superusers }
 
-      it { subject.count.should eql(3) } # plus the default admin
+      it { subject.count.should eql(2) }
       it { subject.should include(superuser1) }
       it { subject.should include(superuser2) }
     end
@@ -1489,7 +1491,7 @@ describe User do
 
     context "when is another normal user" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current, :fellows, :select]) }
+      it { should_not be_able_to_do_anything_to(target).except([:index, :current, :fellows, :select]) }
 
       context "and the target user is disabled" do
         before { target.disable }
@@ -1613,7 +1615,7 @@ describe User do
 
     context "when is an anonymous user" do
       let(:user) { User.new }
-      it { should_not be_able_to_do_anything_to(target).except([:show, :index, :current]) }
+      it { should_not be_able_to_do_anything_to(target).except([:index, :current]) }
 
       context "and the target user is disabled" do
         before { target.disable }
