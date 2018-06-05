@@ -411,15 +411,6 @@ form {
     }
   }
 
-  .navbar-user-chip.open {
-    .navbar-user-toggle {
-      .border {
-        border: $m-logo-border-size solid $m-color-primary-soft;
-        border-radius: 50%;
-      }
-    }
-  }
-
   .navbar-user-chip {
     font-size: $m-font-mini;
     margin: ($m-navbar-height - $m-navbar-btn-size - $m-logo-border-size - $m-logo-border-size)/2 0;
@@ -432,17 +423,6 @@ form {
         background: $m-navbar-font-highlight;
       }
 
-      .border {
-        border: $m-logo-border-size solid $m-logo-border;
-        border-radius: 50%;
-        @include transition(all 0.2s ease-in-out);
-      }
-
-      .border:hover {
-        border: $m-logo-border-size solid $m-color-primary-soft;
-        border-radius: 50%;
-      }
-
       img, .logo-user {
         height: $m-navbar-btn-size;
         width: $m-navbar-btn-size;
@@ -450,10 +430,16 @@ form {
         display: inline-block;
         border: $m-logo-border-size solid $m-logo-border;
         font-size: $m-logo-font-size;
+        padding: 2px;
+        transition: border .2s ease-in;
 
         &.logo-initials {
           padding: $m-logo-initials-padding;
         }
+      }
+
+      .logo-user:hover {
+        border: $m-logo-border-size solid $m-color-primary-soft;
       }
     }
 

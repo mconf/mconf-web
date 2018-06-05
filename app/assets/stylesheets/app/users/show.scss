@@ -30,19 +30,43 @@ body.users.update {
       font-weight: $m-font-weight-bold;
     }
 
-    @include logo-container;
+    .logo-image-container {
+      margin-top: -180px;
+      height: 250px;
+    }
+
     .logo-user {
       height: 250px;
       width: 250px;
-      float: none;
-      margin-top: -35%;
-      display: inline-block;
-      border: 1px solid $m-logo-border;
       border-radius: 50%;
+      border: 10px solid $m-logo-border;
+      margin: 0 auto;
 
       &.logo-initials {
         padding: 90px 0;
         font-size: 80px;
+      }
+    }
+
+    .logo-image-controls {
+      height: 250px;
+      width: 250px;
+      background: rgba(10, 23, 55, 0.5);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      margin: 0 auto;
+      border: 10px solid $m-logo-border;
+    }
+
+    .logo-image-text  {
+      color: white;
+      margin-top: 65px;
+      img {
+        height: 85px;
+        width: 110px;
       }
     }
 

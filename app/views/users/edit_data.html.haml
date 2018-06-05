@@ -12,7 +12,11 @@
 #content-strip.container-fluid
   .dropdown
     .dropdown-toggle{ data: { toggle: 'dropdown' } }
-      = logo_image(@user, class: "logo-user")
+      .logo-image-container
+        = logo_image(@user, class: "logo-user")
+        .logo-image-controls
+          .logo-image-text
+            =image_tag("cam-edit-user-avatar.png")
     %ul.dropdown-menu.dropdown-menu-right
       %li= upload_logo_controls(@user)
       %li= link_to t('.remove_picture'), remove_logo_user_path(@user), method: "post"
