@@ -18,7 +18,7 @@ feature "Confirmation instructions" do
     }
 
     scenario "and the user is not confirmed yet" do
-      expect(page).to have_field("user_email", with: user.email)
+      expect(page).to have_field("user_email")
       expect(page).to have_css("#user_email[readonly]")
       expect(page).to have_button((I18n.t('user.request_confirmation').upcase), disabled: true)
 

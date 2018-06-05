@@ -11,7 +11,9 @@ feature 'User accesses an URL of a user that' do
 
   context 'does exist' do
     let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
+    before {
+      sign_in_with user.username, user.password
+      visit user_path(user) }
     subject { page }
 
     it { should have_title(user.full_name) }

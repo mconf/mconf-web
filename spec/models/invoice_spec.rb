@@ -37,7 +37,8 @@ describe Invoice do
       subject { target.generate_consumed_days("create") }
 
       context "on the 1st" do
-        let(:subscription) { FactoryGirl.create(:subscription, pay_day: "2017-10-01") }
+        let(:user) { FactoryGirl.create(:user, trial_expires_at: (Time.now - 5.month)) }
+        let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id, pay_day: "2017-10-01") }
         let(:target) { FactoryGirl.create(:invoice, days_consumed: 0, subscription_id: subscription.id) }
         let(:date) { DateTime.strptime('01/10/2017 12:00', "%d/%m/%Y %H:%M") }
         it {
@@ -47,7 +48,8 @@ describe Invoice do
       end
 
       context "on the 10th" do
-        let(:subscription) { FactoryGirl.create(:subscription, pay_day: "2017-10-10") }
+        let(:user) { FactoryGirl.create(:user, trial_expires_at: (Time.now - 5.month)) }
+        let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id, pay_day: "2017-10-10") }
         let(:target) { FactoryGirl.create(:invoice, days_consumed: 0, subscription_id: subscription.id) }
         let(:date) { DateTime.strptime('10/10/2017 12:00', "%d/%m/%Y %H:%M") }
         it {
@@ -57,7 +59,8 @@ describe Invoice do
       end
 
       context "on the last day of the base days" do
-        let(:subscription) { FactoryGirl.create(:subscription, pay_day: "2017-10-#{base_days}") }
+        let(:user) { FactoryGirl.create(:user, trial_expires_at: (Time.now - 5.month)) }
+        let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id, pay_day: "2017-10-#{base_days}") }
         let(:target) { FactoryGirl.create(:invoice, days_consumed: 0, subscription_id: subscription.id) }
         let(:date) { DateTime.strptime("#{base_days}/10/2017 12:00", "%d/%m/%Y %H:%M") }
         it {
@@ -67,7 +70,8 @@ describe Invoice do
       end
 
       context "after the base days" do
-        let(:subscription) { FactoryGirl.create(:subscription, pay_day: "2017-10-31") }
+        let(:user) { FactoryGirl.create(:user, trial_expires_at: (Time.now - 5.month)) }
+        let(:subscription) { FactoryGirl.create(:subscription, user_id: user.id, pay_day: "2017-10-31") }
         let(:target) { FactoryGirl.create(:invoice, days_consumed: 0, subscription_id: subscription.id) }
         let(:date) { DateTime.strptime("31/10/2017 12:00", "%d/%m/%Y %H:%M") }
         it {

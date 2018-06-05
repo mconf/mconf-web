@@ -129,18 +129,17 @@ class Subscription < ActiveRecord::Base
   # This update function does not cover changes in user full_name or email for now
   def update_sub
     if self.plan.ops_type == Plan::OPS_TYPES[:iugu]
-      updated =
-        Mconf::Iugu.update_customer(
-          self.customer_token,
-          self.cpf_cnpj,
-          self.address,
-          self.additional_address_info,
-          self.number,
-          self.zipcode,
-          self.city,
-          self.province,
-          self.district
-        )
+      params = {
+        cpf_cnpj: self.cpf_cnpj,
+        address: self.address,
+        additional_address_info: self.additional_address_info,
+        number: self.number,
+        zipcode: self.zipcode,
+        city: self.city,
+        province: self.province,
+        district: self.district
+      }
+      updated = Mconf::Iugu.update_customer(self.customer_token, params)
 
       if updated == false
         logger.error I18n.t('.subscriptions.errors.update')
@@ -166,48 +165,61 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.import_ops_sub
+  def self.import_ops_subscriptions
     subscriptions = Mconf::Iugu.fetch_all_subscriptions
     if subscriptions.present?
       subscriptions.each do |subs|
-        cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
-        user = User.find_by(email: cust.email)
-        plan = Plan.find_by(identifier: subs.plan_identifier)
-
-        if user.present? && plan.present?
-          params = {
-            plan_token: plan.ops_token,
-            user_id: user.id,
-            subscription_token: subs.id,
-            customer_token: cust.id,
-            pay_day: subs.expires_at,
-            cpf_cnpj: cust.cpf_cnpj,
-            address: cust.street,
-            additional_address_info: cust.complement,
-            number: cust.number,
-            zipcode: cust.zip_code,
-            city: cust.city,
-            province: cust.state,
-            district: cust.district,
-            country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
-            integrator: false
-          }
-
-          if Subscription.find_by(subscription_token: (params[:subscription_token])).present?
-            logger.info I18n.t('.subscriptions.info')
-          else
-            imported_sub = Subscription.new(params)
-            imported_sub.importing_subscription = true
-            imported_sub.save!
-            trial_expiraion = (subs.created_at.to_datetime)+(Rails.application.config.trial_months.months)
-            user.update_attributes(trial_expires_at: trial_expiraion)
-          end
-        else
-          # Should we create a new user based on the subscription?
-          # If it's the missing plan, must import plans and then try again
-          logger.error I18n.t('.subscriptions.errors.match')
-        end
+        self.import_ops_subscription(subs.id)
       end
+    end
+  end
+
+  def self.import_ops_subscription(subscription_id, u=nil)
+    subs = Mconf::Iugu.get_subscription(subscription_id)
+    cust = Mconf::Iugu.find_customer_by_id(subs.customer_id)
+    user = u || User.find_by(email: cust.email)
+    plan = Plan.find_by(identifier: subs.plan_identifier)
+
+    if user.present? && plan.present?
+      params = {
+        plan_token: plan.ops_token,
+        user_id: user.id,
+        subscription_token: subs.id,
+        customer_token: cust.id,
+        pay_day: subs.expires_at,
+        cpf_cnpj: cust.cpf_cnpj,
+        address: cust.street,
+        additional_address_info: cust.complement,
+        number: cust.number,
+        zipcode: cust.zip_code,
+        city: cust.city,
+        province: cust.state,
+        district: cust.district,
+        country: (cust.custom_variables.find{ |x| x['name'] == "Country" }.try(:[],'value')),
+        integrator: false
+      }
+
+      if Subscription.find_by(subscription_token: subs.id).present?
+        logger.info I18n.t('.subscriptions.info')
+      else
+        imported_sub = Subscription.new(params)
+        imported_sub.importing_subscription = true
+        imported_sub.save!
+
+        # first day of the month before the expiration date on ops
+        trial_expiraion = (DateTime.parse(subs.expires_at) - 1.month).at_beginning_of_month
+        user.update_attributes(trial_expires_at: trial_expiraion)
+      end
+
+      # update the email on Iugu if necessary
+      if u.present? && u.email != cust.email
+        params = { email: u.email }
+        Mconf::Iugu.update_customer(cust.id, params)
+      end
+    else
+      # Should we create a new user based on the subscription?
+      # If it's the missing plan, must import plans and then try again
+      logger.error I18n.t('.subscriptions.errors.match')
     end
   end
 

@@ -548,7 +548,7 @@ pt-br:
       webconference_not_running: "A webconferência ainda não foi iniciada pelo apresentador. Por favor aguarde."
     invite_header:
       create: "Você está prestes a iniciar a sala %{name}."
-      identify: "Você está prester a entrar na sala %{name}."
+      identify: "Você está prestes a entrar na sala %{name}."
       not_running: "não iniciada"
       not_running_tooltip: "A sala ainda não está aberta, não há uma reunião em andamento"
       running: "em andamento!"
@@ -985,7 +985,7 @@ pt-br:
       login: "Login"
       manage: "Gerenciar"
       profile: "Perfil"
-      register: "Registre-se"
+      register: "Crie uma conta"
   less: "menos..."
   locales:
     error: "Linguagem não resgistrada"
@@ -1342,7 +1342,7 @@ pt-br:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a>"
-    one: Registre-se
+    one: "Crie uma conta"
     or_choose: "ou você pode ir"
     thank_you: "Bem-vindo(a) e obrigado por se registrar no %{sitename}"
   register_as_admin: "Registe-se como administrador"

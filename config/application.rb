@@ -167,5 +167,8 @@ module Mconf
     # iugu report file names
     config.report_pt = "report-pt.pdf"
     config.report_en = "report-en.pdf"
+
+    # integration with RD Station
+    config.rd_token = ENV['MCONF_RD_TOKEN'] || ''
   end
 end

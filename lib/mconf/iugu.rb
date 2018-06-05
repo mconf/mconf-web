@@ -105,16 +105,18 @@ module Mconf
     end
 
     # Currently not going to upate full_name or email, subscription must be created over to change those fields
-    def self.update_customer(customer_id, cpf_cnpj, address, additional_address_info, number, zipcode, city, province, district)
+    # def self.update_customer(customer_id, cpf_cnpj, address, additional_address_info, number, zipcode, city, province, district, email)
+    def self.update_customer(customer_id, params)
       customer = ::Iugu::Customer.fetch(customer_id)
-      customer.cpf_cnpj = cpf_cnpj
-      customer.zip_code = zipcode
-      customer.number = number
-      customer.street = address
-      customer.city = city
-      customer.state = province
-      customer.district = district
-      customer.complement = additional_address_info
+      customer.cpf_cnpj = params[:cpf_cnpj] if params.key?(:cpf_cnpj)
+      customer.zip_code = params[:zipcode] if params.key?(:zipcode)
+      customer.number = params[:number] if params.key?(:number)
+      customer.street = params[:address] if params.key?(:address)
+      customer.city = params[:city] if params.key?(:city)
+      customer.state = params[:province] if params.key?(:province)
+      customer.district = params[:district] if params.key?(:district)
+      customer.complement = params[:additional_address_info] if params.key?(:additional_address_info)
+      customer.email = params[:email] if params.key?(:email)
 
       customer.save
 

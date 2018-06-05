@@ -432,27 +432,28 @@ describe 'User signs in via shibboleth' do
 
   end
 
-  context 'from the webconference invitation page' do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: space) }
+  skip "TODO: Login via shib to webconference invite" do
+    context 'from the webconference invitation page' do
+      let(:space) { FactoryGirl.create(:space) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, owner: space) }
 
-    before {
-      enable_shib
-      setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
-      visit join_webconf_path(room)
-      login_link.click
-    }
-
-    context "joins but doesn't create a new account" do
-      let(:login_link) { find(:xpath, "//a[contains(@href, '#{shibboleth_path}')]", match: :first) }
-
-      it { current_path.should eq(invite_bigbluebutton_room_path(room)) }
-      it { find("[name='user[name]']").value.should eql(@attrs[:profile_attributes][:full_name]) }
-      it {
-        visit my_home_path
-        current_path.should eq(new_user_session_path)
+      before {
+        enable_shib
+        setup_shib @attrs[:profile_attributes][:full_name], @attrs[:email], @attrs[:email]
+        visit join_webconf_path(room)
+        login_link.click
       }
+
+      context "joins but doesn't create a new account" do
+        let(:login_link) { find(:xpath, "//a[contains(@href, '#{shibboleth_path}')]", match: :first) }
+
+        it { current_path.should eq(invite_bigbluebutton_room_path(room)) }
+        it { find("[name='user[name]']").value.should eql(@attrs[:profile_attributes][:full_name]) }
+        it {
+          visit my_home_path
+          current_path.should eq(new_user_session_path)
+        }
+      end
     end
   end
-
 end

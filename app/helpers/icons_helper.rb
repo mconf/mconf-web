@@ -7,11 +7,6 @@
 
 module IconsHelper
 
-  # Default icon that shows a tooltip with information about something
-  #def icon_info(title=nil, options={})
-  #  icon_constructor title, "fa fa-info-circle icon icon-info", options
-  #end
-
   # Default icon to a feed (rss)
   def icon_feed(options={})
     options.merge!(:alt => t('RSS'), :title => t('RSS'))
