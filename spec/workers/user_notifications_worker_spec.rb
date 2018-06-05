@@ -172,7 +172,7 @@ describe UserNotificationsWorker, type: :worker do
 
         before(:each) { worker.perform }
 
-          it { expect(queue).to have_queue_size_of(1) }
+          it { expect(queue).to have_queue_size_of(2) } #one of them is confirmation
           it { expect(queue).to have_queued(paramsReactivated, activity.id) }
       end
     end
