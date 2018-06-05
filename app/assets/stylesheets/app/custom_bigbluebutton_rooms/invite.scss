@@ -12,7 +12,7 @@ body.custom_bigbluebutton_rooms.auth {
 
     margin: 120px -117px 0 -5px;
     float: none;
-    padding: 11%;
+    padding: 9%;
     overflow: visible;
 
     background: image-url('logos/404_Conference_Error.png') no-repeat top;
@@ -27,7 +27,7 @@ body.custom_bigbluebutton_rooms.auth {
 
     margin: 120px -117px 0 -5px;
     float: none;
-    padding: 11%;
+    padding: 9%;
     overflow: visible;
 
     background: image-url('logos/500_Error.png') no-repeat top;
@@ -50,9 +50,9 @@ body.custom_bigbluebutton_rooms.auth {
 
   #login_page {
     @include make-sm-column(6);
-    margin: 90px -70px 0 70px;
+    margin: 160px -70px 0 156px;
     float: none;
-    padding: 10%;
+    padding: 8%;
     overflow: visible;
 
     background: image-url('logos/Notebook_online.png') no-repeat left;
@@ -68,9 +68,9 @@ body.custom_bigbluebutton_rooms.auth {
 
   #login_page {
     @include make-sm-column(6);
-    margin: 90px -70px 0 70px;
+    margin: 160px -70px 0 156px;
     float: none;
-    padding: 10%;
+    padding: 8%;
     overflow: visible;
 
     background: image-url('logos/Notebook_offline.png') no-repeat left;
