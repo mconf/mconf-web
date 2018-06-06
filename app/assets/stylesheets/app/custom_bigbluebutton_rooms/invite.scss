@@ -10,7 +10,7 @@ body.custom_bigbluebutton_rooms.auth {
   #error404-logo {
     @include make-sm-column(6);
 
-    margin: 120px -117px 0 -5px;
+    margin: -210px -117px 0 0;
     float: none;
     padding: 9%;
     overflow: visible;
@@ -25,7 +25,7 @@ body.custom_bigbluebutton_rooms.auth {
   #error500-logo {
     @include make-sm-column(6);
 
-    margin: 120px -117px 0 -5px;
+    margin: -130px -117px 0 0;
     float: none;
     padding: 9%;
     overflow: visible;
@@ -40,8 +40,18 @@ body.custom_bigbluebutton_rooms.auth {
   .error-description {
     max-width: 40%;
     float: right;
-    padding-top: 265px;
+    padding-top: 210px;
     padding-right: 10%;
+
+    .ops-text {
+      margin-bottom: 60px;
+      font-size: $m-font-banner;
+    }
+
+    .description-text {
+      font-size: $m-font-medium;
+      font-weight: $m-font-weight-thin;
+    }
   }
 }
 

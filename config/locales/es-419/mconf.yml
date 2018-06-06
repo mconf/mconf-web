@@ -652,7 +652,8 @@ es-419:
       description: "La página que estás buscando es de acceso restringido. Usted no está autorizado para realizar esa acción."
       title: "Prohibido"
     e404:
-      description: "Opps, la página \"%{url}\" no existe."
+      description: "La página \"%{url}\" no existe."
+      ops: "Opps!"
       title: "No encontrado"
     e500:
       description: "Lo sentimos, pero algo salió mal. Nos han comunicado el problema y vamos a echar un vistazo a él en breve."

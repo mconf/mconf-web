@@ -751,7 +751,8 @@ pt-br:
       description: "Você não possui permissão para visualizar esta página."
       title: "Proibido"
     e404:
-      description: "Oops, a página \"%{url}\" não existe."
+      description: "A página \"%{url}\" não existe."
+      ops: "Ops!"
       title: "Não encontrado"
     e500:
       description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
