@@ -10,7 +10,7 @@ require 'support/feature_helpers'
 feature "Confirmation instructions" do
 
   context "a signed in user requesting confirmation instructions" do
-    user = FactoryGirl.create(:unconfirmed_user)
+    let!(:user) { FactoryGirl.create(:unconfirmed_user) }
 
     before {
       sign_in_with user.username, user.password
