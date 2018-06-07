@@ -38,11 +38,15 @@ class SubscriptionsController < InheritedResources::Base
     @user = User.find_by(username: (params[:subscription][:user_id]))
     @subscription.setup(@user, Plan::OPS_TYPES[:iugu])
 
-    if @subscription.save
-      flash = { success: t("subscriptions.created") }
-      redirect_to user_subscription_path(@user), :flash => flash
+    if params[:subscription][:user_id] == current_user.username || current_user.superuser?
+      if @subscription.save
+        flash = { success: t("subscriptions.created") }
+        redirect_to user_subscription_path(@user), :flash => flash
+      else
+        render :new
+      end
     else
-      render :new
+      render_error_page 403
     end
   end
 
