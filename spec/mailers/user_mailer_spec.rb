@@ -15,9 +15,9 @@ describe UserMailer do
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
     it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
-    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
-    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
-    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+    it ("Sets Linkdin image") { mail_content(mail).should have_css("#facebook") }
+    it ("Sets Medium image") { mail_content(mail).should have_css("#linkedin") }
+    it ("Sets Facebook image") { mail_content(mail).should have_css("#medium") }
   end
 
   describe '.registration_notification_email' do
@@ -26,7 +26,7 @@ describe UserMailer do
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_notification_email.subject')
@@ -45,6 +45,7 @@ describe UserMailer do
           content = I18n.t('user_mailer.registration_notification_email.click_here', url: url)
           mail_content(mail).should match(content)
         }
+         it ("Image_tag") { mail_content(mail).should have_css("#reg_notification") }
       end
 
       context "if the site requires registration approval" do
@@ -98,7 +99,7 @@ describe UserMailer do
     let(:url) { my_home_url(host: Site.current.domain) }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.registration_by_admin_notification_email.subject')
@@ -121,6 +122,7 @@ describe UserMailer do
         }
       end
         it_behaves_like 'footer e-mail'
+        it ("Image_tag") { mail_content(mail).should have_css("#reg_by_admin") }
     end
 
     context "uses the receiver's locale" do
@@ -166,7 +168,7 @@ describe UserMailer do
     let(:contact) { Site.current.smtp_receiver }
 
     context "in the standard case" do
-      it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('user_mailer.cancellation_notification_email.subject')
@@ -216,6 +218,69 @@ describe UserMailer do
       }
       it {
         content = I18n.t('user_mailer.cancellation_notification_email.message', url: url, site: name, locale: "pt-br")
+        mail.body.encoded.should match(content)
+      }
+    end
+  end
+
+describe '.reactivation_notification_email' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:mail) { UserMailer.reactivation_notification_email(user.id) }
+    let(:url) { root_url(host: Site.current.domain) }
+    let(:name) { Site.current.name }
+    let(:contact) { Site.current.smtp_receiver }
+
+    context "in the standard case" do
+      it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
+      it("sets 'to'") { mail.to.should eql([user.email]) }
+      it("sets 'subject'") {
+        text = I18n.t('user_mailer.reactivation_notification_email.subject')
+        mail.subject.should eql(text)
+      }
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
+      context "in body message" do
+        it("sends a link to site root_path") {
+          mail.body.encoded.should match(url)
+        }
+        it("sends a contact email information") {
+          mail.body.encoded.should match(contact)
+        }
+      end
+      it_behaves_like 'footer e-mail'
+    end
+
+    context "uses the receiver's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        user.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('user_mailer.reactivation_notification_email.message', url: url, site: name, locale: "pt-br")
+        mail.body.encoded.should match(content)
+      }
+    end
+
+    context "uses the current site's locale if the receiver has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => "pt-br")
+        user.update_attribute(:locale, nil)
+      }
+      it {
+        content = I18n.t('user_mailer.reactivation_notification_email.message', url: url, site: name, locale: "pt-br")
+        mail.body.encoded.should match(content)
+      }
+    end
+
+    context "uses the default locale if the site has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => nil)
+        I18n.default_locale = "pt-br"
+        user.update_attribute(:locale, nil)
+      }
+      it {
+        content = I18n.t('user_mailer.reactivation_notification_email.message', url: url, site: name, locale: "pt-br")
         mail.body.encoded.should match(content)
       }
     end

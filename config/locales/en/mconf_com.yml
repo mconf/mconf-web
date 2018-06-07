@@ -133,20 +133,25 @@ en:
         introduction_1: "Your Team subscription on the Mconf portal came into effect!"
         text: "Now you can hold meetings with 100 participants and have an unlimited number of recordings and web conferencing rooms, among other benefits."
         end: "We appreciate your preference for our service and hope that we can make a collaborative future together."
-      subject: "%{name}: Your subscription was successfully created."
+      subject: "%{name}: Your subscription was successfully created!"
     subscription_destroyed_notification_email:
       message:
         hello: "Hi %{name},"
         main_text: "Your subscription to Mconf has ended and your account will now be downgraded to a free plan. Thank you for subscribing to Mconf!"
         trial_expires: "You are canceling the subscription in trial period, you can reactivate and still have free use until the <b>%{date}</b>. We'll let you know when the trial is running out. You will not receive any type of charge if you do not re-sign the Premium."
         see_you_again: "We hope see you again soon!"
-      subject: "%{name}: Your subscription had ended."
+      subject: "%{name}: Your subscription had ended!"
+    subscription_enabled_notification_email:
+      message:
+        hello: "Hi %{name}!"
+        end: "We appreciate your preference for our service and hope that we can make a collaborative future together."
+      subject: "%{name}: Your subscription was successfully enabled!"
   trial_notifications_mailer:
     ended:
       line1: "We would like to remind you that your trial period is ending today. To know our service fees, click on the link below:"
       subject: "Your trial period has ended"
       know_here: "Know our service fees"
-      pricing: "https://mconf.com/pricings"
+      pricing: "https://beta.mconf.com/subscription/plans"
     ending_soon:
       line1: "Hi, you signed the Premium some time and won a trial period without charge, and this period is ending at <b>%{date}</b>, if you are still registered in the Premium, from next month you begin to receive the invoices (do not worry, we will give discount proportional to the day of the month you signed on the first invoice."
       line2: "If you do not want to continue using Premium, you simply cancel your subscription on your <a href='%{link}'>account</a> page, and if you had already canceled, that's fine, you will not receive any charges."

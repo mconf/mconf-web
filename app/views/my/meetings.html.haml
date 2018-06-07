@@ -25,7 +25,10 @@
   - if @meetings.count > 0
 
     #my-meetings-list
-      = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path }
+      - if params[:recordedonly] == 'false'
+        = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path(recordedonly:'false') }
+      - else
+        = render partial: 'shared/recording_list', locals: { meetings: @meetings, show_authors: false, redir_to: my_meetings_path }
 
   - else
     -if params[:recordedonly] == 'false'

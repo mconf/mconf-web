@@ -307,3 +307,12 @@
   }
 
 }
+@mixin mailer_images{
+  height: 249px;
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 25px;
+  margin-top: 0px;
+  padding: 15px;
+}

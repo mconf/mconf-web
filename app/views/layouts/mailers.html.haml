@@ -6,16 +6,17 @@
     = yield :headers
   %body{:class => "#{@mailer_name} #{@mail_name}"}
     .header-logo
-      = image_tag "mailer/mconf_tec.png", size: '277x106'
+      #mconf-com
+
     .message-body
       = yield
       .footer_message
         %label= t('.question')
         .contact= t('.e_mail')
       .image_footer
-        %image_icon= link_to (image_tag "mailer/facebook.png", size: '30x30'), t('.facebook')
-        %image_icon= link_to (image_tag "mailer/linkedin.png", size: '30x30'), t('.linkedin')
-        %image_icon= link_to (image_tag "mailer/medium.png", size: '30x30'), t('.medium')
+        #facebook= link_to(" ", t('.facebook'))
+        #linkedin= link_to(" ",t('.linkedin'))
+        #medium= link_to(" ",t('.medium'))
     .footer
       %label= t('.footer_title')
       %label= t('.adress')

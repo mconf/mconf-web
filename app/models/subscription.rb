@@ -269,6 +269,9 @@ class Subscription < ActiveRecord::Base
     end
 
     Mconf::Iugu.disable_subscription(self.subscription_token)
+
+    subscription_owner = User.find_by(id: self.user_id)
+    create_activity 'disabled', owner: self, recipient: subscription_owner, notified: false
   end
 
   # In enable it on Iugu and cancel the discount for consumed days if it is enbled on the same month it was disabled
@@ -278,6 +281,9 @@ class Subscription < ActiveRecord::Base
     end
 
     Mconf::Iugu.enable_subscription(self.subscription_token)
+
+    subscription_owner = User.find_by(id: self.user_id)
+    create_activity 'enabled', owner: self, recipient: subscription_owner, notified: false
   end
 
 

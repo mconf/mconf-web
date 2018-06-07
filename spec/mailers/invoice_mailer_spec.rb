@@ -21,9 +21,9 @@ describe InvoiceMailer do
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.phone'))) }
     it { mail_content(mail).should match(I18n.t('layouts.mailers.unsubscribe')) }
     it { mail_content(mail).should match(Regexp.escape(I18n.t('layouts.mailers.question'))) }
-    it ("Sets Linkdin image") { mail_content(mail).should match('assets/mailer/linkedin.png') }
-    it ("Sets Medium image") { mail_content(mail).should match('assets/mailer/medium.png') }
-    it ("Sets Facebook image") { mail_content(mail).should match('assets/mailer/facebook.png') }
+    it ("Sets Linkdin image") { mail_content(mail).should have_css("#facebook") }
+    it ("Sets Medium image") { mail_content(mail).should have_css("#linkedin") }
+    it ("Sets Facebook image") { mail_content(mail).should have_css("#medium") }
   end
 
   let(:user) { FactoryGirl.create(:user) }
@@ -31,7 +31,7 @@ describe InvoiceMailer do
   let!(:invoice) { FactoryGirl.create(:invoice, subscription: subscription) }
 
   describe '.invoice_report_email' do
-    it ("Sets header logo image") { mail_content(mail).should match('mailer/mconf_tec.png') }
+    it ("Sets header logo image") { mail_content(mail).should have_css("#mconf-com") }
     before {
       Invoice.any_instance.stub(:report_file_path).and_return(File.join(Rails.root, "spec/fixtures/files/test-report-en.pdf"))
     }
@@ -63,6 +63,7 @@ describe InvoiceMailer do
       content = I18n.t('invoice_mailer.invoice_report_email.message.link2', :url => url).html_safe
       mail_content(mail).should match(content)
     }
+    it("image_tag") { mail_content(mail).should have_css("#invoices") }
     it_behaves_like 'footer e-mail'
   end
 end

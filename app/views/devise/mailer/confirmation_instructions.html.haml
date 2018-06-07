@@ -1,10 +1,11 @@
 
 - unless Site.current.require_registration_approval?
   .header_image
-    =image_tag "mailer/approval_email.png", size: '544x263'
+    .app_email
 - else
   .header_image
-    =image_tag "mailer/waiting_approval.png", size: '544x263'
+    .waiting_app
+
 .header_message
   = t('devise.mailer.confirmation_instructions.welcome_name', name: @user.full_name)
 %p

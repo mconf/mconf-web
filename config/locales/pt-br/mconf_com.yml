@@ -224,7 +224,12 @@ pt-br:
         main_text: "Sua assinatura com o Mconf terminou e sua conta será atualizada para um plano gratuito. Obrigada pela assinatura!"
         trial_expires: "Você está cancelando sua assinatura no período de trial, você pode reativar sua assinatura e ainda ter acesso livre até <b>%{date}</b>.Nós iremos avisar quando o trial acabará.Você não receberá nenhum tipo de cobrança se você não assinar o modo Premium"
         see_you_again: "Esperemos ver você em breve!"
-      subject: "%{name}: Sua assinatura foi cancelada."
+      subject: "%{name}: Sua assinatura acabou!"
+    subscription_enabled_notification_email:
+      message:
+        hello: "Olá %{name}!"
+        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos." 
+      subject: "%{name}: Sua assinatura foi habilitada com sucesso!"
   trial_notifications_mailer:
     ended:
       line1: "Gostaríamos de lembrá-lo(a) que seu período de testes gratuito encerra hoje. Para recordar as tarifas do serviço, clique no botão abaixo:"
@@ -234,7 +239,7 @@ pt-br:
     ending_soon:
       line1: "Oi, você assinou o Premium há algum tempo e ganhou um período de testes sem cobrança. Este período está acabando em %{date}, se você ainda está cadastrado no Premium a partir do próximo mês você começa a receber as faturas (não se preocupe, vamos dar desconto proporcional ao dia do mês que você assinou na primeira fatura)."
       line2: "Se você não quer continuar utilizando o Premium, basta cancelar sua assinatura na sua pagina de <a href='%{link}'>conta</a>, e se você já tinha cancelado, está tudo certo, você não receberá nenhuma cobrança."
-      subject: "Seu período de testes está chegando ao fim"
+      subject: "Seu período de testes está chegando ao fim!"
   user:
     usage:
       education: "Educação"

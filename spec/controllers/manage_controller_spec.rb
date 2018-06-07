@@ -920,7 +920,7 @@ describe ManageController do
             let(:start_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
             let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
             let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
-            let(:data) { {:users=>{:count=>4, :approved=>4, :not_approved=>0, :disabled=>0}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
+            let(:data) { {:users=>{:count=>3, :approved=>3, :not_approved=>0, :disabled=>0}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
 
             it { assigns(:statistics).should eql(data) }
           end
@@ -929,7 +929,7 @@ describe ManageController do
             let(:start_date) { (Time.now.utc - 5.month).strftime("%m/%d/%Y").to_s }
             let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
             let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
-            let(:data) { {:users=>{:count=>5, :approved=>4, :not_approved=>1, :disabled=>0}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
+            let(:data) { {:users=>{:count=>4, :approved=>3, :not_approved=>1, :disabled=>0}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
 
             it { assigns(:statistics).should eql(data) }
           end
@@ -938,7 +938,7 @@ describe ManageController do
             let(:start_date) { (Time.now.utc - 6.year).strftime("%m/%d/%Y").to_s }
             let(:end_date) { (Time.now.utc).strftime("%m/%d/%Y").to_s }
             let(:params) { { statistics: { starts_on_time: start_date, ends_on_time: end_date } } }
-            let(:data) { {:users=>{:count=>6, :approved=>5, :not_approved=>1, :disabled=>1}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
+            let(:data) { {:users=>{:count=>5, :approved=>4, :not_approved=>1, :disabled=>1}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
 
             it { assigns(:statistics).should eql(data) }
           end
@@ -964,7 +964,7 @@ describe ManageController do
 
         context "without params: result approved_user, not_approved_user, disabled_user, admin and superuser (all)" do
           let(:params) { {} }
-          let(:data) { {:users=>{:count=>6, :approved=>5, :not_approved=>1, :disabled=>1}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
+          let(:data) { {:users=>{:count=>5, :approved=>4, :not_approved=>1, :disabled=>1}, :spaces=>{:count=>1, :private=>1, :public=>0, :disabled=>0}, :meetings=>{:count=>1, :total_duration=>0, :average_duration=>0}, :recordings=>{:count=>1, :size=>0, :total_duration=>5, :average_duration=>5}} }
 
           it { assigns(:statistics).should eql(data) }
         end
@@ -986,7 +986,7 @@ describe ManageController do
     end
 
     context ".csv format: download .csv" do
-      let(:data) {"users.count,users.approved,users.not_approved,users.disabled,spaces.count,spaces.private,spaces.public,spaces.disabled,meetings.count,meetings.total_duration,meetings.average_duration,recordings.count,recordings.size,recordings.total_duration,recordings.average_duration\n3,3,0,0,0,0,0,0,0,0,0,0,0,0,0\n"}
+      let(:data) {"users.count,users.approved,users.not_approved,users.disabled,spaces.count,spaces.private,spaces.public,spaces.disabled,meetings.count,meetings.total_duration,meetings.average_duration,recordings.count,recordings.size,recordings.total_duration,recordings.average_duration\n2,2,0,0,0,0,0,0,0,0,0,0,0,0,0\n"}
       let(:from_date) { Time.at(0).utc }
       let(:to_date) { Time.now.utc }
 

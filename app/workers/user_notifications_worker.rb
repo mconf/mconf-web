@@ -13,6 +13,7 @@ class UserNotificationsWorker < BaseWorker
     notify_users_account_created
     notify_users_account_created_by_admin
     notify_users_account_cancelled
+    notify_users_after_enabled
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
@@ -89,6 +90,14 @@ class UserNotificationsWorker < BaseWorker
     end
   end
 
+  def self.notify_users_after_enabled
+    activities = get_recent_activity
+      .where trackable_type: 'User', key: 'user.enabled.confirm', notified: [false]
+    activities.each do |activity|
+      Queue::High.enqueue(UserNotificationsWorker, :enabled_sender, activity.id)
+    end
+  end
+
   # Sends a notification to all recipients in the array of ids `recipient_ids`
   # informing that the user with id `user_id` needs to be approved.
   def self.needs_approval_sender(activity_id, recipient_ids)
@@ -144,6 +153,19 @@ class UserNotificationsWorker < BaseWorker
 
       Resque.logger.info "Sending user cancelled email to #{user_id}"
       UserMailer.cancellation_notification_email(activity.trackable_id).deliver
+
+      activity.update_attribute(:notified, true)
+    end
+  end
+
+  def self.enabled_sender(activity_id)
+    activity = get_recent_activity.find(activity_id)
+
+    if !activity.notified?
+      user_id = activity.trackable_id
+
+      Resque.logger.info "Sending user enabled email to #{user_id}"
+      UserMailer.reactivation_notification_email(activity.trackable_id).deliver
 
       activity.update_attribute(:notified, true)
     end

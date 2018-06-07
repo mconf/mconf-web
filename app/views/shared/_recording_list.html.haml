@@ -55,7 +55,7 @@
               - else
                 .meeting-date{ :title => t('.started_at_desc', meeting_start: m_create) }
                   = m_date
-
+             
             %td.meeting-time-column
               - user_time_zone = Mconf::Timezone.user_time_zone(current_user).name
               - m_create = format_time_with_timezone(meeting.create_time, user_time_zone)
@@ -114,7 +114,7 @@
                             = t('.edit')
                       - else
                         - if can?(:space_edit, recording)
-                          = link_to space_edit_recording_path(recording.room.owner, recording), class: "tooltipped open-modal" do
+                          = link_to space_edit_recording_path(recording.room.owner, recording ), class: "tooltipped open-modal" do
                             = icon_edit
                             = t('.edit')
                     %li

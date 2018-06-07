@@ -13,10 +13,11 @@ class SubscriptionNotificationWorker < BaseWorker
   def self.perform
     notify_users_of_subscription_created
     notify_users_of_subscription_destroyed
+    notify_users_of_subscription_enabled
   end
 
   def self.notify_users_of_subscription_created
-    activities = RecentActivity
+    activities = get_recent_activity
       .where(trackable_type: 'Subscription', notified: [nil, false], key: 'subscription.created')
     activities.each do |activity|
       Queue::High.enqueue(SubscriptionSenderWorker, :perform, activity.id)
@@ -24,10 +25,20 @@ class SubscriptionNotificationWorker < BaseWorker
   end
 
   def self.notify_users_of_subscription_destroyed
-    activities = RecentActivity
-      .where(trackable_type: 'Subscription', notified: [nil, false], key: 'subscription.destroyed')
+    keys = ['subscription.destroy', 'subscription.disabled']
+    activities = get_recent_activity
+      .where(trackable_type: 'Subscription', notified: [nil, false], key: keys)
     activities.each do |activity|
       Queue::High.enqueue(SubscriptionSenderWorker, :perform, activity.id)
     end
   end
+
+  def self.notify_users_of_subscription_enabled
+    activities = get_recent_activity
+      .where(trackable_type: 'Subscription', notified: [nil, false], key: 'subscription.enabled')
+    activities.each do |activity|
+      Queue::High.enqueue(SubscriptionSenderWorker, :perform, activity.id)
+    end
+  end
+
 end

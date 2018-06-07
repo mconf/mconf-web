@@ -32,6 +32,26 @@ describe SubscriptionSenderWorker, type: :worker do
         end
       end
 
+      context "Activity trackable present - is a enable case" do
+        let(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: subscription, recipient: user, key: "subscription.enabled") }
+
+        it "activity.notified == true" do
+          worker.perform(activity.id)
+          activity.reload
+          activity.notified.should be(true)
+        end
+      end
+
+      context "Activity trackable present - is a disable case" do
+        let(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: subscription, recipient: user, key: "subscription.disable") }
+
+        it "activity.notified == true" do
+          worker.perform(activity.id)
+          activity.reload
+          activity.notified.should be(true)
+        end
+      end
+
       context "Activity.trackable not present - is a deletion case" do
         let!(:activity) { FactoryGirl.create(:recent_activity, notified: false, trackable: nil, recipient: user, key: "subscription.destroyed") }
 
