@@ -6,6 +6,9 @@
       - if @error_message
         = @error_message.html_safe
       - else
-        = t("error.e404.description", :url => @route)
+        .ops-text
+          = t("error.e404.ops")
+        .description-text
+          = t("error.e404.description", :url => @route)
 
   #error404-logo

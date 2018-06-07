@@ -743,7 +743,8 @@ en:
       description: "The page you were looking for is forbidden. You are not allowed to perform that action."
       title: "Forbidden"
     e404:
-      description: "Oops, the page \"%{url}\" does not exist."
+      description: "The page \"%{url}\" does not exist."
+      ops: "Ops!"
       title: "Not found"
     e500:
       description: "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
