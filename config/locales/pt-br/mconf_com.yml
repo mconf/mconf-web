@@ -197,7 +197,7 @@ pt-br:
       country: "País"
     subscription_form:
       additional_address_info: "Complemento"
-      confirmation: "Você receberá um e-mail confirmando sua assinatura"
+      confirmation: "Depois de assinar você receberá um e-mail confirmando que a assinatura foi realizada com sucesso."
       cpf_cnpj: "CPF/CNPJ"
       customer_information: "Informações do cliente"
       select_subscription: "Selecione sua assinatura"
@@ -216,7 +216,7 @@ pt-br:
         hello: "Olá %{name}!"
         introduction_1: "A sua assinatura Team no portal Mconf entrou em vigor!"
         text: "Agora você pode realizar reuniões com até 100 participantes e ter um número ilimitado de gravações e salas de webconferência, entre outros benefícios."
-        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos." 
+        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos."
       subject: "%{name}: Sua assinatura foi criado com sucesso!"
     subscription_destroyed_notification_email:
       message:
@@ -228,7 +228,7 @@ pt-br:
     subscription_enabled_notification_email:
       message:
         hello: "Olá %{name}!"
-        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos." 
+        end: "Agradecemos a sua preferência pelo nosso serviço e esperamos que possamos traçar um futuro colaborativo juntos."
       subject: "%{name}: Sua assinatura foi habilitada com sucesso!"
   trial_notifications_mailer:
     ended:

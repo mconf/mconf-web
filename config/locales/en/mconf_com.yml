@@ -241,7 +241,7 @@ en:
       district: "District"
       country: "Country"
     subscription_form:
-      confirmation: "You will receive an email confirming your subscription"
+      confirmation: "After signing you will receive an email confirming that the subscription was successful."
       cpf_cnpj: "CPF/CNPJ"
       customer_information: "Customer information"
       subscribe: "Subscribe"

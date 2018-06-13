@@ -61,7 +61,6 @@
 
   &.alert-gray {
     background: $m-alert-gray-bg;
-    border-color: darken($m-alert-gray-bg, 10);
     color: $m-alert-gray-font;
   }
 }
@@ -192,7 +191,7 @@ mark {
     font-weight: $m-font-weight-bold;
     box-shadow: none;
     .icon {
-      color: $m-color-primary;
+      color: #993399;
     }
   }
 }
