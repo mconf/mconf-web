@@ -9,7 +9,7 @@ es-419:
         other: '%{count} minutes'
       hours:
         one: 1 hora
-        other: '%{counts} horas'
+        other: '%{count} horas'
       days:
         one: 1 día
         other: '%{count} días'
