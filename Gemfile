@@ -70,7 +70,7 @@ gem 'mini_magick', '~> 3.8.1'
 gem 'dotenv-rails'
 
 # for bootstrap
-gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails', '~> 6.6.0'
 
 # moment.js for dates
