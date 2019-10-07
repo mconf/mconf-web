@@ -64,7 +64,7 @@ gem 'bigbluebutton_rails', git: 'https://github.com/mconf/bigbluebutton_rails.gi
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick', '~> 2.16.0'
-gem 'mini_magick', '~> 3.8.1'
+gem 'mini_magick', '~> 4.9.4'
 
 # global configurations
 gem 'dotenv-rails'
