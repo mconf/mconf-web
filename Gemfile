@@ -22,7 +22,7 @@ gem 'inherited_resources', '~> 1.6.0'
 # gem 'compass', '~> 0.12'
 
 gem 'mysql2', '~> 0.3.0'
-gem 'rake', '~> 10.5.0'
+gem 'rake', '~> 13.0.1'
 gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
